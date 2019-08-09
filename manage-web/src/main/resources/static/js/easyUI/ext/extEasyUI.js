@@ -1,19 +1,12 @@
 /**
  * 使panel和datagrid在加载时提示
- * 
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  */
 $.fn.panel.defaults.loadingMessage = '加载中....';
 $.fn.datagrid.defaults.loadMsg = '加载中....';
 
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  * panel关闭时回收内存，主要用于layout使用iframe嵌入网页时的内存泄漏问题
  */
 $.fn.panel.defaults.onBeforeDestroy = function() {
@@ -39,9 +32,6 @@ $.fn.panel.defaults.onBeforeDestroy = function() {
 
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  * 防止panel/window/dialog组件超出浏览器边界
  * @param left
  * @param top
@@ -74,22 +64,19 @@ var easyuiPanelOnMove = function(left, top) {
 	//解决第三方在panel中可能不会关闭的问题
 	$("body").click();
 };
+
 $.fn.dialog.defaults.onMove = easyuiPanelOnMove;
 $.fn.window.defaults.onMove = easyuiPanelOnMove;
 $.fn.panel.defaults.onMove = easyuiPanelOnMove;
 
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  * 通用错误提示
- * 
  * 用于datagrid/treegrid/tree/combogrid/combobox/form加载数据出错时的操作
  */
 var easyuiErrorFunction = function(XMLHttpRequest) {
 	$.messager.progress('close');
-	parent.$.messager.alert('错误', XMLHttpRequest.responseText);
+	parent.$.messager.alert('错误2', XMLHttpRequest.responseText);
 };
 
 $.fn.datagrid.defaults.onLoadError = easyuiErrorFunction;
@@ -101,9 +88,6 @@ $.fn.form.defaults.onLoadError = easyuiErrorFunction;
 
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  * 为datagrid、treegrid增加表头菜单，用于显示或隐藏列，注意：冻结列不在此菜单中
  */
 var createGridHeaderContextMenu = function(e, field) {
@@ -124,7 +108,7 @@ var createGridHeaderContextMenu = function(e, field) {
 		headerContextMenu = this.headerContextMenu = tmenu.menu({
 			onClick : function(item) {
 				var field = $(item.target).attr('field');
-				if (item.iconCls == 'icon-ok') {
+				if (item.iconCls === 'icon-ok') {
 					grid.datagrid('hideColumn', field);
 					$(this).menu('setIcon', {
 						target : item.target,
@@ -151,8 +135,10 @@ $.fn.treegrid.defaults.onHeaderContextMenu = createGridHeaderContextMenu;
 /**
  * tabs右键菜单
  */
-var menuTabs;//tabs菜单对象
-var divTabs;//tabs对象
+//tabs菜单对象
+var menuTabs;
+//tabs对象
+var divTabs;
 
 $.fn.tabs.defaults.onContextMenu = function(e,title,index){
 	e.preventDefault();
@@ -171,57 +157,49 @@ $.fn.tabs.defaults.onContextMenu = function(e,title,index){
 };
 
 var homePage = "首页";
-
 function closeTabs(type,curTabTitle){
-	var curTab =divTabs.tabs('getTab', curTabTitle);//当前鼠标所在的
-		divTabs.tabs("select",curTabTitle);//先切换到当前页(门户页刷新时变成空白页bug)
-	
-	var allTabs = divTabs.tabs("tabs");//所有的tabs;
+    //当前鼠标所在的
+	var curTab =divTabs.tabs('getTab', curTabTitle);
+    //先切换到当前页(门户页刷新时变成空白页bug)
+	divTabs.tabs("select",curTabTitle);
+    //所有的tabs;
+	var allTabs = divTabs.tabs("tabs");
 	var allTabTitle = [];
 	
 	$.each(allTabs,function(i,n){
 		allTabTitle.push($(n).panel("options").title);
 	});
 	
-	if(type == "refresh"){
+	if(type === "refresh"){
 		divTabs.tabs('getTab', curTabTitle).panel('refresh');
-	}else if(type == "close"){
+	}else if(type === "close"){
 		if(curTab.panel("options").closable) {
 			divTabs.tabs("close",curTabTitle);
-		};
-	}else if(type == "closeright"){
+		}
+	}else if(type === "closeright"){
 		var index = divTabs.tabs("getTabIndex",curTab);
 		$.each(allTabTitle,function(i,n){
 			if(i > index){
-				if(n != homePage){
+				if(n !== homePage){
 					divTabs.tabs("close",n);
 				}
 			}
 		});
-	}else if(type == "closeother"){
-		var tabs = divTabs.tabs("tabs");
+	}else if(type === "closeother"){
 		$.each(allTabTitle,function(i,n){
-			if(n != homePage && n != curTabTitle){
+			if(n !== homePage && n !== curTabTitle){
 				divTabs.tabs("close",n);
 			}
 		});
-	}else if(type == "closeall"){
-		var tabs = divTabs.tabs("tabs");
+	}else if(type === "closeall"){
 		$.each(allTabTitle,function(i,n){
-			if(n != homePage){
+			if(n !== homePage){
 				divTabs.tabs("close",n);
 			}
 		});
 	}
 }
 
-
-
-/**
- * grid tooltip参数
- * 
- * @author 孙宇
- */
 /**
  * Datagrid扩展方法tooltip 基于Easyui 1.3.3，可用于Easyui1.3.3+
  * 简单实现，如需高级功能，可以自由修改
@@ -237,7 +215,7 @@ var gridTooltipOptions = {
 	tooltip : function(jq, fields) {
 		return jq.each(function() {
 			var panel = $(this).datagrid('getPanel');
-			if (fields && typeof fields == 'object' && fields.sort) {
+			if (fields && typeof fields === 'object' && fields.sort) {
 				$.each(fields, function() {
 					var field = this;
 					bindEvent($('.datagrid-body td[field=' + field + '] .datagrid-cell', panel));
@@ -272,53 +250,24 @@ var gridTooltipOptions = {
 };
 /**
  * Datagrid扩展方法tooltip 基于Easyui 1.3.3，可用于Easyui1.3.3+
- * 
- * 简单实现，如需高级功能，可以自由修改
- * 
- * 使用说明:
- * 
- * 在easyui.min.js之后导入本js
- * 
- * 代码案例:
- * 
- * $("#dg").datagrid('tooltip'); 所有列
- * 
- * $("#dg").datagrid('tooltip',['productid','listprice']); 指定列
- * 
  * @author 夏悸
  */
 $.extend($.fn.datagrid.methods, gridTooltipOptions);
 
 /**
  * Treegrid扩展方法tooltip 基于Easyui 1.3.3，可用于Easyui1.3.3+
- * 
- * 简单实现，如需高级功能，可以自由修改
- * 
- * 使用说明:
- * 
- * 在easyui.min.js之后导入本js
- * 
- * 代码案例:
- * 
- * $("#dg").treegrid('tooltip'); 所有列
- * 
- * $("#dg").treegrid('tooltip',['productid','listprice']); 指定列
- * 
  * @author 夏悸
  */
 $.extend($.fn.treegrid.methods, gridTooltipOptions);
 
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  * 扩展validatebox，添加验证两次密码功能
  */
 $.extend($.fn.validatebox.defaults.rules, {
 	eqPwd : {
 		validator : function(value, param) {
-			return value == $(param[0]).val();
+			return value === $(param[0]).val();
 		},
 		message : '密码不一致！'
 	}
@@ -326,13 +275,11 @@ $.extend($.fn.validatebox.defaults.rules, {
 
 /**
  * @author 夏悸
- * 
- * @requires jQuery,EasyUI
- * 
  * 扩展tree，使其可以获取实心节点
  */
 $.extend($.fn.tree.methods, {
-	getCheckedExt : function(jq) {// 获取checked节点(包括实心)
+    // 获取checked节点(包括实心)
+	getCheckedExt : function(jq) {
 		var checked = $(jq).tree("getChecked");
 		var checkbox2 = $(jq).find("span.tree-checkbox2").parent();
 		$.each(checkbox2, function() {
@@ -343,7 +290,8 @@ $.extend($.fn.tree.methods, {
 		});
 		return checked;
 	},
-	getSolidExt : function(jq) {// 获取实心节点
+    // 获取实心节点
+	getSolidExt : function(jq) {
 		var checked = [];
 		var checkbox2 = $(jq).find("span.tree-checkbox2").parent();
 		$.each(checkbox2, function() {
@@ -358,9 +306,6 @@ $.extend($.fn.tree.methods, {
 
 /**
  * @author 夏悸
- * 
- * @requires jQuery,EasyUI
- * 
  * 扩展tree，使其支持平滑数据格式
  */
 $.fn.tree.defaults.loadFilter = function(data, parent) {
@@ -375,7 +320,7 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
 			tmpMap[data[i][idFiled]] = data[i];
 		}
 		for (i = 0, l = data.length; i < l; i++) {
-			if (tmpMap[data[i][parentField]] && data[i][idFiled] != data[i][parentField]) {
+			if (tmpMap[data[i][parentField]] && data[i][idFiled] !== data[i][parentField]) {
 				if (!tmpMap[data[i][parentField]]['children'])
 					tmpMap[data[i][parentField]]['children'] = [];
 				data[i]['text'] = data[i][textFiled];
@@ -392,9 +337,6 @@ $.fn.tree.defaults.loadFilter = function(data, parent) {
 
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  * 扩展treegrid，使其支持平滑数据格式
  */
 $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
@@ -409,7 +351,7 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 			tmpMap[data[i][idFiled]] = data[i];
 		}
 		for (i = 0, l = data.length; i < l; i++) {
-			if (tmpMap[data[i][parentField]] && data[i][idFiled] != data[i][parentField]) {
+			if (tmpMap[data[i][parentField]] && data[i][idFiled] !== data[i][parentField]) {
 				if (!tmpMap[data[i][parentField]]['children'])
 					tmpMap[data[i][parentField]]['children'] = [];
 				data[i]['text'] = data[i][textFiled];
@@ -426,49 +368,13 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
  * 扩展combotree，使其支持平滑数据格式
  */
 $.fn.combotree.defaults.loadFilter = $.fn.tree.defaults.loadFilter;
 
+
 /**
  * @author 孙宇
- * 
- * @requires jQuery,EasyUI
- * 
- * 创建一个模式化的dialog
- * 
- * @returns $.modalDialog.handler 这个handler代表弹出的dialog句柄
- * 
- * @returns $.modalDialog.xxx 这个xxx是可以自己定义名称，主要用在弹窗关闭时，刷新某些对象的操作，可以将xxx这个对象预定义好
- */
-$.modalDialog = function(options) {
-	if ($.modalDialog.handler == undefined) {// 避免重复弹出
-		var opts = $.extend({
-			title : '',
-			width : 840,
-			height : 680,
-			modal : true,
-			onClose : function() {
-				$.modalDialog.handler = undefined;
-				$(this).dialog('destroy');
-			},
-			onOpen : function() {
-				/*parent.$.messager.progress({
-					title : '提示',
-					text : '数据处理中，请稍后....'
-				});*/
-			}
-		}, options);
-		opts.modal = true;// 强制此dialog为模式化，无视传递过来的modal参数
-		return $.modalDialog.handler = $('<div/>').dialog(opts);
-	}
-};
-/**
- * @author 孙宇
- * 
  * 定义一些小图标样式的数组
  */
 $.iconData = [ {

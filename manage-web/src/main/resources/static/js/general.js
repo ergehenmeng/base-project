@@ -505,7 +505,7 @@ $.fn.treeGridOptions.checkNode = function(treeObj){
  * @return {boolean} 是否开头
  */
 String.prototype.startWith=function(str){    
-	  var reg=new RegExp("^" + str);
+	  var reg = new RegExp("^" + str);
 	  return reg.test(this);       
 	} ;
 /**
@@ -514,7 +514,7 @@ String.prototype.startWith=function(str){
  * @return {boolean} 是否结尾
  */
 String.prototype.endWith=function(str){    
-  var reg=new RegExp(str + "$");
+  var reg = new RegExp(str + "$");
   return reg.test(this);       
 };
 

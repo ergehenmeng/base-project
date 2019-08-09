@@ -104,7 +104,7 @@ $.formatString = function(str) {
  * @returns list
  */
 $.stringToList = function(value) {
-	if (value != undefined && value != '') {
+	if (value) {
 		var values = [];
 		var t = value.split(',');
 		for ( var i = 0; i < t.length; i++) {
@@ -118,9 +118,9 @@ $.stringToList = function(value) {
 
 /**
  * @author 孙宇
- * 
+ *
  * @requires jQuery
- * 
+ *
  * 改变jQuery的AJAX默认属性和方法
  */
 $.ajaxSetup({

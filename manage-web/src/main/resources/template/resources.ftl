@@ -18,10 +18,11 @@
 <script src="/static/js/easyUI/ext/jquery.portal.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 <script src="/static/js/easyUI/ext/jquery.jdirk.min.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 <script src="/static/js/easyUI/ext/jeasyui.extensions.validatebox.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+<!-- easyui扩展库 datagrid treegrid扩展方法 -->
+<script src="/static/js/easyUI/ext/extEasyUI.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 <#--jquery扩展-->
 <script src="/static/js/extJquery.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
-<!-- easyui扩展库 datagrid treegrid扩展方法 -->
-<script src="/static/js/extEasyUI.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+
 
 <#--日历控件-->
 <script src="/static/js/laydate/laydate.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
