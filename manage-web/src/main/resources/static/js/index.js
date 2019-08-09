@@ -2,7 +2,7 @@ $(function(){
     if (window.parent !== window){//防止在登陆后sessison过期,再次访问其他页面时,直接在对话框中显示页面
         parent.location.reload();
     }
-    $(".login_btn").on("click",function(){
+    $(".login-btn").on("click",function(){
         loginFun();
     });
     $(window).on("keydown",function(event) {
@@ -17,7 +17,7 @@ $(function(){
  * @param msg
  */
 function errorTip(msg){
-    $(".msg_tip").show().html(msg);
+    $(".msg-tip").show().html(msg);
 }
 
 // login
@@ -53,7 +53,7 @@ function loginFun() {
             errorTip(data.msg);
             $validCode.val("");
             // 刷新图形验证码
-            $(".valid_code_img").trigger("click");
+            $(".valid-code-img").trigger("click");
         }
     },"json");
 }
@@ -69,13 +69,13 @@ function verifyMobile(mobile){
 }
 
 function successAnimate(){
-    $(".login_panel").animate({
+    $(".login-panel").animate({
         left:"1390px",
         opacity:"0",
         height:"0",
         width:"0"
     },500,function(){
-        var $loginTips = $(".login_tips").show();
+        var $loginTips = $(".login-tips").show();
         setInterval(function () {
             var text = $loginTips.html();
             if(text.length >= 11){

@@ -54,12 +54,12 @@
 
     </script>
 </head>
-<body class="tabs_body">
+<body class="tabs-body">
 <div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'north',border:false" class="condition_bar">
-        <div class="layout_norths">
+    <div data-options="region:'north',border:false" class="condition-bar">
+        <div class="layout-norths">
             <div class="right">
-                <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.select(clearUrl,clearMsg,'cacheName');"><i class="fa fa-refresh">&nbsp;</i>清除</a>
+                <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.select(clearUrl,clearMsg,'cacheName');"><i class="fa fa-refresh">&nbsp;</i>清除</a>
             </div>
         </div>
     </div>

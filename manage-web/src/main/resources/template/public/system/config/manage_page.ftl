@@ -7,8 +7,8 @@
     <script type="text/javascript">
         var dataGrid;
 
-        var winWidth = 480;
-        var winHeight = 620;
+        var winWidth = 420;
+        var winHeight = 600;
 
         var editTitle = "编辑系统参数";
         var editUrl = "/public/system/config/edit_page";
@@ -73,10 +73,10 @@
         });
     </script>
 </head>
-<body class="tabs_body">
+<body class="tabs-body">
 <div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'north',border:false" class="condition_bar">
-        <div class="layout_norths">
+    <div data-options="region:'north',border:false" class="condition-bar">
+        <div class="layout-norths">
             <@search placeholder="参数名称、参数标示、备注" />
         </div>
     </div>

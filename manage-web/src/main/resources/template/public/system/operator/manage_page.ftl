@@ -7,7 +7,7 @@
     <script type="text/javascript">
         var dataGrid;
 
-        var winWidth = 480;
+        var winWidth = 420;
         var winHeight = 300;
 
         var addTitle = "添加用户";
@@ -80,13 +80,13 @@
         });
     </script>
 </head>
-<body class="tabs_body">
+<body class="tabs-body">
 <div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'north',border:false" class="condition_bar">
-        <div class="layout_norths">
+    <div data-options="region:'north',border:false" class="condition-bar">
+        <div class="layout-norths">
             <@search placeholder="用户名称、手机号" />
             <div class="right">
-                <a href="#" class="searchBtn"
+                <a href="#" class="search-btn"
                    onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
         </div>

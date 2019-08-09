@@ -71,10 +71,10 @@
         });
     </script>
 </head>
-<body class="tabs_body">
+<body class="tabs-body">
 <div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'north',border:false" class="condition_bar">
-        <div class="layout_norths">
+    <div data-options="region:'north',border:false" class="condition-bar">
+        <div class="layout-norths">
             <@search placeholder="请求地址、操作人、访问ip" advance=true>
                 <li>
                     <span>分类</span>

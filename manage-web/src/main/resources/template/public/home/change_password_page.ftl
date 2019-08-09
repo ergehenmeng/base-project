@@ -32,19 +32,19 @@
         });
     });
 </script>
-<div class="platform_form">
+<div class="platform-form">
     <form id="form"  method="post">
-        <div class="form_item">
+        <div class="form-item">
             <label>原密码:</label>
             <input title="原密码" maxlength="50" type="password"  id="oldPassword" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
-        <div class="form_item">
+        <div class="form-item">
             <label>新密码:</label>
             <input title="新密码" maxlength="50" type="password"    id="newPassword" class="easyui-validatebox" data-options="required: true,validType:['regexPassword','notEqPwd[\'#oldPassword\']' ]"  />
             <small>*</small>
         </div>
-        <div class="form_item">
+        <div class="form-item">
             <label>确认新密码:</label>
             <input title="确认新密码" maxlength="50" type="password"  class="easyui-validatebox" data-options="required: true,validType:'eqPwd[\'#newPassword\']'"  />
             <small>*</small>

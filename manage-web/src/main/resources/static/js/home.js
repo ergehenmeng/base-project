@@ -17,7 +17,7 @@ $(function(){
 		logout();
 	});
 
-	$(".user_role_menu").on("click",function(){
+	$(".user-role_menu").on("click",function(){
         $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/public/home/role_menu_page");
     });
 

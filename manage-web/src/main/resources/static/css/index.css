@@ -15,20 +15,20 @@ ul,li{
 
 body{
     text-align: center;
-    background: #000000 url("/static/images/login/login-background5.jpg") no-repeat;
+    background: #FFF url("/static/images/login/pattern.png");
 }
 
-.login_panel{
+.login-panel{
     height:340px;
     width: 340px;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 45%;
     margin:-170px 0 0 -170px;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.2);
 
 }
-.login_panel h2{
+.login-panel h2{
     height:50px;
     line-height:50px;
     margin:0 auto;
@@ -42,43 +42,43 @@ body{
     -ms-user-select: none;
     user-select: none;
 }
-.login_tips{
+.login-tips{
     width: 180px;
     height: 40px;
     position: absolute;
-    color: #FFFFFF;
+    color: #777777;
     text-align: left;
     margin:-10px 0 0 -90px;
     left: 50%;
-    top: 50%;
+    top: 45%;
     display: none;
 }
-.login_panel ul{
+.login-panel ul{
     margin-top:15px;
     width: 230px;
     margin-left:auto;
     margin-right:auto;
 }
-.login_panel ul li{
+.login-panel ul li{
     height:36px;
     margin-bottom:20px;
 }
-.login_panel ul li span{
+.login-panel ul li span{
     float:left;
     display:inline;
     width:36px;
     height:36px;
 }
-.login_panel ul li span.user_icon{
+.login-panel ul li span.user-icon{
     background:url(/static/images/user_icon.png) #eaeaea 10px no-repeat;
 }
-.login_panel ul li span.pwd_icon{
+.login-panel ul li span.pwd-icon{
     background:url(/static/images/pwd_icon.png) 10px #eaeaea no-repeat;
 }
-.login_panel ul li span.valid_icon{
+.login-panel ul li span.valid-icon{
     background:url(/static/images/valide_code_icon.png) 10px #eaeaea no-repeat;
 }
-.login_panel ul li .login_text{
+.login-panel ul li .login-text{
     float:left;
     display:inline;
     height:26px;
@@ -92,10 +92,10 @@ body{
 .wd80{
     width: 80px !important;
 }
-.img_code_width{
+.img-code-width{
     width: 82px !important;
 }
-.login_panel ul li .valid_code_img{
+.login-panel ul li .valid-code-img{
     display: inline-block;
     vertical-align: middle;
     width: 92px;
@@ -104,10 +104,10 @@ body{
     text-align: center;
 }
 
-.login_panel ul li:nth-last-child(2){
+.login-panel ul li:nth-last-child(2){
     margin-bottom: 10px !important;
 }
-.login_panel .login_btn{
+.login-panel .login-btn{
     background-size:100% 100%;
     width:230px;
     line-height:36px;
@@ -117,7 +117,7 @@ body{
     cursor: pointer;
     background-color:#FF8000;
 }
-.login_panel .msg_tip{
+.login-panel .msg-tip{
     color:red;
     text-align:center;
     table-layout:fixed;

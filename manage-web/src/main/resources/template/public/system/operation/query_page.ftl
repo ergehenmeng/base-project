@@ -1,4 +1,4 @@
-<div class="platform_form">
+<div class="platform-form">
     <p>
         ${response!}
     </p>

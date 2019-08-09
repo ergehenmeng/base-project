@@ -7,7 +7,7 @@
     <script type="text/javascript">
         var dataGrid;
 
-        var winWidth = 480;
+        var winWidth = 420;
         var winHeight = 400;
 
         var addTitle = "添加数据字典";
@@ -66,10 +66,10 @@
 
     </script>
 </head>
-<body class="tabs_body">
+<body class="tabs-body">
 <div class="easyui-layout" data-options="fit:true,doSize:false">
-    <div data-options="region:'north'" class="condition_bar">
-        <div class="layout_norths">
+    <div data-options="region:'north'" class="condition-bar">
+        <div class="layout-norths">
             <@search placeholder="字典名称、标示符" advance=true>
                 <li>
                     <span>编辑状态</span>
@@ -81,7 +81,7 @@
                 </li>
             </@search>
             <div class="right">
-                <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
+                <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
         </div>
     </div>

@@ -6,22 +6,18 @@
     <#include "../../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
-
-        var winWidth = 480;
+        var winWidth = 420;
         var winHeight = 300;
-
         var addTitle = "添加图片";
-        var addUrl = "/public/operation/image/add_page";
-
+        var addUrl = "/public/system/image/add_page";
         var editTitle = "编辑图片";
-        var editUrl = "/public/operation/image/edit_page";
-
-        var  delMsg = "删除图片可能导致页面展示问题,确定要执行该操作";
-        var delUrl = "/operation/image/delete";
+        var editUrl = "/public/system/image/edit_page";
+        var delMsg = "删除图片可能导致页面展示问题,确定要执行该操作";
+        var delUrl = "/system/image/delete";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/operation/image/list_page",
+                url : "/system/image/list_page",
                 columns : [ [
                     {
                         field : "action",
@@ -69,10 +65,10 @@
 
     </script>
 </head>
-<body class="tabs_body">
+<body class="tabs-body">
 <div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'north',border:false" class="condition_bar">
-        <div class="layout_norths">
+    <div data-options="region:'north',border:false" class="condition-bar">
+        <div class="layout-norths">
             <@search placeholder="名称、备注" advance=true>
                 <li>
                     <span>图片分类</span>
@@ -80,7 +76,7 @@
                 </li>
             </@search>
             <div class="right">
-                <a href="#" class="searchBtn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
+                <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
         </div>
     </div>

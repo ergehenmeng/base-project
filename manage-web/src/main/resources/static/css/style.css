@@ -30,22 +30,22 @@ textarea{
     margin-right: 30px;
 }
 
-.layout_norths {
+.layout-norths {
 	border: 1px solid #ccc;
 	margin:10px;
 	padding: 5px;
 	color: #555;
-	height: 48px;
-	line-height: 48px;
+	height: 40px;
+	line-height: 40px;
 }
 
-.layout_norths input {
+.layout-norths input {
 	padding: 0 0 0 10px;
     width: 250px;
     height: 28px;
 }
 
-.searchBtn {
+.search-btn {
 	background-color: #e3781a;
 	display: inline-block;
 	line-height: 30px;
@@ -55,38 +55,39 @@ textarea{
 }
 
 
-.dropBtn {
+.drop-btn {
 	text-decoration: none;
 	color: #e3781a;
+    margin-left: 10px;
 }
 
-.showAdw {
+.show-adw {
 	position: fixed;
 	border: 1px solid #ccc;
 	background-color: #FFF;
 	z-index: 999;
-	width: 320px;
+	width: 300px;
 	top: 42px;
 	left: 265px;
 	padding: 10px;
 }
 
-.showAdw i {
+.show-adw i {
 	color: #e3781a;
 	position: absolute;
 	top: 8px;
 	right: 8px;
 }
 
-.showAdw ul li {
+.show-adw ul li {
 	list-style: none;
 }
 
-.layout_norths ul li {
+.layout-norths ul li {
 	display: inline-block;
 }
 
-.showAdw li span {
+.show-adw li span {
 	display: inline-block;
 	width: 60px;
 	font-size:12px;
@@ -94,21 +95,21 @@ textarea{
 	padding-right: 10px;
 }
 
-.showAdw li select {
+.show-adw li select {
 	padding: 5px;
-	width: 210px;
+	width: 180px;
 	border: 1px solid #ccc;
 }
 
-.submitBtn {
+.submit-btn {
 	text-align: center;
-	width: 320px;
+	width: 300px;
 }
 .datagrid-header-row{
 	height: 36px;
 }
 
-.layout_norths ul li a.searchBtn {
+.layout-norths ul li a.search-btn {
 	display: inline-block;
 	width: 30px;
 	height:28px;
@@ -118,9 +119,9 @@ textarea{
 	background-color: #e3781a;
 }
 
-.layout_norths li input {
+.layout-norths li input {
 	border: 1px solid #ccc;
-	width: 198px;
+	width: 168px;
     height: 27px;
 }
 
@@ -147,7 +148,7 @@ textarea{
 
 .datagrid-cell-c1-action dt {
 	padding: 1px;
-	padding-bottom: 0px;
+	padding-bottom: 0;
 	width: 58px;
 	height: 24px;
 	line-height: 20px;
@@ -175,14 +176,13 @@ textarea{
 .datagrid-cell-c1-action dd a {
 	display: block;
 	border: 1px solid #c4c4c4;
-	border-width: 0 1px;
-	border-top: 1px solid #c4c4c4;
+    border-bottom: 0;
 }
 
 .datagrid-cell-c1-action:hover dt {
-	padding: 0px;
+	padding: 0;
 	border: 1px solid #c4c4c4;
-	border-bottom: 0px;
+	border-bottom: 0;
 	text-indent: 10px;
 	background-color: #fff;
 	color: #0188cc;
@@ -222,13 +222,13 @@ textarea{
 .h100{height: 100px !important;}
 .h150{height: 150px !important;}
 
-.form_item{
+.form-item{
 	padding:5px;
 	margin-left:10px;
 	text-align: left;
 	float: left;
 }
-.form_item label {
+.form-item label {
 	margin-top:3px;
 	display: inline-block;
 	width: 80px;
@@ -237,7 +237,7 @@ textarea{
 	float:left;
 	padding-right: 10px;
 }
-.form_item small {
+.form-item small {
 	display: inline-block;
 	padding-left: 5px;
     float: right;
@@ -245,36 +245,32 @@ textarea{
 	width:10px;
 	color: red;
 }
-.form_item input,select,textarea {
+.form-item input,select,textarea {
 	padding: 5px;
-	width:280px;
+	width:220px;
 	border: 1px solid #ccc;
 }
-.form_item input.small{
+.form-item input.small{
     width:137px;
 }
 
-.input_tree {
-	float: right;
-	width: 200px;
-}
 
-.platform_form {
+.platform-form {
 	padding: 10px;
 }
 
 /**
  状态栏高度
  */
-.condition_bar {
+.condition-bar {
     height: 85px;
 }
 
-.user_role{
+.user-role{
     padding: 0 10px;
 }
 
-.tabs_body{
+.tabs-body{
     padding: 0 10px;
 }
 

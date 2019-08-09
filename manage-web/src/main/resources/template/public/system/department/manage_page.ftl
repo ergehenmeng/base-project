@@ -7,8 +7,8 @@
 
     <script type="text/javascript">
         var dataGrid;
-        var winWidth = 480;
-        var winHeight = 300;
+        var winWidth = 420;
+        var winHeight = 250;
 
         var addTitle = "添加部门";
         var addUrl = "/public/system/department/add_page";
@@ -64,10 +64,10 @@
 </head>
 <body class="tabs_body">
 <div class="easyui-layout" data-options="fit:true">
-    <div data-options="region:'north',border:false" class="condition_bar">
-        <div class="layout_norths">
+    <div data-options="region:'north',border:false" class="condition-bar">
+        <div class="layout-norths">
             <div class="right">
-                <a href="#" class="searchBtn" onclick="$.fn.treeGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl)"><i class="fa fa-plus"></i>&nbsp;添加</a>
+                <a href="#" class="search-btn" onclick="$.fn.treeGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl)"><i class="fa fa-plus"></i>&nbsp;添加</a>
             </div>
         </div>
     </div>

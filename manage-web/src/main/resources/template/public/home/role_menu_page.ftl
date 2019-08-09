@@ -12,7 +12,7 @@
         return $.fn.treeGridOptions.dataFilter(data.data,"id","title","pid",0);
     }
 </script>
-<div class="user_role">
+<div class="user-role">
     <ul id="tree" >
     </ul>
 </div>

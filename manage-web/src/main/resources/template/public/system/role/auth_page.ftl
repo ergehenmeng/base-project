@@ -24,7 +24,7 @@
     $.fn.dataGridOptions.formSubmit("#form",'/system/role/auth',"授权成功");
 
 </script>
-<div class="user_role">
+<div class="user-role">
     <form id="form" method="post">
         <ul id="roleTree" >
         </ul>

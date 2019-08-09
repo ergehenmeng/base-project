@@ -84,7 +84,7 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 /* 底部结构 */
 .layui-laydate-footer{position: relative; height: 30px; line-height: 22px; padding: 3px 5px;}
 .layui-laydate-footer span{margin-right: 10px; display: inline-block; cursor: pointer; font-size: 12px;}
-.layui-laydate-footer span:hover{color: #5FB878;}
+.layui-laydate-footer span:hover{color: #e3781a;}
 .laydate-footer-btns{position: absolute; right: 5px; top: 3px;}
 .laydate-footer-btns span{height: 22px; line-height: 18px; margin: 0 0 0 -1px; padding: 0 5px; border: 1px solid #C9C9C9; background-color: #fff;  white-space: nowrap; vertical-align: top; border-radius: 2px;}
 
@@ -115,14 +115,14 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 
 /* 默认简约主题 */
 .layui-laydate, .layui-laydate-hint{border: 1px solid #d2d2d2; box-shadow: 0 2px 4px rgba(0,0,0,.12); background-color: #fff; color: #666;}
-.layui-laydate-header{border-bottom: 1px solid #e2e2e2;}
+.layui-laydate-header{border-bottom: 1px solid #e2e2e2;}    
 .layui-laydate-header i:hover,
-.layui-laydate-header span:hover{color: #5FB878;}
+.layui-laydate-header span:hover{color: #e3781a;}
 .layui-laydate-content{border-top: none 0; border-bottom: none 0;}
 .layui-laydate-content th{color: #333;}
 .layui-laydate-content td{color: #666;}
-.layui-laydate-content td.laydate-selected{background-color: #00F7DE;}
-.laydate-selected:hover{background-color: #00F7DE !important;}
+.layui-laydate-content td.laydate-selected{background-color: #F8C364;}
+.laydate-selected:hover{background-color: #e3781a !important;}
 .layui-laydate-content td:hover,
 .layui-laydate-list li:hover{background-color: #eaeaea; color: #333;}
 .laydate-time-list li ol{margin: 0; padding: 0; border: 1px solid #e2e2e2; border-left-width: 0;}
@@ -134,10 +134,10 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .laydate-selected.laydate-day-next{background-color: #f8f8f8 !important;}
 .layui-laydate-footer{border-top: 1px solid #e2e2e2;}
 .layui-laydate-hint{color: #FF5722;}
-.laydate-day-mark::after{background-color: #5FB878;}
+.laydate-day-mark::after{background-color: #e3781a;}
 .layui-laydate-content td.layui-this .laydate-day-mark::after{display: none;}
-.layui-laydate-footer span[lay-type="date"]{color: #5FB878;}
-.layui-laydate .layui-this{background-color: #009688 !important; color: #fff !important;}
+.layui-laydate-footer span[lay-type="date"]{color: #e3781a;}
+.layui-laydate .layui-this{background-color: #e3781a !important; color: #fff !important;}
 .layui-laydate .laydate-disabled,
 .layui-laydate .laydate-disabled:hover{background:none !important; color: #d2d2d2 !important; cursor: not-allowed !important; -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;}
 
@@ -145,7 +145,7 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .laydate-theme-molv{border: none;}
 .laydate-theme-molv.layui-laydate-range{width: 360px}
 .laydate-theme-molv .layui-laydate-main{width: 180px;}
-.laydate-theme-molv .layui-laydate-header{border: none; background-color: #009688;}
+.laydate-theme-molv .layui-laydate-header{border: none; background-color: #e3781a;}
 .laydate-theme-molv .layui-laydate-header i,
 .laydate-theme-molv .layui-laydate-header span{color: #f6f6f6;}
 .laydate-theme-molv .layui-laydate-header i:hover,
@@ -160,7 +160,7 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 .laydate-theme-grid .laydate-year-list>li,
 .laydate-theme-grid .laydate-month-list>li{border: 1px solid #e2e2e2;}
 .laydate-theme-grid .laydate-selected,
-.laydate-theme-grid .laydate-selected:hover{background-color: #f2f2f2 !important; color: #009688 !important;}
+.laydate-theme-grid .laydate-selected:hover{background-color: #f2f2f2 !important; color: #e3781a !important;}
 .laydate-theme-grid .laydate-selected.laydate-day-prev,
 .laydate-theme-grid .laydate-selected.laydate-day-next{color: #d2d2d2 !important;}
 .laydate-theme-grid .laydate-year-list,

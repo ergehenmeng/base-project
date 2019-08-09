@@ -1,5 +1,5 @@
-$(".dropBtn").on("click",function(event){
-    var $showAdw = $(".showAdw");
+$(".drop-btn").on("click",function(event){
+    var $showAdw = $(".show-adw");
 	if($showAdw.is(":hidden")){
         $showAdw.show();
 	}else{
@@ -7,5 +7,5 @@ $(".dropBtn").on("click",function(event){
 	}
 });
 $(".close").on("click",function(){
-	$(".showAdw").hide();
+	$(".show-adw").hide();
 });
