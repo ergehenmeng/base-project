@@ -1,0 +1,39 @@
+{
+  "group": [
+    {
+      "name": "application",
+      "type": "com.fanyin.configuration.ApplicationProperties",
+      "sourceType": "com.fanyin.configuration.ApplicationProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.fanyin.configuration.ApplicationProperties",
+      "name": "application.version",
+      "defaultValue": "1.0.0",
+      "description": "当前系统版本号",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.fanyin.configuration.ApplicationProperties",
+      "name": "application.ignore-url",
+      "defaultValue": "/;/index/;/captcha;/**/captcha",
+      "description": "未登录,需要忽略拦截的url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.fanyin.configuration.ApplicationProperties",
+      "name": "application.login-ignore-url",
+      "defaultValue": "/home;/portal;/public/**",
+      "description": "登陆后,需要忽略拦截的url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.fanyin.configuration.ApplicationProperties",
+      "name": "application.upload-dir",
+      "defaultValue": "/data/",
+      "description": "上传文件要保存的路径",
+      "type": "java.lang.String"
+    }
+  ]
+}

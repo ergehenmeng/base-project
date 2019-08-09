@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {margin:0;padding:0;font-family:"Microsoft YaHei","arial";}
+input,button,select,textarea{outline:none;font-family:"Microsoft YaHei","arial";}
+textarea{resize:none;overflow-y:auto;font-size: 14px;}
+ul,li{list-style:none;}
+
+/*登陆页面*/
+.loginTop{ width: 100%; min-width: 1240px;height: 100px;}
+.loginTop .logoDiv{ float:left; margin-top:20px; margin-bottom:10px; width:200px;margin-left: 200px;}
+.loginTop .logoImg{ width: 180px; height: 35px; margin:0 auto; background: url(/images/logo.png) no-repeat;}
+.loginTop .navDiv{ float:right;margin-top:60px; width:375px; }
+.loginTop .navDiv li{ float: left;text-align: center; width: 90px; font-size: 14px;}
+.loginTop .navDiv a{ color: #000;}
+.loginTop .navDiv a:HOVER{ color: #E85117;}
+.loginBodyBg{ background:#fff top center no-repeat;}
+/*.loginBg{background:url(images/loginBg.jpg) #f4f4f4 top center no-repeat; border: 1px solid red;} */
+.loginConBg{ background:url(/images/login_bg.png) #f4f4f4 top center no-repeat; height:660px; min-width: 1240px; border: 1px solid #fff;position: relative;}
+
+.loginBd{ width:350px; height:342px;position: absolute;right: 16%;bottom: 27%;border: 1px solid #555555;}
+.loginBd h1{width:237px;height:50px; line-height:50px; margin:0 auto; color: #fff; padding-top: 15px !important; text-align: center;}
+.loginBd ul{margin-top:15px; width: 230px; margin-left:auto; margin-right:auto;}
+.loginBd ul li{height:36px;margin-bottom:20px;}
+.loginBd ul li span{float:left;display:inline;width:36px;height:36px;}
+.loginBd ul li span.userIco{background:url(/images/login_username.png) #eaeaea 10px no-repeat;}
+.loginBd ul li span.pwdIco{background:url(/images/login_pwd.png) 10px #eaeaea no-repeat;}
+.loginBd ul li span.validcodeIco{background:url(/images/login_valide_code.png) 10px #eaeaea no-repeat;}
+.loginBd ul li .loginTxt{float:left;display:inline;height:26px;width:174px;background-color:#fff;border:none;padding:5px 10px;font-size:16px;color:#999;}
+.loginBd ul li .wd80{ width: 80px !important;}
+.loginBd ul li .valicode_img{ display: inline-block; vertical-align: middle; width: 92px; height: 36px; cursor: pointer; margin-left: 2px;}
+.loginBd ul li .smsValid_btn{ vertical-align: middle; width: 92px; height: 36px; margin-left: 2px; background-color: #e3781a; color: #fff; border: none; cursor: pointer;}
+.loginBd ul .maginbtm10{ margin-bottom: 10px !important;}
+.loginBd .loginBtn{ background-size:100% 100%;width:230px;line-height:36px;border:none;color:#fff;font-size:16px;cursor: pointer;background-color:#FF8000;}
+.loginBd .msgTip{color:red;text-align:center; table-layout:fixed; word-break: break-all; overflow:hidden; height: auto !important;}
+
+.login_btm{ font-size:12px; background-color:#555; margin-top:80px; color:#fff; width:100%; min-width: 1240px; height:25px; line-height:25px; text-align:center;position:fixed;bottom: 0;left: 0}

@@ -1,0 +1,9 @@
+.tj_ico{background: url('images/tj.png') no-repeat center center;}
+.bar_ico{background: url('images/chart_bar.png') no-repeat center center;}
+.curve_ico{background: url('images/chart_curve.png') no-repeat center center;}
+.pie_ico{background: url('images/chart_pie.png') no-repeat center center;}
+.rank_ico{background: url('images/rank_list.png') no-repeat center center;}
+.cal_ico{background: url('images/cal.png') no-repeat center center;}
+#portal .panel-header{
+	padding: 7px;
+}

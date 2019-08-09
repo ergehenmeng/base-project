@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.system.SystemAddressMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.system.SystemAddress">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="nid" jdbcType="CHAR" property="nid" />
+    <result column="pid" jdbcType="CHAR" property="pid" />
+    <result column="zip_code" jdbcType="CHAR" property="zipCode" />
+    <result column="mark" jdbcType="CHAR" property="mark" />
+    <result column="classify" jdbcType="CHAR" property="classify" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, title, nid, pid, zip_code, mark,classify
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from system_address
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemAddress">
+    <!--
+      @create by mybatis
+    -->
+    insert into system_address
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="nid != null">
+          nid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="zipCode != null">
+        zip_code,
+      </if>
+      <if test="mark != null">
+          mark,
+      </if>
+        <if test="classify != null">
+            classify,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="nid != null">
+        #{nid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=CHAR},
+      </if>
+      <if test="zipCode != null">
+        #{zipCode,jdbcType=CHAR},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.SystemAddress">
+    <!--
+      @create by mybatis
+    -->
+    update system_address
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="nid != null">
+          nid = #{nid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=CHAR},
+      </if>
+      <if test="zipCode != null">
+        zip_code = #{zipCode,jdbcType=CHAR},
+      </if>
+      <if test="mark != null">
+          mark = #{mark,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="getList" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from system_address
+    </select>
+</mapper>
