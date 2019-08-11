@@ -1,365 +1,208 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 本地环境
+Source Server Version : 80017
+Source Host           : localhost:3306
+Source Database       : project
+
+Target Server Type    : MYSQL
+Target Server Version : 80017
+File Encoding         : 65001
+
+Date: 2019-08-11 14:57:01
+*/
+
 SET FOREIGN_KEY_CHECKS=0;
 
+-- ----------------------------
+-- Table structure for app_feedback
+-- ----------------------------
 DROP TABLE IF EXISTS `app_feedback`;
 CREATE TABLE `app_feedback` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户ID',
-  `state` tinyint(1) unsigned DEFAULT NULL COMMENT '状态: 0:待解决 1:已解决',
-  `version` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '软件版本',
-  `system_version` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '系统版本',
-  `content` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '反馈内容',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '反馈时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `index_status` (`state`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='APP用户反馈信息表';
+                                `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                                `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户ID',
+                                `state` tinyint(1) unsigned DEFAULT NULL COMMENT '状态: 0:待解决 1:已解决',
+                                `version` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '软件版本',
+                                `system_version` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '系统版本',
+                                `content` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '反馈内容',
+                                `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '反馈时间',
+                                `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                PRIMARY KEY (`id`),
+                                KEY `index_status` (`state`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='APP用户反馈信息表';
 
+-- ----------------------------
+-- Records of app_feedback
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for app_version
+-- ----------------------------
 DROP TABLE IF EXISTS `app_version`;
 CREATE TABLE `app_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `classify` char(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '版本类型 IOS,ANDROID',
-  `version` char(10) CHARACTER SET utf8 DEFAULT NULL COMMENT '版本号:1.2.8',
-  `force_update` bit(1) DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
-  `url` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
-  `remark` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='APP版本管理表';
+                               `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `classify` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '版本类型 IOS,ANDROID',
+                               `version` char(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '版本号:1.2.8',
+                               `force_update` bit(1) DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
+                               `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
+                               `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '上传时间',
+                               `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='APP版本管理表';
 
+-- ----------------------------
+-- Records of app_version
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for banner
+-- ----------------------------
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
-  `client_type` tinyint(1) unsigned DEFAULT '0' COMMENT '客户端类型 0:PC 1:APP',
-  `img_url` varchar(500) CHARACTER SET utf8 NOT NULL COMMENT '轮播图片地址',
-  `turn_url` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
-  `sort` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(大<->小) 最大的在最前面',
-  `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
-  `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
-  `click` bit(1) DEFAULT b'1' COMMENT '是否可点击 0:否 1:可以',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`),
-  KEY `type_client_type_index` (`classify`,`client_type`) USING BTREE COMMENT '组合索引',
-  KEY `type_index` (`classify`) USING BTREE,
-  KEY `client_type_index` (`classify`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='轮播图维护表';
+                          `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                          `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
+                          `client_type` tinyint(1) unsigned DEFAULT '0' COMMENT '客户端类型 0:PC 1:APP',
+                          `img_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '轮播图片地址',
+                          `turn_url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
+                          `sort` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(大<->小) 最大的在最前面',
+                          `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
+                          `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
+                          `click` bit(1) DEFAULT b'1' COMMENT '是否可点击 0:否 1:可以',
+                          `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                          `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                          `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+                          `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                          PRIMARY KEY (`id`),
+                          KEY `type_client_type_index` (`classify`,`client_type`) USING BTREE COMMENT '组合索引',
+                          KEY `type_index` (`classify`) USING BTREE,
+                          KEY `client_type_index` (`classify`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='轮播图维护表';
 
+-- ----------------------------
+-- Records of banner
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for help_instruction
+-- ----------------------------
 DROP TABLE IF EXISTS `help_instruction`;
 CREATE TABLE `help_instruction` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `classify` tinyint(2) DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
-  `state` tinyint(1) DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
-  `ask` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '问',
-  `answer` varchar(2000) CHARACTER SET utf8 DEFAULT NULL COMMENT '答 支持',
-  `sort` tinyint(4) DEFAULT '0' COMMENT '排序(小<->大)',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:不删除(正常) 1:已删除',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='帮助说明信息表';
+                                    `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                    `classify` tinyint(2) DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
+                                    `state` tinyint(1) DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
+                                    `ask` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '问',
+                                    `answer` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '答 支持',
+                                    `sort` tinyint(4) DEFAULT '0' COMMENT '排序(小<->大)',
+                                    `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:不删除(正常) 1:已删除',
+                                    `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='帮助说明信息表';
 
+-- ----------------------------
+-- Records of help_instruction
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for image_log
+-- ----------------------------
 DROP TABLE IF EXISTS `image_log`;
 CREATE TABLE `image_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '图片名称',
-  `classify` tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典image_classify',
-  `url` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '文件存放地址',
-  `size` bigint(15) unsigned DEFAULT NULL COMMENT '文件大小',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='图片上传记录';
+                             `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                             `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '图片名称',
+                             `classify` tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典image_classify',
+                             `url` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '文件存放地址',
+                             `size` bigint(15) unsigned DEFAULT NULL COMMENT '文件大小',
+                             `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                             `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+                             `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                             `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                             PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='图片上传记录';
 
+-- ----------------------------
+-- Records of image_log
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for message_template
+-- ----------------------------
 DROP TABLE IF EXISTS `message_template`;
 CREATE TABLE `message_template` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '消息名称',
-  `nid` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '消息nid',
-  `state` bit(1) DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '消息类型',
-  `content` varchar(1000) CHARACTER SET utf8 DEFAULT NULL COMMENT '消息内容',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `tag` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '后置处理标示符(消息推送跳转页面)',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息模板表';
+                                    `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                    `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息名称',
+                                    `nid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息nid',
+                                    `state` bit(1) DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
+                                    `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '消息类型',
+                                    `content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '消息内容',
+                                    `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                    `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                    `tag` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '后置处理标示符(消息推送跳转页面)',
+                                    `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                                    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='消息模板表';
 
+-- ----------------------------
+-- Records of message_template
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for push_log
+-- ----------------------------
 DROP TABLE IF EXISTS `push_log`;
 CREATE TABLE `push_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `alias` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '别名',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '标题',
-  `classify` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '推送类型',
-  `content` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '正文内容',
-  `tag` char(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '标签(用来指定页面)',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '结果集',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='消息推送日志';
+                            `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                            `alias` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '别名',
+                            `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
+                            `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题',
+                            `classify` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '推送类型',
+                            `content` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '正文内容',
+                            `tag` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标签(用来指定页面)',
+                            `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '结果集',
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='消息推送日志';
 
+-- ----------------------------
+-- Records of push_log
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for sms_log
+-- ----------------------------
 DROP TABLE IF EXISTS `sms_log`;
 CREATE TABLE `sms_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `classify` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '短信分类',
-  `mobile` char(11) CHARACTER SET utf8 DEFAULT NULL COMMENT '手机号',
-  `content` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '短信内容',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
-  `state` tinyint(1) unsigned DEFAULT NULL COMMENT '发送状态 0:失败 1:已发送',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='短信日志记录表';
+                           `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                           `classify` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '短信分类',
+                           `mobile` char(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '手机号',
+                           `content` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '短信内容',
+                           `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
+                           `state` tinyint(1) unsigned DEFAULT NULL COMMENT '发送状态 0:失败 1:已发送',
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='短信日志记录表';
 
+-- ----------------------------
+-- Records of sms_log
+-- ----------------------------
 
+-- ----------------------------
+-- Table structure for system_address
+-- ----------------------------
 DROP TABLE IF EXISTS `system_address`;
 CREATE TABLE `system_address` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '区域名称',
-  `nid` char(12) CHARACTER SET utf8 DEFAULT NULL COMMENT '区域代码',
-  `pid` char(12) CHARACTER SET utf8 DEFAULT '0' COMMENT '父级区域代码',
-  `zip_code` char(12) CHARACTER SET utf8 DEFAULT NULL COMMENT '邮编',
-  `mark` char(1) CHARACTER SET utf8 DEFAULT NULL COMMENT '标示符-首字母',
-  `classify` tinyint(1) unsigned DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3574 DEFAULT CHARSET=utf8mb4;
+                                  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+                                  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '区域名称',
+                                  `nid` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '区域代码',
+                                  `pid` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '父级区域代码',
+                                  `zip_code` char(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮编',
+                                  `mark` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标示符-首字母',
+                                  `classify` tinyint(1) unsigned DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
+                                  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3574 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
-
-
-DROP TABLE IF EXISTS `system_notice`;
-CREATE TABLE `system_notice` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '公告标题',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表notice_classify)',
-  `content` text CHARACTER SET utf8 COMMENT '公告内容(富文本)',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统公告信息表';
-
-
-DROP TABLE IF EXISTS `system_operation_log`;
-CREATE TABLE `system_operation_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `url` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '请求地址',
-  `operator_id` int(10) DEFAULT NULL COMMENT '操作人',
-  `request` varchar(1000) CHARACTER SET utf8 DEFAULT NULL COMMENT '请求参数',
-  `response` text CHARACTER SET utf8 COMMENT '响应参数',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `ip` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '访问ip',
-  `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
-  `classify` tinyint(255) unsigned DEFAULT NULL COMMENT '操作日志分类,参考:MethodType',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1923 DEFAULT CHARSET=utf8mb4 COMMENT='后台操作记录';
-
-
-DROP TABLE IF EXISTS `system_operator`;
-CREATE TABLE `system_operator` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `operator_name` varchar(20) CHARACTER SET utf8 NOT NULL COMMENT '用户名称',
-  `mobile` varchar(11) CHARACTER SET utf8 NOT NULL COMMENT '手机号码(登陆账户)',
-  `state` tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
-  `pwd` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '登陆密码MD5',
-  `init_pwd` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '初始密码',
-  `department` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '所属部门',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remark` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`),
-  KEY `name_index` (`operator_name`) USING BTREE,
-  KEY `mobile_index` (`mobile`) USING BTREE,
-  KEY `status_index` (`state`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理后台用户表';
-
-
-
-
-DROP TABLE IF EXISTS `system_operator_role`;
-CREATE TABLE `system_operator_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `operator_id` int(10) unsigned NOT NULL COMMENT '用户id',
-  `role_id` int(10) unsigned NOT NULL COMMENT '角色id',
-  PRIMARY KEY (`id`),
-  KEY `user_id_index` (`operator_id`) USING BTREE,
-  KEY `role_id_index` (`role_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='角色与用户关系表';
-
-
-
-
-DROP TABLE IF EXISTS `system_role`;
-CREATE TABLE `system_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `role_name` varchar(10) CHARACTER SET utf8 DEFAULT NULL COMMENT '角色名称',
-  `role_type` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '角色类型',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态:0:正常,1:已删除',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`),
-  KEY `role_name_index` (`role_name`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
-
-
-
-
-DROP TABLE IF EXISTS `system_role_menu`;
-CREATE TABLE `system_role_menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `role_id` int(10) unsigned DEFAULT NULL COMMENT '角色Id',
-  `menu_id` int(10) unsigned DEFAULT NULL COMMENT '菜单Id',
-  PRIMARY KEY (`id`),
-  KEY `role_id_index` (`role_id`) USING BTREE,
-  KEY `menu_id_index` (`menu_id`) USING BTREE,
-  CONSTRAINT `system_role_menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `system_role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
-
-
-
-CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `mobile` varchar(11) CHARACTER SET utf8 NOT NULL COMMENT '手机号码',
-  `email` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '电子邮箱',
-  `password` varchar(128) CHARACTER SET utf8 NOT NULL COMMENT '登陆密码',
-  `state` bit(1) DEFAULT b'1' COMMENT '状态 1正常 0:锁定',
-  `channel` tinyint(3) unsigned DEFAULT '0' COMMENT '注册渠道 pc,android,ios,h5,other',
-  `register_ip` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '注册地址',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `mobile_index` (`mobile`) USING BTREE,
-  KEY `email_index` (`email`) USING BTREE,
-  KEY `status_index` (`state`) USING BTREE,
-  KEY `channel_index` (`channel`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='前台用户基本信息表';
-
-CREATE TABLE `user_extend` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '投资人用户ID',
-  `avatar` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '头像地址',
-  `real_name` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '真实姓名',
-  `id_card` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '身份证号码(前10位加密[18位身份证],前8位加密[15位身份证])',
-  `birthday` char(8) CHARACTER SET utf8 DEFAULT NULL COMMENT '生日yyyyMMdd',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id_index` (`user_id`) USING BTREE COMMENT '唯一索引'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='普通用户扩展信息表';
-
-
-
-DROP TABLE IF EXISTS `user_message`;
-CREATE TABLE `user_message` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '标题',
-  `content` varchar(500) CHARACTER SET utf8 DEFAULT NULL COMMENT '内容',
-  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '状态 0:未读 1:已读',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='投资人站内信';
-
-
-
-DROP TABLE IF EXISTS `system_department`;
-CREATE TABLE `system_department` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '部门名称',
-  `code` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '部门编号',
-  `parent_code` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '父级编号',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-  `remark` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  `operator_name` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '操作人姓名',
-  `operator_id` int(10) unsigned DEFAULT NULL COMMENT '操作人id',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `code_index` (`code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='部门信息表';
-
-
-
-DROP TABLE IF EXISTS `system_cache`;
-CREATE TABLE `system_cache` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '缓存名称',
-  `cache_name` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '缓存名称 必须与CacheConstant中保持一致',
-  `state` tinyint(3) unsigned DEFAULT '0' COMMENT '缓存更新状态 0:未更新 1:更新成功 2:更新失败',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注说明',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='缓存信息管理表';
-
-DROP TABLE IF EXISTS `system_config`;
-CREATE TABLE `system_config` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `nid` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT '参数标示符',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '参数名称',
-  `content` varchar(1000) CHARACTER SET utf8 NOT NULL COMMENT '参数值',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '参数类型,见system_dict表nid=config_classify',
-  `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
-  `start_time` datetime DEFAULT NULL COMMENT '开始时间',
-  `end_time` datetime DEFAULT NULL COMMENT '结束时间',
-  `reserve_content` varchar(1000) CHARACTER SET utf8 DEFAULT NULL COMMENT '备用值,如果不在有效期内自动启用备用值',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `nid_index` (`nid`) USING BTREE,
-  KEY `type_index` (`classify`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
-
-
-
-DROP TABLE IF EXISTS `system_dict`;
-CREATE TABLE `system_dict` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '字典中文名称',
-  `nid` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '数据字典nid(英文名称)',
-  `hidden_value` tinyint(2) unsigned DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
-  `show_value` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '显示值',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
-  `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='系统数据字典表';
-
-
-
-DROP TABLE IF EXISTS `system_menu`;
-CREATE TABLE `system_menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(10) CHARACTER SET utf8 NOT NULL COMMENT '菜单名称',
-  `nid` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT '菜单标示符 唯一',
-  `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
-  `url` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '菜单地址',
-  `sub_url` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '权限拦截路径',
-  `classify` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单分类 0:左侧菜单 1: 按钮菜单',
-  `sort` int(3) DEFAULT '0' COMMENT '排序规则 小的排在前面',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
-  `remark` varchar(200) CHARACTER SET utf8 DEFAULT NULL COMMENT '备注信息',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
-  KEY `pid_index` (`pid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1017 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
-
+-- ----------------------------
+-- Records of system_address
+-- ----------------------------
 INSERT INTO `system_address` VALUES ('1', '北京', '110000', '0', null, 'B', '1');
 INSERT INTO `system_address` VALUES ('2', '市辖区', '110100', '110000', null, 'S', '2');
 INSERT INTO `system_address` VALUES ('3', '东城区', '110101', '110100', '100000', 'D', '3');
@@ -3928,11 +3771,53 @@ INSERT INTO `system_address` VALUES ('3571', '自治直辖县', '659000', '65000
 INSERT INTO `system_address` VALUES ('3572', '特别行政区', '810100', '810000', null, 'T', '2');
 INSERT INTO `system_address` VALUES ('3573', '特别行政区', '820100', '820000', null, 'T', '2');
 
+-- ----------------------------
+-- Table structure for system_cache
+-- ----------------------------
+DROP TABLE IF EXISTS `system_cache`;
+CREATE TABLE `system_cache` (
+                                `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缓存名称',
+                                `cache_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '缓存名称 必须与CacheConstant中保持一致',
+                                `state` tinyint(3) unsigned DEFAULT '0' COMMENT '缓存更新状态 0:未更新 1:更新成功 2:更新失败',
+                                `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注说明',
+                                PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='缓存信息管理表';
+
+-- ----------------------------
+-- Records of system_cache
+-- ----------------------------
 INSERT INTO `system_cache` VALUES ('1', '系统参数缓存', 'system_config', '1', '2019-08-09 14:11:53', '全局系统参数缓存(查询缓存)');
 INSERT INTO `system_cache` VALUES ('2', '数据字典缓存', 'system_dict', '1', '2019-08-09 14:11:53', '全局数据字典缓存(查询缓存)');
 INSERT INTO `system_cache` VALUES ('3', '用户登陆token缓存', 'access_token', '1', '2019-08-09 14:11:53', '登陆信息(保存缓存)');
 INSERT INTO `system_cache` VALUES ('4', '异步结果缓存', 'async_response', '1', '2019-08-09 14:11:53', '异步信息(保存缓存)');
 
+-- ----------------------------
+-- Table structure for system_config
+-- ----------------------------
+DROP TABLE IF EXISTS `system_config`;
+CREATE TABLE `system_config` (
+                                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                 `nid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '参数标示符',
+                                 `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '参数名称',
+                                 `content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '参数值',
+                                 `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '参数类型,见system_dict表nid=config_classify',
+                                 `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
+                                 `start_time` datetime DEFAULT NULL COMMENT '开始时间',
+                                 `end_time` datetime DEFAULT NULL COMMENT '结束时间',
+                                 `reserve_content` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备用值,如果不在有效期内自动启用备用值',
+                                 `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                                 `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                 `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                 PRIMARY KEY (`id`),
+                                 KEY `nid_index` (`nid`) USING BTREE,
+                                 KEY `type_index` (`classify`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统参数配置信息表';
+
+-- ----------------------------
+-- Records of system_config
+-- ----------------------------
 INSERT INTO `system_config` VALUES ('1', 'application_name', '后台系统名称', '后台管理系统', '1', '\0', '2019-01-17 00:00:00', '2019-02-19 00:00:00', '阿斯顿', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
 INSERT INTO `system_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', '1', '\0', null, null, null, null, '2018-02-08 14:38:59', null);
 INSERT INTO `system_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市余杭区中泰街道338号', '1', '\0', null, null, null, null, '2018-02-08 14:40:01', null);
@@ -3948,12 +3833,81 @@ INSERT INTO `system_config` VALUES ('15', 'env', '系统环境', '2', '2', '\0',
 INSERT INTO `system_config` VALUES ('16', 'timestamp_deviation', '客户端与服务端时间容错值', '300000', '1', '\0', null, null, null, '单位:毫秒', '2019-07-10 16:50:31', '2019-07-10 16:52:43');
 INSERT INTO `system_config` VALUES ('17', 'send_from', '系统邮件发件人', '664956140@qq.com', '2', '\0', null, null, null, null, '2019-07-10 16:53:01', '2019-07-10 16:53:14');
 
-INSERT INTO `system_dict` VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', '\0', '', '2018-11-27 17:14:49', null, null);
-INSERT INTO `system_dict` VALUES ('2', '图片分类', 'image_classify', '2', 'app首页', '\0', '', '2018-11-27 17:15:33', null, null);
-INSERT INTO `system_dict` VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', '\0', '', '2018-11-27 17:15:55', null, null);
-INSERT INTO `system_dict` VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', '\0', '', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
-INSERT INTO `system_dict` VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', '\0', '', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
+-- ----------------------------
+-- Table structure for system_department
+-- ----------------------------
+DROP TABLE IF EXISTS `system_department`;
+CREATE TABLE `system_department` (
+                                     `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                     `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '部门名称',
+                                     `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '部门编号',
+                                     `parent_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT '0' COMMENT '父级编号',
+                                     `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                     `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                     `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+                                     `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                                     `operator_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '操作人姓名',
+                                     `operator_id` int(10) unsigned DEFAULT NULL COMMENT '操作人id',
+                                     PRIMARY KEY (`id`),
+                                     UNIQUE KEY `code_index` (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='部门信息表';
 
+-- ----------------------------
+-- Records of system_department
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for system_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `system_dict`;
+CREATE TABLE `system_dict` (
+                               `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '字典中文名称',
+                               `nid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '数据字典nid(英文名称)',
+                               `hidden_value` tinyint(2) unsigned DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
+                               `show_value` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '显示值',
+                               `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+                               `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
+                               `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                               `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+                               `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                               PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统数据字典表';
+
+-- ----------------------------
+-- Records of system_dict
+-- ----------------------------
+INSERT INTO `system_dict` VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', '\0', '\0', '2018-11-27 17:14:49', null, null);
+INSERT INTO `system_dict` VALUES ('2', '图片分类', 'image_classify', '2', 'app首页', '\0', '\0', '2018-11-27 17:15:33', null, null);
+INSERT INTO `system_dict` VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', '\0', '\0', '2018-11-27 17:15:55', null, null);
+INSERT INTO `system_dict` VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', '\0', '\0', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
+INSERT INTO `system_dict` VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', '\0', '\0', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
+
+-- ----------------------------
+-- Table structure for system_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `system_menu`;
+CREATE TABLE `system_menu` (
+                               `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `title` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单名称',
+                               `nid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单标示符 唯一',
+                               `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+                               `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '菜单地址',
+                               `sub_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '权限拦截路径',
+                               `classify` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单分类 0:左侧菜单 1: 按钮菜单',
+                               `sort` int(3) DEFAULT '0' COMMENT '排序规则 小的排在前面',
+                               `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
+                               `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                               `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                               `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                               PRIMARY KEY (`id`),
+                               UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
+                               KEY `pid_index` (`pid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1017 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统菜单表';
+
+-- ----------------------------
+-- Records of system_menu
+-- ----------------------------
 INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', null, null, '0', '0', '\0', null, '2018-01-25 16:13:54', null);
 INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/public/system/menu/manage_page', '/system/menu/list_page', '0', '1', '\0', '', '2018-01-25 16:14:01', '2019-08-08 13:51:17');
 INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/public/system/config/manage_page', null, '0', '2', '\0', null, '2018-01-25 16:14:31', '2019-08-08 13:51:07');
@@ -3967,12 +3921,129 @@ INSERT INTO `system_menu` VALUES ('1014', '部门管理', 'departmentManage', '1
 INSERT INTO `system_menu` VALUES ('1015', '新增', 'menuManageQuery', '1004', '/public/system/menu/add_page', '/system/menu/add', '1', '2', '\0', '按钮权限', '2019-01-22 14:16:11', '2019-08-08 13:51:31');
 INSERT INTO `system_menu` VALUES ('1016', '基础', 'menuManageBase', '1004', '', '', '1', '1', '\0', '基础按钮', '2019-01-22 14:19:01', '2019-01-22 14:19:29');
 
-INSERT INTO `system_operator_role` VALUES ('5', '1', '1');
+-- ----------------------------
+-- Table structure for system_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `system_notice`;
+CREATE TABLE `system_notice` (
+                                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                 `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告标题',
+                                 `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表notice_classify)',
+                                 `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '公告内容(富文本)',
+                                 `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',
+                                 `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                 `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
+                                 PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='系统公告信息表';
 
+-- ----------------------------
+-- Records of system_notice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for system_operation_log
+-- ----------------------------
+DROP TABLE IF EXISTS `system_operation_log`;
+CREATE TABLE `system_operation_log` (
+                                        `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                        `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求地址',
+                                        `operator_id` int(10) DEFAULT NULL COMMENT '操作人',
+                                        `request` varchar(1000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '请求参数',
+                                        `response` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '响应参数',
+                                        `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                        `ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '访问ip',
+                                        `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
+                                        `classify` tinyint(255) unsigned DEFAULT NULL COMMENT '操作日志分类,参考:MethodType',
+                                        PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1923 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='后台操作记录';
+
+-- ----------------------------
+-- Records of system_operation_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for system_operator
+-- ----------------------------
+DROP TABLE IF EXISTS `system_operator`;
+CREATE TABLE `system_operator` (
+                                   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                   `operator_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户名称',
+                                   `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号码(登陆账户)',
+                                   `state` tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
+                                   `pwd` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '登陆密码MD5',
+                                   `init_pwd` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '初始密码',
+                                   `department` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '所属部门',
+                                   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+                                   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                   `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                                   PRIMARY KEY (`id`),
+                                   KEY `name_index` (`operator_name`) USING BTREE,
+                                   KEY `mobile_index` (`mobile`) USING BTREE,
+                                   KEY `status_index` (`state`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='管理后台用户表';
+
+-- ----------------------------
+-- Records of system_operator
+-- ----------------------------
 INSERT INTO `system_operator` VALUES ('1', '超管', '13000000000', '1', '$2a$10$ztSM0sQT.mqMOZBXxjYCK.IOHiKtCvUdKei/drs0qmm081omlcvC6', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy', '0', '\0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
+-- ----------------------------
+-- Table structure for system_operator_role
+-- ----------------------------
+DROP TABLE IF EXISTS `system_operator_role`;
+CREATE TABLE `system_operator_role` (
+                                        `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                        `operator_id` int(10) unsigned NOT NULL COMMENT '用户id',
+                                        `role_id` int(10) unsigned NOT NULL COMMENT '角色id',
+                                        PRIMARY KEY (`id`),
+                                        KEY `user_id_index` (`operator_id`) USING BTREE,
+                                        KEY `role_id_index` (`role_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色与用户关系表';
+
+-- ----------------------------
+-- Records of system_operator_role
+-- ----------------------------
+INSERT INTO `system_operator_role` VALUES ('5', '1', '1');
+
+-- ----------------------------
+-- Table structure for system_role
+-- ----------------------------
+DROP TABLE IF EXISTS `system_role`;
+CREATE TABLE `system_role` (
+                               `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `role_name` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色名称',
+                               `role_type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '角色类型',
+                               `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                               `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                               `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态:0:正常,1:已删除',
+                               `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '备注信息',
+                               PRIMARY KEY (`id`),
+                               KEY `role_name_index` (`role_name`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色表';
+
+-- ----------------------------
+-- Records of system_role
+-- ----------------------------
 INSERT INTO `system_role` VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', '\0', '');
 
+-- ----------------------------
+-- Table structure for system_role_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `system_role_menu`;
+CREATE TABLE `system_role_menu` (
+                                    `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                    `role_id` int(10) unsigned DEFAULT NULL COMMENT '角色Id',
+                                    `menu_id` int(10) unsigned DEFAULT NULL COMMENT '菜单Id',
+                                    PRIMARY KEY (`id`),
+                                    KEY `role_id_index` (`role_id`) USING BTREE,
+                                    KEY `menu_id_index` (`menu_id`) USING BTREE,
+                                    CONSTRAINT `system_role_menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `system_role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=227 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色与菜单关系表';
+
+-- ----------------------------
+-- Records of system_role_menu
+-- ----------------------------
 INSERT INTO `system_role_menu` VALUES ('215', '1', '1001');
 INSERT INTO `system_role_menu` VALUES ('216', '1', '1004');
 INSERT INTO `system_role_menu` VALUES ('217', '1', '1016');
@@ -3986,3 +4057,67 @@ INSERT INTO `system_role_menu` VALUES ('224', '1', '1012');
 INSERT INTO `system_role_menu` VALUES ('225', '1', '1013');
 INSERT INTO `system_role_menu` VALUES ('226', '1', '1014');
 
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+                        `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                        `mobile` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号码',
+                        `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '电子邮箱',
+                        `password` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '登陆密码',
+                        `state` bit(1) DEFAULT b'1' COMMENT '状态 1正常 0:锁定',
+                        `channel` tinyint(3) unsigned DEFAULT '0' COMMENT '注册渠道 pc,android,ios,h5,other',
+                        `register_ip` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '注册地址',
+                        `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+                        `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                        PRIMARY KEY (`id`),
+                        KEY `mobile_index` (`mobile`) USING BTREE,
+                        KEY `email_index` (`email`) USING BTREE,
+                        KEY `status_index` (`state`) USING BTREE,
+                        KEY `channel_index` (`channel`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='前台用户基本信息表';
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for user_extend
+-- ----------------------------
+DROP TABLE IF EXISTS `user_extend`;
+CREATE TABLE `user_extend` (
+                               `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `user_id` int(10) unsigned DEFAULT NULL COMMENT '投资人用户ID',
+                               `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '头像地址',
+                               `real_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '真实姓名',
+                               `id_card` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '身份证号码(前10位加密[18位身份证],前8位加密[15位身份证])',
+                               `birthday` char(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '生日yyyyMMdd',
+                               `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               PRIMARY KEY (`id`),
+                               UNIQUE KEY `user_id_index` (`user_id`) USING BTREE COMMENT '唯一索引'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='普通用户扩展信息表';
+
+-- ----------------------------
+-- Records of user_extend
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for user_message
+-- ----------------------------
+DROP TABLE IF EXISTS `user_message`;
+CREATE TABLE `user_message` (
+                                `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
+                                `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题',
+                                `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '内容',
+                                `state` tinyint(1) unsigned DEFAULT '0' COMMENT '状态 0:未读 1:已读',
+                                `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+                                `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                                `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+                                PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='投资人站内信';
+
+-- ----------------------------
+-- Records of user_message
+-- ----------------------------

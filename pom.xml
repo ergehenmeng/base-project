@@ -91,6 +91,8 @@
         <pinyin.version>2.5.1</pinyin.version>
         <!--工具类-->
         <hutool.version>4.6.1</hutool.version>
+        <!--mysql版本-->
+        <mysql.version>8.0.13</mysql.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -229,10 +231,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <com.fanyin.configuration>
+                <configuration>
                     <source>${java.jdk.version}</source>
                     <target>${java.jdk.version}</target>
-                </com.fanyin.configuration>
+                </configuration>
             </plugin>
         </plugins>
     </build>
