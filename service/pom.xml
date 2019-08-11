@@ -106,11 +106,11 @@
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.5</version>
-                <com.fanyin.configuration>
+                <configuration>
                     <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
                     <overwrite>true</overwrite>
                     <verbose>true</verbose>
-                </com.fanyin.configuration>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>mysql</groupId>

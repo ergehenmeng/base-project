@@ -20,8 +20,8 @@
             
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-            connectionURL="jdbc:mysql://127.0.0.1:3306/p2p?tinyInt1isBit=false" userId="root" password="root">
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+            connectionURL="jdbc:mysql://127.0.0.1:3306/p2p?tinyInt1isBit=false&amp;useSSL=true" userId="root" password="root">
         </jdbcConnection>
         
         <javaTypeResolver>
