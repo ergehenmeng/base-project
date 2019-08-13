@@ -29,7 +29,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             return;
         }
         log.error("权限校验异常",exception);
-        RespBody<Object> returnJson = RespBody.getInstance().error(ErrorCodeEnum.PERMISSION_ERROR);
+        RespBody<Object> returnJson = RespBody.error(ErrorCodeEnum.PERMISSION_ERROR);
         WebUtil.printJson(response, returnJson);
     }
 }

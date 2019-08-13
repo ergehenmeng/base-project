@@ -48,6 +48,6 @@ public class ControllerAdviceHandler {
     @ResponseBody
     public RespBody exception(HttpServletRequest request, Exception e){
         log.error("系统异常 url:[{}]",request.getRequestURI(),e);
-        return RespBody.getInstance().error(ErrorCodeEnum.SYSTEM_ERROR);
+        return RespBody.error(ErrorCodeEnum.SYSTEM_ERROR);
     }
 }

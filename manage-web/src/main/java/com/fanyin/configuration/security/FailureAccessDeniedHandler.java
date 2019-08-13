@@ -23,7 +23,7 @@ public class FailureAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException{
         log.warn("权限不足ip:[], url:[{}]", IpUtil.getIpAddress(request),request.getRequestURI());
-        RespBody<Object> returnJson = RespBody.getInstance().error(ErrorCodeEnum.ACCESS_DENIED);
+        RespBody<Object> returnJson = RespBody.error(ErrorCodeEnum.ACCESS_DENIED);
         WebUtil.printJson(response, returnJson);
     }
 }

@@ -30,7 +30,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public RespBody exception(Exception e, HttpServletRequest request){
         log.error("系统异常,url:[{}]",request.getRequestURI(),e);
-        return RespBody.getInstance().error(ErrorCodeEnum.SYSTEM_ERROR);
+        return RespBody.error(ErrorCodeEnum.SYSTEM_ERROR);
     }
 
     /**
@@ -52,6 +52,6 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public RespBody exception(NoHandlerFoundException e, HttpServletRequest request){
         log.error("访问地址异常,url:[{}]",request.getRequestURI());
-        return RespBody.getInstance().error(ErrorCodeEnum.PAGE_NOT_FOUND);
+        return RespBody.error(ErrorCodeEnum.PAGE_NOT_FOUND);
     }
 }

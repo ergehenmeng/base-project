@@ -53,9 +53,8 @@ public class RespBody<T> implements Serializable {
         return data;
     }
 
-    public RespBody<T> setData(T data) {
+    public void setData(T data) {
         this.data = data;
-        return this;
     }
 
     public String getMsg() {
