@@ -1,10 +1,7 @@
 package com.fanyin.configuration;
 
 import com.fanyin.configuration.filter.ByteHttpRequestFilter;
-import com.fanyin.interceptor.AccessTokenHandlerInterceptor;
-import com.fanyin.interceptor.JsonHandlerMethodArgumentResolver;
-import com.fanyin.interceptor.MessageHandlerInterceptor;
-import com.fanyin.interceptor.SignatureHandlerInterceptor;
+import com.fanyin.interceptor.*;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,12 +26,18 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(signatureHandlerInterceptor()).order(Integer.MIN_VALUE + 1);
         registry.addInterceptor(messageHandlerInterceptor()).order(Integer.MIN_VALUE + 2);
-        registry.addInterceptor(accessHandlerInterceptor()).order(Integer.MIN_VALUE + 3);
+        registry.addInterceptor(accessTokenHandlerInterceptor()).order(Integer.MIN_VALUE + 3);
+        registry.addInterceptor(ssoHandlerInterceptor()).order(Integer.MIN_VALUE + 4);
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(jsonHandlerMethodArgumentResolver());
+    }
+
+    @Bean
+    public HandlerInterceptor ssoHandlerInterceptor(){
+        return new SsoHandlerInterceptor();
     }
 
     @Bean
@@ -47,7 +50,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      * @return com.fanyin.interceptor
      */
     @Bean
-    public HandlerInterceptor accessHandlerInterceptor(){
+    public HandlerInterceptor accessTokenHandlerInterceptor(){
         return new AccessTokenHandlerInterceptor();
     }
 

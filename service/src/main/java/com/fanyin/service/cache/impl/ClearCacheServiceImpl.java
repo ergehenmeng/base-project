@@ -19,10 +19,6 @@ public class ClearCacheServiceImpl implements ClearCacheService{
     public void clearSystemConfig() {
     }
 
-    @Override
-    @CacheEvict(cacheNames = RedisConstant.VIP_CONFIG,allEntries = true)
-    public void clearVipConfig() {
-    }
 
     @Override
     @CacheEvict(cacheNames = RedisConstant.SYSTEM_DICT,allEntries = true)
@@ -32,11 +28,6 @@ public class ClearCacheServiceImpl implements ClearCacheService{
     @Override
     @CacheEvict(cacheNames = RedisConstant.ACCESS_TOKEN,allEntries = true)
     public void clearAccessToken() {
-    }
-
-    @Override
-    @CacheEvict(cacheNames = RedisConstant.INTEGRAL_CLASSIFY,allEntries = true)
-    public void clearIntegralClassify() {
     }
 
     @Override

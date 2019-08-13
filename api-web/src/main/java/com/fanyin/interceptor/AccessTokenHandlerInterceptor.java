@@ -59,13 +59,13 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
             log.error("令牌为空,accessKey:[{}],accessToken:[{}]",accessKey,accessToken);
             throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
-        AccessToken token = accessTokenService.getAccessToken(accessKey);
+        AccessToken token = accessTokenService.getByAccessKey(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken()) || !token.getRequestType().equals(message.getRequestType())){
             log.error("令牌无效,accessKey:[{}]",accessKey);
             throw new RequestException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
         //重新放入刷新超时时间
-        accessTokenService.saveAccessToken(token);
+        accessTokenService.saveByAccessKey(token);
         //由于ThreadLocal是对象引用,可以直接设置附加值
         message.setAccessKey(token.getAccessKey());
         message.setAccessToken(token.getAccessToken());

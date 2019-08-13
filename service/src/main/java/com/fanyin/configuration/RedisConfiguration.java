@@ -50,7 +50,6 @@ public class RedisConfiguration{
     private int smallExpire;
 
 
-
     /**
      * 用于业务上进行缓存数据 获取缓存数据
      * <br>在新版本fastJson也提供了序列化:

@@ -26,4 +26,14 @@ public class ConfigConstant {
      * 发件人
      */
     public static final String SEND_FROM = "send_from";
+
+    /**
+     * token过期时间
+     */
+    public static final String TOKEN_EXPIRE = "token_expire";
+
+    /**
+     * 是否开启单客户端登陆
+     */
+    public static final String SSO_OPEN = "sso_open";
 }

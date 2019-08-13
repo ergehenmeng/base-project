@@ -2,11 +2,14 @@ package com.fanyin.service.cache.impl;
 
 import com.fanyin.common.constant.RedisConstant;
 import com.fanyin.ext.Async;
-import com.fanyin.ext.AccessToken;
 import com.fanyin.service.cache.CacheService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用于缓存数据信息,不涉及数据查询数据缓存
@@ -15,6 +18,24 @@ import org.springframework.stereotype.Service;
  */
 @Service("cacheService")
 public class CacheServiceImpl implements CacheService {
+
+    @Autowired
+    private RedisTemplate<String,Object> redisTemplate;
+
+    /**
+     * 默认过期时间 1800s
+     */
+    private static final long EXPIRE = 1800;
+
+    @Override
+    public void cacheValue(String key, Object value) {
+        this.cacheValue(key, value,EXPIRE);
+    }
+
+    @Override
+    public void cacheValue(String key, Object value, long expire) {
+        redisTemplate.opsForValue().set(key, value,expire, TimeUnit.SECONDS);
+    }
 
     @Override
     @CachePut(cacheNames = RedisConstant.ASYNC_RESPONSE,key = "#response.key",cacheManager = "smallCacheManager")
@@ -28,13 +49,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.ACCESS_TOKEN,key = "#p0")
-    public AccessToken getAccessToken(String accessKey) {
-        return null;
-    }
-
-    @Override
-    @CachePut(cacheNames = RedisConstant.ACCESS_TOKEN,key = "#token.accessKey",cacheManager = "longCacheManager")
-    public void cacheAccessToken(AccessToken token) {
+    public Object getValue(String key) {
+        return redisTemplate.opsForValue().get(key);
     }
 }

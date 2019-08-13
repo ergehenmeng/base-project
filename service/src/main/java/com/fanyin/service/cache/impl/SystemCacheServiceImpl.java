@@ -55,14 +55,8 @@ public class SystemCacheServiceImpl implements SystemCacheService {
                 case RedisConstant.SYSTEM_DICT:
                     clearCacheService.clearSystemDict();
                     break;
-                case RedisConstant.VIP_CONFIG:
-                    clearCacheService.clearVipConfig();
-                    break;
                 case RedisConstant.ACCESS_TOKEN:
                     clearCacheService.clearAccessToken();
-                    break;
-                case RedisConstant.INTEGRAL_CLASSIFY:
-                    clearCacheService.clearIntegralClassify();
                     break;
                 case RedisConstant.ASYNC_RESPONSE:
                     clearCacheService.clearAsyncResponse();

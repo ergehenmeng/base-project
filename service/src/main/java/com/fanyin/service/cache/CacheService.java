@@ -1,7 +1,6 @@
 package com.fanyin.service.cache;
 
 import com.fanyin.ext.Async;
-import com.fanyin.ext.AccessToken;
 
 
 /**
@@ -9,6 +8,29 @@ import com.fanyin.ext.AccessToken;
  * @date 2018/11/21 16:19
  */
 public interface CacheService {
+
+
+    /**
+     * 缓存对象 默认30分钟
+     * @param key key
+     * @param value value
+     */
+    void cacheValue(String key,Object value);
+
+    /**
+     * 缓存对象
+     * @param key key
+     * @param value value
+     * @param expire 过期时间 单位秒
+     */
+    void cacheValue(String key,Object value,long expire);
+
+    /**
+     * 获取缓存的信息
+     * @param key key
+     * @return 缓存信息
+     */
+    Object getValue(String key);
 
     /**
      * 缓存任务异步结果
@@ -23,17 +45,6 @@ public interface CacheService {
      */
     Async getAsyncResponse(String key);
 
-    /**
-     * 根据accessKey查找token
-     * @param accessKey accessKey
-     * @return token
-     */
-    AccessToken getAccessToken(String accessKey);
 
-    /**
-     * 保存token 30分钟超时时间
-     * @param token token对象
-     */
-    void cacheAccessToken(AccessToken token);
 }
 

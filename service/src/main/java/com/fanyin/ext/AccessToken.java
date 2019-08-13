@@ -1,6 +1,9 @@
 package com.fanyin.ext;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +13,9 @@ import java.io.Serializable;
  * @date 2018/8/14 17:37
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccessToken implements Serializable {
 
     private static final long serialVersionUID = -539686478899884844L;

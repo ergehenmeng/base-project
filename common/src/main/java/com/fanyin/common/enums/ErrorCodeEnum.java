@@ -251,6 +251,11 @@ public enum ErrorCodeEnum {
      */
     MENU_NID_ERROR(3015,"菜单标示符被占用"),
 
+    /**
+     * 用户已在其他设备上登陆
+     */
+    MULTIPLE_CLIENT_LOGIN(3016,"用户已在其他设备上登陆"),
+
    ;
     /**
      * 构造方法
