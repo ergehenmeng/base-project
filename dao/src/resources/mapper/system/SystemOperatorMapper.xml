@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.mapper.system.SystemOperatorMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.model.system.SystemOperator">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="init_pwd" jdbcType="VARCHAR" property="initPwd" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, operator_name, mobile, state, pwd, init_pwd, department, deleted,
+    add_time, update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from system_operator
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.fanyin.model.system.SystemOperator" useGeneratedKeys="true">
+      <selectKey order="AFTER" keyProperty="id" keyColumn="id" resultType="java.lang.Integer">
+          select LAST_INSERT_ID()
+      </selectKey>
+    <!--
+      @create by mybatis
+    -->
+    insert into system_operator
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="operatorName != null">
+          operator_name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+      <if test="initPwd != null">
+        init_pwd,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="operatorName != null">
+        #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="initPwd != null">
+        #{initPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.model.system.SystemOperator">
+    <!--
+      @create by mybatis
+    -->
+    update system_operator
+    <set>
+      <if test="operatorName != null">
+          operator_name = #{operatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="initPwd != null">
+        init_pwd = #{initPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="getByMobile" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList" /> from system_operator where deleted = false and mobile = #{mobile}
+    </select>
+    
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.dto.system.operator.OperatorQueryRequest">
+        select <include refid="BaseColumnList" />
+        from system_operator where deleted = false
+        <if test="queryName != null">
+            and (operator_name like concat('%',#{queryName},'%') or mobile like concat('%',#{queryName},'%'))
+        </if>
+        <if test="state != null">
+            state = #{state}
+        </if>
+    </select>
+</mapper>

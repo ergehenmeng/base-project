@@ -15,6 +15,8 @@
         <module>api-web</module>
         <module>service</module>
         <module>common</module>
+        <module>dao</module>
+        <module>model</module>
     </modules>
 
     <parent>

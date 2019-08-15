@@ -1,7 +1,6 @@
 package com.fanyin.ext;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 
@@ -10,7 +9,6 @@ import java.io.Serializable;
  * @author 二哥很猛
  * @date 2018/1/12 17:41
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RespBody<T> implements Serializable {
 
     private static final long serialVersionUID = 1574813862539970945L;
