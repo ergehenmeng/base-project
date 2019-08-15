@@ -1,10 +1,10 @@
 package com.fanyin.service.common.impl;
 
-import com.fanyin.dto.common.help.HelpAddRequest;
-import com.fanyin.dto.common.help.HelpEditRequest;
-import com.fanyin.dto.common.help.HelpQueryRequest;
-import com.fanyin.mapper.common.HelpInstructionMapper;
-import com.fanyin.model.common.HelpInstruction;
+import com.fanyin.model.dto.common.help.HelpAddRequest;
+import com.fanyin.model.dto.common.help.HelpEditRequest;
+import com.fanyin.model.dto.common.help.HelpQueryRequest;
+import com.fanyin.dao.mapper.common.HelpInstructionMapper;
+import com.fanyin.dao.model.common.HelpInstruction;
 import com.fanyin.service.common.HelpInstructionService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;

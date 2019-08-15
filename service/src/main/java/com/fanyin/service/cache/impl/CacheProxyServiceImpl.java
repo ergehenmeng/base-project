@@ -1,7 +1,7 @@
 package com.fanyin.service.cache.impl;
 
 
-import com.fanyin.model.system.SystemDict;
+import com.fanyin.dao.model.system.SystemDict;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;

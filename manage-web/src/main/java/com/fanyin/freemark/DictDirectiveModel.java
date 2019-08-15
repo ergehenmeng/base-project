@@ -2,7 +2,7 @@ package com.fanyin.freemark;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.model.system.SystemDict;
+import com.fanyin.dao.model.system.SystemDict;
 import com.fanyin.service.system.SystemDictService;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

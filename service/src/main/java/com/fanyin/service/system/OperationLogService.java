@@ -1,7 +1,7 @@
 package com.fanyin.service.system;
 
-import com.fanyin.dto.system.log.OperationQueryRequest;
-import com.fanyin.model.system.SystemOperationLog;
+import com.fanyin.model.dto.system.log.OperationQueryRequest;
+import com.fanyin.dao.model.system.SystemOperationLog;
 import com.github.pagehelper.PageInfo;
 
 /**

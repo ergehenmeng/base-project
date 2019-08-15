@@ -1,9 +1,9 @@
 package com.fanyin.service.system;
 
 import com.fanyin.common.enums.MenuClassify;
-import com.fanyin.dto.system.menu.MenuAddRequest;
-import com.fanyin.dto.system.menu.MenuEditRequest;
-import com.fanyin.model.system.SystemMenu;
+import com.fanyin.model.dto.system.menu.MenuAddRequest;
+import com.fanyin.model.dto.system.menu.MenuEditRequest;
+import com.fanyin.dao.model.system.SystemMenu;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package com.fanyin.configuration.security;
 
 
 import com.fanyin.common.enums.ErrorCodeEnum;
-import com.fanyin.model.system.SystemOperator;
+import com.fanyin.dao.model.system.SystemOperator;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;

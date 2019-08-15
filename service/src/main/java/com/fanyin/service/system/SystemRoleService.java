@@ -1,9 +1,9 @@
 package com.fanyin.service.system;
 
-import com.fanyin.dto.system.role.RoleAddRequest;
-import com.fanyin.dto.system.role.RoleEditRequest;
-import com.fanyin.dto.system.role.RoleQueryRequest;
-import com.fanyin.model.system.SystemRole;
+import com.fanyin.model.dto.system.role.RoleAddRequest;
+import com.fanyin.model.dto.system.role.RoleEditRequest;
+import com.fanyin.model.dto.system.role.RoleQueryRequest;
+import com.fanyin.dao.model.system.SystemRole;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
-import com.fanyin.model.system.SystemOperator;
+import com.fanyin.dao.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
 import com.fanyin.service.system.SystemOperatorService;
 import org.springframework.beans.factory.annotation.Autowired;

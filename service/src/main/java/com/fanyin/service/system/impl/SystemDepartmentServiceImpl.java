@@ -1,10 +1,10 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.dto.system.department.DepartmentAddRequest;
-import com.fanyin.dto.system.department.DepartmentEditRequest;
-import com.fanyin.mapper.system.SystemDepartmentMapper;
-import com.fanyin.model.system.SystemDepartment;
+import com.fanyin.model.dto.system.department.DepartmentAddRequest;
+import com.fanyin.model.dto.system.department.DepartmentEditRequest;
+import com.fanyin.dao.mapper.system.SystemDepartmentMapper;
+import com.fanyin.dao.model.system.SystemDepartment;
 import com.fanyin.service.system.SystemDepartmentService;
 import com.fanyin.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;

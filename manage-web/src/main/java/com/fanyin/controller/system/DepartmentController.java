@@ -2,10 +2,10 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
-import com.fanyin.dto.system.department.DepartmentAddRequest;
-import com.fanyin.dto.system.department.DepartmentEditRequest;
-import com.fanyin.ext.RespBody;
-import com.fanyin.model.system.SystemDepartment;
+import com.fanyin.model.dto.system.department.DepartmentAddRequest;
+import com.fanyin.model.dto.system.department.DepartmentEditRequest;
+import com.fanyin.model.ext.RespBody;
+import com.fanyin.dao.model.system.SystemDepartment;
 import com.fanyin.service.system.SystemDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

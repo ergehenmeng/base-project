@@ -1,7 +1,7 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
-import com.fanyin.ext.RespBody;
+import com.fanyin.model.ext.RespBody;
 import com.fanyin.utils.IpUtil;
 import com.fanyin.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;

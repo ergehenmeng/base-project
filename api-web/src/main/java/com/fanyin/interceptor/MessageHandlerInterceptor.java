@@ -3,7 +3,7 @@ package com.fanyin.interceptor;
 import com.fanyin.common.constant.HeaderConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.RequestException;
-import com.fanyin.ext.DataMessage;
+import com.fanyin.model.ext.DataMessage;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;

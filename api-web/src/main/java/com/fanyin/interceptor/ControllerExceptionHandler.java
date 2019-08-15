@@ -2,7 +2,7 @@ package com.fanyin.interceptor;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.SystemException;
-import com.fanyin.ext.RespBody;
+import com.fanyin.model.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

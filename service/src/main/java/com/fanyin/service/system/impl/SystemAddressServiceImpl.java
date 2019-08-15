@@ -1,8 +1,8 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.mapper.system.SystemAddressMapper;
-import com.fanyin.model.system.SystemAddress;
+import com.fanyin.dao.mapper.system.SystemAddressMapper;
+import com.fanyin.dao.model.system.SystemAddress;
 import com.fanyin.service.system.SystemAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -5,7 +5,7 @@ import com.fanyin.annotation.Mark;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.controller.AbstractController;
-import com.fanyin.model.system.SystemOperationLog;
+import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.OperationLogTask;
 import com.fanyin.service.system.impl.SystemConfigApi;

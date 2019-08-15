@@ -24,7 +24,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -144,7 +143,7 @@ public class HttpClientUtil {
      * @return 结果,如果还有特殊字符会进行转义或编码
      */
     private static String formatParams(Map<String,String> params){
-        if (!CollectionUtils.isEmpty(params)){
+        if (params != null && !params.isEmpty()){
             List<NameValuePair> valuePairs = Lists.newArrayList();
             for (Map.Entry<String,String> entry : params.entrySet()){
                 valuePairs.add(new BasicNameValuePair(entry.getKey(),entry.getValue()));
@@ -202,7 +201,7 @@ public class HttpClientUtil {
      * @return 结果
      */
     private static Header[] formatHeaders(Map<String,String> headers){
-        if(!CollectionUtils.isEmpty(headers)){
+        if(headers != null && !headers.isEmpty()){
             List<Header> list = Lists.newArrayList();
             for (Map.Entry<String,String> entry : headers.entrySet()){
                 list.add(new BasicHeader(entry.getKey(),entry.getValue()));

@@ -1,6 +1,6 @@
 package com.fanyin.utils;
 
-import com.fanyin.ext.Paging;
+import com.fanyin.model.ext.Paging;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;

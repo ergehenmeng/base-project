@@ -3,7 +3,7 @@ package com.fanyin.controller;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.ext.DataMessage;
+import com.fanyin.model.ext.DataMessage;
 import com.fanyin.interceptor.MessageHandlerInterceptor;
 
 /**

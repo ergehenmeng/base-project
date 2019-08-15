@@ -1,6 +1,6 @@
 package com.fanyin.service.cache.impl;
 
-import com.fanyin.model.system.SystemCache;
+import com.fanyin.dao.model.system.SystemCache;
 
 import java.util.List;
 

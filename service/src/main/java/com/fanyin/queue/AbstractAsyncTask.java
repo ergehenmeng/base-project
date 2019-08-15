@@ -2,8 +2,8 @@ package com.fanyin.queue;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.ext.Async;
-import com.fanyin.ext.Key;
+import com.fanyin.model.ext.Async;
+import com.fanyin.model.ext.Key;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;

@@ -1,11 +1,11 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.dto.system.role.RoleAddRequest;
-import com.fanyin.dto.system.role.RoleEditRequest;
-import com.fanyin.dto.system.role.RoleQueryRequest;
-import com.fanyin.mapper.system.SystemOperatorRoleMapper;
-import com.fanyin.mapper.system.SystemRoleMapper;
-import com.fanyin.model.system.SystemRole;
+import com.fanyin.model.dto.system.role.RoleAddRequest;
+import com.fanyin.model.dto.system.role.RoleEditRequest;
+import com.fanyin.model.dto.system.role.RoleQueryRequest;
+import com.fanyin.dao.mapper.system.SystemOperatorRoleMapper;
+import com.fanyin.dao.mapper.system.SystemRoleMapper;
+import com.fanyin.dao.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;

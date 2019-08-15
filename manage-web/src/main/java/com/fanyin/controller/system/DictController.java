@@ -2,12 +2,12 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
-import com.fanyin.dto.system.dict.DictAddRequest;
-import com.fanyin.dto.system.dict.DictEditRequest;
-import com.fanyin.dto.system.dict.DictQueryRequest;
-import com.fanyin.ext.Paging;
-import com.fanyin.ext.RespBody;
-import com.fanyin.model.system.SystemDict;
+import com.fanyin.model.dto.system.dict.DictAddRequest;
+import com.fanyin.model.dto.system.dict.DictEditRequest;
+import com.fanyin.model.dto.system.dict.DictQueryRequest;
+import com.fanyin.model.ext.Paging;
+import com.fanyin.model.ext.RespBody;
+import com.fanyin.dao.model.system.SystemDict;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

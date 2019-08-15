@@ -1,6 +1,6 @@
 package com.fanyin.configuration.security;
 
-import com.fanyin.ext.RespBody;
+import com.fanyin.model.ext.RespBody;
 import com.fanyin.utils.WebUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;

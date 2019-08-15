@@ -2,8 +2,8 @@ package com.fanyin.service.cache.impl;
 
 import com.fanyin.common.constant.RedisConstant;
 import com.fanyin.common.utils.DateUtil;
-import com.fanyin.mapper.system.SystemCacheMapper;
-import com.fanyin.model.system.SystemCache;
+import com.fanyin.dao.mapper.system.SystemCacheMapper;
+import com.fanyin.dao.model.system.SystemCache;
 import com.fanyin.service.cache.ClearCacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

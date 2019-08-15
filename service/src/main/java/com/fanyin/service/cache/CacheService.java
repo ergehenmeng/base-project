@@ -1,6 +1,6 @@
 package com.fanyin.service.cache;
 
-import com.fanyin.ext.Async;
+import com.fanyin.model.ext.Async;
 
 
 /**

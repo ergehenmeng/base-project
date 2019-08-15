@@ -1,9 +1,9 @@
 package com.fanyin.service.common;
 
-import com.fanyin.dto.common.image.ImageAddRequest;
-import com.fanyin.dto.common.image.ImageEditRequest;
-import com.fanyin.dto.common.image.ImageQueryRequest;
-import com.fanyin.model.common.ImageLog;
+import com.fanyin.model.dto.common.image.ImageAddRequest;
+import com.fanyin.model.dto.common.image.ImageEditRequest;
+import com.fanyin.model.dto.common.image.ImageQueryRequest;
+import com.fanyin.dao.model.common.ImageLog;
 import com.github.pagehelper.PageInfo;
 
 /**

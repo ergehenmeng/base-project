@@ -4,7 +4,7 @@ import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
-import com.fanyin.model.system.SystemMenu;
+import com.fanyin.dao.model.system.SystemMenu;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;

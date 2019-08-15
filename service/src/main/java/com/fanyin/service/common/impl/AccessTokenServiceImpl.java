@@ -5,7 +5,7 @@ import com.fanyin.common.constant.RedisConstant;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.constants.ConfigConstant;
-import com.fanyin.ext.AccessToken;
+import com.fanyin.model.ext.AccessToken;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.common.AccessTokenService;
 import com.fanyin.service.system.impl.SystemConfigApi;

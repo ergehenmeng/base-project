@@ -20,7 +20,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = {"com.fanyin.filter","com.fanyin.listener"})
-@MapperScan(basePackages = "com.fanyin.mapper")
+@MapperScan(basePackages = "com.fanyin.dao.mapper")
 public class ManageApplication {
 
     public static void main(String[] args) {

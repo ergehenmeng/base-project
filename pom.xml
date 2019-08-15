@@ -11,12 +11,12 @@
 
 
     <modules>
-        <module>manage-web</module>
-        <module>api-web</module>
-        <module>service</module>
+        <module>model</module>
         <module>common</module>
         <module>dao</module>
-        <module>model</module>
+        <module>service</module>
+        <module>api-web</module>
+        <module>manage-web</module>
     </modules>
 
     <parent>
@@ -217,28 +217,22 @@
                 <artifactId>cglib</artifactId>
                 <version>${cglib.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
-    <!--子modules可直接使用该依赖来-->
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-    </dependencies>
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java.jdk.version}</source>
-                    <target>${java.jdk.version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${java.jdk.version}</source>
+                        <target>${java.jdk.version}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>

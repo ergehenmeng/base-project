@@ -1,6 +1,6 @@
 package com.fanyin.queue.task;
 
-import com.fanyin.model.system.SystemOperationLog;
+import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.queue.AbstractTask;
 import com.fanyin.service.system.OperationLogService;
 import com.fanyin.utils.SpringContextUtil;

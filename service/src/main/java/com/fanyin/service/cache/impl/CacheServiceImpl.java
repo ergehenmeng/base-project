@@ -1,7 +1,7 @@
 package com.fanyin.service.cache.impl;
 
 import com.fanyin.common.constant.RedisConstant;
-import com.fanyin.ext.Async;
+import com.fanyin.model.ext.Async;
 import com.fanyin.service.cache.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CachePut;

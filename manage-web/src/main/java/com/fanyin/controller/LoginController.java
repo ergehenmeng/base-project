@@ -1,7 +1,7 @@
 package com.fanyin.controller;
 
 import com.fanyin.common.enums.MenuClassify;
-import com.fanyin.model.system.SystemOperator;
+import com.fanyin.dao.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

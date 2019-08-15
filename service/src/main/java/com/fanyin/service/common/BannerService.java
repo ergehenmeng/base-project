@@ -1,7 +1,7 @@
 package com.fanyin.service.common;
 
 import com.fanyin.common.enums.Channel;
-import com.fanyin.model.common.Banner;
+import com.fanyin.dao.model.common.Banner;
 
 import java.util.List;
 

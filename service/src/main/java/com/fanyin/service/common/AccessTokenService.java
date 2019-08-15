@@ -1,6 +1,6 @@
 package com.fanyin.service.common;
 
-import com.fanyin.ext.AccessToken;
+import com.fanyin.model.ext.AccessToken;
 
 /**
  * 会话令牌service

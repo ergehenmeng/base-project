@@ -2,8 +2,8 @@ package com.fanyin.service.common.impl;
 
 import com.fanyin.common.enums.Channel;
 import com.fanyin.common.enums.SourceClassify;
-import com.fanyin.mapper.common.BannerMapper;
-import com.fanyin.model.common.Banner;
+import com.fanyin.dao.mapper.common.BannerMapper;
+import com.fanyin.dao.model.common.Banner;
 import com.fanyin.service.common.BannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.ParameterException;
 import com.fanyin.common.utils.DateUtil;
-import com.fanyin.model.system.SystemConfig;
+import com.fanyin.dao.model.system.SystemConfig;
 import com.fanyin.service.system.SystemConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;

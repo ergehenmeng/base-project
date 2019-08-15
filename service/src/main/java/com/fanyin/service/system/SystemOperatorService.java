@@ -1,10 +1,10 @@
 package com.fanyin.service.system;
 
-import com.fanyin.dto.system.operator.OperatorAddRequest;
-import com.fanyin.dto.system.operator.OperatorEditRequest;
-import com.fanyin.dto.system.operator.OperatorQueryRequest;
-import com.fanyin.dto.system.operator.PasswordEditRequest;
-import com.fanyin.model.system.SystemOperator;
+import com.fanyin.model.dto.system.operator.OperatorAddRequest;
+import com.fanyin.model.dto.system.operator.OperatorEditRequest;
+import com.fanyin.model.dto.system.operator.OperatorQueryRequest;
+import com.fanyin.model.dto.system.operator.PasswordEditRequest;
+import com.fanyin.dao.model.system.SystemOperator;
 import com.github.pagehelper.PageInfo;
 
 /**

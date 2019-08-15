@@ -1,8 +1,8 @@
 package com.fanyin.service.system;
 
-import com.fanyin.dto.system.department.DepartmentAddRequest;
-import com.fanyin.dto.system.department.DepartmentEditRequest;
-import com.fanyin.model.system.SystemDepartment;
+import com.fanyin.model.dto.system.department.DepartmentAddRequest;
+import com.fanyin.model.dto.system.department.DepartmentEditRequest;
+import com.fanyin.dao.model.system.SystemDepartment;
 
 import java.util.List;
 

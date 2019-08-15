@@ -1,8 +1,8 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.dto.system.log.OperationQueryRequest;
-import com.fanyin.mapper.system.SystemOperationLogMapper;
-import com.fanyin.model.system.SystemOperationLog;
+import com.fanyin.model.dto.system.log.OperationQueryRequest;
+import com.fanyin.dao.mapper.system.SystemOperationLogMapper;
+import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.service.system.OperationLogService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

@@ -1,7 +1,7 @@
 package com.fanyin.configuration.security;
 
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.model.system.SystemMenu;
+import com.fanyin.dao.model.system.SystemMenu;
 import com.fanyin.service.system.SystemMenuService;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;

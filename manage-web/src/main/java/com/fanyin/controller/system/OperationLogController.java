@@ -2,9 +2,9 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
-import com.fanyin.dto.system.log.OperationQueryRequest;
-import com.fanyin.ext.Paging;
-import com.fanyin.model.system.SystemOperationLog;
+import com.fanyin.model.dto.system.log.OperationQueryRequest;
+import com.fanyin.model.ext.Paging;
+import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.service.system.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

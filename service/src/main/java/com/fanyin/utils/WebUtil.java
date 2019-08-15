@@ -1,7 +1,7 @@
 package com.fanyin.utils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fanyin.ext.RespBody;
+import com.fanyin.model.ext.RespBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
