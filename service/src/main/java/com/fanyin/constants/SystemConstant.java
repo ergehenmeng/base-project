@@ -7,16 +7,6 @@ package com.fanyin.constants;
 public class SystemConstant {
 
     /**
-     * 投资人类型 0
-     */
-    public static final byte INVESTOR = 0;
-
-    /**
-     * 借款人类型 1
-     */
-    public static final byte BORROWER = 1;
-
-    /**
      * 全局字符集 utf-8
      */
     public static final String CHARSET = "UTF-8";

@@ -8,17 +8,8 @@ package com.fanyin.constants;
 public class TaskConstant {
 
     /**
-     * 积分奖励线程名称
-     */
-    public static final String POINT_AWARD_THREAD = "Thread-积分奖励";
-
-    /**
-     * 投标线程名称
-     */
-    public static final String TENDER_THREAD = "Thread-投标";
-
-    /**
      * 操作日志
      */
     public static final String OPERATION_THREAD = "Thread-操作日志";
+
 }
