@@ -161,7 +161,7 @@
 
     <select id="getByNid" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from system_config WHERE nid = #{nid}
+        from system_config WHERE nid = #{nid} limit 1
     </select>
     
     <update id="updateConfig" parameterType="com.fanyin.model.dto.system.config.ConfigEditRequest">
