@@ -4,7 +4,7 @@ package com.fanyin.configuration.security;
 import com.fanyin.common.utils.Sha256Util;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/7/10 15:27
  */
 public class Sha256PasswordEncoder implements PasswordEncoder {

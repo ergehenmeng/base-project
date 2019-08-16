@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * html模板渲染 默认实现freemarker,可使用thymeleaf实现
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/7/10 15:47
  */
 public interface HtmlTemplate {

@@ -2,7 +2,7 @@ package com.fanyin.configuration.security;
 
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/7/9 15:07
  */
 public interface PasswordEncoder {

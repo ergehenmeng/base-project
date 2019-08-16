@@ -1,7 +1,7 @@
 package com.fanyin.service.common;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/7/10 17:00
  */
 public interface EmailService {

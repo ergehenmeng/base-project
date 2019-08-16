@@ -6,7 +6,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import java.util.regex.Pattern;
 
 /**
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/7/9 15:57
  */
 @Slf4j

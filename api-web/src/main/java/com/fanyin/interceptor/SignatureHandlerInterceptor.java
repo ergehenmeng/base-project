@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 签名验证
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/7/4 14:23
  */
 public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {

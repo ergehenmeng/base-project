@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.dao.mapper.system.SmsLogMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.system.SmsLog">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="classify" jdbcType="VARCHAR" property="classify" />
+    <result column="mobile" jdbcType="CHAR" property="mobile" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, classify, mobile, content, add_time, state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from sms_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.fanyin.dao.model.system.SmsLog">
+    <!--
+      @create by mybatis
+    -->
+    insert into sms_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="classify != null">
+        classify,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SmsLog">
+    <!--
+      @create by mybatis
+    -->
+    update sms_log
+    <set>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

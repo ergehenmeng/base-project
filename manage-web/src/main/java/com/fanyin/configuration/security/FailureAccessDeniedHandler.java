@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  * 访问权限不足处理器(用于前后端分离时,返回前台json)
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/7/10 14:33
  */
 @Slf4j

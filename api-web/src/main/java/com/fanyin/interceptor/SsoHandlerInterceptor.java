@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 单客户单登陆
- * @author 王艳兵
+ * @author 二哥很猛
  * @date 2019/8/13 13:54
  */
 public class SsoHandlerInterceptor extends HandlerInterceptorAdapter {
