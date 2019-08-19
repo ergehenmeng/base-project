@@ -1,6 +1,9 @@
 package com.fanyin.model.ext;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +13,9 @@ import java.io.Serializable;
  * @date 2018/8/15 13:56
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DataMessage implements Serializable {
 
     private static final long serialVersionUID = 1588228430420375286L;
@@ -22,7 +28,7 @@ public class DataMessage implements Serializable {
     /**
      * 客户端类型 ANDROID,IOS,PC,H5
      */
-    private String requestType;
+    private String channel;
 
     /**
      * 客户端平台版本号 ios: 10.4.1,android:8.1.0
@@ -44,10 +50,5 @@ public class DataMessage implements Serializable {
      */
     private Integer userId;
 
-    public DataMessage(String version, String requestType, String osVersion) {
-        this.version = version;
-        this.requestType = requestType;
-        this.osVersion = osVersion;
-    }
 
 }

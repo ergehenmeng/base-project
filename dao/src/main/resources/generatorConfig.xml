@@ -20,7 +20,7 @@
             
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
             connectionURL="jdbc:mysql://127.0.0.1:3306/project?tinyInt1isBit=false&amp;useSSL=true&amp;serverTimezone=UTC&amp;nullCatalogMeansCurrent=true" userId="root" password="root">
         </jdbcConnection>
         
@@ -30,13 +30,13 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包位置 -->
-        <javaModelGenerator targetPackage="com.fanyin.dao.model.system"
+        <javaModelGenerator targetPackage="com.fanyin.dao.model.user"
             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成mapper.xml文件位置 -->
-        <sqlMapGenerator targetPackage="mapper.system"
+        <sqlMapGenerator targetPackage="mapper.user"
             targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"  />
 
@@ -44,12 +44,12 @@
         
         <!-- 生成mapper的接口位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.fanyin.dao.mapper.system" targetProject="src/main/java">
+                             targetPackage="com.fanyin.dao.mapper.user" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="sms_log" domainObjectName="SmsLog"
+        <table tableName="user" domainObjectName="User"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" enableDeleteByPrimaryKey="false"

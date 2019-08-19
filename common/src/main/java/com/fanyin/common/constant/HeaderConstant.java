@@ -8,9 +8,9 @@ package com.fanyin.common.constant;
 public class HeaderConstant {
 
     /**
-     * 请求类型
+     * 请求渠道
      */
-    public static final String REQUEST_TYPE = "Request-Type";
+    public static final String CHANNEL = "Channel";
 
     /**
      * accessKey

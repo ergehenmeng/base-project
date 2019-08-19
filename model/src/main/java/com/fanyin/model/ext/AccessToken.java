@@ -38,5 +38,5 @@ public class AccessToken implements Serializable {
     /**
      * 登陆来源 ANDROID IOS
      */
-    private String requestType;
+    private String channel;
 }

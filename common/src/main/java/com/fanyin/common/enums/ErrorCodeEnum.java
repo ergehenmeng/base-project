@@ -256,6 +256,16 @@ public enum ErrorCodeEnum {
      */
     MULTIPLE_CLIENT_LOGIN(3016,"用户已在其他设备上登陆"),
 
+    /**
+     * 账号或密码错误
+     */
+    USER_NOT_FOUND(3017,"账号或密码错误"),
+
+    /**
+     * 账号或密码错误
+     */
+    PASSWORD_ERROR(3018,"账号或密码错误"),
+
    ;
     /**
      * 构造方法

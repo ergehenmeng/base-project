@@ -36,4 +36,9 @@ public class ConfigConstant {
      * 是否开启单客户端登陆
      */
     public static final String SSO_OPEN = "sso_open";
+
+    /**
+     * 昵称前缀
+     */
+    public static final String NICK_NAME_PREFIX = "nick_name_prefix";
 }

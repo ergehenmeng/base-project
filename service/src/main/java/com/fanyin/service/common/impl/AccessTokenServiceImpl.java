@@ -5,6 +5,7 @@ import com.fanyin.common.constant.RedisConstant;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.constants.ConfigConstant;
+import com.fanyin.dao.model.user.User;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.common.AccessTokenService;
@@ -56,10 +57,10 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
 
     @Override
-    public AccessToken createAccessToken(int userId, String requestType) {
-        String accessKey = passwordEncoder.encode(userId + requestType + StringUtil.random(16));
-        String accessToken = passwordEncoder.encode(userId + accessKey);
-        AccessToken token = AccessToken.builder().accessKey(accessKey).accessToken(accessToken).userId(userId).requestType(requestType).build();
+    public AccessToken createAccessToken(User user,String channel) {
+        String accessKey = passwordEncoder.encode(user.getId() + channel + StringUtil.random(16));
+        String accessToken = passwordEncoder.encode(user.getId() + accessKey);
+        AccessToken token = AccessToken.builder().accessKey(accessKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
         this.saveByAccessKey(token);
         this.saveByUserId(token);
         return token;

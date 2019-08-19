@@ -32,8 +32,8 @@ public class AbstractController {
      * 前后端分离方式:获取访问来源
      * @return android ios h5 pc
      */
-    protected String getRequestType(){
-        return this.getMessage().getRequestType();
+    protected String getChannel(){
+        return this.getMessage().getChannel();
     }
 
     /**

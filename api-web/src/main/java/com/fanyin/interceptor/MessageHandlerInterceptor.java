@@ -29,17 +29,17 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //app请求头信息
-        String requestType = request.getHeader(HeaderConstant.REQUEST_TYPE);
+        String channel = request.getHeader(HeaderConstant.CHANNEL);
         String version = request.getHeader(HeaderConstant.VERSION);
         String osVersion = request.getHeader(HeaderConstant.OS_VERSION);
 
-        if(checkHeaderLength(requestType)
+        if(checkHeaderLength(channel)
                 || checkHeaderLength(version)
                 || checkHeaderLength(osVersion)){
             //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
-        DataMessage message = new DataMessage(version,requestType,osVersion);
+        DataMessage message = DataMessage.builder().version(version).channel(channel).osVersion(osVersion).build();
         TOKEN_LOCAL.set(message);
         return true;
     }

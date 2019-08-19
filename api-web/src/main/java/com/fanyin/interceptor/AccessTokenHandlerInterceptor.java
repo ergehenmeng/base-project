@@ -34,8 +34,8 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
         DataMessage message = MessageHandlerInterceptor.getMessage();
 
         //访问来源
-        if(!requestType(handler,message.getRequestType())){
-            log.error("请求接口非法,requestType:[{}]",message.getRequestType());
+        if(!this.requestChannel(handler,message.getChannel())){
+            log.error("请求接口非法,channel:[{}]",message.getChannel());
             throw new RequestException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
         }
         //登陆
@@ -60,7 +60,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
             throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
         AccessToken token = accessTokenService.getByAccessKey(accessKey);
-        if (token == null || !accessToken.equals(token.getAccessToken()) || !token.getRequestType().equals(message.getRequestType())){
+        if (token == null || !accessToken.equals(token.getAccessToken()) || !token.getChannel().equals(message.getChannel())){
             log.error("令牌无效,accessKey:[{}]",accessKey);
             throw new RequestException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
         }
@@ -89,14 +89,14 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
     /**
      * 请求类型判断
      * @param handler 处理器
-     * @param requestType 请求类型 header传递过来
+     * @param channel 请求类型 header传递过来
      * @return 是否为合法请求
      */
-    private boolean requestType(Object handler,String requestType){
+    private boolean requestChannel(Object handler,String channel){
         Access accessToken = this.getAccessAnnotation(handler);
         if(accessToken != null){
             Channel[] value = accessToken.value();
-            return Lists.newArrayList(value).stream().anyMatch(source -> source.name().equals(requestType));
+            return Lists.newArrayList(value).stream().anyMatch(source -> source.name().equals(channel));
         }
         return true;
     }
