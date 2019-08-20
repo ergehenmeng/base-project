@@ -1,7 +1,7 @@
 package com.fanyin.service.user.impl;
 
 import com.fanyin.common.constant.CacheConstant;
-import com.fanyin.common.constant.SmsConstant;
+import com.fanyin.common.constant.SmsTypeConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.RegExpUtil;
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AccessToken smsLogin(UserSmsLogin login) {
-        String smsCode = smsService.getSmsCode(SmsConstant.LOGIN_SMS, login.getMobile());
+        String smsCode = smsService.getSmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile());
         if(smsCode == null){
             throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_EXPIRE);
         }

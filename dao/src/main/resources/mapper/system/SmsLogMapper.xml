@@ -98,4 +98,18 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <select id="countSms" resultType="int">
+        select count(1) from sms_log
+        where mobile = #{mobile}
+        <if test="classify != null">
+            and classify = #{classify}
+        </if>
+        <if test="startTime != null">
+            and add_time &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and add_time &lt; #{endTime}
+        </if>
+    </select>
 </mapper>

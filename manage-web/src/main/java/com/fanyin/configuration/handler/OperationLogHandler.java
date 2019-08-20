@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 @Aspect
-@Slf4j
+@Slf4j(topic = "request_response")
 public class OperationLogHandler {
 
 
@@ -49,41 +49,44 @@ public class OperationLogHandler {
      */
     @Around("@annotation(mark) && within(com.fanyin.controller..*)")
     public Object around(ProceedingJoinPoint joinPoint,Mark mark)throws Throwable{
+
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if(requestAttributes == null){
+            return joinPoint.proceed();
+        }
+        HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+        SecurityOperator operator = AbstractController.getOperator();
+        if(operator == null){
+            log.warn("操作日志无法查询到登陆用户 url:[{}]",request.getRequestURI());
+            return joinPoint.proceed();
+        }
+        SystemOperationLog sy = new SystemOperationLog();
+
+        sy.setOperatorId(operator.getId());
+        sy.setOperatorName(operator.getOperatorName());
+        sy.setIp(IpUtil.getIpAddress(request));
+
+        if(mark.request()){
+            Object[] args = joinPoint.getArgs();
+            if(args != null && args.length > 0){
+                sy.setRequest(formatRequest(args));
+            }
+        }
+        sy.setUrl(request.getRequestURI());
+        Object proceed = joinPoint.proceed();
+        long end = System.currentTimeMillis();
+        sy.setBusinessTime(end - System.currentTimeMillis());
+        sy.setClassify((byte)mark.value().ordinal());
+        if(mark.response() && proceed != null){
+            sy.setResponse(JSONObject.toJSONString(proceed));
+        }
         boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if(logSwitch){
-            RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-            if(requestAttributes == null){
-                return joinPoint.proceed();
-            }
-            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-            SecurityOperator operator = AbstractController.getOperator();
-            if(operator == null){
-                log.warn("操作日志无法查询到登陆用户 url:[{}]",request.getRequestURI());
-                return joinPoint.proceed();
-            }
-            SystemOperationLog systemOperationLog = new SystemOperationLog();
-
-            systemOperationLog.setOperatorId(operator.getId());
-            systemOperationLog.setIp(IpUtil.getIpAddress(request));
-
-            if(mark.request()){
-                Object[] args = joinPoint.getArgs();
-                if(args != null && args.length > 0){
-                    systemOperationLog.setRequest(formatRequest(args));
-                }
-            }
-            systemOperationLog.setUrl(request.getRequestURI());
-            Object proceed = joinPoint.proceed();
-            long end = System.currentTimeMillis();
-            systemOperationLog.setBusinessTime(end - System.currentTimeMillis());
-            systemOperationLog.setClassify((byte)mark.value().ordinal());
-            if(mark.response() && proceed != null){
-                systemOperationLog.setResponse(JSONObject.toJSONString(proceed));
-            }
-            TaskQueue.executeOperation(new OperationLogTask(systemOperationLog));
-            return proceed;
+            TaskQueue.executeOperation(new OperationLogTask(sy));
+        }else{
+            log.debug("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]",sy.getUrl(),sy.getRequest(),sy.getResponse(),sy.getIp(),sy.getOperatorId(),sy.getBusinessTime());
         }
-        return joinPoint.proceed();
+        return proceed;
     }
 
 

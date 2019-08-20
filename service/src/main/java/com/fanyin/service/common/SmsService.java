@@ -11,7 +11,7 @@ public interface SmsService {
      * @param smsType 短信验证码类型
      * @param mobile 手机号
      */
-    void sendSms(String smsType,String mobile);
+    void sendSmsCode(String smsType, String mobile);
 
     /**
      * 获取短信验证码

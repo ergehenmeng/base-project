@@ -5,7 +5,7 @@ package com.fanyin.common.constant;
  * @author 二哥很猛
  * @date 2019/8/20 9:58
  */
-public class SmsConstant {
+public class SmsTypeConstant {
 
     /**
      * 短信登陆

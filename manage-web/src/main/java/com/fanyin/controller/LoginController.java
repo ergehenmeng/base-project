@@ -38,13 +38,9 @@ public class LoginController extends AbstractController {
     public String home(Model model){
         SystemOperator operator = getRequiredOperator();
         //导航菜单
-        if (operator.getLeftMenu() == null){
-            operator.setLeftMenu(systemMenuService.getMenuList(operator.getId()));
-        }
+        operator.setLeftMenu(systemMenuService.getMenuList(operator.getId()));
         //按钮菜单
-        if(operator.getButtonMenu() == null){
-            operator.setButtonMenu(systemMenuService.getMenuList(operator.getId(), MenuClassify.BUTTON));
-        }
+        operator.setButtonMenu(systemMenuService.getMenuList(operator.getId(), MenuClassify.BUTTON));
         model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit",operator.getPwd().equals(operator.getInitPwd()));
         return "home";

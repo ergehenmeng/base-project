@@ -6,6 +6,8 @@ import com.fanyin.service.system.SmsLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/16 18:47
@@ -21,5 +23,8 @@ public class SmsLogServiceImpl implements SmsLogService {
         smsLogMapper.insertSelective(smsLog);
     }
 
-
+    @Override
+    public int countSms(String smsType, String mobile, Date startTime, Date endTime) {
+        return 0;
+    }
 }

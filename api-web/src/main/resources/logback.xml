@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback http://ch.qos.logback/xml/ns/logback/logback.xsd"
     scan="true" debug="false" scanPeriod="6000">
     <!--键值对常量,其他地方可以引用-->
-    <property name="appName" value="p2p-web-front"/>
+    <property name="appName" value="web-front"/>
     <!--上下文名称-->
     <contextName>${appName}</contextName>
     <!--当前时间戳字符串 其他地方可以引用-->
@@ -25,8 +25,8 @@
         </encoder>
     </appender>
 
-    <!-- 每天生成一个文件,保存30天的日志文件 -->
-    <appender name="rolling_info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 普通日志 -->
+    <appender name="info_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>D:\\info.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -36,7 +36,18 @@
         </encoder>
     </appender>
 
-    <appender name="rolling_error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!-- 出入参日志 -->
+    <appender name="param_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:\\info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${console_log_pattern}</pattern>
+        </encoder>
+    </appender>
+    <!--错误日志-->
+    <appender name="error_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>D:\\error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -51,19 +62,22 @@
         </filter>
     </appender>
 
-
     <root level="info">
-        <appender-ref ref="rolling_info_file"/>
-        <appender-ref ref="rolling_error_file"/>
+        <appender-ref ref="info_rolling_file"/>
+        <appender-ref ref="error_rolling_file"/>
         <appender-ref ref="console"/>
     </root>
 
-    <logger name="com.fanyin" additivity="false" level="debug">
+    <logger name="com.fanyin" additivity="false" level="info">
         <appender-ref ref="console"/>
-        <appender-ref ref="rolling_info_file"/>
+        <appender-ref ref="info_rolling_file"/>
     </logger>
-    
-    <logger name="org.springframework.boot" additivity="false" level="info">
+
+    <logger name="request_response" level="debug">
+        <appender-ref ref="param_rolling_file"/>
+    </logger>
+
+    <logger name="org.springframework.boot" additivity="false" level="warn">
         <appender-ref ref="console"/>
     </logger>
 
@@ -71,6 +85,6 @@
     <logger name="jdbc.resultset" level="info"/>
     <logger name="jdbc.sqltiming" level="info"/>
     <logger name="jdbc.connection" level="info"/>
-    <logger name="org.springframework" level="info"/>
+    <logger name="org.springframework" level="warn"/>
 
 </configuration>
