@@ -2,8 +2,10 @@ package com.fanyin.controller;
 
 import com.fanyin.model.dto.login.SendSmsCode;
 import com.fanyin.model.ext.RespBody;
+import com.fanyin.service.common.SmsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "登陆,找回密码功能")
 public class LoginController extends AbstractController{
 
+    @Autowired
+    private SmsService smsService;
 
     /**
      * 登陆发送短信验证码

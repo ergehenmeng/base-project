@@ -6,8 +6,8 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="cache_name" jdbcType="VARCHAR" property="cacheName" />
+    <result column="title" jdbcType="CHAR" property="title" />
+    <result column="cache_name" jdbcType="CHAR" property="cacheName" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -58,10 +58,10 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="title != null">
-        #{title,jdbcType=VARCHAR},
+        #{title,jdbcType=CHAR},
       </if>
       <if test="cacheName != null">
-        #{cacheName,jdbcType=VARCHAR},
+        #{cacheName,jdbcType=CHAR},
       </if>
       <if test="state != null">
         #{state,jdbcType=TINYINT},
@@ -81,10 +81,10 @@
     update system_cache
     <set>
       <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+        title = #{title,jdbcType=CHAR},
       </if>
       <if test="cacheName != null">
-        cache_name = #{cacheName,jdbcType=VARCHAR},
+        cache_name = #{cacheName,jdbcType=CHAR},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=TINYINT},

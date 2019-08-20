@@ -1,0 +1,1 @@
+* `swagger`访问地址`http://host:ip/swagger/index.html`

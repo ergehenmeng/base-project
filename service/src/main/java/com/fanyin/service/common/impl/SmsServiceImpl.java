@@ -20,6 +20,11 @@ public class SmsServiceImpl implements SmsService {
     private SmsLogService smsLogService;
 
     @Override
+    public void sendSms(String smsType, String mobile) {
+
+    }
+
+    @Override
     public String getSmsCode(String smsType, String mobile) {
         Object value = cacheService.getValue(smsType + mobile);
         if(value != null){

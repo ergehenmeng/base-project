@@ -7,6 +7,13 @@ package com.fanyin.service.common;
 public interface SmsService {
 
     /**
+     * 发送短信验证码
+     * @param smsType 短信验证码类型
+     * @param mobile 手机号
+     */
+    void sendSms(String smsType,String mobile);
+
+    /**
      * 获取短信验证码
      * @param smsType 验证码类型
      * @param mobile 手机号码

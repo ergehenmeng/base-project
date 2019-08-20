@@ -6,12 +6,12 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="operator_name" jdbcType="CHAR" property="operatorName" />
+    <result column="mobile" jdbcType="CHAR" property="mobile" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="init_pwd" jdbcType="VARCHAR" property="initPwd" />
-    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="department" jdbcType="CHAR" property="department" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -82,10 +82,10 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="operatorName != null">
-        #{operatorName,jdbcType=VARCHAR},
+        #{operatorName,jdbcType=CHAR},
       </if>
       <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
+        #{mobile,jdbcType=CHAR},
       </if>
       <if test="state != null">
         #{state,jdbcType=TINYINT},
@@ -97,7 +97,7 @@
         #{initPwd,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
-        #{department,jdbcType=VARCHAR},
+        #{department,jdbcType=CHAR},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -120,10 +120,10 @@
     update system_operator
     <set>
       <if test="operatorName != null">
-          operator_name = #{operatorName,jdbcType=VARCHAR},
+          operator_name = #{operatorName,jdbcType=CHAR},
       </if>
       <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
+        mobile = #{mobile,jdbcType=CHAR},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=TINYINT},
@@ -135,7 +135,7 @@
         init_pwd = #{initPwd,jdbcType=VARCHAR},
       </if>
       <if test="department != null">
-        department = #{department,jdbcType=VARCHAR},
+        department = #{department,jdbcType=CHAR},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},

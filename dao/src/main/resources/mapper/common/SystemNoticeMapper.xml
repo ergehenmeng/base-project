@@ -6,7 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="title" jdbcType="CHAR" property="title" />
     <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -93,7 +93,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="title != null">
-        #{title,jdbcType=VARCHAR},
+        #{title,jdbcType=CHAR},
       </if>
       <if test="classify != null">
         #{classify,jdbcType=TINYINT},
@@ -119,7 +119,7 @@
     update system_notice
     <set>
       <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+        title = #{title,jdbcType=CHAR},
       </if>
       <if test="classify != null">
           classify = #{classify,jdbcType=TINYINT},

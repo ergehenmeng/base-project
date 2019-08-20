@@ -6,14 +6,14 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="parent_code" jdbcType="VARCHAR" property="parentCode" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="parent_code" jdbcType="CHAR" property="parentCode" />
+    <result column="code" jdbcType="CHAR" property="code" />
+    <result column="title" jdbcType="CHAR" property="title" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="operator_name" jdbcType="VARCHAR" property="operatorName" />
+    <result column="operator_name" jdbcType="CHAR" property="operatorName" />
     <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
   </resultMap>
   <sql id="BaseColumnList">
@@ -74,13 +74,13 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="parentCode != null">
-        #{parentCode,jdbcType=VARCHAR},
+        #{parentCode,jdbcType=CHAR},
       </if>
       <if test="code != null">
-        #{code,jdbcType=VARCHAR},
+        #{code,jdbcType=CHAR},
       </if>
       <if test="title != null">
-        #{title,jdbcType=VARCHAR},
+        #{title,jdbcType=CHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -109,13 +109,13 @@
     update system_department
     <set>
       <if test="parentCode != null">
-        parent_code = #{parentCode,jdbcType=VARCHAR},
+        parent_code = #{parentCode,jdbcType=CHAR},
       </if>
       <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
+        code = #{code,jdbcType=CHAR},
       </if>
       <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
+        title = #{title,jdbcType=CHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
