@@ -7,13 +7,11 @@ import com.fanyin.configuration.template.HtmlTemplate;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
-import com.google.common.collect.Maps;
 import org.springframework.context.annotation.Bean;
-import org.springframework.jmx.export.MBeanExporter;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -47,6 +45,10 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         return captcha;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/swagger/dist/");
+    }
 
     /**
      * url中如果包含 "." 默认情况下后面的会被截取,将参数设置为false则会全部匹配

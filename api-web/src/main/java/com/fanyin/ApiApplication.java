@@ -1,6 +1,7 @@
 package com.fanyin;
 
 import com.fanyin.utils.SpringContextUtil;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +18,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableAspectJAutoProxy
+@MapperScan("com.fanyin.dao.mapper")
 public class ApiApplication {
 
     public static void main(String[] args) {

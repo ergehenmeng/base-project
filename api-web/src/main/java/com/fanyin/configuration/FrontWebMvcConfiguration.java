@@ -21,13 +21,14 @@ import java.util.List;
 @Configuration
 public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
+    private static final String[] EXCLUDE_URL = {"/swagger/**"};
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(signatureHandlerInterceptor()).order(Integer.MIN_VALUE + 1);
-        registry.addInterceptor(messageHandlerInterceptor()).order(Integer.MIN_VALUE + 2);
-        registry.addInterceptor(accessTokenHandlerInterceptor()).order(Integer.MIN_VALUE + 3);
-        registry.addInterceptor(ssoHandlerInterceptor()).order(Integer.MIN_VALUE + 4);
+        registry.addInterceptor(signatureHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 1);
+        registry.addInterceptor(messageHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 2);
+        registry.addInterceptor(accessTokenHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 3);
+        registry.addInterceptor(ssoHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 4);
     }
 
     @Override

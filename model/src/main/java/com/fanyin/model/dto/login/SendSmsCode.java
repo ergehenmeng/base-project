@@ -1,6 +1,7 @@
 package com.fanyin.model.dto.login;
 
 import com.fanyin.model.validation.annotation.Mobile;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -16,5 +17,6 @@ public class SendSmsCode implements Serializable {
      * 手机号
      */
     @Mobile(required = true)
+    @ApiModelProperty("手机号码")
     private String mobile;
 }
