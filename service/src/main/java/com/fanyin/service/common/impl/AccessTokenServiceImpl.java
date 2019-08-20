@@ -1,7 +1,7 @@
 package com.fanyin.service.common.impl;
 
 
-import com.fanyin.common.constant.RedisConstant;
+import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.constants.ConfigConstant;
@@ -33,7 +33,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Override
     public AccessToken getByAccessKey(String accessKey) {
-        Object value = cacheService.getValue(RedisConstant.ACCESS_TOKEN + accessKey);
+        Object value = cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessKey);
         if(value != null){
             return (AccessToken)value;
         }
@@ -47,12 +47,12 @@ public class AccessTokenServiceImpl implements AccessTokenService {
 
     @Override
     public void saveByAccessKey(AccessToken token) {
-        cacheService.cacheValue(RedisConstant.ACCESS_TOKEN + token.getAccessKey(),token,systemConfigApi.getInt(ConfigConstant.TOKEN_EXPIRE));
+        cacheService.cacheValue(CacheConstant.ACCESS_TOKEN + token.getAccessKey(),token,systemConfigApi.getInt(ConfigConstant.TOKEN_EXPIRE));
     }
 
     @Override
     public void saveByUserId(AccessToken token) {
-        cacheService.cacheValue(RedisConstant.ACCESS_TOKEN + token.getUserId(),token,systemConfigApi.getInt(ConfigConstant.TOKEN_EXPIRE));
+        cacheService.cacheValue(CacheConstant.ACCESS_TOKEN + token.getUserId(),token,systemConfigApi.getInt(ConfigConstant.TOKEN_EXPIRE));
     }
 
 

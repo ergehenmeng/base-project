@@ -1,5 +1,7 @@
 package com.fanyin.service.user.impl;
 
+import com.fanyin.common.constant.CacheConstant;
+import com.fanyin.common.constant.SmsConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.RegExpUtil;
@@ -8,15 +10,17 @@ import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.user.UserMapper;
 import com.fanyin.dao.model.user.User;
-import com.fanyin.model.dto.user.UserAccountLogin;
+import com.fanyin.model.dto.login.UserAccountLogin;
 import com.fanyin.model.dto.user.UserRegister;
-import com.fanyin.model.dto.user.UserSmsLogin;
+import com.fanyin.model.dto.login.UserSmsLogin;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.service.common.AccessTokenService;
+import com.fanyin.service.common.SmsService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.service.user.UserService;
 import com.fanyin.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -37,6 +41,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AccessTokenService accessTokenService;
+
+    @Autowired
+    private SmsService smsService;
 
 
     @Override
@@ -78,15 +85,24 @@ public class UserServiceImpl implements UserService {
         if(!passwordEncoder.encode(login.getPwd()).equals(user.getPwd())){
             throw new BusinessException(ErrorCodeEnum.PASSWORD_ERROR);
         }
-
-
-        return null;
+        return accessTokenService.createAccessToken(user, login.getChannel());
     }
 
 
     @Override
     public AccessToken smsLogin(UserSmsLogin login) {
-        return null;
+        String smsCode = smsService.getSmsCode(SmsConstant.LOGIN_SMS, login.getMobile());
+        if(smsCode == null){
+            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_EXPIRE);
+        }
+        if(!smsCode.equals(login.getSmsCode())){
+            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_ERROR);
+        }
+        User user = userMapper.getByMobile(login.getMobile());
+        if(user == null){
+            throw new BusinessException(ErrorCodeEnum.MOBILE_NOT_REGISTER);
+        }
+        return accessTokenService.createAccessToken(user, login.getChannel());
     }
 
     @Override
@@ -97,4 +113,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.getByEmail(account);
     }
 
+    @Override
+    @Cacheable(cacheNames = CacheConstant.USER,key = "#p0",cacheManager = "longCacheManager")
+    public User getById(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 }

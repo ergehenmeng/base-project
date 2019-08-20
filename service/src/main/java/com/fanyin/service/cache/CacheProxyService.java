@@ -1,6 +1,8 @@
 package com.fanyin.service.cache;
 
 
+import com.fanyin.dao.model.user.User;
+
 /**
  * @author 二哥很猛
  * @date 2018/10/11 13:47

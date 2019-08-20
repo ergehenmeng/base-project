@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Data
 public class User implements Serializable {
+
     /**
      * 主键<br>
      * 表 : user<br>

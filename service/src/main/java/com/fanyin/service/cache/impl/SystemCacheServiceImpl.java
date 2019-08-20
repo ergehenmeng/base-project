@@ -1,6 +1,6 @@
 package com.fanyin.service.cache.impl;
 
-import com.fanyin.common.constant.RedisConstant;
+import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.utils.DateUtil;
 import com.fanyin.dao.mapper.system.SystemCacheMapper;
 import com.fanyin.dao.model.system.SystemCache;
@@ -49,16 +49,16 @@ public class SystemCacheServiceImpl implements SystemCacheService {
     private boolean clearCache(String cacheName){
         try {
             switch (cacheName){
-                case RedisConstant.SYSTEM_CONFIG:
+                case CacheConstant.SYSTEM_CONFIG:
                     clearCacheService.clearSystemConfig();
                     break;
-                case RedisConstant.SYSTEM_DICT:
+                case CacheConstant.SYSTEM_DICT:
                     clearCacheService.clearSystemDict();
                     break;
-                case RedisConstant.ACCESS_TOKEN:
+                case CacheConstant.ACCESS_TOKEN:
                     clearCacheService.clearAccessToken();
                     break;
-                case RedisConstant.ASYNC_RESPONSE:
+                case CacheConstant.ASYNC_RESPONSE:
                     clearCacheService.clearAsyncResponse();
                     break;
                 default:

@@ -1,5 +1,6 @@
 package com.fanyin.service.cache.impl;
 
+import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.dao.model.system.SystemCache;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface SystemCacheService {
 
     /**
      * 根据缓存名称清除缓存
-     * 具体查看 {@link com.fanyin.common.constant.RedisConstant}
+     * 具体查看 {@link CacheConstant}
      * @param cacheNames 缓存名称
      */
     void clearCache(List<String> cacheNames);

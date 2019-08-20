@@ -1,6 +1,6 @@
 package com.fanyin.service.cache.impl;
 
-import com.fanyin.common.constant.RedisConstant;
+import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.service.cache.ClearCacheService;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
@@ -15,23 +15,23 @@ public class ClearCacheServiceImpl implements ClearCacheService{
 
 
     @Override
-    @CacheEvict(cacheNames = RedisConstant.SYSTEM_CONFIG,allEntries = true)
+    @CacheEvict(cacheNames = CacheConstant.SYSTEM_CONFIG,allEntries = true)
     public void clearSystemConfig() {
     }
 
 
     @Override
-    @CacheEvict(cacheNames = RedisConstant.SYSTEM_DICT,allEntries = true)
+    @CacheEvict(cacheNames = CacheConstant.SYSTEM_DICT,allEntries = true)
     public void clearSystemDict() {
     }
 
     @Override
-    @CacheEvict(cacheNames = RedisConstant.ACCESS_TOKEN,allEntries = true)
+    @CacheEvict(cacheNames = CacheConstant.ACCESS_TOKEN,allEntries = true)
     public void clearAccessToken() {
     }
 
     @Override
-    @CacheEvict(cacheNames = RedisConstant.ASYNC_RESPONSE,allEntries = true)
+    @CacheEvict(cacheNames = CacheConstant.ASYNC_RESPONSE,allEntries = true)
     public void clearAsyncResponse() {
     }
 }

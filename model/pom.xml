@@ -24,6 +24,10 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
     </dependencies>
 
 

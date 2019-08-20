@@ -1,7 +1,7 @@
 package com.fanyin.service.system.impl;
 
 
-import com.fanyin.common.constant.RedisConstant;
+import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.dto.system.dict.DictAddRequest;
@@ -33,7 +33,7 @@ public class SystemDictServiceImpl implements SystemDictService {
     private SystemDictMapper systemDictMapper;
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.SYSTEM_DICT,key = "#p0")
+    @Cacheable(cacheNames = CacheConstant.SYSTEM_DICT,key = "#p0")
     public List<SystemDict> getDictByNid(String nid) {
         return systemDictMapper.getDictByNid(nid);
     }

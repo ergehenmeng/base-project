@@ -266,7 +266,23 @@ public enum ErrorCodeEnum {
      */
     PASSWORD_ERROR(3018,"账号或密码错误"),
 
-   ;
+    /**
+     * 短信验证码不存在或已过期
+     */
+    LOGIN_SMS_CODE_EXPIRE(3019,"短信验证码错误"),
+
+    /**
+     * 短信验证码错误
+     */
+    LOGIN_SMS_CODE_ERROR(3020,"短信验证码错误"),
+
+    /**
+     * 手机号未注册
+     */
+    MOBILE_NOT_REGISTER(3021,"手机号未注册"),
+
+
+    ;
     /**
      * 构造方法
      * @param code 错误代码

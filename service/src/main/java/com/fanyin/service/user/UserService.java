@@ -1,9 +1,9 @@
 package com.fanyin.service.user;
 
 import com.fanyin.dao.model.user.User;
-import com.fanyin.model.dto.user.UserAccountLogin;
+import com.fanyin.model.dto.login.UserAccountLogin;
 import com.fanyin.model.dto.user.UserRegister;
-import com.fanyin.model.dto.user.UserSmsLogin;
+import com.fanyin.model.dto.login.UserSmsLogin;
 import com.fanyin.model.ext.AccessToken;
 
 /**
@@ -20,14 +20,14 @@ public interface UserService {
     User register(UserRegister register);
 
     /**
-     * 账号登陆
+     * 账号登陆 邮箱或密码登陆
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
     AccessToken accountLogin(UserAccountLogin login);
 
     /**
-     * 短信登陆
+     * 短信验证码+手机号登陆
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
@@ -39,4 +39,12 @@ public interface UserService {
      * @return 用户信息
      */
     User getByAccount(String account);
+
+    /**
+     * 根据主键查询用户信息
+     * @param userId userId
+     * @return 用户基本信息
+     */
+    User getById(Integer userId);
+
 }

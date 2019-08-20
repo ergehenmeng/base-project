@@ -28,9 +28,14 @@ public enum Channel {
     IOS,
 
     /**
-     * 其他或第三方
+     * 微信小程序
      */
-    OTHER;
+    WECHAT,
+
+    /**
+     * 支付宝小程序
+     */
+    ALIPAY,
 
 }
 

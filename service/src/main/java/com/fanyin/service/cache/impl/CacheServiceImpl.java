@@ -1,6 +1,6 @@
 package com.fanyin.service.cache.impl;
 
-import com.fanyin.common.constant.RedisConstant;
+import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.model.ext.Async;
 import com.fanyin.service.cache.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +38,12 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    @CachePut(cacheNames = RedisConstant.ASYNC_RESPONSE,key = "#response.key",cacheManager = "smallCacheManager")
+    @CachePut(cacheNames = CacheConstant.ASYNC_RESPONSE,key = "#response.key",cacheManager = "smallCacheManager")
     public void cacheAsyncResponse(Async response) {
     }
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.ASYNC_RESPONSE,key = "#p0",cacheManager = "smallCacheManager")
+    @Cacheable(cacheNames = CacheConstant.ASYNC_RESPONSE,key = "#p0",cacheManager = "smallCacheManager")
     public Async getAsyncResponse(String key) {
         return null;
     }

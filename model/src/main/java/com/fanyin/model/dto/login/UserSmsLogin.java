@@ -1,5 +1,7 @@
-package com.fanyin.model.dto.user;
+package com.fanyin.model.dto.login;
 
+import com.fanyin.model.validation.annotation.Mobile;
+import com.fanyin.model.validation.annotation.RangeLength;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,15 +16,17 @@ public class UserSmsLogin implements Serializable {
     /**
      * 短信验证码
      */
+    @RangeLength(required = true,min = 4,max = 6,message = "短信验证码格式错误")
     private String smsCode;
 
     /**
      * 手机号
      */
+    @Mobile(required = true)
     private String mobile;
 
     /**
-     * 请求类型 PC ANDROID IOS,WECHAT
+     * 登陆渠道 {@link com.fanyin.common.enums.Channel}
      */
     private String channel;
 }

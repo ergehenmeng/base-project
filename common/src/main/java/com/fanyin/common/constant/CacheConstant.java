@@ -5,7 +5,7 @@ package com.fanyin.common.constant;
  * @author 二哥很猛
  * @date 2018/1/12 09:39
  */
-public class RedisConstant {
+public class CacheConstant {
 
     /**
      * 系统参数缓存key前缀
@@ -28,5 +28,8 @@ public class RedisConstant {
      */
     public static final String ACCESS_TOKEN = "access_token:";
 
-
+    /**
+     * 用户基本信息缓存
+     */
+    public static final String USER = "user";
 }

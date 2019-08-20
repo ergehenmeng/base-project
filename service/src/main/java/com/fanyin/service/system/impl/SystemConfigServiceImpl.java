@@ -1,7 +1,7 @@
 package com.fanyin.service.system.impl;
 
 
-import com.fanyin.common.constant.RedisConstant;
+import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.dto.system.config.ConfigEditRequest;
@@ -47,7 +47,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     }
 
     @Override
-    @Cacheable(cacheNames = RedisConstant.SYSTEM_CONFIG,key = "#p0")
+    @Cacheable(cacheNames = CacheConstant.SYSTEM_CONFIG,key = "#p0")
     public SystemConfig getByNid(String nid) {
         return systemConfigMapper.getByNid(nid);
     }
