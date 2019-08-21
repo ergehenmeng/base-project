@@ -10,5 +10,5 @@ public class SmsTypeConstant {
     /**
      * 短信登陆
      */
-    public static final String LOGIN_SMS = "login_sms:";
+    public static final String LOGIN_SMS = "login_sms";
 }

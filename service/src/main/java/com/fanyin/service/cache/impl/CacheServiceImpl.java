@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -30,13 +31,19 @@ public class CacheServiceImpl implements CacheService {
     private static final long EXPIRE = 1800;
 
     @Override
-    public void cacheValue(String key, Object value) {
-        this.cacheValue(key, value,EXPIRE);
+    public void setValue(String key, Object value) {
+        this.setValue(key, value,EXPIRE);
     }
 
     @Override
-    public void cacheValue(String key, Object value, long expire) {
+    public void setValue(String key, Object value, long expire) {
         redisTemplate.opsForValue().set(key, value,expire, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void setValue(String key, Object value, Date expireTime) {
+        this.setValue(key, value);
+        redisTemplate.expireAt(key,expireTime);
     }
 
     @Override

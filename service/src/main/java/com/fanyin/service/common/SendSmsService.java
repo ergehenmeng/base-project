@@ -11,6 +11,7 @@ public interface SendSmsService {
      * 发送短信
      * @param mobile 手机号
      * @param content 短信内容
+     * @return 发送状态 0:发送中 1:已发送 2:发送失败
      */
-    void sendSms(String mobile,String content);
+    byte sendSms(String mobile,String content);
 }

@@ -4,7 +4,9 @@ import com.fanyin.dao.mapper.system.SmsLogMapper;
 import com.fanyin.dao.model.system.SmsLog;
 import com.fanyin.service.system.SmsLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -13,12 +15,14 @@ import java.util.Date;
  * @date 2019/8/16 18:47
  */
 @Service("smsLogService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class SmsLogServiceImpl implements SmsLogService {
 
     @Autowired
     private SmsLogMapper smsLogMapper;
 
     @Override
+    @Async
     public void addSmsLog(SmsLog smsLog) {
         smsLogMapper.insertSelective(smsLog);
     }

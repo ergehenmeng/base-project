@@ -32,13 +32,13 @@ public interface SmsLogMapper {
 
     /**
      * 统计一段时间内发送短信的次数 成功或者发送中的短信
-     * @param classify 短信类型
+     * @param smsType 短信类型
      * @param mobile 手机号
      * @param startTime 开始时间
      * @param endTime 结束时间
      * @return 条数
      */
-    int countSms(@Param("classify") String classify, @Param("mobile") String mobile, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+    int countSms(@Param("smsType") String smsType, @Param("mobile") String mobile, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
 
 }

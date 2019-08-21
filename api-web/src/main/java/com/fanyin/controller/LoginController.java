@@ -35,7 +35,7 @@ public class LoginController extends AbstractController{
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
     public RespBody sendSms(SendSmsCode code){
-        smsService.sendSms(SmsTypeConstant.LOGIN_SMS,code.getMobile());
+        smsService.sendSmsCode(SmsTypeConstant.LOGIN_SMS,code.getMobile());
         return RespBody.getInstance();
     }
 

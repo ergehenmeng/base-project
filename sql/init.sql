@@ -153,7 +153,7 @@ CREATE TABLE `message_template` (
 DROP TABLE IF EXISTS `sms_log`;
 CREATE TABLE `sms_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `classify` char(20) DEFAULT NULL COMMENT '短信分类',
+  `sms_type` char(20) DEFAULT NULL COMMENT '短信分类',
   `mobile` char(11) DEFAULT NULL COMMENT '手机号',
   `content` varchar(100) DEFAULT NULL COMMENT '短信内容',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',

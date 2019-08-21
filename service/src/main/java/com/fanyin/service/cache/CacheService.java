@@ -2,6 +2,8 @@ package com.fanyin.service.cache;
 
 import com.fanyin.model.ext.Async;
 
+import java.util.Date;
+
 
 /**
  * @author 二哥很猛
@@ -15,7 +17,7 @@ public interface CacheService {
      * @param key key
      * @param value value
      */
-    void cacheValue(String key,Object value);
+    void setValue(String key,Object value);
 
     /**
      * 缓存对象
@@ -23,7 +25,15 @@ public interface CacheService {
      * @param value value
      * @param expire 过期时间 单位秒
      */
-    void cacheValue(String key,Object value,long expire);
+    void setValue(String key,Object value,long expire);
+
+    /**
+     * 缓存对象,并设置过期时间
+     * @param key key
+     * @param value value
+     * @param expireTime 未来某个过期的时间
+     */
+    void setValue(String key, Object value, Date expireTime);
 
     /**
      * 获取缓存的信息

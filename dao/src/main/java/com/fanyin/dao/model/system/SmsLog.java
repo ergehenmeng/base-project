@@ -1,6 +1,9 @@
 package com.fanyin.dao.model.system;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +13,9 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SmsLog implements Serializable {
     /**
      * 主键<br>
@@ -21,9 +27,9 @@ public class SmsLog implements Serializable {
     /**
      * 短信分类<br>
      * 表 : sms_log<br>
-     * 对应字段 : classify<br>
+     * 对应字段 : sms_type<br>
      */
-    private String classify;
+    private String smsType;
 
     /**
      * 手机号<br>

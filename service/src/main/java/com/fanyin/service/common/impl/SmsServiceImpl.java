@@ -3,15 +3,21 @@ package com.fanyin.service.common.impl;
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
+import com.fanyin.common.utils.DateUtil;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.constants.ConfigConstant;
+import com.fanyin.dao.model.system.SmsLog;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.common.SendSmsService;
 import com.fanyin.service.common.SmsService;
 import com.fanyin.service.system.SmsLogService;
+import com.fanyin.service.system.SmsTemplateService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.text.MessageFormat;
+import java.util.Date;
 
 /**
  * @author 二哥很猛
@@ -30,6 +36,9 @@ public class SmsServiceImpl implements SmsService {
     private SmsLogService smsLogService;
 
     @Autowired
+    private SmsTemplateService smsTemplateService;
+
+    @Autowired
     private SystemConfigApi systemConfigApi;
 
     /**
@@ -40,7 +49,27 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public void sendSmsCode(String smsType, String mobile) {
         this.smsLimitCheck(smsType, mobile);
+        String template = smsTemplateService.getTemplate(smsType);
+        String smsCode = StringUtil.randomNumber();
+        String content = this.formatTemplate(template, smsCode);
 
+        byte state = sendSmsService.sendSms(mobile, content);
+
+        SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
+        smsLogService.addSmsLog(smsLog);
+
+        this.smsLimitSet(smsType,mobile,smsCode);
+    }
+
+
+    /**
+     * 根据模板和参数填充数据
+     * @param template 模板
+     * @param params 参数
+     * @return 填充后的数据
+     */
+    private String formatTemplate(String template,Object... params){
+        return MessageFormat.format(template,params);
     }
 
     @Override
@@ -52,6 +81,18 @@ public class SmsServiceImpl implements SmsService {
         return null;
     }
 
+    /**
+     * 保存短信信息,用于发送短信前的校验
+     * @param smsType 短信类型
+     * @param mobile 手机号
+     */
+    private void smsLimitSet(String smsType,String mobile,String smsCode){
+        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile,1,60);
+        cacheService.setValue(CacheConstant.SMS_TYPE_HOUR + smsType + mobile + smsCode,1,3600);
+        Date expireDate = DateUtil.endOfDay(DateUtil.getNow());
+        cacheService.setValue(CacheConstant.SMS_TYPE_DAY + smsType + mobile + smsCode,1,expireDate);
+        cacheService.setValue(CacheConstant.SMS_DAY + mobile + smsCode,1,expireDate);
+    }
 
     /**
      * 根据短信类型和手机号判断短信发送间隔及短信次数是否上限
@@ -77,7 +118,7 @@ public class SmsServiceImpl implements SmsService {
             throw new BusinessException(ErrorCodeEnum.SMS_DAY_LIMIT);
         }
         //当天手机号限制
-        countSms = cacheService.keySize(CacheConstant.SMS_DAY + smsType + mobile + MATCH);
+        countSms = cacheService.keySize(CacheConstant.SMS_DAY + mobile + MATCH);
         int smsDay = systemConfigApi.getInt(ConfigConstant.SMS_DAY);
         if(countSms > smsDay){
             throw new BusinessException(ErrorCodeEnum.MOBILE_DAY_LIMIT);

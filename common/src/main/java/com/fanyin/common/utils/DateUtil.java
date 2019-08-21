@@ -271,4 +271,16 @@ public class DateUtil extends DateUtils {
         calendar.set(Calendar.MILLISECOND,0);
         return calendar.getTime();
     }
+
+    /**
+     * 指定时间的最后一秒
+     */
+    public static Date endOfDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY,23);
+        calendar.set(Calendar.MINUTE,59);
+        calendar.set(Calendar.SECOND,59);
+        return calendar.getTime();
+    }
 }
