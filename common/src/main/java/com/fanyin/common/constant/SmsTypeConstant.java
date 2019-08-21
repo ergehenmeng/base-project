@@ -8,6 +8,11 @@ package com.fanyin.common.constant;
 public class SmsTypeConstant {
 
     /**
+     * 未指定短信类型,则为默认短信:default
+     */
+    public static final String DEFAULT = "default";
+
+    /**
      * 短信登陆
      */
     public static final String LOGIN_SMS = "login_sms";

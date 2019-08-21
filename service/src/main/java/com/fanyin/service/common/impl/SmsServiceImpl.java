@@ -1,6 +1,7 @@
 package com.fanyin.service.common.impl;
 
 import com.fanyin.common.constant.CacheConstant;
+import com.fanyin.common.constant.SmsTypeConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.DateUtil;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -52,12 +54,7 @@ public class SmsServiceImpl implements SmsService {
         String template = smsTemplateService.getTemplate(smsType);
         String smsCode = StringUtil.randomNumber();
         String content = this.formatTemplate(template, smsCode);
-
-        byte state = sendSmsService.sendSms(mobile, content);
-
-        SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
-        smsLogService.addSmsLog(smsLog);
-
+        this.doSendSms(mobile,content,smsType);
         this.smsLimitSet(smsType,mobile,smsCode);
     }
 
@@ -79,6 +76,37 @@ public class SmsServiceImpl implements SmsService {
             return (String)value;
         }
         return null;
+    }
+
+
+    @Override
+    public void sendSms(String smsType, String mobile, Object... params) {
+        String template = smsTemplateService.getTemplate(smsType);
+        String content = this.formatTemplate(template, params);
+        this.doSendSms(mobile,content,smsType);
+    }
+
+    @Override
+    public void sendSms(String mobile, String content) {
+        this.doSendSms(mobile,content, SmsTypeConstant.DEFAULT);
+    }
+
+
+    @Override
+    public void sendSms(List<String> mobileList, String content) {
+        mobileList.forEach(mobile -> this.sendSms(mobile, content));
+    }
+
+    /**
+     * 发送短信并记录短信日志
+     * @param mobile 手机号
+     * @param content 短信内容
+     * @param smsType 短信类型
+     */
+    private void doSendSms(String mobile, String content,String smsType){
+        byte state = sendSmsService.sendSms(mobile, content);
+        SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
+        smsLogService.addSmsLog(smsLog);
     }
 
     /**
