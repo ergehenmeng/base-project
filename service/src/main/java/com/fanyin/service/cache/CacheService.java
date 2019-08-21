@@ -45,6 +45,11 @@ public interface CacheService {
      */
     Async getAsyncResponse(String key);
 
-
+    /**
+     * 获取指定key的总数 (模糊查询)
+     * @param key key
+     * @return 个数
+     */
+    int keySize(String key);
 }
 

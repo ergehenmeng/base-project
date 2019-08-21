@@ -49,6 +49,12 @@ public class RedisConfiguration{
     @Value("${small-expire:60}")
     private int smallExpire;
 
+    /**
+     * 登陆token过期时间
+     */
+    @Value("${token-expire:86400}")
+    private int tokenExpire;
+
 
     /**
      * 用于业务上进行缓存数据 获取缓存数据
@@ -135,5 +141,14 @@ public class RedisConfiguration{
     @Bean("smallCacheManager")
     public CacheManager shortCacheManager(RedisConnectionFactory connectionFactory){
         return this.getCacheManager(connectionFactory,shortExpire);
+    }
+
+    /**
+     * token过期时间
+     * @return bean
+     */
+    @Bean("tokenCacheManager")
+    public CacheManager tokenCacheManager(RedisConnectionFactory connectionFactory){
+        return this.getCacheManager(connectionFactory,tokenExpire);
     }
 }

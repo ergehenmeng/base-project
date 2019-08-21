@@ -26,7 +26,7 @@ public class CacheConstant {
     /**
      * 会话令牌缓存key前缀
      */
-    public static final String ACCESS_TOKEN = "access_token:";
+    public static final String ACCESS_TOKEN = "access_token";
 
     /**
      * 用户基本信息缓存
@@ -52,4 +52,11 @@ public class CacheConstant {
      * 同一天同手机号最大次数
      */
     public static final String SMS_DAY = "sms_day:";
+
+    /**
+     * 短信模板
+     */
+    public static final String SMS_TEMPLATE = "sms_template";
+
+
 }

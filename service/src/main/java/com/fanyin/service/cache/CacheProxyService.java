@@ -2,6 +2,7 @@ package com.fanyin.service.cache;
 
 
 import com.fanyin.dao.model.user.User;
+import com.fanyin.model.ext.AccessToken;
 
 /**
  * @author 二哥很猛
@@ -18,5 +19,12 @@ public interface CacheProxyService {
      */
     String getDictValue(String nid, Byte hiddenValue);
 
+    /**
+     * 创建登陆后的token,并将token放入缓存中
+     * @param user 用户信息
+     * @param channel 访问渠道
+     * @return token
+     */
+    AccessToken createAccessToken(User user, String channel);
 }
 

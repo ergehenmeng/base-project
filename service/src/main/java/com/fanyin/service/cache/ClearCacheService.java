@@ -25,5 +25,10 @@ public interface ClearCacheService {
      * 清除异步信息缓存
      */
     void clearAsyncResponse();
+
+    /**
+     * 清空短信模板
+     */
+    void clearSmsTemplate();
 }
 

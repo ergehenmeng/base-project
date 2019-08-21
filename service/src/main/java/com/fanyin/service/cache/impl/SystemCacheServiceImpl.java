@@ -61,6 +61,10 @@ public class SystemCacheServiceImpl implements SystemCacheService {
                 case CacheConstant.ASYNC_RESPONSE:
                     clearCacheService.clearAsyncResponse();
                     break;
+
+                case CacheConstant.SMS_TEMPLATE:
+                    clearCacheService.clearSmsTemplate();
+                    break;
                 default:
                     break;
             }

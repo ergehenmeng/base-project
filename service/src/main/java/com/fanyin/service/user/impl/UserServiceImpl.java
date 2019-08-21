@@ -11,10 +11,10 @@ import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.user.UserMapper;
 import com.fanyin.dao.model.user.User;
 import com.fanyin.model.dto.login.UserAccountLogin;
-import com.fanyin.model.dto.user.UserRegister;
 import com.fanyin.model.dto.login.UserSmsLogin;
+import com.fanyin.model.dto.user.UserRegister;
 import com.fanyin.model.ext.AccessToken;
-import com.fanyin.service.common.AccessTokenService;
+import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.SmsService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.service.user.UserService;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private AccessTokenService accessTokenService;
+    private CacheProxyService cacheProxyService;
 
     @Autowired
     private SmsService smsService;
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
         if(!passwordEncoder.encode(login.getPwd()).equals(user.getPwd())){
             throw new BusinessException(ErrorCodeEnum.PASSWORD_ERROR);
         }
-        return accessTokenService.createAccessToken(user, login.getChannel());
+        return cacheProxyService.createAccessToken(user, login.getChannel());
     }
 
 
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
         if(user == null){
             throw new BusinessException(ErrorCodeEnum.MOBILE_NOT_REGISTER);
         }
-        return accessTokenService.createAccessToken(user, login.getChannel());
+        return cacheProxyService.createAccessToken(user, login.getChannel());
     }
 
     @Override

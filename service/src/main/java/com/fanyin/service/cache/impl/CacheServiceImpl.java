@@ -8,7 +8,9 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -51,5 +53,14 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public Object getValue(String key) {
         return redisTemplate.opsForValue().get(key);
+    }
+
+    @Override
+    public int keySize(String key) {
+        Set<String> keys = redisTemplate.keys(key);
+        if(!CollectionUtils.isEmpty(keys)){
+            return keys.size();
+        }
+        return 0;
     }
 }

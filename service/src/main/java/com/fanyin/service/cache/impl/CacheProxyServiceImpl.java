@@ -1,8 +1,13 @@
 package com.fanyin.service.cache.impl;
 
 
+import com.fanyin.common.utils.StringUtil;
+import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.dao.model.system.SystemDict;
+import com.fanyin.dao.model.user.User;
+import com.fanyin.model.ext.AccessToken;
 import com.fanyin.service.cache.CacheProxyService;
+import com.fanyin.service.common.AccessTokenService;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +27,12 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Autowired
     private SystemDictService systemDictService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AccessTokenService accessTokenService;
+
     @Override
     public String getDictValue(String nid, Byte hiddenValue) {
         List<SystemDict> dictList = systemDictService.getDictByNid(nid);
@@ -31,6 +42,15 @@ public class CacheProxyServiceImpl implements CacheProxyService {
             }
         }
         return null;
+    }
+
+    @Override
+    public AccessToken createAccessToken(User user,String channel) {
+        String accessKey = passwordEncoder.encode(user.getId() + channel + StringUtil.random(16));
+        String accessToken = passwordEncoder.encode(user.getId() + accessKey);
+        AccessToken token = AccessToken.builder().accessKey(accessKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
+        accessTokenService.saveByAccessKey(token);
+        return accessTokenService.saveByUserId(token);
     }
 
 }

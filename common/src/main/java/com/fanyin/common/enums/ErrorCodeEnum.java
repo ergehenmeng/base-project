@@ -299,7 +299,7 @@ public enum ErrorCodeEnum {
     /**
      * 当天内短信发送上限(统一手机号短信)
      */
-    SMS_MOBILE_DAY_LIMIT(3025,"当天内短信发送上限"),
+    MOBILE_DAY_LIMIT(3025,"当天内短信发送上限"),
     ;
     /**
      * 构造方法

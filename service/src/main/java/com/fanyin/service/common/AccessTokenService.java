@@ -1,6 +1,5 @@
 package com.fanyin.service.common;
 
-import com.fanyin.dao.model.user.User;
 import com.fanyin.model.ext.AccessToken;
 
 /**
@@ -27,21 +26,15 @@ public interface AccessTokenService {
     /**
      * 保存token
      * @param token token对象
+     * @return 缓存的对象
      */
-    void saveByAccessKey(AccessToken token);
+    AccessToken saveByAccessKey(AccessToken token);
 
     /**
      * 保存token
      * @param token token对象
      */
-    void saveByUserId(AccessToken token);
+    AccessToken saveByUserId(AccessToken token);
 
-    /**
-     * 创建登陆后的token,并将token放入缓存中
-     * @param user 用户信息
-     * @param channel 访问渠道
-     * @return token
-     */
-    AccessToken createAccessToken(User user,String channel);
 }
 
