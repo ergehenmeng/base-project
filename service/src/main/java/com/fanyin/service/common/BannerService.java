@@ -2,6 +2,7 @@ package com.fanyin.service.common;
 
 import com.fanyin.common.enums.Channel;
 import com.fanyin.dao.model.business.Banner;
+import com.fanyin.model.dto.business.banner.BannerAddRequest;
 import com.fanyin.model.dto.business.banner.BannerQueryRequest;
 import com.github.pagehelper.PageInfo;
 
@@ -27,5 +28,11 @@ public interface BannerService {
      * @return 列表
      */
     PageInfo<Banner> getByPage(BannerQueryRequest request);
+
+    /**
+     * 新增录播图信息
+     * @param request 前台参数
+     */
+    void addBanner(BannerAddRequest request);
 }
 

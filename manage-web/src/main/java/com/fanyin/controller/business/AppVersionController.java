@@ -68,4 +68,13 @@ public class AppVersionController {
         appVersionService.soleOutVersion(id);
         return RespBody.getInstance();
     }
+
+    /**
+     * 删除版本信息
+     */
+    @RequestMapping("/business/version/delete")
+    public RespBody delete(Integer id){
+
+        return RespBody.getInstance();
+    }
 }

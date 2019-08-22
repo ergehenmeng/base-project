@@ -111,4 +111,12 @@ public class AppVersionServiceImpl implements AppVersionService {
         AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
         return latestVersion.getUrl();
     }
+
+    @Override
+    public void deleteVersion(Integer id) {
+        AppVersion version = new AppVersion();
+        version.setId(id);
+        version.setDeleted(true);
+        appVersionMapper.updateByPrimaryKeySelective(version);
+    }
 }

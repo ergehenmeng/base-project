@@ -56,4 +56,10 @@ public interface AppVersionService {
      * @return 下载地址
      */
     String getLatestVersionUrl(String channel);
+
+    /**
+     * 删除版本信息
+     * @param id 主键
+     */
+    void deleteVersion(Integer id);
 }
