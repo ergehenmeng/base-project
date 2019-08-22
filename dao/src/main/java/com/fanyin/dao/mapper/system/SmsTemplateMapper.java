@@ -1,19 +1,15 @@
 package com.fanyin.dao.mapper.system;
 
 import com.fanyin.dao.model.system.SmsTemplate;
+import com.fanyin.model.dto.business.SmsTemplateQueryRequest;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
  */
 public interface SmsTemplateMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(SmsTemplate record);
 
     /**
      * 根据主键获取一条数据库记录
@@ -36,4 +32,10 @@ public interface SmsTemplateMapper {
      */
     SmsTemplate getByNid(@Param("nid")String nid);
 
+    /**
+     * 根据条件查询短信模板列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<SmsTemplate> getList(SmsTemplateQueryRequest request);
 }

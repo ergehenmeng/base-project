@@ -51,4 +51,11 @@
         select <include refid="BaseColumnList"/>
         from sms_template where nid = #{nid}
     </select>
+    <select id="getList" parameterType="com.fanyin.model.dto.business.SmsTemplateQueryRequest" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from sms_template
+        <if test="queryName != null">
+          where nid = #{queryName}
+        </if>
+    </select>
 </mapper>

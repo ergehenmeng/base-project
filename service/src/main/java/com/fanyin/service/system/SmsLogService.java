@@ -1,8 +1,11 @@
 package com.fanyin.service.system;
 
 import com.fanyin.dao.model.system.SmsLog;
+import com.fanyin.model.dto.business.SmsLogQueryRequest;
+import com.github.pagehelper.PageInfo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -25,4 +28,11 @@ public interface SmsLogService {
      * @return 条数
      */
     int countSms(String smsType, String mobile, Date startTime, Date endTime);
+
+    /**
+     * 根据条件查询短信记录列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    PageInfo<SmsLog> getByPage(SmsLogQueryRequest request);
 }

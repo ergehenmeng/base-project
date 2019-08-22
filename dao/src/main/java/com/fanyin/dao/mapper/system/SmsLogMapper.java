@@ -1,9 +1,11 @@
 package com.fanyin.dao.mapper.system;
 
 import com.fanyin.dao.model.system.SmsLog;
+import com.fanyin.model.dto.business.SmsLogQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 public interface SmsLogMapper {
 
@@ -40,5 +42,10 @@ public interface SmsLogMapper {
      */
     int countSms(@Param("smsType") String smsType, @Param("mobile") String mobile, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
-
+    /**
+     * 根据条件查询
+     * @param request 查询条件
+     * @return 短信记录列表
+     */
+    List<SmsLog> getList(SmsLogQueryRequest request);
 }

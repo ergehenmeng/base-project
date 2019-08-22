@@ -112,4 +112,26 @@
             and add_time &lt; #{endTime}
         </if>
     </select>
+
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.business.SmsLogQueryRequest">
+        select <include refid="BaseColumnList"/>
+        from sms_log
+        <where>
+            <if test="queryName != null">
+                and mobile = #{queryName}
+            </if>
+            <if test="startTime != null">
+                and add_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null">
+                and add_time &lt; #{endTime}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="smsType != null">
+                and sms_type = #{smsType}
+            </if>
+        </where>
+    </select>
 </mapper>

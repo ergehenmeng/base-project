@@ -2,13 +2,17 @@ package com.fanyin.service.system.impl;
 
 import com.fanyin.dao.mapper.system.SmsLogMapper;
 import com.fanyin.dao.model.system.SmsLog;
+import com.fanyin.model.dto.business.SmsLogQueryRequest;
 import com.fanyin.service.system.SmsLogService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -29,6 +33,14 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     @Override
     public int countSms(String smsType, String mobile, Date startTime, Date endTime) {
-        return 0;
+        return smsLogMapper.countSms(smsType, mobile, startTime, endTime);
     }
+
+    @Override
+    public PageInfo<SmsLog> getByPage(SmsLogQueryRequest request) {
+        PageHelper.startPage(request.getPage(),request.getPageSize());
+        List<SmsLog> list = smsLogMapper.getList(request);
+        return new PageInfo<>(list);
+    }
+
 }
