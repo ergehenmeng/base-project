@@ -300,6 +300,11 @@ public enum ErrorCodeEnum {
      * 当天内短信发送上限(统一手机号短信)
      */
     MOBILE_DAY_LIMIT(3025,"当天内短信发送上限"),
+
+    /**
+     * 版本号重复
+     */
+    VERSION_REDO(3025,"版本号重复"),
     ;
     /**
      * 构造方法

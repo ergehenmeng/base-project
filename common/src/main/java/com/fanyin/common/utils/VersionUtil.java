@@ -10,7 +10,7 @@ public class VersionUtil {
     private static final String[] REPLACE_CHAR = {"v","version"};
 
     /**
-     * version是否大于指定的target版本
+     * version是否大于等于指定的target版本
      * @param version 前台传递过来的版本
      * @param target 后台版本
      * @return 如果version大于则true 否则false

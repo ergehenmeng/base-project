@@ -35,7 +35,7 @@ public class RequestThreadLocal {
      * 前后端分离方式:获取访问来源
      * @return android ios h5 pc
      */
-    protected static String getChannel(){
+    public static String getChannel(){
         return get().getChannel();
     }
 
@@ -43,7 +43,7 @@ public class RequestThreadLocal {
      * 前后端分离方式:获取软件版本号 针对android和ios
      * @return v1.0.0
      */
-    protected static String getVersion(){
+    public static String getVersion(){
         return get().getVersion();
     }
 
@@ -51,7 +51,7 @@ public class RequestThreadLocal {
      * 前后端分离方式:获取系统版本号 针对android和ios
      * @return ios 10.4.1
      */
-    protected static String getOsVersion(){
+    public static String getOsVersion(){
         return get().getOsVersion();
     }
 

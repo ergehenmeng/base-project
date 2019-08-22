@@ -1,8 +1,10 @@
 package com.fanyin.controller.business;
 
 import com.fanyin.dao.model.business.AppVersion;
+import com.fanyin.model.dto.business.version.VersionAddRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import com.fanyin.model.ext.Paging;
+import com.fanyin.model.ext.RespBody;
 import com.fanyin.service.common.AppVersionService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +30,11 @@ public class AppVersionController {
         return new Paging<>(byPage);
     }
 
+    /**
+     * 添加app版本信息
+     */
+    @RequestMapping("/business/version/add")
+    public RespBody add(VersionAddRequest request){
+        return RespBody.getInstance();
+    }
 }
