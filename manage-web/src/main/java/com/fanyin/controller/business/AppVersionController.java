@@ -2,6 +2,7 @@ package com.fanyin.controller.business;
 
 import com.fanyin.dao.model.business.AppVersion;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
+import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
@@ -35,6 +36,36 @@ public class AppVersionController {
      */
     @RequestMapping("/business/version/add")
     public RespBody add(VersionAddRequest request){
+        appVersionService.addAppVersion(request);
+        return RespBody.getInstance();
+    }
+
+    /**
+     * 编辑保存app版本信息
+     */
+    @RequestMapping("/business/version/edit")
+    public RespBody edit(VersionEditRequest request){
+        appVersionService.editAppVersion(request);
+        return RespBody.getInstance();
+    }
+
+    /**
+     * 上架app版本
+     * @param id  主键
+     */
+    @RequestMapping("/business/version/put_away")
+    public RespBody putAway(Integer id){
+        appVersionService.putAwayVersion(id);
+        return RespBody.getInstance();
+    }
+
+    /**
+     * 下架app版本
+     * @param id 主键
+     */
+    @RequestMapping("/business/version/sold_out")
+    public RespBody soleOut(Integer id){
+        appVersionService.soleOutVersion(id);
         return RespBody.getInstance();
     }
 }

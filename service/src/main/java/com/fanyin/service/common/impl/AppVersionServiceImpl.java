@@ -8,6 +8,7 @@ import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.business.AppVersionMapper;
 import com.fanyin.dao.model.business.AppVersion;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
+import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.model.vo.version.Version;
@@ -47,6 +48,12 @@ public class AppVersionServiceImpl implements AppVersionService {
     public void addAppVersion(VersionAddRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         appVersionMapper.insertSelective(version);
+    }
+
+    @Override
+    public void editAppVersion(VersionEditRequest request) {
+        AppVersion version = DataUtil.copy(request, AppVersion.class);
+        appVersionMapper.updateByPrimaryKeySelective(version);
     }
 
     @Override
