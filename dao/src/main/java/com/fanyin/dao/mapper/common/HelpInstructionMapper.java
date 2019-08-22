@@ -1,8 +1,8 @@
 package com.fanyin.dao.mapper.common;
 
 
-import com.fanyin.model.dto.common.help.HelpQueryRequest;
-import com.fanyin.dao.model.common.HelpInstruction;
+import com.fanyin.model.dto.business.help.HelpQueryRequest;
+import com.fanyin.dao.model.business.HelpInstruction;
 
 import java.util.List;
 

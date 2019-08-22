@@ -1,9 +1,9 @@
 package com.fanyin.service.common;
 
-import com.fanyin.model.dto.common.help.HelpAddRequest;
-import com.fanyin.model.dto.common.help.HelpEditRequest;
-import com.fanyin.model.dto.common.help.HelpQueryRequest;
-import com.fanyin.dao.model.common.HelpInstruction;
+import com.fanyin.model.dto.business.help.HelpAddRequest;
+import com.fanyin.model.dto.business.help.HelpEditRequest;
+import com.fanyin.model.dto.business.help.HelpQueryRequest;
+import com.fanyin.dao.model.business.HelpInstruction;
 import com.github.pagehelper.PageInfo;
 
 /**

@@ -3,8 +3,9 @@ package com.fanyin.service.common.impl;
 import com.fanyin.common.enums.Channel;
 import com.fanyin.common.enums.SourceClassify;
 import com.fanyin.dao.mapper.common.BannerMapper;
-import com.fanyin.dao.model.common.Banner;
+import com.fanyin.dao.model.business.Banner;
 import com.fanyin.service.common.BannerService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,4 +29,11 @@ public class BannerServiceImpl implements BannerService {
         byte clientType = SourceClassify.getType(source);
         return bannerMapper.getBannerList(type,clientType);
     }
+
+    @Override
+    public PageInfo<Banner> getByPage() {
+        return null;
+    }
+
+
 }

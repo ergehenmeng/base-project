@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fanyin.dao.mapper.common.SystemNoticeMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.common.SystemNotice">
+  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.SystemNotice">
     <!--
       @create by mybatis
     -->
@@ -12,7 +12,7 @@
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fanyin.dao.model.common.SystemNotice">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fanyin.dao.model.business.SystemNotice">
     <!--
       @create by mybatis
     -->
@@ -41,7 +41,7 @@
     from system_notice
     where id = #{id,jdbcType=INTEGER}
   </select>
-    <select id="getList" parameterType="com.fanyin.model.dto.common.notice.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
+    <select id="getList" parameterType="com.fanyin.model.dto.business.notice.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
         select id, title, classify, deleted, add_time, update_time content from system_notice
         where deleted = false
         <if test="title != null">
@@ -60,7 +60,7 @@
     </select>
 
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.common.SystemNotice">
+  <insert id="insertSelective" parameterType="com.fanyin.dao.model.business.SystemNotice">
     <!--
       @create by mybatis
     -->
@@ -112,7 +112,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.common.SystemNotice">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.SystemNotice">
     <!--
       @create by mybatis
     -->

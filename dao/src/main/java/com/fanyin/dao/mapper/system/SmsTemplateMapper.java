@@ -1,7 +1,7 @@
 package com.fanyin.dao.mapper.system;
 
-import com.fanyin.dao.model.system.SmsTemplate;
-import com.fanyin.model.dto.business.SmsTemplateQueryRequest;
+import com.fanyin.dao.model.business.SmsTemplate;
+import com.fanyin.model.dto.business.sms.SmsTemplateQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

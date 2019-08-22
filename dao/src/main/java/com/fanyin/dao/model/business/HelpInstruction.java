@@ -1,4 +1,4 @@
-package com.fanyin.dao.model.common;
+package com.fanyin.dao.model.business;
 
 import lombok.Data;
 

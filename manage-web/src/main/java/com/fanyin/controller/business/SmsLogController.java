@@ -1,8 +1,8 @@
 package com.fanyin.controller.business;
 
 import com.fanyin.controller.AbstractController;
-import com.fanyin.dao.model.system.SmsLog;
-import com.fanyin.model.dto.business.SmsLogQueryRequest;
+import com.fanyin.dao.model.business.SmsLog;
+import com.fanyin.model.dto.business.sms.SmsLogQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.service.system.SmsLogService;
 import com.github.pagehelper.PageInfo;

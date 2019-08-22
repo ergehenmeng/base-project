@@ -1,9 +1,9 @@
 package com.fanyin.service.common;
 
-import com.fanyin.model.dto.common.notice.NoticeAddRequest;
-import com.fanyin.model.dto.common.notice.NoticeEditRequest;
-import com.fanyin.model.dto.common.notice.NoticeQueryRequest;
-import com.fanyin.dao.model.common.SystemNotice;
+import com.fanyin.model.dto.business.notice.NoticeAddRequest;
+import com.fanyin.model.dto.business.notice.NoticeEditRequest;
+import com.fanyin.model.dto.business.notice.NoticeQueryRequest;
+import com.fanyin.dao.model.business.SystemNotice;
 import com.github.pagehelper.PageInfo;
 
 /**

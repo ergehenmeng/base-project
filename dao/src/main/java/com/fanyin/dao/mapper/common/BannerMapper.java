@@ -1,6 +1,6 @@
 package com.fanyin.dao.mapper.common;
 
-import com.fanyin.dao.model.common.Banner;
+import com.fanyin.dao.model.business.Banner;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

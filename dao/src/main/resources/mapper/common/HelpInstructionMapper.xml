@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fanyin.dao.mapper.common.HelpInstructionMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.common.HelpInstruction">
+  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.HelpInstruction">
     <!--
       @create by mybatis
     -->
@@ -31,7 +31,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.common.HelpInstruction">
+  <insert id="insertSelective" parameterType="com.fanyin.dao.model.business.HelpInstruction">
     <!--
       @create by mybatis
     -->
@@ -95,7 +95,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.common.HelpInstruction">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.HelpInstruction">
     <!--
       @create by mybatis
     -->
@@ -129,7 +129,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="getList" parameterType="com.fanyin.model.dto.common.help.HelpQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.fanyin.model.dto.business.help.HelpQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList" />
         from help_instruction where deleted = false
     </select>

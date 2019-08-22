@@ -2,7 +2,7 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
-import com.fanyin.model.dto.common.CheckBox;
+import com.fanyin.model.ext.CheckBox;
 import com.fanyin.model.dto.system.role.RoleAddRequest;
 import com.fanyin.model.dto.system.role.RoleEditRequest;
 import com.fanyin.model.dto.system.role.RoleQueryRequest;
@@ -54,7 +54,7 @@ public class RoleController {
     public List<CheckBox> list(){
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return DataUtil.transform(list, systemRole -> new CheckBox(systemRole.getId(), systemRole.getRoleName()));
+        return DataUtil.transform(list, systemRole -> CheckBox.builder().hide(systemRole.getId()).show(systemRole.getRoleName()).build());
     }
 
     /**

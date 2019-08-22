@@ -1,7 +1,8 @@
 package com.fanyin.service.common;
 
 import com.fanyin.common.enums.Channel;
-import com.fanyin.dao.model.common.Banner;
+import com.fanyin.dao.model.business.Banner;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -19,5 +20,7 @@ public interface BannerService {
      */
     List<Banner> getBanner(Channel source, Byte type);
 
+
+    PageInfo<Banner> getByPage();
 }
 

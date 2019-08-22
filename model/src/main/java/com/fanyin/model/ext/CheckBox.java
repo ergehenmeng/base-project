@@ -1,6 +1,9 @@
-package com.fanyin.model.dto.common;
+package com.fanyin.model.ext;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -10,6 +13,9 @@ import java.io.Serializable;
  * @date 2018/11/30 15:19
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CheckBox implements Serializable {
     private static final long serialVersionUID = -9147788551948904950L;
 
@@ -23,11 +29,4 @@ public class CheckBox implements Serializable {
      */
     private String show;
 
-    public CheckBox() {
-    }
-
-    public CheckBox(int hide, String show) {
-        this.hide = hide;
-        this.show = show;
-    }
 }

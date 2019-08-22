@@ -1,7 +1,7 @@
 package com.fanyin.controller.business;
 
-import com.fanyin.dao.model.system.SmsTemplate;
-import com.fanyin.model.dto.business.SmsTemplateQueryRequest;
+import com.fanyin.dao.model.business.SmsTemplate;
+import com.fanyin.model.dto.business.sms.SmsTemplateQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.service.system.SmsTemplateService;
 import com.github.pagehelper.PageInfo;

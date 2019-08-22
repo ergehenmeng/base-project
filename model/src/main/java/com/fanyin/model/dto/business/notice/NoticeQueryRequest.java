@@ -1,4 +1,4 @@
-package com.fanyin.model.dto.common.notice;
+package com.fanyin.model.dto.business.notice;
 
 import com.fanyin.model.ext.PageQuery;
 import lombok.Data;

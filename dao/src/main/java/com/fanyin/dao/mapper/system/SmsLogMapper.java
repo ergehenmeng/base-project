@@ -1,7 +1,7 @@
 package com.fanyin.dao.mapper.system;
 
-import com.fanyin.dao.model.system.SmsLog;
-import com.fanyin.model.dto.business.SmsLogQueryRequest;
+import com.fanyin.dao.model.business.SmsLog;
+import com.fanyin.model.dto.business.sms.SmsLogQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;

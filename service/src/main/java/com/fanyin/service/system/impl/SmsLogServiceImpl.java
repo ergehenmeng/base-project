@@ -1,8 +1,8 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.dao.mapper.system.SmsLogMapper;
-import com.fanyin.dao.model.system.SmsLog;
-import com.fanyin.model.dto.business.SmsLogQueryRequest;
+import com.fanyin.dao.model.business.SmsLog;
+import com.fanyin.model.dto.business.sms.SmsLogQueryRequest;
 import com.fanyin.service.system.SmsLogService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

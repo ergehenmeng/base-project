@@ -1,4 +1,4 @@
-package com.fanyin.model.dto.business;
+package com.fanyin.model.dto.business.sms;
 
 import com.fanyin.model.ext.PageQuery;
 import lombok.EqualsAndHashCode;

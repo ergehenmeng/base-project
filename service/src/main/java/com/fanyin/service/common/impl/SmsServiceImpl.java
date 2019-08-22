@@ -7,7 +7,7 @@ import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.DateUtil;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.constants.ConfigConstant;
-import com.fanyin.dao.model.system.SmsLog;
+import com.fanyin.dao.model.business.SmsLog;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.common.SendSmsService;
 import com.fanyin.service.common.SmsService;

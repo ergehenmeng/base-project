@@ -1,7 +1,7 @@
 package com.fanyin.dao.mapper.common;
 
-import com.fanyin.model.dto.common.notice.NoticeQueryRequest;
-import com.fanyin.dao.model.common.SystemNotice;
+import com.fanyin.model.dto.business.notice.NoticeQueryRequest;
+import com.fanyin.dao.model.business.SystemNotice;
 
 import java.util.List;
 

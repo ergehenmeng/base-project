@@ -1,4 +1,4 @@
-package com.fanyin.model.dto.common.image;
+package com.fanyin.model.dto.business.image;
 
 import lombok.Data;
 
