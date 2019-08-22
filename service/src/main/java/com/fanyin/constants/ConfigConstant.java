@@ -61,4 +61,9 @@ public class ConfigConstant {
      * 公告显示个数限制
      */
     public static final String NOTICE_LIMIT = "notice_limit";
+
+    /**
+     * app store下载地址
+     */
+    public static final String APP_STORE_URL = "app_store_url";
 }

@@ -32,8 +32,21 @@ public interface AppVersionService {
     void putAwayVersion(Integer id);
 
     /**
-     * 获取最新可用的版本
+     * 下架版本
+     * @param id 主键id
+     */
+    void soleOutVersion(Integer id);
+
+    /**
+     * 获取最新可用的版本 用于检测是否有新版本
      * @return 版本信息
      */
     Version getLatestVersion();
+
+    /**
+     * 获取最新app下载地址
+     * @param channel app类型
+     * @return 下载地址
+     */
+    String getLatestVersionUrl(String channel);
 }

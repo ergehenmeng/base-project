@@ -1,8 +1,10 @@
 package com.fanyin.service.common.impl;
 
+import com.fanyin.common.enums.Channel;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.VersionUtil;
+import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.business.AppVersionMapper;
 import com.fanyin.dao.model.business.AppVersion;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
@@ -10,6 +12,7 @@ import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.model.vo.version.Version;
 import com.fanyin.service.common.AppVersionService;
+import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -29,6 +32,9 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     @Autowired
     private AppVersionMapper appVersionMapper;
+
+    @Autowired
+    private SystemConfigApi systemConfigApi;
 
     @Override
     public PageInfo<AppVersion> getByPage(VersionQueryRequest request) {
@@ -51,6 +57,14 @@ public class AppVersionServiceImpl implements AppVersionService {
             throw new BusinessException(ErrorCodeEnum.VERSION_REDO);
         }
         appVersion.setState((byte)1);
+        appVersionMapper.updateByPrimaryKeySelective(appVersion);
+    }
+
+    @Override
+    public void soleOutVersion(Integer id) {
+        AppVersion appVersion = new AppVersion();
+        appVersion.setId(id);
+        appVersion.setState((byte)0);
         appVersionMapper.updateByPrimaryKeySelective(appVersion);
     }
 
@@ -80,5 +94,14 @@ public class AppVersionServiceImpl implements AppVersionService {
         boolean forceUpdate = !CollectionUtils.isEmpty(versionList);
         response.setForceUpdate(forceUpdate);
         return response;
+    }
+
+    @Override
+    public String getLatestVersionUrl(String channel) {
+        if(Channel.IOS.name().equals(channel)){
+            return systemConfigApi.getString(ConfigConstant.APP_STORE_URL);
+        }
+        AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
+        return latestVersion.getUrl();
     }
 }
