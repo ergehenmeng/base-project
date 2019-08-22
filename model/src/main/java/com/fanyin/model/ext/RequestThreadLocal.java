@@ -1,0 +1,58 @@
+package com.fanyin.model.ext;
+
+/**
+ * @author 二哥很猛
+ * @date 2019/8/22 14:22
+ */
+public class RequestThreadLocal {
+
+    private static final ThreadLocal<RequestMessage> TOKEN_LOCAL = new ThreadLocal<>();
+
+    /**
+     * 获取请求信息
+     * @return 头信息及用户id
+     */
+    public static RequestMessage get(){
+        return TOKEN_LOCAL.get();
+    }
+
+    /**
+     * 设置请求信息
+     * @param message 头信息及用户id
+     */
+    public static void set(RequestMessage message){
+        TOKEN_LOCAL.set(message);
+    }
+
+    /**
+     * 清除线程对象信息
+     */
+    public static void remove(){
+        TOKEN_LOCAL.remove();
+    }
+
+    /**
+     * 前后端分离方式:获取访问来源
+     * @return android ios h5 pc
+     */
+    protected static String getChannel(){
+        return get().getChannel();
+    }
+
+    /**
+     * 前后端分离方式:获取软件版本号 针对android和ios
+     * @return v1.0.0
+     */
+    protected static String getVersion(){
+        return get().getVersion();
+    }
+
+    /**
+     * 前后端分离方式:获取系统版本号 针对android和ios
+     * @return ios 10.4.1
+     */
+    protected static String getOsVersion(){
+        return get().getOsVersion();
+    }
+
+}

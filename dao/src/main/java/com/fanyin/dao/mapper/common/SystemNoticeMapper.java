@@ -2,6 +2,7 @@ package com.fanyin.dao.mapper.common;
 
 import com.fanyin.model.dto.business.notice.NoticeQueryRequest;
 import com.fanyin.dao.model.business.SystemNotice;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,4 +32,11 @@ public interface SystemNoticeMapper {
      * @return 结果列表
      */
     List<SystemNotice> getList(NoticeQueryRequest request);
+
+    /**
+     * 获取前多少条公告信息
+     * @param noticeLimit 几条公告
+     * @return 公告列表
+     */
+    List<SystemNotice> getTopList(@Param("noticeLimit") int noticeLimit);
 }

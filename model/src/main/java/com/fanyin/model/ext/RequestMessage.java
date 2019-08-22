@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DataMessage implements Serializable {
+public class RequestMessage implements Serializable {
 
     private static final long serialVersionUID = 1588228430420375286L;
 

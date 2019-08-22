@@ -24,7 +24,7 @@ public class SmsLogController extends AbstractController {
     /**
      * 分页查询短信记录列表
      */
-    @RequestMapping("/sms_log/list_page")
+    @RequestMapping("/business/sms_log/list_page")
     public Paging<SmsLog> listPage(SmsLogQueryRequest request){
         PageInfo<SmsLog> byPage = smsLogService.getByPage(request);
         return new Paging<>(byPage);

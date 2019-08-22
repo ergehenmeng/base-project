@@ -23,7 +23,7 @@ public class SmsTemplateController {
     /**
      * 短信模板分页列表
      */
-    @RequestMapping("/sms_template/list_page")
+    @RequestMapping("/business/sms_template/list_page")
     public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request){
         PageInfo<SmsTemplate> byPage = smsTemplateService.getByPage(request);
         return new Paging<>(byPage);

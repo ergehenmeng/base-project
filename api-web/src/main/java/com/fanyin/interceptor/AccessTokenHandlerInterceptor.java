@@ -6,7 +6,8 @@ import com.fanyin.common.enums.Channel;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.AccessToken;
-import com.fanyin.model.ext.DataMessage;
+import com.fanyin.model.ext.RequestMessage;
+import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.service.common.AccessTokenService;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
 
-        DataMessage message = MessageHandlerInterceptor.getMessage();
+        RequestMessage message = RequestThreadLocal.get();
 
         //访问来源
         if(!this.requestChannel(handler,message.getChannel())){
@@ -54,7 +55,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
      * @param accessToken 令牌
      * @param message 存放用户信息的对象
      */
-    private void accessTokenVerify(String accessKey,String accessToken,DataMessage message){
+    private void accessTokenVerify(String accessKey, String accessToken, RequestMessage message){
         if (accessKey == null || accessToken == null){
             log.error("令牌为空,accessKey:[{}],accessToken:[{}]",accessKey,accessToken);
             throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);

@@ -16,6 +16,8 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 public class BannerQueryRequest extends PageQuery {
 
+    private static final long serialVersionUID = -7234026470157744373L;
+
     /**
      * 轮播图类型
      */

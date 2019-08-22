@@ -16,6 +16,8 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 public class SmsLogQueryRequest extends PageQuery {
 
+    private static final long serialVersionUID = -3461922717720251514L;
+
     /**
      * 开始时间
      */

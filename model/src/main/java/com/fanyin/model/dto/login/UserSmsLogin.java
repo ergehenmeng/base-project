@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Data
 public class UserSmsLogin implements Serializable {
 
+    private static final long serialVersionUID = -297158371625408459L;
+
     /**
      * 短信验证码
      */

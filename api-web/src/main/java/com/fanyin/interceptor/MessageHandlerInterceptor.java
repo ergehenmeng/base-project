@@ -3,7 +3,8 @@ package com.fanyin.interceptor;
 import com.fanyin.common.constant.HeaderConstant;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.RequestException;
-import com.fanyin.model.ext.DataMessage;
+import com.fanyin.model.ext.RequestMessage;
+import com.fanyin.model.ext.RequestThreadLocal;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +16,6 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2019/7/4 14:24
  */
 public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
-
-    /**
-     * 存放用户信息
-     */
-    private static final ThreadLocal<DataMessage> TOKEN_LOCAL = new ThreadLocal<>();
 
     /**
      * 请求头最大长度 默认256
@@ -39,15 +35,15 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
             //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
-        DataMessage message = DataMessage.builder().version(version).channel(channel).osVersion(osVersion).build();
-        TOKEN_LOCAL.set(message);
+        RequestMessage message = RequestMessage.builder().version(version).channel(channel).osVersion(osVersion).build();
+        RequestThreadLocal.set(message);
         return true;
     }
 
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        TOKEN_LOCAL.remove();
+        RequestThreadLocal.remove();
     }
 
     /**
@@ -59,11 +55,4 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
         return headerValue != null && headerValue.length() > MAX_HEADER_LENGTH;
     }
 
-    /**
-     * 获取登陆用户的基础信息
-     * @return 基本信息 如果用户已登陆,则可以获取userId
-     */
-    public static DataMessage getMessage(){
-        return TOKEN_LOCAL.get();
-    }
 }

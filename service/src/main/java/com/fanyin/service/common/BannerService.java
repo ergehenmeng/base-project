@@ -21,7 +21,6 @@ public interface BannerService {
      */
     List<Banner> getBanner(Channel source, Byte type);
 
-
     /**
      * 根据条件分页查询录播图列表
      * @param request 查询条件

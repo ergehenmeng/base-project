@@ -11,7 +11,9 @@ import java.util.Date;
  */
 @Data
 public class SystemNotice implements Serializable {
+
     private static final long serialVersionUID = -3328700458453468310L;
+
     /**
      * 主键<br>
      * 表 : system_notice<br>

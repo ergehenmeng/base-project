@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class ImageAddRequest implements Serializable {
+
     private static final long serialVersionUID = 3775459871066834161L;
 
     /**

@@ -3,8 +3,8 @@ package com.fanyin.controller;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.model.ext.DataMessage;
-import com.fanyin.interceptor.MessageHandlerInterceptor;
+import com.fanyin.model.ext.RequestMessage;
+import com.fanyin.model.ext.RequestThreadLocal;
 
 /**
  * @author 二哥很猛
@@ -24,8 +24,8 @@ public class AbstractController {
         return userId;
     }
 
-    private DataMessage getMessage(){
-        return MessageHandlerInterceptor.getMessage();
+    private RequestMessage getMessage(){
+        return RequestThreadLocal.get();
     }
 
     /**

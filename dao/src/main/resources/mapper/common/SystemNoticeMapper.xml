@@ -133,6 +133,9 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-
+    <select id="getTopList" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from system_notice order by update_time desc limit #{noticeLimit}
+    </select>
 
 </mapper>

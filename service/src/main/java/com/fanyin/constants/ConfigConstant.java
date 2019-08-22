@@ -28,11 +28,6 @@ public class ConfigConstant {
     public static final String SEND_FROM = "send_from";
 
     /**
-     * token过期时间
-     */
-    public static final String TOKEN_EXPIRE = "token_expire";
-
-    /**
      * 是否开启单客户端登陆
      */
     public static final String SSO_OPEN = "sso_open";
@@ -61,4 +56,9 @@ public class ConfigConstant {
      * 同一天同手机号最大次数
      */
     public static final String SMS_DAY = "sms_day";
+
+    /**
+     * 公告显示个数限制
+     */
+    public static final String NOTICE_LIMIT = "notice_limit";
 }

@@ -4,7 +4,8 @@ import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.model.ext.AccessToken;
-import com.fanyin.model.ext.DataMessage;
+import com.fanyin.model.ext.RequestMessage;
+import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.service.common.AccessTokenService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class SsoHandlerInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         //是否开启单客户端登陆,即在同一类设备上只允许一个账号登陆
         if(systemConfigApi.getBoolean(ConfigConstant.SSO_OPEN)){
-            DataMessage message = MessageHandlerInterceptor.getMessage();
+            RequestMessage message = RequestThreadLocal.get();
             AccessToken accessToken = accessTokenService.getByUserId(message.getUserId());
             if(accessToken == null){
                 throw new BusinessException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);

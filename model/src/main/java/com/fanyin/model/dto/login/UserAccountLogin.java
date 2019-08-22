@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Data
 public class UserAccountLogin implements Serializable {
 
+    private static final long serialVersionUID = 2897260194026380794L;
+
     /**
      * 登陆账号 手机号或邮箱
      */

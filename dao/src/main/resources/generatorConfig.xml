@@ -30,13 +30,13 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包位置 -->
-        <javaModelGenerator targetPackage="com.fanyin.dao.model.system"
+        <javaModelGenerator targetPackage="com.fanyin.dao.model.business"
             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成mapper.xml文件位置 -->
-        <sqlMapGenerator targetPackage="mapper.system"
+        <sqlMapGenerator targetPackage="mapper.business"
             targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"  />
 
@@ -44,12 +44,12 @@
         
         <!-- 生成mapper的接口位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.fanyin.dao.mapper.system" targetProject="src/main/java">
+                             targetPackage="com.fanyin.dao.mapper.business" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="sms_template" domainObjectName="SmsTemplate"
+        <table tableName="app_version" domainObjectName="AppVersion"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" enableDeleteByPrimaryKey="false">

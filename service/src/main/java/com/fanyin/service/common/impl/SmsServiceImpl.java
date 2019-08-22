@@ -115,7 +115,7 @@ public class SmsServiceImpl implements SmsService {
      * @param mobile 手机号
      */
     private void smsLimitSet(String smsType,String mobile,String smsCode){
-        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile,1,60);
+        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile,1,systemConfigApi.getInt(ConfigConstant.SMS_TYPE_INTERVAL));
         cacheService.setValue(CacheConstant.SMS_TYPE_HOUR + smsType + mobile + smsCode,1,3600);
         Date expireDate = DateUtil.endOfDay(DateUtil.getNow());
         cacheService.setValue(CacheConstant.SMS_TYPE_DAY + smsType + mobile + smsCode,1,expireDate);
@@ -135,7 +135,7 @@ public class SmsServiceImpl implements SmsService {
         }
         //单位小时统一类型内短信限制
         int countSms = cacheService.keySize(CacheConstant.SMS_TYPE_HOUR + smsType + mobile + MATCH);
-        int smsTypeHour = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY);
+        int smsTypeHour = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR);
         if(countSms > smsTypeHour){
             throw new BusinessException(ErrorCodeEnum.SMS_HOUR_LIMIT);
         }

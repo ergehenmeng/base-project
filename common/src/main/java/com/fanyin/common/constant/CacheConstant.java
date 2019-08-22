@@ -63,4 +63,8 @@ public class CacheConstant {
      */
     public static final String BANNER = "banner";
 
+    /**
+     * 公告
+     */
+    public static final String SYSTEM_NOTICE = "system_notice";
 }

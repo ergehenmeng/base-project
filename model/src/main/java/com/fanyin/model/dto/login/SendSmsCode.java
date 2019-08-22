@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Data
 public class SendSmsCode implements Serializable {
 
+    private static final long serialVersionUID = -9143167876516780812L;
+
     /**
      * 手机号
      */
