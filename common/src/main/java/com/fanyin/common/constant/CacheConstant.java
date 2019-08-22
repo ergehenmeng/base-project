@@ -58,5 +58,9 @@ public class CacheConstant {
      */
     public static final String SMS_TEMPLATE = "sms_template";
 
+    /**
+     * 轮播图
+     */
+    public static final String BANNER = "banner";
 
 }

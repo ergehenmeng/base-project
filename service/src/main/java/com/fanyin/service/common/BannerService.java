@@ -2,6 +2,7 @@ package com.fanyin.service.common;
 
 import com.fanyin.common.enums.Channel;
 import com.fanyin.dao.model.business.Banner;
+import com.fanyin.model.dto.business.banner.BannerQueryRequest;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -21,6 +22,11 @@ public interface BannerService {
     List<Banner> getBanner(Channel source, Byte type);
 
 
-    PageInfo<Banner> getByPage();
+    /**
+     * 根据条件分页查询录播图列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    PageInfo<Banner> getByPage(BannerQueryRequest request);
 }
 

@@ -26,9 +26,9 @@ public interface SystemNoticeService {
 
     /**
      * 删除公告
-     * @param request 前台参数
+     * @param id 公告id
      */
-    void deleteNotice(NoticeEditRequest request);
+    void deleteNotice(Integer id);
 
     /**
      * 分页查询公告信息

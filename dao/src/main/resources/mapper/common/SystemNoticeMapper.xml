@@ -44,19 +44,13 @@
     <select id="getList" parameterType="com.fanyin.model.dto.business.notice.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
         select id, title, classify, deleted, add_time, update_time content from system_notice
         where deleted = false
-        <if test="title != null">
-            and title like concat('%',#{title},'%')
+        <if test="queryName != null">
+            and title like concat('%',#{queryName},'%')
         </if>
         <if test="classify != null">
             and classify = #{classify}
         </if>
-        <if test="startTime != null">
-            and add_time &gt;= #{startTime}
-        </if>
-        <if test="endTime != null">
-            and add_time &lt; #{endTime}
-        </if>
-        order by add_time desc
+        order by update_time desc
     </select>
 
 

@@ -43,14 +43,6 @@
        and client_type = {clientType} and classify = #{classify} order by sort desc
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    <!--
-      @create by mybatis
-    -->
-    delete from banner
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-
   <insert id="insertSelective" parameterType="com.fanyin.dao.model.business.Banner">
     <!--
       @create by mybatis
@@ -184,4 +176,19 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.business.banner.BannerQueryRequest">
+        select <include refid="BaseColumnList"/>
+        from banner
+        <where>
+            <if test="classify != null">
+                and clssify = #{classify}
+            </if>
+            <if test="clientType != null">
+                and client_type = #{clientType}
+            </if>
+            <if test="middleTime != null">
+                and middle_time = #{middleTime}
+            </if>
+        </where>
+    </select>
 </mapper>
