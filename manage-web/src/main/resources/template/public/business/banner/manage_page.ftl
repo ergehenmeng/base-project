@@ -40,10 +40,13 @@
                             return str;
                         }
                     },
-                    {field : "title",title : "标题",width : 150,align : "center"},
+                    {field : "title",title : "标题",width : 150,align : "center",
+                        formatter:function(value,rows){
+                            return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ rows.imgUrl +'\');">' + value + '</a>';
+                        }
+                    },
                     {field : "clientType",title : "客户端",width : 150,align : "center"},
                     {field : "classify",title : "轮播图类型",width : 150,align : "center"},
-                    {field : "imgUrl",title : "图片地址",width : 100,align : "center"},
                     {field : "sort",title : "排序",width : 80,align : "center" },
                     {field : "startTime",title : "开始时间",width : 180,align : "center",
                         formatter : function(value) {

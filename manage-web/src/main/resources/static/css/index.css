@@ -52,6 +52,12 @@ body{
     left: 50%;
     top: 45%;
     display: none;
+    /*不可选中*/
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .login-panel ul{
     margin-top:15px;
