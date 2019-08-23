@@ -678,3 +678,19 @@ $.fn.extOptions.dateRange = function (elem,startElem,endElem,type){
         }
     });
 };
+
+$.fn.extOptions.date = function(elem,type){
+    var typeJson = {
+        year: 'yyyy',
+        month: 'yyyy-MM',
+        date: 'yyyy-MM-dd',
+        time: 'HH:mm:ss',
+        datetime: 'yyyy-MM-dd HH:mm:ss'
+    };
+    laydate.render({
+        elem: elem,
+        theme: "molv",
+        format: typeJson[type],
+        type: type
+    });
+};

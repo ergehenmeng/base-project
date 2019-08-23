@@ -12,7 +12,7 @@
         </div>
         <div class="form-item">
             <label>菜单标示:</label>
-            <input title="" maxlength="20"  name="nid" value="${nid!}" class="easyui-validatebox" data-options="required: true,validType:'english'"  />
+            <input title="" maxlength="20"  name="nid" class="easyui-validatebox" data-options="required: true,validType:'english'"  />
             <small>*</small>
         </div>
         <div class="form-item">

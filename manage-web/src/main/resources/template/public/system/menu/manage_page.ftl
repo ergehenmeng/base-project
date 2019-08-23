@@ -34,7 +34,7 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'nid\':\''+ row.nid +'\'});"> 添加</a>';
+                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl);"> 添加</a>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"> 删除</a>';
                             str += '</dd>';
@@ -52,7 +52,7 @@
                     },
                     {field : "classify",title : "类型",width : 80,align : "center",
                         formatter : function(value) {
-                            return value === 0 ? "导航菜单" : "按钮菜单";
+                            return value === 0 ? "导航" : "按钮";
                         }
                     },
                     {field : "sort",title : "排序",width : 50,align : "center"},

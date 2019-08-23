@@ -55,14 +55,12 @@ public class MenuController extends AbstractController {
     /**
      * 菜单添加页面
      * @param model model
-     * @param nid 父节点nid
      * @param id 父级id
      * @return ftl地址
      */
     @PostMapping("/public/system/menu/add_page")
     @Mark(RequestType.ALL)
-    public String addPage(Model model,String nid,Integer id){
-        model.addAttribute("nid",nid);
+    public String addPage(Model model,Integer id){
         model.addAttribute("pid",id);
         return "public/system/menu/add_page";
     }

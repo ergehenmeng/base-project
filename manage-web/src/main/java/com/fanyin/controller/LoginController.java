@@ -31,16 +31,20 @@ public class LoginController extends AbstractController {
     }
 
     /**
-     * 登陆后的首页
+     * 登陆后的首页,注意如果权限重新分配,需重新登陆系统
      * @return home页面
      */
     @GetMapping("/home")
     public String home(Model model){
         SystemOperator operator = getRequiredOperator();
         //导航菜单
-        operator.setLeftMenu(systemMenuService.getMenuList(operator.getId()));
+        if(operator.getLeftMenu() == null){
+            operator.setLeftMenu(systemMenuService.getMenuList(operator.getId()));
+        }
         //按钮菜单
-        operator.setButtonMenu(systemMenuService.getMenuList(operator.getId(), MenuClassify.BUTTON));
+        if(operator.getButtonMenu() == null){
+            operator.setButtonMenu(systemMenuService.getMenuList(operator.getId(), MenuClassify.BUTTON));
+        }
         model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit",operator.getPwd().equals(operator.getInitPwd()));
         return "home";

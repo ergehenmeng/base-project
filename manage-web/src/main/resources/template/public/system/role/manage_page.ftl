@@ -10,7 +10,7 @@
         var winWidth = 420;
         var winHeight = 300;
 
-        var authHeight = 400;
+        var authHeight = 500;
 
         var addTitle = "添加角色";
         var addUrl = "/public/system/role/add_page";

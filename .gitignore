@@ -5,3 +5,5 @@
 /*.iml
 /service/*.iml
 /.idea
+/dao/target
+/model/target

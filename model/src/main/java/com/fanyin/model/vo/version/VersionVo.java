@@ -23,7 +23,7 @@ public class VersionVo implements Serializable {
     /**
      * 是否为最新版本
      */
-    private boolean latest = true;
+    private boolean latest;
 
     /**
      * 版本号
