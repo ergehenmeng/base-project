@@ -20,9 +20,9 @@ public class BannerAddRequest implements Serializable {
     private Byte classify;
 
     /**
-     * 客户端类型 0:PC 1:APP
+     * 客户端类型 {@link com.fanyin.common.enums.Channel}
      */
-    private Byte clientType;
+    private String clientType;
 
     /**
      * 轮播图片地址

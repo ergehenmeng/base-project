@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="classify" jdbcType="TINYINT" property="classify" />
-    <result column="client_type" jdbcType="TINYINT" property="clientType" />
+    <result column="client_type" jdbcType="CHAR" property="clientType" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
     <result column="turn_url" jdbcType="VARCHAR" property="turnUrl" />
     <result column="sort" jdbcType="TINYINT" property="sort" />
@@ -97,7 +97,7 @@
         #{classify,jdbcType=TINYINT},
       </if>
       <if test="clientType != null">
-        #{clientType,jdbcType=BIT},
+        #{clientType,jdbcType=CHAR},
       </if>
       <if test="imgUrl != null">
         #{imgUrl,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
           classify = #{classify,jdbcType=TINYINT},
       </if>
       <if test="clientType != null">
-        client_type = #{clientType,jdbcType=BIT},
+        client_type = #{clientType,jdbcType=CHAR},
       </if>
       <if test="imgUrl != null">
         img_url = #{imgUrl,jdbcType=VARCHAR},

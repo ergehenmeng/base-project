@@ -48,7 +48,10 @@ public class BannerController extends AbstractUploadController {
      * 编辑轮播图信息
      */
     @RequestMapping("/business/banner/edit")
-    public RespBody edit(BannerEditRequest request, @RequestParam("imgFile") MultipartFile imgFile){
+    public RespBody edit(BannerEditRequest request, @RequestParam(value = "imgFile",required = false) MultipartFile imgFile){
+        if(imgFile != null){
+            request.setImgUrl(super.saveFile(imgFile));
+        }
         return RespBody.getInstance();
     }
 

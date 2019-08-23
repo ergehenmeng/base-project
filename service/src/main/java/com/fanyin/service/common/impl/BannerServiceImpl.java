@@ -2,16 +2,17 @@ package com.fanyin.service.common.impl;
 
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.enums.Channel;
-import com.fanyin.common.enums.SourceClassify;
 import com.fanyin.dao.mapper.common.BannerMapper;
 import com.fanyin.dao.model.business.Banner;
 import com.fanyin.model.dto.business.banner.BannerAddRequest;
+import com.fanyin.model.dto.business.banner.BannerEditRequest;
 import com.fanyin.model.dto.business.banner.BannerQueryRequest;
 import com.fanyin.service.common.BannerService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +31,9 @@ public class BannerServiceImpl implements BannerService {
     private BannerMapper bannerMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER,key = "#source.name() + #type",unless = "#result == null",cacheManager = "smallCacheManager")
-    public List<Banner> getBanner(Channel source, Byte type) {
-        byte clientType = SourceClassify.getType(source);
-        return bannerMapper.getBannerList(type,clientType);
+    @Cacheable(cacheNames = CacheConstant.BANNER,key = "#channel.name() + #classify",unless = "#result == null")
+    public List<Banner> getBanner(Channel channel, Byte classify) {
+        return bannerMapper.getBannerList(classify,channel.name());
     }
 
     @Override
@@ -44,10 +44,16 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
+    @CacheEvict(cacheNames = CacheConstant.BANNER,key = "#request.clientType + #request.classify",allEntries = true)
     public void addBanner(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.insertSelective(banner);
     }
 
-
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.BANNER,key = "#request.clientType + #request.classify",allEntries = true)
+    public void editBanner(BannerEditRequest request) {
+        Banner banner = DataUtil.copy(request, Banner.class);
+        bannerMapper.updateByPrimaryKeySelective(banner);
+    }
 }

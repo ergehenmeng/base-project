@@ -26,7 +26,7 @@ public class BannerQueryRequest extends PageQuery {
     /**
      * 客户端类型
      */
-    private Byte clientType;
+    private String clientType;
 
     /**
      * 播放时间

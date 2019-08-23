@@ -13,11 +13,6 @@ public enum Channel {
     PC,
 
     /**
-     * H5客户端
-     */
-    H5,
-
-    /**
      * 安卓客户端
      */
     ANDROID,
@@ -28,6 +23,11 @@ public enum Channel {
     IOS,
 
     /**
+     * H5客户端
+     */
+    H5,
+
+    /**
      * 微信小程序
      */
     WECHAT,
@@ -35,7 +35,19 @@ public enum Channel {
     /**
      * 支付宝小程序
      */
-    ALIPAY,
+    ALIPAY;
 
+
+    /**
+     * 根据下标获取响应渠道信息
+     */
+    public static Channel getChannel(byte index){
+        for (Channel channel : Channel.values()){
+            if(channel.ordinal() == index){
+                return channel;
+            }
+        }
+        return Channel.PC;
+    }
 }
 

@@ -38,7 +38,7 @@ public interface BannerMapper {
      * @param clientType 客户单类型
      * @return 轮播图列表
      */
-    List<Banner> getBannerList(@Param("classify") Byte classify, @Param("clientType") Byte clientType);
+    List<Banner> getBannerList(@Param("classify") Byte classify, @Param("clientType") String clientType);
 
     /**
      * 根据条件查询轮播图信息
