@@ -24,6 +24,13 @@ public interface BannerService {
     List<Banner> getBanner(Channel source, Byte classify);
 
     /**
+     * 主键查询
+     * @param id id
+     * @return banner
+     */
+    Banner getById(Integer id);
+
+    /**
      * 根据条件分页查询录播图列表
      * @param request 查询条件
      * @return 列表

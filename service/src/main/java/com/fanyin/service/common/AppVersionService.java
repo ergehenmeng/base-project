@@ -4,7 +4,7 @@ import com.fanyin.dao.model.business.AppVersion;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
 import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
-import com.fanyin.model.vo.version.Version;
+import com.fanyin.model.vo.version.VersionVo;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -48,7 +48,7 @@ public interface AppVersionService {
      * 获取最新可用的版本 用于检测是否有新版本
      * @return 版本信息
      */
-    Version getLatestVersion();
+    VersionVo getLatestVersion();
 
     /**
      * 获取最新app下载地址

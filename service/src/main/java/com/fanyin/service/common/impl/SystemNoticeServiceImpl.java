@@ -45,7 +45,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     }
 
     @Override
-    public void updateNotice(NoticeEditRequest request) {
+    public void editNotice(NoticeEditRequest request) {
         SystemNotice notice = DataUtil.copy(request, SystemNotice.class);
         systemNoticeMapper.updateByPrimaryKeySelective(notice);
     }

@@ -37,6 +37,11 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
+    public Banner getById(Integer id) {
+        return bannerMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public PageInfo<Banner> getByPage(BannerQueryRequest request) {
         PageHelper.startPage(request.getPage(),request.getPageSize());
         List<Banner> list = bannerMapper.getList(request);

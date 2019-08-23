@@ -31,7 +31,7 @@ public interface SystemNoticeService {
      * 更新公告
      * @param request 前台参数
      */
-    void updateNotice(NoticeEditRequest request);
+    void editNotice(NoticeEditRequest request);
 
     /**
      * 删除公告

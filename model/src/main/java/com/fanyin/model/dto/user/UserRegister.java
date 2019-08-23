@@ -11,6 +11,8 @@ import java.io.Serializable;
 @Data
 public class UserRegister implements Serializable {
 
+    private static final long serialVersionUID = 1211247555372353757L;
+
     /**
      * 昵称
      */

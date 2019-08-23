@@ -6,6 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="CHAR" property="title" />
     <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="client_type" jdbcType="CHAR" property="clientType" />
     <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
@@ -23,7 +24,7 @@
     <!--
       @create by mybatis
     -->
-    id, classify, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time,deleted
+    id,title, classify, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time,deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -52,6 +53,9 @@
       <if test="id != null">
         id,
       </if>
+        <if test="title != null">
+            title,
+        </if>
       <if test="classify != null">
         classify,
       </if>
@@ -93,6 +97,9 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
+        <if test="title != null">
+            #{title,jdbcType=CHAR},
+        </if>
       <if test="classify != null">
         #{classify,jdbcType=TINYINT},
       </if>
@@ -137,6 +144,9 @@
     -->
     update banner
     <set>
+        <if test="title != null ">
+            title = #{title},
+        </if>
       <if test="classify != null">
           classify = #{classify,jdbcType=TINYINT},
       </if>
@@ -180,6 +190,9 @@
         select <include refid="BaseColumnList"/>
         from banner
         <where>
+            <if test="queryName != null">
+                and title like concat('%',#{queryName},'%')
+            </if>
             <if test="classify != null">
                 and clssify = #{classify}
             </if>
