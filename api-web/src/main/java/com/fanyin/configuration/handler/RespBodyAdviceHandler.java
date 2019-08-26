@@ -1,4 +1,4 @@
-package com.fanyin.configuration;
+package com.fanyin.configuration.handler;
 
 
 import com.fanyin.model.ext.RespBody;
@@ -29,6 +29,7 @@ public class RespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite(Object body, @Nullable MethodParameter returnType, @Nullable MediaType selectedContentType, @Nullable Class<? extends HttpMessageConverter<?>> selectedConverterType, @Nullable ServerHttpRequest request, @Nullable ServerHttpResponse response) {
+        //过滤掉swagger2返回前台的数据
         if(body instanceof RespBody || body instanceof Json){
             return body;
         }
