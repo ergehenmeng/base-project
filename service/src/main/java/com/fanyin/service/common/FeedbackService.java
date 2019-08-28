@@ -1,6 +1,7 @@
 package com.fanyin.service.common;
 
 import com.fanyin.model.dto.business.feedback.FeedbackAddRequest;
+import com.fanyin.model.dto.business.feedback.FeedbackDisposeRequest;
 import com.fanyin.model.dto.business.feedback.FeedbackModel;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 import com.github.pagehelper.PageInfo;
@@ -23,4 +24,10 @@ public interface FeedbackService {
      * @return 反馈信息 包含用户基本信息
      */
     PageInfo<FeedbackModel> getByPage(FeedbackQueryRequest request);
+
+    /**
+     * 反馈信息处理
+     * @param request 处理结果信息
+     */
+    void dispose(FeedbackDisposeRequest request);
 }

@@ -3,6 +3,7 @@ package com.fanyin.service.common.impl;
 import com.fanyin.dao.mapper.business.FeedbackLogMapper;
 import com.fanyin.dao.model.business.FeedbackLog;
 import com.fanyin.model.dto.business.feedback.FeedbackAddRequest;
+import com.fanyin.model.dto.business.feedback.FeedbackDisposeRequest;
 import com.fanyin.model.dto.business.feedback.FeedbackModel;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 import com.fanyin.service.common.FeedbackService;
@@ -35,5 +36,13 @@ public class FeedbackServiceImpl implements FeedbackService {
         PageHelper.startPage(request.getPage(),request.getPageSize());
         List<FeedbackModel> list = feedbackLogMapper.getList(request);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public void dispose(FeedbackDisposeRequest request) {
+        FeedbackLog feedbackLog = DataUtil.copy(request, FeedbackLog.class);
+        feedbackLog.setState((byte)1);
+        feedbackLogMapper.updateByPrimaryKeySelective(feedbackLog);
+        //TODO 可发送站内信
     }
 }

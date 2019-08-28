@@ -1,6 +1,6 @@
 package com.fanyin.service.common;
 
-import com.fanyin.dao.model.business.AppVersion;
+import com.fanyin.dao.model.business.Version;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
 import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
@@ -18,7 +18,7 @@ public interface VersionService {
      * @param request 查询条件
      * @return 管理列表
      */
-    PageInfo<AppVersion> getByPage(VersionQueryRequest request);
+    PageInfo<Version> getByPage(VersionQueryRequest request);
 
     /**
      * 添加app版本管理信息

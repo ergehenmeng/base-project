@@ -10,7 +10,7 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
-public class AppVersion implements Serializable {
+public class Version implements Serializable {
 
     /**
      * 主键<br>

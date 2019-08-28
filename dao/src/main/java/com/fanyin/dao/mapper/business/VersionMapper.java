@@ -1,6 +1,6 @@
 package com.fanyin.dao.mapper.business;
 
-import com.fanyin.dao.model.business.AppVersion;
+import com.fanyin.dao.model.business.Version;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,42 +10,42 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface AppVersionMapper {
+public interface VersionMapper {
 
     /**
      * 插入不为空的记录
      *
      * @param record 条件 
      */
-    int insertSelective(AppVersion record);
+    int insertSelective(Version record);
 
     /**
      * 根据主键获取一条数据库记录
      *
      * @param id 条件 
      */
-    AppVersion selectByPrimaryKey(Integer id);
+    Version selectByPrimaryKey(Integer id);
 
     /**
      * 根据主键来更新部分数据库记录
      *
      * @param record 条件 
      */
-    int updateByPrimaryKeySelective(AppVersion record);
+    int updateByPrimaryKeySelective(Version record);
 
     /**
      * 根据条件查询app管理列表
      * @param request 查询条件
      * @return 列表
      */
-    List<AppVersion> getList(VersionQueryRequest request);
+    List<Version> getList(VersionQueryRequest request);
 
     /**
      * 获取最新已上架的版本信息
      * @param classify App类型 ANDROID IOS
      * @return 版本信息
      */
-    AppVersion getLatestVersion(@Param("classify")String classify);
+    Version getLatestVersion(@Param("classify")String classify);
 
     /**
      * 获取已上架版本的信息说明
@@ -53,7 +53,7 @@ public interface AppVersionMapper {
      * @param version 版本号
      * @return 版本信息
      */
-    AppVersion getVersion(@Param("classify")String classify,@Param("version")String version);
+    Version getVersion(@Param("classify")String classify, @Param("version")String version);
 
     /**
      * 在指定时间段内获取强制更新的版本列表
@@ -62,5 +62,5 @@ public interface AppVersionMapper {
      * @param endTime 结束时间
      * @return 强制更新的版本列表
      */
-    List<AppVersion> getForceUpdateVersion(@Param("classify")String classify, @Param("startTime")Date startTime, @Param("endTime")Date endTime);
+    List<Version> getForceUpdateVersion(@Param("classify")String classify, @Param("startTime")Date startTime, @Param("endTime")Date endTime);
 }

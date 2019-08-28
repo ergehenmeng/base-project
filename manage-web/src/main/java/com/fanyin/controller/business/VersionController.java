@@ -1,6 +1,6 @@
 package com.fanyin.controller.business;
 
-import com.fanyin.dao.model.business.AppVersion;
+import com.fanyin.dao.model.business.Version;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
 import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
@@ -28,8 +28,8 @@ public class VersionController {
      */
     @RequestMapping("/business/version/list_page")
     @ResponseBody
-    public Paging<AppVersion> listPage(VersionQueryRequest request){
-        PageInfo<AppVersion> byPage = versionService.getByPage(request);
+    public Paging<Version> listPage(VersionQueryRequest request){
+        PageInfo<Version> byPage = versionService.getByPage(request);
         return new Paging<>(byPage);
     }
 

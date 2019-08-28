@@ -5,8 +5,8 @@ import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.VersionUtil;
 import com.fanyin.constants.ConfigConstant;
-import com.fanyin.dao.mapper.business.AppVersionMapper;
-import com.fanyin.dao.model.business.AppVersion;
+import com.fanyin.dao.mapper.business.VersionMapper;
+import com.fanyin.dao.model.business.Version;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
 import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
@@ -32,53 +32,53 @@ import java.util.List;
 public class VersionServiceImpl implements VersionService {
 
     @Autowired
-    private AppVersionMapper appVersionMapper;
+    private VersionMapper versionMapper;
 
     @Autowired
     private SystemConfigApi systemConfigApi;
 
     @Override
-    public PageInfo<AppVersion> getByPage(VersionQueryRequest request) {
+    public PageInfo<Version> getByPage(VersionQueryRequest request) {
         PageHelper.startPage(request.getPage(),request.getPageSize());
-        List<AppVersion> list = appVersionMapper.getList(request);
+        List<Version> list = versionMapper.getList(request);
         return new PageInfo<>(list);
     }
 
     @Override
     public void addAppVersion(VersionAddRequest request) {
-        AppVersion version = DataUtil.copy(request, AppVersion.class);
-        appVersionMapper.insertSelective(version);
+        Version version = DataUtil.copy(request, Version.class);
+        versionMapper.insertSelective(version);
     }
 
     @Override
     public void editAppVersion(VersionEditRequest request) {
-        AppVersion version = DataUtil.copy(request, AppVersion.class);
-        appVersionMapper.updateByPrimaryKeySelective(version);
+        Version version = DataUtil.copy(request, Version.class);
+        versionMapper.updateByPrimaryKeySelective(version);
     }
 
     @Override
     public void putAwayVersion(Integer id) {
-        AppVersion appVersion = appVersionMapper.selectByPrimaryKey(id);
-        AppVersion version = appVersionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
+        Version appVersion = versionMapper.selectByPrimaryKey(id);
+        Version version = versionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
         if(version != null){
             throw new BusinessException(ErrorCodeEnum.VERSION_REDO);
         }
         appVersion.setState((byte)1);
-        appVersionMapper.updateByPrimaryKeySelective(appVersion);
+        versionMapper.updateByPrimaryKeySelective(appVersion);
     }
 
     @Override
     public void soleOutVersion(Integer id) {
-        AppVersion appVersion = new AppVersion();
-        appVersion.setId(id);
-        appVersion.setState((byte)0);
-        appVersionMapper.updateByPrimaryKeySelective(appVersion);
+        Version version = new Version();
+        version.setId(id);
+        version.setState((byte)0);
+        versionMapper.updateByPrimaryKeySelective(version);
     }
 
     @Override
     public VersionVo getLatestVersion() {
         String channel = RequestThreadLocal.getChannel();
-        AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
+        Version latestVersion = versionMapper.getLatestVersion(channel);
         String version = RequestThreadLocal.getVersion();
         //未找到最新版本,或者用户版本大于等于已上架版本
         if(latestVersion == null || VersionUtil.gte(version,latestVersion.getVersion())){
@@ -89,7 +89,7 @@ public class VersionServiceImpl implements VersionService {
         if(latestVersion.getForceUpdate()){
             return response;
         }
-        AppVersion appVersion = appVersionMapper.getVersion(channel, version);
+        Version appVersion = versionMapper.getVersion(channel, version);
         //未找到用户安装的版本信息,默认不强更
         if(appVersion == null){
             return response;
@@ -97,7 +97,7 @@ public class VersionServiceImpl implements VersionService {
         //如果用户版本非常老,最新版本不是强制更新版本,但中间某个版本是强制更新,用户一样需要强制更新
         Date addTime = appVersion.getAddTime();
         //查询开始时间和结束时间为了尽可能查询更广的范围
-        List<AppVersion> versionList = appVersionMapper.getForceUpdateVersion(channel, addTime, latestVersion.getUpdateTime());
+        List<Version> versionList = versionMapper.getForceUpdateVersion(channel, addTime, latestVersion.getUpdateTime());
         boolean forceUpdate = !CollectionUtils.isEmpty(versionList);
         response.setForceUpdate(forceUpdate);
         return response;
@@ -108,15 +108,15 @@ public class VersionServiceImpl implements VersionService {
         if(Channel.IOS.name().equals(channel)){
             return systemConfigApi.getString(ConfigConstant.APP_STORE_URL);
         }
-        AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
+        Version latestVersion = versionMapper.getLatestVersion(channel);
         return latestVersion.getUrl();
     }
 
     @Override
     public void deleteVersion(Integer id) {
-        AppVersion version = new AppVersion();
+        Version version = new Version();
         version.setId(id);
         version.setDeleted(true);
-        appVersionMapper.updateByPrimaryKeySelective(version);
+        versionMapper.updateByPrimaryKeySelective(version);
     }
 }

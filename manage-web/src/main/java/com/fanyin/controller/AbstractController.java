@@ -49,5 +49,18 @@ public class AbstractController {
         return operator;
     }
 
+    /**
+     * 登陆用户姓名
+     */
+    public static String getOperatorName(){
+        return getRequiredOperator().getOperatorName();
+    }
+
+    /**
+     * 登陆用户id
+     */
+    public static Integer getOperatorId(){
+        return getRequiredOperator().getId();
+    }
 
 }
