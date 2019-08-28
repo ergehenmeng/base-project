@@ -1,6 +1,6 @@
 package com.fanyin.controller.business;
 
-import com.fanyin.controller.AbstractUploadController;
+import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.business.Banner;
 import com.fanyin.model.dto.business.banner.BannerAddRequest;
 import com.fanyin.model.dto.business.banner.BannerEditRequest;
@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2019/8/22 11:22
  */
 @Controller
-public class BannerController extends AbstractUploadController {
+public class BannerController extends AbstractController {
 
     @Autowired
     private BannerService bannerService;

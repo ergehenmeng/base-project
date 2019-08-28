@@ -1,6 +1,7 @@
 package com.fanyin.dao.mapper.business;
 
 import com.fanyin.dao.model.business.LoginLog;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author 二哥很猛
@@ -27,5 +28,12 @@ public interface LoginLogMapper {
      * @param record 条件 
      */
     int updateByPrimaryKeySelective(LoginLog record);
+
+    /**
+     * 获取最近一次的登陆信息
+     * @param userId userId
+     * @return 登陆信息
+     */
+    LoginLog getLastLogin(@Param("userId")Integer userId);
 
 }

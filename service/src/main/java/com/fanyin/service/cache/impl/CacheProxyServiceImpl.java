@@ -2,7 +2,7 @@ package com.fanyin.service.cache.impl;
 
 
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.configuration.security.PasswordEncoder;
+import com.fanyin.configuration.security.Encoder;
 import com.fanyin.dao.model.system.SystemDict;
 import com.fanyin.dao.model.user.User;
 import com.fanyin.model.ext.AccessToken;
@@ -28,7 +28,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     private SystemDictService systemDictService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private Encoder encoder;
 
     @Autowired
     private AccessTokenService accessTokenService;
@@ -46,8 +46,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Override
     public AccessToken createAccessToken(User user,String channel) {
-        String accessKey = passwordEncoder.encode(user.getId() + channel + StringUtil.random(16));
-        String accessToken = passwordEncoder.encode(user.getId() + accessKey);
+        String accessKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
+        String accessToken = encoder.encode(user.getId() + accessKey);
         AccessToken token = AccessToken.builder().accessKey(accessKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
         accessTokenService.saveByAccessKey(token);
         return accessTokenService.saveByUserId(token);

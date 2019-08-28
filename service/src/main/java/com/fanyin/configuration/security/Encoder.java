@@ -5,7 +5,7 @@ package com.fanyin.configuration.security;
  * @author 二哥很猛
  * @date 2019/7/9 15:07
  */
-public interface PasswordEncoder {
+public interface Encoder {
 
     /**
      * bc加密

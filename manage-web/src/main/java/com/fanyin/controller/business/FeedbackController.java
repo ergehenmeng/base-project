@@ -2,7 +2,7 @@ package com.fanyin.controller.business;
 
 import com.fanyin.controller.AbstractController;
 import com.fanyin.model.dto.business.feedback.FeedbackDisposeRequest;
-import com.fanyin.model.dto.business.feedback.FeedbackModel;
+import com.fanyin.model.vo.feedback.FeedbackVo;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
@@ -26,8 +26,8 @@ public class FeedbackController extends AbstractController {
      * 分页查询反馈列表
      */
     @RequestMapping("/feedback/list_page")
-    public Paging<FeedbackModel> listPage(FeedbackQueryRequest request){
-        PageInfo<FeedbackModel> byPage = feedbackService.getByPage(request);
+    public Paging<FeedbackVo> listPage(FeedbackQueryRequest request){
+        PageInfo<FeedbackVo> byPage = feedbackService.getByPage(request);
         return new Paging<>(byPage);
     }
 
@@ -38,6 +38,7 @@ public class FeedbackController extends AbstractController {
     public RespBody dispose(FeedbackDisposeRequest request){
         request.setOperatorId(getOperatorId());
         request.setOperatorName(getOperatorName());
+        feedbackService.dispose(request);
         return RespBody.getInstance();
     }
 }

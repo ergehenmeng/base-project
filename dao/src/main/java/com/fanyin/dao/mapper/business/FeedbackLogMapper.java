@@ -1,7 +1,7 @@
 package com.fanyin.dao.mapper.business;
 
 import com.fanyin.dao.model.business.FeedbackLog;
-import com.fanyin.model.dto.business.feedback.FeedbackModel;
+import com.fanyin.model.vo.feedback.FeedbackVo;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 
 import java.util.List;
@@ -34,5 +34,5 @@ public interface FeedbackLogMapper {
      * @param request 查询条件
      * @return 列表
      */
-    List<FeedbackModel> getList(FeedbackQueryRequest request);
+    List<FeedbackVo> getList(FeedbackQueryRequest request);
 }

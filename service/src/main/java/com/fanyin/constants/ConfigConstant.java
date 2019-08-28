@@ -66,4 +66,9 @@ public class ConfigConstant {
      * app store下载地址
      */
     public static final String APP_STORE_URL = "app_store_url";
+
+    /**
+     * 文件服务器地址
+     */
+    public static final String FILE_SERVER_ADDRESS = "file_server_address";
 }

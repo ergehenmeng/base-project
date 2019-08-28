@@ -28,7 +28,7 @@ public @interface IdCard {
      * 错误信息 必须包含该属性
      * @return 错误信息
      */
-    String message() default "非法参数";
+    String message() default "身份证号格式错误";
 
     /**
      * 是否必填

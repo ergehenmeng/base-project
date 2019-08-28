@@ -34,7 +34,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     private WebMvcProperties webMvcProperties;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private Encoder encoder;
 
 
     @Override
@@ -102,7 +102,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         //屏蔽原始错误异常
         provider.setHideUserNotFoundExceptions(false);
         provider.setUserDetailsService(userDetailsService());
-        provider.setEncoder(passwordEncoder);
+        provider.setEncoder(encoder);
         return provider;
     }
     /**

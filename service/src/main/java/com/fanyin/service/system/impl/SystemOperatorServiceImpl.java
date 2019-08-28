@@ -4,7 +4,7 @@ import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.Md5Util;
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.configuration.security.PasswordEncoder;
+import com.fanyin.configuration.security.Encoder;
 import com.fanyin.model.dto.system.operator.OperatorAddRequest;
 import com.fanyin.model.dto.system.operator.OperatorEditRequest;
 import com.fanyin.model.dto.system.operator.OperatorQueryRequest;
@@ -37,7 +37,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     private SystemOperatorMapper systemOperatorMapper;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private Encoder encoder;
 
     @Autowired
     private SystemOperatorRoleMapper systemOperatorRoleMapper;
@@ -50,11 +50,11 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     @Override
     public String updateLoginPassword(PasswordEditRequest request) {
         SystemOperator operator = systemOperatorMapper.selectByPrimaryKey(request.getOperatorId());
-        String oldPassword = passwordEncoder.encode(request.getOldPwd());
+        String oldPassword = encoder.encode(request.getOldPwd());
         if(!operator.getPwd().equals(oldPassword)){
             throw new BusinessException(ErrorCodeEnum.OPERATOR_PASSWORD_ERROR);
         }
-        String newPassword = passwordEncoder.encode(request.getNewPwd());
+        String newPassword = encoder.encode(request.getNewPwd());
         operator.setPwd(newPassword);
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         return newPassword;
@@ -86,8 +86,8 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
 
     @Override
     public String initPassword(String mobile) {
-        String md5Password = Md5Util.md5(mobile.substring(4));
-        return passwordEncoder.encode(md5Password);
+        String md5Password = Md5Util.md5(mobile.substring(5));
+        return encoder.encode(md5Password);
     }
 
     @Override

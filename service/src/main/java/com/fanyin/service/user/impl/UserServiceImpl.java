@@ -6,13 +6,13 @@ import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.RegExpUtil;
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.configuration.security.PasswordEncoder;
+import com.fanyin.configuration.security.Encoder;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.user.UserMapper;
 import com.fanyin.dao.model.user.User;
 import com.fanyin.model.dto.login.LoginRecord;
-import com.fanyin.model.dto.login.UserAccountLogin;
-import com.fanyin.model.dto.login.UserSmsLogin;
+import com.fanyin.model.dto.login.AccountLoginRequest;
+import com.fanyin.model.dto.login.SmsLoginRequest;
 import com.fanyin.model.dto.user.UserRegister;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.model.ext.RequestMessage;
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private Encoder encoder;
 
     @Autowired
     private CacheProxyService cacheProxyService;
@@ -62,12 +62,20 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 用户注册后置处理
+     * @param user 用户信息
+     */
+    private void doPostRegister(User user){
+
+    }
+
+    /**
      * 对登陆密码进行加密
      * @param user 用户信息
      */
     private void encodePassword(User user){
         if(StringUtil.isNotBlank(user.getPwd())){
-            user.setPwd(passwordEncoder.encode(user.getPwd()));
+            user.setPwd(encoder.encode(user.getPwd()));
         }
     }
 
@@ -83,12 +91,12 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public AccessToken accountLogin(UserAccountLogin login) {
+    public AccessToken accountLogin(AccountLoginRequest login) {
         User user = this.getByAccount(login.getAccount());
         if(user == null){
             throw new BusinessException(ErrorCodeEnum.USER_NOT_FOUND);
         }
-        if(!passwordEncoder.encode(login.getPwd()).equals(user.getPwd())){
+        if(!encoder.encode(login.getPwd()).equals(user.getPwd())){
             throw new BusinessException(ErrorCodeEnum.PASSWORD_ERROR);
         }
         return this.doLogin(user,login.getIp());
@@ -96,7 +104,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public AccessToken smsLogin(UserSmsLogin login) {
+    public AccessToken smsLogin(SmsLoginRequest login) {
         String smsCode = smsService.getSmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile());
         if(smsCode == null){
             throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_EXPIRE);

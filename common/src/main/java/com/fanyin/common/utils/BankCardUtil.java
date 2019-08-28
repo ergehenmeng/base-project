@@ -61,7 +61,7 @@ public class BankCardUtil {
      * @param idCard 身份证号码
      * @return 出生年月日 yyyyMMdd
      */
-    private static String getNormalBirthDay(String idCard){
+    public static String getNormalBirthDay(String idCard){
         String birthDay = getBirthDay(idCard);
         return birthDay.length() == BIRTH_DAY_SHORT ? "19" + birthDay : birthDay;
     }

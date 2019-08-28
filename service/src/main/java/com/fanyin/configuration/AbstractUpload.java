@@ -1,9 +1,8 @@
-package com.fanyin.controller;
+package com.fanyin.configuration;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.DateUtil;
-import com.fanyin.configuration.ApplicationProperties;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,13 @@ import java.util.UUID;
  * <h4>说明</h4>
  * 根路径由{@link ApplicationProperties#getUploadDir()}决定<br>
  * 公共路径默认/upload/ 方便nginx或服务做静态资源拦截映射<br>
- * 文件分类路径{@link AbstractUploadController#getFolderName()}决定<br>
+ * 文件分类路径{@link AbstractUpload#getFolderName()}决定<br>
  * 日期默认yyyyMMdd<br>
  * @author 二哥很猛
  * @date 2018/11/27 15:20
  */
 @Slf4j
-public abstract class AbstractUploadController extends AbstractController{
+public abstract class AbstractUpload{
 
     @Autowired
     private ApplicationProperties applicationProperties;

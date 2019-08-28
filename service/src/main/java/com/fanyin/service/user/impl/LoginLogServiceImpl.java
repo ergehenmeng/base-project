@@ -27,4 +27,9 @@ public class LoginLogServiceImpl implements LoginLogService {
         LoginLog loginLog = DataUtil.copy(record, LoginLog.class);
         loginLogMapper.insertSelective(loginLog);
     }
+
+    @Override
+    public LoginLog getLastLogin(Integer userId) {
+        return loginLogMapper.getLastLogin(userId);
+    }
 }

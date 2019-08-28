@@ -78,6 +78,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     public Filter byteHttpRequestFilter(){
         ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
         requestFilter.getExclude().add("/upload/**");
+        requestFilter.getExclude().add("/swagger/**");
         return requestFilter;
     }
 

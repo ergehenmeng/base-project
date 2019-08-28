@@ -9,6 +9,7 @@
     <result column="nick_name" jdbcType="CHAR" property="nickName" />
     <result column="mobile" jdbcType="CHAR" property="mobile" />
     <result column="email" jdbcType="CHAR" property="email" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
     <result column="pwd" jdbcType="CHAR" property="pwd" />
     <result column="state" jdbcType="BIT" property="state" />
     <result column="channel" jdbcType="TINYINT" property="channel" />
@@ -20,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, nick_name, mobile, email, pwd, state, channel, register_ip, add_time, update_time
+    id, nick_name, mobile, email, pwd, state, avatar,channel, register_ip, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -52,9 +53,13 @@
       <if test="email != null">
         email,
       </if>
+
       <if test="pwd != null">
         pwd,
       </if>
+        <if test="avatar != null">
+            avatar,
+        </if>
       <if test="state != null">
         state,
       </if>
@@ -87,6 +92,9 @@
       <if test="pwd != null">
         #{pwd,jdbcType=CHAR},
       </if>
+        <if test="avatar != null">
+            #{avatar,jdbcType=VARCHAR},
+        </if>
       <if test="state != null">
         #{state,jdbcType=BIT},
       </if>
@@ -122,6 +130,9 @@
       <if test="pwd != null">
         pwd = #{pwd,jdbcType=CHAR},
       </if>
+        <if test="avatar != null">
+            avatar = #{avatar,jdbcType=VARCHAR},
+        </if>
       <if test="state != null">
         state = #{state,jdbcType=BIT},
       </if>

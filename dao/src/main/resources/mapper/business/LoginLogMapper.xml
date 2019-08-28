@@ -117,4 +117,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="getLastLogin" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from user_login_log where user_id = #{userId} order by add_time desc limit 1
+    </select>
 </mapper>

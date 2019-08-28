@@ -3,13 +3,13 @@ package com.fanyin.controller.business;
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
 import com.fanyin.constants.DictConstant;
-import com.fanyin.controller.AbstractUploadController;
+import com.fanyin.controller.AbstractController;
+import com.fanyin.dao.model.business.ImageLog;
 import com.fanyin.model.dto.business.image.ImageAddRequest;
 import com.fanyin.model.dto.business.image.ImageEditRequest;
 import com.fanyin.model.dto.business.image.ImageQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.dao.model.business.ImageLog;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.ImageLogService;
 import com.fanyin.utils.DataUtil;
@@ -26,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2018/11/27 17:13
  */
 @Controller
-public class ImageLogController extends AbstractUploadController {
+public class ImageLogController extends AbstractController {
 
     @Autowired
     private ImageLogService imageLogService;

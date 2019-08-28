@@ -1,7 +1,7 @@
 package com.fanyin.configuration;
 
-import com.fanyin.configuration.security.BcPasswordEncoder;
-import com.fanyin.configuration.security.PasswordEncoder;
+import com.fanyin.configuration.security.BcEncoder;
+import com.fanyin.configuration.security.Encoder;
 import com.fanyin.configuration.template.FreemarkerHtmlTemplate;
 import com.fanyin.configuration.template.HtmlTemplate;
 import com.google.code.kaptcha.Constants;
@@ -64,8 +64,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      * @return bean
      */
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BcPasswordEncoder();
+    public Encoder encoder(){
+        return new BcEncoder();
     }
 
     /**

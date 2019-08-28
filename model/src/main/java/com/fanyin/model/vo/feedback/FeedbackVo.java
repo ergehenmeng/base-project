@@ -1,4 +1,4 @@
-package com.fanyin.model.dto.business.feedback;
+package com.fanyin.model.vo.feedback;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.util.Date;
  * @date 2019/8/28 14:01
  */
 @Data
-public class FeedbackModel implements Serializable {
+public class FeedbackVo implements Serializable {
 
     private static final long serialVersionUID = -434393367856882980L;
 

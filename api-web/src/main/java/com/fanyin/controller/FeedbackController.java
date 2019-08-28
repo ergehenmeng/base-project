@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/8/28 13:42
  */
 @RestController
-@Api("信息反馈")
+@Api(tags = "问题反馈")
 public class FeedbackController extends AbstractController{
 
     @Autowired

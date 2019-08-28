@@ -20,9 +20,9 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     /**
      * 登陆密码加密 无需覆盖父类加密方式
      */
-    private PasswordEncoder encoder;
+    private Encoder encoder;
 
-    void setEncoder(PasswordEncoder encoder) {
+    void setEncoder(Encoder encoder) {
         this.encoder = encoder;
     }
 

@@ -62,6 +62,13 @@ public class User implements Serializable {
     private Byte channel;
 
     /**
+     * 头像地址<br>
+     * 表 : user_ext<br>
+     * 对应字段 : avatar<br>
+     */
+    private String avatar;
+
+    /**
      * 注册地址<br>
      * 表 : user<br>
      * 对应字段 : register_ip<br>

@@ -39,7 +39,7 @@
     <!-- 出入参日志 -->
     <appender name="param_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:\\info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>D:\\param.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>

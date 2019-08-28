@@ -1,19 +1,12 @@
 package com.fanyin.configuration;
 
-import com.fanyin.controller.AbstractUploadController;
-import com.fanyin.controller.ErrorPageController;
 import org.apache.catalina.connector.Connector;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-
-import java.util.List;
 
 /**
  * mvc配置信息
@@ -34,7 +27,7 @@ public class ManageWebMvcConfiguration extends WebMvcConfiguration {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //如果采用nginx进行静态资源转发,则不需要该配置
-        registry.addResourceHandler("/upload/**").addResourceLocations( "file:///" + applicationProperties.getUploadDir() + AbstractUploadController.DEFAULT_DIR);
+        registry.addResourceHandler("/upload/**").addResourceLocations( "file:///" + applicationProperties.getUploadDir() + AbstractUpload.DEFAULT_DIR);
     }
 
 

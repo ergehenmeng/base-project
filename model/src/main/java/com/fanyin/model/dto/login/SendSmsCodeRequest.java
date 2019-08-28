@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2019/8/20 10:50
  */
 @Data
-public class SendSmsCode implements Serializable {
+public class SendSmsCodeRequest implements Serializable {
 
     private static final long serialVersionUID = -9143167876516780812L;
 
@@ -19,6 +19,6 @@ public class SendSmsCode implements Serializable {
      * 手机号
      */
     @Mobile(required = true)
-    @ApiModelProperty("手机号码")
+    @ApiModelProperty(value = "手机号码",required = true)
     private String mobile;
 }

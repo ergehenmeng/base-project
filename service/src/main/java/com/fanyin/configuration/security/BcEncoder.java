@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * @date 2019/7/9 15:57
  */
 @Slf4j
-public class BcPasswordEncoder implements PasswordEncoder {
+public class BcEncoder implements Encoder {
 
     private static final Pattern PATTERN = Pattern.compile("\\A\\$2a?\\$\\d\\d\\$[./0-9A-Za-z]{53}");
 
