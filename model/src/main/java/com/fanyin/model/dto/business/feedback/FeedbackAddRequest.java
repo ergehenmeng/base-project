@@ -1,12 +1,10 @@
 package com.fanyin.model.dto.business.feedback;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 手机反馈新增
@@ -14,6 +12,7 @@ import java.util.List;
  * @date 2019/8/28 10:47
  */
 @Data
+@ApiModel
 public class FeedbackAddRequest implements Serializable {
 
     private static final long serialVersionUID = -1472450823258477249L;
@@ -60,9 +59,4 @@ public class FeedbackAddRequest implements Serializable {
     @ApiModelProperty(hidden = true)
     private String deviceModel;
 
-    private List<MQ> mqList = new ArrayList<>();
-
-    public static class MQ implements Serializable{
-        private String test;
-    }
 }

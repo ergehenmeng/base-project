@@ -2,6 +2,7 @@ package com.fanyin.model.ext;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
 
 import java.io.Serializable;
 
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @date 2018/1/12 17:41
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@ApiModel("响应基础对象")
 public class RespBody<T> implements Serializable {
 
     private static final long serialVersionUID = 1574813862539970945L;

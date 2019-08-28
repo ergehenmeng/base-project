@@ -2,18 +2,16 @@ package com.fanyin.controller;
 
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.model.ext.RespBody;
+import com.fanyin.model.vo.upload.FilePath;
 import com.fanyin.service.system.impl.SystemConfigApi;
-import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -30,13 +28,11 @@ public class ImageController extends AbstractController{
      * 文件上传
      */
     @PostMapping("/upload/image")
-    @ApiImplicitParam(name = "image",value = "文件流",required = true)
+    @ApiParam(name = "image",value = "文件流",required = true)
     @ApiOperation("图片单张上传")
     public RespBody image(@RequestParam("image") MultipartFile image){
         String path = super.saveFile(image);
-        Map<String, String> map = Maps.newHashMapWithExpectedSize(2);
-        map.put("path",path);
-        map.put("localhost",systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
-        return RespBody.success(map);
+        FilePath build = FilePath.builder().path(path).address(systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS)).build();
+        return RespBody.success(build);
     }
 }

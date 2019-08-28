@@ -1,6 +1,7 @@
 package com.fanyin.model.ext;
 
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.List;
  * @date 2018/1/18 15:35
  */
 @Data
+@ApiModel("分页响应基础参数")
 public class Paging<T> implements Serializable{
 
     private static final long serialVersionUID = 9015209122071749218L;

@@ -1,8 +1,8 @@
 package com.fanyin.controller;
 
 import com.fanyin.common.constant.SmsTypeConstant;
-import com.fanyin.model.dto.login.SendSmsCodeRequest;
 import com.fanyin.model.dto.login.AccountLoginRequest;
+import com.fanyin.model.dto.login.SendSmsCodeRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.model.ext.RespBody;
@@ -44,8 +44,8 @@ public class LoginController extends AbstractController{
      */
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/by_sms")
-    public AccessToken bySms(SmsLoginRequest login){
-        return userService.smsLogin(login);
+    public RespBody<AccessToken> bySms(SmsLoginRequest login){
+        return RespBody.success(userService.smsLogin(login));
     }
 
     /**
@@ -53,7 +53,7 @@ public class LoginController extends AbstractController{
      */
     @ApiOperation("手机或邮箱密码登陆")
     @PostMapping("/login/by_account")
-    public AccessToken byAccount(AccountLoginRequest login){
-        return userService.accountLogin(login);
+    public RespBody<AccessToken> byAccount(AccountLoginRequest login){
+        return RespBody.success(userService.accountLogin(login));
     }
 }
