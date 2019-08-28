@@ -1,40 +1,40 @@
 package com.fanyin.service.common;
 
+import com.fanyin.dao.model.business.HelpCenter;
 import com.fanyin.model.dto.business.help.HelpAddRequest;
 import com.fanyin.model.dto.business.help.HelpEditRequest;
 import com.fanyin.model.dto.business.help.HelpQueryRequest;
-import com.fanyin.dao.model.business.HelpInstruction;
 import com.github.pagehelper.PageInfo;
 
 /**
  * @author 帮助说明
  * @date 2018/11/20 20:20
  */
-public interface HelpInstructionService {
+public interface HelpCenterService {
 
     /**
      * 添加帮助说明
      * @param request 前台参数
      */
-    void addHelpInstruction(HelpAddRequest request);
+    void addHelpCenter(HelpAddRequest request);
 
     /**
      * 更新帮助说明
      * @param request 前台参数
      */
-    void updateHelpInstruction(HelpEditRequest request);
+    void updateHelpCenter(HelpEditRequest request);
 
     /**
      * 删除帮助说明
      * @param request 前台参数 id
      */
-    void deleteHelpInstruction(HelpEditRequest request);
+    void deleteHelpCenter(HelpEditRequest request);
 
     /**
      * 分页获取帮助说明
      * @param request 前台参数
      * @return 分页列表
      */
-    PageInfo<HelpInstruction> getByPage(HelpQueryRequest request);
+    PageInfo<HelpCenter> getByPage(HelpQueryRequest request);
 }
 

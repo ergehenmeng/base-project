@@ -1,6 +1,6 @@
 package com.fanyin.interceptor;
 
-import com.fanyin.common.constant.HeaderConstant;
+import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.RequestMessage;
@@ -25,17 +25,21 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //app请求头信息
-        String channel = request.getHeader(HeaderConstant.CHANNEL);
-        String version = request.getHeader(HeaderConstant.VERSION);
-        String osVersion = request.getHeader(HeaderConstant.OS_VERSION);
+        String channel = request.getHeader(AppHeader.CHANNEL);
+        String version = request.getHeader(AppHeader.VERSION);
+        String osVersion = request.getHeader(AppHeader.OS_VERSION);
+        String deviceBrand = request.getHeader(AppHeader.DEVICE_BRAND);
+        String deviceModel = request.getHeader(AppHeader.DEVICE_MODEL);
 
         if(checkHeaderLength(channel)
                 || checkHeaderLength(version)
-                || checkHeaderLength(osVersion)){
+                || checkHeaderLength(osVersion)
+                || checkHeaderLength(deviceBrand)
+                || checkHeaderLength(deviceModel)){
             //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
         }
-        RequestMessage message = RequestMessage.builder().version(version).channel(channel).osVersion(osVersion).build();
+        RequestMessage message = RequestMessage.builder().version(version).channel(channel).osVersion(osVersion).deviceBrand(deviceBrand).deviceModel(deviceModel).build();
         RequestThreadLocal.set(message);
         return true;
     }

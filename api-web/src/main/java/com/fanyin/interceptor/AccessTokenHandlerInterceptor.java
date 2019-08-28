@@ -1,7 +1,7 @@
 package com.fanyin.interceptor;
 
 import com.fanyin.annotation.Access;
-import com.fanyin.common.constant.HeaderConstant;
+import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.Channel;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.RequestException;
@@ -41,8 +41,8 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
         }
         //登陆
         if(access(handler)){
-            String accessKey = request.getHeader(HeaderConstant.ACCESS_KEY);
-            String accessToken = request.getHeader(HeaderConstant.ACCESS_TOKEN);
+            String accessKey = request.getHeader(AppHeader.ACCESS_KEY);
+            String accessToken = request.getHeader(AppHeader.ACCESS_TOKEN);
             this.accessTokenVerify(accessKey,accessToken,message);
         }
         return true;

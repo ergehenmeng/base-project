@@ -28,7 +28,7 @@ public class UserAccountLogin implements Serializable {
     private String pwd;
 
     /**
-     * 登陆渠道 {@link com.fanyin.common.enums.Channel}
+     * 登陆ip
      */
-    private String channel;
+    private String ip;
 }

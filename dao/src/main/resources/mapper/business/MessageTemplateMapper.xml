@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.dao.mapper.business.MessageTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.MessageTemplate">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="CHAR" property="title" />
+    <result column="nid" jdbcType="CHAR" property="nid" />
+    <result column="state" jdbcType="BIT" property="state" />
+    <result column="classify" jdbcType="TINYINT" property="classify" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="tag" jdbcType="CHAR" property="tag" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, title, nid, state, classify, content, update_time, tag, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from message_template
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.MessageTemplate">
+    <!--
+      @create by mybatis
+    -->
+    update message_template
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=CHAR},
+      </if>
+      <if test="nid != null">
+        nid = #{nid,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=BIT},
+      </if>
+      <if test="classify != null">
+        classify = #{classify,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=CHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

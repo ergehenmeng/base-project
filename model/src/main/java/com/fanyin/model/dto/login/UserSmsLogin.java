@@ -28,7 +28,7 @@ public class UserSmsLogin implements Serializable {
     private String mobile;
 
     /**
-     * 登陆渠道 {@link com.fanyin.common.enums.Channel}
+     * ip地址
      */
-    private String channel;
+    private String ip;
 }

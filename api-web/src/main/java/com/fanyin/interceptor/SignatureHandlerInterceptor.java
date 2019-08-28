@@ -1,7 +1,7 @@
 package com.fanyin.interceptor;
 
 import com.fanyin.common.constant.CommonConstant;
-import com.fanyin.common.constant.HeaderConstant;
+import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.common.utils.SignatureUtil;
@@ -26,11 +26,11 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String signature = request.getHeader(HeaderConstant.SIGNATURE);
+        String signature = request.getHeader(AppHeader.SIGNATURE);
         if(signature == null){
             throw new RequestException(ErrorCodeEnum.SIGNATURE_ERROR);
         }
-        String timestamp = request.getHeader(HeaderConstant.TIMESTAMP);
+        String timestamp = request.getHeader(AppHeader.TIMESTAMP);
 
         if(timestamp == null){
             throw new RequestException(ErrorCodeEnum.SIGNATURE_TIMESTAMP_NULL);

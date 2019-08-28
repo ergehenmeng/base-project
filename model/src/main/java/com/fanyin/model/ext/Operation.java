@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 7114257557281410201L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 操作人姓名

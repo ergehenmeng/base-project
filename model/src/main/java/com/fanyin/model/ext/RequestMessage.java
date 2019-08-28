@@ -36,6 +36,16 @@ public class RequestMessage implements Serializable {
     private String osVersion;
 
     /**
+     * 设备厂商
+     */
+    private String deviceBrand;
+
+    /**
+     * 设备型号
+     */
+    private String deviceModel;
+
+    /**
      * accessKey
      */
     private String accessKey;

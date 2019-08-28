@@ -10,13 +10,17 @@ import com.fanyin.configuration.security.PasswordEncoder;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.user.UserMapper;
 import com.fanyin.dao.model.user.User;
+import com.fanyin.model.dto.login.LoginRecord;
 import com.fanyin.model.dto.login.UserAccountLogin;
 import com.fanyin.model.dto.login.UserSmsLogin;
 import com.fanyin.model.dto.user.UserRegister;
 import com.fanyin.model.ext.AccessToken;
+import com.fanyin.model.ext.RequestMessage;
+import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.SmsService;
 import com.fanyin.service.system.impl.SystemConfigApi;
+import com.fanyin.service.user.LoginLogService;
 import com.fanyin.service.user.UserService;
 import com.fanyin.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +49,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private SmsService smsService;
 
+    @Autowired
+    private LoginLogService loginLogService;
 
     @Override
     public User register(UserRegister register) {
@@ -85,7 +91,7 @@ public class UserServiceImpl implements UserService {
         if(!passwordEncoder.encode(login.getPwd()).equals(user.getPwd())){
             throw new BusinessException(ErrorCodeEnum.PASSWORD_ERROR);
         }
-        return cacheProxyService.createAccessToken(user, login.getChannel());
+        return this.doLogin(user,login.getIp());
     }
 
 
@@ -102,8 +108,25 @@ public class UserServiceImpl implements UserService {
         if(user == null){
             throw new BusinessException(ErrorCodeEnum.MOBILE_NOT_REGISTER);
         }
-        return cacheProxyService.createAccessToken(user, login.getChannel());
+        return this.doLogin(user,login.getIp());
     }
+
+    /**
+     * 移动端登陆系统
+     * 1.创建token
+     * 2.添加登陆日志
+     * @param user 用户id
+     * @param ip 登陆ip
+     * @return token信息
+     */
+    private AccessToken doLogin(User user,String ip){
+        RequestMessage request = RequestThreadLocal.get();
+        AccessToken accessToken = cacheProxyService.createAccessToken(user, request.getChannel());
+        LoginRecord record = LoginRecord.builder().channel(request.getChannel()).ip(ip).deviceBrand(request.getDeviceBrand()).deviceModel(request.getDeviceModel()).userId(user.getId()).softwareVersion(request.getVersion()).build();
+        loginLogService.addLoginLog(record);
+        return accessToken;
+    }
+
 
     @Override
     public User getByAccount(String account) {
