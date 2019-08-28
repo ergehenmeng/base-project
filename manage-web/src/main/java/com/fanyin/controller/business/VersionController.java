@@ -6,7 +6,7 @@ import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.service.common.AppVersionService;
+import com.fanyin.service.common.VersionService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2019/8/22 15:08
  */
 @Controller
-public class AppVersionController {
+public class VersionController {
 
     @Autowired
-    private AppVersionService appVersionService;
+    private VersionService versionService;
 
     /**
      * app版本管理列表
@@ -29,7 +29,7 @@ public class AppVersionController {
     @RequestMapping("/business/version/list_page")
     @ResponseBody
     public Paging<AppVersion> listPage(VersionQueryRequest request){
-        PageInfo<AppVersion> byPage = appVersionService.getByPage(request);
+        PageInfo<AppVersion> byPage = versionService.getByPage(request);
         return new Paging<>(byPage);
     }
 
@@ -39,7 +39,7 @@ public class AppVersionController {
     @RequestMapping("/business/version/add")
     @ResponseBody
     public RespBody add(VersionAddRequest request){
-        appVersionService.addAppVersion(request);
+        versionService.addAppVersion(request);
         return RespBody.getInstance();
     }
 
@@ -49,7 +49,7 @@ public class AppVersionController {
     @RequestMapping("/business/version/edit")
     @ResponseBody
     public RespBody edit(VersionEditRequest request){
-        appVersionService.editAppVersion(request);
+        versionService.editAppVersion(request);
         return RespBody.getInstance();
     }
 
@@ -60,7 +60,7 @@ public class AppVersionController {
     @RequestMapping("/business/version/put_away")
     @ResponseBody
     public RespBody putAway(Integer id){
-        appVersionService.putAwayVersion(id);
+        versionService.putAwayVersion(id);
         return RespBody.getInstance();
     }
 
@@ -71,7 +71,7 @@ public class AppVersionController {
     @RequestMapping("/business/version/sold_out")
     @ResponseBody
     public RespBody soleOut(Integer id){
-        appVersionService.soleOutVersion(id);
+        versionService.soleOutVersion(id);
         return RespBody.getInstance();
     }
 
@@ -81,7 +81,7 @@ public class AppVersionController {
     @RequestMapping("/business/version/delete")
     @ResponseBody
     public RespBody delete(Integer id){
-        appVersionService.deleteVersion(id);
+        versionService.deleteVersion(id);
         return RespBody.getInstance();
     }
 }

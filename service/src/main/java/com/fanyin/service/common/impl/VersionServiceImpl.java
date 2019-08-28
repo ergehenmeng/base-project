@@ -12,7 +12,7 @@ import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.model.vo.version.VersionVo;
-import com.fanyin.service.common.AppVersionService;
+import com.fanyin.service.common.VersionService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
@@ -28,8 +28,8 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2019/8/22 14:38
  */
-@Service("appVersionService")
-public class AppVersionServiceImpl implements AppVersionService {
+@Service("versionService")
+public class VersionServiceImpl implements VersionService {
 
     @Autowired
     private AppVersionMapper appVersionMapper;

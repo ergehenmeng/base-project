@@ -1,5 +1,6 @@
 package com.fanyin.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -8,5 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/8/20 10:18
  */
 @RestController
+@Api("注册")
 public class RegisterController extends AbstractController{
 }

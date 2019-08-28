@@ -6,10 +6,10 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
-    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="nick_name" jdbcType="CHAR" property="nickName" />
+    <result column="mobile" jdbcType="CHAR" property="mobile" />
+    <result column="email" jdbcType="CHAR" property="email" />
+    <result column="pwd" jdbcType="CHAR" property="pwd" />
     <result column="state" jdbcType="BIT" property="state" />
     <result column="channel" jdbcType="TINYINT" property="channel" />
     <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
@@ -76,16 +76,16 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="nickName != null">
-        #{nickName,jdbcType=VARCHAR},
+        #{nickName,jdbcType=CHAR},
       </if>
       <if test="mobile != null">
-        #{mobile,jdbcType=VARCHAR},
+        #{mobile,jdbcType=CHAR},
       </if>
       <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+        #{email,jdbcType=CHAR},
       </if>
       <if test="pwd != null">
-        #{pwd,jdbcType=VARCHAR},
+        #{pwd,jdbcType=CHAR},
       </if>
       <if test="state != null">
         #{state,jdbcType=BIT},
@@ -111,16 +111,16 @@
     update user
     <set>
       <if test="nickName != null">
-        nick_name = #{nickName,jdbcType=VARCHAR},
+        nick_name = #{nickName,jdbcType=CHAR},
       </if>
       <if test="mobile != null">
-        mobile = #{mobile,jdbcType=VARCHAR},
+        mobile = #{mobile,jdbcType=CHAR},
       </if>
       <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+        email = #{email,jdbcType=CHAR},
       </if>
       <if test="pwd != null">
-        pwd = #{pwd,jdbcType=VARCHAR},
+        pwd = #{pwd,jdbcType=CHAR},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=BIT},

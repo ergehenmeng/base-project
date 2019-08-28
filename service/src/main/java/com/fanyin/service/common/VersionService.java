@@ -11,7 +11,7 @@ import com.github.pagehelper.PageInfo;
  * @author 二哥很猛
  * @date 2019/8/22 14:38
  */
-public interface AppVersionService {
+public interface VersionService {
 
     /**
      * 分页查询app管理列表
