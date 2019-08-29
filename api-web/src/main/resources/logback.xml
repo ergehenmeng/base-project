@@ -62,6 +62,17 @@
         </filter>
     </appender>
 
+    <!-- 推送日志 -->
+    <appender name="push_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:\\jpush.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${console_log_pattern}</pattern>
+        </encoder>
+    </appender>
+
     <root level="info">
         <appender-ref ref="info_rolling_file"/>
         <appender-ref ref="error_rolling_file"/>
@@ -77,6 +88,10 @@
         <appender-ref ref="param_rolling_file"/>
     </logger>
 
+    <logger name="push_response" level="debug">
+        <appender-ref ref="push_rolling_file"/>
+    </logger>
+    
     <logger name="org.springframework.boot" additivity="false" level="warn">
         <appender-ref ref="console"/>
     </logger>

@@ -39,4 +39,10 @@ public class ClearCacheServiceImpl implements ClearCacheService{
     @CacheEvict(cacheNames = CacheConstant.SMS_TEMPLATE,allEntries = true)
     public void clearSmsTemplate() {
     }
+
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.PUSH_TEMPLATE,allEntries = true)
+    public void clearPushTemplate(){
+
+    }
 }

@@ -95,6 +95,8 @@
         <hutool.version>4.6.1</hutool.version>
         <!--mysql版本-->
         <mysql.version>8.0.13</mysql.version>
+        <!--极光推送-->
+        <jpush.version>3.3.10</jpush.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -186,6 +188,11 @@
                 <groupId>io.swagger</groupId>
                 <artifactId>swagger-models</artifactId>
                 <version>1.5.22</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.jpush.api</groupId>
+                <artifactId>jpush-client</artifactId>
+                <version>${jpush.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

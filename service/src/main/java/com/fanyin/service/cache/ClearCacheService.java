@@ -30,5 +30,10 @@ public interface ClearCacheService {
      * 清空短信模板
      */
     void clearSmsTemplate();
+
+    /**
+     * 清除推送模板
+     */
+    void clearPushTemplate();
 }
 

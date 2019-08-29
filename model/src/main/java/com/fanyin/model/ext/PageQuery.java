@@ -1,6 +1,7 @@
 package com.fanyin.model.ext;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,16 +22,19 @@ public class PageQuery implements Serializable{
     /**
      * 第几页
      */
+    @ApiModelProperty(value = "第几页",required = true)
     private int page = 1;
 
     /**
      * 页容量
      */
+    @ApiModelProperty(value = "页容量",required = true)
     private int pageSize = 20;
 
     /**
      * 基础查询字段
      */
+    @ApiModelProperty(hidden = true)
     private String queryName;
 
 

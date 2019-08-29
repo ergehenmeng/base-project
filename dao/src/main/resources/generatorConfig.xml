@@ -49,7 +49,7 @@
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="user_ext" domainObjectName="UserExt"
+        <table tableName="push_template" domainObjectName="PushTemplate"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" enableDeleteByPrimaryKey="false">

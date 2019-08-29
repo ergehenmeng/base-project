@@ -67,4 +67,9 @@ public class CacheConstant {
      * 公告
      */
     public static final String SYSTEM_NOTICE = "system_notice";
+
+    /**
+     * 推送消息模板
+     */
+    public static final String PUSH_TEMPLATE = "push_template";
 }

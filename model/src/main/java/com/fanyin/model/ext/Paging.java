@@ -2,6 +2,7 @@ package com.fanyin.model.ext;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,21 +21,25 @@ public class Paging<T> implements Serializable{
     /**
      * 总条数
      */
+    @ApiModelProperty("总条数")
     private long total;
 
     /**
      * 数据集
      */
+    @ApiModelProperty("结果集")
     private List<T> rows;
 
     /**
      * 当前页数
      */
+    @ApiModelProperty("第几页")
     private long page;
 
     /**
      * 页容量
      */
+    @ApiModelProperty("页容量")
     private long pageSize;
 
     public Paging(int total,List<T> rows){
