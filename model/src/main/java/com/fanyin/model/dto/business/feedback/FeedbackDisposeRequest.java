@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.business.feedback;
 
-import com.fanyin.model.ext.Operation;
+import com.fanyin.model.ext.ActionRecord;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class FeedbackDisposeRequest extends Operation{
+public class FeedbackDisposeRequest extends ActionRecord {
 
     private static final long serialVersionUID = -7275206427146713271L;
 

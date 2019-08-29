@@ -3,7 +3,7 @@ package com.fanyin.queue;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.ext.Async;
-import com.fanyin.model.ext.Key;
+import com.fanyin.model.ext.AsyncKey;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018/12/21 16:42
  */
 @Slf4j
-public abstract class AbstractAsyncTask<T extends Key> extends AbstractTask<T> implements Runnable{
+public abstract class AbstractAsyncTask<T extends AsyncKey> extends AbstractTask<T> implements Runnable{
 
     public AbstractAsyncTask(T data){
         super(data);

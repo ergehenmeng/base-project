@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.system.department;
 
-import com.fanyin.model.ext.Operation;
+import com.fanyin.model.ext.ActionRecord;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class DepartmentAddRequest extends Operation {
+public class DepartmentAddRequest extends ActionRecord {
 
     private static final long serialVersionUID = -4129318805129787627L;
 

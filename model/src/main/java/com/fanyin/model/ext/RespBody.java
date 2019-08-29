@@ -3,6 +3,8 @@ package com.fanyin.model.ext;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.Serializable;
 
@@ -20,15 +22,19 @@ public class RespBody<T> implements Serializable {
     /**
      * 代码 默认200为成功
      */
+    @ApiModelProperty("状态码,成功=200")
     private int code = 200;
+
     /**
      * 信息
      */
+    @ApiModelProperty("成功或失败的信息")
     private String msg;
 
     /**
      * 结果集 键值对或者非基本类型对象
      */
+    @ApiModelProperty("成功时可能包含的数据集")
     private T data;
     
     private RespBody(){

@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @date 2018/11/21 17:34
  */
 @Data
-public class Key implements Serializable {
+public class AsyncKey implements Serializable {
 
     private static final long serialVersionUID = -3523695195544460695L;
 

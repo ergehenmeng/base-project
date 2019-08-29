@@ -5,6 +5,7 @@ import com.fanyin.model.dto.login.AccountLoginRequest;
 import com.fanyin.model.dto.user.UserRegister;
 import com.fanyin.model.dto.login.SmsLoginRequest;
 import com.fanyin.model.ext.AccessToken;
+import com.fanyin.model.vo.login.LoginToken;
 
 /**
  * @author 二哥很猛
@@ -24,14 +25,14 @@ public interface UserService {
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
-    AccessToken accountLogin(AccountLoginRequest login);
+    LoginToken accountLogin(AccountLoginRequest login);
 
     /**
      * 短信验证码+手机号登陆
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
-    AccessToken smsLogin(SmsLoginRequest login);
+    LoginToken smsLogin(SmsLoginRequest login);
 
     /**
      * 根据账号查询用户信息
