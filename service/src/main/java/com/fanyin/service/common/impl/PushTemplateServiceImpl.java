@@ -3,10 +3,15 @@ package com.fanyin.service.common.impl;
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.dao.mapper.business.PushTemplateMapper;
 import com.fanyin.dao.model.business.PushTemplate;
+import com.fanyin.model.dto.business.push.PushTemplateQueryRequest;
 import com.fanyin.service.common.PushTemplateService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -17,6 +22,13 @@ public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Autowired
     private PushTemplateMapper pushTemplateMapper;
+
+    @Override
+    public PageInfo<PushTemplate> getByPage(PushTemplateQueryRequest request) {
+        PageHelper.startPage(request.getPage(),request.getPageSize());
+        List<PushTemplate> list = pushTemplateMapper.getList(request);
+        return new PageInfo<>(list);
+    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE,key = "#p0",unless = "#result == null")

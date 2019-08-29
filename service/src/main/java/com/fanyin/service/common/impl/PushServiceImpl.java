@@ -8,12 +8,14 @@ import cn.jiguang.common.resp.APIRequestException;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.push.PushClient;
 import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.Message;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
 import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
+import com.fanyin.common.enums.PushType;
 import com.fanyin.configuration.JpushProperties;
 import com.fanyin.dao.model.business.PushTemplate;
 import com.fanyin.model.ext.PushBuilder;
@@ -51,18 +53,28 @@ public class PushServiceImpl implements PushService {
     private static final String PAGE_TAG = "pageTag";
 
     @Override
-    public void pushNotification(PushBuilder pushBuilder, Object... params) {
-        PushTemplate template = pushTemplateService.getTemplate(pushBuilder.getNid());
+    public void pushNotification(PushType pushType,PushBuilder pushBuilder, Object... params) {
+        PushTemplate template = pushTemplateService.getTemplate(pushType.getNid());
         if(template == null){
-            log.warn("未查询到推送模板:[{}]",pushBuilder.getNid());
+            log.warn("未查询到推送模板:[{}]",pushType.getNid());
             return;
         }
         this.addTag(pushBuilder,template.getTag());
         try {
-            PushResult pushResult = jPushClient.sendPush(this.pushPayload(pushBuilder,MessageFormat.format(template.getContent(), params)));
-            log.debug("推送消息异步返回:[{}]",pushResult);
+            PushResult pushResult = jPushClient.sendPush(this.getPushPayload(pushBuilder,MessageFormat.format(template.getContent(), params)));
+            log.debug("推送通知异步返回:[{}]",pushResult);
         } catch (APIConnectionException | APIRequestException e) {
-            log.error("消息推送异常:[{}]",pushBuilder,e);
+            log.error("推送通知异常:[{}]",pushBuilder,e);
+        }
+    }
+
+    @Override
+    public void pushMessage(PushBuilder pushBuilder) {
+        try {
+            PushResult pushResult = jPushClient.sendPush(this.getPushPayloadMessage(pushBuilder));
+            log.debug("推送消息异步响应:[{}]",pushResult);
+        }catch (Exception e){
+            log.error("推送消息异常:[{}]",pushBuilder,e);
         }
     }
 
@@ -85,10 +97,17 @@ public class PushServiceImpl implements PushService {
         log.info("极光推送客户端初始化成功...");
     }
 
+    private PushPayload getPushPayloadMessage(PushBuilder pushBuilder){
+        return PushPayload.newBuilder()
+                .setPlatform(Platform.all())
+                .setAudience(Audience.alias(pushBuilder.getAlias()))
+                .setMessage(Message.newBuilder().setMsgContent(pushBuilder.getAlert()).addExtras(pushBuilder.getExtras()).build()).build();
+    }
+
     /**
      * 组装消息通知信息
      */
-    private PushPayload pushPayload(PushBuilder pushBuilder,String content){
+    private PushPayload getPushPayload(PushBuilder pushBuilder,String content){
         return PushPayload.newBuilder()
                 .setPlatform(Platform.all())
                 .setAudience(Audience.alias(pushBuilder.getAlias()))

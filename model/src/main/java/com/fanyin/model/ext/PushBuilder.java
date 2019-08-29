@@ -19,11 +19,6 @@ import java.util.Map;
 public class PushBuilder {
 
     /**
-     * 推送模板nid
-     */
-    private String nid;
-
-    /**
      * 别名
      */
     private String alias;

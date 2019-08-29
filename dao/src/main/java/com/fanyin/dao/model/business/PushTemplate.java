@@ -40,13 +40,6 @@ public class PushTemplate implements Serializable {
     private Boolean state;
 
     /**
-     * 消息类型<br>
-     * 表 : push_template<br>
-     * 对应字段 : classify<br>
-     */
-    private Byte classify;
-
-    /**
      * 消息内容<br>
      * 表 : push_template<br>
      * 对应字段 : content<br>

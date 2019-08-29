@@ -1,19 +1,15 @@
 package com.fanyin.dao.mapper.business;
 
 import com.fanyin.dao.model.business.PushTemplate;
+import com.fanyin.model.dto.business.push.PushTemplateQueryRequest;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
  */
 public interface PushTemplateMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(PushTemplate record);
 
     /**
      * 根据主键获取一条数据库记录
@@ -35,4 +31,11 @@ public interface PushTemplateMapper {
      * @return 消息模板
      */
     PushTemplate getByNid(@Param("nid")String nid);
+
+    /**
+     * 根据条件查询消息模板
+     * @param request 查询条件
+     * @return 推送模板
+     */
+    List<PushTemplate> getList(PushTemplateQueryRequest request);
 }

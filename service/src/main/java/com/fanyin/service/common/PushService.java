@@ -1,5 +1,6 @@
 package com.fanyin.service.common;
 
+import com.fanyin.common.enums.PushType;
 import com.fanyin.model.ext.PushBuilder;
 
 /**
@@ -9,9 +10,16 @@ import com.fanyin.model.ext.PushBuilder;
 public interface PushService {
 
     /**
-     * 推送消息(别名推送)
+     * 推送通知(别名推送)
+     * @param pushType 推送模板类型
      * @param pushBuilder 消息相关参数
      * @param params 消息模板涉及到的参数
      */
-    void pushNotification(PushBuilder pushBuilder, Object... params);
+    void pushNotification(PushType pushType,PushBuilder pushBuilder, Object... params);
+
+    /**
+     * 推送消息
+     * @param pushBuilder 消息信息
+     */
+    void pushMessage(PushBuilder pushBuilder);
 }
