@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>轮播图管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
 
@@ -11,17 +11,17 @@
         var winHeight = 500;
 
         var addTitle = "添加轮播图";
-        var addUrl = "/public/business/banner/add_page";
+        var addUrl = "/business/version/add_page";
 
         var editTitle = "编辑轮播图";
-        var editUrl = "/public/business/banner/edit_page";
+        var editUrl = "/business/version/edit_page";
 
         var  delMsg = "确定要执行该操作吗";
-        var delUrl = "/business/banner/delete";
+        var delUrl = "/business/version/delete";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/business/banner/list_page",
+                url : "/business/version/list_page",
                 columns : [ [
                     {
                         field : "action",
@@ -40,26 +40,42 @@
                             return str;
                         }
                     },
-                    {field : "title",title : "标题",width : 150,align : "center",
-                        formatter:function(value,rows){
-                            return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ rows.imgUrl +'\');">' + value + '</a>';
+                    {field : "classify",title : "客户端",width : 150,align : "center",
+                        formatter:function (value) {
+                            if("ANDROID" === value){
+                                return "android";
+                            }else if("IOS" === value){
+                                return "ios";
+                            }else if("PC" === value){
+                                return "pc";
+                            }else if("H5" === value){
+                                return "h5";
+                            }else if("WECHAT" === value){
+                                return "微信小程序";
+                            }else if("ALIPAY" === value){
+                                return "支付宝小程序";
+                            }
                         }
                     },
-                    {field : "clientType",title : "客户端",width : 150,align : "center"},
-                    {field : "classify",title : "轮播图类型",width : 150,align : "center"},
+                    {field : "version",title : "轮播图类型",width : 150,align : "center"},
+                    {field : "forceUpdate",title : "是否强制更新",width : 100,align : "center",
+                        formatter:function (value) {
+                            if(value){
+                                return "是";
+                            }
+                            return "否";
+                        }
+                    },
+                    {field : "state",title : "状态",width : 100,align : "center",
+                        formatter:function (value) {
+                            if(value === 1){
+                                return "上架";
+                            }
+                            return "下架";
+                        }
+                    },
                     {field : "sort",title : "排序",width : 80,align : "center" },
-                    {field : "startTime",title : "开始时间",width : 180,align : "center",
-                        formatter : function(value) {
-                            return getLocalTime(value, 4);
-                        }
-                    },
-                    {field : "updateTime",title : "结束时间",width : 180,align : "center",
-                        formatter : function(value) {
-                            return getLocalTime(value, 4);
-                        }
-                    },
-                    {field : "click",title : "是否可点击",width : 80,align : "center" },
-                    {field : "turnUrl",title : "跳转地址",width : 150,align : "center"},
+                    {field : "url",title : "下载地址",width : 80,align : "center" },
                     {field : "addTime",title : "添加时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
@@ -90,12 +106,12 @@
                     </select>
                 </li>
                 <li>
-                    <span>分类</span>
-                    <@select name="classify" total="true"  title="轮播图分类" nid="banner_classify"/>
-                </li>
-                <li>
-                    <span>播放时间</span>
-                    <input title="在此时间内有效的录播信息" type="text" name="middleTime" id="middleTime" />
+                    <span>上架状态</span>
+                    <select name="state" title="上架状态">
+                        <option value="">全部</option>
+                        <option value="0">下架</option>
+                        <option value="1">上架</option>
+                    </select>
                 </li>
             </@search>
             <div class="right">

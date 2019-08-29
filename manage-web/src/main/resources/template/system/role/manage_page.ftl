@@ -13,13 +13,13 @@
         var authHeight = 500;
 
         var addTitle = "添加角色";
-        var addUrl = "/public/system/role/add_page";
+        var addUrl = "/system/role/add_page";
 
         var editTitle = "编辑角色";
-        var editUrl = "/public/system/role/edit_page";
+        var editUrl = "/system/role/edit_page";
 
         var authTitle = "角色授权";
-        var authUrl = "/public/system/role/auth_page";
+        var authUrl = "/system/role/auth_page";
 
         var  delMsg = "删除角色可能导致相关人员无法使用系统,确定要执行该操作";
         var delUrl = "/system/role/delete";

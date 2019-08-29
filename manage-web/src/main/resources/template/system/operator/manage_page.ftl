@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>系统用户管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
 
@@ -11,13 +11,13 @@
         var winHeight = 300;
 
         var addTitle = "添加用户";
-        var addUrl = "/public/system/operator/add_page";
+        var addUrl = "/system/operator/add_page";
 
         var editTitle = "编辑用户";
-        var editUrl = "/public/system/operator/edit_page";
+        var editUrl = "/system/operator/edit_page";
 
         var delMsg = "确定要执行删除操作?";
-        var delUrl = "/public/system/operator/delete";
+        var delUrl = "/system/operator/delete";
 
         var lockMsg = "确定要执行锁定操作?";
         var lockUrl = "/system/operator/lock_operator";

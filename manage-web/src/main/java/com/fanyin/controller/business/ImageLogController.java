@@ -99,11 +99,11 @@ public class ImageLogController extends AbstractController {
      * 图片编辑页面
      * @return 图片地址
      */
-    @PostMapping("/public/system/image/edit_page")
+    @PostMapping("/system/image/edit_page")
     @Mark(RequestType.PAGE)
     public String editImagePage(Model model, Integer id){
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log",log);
-        return "public/system/image/edit_page";
+        return "system/image/edit_page";
     }
 }

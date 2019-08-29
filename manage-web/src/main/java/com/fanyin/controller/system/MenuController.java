@@ -33,12 +33,12 @@ public class MenuController extends AbstractController {
      * @param id 菜单主键
      * @return 页面地址
      */
-    @PostMapping("/public/system/menu/edit_page")
+    @PostMapping("/system/menu/edit_page")
     @Mark(RequestType.PAGE)
     public String editMenuPage(Model model, Integer id){
         SystemMenu menu = systemMenuService.getMenuById(id);
         model.addAttribute("menu",menu);
-        return "public/system/menu/edit_page";
+        return "system/menu/edit_page";
     }
 
     /**
@@ -58,11 +58,11 @@ public class MenuController extends AbstractController {
      * @param id 父级id
      * @return ftl地址
      */
-    @PostMapping("/public/system/menu/add_page")
+    @PostMapping("/system/menu/add_page")
     @Mark(RequestType.ALL)
     public String addPage(Model model,Integer id){
         model.addAttribute("pid",id);
-        return "public/system/menu/add_page";
+        return "system/menu/add_page";
     }
 
     /**

@@ -81,7 +81,7 @@ var changePwd = function(isClose){
         width : 400,
         height : 250,
         closable:isClose,
-        href : "/public/home/change_password_page",
+        href : "/home/change_password_page",
         buttons : [{
             text : '确定',
             handler : function() {

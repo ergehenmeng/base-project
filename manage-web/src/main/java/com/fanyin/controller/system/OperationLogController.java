@@ -38,7 +38,7 @@ public class OperationLogController {
      * @param id di
      * @return 结果页面
      */
-    @PostMapping("/public/system/operation_log/query_page")
+    @PostMapping("/system/operation_log/query_page")
     @Mark(RequestType.PAGE)
     public String queryPage(Model model, Integer id){
         String response = operationLogService.getResponseById(id);

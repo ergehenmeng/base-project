@@ -2,26 +2,26 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>轮播图管理</title>
-    <#include "../../../resources.ftl">
+    <title>数据字典管理</title>
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
 
         var winWidth = 420;
-        var winHeight = 500;
+        var winHeight = 400;
 
-        var addTitle = "添加轮播图";
-        var addUrl = "/public/business/notice/add_page";
+        var addTitle = "添加数据字典";
+        var addUrl = "/system/dict/add_page";
 
-        var editTitle = "编辑轮播图";
-        var editUrl = "/public/business/notice/edit_page";
+        var editTitle = "编辑数据字典";
+        var editUrl = "/system/dict/edit_page";
 
-        var  delMsg = "确定要执行该操作吗";
-        var delUrl = "/business/notice/delete";
+        var  delMsg = "删除数据字典可能导致相关人员无法使用系统,确定要执行该操作";
+        var delUrl = "/system/dict/delete";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/business/notice/list_page",
+                url : "/system/dict/list_page",
                 columns : [ [
                     {
                         field : "action",
@@ -40,24 +40,21 @@
                             return str;
                         }
                     },
-                    {field : "title",title : "标题",width : 150,align : "center"},
-                    {field : "clientType",title : "客户端",width : 150,align : "center"},
-                    {field : "classify",title : "轮播图类型",width : 150,align : "center"},
-                    {field : "imgUrl",title : "图片地址",width : 100,align : "center"},
-                    {field : "sort",title : "排序",width : 80,align : "center" },
-                    {field : "startTime",title : "开始时间",width : 180,align : "center",
+                    {field : "title",title : "字典名称",width : 150,align : "center"},
+                    {field : "nid",title : "标示符",width : 150,align : "center"},
+                    {field : "hiddenValue",title : "隐藏值",width : 100,align : "center"},
+                    {field : "showValue",title : "显示值",width : 150,align : "center"},
+                    {field : "locked",title : "编辑状态",width : 80,align : "center",
+                        formatter : function(value) {
+                            return value ? "锁定" : "正常";
+                        }
+                    },
+                    {field : "addTime",title : "添加时间",width : 180,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "updateTime",title : "结束时间",width : 180,align : "center",
-                        formatter : function(value) {
-                            return getLocalTime(value, 4);
-                        }
-                    },
-                    {field : "click",title : "是否可点击",width : 80,align : "center" },
-                    {field : "turnUrl",title : "跳转地址",width : 150,align : "center"},
-                    {field : "addTime",title : "添加时间",width : 150,align : "center",
+                    {field : "updateTime",title : "更新时间",width : 180,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
@@ -66,33 +63,21 @@
                 ] ]
             });
         });
-        $.fn.extOptions.date("#middleTime","datetime");
+
     </script>
 </head>
 <body class="tabs-body">
 <div class="easyui-layout" data-options="fit:true,doSize:false">
     <div data-options="region:'north'" class="condition-bar">
         <div class="layout-norths">
-            <@search placeholder="标题" advance=true>
+            <@search placeholder="字典名称、标示符" advance=true>
                 <li>
-                    <span>客户端</span>
-                    <select name="clientType" title="客户端类型">
+                    <span>编辑状态</span>
+                    <select name="locked" class="type" title="编辑状态">
                         <option value="">全部</option>
-                        <option value="PC">pc</option>
-                        <option value="ANDROID">android</option>
-                        <option value="IOS">ios</option>
-                        <option value="H5">h5</option>
-                        <option value="WECHAT">微信小程序</option>
-                        <option value="ALIPAY">支付宝小程序</option>
+                        <option value="true">锁定</option>
+                        <option value="false">正常</option>
                     </select>
-                </li>
-                <li>
-                    <span>分类</span>
-                    <@select name="classify" total="true"  title="轮播图分类" nid="banner_classify"/>
-                </li>
-                <li>
-                    <span>播放时间</span>
-                    <input title="在此时间内有效的录播信息" type="text" name="middleTime" id="middleTime" />
                 </li>
             </@search>
             <div class="right">

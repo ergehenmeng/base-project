@@ -40,11 +40,11 @@ public class BannerController extends AbstractController {
     /**
      * 轮播图编辑页面
      */
-    @RequestMapping("/public/business/banner/edit_page")
+    @RequestMapping("/business/banner/edit_page")
     public String editPage(Model model, Integer id){
         Banner banner = bannerService.getById(id);
         model.addAttribute("banner",banner);
-        return "public/business/banner/edit_page";
+        return "business/banner/edit_page";
     }
 
     /**

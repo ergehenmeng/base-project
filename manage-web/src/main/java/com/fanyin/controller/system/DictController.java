@@ -42,12 +42,12 @@ public class DictController {
      * @param id id
      * @return 页面地址
      */
-    @PostMapping("/public/system/dict/edit_page")
+    @PostMapping("/system/dict/edit_page")
     @Mark(RequestType.PAGE)
     public String editPage(Model model,Integer id){
         SystemDict dict = systemDictService.getById(id);
         model.addAttribute("dict",dict);
-        return "public/system/dict/edit_page";
+        return "system/dict/edit_page";
     }
 
     /**

@@ -40,11 +40,11 @@ public class DepartmentController {
     /**
      * 添加部门页面
      */
-    @PostMapping("/public/system/department/add_page")
+    @PostMapping("/system/department/add_page")
     @Mark(RequestType.PAGE)
     public String addPage(Model model, String code){
         model.addAttribute("code",code);
-        return "public/system/department/add_page";
+        return "system/department/add_page";
     }
 
     /**
@@ -61,12 +61,12 @@ public class DepartmentController {
     /**
      * 编辑部门页面
      */
-    @PostMapping("/public/system/department/edit_page")
+    @PostMapping("/system/department/edit_page")
     @Mark(RequestType.PAGE)
     public String editPage(Model model,Integer id){
         SystemDepartment department = systemDepartmentService.getById(id);
         model.addAttribute("department",department);
-        return "public/system/department/edit_page";
+        return "system/department/edit_page";
     }
 
     /**

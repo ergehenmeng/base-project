@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>系统参数管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
 
@@ -11,7 +11,7 @@
         var winHeight = 600;
 
         var editTitle = "编辑系统参数";
-        var editUrl = "/public/system/config/edit_page";
+        var editUrl = "/system/config/edit_page";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{

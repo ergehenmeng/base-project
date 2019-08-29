@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>菜单管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var treeGrid;
 
@@ -11,10 +11,10 @@
         var winHeight = 450;
 
         var addTitle = "添加菜单";
-        var addUrl = "/public/system/menu/add_page";
+        var addUrl = "/system/menu/add_page";
 
         var editTitle = "编辑菜单";
-        var editUrl = "/public/system/menu/edit_page";
+        var editUrl = "/system/menu/edit_page";
 
         var delMsg = "确定要删除该菜单选项吗?";
         var delUrl = "/system/menu/delete";

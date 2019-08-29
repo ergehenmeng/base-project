@@ -48,12 +48,12 @@ public class ConfigController extends AbstractController {
      * @param id 主键
      * @return 页面
      */
-    @PostMapping("/public/system/config/edit_page")
+    @PostMapping("/system/config/edit_page")
     @Mark(RequestType.PAGE)
     public String editPage(Model model, Integer id){
         SystemConfig config = systemConfigService.getById(id);
         model.addAttribute("config",config);
-        return "public/system/config/edit_page";
+        return "system/config/edit_page";
     }
 
     /**

@@ -24,7 +24,7 @@
     {
       "sourceType": "com.fanyin.configuration.ApplicationProperties",
       "name": "application.login-ignore-url",
-      "defaultValue": "/home;/portal;/public/**",
+      "defaultValue": "/home;/portal;",
       "description": "登陆后,需要忽略拦截的url",
       "type": "java.lang.String"
     },

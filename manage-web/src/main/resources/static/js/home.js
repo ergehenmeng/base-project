@@ -18,7 +18,7 @@ $(function(){
 	});
 
 	$(".user-role_menu").on("click",function(){
-        $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/public/home/role_menu_page");
+        $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/home/role_menu_page");
     });
 
 	//增加首页tabs信息
@@ -77,7 +77,7 @@ var changePwd = function(isClose){
         width : 480,
         height : 250,
         closable:isClose,
-        href : "/public/home/change_password_page",
+        href : "/home/change_password_page",
         buttons : [{
             text : '确定',
             handler : function() {

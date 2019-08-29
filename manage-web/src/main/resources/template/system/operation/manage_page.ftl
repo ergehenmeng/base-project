@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>操作日志管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
 
     <script type="text/javascript">
         var dataGrid;
         var title = "响应信息";
         var winWidth = 480;
         var winHeight = 300;
-        var url = "/public/system/operation/query_page";
+        var url = "/system/operation/query_page";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{

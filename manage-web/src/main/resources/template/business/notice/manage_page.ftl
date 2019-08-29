@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>轮播图管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
 
@@ -11,17 +11,17 @@
         var winHeight = 500;
 
         var addTitle = "添加轮播图";
-        var addUrl = "/public/business/sms_template/add_page";
+        var addUrl = "/business/notice/add_page";
 
         var editTitle = "编辑轮播图";
-        var editUrl = "/public/business/sms_template/edit_page";
+        var editUrl = "/business/notice/edit_page";
 
         var  delMsg = "确定要执行该操作吗";
-        var delUrl = "/business/sms_template/delete";
+        var delUrl = "/business/notice/delete";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/business/sms_template/list_page",
+                url : "/business/notice/list_page",
                 columns : [ [
                     {
                         field : "action",

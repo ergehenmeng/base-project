@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>部门管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
 
     <script type="text/javascript">
         var dataGrid;
@@ -11,10 +11,10 @@
         var winHeight = 250;
 
         var addTitle = "添加部门";
-        var addUrl = "/public/system/department/add_page";
+        var addUrl = "/system/department/add_page";
 
         var editTitle = "编辑部门";
-        var editUrl = "/public/system/department/edit_page";
+        var editUrl = "/system/department/edit_page";
 
         var delUrl = "/system/department/delete";
         var delMsg = "确定要删除该数据吗?";

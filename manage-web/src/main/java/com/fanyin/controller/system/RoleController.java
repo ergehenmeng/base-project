@@ -62,12 +62,12 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @PostMapping("/public/system/role/edit_page")
+    @PostMapping("/system/role/edit_page")
     @Mark(RequestType.PAGE)
     public String editPage(Model model, Integer id){
         SystemRole role = systemRoleService.getById(id);
         model.addAttribute("role",role);
-        return "public/system/role/edit_page";
+        return "system/role/edit_page";
     }
 
     /**
@@ -115,14 +115,14 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @PostMapping("/public/system/role/auth_page")
+    @PostMapping("/system/role/auth_page")
     @Mark(RequestType.PAGE)
     public String addPage(Model model, Integer id){
         List<Integer> role = systemRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);
         model.addAttribute("menuIds",menuIds);
         model.addAttribute("roleId",id);
-        return "public/system/role/auth_page";
+        return "system/role/auth_page";
     }
 
     /**

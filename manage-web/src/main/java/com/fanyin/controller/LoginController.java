@@ -65,9 +65,9 @@ public class LoginController extends AbstractController {
      * @param page 页面名称
      * @return 对应的页面
      */
-    @RequestMapping("/public/{modules}/{function}/{page}")
+    @RequestMapping("/{modules}/{function}/{page}")
     public String modules(@PathVariable("modules")String modules,@PathVariable("function")String function,@PathVariable("page")String page){
-        return "public/" + modules + "/" + function +"/" + page;
+        return  modules + "/" + function +"/" + page;
     }
 
 }

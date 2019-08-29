@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>图片管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
         var winWidth = 420;
         var winHeight = 300;
         var addTitle = "添加图片";
-        var addUrl = "/public/system/image/add_page";
+        var addUrl = "/system/image/add_page";
         var editTitle = "编辑图片";
-        var editUrl = "/public/system/image/edit_page";
+        var editUrl = "/system/image/edit_page";
         var delMsg = "删除图片可能导致页面展示问题,确定要执行该操作";
         var delUrl = "/system/image/delete";
 

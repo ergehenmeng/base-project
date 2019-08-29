@@ -95,7 +95,7 @@ public class OperatorController extends AbstractController {
      * @param id 管理人员id
      * @return 页面
      */
-    @PostMapping("/public/system/operator/edit_page")
+    @PostMapping("/system/operator/edit_page")
     @Mark(RequestType.PAGE)
     public String editOperatorPage(Model model, Integer id){
         SystemOperator operator = systemOperatorService.getById(id);
@@ -105,7 +105,7 @@ public class OperatorController extends AbstractController {
             String roleIds = Joiner.on(",").join(roleList);
             model.addAttribute("roleIds",roleIds);
         }
-        return "public/system/operator/edit_page";
+        return "system/operator/edit_page";
     }
 
     /**

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>短信记录管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
 
@@ -11,10 +11,10 @@
         var winHeight = 500;
 
         var addTitle = "添加轮播图";
-        var addUrl = "/public/business/sms_log/add_page";
+        var addUrl = "/business/sms_log/add_page";
 
         var editTitle = "编辑轮播图";
-        var editUrl = "/public/business/sms_log/edit_page";
+        var editUrl = "/business/sms_log/edit_page";
 
         var  delMsg = "确定要执行该操作吗";
         var delUrl = "/business/sms_log/delete";
