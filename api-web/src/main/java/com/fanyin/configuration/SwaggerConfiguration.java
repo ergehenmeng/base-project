@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
                 .produces(Sets.newHashSet("application/json"))
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.fanyin.controller"))
                 .build();
     }
 
