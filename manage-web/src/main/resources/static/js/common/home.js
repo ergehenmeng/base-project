@@ -12,10 +12,12 @@ $(function(){
 	$(".change-pwd-btn").on("click",function(){
 		changePwd(true);
 	});
-	
 	$(".logout-btn").on("click",function(){
 		logout();
 	});
+	$(".lock-screen").on("click",function(){
+        lockScreen();
+    });
 	$(".user-role-menu").on("click",function(){
         $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/home/role_menu_page");
     });
@@ -32,16 +34,6 @@ $(function(){
 		var url = $(this).attr("rel");
 		addTabs($(this).text(),url,true);
 	});
-
-    /**
-     * 锁屏
-     */
-	$(document).keydown(function(event){
-        if(event.ctrlKey === true && event.keyCode === 76){
-            lockScreen();
-        }
-    });
-
 });
 
 
@@ -116,7 +108,7 @@ var lockScreen = function () {
         width : 400,
         height : 140,
         closable:false,
-        href : "/admin/lockScreenPage",
+        href : "/home/lock_screen_page",
         buttons : [{
             text : '确定',
             handler : function() {

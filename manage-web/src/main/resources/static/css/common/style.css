@@ -25,7 +25,6 @@ textarea{
 }
 
 .right {
-    line-height: 46px;
 	float: right;
     margin-right: 30px;
 }
@@ -33,7 +32,7 @@ textarea{
 .layout-norths {
 	border: 1px solid #ccc;
 	margin:10px;
-	padding: 5px;
+	padding: 8px;
 	color: #555;
 	height: 60px;
 	line-height: 40px;

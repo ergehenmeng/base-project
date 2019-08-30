@@ -38,7 +38,7 @@
 <script src="/static/js/my97/WdatePicker.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
 <#-- 字体库-->
-<link href="/static/css/home/css/font-awesome.min.css?v=${version!}" type="text/css" rel="stylesheet">
+<link href="/static/css/common/css/font-awesome.min.css?v=${version!}" type="text/css" rel="stylesheet">
 <#-- 全局样式 -->
 <link href="/static/css/common/style.css?v=${version!}" rel="stylesheet" type="text/css" >
 
