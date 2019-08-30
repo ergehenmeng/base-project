@@ -35,14 +35,14 @@ textarea{
 	margin:10px;
 	padding: 5px;
 	color: #555;
-	height: 40px;
+	height: 60px;
 	line-height: 40px;
 }
 
 .layout-norths input {
 	padding: 0 0 0 10px;
     width: 250px;
-    height: 28px;
+    height: 32px;
 }
 
 .search-btn {
@@ -103,7 +103,7 @@ textarea{
 
 .submit-btn {
 	text-align: center;
-	width: 300px;
+	width: 280px;
 }
 .datagrid-header-row{
 	height: 36px;
@@ -111,7 +111,6 @@ textarea{
 
 .layout-norths ul li a.search-btn {
 	display: inline-block;
-	width: 30px;
 	height:28px;
 	line-height:28px;
 	margin-left: 15px;
@@ -121,7 +120,7 @@ textarea{
 
 .layout-norths li input {
 	border: 1px solid #ccc;
-	width: 168px;
+	width: 180px;
     height: 27px;
 }
 

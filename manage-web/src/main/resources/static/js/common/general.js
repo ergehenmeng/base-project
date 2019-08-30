@@ -548,7 +548,7 @@ $.windowDialog = function(opts){
 $.fn.dataGridOptions.cleanFun = function(formId){
     $(formId + ' input').val('');
     dataGrid.datagrid('load', {});
-    $("#show-adw")[0].reset();
+    $("#showAdw")[0].reset();
 };
 
 /**
