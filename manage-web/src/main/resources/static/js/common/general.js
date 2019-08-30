@@ -569,7 +569,7 @@ function eachJson(data){
  */
 function addTabs(title,url,closable){
 	//判断该tabs是否已经打开
-    var $tabs = $("#div_tabs");
+    var $tabs = $("#div-tabs");
 	var isOpen = $tabs.tabs("exists",title);
 	if(isOpen){
         $tabs.tabs("select",title);//选中点击的tabs

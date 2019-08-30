@@ -9,15 +9,14 @@ $(function(){
 		fit:true
 	});
 	
-	$(".change_pwd_btn").on("click",function(){
+	$(".change-pwd-btn").on("click",function(){
 		changePwd(true);
 	});
 	
-	$(".logout_btn").on("click",function(){
+	$(".logout-btn").on("click",function(){
 		logout();
 	});
-
-	$(".user-role_menu").on("click",function(){
+	$(".user-role-menu").on("click",function(){
         $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/home/role_menu_page");
     });
 
@@ -74,8 +73,8 @@ Accordion.prototype.dropdown = function(e) {
 var changePwd = function(isClose){
     $.windowDialog({
         title : "修改密码",
-        width : 480,
-        height : 250,
+        width : 400,
+        height : 220,
         closable:isClose,
         href : "/home/change_password_page",
         buttons : [{
@@ -110,8 +109,6 @@ var logout = function(){
 		}
 	});
 };
-
-
 
 var lockScreen = function () {
     $.windowDialog({

@@ -71,4 +71,20 @@ public class LoginController extends AbstractController {
         return  modules + "/" + function +"/" + page;
     }
 
+    /**
+     * 首页修改密码
+     * @return 页面
+     */
+    @RequestMapping("/home/change_password_page")
+    public String changePasswordPage(){
+        return "home/change_password_page";
+    }
+
+    /**
+     * 角色列表展示
+     */
+    @RequestMapping("/home/role_menu_page")
+    public String roleMenuPage(){
+        return "home/role_menu_page";
+    }
 }

@@ -17,7 +17,7 @@ a {
 }
 
 /**---------------左侧导航菜单start----------*/
- .fanyin_accordion {
+ .fanyin-accordion {
  	width: 100%;
  	max-width: 200px;
  	background: #FFF;
@@ -26,7 +26,7 @@ a {
  	border-radius: 4px;
  }
 
-.fanyin_accordion .link {
+.fanyin-accordion .link {
 	cursor: pointer;
 	display: block;
 	padding: 15px 15px 15px 30px;
@@ -40,31 +40,31 @@ a {
 	transition: all 0.4s ease;
 }
 
-.div_accordion {
+.div-accordion {
 	overflow-y: auto;
 	float: left;
 	width: 200px;
 	border-right: 1px solid #DDE;
 }
-.div_scrollbar{
+.div-scrollbar{
 	width: 198px;
 }
 
-.div_accordion::-webkit-scrollbar {
+.div-accordion::-webkit-scrollbar {
 	width: 2px;
 }
 
-.div_accordion::-webkit-scrollbar-track {
+.div-accordion::-webkit-scrollbar-track {
 	-webkit-box-shadow: 0 0 1px rgba(0,0,0,0.3);
 	border: 1px solid #FFFFFF;
 }
 
-.div_accordion::-webkit-scrollbar-thumb {
+.div-accordion::-webkit-scrollbar-thumb {
 	background: rgba(175, 175, 175, 0.5);
 	-webkit-box-shadow: 0 0 1px rgba(175, 175, 175, 0.4);
 }
 
-.fanyin_accordion li i {
+.fanyin-accordion li i {
 	position: absolute;
 	top: 16px;
 	left: 12px;
@@ -75,7 +75,7 @@ a {
 	transition: all 0.4s ease;
 }
 
-.fanyin_accordion li i.fa-angle-down {
+.fanyin-accordion li i.fa-angle-down {
 	right: 12px;
 	left: auto;
 	font-size: 16px;
@@ -85,10 +85,10 @@ a {
 	color: #4D4D4D;
 }
 
-.fanyin_accordion li.open i {
+.fanyin-accordion li.open i {
 	color: #4D4D4D;
 }
-.fanyin_accordion li.open i.fa-angle-down {
+.fanyin-accordion li.open i.fa-angle-down {
 	-webkit-transform: rotate(180deg);
 	-ms-transform: rotate(180deg);
 	-o-transform: rotate(180deg);
@@ -134,25 +134,25 @@ a {
 
 
 /**顶部样式**/
-.div_header{
+.div-header{
 	background: url('/static/img/common/logo.png') #e3781a no-repeat 60px 10px;
 	height: 70px;
 	overflow-y:hidden;
 }
 
 
-.div_user{
+.div-user{
 	color: #fff;
 	font-size: 14px;
 	float: right;
 	margin-top: 25px;
 	margin-right: 50px;
 }
-.logout_btn,.change_pwd_btn,.user_role_menu	{
+.logout-btn,.change-pwd-btn,.user-role-menu	{
 	color: #fff;
 }
 
-.span_user_name{
+.span-user-name{
 	margin-right: 40px;
 }
 
