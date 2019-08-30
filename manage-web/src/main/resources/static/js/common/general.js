@@ -531,8 +531,9 @@ $.windowDialog = function(opts){
 			height:480,
 			modal:true,
 			border:false,
+            method:'GET',
 			onClose:function(){
-			    //防止部分第三方插件在panel关闭时不会自定关闭
+			    //防止部分第三方插件在panel关闭时不会自动关闭
 			    $("body").click();
 				$.windowDialog.handler = undefined;
 				$(this).dialog('destroy');
