@@ -3,7 +3,7 @@
 <head>
     <title>后台管理系统-登陆</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" href="/static/css/index.css?v=${version!}" type="text/css">
+    <link rel="stylesheet" href="/static/css/login/index.css?v=${version!}" type="text/css">
 </head>
 <body>
     <div class="login-panel">
@@ -31,8 +31,8 @@
     <h2 class="login-tips">正在登陆系统</h2>
 </body>
 <!-- jquery库2.0版本 -->
-<script type="text/javascript" src="/static/js/jquery.min.js"  charset="UTF-8"></script>
-<script type="text/javascript" src="/static/js/base64.min.js"  charset="UTF-8"></script>
-<script type="text/javascript" src="/static/js/md5.min.js"  charset="UTF-8"></script>
-<script type="text/javascript" src="/static/js/index.js?v=${version!}"   charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/common/jquery.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/common/base64.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/common/md5.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/login/index.js?v=${version!}" charset="UTF-8"></script>
 </html>

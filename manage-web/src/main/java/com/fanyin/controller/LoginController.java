@@ -60,8 +60,9 @@ public class LoginController extends AbstractController {
     }
 
     /**
-     * 全局页面定向
-     * @param modules 所属模块
+     * 全局页面定向,由于模糊映射可能会导致js,css,img也会映射到此处,因此在静态资源文件目录结构必须保证4层结构
+     * @param modules 所属主模块
+     * @param function 所属子模块
      * @param page 页面名称
      * @return 对应的页面
      */

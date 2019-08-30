@@ -1,5 +1,5 @@
-<script type="text/javascript" src="/static/js/md5.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/static/js/base64.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/resource/js/common/md5.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/resource/js/common/base64.min.js" charset="UTF-8"></script>
 <script type="text/javascript">
     $(function() {
         $("#form").form({

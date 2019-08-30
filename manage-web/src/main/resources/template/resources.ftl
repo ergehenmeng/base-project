@@ -1,5 +1,5 @@
 <!-- jquery库2.0版本 -->
-<script src="/static/js/jquery.min.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/common/jquery.min.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
 <#--tips 1.2-->
 <link href="/static/css/tips/tip-yellowsimple/tip-yellowsimple.css?v=${version!}" type="text/css" rel="stylesheet" >
@@ -21,14 +21,14 @@
 <!-- easyui扩展库 datagrid treegrid扩展方法 -->
 <script src="/static/js/easyUI/ext/extEasyUI.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 <#--jquery扩展-->
-<script src="/static/js/extJquery.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/common/extJquery.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
 
 <#--日历控件-->
 <script src="/static/js/laydate/laydate.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
 <#--自定义相关控件及常用方法-->
-<script src="/static/js/general.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/common/general.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
 <!-- 下拉复选框 -->
 <link href="/static/css/multiple/multiple-select.css?v=${version!}" rel="stylesheet" type="text/css" >
@@ -40,6 +40,6 @@
 <#-- 字体库-->
 <link href="/static/css/home/css/font-awesome.min.css?v=${version!}" type="text/css" rel="stylesheet">
 <#-- 全局样式 -->
-<link href="/static/css/style.css?v=${version!}" rel="stylesheet" type="text/css" >
+<link href="/static/css/common/style.css?v=${version!}" rel="stylesheet" type="text/css" >
 
 <#include "macro.ftl" />

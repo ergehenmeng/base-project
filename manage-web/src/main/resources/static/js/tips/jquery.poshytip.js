@@ -184,7 +184,7 @@
 			if (this.opacity === undefined)
 				this.opacity = this.$tip.css('opacity');
 
-			// check for images - this code is here (i.e. executed each time we show the tip and not on init) due to some browser inconsistencies
+			// check for img - this code is here (i.e. executed each time we show the tip and not on init) due to some browser inconsistencies
 			var bgImage = this.$tip.css('background-image').match(reBgImage),
 				arrow = this.$arrow.css('background-image').match(reBgImage);
 

@@ -135,7 +135,7 @@ a {
 
 /**顶部样式**/
 .div_header{
-	background: url('/static/images/logo.png') #e3781a no-repeat 60px 10px;
+	background: url('/static/img/common/logo.png') #e3781a no-repeat 60px 10px;
 	height: 70px;
 	overflow-y:hidden;
 }

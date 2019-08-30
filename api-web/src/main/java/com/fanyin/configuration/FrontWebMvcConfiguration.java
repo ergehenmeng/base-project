@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -29,6 +30,12 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
         registry.addInterceptor(messageHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 2);
         registry.addInterceptor(accessTokenHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 3);
         registry.addInterceptor(ssoHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 4);
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        super.addResourceHandlers(registry);
+        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath*:/swagger/dist/");
     }
 
     @Override

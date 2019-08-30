@@ -35,7 +35,6 @@ import java.util.Map;
  * @author 二哥很猛
  * @date 2019/8/29 10:57
  */
-@Service("pushService")
 @Slf4j(topic = "push_response")
 public class PushServiceImpl implements PushService {
 

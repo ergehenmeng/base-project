@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>缓存管理</title>
-    <#include "../../../resources.ftl">
+    <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
 

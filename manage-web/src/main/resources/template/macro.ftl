@@ -22,7 +22,7 @@
                 </li>
             </ul>
         </form>
-        <script type="text/javascript" src="/static/js/search.js?v=${version!}"></script>
+        <script type="text/javascript" src="/static/js/common/search.js?v=${version!}"></script>
     </#if>
 </#macro>
 

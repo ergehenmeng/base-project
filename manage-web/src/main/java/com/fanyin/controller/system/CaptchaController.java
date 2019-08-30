@@ -69,7 +69,7 @@ public class CaptchaController extends AbstractController {
         response.setHeader("CacheCreate-Control", "no-store");
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");
-        log.info("图形验证码************[{}]*****[{}]************",key,value);
+        log.info("图形验证码[{}]:[{}]",key,value);
         this.putSession(session, key, value);
         BufferedImage bi = producer.createImage(value);
         ServletOutputStream out = response.getOutputStream();

@@ -7,6 +7,8 @@ import com.fanyin.configuration.template.HtmlTemplate;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -19,8 +21,11 @@ import java.util.Properties;
  * @author 二哥很猛
  * @date 2018/9/13 11:19
  */
+@EnableConfigurationProperties({ApplicationProperties.class})
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
+    @Autowired
+    private ApplicationProperties applicationProperties;
 
     /**
      * 图形验证码
@@ -47,7 +52,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/swagger/dist/");
+        registry.addResourceHandler("/upload/**").addResourceLocations( "file:///" + applicationProperties.getUploadDir() + AbstractUpload.DEFAULT_DIR);
     }
 
     /**
