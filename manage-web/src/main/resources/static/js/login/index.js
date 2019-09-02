@@ -48,6 +48,7 @@ function loginFun() {
         if (data.code === 200) {
             // 跳转前清空密码框
             $password.val("");
+            $validCode.val("");
             window.location.href = "/home";
         } else {
             errorTip(data.msg);
