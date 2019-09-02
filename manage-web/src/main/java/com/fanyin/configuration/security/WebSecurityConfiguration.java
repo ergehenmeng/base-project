@@ -65,7 +65,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .anyRequest().authenticated()
                 .and()
              .formLogin()
-                .loginPage("/")
+                .loginPage("/b5241706715657ce56fdf9769355ddc9")
                 .loginProcessingUrl("/login")
                 .usernameParameter("mobile")
                 .passwordParameter("password")
