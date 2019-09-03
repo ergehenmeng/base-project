@@ -257,9 +257,9 @@ public enum ErrorCodeEnum {
     MULTIPLE_CLIENT_LOGIN(3016,"用户已在其他设备上登陆"),
 
     /**
-     * 账号或密码错误
+     * 用户信息未查询到
      */
-    USER_NOT_FOUND(3017,"账号或密码错误"),
+    USER_NOT_FOUND(3017,"用户信息未查询到"),
 
     /**
      * 账号或密码错误
@@ -267,14 +267,14 @@ public enum ErrorCodeEnum {
     PASSWORD_ERROR(3018,"账号或密码错误"),
 
     /**
-     * 短信验证码不存在或已过期
+     * 验证码已过期
      */
-    LOGIN_SMS_CODE_EXPIRE(3019,"短信验证码错误"),
+    LOGIN_SMS_CODE_EXPIRE(3019,"验证码已过期"),
 
     /**
      * 短信验证码错误
      */
-    LOGIN_SMS_CODE_ERROR(3020,"短信验证码错误"),
+    LOGIN_SMS_CODE_ERROR(3020,"验证码输入错误"),
 
     /**
      * 手机号未注册
@@ -305,6 +305,11 @@ public enum ErrorCodeEnum {
      * 版本号重复
      */
     VERSION_REDO(3025,"版本号重复"),
+
+    /**
+     * 该手机号已注册
+     */
+    MOBILE_REGISTER_REDO(3026,"该手机号已注册"),
     ;
     /**
      * 构造方法

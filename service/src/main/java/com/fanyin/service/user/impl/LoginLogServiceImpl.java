@@ -2,7 +2,7 @@ package com.fanyin.service.user.impl;
 
 import com.fanyin.dao.mapper.business.LoginLogMapper;
 import com.fanyin.dao.model.business.LoginLog;
-import com.fanyin.model.dto.login.LoginRecord;
+import com.fanyin.model.ext.LoginRecord;
 import com.fanyin.service.user.LoginLogService;
 import com.fanyin.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;

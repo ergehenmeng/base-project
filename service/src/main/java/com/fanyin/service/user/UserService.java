@@ -2,9 +2,11 @@ package com.fanyin.service.user;
 
 import com.fanyin.dao.model.user.User;
 import com.fanyin.model.dto.login.AccountLoginRequest;
-import com.fanyin.model.dto.user.UserRegister;
+import com.fanyin.model.dto.login.LoginSendSmsRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
-import com.fanyin.model.ext.AccessToken;
+import com.fanyin.model.dto.register.RegisterSendSmsRequest;
+import com.fanyin.model.dto.register.RegisterUserRequest;
+import com.fanyin.model.ext.UserRegister;
 import com.fanyin.model.vo.login.LoginToken;
 
 /**
@@ -18,7 +20,7 @@ public interface UserService {
      * @param register 用户注册信息
      * @return 注册后的用户信息
      */
-    User register(UserRegister register);
+    User doRegister(UserRegister register);
 
     /**
      * 账号登陆 邮箱或密码登陆
@@ -48,4 +50,29 @@ public interface UserService {
      */
     User getById(Integer userId);
 
+    /**
+     * 登陆发送验证码
+     * @param mobile 手机号码
+     */
+    void loginSendSms(String mobile);
+
+    /**
+     * 根据账号查询用户信息(如果不存在,则抛异常)
+     * @param account 手机号或邮箱
+     * @return 用户信息
+     */
+    User getByAccountRequired(String account);
+
+    /**
+     * 注册发送验证码
+     * @param mobile 手机号码
+     */
+    void registerSendSms(String mobile);
+
+    /**
+     * 手机号+验证码注册
+     * @param request 手机号及验证码信息
+     * @return 注册后直接登陆
+     */
+    LoginToken registerByMobile(RegisterUserRequest request);
 }

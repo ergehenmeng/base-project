@@ -10,10 +10,12 @@ import com.fanyin.configuration.security.Encoder;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.user.UserMapper;
 import com.fanyin.dao.model.user.User;
-import com.fanyin.model.dto.login.LoginRecord;
+import com.fanyin.model.dto.login.LoginSendSmsRequest;
+import com.fanyin.model.dto.register.RegisterUserRequest;
+import com.fanyin.model.ext.LoginRecord;
 import com.fanyin.model.dto.login.AccountLoginRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
-import com.fanyin.model.dto.user.UserRegister;
+import com.fanyin.model.ext.UserRegister;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.model.ext.RequestMessage;
 import com.fanyin.model.ext.RequestThreadLocal;
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService {
     private UserExtService userExtService;
 
     @Override
-    public User register(UserRegister register) {
+    public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
         this.encodePassword(user);
         this.generateNickName(user);
@@ -98,10 +100,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginToken accountLogin(AccountLoginRequest login) {
-        User user = this.getByAccount(login.getAccount());
-        if(user == null){
-            throw new BusinessException(ErrorCodeEnum.USER_NOT_FOUND);
-        }
+        User user = this.getByAccountRequired(login.getAccount());
         if(!encoder.encode(login.getPwd()).equals(user.getPwd())){
             throw new BusinessException(ErrorCodeEnum.PASSWORD_ERROR);
         }
@@ -111,17 +110,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginToken smsLogin(SmsLoginRequest login) {
-        String smsCode = smsService.getSmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile());
-        if(smsCode == null){
-            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_EXPIRE);
-        }
-        if(!smsCode.equals(login.getSmsCode())){
-            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_ERROR);
-        }
-        User user = userMapper.getByMobile(login.getMobile());
-        if(user == null){
-            throw new BusinessException(ErrorCodeEnum.MOBILE_NOT_REGISTER);
-        }
+        User user = this.getByAccountRequired(login.getMobile());
+        smsService.verifySmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile(),login.getSmsCode());
         return this.doLogin(user,login.getIp());
     }
 
@@ -154,5 +144,46 @@ public class UserServiceImpl implements UserService {
     @Cacheable(cacheNames = CacheConstant.USER,key = "#p0",cacheManager = "longCacheManager")
     public User getById(Integer userId) {
         return userMapper.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    public void loginSendSms(String mobile) {
+        User user = this.getByAccountRequired(mobile);
+        smsService.sendSmsCode(SmsTypeConstant.LOGIN_SMS,user.getMobile());
+    }
+
+    @Override
+    public User getByAccountRequired(String account) {
+        User user = this.getByAccount(account);
+        if(user == null){
+            throw new BusinessException(ErrorCodeEnum.USER_NOT_FOUND);
+        }
+        return user;
+    }
+
+    @Override
+    public void registerSendSms(String mobile) {
+        this.registerRedoVerify(mobile);
+        smsService.sendSmsCode(SmsTypeConstant.REGISTER_SMS,mobile);
+    }
+
+    @Override
+    public LoginToken registerByMobile(RegisterUserRequest request) {
+        this.registerRedoVerify(request.getMobile());
+        smsService.verifySmsCode(SmsTypeConstant.REGISTER_SMS,request.getMobile(),request.getSmsCode());
+        UserRegister register = DataUtil.copy(request, UserRegister.class);
+        User user = this.doRegister(register);
+        return this.doLogin(user,register.getRegisterIp());
+    }
+
+    /**
+     * 注册手机号被占用校验
+     * @param mobile 手机号
+     */
+    private void registerRedoVerify(String mobile){
+        User user = userMapper.getByMobile(mobile);
+        if(user == null){
+            throw new BusinessException(ErrorCodeEnum.MOBILE_REGISTER_REDO);
+        }
     }
 }

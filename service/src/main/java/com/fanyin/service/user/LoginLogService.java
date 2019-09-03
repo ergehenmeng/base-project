@@ -1,7 +1,7 @@
 package com.fanyin.service.user;
 
 import com.fanyin.dao.model.business.LoginLog;
-import com.fanyin.model.dto.login.LoginRecord;
+import com.fanyin.model.ext.LoginRecord;
 
 /**
  * @author 二哥很猛

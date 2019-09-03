@@ -1,4 +1,4 @@
-package com.fanyin.model.dto.user;
+package com.fanyin.model.ext;
 
 import lombok.Data;
 

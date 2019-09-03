@@ -1,12 +1,10 @@
 package com.fanyin.controller;
 
-import com.fanyin.common.constant.SmsTypeConstant;
 import com.fanyin.model.dto.login.AccountLoginRequest;
-import com.fanyin.model.dto.login.SendSmsCodeRequest;
+import com.fanyin.model.dto.login.LoginSendSmsRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
 import com.fanyin.model.ext.RespBody;
 import com.fanyin.model.vo.login.LoginToken;
-import com.fanyin.service.common.SmsService;
 import com.fanyin.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,23 +22,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController extends AbstractController{
 
     @Autowired
-    private SmsService smsService;
-
-    @Autowired
     private UserService userService;
 
     /**
-     * 发送登陆验证码
+     * 发送登陆验证码❶
      */
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
-    public RespBody sendSms(SendSmsCodeRequest code){
-        smsService.sendSmsCode(SmsTypeConstant.LOGIN_SMS,code.getMobile());
+    public RespBody sendSms(LoginSendSmsRequest request){
+        userService.loginSendSms(request.getMobile());
         return RespBody.getInstance();
     }
 
     /**
-     * 短信验证码登陆
+     * 短信验证码登陆❷
      */
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/by_sms")

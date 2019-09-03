@@ -26,7 +26,7 @@ public class AccountLoginRequest implements Serializable {
     /**
      * 密码
      */
-    @RangeLength(required = true,min = 32,max = 32,message = "密码格式错误")
+    @RangeLength(min = 32,max = 32,message = "密码格式错误")
     @ApiModelProperty(value = "密码,MD5小写加密过",required = true)
     private String pwd;
 

@@ -24,6 +24,14 @@ public interface SmsService {
     String getSmsCode(String smsType,String mobile);
 
     /**
+     * 验证短信验证码是否正确
+     * @param smsType 验证码类型
+     * @param mobile 手机号
+     * @param smsCode 待验证的验证码
+     */
+    void verifySmsCode(String smsType,String mobile ,String smsCode);
+
+    /**
      * 根据短信模板发送短信 (不需要次数校验)
      * @param smsType 短信类型
      * @param mobile 手机号

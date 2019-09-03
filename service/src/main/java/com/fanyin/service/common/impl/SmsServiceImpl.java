@@ -48,6 +48,11 @@ public class SmsServiceImpl implements SmsService {
      */
     private static final String MATCH = "*";
 
+    /**
+     * 验证码过期时间 10分钟
+     */
+    private static final int SMS_CODE_EXPIRE = 600;
+
     @Override
     public void sendSmsCode(String smsType, String mobile) {
         this.smsLimitCheck(smsType, mobile);
@@ -55,6 +60,7 @@ public class SmsServiceImpl implements SmsService {
         String smsCode = StringUtil.randomNumber();
         String content = this.formatTemplate(template, smsCode);
         this.doSendSms(mobile,content,smsType);
+        this.saveSmsCode(smsType,mobile,smsCode);
         this.smsLimitSet(smsType,mobile,smsCode);
     }
 
@@ -78,6 +84,16 @@ public class SmsServiceImpl implements SmsService {
         return null;
     }
 
+    @Override
+    public void verifySmsCode(String smsType, String mobile, String smsCode) {
+        String originalSmsCode = this.getSmsCode(smsType, mobile);
+        if(originalSmsCode == null){
+            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_EXPIRE);
+        }
+        if(!originalSmsCode.equalsIgnoreCase(smsCode)){
+            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_ERROR);
+        }
+    }
 
     @Override
     public void sendSms(String smsType, String mobile, Object... params) {
@@ -107,6 +123,16 @@ public class SmsServiceImpl implements SmsService {
         byte state = sendSmsService.sendSms(mobile, content);
         SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
         smsLogService.addSmsLog(smsLog);
+    }
+
+    /**
+     * 保存发送的短信
+     * @param smsType 短信类型
+     * @param mobile 手机号码
+     * @param smsCode 短信验证码
+     */
+    private void saveSmsCode(String smsType,String mobile,String smsCode){
+        cacheService.setValue(smsType + mobile,smsCode,SMS_CODE_EXPIRE);
     }
 
     /**

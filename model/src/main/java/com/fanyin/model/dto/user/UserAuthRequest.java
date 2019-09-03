@@ -33,6 +33,6 @@ public class UserAuthRequest implements Serializable {
      * 身份证号
      */
     @ApiModelProperty("身份证号码")
-    @IdCard(required = true)
+    @IdCard
     private String idCard;
 }

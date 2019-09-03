@@ -1,4 +1,4 @@
-package com.fanyin.model.dto.login;
+package com.fanyin.model.ext;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

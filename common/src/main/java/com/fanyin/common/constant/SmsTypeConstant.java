@@ -13,7 +13,12 @@ public class SmsTypeConstant {
     public static final String DEFAULT = "default";
 
     /**
-     * 短信登陆
+     * 登陆短信
      */
     public static final String LOGIN_SMS = "login_sms";
+
+    /**
+     * 注册短信
+     */
+    public static final String REGISTER_SMS = "register_sms";
 }
