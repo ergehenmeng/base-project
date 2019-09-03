@@ -34,7 +34,7 @@ public @interface Mobile {
      * 是否必填
      * @return 默认非必填
      */
-    boolean required() default false;
+    boolean required() default true;
 
     /**
      * 自定义校验必须包含该属性
