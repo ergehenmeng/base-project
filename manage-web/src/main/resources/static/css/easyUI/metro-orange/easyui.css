@@ -1873,7 +1873,7 @@
 
 .tabs li .tabs-inner {
     color: #404040;
-    background-color: #EEEEEE;
+    background-color: #e7e8eb;
 }
 
 .tabs-header-plain {
@@ -3280,7 +3280,7 @@
 
 .menu {
     background-color: #fafafa;
-    border-color: #d4a375;
+    border-color: #DDDDDD;
     color: #404040;
 }
 
@@ -3294,9 +3294,9 @@
 }
 
 .menu-active {
-    border-color: #fff7d6;
+    border-color: #DDDDDD;
     color: #404040;
-    background: #fff7d6;
+    background: #DDDDDD;
 }
 
 .menu-active-disabled {
