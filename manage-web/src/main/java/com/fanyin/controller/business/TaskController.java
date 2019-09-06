@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2019/9/6 18:27
  */
 @Controller
-public class JobTaskController {
+public class TaskController {
 
     @Autowired
     private JobTaskService jobTaskService;
@@ -28,7 +28,7 @@ public class JobTaskController {
     /**
      * 分页查询定时任务列表
      */
-    @RequestMapping("/business/job_task/list_page")
+    @RequestMapping("/business/task/list_page")
     @ResponseBody
     public Paging<JobTask> listPage(TaskQueryRequest request){
         PageInfo<JobTask> byPage = jobTaskService.getByPage(request);
@@ -38,7 +38,7 @@ public class JobTaskController {
     /**
      * 刷新定时任务配置信息
      */
-    @RequestMapping("/business/job_task/refresh")
+    @RequestMapping("/business/task/refresh")
     @ResponseBody
     public RespBody refresh(){
         dynamicTask.openRefreshTask();
