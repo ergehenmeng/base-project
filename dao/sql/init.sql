@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2019-08-30 11:42:37
+Date: 2019-09-06 18:03:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -112,6 +112,29 @@ CREATE TABLE `image_log` (
 -- ----------------------------
 -- Records of image_log
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for job_task
+-- ----------------------------
+DROP TABLE IF EXISTS `job_task`;
+CREATE TABLE `job_task` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` char(50) DEFAULT NULL COMMENT '定时任务名称',
+  `nid` char(20) DEFAULT NULL COMMENT '定时任务nid',
+  `bean_path` varchar(200) DEFAULT NULL COMMENT '触发类全路径',
+  `bean` char(50) DEFAULT NULL COMMENT '类的bean名称',
+  `cron_expression` char(50) DEFAULT NULL COMMENT 'cron表达式',
+  `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nid_unique_index` (`nid`) USING BTREE COMMENT 'nid必须唯一'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务配置表';
+
+-- ----------------------------
+-- Records of job_task
+-- ----------------------------
+INSERT INTO `job_task` VALUES ('1', '测试定时任务', 'testJob', 'com.fanyin.service.job.TestJobService', 'testJobService', '0/1 * * * * ?', '1', '2019-09-06 16:31:47', null);
 
 -- ----------------------------
 -- Table structure for login_log
@@ -3799,7 +3822,7 @@ INSERT INTO `system_cache` VALUES ('2', '数据字典缓存', 'system_dict', '1'
 INSERT INTO `system_cache` VALUES ('4', '用户登陆token缓存', 'access_token', '1', '2019-08-20 08:39:20', '登陆信息(保存缓存)');
 INSERT INTO `system_cache` VALUES ('6', '异步结果缓存', 'async_response', '1', '2019-08-20 08:39:20', '异步信息(保存缓存)');
 INSERT INTO `system_cache` VALUES ('7', '短信模板缓存', 'sms_template', '1', '2019-08-29 10:55:24', '全局短信模板缓存(查询缓存)');
-INSERT INTO `system_cache` VALUES ('8', '推送模板缓存', 'push_template', '1', '2019-08-29 10:56:09', '全局消息推送模板缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('8', '推送模板缓存', 'push_template', '1', '2019-08-30 06:02:21', '全局消息推送模板缓存(查询缓存)');
 
 -- ----------------------------
 -- Table structure for system_config
@@ -3899,7 +3922,7 @@ INSERT INTO `system_dict` VALUES ('2', '图片分类', 'image_classify', '2', 'a
 INSERT INTO `system_dict` VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', '\0', '', '2018-11-27 17:15:55', null, null);
 INSERT INTO `system_dict` VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', '\0', '', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
 INSERT INTO `system_dict` VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', '\0', '', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
-INSERT INTO `system_dict` VALUES ('6', null, 'banner_classify', null, '首页轮播', '\0', '\0', '2019-08-23 16:09:53', '2019-08-23 16:09:53', null);
+INSERT INTO `system_dict` VALUES ('6', '轮播图类型', 'banner_classify', '1', '首页轮播', '\0', '\0', '2019-08-23 16:09:53', '2019-08-30 11:46:03', null);
 
 -- ----------------------------
 -- Table structure for system_menu
@@ -4093,10 +4116,10 @@ INSERT INTO `system_role_menu` VALUES ('258', '1', '1022');
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `nick_name` char(20) DEFAULT '' COMMENT '昵称',
   `mobile` char(11) NOT NULL COMMENT '手机号码',
+  `nick_name` char(20) DEFAULT '' COMMENT '昵称',
   `email` char(50) DEFAULT NULL COMMENT '电子邮箱',
-  `pwd` char(128) NOT NULL COMMENT '登陆密码',
+  `pwd` char(128) DEFAULT NULL COMMENT '登陆密码',
   `state` bit(1) DEFAULT b'1' COMMENT '状态 0:注销  1正常 ',
   `channel` tinyint(1) DEFAULT '0' COMMENT '注册渠道 ',
   `register_ip` char(32) DEFAULT NULL COMMENT '注册地址',
@@ -4154,3 +4177,4 @@ CREATE TABLE `version` (
 -- ----------------------------
 -- Records of version
 -- ----------------------------
+
