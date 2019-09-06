@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fanyin.dao.mapper.business.JobTaskMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.JobTask">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="CHAR" property="title" />
+    <result column="nid" jdbcType="CHAR" property="nid" />
+    <result column="bean_path" jdbcType="VARCHAR" property="beanPath" />
+    <result column="bean" jdbcType="CHAR" property="bean" />
+    <result column="cron_expression" jdbcType="CHAR" property="cronExpression" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, title, nid, bean_path, bean, cron_expression, state, update_time, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from job_task
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.JobTask">
+    <!--
+      @create by mybatis
+    -->
+    update job_task
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=CHAR},
+      </if>
+      <if test="nid != null">
+        nid = #{nid,jdbcType=CHAR},
+      </if>
+      <if test="beanPath != null">
+        bean_path = #{beanPath,jdbcType=VARCHAR},
+      </if>
+      <if test="bean != null">
+        bean = #{bean,jdbcType=CHAR},
+      </if>
+      <if test="cronExpression != null">
+        cron_expression = #{cronExpression,jdbcType=CHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="getAvailableList" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from job_task where state = 1
+    </select>
+</mapper>

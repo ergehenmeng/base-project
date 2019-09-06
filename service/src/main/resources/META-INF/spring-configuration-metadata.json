@@ -34,6 +34,13 @@
       "defaultValue": "/data/",
       "description": "上传文件要保存的路径",
       "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.fanyin.configuration.ApplicationProperties",
+      "name": "application.job",
+      "defaultValue": "false",
+      "description": "是否开启定时任务",
+      "type": "java.lang.Boolean"
     }
   ]
 }

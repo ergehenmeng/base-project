@@ -35,4 +35,9 @@ public class ApplicationProperties {
      * 上传文件保存目录
      */
     private String uploadDir;
+
+    /**
+     * 是否开启定时任务
+     */
+    private boolean job;
 }
