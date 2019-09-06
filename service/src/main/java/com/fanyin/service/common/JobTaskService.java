@@ -1,6 +1,8 @@
 package com.fanyin.service.common;
 
 import com.fanyin.dao.model.business.JobTask;
+import com.fanyin.model.dto.business.task.TaskQueryRequest;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -15,4 +17,11 @@ public interface JobTaskService {
      * @return 定时任务配置列表
      */
     List<JobTask> getAvailableList();
+
+    /**
+     * 分页查询定时任务列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    PageInfo<JobTask> getByPage(TaskQueryRequest request);
 }

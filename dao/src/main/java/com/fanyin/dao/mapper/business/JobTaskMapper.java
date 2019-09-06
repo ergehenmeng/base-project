@@ -1,6 +1,7 @@
 package com.fanyin.dao.mapper.business;
 
 import com.fanyin.dao.model.business.JobTask;
+import com.fanyin.model.dto.business.task.TaskQueryRequest;
 
 import java.util.List;
 
@@ -29,4 +30,10 @@ public interface JobTaskMapper {
      */
     List<JobTask> getAvailableList();
 
+    /**
+     * 根据条件查询定时任务列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<JobTask> getList(TaskQueryRequest request);
 }

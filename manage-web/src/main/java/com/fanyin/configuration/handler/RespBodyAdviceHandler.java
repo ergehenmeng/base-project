@@ -1,6 +1,7 @@
 package com.fanyin.configuration.handler;
 
 
+import com.fanyin.configuration.annotation.SkipWrapper;
 import com.fanyin.model.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -22,8 +24,8 @@ import javax.annotation.Nullable;
 public class RespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
     @Override
-    public boolean supports(@Nullable MethodParameter returnType, @Nullable Class<? extends HttpMessageConverter<?>> converterType) {
-        return returnType != null;
+    public boolean supports(@NotNull MethodParameter returnType, @NotNull Class<? extends HttpMessageConverter<?>> converterType) {
+        return !returnType.hasParameterAnnotation(SkipWrapper.class) ;
     }
 
     @Override

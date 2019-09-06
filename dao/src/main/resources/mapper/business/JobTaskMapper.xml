@@ -67,4 +67,17 @@
         select <include refid="BaseColumnList"/>
         from job_task where state = 1
     </select>
+
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.business.task.TaskQueryRequest">
+        select <include refid="BaseColumnList"/>
+        from job_task
+        <where>
+            <if test="queryName != null">
+                and (title like concat('%',#{queryName},'%') or nid = #{queryName} or bean = #{queryName})
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+        </where>
+    </select>
 </mapper>
