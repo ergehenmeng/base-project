@@ -15,7 +15,7 @@
 <body class="easyui-layout">
 <div class="div-header" data-options="region:'north',border:false">
     <div class="div-user">
-        <span title="当前用户" class="span-user-name">欢迎您:超管</span>
+        <span title="当前用户" class="span-user-name">欢迎您：超管</span>
         <a href="#" class="user-role-menu"  title="查看查看"><i class="fa fa-user fa-lg fa-fw"></i>菜单权限</a> |
         <a href="#" class="change-pwd-btn"  title="修改个人密码"><i class="fa fa-unlock-alt fa-lg fa-fw"></i>修改密码</a> |
         <a href="#" class="lock-screen"  title="锁屏"><i class="fa fa-lock fa-lg fa-fw"></i>锁屏</a> |

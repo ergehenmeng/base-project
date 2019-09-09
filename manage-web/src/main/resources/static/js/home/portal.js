@@ -1,9 +1,9 @@
 
 //加载门户首页信息
-var portal ; //门户
+var $portal  = $('#portal');
 
 function loadPortal(){
-	 $('#portal').layout({
+    $portal.layout({
 			fit : true
 	});
 	panels = [ {
@@ -36,13 +36,13 @@ function loadPortal(){
 		href : ''
 	}];
 	
-	portal = $('#portal').portal({
+	$portal.portal({
 		border : false
 	});
-	
-	var state = "p1,p3:p2,p4"; //:为竖向切分 ,为横向切分
+    //:为竖向切分 ,为横向切分
+	var state = "p1,p3:p2,p4";
 	addPanel(state);
-	portal.portal('resize');
+    $portal.portal('resize');
 }
 
 //向首页添加四个面板
@@ -55,7 +55,7 @@ function addPanel(state){
 			 if(options){
 				 var p = $("<div/>").attr("id",options.id).appendTo("body");
 				 p.panel(options);
-				 portal.portal("add",{
+                 $portal.portal("add",{
 					 panel			:p,
 					 columnIndex	:i
 				 });
@@ -66,7 +66,7 @@ function addPanel(state){
 
 function getOptionById(id){
 	for(var i =0 ;i< panels.length;i++){
-		if(panels[i].id == id){
+		if(panels[i].id === id){
 			return panels[i];
 		}
 	}

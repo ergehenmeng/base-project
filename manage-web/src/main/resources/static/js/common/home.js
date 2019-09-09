@@ -19,7 +19,7 @@ $(function(){
         lockScreen();
     });
 	$(".user-role-menu").on("click",function(){
-        $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/home/role_menu_page");
+        menuList();
     });
 
 	//增加首页tabs信息
@@ -100,6 +100,13 @@ var logout = function(){
             });
 		}
 	});
+};
+
+/**
+ * 菜单列表
+ */
+var menuList = function(){
+    $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/home/role_menu_page");
 };
 
 var lockScreen = function () {

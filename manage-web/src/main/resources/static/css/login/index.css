@@ -15,7 +15,7 @@ ul,li{
 
 body{
     text-align: center;
-    background: #FFF url("/static/img/login/pattern.png");
+    background: #FFF url("/static/img/login/background.png");
 }
 
 .login-panel{
@@ -76,13 +76,13 @@ body{
     height:36px;
 }
 .login-panel ul li span.user-icon{
-    background:url(/static/img/login/user_icon.png) #eaeaea 10px no-repeat;
+    background:url(/static/img/login/user-icon.png) #dddddd 5px no-repeat;
 }
 .login-panel ul li span.pwd-icon{
-    background:url(/static/img/login/pwd_icon.png) 10px #eaeaea no-repeat;
+    background:url(/static/img/login/password-icon.png) 5px #dddddd no-repeat;
 }
 .login-panel ul li span.valid-icon{
-    background:url(/static/img/login/valide_code_icon.png) 10px #eaeaea no-repeat;
+    background:url(/static/img/login/valide-code-icon.png) 5px #dddddd no-repeat;
 }
 .login-panel ul li .login-text{
     float:left;
