@@ -35,5 +35,10 @@ public interface ClearCacheService {
      * 清除推送模板
      */
     void clearPushTemplate();
+
+    /**
+     * 清除黑名单
+     */
+    void clearBlackRoster();
 }
 

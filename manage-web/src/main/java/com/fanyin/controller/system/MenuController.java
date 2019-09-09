@@ -98,6 +98,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/delete")
     @Mark(RequestType.DELETE)
+    @ResponseBody
     public RespBody delete(Integer id){
         systemMenuService.deleteMenu(id);
         return RespBody.getInstance();

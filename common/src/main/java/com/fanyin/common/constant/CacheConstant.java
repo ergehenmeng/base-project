@@ -72,4 +72,9 @@ public class CacheConstant {
      * 推送消息模板
      */
     public static final String PUSH_TEMPLATE = "push_template";
+
+    /**
+     * 黑名单缓存
+     */
+    public static final String BLACK_ROSTER = "black_roster";
 }

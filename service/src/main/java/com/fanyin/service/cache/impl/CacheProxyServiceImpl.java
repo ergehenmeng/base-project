@@ -1,18 +1,23 @@
 package com.fanyin.service.cache.impl;
 
 
+import com.fanyin.common.utils.DateUtil;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.configuration.security.Encoder;
+import com.fanyin.dao.model.system.BlackRoster;
 import com.fanyin.dao.model.system.SystemDict;
 import com.fanyin.dao.model.user.User;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.AccessTokenService;
+import com.fanyin.service.system.BlackRosterService;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +40,9 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Autowired
     private AccessTokenService accessTokenService;
 
+    @Autowired
+    private BlackRosterService blackRosterService;
+
     @Override
     public String getDictValue(String nid, Byte hiddenValue) {
         List<SystemDict> dictList = systemDictService.getDictByNid(nid);
@@ -55,4 +63,13 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         return accessTokenService.saveByUserId(token);
     }
 
+    @Override
+    public boolean isInterceptIp(String ip) {
+        List<BlackRoster> availableList = blackRosterService.getAvailableList();
+        if(!CollectionUtils.isEmpty(availableList)){
+            Date now = DateUtil.getNow();
+            return availableList.stream().anyMatch(blackRoster -> ip.equals(blackRoster.getIp()) && (blackRoster.getEndTime() == null || now.before(blackRoster.getEndTime())));
+        }
+        return false;
+    }
 }

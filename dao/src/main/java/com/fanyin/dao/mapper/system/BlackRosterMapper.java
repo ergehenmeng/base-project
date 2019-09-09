@@ -1,6 +1,9 @@
 package com.fanyin.dao.mapper.system;
 
 import com.fanyin.dao.model.system.BlackRoster;
+import com.fanyin.model.dto.system.roster.BlackRosterQueryRequest;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -28,4 +31,17 @@ public interface BlackRosterMapper {
      */
     int updateByPrimaryKeySelective(BlackRoster record);
 
+
+    /**
+     * 根据条件查询黑名单列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<BlackRoster> getList(BlackRosterQueryRequest request);
+
+    /**
+     * 黑名单列表
+     * @return 列表
+     */
+    List<BlackRoster> getAvailableList();
 }

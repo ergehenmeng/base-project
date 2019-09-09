@@ -22,9 +22,14 @@ public enum ErrorCodeEnum {
     PAGE_NOT_FOUND(404,"未知请求地址"),
 
     /**
+     * 暂无访问权限 (黑名单拦截)
+     */
+    SYSTEM_AUTH(405,"暂无访问权限"),
+
+    /**
      * 系统繁忙,请稍后再试
      */
-    SYSTEM_ERROR(9999,"系统繁忙,请稍后再试"),
+    SYSTEM_ERROR(500,"系统繁忙,请稍后再试"),
 
     /**
      * json转换异常

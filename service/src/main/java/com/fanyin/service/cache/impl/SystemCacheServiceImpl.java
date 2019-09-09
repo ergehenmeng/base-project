@@ -68,6 +68,9 @@ public class SystemCacheServiceImpl implements SystemCacheService {
                 case CacheConstant.PUSH_TEMPLATE:
                     clearCacheService.clearPushTemplate();
                     break;
+                case CacheConstant.BLACK_ROSTER:
+                    clearCacheService.clearBlackRoster();
+                    break;
                 default:
                     break;
             }

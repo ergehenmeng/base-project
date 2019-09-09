@@ -26,6 +26,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(ipHandlerInterceptor()).order(Integer.MIN_VALUE);
         registry.addInterceptor(signatureHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 1);
         registry.addInterceptor(messageHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 2);
         registry.addInterceptor(accessTokenHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 3);
@@ -69,6 +70,11 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Bean
     public HandlerInterceptor signatureHandlerInterceptor(){
         return new SignatureHandlerInterceptor();
+    }
+
+    @Bean
+    public HandlerInterceptor ipHandlerInterceptor(){
+        return new IpHandlerInterceptor();
     }
 
     /**

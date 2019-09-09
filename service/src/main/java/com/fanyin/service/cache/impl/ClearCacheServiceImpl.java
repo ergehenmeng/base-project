@@ -19,7 +19,6 @@ public class ClearCacheServiceImpl implements ClearCacheService{
     public void clearSystemConfig() {
     }
 
-
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYSTEM_DICT,allEntries = true)
     public void clearSystemDict() {
@@ -43,6 +42,10 @@ public class ClearCacheServiceImpl implements ClearCacheService{
     @Override
     @CacheEvict(cacheNames = CacheConstant.PUSH_TEMPLATE,allEntries = true)
     public void clearPushTemplate(){
+    }
 
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.BLACK_ROSTER,allEntries = true)
+    public void clearBlackRoster() {
     }
 }

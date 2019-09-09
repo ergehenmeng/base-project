@@ -26,5 +26,12 @@ public interface CacheProxyService {
      * @return token
      */
     AccessToken createAccessToken(User user, String channel);
+
+    /**
+     * 是否是需要拦截的ip
+     * @param ip ip地址
+     * @return true:黑名单 false:白名单
+     */
+    boolean isInterceptIp(String ip);
 }
 
