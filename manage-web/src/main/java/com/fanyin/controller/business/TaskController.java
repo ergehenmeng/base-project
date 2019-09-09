@@ -9,7 +9,7 @@ import com.fanyin.service.common.JobTaskService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -28,7 +28,7 @@ public class TaskController {
     /**
      * 分页查询定时任务列表
      */
-    @RequestMapping("/business/task/list_page")
+    @PostMapping("/business/task/list_page")
     @ResponseBody
     public Paging<JobTask> listPage(TaskQueryRequest request){
         PageInfo<JobTask> byPage = jobTaskService.getByPage(request);
@@ -38,7 +38,7 @@ public class TaskController {
     /**
      * 刷新定时任务配置信息
      */
-    @RequestMapping("/business/task/refresh")
+    @PostMapping("/business/task/refresh")
     @ResponseBody
     public RespBody refresh(){
         dynamicTask.openRefreshTask();

@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -99,7 +100,7 @@ public class ImageLogController extends AbstractController {
      * 图片编辑页面
      * @return 图片地址
      */
-    @PostMapping("/system/image/edit_page")
+    @GetMapping("/system/image/edit_page")
     @Mark(RequestType.PAGE)
     public String editImagePage(Model model, Integer id){
         ImageLog log = imageLogService.getById(id);

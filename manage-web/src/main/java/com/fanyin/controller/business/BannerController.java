@@ -12,7 +12,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +31,7 @@ public class BannerController extends AbstractController {
     /**
      * 分页查询轮播图配置信息
      */
-    @RequestMapping("/business/banner/list_page")
+    @PostMapping("/business/banner/list_page")
     @ResponseBody
     public Paging<Banner> listPage(BannerQueryRequest request){
         PageInfo<Banner> byPage = bannerService.getByPage(request);
@@ -40,7 +41,7 @@ public class BannerController extends AbstractController {
     /**
      * 轮播图编辑页面
      */
-    @RequestMapping("/business/banner/edit_page")
+    @GetMapping("/business/banner/edit_page")
     public String editPage(Model model, Integer id){
         Banner banner = bannerService.getById(id);
         model.addAttribute("banner",banner);
@@ -50,7 +51,7 @@ public class BannerController extends AbstractController {
     /**
      * 新增轮播图信息
      */
-    @RequestMapping("/business/banner/add")
+    @PostMapping("/business/banner/add")
     @ResponseBody
     public RespBody add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile){
         request.setImgUrl(super.saveFile(imgFile));
@@ -61,7 +62,7 @@ public class BannerController extends AbstractController {
     /**
      * 编辑轮播图信息
      */
-    @RequestMapping("/business/banner/edit")
+    @PostMapping("/business/banner/edit")
     @ResponseBody
     public RespBody edit(BannerEditRequest request, @RequestParam(value = "imgFile",required = false) MultipartFile imgFile){
         if(imgFile != null){

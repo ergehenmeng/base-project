@@ -5,11 +5,11 @@ import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
 import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractController;
+import com.fanyin.dao.model.system.SystemConfig;
 import com.fanyin.model.dto.system.config.ConfigEditRequest;
 import com.fanyin.model.dto.system.config.ConfigQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.dao.model.system.SystemConfig;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.system.SystemConfigService;
 import com.fanyin.utils.DataUtil;
@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -48,7 +49,7 @@ public class ConfigController extends AbstractController {
      * @param id 主键
      * @return 页面
      */
-    @PostMapping("/system/config/edit_page")
+    @GetMapping("/system/config/edit_page")
     @Mark(RequestType.PAGE)
     public String editPage(Model model, Integer id){
         SystemConfig config = systemConfigService.getById(id);

@@ -2,13 +2,13 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
-import com.fanyin.model.ext.CheckBox;
+import com.fanyin.dao.model.system.SystemRole;
 import com.fanyin.model.dto.system.role.RoleAddRequest;
 import com.fanyin.model.dto.system.role.RoleEditRequest;
 import com.fanyin.model.dto.system.role.RoleQueryRequest;
+import com.fanyin.model.ext.CheckBox;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.dao.model.system.SystemRole;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -16,6 +16,7 @@ import com.google.common.base.Joiner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -62,7 +63,7 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @PostMapping("/system/role/edit_page")
+    @GetMapping("/system/role/edit_page")
     @Mark(RequestType.PAGE)
     public String editPage(Model model, Integer id){
         SystemRole role = systemRoleService.getById(id);
@@ -115,7 +116,7 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @PostMapping("/system/role/auth_page")
+    @GetMapping("/system/role/auth_page")
     @Mark(RequestType.PAGE)
     public String addPage(Model model, Integer id){
         List<Integer> role = systemRoleService.getRoleMenu(id);

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 首页及登陆
@@ -66,7 +65,7 @@ public class LoginController extends AbstractController {
      * @param page 页面名称
      * @return 对应的页面
      */
-    @RequestMapping("/{modules}/{function}/{page}")
+    @GetMapping("/{modules}/{function}/{page}")
     public String modules(@PathVariable("modules")String modules,@PathVariable("function")String function,@PathVariable("page")String page){
         return  modules + "/" + function +"/" + page;
     }
@@ -75,7 +74,7 @@ public class LoginController extends AbstractController {
      * 首页修改密码
      * @return 页面
      */
-    @RequestMapping("/home/change_password_page")
+    @GetMapping("/home/change_password_page")
     public String changePasswordPage(){
         return "home/change_password_page";
     }
@@ -83,7 +82,7 @@ public class LoginController extends AbstractController {
     /**
      * 角色列表展示
      */
-    @RequestMapping("/home/role_menu_page")
+    @GetMapping("/home/role_menu_page")
     public String roleMenuPage(){
         return "home/role_menu_page";
     }

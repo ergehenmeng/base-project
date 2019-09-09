@@ -7,7 +7,8 @@ import com.fanyin.service.common.PushTemplateService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author 二哥很猛
@@ -22,7 +23,8 @@ public class PushTemplateController {
     /**
      * 分页查询推送消息模板信息
      */
-    @RequestMapping("/business/push_template/list_page")
+    @PostMapping("/business/push_template/list_page")
+    @ResponseBody
     public Paging<PushTemplate> listPage(PushTemplateQueryRequest request){
         PageInfo<PushTemplate> byPage = pushTemplateService.getByPage(request);
         return new Paging<>(byPage);

@@ -2,14 +2,15 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
+import com.fanyin.dao.model.system.SystemDepartment;
 import com.fanyin.model.dto.system.department.DepartmentAddRequest;
 import com.fanyin.model.dto.system.department.DepartmentEditRequest;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.dao.model.system.SystemDepartment;
 import com.fanyin.service.system.SystemDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,7 +41,7 @@ public class DepartmentController {
     /**
      * 添加部门页面
      */
-    @PostMapping("/system/department/add_page")
+    @GetMapping("/system/department/add_page")
     @Mark(RequestType.PAGE)
     public String addPage(Model model, String code){
         model.addAttribute("code",code);
@@ -61,7 +62,7 @@ public class DepartmentController {
     /**
      * 编辑部门页面
      */
-    @PostMapping("/system/department/edit_page")
+    @GetMapping("/system/department/edit_page")
     @Mark(RequestType.PAGE)
     public String editPage(Model model,Integer id){
         SystemDepartment department = systemDepartmentService.getById(id);

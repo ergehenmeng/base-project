@@ -2,15 +2,16 @@ package com.fanyin.controller.business;
 
 import com.fanyin.controller.AbstractController;
 import com.fanyin.model.dto.business.feedback.FeedbackDisposeRequest;
-import com.fanyin.model.vo.feedback.FeedbackVo;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
+import com.fanyin.model.vo.feedback.FeedbackVo;
 import com.fanyin.service.common.FeedbackService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author 二哥很猛
@@ -25,7 +26,8 @@ public class FeedbackController extends AbstractController {
     /**
      * 分页查询反馈列表
      */
-    @RequestMapping("/feedback/list_page")
+    @PostMapping("/feedback/list_page")
+    @ResponseBody
     public Paging<FeedbackVo> listPage(FeedbackQueryRequest request){
         PageInfo<FeedbackVo> byPage = feedbackService.getByPage(request);
         return new Paging<>(byPage);
@@ -34,7 +36,8 @@ public class FeedbackController extends AbstractController {
     /**
      * 反馈处理
      */
-    @RequestMapping("/feedback/dispose")
+    @PostMapping("/feedback/dispose")
+    @ResponseBody
     public RespBody dispose(FeedbackDisposeRequest request){
         request.setOperatorId(getOperatorId());
         request.setOperatorName(getOperatorName());

@@ -12,6 +12,7 @@ import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -33,7 +34,7 @@ public class MenuController extends AbstractController {
      * @param id 菜单主键
      * @return 页面地址
      */
-    @PostMapping("/system/menu/edit_page")
+    @GetMapping("/system/menu/edit_page")
     @Mark(RequestType.PAGE)
     public String editMenuPage(Model model, Integer id){
         SystemMenu menu = systemMenuService.getMenuById(id);
@@ -58,7 +59,7 @@ public class MenuController extends AbstractController {
      * @param id 父级id
      * @return ftl地址
      */
-    @PostMapping("/system/menu/add_page")
+    @GetMapping("/system/menu/add_page")
     @Mark(RequestType.ALL)
     public String addPage(Model model,Integer id){
         model.addAttribute("pid",id);

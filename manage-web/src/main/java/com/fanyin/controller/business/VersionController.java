@@ -10,7 +10,7 @@ import com.fanyin.service.common.VersionService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -26,7 +26,7 @@ public class VersionController {
     /**
      * app版本管理列表
      */
-    @RequestMapping("/business/version/list_page")
+    @PostMapping("/business/version/list_page")
     @ResponseBody
     public Paging<Version> listPage(VersionQueryRequest request){
         PageInfo<Version> byPage = versionService.getByPage(request);
@@ -36,7 +36,7 @@ public class VersionController {
     /**
      * 添加app版本信息
      */
-    @RequestMapping("/business/version/add")
+    @PostMapping("/business/version/add")
     @ResponseBody
     public RespBody add(VersionAddRequest request){
         versionService.addAppVersion(request);
@@ -46,7 +46,7 @@ public class VersionController {
     /**
      * 编辑保存app版本信息
      */
-    @RequestMapping("/business/version/edit")
+    @PostMapping("/business/version/edit")
     @ResponseBody
     public RespBody edit(VersionEditRequest request){
         versionService.editAppVersion(request);
@@ -57,7 +57,7 @@ public class VersionController {
      * 上架app版本
      * @param id  主键
      */
-    @RequestMapping("/business/version/put_away")
+    @PostMapping("/business/version/put_away")
     @ResponseBody
     public RespBody putAway(Integer id){
         versionService.putAwayVersion(id);
@@ -68,7 +68,7 @@ public class VersionController {
      * 下架app版本
      * @param id 主键
      */
-    @RequestMapping("/business/version/sold_out")
+    @PostMapping("/business/version/sold_out")
     @ResponseBody
     public RespBody soleOut(Integer id){
         versionService.soleOutVersion(id);
@@ -78,7 +78,7 @@ public class VersionController {
     /**
      * 删除版本信息
      */
-    @RequestMapping("/business/version/delete")
+    @PostMapping("/business/version/delete")
     @ResponseBody
     public RespBody delete(Integer id){
         versionService.deleteVersion(id);

@@ -10,7 +10,7 @@ import com.fanyin.service.common.SystemNoticeService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -26,7 +26,7 @@ public class SystemNoticeController {
     /**
      * 系统公告列表查询
      */
-    @RequestMapping("/business/notice/list_page")
+    @PostMapping("/business/notice/list_page")
     @ResponseBody
     public Paging<SystemNotice> listPage(NoticeQueryRequest request){
         PageInfo<SystemNotice> byPage = systemNoticeService.getByPage(request);
@@ -36,7 +36,7 @@ public class SystemNoticeController {
     /**
      * 新增公告信息
      */
-    @RequestMapping("/business/notice/add")
+    @PostMapping("/business/notice/add")
     @ResponseBody
     public RespBody add(NoticeAddRequest request){
         systemNoticeService.addNotice(request);
@@ -46,7 +46,7 @@ public class SystemNoticeController {
     /**
      * 编辑公告信息
      */
-    @RequestMapping("/business/notice/edit")
+    @PostMapping("/business/notice/edit")
     @ResponseBody
     public RespBody edit(NoticeEditRequest request){
         systemNoticeService.editNotice(request);
@@ -56,7 +56,7 @@ public class SystemNoticeController {
     /**
      * 删除公告信息
      */
-    @RequestMapping("/business/notice/delete")
+    @PostMapping("/business/notice/delete")
     @ResponseBody
     public RespBody delete(Integer id){
         systemNoticeService.deleteNotice(id);

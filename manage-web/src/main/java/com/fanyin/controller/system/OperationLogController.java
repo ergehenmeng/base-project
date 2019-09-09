@@ -2,13 +2,14 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
+import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.model.dto.system.log.OperationQueryRequest;
 import com.fanyin.model.ext.Paging;
-import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.service.system.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,7 +39,7 @@ public class OperationLogController {
      * @param id di
      * @return 结果页面
      */
-    @PostMapping("/system/operation_log/query_page")
+    @GetMapping("/system/operation_log/query_page")
     @Mark(RequestType.PAGE)
     public String queryPage(Model model, Integer id){
         String response = operationLogService.getResponseById(id);

@@ -4,13 +4,13 @@ import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
+import com.fanyin.dao.model.system.SystemOperator;
 import com.fanyin.model.dto.system.operator.OperatorAddRequest;
 import com.fanyin.model.dto.system.operator.OperatorEditRequest;
 import com.fanyin.model.dto.system.operator.OperatorQueryRequest;
 import com.fanyin.model.dto.system.operator.PasswordEditRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.dao.model.system.SystemOperator;
 import com.fanyin.service.system.SystemOperatorService;
 import com.fanyin.service.system.SystemRoleService;
 import com.github.pagehelper.PageInfo;
@@ -22,6 +22,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -95,7 +96,7 @@ public class OperatorController extends AbstractController {
      * @param id 管理人员id
      * @return 页面
      */
-    @PostMapping("/system/operator/edit_page")
+    @GetMapping("/system/operator/edit_page")
     @Mark(RequestType.PAGE)
     public String editOperatorPage(Model model, Integer id){
         SystemOperator operator = systemOperatorService.getById(id);

@@ -8,9 +8,8 @@ import com.fanyin.service.system.SmsLogService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 短信记录
@@ -26,7 +25,7 @@ public class SmsLogController extends AbstractController {
     /**
      * 分页查询短信记录列表
      */
-    @RequestMapping("/business/sms_log/list_page")
+    @PostMapping("/business/sms_log/list_page")
     @ResponseBody
     public Paging<SmsLog> listPage(SmsLogQueryRequest request){
         PageInfo<SmsLog> byPage = smsLogService.getByPage(request);
