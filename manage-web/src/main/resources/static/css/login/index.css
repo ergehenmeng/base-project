@@ -76,13 +76,13 @@ body{
     height:36px;
 }
 .login-panel ul li span.user-icon{
-    background:url(/static/img/login/user-icon.png) #dddddd 5px no-repeat;
+    background:url(/static/img/login/user-icon.png) #dddddd 6px no-repeat;
 }
 .login-panel ul li span.pwd-icon{
-    background:url(/static/img/login/password-icon.png) 5px #dddddd no-repeat;
+    background:url(/static/img/login/password-icon.png) 6px #dddddd no-repeat;
 }
 .login-panel ul li span.valid-icon{
-    background:url(/static/img/login/valide-code-icon.png) 5px #dddddd no-repeat;
+    background:url(/static/img/login/valide-code-icon.png) 6px #dddddd no-repeat;
 }
 .login-panel ul li .login-text{
     float:left;
