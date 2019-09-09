@@ -10,8 +10,9 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.util.AntPathMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -25,8 +26,6 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 
     @Autowired
     private SystemMenuService systemMenuService;
-
-    private AntPathMatcher matcher = new AntPathMatcher();
 
     /**
      * 重新加载所有菜单权限
@@ -65,9 +64,9 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         if(map.isEmpty()){
             loadResource();
         }
-        String url = ((FilterInvocation) object).getRequestUrl();
+        HttpServletRequest request = ((FilterInvocation) object).getRequest();
         for (Map.Entry<String,Collection<ConfigAttribute>> entry : map.entrySet()){
-            if(matcher.match(entry.getKey(),url)){
+            if(new AntPathRequestMatcher(entry.getKey()).matches(request)){
                 return entry.getValue();
             }
         }
