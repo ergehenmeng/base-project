@@ -6,6 +6,7 @@ import com.fanyin.dao.model.system.SystemAddress;
 import com.fanyin.service.system.SystemAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @date 2019/2/13 10:25
  */
 @Service("systemAddressService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class SystemAddressServiceImpl implements SystemAddressService {
 
     @Autowired

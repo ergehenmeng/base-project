@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @date 2019/8/29 10:45
  */
 @Service("pushTemplateService")
+@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
 public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Autowired

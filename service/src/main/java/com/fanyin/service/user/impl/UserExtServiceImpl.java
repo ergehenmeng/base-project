@@ -10,12 +10,14 @@ import com.fanyin.model.dto.user.UserAuthRequest;
 import com.fanyin.service.user.UserExtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
  * @date 2019/8/28 16:18
  */
 @Service("userExtService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class UserExtServiceImpl implements UserExtService {
 
     @Autowired

@@ -5,6 +5,7 @@ import com.fanyin.common.utils.DateUtil;
 import com.fanyin.dao.mapper.system.SystemCacheMapper;
 import com.fanyin.dao.model.system.SystemCache;
 import com.fanyin.service.cache.ClearCacheService;
+import com.fanyin.service.cache.SystemCacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

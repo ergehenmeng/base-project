@@ -11,6 +11,7 @@ import com.fanyin.service.common.AccessTokenService;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ import java.util.List;
  * @date 2018/10/11 13:47
  */
 @Service("cacheProxyService")
+@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
 public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Autowired
@@ -49,7 +51,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         String accessKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
         String accessToken = encoder.encode(user.getId() + accessKey);
         AccessToken token = AccessToken.builder().accessKey(accessKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
-        accessTokenService.saveByAccessKey(token);
+        token = accessTokenService.saveByAccessKey(token);
         return accessTokenService.saveByUserId(token);
     }
 

@@ -33,6 +33,7 @@ public interface AccessTokenService {
     /**
      * 保存token
      * @param token token对象
+     * @return token信息
      */
     AccessToken saveByUserId(AccessToken token);
 

@@ -12,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @date 2019/8/28 10:46
  */
 @Service("feedbackService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class FeedbackServiceImpl implements FeedbackService {
 
     @Autowired

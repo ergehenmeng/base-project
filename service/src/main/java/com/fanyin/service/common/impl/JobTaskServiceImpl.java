@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2019/9/6 15:19
  */
 @Service("jobTaskService")
+@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
 public class JobTaskServiceImpl implements JobTaskService {
 
     @Autowired

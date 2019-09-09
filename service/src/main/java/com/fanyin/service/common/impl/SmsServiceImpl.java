@@ -16,6 +16,7 @@ import com.fanyin.service.system.SmsTemplateService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
 import java.util.Date;
@@ -26,6 +27,7 @@ import java.util.List;
  * @date 2019/8/16 18:46
  */
 @Service("smsService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class SmsServiceImpl implements SmsService {
 
     @Autowired

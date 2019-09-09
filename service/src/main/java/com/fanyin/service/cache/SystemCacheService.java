@@ -1,4 +1,4 @@
-package com.fanyin.service.cache.impl;
+package com.fanyin.service.cache;
 
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.dao.model.system.SystemCache;

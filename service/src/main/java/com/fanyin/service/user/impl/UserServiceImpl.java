@@ -30,12 +30,14 @@ import com.fanyin.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
  * @date 2019/8/19 15:50
  */
 @Service("userService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class UserServiceImpl implements UserService {
 
     @Autowired

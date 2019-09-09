@@ -5,7 +5,7 @@ import com.fanyin.annotation.RequestType;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
 import com.fanyin.dao.model.system.SystemCache;
-import com.fanyin.service.cache.impl.SystemCacheService;
+import com.fanyin.service.cache.SystemCacheService;
 import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
