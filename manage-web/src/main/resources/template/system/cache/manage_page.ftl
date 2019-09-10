@@ -16,7 +16,7 @@
                 singleSelect : false,
                 columns : [ [
                     {
-                        field : "actionss",
+                        field : "action",
                         title : "操作",
                         width : 120,
                         align : "center",

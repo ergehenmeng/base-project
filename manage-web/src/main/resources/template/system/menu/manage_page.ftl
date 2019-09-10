@@ -34,9 +34,15 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl);"> 添加</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"> 删除</a>';
+                            <@auth nid='menuManageAdd'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl);"> 添加</a>';
+                            </@auth>
+                            <@auth nid='menuManageEdit'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
+                            </@auth>
+                            <@auth nid='menuManageDelete'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"> 删除</a>';
+                            </@auth>
                             str += '</dd>';
                             str += '</dl>';
                             return str;
@@ -83,7 +89,7 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
-            <@auth nid="menuManageQuery">
+            <@auth nid="menuManageAdd">
                 <div class="right">
                     <a href="#" class="search-btn" onclick="$.fn.treeGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl)"><i class="fa fa-plus"></i>&nbsp;添加</a>
                 </div>

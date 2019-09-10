@@ -83,7 +83,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
                 .csrf()
                 .disable()
-                //默认访问拒绝由AccessDeniedHandlerImpl处理.手动实现返回前台为json
+                //默认访问拒绝由AccessDeniedHandlerImpl(重定向)处理.手动实现返回前台为json
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler());
     }
