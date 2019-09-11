@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2019-09-06 18:03:05
+Date: 2019-09-11 18:12:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -42,6 +42,24 @@ CREATE TABLE `banner` (
 
 -- ----------------------------
 -- Records of banner
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for black_roster
+-- ----------------------------
+DROP TABLE IF EXISTS `black_roster`;
+CREATE TABLE `black_roster` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `ip` char(32) DEFAULT NULL COMMENT '访问ip',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
+  `end_time` datetime DEFAULT NULL COMMENT '黑名单截止时间',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='访问黑名单';
+
+-- ----------------------------
+-- Records of black_roster
 -- ----------------------------
 
 -- ----------------------------
@@ -112,29 +130,6 @@ CREATE TABLE `image_log` (
 -- ----------------------------
 -- Records of image_log
 -- ----------------------------
-
--- ----------------------------
--- Table structure for job_task
--- ----------------------------
-DROP TABLE IF EXISTS `job_task`;
-CREATE TABLE `job_task` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` char(50) DEFAULT NULL COMMENT '定时任务名称',
-  `nid` char(20) DEFAULT NULL COMMENT '定时任务nid',
-  `bean_path` varchar(200) DEFAULT NULL COMMENT '触发类全路径',
-  `bean` char(50) DEFAULT NULL COMMENT '类的bean名称',
-  `cron_expression` char(50) DEFAULT NULL COMMENT 'cron表达式',
-  `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nid_unique_index` (`nid`) USING BTREE COMMENT 'nid必须唯一'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务配置表';
-
--- ----------------------------
--- Records of job_task
--- ----------------------------
-INSERT INTO `job_task` VALUES ('1', '测试定时任务', 'testJob', 'com.fanyin.job.TestJobService', 'testJobService', '0/1 * * * * ?', '1', '2019-09-06 16:31:47', null);
 
 -- ----------------------------
 -- Table structure for login_log
@@ -3812,7 +3807,7 @@ CREATE TABLE `system_cache` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注说明',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='缓存信息管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='缓存信息管理表';
 
 -- ----------------------------
 -- Records of system_cache
@@ -3823,6 +3818,7 @@ INSERT INTO `system_cache` VALUES ('4', '用户登陆token缓存', 'access_token
 INSERT INTO `system_cache` VALUES ('6', '异步结果缓存', 'async_response', '1', '2019-08-20 08:39:20', '异步信息(保存缓存)');
 INSERT INTO `system_cache` VALUES ('7', '短信模板缓存', 'sms_template', '1', '2019-08-29 10:55:24', '全局短信模板缓存(查询缓存)');
 INSERT INTO `system_cache` VALUES ('8', '推送模板缓存', 'push_template', '1', '2019-08-30 06:02:21', '全局消息推送模板缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('9', '黑名单缓存', 'black_roster', '1', '2019-09-09 14:19:29', '黑名单信息(查询缓存)');
 
 -- ----------------------------
 -- Table structure for system_config
@@ -3844,7 +3840,7 @@ CREATE TABLE `system_config` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `nid_index` (`nid`) USING BTREE,
   KEY `type_index` (`classify`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
 
 -- ----------------------------
 -- Records of system_config
@@ -3872,6 +3868,10 @@ INSERT INTO `system_config` VALUES ('24', 'sms_day', '同一天同手机号最�
 INSERT INTO `system_config` VALUES ('25', 'notice_limit', '公告显示多少条', '5', '1', '\0', null, null, null, '首页公告轮播条数', '2019-08-22 11:53:19', '2019-08-22 11:53:19');
 INSERT INTO `system_config` VALUES ('26', 'app_store_url', '苹果AppStore访问地址', 'https://apps.apple.com/cn/app/%E4%B8%AA%E4%BA%BA%E6%89%80%E5%BE%97%E7%A8%8E/id1436002627', null, '\0', null, null, null, null, '2019-08-22 15:47:19', '2019-08-22 17:25:27');
 INSERT INTO `system_config` VALUES ('27', 'file_server_address', '文件服务器地址', 'http://127.0.0.1:8080', null, '\0', null, null, null, null, '2019-08-28 17:25:14', '2019-08-28 17:25:29');
+INSERT INTO `system_config` VALUES ('28', 'wechat_applet_id', '微信小程序appId', 'wxd90x7ec99b9d4f04', null, '\0', null, null, null, null, '2019-09-10 13:35:46', '2019-09-11 18:12:28');
+INSERT INTO `system_config` VALUES ('29', 'wechat_applet_secret', '微信小程序secret', '221a466f3956831a66f90010541e59ae', null, '\0', null, null, null, null, '2019-09-10 13:37:05', '2019-09-11 18:12:39');
+INSERT INTO `system_config` VALUES ('30', 'wechat_app_id', '微信公众号appId', 'wxd90x7ec99b9d4f04', null, '\0', null, null, null, null, '2019-09-10 16:38:21', '2019-09-11 18:12:31');
+INSERT INTO `system_config` VALUES ('31', 'wechat_secret', '微信公众号secret', 'cea4bca954e37bb1648b10b01ade7c14', null, '\0', null, null, null, null, '2019-09-10 16:38:40', '2019-09-11 18:12:37');
 
 -- ----------------------------
 -- Table structure for system_department
@@ -3944,13 +3944,13 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
   KEY `pid_index` (`pid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1023 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=1028 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of system_menu
 -- ----------------------------
 INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', '', '', '0', '1', '\0', '', '2018-01-25 16:13:54', '2019-08-23 15:57:49');
-INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/system/menu/manage_page', '/system/menu/list_page', '0', '1', '\0', '', '2018-01-25 16:14:01', '2019-08-29 16:56:36');
+INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/system/menu/manage_page', '', '0', '1', '\0', '', '2018-01-25 16:14:01', '2019-09-09 18:06:05');
 INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/system/config/manage_page', null, '0', '2', '\0', null, '2018-01-25 16:14:31', '2019-08-29 16:56:39');
 INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/system/operator/manage_page', null, '0', '3', '\0', null, '2018-01-25 16:14:40', '2019-08-29 16:56:42');
 INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/system/role/manage_page', null, '0', '4', '\0', null, '2018-01-25 16:14:56', '2019-08-29 16:56:46');
@@ -3959,14 +3959,17 @@ INSERT INTO `system_menu` VALUES ('1011', '数据字典', 'dictManage', '1001', 
 INSERT INTO `system_menu` VALUES ('1012', '缓存管理', 'cacheManage', '1001', '/system/cache/manage_page', '', '0', '7', '\0', null, '2019-01-14 15:27:58', '2019-08-29 16:56:54');
 INSERT INTO `system_menu` VALUES ('1013', '操作日志', 'operationManage', '1001', '/system/operation/manage_page', null, '0', '8', '\0', null, '2019-01-16 14:31:01', '2019-08-29 16:56:58');
 INSERT INTO `system_menu` VALUES ('1014', '部门管理', 'departmentManage', '1001', '/system/department/manage_page', null, '0', '9', '\0', null, '2019-01-17 18:03:54', '2019-08-29 16:57:00');
-INSERT INTO `system_menu` VALUES ('1015', '新增', 'menuManageQuery', '1004', '/system/menu/add_page', '/system/menu/add', '1', '2', '\0', '按钮权限', '2019-01-22 14:16:11', '2019-08-29 16:57:03');
-INSERT INTO `system_menu` VALUES ('1016', '基础', 'menuManageBase', '1004', '', '', '1', '1', '\0', '基础按钮', '2019-01-22 14:19:01', '2019-01-22 14:19:29');
+INSERT INTO `system_menu` VALUES ('1015', '新增', 'menuManageAdd', '1004', '/system/menu/add', '/system/menu/add_page', '1', '2', '\0', '按钮权限', '2019-01-22 14:16:11', '2019-09-09 18:06:57');
+INSERT INTO `system_menu` VALUES ('1016', '基础', 'menuManageBase', '1004', '/system/menu/list_page', '', '1', '1', '\0', '基础必选(相当于查询)', '2019-01-22 14:19:01', '2019-09-10 10:02:46');
 INSERT INTO `system_menu` VALUES ('1017', '运营管理', 'businessManage', '0', '', '', '0', '2', '\0', '', '2019-08-23 11:54:33', '2019-08-23 15:57:42');
 INSERT INTO `system_menu` VALUES ('1018', '轮播管理', 'bannerManage', '1017', '/business/banner/manage_page', '', '0', '1', '\0', '', '2019-08-23 11:55:35', '2019-08-29 16:57:06');
 INSERT INTO `system_menu` VALUES ('1019', '公告管理', 'noticeManage', '1017', '/business/notice/manage_page', '/business/notice/list_page', '0', '2', '\0', '', '2019-08-23 15:09:57', '2019-08-29 16:57:11');
 INSERT INTO `system_menu` VALUES ('1020', '短信日志', 'smsLogManage', '1017', '/business/sms_log/manage_page', '/business/sms_log/list_page', '0', '3', '\0', '', '2019-08-23 15:12:01', '2019-08-29 16:57:14');
 INSERT INTO `system_menu` VALUES ('1021', '短信模板', 'smsTemplateManage', '1017', '/business/sms_template/manage_page', '/business/sms_template/list_page', '0', '4', '\0', '', '2019-08-23 15:13:56', '2019-08-29 16:57:18');
 INSERT INTO `system_menu` VALUES ('1022', '版本管理', 'versionManage', '1017', '/business/version/manage_page', '/business/version/list_page', '0', '5', '\0', '', '2019-08-23 15:16:59', '2019-08-29 16:57:19');
+INSERT INTO `system_menu` VALUES ('1025', '定时任务', 'jobTask', '1017', '/business/task/manage_page', '', '0', '10', '\0', '', '2019-09-09 15:36:39', '2019-09-11 17:57:23');
+INSERT INTO `system_menu` VALUES ('1026', '编辑', 'menuManageEdit', '1004', '/system/menu/edit', '/system/menu/edit_page', '0', '3', '\0', '', '2019-09-09 15:59:57', '2019-09-09 18:06:17');
+INSERT INTO `system_menu` VALUES ('1027', '删除', 'menuManageDelete', '1004', '/system/menu/delete', '', '0', '4', '\0', '', '2019-09-09 16:01:28', '2019-09-09 18:03:22');
 
 -- ----------------------------
 -- Table structure for system_notice
@@ -4086,29 +4089,76 @@ CREATE TABLE `system_role_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `role_id_index` (`role_id`) USING BTREE,
   KEY `menu_id_index` (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=321 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Records of system_role_menu
 -- ----------------------------
-INSERT INTO `system_role_menu` VALUES ('241', '1', '1001');
-INSERT INTO `system_role_menu` VALUES ('242', '1', '1004');
-INSERT INTO `system_role_menu` VALUES ('243', '1', '1016');
-INSERT INTO `system_role_menu` VALUES ('244', '1', '1015');
-INSERT INTO `system_role_menu` VALUES ('245', '1', '1007');
-INSERT INTO `system_role_menu` VALUES ('246', '1', '1008');
-INSERT INTO `system_role_menu` VALUES ('247', '1', '1009');
-INSERT INTO `system_role_menu` VALUES ('248', '1', '1010');
-INSERT INTO `system_role_menu` VALUES ('249', '1', '1011');
-INSERT INTO `system_role_menu` VALUES ('250', '1', '1012');
-INSERT INTO `system_role_menu` VALUES ('251', '1', '1013');
-INSERT INTO `system_role_menu` VALUES ('252', '1', '1014');
-INSERT INTO `system_role_menu` VALUES ('253', '1', '1017');
-INSERT INTO `system_role_menu` VALUES ('254', '1', '1018');
-INSERT INTO `system_role_menu` VALUES ('255', '1', '1019');
-INSERT INTO `system_role_menu` VALUES ('256', '1', '1020');
-INSERT INTO `system_role_menu` VALUES ('257', '1', '1021');
-INSERT INTO `system_role_menu` VALUES ('258', '1', '1022');
+INSERT INTO `system_role_menu` VALUES ('300', '1', '1001');
+INSERT INTO `system_role_menu` VALUES ('301', '1', '1004');
+INSERT INTO `system_role_menu` VALUES ('302', '1', '1016');
+INSERT INTO `system_role_menu` VALUES ('303', '1', '1015');
+INSERT INTO `system_role_menu` VALUES ('304', '1', '1026');
+INSERT INTO `system_role_menu` VALUES ('305', '1', '1027');
+INSERT INTO `system_role_menu` VALUES ('306', '1', '1007');
+INSERT INTO `system_role_menu` VALUES ('307', '1', '1008');
+INSERT INTO `system_role_menu` VALUES ('308', '1', '1009');
+INSERT INTO `system_role_menu` VALUES ('309', '1', '1010');
+INSERT INTO `system_role_menu` VALUES ('310', '1', '1011');
+INSERT INTO `system_role_menu` VALUES ('311', '1', '1012');
+INSERT INTO `system_role_menu` VALUES ('312', '1', '1013');
+INSERT INTO `system_role_menu` VALUES ('313', '1', '1014');
+INSERT INTO `system_role_menu` VALUES ('314', '1', '1025');
+INSERT INTO `system_role_menu` VALUES ('315', '1', '1017');
+INSERT INTO `system_role_menu` VALUES ('316', '1', '1018');
+INSERT INTO `system_role_menu` VALUES ('317', '1', '1019');
+INSERT INTO `system_role_menu` VALUES ('318', '1', '1020');
+INSERT INTO `system_role_menu` VALUES ('319', '1', '1021');
+INSERT INTO `system_role_menu` VALUES ('320', '1', '1022');
+
+-- ----------------------------
+-- Table structure for task_config
+-- ----------------------------
+DROP TABLE IF EXISTS `task_config`;
+CREATE TABLE `task_config` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` char(50) DEFAULT NULL COMMENT '定时任务名称',
+  `nid` char(20) DEFAULT NULL COMMENT '定时任务nid',
+  `bean_path` varchar(200) DEFAULT NULL COMMENT '触发类全路径',
+  `bean_name` char(50) DEFAULT NULL COMMENT '类的bean名称',
+  `cron_expression` char(50) DEFAULT NULL COMMENT 'cron表达式',
+  `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nid_unique_index` (`nid`) USING BTREE COMMENT 'nid必须唯一'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务配置表';
+
+-- ----------------------------
+-- Records of task_config
+-- ----------------------------
+INSERT INTO `task_config` VALUES ('1', '测试定时任务', 'testJob', 'com.fanyin.service.job.TestJobService', 'testJobService', '0/10 * * * * ?', '0', '2019-09-09 14:32:35', null);
+
+-- ----------------------------
+-- Table structure for task_log
+-- ----------------------------
+DROP TABLE IF EXISTS `task_log`;
+CREATE TABLE `task_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `nid` char(50) DEFAULT NULL COMMENT '任务nid',
+  `bean_name` char(50) DEFAULT NULL COMMENT '定时任务bean名称',
+  `state` bit(1) DEFAULT b'1' COMMENT '执行结果 0:失败 1:成功',
+  `start_time` datetime DEFAULT NULL COMMENT '开始执行时间',
+  `end_time` datetime DEFAULT NULL COMMENT '执行结束时间',
+  `error_msg` text COMMENT '执行错误时的信息',
+  `ip` char(50) DEFAULT NULL COMMENT '执行任务的机器ip',
+  PRIMARY KEY (`id`),
+  KEY `nid_index` (`nid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='定时任务执行日志';
+
+-- ----------------------------
+-- Records of task_log
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user
@@ -4177,4 +4227,3 @@ CREATE TABLE `version` (
 -- ----------------------------
 -- Records of version
 -- ----------------------------
-
