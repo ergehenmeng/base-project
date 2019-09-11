@@ -31,5 +31,5 @@ public class PushBuilder {
     /**
      * 消息通知附加信息
      */
-    private Map<String,String> extras = Maps.newHashMapWithExpectedSize(4);
+    private final Map<String,String> extras = Maps.newHashMapWithExpectedSize(4);
 }
