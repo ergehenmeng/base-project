@@ -134,7 +134,7 @@ CREATE TABLE `job_task` (
 -- ----------------------------
 -- Records of job_task
 -- ----------------------------
-INSERT INTO `job_task` VALUES ('1', '测试定时任务', 'testJob', 'com.fanyin.service.job.TestJobService', 'testJobService', '0/1 * * * * ?', '1', '2019-09-06 16:31:47', null);
+INSERT INTO `job_task` VALUES ('1', '测试定时任务', 'testJob', 'com.fanyin.job.TestJobService', 'testJobService', '0/1 * * * * ?', '1', '2019-09-06 16:31:47', null);
 
 -- ----------------------------
 -- Table structure for login_log

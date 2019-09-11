@@ -17,6 +17,7 @@
         <module>service</module>
         <module>api-web</module>
         <module>manage-web</module>
+        <module>cron-job</module>
     </modules>
 
     <parent>

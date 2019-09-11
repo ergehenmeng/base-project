@@ -1,4 +1,4 @@
-package com.fanyin.service.job;
+package com.fanyin.task;
 
 import com.fanyin.common.utils.DateUtil;
 import com.fanyin.configuration.job.Task;

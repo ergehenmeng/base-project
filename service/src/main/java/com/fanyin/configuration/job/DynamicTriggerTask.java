@@ -16,7 +16,7 @@ public class DynamicTriggerTask extends TriggerTask {
 
 
     DynamicTriggerTask(String nid,String beanName, String cronExpression) {
-        super(new DynamicRunnable(beanName),new CronTrigger(cronExpression));
+        super(new DynamicRunnable(beanName,nid),new CronTrigger(cronExpression));
         this.nid = nid;
         this.cronExpression = cronExpression;
     }

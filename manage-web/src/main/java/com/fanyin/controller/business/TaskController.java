@@ -1,11 +1,11 @@
 package com.fanyin.controller.business;
 
 import com.fanyin.configuration.job.DynamicTask;
-import com.fanyin.dao.model.business.JobTask;
+import com.fanyin.dao.model.business.TaskConfig;
 import com.fanyin.model.dto.business.task.TaskQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.service.common.JobTaskService;
+import com.fanyin.service.common.TaskConfigService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TaskController {
 
     @Autowired
-    private JobTaskService jobTaskService;
+    private TaskConfigService taskConfigService;
 
     @Autowired
     private DynamicTask dynamicTask;
@@ -30,8 +30,8 @@ public class TaskController {
      */
     @PostMapping("/business/task/list_page")
     @ResponseBody
-    public Paging<JobTask> listPage(TaskQueryRequest request){
-        PageInfo<JobTask> byPage = jobTaskService.getByPage(request);
+    public Paging<TaskConfig> listPage(TaskQueryRequest request){
+        PageInfo<TaskConfig> byPage = taskConfigService.getByPage(request);
         return new Paging<>(byPage);
     }
 

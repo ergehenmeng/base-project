@@ -10,7 +10,7 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
-public class JobTask implements Serializable {
+public class TaskConfig implements Serializable {
 
     private static final long serialVersionUID = -413606040013257658L;
     /**
@@ -44,9 +44,9 @@ public class JobTask implements Serializable {
     /**
      * 类的bean名称<br>
      * 表 : job_task<br>
-     * 对应字段 : bean<br>
+     * 对应字段 : bean_name<br>
      */
-    private String bean;
+    private String beanName;
 
     /**
      * cron表达式<br>

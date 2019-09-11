@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.business.JobTaskMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.JobTask">
+<mapper namespace="com.fanyin.dao.mapper.business.TaskConfigMapper">
+  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.TaskConfig">
     <!--
       @create by mybatis
     -->
@@ -9,7 +9,7 @@
     <result column="title" jdbcType="CHAR" property="title" />
     <result column="nid" jdbcType="CHAR" property="nid" />
     <result column="bean_path" jdbcType="VARCHAR" property="beanPath" />
-    <result column="bean" jdbcType="CHAR" property="bean" />
+    <result column="bean_name" jdbcType="CHAR" property="beanName" />
     <result column="cron_expression" jdbcType="CHAR" property="cronExpression" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -19,7 +19,7 @@
     <!--
       @create by mybatis
     -->
-    id, title, nid, bean_path, bean, cron_expression, state, update_time, remark
+    id, title, nid, bean_path, bean_name, cron_expression, state, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -27,14 +27,14 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from job_task
+    from task_config
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.JobTask">
+  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.TaskConfig">
     <!--
       @create by mybatis
     -->
-    update job_task
+    update task_config
     <set>
       <if test="title != null">
         title = #{title,jdbcType=CHAR},
@@ -45,8 +45,8 @@
       <if test="beanPath != null">
         bean_path = #{beanPath,jdbcType=VARCHAR},
       </if>
-      <if test="bean != null">
-        bean = #{bean,jdbcType=CHAR},
+      <if test="beanName != null">
+        bean_name = #{beanName,jdbcType=CHAR},
       </if>
       <if test="cronExpression != null">
         cron_expression = #{cronExpression,jdbcType=CHAR},
@@ -65,12 +65,12 @@
   </update>
     <select id="getAvailableList" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from job_task where state = 1
+        from task_config where state = 1
     </select>
 
     <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.business.task.TaskQueryRequest">
         select <include refid="BaseColumnList"/>
-        from job_task
+        from task_config
         <where>
             <if test="queryName != null">
                 and (title like concat('%',#{queryName},'%') or nid = #{queryName} or bean = #{queryName})

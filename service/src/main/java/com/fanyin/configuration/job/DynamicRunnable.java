@@ -1,9 +1,12 @@
 package com.fanyin.configuration.job;
 
-import cn.hutool.core.bean.BeanException;
-import com.fanyin.common.exception.BusinessException;
+import com.fanyin.common.utils.DateUtil;
+import com.fanyin.dao.model.business.TaskLog;
+import com.fanyin.service.common.TaskLogService;
+import com.fanyin.utils.IpUtil;
 import com.fanyin.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 
 /**
  * @author 二哥很猛
@@ -12,29 +15,60 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DynamicRunnable implements Runnable {
 
+    /**
+     * 具体业务实现
+     */
     private Task task;
 
+    /**
+     * 日志记录
+     */
+    private TaskLogService taskLogService;
+
+    /**
+     * 任务bean
+     */
     private String beanName;
 
-    DynamicRunnable(String beanName) {
+    /**
+     * 任务nid(唯一标示符)
+     */
+    private String nid;
+
+    DynamicRunnable(String beanName,String nid) {
         this.beanName = beanName;
+        this.nid = nid;
     }
 
     @Override
     public void run() {
-        getTask().execute();
+        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(nid).beanName(beanName).ip(IpUtil.getIp()).startTime(DateUtil.getNow());
+        try {
+            getTaskBean().execute();
+        }catch (Exception e){
+            log.error("定时任务执行异常 nid:[{}] bean:[{}]",nid,beanName,e);
+            builder.state(false);
+            builder.errorMsg(ExceptionUtils.getMessage(e));
+        }finally {
+            builder.endTime(DateUtil.getNow());
+        }
+        taskLogService().addTaskLog(builder.build());
     }
 
-    public Task getTask() {
+    private TaskLogService taskLogService(){
+        if(taskLogService != null){
+            return taskLogService;
+        }
+        this.taskLogService = (TaskLogService)SpringContextUtil.getBean("taskLogService");
+        return taskLogService;
+    }
+
+    private Task getTaskBean() {
         if(task != null){
             return task;
         }
-        try {
-            this.task = (Task)SpringContextUtil.getBean(beanName);
-        }catch (BeanException e){
-            log.error("创建定时任务异常 beanName:[{}]",beanName,e);
-            throw new BusinessException(-1,"定时任务创建Bean失败");
-        }
+        //必须保证bean名称正确
+        this.task = (Task)SpringContextUtil.getBean(beanName);
         return task;
     }
 }

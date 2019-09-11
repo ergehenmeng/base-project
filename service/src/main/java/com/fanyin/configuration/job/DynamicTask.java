@@ -3,8 +3,8 @@ package com.fanyin.configuration.job;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.dao.model.business.JobTask;
-import com.fanyin.service.common.JobTaskService;
+import com.fanyin.dao.model.business.TaskConfig;
+import com.fanyin.service.common.TaskConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ import java.util.concurrent.ScheduledFuture;
 public class DynamicTask implements SchedulingConfigurer, DisposableBean {
 
     @Autowired
-    private JobTaskService jobTaskService;
+    private TaskConfigService taskConfigService;
 
     private ScheduledTaskRegistrar scheduledTaskRegistrar;
 
@@ -66,11 +66,11 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
      */
     public synchronized void openRefreshTask(){
         log.info("定时任务配置信息开始加载...");
-        List<JobTask> jobTasks = jobTaskService.getAvailableList();
-        if(!CollectionUtils.isEmpty(jobTasks)){
+        List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();
+        if(!CollectionUtils.isEmpty(taskConfigs)){
             List<DynamicTriggerTask> taskList = new ArrayList<>();
-            for (JobTask jobTask : jobTasks) {
-                DynamicTriggerTask triggerTask = new DynamicTriggerTask(jobTask.getNid(), jobTask.getBean(), jobTask.getCronExpression());
+            for (TaskConfig taskConfig : taskConfigs) {
+                DynamicTriggerTask triggerTask = new DynamicTriggerTask(taskConfig.getNid(), taskConfig.getBeanName(), taskConfig.getCronExpression());
                 taskList.add(triggerTask);
             }
             this.doRefreshTask(taskList);

@@ -1,14 +1,17 @@
 package com.fanyin.utils;
 
 import com.fanyin.common.constant.CommonConstant;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
 
 
 /**
  * @author 二哥很猛
  * @date 2018/1/18 18:39
  */
+@Slf4j
 public class IpUtil {
 
 
@@ -39,4 +42,14 @@ public class IpUtil {
         }
         return ip;
     }
+
+    public static String getIp(){
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        }catch (Exception e){
+            log.error("获取本机ip失败",e);
+        }
+        return null;
+    }
+
 }
