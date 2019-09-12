@@ -20,6 +20,8 @@ import com.fanyin.model.ext.AccessToken;
 import com.fanyin.model.ext.RequestMessage;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.model.vo.login.LoginToken;
+import com.fanyin.queue.TaskQueue;
+import com.fanyin.queue.task.LoginLogTask;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.SmsService;
 import com.fanyin.service.system.impl.SystemConfigApi;
@@ -128,8 +130,15 @@ public class UserServiceImpl implements UserService {
     private LoginToken doLogin(User user,String ip){
         RequestMessage request = RequestThreadLocal.get();
         AccessToken accessToken = cacheProxyService.createAccessToken(user, request.getChannel());
-        LoginRecord record = LoginRecord.builder().channel(request.getChannel()).ip(ip).deviceBrand(request.getDeviceBrand()).deviceModel(request.getDeviceModel()).userId(user.getId()).softwareVersion(request.getVersion()).build();
-        loginLogService.addLoginLog(record);
+        LoginRecord record = LoginRecord.builder()
+                .channel(request.getChannel())
+                .ip(ip)
+                .deviceBrand(request.getDeviceBrand())
+                .deviceModel(request.getDeviceModel())
+                .userId(user.getId())
+                .softwareVersion(request.getVersion())
+                .build();
+        TaskQueue.executeLoginLog(new LoginLogTask(record,loginLogService));
         return LoginToken.builder().accessKey(accessToken.getAccessKey()).accessToken(accessToken.getAccessToken()).build();
     }
 

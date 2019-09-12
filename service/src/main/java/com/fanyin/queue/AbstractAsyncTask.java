@@ -2,7 +2,7 @@ package com.fanyin.queue;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.model.ext.Async;
+import com.fanyin.model.ext.AsyncResponse;
 import com.fanyin.model.ext.AsyncKey;
 import com.fanyin.service.cache.CacheService;
 import com.fanyin.utils.SpringContextUtil;
@@ -13,29 +13,36 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018/12/21 16:42
  */
 @Slf4j
-public abstract class AbstractAsyncTask<T extends AsyncKey> extends AbstractTask<T> implements Runnable{
+public abstract class AbstractAsyncTask<T extends AsyncKey,B> extends AbstractTask<T,B>{
 
-    public AbstractAsyncTask(T data){
-        super(data);
+    public AbstractAsyncTask(T data,B bean){
+        super(data,bean);
+    }
+
+    @Override
+    protected void doException(Exception e) {
+        super.doException(e);
+        AsyncResponse asyncResponse = new AsyncResponse();
+        if(e instanceof BusinessException){
+            BusinessException exception = (BusinessException)e;
+            asyncResponse.setCode(exception.getCode());
+            asyncResponse.setMsg(exception.getMessage());
+        }else{
+            ErrorCodeEnum unknownError = getUnknownError();
+            asyncResponse.setCode(unknownError.getCode());
+            asyncResponse.setMsg(unknownError.getMsg());
+        }
+        asyncResponse.setKey(getData().getKey());
+        CacheService cacheService = (CacheService) SpringContextUtil.getBean("cacheService");
+        cacheService.cacheAsyncResponse(asyncResponse);
     }
 
     /**
-     * 解析并缓存<strong>结果</strong>异常信息
-     * @param e 任务异常
-     * @param codeEnum 未知异常定义
-     * @param async 结果封装对象
+     * 在队列执行时如果出现未知的异常信息时应该显示给前台的错误信息 默认系统异常
+     * @return 异常信息枚举(用于显示给前台)
      */
-    protected void parseCacheException(Exception e, ErrorCodeEnum codeEnum, Async async){
-        if(e instanceof BusinessException){
-            BusinessException exception = (BusinessException)e;
-            async.setCode(exception.getCode());
-            async.setMsg(exception.getMessage());
-        }else{
-            async.setCode(codeEnum.getCode());
-            async.setMsg(codeEnum.getMsg());
-        }
-        async.setKey(getData().getKey());
-        CacheService cacheService = (CacheService) SpringContextUtil.getBean("redisCacheService");
-        cacheService.cacheAsyncResponse(async);
+    protected ErrorCodeEnum getUnknownError(){
+        return ErrorCodeEnum.SYSTEM_ERROR;
     }
+
 }

@@ -8,6 +8,7 @@ import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.queue.TaskQueue;
 import com.fanyin.queue.task.OperationLogTask;
+import com.fanyin.service.system.OperationLogService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,9 @@ public class OperationLogHandler {
 
     @Autowired
     private SystemConfigApi systemConfigApi;
+
+    @Autowired
+    private OperationLogService operationLogService;
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
@@ -82,7 +86,7 @@ public class OperationLogHandler {
         }
         boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if(logSwitch){
-            TaskQueue.executeOperation(new OperationLogTask(sy));
+            TaskQueue.executeOperateLog(new OperationLogTask(sy,operationLogService));
         }else{
             log.debug("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]",sy.getUrl(),sy.getRequest(),sy.getResponse(),sy.getIp(),sy.getOperatorId(),sy.getBusinessTime());
         }

@@ -10,6 +10,10 @@ public class TaskConstant {
     /**
      * 操作日志
      */
-    public static final String OPERATION_THREAD = "Thread-操作日志";
+    public static final String OPERATE_LOG_THREAD = "Thread-操作日志";
 
+    /**
+     * 登陆日志
+     */
+    public static final String LOGIN_LOG_THREAD = "Thread-登陆日志";
 }

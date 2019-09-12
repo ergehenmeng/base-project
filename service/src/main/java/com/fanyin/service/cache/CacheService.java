@@ -1,6 +1,6 @@
 package com.fanyin.service.cache;
 
-import com.fanyin.model.ext.Async;
+import com.fanyin.model.ext.AsyncResponse;
 
 import java.util.Date;
 
@@ -46,14 +46,14 @@ public interface CacheService {
      * 缓存任务异步结果
      * @param response 对象
      */
-    void cacheAsyncResponse(Async response);
+    void cacheAsyncResponse(AsyncResponse response);
 
     /**
      * 获取任务异步结果
      * @param key key
      * @return 异步结果
      */
-    Async getAsyncResponse(String key);
+    AsyncResponse getAsyncResponse(String key);
 
     /**
      * 获取指定key的总数 (模糊查询)
