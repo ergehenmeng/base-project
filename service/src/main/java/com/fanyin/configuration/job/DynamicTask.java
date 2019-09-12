@@ -86,7 +86,7 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
         for (DynamicTriggerTask task : taskList) {
             if(StringUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())){
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]",task.getNid(),task.getCronExpression());
-                throw new BusinessException(ErrorCodeEnum.JOB_CONFIG_ERROR);
+                throw new BusinessException(ErrorCodeEnum.CRON_CONFIG_ERROR);
             }
         }
         for (String key : scheduledFutures.keySet()) {

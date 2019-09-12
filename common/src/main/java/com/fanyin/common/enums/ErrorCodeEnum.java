@@ -317,9 +317,9 @@ public enum ErrorCodeEnum {
     MOBILE_REGISTER_REDO(3026,"该手机号已注册"),
 
     /**
-     * 定时任务配置错误
+     * cron表达式配置错误
      */
-    JOB_CONFIG_ERROR(3027,"定时任务配置错误"),
+    CRON_CONFIG_ERROR(3027,"cron表达式配置错误"),
     ;
     /**
      * 构造方法

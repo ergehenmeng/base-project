@@ -21,7 +21,7 @@
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/business/sms_template/list_page",
+                url : "/business/task_log/list_page",
                 columns : [ [
                     {
                         field : "action",
@@ -40,29 +40,27 @@
                             return str;
                         }
                     },
-                    {field : "title",title : "标题",width : 150,align : "center"},
-                    {field : "clientType",title : "客户端",width : 150,align : "center"},
-                    {field : "classify",title : "轮播图类型",width : 150,align : "center"},
-                    {field : "imgUrl",title : "图片地址",width : 100,align : "center"},
-                    {field : "sort",title : "排序",width : 80,align : "center" },
+                    {field : "nid",title : "标示符",width : 150,align : "center"},
+                    {field : "beanName",title : "bean名称",width : 150,align : "center"},
+                    {field : "state",title : "执行结果",width : 150,align : "center",
+                        formatter : function (value) {
+                            if(value === 1){
+                                return "成功";
+                            }
+                            return "失败";
+                        }
+                    },
+                    {field : "ip",title : "机器ip",width : 80,align : "center" },
                     {field : "startTime",title : "开始时间",width : 180,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "updateTime",title : "结束时间",width : 180,align : "center",
+                    {field : "endTime",title : "结束时间",width : 180,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
-                    },
-                    {field : "click",title : "是否可点击",width : 80,align : "center" },
-                    {field : "turnUrl",title : "跳转地址",width : 150,align : "center"},
-                    {field : "addTime",title : "添加时间",width : 150,align : "center",
-                        formatter : function(value) {
-                            return getLocalTime(value, 4);
-                        }
-                    },
-                    {field : "remark",title : "备注",align : "center",width : 300 }
+                    }
                 ] ]
             });
         });

@@ -1,15 +1,21 @@
 package com.fanyin.service.common.impl;
 
+import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.exception.BusinessException;
 import com.fanyin.dao.mapper.business.TaskConfigMapper;
 import com.fanyin.dao.model.business.TaskConfig;
+import com.fanyin.model.dto.business.task.TaskEditRequest;
 import com.fanyin.model.dto.business.task.TaskQueryRequest;
 import com.fanyin.service.common.TaskConfigService;
+import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -33,5 +39,19 @@ public class TaskConfigServiceImpl implements TaskConfigService {
         PageHelper.startPage(request.getPage(),request.getPageSize());
         List<TaskConfig> list = taskConfigMapper.getList(request);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public TaskConfig getById(Integer id) {
+        return taskConfigMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void editTaskConfig(TaskEditRequest request) {
+        if(!CronSequenceGenerator.isValidExpression(request.getCronExpression())){
+            throw new BusinessException(ErrorCodeEnum.CRON_CONFIG_ERROR);
+        }
+        TaskConfig config = DataUtil.copy(request, TaskConfig.class);
+        taskConfigMapper.updateByPrimaryKeySelective(config);
     }
 }

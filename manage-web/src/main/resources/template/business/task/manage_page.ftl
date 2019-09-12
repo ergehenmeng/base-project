@@ -54,6 +54,9 @@
                 ] ]
             });
         });
+
+        var clearUrl = "/business/task/refresh";
+        var clearMsg = "确定要重置定时任务配置吗";
     </script>
 </head>
 <body class="tabs-body">
@@ -70,6 +73,11 @@
                     </select>
                 </li>
             </@search>
+            <@auth nid='taskManageRefreseh'>
+                <div class="right">
+                    <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.confirm(0,clearUrl,clearMsg);"><i class="fa fa-refresh">&nbsp;</i>重置</a>
+                </div>
+            </@auth>
         </div>
     </div>
     <div data-options="region:'center'">

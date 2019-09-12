@@ -1,6 +1,7 @@
 package com.fanyin.service.common;
 
 import com.fanyin.dao.model.business.TaskConfig;
+import com.fanyin.model.dto.business.task.TaskEditRequest;
 import com.fanyin.model.dto.business.task.TaskQueryRequest;
 import com.github.pagehelper.PageInfo;
 
@@ -24,4 +25,17 @@ public interface TaskConfigService {
      * @return 列表
      */
     PageInfo<TaskConfig> getByPage(TaskQueryRequest request);
+
+    /**
+     * 主键查询
+     * @param id id
+     * @return 定时任务配置信息
+     */
+    TaskConfig getById(Integer id);
+
+    /**
+     * 编辑保存任务配置信息
+     * @param request 配置信息
+     */
+    void editTaskConfig(TaskEditRequest request);
 }
