@@ -142,4 +142,9 @@
             </if>
         </where>
     </select>
+
+    <select id="getErrorMsg" resultMap="BaseResultMap">
+        select <include refid="BlobColumnList"/>
+        from task_log where id = #{id}
+    </select>
 </mapper>

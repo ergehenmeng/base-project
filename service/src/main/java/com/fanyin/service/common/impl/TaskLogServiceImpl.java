@@ -32,4 +32,9 @@ public class TaskLogServiceImpl implements TaskLogService {
         List<TaskLog> list = taskLogMapper.getList(request);
         return new PageInfo<>(list);
     }
+
+    @Override
+    public TaskLog getErrorMsg(Integer id) {
+        return taskLogMapper.getErrorMsg(id);
+    }
 }

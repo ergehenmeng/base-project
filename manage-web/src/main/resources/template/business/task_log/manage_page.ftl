@@ -10,14 +10,8 @@
         var winWidth = 420;
         var winHeight = 500;
 
-        var addTitle = "添加轮播图";
-        var addUrl = "/business/sms_template/add_page";
-
-        var editTitle = "编辑轮播图";
-        var editUrl = "/business/sms_template/edit_page";
-
-        var  delMsg = "确定要执行该操作吗";
-        var delUrl = "/business/sms_template/delete";
+        var title = "错误详情";
+        var url = "/business/task_log/error_msg";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
@@ -33,8 +27,9 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑"> 编辑</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除"> 删除</a>';
+                            if(row.state === 0){
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="错误信息">错误</a>';
+                            }
                             str += '</dd>';
                             str += '</dl>';
                             return str;

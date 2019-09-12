@@ -22,4 +22,11 @@ public interface TaskLogService {
      * @return 列表
      */
     PageInfo<TaskLog> getByPage(TaskLogQueryRequest request);
+
+    /**
+     * 定时任务错误信息详情
+     * @param id 主键
+     * @return errorMsg字段有值
+     */
+    TaskLog getErrorMsg(Integer id);
 }

@@ -7,6 +7,8 @@ import com.fanyin.service.common.TaskLogService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,4 +32,13 @@ public class TaskLogController {
         return new Paging<>(byPage);
     }
 
+    /**
+     * 错误信息
+     */
+    @GetMapping("/business/task_log/error_msg")
+    public String errorMsg(Model model,Integer id){
+        String errorMsg = taskLogService.getErrorMsg(id).getErrorMsg();
+        model.addAttribute("response",errorMsg);
+        return "query_page";
+    }
 }

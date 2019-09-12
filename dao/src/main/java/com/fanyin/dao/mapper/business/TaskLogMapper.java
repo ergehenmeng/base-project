@@ -2,6 +2,7 @@ package com.fanyin.dao.mapper.business;
 
 import com.fanyin.dao.model.business.TaskLog;
 import com.fanyin.model.dto.business.task.TaskLogQueryRequest;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -37,4 +38,11 @@ public interface TaskLogMapper {
      * @return 列表
      */
     List<TaskLog> getList(TaskLogQueryRequest request);
+
+    /**
+     * 定时任务错误信息详情
+     * @param id 主键
+     * @return errorMsg字段有值
+     */
+    TaskLog getErrorMsg(@Param("id") Integer id);
 }
