@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2019-09-11 18:12:55
+Date: 2019-09-12 17:53:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3944,7 +3944,7 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
   KEY `pid_index` (`pid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1028 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=1057 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of system_menu
@@ -3968,8 +3968,37 @@ INSERT INTO `system_menu` VALUES ('1020', '短信日志', 'smsLogManage', '1017'
 INSERT INTO `system_menu` VALUES ('1021', '短信模板', 'smsTemplateManage', '1017', '/business/sms_template/manage_page', '/business/sms_template/list_page', '0', '4', '\0', '', '2019-08-23 15:13:56', '2019-08-29 16:57:18');
 INSERT INTO `system_menu` VALUES ('1022', '版本管理', 'versionManage', '1017', '/business/version/manage_page', '/business/version/list_page', '0', '5', '\0', '', '2019-08-23 15:16:59', '2019-08-29 16:57:19');
 INSERT INTO `system_menu` VALUES ('1025', '定时任务', 'jobTask', '1017', '/business/task/manage_page', '', '0', '10', '\0', '', '2019-09-09 15:36:39', '2019-09-11 17:57:23');
-INSERT INTO `system_menu` VALUES ('1026', '编辑', 'menuManageEdit', '1004', '/system/menu/edit', '/system/menu/edit_page', '0', '3', '\0', '', '2019-09-09 15:59:57', '2019-09-09 18:06:17');
-INSERT INTO `system_menu` VALUES ('1027', '删除', 'menuManageDelete', '1004', '/system/menu/delete', '', '0', '4', '\0', '', '2019-09-09 16:01:28', '2019-09-09 18:03:22');
+INSERT INTO `system_menu` VALUES ('1026', '编辑', 'menuManageEdit', '1004', '/system/menu/edit', '/system/menu/edit_page', '1', '3', '\0', '', '2019-09-09 15:59:57', '2019-09-12 16:12:06');
+INSERT INTO `system_menu` VALUES ('1027', '删除', 'menuManageDelete', '1004', '/system/menu/delete', '', '1', '4', '\0', '', '2019-09-09 16:01:28', '2019-09-12 16:12:09');
+INSERT INTO `system_menu` VALUES ('1028', '基础', 'systemParamterBase', '1007', '/system/config/list_page', '', '1', '1', '\0', '基础必选(相当于查询)', '2019-09-12 16:13:51', '2019-09-12 16:14:58');
+INSERT INTO `system_menu` VALUES ('1029', '编辑', 'systemParamterQuery', '1007', '/system/config/edit_page', '/system/config/edit', '1', '2', '\0', '', '2019-09-12 16:15:48', '2019-09-12 16:22:43');
+INSERT INTO `system_menu` VALUES ('1030', '基础', 'systemUserBase', '1008', '/system/operator/list_page', '', '1', '1', '\0', '基础必选(相当于查询)', '2019-09-12 16:21:44', '2019-09-12 16:21:44');
+INSERT INTO `system_menu` VALUES ('1031', '编辑', 'systemUserEdit', '1008', '/system/operator/edit_page', '/system/operator/edit', '1', '2', '\0', '', '2019-09-12 16:22:32', '2019-09-12 16:22:32');
+INSERT INTO `system_menu` VALUES ('1032', '锁定', 'systemUserLock', '1008', '/system/operator/lock_operator', '', '1', '3', '\0', '', '2019-09-12 16:24:02', '2019-09-12 16:24:02');
+INSERT INTO `system_menu` VALUES ('1033', '解锁', 'systemUserUnlock', '1008', '/system/operator/unlock_operator', '', '1', '4', '\0', '', '2019-09-12 16:24:26', '2019-09-12 16:25:09');
+INSERT INTO `system_menu` VALUES ('1034', '重置', 'systemUserReset', '1008', '/system/operator/reset_password', '', '1', '5', '\0', '', '2019-09-12 16:25:03', '2019-09-12 16:25:03');
+INSERT INTO `system_menu` VALUES ('1035', '添加', 'systemUserAdd', '1008', '/system/operator/add_page', '/system/operator/add', '1', '6', '\0', '', '2019-09-12 16:26:12', '2019-09-12 16:26:12');
+INSERT INTO `system_menu` VALUES ('1036', '删除', 'systemUserDelete', '1008', '/system/operator/delete', '', '1', '7', '\0', '', '2019-09-12 16:34:32', '2019-09-12 16:34:32');
+INSERT INTO `system_menu` VALUES ('1037', '基础', 'roleManageBase', '1009', '/system/role/list_page', '', '1', '1', '\0', '', '2019-09-12 16:35:33', '2019-09-12 16:35:33');
+INSERT INTO `system_menu` VALUES ('1038', '添加', 'roleManageAdd', '1009', '/system/role/add_page', '/system/role/add', '1', '2', '\0', '', '2019-09-12 16:36:26', '2019-09-12 16:36:26');
+INSERT INTO `system_menu` VALUES ('1039', '编辑', 'roleManageEdit', '1009', '/system/role/edit_page', '/system/role/edit', '1', '3', '\0', '', '2019-09-12 16:36:47', '2019-09-12 16:36:47');
+INSERT INTO `system_menu` VALUES ('1040', '授权', 'roleManageAuth', '1009', '/system/role/auth_page', '/system/role/auth;/system/menu/list_page', '1', '4', '\0', '', '2019-09-12 16:37:20', '2019-09-12 16:48:02');
+INSERT INTO `system_menu` VALUES ('1041', '删除', 'roleManageDelete', '1009', '/system/role/delete', '', '1', '5', '\0', '', '2019-09-12 16:37:47', '2019-09-12 16:37:47');
+INSERT INTO `system_menu` VALUES ('1042', '基础', 'imageManageBase', '1010', '/system/image/list_page', '', '1', '1', '\0', '', '2019-09-12 16:49:04', '2019-09-12 16:50:13');
+INSERT INTO `system_menu` VALUES ('1043', '添加', 'imageManageAdd', '1010', '/system/image/add_page', '/system/image/add', '1', '2', '\0', '', '2019-09-12 16:50:00', '2019-09-12 16:50:00');
+INSERT INTO `system_menu` VALUES ('1044', '编辑', 'imageManageEdit', '1010', '/system/image/edit_page', '/system/image/edit', '1', '3', '\0', '', '2019-09-12 16:51:26', '2019-09-12 16:51:26');
+INSERT INTO `system_menu` VALUES ('1045', '删除', 'imageManageDelete', '1010', '/system/image/delete', '', '1', '4', '\0', '', '2019-09-12 16:51:45', '2019-09-12 16:51:45');
+INSERT INTO `system_menu` VALUES ('1046', '基础', 'dictManageBase', '1011', '/system/dict/list_page', '', '1', '1', '\0', '', '2019-09-12 16:54:05', '2019-09-12 16:54:05');
+INSERT INTO `system_menu` VALUES ('1047', '添加', 'dictManageAdd', '1011', '/system/dict/add_page', '/system/dict/add', '1', '2', '\0', '', '2019-09-12 16:55:21', '2019-09-12 16:55:21');
+INSERT INTO `system_menu` VALUES ('1048', '编辑', 'dictManageEdit', '1011', '/system/dict/edit_page', '/system/dict/edit', '1', '3', '\0', '', '2019-09-12 16:55:43', '2019-09-12 16:55:43');
+INSERT INTO `system_menu` VALUES ('1049', '删除', 'dictManageDelete', '1011', '/system/dict/delete', '', '1', '4', '\0', '', '2019-09-12 16:56:13', '2019-09-12 16:56:13');
+INSERT INTO `system_menu` VALUES ('1050', '基础', 'cacheManageBase', '1012', '/system/cache/list', '', '1', '1', '\0', '', '2019-09-12 16:58:30', '2019-09-12 16:58:30');
+INSERT INTO `system_menu` VALUES ('1051', '清除', 'cacheManageClear', '1012', '/system/cache/clear', '', '1', '2', '\0', '', '2019-09-12 16:59:33', '2019-09-12 16:59:33');
+INSERT INTO `system_menu` VALUES ('1052', '基础', 'bannerManageBase', '1018', '/business/banner/list_page', '', '1', '1', '\0', '', '2019-09-12 17:03:26', '2019-09-12 17:03:26');
+INSERT INTO `system_menu` VALUES ('1053', '添加', 'bannerManageAdd', '1018', '/business/banner/add_page', '/business/banner/add', '1', '2', '\0', '', '2019-09-12 17:03:49', '2019-09-12 17:04:54');
+INSERT INTO `system_menu` VALUES ('1054', '编辑', 'bannerManageEdit', '1018', '/business/banner/edit_page', '/business/banner/edit', '1', '3', '\0', '', '2019-09-12 17:04:18', '2019-09-12 17:04:18');
+INSERT INTO `system_menu` VALUES ('1055', '删除', 'bannerManageDelete', '1018', '/business/banner/delete', '', '1', '4', '\0', '', '2019-09-12 17:04:45', '2019-09-12 17:05:02');
+INSERT INTO `system_menu` VALUES ('1056', '任务日志', 'taskLog', '1017', '/business/task_log/manage_page', '', '0', '20', '\0', '', '2019-09-12 17:38:17', '2019-09-12 17:38:47');
 
 -- ----------------------------
 -- Table structure for system_notice
@@ -4084,37 +4113,63 @@ INSERT INTO `system_role` VALUES ('1', '超级管理员', 'administrator', '2018
 DROP TABLE IF EXISTS `system_role_menu`;
 CREATE TABLE `system_role_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `role_id` int(10) unsigned DEFAULT NULL COMMENT '角色Id',
-  `menu_id` int(10) unsigned DEFAULT NULL COMMENT '菜单Id',
+  `role_id` int(10) unsigned NOT NULL COMMENT '角色Id',
+  `menu_id` int(10) unsigned NOT NULL COMMENT '菜单Id',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `role_id_index` (`role_id`) USING BTREE,
   KEY `menu_id_index` (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=321 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=507 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Records of system_role_menu
 -- ----------------------------
-INSERT INTO `system_role_menu` VALUES ('300', '1', '1001');
-INSERT INTO `system_role_menu` VALUES ('301', '1', '1004');
-INSERT INTO `system_role_menu` VALUES ('302', '1', '1016');
-INSERT INTO `system_role_menu` VALUES ('303', '1', '1015');
-INSERT INTO `system_role_menu` VALUES ('304', '1', '1026');
-INSERT INTO `system_role_menu` VALUES ('305', '1', '1027');
-INSERT INTO `system_role_menu` VALUES ('306', '1', '1007');
-INSERT INTO `system_role_menu` VALUES ('307', '1', '1008');
-INSERT INTO `system_role_menu` VALUES ('308', '1', '1009');
-INSERT INTO `system_role_menu` VALUES ('309', '1', '1010');
-INSERT INTO `system_role_menu` VALUES ('310', '1', '1011');
-INSERT INTO `system_role_menu` VALUES ('311', '1', '1012');
-INSERT INTO `system_role_menu` VALUES ('312', '1', '1013');
-INSERT INTO `system_role_menu` VALUES ('313', '1', '1014');
-INSERT INTO `system_role_menu` VALUES ('314', '1', '1025');
-INSERT INTO `system_role_menu` VALUES ('315', '1', '1017');
-INSERT INTO `system_role_menu` VALUES ('316', '1', '1018');
-INSERT INTO `system_role_menu` VALUES ('317', '1', '1019');
-INSERT INTO `system_role_menu` VALUES ('318', '1', '1020');
-INSERT INTO `system_role_menu` VALUES ('319', '1', '1021');
-INSERT INTO `system_role_menu` VALUES ('320', '1', '1022');
+INSERT INTO `system_role_menu` VALUES ('460', '1', '1001');
+INSERT INTO `system_role_menu` VALUES ('461', '1', '1004');
+INSERT INTO `system_role_menu` VALUES ('462', '1', '1016');
+INSERT INTO `system_role_menu` VALUES ('463', '1', '1015');
+INSERT INTO `system_role_menu` VALUES ('464', '1', '1026');
+INSERT INTO `system_role_menu` VALUES ('465', '1', '1027');
+INSERT INTO `system_role_menu` VALUES ('466', '1', '1007');
+INSERT INTO `system_role_menu` VALUES ('467', '1', '1028');
+INSERT INTO `system_role_menu` VALUES ('468', '1', '1029');
+INSERT INTO `system_role_menu` VALUES ('469', '1', '1008');
+INSERT INTO `system_role_menu` VALUES ('470', '1', '1030');
+INSERT INTO `system_role_menu` VALUES ('471', '1', '1031');
+INSERT INTO `system_role_menu` VALUES ('472', '1', '1032');
+INSERT INTO `system_role_menu` VALUES ('473', '1', '1033');
+INSERT INTO `system_role_menu` VALUES ('474', '1', '1034');
+INSERT INTO `system_role_menu` VALUES ('475', '1', '1035');
+INSERT INTO `system_role_menu` VALUES ('476', '1', '1036');
+INSERT INTO `system_role_menu` VALUES ('477', '1', '1009');
+INSERT INTO `system_role_menu` VALUES ('478', '1', '1037');
+INSERT INTO `system_role_menu` VALUES ('479', '1', '1038');
+INSERT INTO `system_role_menu` VALUES ('480', '1', '1039');
+INSERT INTO `system_role_menu` VALUES ('481', '1', '1040');
+INSERT INTO `system_role_menu` VALUES ('482', '1', '1041');
+INSERT INTO `system_role_menu` VALUES ('483', '1', '1010');
+INSERT INTO `system_role_menu` VALUES ('484', '1', '1042');
+INSERT INTO `system_role_menu` VALUES ('485', '1', '1043');
+INSERT INTO `system_role_menu` VALUES ('486', '1', '1044');
+INSERT INTO `system_role_menu` VALUES ('487', '1', '1045');
+INSERT INTO `system_role_menu` VALUES ('488', '1', '1011');
+INSERT INTO `system_role_menu` VALUES ('489', '1', '1046');
+INSERT INTO `system_role_menu` VALUES ('490', '1', '1047');
+INSERT INTO `system_role_menu` VALUES ('491', '1', '1048');
+INSERT INTO `system_role_menu` VALUES ('492', '1', '1049');
+INSERT INTO `system_role_menu` VALUES ('493', '1', '1013');
+INSERT INTO `system_role_menu` VALUES ('494', '1', '1014');
+INSERT INTO `system_role_menu` VALUES ('495', '1', '1017');
+INSERT INTO `system_role_menu` VALUES ('496', '1', '1018');
+INSERT INTO `system_role_menu` VALUES ('497', '1', '1052');
+INSERT INTO `system_role_menu` VALUES ('498', '1', '1053');
+INSERT INTO `system_role_menu` VALUES ('499', '1', '1054');
+INSERT INTO `system_role_menu` VALUES ('500', '1', '1055');
+INSERT INTO `system_role_menu` VALUES ('501', '1', '1019');
+INSERT INTO `system_role_menu` VALUES ('502', '1', '1020');
+INSERT INTO `system_role_menu` VALUES ('503', '1', '1021');
+INSERT INTO `system_role_menu` VALUES ('504', '1', '1022');
+INSERT INTO `system_role_menu` VALUES ('505', '1', '1025');
+INSERT INTO `system_role_menu` VALUES ('506', '1', '1056');
 
 -- ----------------------------
 -- Table structure for task_config
@@ -4124,8 +4179,7 @@ CREATE TABLE `task_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(50) DEFAULT NULL COMMENT '定时任务名称',
   `nid` char(20) DEFAULT NULL COMMENT '定时任务nid',
-  `bean_path` varchar(200) DEFAULT NULL COMMENT '触发类全路径',
-  `bean_name` char(50) DEFAULT NULL COMMENT '类的bean名称',
+  `bean_name` varchar(200) DEFAULT NULL COMMENT 'bean名称',
   `cron_expression` char(50) DEFAULT NULL COMMENT 'cron表达式',
   `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -4137,7 +4191,7 @@ CREATE TABLE `task_config` (
 -- ----------------------------
 -- Records of task_config
 -- ----------------------------
-INSERT INTO `task_config` VALUES ('1', '测试定时任务', 'testJob', 'com.fanyin.service.job.TestJobService', 'testJobService', '0/10 * * * * ?', '0', '2019-09-09 14:32:35', null);
+INSERT INTO `task_config` VALUES ('1', '测试定时任务', 'testJob', 'testJobService', '0/10 * * * * ?', '0', '2019-09-12 17:27:38', null);
 
 -- ----------------------------
 -- Table structure for task_log
