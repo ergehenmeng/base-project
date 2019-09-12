@@ -35,13 +35,6 @@ public class TaskConfig implements Serializable {
     private String nid;
 
     /**
-     * 触发类全路径<br>
-     * 表 : job_task<br>
-     * 对应字段 : bean_path<br>
-     */
-    private String beanPath;
-
-    /**
      * 类的bean名称<br>
      * 表 : job_task<br>
      * 对应字段 : bean_name<br>

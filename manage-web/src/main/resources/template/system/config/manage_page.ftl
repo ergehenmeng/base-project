@@ -27,14 +27,15 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
+                            <@auth nid='systemParamterQuery'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
+                            </@auth>
                             str += '</dd>';
                             str += '</dl>';
                             return str;
                         }
                     },
-                    {field : "title",title : "参数名称",width : 150,align : "center"},
-                    {field : "classifyName",title : "参数分类",width : 150,align : "center"},
+                    {field : "title",title : "参数名称",width : 200,align : "center"},
                     {field : "nid",title : "参数标示",width : 160,align : "center"},
                     {field : "content",title : "参数值",width : 180,align : "center",
                         formatter:function(value){

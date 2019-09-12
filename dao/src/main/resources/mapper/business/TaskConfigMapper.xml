@@ -8,7 +8,6 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="CHAR" property="title" />
     <result column="nid" jdbcType="CHAR" property="nid" />
-    <result column="bean_path" jdbcType="VARCHAR" property="beanPath" />
     <result column="bean_name" jdbcType="CHAR" property="beanName" />
     <result column="cron_expression" jdbcType="CHAR" property="cronExpression" />
     <result column="state" jdbcType="TINYINT" property="state" />
@@ -19,7 +18,7 @@
     <!--
       @create by mybatis
     -->
-    id, title, nid, bean_path, bean_name, cron_expression, state, update_time, remark
+    id, title, nid, bean_name, cron_expression, state, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -41,9 +40,6 @@
       </if>
       <if test="nid != null">
         nid = #{nid,jdbcType=CHAR},
-      </if>
-      <if test="beanPath != null">
-        bean_path = #{beanPath,jdbcType=VARCHAR},
       </if>
       <if test="beanName != null">
         bean_name = #{beanName,jdbcType=CHAR},
@@ -73,7 +69,7 @@
         from task_config
         <where>
             <if test="queryName != null">
-                and (title like concat('%',#{queryName},'%') or nid = #{queryName} or bean = #{queryName})
+                and (title like concat('%',#{queryName},'%') or nid = #{queryName} or bean_name = #{queryName})
             </if>
             <if test="state != null">
                 and state = #{state}

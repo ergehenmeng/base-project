@@ -28,6 +28,7 @@ public interface SystemMenuService {
      * @return 菜单列表
      */
     List<SystemMenu> getMenuList(Integer operatorId, MenuClassify classify);
+
     /**
      * 根据主键查询菜单
      * @param id 主键

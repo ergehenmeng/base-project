@@ -24,11 +24,11 @@
             <label>菜单类型:</label>
             <select title="菜单类型" name="classify">
             <#if menu.classify == 0 >
-                <option value="0" selected="selected">导航菜单</option>
-                <option value="1" >按钮菜单</option>
+                <option value="0" selected="selected">导航</option>
+                <option value="1" >按钮</option>
             <#elseif menu.classify == 1>
-                <option value="0" >导航菜单</option>
-                <option value="1" selected="selected">按钮菜单</option>
+                <option value="0" >导航</option>
+                <option value="1" selected="selected">按钮</option>
             </#if>
             </select>
         </div>

@@ -423,8 +423,9 @@ $.fn.treeGridOptions.searchFun = function (formId) {
  * @param text 节点名称 key 字符串
  * @param pid 父节点id 字符串
  * @param rootValue 根节点值,注意数据类型一定要和数据库保持一致
+ * @param state 节点是关闭还是开启 closed:加载时关闭 open:开启(默认)
  */
-$.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue){
+$.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,state){
     var nodes = [];
     if(!rows) return nodes;
 
@@ -433,6 +434,7 @@ $.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue){
         var rootRow = rows[s];
         if(rootRow[pid] === rootValue){
             rootRow["text"] = rootRow[text];
+            rootRow["state"] = state;
             nodes.push(rootRow);
         }
     }
@@ -449,6 +451,7 @@ $.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue){
             if (row[pid] === node[id]){
                 var child = $.extend(row,{});
                     child["text"] = child[text];
+                    rootRow["state"] = state;
                 if (node.children){
                     node.children.push(child);
                 } else {

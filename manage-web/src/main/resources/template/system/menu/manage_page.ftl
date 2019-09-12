@@ -23,6 +23,9 @@
             treeGrid = $.fn.treeGridOptions.treeGrid("#treeGrid",{
                 url : "/system/menu/list_page",
                 loadFilter : pageFilter,
+                onLoadSuccess : function(){
+                  treeGrid.treegrid("collapseAll");
+                },
                 columns : [ [
                     {
                         field : "action",
@@ -49,9 +52,9 @@
                         }
                     },
                     {field : "text",title : "菜单名称",width : 150,align : "center"},
-                    {field : "nid",title : "菜单标示",width : 150,align : "center"},
+                    {field : "nid",title : "菜单标示",width : 180,align : "center"},
                     {field : "url",title : "菜单URL",width : 300,align : "center"},
-                    {field : "subUrl",title : "子菜单URL",width : 350,align : "center",
+                    {field : "subUrl",title : "子菜单URL",width : 300,align : "center",
                         formatter:function (value) {
                             return $.fn.dataGridOptions.format(value,50);
                         }
@@ -81,7 +84,7 @@
             if (!rows || !rows.data){
                 return;
             }
-            return $.fn.treeGridOptions.dataFilter(rows.data,"id","title","pid",0);
+            return $.fn.treeGridOptions.dataFilter(rows.data,"id","title","pid",0,"closed");
         }
     </script>
 </head>

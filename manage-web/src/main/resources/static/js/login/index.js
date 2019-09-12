@@ -47,6 +47,7 @@ function loginFun() {
     $.post("/login",{mobile : mobile,password : md5(Base64.encode(password)),validCode : validCode},function(data){
         if (data.code === 200) {
             // 跳转前清空密码框
+            $mobile.val("");
             $password.val("");
             $validCode.val("");
             window.location.href = "/home";

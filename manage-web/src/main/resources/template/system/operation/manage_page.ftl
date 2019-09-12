@@ -26,7 +26,7 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="编辑用户信息"> 编辑</a>';
+                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="操作日志内容">内容</a>';
                             str += '</dd>';
                             str += '</dl>';
                             return str;

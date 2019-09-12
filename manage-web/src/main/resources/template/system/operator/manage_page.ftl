@@ -43,11 +43,21 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑用户信息"> 编辑</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',lockUrl,lockMsg);" title="锁定账户状态"> 锁定</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',unlockUrl,unlockMsg)" title="解锁账户状态">解锁</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',resetUrl,resetMsg);" title="重置登陆密码"> 重置</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除用户"> 删除</a>';
+                            <@auth nid='systemUserEdit'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑用户信息"> 编辑</a>';
+                            </@auth>
+                            <@auth nid='systemUserLock'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',lockUrl,lockMsg);" title="锁定账户状态"> 锁定</a>';
+                            </@auth>
+                            <@auth nid='systemUserUnlock'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',unlockUrl,unlockMsg)" title="解锁账户状态">解锁</a>';
+                            </@auth>
+                            <@auth nid='systemUserReset'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',resetUrl,resetMsg);" title="重置登陆密码"> 重置</a>';
+                            </@auth>
+                            <@auth nid='systemUserDelete'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除用户"> 删除</a>';
+                            </@auth>
                             str += '</dd>';
                             str += '</dl>';
                             return str;
@@ -85,10 +95,12 @@
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
             <@search placeholder="用户名称、手机号" />
-            <div class="right">
-                <a href="#" class="search-btn"
-                   onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
-            </div>
+            <@auth nid='systemUserAdd'>
+                <div class="right">
+                    <a href="#" class="search-btn"
+                       onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
+                </div>
+            </@auth>
         </div>
     </div>
     <div data-options="region:'center'">

@@ -58,9 +58,11 @@
 <div class="easyui-layout" data-options="fit:true">
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
-            <div class="right">
-                <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.select(clearUrl,clearMsg,'cacheName');"><i class="fa fa-refresh">&nbsp;</i>清除</a>
-            </div>
+            <@auth nid='cacheManageClear'>
+                <div class="right">
+                    <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.select(clearUrl,clearMsg,'cacheName');"><i class="fa fa-refresh">&nbsp;</i>清除</a>
+                </div>
+            </@auth>
         </div>
     </div>
     <div data-options="region:'center'">

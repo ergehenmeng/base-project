@@ -38,9 +38,15 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑角色信息"> 编辑</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',authTitle,winWidth,authHeight,authUrl);" title="角色菜单授权"> 授权</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除角色"> 删除</a>';
+                            <@auth nid='roleManageEdit'>
+                               str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑角色信息"> 编辑</a>';
+                            </@auth>
+                            <@auth nid='roleManageAuth'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',authTitle,winWidth,authHeight,authUrl);" title="角色菜单授权"> 授权</a>';
+                            </@auth>
+                            <@auth nid='roleManageDelete'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除角色"> 删除</a>';
+                            </@auth>
                             str += '</dd>';
                             str += '</dl>';
                             return str;
@@ -70,9 +76,11 @@
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
             <@search placeholder="角色名称" />
-            <div class="right">
-                <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
-            </div>
+            <@auth nid='roleManageAdd'>
+                <div class="right">
+                    <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
+                </div>
+            </@auth>
         </div>
     </div>
     <div data-options="region:'center'">

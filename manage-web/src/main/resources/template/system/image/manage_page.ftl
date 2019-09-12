@@ -29,8 +29,12 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑图片"> 编辑</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除图片"> 删除</a>';
+                            <@auth nid='imageManageEdit'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑图片"> 编辑</a>';
+                            </@auth>
+                            <@auth nid='imageManageDelete'>
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除图片"> 删除</a>';
+                            </@auth>
                             str += '</dd>';
                             str += '</dl>';
                             return str;
@@ -75,9 +79,11 @@
                     <@select name="classify" total="true"  title="图片分类" nid="image_classify"/>
                 </li>
             </@search>
-            <div class="right">
-                <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
-            </div>
+            <@auth nid='imageManageAdd'>
+                <div class="right">
+                    <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
+                </div>
+            </@auth>
         </div>
     </div>
     <div data-options="region:'center'">

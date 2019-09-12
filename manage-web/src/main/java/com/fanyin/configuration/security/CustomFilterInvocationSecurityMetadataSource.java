@@ -52,7 +52,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     private List<String> getTotalUrl(SystemMenu menu){
         List<String> stringList = Lists.newArrayList(menu.getUrl());
         if(StringUtil.isNotBlank(menu.getSubUrl())){
-            Iterable<String> split = Splitter.on(",").split(menu.getSubUrl());
+            Iterable<String> split = Splitter.on(";").split(menu.getSubUrl());
             split.forEach(stringList::add);
         }
         return stringList;
