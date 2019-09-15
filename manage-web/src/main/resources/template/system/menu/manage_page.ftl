@@ -38,7 +38,9 @@
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
                             <@auth nid='menuManageAdd'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl);"> 添加</a>';
+                                if (row.grade < 3){
+                                    str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'grade\':\''+ row.grade +'\'});"> 添加</a>';
+                                }
                             </@auth>
                             <@auth nid='menuManageEdit'>
                                 str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
@@ -59,9 +61,9 @@
                             return $.fn.dataGridOptions.format(value,50);
                         }
                     },
-                    {field : "classify",title : "类型",width : 80,align : "center",
+                    {field : "grade",title : "类型",width : 80,align : "center",
                         formatter : function(value) {
-                            return value === 0 ? "导航" : "按钮";
+                            return value === 3 ? "按钮" : "导航";
                         }
                     },
                     {field : "sort",title : "排序",width : 50,align : "center"},

@@ -1,6 +1,5 @@
 package com.fanyin.service.system;
 
-import com.fanyin.common.enums.MenuClassify;
 import com.fanyin.model.dto.system.menu.MenuAddRequest;
 import com.fanyin.model.dto.system.menu.MenuEditRequest;
 import com.fanyin.dao.model.system.SystemMenu;
@@ -15,19 +14,25 @@ import java.util.List;
 public interface SystemMenuService {
 
     /**
-     * 获取用户菜单列表,不包含按钮菜单
+     * 获取用户导航菜单列表,不包含按钮菜单
      * @param operatorId 用户id
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
     List<SystemMenu> getMenuList(Integer operatorId);
 
     /**
-     * 获取用户菜单列表
+     * 获取用户按钮菜单列表
      * @param operatorId 用户id
-     * @param classify   菜单分类
      * @return 菜单列表
      */
-    List<SystemMenu> getMenuList(Integer operatorId, MenuClassify classify);
+    List<SystemMenu> getButtonList(Integer operatorId);
+
+    /**
+     * 获取用户按钮,导航菜单列表
+     * @param operatorId 用户id
+     * @return 菜单列表
+     */
+    List<SystemMenu> getList(Integer operatorId);
 
     /**
      * 根据主键查询菜单

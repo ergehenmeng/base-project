@@ -43,11 +43,6 @@ public class MenuEditRequest implements Serializable {
     private String subUrl;
 
     /**
-     * 是否为左侧主菜单
-     */
-    private Byte classify;
-
-    /**
      * 排序
      */
     private Integer sort;

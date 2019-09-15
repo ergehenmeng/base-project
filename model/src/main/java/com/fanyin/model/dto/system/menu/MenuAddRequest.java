@@ -52,6 +52,6 @@ public class MenuAddRequest implements Serializable {
     /**
      * 是否为主菜单
      */
-    private Byte classify;
+    private Byte grade;
 
 }

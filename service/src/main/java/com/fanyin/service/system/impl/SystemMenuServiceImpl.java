@@ -1,7 +1,6 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.common.enums.ErrorCodeEnum;
-import com.fanyin.common.enums.MenuClassify;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.dto.system.menu.MenuAddRequest;
 import com.fanyin.model.dto.system.menu.MenuEditRequest;
@@ -36,7 +35,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public List<SystemMenu> getMenuList(Integer operatorId) {
-        List<SystemMenu> list = systemMenuMapper.getMenuList(operatorId, MenuClassify.MENU);
+        List<SystemMenu> list = systemMenuMapper.getMenuList(operatorId);
         List<SystemMenu> parentList = new ArrayList<>();
 
         for (SystemMenu parent : list) {
@@ -51,8 +50,14 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     @Override
     @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
-    public List<SystemMenu> getMenuList(Integer operatorId, MenuClassify classify) {
-        return systemMenuMapper.getMenuList(operatorId,classify);
+    public List<SystemMenu> getButtonList(Integer operatorId) {
+        return systemMenuMapper.getButtonList(operatorId);
+    }
+
+    @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    public List<SystemMenu> getList(Integer operatorId) {
+        return systemMenuMapper.getList(operatorId);
     }
 
     @Override
@@ -100,8 +105,9 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     }
 
     @Override
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public List<GrantedAuthority> getAuthorityByOperatorId(Integer operator) {
-        List<SystemMenu> list = systemMenuMapper.getMenuList(operator,null);
+        List<SystemMenu> list = systemMenuMapper.getList(operator);
         List<GrantedAuthority> authorities = new ArrayList<>();
         if(!CollectionUtils.isEmpty(list)){
             for (SystemMenu menu : list){

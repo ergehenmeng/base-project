@@ -10,10 +10,8 @@
         var winWidth = 420;
         var winHeight = 500;
 
-        var addTitle = "添加轮播图";
-        var addUrl = "/business/sms_template/add_page";
 
-        var editTitle = "编辑轮播图";
+        var editTitle = "编辑模板";
         var editUrl = "/business/sms_template/edit_page";
 
         var  delMsg = "确定要执行该操作吗";

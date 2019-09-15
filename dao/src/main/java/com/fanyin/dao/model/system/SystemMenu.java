@@ -13,6 +13,12 @@ import java.util.List;
 public class SystemMenu implements Serializable {
 
     private static final long serialVersionUID = 3059147246970916080L;
+
+    /**
+     * 三级菜单即为按钮菜单
+     */
+    public static final byte BUTTON = 3;
+
     /**
      * 主键<br>
      * 表 : system_menu<br>
@@ -49,11 +55,11 @@ public class SystemMenu implements Serializable {
     private String url;
 
     /**
-     * 菜单分类 0:左侧菜单 1: 按钮菜单<br>
+     * 菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)<br>
      * 表 : system_menu<br>
-     * 对应字段 : classify<br>
+     * 对应字段 : grade<br>
      */
-    private Byte classify;
+    private Byte grade;
 
     /**
      * 排序规则 小的排在前面<br>

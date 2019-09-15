@@ -2,6 +2,7 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
+import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.model.dto.system.menu.MenuAddRequest;
 import com.fanyin.model.dto.system.menu.MenuEditRequest;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -61,8 +63,9 @@ public class MenuController extends AbstractController {
      */
     @GetMapping("/system/menu/add_page")
     @Mark(RequestType.ALL)
-    public String addPage(Model model,Integer id){
+    public String addPage(Model model,Integer id,@RequestParam(defaultValue = "0",required = false) Byte grade){
         model.addAttribute("pid",id);
+        model.addAttribute("grade",grade + 1);
         return "system/menu/add_page";
     }
 
@@ -75,6 +78,9 @@ public class MenuController extends AbstractController {
     @ResponseBody
     @Mark(RequestType.INSERT)
     public RespBody add(MenuAddRequest request){
+        if (request.getGrade() > SystemMenu.BUTTON){
+            return RespBody.error(ErrorCodeEnum.SUB_MENU_ERROR);
+        }
         systemMenuService.addMenu(request);
         return RespBody.getInstance();
     }
@@ -114,7 +120,7 @@ public class MenuController extends AbstractController {
     @Mark(RequestType.SELECT)
     public List<SystemMenu> operatorMenuList(){
         SystemOperator operator = getRequiredOperator();
-        return systemMenuService.getMenuList(operator.getId(),null);
+        return systemMenuService.getList(operator.getId());
     }
 
 }

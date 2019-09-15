@@ -1,6 +1,5 @@
 package com.fanyin.dao.mapper.system;
 
-import com.fanyin.common.enums.MenuClassify;
 import com.fanyin.dao.model.system.SystemMenu;
 import org.apache.ibatis.annotations.Param;
 
@@ -51,12 +50,25 @@ public interface SystemMenuMapper {
     int deleteById(@Param("id") Integer id);
 
     /**
-     * 获取某用户的菜单列表 根据菜单分类
+     * 获取某用户的导航菜单
      * @param operatorId 用户id
-     * @param classify   菜单分类
      * @return 用户所有可查看菜单列表
      */
-    List<SystemMenu> getMenuList(@Param("operatorId") Integer operatorId, @Param("classify") MenuClassify classify);
+    List<SystemMenu> getMenuList(@Param("operatorId") Integer operatorId);
+
+    /**
+     * 获取某用户的按钮菜单
+     * @param operatorId 用户id
+     * @return 用户所有可查看菜单列表
+     */
+    List<SystemMenu> getButtonList(@Param("operatorId")Integer operatorId);
+
+    /**
+     * 获取某用户的所有菜单
+     * @param operatorId 用户id
+     * @return 用户所有可查看菜单列表
+     */
+    List<SystemMenu> getList(@Param("operatorId")Integer operatorId);
 
     /**
      * 根据nid与pid查询菜单

@@ -22,15 +22,11 @@
         </div>
         <div class="form-item">
             <label>菜单类型:</label>
-            <select title="菜单类型" name="classify">
-            <#if menu.classify == 0 >
-                <option value="0" selected="selected">导航</option>
-                <option value="1" >按钮</option>
-            <#elseif menu.classify == 1>
-                <option value="0" >导航</option>
-                <option value="1" selected="selected">按钮</option>
+            <#if menu.grade == 3>
+                <input title="按钮菜单" maxlength="2" value="按钮" readonly />
+            <#else >
+                <input title="左侧导航菜单" maxlength="2" value="导航" readonly />
             </#if>
-            </select>
         </div>
         <div class="form-item">
             <label>菜单链接:</label>

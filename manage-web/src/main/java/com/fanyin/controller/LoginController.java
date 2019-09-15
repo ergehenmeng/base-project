@@ -1,6 +1,5 @@
 package com.fanyin.controller;
 
-import com.fanyin.common.enums.MenuClassify;
 import com.fanyin.dao.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class LoginController extends AbstractController {
         }
         //按钮菜单
         if(operator.getButtonMenu() == null){
-            operator.setButtonMenu(systemMenuService.getMenuList(operator.getId(), MenuClassify.BUTTON));
+            operator.setButtonMenu(systemMenuService.getButtonList(operator.getId()));
         }
         model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit",operator.getPwd().equals(operator.getInitPwd()));

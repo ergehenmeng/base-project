@@ -11,7 +11,7 @@
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="sub_url" jdbcType="VARCHAR" property="subUrl" />
-    <result column="classify" jdbcType="TINYINT" property="classify" />
+    <result column="grade" jdbcType="TINYINT" property="grade" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -22,7 +22,7 @@
     <!--
       @create by mybatis
     -->
-    t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.classify, t.sort, t.deleted, t.remark, t.add_time, t.update_time
+    t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -58,8 +58,8 @@
         <if test="subUrl != null">
             sub_url,
         </if>
-      <if test="classify != null">
-          classify,
+      <if test="grade != null">
+          grade,
       </if>
       <if test="sort != null">
         sort,
@@ -96,8 +96,8 @@
         <if test="subUrl != null">
             #{subUrl,jdbcType=VARCHAR},
         </if>
-      <if test="classify != null">
-        #{classify,jdbcType=TINYINT},
+      <if test="grade != null">
+        #{grade,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
         #{sort,jdbcType=INTEGER},
@@ -137,8 +137,8 @@
         <if test="subUrl != null">
             sub_url = #{subUrl,jdbcType=VARCHAR},
         </if>
-      <if test="classify != null">
-          classify = #{classify,jdbcType=TINYINT},
+      <if test="grade != null">
+          grade = #{classify,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
         sort = #{sort,jdbcType=INTEGER},
@@ -153,7 +153,7 @@
 
     <select id="getAllList" resultMap="BaseResultMap">
         SELECT <include refid="BaseColumnList"/>
-        from system_menu t where t.deleted = false order by t.pid ,t.sort asc
+        from system_menu t where t.deleted = false order by t.pid ,t.sort
     </select>
 
     <select id="getMenuList" resultMap="BaseResultMap" >
@@ -161,14 +161,25 @@
         from system_menu t
         LEFT JOIN system_role_menu s on t.id = s.menu_id
         LEFT JOIN system_operator_role o on s.role_id = o.role_id
-        <where>
-            <if test="classify != null">
-                t.classify = #{classify,javaType=com.fanyin.common.enums.MenuClassify,typeHandler=org.apache.ibatis.type.EnumOrdinalTypeHandler} and
-            </if>
-            o.operator_id = #{operatorId} and t.deleted = false
-        </where>
-        order by t.pid ,t.sort asc
+        where o.operator_id = #{operatorId} and t.deleted = false and t.grade &lt;&gt; 3
     </select>
+
+    <select id="getButtonList" resultMap="BaseResultMap" >
+        SELECT <include refid="BaseColumnList"/>
+        from system_menu t
+        LEFT JOIN system_role_menu s on t.id = s.menu_id
+        LEFT JOIN system_operator_role o on s.role_id = o.role_id
+        where o.operator_id = #{operatorId} and t.deleted = false and t.grade = 3
+    </select>
+
+    <select id="getList" resultMap="BaseResultMap" >
+        SELECT <include refid="BaseColumnList"/>
+        from system_menu t
+        LEFT JOIN system_role_menu s on t.id = s.menu_id
+        LEFT JOIN system_operator_role o on s.role_id = o.role_id
+        where o.operator_id = #{operatorId} and t.deleted = false
+    </select>
+
     <select id="getByNid" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_menu where nid = #{nid} and pid = #{pid} and deleted = false limit 1

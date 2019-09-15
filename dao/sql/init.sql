@@ -4281,3 +4281,85 @@ CREATE TABLE `version` (
 -- ----------------------------
 -- Records of version
 -- ----------------------------
+DROP TABLE IF EXISTS `system_menu`;
+CREATE TABLE `system_menu` (
+                               `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                               `title` char(20) NOT NULL COMMENT '菜单名称',
+                               `nid` char(50) NOT NULL COMMENT '菜单标示符 唯一',
+                               `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+                               `url` varchar(200) DEFAULT NULL COMMENT '菜单地址',
+                               `sub_url` varchar(500) DEFAULT NULL COMMENT '权限拦截路径',
+                               `grade` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)',
+                               `sort` int(3) DEFAULT '0' COMMENT '排序规则 小的排在前面',
+                               `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
+                               `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
+                               `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                               `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                               PRIMARY KEY (`id`) USING BTREE,
+                               UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
+                               KEY `pid_index` (`pid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1067 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统菜单表';
+
+-- ----------------------------
+-- Records of system_menu
+-- ----------------------------
+INSERT INTO `system_menu` VALUES ('1001', '系统管理', 'systemManage', '0', '', '', '1', '1', '\0', '', '2018-01-25 16:13:54', '2019-09-15 12:21:19');
+INSERT INTO `system_menu` VALUES ('1004', '菜单管理', 'menuManage', '1001', '/system/menu/manage_page', '', '2', '1', '\0', '', '2018-01-25 16:14:01', '2019-09-15 12:21:26');
+INSERT INTO `system_menu` VALUES ('1007', '系统参数', 'systemParamter', '1001', '/system/config/manage_page', null, '2', '2', '\0', null, '2018-01-25 16:14:31', '2019-09-15 12:21:26');
+INSERT INTO `system_menu` VALUES ('1008', '用户管理', 'systemUser', '1001', '/system/operator/manage_page', null, '2', '3', '\0', null, '2018-01-25 16:14:40', '2019-09-15 12:21:27');
+INSERT INTO `system_menu` VALUES ('1009', '角色管理', 'roleManage', '1001', '/system/role/manage_page', null, '2', '4', '\0', null, '2018-01-25 16:14:56', '2019-09-15 12:21:27');
+INSERT INTO `system_menu` VALUES ('1010', '图片管理', 'imageManage', '1001', '/system/image/manage_page', null, '2', '5', '\0', null, '2018-11-28 17:02:36', '2019-09-15 12:21:28');
+INSERT INTO `system_menu` VALUES ('1011', '数据字典', 'dictManage', '1001', '/system/dict/manage_page', null, '2', '6', '\0', null, '2019-01-11 17:51:31', '2019-09-15 12:21:30');
+INSERT INTO `system_menu` VALUES ('1012', '缓存管理', 'cacheManage', '1001', '/system/cache/manage_page', '', '2', '7', '\0', null, '2019-01-14 15:27:58', '2019-09-15 12:21:31');
+INSERT INTO `system_menu` VALUES ('1013', '操作日志', 'operationManage', '1001', '/system/operation/manage_page', null, '2', '8', '\0', null, '2019-01-16 14:31:01', '2019-09-15 12:21:31');
+INSERT INTO `system_menu` VALUES ('1014', '部门管理', 'departmentManage', '1001', '/system/department/manage_page', null, '2', '9', '\0', null, '2019-01-17 18:03:54', '2019-09-15 12:21:39');
+INSERT INTO `system_menu` VALUES ('1015', '新增', 'menuManageAdd', '1004', '/system/menu/add', '/system/menu/add_page', '3', '2', '\0', '按钮权限', '2019-01-22 14:16:11', '2019-09-15 12:21:52');
+INSERT INTO `system_menu` VALUES ('1016', '基础', 'menuManageBase', '1004', '/system/menu/list_page', '', '3', '1', '\0', '基础必选(相当于查询)', '2019-01-22 14:19:01', '2019-09-15 12:21:53');
+INSERT INTO `system_menu` VALUES ('1017', '运营管理', 'businessManage', '0', '', '', '1', '2', '\0', '', '2019-08-23 11:54:33', '2019-09-15 12:21:23');
+INSERT INTO `system_menu` VALUES ('1018', '轮播管理', 'bannerManage', '1017', '/business/banner/manage_page', '', '2', '1', '\0', '', '2019-08-23 11:55:35', '2019-09-15 12:21:55');
+INSERT INTO `system_menu` VALUES ('1019', '公告管理', 'noticeManage', '1017', '/business/notice/manage_page', '/business/notice/list_page', '2', '2', '\0', '', '2019-08-23 15:09:57', '2019-09-15 12:22:01');
+INSERT INTO `system_menu` VALUES ('1020', '短信日志', 'smsLogManage', '1017', '/business/sms_log/manage_page', '/business/sms_log/list_page', '2', '3', '\0', '', '2019-08-23 15:12:01', '2019-09-15 12:22:02');
+INSERT INTO `system_menu` VALUES ('1021', '短信模板', 'smsTemplate', '1017', '/business/sms_template/manage_page', '/business/sms_template/list_page', '2', '4', '\0', '', '2019-08-23 15:13:56', '2019-09-15 13:03:47');
+INSERT INTO `system_menu` VALUES ('1022', '版本管理', 'versionManage', '1017', '/business/version/manage_page', '/business/version/list_page', '2', '5', '\0', '', '2019-08-23 15:16:59', '2019-09-15 12:22:05');
+INSERT INTO `system_menu` VALUES ('1025', '任务配置', 'taskConfig', '1017', '/business/task/manage_page', '', '2', '10', '\0', '', '2019-09-09 15:36:39', '2019-09-15 12:39:49');
+INSERT INTO `system_menu` VALUES ('1026', '编辑', 'menuManageEdit', '1004', '/system/menu/edit', '/system/menu/edit_page', '3', '3', '\0', '', '2019-09-09 15:59:57', '2019-09-15 12:22:49');
+INSERT INTO `system_menu` VALUES ('1027', '删除', 'menuManageDelete', '1004', '/system/menu/delete', '', '3', '4', '\0', '', '2019-09-09 16:01:28', '2019-09-15 12:22:49');
+INSERT INTO `system_menu` VALUES ('1028', '基础', 'systemParamterBase', '1007', '/system/config/list_page', '', '3', '1', '\0', '基础必选(相当于查询)', '2019-09-12 16:13:51', '2019-09-15 13:02:00');
+INSERT INTO `system_menu` VALUES ('1029', '编辑', 'systemParamterQuery', '1007', '/system/config/edit_page', '/system/config/edit', '3', '2', '\0', '', '2019-09-12 16:15:48', '2019-09-15 12:22:51');
+INSERT INTO `system_menu` VALUES ('1030', '基础', 'systemUserBase', '1008', '/system/operator/list_page', '', '3', '1', '\0', '基础必选(相当于查询)', '2019-09-12 16:21:44', '2019-09-15 12:22:52');
+INSERT INTO `system_menu` VALUES ('1031', '编辑', 'systemUserEdit', '1008', '/system/operator/edit_page', '/system/operator/edit', '3', '2', '\0', '', '2019-09-12 16:22:32', '2019-09-15 12:22:43');
+INSERT INTO `system_menu` VALUES ('1032', '锁定', 'systemUserLock', '1008', '/system/operator/lock_operator', '', '3', '3', '\0', '', '2019-09-12 16:24:02', '2019-09-15 12:22:42');
+INSERT INTO `system_menu` VALUES ('1033', '解锁', 'systemUserUnlock', '1008', '/system/operator/unlock_operator', '', '3', '4', '\0', '', '2019-09-12 16:24:26', '2019-09-15 12:22:41');
+INSERT INTO `system_menu` VALUES ('1034', '重置', 'systemUserReset', '1008', '/system/operator/reset_password', '', '3', '5', '\0', '', '2019-09-12 16:25:03', '2019-09-15 12:22:40');
+INSERT INTO `system_menu` VALUES ('1035', '添加', 'systemUserAdd', '1008', '/system/operator/add_page', '/system/operator/add', '3', '6', '\0', '', '2019-09-12 16:26:12', '2019-09-15 12:22:38');
+INSERT INTO `system_menu` VALUES ('1036', '删除', 'systemUserDelete', '1008', '/system/operator/delete', '', '3', '7', '\0', '', '2019-09-12 16:34:32', '2019-09-15 12:22:37');
+INSERT INTO `system_menu` VALUES ('1037', '基础', 'roleManageBase', '1009', '/system/role/list_page', '', '3', '1', '\0', '', '2019-09-12 16:35:33', '2019-09-15 12:22:36');
+INSERT INTO `system_menu` VALUES ('1038', '添加', 'roleManageAdd', '1009', '/system/role/add_page', '/system/role/add', '3', '2', '\0', '', '2019-09-12 16:36:26', '2019-09-15 12:22:35');
+INSERT INTO `system_menu` VALUES ('1039', '编辑', 'roleManageEdit', '1009', '/system/role/edit_page', '/system/role/edit', '3', '3', '\0', '', '2019-09-12 16:36:47', '2019-09-15 12:22:33');
+INSERT INTO `system_menu` VALUES ('1040', '授权', 'roleManageAuth', '1009', '/system/role/auth_page', '/system/role/auth;/system/menu/list_page', '3', '4', '\0', '', '2019-09-12 16:37:20', '2019-09-15 12:22:32');
+INSERT INTO `system_menu` VALUES ('1041', '删除', 'roleManageDelete', '1009', '/system/role/delete', '', '3', '5', '\0', '', '2019-09-12 16:37:47', '2019-09-15 12:22:31');
+INSERT INTO `system_menu` VALUES ('1042', '基础', 'imageManageBase', '1010', '/system/image/list_page', '', '3', '1', '\0', '', '2019-09-12 16:49:04', '2019-09-15 12:22:30');
+INSERT INTO `system_menu` VALUES ('1043', '添加', 'imageManageAdd', '1010', '/system/image/add_page', '/system/image/add', '3', '2', '\0', '', '2019-09-12 16:50:00', '2019-09-15 12:22:29');
+INSERT INTO `system_menu` VALUES ('1044', '编辑', 'imageManageEdit', '1010', '/system/image/edit_page', '/system/image/edit', '3', '3', '\0', '', '2019-09-12 16:51:26', '2019-09-15 12:22:28');
+INSERT INTO `system_menu` VALUES ('1045', '删除', 'imageManageDelete', '1010', '/system/image/delete', '', '3', '4', '\0', '', '2019-09-12 16:51:45', '2019-09-15 12:22:27');
+INSERT INTO `system_menu` VALUES ('1046', '基础', 'dictManageBase', '1011', '/system/dict/list_page', '', '3', '1', '\0', '', '2019-09-12 16:54:05', '2019-09-15 12:22:27');
+INSERT INTO `system_menu` VALUES ('1047', '添加', 'dictManageAdd', '1011', '/system/dict/add_page', '/system/dict/add', '3', '2', '\0', '', '2019-09-12 16:55:21', '2019-09-15 12:22:24');
+INSERT INTO `system_menu` VALUES ('1048', '编辑', 'dictManageEdit', '1011', '/system/dict/edit_page', '/system/dict/edit', '3', '3', '\0', '', '2019-09-12 16:55:43', '2019-09-15 12:22:25');
+INSERT INTO `system_menu` VALUES ('1049', '删除', 'dictManageDelete', '1011', '/system/dict/delete', '', '3', '4', '\0', '', '2019-09-12 16:56:13', '2019-09-15 12:22:24');
+INSERT INTO `system_menu` VALUES ('1050', '基础', 'cacheManageBase', '1012', '/system/cache/list', '', '3', '1', '\0', '', '2019-09-12 16:58:30', '2019-09-15 12:22:21');
+INSERT INTO `system_menu` VALUES ('1051', '清除', 'cacheManageClear', '1012', '/system/cache/clear', '', '3', '2', '\0', '', '2019-09-12 16:59:33', '2019-09-15 12:22:22');
+INSERT INTO `system_menu` VALUES ('1052', '基础', 'bannerManageBase', '1018', '/business/banner/list_page', '', '3', '1', '\0', '', '2019-09-12 17:03:26', '2019-09-15 12:22:19');
+INSERT INTO `system_menu` VALUES ('1053', '添加', 'bannerManageAdd', '1018', '/business/banner/add_page', '/business/banner/add', '3', '2', '\0', '', '2019-09-12 17:03:49', '2019-09-15 12:22:19');
+INSERT INTO `system_menu` VALUES ('1054', '编辑', 'bannerManageEdit', '1018', '/business/banner/edit_page', '/business/banner/edit', '3', '3', '\0', '', '2019-09-12 17:04:18', '2019-09-15 12:22:17');
+INSERT INTO `system_menu` VALUES ('1055', '删除', 'bannerManageDelete', '1018', '/business/banner/delete', '', '3', '4', '\0', '', '2019-09-12 17:04:45', '2019-09-15 12:22:18');
+INSERT INTO `system_menu` VALUES ('1056', '任务日志', 'taskLog', '1017', '/business/task_log/manage_page', '', '2', '20', '\0', '', '2019-09-12 17:38:17', '2019-09-15 12:22:16');
+INSERT INTO `system_menu` VALUES ('1057', '基础', 'taskConfigBase', '1025', '/business/task/list_page', '', '3', '1', '\0', '', '2019-09-15 12:41:57', '2019-09-15 12:41:57');
+INSERT INTO `system_menu` VALUES ('1058', '编辑', 'taskConfigEdit', '1025', '/business/task/edit_page', '/business/task/edit', '3', '2', '\0', '', '2019-09-15 12:57:40', '2019-09-15 13:01:50');
+INSERT INTO `system_menu` VALUES ('1059', '基础', 'smsTemplateBase', '1021', '/business/sms_template/list_page', '', '3', '1', '\0', '', '2019-09-15 13:04:45', '2019-09-15 13:04:45');
+INSERT INTO `system_menu` VALUES ('1060', '编辑', 'smsTemplateEdit', '1021', '/business/sms_template/edit_page', '/business/sms_template/edit', '3', '2', '\0', '', '2019-09-15 13:05:38', '2019-09-15 13:05:38');
+INSERT INTO `system_menu` VALUES ('1061', '基础', 'versionManageBase', '1022', '/business/version/list_page', '', '3', '1', '\0', '', '2019-09-15 13:06:36', '2019-09-15 13:06:36');
+INSERT INTO `system_menu` VALUES ('1062', '添加', 'versionManageAdd', '1022', '/business/version/add_page', '/business/version/add', '3', '2', '\0', '', '2019-09-15 13:07:18', '2019-09-15 13:07:18');
+INSERT INTO `system_menu` VALUES ('1063', '编辑', 'versionManageEdit', '1022', '/business/version/edit_page', '/business/version/edit', '3', '3', '\0', '', '2019-09-15 13:07:51', '2019-09-15 13:07:51');
+INSERT INTO `system_menu` VALUES ('1064', '上架', 'versionManagePut', '1022', '/business/version/put_away', '', '3', '4', '\0', '', '2019-09-15 13:08:32', '2019-09-15 13:08:32');
+INSERT INTO `system_menu` VALUES ('1065', '下架', 'versionManageDown', '1022', '/business/version/sold_out', '', '3', '5', '\0', '', '2019-09-15 13:09:11', '2019-09-15 13:09:11');
+INSERT INTO `system_menu` VALUES ('1066', '删除', 'versionManageDelete', '1022', '/business/version/delete', '', '3', '6', '\0', '', '2019-09-15 13:09:34', '2019-09-15 13:09:34');

@@ -17,10 +17,11 @@
         </div>
         <div class="form-item">
             <label>菜单类型:</label>
-            <select title="菜单类型" name="classify">
-                <option value="0" >导航菜单</option>
-                <option value="1">按钮菜单</option>
-            </select>
+            <#if grade == 3>
+                <input title="按钮菜单" maxlength="2" value="按钮" readonly />
+            <#else >
+                <input title="左侧导航菜单" maxlength="2" value="导航" readonly />
+            </#if>
         </div>
         <div class="form-item">
             <label>排序:</label>
@@ -40,5 +41,6 @@
             <textarea title="备注" name="remark" class="h60" maxlength="100"></textarea>
         </div>
         <input type="hidden" name="pid" value="${pid!0}"/>
+        <input type="hidden" name="grade" value="${grade!1}"/>
     </form>
 </div>

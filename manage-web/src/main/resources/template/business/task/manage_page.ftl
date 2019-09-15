@@ -11,7 +11,7 @@
         var winHeight = 500;
 
         var editTitle = "编辑任务";
-        var editUrl = "/business/sms_template/edit_page";
+        var editUrl = "/business/task/edit_page";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{

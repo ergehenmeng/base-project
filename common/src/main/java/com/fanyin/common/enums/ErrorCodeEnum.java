@@ -320,6 +320,11 @@ public enum ErrorCodeEnum {
      * cron表达式配置错误
      */
     CRON_CONFIG_ERROR(3027,"cron表达式配置错误"),
+
+    /**
+     * 按钮菜单无法添加子菜单
+     */
+    SUB_MENU_ERROR(3027,"按钮菜单无法添加子菜单"),
     ;
     /**
      * 构造方法

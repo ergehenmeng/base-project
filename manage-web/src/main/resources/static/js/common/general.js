@@ -451,7 +451,6 @@ $.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,state){
             if (row[pid] === node[id]){
                 var child = $.extend(row,{});
                     child["text"] = child[text];
-                    rootRow["state"] = state;
                 if (node.children){
                     node.children.push(child);
                 } else {
