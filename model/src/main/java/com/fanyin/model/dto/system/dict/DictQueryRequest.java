@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.system.dict;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class DictQueryRequest extends PageQuery implements Serializable {
+public class DictQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = -5550485924850455994L;
 

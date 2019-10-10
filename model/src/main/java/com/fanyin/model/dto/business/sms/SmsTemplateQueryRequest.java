@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.business.sms;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = true)
-public class SmsTemplateQueryRequest extends PageQuery {
+public class SmsTemplateQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -1036182177988776422L;
 

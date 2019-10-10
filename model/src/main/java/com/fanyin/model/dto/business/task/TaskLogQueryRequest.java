@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.business.task;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class TaskLogQueryRequest extends PageQuery {
+public class TaskLogQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -420375186002438142L;
 

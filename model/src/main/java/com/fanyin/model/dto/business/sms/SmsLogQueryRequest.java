@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.business.sms;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class SmsLogQueryRequest extends PageQuery {
+public class SmsLogQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -3461922717720251514L;
 

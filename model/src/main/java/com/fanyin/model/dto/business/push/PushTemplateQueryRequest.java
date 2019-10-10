@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.business.push;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class PushTemplateQueryRequest extends PageQuery{
+public class PushTemplateQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = 2652554259813794315L;
 

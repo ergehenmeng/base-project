@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.business.help;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class HelpQueryRequest extends PageQuery implements Serializable {
+public class HelpQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = -3466349098042737884L;
 

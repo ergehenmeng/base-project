@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.system.roster;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class BlackRosterQueryRequest extends PageQuery {
+public class BlackRosterQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -3242726199792945020L;
 

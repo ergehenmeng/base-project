@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.system.role;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RoleQueryRequest extends PageQuery implements Serializable {
+public class RoleQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 2824485497219254015L;
 

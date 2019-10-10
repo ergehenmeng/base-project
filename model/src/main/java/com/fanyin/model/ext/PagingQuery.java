@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ApiModel("分页请求基础参数")
-public class PageQuery implements Serializable{
+public class PagingQuery implements Serializable{
 
     private static final long serialVersionUID = 9015209122071749218L;
 

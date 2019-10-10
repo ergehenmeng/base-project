@@ -1,6 +1,6 @@
 package com.fanyin.model.dto.business.image;
 
-import com.fanyin.model.ext.PageQuery;
+import com.fanyin.model.ext.PagingQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ImageQueryRequest extends PageQuery implements Serializable {
+public class ImageQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 4515347312371743977L;
 
