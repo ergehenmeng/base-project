@@ -40,7 +40,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
             throw new RequestException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
         }
         //登陆
-        if(access(handler)){
+        if(this.access(handler)){
             String accessKey = request.getHeader(AppHeader.ACCESS_KEY);
             String accessToken = request.getHeader(AppHeader.ACCESS_TOKEN);
             this.accessTokenVerify(accessKey,accessToken,message);

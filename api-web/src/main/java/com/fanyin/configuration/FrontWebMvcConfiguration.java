@@ -24,13 +24,23 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     private static final String[] EXCLUDE_URL = {"/swagger/**"};
 
+    /**
+     * 移动端请求地址
+     */
+    private static final String[] MOBILE_URL = {"/api/**"};
+
+    /**
+     * 小程序端请求地址
+     */
+    private static final String[] APPLET_URL = {"/applet/**"};
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(ipHandlerInterceptor()).order(Integer.MIN_VALUE);
-        registry.addInterceptor(signatureHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 1);
-        registry.addInterceptor(messageHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 2);
-        registry.addInterceptor(accessTokenHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 3);
-        registry.addInterceptor(ssoHandlerInterceptor()).excludePathPatterns(EXCLUDE_URL).order(Integer.MIN_VALUE + 4);
+        registry.addInterceptor(ipHandlerInterceptor()).order(Integer.MIN_VALUE + 5);
+        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 20);
+        registry.addInterceptor(ssoHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 25);
     }
 
     @Override

@@ -5,8 +5,12 @@ import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.common.utils.SignatureUtil;
+import com.fanyin.common.utils.StringUtil;
 import com.fanyin.constants.ConfigConstant;
+import com.fanyin.constants.SystemConstant;
 import com.fanyin.service.system.impl.SystemConfigApi;
+import com.google.common.io.BaseEncoding;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -15,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 签名验证
+ * 签名验证 sha256Hmac(appKey + Base64(json) + timestamp)
  * @author 二哥很猛
  * @date 2019/7/4 14:23
  */
@@ -41,10 +45,8 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
         if(Math.abs(System.currentTimeMillis() - clientTimestamp) > timestampDeviation){
             throw new RequestException(ErrorCodeEnum.SIGNATURE_TIMESTAMP_NULL);
         }
-
         String json = this.getRequestJson(request);
-
-        String sign = SignatureUtil.sign(json + "." + timestamp);
+        String sign = SignatureUtil.sign(BaseEncoding.base64().encode(json.getBytes(SystemConstant.CHARSET)) + timestamp);
         if(!signature.equals(sign)){
             throw new RequestException(ErrorCodeEnum.SIGNATURE_VERIFY_ERROR);
         }

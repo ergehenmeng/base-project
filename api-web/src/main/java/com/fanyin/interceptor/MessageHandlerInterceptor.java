@@ -23,7 +23,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
     private static final int MAX_HEADER_LENGTH = 256;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         //app请求头信息
         String channel = request.getHeader(AppHeader.CHANNEL);
         String version = request.getHeader(AppHeader.VERSION);
@@ -46,7 +46,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex){
         RequestThreadLocal.remove();
     }
 
