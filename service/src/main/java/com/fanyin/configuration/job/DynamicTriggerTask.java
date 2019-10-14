@@ -1,6 +1,5 @@
 package com.fanyin.configuration.job;
 
-import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.config.TriggerTask;
 import org.springframework.scheduling.support.CronTrigger;
 
@@ -16,7 +15,7 @@ public class DynamicTriggerTask extends TriggerTask {
 
 
     DynamicTriggerTask(String nid,String beanName, String cronExpression) {
-        super(new DynamicRunnable(beanName,nid),new CronTrigger(cronExpression));
+        super(new TaskRunnable(beanName,nid),new CronTrigger(cronExpression));
         this.nid = nid;
         this.cronExpression = cronExpression;
     }

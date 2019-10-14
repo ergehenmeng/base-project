@@ -13,7 +13,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
  * @date 2019/9/6 15:27
  */
 @Slf4j
-public class DynamicRunnable implements Runnable {
+public class TaskRunnable implements Runnable {
 
     /**
      * 具体业务实现
@@ -35,7 +35,7 @@ public class DynamicRunnable implements Runnable {
      */
     private String nid;
 
-    DynamicRunnable(String beanName,String nid) {
+    TaskRunnable(String beanName, String nid) {
         this.beanName = beanName;
         this.nid = nid;
     }
