@@ -4,6 +4,7 @@ import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,8 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * @author 二哥很猛
@@ -31,6 +34,8 @@ public class DateUtil extends DateUtils {
     private static final String TIMES = "HH:mm:ss";
 
     private static final String SHORT_DATE_LIMIT = "yyyyMMdd";
+
+    private static final FastDateFormat FAST_DATE_FORMAT = FastDateFormat.getInstance(LONG_DATE);
 
     /**
      * 格式化日期 yyyy-MM-dd HH:mm:ss
@@ -76,6 +81,15 @@ public class DateUtil extends DateUtils {
     public static String format(Date date,String pattern){
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(date);
+    }
+
+    /**
+     * 日期格式化
+     * @param o 日期date或者毫秒值等
+     * @return 格式化后的日期
+     */
+    public static String format(Object o){
+        return FAST_DATE_FORMAT.format(o);
     }
 
     /**

@@ -17,7 +17,6 @@
         <module>service</module>
         <module>api-web</module>
         <module>manage-web</module>
-        <module>cron-job</module>
     </modules>
 
     <parent>
@@ -98,6 +97,8 @@
         <mysql.version>8.0.13</mysql.version>
         <!--极光推送-->
         <jpush.version>3.3.10</jpush.version>
+        <!--实体映射工具类-->
+        <mapstruct.version>1.3.1.Final</mapstruct.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -194,6 +195,11 @@
                 <groupId>cn.jpush.api</groupId>
                 <artifactId>jpush-client</artifactId>
                 <version>${jpush.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
