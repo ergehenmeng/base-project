@@ -69,6 +69,7 @@
     <logger name="jdbc.connection" level="warn"/>
     <logger name="org.springframework" level="info"/>
     <logger name="freemarker" level="error"/>
+    <logger name="org.apache" level="error" />
 
 
 </configuration>
