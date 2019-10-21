@@ -16,11 +16,11 @@ public class MysqlDataResolve implements DataResolve {
             return "Null";
         }
         if(param instanceof String){
-            return param.toString();
+            return "'" + param.toString() + "'";
         }
         if(param instanceof Date){
-            return DateUtil.format(param);
+            return "'" + DateUtil.format(param) + "'";
         }
-        return param.toString();
+        return "'" + param.toString() + "'";
     }
 }
