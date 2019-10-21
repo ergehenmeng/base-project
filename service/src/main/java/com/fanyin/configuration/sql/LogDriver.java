@@ -45,7 +45,7 @@ public class LogDriver implements Driver {
         Enumeration<Driver> drivers = DriverManager.getDrivers();
         if (drivers.hasMoreElements()) {
             Driver driver = drivers.nextElement();
-            if (driver.acceptsURL(this.getUrl(url))) {
+            if (!driver.acceptsURL(this.getUrl(url))) {
                 throw new RuntimeException("数据库url配置错误 " + url);
             }
             return driver;
@@ -76,7 +76,7 @@ public class LogDriver implements Driver {
     public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
         Driver driver = getDriver(url);
         this.realDriver = driver;
-        return driver.getPropertyInfo(this.getUrl(url), info);
+        return driver.getPropertyInfo(url, info);
     }
 
     @Override
