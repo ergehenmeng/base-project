@@ -30,7 +30,7 @@ $.fn.dataGridOptions.dataGrid = function(element,opts){
     return $(element).datagrid(options);
 };
 
-$.fn.dataGridOptions.tips = function(data){
+$.fn.dataGridOptions.tips = function(){
     $(".dataGrid-tips").poshytip({
         className: 'tip-yellowsimple',
         fade: false,
@@ -114,7 +114,7 @@ $.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
 			handler: function() {
 				if(dataGrid !== undefined && dataGrid !== null){
                     //必须要设定好这个该dataGridGrid,为后续点击提交表单
-					parent.$.windowDialog.openner_dataGrid = dataGrid;
+					parent.$.windowDialog.opennerDataGrid = dataGrid;
 				}
 				var f = parent.$.windowDialog.handler.find('form');
 				f.submit();
@@ -123,6 +123,15 @@ $.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
 	});
 };
 
+/**
+ * 弹出框,用于显示或查看数据信息
+ * @param id
+ * @param title
+ * @param width
+ * @param height
+ * @param url
+ * @param data
+ */
 $.fn.dataGridOptions.show = function(id,title,width,height,url,data){
     parent.$.windowDialog({
         title: title,
@@ -179,7 +188,7 @@ $.fn.dataGridOptions.confirm = function(id,url,msg,data){
 /**
  * 表单提交
  */
-$.fn.dataGridOptions.formSubmit = function(formId,url,success){
+$.fn.dataGridOptions.formSubmit = function(formId,url){
 	$(formId).form({
 		url: url,
 		onSubmit: function(){
@@ -198,7 +207,7 @@ $.fn.dataGridOptions.formSubmit = function(formId,url,success){
 		     data = (typeof data === 'object') ? data: $.parseJSON(data);
 		     if(data.code === 200){
                  parent.$.windowDialog.handler.dialog('close');
-		         parent.$.windowDialog.openner_dataGrid.datagrid('reload');
+		         parent.$.windowDialog.opennerDataGrid.datagrid('reload');
 		     }else{
                  parent.$.messager.alert('提示', data.msg, 'warning');
 		     }
@@ -294,11 +303,10 @@ $.fn.treeGridOptions.editFun = function(id,title,width,height,url,data){
 /**
  * 表单提交
  */
-$.fn.treeGridOptions.formSubmit = function(formId,url,success){
+$.fn.treeGridOptions.formSubmit = function(formId,url){
 	$(formId).form({
 		url:url,
 		onSubmit:function(){
-			
 			parent.$.messager.progress({
 	            title: '提示',
 	            text: '数据处理中，请稍后....'
@@ -355,10 +363,9 @@ $.fn.dataGridOptions.get = function(url){
  * @param url 提交地址
  * @param unSelectMsg 未选中时,提示信息
  * @param rowName 选择的列名,同时该列列名作为key传递给后台
- * @param success 成功信息
  * @return {boolean}
  */
-$.fn.dataGridOptions.select = function(url,unSelectMsg,rowName,success){
+$.fn.dataGridOptions.select = function(url,unSelectMsg,rowName){
     var rows = dataGrid.datagrid("getSelections");
     if(rows.length <= 0){
         parent.$.messager.alert("提示",unSelectMsg,"warning");

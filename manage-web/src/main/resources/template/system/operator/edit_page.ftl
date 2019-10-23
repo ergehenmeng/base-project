@@ -7,7 +7,7 @@
                 return data.data;
             }
         });
-        $.fn.dataGridOptions.formSubmit("#form",'/system/operator/edit',"用户更新成功");
+        $.fn.dataGridOptions.formSubmit("#form",'/system/operator/edit');
     });
 </script>
 <div class="platform-form">

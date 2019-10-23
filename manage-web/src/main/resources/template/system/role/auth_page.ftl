@@ -21,7 +21,7 @@
             }
         });
     });
-    $.fn.dataGridOptions.formSubmit("#form",'/system/role/auth',"授权成功");
+    $.fn.dataGridOptions.formSubmit("#form",'/system/role/auth');
 
 </script>
 <div class="user-role">

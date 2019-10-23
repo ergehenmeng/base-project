@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.treeGridOptions.formSubmit("#form",'/system/department/add',"部门添加成功");
+        $.fn.treeGridOptions.formSubmit("#form",'/system/department/add');
     });
 </script>
 <div class="platform-form">

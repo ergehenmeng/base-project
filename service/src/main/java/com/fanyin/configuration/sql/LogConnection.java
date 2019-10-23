@@ -1,7 +1,5 @@
 package com.fanyin.configuration.sql;
 
-import org.slf4j.Logger;
-
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;

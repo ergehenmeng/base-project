@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.dataGridOptions.formSubmit("#form",'/system/role/edit',"角色更新成功");
+        $.fn.dataGridOptions.formSubmit("#form",'/system/role/edit');
     });
 </script>
 <div class="platform-form">

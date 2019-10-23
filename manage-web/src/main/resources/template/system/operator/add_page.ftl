@@ -7,7 +7,7 @@
                 return data.data;
             }
         });
-        $.fn.dataGridOptions.formSubmit("#form",'/system/operator/add',"用户添加成功");
+        $.fn.dataGridOptions.formSubmit("#form",'/system/operator/add');
     });
 </script>
 <div class="platform-form">
