@@ -180,7 +180,6 @@ $.fn.dataGridOptions.confirm = function(id,url,msg,data){
  * 表单提交
  */
 $.fn.dataGridOptions.formSubmit = function(formId,url,success){
-	var successMsg = success || "操作成功";
 	$(formId).form({
 		url: url,
 		onSubmit: function(){
@@ -199,7 +198,6 @@ $.fn.dataGridOptions.formSubmit = function(formId,url,success){
 		     data = (typeof data === 'object') ? data: $.parseJSON(data);
 		     if(data.code === 200){
                  parent.$.windowDialog.handler.dialog('close');
-                 parent.$.messager.alert('提示', successMsg, 'info');
 		         parent.$.windowDialog.openner_dataGrid.datagrid('reload');
 		     }else{
                  parent.$.messager.alert('提示', data.msg, 'warning');
@@ -283,8 +281,10 @@ $.fn.treeGridOptions.editFun = function(id,title,width,height,url,data){
 		buttons: [ {
 			text: '确定',
 			handler: function() {
-				parent.$.windowDialog.openner_treeGrid = treeGrid;//必须要设定好这个该dataGridGrid,为后续点击提交表单
-				var f = parent.$.windowDialog.handler.find('form');//默认查找form表单 如果多个则会触发多个表单的提交
+                //必须要设定好这个该dataGridGrid,为后续点击提交表单
+				parent.$.windowDialog.opennerTreeGrid = treeGrid;
+                //默认查找form表单 如果多个则会触发多个表单的提交
+				var f = parent.$.windowDialog.handler.find('form');
 				f.submit();
 			}
 		} ]
@@ -295,7 +295,6 @@ $.fn.treeGridOptions.editFun = function(id,title,width,height,url,data){
  * 表单提交
  */
 $.fn.treeGridOptions.formSubmit = function(formId,url,success){
-	var successMsg = success || "操作成功";
 	$(formId).form({
 		url:url,
 		onSubmit:function(){
@@ -314,9 +313,8 @@ $.fn.treeGridOptions.formSubmit = function(formId,url,success){
 			 parent.$.messager.progress('close');
 		     data = (typeof data === 'object') ? data: $.parseJSON(data);
 		     if(data.code === 200){
-		    	 parent.$.messager.alert('提示', successMsg, 'info');
 		         parent.$.windowDialog.handler.dialog('close');
-		         parent.$.windowDialog.openner_treeGrid.treegrid('reload');
+		         parent.$.windowDialog.opennerTreeGrid.treegrid('reload');
 		     }else{
                  parent.$.messager.alert('提示', data.msg, 'warning');
 		     }
@@ -340,7 +338,6 @@ $.fn.dataGridOptions.get = function(url){
         success:function(data){
             parent.$.messager.progress('close');
             if(data.code === 200){
-                parent.$.messager.alert('提示', data.msg, 'info');
                 dataGrid.datagrid('reload');
             }else{
                 parent.$.messager.alert('提示', data.msg, 'warning');
@@ -363,7 +360,6 @@ $.fn.dataGridOptions.get = function(url){
  */
 $.fn.dataGridOptions.select = function(url,unSelectMsg,rowName,success){
     var rows = dataGrid.datagrid("getSelections");
-    var successMsg = success || "操作成功";
     if(rows.length <= 0){
         parent.$.messager.alert("提示",unSelectMsg,"warning");
         return false;
@@ -388,7 +384,6 @@ $.fn.dataGridOptions.select = function(url,unSelectMsg,rowName,success){
         success: function (data) {
             parent.$.messager.progress('close');
             if(data.code === 200){
-                parent.$.messager.alert('提示', successMsg, 'info');
                 dataGrid.datagrid("clearSelections");
                 dataGrid.datagrid('reload');
             }else{
