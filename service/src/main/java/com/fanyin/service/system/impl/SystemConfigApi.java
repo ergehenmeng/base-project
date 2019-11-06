@@ -3,7 +3,6 @@ package com.fanyin.service.system.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.ParameterException;
-import com.fanyin.common.utils.DateUtil;
 import com.fanyin.dao.model.system.SystemConfig;
 import com.fanyin.service.system.SystemConfigService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +10,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 /**
  * 系统参数公用Api接口
@@ -38,14 +35,6 @@ public class SystemConfigApi {
         SystemConfig config = systemConfigService.getByNid(nid);
         if (config == null){
             throw new ParameterException(ErrorCodeEnum.CONFIG_NOT_FOUND_ERROR);
-        }
-        //必须保证开始时间和结束时间都不为空,否则该选项无效
-        if(config.getStartTime() != null && config.getEndTime() != null){
-            Date now = DateUtil.getNow();
-            //不在有效期时 默认备选值有效
-            if(now.before(config.getStartTime()) || now.after(config.getEndTime())){
-                return config.getReserveContent();
-            }
         }
         return config.getContent();
     }

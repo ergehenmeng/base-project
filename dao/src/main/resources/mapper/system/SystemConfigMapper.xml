@@ -14,15 +14,12 @@
     <result column="locked" jdbcType="BIT" property="locked" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="reserve_content" jdbcType="VARCHAR" property="reserveContent" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id,title, nid, content, remark, classify, locked, add_time, update_time,start_time,end_time,reserve_content
+    id,title, nid, content, remark, classify, locked, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -66,15 +63,6 @@
       <if test="updateTime != null">
         update_time,
       </if>
-        <if test="startTime != null">
-          start_time,
-        </if>
-        <if test="endTime != null">
-            end_time,
-        </if>
-        <if test="reserveContent != null">
-            reserve_content
-        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -104,15 +92,6 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
-        <if test="startTime != null">
-            #{startTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="endTime != null">
-            #{endTime,jdbcType=TIMESTAMP}.
-        </if>
-        <if test="reserveContent != null">
-            #{reserveContent,jdbcType=VARCHAR},
-        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SystemConfig">
@@ -145,15 +124,6 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
-        <if test="startTime != null">
-            start_time = #{startTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="endTime != null">
-            end_time = #{startTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="reserveContent != null">
-            reserve_content = #{reserveContent,jdbcType=VARCHAR},
-        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -170,10 +140,6 @@
             classify = #{classify},
             content = #{content},
             remark = #{remark},
-            update_time = now(),
-            start_time = #{startTime},
-            end_time = #{endTime},
-            reserve_content = #{reserveContent},
             locked = #{locked}
         where locked = false and nid = #{nid}
     </update>

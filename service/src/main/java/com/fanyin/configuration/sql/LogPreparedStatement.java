@@ -197,8 +197,7 @@ public class LogPreparedStatement implements PreparedStatement {
 
     @Override
     public void setUnicodeStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Unicode Stream>" );
-        //delegate.setUnicodeStream(parameterIndex, x, length);
+
     }
 
     @Override

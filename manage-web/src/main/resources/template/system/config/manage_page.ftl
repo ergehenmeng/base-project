@@ -49,21 +49,6 @@
                         }
                     },
                     {field : "remark",title : "备注",align : "center",width : 300 },
-                    {field : "startTime",title : "有效起始时间",width : 140,align : "center",
-                        formatter:function(value,rows,index){
-                            return getLocalTime(value,4);
-                        }
-                    },
-                    {field : "endTime",title : "有效结束时间",width : 140,align : "center",
-                        formatter:function(value,rows,index){
-                            return getLocalTime(value,4);
-                        }
-                    },
-                    {field : "reserveContent",title : "备用值",width : 150,align : "center",
-                        formatter:function(value){
-                            return $.fn.dataGridOptions.format(value,30);
-                        }
-                    },
                     {field : "updateTime",title : "更新时间",width : 180,align : "center",
                         formatter : function(value, rows, index) {
                             return getLocalTime(value, 4);

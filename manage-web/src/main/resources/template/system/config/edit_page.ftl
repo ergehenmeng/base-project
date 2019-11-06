@@ -1,30 +1,7 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime");
+        //$.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime");
         $.fn.dataGridOptions.formSubmit("#form",'/system/config/edit');
-        $("#timing").on("change",function(){
-            var timing = $(this).val();
-            if(timing === "1"){
-                parent.$.messager.alert('提示', "不在有效期内时,备选值将会生效", 'warning');
-                $("#interval").show();
-                $("#reserve").show();
-                $("#targetTime").validatebox({
-                    "required":true
-                });
-                $("#reserveValue").validatebox({
-                    "required":true
-                });
-            }else{
-                $("#interval").hide();
-                $("#reserve").hide();
-                $("#targetTime").validatebox({
-                    "required":false
-                });
-                $("#reserveValue").validatebox({
-                    "required":false
-                });
-            }
-        });
     });
 </script>
 <div class="platform-form">
@@ -60,25 +37,6 @@
         <div class="form-item">
             <label>参数值:</label>
             <textarea title="参数值" name="content"  class="easyui-validatebox h100" data-options="required: true" maxlength="500">${(config.content)!}</textarea>
-            <small>*</small>
-        </div>
-        <div class="form-item">
-            <label>启用定时:</label>
-            <select title="在指定时间内系统参数有效" id="timing" class="easyui-validatebox" >
-                <option value="1" >是</option>
-                <option value="0" selected>否</option>
-            </select>
-        </div>
-        <div class="form-item" id="interval" style="display: none;">
-            <label>有效期:</label>
-            <input title="主参数有效期"  class="easyui-validatebox" data-options="required: false" id="targetTime" />
-            <input type="hidden" id="startTime" name="startTime">
-            <input type="hidden" id="endTime" name="endTime">
-            <small>*</small>
-        </div>
-        <div class="form-item" id="reserve" style="display: none;">
-            <label>备用值:</label>
-            <textarea title="在有效期之外该参数会生效" id="reserveValue" name="reserveContent" class="easyui-validatebox h80" data-options="required: false" maxlength="500"></textarea>
             <small>*</small>
         </div>
         <div class="form-item">

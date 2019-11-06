@@ -78,27 +78,6 @@ public class SystemConfig implements Serializable {
     private Date updateTime;
 
     /**
-     * 系统参数有效开始时间<br>
-     * 表 : system_config<br>
-     * 对应字段 : start_time<br>
-     */
-    private Date startTime;
-
-    /**
-     * 系统参数有效结束时间<br>
-     * 表 : system_config<br>
-     * 对应字段 : end_time<br>
-     */
-    private Date endTime;
-
-    /**
-     * 系统参数备用值,在有效期之外自动切换该值<br>
-     * 表 : system_config<br>
-     * 对应字段 : reserve_content<br>
-     */
-    private String reserveContent;
-
-    /**
      * 参数类型 数据字典名称
      */
     private String classifyName;

@@ -3,7 +3,6 @@ package com.fanyin.model.dto.system.config;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author 二哥很猛
@@ -44,18 +43,4 @@ public class ConfigAddRequest implements Serializable{
      */
     private String remark;
 
-    /**
-     * 有效开始时间
-     */
-    private Date startTime;
-
-    /**
-     * 有效结束时间
-     */
-    private Date endTime;
-
-    /**
-     * 备选值
-     */
-    private String reserveContent;
 }
