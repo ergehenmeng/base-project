@@ -2,6 +2,7 @@ package com.fanyin.configuration;
 
 import com.fanyin.common.utils.StringUtil;
 import com.google.common.collect.Lists;
+import org.springframework.lang.NonNull;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 
@@ -58,8 +59,13 @@ public abstract class AbstractIgnoreFilter implements Filter {
         return false;
     }
 
-    public List<String> getExclude() {
-        return exclude;
+
+    /**
+     * 排除不需要拦截的地址
+     * @param matchUrl 不需要拦截的地址
+     */
+    public void exclude(@NonNull String... matchUrl) {
+        exclude.addAll(Lists.newArrayList(matchUrl));
     }
 
     @Override

@@ -22,12 +22,15 @@ import java.util.List;
 @Configuration
 public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
-    private static final String[] EXCLUDE_URL = {"/swagger/**"};
+    /**
+     * 过滤器不拦截的地址
+     */
+    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**","/upload/**"};
 
     /**
      * 移动端请求地址
      */
-    private static final String[] MOBILE_URL = {"/api/**"};
+    private static final String[] MOBILE_INCLUDE_URL = {"/api/**"};
 
     /**
      * 小程序端请求地址
@@ -37,10 +40,10 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(ipHandlerInterceptor()).order(Integer.MIN_VALUE + 5);
-        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 10);
-        registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 15);
-        registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 20);
-        registry.addInterceptor(ssoHandlerInterceptor()).addPathPatterns(MOBILE_URL).order(Integer.MIN_VALUE + 25);
+        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 20);
+        registry.addInterceptor(ssoHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 25);
     }
 
     @Override
@@ -100,8 +103,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Bean("byteHttpRequestFilter")
     public Filter byteHttpRequestFilter(){
         ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
-        requestFilter.getExclude().add("/upload/**");
-        requestFilter.getExclude().add("/swagger/**");
+        requestFilter.exclude(FILTER_EXCLUDE_URL);
         return requestFilter;
     }
 
