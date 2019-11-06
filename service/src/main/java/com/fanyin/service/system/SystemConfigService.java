@@ -31,7 +31,7 @@ public interface SystemConfigService {
      * @param nid 唯一nid
      * @return 参数配置独享
      */
-    SystemConfig getByNid(String nid);
+    String getByNid(String nid);
 
     /**
      * 根据主键获取系统参数

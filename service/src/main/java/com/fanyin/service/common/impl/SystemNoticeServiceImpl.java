@@ -34,7 +34,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     private SystemConfigApi systemConfigApi;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE,cacheManager = "smallCacheManager")
+    @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE,cacheManager = "smallCacheManager",unless = "#result.empty")
     public List<SystemNotice> getList() {
         int noticeLimit = systemConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         return systemNoticeMapper.getTopList(noticeLimit);

@@ -3,7 +3,6 @@ package com.fanyin.service.system.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.fanyin.common.enums.ErrorCodeEnum;
 import com.fanyin.common.exception.ParameterException;
-import com.fanyin.dao.model.system.SystemConfig;
 import com.fanyin.service.system.SystemConfigService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
@@ -32,11 +31,11 @@ public class SystemConfigApi {
      * @return 系统参数结果值string
      */
     public String getString(String nid){
-        SystemConfig config = systemConfigService.getByNid(nid);
-        if (config == null){
+        String content = systemConfigService.getByNid(nid);
+        if (content == null){
             throw new ParameterException(ErrorCodeEnum.CONFIG_NOT_FOUND_ERROR);
         }
-        return config.getContent();
+        return content;
     }
 
     /**

@@ -31,7 +31,7 @@ public class BannerServiceImpl implements BannerService {
     private BannerMapper bannerMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER,key = "#channel.name() + #classify",unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.BANNER,key = "#channel.name() + #classify",unless = "#result.empty")
     public List<Banner> getBanner(Channel channel, Byte classify) {
         return bannerMapper.getBannerList(classify,channel.name());
     }

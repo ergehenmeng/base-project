@@ -26,7 +26,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     private SmsTemplateMapper smsTemplateMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE,key = "#p0")
+    @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE,key = "#p0",unless = "#result == null")
     public String getTemplate(String nid) {
         SmsTemplate smsTemplate = smsTemplateMapper.getByNid(nid);
         return smsTemplate.getContent();

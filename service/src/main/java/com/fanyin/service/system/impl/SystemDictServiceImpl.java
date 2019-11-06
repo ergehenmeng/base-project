@@ -33,7 +33,7 @@ public class SystemDictServiceImpl implements SystemDictService {
     private SystemDictMapper systemDictMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_DICT,key = "#p0")
+    @Cacheable(cacheNames = CacheConstant.SYSTEM_DICT,key = "#p0",unless = "#result.empty")
     public List<SystemDict> getDictByNid(String nid) {
         return systemDictMapper.getDictByNid(nid);
     }

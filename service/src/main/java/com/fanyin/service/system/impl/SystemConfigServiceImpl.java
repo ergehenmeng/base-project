@@ -47,9 +47,13 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_CONFIG,key = "#p0")
-    public SystemConfig getByNid(String nid) {
-        return systemConfigMapper.getByNid(nid);
+    @Cacheable(cacheNames = CacheConstant.SYSTEM_CONFIG,key = "#p0",unless = "#result == null")
+    public String getByNid(String nid) {
+        SystemConfig config = systemConfigMapper.getByNid(nid);
+        if(config != null){
+            return config.getContent();
+        }
+        return null;
     }
 
     @Override

@@ -40,7 +40,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER,unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER,unless = "#result.empty")
     public List<BlackRoster> getAvailableList() {
         return blackRosterMapper.getAvailableList();
     }
