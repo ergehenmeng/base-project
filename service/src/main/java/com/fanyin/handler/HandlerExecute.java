@@ -6,9 +6,9 @@ import com.google.common.collect.Lists;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 二哥很猛
@@ -20,7 +20,7 @@ public class HandlerExecute<T extends Handler> {
     /**
      * 存放bean的列表
      */
-    private final Map<String,List<T>> handlerMap = new ConcurrentHashMap<>(32);
+    private final Map<String,List<T>> handlerMap = new HashMap<>(32);
 
     /**
      * 执行业务逻辑

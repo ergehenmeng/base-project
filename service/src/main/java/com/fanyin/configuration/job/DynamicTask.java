@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 
@@ -89,12 +90,13 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
                 throw new BusinessException(ErrorCodeEnum.CRON_CONFIG_ERROR);
             }
         }
-        for (String key : scheduledFutures.keySet()) {
+        for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {
             //定时任务不存在
-            if(taskList.stream().map(DynamicTriggerTask::getNid).noneMatch(s -> s.equals(key))){
-                scheduledFutures.get(key).cancel(false);
+            if(taskList.stream().map(DynamicTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))){
+                entry.getValue().cancel(false);
             }
         }
+
         for (DynamicTriggerTask task : taskList){
             if(triggerTaskMap.containsKey(task.getNid()) && triggerTaskMap.get(task.getNid()).getCronExpression().equals(task.getCronExpression())){
                 log.info("定时任务配置信息未发生变化 nid:[{}]",task.getNid());
