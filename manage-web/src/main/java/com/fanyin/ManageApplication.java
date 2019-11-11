@@ -11,7 +11,6 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 程序启动入口
@@ -22,7 +21,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = {"com.fanyin.filter","com.fanyin.listener"})
 @MapperScan(basePackages = "com.fanyin.dao.mapper")
-@EnableScheduling
 public class ManageApplication {
 
     public static void main(String[] args) {
