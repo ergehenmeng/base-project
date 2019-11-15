@@ -1,6 +1,6 @@
 package com.fanyin.configuration.security;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.model.ext.RespBody;
 import com.fanyin.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
             return;
         }
         log.error("权限校验异常",exception);
-        RespBody<Object> returnJson = RespBody.error(ErrorCodeEnum.PERMISSION_ERROR);
+        RespBody<Object> returnJson = RespBody.error(ErrorCode.PERMISSION_ERROR);
         WebUtil.printJson(response, returnJson);
     }
 }

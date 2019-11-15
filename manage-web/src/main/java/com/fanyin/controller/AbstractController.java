@@ -1,7 +1,7 @@
 package com.fanyin.controller;
 
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.configuration.AbstractUpload;
 import com.fanyin.configuration.security.SecurityOperator;
@@ -45,7 +45,7 @@ public class AbstractController extends AbstractUpload {
     public static SecurityOperator getRequiredOperator(){
         SecurityOperator operator = getOperator();
         if(operator == null){
-            throw new BusinessException(ErrorCodeEnum.OPERATOR_TIMEOUT);
+            throw new BusinessException(ErrorCode.OPERATOR_TIMEOUT);
         }
         return operator;
     }

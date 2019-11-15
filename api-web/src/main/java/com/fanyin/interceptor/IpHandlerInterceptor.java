@@ -1,6 +1,6 @@
 package com.fanyin.interceptor;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.utils.IpUtil;
@@ -23,7 +23,7 @@ public class IpHandlerInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String ipAddress = IpUtil.getIpAddress(request);
         if(cacheProxyService.isInterceptIp(ipAddress)){
-            throw new BusinessException(ErrorCodeEnum.SYSTEM_AUTH);
+            throw new BusinessException(ErrorCode.SYSTEM_AUTH);
         }
         return true;
     }

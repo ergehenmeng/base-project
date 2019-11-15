@@ -1,6 +1,6 @@
 package com.fanyin.common.exception;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 
 /**
  * 请求校验等异常
@@ -9,7 +9,7 @@ import com.fanyin.common.enums.ErrorCodeEnum;
  */
 public class RequestException extends SystemException {
 
-    public RequestException(ErrorCodeEnum error) {
+    public RequestException(ErrorCode error) {
         super(error);
     }
 

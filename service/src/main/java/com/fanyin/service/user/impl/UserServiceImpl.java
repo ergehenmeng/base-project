@@ -2,7 +2,7 @@ package com.fanyin.service.user.impl;
 
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.constant.SmsTypeConstant;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.RegExpUtil;
 import com.fanyin.common.utils.StringUtil;
@@ -10,7 +10,6 @@ import com.fanyin.configuration.security.Encoder;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.user.UserMapper;
 import com.fanyin.dao.model.user.User;
-import com.fanyin.model.dto.login.LoginSendSmsRequest;
 import com.fanyin.model.dto.register.RegisterUserRequest;
 import com.fanyin.model.ext.LoginRecord;
 import com.fanyin.model.dto.login.AccountLoginRequest;
@@ -106,7 +105,7 @@ public class UserServiceImpl implements UserService {
     public LoginToken accountLogin(AccountLoginRequest login) {
         User user = this.getByAccountRequired(login.getAccount());
         if(!encoder.encode(login.getPwd()).equals(user.getPwd())){
-            throw new BusinessException(ErrorCodeEnum.PASSWORD_ERROR);
+            throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
         return this.doLogin(user,login.getIp());
     }
@@ -167,7 +166,7 @@ public class UserServiceImpl implements UserService {
     public User getByAccountRequired(String account) {
         User user = this.getByAccount(account);
         if(user == null){
-            throw new BusinessException(ErrorCodeEnum.USER_NOT_FOUND);
+            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
         }
         return user;
     }
@@ -194,7 +193,7 @@ public class UserServiceImpl implements UserService {
     private void registerRedoVerify(String mobile){
         User user = userMapper.getByMobile(mobile);
         if(user == null){
-            throw new BusinessException(ErrorCodeEnum.MOBILE_REGISTER_REDO);
+            throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
         }
     }
 }

@@ -2,7 +2,7 @@ package com.fanyin.service.system.impl;
 
 
 import com.fanyin.common.constant.CacheConstant;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.dto.system.config.ConfigEditRequest;
 import com.fanyin.model.dto.system.config.ConfigQueryRequest;
@@ -34,7 +34,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     public void updateConfig(ConfigEditRequest request) {
         int i = systemConfigMapper.updateConfig(request);
         if(i != 1){
-            throw new BusinessException(ErrorCodeEnum.UPDATE_CONFIG_ERROR);
+            throw new BusinessException(ErrorCode.UPDATE_CONFIG_ERROR);
         }
     }
 

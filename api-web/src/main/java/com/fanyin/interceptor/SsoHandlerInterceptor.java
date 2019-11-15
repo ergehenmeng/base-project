@@ -1,6 +1,6 @@
 package com.fanyin.interceptor;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.model.ext.AccessToken;
@@ -34,10 +34,10 @@ public class SsoHandlerInterceptor extends HandlerInterceptorAdapter {
             RequestMessage message = RequestThreadLocal.get();
             AccessToken accessToken = accessTokenService.getByUserId(message.getUserId());
             if(accessToken == null){
-                throw new BusinessException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
+                throw new BusinessException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
             }
             if(!accessToken.getAccessKey().equals(message.getAccessKey())){
-                throw new BusinessException(ErrorCodeEnum.MULTIPLE_CLIENT_LOGIN);
+                throw new BusinessException(ErrorCode.MULTIPLE_CLIENT_LOGIN);
             }
         }
         return true;

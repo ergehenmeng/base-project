@@ -1,6 +1,6 @@
 package com.fanyin.configuration.security;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.dao.model.system.SystemOperator;
 import com.fanyin.service.system.SystemMenuService;
 import com.fanyin.service.system.SystemOperatorService;
@@ -31,10 +31,10 @@ public class OperatorDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SystemOperator operator = systemOperatorService.getByMobile(username);
         if(operator == null){
-            throw new SystemAuthenticationException(ErrorCodeEnum.OPERATOR_NOT_FOUND);
+            throw new SystemAuthenticationException(ErrorCode.OPERATOR_NOT_FOUND);
         }
         if(operator.getState() == 0){
-            throw new SystemAuthenticationException(ErrorCodeEnum.OPERATOR_LOCKED_ERROR);
+            throw new SystemAuthenticationException(ErrorCode.OPERATOR_LOCKED_ERROR);
         }
         //查询并组织权限信息
         List<GrantedAuthority> authorities = systemMenuService.getAuthorityByOperatorId(operator.getId());

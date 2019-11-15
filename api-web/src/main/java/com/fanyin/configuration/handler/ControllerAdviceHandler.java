@@ -1,6 +1,6 @@
 package com.fanyin.configuration.handler;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.configuration.DatePropertyEditor;
 import com.fanyin.model.ext.RespBody;
@@ -49,7 +49,7 @@ public class ControllerAdviceHandler {
     @ResponseBody
     public RespBody exception(HttpServletRequest request, Exception e){
         log.error("系统异常 url:[{}]",request.getRequestURI(),e);
-        return RespBody.error(ErrorCodeEnum.SYSTEM_ERROR);
+        return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ControllerAdviceHandler {
     @ResponseBody
     public RespBody noHandlerFoundException(HttpServletRequest request){
         log.error("访问地址不存在:[{}]",request.getRequestURI());
-        return RespBody.error(ErrorCodeEnum.PAGE_NOT_FOUND);
+        return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }
 
 }

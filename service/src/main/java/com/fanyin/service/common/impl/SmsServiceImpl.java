@@ -2,7 +2,7 @@ package com.fanyin.service.common.impl;
 
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.constant.SmsTypeConstant;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.DateUtil;
 import com.fanyin.common.utils.StringUtil;
@@ -90,10 +90,10 @@ public class SmsServiceImpl implements SmsService {
     public void verifySmsCode(String smsType, String mobile, String smsCode) {
         String originalSmsCode = this.getSmsCode(smsType, mobile);
         if(originalSmsCode == null){
-            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_EXPIRE);
+            throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
         }
         if(!originalSmsCode.equalsIgnoreCase(smsCode)){
-            throw new BusinessException(ErrorCodeEnum.LOGIN_SMS_CODE_ERROR);
+            throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_ERROR);
         }
     }
 
@@ -159,25 +159,25 @@ public class SmsServiceImpl implements SmsService {
         //短信时间间隔判断
         Object value = cacheService.getValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile);
         if(value == null){
-            throw new BusinessException(ErrorCodeEnum.SMS_FREQUENCY_FAST);
+            throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
         //单位小时统一类型内短信限制
         int countSms = cacheService.keySize(CacheConstant.SMS_TYPE_HOUR + smsType + mobile + MATCH);
         int smsTypeHour = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR);
         if(countSms > smsTypeHour){
-            throw new BusinessException(ErrorCodeEnum.SMS_HOUR_LIMIT);
+            throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
         //当天同一类型短信限制
         countSms = cacheService.keySize(CacheConstant.SMS_TYPE_DAY + smsType + mobile + MATCH);
         int smsTypeDay = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY);
         if(countSms > smsTypeDay){
-            throw new BusinessException(ErrorCodeEnum.SMS_DAY_LIMIT);
+            throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }
         //当天手机号限制
         countSms = cacheService.keySize(CacheConstant.SMS_DAY + mobile + MATCH);
         int smsDay = systemConfigApi.getInt(ConfigConstant.SMS_DAY);
         if(countSms > smsDay){
-            throw new BusinessException(ErrorCodeEnum.MOBILE_DAY_LIMIT);
+            throw new BusinessException(ErrorCode.MOBILE_DAY_LIMIT);
         }
     }
 

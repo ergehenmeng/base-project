@@ -1,7 +1,7 @@
 package com.fanyin.configuration.security;
 
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.dao.model.system.SystemOperator;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -32,7 +32,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
         String imageCode = principal.getImageCode();
         String sessionImageCode = principal.getSessionImageCode();
         if(imageCode == null || !imageCode.equalsIgnoreCase(sessionImageCode)){
-            throw new SystemAuthenticationException(ErrorCodeEnum.IMAGE_CODE_ERROR);
+            throw new SystemAuthenticationException(ErrorCode.IMAGE_CODE_ERROR);
         }
         return super.authenticate(authentication);
     }
@@ -41,7 +41,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         SystemOperator operator = (SystemOperator)userDetails;
         if (!encoder.matches((String)authentication.getCredentials(),operator.getPwd())){
-            throw new SystemAuthenticationException(ErrorCodeEnum.ACCOUNT_PASSWORD_ERROR);
+            throw new SystemAuthenticationException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
     }
 

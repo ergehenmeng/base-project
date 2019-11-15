@@ -1,6 +1,6 @@
 package com.fanyin.common.utils;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,7 @@ public class Md5Util {
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {
             log.error("MD5加密异常",e);
-            throw new ParameterException(ErrorCodeEnum.ENCRYPT_ERROR);
+            throw new ParameterException(ErrorCode.ENCRYPT_ERROR);
         }
     }
 

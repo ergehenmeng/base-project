@@ -2,7 +2,7 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.annotation.RequestType;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.model.dto.system.menu.MenuAddRequest;
 import com.fanyin.model.dto.system.menu.MenuEditRequest;
@@ -79,7 +79,7 @@ public class MenuController extends AbstractController {
     @Mark(RequestType.INSERT)
     public RespBody add(MenuAddRequest request){
         if (request.getGrade() > SystemMenu.BUTTON){
-            return RespBody.error(ErrorCodeEnum.SUB_MENU_ERROR);
+            return RespBody.error(ErrorCode.SUB_MENU_ERROR);
         }
         systemMenuService.addMenu(request);
         return RespBody.getInstance();

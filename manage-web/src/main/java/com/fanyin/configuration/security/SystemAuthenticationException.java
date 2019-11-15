@@ -1,6 +1,6 @@
 package com.fanyin.configuration.security;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import org.springframework.security.core.AuthenticationException;
 
 /**
@@ -18,7 +18,7 @@ public class SystemAuthenticationException extends AuthenticationException {
         super(msg);
     }
 
-    SystemAuthenticationException(ErrorCodeEnum codeEnum){
+    SystemAuthenticationException(ErrorCode codeEnum){
         this(codeEnum.getMsg());
         this.code = codeEnum.getCode();
     }

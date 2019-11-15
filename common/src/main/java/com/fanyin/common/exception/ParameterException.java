@@ -1,6 +1,6 @@
 package com.fanyin.common.exception;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 
 /**
  * 参数异常类
@@ -11,7 +11,7 @@ public class ParameterException extends SystemException {
 
     private static final long serialVersionUID = -8344713188735190270L;
 
-    public ParameterException(ErrorCodeEnum error) {
+    public ParameterException(ErrorCode error) {
         super(error);
     }
 

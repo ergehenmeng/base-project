@@ -1,6 +1,6 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.Md5Util;
 import com.fanyin.common.utils.StringUtil;
@@ -52,7 +52,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         SystemOperator operator = systemOperatorMapper.selectByPrimaryKey(request.getOperatorId());
         String oldPassword = encoder.encode(request.getOldPwd());
         if(!operator.getPwd().equals(oldPassword)){
-            throw new BusinessException(ErrorCodeEnum.OPERATOR_PASSWORD_ERROR);
+            throw new BusinessException(ErrorCode.OPERATOR_PASSWORD_ERROR);
         }
         String newPassword = encoder.encode(request.getNewPwd());
         operator.setPwd(newPassword);

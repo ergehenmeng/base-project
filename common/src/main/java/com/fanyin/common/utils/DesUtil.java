@@ -1,6 +1,6 @@
 package com.fanyin.common.utils;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -147,7 +147,7 @@ public class DesUtil {
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
             log.error("DES加密失败",e);
-            throw new ParameterException(ErrorCodeEnum.ENCRYPT_ERROR);
+            throw new ParameterException(ErrorCode.ENCRYPT_ERROR);
         }
     }
 
@@ -168,7 +168,7 @@ public class DesUtil {
             return new String(bytes,Charset.forName("UTF-8"));
         } catch (Exception e) {
             log.error("DES解密失败",e);
-            throw new ParameterException(ErrorCodeEnum.DECRYPT_ERROR);
+            throw new ParameterException(ErrorCode.DECRYPT_ERROR);
         }
     }
 
@@ -185,7 +185,7 @@ public class DesUtil {
             return Cipher.getInstance(DES3_PADDING);
         } catch (Exception e) {
             log.error("生成Cipher加解密对象异常",e);
-            throw new ParameterException(ErrorCodeEnum.ENCRYPT_DECRYPT_ERROR);
+            throw new ParameterException(ErrorCode.ENCRYPT_DECRYPT_ERROR);
         }
     }
 
@@ -205,7 +205,7 @@ public class DesUtil {
             return keyFactory.generateSecret(desKey);
         } catch (Exception e) {
             log.error("DES获取秘钥key失败",e);
-            throw new ParameterException(ErrorCodeEnum.ENCRYPT_DECRYPT_ERROR);
+            throw new ParameterException(ErrorCode.ENCRYPT_DECRYPT_ERROR);
         }
     }
 

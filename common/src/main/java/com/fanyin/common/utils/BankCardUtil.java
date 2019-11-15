@@ -1,7 +1,7 @@
 package com.fanyin.common.utils;
 
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 
 import java.time.LocalDate;
@@ -47,7 +47,7 @@ public class BankCardUtil {
      */
     public static String getBirthDay(String idCard){
         if(!RegExpUtil.idCard(idCard)){
-            throw new ParameterException(ErrorCodeEnum.ID_CARD_ERROR);
+            throw new ParameterException(ErrorCode.ID_CARD_ERROR);
         }
         if (idCard.length() == ID_CARD_LENGTH){
             return idCard.substring(6,14);

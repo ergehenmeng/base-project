@@ -1,6 +1,6 @@
 package com.fanyin.interceptor;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.SystemException;
 import com.fanyin.model.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public RespBody exception(Exception e, HttpServletRequest request){
         log.error("系统异常,url:[{}]",request.getRequestURI(),e);
-        return RespBody.error(ErrorCodeEnum.SYSTEM_ERROR);
+        return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 
     /**
@@ -52,6 +52,6 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.OK)
     public RespBody exception(NoHandlerFoundException e, HttpServletRequest request){
         log.error("访问地址异常,url:[{}]",request.getRequestURI());
-        return RespBody.error(ErrorCodeEnum.PAGE_NOT_FOUND);
+        return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }
 }

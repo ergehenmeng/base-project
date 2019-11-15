@@ -2,7 +2,7 @@ package com.fanyin.service.system.impl;
 
 
 import com.fanyin.common.constant.CacheConstant;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.dto.system.dict.DictAddRequest;
 import com.fanyin.model.dto.system.dict.DictEditRequest;
@@ -65,7 +65,7 @@ public class SystemDictServiceImpl implements SystemDictService {
         dict.setId(id);
         int i = systemDictMapper.updateByIdSelective(dict);
         if(i != 1){
-            throw new BusinessException(ErrorCodeEnum.DICT_LOCKED_ERROR);
+            throw new BusinessException(ErrorCode.DICT_LOCKED_ERROR);
         }
     }
 

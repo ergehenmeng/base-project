@@ -1,6 +1,6 @@
 package com.fanyin.configuration;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import com.fanyin.common.utils.DateUtil;
 import com.fanyin.common.utils.StringUtil;
@@ -24,7 +24,7 @@ public class DatePropertyEditor extends PropertyEditorSupport {
             try {
                 super.setValue(DateUtil.parseShort(text));
             }catch (Exception e1){
-                throw new ParameterException(ErrorCodeEnum.DATE_CASE_ERROR);
+                throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
             }
         }
     }

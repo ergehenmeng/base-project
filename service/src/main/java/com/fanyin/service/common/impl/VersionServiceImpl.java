@@ -1,7 +1,7 @@
 package com.fanyin.service.common.impl;
 
 import com.fanyin.common.enums.Channel;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.VersionUtil;
 import com.fanyin.constants.ConfigConstant;
@@ -63,7 +63,7 @@ public class VersionServiceImpl implements VersionService {
         Version appVersion = versionMapper.selectByPrimaryKey(id);
         Version version = versionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
         if(version != null){
-            throw new BusinessException(ErrorCodeEnum.VERSION_REDO);
+            throw new BusinessException(ErrorCode.VERSION_REDO);
         }
         appVersion.setState((byte)1);
         versionMapper.updateByPrimaryKeySelective(appVersion);

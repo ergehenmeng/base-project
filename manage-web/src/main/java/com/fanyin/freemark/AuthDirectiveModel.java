@@ -1,6 +1,6 @@
 package com.fanyin.freemark;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
@@ -31,7 +31,7 @@ public class AuthDirectiveModel implements TemplateDirectiveModel {
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         Object nidValue = params.get(NID);
         if(nidValue == null){
-            throw new BusinessException(ErrorCodeEnum.AUTH_NID_ERROR);
+            throw new BusinessException(ErrorCode.AUTH_NID_ERROR);
         }
         String nid = nidValue.toString();
         SecurityOperator operator = AbstractController.getRequiredOperator();

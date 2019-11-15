@@ -3,7 +3,7 @@ package com.fanyin.interceptor;
 import com.fanyin.annotation.Access;
 import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.Channel;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.model.ext.RequestMessage;
@@ -37,7 +37,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
         //访问来源
         if(!this.requestChannel(handler,message.getChannel())){
             log.error("请求接口非法,channel:[{}]",message.getChannel());
-            throw new RequestException(ErrorCodeEnum.REQUEST_INTERFACE_ERROR);
+            throw new RequestException(ErrorCode.REQUEST_INTERFACE_ERROR);
         }
         //登陆
         if(this.access(handler)){
@@ -58,12 +58,12 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
     private void accessTokenVerify(String accessKey, String accessToken, RequestMessage message){
         if (accessKey == null || accessToken == null){
             log.error("令牌为空,accessKey:[{}],accessToken:[{}]",accessKey,accessToken);
-            throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
+            throw new RequestException(ErrorCode.REQUEST_PARAM_ILLEGAL);
         }
         AccessToken token = accessTokenService.getByAccessKey(accessKey);
         if (token == null || !accessToken.equals(token.getAccessToken()) || !token.getChannel().equals(message.getChannel())){
             log.error("令牌无效,accessKey:[{}]",accessKey);
-            throw new RequestException(ErrorCodeEnum.ACCESS_TOKEN_TIMEOUT);
+            throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
         //重新放入刷新超时时间
         accessTokenService.saveByAccessKey(token);

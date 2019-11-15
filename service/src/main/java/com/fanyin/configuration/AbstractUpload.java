@@ -1,6 +1,6 @@
 package com.fanyin.configuration;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.DateUtil;
 import com.google.common.collect.Lists;
@@ -65,7 +65,7 @@ public abstract class AbstractUpload{
     protected String saveFile(MultipartFile file, long maxSize){
         if(maxSize < file.getSize()){
             log.warn("上传文件过大:[{}]",file.getSize());
-            throw new BusinessException(ErrorCodeEnum.UPLOAD_TOO_BIG.getCode(),"文件过大,单文件最大:" + maxSize / 1048576 + "M");
+            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(),"文件过大,单文件最大:" + maxSize / 1048576 + "M");
         }
         return this.doSaveFile(file);
     }
@@ -90,7 +90,7 @@ public abstract class AbstractUpload{
             file.transferTo(createFile(filePath));
         } catch (IOException e) {
             log.warn("上传文件保存失败",e);
-            throw new BusinessException(ErrorCodeEnum.FILE_SAVE_ERROR);
+            throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
         return filePath.replaceAll("\\\\","/");
     }
@@ -106,7 +106,7 @@ public abstract class AbstractUpload{
         if(!parentFile.exists()){
             if(!parentFile.mkdirs()){
                 log.error("文件目录创建失败:[{}]",parentFile.getAbsoluteFile());
-                throw new BusinessException(ErrorCodeEnum.FILE_SAVE_ERROR);
+                throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
             }
         }
         return file;
@@ -136,7 +136,7 @@ public abstract class AbstractUpload{
         }
 
         if(requestSize > maxSize){
-            throw new BusinessException(ErrorCodeEnum.UPLOAD_TOO_BIG.getCode(),"文件过大,总文件大小:" + maxSize / (1024 * 1024) + "M");
+            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(),"文件过大,总文件大小:" + maxSize / (1024 * 1024) + "M");
         }
 
         List<String> paths = Lists.newArrayList();

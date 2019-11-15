@@ -1,6 +1,6 @@
 package com.fanyin.service.common.impl;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.dao.mapper.business.TaskConfigMapper;
 import com.fanyin.dao.model.business.TaskConfig;
@@ -15,7 +15,6 @@ import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -49,7 +48,7 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     @Override
     public void editTaskConfig(TaskEditRequest request) {
         if(!CronSequenceGenerator.isValidExpression(request.getCronExpression())){
-            throw new BusinessException(ErrorCodeEnum.CRON_CONFIG_ERROR);
+            throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
         }
         TaskConfig config = DataUtil.copy(request, TaskConfig.class);
         taskConfigMapper.updateByPrimaryKeySelective(config);

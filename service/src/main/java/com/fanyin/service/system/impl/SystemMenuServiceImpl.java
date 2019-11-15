@@ -1,6 +1,6 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.dto.system.menu.MenuAddRequest;
 import com.fanyin.model.dto.system.menu.MenuEditRequest;
@@ -78,7 +78,7 @@ public class SystemMenuServiceImpl implements SystemMenuService {
         try{
             systemMenuMapper.insertSelective(copy);
         }catch (Exception e){
-            throw new BusinessException(ErrorCodeEnum.MENU_NID_ERROR);
+            throw new BusinessException(ErrorCode.MENU_NID_ERROR);
         }
     }
 
@@ -92,10 +92,10 @@ public class SystemMenuServiceImpl implements SystemMenuService {
             index = systemMenuMapper.updateByPrimaryKeySelective(copy);
         }catch (Exception e){
             //唯一索引会导致异常
-            throw new BusinessException(ErrorCodeEnum.MENU_NID_ERROR);
+            throw new BusinessException(ErrorCode.MENU_NID_ERROR);
         }
         if(index != 1){
-            throw new BusinessException(ErrorCodeEnum.UPDATE_MENU_ERROR);
+            throw new BusinessException(ErrorCode.UPDATE_MENU_ERROR);
         }
     }
 

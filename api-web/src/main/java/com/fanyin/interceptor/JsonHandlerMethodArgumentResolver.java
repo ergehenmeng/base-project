@@ -3,7 +3,7 @@ package com.fanyin.interceptor;
 import com.fanyin.annotation.SkipDataBinder;
 import com.alibaba.fastjson.JSONObject;
 import com.fanyin.common.constant.CommonConstant;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import com.fanyin.common.exception.RequestException;
 import org.apache.commons.io.IOUtils;
@@ -51,7 +51,7 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
     @Override
     public Object resolveArgument(@NotNull MethodParameter parameter, ModelAndViewContainer mavContainer, @Nullable NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         if(webRequest == null){
-            throw new RequestException(ErrorCodeEnum.REQUEST_RESOLVE_ERROR);
+            throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }
 
         HttpServletRequest request = ((ServletWebRequest)webRequest).getRequest();
@@ -63,7 +63,7 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
         if(bindingResult.hasErrors()){
             //只显示第一条校验失败的信息
             ObjectError objectError = bindingResult.getAllErrors().get(0);
-            throw new RequestException(ErrorCodeEnum.PARAMETER_PARSE_ERROR.getCode(),objectError.getDefaultMessage());
+            throw new RequestException(ErrorCode.PARAM_VERIFY_ERROR.getCode(),objectError.getDefaultMessage());
         }
         return args;
     }
@@ -83,7 +83,7 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
             }
             return JSONObject.parseObject(args,cls);
         }catch (IOException e){
-            throw new ParameterException(ErrorCodeEnum.JSON_FORMAT_ERROR);
+            throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.fanyin.configuration.filter;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +41,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
             return bos.toByteArray();
         } catch (IOException e) {
             log.error("过滤器解析request数据异常",e);
-            throw new ParameterException(ErrorCodeEnum.PARAMETER_PARSE_ERROR);
+            throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
         }
     }
 

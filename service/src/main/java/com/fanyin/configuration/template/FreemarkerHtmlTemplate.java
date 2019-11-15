@@ -1,6 +1,6 @@
 package com.fanyin.configuration.template;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.constants.SystemConstant;
 import freemarker.template.Configuration;
@@ -31,7 +31,7 @@ public class FreemarkerHtmlTemplate implements HtmlTemplate {
             return this.doRender(textTemplate,param);
         }catch (Exception e){
             log.error("freemarker解析异常",e);
-            throw new BusinessException(ErrorCodeEnum.TEMPLATE_RENDER_ERROR);
+            throw new BusinessException(ErrorCode.TEMPLATE_RENDER_ERROR);
         }
     }
 
@@ -57,7 +57,7 @@ public class FreemarkerHtmlTemplate implements HtmlTemplate {
             return this.doRender(template,params);
         }catch (Exception e){
             log.error("freemarker获取模板异常 path:[{}]",path,e);
-            throw new BusinessException(ErrorCodeEnum.TEMPLATE_RENDER_ERROR);
+            throw new BusinessException(ErrorCode.TEMPLATE_RENDER_ERROR);
         }
     }
 }

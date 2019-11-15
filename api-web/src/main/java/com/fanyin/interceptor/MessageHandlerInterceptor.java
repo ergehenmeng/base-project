@@ -1,7 +1,7 @@
 package com.fanyin.interceptor;
 
 import com.fanyin.common.constant.AppHeader;
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.RequestMessage;
 import com.fanyin.model.ext.RequestThreadLocal;
@@ -37,7 +37,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
                 || checkHeaderLength(deviceBrand)
                 || checkHeaderLength(deviceModel)){
             //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
-            throw new RequestException(ErrorCodeEnum.REQUEST_PARAM_ILLEGAL);
+            throw new RequestException(ErrorCode.REQUEST_PARAM_ILLEGAL);
         }
         RequestMessage message = RequestMessage.builder().version(version).channel(channel).osVersion(osVersion).deviceBrand(deviceBrand).deviceModel(deviceModel).build();
         RequestThreadLocal.set(message);

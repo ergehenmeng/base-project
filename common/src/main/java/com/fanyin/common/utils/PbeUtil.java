@@ -1,7 +1,7 @@
 package com.fanyin.common.utils;
 
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -66,7 +66,7 @@ public class PbeUtil {
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
             log.error("pbe加密失败",e);
-            throw new ParameterException(ErrorCodeEnum.ENCRYPT_ERROR);
+            throw new ParameterException(ErrorCode.ENCRYPT_ERROR);
         }
     }
 
@@ -91,7 +91,7 @@ public class PbeUtil {
             SecretKeyFactory factory = SecretKeyFactory.getInstance(PBE);
             return factory.generateSecret(pbeKeySpec);
         } catch (Exception e) {
-            throw new ParameterException(ErrorCodeEnum.ENCRYPT_DECRYPT_ERROR);
+            throw new ParameterException(ErrorCode.ENCRYPT_DECRYPT_ERROR);
         }
     }
     /**
@@ -112,7 +112,7 @@ public class PbeUtil {
             return new String(result,Charset.forName("UTF-8"));
         } catch (Exception e) {
             log.error("pbe解密失败",e);
-            throw new ParameterException(ErrorCodeEnum.DECRYPT_ERROR);
+            throw new ParameterException(ErrorCode.DECRYPT_ERROR);
         }
     }
 

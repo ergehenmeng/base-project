@@ -3,13 +3,12 @@ package com.fanyin.common.enums;
 /**
  * 系统错误信息枚举 包含系统所以的异常信息
  * 404 500等标准错误码返回前台时,可做特殊处理(多个业务共用一个错误码)
- * 2000-3000 数据格式异常
- * 3000-4000 业务异常
- * 4000-5000 存管异常
+ * 1000+ 数据异常
+ * 2000+ 业务异常
  * @author 二哥很猛
  * @date 2018/1/12 16:46
  */
-public enum ErrorCodeEnum {
+public enum ErrorCode {
 
     /**
      * 暂无访问权限
@@ -132,9 +131,14 @@ public enum ErrorCodeEnum {
     SIGNATURE_VERIFY_ERROR(1018,"签名校验失败"),
 
     /**
+     * 读取参数异常
+     */
+    READ_PARAM_ERROR(1019,"读取参数异常"),
+
+    /**
      * 参数解析异常
      */
-    PARAMETER_PARSE_ERROR(2000,"参数解析异常"),
+    PARAM_VERIFY_ERROR(2000,"参数校验失败"),
 
     /**
      * 身份证格式校验错误
@@ -331,7 +335,7 @@ public enum ErrorCodeEnum {
      * @param code 错误代码
      * @param msg 错误信息
      */
-    ErrorCodeEnum(int code,String msg){
+    ErrorCode(int code, String msg){
         this.code = code;
         this.msg = msg;
     }

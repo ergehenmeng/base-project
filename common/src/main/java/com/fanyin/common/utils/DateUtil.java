@@ -1,6 +1,6 @@
 package com.fanyin.common.utils;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
@@ -15,8 +15,6 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * @author 二哥很猛
@@ -113,7 +111,7 @@ public class DateUtil extends DateUtils {
         try {
             return DateUtils.parseDate(date,pattern);
         }catch (Exception e){
-            throw new ParameterException(ErrorCodeEnum.DATE_CASE_ERROR);
+            throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
         }
     }
 

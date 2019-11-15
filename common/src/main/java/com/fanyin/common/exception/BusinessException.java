@@ -1,6 +1,6 @@
 package com.fanyin.common.exception;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 
 /**
  * @author 二哥很猛
@@ -10,7 +10,7 @@ public class BusinessException extends SystemException {
 
     private static final long serialVersionUID = 860110039545282195L;
 
-    public BusinessException(ErrorCodeEnum error) {
+    public BusinessException(ErrorCode error) {
         super(error);
     }
 

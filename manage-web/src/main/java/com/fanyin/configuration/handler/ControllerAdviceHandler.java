@@ -1,6 +1,6 @@
 package com.fanyin.configuration.handler;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.configuration.DatePropertyEditor;
 import com.fanyin.model.ext.RespBody;
@@ -48,6 +48,6 @@ public class ControllerAdviceHandler {
     @ResponseBody
     public RespBody exception(HttpServletRequest request, Exception e){
         log.error("系统异常 url:[{}]",request.getRequestURI(),e);
-        return RespBody.error(ErrorCodeEnum.SYSTEM_ERROR);
+        return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 }

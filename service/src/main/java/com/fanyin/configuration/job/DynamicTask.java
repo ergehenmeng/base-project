@@ -1,6 +1,6 @@
 package com.fanyin.configuration.job;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.dao.model.business.TaskConfig;
@@ -88,7 +88,7 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
         for (DynamicTriggerTask task : taskList) {
             if(StringUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())){
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]",task.getNid(),task.getCronExpression());
-                throw new BusinessException(ErrorCodeEnum.CRON_CONFIG_ERROR);
+                throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }
         }
         for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {

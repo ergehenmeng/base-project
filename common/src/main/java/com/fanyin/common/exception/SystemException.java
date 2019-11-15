@@ -1,6 +1,6 @@
 package com.fanyin.common.exception;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 
 /**
  * 系统异常基类,不要直接使用
@@ -17,7 +17,7 @@ public class SystemException extends RuntimeException {
      * 构造方法
      * @param error 错误类型枚举
      */
-    SystemException(ErrorCodeEnum error){
+    SystemException(ErrorCode error){
         this(error.getCode(),error.getMsg());
     }
     /**

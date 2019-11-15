@@ -1,10 +1,9 @@
 package com.fanyin.model.ext;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.Serializable;
 
@@ -50,7 +49,7 @@ public class RespBody<T> implements Serializable {
         return body;
     }
 
-    public static <T> RespBody<T> error(ErrorCodeEnum error){
+    public static <T> RespBody<T> error(ErrorCode error){
         RespBody<T> body = new RespBody<>();
         body.setCode(error.getCode());
         body.setMsg(error.getMsg());

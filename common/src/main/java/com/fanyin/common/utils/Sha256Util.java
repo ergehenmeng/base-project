@@ -1,6 +1,6 @@
 package com.fanyin.common.utils;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,7 +30,7 @@ public class Sha256Util {
             return ByteUtil.byteArrayToHex(digest);
         } catch (Exception e) {
             log.error("sha256加密异常",e);
-            throw new ParameterException(ErrorCodeEnum.SHA_256_ERROR);
+            throw new ParameterException(ErrorCode.SHA_256_ERROR);
         }
     }
 
@@ -48,7 +48,7 @@ public class Sha256Util {
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {
             log.error("HmacSHA256加密异常",e);
-            throw new ParameterException(ErrorCodeEnum.SHA_256_ERROR);
+            throw new ParameterException(ErrorCode.SHA_256_ERROR);
         }
     }
 

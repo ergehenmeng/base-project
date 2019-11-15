@@ -1,6 +1,6 @@
 package com.fanyin.queue;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.model.ext.AsyncResponse;
 import com.fanyin.model.ext.AsyncKey;
@@ -28,7 +28,7 @@ public abstract class AbstractAsyncTask<T extends AsyncKey,B> extends AbstractTa
             asyncResponse.setCode(exception.getCode());
             asyncResponse.setMsg(exception.getMessage());
         }else{
-            ErrorCodeEnum unknownError = getUnknownError();
+            ErrorCode unknownError = getUnknownError();
             asyncResponse.setCode(unknownError.getCode());
             asyncResponse.setMsg(unknownError.getMsg());
         }
@@ -41,8 +41,8 @@ public abstract class AbstractAsyncTask<T extends AsyncKey,B> extends AbstractTa
      * 在队列执行时如果出现未知的异常信息时应该显示给前台的错误信息 默认系统异常
      * @return 异常信息枚举(用于显示给前台)
      */
-    protected ErrorCodeEnum getUnknownError(){
-        return ErrorCodeEnum.SYSTEM_ERROR;
+    protected ErrorCode getUnknownError(){
+        return ErrorCode.SYSTEM_ERROR;
     }
 
 }

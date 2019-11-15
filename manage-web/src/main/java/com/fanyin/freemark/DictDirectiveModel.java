@@ -1,6 +1,6 @@
 package com.fanyin.freemark;
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.dao.model.system.SystemDict;
 import com.fanyin.service.system.SystemDictService;
@@ -105,7 +105,7 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
         }
         builder.append(">");
         if(nid == null){
-            throw new BusinessException(ErrorCodeEnum.NID_IS_NULL);
+            throw new BusinessException(ErrorCode.NID_IS_NULL);
         }
         StringBuilder renderOption = renderOption(nid, total, optionValue);
         builder.append(renderOption);

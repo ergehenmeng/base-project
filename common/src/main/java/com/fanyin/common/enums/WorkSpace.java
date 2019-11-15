@@ -50,7 +50,7 @@ public enum WorkSpace {
         try {
             address = InetAddress.getLocalHost();
         } catch (final UnknownHostException e) {
-            throw new ParameterException(ErrorCodeEnum.UN_KNOW_HOST_ADDRESS);
+            throw new ParameterException(ErrorCode.UN_KNOW_HOST_ADDRESS);
         }
         byte[] ipAddressByteArray = address.getAddress();
         WORK_ID = (long) (((ipAddressByteArray[ipAddressByteArray.length - 2] & 0B11) << Byte.SIZE) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 0xFF));
@@ -61,6 +61,6 @@ public enum WorkSpace {
      * @return id
      */
     public long getId() {
-        throw new ParameterException(ErrorCodeEnum.NOT_IMPLEMENT);
+        throw new ParameterException(ErrorCode.NOT_IMPLEMENT);
     }
 }

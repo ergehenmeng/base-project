@@ -1,7 +1,7 @@
 package com.fanyin.controller;
 
 
-import com.fanyin.common.enums.ErrorCodeEnum;
+import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.configuration.AbstractUpload;
 import com.fanyin.model.ext.RequestMessage;
@@ -20,7 +20,7 @@ public class AbstractController extends AbstractUpload {
     protected int getUserId(){
         int userId = this.getMessage().getUserId();
         if(userId == 0){
-            throw new BusinessException(ErrorCodeEnum.USER_LOGIN_TIMEOUT);
+            throw new BusinessException(ErrorCode.USER_LOGIN_TIMEOUT);
         }
         return userId;
     }
