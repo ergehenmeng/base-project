@@ -49,7 +49,7 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
     public void configureTasks(@NotNull ScheduledTaskRegistrar taskRegistrar) {
         this.scheduledTaskRegistrar = taskRegistrar;
         taskRegistrar.setScheduler(this.createScheduler());
-        this.openRefreshTask();
+        this.openOrRefreshTask();
     }
 
     /**
@@ -66,7 +66,7 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
     /**
      * 开启或刷新定时任务
      */
-    public synchronized void openRefreshTask(){
+    public synchronized void openOrRefreshTask(){
         log.info("定时任务配置信息开始加载...");
         List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();
         if(!CollectionUtils.isEmpty(taskConfigs)){

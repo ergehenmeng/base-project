@@ -51,8 +51,8 @@ public class TaskRunnable implements Runnable {
             builder.errorMsg(ExceptionUtils.getMessage(e));
         }finally {
             builder.endTime(DateUtil.getNow());
+            taskLogService().addTaskLog(builder.build());
         }
-        taskLogService().addTaskLog(builder.build());
     }
 
     private TaskLogService taskLogService(){
