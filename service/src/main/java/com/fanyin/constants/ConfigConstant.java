@@ -3,7 +3,6 @@ package com.fanyin.constants;
 /**
  * 全局配置信息常量
  * @author 二哥很猛
- * @date 2018/11/17 15:05
  */
 public class ConfigConstant {
 
@@ -71,4 +70,19 @@ public class ConfigConstant {
      * 文件服务器地址
      */
     public static final String FILE_SERVER_ADDRESS = "file_server_address";
+
+    /**
+     * 单文件上传大小限制
+     */
+    public static final String SINGLE_MAX_FILE_SIZE = "single_max_file_size";
+
+    /**
+     * 多文件上传大小限制
+     */
+    public static final String BATCH_MAX_FILE_SIZE = "batch_max_file_size";
+
+    /**
+     * 默认文件上传的文件夹名称
+     */
+    public static final String DEFAULT_UPLOAD_FOLDER = "default_upload_folder";
 }

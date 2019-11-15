@@ -11,6 +11,7 @@ import com.fanyin.model.dto.business.image.ImageQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
 import com.fanyin.service.cache.CacheProxyService;
+import com.fanyin.service.common.FileService;
 import com.fanyin.service.common.ImageLogService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -34,6 +35,9 @@ public class ImageLogController extends AbstractController {
 
     @Autowired
     private CacheProxyService cacheProxyService;
+
+    @Autowired
+    private FileService fileService;
 
     /**
      * 分页查询图片列表
@@ -61,7 +65,7 @@ public class ImageLogController extends AbstractController {
     @Mark(RequestType.INSERT)
     public RespBody addImage(ImageAddRequest request, MultipartFile imgFile){
         if(imgFile != null && !imgFile.isEmpty()){
-            String url = super.saveFile(imgFile);
+            String url = fileService.saveFile(imgFile);
             request.setUrl(url);
             request.setSize(imgFile.getSize());
         }

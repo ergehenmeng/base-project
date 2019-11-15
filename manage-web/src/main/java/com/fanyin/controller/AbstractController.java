@@ -3,7 +3,6 @@ package com.fanyin.controller;
 
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.configuration.AbstractUpload;
 import com.fanyin.configuration.security.SecurityOperator;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpSession;
 /**
  * @author 二哥很猛
  */
-public class AbstractController extends AbstractUpload {
+public class AbstractController{
 
     /**
      * 存放session

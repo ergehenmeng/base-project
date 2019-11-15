@@ -3,7 +3,6 @@ package com.fanyin.controller;
 
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.configuration.AbstractUpload;
 import com.fanyin.model.ext.RequestMessage;
 import com.fanyin.model.ext.RequestThreadLocal;
 
@@ -11,7 +10,7 @@ import com.fanyin.model.ext.RequestThreadLocal;
  * @author 二哥很猛
  * @date 2018/1/12 17:59
  */
-public class AbstractController extends AbstractUpload {
+public class AbstractController{
 
     /**
      * 前后端分离方式:获取登陆用户的id,必须在Controller中添加@AccessToken(access=true)注解,否则获取时会抛异常

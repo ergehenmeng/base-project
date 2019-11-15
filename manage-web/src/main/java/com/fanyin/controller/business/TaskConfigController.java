@@ -64,7 +64,7 @@ public class TaskConfigController {
     @PostMapping("/business/task/refresh")
     @ResponseBody
     public RespBody refresh(){
-        dynamicTask.openRefreshTask();
+        dynamicTask.openOrRefreshTask();
         return RespBody.getInstance();
     }
 }

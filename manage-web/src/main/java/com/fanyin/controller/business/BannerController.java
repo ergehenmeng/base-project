@@ -8,6 +8,7 @@ import com.fanyin.model.dto.business.banner.BannerQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
 import com.fanyin.service.common.BannerService;
+import com.fanyin.service.common.FileService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class BannerController extends AbstractController {
 
     @Autowired
     private BannerService bannerService;
+
+    @Autowired
+    private FileService fileService;
 
     /**
      * 分页查询轮播图配置信息
@@ -54,7 +58,7 @@ public class BannerController extends AbstractController {
     @PostMapping("/business/banner/add")
     @ResponseBody
     public RespBody add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile){
-        request.setImgUrl(super.saveFile(imgFile));
+        request.setImgUrl(fileService.saveFile(imgFile));
         bannerService.addBanner(request);
         return RespBody.getInstance();
     }
@@ -66,7 +70,7 @@ public class BannerController extends AbstractController {
     @ResponseBody
     public RespBody edit(BannerEditRequest request, @RequestParam(value = "imgFile",required = false) MultipartFile imgFile){
         if(imgFile != null){
-            request.setImgUrl(super.saveFile(imgFile));
+            request.setImgUrl(fileService.saveFile(imgFile));
         }
         return RespBody.getInstance();
     }

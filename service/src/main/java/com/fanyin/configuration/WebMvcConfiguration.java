@@ -4,6 +4,7 @@ import com.fanyin.configuration.security.BcEncoder;
 import com.fanyin.configuration.security.Encoder;
 import com.fanyin.configuration.template.FreemarkerHtmlTemplate;
 import com.fanyin.configuration.template.HtmlTemplate;
+import com.fanyin.constants.SystemConstant;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -52,7 +53,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations( "file:///" + applicationProperties.getUploadDir() + AbstractUpload.DEFAULT_DIR);
+        registry.addResourceHandler("/upload/**").addResourceLocations( "file:///" + applicationProperties.getUploadDir() + SystemConstant.DEFAULT_PATTERN);
     }
 
     /**

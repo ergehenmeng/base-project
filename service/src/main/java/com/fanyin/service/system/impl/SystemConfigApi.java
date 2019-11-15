@@ -85,6 +85,21 @@ public class SystemConfigApi {
     /**
      * 根据nid获取系统参数配置信息的值
      * @param nid 唯一nid
+     * @return 系统参数结果值long 如果转换失败为0
+     */
+    public long getLong(String nid){
+        String value = this.getString(nid);
+        try {
+            return Long.parseLong(value);
+        }catch (Exception e){
+            log.error("系统参数转long异常 [{}]",value);
+            return 0L;
+        }
+    }
+
+    /**
+     * 根据nid获取系统参数配置信息的值
+     * @param nid 唯一nid
      * @return 系统参数结果值json,如果异常则抛出
      */
     public JSONObject getJson(String nid){
