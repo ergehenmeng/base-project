@@ -10,6 +10,7 @@ import com.fanyin.model.dto.business.image.ImageEditRequest;
 import com.fanyin.model.dto.business.image.ImageQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
+import com.fanyin.model.vo.upload.FilePath;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.FileService;
 import com.fanyin.service.common.ImageLogService;
@@ -65,8 +66,8 @@ public class ImageLogController extends AbstractController {
     @Mark(RequestType.INSERT)
     public RespBody addImage(ImageAddRequest request, MultipartFile imgFile){
         if(imgFile != null && !imgFile.isEmpty()){
-            String url = fileService.saveFile(imgFile);
-            request.setUrl(url);
+            FilePath filePath = fileService.saveFile(imgFile);
+            request.setUrl(filePath.getPath());
             request.setSize(imgFile.getSize());
         }
         imageLogService.addImageLog(request);

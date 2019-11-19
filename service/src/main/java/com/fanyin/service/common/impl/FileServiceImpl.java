@@ -6,6 +6,7 @@ import com.fanyin.common.utils.DateUtil;
 import com.fanyin.configuration.ApplicationProperties;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.constants.SystemConstant;
+import com.fanyin.model.vo.upload.FilePath;
 import com.fanyin.service.common.FileService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import lombok.extern.slf4j.Slf4j;
@@ -42,45 +43,47 @@ public class FileServiceImpl implements FileService {
 
 
     @Override
-    public String saveFile(@NotNull MultipartFile file) {
+    public FilePath saveFile(@NotNull MultipartFile file) {
         return this.saveFile(file,this.getFolder(),this.getSingleMaxSize());
     }
 
     @Override
-    public String saveFile(@NotNull MultipartFile file, String folder) {
+    public FilePath saveFile(@NotNull MultipartFile file, String folder) {
         return this.saveFile(file,folder,this.getSingleMaxSize());
     }
 
     @Override
-    public String saveFile(@NotNull MultipartFile file, String folder, long maxSize) {
+    public FilePath saveFile(@NotNull MultipartFile file, String folder, long maxSize) {
         this.checkSize(file,maxSize);
-        return this.doSaveFile(file, folder);
+        String path = this.doSaveFile(file, folder);
+        return FilePath.builder().path(path).address(this.getFileAddress()).build();
     }
 
     @Override
-    public String saveFile(@NotNull MultipartFile file, long maxSize) {
+    public FilePath saveFile(@NotNull MultipartFile file, long maxSize) {
         return this.saveFile(file,this.getFolder(),maxSize);
     }
 
     @Override
-    public List<String> saveFiles(@NotNull List<MultipartFile> files) {
+    public FilePath saveFiles(@NotNull List<MultipartFile> files) {
         return this.saveFiles(files,this.getFolder(),this.getBatchMaxSize());
     }
 
 
     @Override
-    public List<String> saveFiles(@NotNull List<MultipartFile> files, String folder) {
+    public FilePath saveFiles(@NotNull List<MultipartFile> files, String folder) {
         return this.saveFiles(files,folder,this.getBatchMaxSize());
     }
 
     @Override
-    public List<String> saveFiles(@NotNull List<MultipartFile> files, String folder, long maxSize) {
+    public FilePath saveFiles(@NotNull List<MultipartFile> files, String folder, long maxSize) {
         this.checkSize(files, maxSize);
-        return files.stream().map(file -> this.saveFile(file,folder)).collect(Collectors.toList());
+        List<String> paths = files.stream().map(file -> this.doSaveFile(file, folder)).collect(Collectors.toList());
+        return FilePath.builder().address(this.getFileAddress()).paths(paths).build();
     }
 
     @Override
-    public List<String> saveFiles(@NotNull List<MultipartFile> files, long maxSize) {
+    public FilePath saveFiles(@NotNull List<MultipartFile> files, long maxSize) {
         return this.saveFiles(files,this.getFolder(),maxSize);
     }
 
@@ -92,7 +95,7 @@ public class FileServiceImpl implements FileService {
     private void checkSize(MultipartFile file,long maxSize){
         if(maxSize < file.getSize()){
             log.warn("上传文件过大:[{}]",file.getSize());
-            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(),"文件过大,单文件最大:" + maxSize / 1024 + "M");
+            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(),"单文件最大:" + maxSize / 1024 + "M");
         }
     }
 
@@ -105,7 +108,7 @@ public class FileServiceImpl implements FileService {
         long sum = files.stream().mapToLong(MultipartFile::getSize).sum();
         if(maxSize < sum){
             log.warn("上传文件过大:[{}]",sum);
-            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(),"文件过大,单文件最大:" + maxSize / 1024 + "M");
+            throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(),"文件最大:" + maxSize / 1024 + "M");
         }
     }
 
@@ -179,5 +182,9 @@ public class FileServiceImpl implements FileService {
 
     private String getFolder(){
         return systemConfigApi.getString(ConfigConstant.DEFAULT_UPLOAD_FOLDER);
+    }
+
+    private String getFileAddress(){
+        return systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS);
     }
 }

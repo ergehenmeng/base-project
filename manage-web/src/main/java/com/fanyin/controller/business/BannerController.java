@@ -58,7 +58,7 @@ public class BannerController extends AbstractController {
     @PostMapping("/business/banner/add")
     @ResponseBody
     public RespBody add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile){
-        request.setImgUrl(fileService.saveFile(imgFile));
+        request.setImgUrl(fileService.saveFile(imgFile).getPath());
         bannerService.addBanner(request);
         return RespBody.getInstance();
     }
@@ -70,8 +70,9 @@ public class BannerController extends AbstractController {
     @ResponseBody
     public RespBody edit(BannerEditRequest request, @RequestParam(value = "imgFile",required = false) MultipartFile imgFile){
         if(imgFile != null){
-            request.setImgUrl(fileService.saveFile(imgFile));
+            request.setImgUrl(fileService.saveFile(imgFile).getPath());
         }
+        bannerService.editBanner(request);
         return RespBody.getInstance();
     }
 
