@@ -28,6 +28,7 @@ import com.fanyin.service.user.LoginLogService;
 import com.fanyin.service.user.UserExtService;
 import com.fanyin.service.user.UserService;
 import com.fanyin.utils.DataUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service("userService")
 @Transactional(rollbackFor = RuntimeException.class)
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -103,8 +105,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginToken accountLogin(AccountLoginRequest login) {
-        User user = this.getByAccountRequired(login.getAccount());
-        if(!encoder.encode(login.getPwd()).equals(user.getPwd())){
+        User user = this.getByAccount(login.getAccount());
+        if(user == null || !encoder.matches(login.getPwd(),user.getPwd())){
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
         return this.doLogin(user,login.getIp());

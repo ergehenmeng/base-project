@@ -1,16 +1,21 @@
 package com.fanyin.controller;
 
+import com.fanyin.annotation.SkipAccess;
 import com.fanyin.model.dto.login.AccountLoginRequest;
 import com.fanyin.model.dto.login.LoginSendSmsRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
 import com.fanyin.model.ext.RespBody;
 import com.fanyin.model.vo.login.LoginToken;
 import com.fanyin.service.user.UserService;
+import com.fanyin.utils.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登陆,找回密码相关
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/8/20 10:17
  */
 @RestController
+@RequestMapping("/api")
 @Api(tags = "登陆,找回密码功能")
 public class LoginController extends AbstractController{
 
@@ -39,7 +45,8 @@ public class LoginController extends AbstractController{
      */
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/by_sms")
-    public RespBody<LoginToken> bySms(SmsLoginRequest login){
+    public RespBody<LoginToken> bySms(SmsLoginRequest login, HttpServletRequest request){
+        login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.smsLogin(login));
     }
 
@@ -48,7 +55,9 @@ public class LoginController extends AbstractController{
      */
     @ApiOperation("手机或邮箱密码登陆")
     @PostMapping("/login/by_account")
-    public RespBody<LoginToken> byAccount(AccountLoginRequest login){
+    @SkipAccess
+    public RespBody<LoginToken> byAccount(AccountLoginRequest login,HttpServletRequest request){
+        login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.accountLogin(login));
     }
 }

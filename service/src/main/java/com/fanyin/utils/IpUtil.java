@@ -43,7 +43,11 @@ public class IpUtil {
         return ip;
     }
 
-    public static String getIp(){
+    /**
+     * 获取本机ip地址
+     * @return 127.0.0.1
+     */
+    public static String getLocalIp(){
         try {
             return InetAddress.getLocalHost().getHostAddress();
         }catch (Exception e){

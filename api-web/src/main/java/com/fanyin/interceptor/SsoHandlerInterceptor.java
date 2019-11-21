@@ -29,15 +29,19 @@ public class SsoHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        //是否开启单客户端登陆,即在同一类设备上只允许一个账号登陆
+        //是否开启单客户端登陆,即一个账号只能在一个移动设备上登陆
         if(systemConfigApi.getBoolean(ConfigConstant.SINGLE_CLIENT_LOGIN)){
             RequestMessage message = RequestThreadLocal.get();
-            AccessToken accessToken = accessTokenService.getByUserId(message.getUserId());
-            if(accessToken == null){
-                throw new BusinessException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
-            }
-            if(!accessToken.getAccessKey().equals(message.getAccessKey())){
-                throw new BusinessException(ErrorCode.MULTIPLE_CLIENT_LOGIN);
+            //大于0证明用户已经在前一步登录认证成功
+            //等于0且能走到该拦截器证明访问的接口不需要登陆,且用户确实没有登陆,不需要判断单设备登陆
+            if(message.getUserId() > 0){
+                AccessToken accessToken = accessTokenService.getByUserId(message.getUserId());
+                if(accessToken == null){
+                    throw new BusinessException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
+                }
+                if(!accessToken.getAccessKey().equals(message.getAccessKey())){
+                    throw new BusinessException(ErrorCode.MULTIPLE_CLIENT_LOGIN);
+                }
             }
         }
         return true;

@@ -3,6 +3,7 @@ package com.fanyin.configuration;
 import com.fanyin.configuration.filter.ByteHttpRequestFilter;
 import com.fanyin.configuration.filter.IpBlackListFilter;
 import com.fanyin.interceptor.*;
+import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
 import java.util.List;
 
 /**
@@ -108,16 +110,23 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
         return new MessageHandlerInterceptor();
     }
 
+
     @Bean("ipBlackListFilter")
-    public FilterRegistrationBean<IpBlackListFilter> ipBlackListFilter(){
-        FilterRegistrationBean<IpBlackListFilter> registrationBean = new FilterRegistrationBean<>();
-        IpBlackListFilter requestFilter = new IpBlackListFilter();
-        registrationBean.setFilter(requestFilter);
+    public Filter ipFilter(){
+        return new IpBlackListFilter();
+    }
+
+    @Bean
+    public DelegatingFilterProxyRegistrationBean registrationBean(){
+        DelegatingFilterProxyRegistrationBean registrationBean = new DelegatingFilterProxyRegistrationBean("ipBlackListFilter");
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE);
         return registrationBean;
     }
 
+    /**
+     * 过滤器,不由spring管理
+     */
     @Bean("byteHttpRequestFilter")
     public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter(){
         FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();

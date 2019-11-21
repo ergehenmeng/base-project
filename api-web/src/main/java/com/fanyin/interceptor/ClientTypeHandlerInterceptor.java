@@ -1,6 +1,7 @@
 package com.fanyin.interceptor;
 
 import com.fanyin.annotation.ClientType;
+import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.Channel;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
@@ -25,7 +26,7 @@ public class ClientTypeHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-        String channel = RequestThreadLocal.getChannel();
+        String channel = request.getHeader(AppHeader.CHANNEL);
         Channel[] channels = getClientTypeAnnotation(handler);
         for (Channel ch : channels){
             if(ch.name().equals(channel)){

@@ -14,14 +14,14 @@
     <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
 
     <!-- 普通格式输出 %d输出时间,%thread输出线程,%-5level从左到右5个字符整齐输出日志级别 %msg输出日志信息 %n换行符-->
-    <property name="default_console_log_pattern" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"/>
+    <property name="default_log_pattern" value="%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n"/>
     <!--彩色格式输出-->
-    <property name="console_log_pattern" value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%thread]){faint} %clr(%logger{50}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}" />
+    <property name="color_log_pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %yellow(%thread) | %highlight(%-5level) | %cyan(%logger{50}) | %msg%n" />
     <!--ch.qos.logback.core.ConsoleAppender 负责把日志输出到控制台-->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <!--%d输出时间,%thread输出线程,%-5level从左到右5个字符整齐输出日志级别 %msg输出日志信息 %n换行符-->
-            <pattern>${console_log_pattern}</pattern>
+            <pattern>${default_log_pattern}</pattern>
         </encoder>
     </appender>
 
@@ -32,7 +32,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>${console_log_pattern}</pattern>
+            <pattern>${default_log_pattern}</pattern>
         </encoder>
     </appender>
 
@@ -42,7 +42,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>${console_log_pattern}</pattern>
+            <pattern>${default_log_pattern}</pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>error</level>

@@ -19,7 +19,7 @@
 
 ###其他注意事项
 * `swagger`访问地址`http://host:ip/swagger/index.html`
-* `RequestMapping`返回json时可以为任意对象,最终会由`RespBodyAdviceHandler`包装为`RespBody`对象
+* `RequestMapping`返回前台数据时,可以为任意对象,最终会由`RespBodyAdviceHandler`包装为`RespBody`对象,如果不想返回前台RespBody格式的对象可在方法上添加`@SkipWrapper`
 * 系统参数`single_client_login` 用来开启或关闭单客户端最多一个人登陆的校验
 * 表`black_roster` 为ip黑名单 可限制某些用户访问
 * 默认所有的接口均需要登录才能访问,如果某个接口不需要登陆校验则方法上添加`@SkipAccess`

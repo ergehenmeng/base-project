@@ -42,7 +42,7 @@ public class TaskRunnable implements Runnable {
 
     @Override
     public void run() {
-        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(nid).beanName(beanName).ip(IpUtil.getIp()).startTime(DateUtil.getNow());
+        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(nid).beanName(beanName).ip(IpUtil.getLocalIp()).startTime(DateUtil.getNow());
         try {
             getTaskBean().execute();
         }catch (Exception e){

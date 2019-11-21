@@ -33,7 +33,7 @@ public class AccessToken implements Serializable {
     /**
      * 用户id
      */
-    private Integer userId;
+    private int userId;
 
     /**
      * 登陆来源 ANDROID IOS
