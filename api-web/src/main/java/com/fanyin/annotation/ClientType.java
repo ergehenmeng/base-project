@@ -12,25 +12,19 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 访问权限校验 主要针对前后端分离接口
+ * 接口客户端类型限制
  * @author 二哥很猛
  * @date 2018/8/14 16:19
  */
 @Documented
-@Target({METHOD,TYPE})
+@Target({METHOD})
 @Retention(RUNTIME)
-public @interface Access {
+public @interface ClientType {
 
     /**
-     * 是否需要登陆(即access校验)
-     * @return 默认是
-     */
-    boolean access() default true;
-
-    /**
-     * 客户端类型
+     * 接口访问类型限制
      * @return 默认后台请求
      */
-    Channel[] value() default Channel.PC;
+    Channel[] value() default {};
 
 }

@@ -1,12 +1,13 @@
 package com.fanyin.interceptor;
 
 import com.fanyin.annotation.SkipDataBinder;
-import com.alibaba.fastjson.JSONObject;
 import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import com.fanyin.common.exception.RequestException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -34,6 +35,8 @@ import java.io.IOException;
  */
 public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public boolean supportsParameter(@Nullable MethodParameter parameter) {
@@ -81,7 +84,7 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
              if(args == null){
                 return null;
             }
-            return JSONObject.parseObject(args,cls);
+            return objectMapper.readValue(args,cls);
         }catch (IOException e){
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }

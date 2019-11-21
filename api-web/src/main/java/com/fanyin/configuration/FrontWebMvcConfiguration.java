@@ -40,6 +40,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(ipHandlerInterceptor()).order(Integer.MIN_VALUE + 5);
+        registry.addInterceptor(clientTypeHandlerInterceptor()).order(Integer.MIN_VALUE + 6);
         registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 20);
@@ -74,6 +75,14 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Bean
     public HandlerInterceptor accessTokenHandlerInterceptor(){
         return new AccessTokenHandlerInterceptor();
+    }
+
+    /**
+     * 客户端类型拦截器
+     */
+    @Bean
+    public HandlerInterceptor clientTypeHandlerInterceptor(){
+        return new ClientTypeHandlerInterceptor();
     }
 
     /**

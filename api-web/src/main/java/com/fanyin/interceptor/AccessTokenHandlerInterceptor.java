@@ -1,15 +1,13 @@
 package com.fanyin.interceptor;
 
-import com.fanyin.annotation.Access;
+import com.fanyin.annotation.SkipAccess;
 import com.fanyin.common.constant.AppHeader;
-import com.fanyin.common.enums.Channel;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.AccessToken;
 import com.fanyin.model.ext.RequestMessage;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.service.common.AccessTokenService;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -20,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登陆令牌验证,主要用于app,pc等前后端分离
+ * 默认针对全部接口进行登陆校验校验成功后将用户信息保存到线程变量中
+ * 如果添加@SkipAccess则跳过登陆校验,但如果传递过来有相关用户登陆信息
+ * 依旧将会将用户信息存入到线程变量中
  * @author 二哥很猛
  * @date 2018/1/23 12:02
  */
@@ -33,18 +34,10 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
 
         RequestMessage message = RequestThreadLocal.get();
-
-        //访问来源
-        if(!this.requestChannel(handler,message.getChannel())){
-            log.error("请求接口非法,channel:[{}]",message.getChannel());
-            throw new RequestException(ErrorCode.REQUEST_INTERFACE_ERROR);
-        }
-        //登陆
-        if(this.access(handler)){
-            String accessKey = request.getHeader(AppHeader.ACCESS_KEY);
-            String accessToken = request.getHeader(AppHeader.ACCESS_TOKEN);
-            this.accessTokenVerify(accessKey,accessToken,message);
-        }
+        boolean skipAccess = this.skipAccess(handler);
+        String accessKey = request.getHeader(AppHeader.ACCESS_KEY);
+        String accessToken = request.getHeader(AppHeader.ACCESS_TOKEN);
+        this.accessTokenVerify(accessKey,accessToken,message,skipAccess);
         return true;
     }
 
@@ -54,23 +47,26 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
      * @param accessKey accessKey
      * @param accessToken 令牌
      * @param message 存放用户信息的对象
+     * @param skipAccess  是否跳过登陆认证
      */
-    private void accessTokenVerify(String accessKey, String accessToken, RequestMessage message){
-        if (accessKey == null || accessToken == null){
-            log.error("令牌为空,accessKey:[{}],accessToken:[{}]",accessKey,accessToken);
-            throw new RequestException(ErrorCode.REQUEST_PARAM_ILLEGAL);
+    private void accessTokenVerify(String accessKey, String accessToken, RequestMessage message,boolean skipAccess){
+        if(accessKey != null && accessToken != null){
+            AccessToken token = accessTokenService.getByAccessKey(accessKey);
+            boolean accessFail = token != null && token.getAccessToken().equals(accessToken) && token.getChannel().equals(message.getChannel());
+            if(accessFail){
+                //用户确实已经登录 跳过不跳过无所谓了
+                accessTokenService.saveByAccessKey(token);
+                message.setAccessKey(token.getAccessKey());
+                message.setAccessToken(token.getAccessToken());
+                message.setUserId(token.getUserId());
+                return;
+            }
         }
-        AccessToken token = accessTokenService.getByAccessKey(accessKey);
-        if (token == null || !accessToken.equals(token.getAccessToken()) || !token.getChannel().equals(message.getChannel())){
-            log.error("令牌无效,accessKey:[{}]",accessKey);
+        //用户未登录或者登录验证失败 但接口需要登录,需抛异常
+        if(!skipAccess){
+            log.error("令牌为空,accessKey:[{}],accessToken:[{}]",accessKey,accessToken);
             throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
-        //重新放入刷新超时时间
-        accessTokenService.saveByAccessKey(token);
-        //由于ThreadLocal是对象引用,可以直接设置附加值
-        message.setAccessKey(token.getAccessKey());
-        message.setAccessToken(token.getAccessToken());
-        message.setUserId(token.getUserId());
     }
 
 
@@ -79,28 +75,11 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
      * @param handler handlerMethod
      * @return true:需要验签 false不需要
      */
-    private boolean access(Object handler){
-        Access accessToken = this.getAccessAnnotation(handler);
-        if(accessToken != null){
-            return accessToken.access();
-        }
-        return false;
+    private boolean skipAccess(Object handler){
+        SkipAccess clientTypeToken = this.getSkipAccessAnnotation(handler);
+        return clientTypeToken != null;
     }
 
-    /**
-     * 请求类型判断
-     * @param handler 处理器
-     * @param channel 请求类型 header传递过来
-     * @return 是否为合法请求
-     */
-    private boolean requestChannel(Object handler,String channel){
-        Access accessToken = this.getAccessAnnotation(handler);
-        if(accessToken != null){
-            Channel[] value = accessToken.value();
-            return Lists.newArrayList(value).stream().anyMatch(source -> source.name().equals(channel));
-        }
-        return true;
-    }
 
 
     /**
@@ -108,11 +87,11 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
      * @param handler handlerMethod
      * @return AccessToken
      */
-    private Access getAccessAnnotation(Object handler){
+    private SkipAccess getSkipAccessAnnotation(Object handler){
         if(handler instanceof HandlerMethod){
             HandlerMethod method = (HandlerMethod)handler;
-            Access t = method.getMethodAnnotation(Access.class);
-            return t != null ? t : method.getBeanType().getAnnotation(Access.class);
+            SkipAccess t = method.getMethodAnnotation(SkipAccess.class);
+            return t != null ? t : method.getBeanType().getAnnotation(SkipAccess.class);
         }
         return null;
     }

@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @date 2018/8/15 17:55
  */
 @Documented
-@Target({METHOD,TYPE})
+@Target({METHOD})
 @Retention(RUNTIME)
 public @interface SkipDataBinder {
 
