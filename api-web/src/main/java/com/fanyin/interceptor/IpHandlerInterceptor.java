@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * ip黑名单拦截
  * @author 二哥很猛
  * @date 2019/9/9 14:09
  */

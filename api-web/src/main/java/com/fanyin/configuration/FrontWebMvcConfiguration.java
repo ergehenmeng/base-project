@@ -1,8 +1,9 @@
 package com.fanyin.configuration;
 
 import com.fanyin.configuration.filter.ByteHttpRequestFilter;
+import com.fanyin.configuration.filter.IpBlackListFilter;
 import com.fanyin.interceptor.*;
-import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -11,7 +12,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
 import java.util.List;
 
 /**
@@ -108,19 +108,24 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
         return new MessageHandlerInterceptor();
     }
 
-
-    @Bean("byteHttpRequestFilter")
-    public Filter byteHttpRequestFilter(){
-        ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
-        requestFilter.exclude(FILTER_EXCLUDE_URL);
-        return requestFilter;
-    }
-
-    @Bean
-    public DelegatingFilterProxyRegistrationBean registrationBean(){
-        DelegatingFilterProxyRegistrationBean registrationBean = new DelegatingFilterProxyRegistrationBean("byteHttpRequestFilter");
+    @Bean("ipBlackListFilter")
+    public FilterRegistrationBean<IpBlackListFilter> ipBlackListFilter(){
+        FilterRegistrationBean<IpBlackListFilter> registrationBean = new FilterRegistrationBean<>();
+        IpBlackListFilter requestFilter = new IpBlackListFilter();
+        registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE);
+        return registrationBean;
+    }
+
+    @Bean("byteHttpRequestFilter")
+    public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter(){
+        FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();
+        ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
+        requestFilter.exclude(FILTER_EXCLUDE_URL);
+        registrationBean.setFilter(requestFilter);
+        registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+        registrationBean.setOrder(Integer.MIN_VALUE + 5);
         return registrationBean;
     }
 }

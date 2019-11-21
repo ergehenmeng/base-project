@@ -39,13 +39,14 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
             if(timestamp == null){
                 throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);
             }
-            //客户端与服务端时间戳对比
             int timestampDeviation = systemConfigApi.getInt(ConfigConstant.TIMESTAMP_DEVIATION);
             long clientTimestamp = Long.parseLong(timestamp);
+            //客户端与服务端时间戳对比
             if(Math.abs(System.currentTimeMillis() - clientTimestamp) > timestampDeviation){
                 throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             }
             String json = this.getRequestJson(request);
+            //签名处理
             String sign = Md5Util.md5(CommonConstant.APP_KEY + BaseEncoding.base64().encode(json.getBytes(SystemConstant.CHARSET)) + timestamp);
             if(!signature.equals(sign)){
                 throw new RequestException(ErrorCode.SIGNATURE_VERIFY_ERROR);
