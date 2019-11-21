@@ -30,7 +30,7 @@ public class SsoHandlerInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
         //是否开启单客户端登陆,即在同一类设备上只允许一个账号登陆
-        if(systemConfigApi.getBoolean(ConfigConstant.SSO_OPEN)){
+        if(systemConfigApi.getBoolean(ConfigConstant.SINGLE_CLIENT_LOGIN)){
             RequestMessage message = RequestThreadLocal.get();
             AccessToken accessToken = accessTokenService.getByUserId(message.getUserId());
             if(accessToken == null){

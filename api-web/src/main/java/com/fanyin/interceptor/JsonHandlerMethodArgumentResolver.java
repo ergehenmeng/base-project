@@ -5,6 +5,7 @@ import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import com.fanyin.common.exception.RequestException;
+import com.fanyin.model.ext.RequestThreadLocal;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,8 +81,12 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
      */
     private Object jsonFormat(HttpServletRequest request,Class<?> cls){
         try {
+            String jsonString = RequestThreadLocal.getJsonString();
+            if(jsonString != null){
+                return objectMapper.readValue(jsonString,cls);
+            }
             String args = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
-             if(args == null){
+            if(args == null){
                 return null;
             }
             return objectMapper.readValue(args,cls);

@@ -29,7 +29,7 @@ public class ConfigConstant {
     /**
      * 是否开启单客户端登陆
      */
-    public static final String SSO_OPEN = "sso_open";
+    public static final String SINGLE_CLIENT_LOGIN = "single_client_login";
 
     /**
      * 昵称前缀
@@ -85,4 +85,9 @@ public class ConfigConstant {
      * 默认文件上传的文件夹名称
      */
     public static final String DEFAULT_UPLOAD_FOLDER = "default_upload_folder";
+
+    /**
+     * 接口验签
+     */
+    public static final String SIGNATURE_VERIFICATION = "signature_verification";
 }

@@ -39,8 +39,12 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
             //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             throw new RequestException(ErrorCode.REQUEST_PARAM_ILLEGAL);
         }
-        RequestMessage message = RequestMessage.builder().version(version).channel(channel).osVersion(osVersion).deviceBrand(deviceBrand).deviceModel(deviceModel).build();
-        RequestThreadLocal.set(message);
+        RequestMessage message = RequestThreadLocal.get();
+        message.setVersion(version);
+        message.setChannel(channel);
+        message.setOsVersion(osVersion);
+        message.setDeviceBrand(deviceBrand);
+        message.setDeviceModel(deviceModel);
         return true;
     }
 

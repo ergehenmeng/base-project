@@ -4,9 +4,11 @@ import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.RequestException;
-import com.fanyin.common.utils.SignatureUtil;
+import com.fanyin.common.utils.Md5Util;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.constants.SystemConstant;
+import com.fanyin.model.ext.RequestMessage;
+import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.google.common.io.BaseEncoding;
 import org.apache.commons.io.IOUtils;
@@ -17,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 签名验证 sha256Hmac(appKey + Base64(json) + timestamp)
+ * 签名验证 md5(appKey + Base64(json) + timestamp)
  * @author 二哥很猛
  * @date 2019/7/4 14:23
  */
@@ -28,25 +30,26 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String signature = request.getHeader(AppHeader.SIGNATURE);
-        if(signature == null){
-            throw new RequestException(ErrorCode.SIGNATURE_ERROR);
-        }
-        String timestamp = request.getHeader(AppHeader.TIMESTAMP);
-
-        if(timestamp == null){
-            throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);
-        }
-        //客户端与服务端时间戳对比
-        int timestampDeviation = systemConfigApi.getInt(ConfigConstant.TIMESTAMP_DEVIATION);
-        long clientTimestamp = Long.parseLong(timestamp);
-        if(Math.abs(System.currentTimeMillis() - clientTimestamp) > timestampDeviation){
-            throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);
-        }
-        String json = this.getRequestJson(request);
-        String sign = SignatureUtil.sign(BaseEncoding.base64().encode(json.getBytes(SystemConstant.CHARSET)) + timestamp);
-        if(!signature.equals(sign)){
-            throw new RequestException(ErrorCode.SIGNATURE_VERIFY_ERROR);
+        if(systemConfigApi.getBoolean(ConfigConstant.SIGNATURE_VERIFICATION)){
+            String signature = request.getHeader(AppHeader.SIGNATURE);
+            if(signature == null){
+                throw new RequestException(ErrorCode.SIGNATURE_ERROR);
+            }
+            String timestamp = request.getHeader(AppHeader.TIMESTAMP);
+            if(timestamp == null){
+                throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);
+            }
+            //客户端与服务端时间戳对比
+            int timestampDeviation = systemConfigApi.getInt(ConfigConstant.TIMESTAMP_DEVIATION);
+            long clientTimestamp = Long.parseLong(timestamp);
+            if(Math.abs(System.currentTimeMillis() - clientTimestamp) > timestampDeviation){
+                throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
+            }
+            String json = this.getRequestJson(request);
+            String sign = Md5Util.md5(CommonConstant.APP_KEY + BaseEncoding.base64().encode(json.getBytes(SystemConstant.CHARSET)) + timestamp);
+            if(!signature.equals(sign)){
+                throw new RequestException(ErrorCode.SIGNATURE_VERIFY_ERROR);
+            }
         }
         return true;
     }
@@ -59,7 +62,11 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
      */
     private String getRequestJson(HttpServletRequest request){
         try {
-            return IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+            String json = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+            //解析后放入缓存方便后面程序使用
+            RequestMessage message = RequestThreadLocal.get();
+            message.setJsonString(json);
+            return json;
         }catch (Exception e){
             throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }

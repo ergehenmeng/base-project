@@ -61,4 +61,8 @@ public class RequestMessage implements Serializable {
     private Integer userId;
 
 
+    /**
+     * 请求参数json字符串
+     */
+    private String jsonString;
 }

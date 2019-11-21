@@ -6,7 +6,7 @@ package com.fanyin.model.ext;
  */
 public class RequestThreadLocal {
 
-    private static final ThreadLocal<RequestMessage> TOKEN_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<RequestMessage> TOKEN_LOCAL = ThreadLocal.withInitial(RequestMessage::new);
 
     /**
      * 获取请求信息
@@ -14,14 +14,6 @@ public class RequestThreadLocal {
      */
     public static RequestMessage get(){
         return TOKEN_LOCAL.get();
-    }
-
-    /**
-     * 设置请求信息
-     * @param message 头信息及用户id
-     */
-    public static void set(RequestMessage message){
-        TOKEN_LOCAL.set(message);
     }
 
     /**
@@ -55,4 +47,11 @@ public class RequestThreadLocal {
         return get().getOsVersion();
     }
 
+    /**
+     * 请求参数json
+     * @return {"id":1,"age":12}
+     */
+    public static String getJsonString(){
+        return get().getJsonString();
+    }
 }

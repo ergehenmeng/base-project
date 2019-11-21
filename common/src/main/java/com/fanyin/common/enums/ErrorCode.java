@@ -116,14 +116,14 @@ public enum ErrorCode {
     SIGNATURE_ERROR(1016,"签名信息为空"),
 
     /**
-     * 签名时间校验失败
+     * 时间戳为空
      */
-    SIGNATURE_TIMESTAMP_NULL(1016,"签名校验失败"),
+    SIGNATURE_TIMESTAMP_NULL(1016,"数字签名为空"),
 
     /**
      * 签名校验异常
      */
-    SIGNATURE_TIMESTAMP_ERROR(1017,"签名校验失败"),
+    SIGNATURE_TIMESTAMP_ERROR(1017,"签名时间失效"),
 
     /**
      * 签名校验异常
@@ -134,6 +134,7 @@ public enum ErrorCode {
      * 读取参数异常
      */
     READ_PARAM_ERROR(1019,"读取参数异常"),
+
 
     /**
      * 参数解析异常
