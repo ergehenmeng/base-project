@@ -22,18 +22,20 @@ import java.util.List;
  * @date 2019/9/6 15:19
  */
 @Service("taskConfigService")
-@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+@Transactional(rollbackFor = RuntimeException.class)
 public class TaskConfigServiceImpl implements TaskConfigService {
 
     @Autowired
     private TaskConfigMapper taskConfigMapper;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public List<TaskConfig> getAvailableList() {
         return taskConfigMapper.getAvailableList();
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public PageInfo<TaskConfig> getByPage(TaskQueryRequest request) {
         PageHelper.startPage(request.getPage(),request.getPageSize());
         List<TaskConfig> list = taskConfigMapper.getList(request);
@@ -41,6 +43,7 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public TaskConfig getById(Integer id) {
         return taskConfigMapper.selectByPrimaryKey(id);
     }

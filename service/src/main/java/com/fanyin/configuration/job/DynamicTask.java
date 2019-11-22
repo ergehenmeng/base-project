@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronSequenceGenerator;
-import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -69,14 +68,12 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
     public synchronized void openOrRefreshTask(){
         log.info("定时任务配置信息开始加载...");
         List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();
-        if(!CollectionUtils.isEmpty(taskConfigs)){
-            List<DynamicTriggerTask> taskList = new ArrayList<>();
-            for (TaskConfig taskConfig : taskConfigs) {
-                DynamicTriggerTask triggerTask = new DynamicTriggerTask(taskConfig.getNid(), taskConfig.getBeanName(), taskConfig.getCronExpression());
-                taskList.add(triggerTask);
-            }
-            this.doRefreshTask(taskList);
+        List<DynamicTriggerTask> taskList = new ArrayList<>();
+        for (TaskConfig taskConfig : taskConfigs) {
+            DynamicTriggerTask triggerTask = new DynamicTriggerTask(taskConfig.getNid(), taskConfig.getBeanName(), taskConfig.getCronExpression());
+            taskList.add(triggerTask);
         }
+        this.doRefreshTask(taskList);
         log.info("定时任务配置信息加载完成..");
     }
 
@@ -91,9 +88,11 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }
         }
+
+        boolean isEmpty = taskList.isEmpty();
         for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {
-            //定时任务不存在
-            if(taskList.stream().map(DynamicTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))){
+            //将所有不在指定任务列表的中已经在运行的任务全部取消
+            if(isEmpty || taskList.stream().map(DynamicTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))){
                 entry.getValue().cancel(false);
             }
         }

@@ -8,7 +8,7 @@
         var dataGrid;
 
         var winWidth = 420;
-        var winHeight = 500;
+        var winHeight = 400;
 
         var editTitle = "编辑任务";
         var editUrl = "/business/task/edit_page";
@@ -36,7 +36,7 @@
                     {field : "title",title : "标题",width : 150,align : "center"},
                     {field : "nid",title : "标示符",width : 150,align : "center"},
                     {field : "beanName",title : "bean名称",width : 150,align : "center"},
-                    {field : "cronExpression",title : "定时任务表达式",width : 200,align : "center" },
+                    {field : "cronExpression",title : "表达式",width : 200,align : "center" },
                     {field : "state",title : "状态",width : 80,align : "center",
                         formatter :function (value) {
                             if(value === 1){
