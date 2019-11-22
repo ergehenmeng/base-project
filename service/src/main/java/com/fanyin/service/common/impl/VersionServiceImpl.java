@@ -70,7 +70,7 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public void soleOutVersion(Integer id) {
+    public void soldOutVersion(Integer id) {
         Version version = new Version();
         version.setId(id);
         version.setState((byte)0);
@@ -97,8 +97,8 @@ public class VersionServiceImpl implements VersionService {
             return response;
         }
         //如果用户版本非常老,最新版本不是强制更新版本,但中间某个版本是强制更新,用户一样需要强制更新
-        Date addTime = appVersion.getAddTime();
-        //查询开始时间和结束时间为了尽可能查询更广的范围
+        Date addTime = appVersion.getUpdateTime();
+        //查询用户版本与最新版本之间的版本
         List<Version> versionList = versionMapper.getForceUpdateVersion(channel, addTime, latestVersion.getUpdateTime());
         boolean forceUpdate = !CollectionUtils.isEmpty(versionList);
         response.setForceUpdate(forceUpdate);

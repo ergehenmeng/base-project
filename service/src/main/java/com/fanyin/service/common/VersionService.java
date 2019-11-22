@@ -42,7 +42,7 @@ public interface VersionService {
      * 下架版本
      * @param id 主键id
      */
-    void soleOutVersion(Integer id);
+    void soldOutVersion(Integer id);
 
     /**
      * 获取最新可用的版本 用于检测是否有新版本

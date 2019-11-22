@@ -154,6 +154,6 @@
 
     <select id="getForceUpdateVersion" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from version where classify = #{classify} and deleted = false and state = 1 and force_update = true and add_time &gt;= #{startTime} and add_time &lt;=  #{endTime}
+        from version where classify = #{classify} and deleted = false and state = 1 and force_update = true and add_time &gt; #{startTime} and add_time &lt;  #{endTime}
     </select>
 </mapper>

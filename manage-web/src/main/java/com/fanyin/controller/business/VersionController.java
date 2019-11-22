@@ -75,8 +75,8 @@ public class VersionController {
     @PostMapping("/business/version/sold_out")
     @ResponseBody
     @Mark
-    public RespBody soleOut(Integer id){
-        versionService.soleOutVersion(id);
+    public RespBody soldOut(Integer id){
+        versionService.soldOutVersion(id);
         return RespBody.getInstance();
     }
 

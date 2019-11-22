@@ -34,7 +34,7 @@ public class Version implements Serializable {
     private String version;
 
     /**
-     * 是否强制更新 0:否 1:是<br>
+     * 该版本是否强制更新版本 0:否 1:是<br>
      * 表 : version<br>
      * 对应字段 : force_update<br>
      */
