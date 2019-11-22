@@ -450,11 +450,11 @@
     padding: 0px 0px 6px 0px;
 }
 
-.window .window-body {
+/*.window .window-body {
     border-width: 1px;
     border-style: solid;
     border-top-width: 0px;
-}
+}*/
 
 .window .window-body-noheader {
     border-top-width: 1px;
