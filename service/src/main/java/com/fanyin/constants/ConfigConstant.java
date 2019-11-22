@@ -90,4 +90,9 @@ public class ConfigConstant {
      * 接口验签
      */
     public static final String SIGNATURE_VERIFICATION = "signature_verification";
+
+    /**
+     * 安卓软件包大小
+     */
+    public static final String ANDROID_MAX_SIZE = "android_max_size";
 }

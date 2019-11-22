@@ -41,7 +41,6 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private SystemConfigApi systemConfigApi;
 
-
     @Override
     public FilePath saveFile(@NotNull MultipartFile file) {
         return this.saveFile(file,this.getFolder(),this.getSingleMaxSize());

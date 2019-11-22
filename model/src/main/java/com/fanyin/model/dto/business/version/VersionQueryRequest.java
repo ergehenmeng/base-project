@@ -19,4 +19,9 @@ public class VersionQueryRequest extends PagingQuery {
      */
     private Byte state;
 
+    /**
+     * 版本类型 ANDROID IOS
+     */
+    private String classify;
+
 }

@@ -14,7 +14,7 @@ public class VersionAddRequest implements Serializable {
     private static final long serialVersionUID = 4277066521664563340L;
 
     /**
-     * 版本类型 0:android 2:ios
+     * 版本类型 ANDROID IOS
      */
     private String classify;
 

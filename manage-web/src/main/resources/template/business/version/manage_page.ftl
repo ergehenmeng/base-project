@@ -8,17 +8,17 @@
         var dataGrid;
 
         var winWidth = 420;
-        var winHeight = 500;
+        var winHeight = 400;
 
-        var addTitle = "添加轮播图";
+        var addTitle = "添加版本信息";
         var addUrl = "/business/version/add_page";
 
-        var editTitle = "编辑轮播图";
+        var editTitle = "编辑版本信息";
         var editUrl = "/business/version/edit_page";
 
         var  delMsg = "确定要执行该操作吗";
         var delUrl = "/business/version/delete";
-
+        var address = "${address!}";
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/business/version/list_page",
@@ -40,25 +40,17 @@
                             return str;
                         }
                     },
-                    {field : "classify",title : "客户端",width : 150,align : "center",
+                    {field : "classify",title : "类型",width : 80,align : "center",
                         formatter:function (value) {
                             if("ANDROID" === value){
-                                return "android";
+                                return "安卓";
                             }else if("IOS" === value){
-                                return "ios";
-                            }else if("PC" === value){
-                                return "pc";
-                            }else if("H5" === value){
-                                return "h5";
-                            }else if("WECHAT" === value){
-                                return "微信小程序";
-                            }else if("ALIPAY" === value){
-                                return "支付宝小程序";
+                                return "苹果";
                             }
                         }
                     },
-                    {field : "version",title : "轮播图类型",width : 150,align : "center"},
-                    {field : "forceUpdate",title : "是否强制更新",width : 100,align : "center",
+                    {field : "version",title : "版本号",width : 100,align : "center"},
+                    {field : "forceUpdate",title : "是否强更",width : 100,align : "center",
                         formatter:function (value) {
                             if(value){
                                 return "是";
@@ -66,7 +58,7 @@
                             return "否";
                         }
                     },
-                    {field : "state",title : "状态",width : 100,align : "center",
+                    {field : "state",title : "状态",width : 80,align : "center",
                         formatter:function (value) {
                             if(value === 1){
                                 return "上架";
@@ -74,8 +66,15 @@
                             return "下架";
                         }
                     },
-                    {field : "sort",title : "排序",width : 80,align : "center" },
-                    {field : "url",title : "下载地址",width : 80,align : "center" },
+                    {field : "url",title : "下载地址",width : 550,align : "center",
+                        formatter : function (value,rows) {
+                            if(rows.classify === "IOS"){
+                                return "<a href='"+ value +"' target='_blank'>" + value + "</a>";
+                            }else{
+                                return "<a href='javascript:void(0);' onclick='$.fn.downloadFun(\"" + address + value + "\");'>" + value + "</a>";
+                            }
+                        }
+                    },
                     {field : "addTime",title : "添加时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
@@ -92,25 +91,21 @@
 <div class="easyui-layout" data-options="fit:true,doSize:false">
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
-            <@search placeholder="标题" advance=true>
+            <@search placeholder="版本号" advance=true>
                 <li>
                     <span>客户端</span>
-                    <select name="clientType" title="客户端类型">
+                    <select name="classify" title="客户端类型">
                         <option value="">全部</option>
-                        <option value="PC">pc</option>
-                        <option value="ANDROID">android</option>
-                        <option value="IOS">ios</option>
-                        <option value="H5">h5</option>
-                        <option value="WECHAT">微信小程序</option>
-                        <option value="ALIPAY">支付宝小程序</option>
+                        <option value="ANDROID">安卓</option>
+                        <option value="IOS">苹果</option>
                     </select>
                 </li>
                 <li>
                     <span>上架状态</span>
                     <select name="state" title="上架状态">
-                        <option value="">全部</option>
-                        <option value="0">下架</option>
+                        <option >全部</option>
                         <option value="1">上架</option>
+                        <option value="0">下架</option>
                     </select>
                 </li>
             </@search>

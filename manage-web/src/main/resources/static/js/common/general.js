@@ -123,6 +123,19 @@ $.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
 	});
 };
 
+$.fn.downloadFun = function(url){
+    $.ajax({
+        "url": url,
+        "type": "GET",
+        "success": function(){
+            window.location.href = url;
+        },
+        "error": function(){
+            parent.$.messager.alert("提示","文件下载失败，请稍候再试！","warning");
+        }
+    });
+};
+
 /**
  * 弹出框,用于显示或查看数据信息
  * @param id

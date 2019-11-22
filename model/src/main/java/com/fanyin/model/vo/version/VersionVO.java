@@ -23,7 +23,7 @@ public class VersionVO implements Serializable {
     /**
      * 是否为最新版本
      */
-    private boolean latest;
+    private Boolean latest;
 
     /**
      * 版本号
@@ -33,12 +33,12 @@ public class VersionVO implements Serializable {
     /**
      * 是否为强制更新版本
      */
-    private boolean forceUpdate;
+    private Boolean forceUpdate;
 
     /**
      * 下载或跳转的地址
      */
-    private boolean url;
+    private Boolean url;
 
     /**
      * 版本备注说明

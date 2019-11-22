@@ -133,11 +133,14 @@
         select <include refid="BaseColumnList"/>
         from version
         <where>
-            <if test="queryName != null and queryName != null">
-                and version = #{queryName}
+            <if test="queryName != null and queryName != ''">
+                and version like concat('%',#{queryName},'%')
             </if>
             <if test="state != null">
                 and state = #{state}
+            </if>
+            <if test="classify != null and classify != ''">
+                and classify = #{classify}
             </if>
         </where>
     </select>

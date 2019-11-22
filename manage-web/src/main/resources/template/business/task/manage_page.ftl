@@ -62,7 +62,7 @@
 <div class="easyui-layout" data-options="fit:true,doSize:false">
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
-            <@search placeholder="标题,标示符,bean名称" advance=true>
+            <@search placeholder="标题、标示符、bean名称" advance=true>
                 <li>
                     <span>状态</span>
                     <select name="state" title="状态">
