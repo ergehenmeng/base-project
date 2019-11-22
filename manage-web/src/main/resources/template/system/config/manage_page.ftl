@@ -37,7 +37,7 @@
                     },
                     {field : "title",title : "参数名称",width : 200,align : "center"},
                     {field : "nid",title : "参数标示",width : 160,align : "center"},
-                    {field : "content",title : "参数值",width : 180,align : "center",
+                    {field : "content",title : "参数值",width : 300,align : "center",
                         formatter:function(value){
                             return $.fn.dataGridOptions.format(value,30);
                         }

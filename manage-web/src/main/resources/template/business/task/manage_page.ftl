@@ -54,7 +54,6 @@
                 ] ]
             });
         });
-
         var clearUrl = "/business/task/refresh";
         var clearMsg = "确定要重置定时任务配置吗";
     </script>

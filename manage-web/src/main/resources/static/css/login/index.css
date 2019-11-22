@@ -82,7 +82,7 @@ body{
     background:url(/static/img/login/password-icon.png) 6px #dddddd no-repeat;
 }
 .login-panel ul li span.valid-icon{
-    background:url(/static/img/login/valide-code-icon.png) 6px #dddddd no-repeat;
+    background:url(/static/img/login/valide-code-icon.png) 7px #dddddd no-repeat;
 }
 .login-panel ul li .login-text{
     float:left;
@@ -122,6 +122,7 @@ body{
     font-size:16px;
     cursor: pointer;
     background-color:#FF8000;
+    border-radius: 3px;
 }
 .login-panel .msg-tip{
     color:red;
