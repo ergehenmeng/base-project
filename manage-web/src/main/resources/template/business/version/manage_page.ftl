@@ -103,7 +103,7 @@
                 <li>
                     <span>上架状态</span>
                     <select name="state" title="上架状态">
-                        <option >全部</option>
+                        <option value="">全部</option>
                         <option value="1">上架</option>
                         <option value="0">下架</option>
                     </select>

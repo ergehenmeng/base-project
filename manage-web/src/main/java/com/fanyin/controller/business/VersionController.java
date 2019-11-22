@@ -71,7 +71,7 @@ public class VersionController {
     @ResponseBody
     @Mark
     public RespBody add(VersionAddRequest request, MultipartFile file){
-        if(file != null){
+        if(file != null && !file.isEmpty()){
             long maxSize = systemConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
             FilePath filePath = fileService.saveFile(file,maxSize);
             request.setUrl(filePath.getPath());

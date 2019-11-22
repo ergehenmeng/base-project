@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $.fn.treeGridOptions.formSubmit("#form",'/business/version/add');
+        $.fn.dataGridOptions.formSubmit("#form",'/business/version/add');
         $("#classify").on("change",function(){
             var classify = $(this).val();
             if(classify === "IOS"){
