@@ -8,6 +8,8 @@ import com.fanyin.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.util.Date;
+
 /**
  * @author 二哥很猛
  * @date 2019/9/6 15:27
@@ -42,7 +44,9 @@ public class TaskRunnable implements Runnable {
 
     @Override
     public void run() {
-        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(nid).beanName(beanName).ip(IpUtil.getLocalIp()).startTime(DateUtil.getNow());
+        Date now = DateUtil.getNow();
+        long startTime = now.getTime();
+        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(nid).beanName(beanName).ip(IpUtil.getLocalIp()).startTime(now);
         try {
             getTaskBean().execute();
         }catch (Exception e){
@@ -50,7 +54,8 @@ public class TaskRunnable implements Runnable {
             builder.state(false);
             builder.errorMsg(ExceptionUtils.getMessage(e));
         }finally {
-            builder.endTime(DateUtil.getNow());
+            long endTime = System.currentTimeMillis();
+            builder.elapsedTime(endTime - startTime);
             taskLogService().addTaskLog(builder.build());
         }
     }

@@ -55,9 +55,9 @@ public class TaskLog implements Serializable {
     /**
      * 执行结束时间<br>
      * 表 : task_log<br>
-     * 对应字段 : end_time<br>
+     * 对应字段 : elapsed_time<br>
      */
-    private Date endTime;
+    private Long elapsedTime;
 
     /**
      * 执行任务的机器ip<br>
