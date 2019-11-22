@@ -54,7 +54,7 @@
     <select id="getList" parameterType="com.fanyin.model.dto.business.sms.SmsTemplateQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from sms_template
-        <if test="queryName != null">
+        <if test="queryName != null and queryName != ''">
           where nid = #{queryName}
         </if>
     </select>

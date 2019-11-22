@@ -112,7 +112,7 @@
     <select id="getList" parameterType="com.fanyin.model.dto.system.role.RoleQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_role where deleted = false
-        <if test="queryName != null">
+        <if test="queryName != null and queryName != ''">
             and role_name like concat('%',#{queryName},'%')
         </if>
     </select>

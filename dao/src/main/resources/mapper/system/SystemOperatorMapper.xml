@@ -160,7 +160,7 @@
     <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.system.operator.OperatorQueryRequest">
         select <include refid="BaseColumnList" />
         from system_operator where deleted = false
-        <if test="queryName != null">
+        <if test="queryName != null and queryName != ''">
             and (operator_name like concat('%',#{queryName},'%') or mobile like concat('%',#{queryName},'%'))
         </if>
         <if test="state != null">

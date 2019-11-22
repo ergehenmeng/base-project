@@ -134,7 +134,7 @@
         select <include refid="BaseColumnList"/>
         from task_log
         <where>
-            <if test="queryName != null">
+            <if test="queryName != null and queryName != ''">
                 and (nid = #{queryName} or bean_name = #{queryName} or ip = #{queryName} )
             </if>
             <if test="state != null">

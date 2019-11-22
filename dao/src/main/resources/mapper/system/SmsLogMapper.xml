@@ -117,7 +117,7 @@
         select <include refid="BaseColumnList"/>
         from sms_log
         <where>
-            <if test="queryName != null">
+            <if test="queryName != null and queryName != ''">
                 and mobile = #{queryName}
             </if>
             <if test="startTime != null">

@@ -140,7 +140,7 @@
        select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,r.operator_name
         from system_operation_log t inner join system_operator r on t.operator_id = r.id
         <where>
-            <if test="queryName != null">
+            <if test="queryName != null and queryName != ''">
                 and (t.url like concat('%',#{queryName},'%') or
                 r.operator_name like concat('%',#{queryName},'%') or
                 t.ip like concat('%',#{ip},'%') )

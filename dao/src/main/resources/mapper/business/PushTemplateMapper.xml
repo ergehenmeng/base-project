@@ -68,7 +68,7 @@
         select <include refid="BaseColumnList"/>
         from push_template
         <where>
-            <if test="queryName != null">
+            <if test="queryName != null and queryName != ''">
                 and (title like concat('%',#{queryName},'%') or nid = #{queryName})
             </if>
             <if test="state != null">

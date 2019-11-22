@@ -147,7 +147,7 @@
         select <include refid="BaseColumnList"/>
         from system_dict
         <where>
-            <if test="queryName != null">
+            <if test="queryName != null and queryName != ''">
                 and (title like concat('%',#{queryName},'%') or nid like concat('%',#{queryName},'%' ) )
             </if>
             <if test="locked != null">

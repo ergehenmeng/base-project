@@ -68,7 +68,7 @@
         select <include refid="BaseColumnList"/>
         from task_config
         <where>
-            <if test="queryName != null">
+            <if test="queryName != null and queryName != ''">
                 and (title like concat('%',#{queryName},'%') or nid = #{queryName} or bean_name = #{queryName})
             </if>
             <if test="state != null">

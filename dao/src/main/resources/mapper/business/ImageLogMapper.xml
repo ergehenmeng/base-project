@@ -134,7 +134,7 @@
         select <include refid="BaseColumnList"/>
         from image_log
         where deleted = false
-        <if test="queryName != null">
+        <if test="queryName != null and queryName != ''">
             and (title like concat('%',#{queryName},'%')  or remark like concat('%',#{queryName},'%'))
         </if>
         <if test="classify != null">

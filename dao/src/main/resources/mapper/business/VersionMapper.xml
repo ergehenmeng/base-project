@@ -133,7 +133,7 @@
         select <include refid="BaseColumnList"/>
         from version
         <where>
-            <if test="queryName != null">
+            <if test="queryName != null and queryName != null">
                 and version = #{queryName}
             </if>
             <if test="state != null">
