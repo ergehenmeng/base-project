@@ -2,7 +2,6 @@ package com.fanyin.controller.system;
 
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.system.SystemConfig;
@@ -37,7 +36,7 @@ public class ConfigController extends AbstractController {
 
     @PostMapping("/system/config/edit")
     @ResponseBody
-    @Mark(RequestType.UPDATE)
+    @Mark
     public RespBody edit(ConfigEditRequest request){
         systemConfigService.updateConfig(request);
         return RespBody.getInstance();
@@ -50,7 +49,6 @@ public class ConfigController extends AbstractController {
      * @return 页面
      */
     @GetMapping("/system/config/edit_page")
-    @Mark(RequestType.PAGE)
     public String editPage(Model model, Integer id){
         SystemConfig config = systemConfigService.getById(id);
         model.addAttribute("config",config);
@@ -64,7 +62,6 @@ public class ConfigController extends AbstractController {
      */
     @PostMapping("/system/config/list_page")
     @ResponseBody
-    @Mark(RequestType.SELECT)
     public Paging<SystemConfig> listPage(ConfigQueryRequest request){
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
         return DataUtil.transform(listByPage,systemConfig -> {

@@ -10,7 +10,7 @@ import java.util.Date;
  * @date 2019/8/28 14:01
  */
 @Data
-public class FeedbackVo implements Serializable {
+public class FeedbackVO implements Serializable {
 
     private static final long serialVersionUID = -434393367856882980L;
 

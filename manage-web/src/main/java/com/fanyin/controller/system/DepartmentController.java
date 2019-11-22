@@ -1,7 +1,6 @@
 package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.dao.model.system.SystemDepartment;
 import com.fanyin.model.dto.system.department.DepartmentAddRequest;
 import com.fanyin.model.dto.system.department.DepartmentEditRequest;
@@ -31,7 +30,6 @@ public class DepartmentController {
      * @return list
      */
     @PostMapping("/system/department/list_page")
-    @Mark(RequestType.SELECT)
     @ResponseBody
     public List<SystemDepartment> listPage(){
         return systemDepartmentService.getDepartment();
@@ -42,7 +40,6 @@ public class DepartmentController {
      * 添加部门页面
      */
     @GetMapping("/system/department/add_page")
-    @Mark(RequestType.PAGE)
     public String addPage(Model model, String code){
         model.addAttribute("code",code);
         return "system/department/add_page";
@@ -52,8 +49,8 @@ public class DepartmentController {
      * 添加部门节点信息
      */
     @PostMapping("/system/department/add")
-    @Mark(RequestType.INSERT)
     @ResponseBody
+    @Mark
     public RespBody add(DepartmentAddRequest request){
         systemDepartmentService.addDepartment(request);
         return RespBody.getInstance();
@@ -63,7 +60,6 @@ public class DepartmentController {
      * 编辑部门页面
      */
     @GetMapping("/system/department/edit_page")
-    @Mark(RequestType.PAGE)
     public String editPage(Model model,Integer id){
         SystemDepartment department = systemDepartmentService.getById(id);
         model.addAttribute("department",department);
@@ -74,8 +70,8 @@ public class DepartmentController {
      * 编辑部门节点信息
      */
     @PostMapping("/system/department/edit")
-    @Mark(RequestType.UPDATE)
     @ResponseBody
+    @Mark
     public RespBody edit(DepartmentEditRequest request){
         systemDepartmentService.editDepartment(request);
         return RespBody.getInstance();

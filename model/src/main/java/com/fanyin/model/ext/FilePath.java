@@ -1,8 +1,11 @@
-package com.fanyin.model.vo.upload;
+package com.fanyin.model.ext;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,8 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel
-@Getter
-@Setter
+@Data
 public class FilePath implements Serializable {
 
     private static final long serialVersionUID = -8140748928381521323L;

@@ -6,7 +6,7 @@ import com.fanyin.common.utils.DateUtil;
 import com.fanyin.configuration.ApplicationProperties;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.constants.SystemConstant;
-import com.fanyin.model.vo.upload.FilePath;
+import com.fanyin.model.ext.FilePath;
 import com.fanyin.service.common.FileService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import lombok.extern.slf4j.Slf4j;

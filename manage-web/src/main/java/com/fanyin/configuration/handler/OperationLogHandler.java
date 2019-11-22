@@ -80,7 +80,6 @@ public class OperationLogHandler {
         Object proceed = joinPoint.proceed();
         long end = System.currentTimeMillis();
         sy.setBusinessTime(end - System.currentTimeMillis());
-        sy.setClassify((byte)mark.value().ordinal());
         if(mark.response() && proceed != null){
             sy.setResponse(JSONObject.toJSONString(proceed));
         }

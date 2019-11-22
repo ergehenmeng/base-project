@@ -32,21 +32,6 @@
                             return str;
                         }
                     },
-                    {field : "classify",title : "分类",width : 100,align : "center",
-                        formatter:function(value){
-                            if(value === 0){
-                                return "更新";
-                            }else if(value === 1){
-                                return "删除";
-                            }else if(value === 2){
-                                return "查询";
-                            }else if(value === 3){
-                                return "新增";
-                            }else{
-                                return "组合";
-                            }
-                        }
-                    },
                     {field : "url",title : "请求地址",width : 280,align : "center"},
                     {field : "operatorName",title : "操作人",width : 100,align : "center"},
                     {field : "request",title : "请求参数",width : 250,align : "center",
@@ -76,17 +61,6 @@
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
             <@search placeholder="请求地址、操作人、访问ip" advance=true>
-                <li>
-                    <span>分类</span>
-                    <select name="classify" id="classify" title="分类">
-                        <option value="">全部</option>
-                        <option value="0">更新</option>
-                        <option value="1">删除</option>
-                        <option value="2">查询</option>
-                        <option value="3">添加</option>
-                        <option value="4">组合</option>
-                    </select>
-                </li>
                 <li>
                     <span>操作时间</span>
                     <input title="操作时间" type="text" id="targetTime" />

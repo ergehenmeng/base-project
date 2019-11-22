@@ -12,7 +12,6 @@
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="business_time" jdbcType="BIGINT" property="businessTime" />
-    <result column="classify" jdbcType="TINYINT" property="classify" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fanyin.dao.model.system.SystemOperationLog">
     <!--
@@ -24,7 +23,7 @@
     <!--
       @create by mybatis
     -->
-    id, url, operator_id, request, add_time, ip, business_time,classify
+    id, url, operator_id, request, add_time, ip, business_time
   </sql>
   <sql id="BlobColumnList">
     <!--
@@ -74,9 +73,6 @@
       <if test="response != null">
         response,
       </if>
-        <if test="classify != null">
-            classify,
-        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -103,9 +99,6 @@
       <if test="response != null">
         #{response,jdbcType=LONGVARCHAR},
       </if>
-        <if test="classify != null">
-            #{classify,jdbcType=TINYINT},
-        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SystemOperationLog">
@@ -135,9 +128,6 @@
       <if test="response != null">
         response = #{response,jdbcType=LONGVARCHAR},
       </if>
-        <if test="classify != null">
-            classify = #{classify,jdbcType=TINYINT},
-        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -147,16 +137,13 @@
     </resultMap>
     
     <select id="getList" parameterType="com.fanyin.model.dto.system.log.OperationQueryRequest" resultMap="ExtBaseResultMap">
-       select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,t.classify,r.operator_name
+       select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,r.operator_name
         from system_operation_log t inner join system_operator r on t.operator_id = r.id
         <where>
             <if test="queryName != null">
                 and (t.url like concat('%',#{queryName},'%') or
                 r.operator_name like concat('%',#{queryName},'%') or
                 t.ip like concat('%',#{ip},'%') )
-            </if>
-            <if test="classify != null">
-                and t.classify = #{classify}
             </if>
             <if test="startTime != null">
                 and t.add_time &gt;= #{startTime}

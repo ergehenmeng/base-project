@@ -1,7 +1,6 @@
 package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.model.dto.system.menu.MenuAddRequest;
@@ -37,7 +36,7 @@ public class MenuController extends AbstractController {
      * @return 页面地址
      */
     @GetMapping("/system/menu/edit_page")
-    @Mark(RequestType.PAGE)
+    @Mark
     public String editMenuPage(Model model, Integer id){
         SystemMenu menu = systemMenuService.getMenuById(id);
         model.addAttribute("menu",menu);
@@ -50,7 +49,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/list_page")
     @ResponseBody
-    @Mark(RequestType.SELECT)
+    @Mark
     public List<SystemMenu> listPage(){
         return systemMenuService.getAllList();
     }
@@ -62,7 +61,7 @@ public class MenuController extends AbstractController {
      * @return ftl地址
      */
     @GetMapping("/system/menu/add_page")
-    @Mark(RequestType.ALL)
+    @Mark
     public String addPage(Model model,Integer id,@RequestParam(defaultValue = "0",required = false) Byte grade){
         model.addAttribute("pid",id);
         model.addAttribute("grade",grade + 1);
@@ -76,7 +75,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/add")
     @ResponseBody
-    @Mark(RequestType.INSERT)
+    @Mark
     public RespBody add(MenuAddRequest request){
         if (request.getGrade() > SystemMenu.BUTTON){
             return RespBody.error(ErrorCode.SUB_MENU_ERROR);
@@ -92,7 +91,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/menu/edit")
     @ResponseBody
-    @Mark(RequestType.UPDATE)
+    @Mark
     public RespBody edit(MenuEditRequest request){
         systemMenuService.updateMenu(request);
         return RespBody.getInstance();
@@ -104,7 +103,7 @@ public class MenuController extends AbstractController {
      * @return 成功后的返回信息
      */
     @PostMapping("/system/menu/delete")
-    @Mark(RequestType.DELETE)
+    @Mark
     @ResponseBody
     public RespBody delete(Integer id){
         systemMenuService.deleteMenu(id);
@@ -117,7 +116,7 @@ public class MenuController extends AbstractController {
      */
     @PostMapping("/system/operator/menu_list")
     @ResponseBody
-    @Mark(RequestType.SELECT)
+    @Mark
     public List<SystemMenu> operatorMenuList(){
         SystemOperator operator = getRequiredOperator();
         return systemMenuService.getList(operator.getId());

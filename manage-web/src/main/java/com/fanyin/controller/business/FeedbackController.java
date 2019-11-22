@@ -5,7 +5,7 @@ import com.fanyin.model.dto.business.feedback.FeedbackDisposeRequest;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.model.vo.feedback.FeedbackVo;
+import com.fanyin.model.vo.feedback.FeedbackVO;
 import com.fanyin.service.common.FeedbackService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ public class FeedbackController extends AbstractController {
      */
     @PostMapping("/feedback/list_page")
     @ResponseBody
-    public Paging<FeedbackVo> listPage(FeedbackQueryRequest request){
-        PageInfo<FeedbackVo> byPage = feedbackService.getByPage(request);
+    public Paging<FeedbackVO> listPage(FeedbackQueryRequest request){
+        PageInfo<FeedbackVO> byPage = feedbackService.getByPage(request);
         return new Paging<>(byPage);
     }
 

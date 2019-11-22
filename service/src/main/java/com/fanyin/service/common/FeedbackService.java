@@ -2,7 +2,7 @@ package com.fanyin.service.common;
 
 import com.fanyin.model.dto.business.feedback.FeedbackAddRequest;
 import com.fanyin.model.dto.business.feedback.FeedbackDisposeRequest;
-import com.fanyin.model.vo.feedback.FeedbackVo;
+import com.fanyin.model.vo.feedback.FeedbackVO;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 import com.github.pagehelper.PageInfo;
 
@@ -23,7 +23,7 @@ public interface FeedbackService {
      * @param request 查询条件
      * @return 反馈信息 包含用户基本信息
      */
-    PageInfo<FeedbackVo> getByPage(FeedbackQueryRequest request);
+    PageInfo<FeedbackVO> getByPage(FeedbackQueryRequest request);
 
     /**
      * 反馈信息处理

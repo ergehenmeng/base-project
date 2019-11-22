@@ -1,7 +1,6 @@
 package com.fanyin.controller.operator;
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.system.SystemOperator;
@@ -49,7 +48,7 @@ public class OperatorController extends AbstractController {
      */
     @PostMapping("/system/operator/change_password")
     @ResponseBody
-    @Mark(RequestType.UPDATE)
+    @Mark
     public RespBody changePassword(HttpSession session, PasswordEditRequest request){
         SecurityOperator operator = getRequiredOperator();
         request.setOperatorId(operator.getId());
@@ -72,7 +71,7 @@ public class OperatorController extends AbstractController {
      */
     @PostMapping("/system/operator/list_page")
     @ResponseBody
-    @Mark(RequestType.SELECT)
+    @Mark
     public Paging<SystemOperator> operatorListPage(OperatorQueryRequest request){
         PageInfo<SystemOperator> page = systemOperatorService.getByPage(request);
         return new Paging<>(page);
@@ -85,7 +84,7 @@ public class OperatorController extends AbstractController {
      */
     @PostMapping("/system/operator/add")
     @ResponseBody
-    @Mark(RequestType.INSERT)
+    @Mark
     public RespBody addOperator(OperatorAddRequest request){
         systemOperatorService.addOperator(request);
         return RespBody.getInstance();
@@ -97,7 +96,7 @@ public class OperatorController extends AbstractController {
      * @return 页面
      */
     @GetMapping("/system/operator/edit_page")
-    @Mark(RequestType.PAGE)
+    @Mark
     public String editOperatorPage(Model model, Integer id){
         SystemOperator operator = systemOperatorService.getById(id);
         model.addAttribute("operator",operator);
@@ -116,7 +115,7 @@ public class OperatorController extends AbstractController {
      */
     @PostMapping("/system/operator/edit")
     @ResponseBody
-    @Mark(RequestType.UPDATE)
+    @Mark
     public RespBody editOperator(OperatorEditRequest request){
         systemOperatorService.updateOperator(request);
         return RespBody.getInstance();

@@ -17,10 +17,6 @@ public class OperationQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 7717698795068820383L;
 
-    /**
-     * 操作日志分类
-     */
-    private Byte classify;
 
     /**
      * 操作开始时间

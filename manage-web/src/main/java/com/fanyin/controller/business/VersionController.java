@@ -1,5 +1,6 @@
 package com.fanyin.controller.business;
 
+import com.fanyin.annotation.Mark;
 import com.fanyin.dao.model.business.Version;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
 import com.fanyin.model.dto.business.version.VersionEditRequest;
@@ -38,6 +39,7 @@ public class VersionController {
      */
     @PostMapping("/business/version/add")
     @ResponseBody
+    @Mark
     public RespBody add(VersionAddRequest request){
         versionService.addAppVersion(request);
         return RespBody.getInstance();
@@ -48,6 +50,7 @@ public class VersionController {
      */
     @PostMapping("/business/version/edit")
     @ResponseBody
+    @Mark
     public RespBody edit(VersionEditRequest request){
         versionService.editAppVersion(request);
         return RespBody.getInstance();
@@ -59,6 +62,7 @@ public class VersionController {
      */
     @PostMapping("/business/version/put_away")
     @ResponseBody
+    @Mark
     public RespBody putAway(Integer id){
         versionService.putAwayVersion(id);
         return RespBody.getInstance();
@@ -70,6 +74,7 @@ public class VersionController {
      */
     @PostMapping("/business/version/sold_out")
     @ResponseBody
+    @Mark
     public RespBody soleOut(Integer id){
         versionService.soleOutVersion(id);
         return RespBody.getInstance();
@@ -80,6 +85,7 @@ public class VersionController {
      */
     @PostMapping("/business/version/delete")
     @ResponseBody
+    @Mark
     public RespBody delete(Integer id){
         versionService.deleteVersion(id);
         return RespBody.getInstance();

@@ -1,7 +1,6 @@
 package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.dao.model.system.SystemOperationLog;
 import com.fanyin.model.dto.system.log.OperationQueryRequest;
 import com.fanyin.model.ext.Paging;
@@ -40,7 +39,7 @@ public class OperationLogController {
      * @return 结果页面
      */
     @GetMapping("/system/operation_log/query_page")
-    @Mark(RequestType.PAGE)
+    @Mark
     public String queryPage(Model model, Integer id){
         String response = operationLogService.getResponseById(id);
         model.addAttribute("response",response);

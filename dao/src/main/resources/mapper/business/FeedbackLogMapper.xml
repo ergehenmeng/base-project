@@ -139,7 +139,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <resultMap id="ListResultMap" type="com.fanyin.model.vo.feedback.FeedbackVo" extends="BaseResultMap">
+    <resultMap id="ListResultMap" type="com.fanyin.model.vo.feedback.FeedbackVO" extends="BaseResultMap">
         <result column="nick_name" jdbcType="CHAR" property="nickName" />
         <result column="mobile" jdbcType="CHAR" property="mobile" />
     </resultMap>

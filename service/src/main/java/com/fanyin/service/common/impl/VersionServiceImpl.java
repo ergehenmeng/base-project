@@ -11,7 +11,7 @@ import com.fanyin.model.dto.business.version.VersionAddRequest;
 import com.fanyin.model.dto.business.version.VersionEditRequest;
 import com.fanyin.model.dto.business.version.VersionQueryRequest;
 import com.fanyin.model.ext.RequestThreadLocal;
-import com.fanyin.model.vo.version.VersionVo;
+import com.fanyin.model.vo.version.VersionVO;
 import com.fanyin.service.common.VersionService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.DataUtil;
@@ -78,15 +78,15 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public VersionVo getLatestVersion() {
+    public VersionVO getLatestVersion() {
         String channel = RequestThreadLocal.getChannel();
         Version latestVersion = versionMapper.getLatestVersion(channel);
         String version = RequestThreadLocal.getVersion();
         //未找到最新版本,或者用户版本大于等于已上架版本
         if(latestVersion == null || VersionUtil.gte(version,latestVersion.getVersion())){
-            return VersionVo.builder().latest(true).build();
+            return VersionVO.builder().latest(true).build();
         }
-        VersionVo response = DataUtil.copy(latestVersion, VersionVo.class);
+        VersionVO response = DataUtil.copy(latestVersion, VersionVO.class);
         //最新版本是强制更新版本
         if(latestVersion.getForceUpdate()){
             return response;

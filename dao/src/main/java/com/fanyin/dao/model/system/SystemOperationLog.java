@@ -67,12 +67,6 @@ public class SystemOperationLog implements Serializable {
      */
     private String response;
 
-    /**
-     * 操作分类<br>
-     * 表 : system_operation_log<br>
-     * 对应字段 : classify<br>
-     */
-    private Byte classify;
 
     private static final long serialVersionUID = 1L;
 

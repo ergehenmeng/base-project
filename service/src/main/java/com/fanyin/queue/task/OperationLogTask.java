@@ -26,4 +26,9 @@ public class OperationLogTask extends AbstractTask<SystemOperationLog,OperationL
     protected void doException(Exception e) {
         log.error("操作日志写入异常",e);
     }
+
+    @Override
+    protected void doFinally() {
+        super.doFinally();
+    }
 }

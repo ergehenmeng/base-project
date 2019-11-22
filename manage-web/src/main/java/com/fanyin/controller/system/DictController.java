@@ -1,7 +1,6 @@
 package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.model.dto.system.dict.DictAddRequest;
 import com.fanyin.model.dto.system.dict.DictEditRequest;
 import com.fanyin.model.dto.system.dict.DictQueryRequest;
@@ -33,7 +32,7 @@ public class DictController {
      */
     @PostMapping("/system/dict/list_page")
     @ResponseBody
-    @Mark(RequestType.SELECT)
+    @Mark
     public Paging<SystemDict> listPage(DictQueryRequest request){
         return new Paging<>(systemDictService.getByPage(request));
     }
@@ -44,7 +43,7 @@ public class DictController {
      * @return 页面地址
      */
     @GetMapping("/system/dict/edit_page")
-    @Mark(RequestType.PAGE)
+    @Mark
     public String editPage(Model model,Integer id){
         SystemDict dict = systemDictService.getById(id);
         model.addAttribute("dict",dict);
@@ -58,7 +57,7 @@ public class DictController {
      */
     @PostMapping("/system/dict/add")
     @ResponseBody
-    @Mark(RequestType.INSERT)
+    @Mark
     public RespBody add(DictAddRequest request){
         systemDictService.addDict(request);
         return RespBody.getInstance();
@@ -71,7 +70,7 @@ public class DictController {
      */
     @PostMapping("/system/dict/edit")
     @ResponseBody
-    @Mark(RequestType.UPDATE)
+    @Mark
     public RespBody edit(DictEditRequest request){
         systemDictService.updateDict(request);
         return RespBody.getInstance();
@@ -85,7 +84,7 @@ public class DictController {
      */
     @PostMapping("/system/dict/delete")
     @ResponseBody
-    @Mark(RequestType.DELETE)
+    @Mark
     public RespBody delete(Integer id){
         systemDictService.deleteDict(id);
         return RespBody.getInstance();

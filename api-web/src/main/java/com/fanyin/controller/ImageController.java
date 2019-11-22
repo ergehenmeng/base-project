@@ -1,7 +1,7 @@
 package com.fanyin.controller;
 
+import com.fanyin.model.ext.FilePath;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.model.vo.upload.FilePath;
 import com.fanyin.service.common.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

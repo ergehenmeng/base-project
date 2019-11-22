@@ -4,7 +4,7 @@ import com.fanyin.dao.mapper.business.FeedbackLogMapper;
 import com.fanyin.dao.model.business.FeedbackLog;
 import com.fanyin.model.dto.business.feedback.FeedbackAddRequest;
 import com.fanyin.model.dto.business.feedback.FeedbackDisposeRequest;
-import com.fanyin.model.vo.feedback.FeedbackVo;
+import com.fanyin.model.vo.feedback.FeedbackVO;
 import com.fanyin.model.dto.business.feedback.FeedbackQueryRequest;
 import com.fanyin.service.common.FeedbackService;
 import com.fanyin.utils.DataUtil;
@@ -34,9 +34,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public PageInfo<FeedbackVo> getByPage(FeedbackQueryRequest request) {
+    public PageInfo<FeedbackVO> getByPage(FeedbackQueryRequest request) {
         PageHelper.startPage(request.getPage(),request.getPageSize());
-        List<FeedbackVo> list = feedbackLogMapper.getList(request);
+        List<FeedbackVO> list = feedbackLogMapper.getList(request);
         return new PageInfo<>(list);
     }
 

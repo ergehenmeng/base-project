@@ -1,7 +1,6 @@
 package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
 import com.fanyin.dao.model.system.SystemCache;
@@ -31,7 +30,6 @@ public class CacheController {
      */
     @PostMapping("/system/cache/list")
     @ResponseBody
-    @Mark(RequestType.SELECT)
     public Paging<SystemCache> list(){
         return new Paging<>(systemCacheService.getList());
     }
@@ -43,7 +41,7 @@ public class CacheController {
      */
     @PostMapping("/system/cache/clear")
     @ResponseBody
-    @Mark(RequestType.ALL)
+    @Mark
     public RespBody clear(String cacheName){
         List<String> cacheList = Splitter.on(",").splitToList(cacheName);
         systemCacheService.clearCache(cacheList);

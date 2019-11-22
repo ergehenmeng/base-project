@@ -10,8 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractTask<T,B> implements Runnable{
 
+    /**
+     * 待处理的业务数据
+     */
     private T data;
 
+    /**
+     * 业务处理的Bean
+     */
     private B bean;
 
     public AbstractTask(T data,B bean){
@@ -26,6 +32,8 @@ public abstract class AbstractTask<T,B> implements Runnable{
             execute(data);
         }catch (Exception e){
             this.doException(e);
+        }finally {
+            this.doFinally();
         }
         log.debug("队列任务执行结束");
     }
@@ -47,6 +55,13 @@ public abstract class AbstractTask<T,B> implements Runnable{
      */
     protected void doException(Exception e){
         log.error("队列任务执行异常",e);
+    }
+
+    /**
+     * 执行完业务的后置处理操作
+     */
+    protected void doFinally(){
+        log.debug("队列任务执行完成");
     }
 
     /**

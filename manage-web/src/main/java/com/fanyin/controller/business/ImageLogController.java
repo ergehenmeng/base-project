@@ -1,16 +1,15 @@
 package com.fanyin.controller.business;
 
 import com.fanyin.annotation.Mark;
-import com.fanyin.annotation.RequestType;
 import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.business.ImageLog;
 import com.fanyin.model.dto.business.image.ImageAddRequest;
 import com.fanyin.model.dto.business.image.ImageEditRequest;
 import com.fanyin.model.dto.business.image.ImageQueryRequest;
+import com.fanyin.model.ext.FilePath;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.model.vo.upload.FilePath;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.FileService;
 import com.fanyin.service.common.ImageLogService;
@@ -46,7 +45,7 @@ public class ImageLogController extends AbstractController {
      */
     @PostMapping("/system/image/list_page")
     @ResponseBody
-    @Mark(RequestType.SELECT)
+    @Mark
     public Paging<ImageLog> listPage(ImageQueryRequest request){
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.transform(page, imageLog -> {
@@ -63,7 +62,7 @@ public class ImageLogController extends AbstractController {
      */
     @PostMapping("/system/image/add")
     @ResponseBody
-    @Mark(RequestType.INSERT)
+    @Mark
     public RespBody addImage(ImageAddRequest request, MultipartFile imgFile){
         if(imgFile != null && !imgFile.isEmpty()){
             FilePath filePath = fileService.saveFile(imgFile);
@@ -81,7 +80,7 @@ public class ImageLogController extends AbstractController {
      */
     @PostMapping("/system/image/edit")
     @ResponseBody
-    @Mark(RequestType.UPDATE)
+    @Mark
     public RespBody editImage(ImageEditRequest request){
         imageLogService.updateImageLog(request);
         return RespBody.getInstance();
@@ -95,7 +94,7 @@ public class ImageLogController extends AbstractController {
      */
     @PostMapping("/system/image/delete")
     @ResponseBody
-    @Mark(RequestType.DELETE)
+    @Mark
     public RespBody deleteImage(Integer id){
         imageLogService.deleteImageLog(id);
         return RespBody.getInstance();
@@ -106,7 +105,7 @@ public class ImageLogController extends AbstractController {
      * @return 图片地址
      */
     @GetMapping("/system/image/edit_page")
-    @Mark(RequestType.PAGE)
+    @Mark
     public String editImagePage(Model model, Integer id){
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log",log);

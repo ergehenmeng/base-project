@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2019/10/15 9:49
  */
 @Data
-public class LoginTokenPo {
+public class LoginTokenPO {
 
     /**
      * accessKey

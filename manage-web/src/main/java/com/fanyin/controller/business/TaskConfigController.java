@@ -1,5 +1,6 @@
 package com.fanyin.controller.business;
 
+import com.fanyin.annotation.Mark;
 import com.fanyin.configuration.job.DynamicTask;
 import com.fanyin.dao.model.business.TaskConfig;
 import com.fanyin.model.dto.business.task.TaskEditRequest;
@@ -53,6 +54,7 @@ public class TaskConfigController {
      */
     @PostMapping("/business/task/edit")
     @ResponseBody
+    @Mark
     public RespBody edit(TaskEditRequest request){
         taskConfigService.editTaskConfig(request);
         return RespBody.getInstance();
@@ -63,6 +65,7 @@ public class TaskConfigController {
      */
     @PostMapping("/business/task/refresh")
     @ResponseBody
+    @Mark
     public RespBody refresh(){
         dynamicTask.openOrRefreshTask();
         return RespBody.getInstance();

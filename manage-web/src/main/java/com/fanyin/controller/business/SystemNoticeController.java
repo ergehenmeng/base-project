@@ -1,5 +1,6 @@
 package com.fanyin.controller.business;
 
+import com.fanyin.annotation.Mark;
 import com.fanyin.dao.model.business.SystemNotice;
 import com.fanyin.model.dto.business.notice.NoticeAddRequest;
 import com.fanyin.model.dto.business.notice.NoticeEditRequest;
@@ -38,6 +39,7 @@ public class SystemNoticeController {
      */
     @PostMapping("/business/notice/add")
     @ResponseBody
+    @Mark
     public RespBody add(NoticeAddRequest request){
         systemNoticeService.addNotice(request);
         return RespBody.getInstance();
@@ -48,6 +50,7 @@ public class SystemNoticeController {
      */
     @PostMapping("/business/notice/edit")
     @ResponseBody
+    @Mark
     public RespBody edit(NoticeEditRequest request){
         systemNoticeService.editNotice(request);
         return RespBody.getInstance();
@@ -58,6 +61,7 @@ public class SystemNoticeController {
      */
     @PostMapping("/business/notice/delete")
     @ResponseBody
+    @Mark
     public RespBody delete(Integer id){
         systemNoticeService.deleteNotice(id);
         return RespBody.getInstance();

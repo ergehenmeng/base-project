@@ -1,6 +1,6 @@
 package com.fanyin.service.common;
 
-import com.fanyin.model.vo.upload.FilePath;
+import com.fanyin.model.ext.FilePath;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
@@ -25,7 +25,7 @@ public interface FileService {
      * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(@NotNull MultipartFile file,String folder);
+    FilePath saveFile(@NotNull MultipartFile file, String folder);
 
     /**
      * 保存文件
@@ -34,7 +34,7 @@ public interface FileService {
      * @param maxSize 文件最大限制 byte
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(@NotNull MultipartFile file,String folder,long maxSize);
+    FilePath saveFile(@NotNull MultipartFile file, String folder, long maxSize);
 
     /**
      * 保存文件
@@ -42,7 +42,7 @@ public interface FileService {
      * @param maxSize 文件最大限制 byte
      * @return 文件保存的相对路径
      */
-    FilePath saveFile(@NotNull MultipartFile file,long maxSize);
+    FilePath saveFile(@NotNull MultipartFile file, long maxSize);
 
 
     /**
@@ -59,7 +59,7 @@ public interface FileService {
      * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @return 文件列表保存的相对路径
      */
-    FilePath saveFiles(@NotNull List<MultipartFile> files,String folder);
+    FilePath saveFiles(@NotNull List<MultipartFile> files, String folder);
 
     /**
      * 保存文件列表
@@ -68,7 +68,7 @@ public interface FileService {
      * @param maxSize 文件最大限制 byte
      * @return 文件列表保存的相对路径
      */
-    FilePath saveFiles(@NotNull List<MultipartFile> files,String folder,long maxSize);
+    FilePath saveFiles(@NotNull List<MultipartFile> files, String folder, long maxSize);
 
     /**
      * 保存文件列表
