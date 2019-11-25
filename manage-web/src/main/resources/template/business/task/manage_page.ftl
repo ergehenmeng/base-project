@@ -27,7 +27,9 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑"> 编辑</a>';
+                            <@auth nid = "taskConfigEdit">
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑"> 编辑</a>';
+                            </@auth>
                             str += '</dd>';
                             str += '</dl>';
                             return str;
@@ -72,7 +74,7 @@
                     </select>
                 </li>
             </@search>
-            <@auth nid='taskManageRefreseh'>
+            <@auth nid='taskConfigRefreseh'>
                 <div class="right">
                     <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.confirm(0,clearUrl,clearMsg);"><i class="fa fa-refresh">&nbsp;</i>重置</a>
                 </div>

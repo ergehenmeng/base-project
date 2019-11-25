@@ -48,11 +48,11 @@ $.fn.extOptions.loadFilter = function(data){
 };
 
 /**
- * 格式化数据结果
+ * 格式化数据,过长内容将以...省略,同时以tips方式显示全部
  * @param value 源值
  * @param maxLength 超过该长度后不会显示
  */
-$.fn.dataGridOptions.format = function(value,maxLength){
+$.fn.dataGridOptions.length = function(value,maxLength){
     if(!maxLength){
         maxLength = 40;
     }

@@ -45,7 +45,7 @@
                             return "<span style='color:red;'>失败</span>";
                         }
                     },
-                    {field : "ip",title : "机器ip",width : 120,align : "center" },
+                    {field : "ip",title : "机器IP",width : 120,align : "center" },
                     {field : "startTime",title : "开始时间",width : 180,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
@@ -62,7 +62,7 @@
 <div class="easyui-layout" data-options="fit:true,doSize:false">
     <div data-options="region:'north',border:false" class="condition-bar">
         <div class="layout-norths">
-            <@search placeholder="标示符、机器ip" advance=true>
+            <@search placeholder="标示符、机器IP" advance=true>
                 <li>
                     <span>状态</span>
                     <select name="state" title="结果状态">

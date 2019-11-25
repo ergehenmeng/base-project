@@ -28,19 +28,25 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑"> 编辑</a>';
+                            <@auth nid="smsTemplateEdit">
+                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑"> 编辑</a>';
+                            </@auth>
                             str += '</dd>';
                             str += '</dl>';
                             return str;
                         }
                     },
                     {field : "nid",title : "标示符",width : 150,align : "center"},
-                    {field : "content",title : "内容",width : 150,align : "center"},
+                    {field : "content",title : "内容",width : 600,align : "center",
+                        formatter:function (value) {
+                            return $.fn.dataGridOptions.format(value,40);
+                        }
+                    },
                     {field : "updateTime",title : "结束时间",width : 180,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
-                    }
+                    },
                     {field : "remark",title : "备注",align : "center",width : 300 }
                 ] ]
             });

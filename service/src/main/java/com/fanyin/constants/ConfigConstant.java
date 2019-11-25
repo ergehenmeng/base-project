@@ -95,4 +95,9 @@ public class ConfigConstant {
      * 安卓软件包大小
      */
     public static final String ANDROID_MAX_SIZE = "android_max_size";
+
+    /**
+     * 模拟短信验证码
+     */
+    public static final String ANALOG_SMS_CODE = "analog_sms_code";
 }
