@@ -63,5 +63,10 @@ public class SystemNotice implements Serializable {
      */
     private String content;
 
-
+    /**
+     * 是否发布 0:未发布 1:已发布<br>
+     * 表 : system_notice<br>
+     * 对应字段 : state<br>
+     */
+    private Byte state;
 }

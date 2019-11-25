@@ -248,10 +248,16 @@ textarea{
 	width:220px;
 	border: 1px solid #ccc;
 }
+
+.form-item select{
+    padding: 4px;
+    width:220px;
+    border: 1px solid #ccc;
+}
+
 .form-item input.small{
     width:137px;
 }
-
 
 .platform-form {
 	padding: 10px;

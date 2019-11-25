@@ -1,6 +1,8 @@
 package com.fanyin.controller.business;
 
 import com.fanyin.annotation.Mark;
+import com.fanyin.common.enums.ErrorCode;
+import com.fanyin.common.utils.StringUtil;
 import com.fanyin.dao.model.business.SystemNotice;
 import com.fanyin.model.dto.business.notice.NoticeAddRequest;
 import com.fanyin.model.dto.business.notice.NoticeEditRequest;
@@ -11,6 +13,8 @@ import com.fanyin.service.common.SystemNoticeService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,7 +45,40 @@ public class SystemNoticeController {
     @ResponseBody
     @Mark
     public RespBody add(NoticeAddRequest request){
+        if(StringUtil.isBlank(request.getContent())){
+            return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
+        }
         systemNoticeService.addNotice(request);
+        return RespBody.getInstance();
+    }
+
+    /**
+     * 公告编辑页面
+     */
+    @GetMapping("/business/notice/edit_page")
+    public String editPage(Model model, Integer id){
+        SystemNotice notice = systemNoticeService.getById(id);
+        model.addAttribute("notice",notice);
+        return "business/notice/edit_page";
+    }
+
+    /**
+     * 发布公告
+     */
+    @PostMapping("/business/notice/publish")
+    @ResponseBody
+    public RespBody publish(Integer id){
+        systemNoticeService.publish(id);
+        return RespBody.getInstance();
+    }
+
+    /**
+     * 取消发布的公告
+     */
+    @PostMapping("/business/notice/cancel_publish")
+    @ResponseBody
+    public RespBody cancelPublish(Integer id){
+        systemNoticeService.cancelPublish(id);
         return RespBody.getInstance();
     }
 

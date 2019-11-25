@@ -1,35 +1,32 @@
 
 //加载门户首页信息
 var $portal  = $('#portal');
-
+var panels;
 function loadPortal(){
-    $portal.layout({
-			fit : true
-	});
 	panels = [ {
 		id : 'p1',
-		title : '待填充',
+		title : '待填充P1',
 		iconCls:'curve_ico',
 		height : 280,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p2',
-		title : '待填充',
+		title : '待填充P2',
 		iconCls:'rank_ico',
 		height : 280,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p3',
-		title : '待填充',
+		title : '待填充P3',
 		iconCls:'cal_ico',
 		height : 280,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p4',
-		title : '待填充',
+		title : '待填充P4',
 		iconCls:'pie_ico',
 		height : 280,
 		collapsible:true,

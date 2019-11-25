@@ -39,11 +39,11 @@
                     {field : "nid",title : "参数标示",width : 160,align : "center"},
                     {field : "content",title : "参数值",width : 300,align : "center",
                         formatter:function(value){
-                            return $.fn.dataGridOptions.format(value,30);
+                            return $.fn.dataGridOptions.maxLength(value);
                         }
                     },
                     {
-                        field: "locked", title: "是否锁定", width: 60, align: "center",
+                        field: "locked", title: "是否锁定", width: 80, align: "center",
                         formatter: function (value, rows, index) {
                             return value ? "是" : "否";
                         }

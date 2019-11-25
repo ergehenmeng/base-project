@@ -330,6 +330,12 @@ public enum ErrorCode {
      * 按钮菜单无法添加子菜单
      */
     SUB_MENU_ERROR(3027,"按钮菜单无法添加子菜单"),
+
+
+    /**
+     * 内容不能为空
+     */
+    TEXT_CONTENT_EMPTY(3028,"内容不能为空"),
     ;
     /**
      * 构造方法

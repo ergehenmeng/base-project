@@ -24,9 +24,9 @@ $(function(){
 
 	//增加首页tabs信息
 	addTabs("首页","/portal");
-	var $accordion = $("#accordion");
-	new Accordion($accordion, false);
 
+	var $accordion = $("#accordion");
+	new accordion($accordion, false);
     var $li = $accordion.find("li");
     $li.find("a").on("click",function(){
         $li.removeClass("clicked");
@@ -37,22 +37,18 @@ $(function(){
 });
 
 
-var Accordion = function(el, multiple) {
+var accordion = function(el, multiple) {
 	this.el = el || {};
 	multiple = multiple || false;
-
 	var links = this.el.find('.link');
-	
 	links.on('click', {el: this.el, multiple: multiple}, this.dropdown);
 };
 
-Accordion.prototype.dropdown = function(e) {
+accordion.prototype.dropdown = function(e) {
 	var $el = e.data.el;
 	var	$next = $(this).next();
-
 	$next.slideToggle("fast");
     $(this).parent().toggleClass('open');
-
 	if (!e.data.multiple) {
 		$el.find('.submenu').not($next).slideUp("fast").parent().removeClass('open');
 	}

@@ -11,9 +11,13 @@
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/business/sms_log/list_page",
                 columns : [ [
-                    {field : "nid",title : "标示符",width : 150,align : "center"},
+                    {field : "smsType",title : "标示符",width : 150,align : "center"},
                     {field : "mobile",title : "手机号",width : 150,align : "center"},
-                    {field : "content",title : "短信内容",width : 150,align : "center"},
+                    {field : "content",title : "短信内容",width : 800,align : "center",
+                        formatter :function (value) {
+                            return $.fn.dataGridOptions.maxLength(value,50);
+                        }
+                    },
                     {field : "state",title : "状态",width : 180,align : "center",
                         formatter : function(value) {
                             if(value === 0){

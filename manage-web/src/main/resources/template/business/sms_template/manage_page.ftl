@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>轮播图管理</title>
+    <title>短信模板管理</title>
     <#include "../../resources.ftl">
     <script type="text/javascript">
         var dataGrid;
@@ -39,7 +39,7 @@
                     {field : "nid",title : "标示符",width : 150,align : "center"},
                     {field : "content",title : "内容",width : 600,align : "center",
                         formatter:function (value) {
-                            return $.fn.dataGridOptions.format(value,40);
+                            return $.fn.dataGridOptions.maxLength(value);
                         }
                     },
                     {field : "updateTime",title : "结束时间",width : 180,align : "center",

@@ -4,6 +4,7 @@ import com.fanyin.model.dto.business.notice.NoticeAddRequest;
 import com.fanyin.model.dto.business.notice.NoticeEditRequest;
 import com.fanyin.model.dto.business.notice.NoticeQueryRequest;
 import com.fanyin.dao.model.business.SystemNotice;
+import com.fanyin.model.vo.notice.TopNoticeVO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -16,10 +17,10 @@ public interface SystemNoticeService {
 
 
     /**
-     * 获取公告列表,具体多少条由系统参数notice_limit控制
+     * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制
      * @return 公告列表
      */
-    List<SystemNotice> getList();
+    List<TopNoticeVO> getList();
 
     /**
      * 添加公告
@@ -45,5 +46,24 @@ public interface SystemNoticeService {
      * @return 结果集
      */
     PageInfo<SystemNotice> getByPage(NoticeQueryRequest request);
+
+    /**
+     * 主键查询公告信息
+     * @param id id
+     * @return 公告信息
+     */
+    SystemNotice getById(Integer id);
+
+    /**
+     * 发布公告
+     * @param id id主键
+     */
+    void publish(Integer id);
+
+    /**
+     * 取消发布
+     * @param id 主键
+     */
+    void cancelPublish(Integer id);
 }
 

@@ -52,7 +52,7 @@ $.fn.extOptions.loadFilter = function(data){
  * @param value 源值
  * @param maxLength 超过该长度后不会显示
  */
-$.fn.dataGridOptions.length = function(value,maxLength){
+$.fn.dataGridOptions.maxLength = function(value,maxLength){
     if(!maxLength){
         maxLength = 40;
     }

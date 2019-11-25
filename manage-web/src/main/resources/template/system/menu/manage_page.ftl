@@ -58,7 +58,7 @@
                     {field : "url",title : "菜单URL",width : 300,align : "center"},
                     {field : "subUrl",title : "子菜单URL",width : 300,align : "center",
                         formatter:function (value) {
-                            return $.fn.dataGridOptions.format(value,50);
+                            return $.fn.dataGridOptions.maxLength(value,50);
                         }
                     },
                     {field : "grade",title : "类型",width : 80,align : "center",

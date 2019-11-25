@@ -7,12 +7,14 @@ import com.fanyin.dao.model.business.SystemNotice;
 import com.fanyin.model.dto.business.notice.NoticeAddRequest;
 import com.fanyin.model.dto.business.notice.NoticeEditRequest;
 import com.fanyin.model.dto.business.notice.NoticeQueryRequest;
+import com.fanyin.model.vo.notice.TopNoticeVO;
 import com.fanyin.service.common.SystemNoticeService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,10 +36,11 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     private SystemConfigApi systemConfigApi;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE,cacheManager = "smallCacheManager",unless = "#result.empty")
-    public List<SystemNotice> getList() {
+    @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE,cacheManager = "smallCacheManager",unless = "#result.size() == 0")
+    public List<TopNoticeVO> getList() {
         int noticeLimit = systemConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
-        return systemNoticeMapper.getTopList(noticeLimit);
+        List<SystemNotice> noticeList = systemNoticeMapper.getTopList(noticeLimit);
+        return DataUtil.transform(noticeList, notice -> DataUtil.copy(notice, TopNoticeVO.class));
     }
 
     @Override
@@ -65,5 +68,28 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
         PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SystemNotice> list = systemNoticeMapper.getList(request);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public SystemNotice getById(Integer id) {
+        return systemNoticeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE,beforeInvocation = true)
+    public void publish(Integer id) {
+        SystemNotice notice = new SystemNotice();
+        notice.setState((byte)1);
+        notice.setId(id);
+        systemNoticeMapper.updateByPrimaryKeySelective(notice);
+    }
+
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE,beforeInvocation = true)
+    public void cancelPublish(Integer id) {
+        SystemNotice notice = new SystemNotice();
+        notice.setState((byte)0);
+        notice.setId(id);
+        systemNoticeMapper.updateByPrimaryKeySelective(notice);
     }
 }

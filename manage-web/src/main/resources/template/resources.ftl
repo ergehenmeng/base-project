@@ -41,5 +41,10 @@
 <link href="/static/css/common/css/font-awesome.min.css?v=${version!}" type="text/css" rel="stylesheet">
 <#-- 全局样式 -->
 <link href="/static/css/common/style.css?v=${version!}" rel="stylesheet" type="text/css" >
+<#--富文本编辑器-->
+<script src="/static/js/editor/wangEditor.min.js?v=${version!}" type="text/javascript" charset="utf-8" ></script>
+<link href="/static/js/editor/wangEditor-fullscreen-plugin.css?v=${version!}" rel="stylesheet" type="text/css" />
+<script src="/static/js/editor/wangEditor-fullscreen-plugin.js?v=${version!}" type="text/javascript" charset="utf-8" ></script>
+
 
 <#include "macro.ftl" />
