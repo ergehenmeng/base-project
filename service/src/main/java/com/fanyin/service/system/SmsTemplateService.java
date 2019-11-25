@@ -1,6 +1,7 @@
 package com.fanyin.service.system;
 
 import com.fanyin.dao.model.business.SmsTemplate;
+import com.fanyin.model.dto.business.sms.SmsTemplateEditRequest;
 import com.fanyin.model.dto.business.sms.SmsTemplateQueryRequest;
 import com.github.pagehelper.PageInfo;
 
@@ -18,9 +19,22 @@ public interface SmsTemplateService {
     String getTemplate(String nid);
 
     /**
+     * 主键查询短信模板
+     * @param id id
+     * @return 短信模板
+     */
+    SmsTemplate getById(Integer id);
+
+    /**
      * 根据条件查询短信模板列表
      * @param request 查询条件
      * @return 列表
      */
     PageInfo<SmsTemplate> getByPage(SmsTemplateQueryRequest request);
+
+    /**
+     * 更新短信模板
+     * @param request 前台参数
+     */
+    void updateSmsTemplate(SmsTemplateEditRequest request);
 }

@@ -7,17 +7,17 @@
     <form id="form"  method="post">
         <div class="form-item">
             <label>标题:</label>
-            <input title="任务名称" maxlength="50" readonly value="${(config.title)!}" name="title" class="easyui-validatebox" data-options="required: true"  />
+            <input title="任务名称" maxlength="50" readonly value="${(config.title)!}"  class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form-item">
             <label>标示符:</label>
-            <input title="任务唯一标示符" maxlength="20" readonly value="${(config.nid)!}" name="nid" class="easyui-validatebox" data-options="required: true"  />
+            <input title="任务唯一标示符" maxlength="20" readonly value="${(config.nid)!}" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form-item">
             <label>bean名称:</label>
-            <input title="参数标示" maxlength="50" readonly value="${(config.beanName)!}"  name="beanName" class="easyui-validatebox" data-options="required: true"  />
+            <input title="参数标示" maxlength="50" readonly value="${(config.beanName)!}"  class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form-item">

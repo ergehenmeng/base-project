@@ -18,6 +18,13 @@
 
         var  delMsg = "确定要执行该操作吗";
         var delUrl = "/business/version/delete";
+
+        var putAwayMsg = "确定要上架该版本吗";
+        var putAwayUrl = "/business/version/put_away";
+
+        var soldOutMsg = "确定要下架该版本吗";
+        var soldOutUrl = "/business/version/sold_out";
+
         var address = "${address!}";
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
@@ -34,6 +41,8 @@
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑"> 编辑</a>';
+                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',putAwayUrl,putAwayMsg);" title="上架"> 上架</a>';
+                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',soldOutUrl,soldOutMsg);" title="下架"> 下架</a>';
                             str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除"> 删除</a>';
                             str += '</dd>';
                             str += '</dl>';

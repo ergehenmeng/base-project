@@ -3,8 +3,10 @@ package com.fanyin.service.system.impl;
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.dao.mapper.system.SmsTemplateMapper;
 import com.fanyin.dao.model.business.SmsTemplate;
+import com.fanyin.model.dto.business.sms.SmsTemplateEditRequest;
 import com.fanyin.model.dto.business.sms.SmsTemplateQueryRequest;
 import com.fanyin.service.system.SmsTemplateService;
+import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +35,21 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     }
 
     @Override
+    public SmsTemplate getById(Integer id) {
+        return smsTemplateMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public PageInfo<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
         PageHelper.startPage(request.getPage(),request.getPageSize());
         List<SmsTemplate> list = smsTemplateMapper.getList(request);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    public void updateSmsTemplate(SmsTemplateEditRequest request) {
+        SmsTemplate template = DataUtil.copy(request, SmsTemplate.class);
+        smsTemplateMapper.updateByPrimaryKeySelective(template);
     }
 
 
