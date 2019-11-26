@@ -7,28 +7,28 @@ function loadPortal(){
 		id : 'p1',
 		title : '待填充P1',
 		iconCls:'curve_ico',
-		height : 300,
+		height : 350,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p2',
 		title : '待填充P2',
 		iconCls:'rank_ico',
-		height : 300,
+		height : 350,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p3',
 		title : '待填充P3',
 		iconCls:'cal_ico',
-		height : 300,
+		height : 350,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p4',
 		title : '待填充P4',
 		iconCls:'pie_ico',
-		height : 300,
+		height : 350,
 		collapsible:true,
 		href : ''
 	}];

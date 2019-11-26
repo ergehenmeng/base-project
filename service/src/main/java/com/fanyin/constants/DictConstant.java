@@ -16,4 +16,9 @@ public class DictConstant {
      * 系统参数分类
      */
     public static final String CONFIG_CLASSIFY = "config_classify";
+
+    /**
+     * 公告分类
+     */
+    public static final String NOTICE_CLASSIFY = "notice_classify";
 }

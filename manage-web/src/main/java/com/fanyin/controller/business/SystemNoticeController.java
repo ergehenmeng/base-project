@@ -3,13 +3,17 @@ package com.fanyin.controller.business;
 import com.fanyin.annotation.Mark;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.utils.StringUtil;
+import com.fanyin.constants.DictConstant;
 import com.fanyin.dao.model.business.SystemNotice;
 import com.fanyin.model.dto.business.notice.NoticeAddRequest;
 import com.fanyin.model.dto.business.notice.NoticeEditRequest;
 import com.fanyin.model.dto.business.notice.NoticeQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
+import com.fanyin.model.vo.notice.SystemNoticeVO;
+import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.SystemNoticeService;
+import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,14 +32,21 @@ public class SystemNoticeController {
     @Autowired
     private SystemNoticeService systemNoticeService;
 
+    @Autowired
+    private CacheProxyService cacheProxyService;
+
     /**
      * 系统公告列表查询
      */
     @PostMapping("/business/notice/list_page")
     @ResponseBody
-    public Paging<SystemNotice> listPage(NoticeQueryRequest request){
+    public Paging<SystemNoticeVO> listPage(NoticeQueryRequest request){
         PageInfo<SystemNotice> byPage = systemNoticeService.getByPage(request);
-        return new Paging<>(byPage);
+        return DataUtil.transform(byPage,notice -> {
+            SystemNoticeVO vo = DataUtil.copy(notice, SystemNoticeVO.class);
+            vo.setClassifyName(cacheProxyService.getDictValue(DictConstant.NOTICE_CLASSIFY,notice.getClassify()));
+            return vo;
+        });
     }
 
     /**
