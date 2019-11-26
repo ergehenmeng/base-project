@@ -26,4 +26,9 @@ public class CommonConstant {
      * 未知ip地址
      */
     public static final String UNKNOWN = "unknown";
+
+    /**
+     * app版本上传目录文件夹名称
+     */
+    public static final String VERSION = "version";
 }

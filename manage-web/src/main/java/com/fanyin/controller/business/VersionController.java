@@ -1,6 +1,7 @@
 package com.fanyin.controller.business;
 
 import com.fanyin.annotation.Mark;
+import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.model.business.Version;
 import com.fanyin.model.dto.business.version.VersionAddRequest;
@@ -73,7 +74,7 @@ public class VersionController {
     public RespBody add(VersionAddRequest request, MultipartFile file){
         if(file != null && !file.isEmpty()){
             long maxSize = systemConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
-            FilePath filePath = fileService.saveFile(file,maxSize);
+            FilePath filePath = fileService.saveFile(file, CommonConstant.VERSION,maxSize);
             request.setUrl(filePath.getPath());
         }
         versionService.addAppVersion(request);

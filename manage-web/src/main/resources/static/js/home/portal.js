@@ -7,39 +7,40 @@ function loadPortal(){
 		id : 'p1',
 		title : '待填充P1',
 		iconCls:'curve_ico',
-		height : 280,
+		height : 300,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p2',
 		title : '待填充P2',
 		iconCls:'rank_ico',
-		height : 280,
+		height : 300,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p3',
 		title : '待填充P3',
 		iconCls:'cal_ico',
-		height : 280,
+		height : 300,
 		collapsible:true,
 		href : ''
 	},{
 		id : 'p4',
 		title : '待填充P4',
 		iconCls:'pie_ico',
-		height : 280,
+		height : 300,
 		collapsible:true,
 		href : ''
 	}];
 	
 	$portal.portal({
 		border : false
-	});
+	}).layout({
+        fit : true
+    });
     //:为竖向切分 ,为横向切分
 	var state = "p1,p3:p2,p4";
 	addPanel(state);
-    $portal.portal('resize');
 }
 
 //向首页添加四个面板
@@ -55,7 +56,7 @@ function addPanel(state){
                  $portal.portal("add",{
 					 panel			:p,
 					 columnIndex	:i
-				 });
+				 }).portal("disableDragging",p);
 			 }
 		}
 	}

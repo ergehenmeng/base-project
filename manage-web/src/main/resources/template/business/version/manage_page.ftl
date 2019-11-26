@@ -40,9 +40,6 @@
                             str += '<dl>';
                             str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
                             str += '<dd>';
-                            <@auth nid="versionManageEdit">
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑"> 编辑</a>';
-                            </@auth>
                             <@auth nid="versionManagePut">
                                 if(row.state === 0){
                                     str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',putAwayUrl,putAwayMsg);" title="上架"> 上架</a>';

@@ -23,7 +23,7 @@ public class LoginController extends AbstractController {
      * 未登录的首页
      * @return 首页index.ftl
      */
-    @GetMapping(value = "/")
+    @GetMapping(value = {"/","/index"})
     public String index(){
         return "index";
     }
