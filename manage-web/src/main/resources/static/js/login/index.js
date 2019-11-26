@@ -1,4 +1,5 @@
 $(function(){
+    $(".valid-code-img").attr("src","/captcha?t=" + Math.random());
     if (window.parent !== window){//防止在登陆后sessison过期,再次访问其他页面时,直接在对话框中显示页面
         parent.location.reload();
     }
@@ -47,9 +48,6 @@ function loginFun() {
     $.post("/login",{mobile : mobile,password : md5(Base64.encode(password)),validCode : validCode},function(data){
         if (data.code === 200) {
             // 跳转前清空密码框
-            $mobile.val("");
-            $password.val("");
-            $validCode.val("");
             window.location.href = "/home";
         } else {
             errorTip(data.msg);
