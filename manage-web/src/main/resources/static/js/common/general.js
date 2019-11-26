@@ -205,6 +205,18 @@ $.fn.dataGridOptions.wangEditor = function(source,target,originalTarget){
             $(originalTarget).text(editor.txt.text());
         }
     };
+    editor.customConfig.debug = false;
+    editor.customConfig.uploadImgServer = "/upload/image";
+    editor.customConfig.uploadFileName = "image";
+    editor.customConfig.uploadImgHooks = {
+        customInsert : function(insertImg,result){
+            if(result.code === 200){
+                insertImg(result.data.address + result.data.path);
+            }else{
+                alert(result.msg);
+            }
+        }
+    };
     editor.customConfig.onchangeTimeout = 500;
     editor.create();
     E.fullscreen.init(source);
