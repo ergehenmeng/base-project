@@ -2,6 +2,7 @@ package com.fanyin.controller.system;
 
 import com.fanyin.annotation.Mark;
 import com.fanyin.common.enums.ErrorCode;
+import com.fanyin.configuration.security.CustomFilterInvocationSecurityMetadataSource;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.model.dto.system.menu.MenuAddRequest;
 import com.fanyin.model.dto.system.menu.MenuEditRequest;
@@ -28,6 +29,9 @@ public class MenuController extends AbstractController {
 
     @Autowired
     private SystemMenuService systemMenuService;
+
+    @Autowired
+    private CustomFilterInvocationSecurityMetadataSource metadataSource;
 
     /**
      * 菜单编辑页面
@@ -81,6 +85,7 @@ public class MenuController extends AbstractController {
             return RespBody.error(ErrorCode.SUB_MENU_ERROR);
         }
         systemMenuService.addMenu(request);
+        metadataSource.refreshResource();
         return RespBody.getInstance();
     }
 
@@ -94,6 +99,7 @@ public class MenuController extends AbstractController {
     @Mark
     public RespBody edit(MenuEditRequest request){
         systemMenuService.updateMenu(request);
+        metadataSource.refreshResource();
         return RespBody.getInstance();
     }
 
@@ -107,6 +113,7 @@ public class MenuController extends AbstractController {
     @ResponseBody
     public RespBody delete(Integer id){
         systemMenuService.deleteMenu(id);
+        metadataSource.refreshResource();
         return RespBody.getInstance();
     }
 

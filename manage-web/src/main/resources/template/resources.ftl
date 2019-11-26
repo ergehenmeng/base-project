@@ -27,8 +27,7 @@
 <#--日历控件-->
 <script src="/static/js/laydate/laydate.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
-<#--自定义相关控件及常用方法-->
-<script src="/static/js/common/general.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
+
 
 <!-- 下拉复选框 -->
 <link href="/static/css/multiple/multiple-select.css?v=${version!}" rel="stylesheet" type="text/css" >
@@ -46,5 +45,7 @@
 <link href="/static/js/editor/wangEditor-fullscreen-plugin.css?v=${version!}" rel="stylesheet" type="text/css" />
 <script src="/static/js/editor/wangEditor-fullscreen-plugin.js?v=${version!}" type="text/javascript" charset="utf-8" ></script>
 
+<#--自定义相关控件及常用方法-->
+<script src="/static/js/common/general.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 
 <#include "macro.ftl" />

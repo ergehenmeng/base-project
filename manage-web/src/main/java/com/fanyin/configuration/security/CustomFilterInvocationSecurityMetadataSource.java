@@ -14,6 +14,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 权限配置资源管理器
@@ -22,7 +23,7 @@ import java.util.*;
  */
 public class CustomFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    private Map<String,Collection<ConfigAttribute>> map = new HashMap<>(256);
+    private Map<String,Collection<ConfigAttribute>> map = new ConcurrentHashMap<>(256);
 
     @Autowired
     private SystemMenuService systemMenuService;
@@ -30,7 +31,8 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     /**
      * 重新加载所有菜单权限
      */
-    private void loadResource(){
+    public void refreshResource(){
+        map.clear();
         List<SystemMenu> list = systemMenuService.getAllList();
         for (SystemMenu menu : list){
             if(StringUtil.isNotBlank(menu.getUrl())){
@@ -62,7 +64,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
         if(map.isEmpty()){
-            loadResource();
+            refreshResource();
         }
         HttpServletRequest request = ((FilterInvocation) object).getRequest();
         for (Map.Entry<String,Collection<ConfigAttribute>> entry : map.entrySet()){

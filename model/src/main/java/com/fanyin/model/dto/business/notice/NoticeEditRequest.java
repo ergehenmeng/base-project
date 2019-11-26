@@ -33,5 +33,9 @@ public class NoticeEditRequest implements Serializable {
      */
     private String content;
 
+    /**
+     * 原始内容 不含html标签
+     */
+    private String originalContent;
 
 }

@@ -6,7 +6,7 @@ var pageList = [20, 30, 40, 50 ];
 $.fn.dataGridOptions = function(){};
 $.fn.treeGridOptions = function(){};
 $.fn.extOptions = function(){};
-
+var editor;
 /**
  * easyUI列表提炼
  * @param element 元素id
@@ -196,7 +196,19 @@ $.fn.dataGridOptions.confirm = function(id,url,msg,data){
 	});
 };
 
-
+$.fn.dataGridOptions.wangEditor = function(source,target,originalTarget){
+    var E = window.wangEditor;
+    editor = new E(source);
+    editor.customConfig.onchange = function(html){
+        $(target).text(html);
+        if(originalTarget){
+            $(originalTarget).text(editor.txt.text());
+        }
+    };
+    editor.customConfig.onchangeTimeout = 500;
+    editor.create();
+    E.fullscreen.init(source);
+};
 
 /**
  * 表单提交

@@ -27,4 +27,9 @@ public class NoticeAddRequest implements Serializable {
      * 公告内容(富文本)
      */
     private String content;
+
+    /**
+     * 原始内容
+     */
+    private String originalContent;
 }

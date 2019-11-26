@@ -45,7 +45,7 @@ public class SystemNoticeController {
     @ResponseBody
     @Mark
     public RespBody add(NoticeAddRequest request){
-        if(StringUtil.isBlank(request.getContent())){
+        if(StringUtil.isBlank(request.getOriginalContent())){
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
         systemNoticeService.addNotice(request);
@@ -67,6 +67,7 @@ public class SystemNoticeController {
      */
     @PostMapping("/business/notice/publish")
     @ResponseBody
+    @Mark
     public RespBody publish(Integer id){
         systemNoticeService.publish(id);
         return RespBody.getInstance();
@@ -77,6 +78,7 @@ public class SystemNoticeController {
      */
     @PostMapping("/business/notice/cancel_publish")
     @ResponseBody
+    @Mark
     public RespBody cancelPublish(Integer id){
         systemNoticeService.cancelPublish(id);
         return RespBody.getInstance();
@@ -89,6 +91,9 @@ public class SystemNoticeController {
     @ResponseBody
     @Mark
     public RespBody edit(NoticeEditRequest request){
+        if(StringUtil.isBlank(request.getOriginalContent())){
+            return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
+        }
         systemNoticeService.editNotice(request);
         return RespBody.getInstance();
     }
@@ -102,5 +107,17 @@ public class SystemNoticeController {
     public RespBody delete(Integer id){
         systemNoticeService.deleteNotice(id);
         return RespBody.getInstance();
+    }
+
+    /**
+     * 富文本预览
+     */
+    @GetMapping("/business/notice/preview")
+    public String preview(Model model,Integer id){
+        SystemNotice notice = systemNoticeService.getById(id);
+        if(notice != null){
+            model.addAttribute("response",notice.getContent());
+        }
+        return "query_page";
     }
 }
