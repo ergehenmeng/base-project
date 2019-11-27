@@ -561,7 +561,6 @@ public class LogPreparedStatement implements PreparedStatement {
     public int[] executeBatch() throws SQLException {
         LOGGER.info("批量更新SQL:");
         batchSql.forEach(LOGGER::info);
-        batchSql.clear();
         return delegate.executeBatch();
     }
 

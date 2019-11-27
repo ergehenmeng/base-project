@@ -25,9 +25,9 @@ public class BannerEditRequest implements Serializable {
     private Byte classify;
 
     /**
-     * 客户端类型 0:PC 1:APP
+     * 客户端类型 PC APP
      */
-    private Byte clientType;
+    private String clientType;
 
     /**
      * 轮播图片地址

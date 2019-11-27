@@ -71,7 +71,7 @@
                             }
                         }
                     },
-                    {field : "turnUrl",title : "跳转地址",width : 300,align : "center",
+                    {field : "turnUrl",title : "跳转地址",width : 400,align : "center",
                         formatter:function (value) {
                             return $.fn.dataGridOptions.maxLength(value);
                         }

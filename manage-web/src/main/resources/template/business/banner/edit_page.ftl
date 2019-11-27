@@ -4,6 +4,7 @@
         $.fn.dataGridOptions.formSubmit("#form",'/business/banner/edit');
         $("#click").on("change",function(){
             var timing = $(this).val();
+            console.log(timing + "  " + (timing === "true"));
             if(timing === "true"){
                 $("#skipUrl").show();
                 $("#turnUrl").validatebox({
@@ -79,10 +80,17 @@
                 <input title="点击后跳转的地址" maxlength="200" name="turnUrl" id="turnUrl" class="easyui-validatebox" data-options="required: true" value="${(banner.turnUrl)!}" />
                 <small>*</small>
             </div>
+        <#else >
+            <div class="form-item" id="skipUrl" style="display: none;">
+                <label>跳转链接:</label>
+                <input title="点击后跳转的地址" maxlength="200" name="turnUrl" id="turnUrl" />
+                <small>*</small>
+            </div>
         </#if>
         <div class="form-item">
             <label>备注:</label>
             <textarea title="备注" name="remark" class="h60">${(banner.remark)!}</textarea>
         </div>
+        <input type="hidden" name="id" value="${(banner.id)!}"/>
     </form>
 </div>

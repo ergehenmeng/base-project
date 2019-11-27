@@ -28,7 +28,7 @@ public class RespBody<T> implements Serializable {
      * 信息
      */
     @ApiModelProperty("成功或失败的信息")
-    private String msg;
+    private String msg = "success";
 
     /**
      * 结果集 键值对或者非基本类型对象
