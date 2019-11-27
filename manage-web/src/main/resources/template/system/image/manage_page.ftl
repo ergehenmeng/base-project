@@ -8,10 +8,13 @@
         var dataGrid;
         var winWidth = 420;
         var winHeight = 300;
+
         var addTitle = "添加图片";
         var addUrl = "/system/image/add_page";
+
         var editTitle = "编辑图片";
         var editUrl = "/system/image/edit_page";
+
         var delMsg = "删除图片可能导致页面展示问题,确定要执行该操作";
         var delUrl = "/system/image/delete";
 
@@ -40,13 +43,13 @@
                             return str;
                         }
                     },
-                    {field : "title",title : "名称",width : 150,align : "center",
+                    {field : "title",title : "名称",width : 150,align : "center"},
+                    {field : "classifyName",title : "分类",width : 150,align : "center"},
+                    {field : "url",title : "路径",width : 600,align : "center",
                         formatter:function(value,rows){
-                            return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ rows.url +'\');">' + value + '</a>';
+                            return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ value +'\');">' + value + '</a>';
                         }
                     },
-                    {field : "classifyName",title : "分类",width : 150,align : "center"},
-                    {field : "url",title : "路径",width : 600,align : "center" },
                     {field : "size",title : "大小",width : 100,align : "center",
                         formatter:function(value){
                             return (parseFloat(value) / (1024 * 1024)).toFixed(2) + "M";

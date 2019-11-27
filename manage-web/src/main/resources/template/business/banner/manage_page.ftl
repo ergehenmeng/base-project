@@ -50,7 +50,7 @@
                         }
                     },
                     {field : "clientType",title : "客户端",width : 150,align : "center"},
-                    {field : "classify",title : "轮播图类型",width : 150,align : "center"},
+                    {field : "classifyName",title : "轮播图类型",width : 150,align : "center"},
                     {field : "sort",title : "排序",width : 80,align : "center" },
                     {field : "startTime",title : "开始时间",width : 180,align : "center",
                         formatter : function(value) {

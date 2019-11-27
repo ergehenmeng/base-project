@@ -1,5 +1,6 @@
 package com.fanyin.controller.business;
 
+import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.business.Banner;
 import com.fanyin.model.dto.business.banner.BannerAddRequest;
@@ -7,8 +8,10 @@ import com.fanyin.model.dto.business.banner.BannerEditRequest;
 import com.fanyin.model.dto.business.banner.BannerQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
+import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.BannerService;
 import com.fanyin.service.common.FileService;
+import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,9 @@ public class BannerController extends AbstractController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private CacheProxyService cacheProxyService;
+
     /**
      * 分页查询轮播图配置信息
      */
@@ -39,7 +45,10 @@ public class BannerController extends AbstractController {
     @ResponseBody
     public Paging<Banner> listPage(BannerQueryRequest request){
         PageInfo<Banner> byPage = bannerService.getByPage(request);
-        return new Paging<>(byPage);
+        return DataUtil.transform(byPage,banner -> {
+            banner.setClassifyName(cacheProxyService.getDictValue(DictConstant.BANNER_CLASSIFY,banner.getClassify()));
+            return banner;
+        });
     }
 
     /**

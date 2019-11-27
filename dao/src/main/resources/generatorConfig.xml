@@ -49,7 +49,7 @@
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="job_task_log" domainObjectName="JobTaskLog"
+        <table tableName="tag_view" domainObjectName="TagView"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" enableDeleteByPrimaryKey="false">

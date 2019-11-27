@@ -69,4 +69,9 @@ public class SystemNotice implements Serializable {
      * 对应字段 : state<br>
      */
     private Byte state;
+
+    /**
+     * 数据字典解析字段
+     */
+    private String classifyName;
 }

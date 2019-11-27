@@ -36,11 +36,11 @@ public class Banner implements Serializable {
     private Byte classify;
 
     /**
-     * 客户端类型 0:PC 1:APP<br>
+     * 客户端类型 PC IOS,ANDROID,H5<br>
      * 表 : banner<br>
      * 对应字段 : client_type<br>
      */
-    private Byte clientType;
+    private String clientType;
 
     /**
      * 轮播图片地址<br>
@@ -111,4 +111,9 @@ public class Banner implements Serializable {
      * 对应字段 : deleted<br>
      */
     private Boolean deleted;
+
+    /**
+     * 数据字典解析字段
+     */
+    private String classifyName;
 }

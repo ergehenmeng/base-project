@@ -17,6 +17,6 @@ public class PushTemplateQueryRequest extends PagingQuery {
     /**
      * 状态 0:关闭 1:开启
      */
-    private Boolean state;
+    private Byte state;
 
 }

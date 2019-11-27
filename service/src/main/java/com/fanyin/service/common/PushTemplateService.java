@@ -1,6 +1,7 @@
 package com.fanyin.service.common;
 
 import com.fanyin.dao.model.business.PushTemplate;
+import com.fanyin.model.dto.business.push.PushTemplateEditRequest;
 import com.fanyin.model.dto.business.push.PushTemplateQueryRequest;
 import com.github.pagehelper.PageInfo;
 
@@ -19,4 +20,17 @@ public interface PushTemplateService {
      * @return 模板消息
      */
     PushTemplate getTemplate(String nid);
+
+    /**
+     * 主键查询推送模板
+     * @param id id
+     * @return 推送消息
+     */
+    PushTemplate getById(Integer id);
+
+    /**
+     * 编辑保存推送模板
+     * @param request 前台参数
+     */
+    void editPushTemplate(PushTemplateEditRequest request);
 }

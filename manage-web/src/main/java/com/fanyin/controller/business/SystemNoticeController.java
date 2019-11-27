@@ -10,7 +10,6 @@ import com.fanyin.model.dto.business.notice.NoticeEditRequest;
 import com.fanyin.model.dto.business.notice.NoticeQueryRequest;
 import com.fanyin.model.ext.Paging;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.model.vo.notice.SystemNoticeVO;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.SystemNoticeService;
 import com.fanyin.utils.DataUtil;
@@ -40,12 +39,11 @@ public class SystemNoticeController {
      */
     @PostMapping("/business/notice/list_page")
     @ResponseBody
-    public Paging<SystemNoticeVO> listPage(NoticeQueryRequest request){
+    public Paging<SystemNotice> listPage(NoticeQueryRequest request){
         PageInfo<SystemNotice> byPage = systemNoticeService.getByPage(request);
         return DataUtil.transform(byPage,notice -> {
-            SystemNoticeVO vo = DataUtil.copy(notice, SystemNoticeVO.class);
-            vo.setClassifyName(cacheProxyService.getDictValue(DictConstant.NOTICE_CLASSIFY,notice.getClassify()));
-            return vo;
+            notice.setClassifyName(cacheProxyService.getDictValue(DictConstant.NOTICE_CLASSIFY,notice.getClassify()));
+            return notice;
         });
     }
 

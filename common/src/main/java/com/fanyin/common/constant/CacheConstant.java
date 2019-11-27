@@ -77,4 +77,9 @@ public class CacheConstant {
      * 黑名单缓存
      */
     public static final String BLACK_ROSTER = "black_roster";
+
+    /**
+     * 移动端页面标签
+     */
+    public static final String TAG_VIEW = "tag_view";
 }

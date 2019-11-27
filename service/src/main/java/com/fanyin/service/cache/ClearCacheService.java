@@ -22,11 +22,6 @@ public interface ClearCacheService {
     void clearAccessToken();
 
     /**
-     * 清除异步信息缓存
-     */
-    void clearAsyncResponse();
-
-    /**
      * 清空短信模板
      */
     void clearSmsTemplate();

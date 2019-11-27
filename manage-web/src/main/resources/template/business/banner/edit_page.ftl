@@ -47,16 +47,17 @@
             <input title="选择图片" name="imgFile" class="easyui-validatebox" data-options="required: true" type="file" accept="image/gif,image/jpeg,image/jpg,image/png"/>
             <small>*</small>
         </div>
-        <div class="form-item" id="interval" style="display: none;">
+        <div class="form-item" >
             <label>有效期:</label>
-            <input title="轮播图有效期" class="easyui-validatebox" data-options="required: true" id="targetTime" />
-            <input type="hidden" id="startTime" name="startTime">
-            <input type="hidden" id="endTime" name="endTime">
+            <input title="轮播图有效期" class="easyui-validatebox" data-options="required: true" id="targetTime"
+                   value="${banner.startTime?string('yyyy-MM-dd HH:mm:ss')!} ~ ${banner.endTime?string('yyyy-MM-dd HH:mm:ss')!}"/>
+            <input type="hidden" id="startTime" name="startTime" value="${banner.startTime?string('yyyy-MM-dd HH:mm:ss')!}">
+            <input type="hidden" id="endTime" name="endTime" value="${banner.endTime?string('yyyy-MM-dd HH:mm:ss')!}">
             <small>*</small>
         </div>
         <div class="form-item">
             <label>排序:</label>
-            <input title="排序" maxlength="2" name="sort" class="easyui-validatebox" data-options="required: true,validType:'integer'"  />
+            <input title="排序" maxlength="2" name="sort" class="easyui-validatebox" data-options="required: true,validType:'integer'"  value="${(banner.sort)!}"/>
             <small>*</small>
         </div>
 

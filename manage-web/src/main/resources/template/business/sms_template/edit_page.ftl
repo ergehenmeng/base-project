@@ -7,7 +7,7 @@
     <form id="form"  method="post">
         <div class="form-item">
             <label>标示符:</label>
-            <input title="任务唯一标示符" maxlength="20" readonly value="${(template.nid)!}" class="easyui-validatebox" data-options="required: true"  />
+            <input title="唯一标示符" maxlength="20" readonly value="${(template.nid)!}" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>
         <div class="form-item">

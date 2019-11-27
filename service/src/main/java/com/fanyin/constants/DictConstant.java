@@ -21,4 +21,9 @@ public class DictConstant {
      * 公告分类
      */
     public static final String NOTICE_CLASSIFY = "notice_classify";
+
+    /**
+     * 轮播图
+     */
+    public static final String BANNER_CLASSIFY = "banner_classify";
 }

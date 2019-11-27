@@ -11,7 +11,7 @@
             <small>*</small>
         </div>
         <div class="form-item">
-            <label>角色类型:</label>
+            <label>角色nid:</label>
             <input title="参数标示" maxlength="50"  name="roleType" value="${(role.roleType)!}" class="easyui-validatebox" data-options="required: true"  />
             <small>*</small>
         </div>

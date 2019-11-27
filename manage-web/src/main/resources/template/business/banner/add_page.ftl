@@ -19,7 +19,7 @@
     });
 </script>
 <div class="platform-form">
-    <form id="form"  method="post">
+    <form id="form"  method="post" enctype="multipart/form-data">
         <div class="form-item">
             <label>标题:</label>
             <input title="标题" maxlength="50" name="title" class="easyui-validatebox" data-options="required: true"  />
@@ -27,7 +27,7 @@
         </div>
         <div class="form-item">
             <label>客户端:</label>
-            <select title="客户端类型" name="clientType" class="easyui-validatebox" data-options="required: true">
+            <select title="客户端类型" name="clientType">
                 <option value="PC">pc</option>
                 <option value="ANDROID">android</option>
                 <option value="IOS">ios</option>
@@ -39,7 +39,7 @@
         </div>
         <div class="form-item">
             <label>分类:</label>
-            <@select name="classify" total="true"  title="轮播图分类" nid="banner_classify"/>
+            <@select name="classify" title="轮播图分类" nid="banner_classify"/>
             <small>*</small>
         </div>
         <div class="form-item">
@@ -47,9 +47,9 @@
             <input title="选择图片" name="imgFile" class="easyui-validatebox" data-options="required: true" type="file" accept="image/gif,image/jpeg,image/jpg,image/png"/>
             <small>*</small>
         </div>
-        <div class="form-item" id="interval" style="display: none;">
+        <div class="form-item" id="interval">
             <label>有效期:</label>
-            <input title="轮播图有效期"  class="easyui-validatebox" data-options="required: true" id="targetTime" />
+            <input title="有效时间段"  class="easyui-validatebox" data-options="required: true" id="targetTime" />
             <input type="hidden" id="startTime" name="startTime">
             <input type="hidden" id="endTime" name="endTime">
             <small>*</small>
@@ -61,7 +61,7 @@
         </div>
         <div class="form-item">
             <label>是否可点击:</label>
-            <select title="是否可点击" name="click" id="click" class="easyui-validatebox" data-options="required: true">
+            <select title="是否可点击" name="click" id="click" >
                 <option value="false" selected>否</option>
                 <option value="true">是</option>
             </select>
@@ -69,7 +69,7 @@
         </div>
         <div class="form-item" id="skipUrl" style="display: none;">
             <label>跳转链接:</label>
-            <input title="点击后跳转的地址" maxlength="200" name="turnUrl" id="turnUrl" class="easyui-validatebox" data-options="required: true"  />
+            <input title="点击后跳转的地址" maxlength="200" name="turnUrl" id="turnUrl" />
             <small>*</small>
         </div>
         <div class="form-item">

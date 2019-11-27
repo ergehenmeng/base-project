@@ -247,6 +247,7 @@ textarea{
 	padding: 5px;
 	width:220px;
 	border: 1px solid #ccc;
+    font-family: "Microsoft YaHei", simsun, sans-serif;
 }
 
 .form-item select{

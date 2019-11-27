@@ -53,7 +53,7 @@
                         }
                     },
                     {field : "roleName",title : "角色名称",width : 150,align : "center"},
-                    {field : "roleType",title : "角色类型",width : 150,align : "center"},
+                    {field : "roleType",title : "角色nid",width : 150,align : "center"},
                     {field : "addTime",title : "添加时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);

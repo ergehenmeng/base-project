@@ -65,7 +65,7 @@
                             return "<a href='/business/notice/preview?id=" + row.id + "' target='_blank'>" + value + "</a>";
                         }
                     },
-                    {field : "classify",title : "类型",width : 150,align : "center"},
+                    {field : "classifyName",title : "类型",width : 150,align : "center"},
                     {field : "state",title : "状态",width : 180,align : "center",
                         formatter : function(value) {
                             if(value === 1){

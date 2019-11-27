@@ -30,11 +30,6 @@ public class ClearCacheServiceImpl implements ClearCacheService{
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.ASYNC_RESPONSE,allEntries = true)
-    public void clearAsyncResponse() {
-    }
-
-    @Override
     @CacheEvict(cacheNames = CacheConstant.SMS_TEMPLATE,allEntries = true)
     public void clearSmsTemplate() {
     }

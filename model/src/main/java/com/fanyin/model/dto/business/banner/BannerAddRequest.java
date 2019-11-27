@@ -15,6 +15,11 @@ public class BannerAddRequest implements Serializable {
     private static final long serialVersionUID = -591183099267469325L;
 
     /**
+     * 标题
+     */
+    private String title;
+
+    /**
      * 轮播图类型
      */
     private Byte classify;
