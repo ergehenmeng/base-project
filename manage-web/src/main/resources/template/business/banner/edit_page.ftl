@@ -44,8 +44,7 @@
         </div>
         <div class="form-item">
             <label>图片:</label>
-            <input title="选择图片" name="imgFile" class="easyui-validatebox" data-options="required: true" type="file" accept="image/gif,image/jpeg,image/jpg,image/png"/>
-            <small>*</small>
+            <input title="选择图片" name="imgFile" type="file" accept="image/gif,image/jpeg,image/jpg,image/png"/>
         </div>
         <div class="form-item" >
             <label>有效期:</label>

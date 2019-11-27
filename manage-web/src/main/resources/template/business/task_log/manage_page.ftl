@@ -54,8 +54,8 @@
                     {field : "elapsedTime",title : "总耗时(ms)",width : 120,align : "center"}
                 ] ]
             });
+            $.fn.extOptions.date("#middleTime","datetime");
         });
-        $.fn.extOptions.date("#middleTime","datetime");
     </script>
 </head>
 <body class="tabs-body">

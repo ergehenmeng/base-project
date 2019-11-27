@@ -36,8 +36,8 @@
                     }
                 ]]
             });
+            $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime");
         });
-        $.fn.extOptions.dateRange("#targetTime","#startTime","#endTime","datetime");
     </script>
 </head>
 <body class="tabs-body">

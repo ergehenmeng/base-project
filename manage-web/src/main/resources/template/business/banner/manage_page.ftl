@@ -49,31 +49,47 @@
                             return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ rows.imgUrl +'\');">' + value + '</a>';
                         }
                     },
-                    {field : "clientType",title : "客户端",width : 150,align : "center"},
-                    {field : "classifyName",title : "轮播图类型",width : 150,align : "center"},
-                    {field : "sort",title : "排序",width : 80,align : "center" },
-                    {field : "startTime",title : "开始时间",width : 180,align : "center",
+                    {field : "clientType",title : "客户端",width : 80,align : "center"},
+                    {field : "classifyName",title : "轮播图类型",width : 100,align : "center"},
+                    {field : "sort",title : "排序",width : 60,align : "center" },
+                    {field : "startTime",title : "开始时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "updateTime",title : "结束时间",width : 180,align : "center",
+                    {field : "updateTime",title : "结束时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "click",title : "是否可点击",width : 80,align : "center" },
-                    {field : "turnUrl",title : "跳转地址",width : 150,align : "center"},
-                    {field : "addTime",title : "添加时间",width : 150,align : "center",
+                    {field : "click",title : "是否可点击",width : 80,align : "center",
+                        formatter :function (value) {
+                            if(value){
+                                return "是";
+                            }else{
+                                return "否";
+                            }
+                        }
+                    },
+                    {field : "turnUrl",title : "跳转地址",width : 300,align : "center",
+                        formatter:function (value) {
+                            return $.fn.dataGridOptions.maxLength(value);
+                        }
+                    },
+                    {field : "updateTime",title : "更新时间",width : 150,align : "center",
                         formatter : function(value) {
                             return getLocalTime(value, 4);
                         }
                     },
-                    {field : "remark",title : "备注",align : "center",width : 300 }
+                    {field : "remark",title : "备注",align : "center",width : 200,
+                        formatter:function (value) {
+                            return $.fn.dataGridOptions.maxLength(value);
+                        }
+                    }
                 ] ]
             });
+            $.fn.extOptions.date("#middleTime","datetime");
         });
-        $.fn.extOptions.date("#middleTime","datetime");
     </script>
 </head>
 <body class="tabs-body">

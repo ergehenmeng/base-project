@@ -194,13 +194,13 @@
                 and title like concat('%',#{queryName},'%')
             </if>
             <if test="classify != null">
-                and clssify = #{classify}
+                and classify = #{classify}
             </if>
-            <if test="clientType != null">
+            <if test="clientType != null and clientType != ''">
                 and client_type = #{clientType}
             </if>
             <if test="middleTime != null">
-                and middle_time = #{middleTime}
+                and start_time &gt;= #{middleTime} and end_time &lt;= #{middleTime}
             </if>
         </where>
     </select>

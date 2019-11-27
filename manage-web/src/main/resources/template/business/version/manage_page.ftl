@@ -101,8 +101,8 @@
                     {field : "remark",title : "备注",align : "center",width : 300 }
                 ] ]
             });
+            $.fn.extOptions.date("#middleTime","datetime");
         });
-        $.fn.extOptions.date("#middleTime","datetime");
     </script>
 </head>
 <body class="tabs-body">
