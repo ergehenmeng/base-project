@@ -1,4 +1,4 @@
-##移动端接口调用
+## 移动端接口调用
 * 基础必填请求头字段:
     * `Channel` 设备渠道:`IOS`,`ANDROID`
     * `Version` app版本号
@@ -17,7 +17,7 @@
 * 图片预览或展示采用get请求
 
 
-###其他注意事项
+### 其他注意事项
 * `swagger`访问地址`http://host:ip/swagger/index.html`
 * `RequestMapping`返回前台数据时,可以为任意对象,最终会由`RespBodyAdviceHandler`包装为`RespBody`对象,如果不想返回前台RespBody格式的对象可在方法上添加`@SkipWrapper`
 * 系统参数`single_client_login` 用来开启或关闭单客户端最多一个人登陆的校验
