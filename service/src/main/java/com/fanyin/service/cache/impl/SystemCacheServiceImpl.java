@@ -37,6 +37,7 @@ public class SystemCacheServiceImpl implements SystemCacheService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public List<SystemCache> getList() {
         return systemCacheMapper.getList();
     }

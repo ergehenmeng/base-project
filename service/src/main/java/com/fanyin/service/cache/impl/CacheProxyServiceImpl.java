@@ -14,7 +14,6 @@ import com.fanyin.service.system.BlackRosterService;
 import com.fanyin.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
@@ -28,7 +27,6 @@ import java.util.List;
  * @date 2018/10/11 13:47
  */
 @Service("cacheProxyService")
-@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
 public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Autowired
