@@ -62,7 +62,7 @@ public class RequestMessage implements Serializable {
 
 
     /**
-     * 请求参数json字符串
+     * http请求内容,json格式
      */
-    private String jsonString;
+    private String requestBody;
 }

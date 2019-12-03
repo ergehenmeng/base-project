@@ -1,7 +1,7 @@
 package com.fanyin.interceptor;
 
-import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.constant.AppHeader;
+import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.common.utils.Md5Util;
@@ -45,7 +45,7 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
             if(Math.abs(System.currentTimeMillis() - clientTimestamp) > timestampDeviation){
                 throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             }
-            String json = this.getRequestJson(request);
+            String json = this.getRequestBody(request);
             //签名处理
             String sign = Md5Util.md5(CommonConstant.APP_KEY + BaseEncoding.base64().encode(json.getBytes(SystemConstant.CHARSET)) + timestamp);
             if(!signature.equals(sign)){
@@ -61,13 +61,13 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
      * @param request request
      * @return {"a":b}
      */
-    private String getRequestJson(HttpServletRequest request){
+    private String getRequestBody(HttpServletRequest request){
         try {
-            String json = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+            String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
             //解析后放入缓存方便后面程序使用
             RequestMessage message = RequestThreadLocal.get();
-            message.setJsonString(json);
-            return json;
+            message.setRequestBody(requestBody);
+            return requestBody;
         }catch (Exception e){
             throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }

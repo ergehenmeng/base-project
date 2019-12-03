@@ -82,9 +82,9 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
     private Object jsonFormat(HttpServletRequest request,Class<?> cls){
         try {
             //如果开启签名,则此处可以获取到前台的json
-            String jsonString = RequestThreadLocal.getJsonString();
-            if(jsonString != null){
-                return objectMapper.readValue(jsonString,cls);
+            String requestBody = RequestThreadLocal.getRequestBody();
+            if(requestBody != null){
+                return objectMapper.readValue(requestBody,cls);
             }
             String args = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
             if(args == null){

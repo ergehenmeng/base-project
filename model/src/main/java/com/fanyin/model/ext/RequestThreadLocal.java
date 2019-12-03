@@ -51,7 +51,7 @@ public class RequestThreadLocal {
      * 请求参数json
      * @return {"id":1,"age":12}
      */
-    public static String getJsonString(){
-        return get().getJsonString();
+    public static String getRequestBody(){
+        return get().getRequestBody();
     }
 }
