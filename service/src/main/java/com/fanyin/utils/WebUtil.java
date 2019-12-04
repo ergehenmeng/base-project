@@ -1,7 +1,9 @@
 package com.fanyin.utils;
 
 import com.fanyin.model.ext.RespBody;
+
 import com.google.gson.Gson;
+import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class WebUtil {
     public static void printJson(HttpServletResponse response, RespBody<Object> object) throws IOException{
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter writer = response.getWriter()){
-            response.setContentType("application/json;charset=utf-8");
+            response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
             writer.write(new Gson().toJson(object));
             writer.flush();
         }
