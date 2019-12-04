@@ -1,6 +1,5 @@
 package com.fanyin.configuration.handler;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fanyin.annotation.Mark;
 import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.constants.ConfigConstant;
@@ -11,6 +10,7 @@ import com.fanyin.queue.task.OperationLogTask;
 import com.fanyin.service.system.OperationLogService;
 import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.IpUtil;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -42,6 +42,9 @@ public class OperationLogHandler {
 
     @Autowired
     private OperationLogService operationLogService;
+
+    @Autowired
+    private Gson gson;
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
@@ -81,7 +84,7 @@ public class OperationLogHandler {
         long end = System.currentTimeMillis();
         sy.setBusinessTime(end - System.currentTimeMillis());
         if(mark.response() && proceed != null){
-            sy.setResponse(JSONObject.toJSONString(proceed));
+            sy.setResponse(gson.toJson(proceed));
         }
         boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if(logSwitch){
@@ -117,7 +120,7 @@ public class OperationLogHandler {
             if(object instanceof Model){
                 continue;
             }
-            builder.append(JSONObject.toJSONString(object));
+            builder.append(gson.toJson(object));
         }
         return builder.toString();
     }

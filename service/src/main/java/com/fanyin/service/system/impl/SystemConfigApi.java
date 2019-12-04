@@ -1,9 +1,9 @@
 package com.fanyin.service.system.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import com.fanyin.service.system.SystemConfigService;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,9 @@ public class SystemConfigApi {
 
     @Autowired
     private SystemConfigService systemConfigService;
+
+    @Autowired
+    private Gson gson;
 
     /**
      * 根据nid获取系统参数配置信息的值
@@ -100,28 +103,13 @@ public class SystemConfigApi {
     /**
      * 根据nid获取系统参数配置信息的值
      * @param nid 唯一nid
-     * @return 系统参数结果值json,如果异常则抛出
-     */
-    public JSONObject getJson(String nid){
-        String value = this.getString(nid);
-        try {
-            return JSONObject.parseObject(value);
-        }catch (Exception e){
-            log.error("系统参数转json异常 [{}]",value);
-            throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
-        }
-    }
-
-    /**
-     * 根据nid获取系统参数配置信息的值
-     * @param nid 唯一nid
      * @param cls 要转换的类型
      * @return 系统参数结果值class,如果异常则抛出
      */
     public <T> T getClass(String nid, Class<T> cls){
         String value = this.getString(nid);
         try {
-            return JSONObject.parseObject(value,cls);
+            return gson.fromJson(value,cls);
         }catch (Exception e){
             log.error("系统参数转对象异常 [{}]",value);
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);

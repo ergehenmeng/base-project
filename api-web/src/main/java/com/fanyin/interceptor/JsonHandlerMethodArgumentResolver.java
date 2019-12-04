@@ -7,6 +7,7 @@ import com.fanyin.common.exception.ParameterException;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -38,6 +39,9 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private Gson gson;
 
     @Override
     public boolean supportsParameter(@Nullable MethodParameter parameter) {

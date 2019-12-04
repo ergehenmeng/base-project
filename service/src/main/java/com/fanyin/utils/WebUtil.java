@@ -1,7 +1,7 @@
 package com.fanyin.utils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fanyin.model.ext.RespBody;
+import com.google.gson.Gson;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class WebUtil {
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter writer = response.getWriter()){
             response.setContentType("application/json;charset=utf-8");
-            writer.write(JSONObject.toJSONString(object));
+            writer.write(new Gson().toJson(object));
             writer.flush();
         }
     }
