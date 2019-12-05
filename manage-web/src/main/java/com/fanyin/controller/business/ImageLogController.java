@@ -1,6 +1,7 @@
 package com.fanyin.controller.business;
 
 import com.fanyin.annotation.Mark;
+import com.fanyin.constants.ConfigConstant;
 import com.fanyin.constants.DictConstant;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.business.ImageLog;
@@ -13,6 +14,7 @@ import com.fanyin.model.ext.RespBody;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.FileService;
 import com.fanyin.service.common.ImageLogService;
+import com.fanyin.service.system.impl.SystemConfigApi;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,18 @@ public class ImageLogController extends AbstractController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private SystemConfigApi systemConfigApi;
+
+    /**
+     * 图片列表页面
+     */
+    @GetMapping("/system/image/manage_page")
+    public String managePage(Model model){
+        model.addAttribute("address",systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
+        return "system/image/manage_page";
+    }
 
     /**
      * 分页查询图片列表

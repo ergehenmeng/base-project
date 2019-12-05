@@ -19,6 +19,7 @@
         var delUrl = "/system/image/delete";
 
         $(function() {
+            var address = '${address!}';
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
                 url : "/system/image/list_page",
                 columns : [ [
@@ -47,7 +48,7 @@
                     {field : "classifyName",title : "分类",width : 150,align : "center"},
                     {field : "url",title : "路径",width : 600,align : "center",
                         formatter:function(value,rows){
-                            return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ value +'\');">' + value + '</a>';
+                            return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ value +'\');">' + address + value + '</a>';
                         }
                     },
                     {field : "size",title : "大小",width : 100,align : "center",
