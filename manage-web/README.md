@@ -31,3 +31,4 @@
 * `FileService` 文件上传工具类
 * `PushService` 极光推送工具类(未测试)
 * `SmsService` 短信发送工具类(未接入)
+* `HandlerExecute` 精简版责任链工具类(有点鸡肋,没想到实用的场景)
