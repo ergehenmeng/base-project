@@ -19,7 +19,7 @@ import com.fanyin.model.ext.AccessToken;
 import com.fanyin.model.ext.RequestMessage;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.model.vo.login.LoginToken;
-import com.fanyin.queue.TaskQueue;
+import com.fanyin.queue.TaskHandler;
 import com.fanyin.queue.task.LoginLogTask;
 import com.fanyin.service.cache.CacheProxyService;
 import com.fanyin.service.common.SmsService;
@@ -139,7 +139,7 @@ public class UserServiceImpl implements UserService {
                 .userId(user.getId())
                 .softwareVersion(request.getVersion())
                 .build();
-        TaskQueue.executeLoginLog(new LoginLogTask(record,loginLogService));
+        TaskHandler.executeLoginLog(new LoginLogTask(record,loginLogService));
         return LoginToken.builder().accessKey(accessToken.getAccessKey()).accessToken(accessToken.getAccessToken()).build();
     }
 

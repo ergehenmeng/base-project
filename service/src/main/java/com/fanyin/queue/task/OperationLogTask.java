@@ -24,7 +24,7 @@ public class OperationLogTask extends AbstractTask<SystemOperationLog,OperationL
 
     @Override
     protected void doException(Exception e) {
-        log.error("操作日志写入异常",e);
+        log.error("操作日志写入异常 data:[{}]",getData(),e);
     }
 
     @Override

@@ -16,4 +16,10 @@ public class TaskConstant {
      * 登陆日志
      */
     public static final String LOGIN_LOG_THREAD = "Thread-登陆日志";
+
+
+    /**
+     * 系统异常日志
+     */
+    public static final String EXCEPTION_LOG_THREAD = "Thread-异常日志";
 }

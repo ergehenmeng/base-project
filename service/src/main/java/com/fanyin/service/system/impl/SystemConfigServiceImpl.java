@@ -4,10 +4,10 @@ package com.fanyin.service.system.impl;
 import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.model.dto.system.config.ConfigEditRequest;
-import com.fanyin.model.dto.system.config.ConfigQueryRequest;
 import com.fanyin.dao.mapper.system.SystemConfigMapper;
 import com.fanyin.dao.model.system.SystemConfig;
+import com.fanyin.model.dto.system.config.ConfigEditRequest;
+import com.fanyin.model.dto.system.config.ConfigQueryRequest;
 import com.fanyin.service.system.SystemConfigService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -48,6 +48,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYSTEM_CONFIG,key = "#p0",unless = "#result == null")
+    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
     public String getByNid(String nid) {
         SystemConfig config = systemConfigMapper.getByNid(nid);
         if(config != null){

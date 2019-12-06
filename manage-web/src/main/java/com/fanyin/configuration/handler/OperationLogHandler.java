@@ -5,7 +5,7 @@ import com.fanyin.configuration.security.SecurityOperator;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.controller.AbstractController;
 import com.fanyin.dao.model.system.SystemOperationLog;
-import com.fanyin.queue.TaskQueue;
+import com.fanyin.queue.TaskHandler;
 import com.fanyin.queue.task.OperationLogTask;
 import com.fanyin.service.system.OperationLogService;
 import com.fanyin.service.system.impl.SystemConfigApi;
@@ -48,7 +48,7 @@ public class OperationLogHandler {
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
-     * {@link com.alibaba.fastjson.annotation.JSONField} serialize = false
+     * {@link com.google.gson.annotations.Expose} serialize = false
      * @param joinPoint 切入点
      * @param mark 操作日志标示注解
      * @return aop方法调用结果对象
@@ -88,7 +88,7 @@ public class OperationLogHandler {
         }
         boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if(logSwitch){
-            TaskQueue.executeOperateLog(new OperationLogTask(sy,operationLogService));
+            TaskHandler.executeOperateLog(new OperationLogTask(sy,operationLogService));
         }else{
             log.debug("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]",sy.getUrl(),sy.getRequest(),sy.getResponse(),sy.getIp(),sy.getOperatorId(),sy.getBusinessTime());
         }

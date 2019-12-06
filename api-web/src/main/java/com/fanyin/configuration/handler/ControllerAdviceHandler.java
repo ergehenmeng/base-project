@@ -3,8 +3,15 @@ package com.fanyin.configuration.handler;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
 import com.fanyin.configuration.DatePropertyEditor;
+import com.fanyin.dao.model.system.ExceptionLog;
+import com.fanyin.model.ext.RequestThreadLocal;
 import com.fanyin.model.ext.RespBody;
+import com.fanyin.queue.TaskHandler;
+import com.fanyin.queue.task.ExceptionLogTask;
+import com.fanyin.service.system.ExceptionLogService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,6 +29,9 @@ import java.util.Date;
 @ControllerAdvice
 @Slf4j
 public class ControllerAdviceHandler {
+
+    @Autowired
+    private ExceptionLogService exceptionLogService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
@@ -49,6 +59,8 @@ public class ControllerAdviceHandler {
     @ResponseBody
     public RespBody exception(HttpServletRequest request, Exception e){
         log.error("系统异常 url:[{}]",request.getRequestURI(),e);
+        ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(RequestThreadLocal.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
+        TaskHandler.executeOperateLog(new ExceptionLogTask(exceptionLog,exceptionLogService));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

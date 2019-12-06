@@ -29,7 +29,7 @@ public abstract class AbstractTask<T,B> implements Runnable{
     public void run() {
         log.debug("队列任务开始执行");
         try {
-            execute(data);
+            this.execute(data);
         }catch (Exception e){
             this.doException(e);
         }finally {
@@ -54,7 +54,7 @@ public abstract class AbstractTask<T,B> implements Runnable{
      * @param e 错误信息
      */
     protected void doException(Exception e){
-        log.error("队列任务执行异常",e);
+        log.error("队列任务执行出现异常 data:[{}]",data,e);
     }
 
     /**
