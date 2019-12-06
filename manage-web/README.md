@@ -9,7 +9,6 @@
     * `cron_expression`为cron表达式,如需简单定时任务可使用`@Scheduled`
     * 相应的bean定任务必须实现`com.fanyin.configuration.job.Task`接口
     * 定时任务配置更新后需要手动刷新配置才能重新生效
-    * 数据库定时任务支持日志查询
     * demo例子`TestJobService`
 > 如定时任务报错,可能因为服务还没完全启动,SpringContextUtil没有设置ApplicationContext属性
 
@@ -23,5 +22,12 @@
 </@auth>
 
 ``` 
-
-
+### 其他说明
+* 刷新缓存由缓存管理模块统一管理,后台需要开发其他缓存刷新功能,则在`ClearCacheService`,`SystemCacheService`中按指定格式修改
+* 异步任务可采用原生`@Async` + `AsyncConfigurer`实现异步+额外记录,也可自定义实现`AbstractTask`类(增加额外一些日志记录等),统一定义在`TaskHandler`类型调用
+* `KeyGenerator` 订单号生成类
+* `CacheProxyService` 缓存代理类(为了防止同一个类中调用本类其他带有`@Cacheable`,`@CachePut`注解的方法无效问题而额外增加的类)
+* `EmailService` 简单发送邮件的工具类,配合`HtmlTemplate`类可实现发送html的邮件(样式图片必须定义在模板文件中),模板路径放在`spring.freemarker.template-loader-path`即可, `spring.freemarker.settings.template_update_delay` 默认刷新间隔
+* `FileService` 文件上传工具类
+* `PushService` 极光推送工具类(未测试)
+* `SmsService` 短信发送工具类(未接入)

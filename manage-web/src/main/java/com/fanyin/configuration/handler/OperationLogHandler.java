@@ -46,6 +46,9 @@ public class OperationLogHandler {
     @Autowired
     private Gson gson;
 
+    @Autowired
+    private TaskHandler taskHandler;
+
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
      * {@link com.google.gson.annotations.Expose} serialize = false
@@ -88,7 +91,7 @@ public class OperationLogHandler {
         }
         boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if(logSwitch){
-            TaskHandler.executeOperateLog(new OperationLogTask(sy,operationLogService));
+            taskHandler.executeOperateLog(new OperationLogTask(sy,operationLogService));
         }else{
             log.debug("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]",sy.getUrl(),sy.getRequest(),sy.getResponse(),sy.getIp(),sy.getOperatorId(),sy.getBusinessTime());
         }

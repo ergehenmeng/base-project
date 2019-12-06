@@ -33,6 +33,9 @@ public class ControllerAdviceHandler {
     @Autowired
     private ExceptionLogService exceptionLogService;
 
+    @Autowired
+    private TaskHandler taskHandler;
+
     @InitBinder
     public void initBinder(WebDataBinder binder){
         binder.registerCustomEditor(Date.class,new DatePropertyEditor());
@@ -60,7 +63,7 @@ public class ControllerAdviceHandler {
     public RespBody exception(HttpServletRequest request, Exception e){
         log.error("系统异常 url:[{}]",request.getRequestURI(),e);
         ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(RequestThreadLocal.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
-        TaskHandler.executeOperateLog(new ExceptionLogTask(exceptionLog,exceptionLogService));
+        taskHandler.executeExceptionLog(new ExceptionLogTask(exceptionLog,exceptionLogService));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

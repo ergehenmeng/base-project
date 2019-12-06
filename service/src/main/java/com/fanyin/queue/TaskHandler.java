@@ -2,6 +2,7 @@ package com.fanyin.queue;
 
 import com.fanyin.constants.TaskConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/11/16 17:25
  */
 @Slf4j
+@Component
 public class TaskHandler {
 
     private static class ExecutorHolder {
@@ -45,7 +47,7 @@ public class TaskHandler {
      * 添加操作日志
      * @param task 任务
      */
-    public static void executeOperateLog(AbstractTask task){
+    public void executeOperateLog(AbstractTask task){
         ExecutorHolder.OPERATE_LOG.execute(task);
     }
 
@@ -53,7 +55,7 @@ public class TaskHandler {
      * 添加登陆日志
      * @param task 任务
      */
-    public static void executeLoginLog(AbstractTask task){
+    public void executeLoginLog(AbstractTask task){
         ExecutorHolder.LOGIN_LOG.execute(task);
     }
 
@@ -61,7 +63,7 @@ public class TaskHandler {
      * 添加异常日志
      * @param task 任务
      */
-    public static void executeExceptionLog(AbstractTask task){
+    public void executeExceptionLog(AbstractTask task){
         ExecutorHolder.EXCEPTION_LOG.execute(task);
     }
 }

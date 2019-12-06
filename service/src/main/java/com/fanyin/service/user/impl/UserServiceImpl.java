@@ -64,6 +64,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserExtService userExtService;
 
+    @Autowired
+    private TaskHandler taskHandler;
+
     @Override
     public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
@@ -139,7 +142,7 @@ public class UserServiceImpl implements UserService {
                 .userId(user.getId())
                 .softwareVersion(request.getVersion())
                 .build();
-        TaskHandler.executeLoginLog(new LoginLogTask(record,loginLogService));
+        taskHandler.executeLoginLog(new LoginLogTask(record,loginLogService));
         return LoginToken.builder().accessKey(accessToken.getAccessKey()).accessToken(accessToken.getAccessToken()).build();
     }
 
