@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class TaskHandler {
 
-    private static class TaskQueueHolder{
+    private static class ExecutorHolder {
 
         /**
          * 操作日志 多线程处理
@@ -46,7 +46,7 @@ public class TaskHandler {
      * @param task 任务
      */
     public static void executeOperateLog(AbstractTask task){
-        TaskQueueHolder.OPERATE_LOG.execute(task);
+        ExecutorHolder.OPERATE_LOG.execute(task);
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskHandler {
      * @param task 任务
      */
     public static void executeLoginLog(AbstractTask task){
-        TaskQueueHolder.LOGIN_LOG.execute(task);
+        ExecutorHolder.LOGIN_LOG.execute(task);
     }
 
     /**
@@ -62,6 +62,6 @@ public class TaskHandler {
      * @param task 任务
      */
     public static void executeExceptionLog(AbstractTask task){
-        TaskQueueHolder.EXCEPTION_LOG.execute(task);
+        ExecutorHolder.EXCEPTION_LOG.execute(task);
     }
 }
