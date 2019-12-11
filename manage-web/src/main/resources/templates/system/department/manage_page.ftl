@@ -25,20 +25,15 @@
                 loadFilter : pageFilter,
                 columns : [[
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
                             var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'code\':\''+ row.code +'\'});"> 添加</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"> 删除</a>';
-                            str += '</dd>';
-                            str += '</dl>';
+                            str += '<a href="javascript:void(0);" class="add" title="添加子部门" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'code\':\''+ row.code +'\'});"></a>&nbsp;';
+                            str += '<a href="javascript:void(0);" class="edit" title="编辑部门" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"></a>&nbsp;';
+                            str += '<a href="javascript:void(0);" class="delete" title="删除部门" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"></a>&nbsp;';
                             return str;
                         }
                     },

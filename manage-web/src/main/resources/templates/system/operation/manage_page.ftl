@@ -17,18 +17,13 @@
                 url : "/system/operation_log/list_page",
                 columns : [ [
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
-                            var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
-                            str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="操作日志内容">内容</a>';
-                            str += '</dd>';
-                            str += '</dl>';
+                            var str = ''
+                            str += '<a href="javascript:void(0);" class="content" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="操作日志内容"></a>&nbsp;';
                             return str;
                         }
                     },

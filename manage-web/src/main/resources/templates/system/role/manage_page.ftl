@@ -29,26 +29,21 @@
                 url : "/system/role/list_page",
                 columns : [ [
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
-                            var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
+                            var str = ''
                             <@auth nid='roleManageEdit'>
-                               str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑角色信息"> 编辑</a>';
+                               str += '<a href="javascript:void(0);" class="edit" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑角色信息"></a>&nbsp;';
                             </@auth>
                             <@auth nid='roleManageAuth'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',authTitle,winWidth,authHeight,authUrl);" title="角色菜单授权"> 授权</a>';
+                                str += '<a href="javascript:void(0);" class="auth" onclick="$.fn.dataGridOptions.editFun('+row.id+',authTitle,winWidth,authHeight,authUrl);" title="角色菜单授权"></a>&nbsp;';
                             </@auth>
                             <@auth nid='roleManageDelete'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除角色"> 删除</a>';
+                                str += '<a href="javascript:void(0);" class="delete" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除角色"></a>&nbsp;';
                             </@auth>
-                            str += '</dd>';
-                            str += '</dl>';
                             return str;
                         }
                     },

@@ -34,29 +34,30 @@
                 url : "/system/operator/list_page",
                 columns : [ [
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
-                        width : 90,
+                        width : 120,
                         align : "center",
                         formatter : function(value, row) {
-                            var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
+                            var str = ''
                             <@auth nid='systemUserEdit'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑用户信息"> 编辑</a>';
+                                str += '<a href="javascript:void(0);" class="edit" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑用户信息"></a>&nbsp;';
                             </@auth>
                             <@auth nid='systemUserLock'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',lockUrl,lockMsg);" title="锁定账户状态"> 锁定</a>';
+                                if(row.state === 1){
+                                    str += '<a href="javascript:void(0);" class="lock" onclick="$.fn.dataGridOptions.confirm('+row.id+',lockUrl,lockMsg);" title="锁定账户状态"></a>&nbsp;';
+                                }
                             </@auth>
                             <@auth nid='systemUserUnlock'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',unlockUrl,unlockMsg)" title="解锁账户状态">解锁</a>';
+                                if(row.state === 0){
+                                    str += '<a href="javascript:void(0);" class="unlock" onclick="$.fn.dataGridOptions.confirm('+row.id+',unlockUrl,unlockMsg)" title="解锁账户状态"></a>&nbsp;';
+                                }
                             </@auth>
                             <@auth nid='systemUserReset'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',resetUrl,resetMsg);" title="重置登陆密码"> 重置</a>';
+                                str += '<a href="javascript:void(0);" class="reset" onclick="$.fn.dataGridOptions.confirm('+row.id+',resetUrl,resetMsg);" title="重置登陆密码"></a>&nbsp;';
                             </@auth>
                             <@auth nid='systemUserDelete'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除用户"> 删除</a>';
+                                str += '<a href="javascript:void(0);" class="delete" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除用户"></a>&nbsp;';
                             </@auth>
                             str += '</dd>';
                             str += '</dl>';

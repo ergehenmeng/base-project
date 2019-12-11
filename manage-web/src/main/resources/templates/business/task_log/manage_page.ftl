@@ -18,20 +18,15 @@
                 url : "/business/task_log/list_page",
                 columns : [ [
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
                             var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
                             if(!(row.state)){
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="错误信息">错误</a>';
+                                str += '<a href="javascript:void(0);" class="detail" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="错误详细信息"></a>';
                             }
-                            str += '</dd>';
-                            str += '</dl>';
                             return str;
                         }
                     },

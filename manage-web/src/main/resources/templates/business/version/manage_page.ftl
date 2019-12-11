@@ -31,30 +31,25 @@
                 url : "/business/version/list_page",
                 columns : [ [
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
                             var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
                             <@auth nid="versionManagePut">
                                 if(row.state === 0){
-                                    str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',putAwayUrl,putAwayMsg);" title="上架"> 上架</a>';
+                                    str += '<a href="javascript:void(0);" class="up" onclick="$.fn.dataGridOptions.confirm('+row.id+',putAwayUrl,putAwayMsg);" title="上架版本"></a>&nbsp;';
                                 }
                             </@auth>
                             <@auth nid="versionManageDown">
                                 if(row.state === 1){
-                                    str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',soldOutUrl,soldOutMsg);" title="下架"> 下架</a>';
+                                    str += '<a href="javascript:void(0);" class="down" onclick="$.fn.dataGridOptions.confirm('+row.id+',soldOutUrl,soldOutMsg);" title="下架版本"></a>&nbsp;';
                                 }
                             </@auth>
                             <@auth nid="versionManageDelete">
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除"> 删除</a>';
+                                str += '<a href="javascript:void(0);" class="delete" onclick="$.fn.dataGridOptions.confirm('+row.id+',delUrl,delMsg);" title="删除版本"></a>&nbsp;';
                             </@auth>
-                            str += '</dd>';
-                            str += '</dl>';
                             return str;
                         }
                     },

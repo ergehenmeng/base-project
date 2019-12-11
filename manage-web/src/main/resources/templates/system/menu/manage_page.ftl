@@ -28,28 +28,23 @@
                 },
                 columns : [ [
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
-                            var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
+                            var str = ''
                             <@auth nid='menuManageAdd'>
                                 if (row.grade < 3){
-                                    str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'grade\':\''+ row.grade +'\'});"> 添加</a>';
+                                    str += '<a href="javascript:void(0);" class="add" title="添加子菜单" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'grade\':\''+ row.grade +'\'});"></a>&nbsp;';
                                 }
                             </@auth>
                             <@auth nid='menuManageEdit'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
+                                str += '<a href="javascript:void(0);" class="edit" title="编辑菜单" onclick="$.fn.treeGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"></a>&nbsp;';
                             </@auth>
                             <@auth nid='menuManageDelete'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"> 删除</a>';
+                                str += '<a href="javascript:void(0);" class="delete" title="删除菜单" onclick="$.fn.treeGridOptions.confirm('+row.id+',delUrl,delMsg);"></a>&nbsp;';
                             </@auth>
-                            str += '</dd>';
-                            str += '</dl>';
                             return str;
                         }
                     },

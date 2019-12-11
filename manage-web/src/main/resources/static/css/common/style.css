@@ -274,3 +274,103 @@ textarea{
 .user-role{
     padding: 0 10px;
 }
+
+.datagrid-cell-c1-icon-action{
+    line-height: 11px;
+}
+
+.datagrid-cell-c1-icon-action .detail{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/detail.png);
+}
+
+.datagrid-cell-c1-icon-action .edit{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/edit.png);
+}
+
+.datagrid-cell-c1-icon-action .add{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/add.png);
+}
+
+.datagrid-cell-c1-icon-action .auth{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/auth.png);
+}
+
+.datagrid-cell-c1-icon-action .cancel{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/cancel.png);
+}
+
+.datagrid-cell-c1-icon-action .content{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/content.png);
+}
+
+.datagrid-cell-c1-icon-action .delete{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/delete.png);
+}
+
+.datagrid-cell-c1-icon-action .down{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/down.png);
+}
+
+.datagrid-cell-c1-icon-action .up{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/up.png);
+}
+
+.datagrid-cell-c1-icon-action .lock{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/lock.png);
+}
+
+.datagrid-cell-c1-icon-action .unlock{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/unlock.png);
+}
+
+.datagrid-cell-c1-icon-action .reset{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin: 0 auto;
+    background-image: url(/static/img/common/reset.png);
+}

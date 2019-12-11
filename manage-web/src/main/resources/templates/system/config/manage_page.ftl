@@ -18,20 +18,15 @@
                 url : "/system/config/list_page",
                 columns : [[
                     {
-                        field : "action",
+                        field : "icon-action",
                         title : "操作",
                         width : 90,
                         align : "center",
                         formatter : function(value, row, index) {
                             var str = '';
-                            str += '<dl>';
-                            str += '<dt><a href="javascript:void(0);">详情<i class="fa fa-angle-down fa-fw"></i></a></dt>';
-                            str += '<dd>';
                             <@auth nid='systemParamterQuery'>
-                                str += '<a href="javascript:void(0);" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"> 编辑</a>';
+                                str += '<a href="javascript:void(0);" class="edit" title="编辑系统参数" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"></a>&nbsp;';
                             </@auth>
-                            str += '</dd>';
-                            str += '</dl>';
                             return str;
                         }
                     },
