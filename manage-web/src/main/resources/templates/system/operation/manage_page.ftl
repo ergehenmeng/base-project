@@ -22,7 +22,7 @@
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
-                            var str = ''
+                            var str = '';
                             str += '<a href="javascript:void(0);" class="content" onclick="$.fn.dataGridOptions.show('+row.id+',title,winWidth,winHeight,url);" title="操作日志内容"></a>&nbsp;';
                             return str;
                         }

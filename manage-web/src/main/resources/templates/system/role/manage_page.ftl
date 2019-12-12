@@ -34,7 +34,7 @@
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
-                            var str = ''
+                            var str = '';
                             <@auth nid='roleManageEdit'>
                                str += '<a href="javascript:void(0);" class="edit" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);" title="编辑角色信息"></a>&nbsp;';
                             </@auth>

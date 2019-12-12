@@ -33,7 +33,7 @@
                         width : 90,
                         align : "center",
                         formatter : function(value, row) {
-                            var str = ''
+                            var str = '';
                             <@auth nid='menuManageAdd'>
                                 if (row.grade < 3){
                                     str += '<a href="javascript:void(0);" class="add" title="添加子菜单" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl,{\'grade\':\''+ row.grade +'\'});"></a>&nbsp;';
