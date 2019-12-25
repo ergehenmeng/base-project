@@ -62,7 +62,7 @@ public class DefaultKeyGenerator implements KeyGenerator {
     static {
         //初始化时间 默认值
         Calendar calendar = Calendar.getInstance();
-        calendar.set(1990, Calendar.DECEMBER, 29);
+        calendar.set(2018, Calendar.APRIL, 25);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);

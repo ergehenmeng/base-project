@@ -10,7 +10,7 @@
 
     <artifactId>api-web</artifactId>
     <packaging>jar</packaging>
-    <name>mobile or H5 interface</name>
+    <name>api-web</name>
 
     <dependencies>
 
