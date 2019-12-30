@@ -65,8 +65,8 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     }
 
     @Bean
-    public JsonHandlerMethodArgumentResolver jsonHandlerMethodArgumentResolver(){
-        return new JsonHandlerMethodArgumentResolver();
+    public JsonExtractHandlerArgumentResolver jsonHandlerMethodArgumentResolver(){
+        return new JsonExtractHandlerArgumentResolver();
     }
 
     /**

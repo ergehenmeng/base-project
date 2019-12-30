@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
  * @author 二哥很猛
  * @date 2018/1/8 14:42
  */
-public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
     private ObjectMapper objectMapper;
