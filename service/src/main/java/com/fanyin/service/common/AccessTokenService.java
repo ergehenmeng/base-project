@@ -26,16 +26,14 @@ public interface AccessTokenService {
     /**
      * 保存token
      * @param token token对象
-     * @return 缓存的对象
      */
-    AccessToken saveByAccessKey(AccessToken token);
+    void saveByAccessKey(AccessToken token);
 
     /**
      * 保存token
      * @param token token对象
-     * @return token信息
      */
-    AccessToken saveByUserId(AccessToken token);
+    void saveByUserId(AccessToken token);
 
 }
 

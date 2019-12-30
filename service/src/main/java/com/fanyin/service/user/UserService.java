@@ -43,12 +43,6 @@ public interface UserService {
      */
     User getByAccount(String account);
 
-    /**
-     * 根据主键查询用户信息
-     * @param userId userId
-     * @return 用户基本信息
-     */
-    User getById(Integer userId);
 
     /**
      * 登陆发送验证码

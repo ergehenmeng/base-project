@@ -156,12 +156,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.USER,key = "#p0",cacheManager = "longCacheManager")
-    public User getById(Integer userId) {
-        return userMapper.selectByPrimaryKey(userId);
-    }
-
-    @Override
     public void loginSendSms(String mobile) {
         User user = this.getByAccountRequired(mobile);
         smsService.sendSmsCode(SmsTypeConstant.LOGIN_SMS,user.getMobile());

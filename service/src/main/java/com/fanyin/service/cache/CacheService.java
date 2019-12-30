@@ -43,7 +43,16 @@ public interface CacheService {
     Object getValue(String key);
 
     /**
-     * 缓存任务异步结果
+     * 获取缓存信息
+     * @param key 缓存key
+     * @param cls 缓存信息类型
+     * @param <T> 泛型结果
+     * @return 缓存结果对象
+     */
+    <T> T getValue(String key,Class<T> cls);
+
+    /**
+     * 缓存任务异步结果  默认30分钟
      * @param response 对象
      */
     void cacheAsyncResponse(AsyncResponse response);

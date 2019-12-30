@@ -21,7 +21,7 @@ public class CacheConstant {
     /**
      * 任务异步结果
      */
-    public static final String ASYNC_RESPONSE = "async_response";
+    public static final String ASYNC_RESPONSE = "async_response:";
 
     /**
      * 会话令牌缓存key前缀

@@ -2,10 +2,12 @@ package com.fanyin.service.common.impl;
 
 
 import com.fanyin.common.constant.CacheConstant;
+import com.fanyin.constants.ConfigConstant;
 import com.fanyin.model.ext.AccessToken;
+import com.fanyin.service.cache.CacheService;
 import com.fanyin.service.common.AccessTokenService;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
+import com.fanyin.service.system.impl.SystemConfigApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,29 +17,30 @@ import org.springframework.stereotype.Service;
 @Service("accessTokenService")
 public class AccessTokenServiceImpl implements AccessTokenService {
 
+    @Autowired
+    private CacheService cacheService;
+
+    @Autowired
+    private SystemConfigApi systemConfigApi;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.ACCESS_TOKEN,key = "#p0",unless = "#result == null")
     public AccessToken getByAccessKey(String accessKey) {
-        return null;
+        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessKey,AccessToken.class);
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.ACCESS_TOKEN,key = "#p0",unless = "#result == null")
     public AccessToken getByUserId(int userId) {
-        return null;
+        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + userId,AccessToken.class);
     }
 
     @Override
-    @CachePut(cacheNames = CacheConstant.ACCESS_TOKEN,key = "#token.accessKey",cacheManager = "tokenCacheManager")
-    public AccessToken saveByAccessKey(AccessToken token) {
-        return token;
+    public void saveByAccessKey(AccessToken token) {
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessKey(),token,systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
     }
 
     @Override
-    @CachePut(cacheNames = CacheConstant.ACCESS_TOKEN,key = "#token.userId",cacheManager = "tokenCacheManager")
-    public AccessToken saveByUserId(AccessToken token) {
-        return token;
+    public void saveByUserId(AccessToken token) {
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getUserId(),token,systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
     }
 
 }

@@ -1,11 +1,11 @@
 package com.fanyin.service.cache.impl;
 
 import com.fanyin.common.constant.CacheConstant;
+import com.fanyin.constants.ConfigConstant;
 import com.fanyin.model.ext.AsyncResponse;
 import com.fanyin.service.cache.CacheService;
+import com.fanyin.service.system.impl.SystemConfigApi;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,14 +25,12 @@ public class CacheServiceImpl implements CacheService {
     @Autowired
     private RedisTemplate<String,Object> redisTemplate;
 
-    /**
-     * 默认过期时间 1800s
-     */
-    private static final long EXPIRE = 1800;
+    @Autowired
+    private SystemConfigApi systemConfigApi;
 
     @Override
     public void setValue(String key, Object value) {
-        this.setValue(key, value,EXPIRE);
+        this.setValue(key, value,systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
     }
 
     @Override
@@ -47,19 +45,27 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    @CachePut(cacheNames = CacheConstant.ASYNC_RESPONSE,key = "#response.key",cacheManager = "smallCacheManager")
     public void cacheAsyncResponse(AsyncResponse response) {
+        this.setValue(CacheConstant.ASYNC_RESPONSE + response.getKey(),response);
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.ASYNC_RESPONSE,key = "#p0",cacheManager = "smallCacheManager")
     public AsyncResponse getAsyncResponse(String key) {
-        return null;
+        return this.getValue(CacheConstant.ASYNC_RESPONSE + key,AsyncResponse.class);
     }
 
     @Override
     public Object getValue(String key) {
         return redisTemplate.opsForValue().get(key);
+    }
+
+    @Override
+    public <T> T getValue(String key, Class<T> cls) {
+        Object o = redisTemplate.opsForValue().get(key);
+        if(o != null){
+            return cls.cast(o);
+        }
+        return null;
     }
 
     @Override

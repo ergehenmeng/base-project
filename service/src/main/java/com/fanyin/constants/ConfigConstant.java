@@ -100,4 +100,14 @@ public class ConfigConstant {
      * 模拟短信验证码
      */
     public static final String ANALOG_SMS_CODE = "analog_sms_code";
+
+    /**
+     * 非注解缓存的默认过期时间
+     */
+    public static final String CACHE_EXPIRE = "cache_expire:";
+
+    /**
+     * 登陆token过期时间
+     */
+    public static final String TOKEN_EXPIRE = "token_expire:";
 }
