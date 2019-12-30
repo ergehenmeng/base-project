@@ -7,7 +7,6 @@ import com.fanyin.common.exception.ParameterException;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.RequestThreadLocal;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -27,8 +26,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotNull;
-import java.io.IOException;
 
 /**
  * 数据校验解析器
@@ -39,9 +36,6 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private Gson gson;
 
     @Override
     public boolean supportsParameter(@Nullable MethodParameter parameter) {
@@ -57,8 +51,8 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
     }
 
     @Override
-    public Object resolveArgument(@NotNull MethodParameter parameter, ModelAndViewContainer mavContainer, @Nullable NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        if(webRequest == null){
+    public Object resolveArgument(@Nullable MethodParameter parameter, ModelAndViewContainer mavContainer, @Nullable NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+        if(webRequest == null || parameter == null){
             throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }
 
@@ -92,10 +86,10 @@ public class JsonHandlerMethodArgumentResolver implements HandlerMethodArgumentR
             }
             String args = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
             if(args == null){
-                return null;
+                return cls.newInstance();
             }
             return objectMapper.readValue(args,cls);
-        }catch (IOException e){
+        }catch (Exception e){
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
     }
