@@ -1,6 +1,7 @@
 package com.fanyin.common.utils;
 
 
+import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class PbeUtil {
     /**
      * 盐 直接写死
      */
-    private static final byte[] SALT = "PbeUtil".getBytes(Charset.forName("UTF-8"));
+    private static final byte[] SALT = "PbeUtil".getBytes(CommonConstant.CHARSET);
 
     /**
      * 迭代次数
@@ -62,7 +63,7 @@ public class PbeUtil {
             Cipher cipher = Cipher.getInstance(PBE);
             SecretKey secretKey = getSecretKey(password);
             cipher.init(Cipher.ENCRYPT_MODE,secretKey,spec);
-            byte[] bytes = cipher.doFinal(str.getBytes(Charset.forName("UTF-8")));
+            byte[] bytes = cipher.doFinal(str.getBytes(CommonConstant.CHARSET));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
             log.error("pbe加密失败",e);

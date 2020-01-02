@@ -1,5 +1,6 @@
 package com.fanyin.common.utils;
 
+import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class Md5Util {
     public static String md5(String str){
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(str.getBytes(Charset.forName("UTF-8")));
+            digest.update(str.getBytes(CommonConstant.CHARSET));
             byte[] bytes = digest.digest();
             return ByteUtil.byteArrayToHex(bytes);
         } catch (Exception e) {

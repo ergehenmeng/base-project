@@ -1,5 +1,8 @@
 package com.fanyin.common.constant;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author 二哥很猛
  * @date 2018/1/8 14:41
@@ -9,7 +12,7 @@ public class CommonConstant {
     /**
      * 系统默认字符集
      */
-    public static final String CHARSET = "UTF-8";
+    public static final Charset CHARSET = StandardCharsets.UTF_8;
 
     /**
      * 图形验证码 key

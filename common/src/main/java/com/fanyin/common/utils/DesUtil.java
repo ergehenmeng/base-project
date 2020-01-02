@@ -1,5 +1,6 @@
 package com.fanyin.common.utils;
 
+import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
@@ -143,7 +144,7 @@ public class DesUtil {
             SecretKey convertSecretKey = getSecretKey(password,desType);
             Cipher cipher =getCipher(desType);
             cipher.init(Cipher.ENCRYPT_MODE,convertSecretKey);
-            byte[] bytes = cipher.doFinal(str.getBytes(Charset.forName("UTF-8")));
+            byte[] bytes = cipher.doFinal(str.getBytes(CommonConstant.CHARSET));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
             log.error("DES加密失败",e);
@@ -165,7 +166,7 @@ public class DesUtil {
             cipher.init(Cipher.DECRYPT_MODE,convertSecretKey);
             byte[] params = Base64.decodeBase64(str);
             byte[] bytes = cipher.doFinal(params);
-            return new String(bytes,Charset.forName("UTF-8"));
+            return new String(bytes,CommonConstant.CHARSET);
         } catch (Exception e) {
             log.error("DES解密失败",e);
             throw new ParameterException(ErrorCode.DECRYPT_ERROR);
@@ -221,14 +222,8 @@ public class DesUtil {
         }
         int length = DES3.equals(desType) ? DES3_LENGTH : DES_LENGTH;
         byte[] keys = new byte[length];
-
-        byte[] temp = password.getBytes(Charset.forName("UTF-8"));
-        if (keys.length > temp.length){
-            //不够 后面自动补零
-            System.arraycopy(temp,0,keys,0,temp.length);
-        }else{
-            System.arraycopy(temp,0,keys,0,keys.length);
-        }
+        byte[] temp = password.getBytes(CommonConstant.CHARSET);
+        System.arraycopy(temp,0,keys,0,Math.min(keys.length,temp.length));
         return keys;
     }
 

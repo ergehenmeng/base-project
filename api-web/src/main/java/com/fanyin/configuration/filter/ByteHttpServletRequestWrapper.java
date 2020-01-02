@@ -1,5 +1,6 @@
 package com.fanyin.configuration.filter;
 
+import com.fanyin.common.constant.CommonConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +48,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     @Override
     public BufferedReader getReader(){
-        return new BufferedReader(new InputStreamReader(getInputStream(), Charset.forName("UTF-8")));
+        return new BufferedReader(new InputStreamReader(getInputStream(), CommonConstant.CHARSET));
     }
 
     @Override
