@@ -22,7 +22,6 @@ public class HolidayUtil {
 
     /**
      * 生成来年节假日SQL
-     * @param year 要生成节假日列表的年份 2019等
      * @param holiday 国家法定假日 格式:yyyy-MM-dd
      * @param overtime 法定假日加班时间(注意:必须是周六,周日,如果非周六,周日会强制删除),例如 周日~周二法定假日,周六会加班,则填写周六  格式:yyyy-MM-dd
      */
@@ -33,26 +32,20 @@ public class HolidayUtil {
         List<String> overtimeList = filterWorkday(overtime);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year - 1,Calendar.DECEMBER,31);
+        calendar.set(year,Calendar.JANUARY,1);
 
         //52个周末均显示
         for (int i = 0; i < 365; i++){
-            calendar.add(Calendar.DAY_OF_WEEK,1);
             int week = calendar.get(Calendar.DAY_OF_WEEK);
             String format = DateUtil.format(calendar.getTime(),"yyyy-MM-dd");
             String formatMonth = DateUtil.format(calendar.getTime(),"yyyy-MM");
-            if(week == 1 || week == 7){
-                if(!overtimeList.contains(format)){
-                    System.out.println("insert into holiday(calendar,date_month,state)values('" + format + "','" + formatMonth + "',1); ");
-                    continue;
-                }
+            boolean contains = ((week == 1 || week == 7) && !overtimeList.contains(format)) || holidayList.contains(format);
+            if(contains){
+                System.out.println("insert into system_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',2,"+week+"); ");
             }else{
-                if(holidayList.contains(format)){
-                    System.out.println("insert into holiday(calendar,date_month,state)values('" + format + "','" + formatMonth + "',1); ");
-                    continue;
-                }
+                System.out.println("insert into system_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',1,"+week+"); ");
             }
-            System.out.println("insert into holiday(calendar,date_month,state)values('" + format + "','" + formatMonth + "',0); ");
+            calendar.add(Calendar.DAY_OF_WEEK,1);
         }
     }
 
