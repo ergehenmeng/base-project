@@ -19,8 +19,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableAspectJAutoProxy
-@ServletComponentScan(basePackages = {"com.fanyin.filter", "com.fanyin.listener"})
-@MapperScan(basePackages = "com.fanyin.dao.mapper")
+@ServletComponentScan(basePackages = {"com.eghm.filter", "com.eghm.listener"})
+@MapperScan(basePackages = "com.eghm.dao.mapper")
 public class ManageApplication {
 
     public static void main(String[] args) {

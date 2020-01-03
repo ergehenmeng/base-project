@@ -19,7 +19,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableAspectJAutoProxy
-@MapperScan("com.fanyin.dao.mapper")
+@MapperScan("com.eghm.dao.mapper")
 public class ApiApplication {
 
     public static void main(String[] args) {
