@@ -5,7 +5,6 @@ import com.fanyin.utils.SpringContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.solr.SolrAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,7 +16,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  *
  * @author 二哥很猛
  */
-@SpringBootApplication(exclude = SolrAutoConfiguration.class)
+@SpringBootApplication
 @EnableAsync
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = {"com.fanyin.filter", "com.fanyin.listener"})
