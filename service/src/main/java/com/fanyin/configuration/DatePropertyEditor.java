@@ -16,14 +16,14 @@ public class DatePropertyEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
 
-        try{
-            if(StringUtil.isNotBlank(text)){
+        try {
+            if (StringUtil.isNotBlank(text)) {
                 super.setValue(DateUtil.parseLong(text));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             try {
                 super.setValue(DateUtil.parseShort(text));
-            }catch (Exception e1){
+            } catch (Exception e1) {
                 throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
             }
         }

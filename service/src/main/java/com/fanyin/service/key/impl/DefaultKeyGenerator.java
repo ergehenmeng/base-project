@@ -12,6 +12,7 @@ import java.util.Date;
 
 /**
  * 1 + 41 + 10 + 12
+ *
  * @author 二哥很猛
  * @date 2018/9/19 11:04
  */
@@ -47,7 +48,7 @@ public class DefaultKeyGenerator implements KeyGenerator {
     /**
      * 时间戳左移长度 = 机器id占位 + 自增序列占位
      */
-    private static final long TIMESTAMP_LEFT_SHIFT_BITS = WORKER_ID_BITS  + SEQUENCE_BITS;
+    private static final long TIMESTAMP_LEFT_SHIFT_BITS = WORKER_ID_BITS + SEQUENCE_BITS;
 
     /**
      * 上一次生成id时的序列值
@@ -102,6 +103,7 @@ public class DefaultKeyGenerator implements KeyGenerator {
 
     /**
      * 单一毫秒生成序列超过最大值,等待下一毫秒再生成
+     *
      * @param lastTime 源时间
      * @return 新时间
      */

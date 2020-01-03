@@ -14,12 +14,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * 程序启动入口
+ *
  * @author 二哥很猛
  */
 @SpringBootApplication(exclude = SolrAutoConfiguration.class)
 @EnableAsync
 @EnableAspectJAutoProxy
-@ServletComponentScan(basePackages = {"com.fanyin.filter","com.fanyin.listener"})
+@ServletComponentScan(basePackages = {"com.fanyin.filter", "com.fanyin.listener"})
 @MapperScan(basePackages = "com.fanyin.dao.mapper")
 public class ManageApplication {
 

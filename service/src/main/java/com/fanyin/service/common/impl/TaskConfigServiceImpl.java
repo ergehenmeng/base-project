@@ -29,28 +29,28 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     private TaskConfigMapper taskConfigMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<TaskConfig> getAvailableList() {
         return taskConfigMapper.getAvailableList();
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<TaskConfig> getByPage(TaskQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<TaskConfig> list = taskConfigMapper.getList(request);
         return new PageInfo<>(list);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public TaskConfig getById(Integer id) {
         return taskConfigMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public void editTaskConfig(TaskEditRequest request) {
-        if(!CronSequenceGenerator.isValidExpression(request.getCronExpression())){
+        if (!CronSequenceGenerator.isValidExpression(request.getCronExpression())) {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
         }
         TaskConfig config = DataUtil.copy(request, TaskConfig.class);

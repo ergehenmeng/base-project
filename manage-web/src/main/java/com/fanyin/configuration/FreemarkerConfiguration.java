@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 
 /**
  * freemarker配置
+ *
  * @author 二哥很猛
  * @date 2018/11/27 18:02
  */
@@ -28,9 +29,9 @@ public class FreemarkerConfiguration {
      * 加载自定义宏和全局定义的宏
      */
     @PostConstruct
-    public void setSharedVariable(){
-        configuration.setSharedVariable("select",dictDirectiveModel);
-        configuration.setSharedVariable("auth",authDirectiveModel);
+    public void setSharedVariable() {
+        configuration.setSharedVariable("select", dictDirectiveModel);
+        configuration.setSharedVariable("auth", authDirectiveModel);
     }
 
 }

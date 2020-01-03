@@ -23,7 +23,7 @@ public class SwaggerConfiguration {
 
 
     @Bean
-    public Docket docket(){
+    public Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .useDefaultResponseMessages(false)
                 .produces(Sets.newHashSet("application/json"))
@@ -34,7 +34,7 @@ public class SwaggerConfiguration {
     }
 
 
-    private ApiInfo apiInfo(){
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("移动端接口文档")
                 .version("1.0.0")

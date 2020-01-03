@@ -11,7 +11,7 @@ public class SqlLogFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger("mybaits-sql");
 
-    public static Logger getLogger(){
+    public static Logger getLogger() {
         return LOGGER;
     }
 

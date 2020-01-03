@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * @author 二哥很猛
  * @param <T> 业务对象
+ * @author 二哥很猛
  */
 @Slf4j
-public abstract class AbstractTask<T,B> implements Runnable{
+public abstract class AbstractTask<T, B> implements Runnable {
 
     /**
      * 待处理的业务数据
@@ -20,7 +20,7 @@ public abstract class AbstractTask<T,B> implements Runnable{
      */
     private B bean;
 
-    public AbstractTask(T data,B bean){
+    public AbstractTask(T data, B bean) {
         this.data = data;
         this.bean = bean;
     }
@@ -30,9 +30,9 @@ public abstract class AbstractTask<T,B> implements Runnable{
         log.debug("队列任务开始执行");
         try {
             this.execute(data);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.doException(e);
-        }finally {
+        } finally {
             this.doFinally();
         }
         log.debug("队列任务执行结束");
@@ -45,30 +45,33 @@ public abstract class AbstractTask<T,B> implements Runnable{
 
     /**
      * 真实执行业务的逻辑
+     *
      * @param data 传入的对象
      */
     protected abstract void execute(T data);
 
     /**
      * 任务执行错误处理
+     *
      * @param e 错误信息
      */
-    protected void doException(Exception e){
-        log.error("队列任务执行出现异常 data:[{}]",data,e);
+    protected void doException(Exception e) {
+        log.error("队列任务执行出现异常 data:[{}]", data, e);
     }
 
     /**
      * 执行完业务的后置处理操作
      */
-    protected void doFinally(){
+    protected void doFinally() {
         log.debug("队列任务执行完成");
     }
 
     /**
      * 获取bean
+     *
      * @return bean
      */
-    protected B getBean(){
+    protected B getBean() {
         return bean;
     }
 }

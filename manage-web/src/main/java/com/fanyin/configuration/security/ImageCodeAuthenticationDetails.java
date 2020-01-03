@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 获取图形验证码信息
+ *
  * @author 二哥很猛
  * @date 2018/1/25 14:49
  */

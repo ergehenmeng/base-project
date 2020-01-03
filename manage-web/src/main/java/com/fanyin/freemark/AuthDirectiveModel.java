@@ -19,6 +19,7 @@ import java.util.Map;
 /**
  * <@auth nid="">html代码</@auth>
  * 按钮权限宏
+ *
  * @author 二哥很猛
  * @date 2019/1/18 17:19
  */
@@ -30,16 +31,16 @@ public class AuthDirectiveModel implements TemplateDirectiveModel {
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         Object nidValue = params.get(NID);
-        if(nidValue == null){
+        if (nidValue == null) {
             throw new BusinessException(ErrorCode.AUTH_NID_ERROR);
         }
         String nid = nidValue.toString();
         SecurityOperator operator = AbstractController.getRequiredOperator();
         List<SystemMenu> menuList = operator.getButtonMenu();
-        if(menuList != null && menuList.size() > 0){
+        if (menuList != null && menuList.size() > 0) {
             for (SystemMenu menu : menuList) {
                 String authNid = menu.getNid();
-                if(authNid.equals(nid)){
+                if (authNid.equals(nid)) {
                     body.render(env.getOut());
                     return;
                 }

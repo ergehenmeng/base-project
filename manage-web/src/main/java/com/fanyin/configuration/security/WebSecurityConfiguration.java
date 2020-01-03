@@ -18,13 +18,14 @@ import org.springframework.util.StringUtils;
 
 /**
  * spring security权限配置
+ *
  * @author 二哥很猛
  * @date 2018/1/25 09:35
  */
 
 @Configuration
-@EnableConfigurationProperties({WebMvcProperties.class,ApplicationProperties.class})
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
+@EnableConfigurationProperties({WebMvcProperties.class, ApplicationProperties.class})
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
@@ -43,12 +44,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
     @Bean("userDetailsService")
-    public UserDetailsService detailsService(){
+    public UserDetailsService detailsService() {
         return new OperatorDetailsServiceImpl();
     }
 
     @Override
-    public void configure(WebSecurity web){
+    public void configure(WebSecurity web) {
         web.ignoring().antMatchers(webMvcProperties.getStaticPathPattern());
     }
 
@@ -59,12 +60,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.headers().frameOptions().sameOrigin();
 
         http
-             .authorizeRequests()
-                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getIgnoreUrl(),";")).permitAll()
-                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getLoginIgnoreUrl(),";")).fullyAuthenticated()
+                .authorizeRequests()
+                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getIgnoreUrl(), ";")).permitAll()
+                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getLoginIgnoreUrl(), ";")).fullyAuthenticated()
                 .anyRequest().authenticated()
                 .and()
-             .formLogin()
+                .formLogin()
                 .loginPage("/")
                 .loginProcessingUrl("/login")
                 .usernameParameter("mobile")
@@ -73,7 +74,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .successHandler(loginSuccessHandler())
                 .failureHandler(loginFailureHandler())
                 .and()
-             .logout()
+                .logout()
                 .logoutSuccessHandler(logoutSuccessHandler())
                 .permitAll()
                 .invalidateHttpSession(true);
@@ -89,15 +90,16 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth){
+    public void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
     }
 
     /**
      * 登陆校验器
+     *
      * @return bean
      */
-    private AuthenticationProvider authenticationProvider(){
+    private AuthenticationProvider authenticationProvider() {
         CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
         //屏蔽原始错误异常
         provider.setHideUserNotFoundExceptions(false);
@@ -105,27 +107,31 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         provider.setEncoder(encoder);
         return provider;
     }
+
     /**
      * 登陆成功后置处理
+     *
      * @return bean
      */
-    private LoginSuccessHandler loginSuccessHandler(){
+    private LoginSuccessHandler loginSuccessHandler() {
         return new LoginSuccessHandler();
     }
 
     /**
      * 退出登陆
+     *
      * @return bean
      */
-    private LogoutSuccessHandler logoutSuccessHandler(){
+    private LogoutSuccessHandler logoutSuccessHandler() {
         return new LogoutSuccessHandler();
     }
 
     /**
      * 登陆失败后置处理
+     *
      * @return bean
      */
-    private LoginFailureHandler loginFailureHandler(){
+    private LoginFailureHandler loginFailureHandler() {
         return new LoginFailureHandler();
     }
 
@@ -134,43 +140,47 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
      * 权限管理过滤器,
      * 声明为Bean会加入到全局FilterChain中拦截所有请求
      * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
+     *
      * @return bean
      */
-    private CustomFilterSecurityInterceptor filterSecurityInterceptor(){
+    private CustomFilterSecurityInterceptor filterSecurityInterceptor() {
         CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor(metadataSource());
         interceptor.setAccessDecisionManager(accessDecisionManager());
         return interceptor;
     }
 
 
-    private CustomAccessDecisionManager accessDecisionManager(){
+    private CustomAccessDecisionManager accessDecisionManager() {
         return new CustomAccessDecisionManager();
     }
 
 
     /**
      * 角色权限资源管理
+     *
      * @return bean
      */
     @Bean
-    public CustomFilterInvocationSecurityMetadataSource metadataSource(){
+    public CustomFilterInvocationSecurityMetadataSource metadataSource() {
         return new CustomFilterInvocationSecurityMetadataSource();
     }
 
     /**
      * 附加信息管理
+     *
      * @return bean
      */
-    private CustomAuthenticationDetailsSource detailsSource(){
+    private CustomAuthenticationDetailsSource detailsSource() {
         return new CustomAuthenticationDetailsSource();
     }
 
 
     /**
      * 权限不足
+     *
      * @return bean
      */
-    private AccessDeniedHandler accessDeniedHandler(){
+    private AccessDeniedHandler accessDeniedHandler() {
         return new FailureAccessDeniedHandler();
     }
 

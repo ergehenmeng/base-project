@@ -1,7 +1,6 @@
 package com.fanyin.interceptor;
 
 import com.fanyin.annotation.SkipAccess;
-import com.fanyin.common.constant.AppHeader;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.RequestException;
 import com.fanyin.model.ext.AccessToken;
@@ -21,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * 默认针对全部接口进行登陆校验校验成功后将用户信息保存到线程变量中
  * 如果添加@SkipAccess则跳过登陆校验,但如果传递过来有相关用户登陆信息
  * 依旧将会将用户信息存入到线程变量中
+ *
  * @author 二哥很猛
  * @date 2018/1/23 12:02
  */
@@ -31,40 +31,35 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
     private AccessTokenService accessTokenService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         RequestMessage message = RequestThreadLocal.get();
         boolean skipAccess = this.skipAccess(handler);
-        String accessKey = request.getHeader(AppHeader.ACCESS_KEY);
-        String accessToken = request.getHeader(AppHeader.ACCESS_TOKEN);
-        this.accessTokenVerify(accessKey,accessToken,message,skipAccess);
+        this.accessTokenVerify(message.getAccessKey(), message, skipAccess);
         return true;
     }
 
 
     /**
      * 登陆校验
-     * @param accessKey accessKey
+     *
      * @param accessToken 令牌
-     * @param message 存放用户信息的对象
+     * @param message     存放用户信息的对象
      * @param skipAccess  是否跳过登陆认证
      */
-    private void accessTokenVerify(String accessKey, String accessToken, RequestMessage message,boolean skipAccess){
-        if(accessKey != null && accessToken != null){
-            AccessToken token = accessTokenService.getByAccessKey(accessKey);
-            boolean accessFail = token != null && token.getAccessToken().equals(accessToken) && token.getChannel().equals(message.getChannel());
-            if(accessFail){
+    private void accessTokenVerify(String accessToken, RequestMessage message, boolean skipAccess) {
+        if (accessToken != null) {
+            AccessToken token = accessTokenService.getByAccessToken(accessToken);
+            boolean accessFail = token != null && token.getChannel().equals(message.getChannel());
+            if (accessFail) {
                 //用户确实已经登录 跳过不跳过无所谓了
-                accessTokenService.saveByAccessKey(token);
-                message.setAccessKey(token.getAccessKey());
-                message.setAccessToken(token.getAccessToken());
+                accessTokenService.saveByAccessToken(token);
                 message.setUserId(token.getUserId());
                 return;
             }
         }
         //用户未登录或者登录验证失败 但接口需要登录,需抛异常
-        if(!skipAccess){
-            log.error("令牌为空,accessKey:[{}],accessToken:[{}]",accessKey,accessToken);
+        if (!skipAccess) {
+            log.error("令牌为空,accessToken:[{}]", accessToken);
             throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
     }
@@ -72,24 +67,25 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * 是否需要登陆校验
+     *
      * @param handler handlerMethod
      * @return true:需要验签 false不需要
      */
-    private boolean skipAccess(Object handler){
+    private boolean skipAccess(Object handler) {
         SkipAccess clientTypeToken = this.getSkipAccessAnnotation(handler);
         return clientTypeToken != null;
     }
 
 
-
     /**
      * 获取handlerMethod上指定类型的注解,如果类上有也会返回
+     *
      * @param handler handlerMethod
      * @return AccessToken
      */
-    private SkipAccess getSkipAccessAnnotation(Object handler){
-        if(handler instanceof HandlerMethod){
-            HandlerMethod method = (HandlerMethod)handler;
+    private SkipAccess getSkipAccessAnnotation(Object handler) {
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod method = (HandlerMethod) handler;
             SkipAccess t = method.getMethodAnnotation(SkipAccess.class);
             return t != null ? t : method.getBeanType().getAnnotation(SkipAccess.class);
         }

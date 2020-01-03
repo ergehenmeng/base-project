@@ -14,8 +14,8 @@ public class DynamicTriggerTask extends TriggerTask {
     private String cronExpression;
 
 
-    DynamicTriggerTask(String nid,String beanName, String cronExpression) {
-        super(new TaskRunnable(beanName,nid),new CronTrigger(cronExpression));
+    DynamicTriggerTask(String nid, String beanName, String cronExpression) {
+        super(new TaskRunnable(beanName, nid), new CronTrigger(cronExpression));
         this.nid = nid;
         this.cronExpression = cronExpression;
     }
@@ -30,10 +30,10 @@ public class DynamicTriggerTask extends TriggerTask {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o){
+        if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()){
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         DynamicTriggerTask that = (DynamicTriggerTask) o;

@@ -27,51 +27,55 @@ public class DictController {
 
     /**
      * 分页查询数据字典列表
+     *
      * @param request 前台参数
      * @return 分页列表
      */
     @PostMapping("/system/dict/list_page")
     @ResponseBody
     @Mark
-    public Paging<SystemDict> listPage(DictQueryRequest request){
+    public Paging<SystemDict> listPage(DictQueryRequest request) {
         return new Paging<>(systemDictService.getByPage(request));
     }
 
     /**
      * 编辑数据字典页面
+     *
      * @param id id
      * @return 页面地址
      */
     @GetMapping("/system/dict/edit_page")
     @Mark
-    public String editPage(Model model,Integer id){
+    public String editPage(Model model, Integer id) {
         SystemDict dict = systemDictService.getById(id);
-        model.addAttribute("dict",dict);
+        model.addAttribute("dict", dict);
         return "system/dict/edit_page";
     }
 
     /**
      * 添加数据字典
+     *
      * @param request 前台参数
      * @return 成功响应
      */
     @PostMapping("/system/dict/add")
     @ResponseBody
     @Mark
-    public RespBody add(DictAddRequest request){
+    public RespBody add(DictAddRequest request) {
         systemDictService.addDict(request);
         return RespBody.getInstance();
     }
 
     /**
      * 编辑数据字典
+     *
      * @param request 前台参数
      * @return 结果
      */
     @PostMapping("/system/dict/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(DictEditRequest request){
+    public RespBody edit(DictEditRequest request) {
         systemDictService.updateDict(request);
         return RespBody.getInstance();
     }
@@ -79,13 +83,14 @@ public class DictController {
 
     /**
      * 删除数据字典项
+     *
      * @param id 主键
      * @return 成功响应
      */
     @PostMapping("/system/dict/delete")
     @ResponseBody
     @Mark
-    public RespBody delete(Integer id){
+    public RespBody delete(Integer id) {
         systemDictService.deleteDict(id);
         return RespBody.getInstance();
     }

@@ -33,7 +33,7 @@ public class HikariDataSourceConfiguration {
     private int maxPoolSize;
 
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setMinimumIdle(minIdle);
         dataSource.setUsername(username);

@@ -12,38 +12,41 @@ import javax.servlet.http.HttpSession;
 /**
  * @author 二哥很猛
  */
-public class AbstractController{
+public class AbstractController {
 
     /**
      * 存放session
+     *
      * @param session session对象对象
-     * @param key sessionKey
-     * @param value session值
+     * @param key     sessionKey
+     * @param value   session值
      */
-    protected void putSession(HttpSession session, String key, Object value){
-        session.setAttribute(key,value);
+    protected void putSession(HttpSession session, String key, Object value) {
+        session.setAttribute(key, value);
     }
 
     /**
      * 获取当前用户登陆的系统管理人员
+     *
      * @return 系统登陆的用户
      */
-    public static SecurityOperator getOperator(){
+    public static SecurityOperator getOperator() {
         SecurityContext context = SecurityContextHolder.getContext();
         Object details = context.getAuthentication().getPrincipal();
-        if(details != null){
-            return (SecurityOperator)details;
+        if (details != null) {
+            return (SecurityOperator) details;
         }
         return null;
     }
 
     /**
      * 获取当前登陆的系统管理人员,找不到抛异常
+     *
      * @return 系统用户
      */
-    public static SecurityOperator getRequiredOperator(){
+    public static SecurityOperator getRequiredOperator() {
         SecurityOperator operator = getOperator();
-        if(operator == null){
+        if (operator == null) {
             throw new BusinessException(ErrorCode.OPERATOR_TIMEOUT);
         }
         return operator;
@@ -52,14 +55,14 @@ public class AbstractController{
     /**
      * 登陆用户姓名
      */
-    public static String getOperatorName(){
+    public static String getOperatorName() {
         return getRequiredOperator().getOperatorName();
     }
 
     /**
      * 登陆用户id
      */
-    public static Integer getOperatorId(){
+    public static Integer getOperatorId() {
         return getRequiredOperator().getId();
     }
 

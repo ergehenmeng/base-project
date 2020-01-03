@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 
 /**
  * PBE加密 对比DES 增加盐作为混淆
+ *
  * @author 二哥很猛
  * @date 2018/1/17 15:30
  */
@@ -44,47 +45,52 @@ public class PbeUtil {
 
     /**
      * pbe加密
-     * @param str   要加密的字符串
+     *
+     * @param str 要加密的字符串
      * @return 加密后的字符串
      */
-    public static String encrypt(String str){
-        return encrypt(str,null);
+    public static String encrypt(String str) {
+        return encrypt(str, null);
     }
 
     /**
      * pbe加密
-     * @param str   要加密的字符串
+     *
+     * @param str      要加密的字符串
      * @param password 秘钥串
      * @return 加密后的字符串
      */
-    public static String encrypt(String str,String password){
+    public static String encrypt(String str, String password) {
         try {
             PBEParameterSpec spec = getSpec();
             Cipher cipher = Cipher.getInstance(PBE);
             SecretKey secretKey = getSecretKey(password);
-            cipher.init(Cipher.ENCRYPT_MODE,secretKey,spec);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, spec);
             byte[] bytes = cipher.doFinal(str.getBytes(CommonConstant.CHARSET));
             return Base64.encodeBase64String(bytes);
         } catch (Exception e) {
-            log.error("pbe加密失败",e);
+            log.error("pbe加密失败", e);
             throw new ParameterException(ErrorCode.ENCRYPT_ERROR);
         }
     }
 
     /**
      * 生成pbe的参数校验码 盐
+     *
      * @return 盐对象
      */
-    private static PBEParameterSpec getSpec(){
-        return new PBEParameterSpec(SALT,SALT_COUNT);
+    private static PBEParameterSpec getSpec() {
+        return new PBEParameterSpec(SALT, SALT_COUNT);
     }
+
     /**
      * 生成秘钥key
+     *
      * @param password 秘钥
      * @return key
      */
-    private static SecretKey getSecretKey(String password){
-        if(password == null){
+    private static SecretKey getSecretKey(String password) {
+        if (password == null) {
             password = PASSWORD;
         }
         try {
@@ -95,34 +101,37 @@ public class PbeUtil {
             throw new ParameterException(ErrorCode.ENCRYPT_DECRYPT_ERROR);
         }
     }
+
     /**
      * pbe解密
-     * @param str   要解密的字符串
+     *
+     * @param str      要解密的字符串
      * @param password 秘钥串
      * @return 解密后的字符串
      */
-    public static String decrypt(String str,String password){
+    public static String decrypt(String str, String password) {
 
         try {
             PBEParameterSpec spec = getSpec();
             Cipher cipher = Cipher.getInstance(PBE);
             SecretKey secretKey = getSecretKey(password);
-            cipher.init(Cipher.DECRYPT_MODE,secretKey,spec);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, spec);
             byte[] bytes = Base64.decodeBase64(str);
             byte[] result = cipher.doFinal(bytes);
-            return new String(result,Charset.forName("UTF-8"));
+            return new String(result, Charset.forName("UTF-8"));
         } catch (Exception e) {
-            log.error("pbe解密失败",e);
+            log.error("pbe解密失败", e);
             throw new ParameterException(ErrorCode.DECRYPT_ERROR);
         }
     }
 
     /**
      * pbe解密
-     * @param str   要解密的字符串
+     *
+     * @param str 要解密的字符串
      * @return 解密后的字符串
      */
-    public static String decrypt(String str){
-        return decrypt(str,null);
+    public static String decrypt(String str) {
+        return decrypt(str, null);
     }
 }

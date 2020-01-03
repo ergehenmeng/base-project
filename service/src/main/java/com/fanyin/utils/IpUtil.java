@@ -17,6 +17,7 @@ public class IpUtil {
 
     /**
      * 获取ip地址
+     *
      * @param request 请求servlet
      * @return ip地址
      */
@@ -45,13 +46,14 @@ public class IpUtil {
 
     /**
      * 获取本机ip地址
+     *
      * @return 127.0.0.1
      */
-    public static String getLocalIp(){
+    public static String getLocalIp() {
         try {
             return InetAddress.getLocalHost().getHostAddress();
-        }catch (Exception e){
-            log.error("获取本机ip失败",e);
+        } catch (Exception e) {
+            log.error("获取本机ip失败", e);
         }
         return null;
     }

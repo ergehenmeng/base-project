@@ -28,7 +28,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     private SmsTemplateMapper smsTemplateMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE,key = "#p0",unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")
     public String getTemplate(String nid) {
         SmsTemplate smsTemplate = smsTemplateMapper.getByNid(nid);
         return smsTemplate.getContent();
@@ -41,7 +41,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     @Override
     public PageInfo<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<SmsTemplate> list = smsTemplateMapper.getList(request);
         return new PageInfo<>(list);
     }

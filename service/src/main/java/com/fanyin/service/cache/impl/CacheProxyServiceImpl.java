@@ -23,6 +23,7 @@ import java.util.List;
  * 该类为全局Bean在Aop中无效时,额外存放类
  * 由于@AsyncResponse,@CachePut等相关aop注解在同一个类方法间进行调用时无法生效
  * 可全部放到本类中维护
+ *
  * @author 二哥很猛
  * @date 2018/10/11 13:47
  */
@@ -44,8 +45,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Override
     public String getDictValue(String nid, Byte hiddenValue) {
         List<SystemDict> dictList = systemDictService.getDictByNid(nid);
-        for (SystemDict dict : dictList){
-            if(dict.getHiddenValue().equals(hiddenValue)){
+        for (SystemDict dict : dictList) {
+            if (dict.getHiddenValue().equals(hiddenValue)) {
                 return dict.getShowValue();
             }
         }
@@ -53,19 +54,19 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    public AccessToken createAccessToken(User user,String channel) {
+    public AccessToken createAccessToken(User user, String channel) {
         String accessKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
         String accessToken = encoder.encode(user.getId() + accessKey);
         AccessToken token = AccessToken.builder().accessKey(accessKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
-        accessTokenService.saveByAccessKey(token);
-        accessTokenService.saveByUserId(token);
+        accessTokenService.saveByAccessToken(token);
+        accessTokenService.saveByUserId(token.getUserId(), accessToken);
         return token;
     }
 
     @Override
     public boolean isInterceptIp(String ip) {
         List<BlackRoster> availableList = blackRosterService.getAvailableList();
-        if(!CollectionUtils.isEmpty(availableList)){
+        if (!CollectionUtils.isEmpty(availableList)) {
             Date now = DateUtil.getNow();
             return availableList.stream().anyMatch(blackRoster -> ip.equals(blackRoster.getIp()) && (blackRoster.getEndTime() == null || now.before(blackRoster.getEndTime())));
         }

@@ -1,6 +1,5 @@
 package com.fanyin.service.user.impl;
 
-import com.fanyin.common.constant.CacheConstant;
 import com.fanyin.common.constant.SmsTypeConstant;
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
@@ -10,14 +9,10 @@ import com.fanyin.configuration.security.Encoder;
 import com.fanyin.constants.ConfigConstant;
 import com.fanyin.dao.mapper.user.UserMapper;
 import com.fanyin.dao.model.user.User;
-import com.fanyin.model.dto.register.RegisterUserRequest;
-import com.fanyin.model.ext.LoginRecord;
 import com.fanyin.model.dto.login.AccountLoginRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
-import com.fanyin.model.ext.UserRegister;
-import com.fanyin.model.ext.AccessToken;
-import com.fanyin.model.ext.RequestMessage;
-import com.fanyin.model.ext.RequestThreadLocal;
+import com.fanyin.model.dto.register.RegisterUserRequest;
+import com.fanyin.model.ext.*;
 import com.fanyin.model.vo.login.LoginToken;
 import com.fanyin.queue.TaskHandler;
 import com.fanyin.queue.task.LoginLogTask;
@@ -30,7 +25,6 @@ import com.fanyin.service.user.UserService;
 import com.fanyin.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,28 +73,31 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 用户注册后置处理 初始化用户附加信息
+     *
      * @param user 用户信息
      */
-    private void doPostRegister(User user){
+    private void doPostRegister(User user) {
         userExtService.init(user);
     }
 
     /**
      * 对登陆密码进行加密
+     *
      * @param user 用户信息
      */
-    private void encodePassword(User user){
-        if(StringUtil.isNotBlank(user.getPwd())){
+    private void encodePassword(User user) {
+        if (StringUtil.isNotBlank(user.getPwd())) {
             user.setPwd(encoder.encode(user.getPwd()));
         }
     }
 
     /**
      * 昵称为空时,动态生成昵称
+     *
      * @param user 用户信息
      */
-    private void generateNickName(User user){
-        if(StringUtil.isBlank(user.getNickName())){
+    private void generateNickName(User user) {
+        if (StringUtil.isBlank(user.getNickName())) {
             user.setNickName(systemConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
         }
     }
@@ -109,29 +106,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginToken accountLogin(AccountLoginRequest login) {
         User user = this.getByAccount(login.getAccount());
-        if(user == null || !encoder.matches(login.getPwd(),user.getPwd())){
+        if (user == null || !encoder.matches(login.getPwd(), user.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
-        return this.doLogin(user,login.getIp());
+        return this.doLogin(user, login.getIp());
     }
 
 
     @Override
     public LoginToken smsLogin(SmsLoginRequest login) {
         User user = this.getByAccountRequired(login.getMobile());
-        smsService.verifySmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile(),login.getSmsCode());
-        return this.doLogin(user,login.getIp());
+        smsService.verifySmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile(), login.getSmsCode());
+        return this.doLogin(user, login.getIp());
     }
 
     /**
      * 移动端登陆系统
      * 1.创建token
      * 2.添加登陆日志
+     *
      * @param user 用户id
-     * @param ip 登陆ip
+     * @param ip   登陆ip
      * @return token信息
      */
-    private LoginToken doLogin(User user,String ip){
+    private LoginToken doLogin(User user, String ip) {
         RequestMessage request = RequestThreadLocal.get();
         AccessToken accessToken = cacheProxyService.createAccessToken(user, request.getChannel());
         LoginRecord record = LoginRecord.builder()
@@ -142,14 +140,14 @@ public class UserServiceImpl implements UserService {
                 .userId(user.getId())
                 .softwareVersion(request.getVersion())
                 .build();
-        taskHandler.executeLoginLog(new LoginLogTask(record,loginLogService));
+        taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
         return LoginToken.builder().accessKey(accessToken.getAccessKey()).accessToken(accessToken.getAccessToken()).build();
     }
 
 
     @Override
     public User getByAccount(String account) {
-        if(RegExpUtil.mobile(account)){
+        if (RegExpUtil.mobile(account)) {
             return userMapper.getByMobile(account);
         }
         return userMapper.getByEmail(account);
@@ -158,13 +156,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void loginSendSms(String mobile) {
         User user = this.getByAccountRequired(mobile);
-        smsService.sendSmsCode(SmsTypeConstant.LOGIN_SMS,user.getMobile());
+        smsService.sendSmsCode(SmsTypeConstant.LOGIN_SMS, user.getMobile());
     }
 
     @Override
     public User getByAccountRequired(String account) {
         User user = this.getByAccount(account);
-        if(user == null){
+        if (user == null) {
             throw new BusinessException(ErrorCode.USER_NOT_FOUND);
         }
         return user;
@@ -173,25 +171,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerSendSms(String mobile) {
         this.registerRedoVerify(mobile);
-        smsService.sendSmsCode(SmsTypeConstant.REGISTER_SMS,mobile);
+        smsService.sendSmsCode(SmsTypeConstant.REGISTER_SMS, mobile);
     }
 
     @Override
     public LoginToken registerByMobile(RegisterUserRequest request) {
         this.registerRedoVerify(request.getMobile());
-        smsService.verifySmsCode(SmsTypeConstant.REGISTER_SMS,request.getMobile(),request.getSmsCode());
+        smsService.verifySmsCode(SmsTypeConstant.REGISTER_SMS, request.getMobile(), request.getSmsCode());
         UserRegister register = DataUtil.copy(request, UserRegister.class);
         User user = this.doRegister(register);
-        return this.doLogin(user,register.getRegisterIp());
+        return this.doLogin(user, register.getRegisterIp());
     }
 
     /**
      * 注册手机号被占用校验
+     *
      * @param mobile 手机号
      */
-    private void registerRedoVerify(String mobile){
+    private void registerRedoVerify(String mobile) {
         User user = userMapper.getByMobile(mobile);
-        if(user == null){
+        if (user == null) {
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
         }
     }

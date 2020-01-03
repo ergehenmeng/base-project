@@ -34,7 +34,7 @@ public class TaskConfigController {
      */
     @PostMapping("/business/task/list_page")
     @ResponseBody
-    public Paging<TaskConfig> listPage(TaskQueryRequest request){
+    public Paging<TaskConfig> listPage(TaskQueryRequest request) {
         PageInfo<TaskConfig> byPage = taskConfigService.getByPage(request);
         return new Paging<>(byPage);
     }
@@ -43,9 +43,9 @@ public class TaskConfigController {
      * 定时任务编辑页面
      */
     @GetMapping("/business/task/edit_page")
-    public String editPage(Model model,Integer id){
+    public String editPage(Model model, Integer id) {
         TaskConfig config = taskConfigService.getById(id);
-        model.addAttribute("config",config);
+        model.addAttribute("config", config);
         return "business/task/edit_page";
     }
 
@@ -55,7 +55,7 @@ public class TaskConfigController {
     @PostMapping("/business/task/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(TaskEditRequest request){
+    public RespBody edit(TaskEditRequest request) {
         taskConfigService.editTaskConfig(request);
         return RespBody.getInstance();
     }
@@ -66,7 +66,7 @@ public class TaskConfigController {
     @PostMapping("/business/task/refresh")
     @ResponseBody
     @Mark
-    public RespBody refresh(){
+    public RespBody refresh() {
         dynamicTask.openOrRefreshTask();
         return RespBody.getInstance();
     }

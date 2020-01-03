@@ -16,6 +16,7 @@ import java.util.List;
 /**
  * 自定义获取用户信息接口,如果找不到用户信息直接抛异常
  * 如果找到,则组装为UserDetails对象供后续拦截器进行校验
+ *
  * @author 二哥很猛
  * @date 2018/1/25 10:00
  */
@@ -30,14 +31,14 @@ public class OperatorDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SystemOperator operator = systemOperatorService.getByMobile(username);
-        if(operator == null){
+        if (operator == null) {
             throw new SystemAuthenticationException(ErrorCode.OPERATOR_NOT_FOUND);
         }
-        if(operator.getState() == 0){
+        if (operator.getState() == 0) {
             throw new SystemAuthenticationException(ErrorCode.OPERATOR_LOCKED_ERROR);
         }
         //查询并组织权限信息
         List<GrantedAuthority> authorities = systemMenuService.getAuthorityByOperatorId(operator.getId());
-        return new SecurityOperator(operator,authorities);
+        return new SecurityOperator(operator, authorities);
     }
 }

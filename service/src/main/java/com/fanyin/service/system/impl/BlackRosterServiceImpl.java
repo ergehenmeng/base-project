@@ -26,7 +26,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     public PageInfo<BlackRoster> getByPage(BlackRosterQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<BlackRoster> list = blackRosterMapper.getList(request);
         return new PageInfo<>(list);
     }
@@ -40,7 +40,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER,unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER, unless = "#result.size() == 0")
     public List<BlackRoster> getAvailableList() {
         return blackRosterMapper.getAvailableList();
     }

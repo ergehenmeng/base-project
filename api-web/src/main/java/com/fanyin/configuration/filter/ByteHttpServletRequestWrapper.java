@@ -28,31 +28,32 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 将request中数据读取出来以便于重复利用
+     *
      * @param request request
      * @return 将请求中数据转换为字节数组
      */
-    private byte[] readByte(HttpServletRequest request){
+    private byte[] readByte(HttpServletRequest request) {
         try (ServletInputStream inputStream = request.getInputStream();
-             ByteArrayOutputStream bos = new ByteArrayOutputStream()){
+             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             byte[] buffer = new byte[1024];
             int len;
-            while ((len = inputStream.read(buffer)) != -1){
-                bos.write(buffer,0,len);
+            while ((len = inputStream.read(buffer)) != -1) {
+                bos.write(buffer, 0, len);
             }
             return bos.toByteArray();
         } catch (IOException e) {
-            log.error("过滤器解析request数据异常",e);
+            log.error("过滤器解析request数据异常", e);
             throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
         }
     }
 
     @Override
-    public BufferedReader getReader(){
+    public BufferedReader getReader() {
         return new BufferedReader(new InputStreamReader(getInputStream(), CommonConstant.CHARSET));
     }
 
     @Override
-    public ServletInputStream getInputStream(){
+    public ServletInputStream getInputStream() {
 
         ByteArrayInputStream bos = new ByteArrayInputStream(requestByte);
 
@@ -73,7 +74,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public int read(){
+            public int read() {
                 return bos.read();
             }
         };

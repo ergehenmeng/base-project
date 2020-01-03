@@ -49,31 +49,31 @@ public class TaskRunnable implements Runnable {
         TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(nid).beanName(beanName).ip(IpUtil.getLocalIp()).startTime(now);
         try {
             getTaskBean().execute();
-        }catch (Exception e){
-            log.error("定时任务执行异常 nid:[{}] bean:[{}]",nid,beanName,e);
+        } catch (Exception e) {
+            log.error("定时任务执行异常 nid:[{}] bean:[{}]", nid, beanName, e);
             builder.state(false);
             builder.errorMsg(ExceptionUtils.getMessage(e));
-        }finally {
+        } finally {
             long endTime = System.currentTimeMillis();
             builder.elapsedTime(endTime - startTime);
             taskLogService().addTaskLog(builder.build());
         }
     }
 
-    private TaskLogService taskLogService(){
-        if(taskLogService != null){
+    private TaskLogService taskLogService() {
+        if (taskLogService != null) {
             return taskLogService;
         }
-        this.taskLogService = (TaskLogService)SpringContextUtil.getBean("taskLogService");
+        this.taskLogService = (TaskLogService) SpringContextUtil.getBean("taskLogService");
         return taskLogService;
     }
 
     private Task getTaskBean() {
-        if(task != null){
+        if (task != null) {
             return task;
         }
         //必须保证bean名称正确
-        this.task = (Task)SpringContextUtil.getBean(beanName);
+        this.task = (Task) SpringContextUtil.getBean(beanName);
         return task;
     }
 }

@@ -23,7 +23,7 @@ public class UploadController {
      * 文件上传
      */
     @PostMapping("/upload/image")
-    public RespBody image(@RequestParam("image") MultipartFile image){
+    public RespBody image(@RequestParam("image") MultipartFile image) {
         FilePath filePath = fileService.saveFile(image);
         return RespBody.success(filePath);
     }

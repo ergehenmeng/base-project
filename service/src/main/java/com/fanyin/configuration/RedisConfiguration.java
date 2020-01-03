@@ -23,13 +23,14 @@ import java.time.Duration;
 
 /**
  * 该类主要配置各个过期时间的缓存管理器
+ *
  * @author 二哥很猛
  * @date 2018/1/8 14:40
  */
 @Configuration
 @EnableCaching
 @PropertySource("classpath:redis.properties")
-public class RedisConfiguration{
+public class RedisConfiguration {
 
     /**
      * 长过期时间 默认30分钟
@@ -55,13 +56,14 @@ public class RedisConfiguration{
      * <br>在新版本fastJson也提供了序列化:
      * <br>FastJsonRedisSerializer(可配置化)
      * <br>GenericFastJsonRedisSerializer(默认配置)
+     *
      * @param connectionFactory 由LettuceConnectionConfiguration生成
      * @return bean
      */
     @Bean("redisTemplate")
     @Primary
-    public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory connectionFactory){
-        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(connectionFactory);
         redisTemplate.setValueSerializer(valueSerializer());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
@@ -72,18 +74,20 @@ public class RedisConfiguration{
 
     /**
      * 默认缓存管理期 默认30分钟过期
+     *
      * @return bean
      */
     @Bean("longCacheManager")
-    public CacheManager longCacheManager(RedisConnectionFactory connectionFactory){
-        return this.getCacheManager(connectionFactory,longExpire);
+    public CacheManager longCacheManager(RedisConnectionFactory connectionFactory) {
+        return this.getCacheManager(connectionFactory, longExpire);
     }
 
     /**
      * 值序列号方式
+     *
      * @return jackson
      */
-    private RedisSerializer<Object> valueSerializer(){
+    private RedisSerializer<Object> valueSerializer() {
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -94,10 +98,11 @@ public class RedisConfiguration{
 
     /**
      * 获取缓存管理器
+     *
      * @param expire 过期时间 默认单位 秒
      * @return CacheManager
      */
-    private CacheManager getCacheManager(RedisConnectionFactory connectionFactory,int expire){
+    private CacheManager getCacheManager(RedisConnectionFactory connectionFactory, int expire) {
         return RedisCacheManager
                 .builder(connectionFactory)
                 .cacheDefaults(
@@ -111,29 +116,32 @@ public class RedisConfiguration{
 
     /**
      * 系统级缓存管理器 默认永不过期
+     *
      * @return bean
      */
     @Bean("cacheManager")
     @Primary
-    public CacheManager cacheManager(RedisConnectionFactory connectionFactory){
-        return this.getCacheManager(connectionFactory,0);
+    public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
+        return this.getCacheManager(connectionFactory, 0);
     }
 
     /**
      * 10分钟过期的缓存管理器
+     *
      * @return bean
      */
     @Bean("shortCacheManager")
-    public CacheManager smallCacheManager(RedisConnectionFactory connectionFactory){
-        return this.getCacheManager(connectionFactory,smallExpire);
+    public CacheManager smallCacheManager(RedisConnectionFactory connectionFactory) {
+        return this.getCacheManager(connectionFactory, smallExpire);
     }
 
     /**
      * 1分钟过期的缓存管理器
+     *
      * @return bean
      */
     @Bean("smallCacheManager")
-    public CacheManager shortCacheManager(RedisConnectionFactory connectionFactory){
-        return this.getCacheManager(connectionFactory,shortExpire);
+    public CacheManager shortCacheManager(RedisConnectionFactory connectionFactory) {
+        return this.getCacheManager(connectionFactory, shortExpire);
     }
 }

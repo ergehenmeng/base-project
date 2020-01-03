@@ -14,15 +14,15 @@ public class HandlerInvoker<T extends Handler> {
 
     private List<T> handlerList;
 
-    HandlerInvoker(List<T> handlerList){
+    HandlerInvoker(List<T> handlerList) {
         this.handlerList = handlerList;
         this.size = handlerList.size();
     }
 
-    public void doHandler(MessageData data){
-        if(pos < size){
+    public void doHandler(MessageData data) {
+        if (pos < size) {
             Handler handler = handlerList.get(pos++);
-            handler.doHandler(data,this);
+            handler.doHandler(data, this);
         }
     }
 }

@@ -36,7 +36,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     private SystemConfigApi systemConfigApi;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE,cacheManager = "smallCacheManager",unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE, cacheManager = "smallCacheManager", unless = "#result.size() == 0")
     public List<TopNoticeVO> getList() {
         int noticeLimit = systemConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SystemNotice> noticeList = systemNoticeMapper.getTopList(noticeLimit);
@@ -65,7 +65,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
 
     @Override
     public PageInfo<SystemNotice> getByPage(NoticeQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<SystemNotice> list = systemNoticeMapper.getList(request);
         return new PageInfo<>(list);
     }
@@ -76,19 +76,19 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE,beforeInvocation = true)
+    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE, beforeInvocation = true)
     public void publish(Integer id) {
         SystemNotice notice = new SystemNotice();
-        notice.setState((byte)1);
+        notice.setState((byte) 1);
         notice.setId(id);
         systemNoticeMapper.updateByPrimaryKeySelective(notice);
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE,beforeInvocation = true)
+    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE, beforeInvocation = true)
     public void cancelPublish(Integer id) {
         SystemNotice notice = new SystemNotice();
-        notice.setState((byte)0);
+        notice.setState((byte) 0);
         notice.setId(id);
         systemNoticeMapper.updateByPrimaryKeySelective(notice);
     }

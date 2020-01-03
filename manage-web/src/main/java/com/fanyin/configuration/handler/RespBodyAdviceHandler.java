@@ -25,12 +25,12 @@ public class RespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(@NotNull MethodParameter returnType, @NotNull Class<? extends HttpMessageConverter<?>> converterType) {
-        return !returnType.hasParameterAnnotation(SkipWrapper.class) ;
+        return !returnType.hasParameterAnnotation(SkipWrapper.class);
     }
 
     @Override
     public Object beforeBodyWrite(Object body, @Nullable MethodParameter returnType, @Nullable MediaType selectedContentType, @Nullable Class<? extends HttpMessageConverter<?>> selectedConverterType, @Nullable ServerHttpRequest request, @Nullable ServerHttpResponse response) {
-        if(body instanceof RespBody){
+        if (body instanceof RespBody) {
             return body;
         }
         return RespBody.success(body);

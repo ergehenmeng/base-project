@@ -5,14 +5,14 @@ import com.fanyin.common.exception.BusinessException;
 import com.fanyin.common.utils.Md5Util;
 import com.fanyin.common.utils.StringUtil;
 import com.fanyin.configuration.security.Encoder;
-import com.fanyin.model.dto.system.operator.OperatorAddRequest;
-import com.fanyin.model.dto.system.operator.OperatorEditRequest;
-import com.fanyin.model.dto.system.operator.OperatorQueryRequest;
-import com.fanyin.model.dto.system.operator.PasswordEditRequest;
 import com.fanyin.dao.mapper.system.SystemOperatorMapper;
 import com.fanyin.dao.mapper.system.SystemOperatorRoleMapper;
 import com.fanyin.dao.model.system.SystemOperator;
 import com.fanyin.dao.model.system.SystemOperatorRole;
+import com.fanyin.model.dto.system.operator.OperatorAddRequest;
+import com.fanyin.model.dto.system.operator.OperatorEditRequest;
+import com.fanyin.model.dto.system.operator.OperatorQueryRequest;
+import com.fanyin.model.dto.system.operator.PasswordEditRequest;
 import com.fanyin.service.system.SystemOperatorService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
@@ -51,7 +51,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     public String updateLoginPassword(PasswordEditRequest request) {
         SystemOperator operator = systemOperatorMapper.selectByPrimaryKey(request.getOperatorId());
         String oldPassword = encoder.encode(request.getOldPwd());
-        if(!operator.getPwd().equals(oldPassword)){
+        if (!operator.getPwd().equals(oldPassword)) {
             throw new BusinessException(ErrorCode.OPERATOR_PASSWORD_ERROR);
         }
         String newPassword = encoder.encode(request.getNewPwd());
@@ -62,7 +62,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
 
     @Override
     public PageInfo<SystemOperator> getByPage(OperatorQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<SystemOperator> list = systemOperatorMapper.getList(request);
         return new PageInfo<>(list);
     }
@@ -76,10 +76,10 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
         systemOperatorMapper.insertSelective(operator);
-        if(StringUtil.isNotBlank(request.getRoleIds())){
+        if (StringUtil.isNotBlank(request.getRoleIds())) {
             List<String> roleStringList = Splitter.on(",").splitToList(request.getRoleIds());
             //循环插入角色关联信息
-            roleStringList.forEach(s -> systemOperatorRoleMapper.insertSelective(new SystemOperatorRole(operator.getId(),Integer.parseInt(s))));
+            roleStringList.forEach(s -> systemOperatorRoleMapper.insertSelective(new SystemOperatorRole(operator.getId(), Integer.parseInt(s))));
         }
     }
 
@@ -100,10 +100,10 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         SystemOperator operator = DataUtil.copy(request, SystemOperator.class);
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         systemOperatorRoleMapper.deleteByOperatorId(request.getId());
-        if(StringUtil.isNotBlank(request.getRoleIds())){
+        if (StringUtil.isNotBlank(request.getRoleIds())) {
             List<String> stringList = Splitter.on(",").splitToList(request.getRoleIds());
             List<Integer> roleList = stringList.stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-            systemOperatorRoleMapper.batchInsertOperatorRole(request.getId(),roleList);
+            systemOperatorRoleMapper.batchInsertOperatorRole(request.getId(), roleList);
         }
     }
 }

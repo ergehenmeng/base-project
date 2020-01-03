@@ -5,6 +5,7 @@ import org.springframework.security.core.AuthenticationException;
 
 /**
  * 自定义权限校验失败异常处理类
+ *
  * @author 二哥很猛
  * @date 2018/1/26 09:44
  */
@@ -18,7 +19,7 @@ public class SystemAuthenticationException extends AuthenticationException {
         super(msg);
     }
 
-    SystemAuthenticationException(ErrorCode codeEnum){
+    SystemAuthenticationException(ErrorCode codeEnum) {
         this(codeEnum.getMsg());
         this.code = codeEnum.getCode();
     }

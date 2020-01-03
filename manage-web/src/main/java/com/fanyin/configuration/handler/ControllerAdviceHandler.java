@@ -23,31 +23,33 @@ import java.util.Date;
 public class ControllerAdviceHandler {
 
     @InitBinder
-    public void initBinder(WebDataBinder binder){
-        binder.registerCustomEditor(Date.class,new DatePropertyEditor());
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new DatePropertyEditor());
     }
 
     /**
      * 业务异常统一拦截
+     *
      * @param e 异常
      * @return 返回标准对象
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public RespBody businessException(HttpServletRequest request, BusinessException e){
-        log.error("业务异常:[{}]",request.getRequestURI(),e);
+    public RespBody businessException(HttpServletRequest request, BusinessException e) {
+        log.error("业务异常:[{}]", request.getRequestURI(), e);
         return RespBody.getInstance().setCode(e.getCode()).setMsg(e.getMessage());
     }
 
     /**
      * 系统级异常统一拦截
+     *
      * @param e 异常
      * @return 返回标准对象
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public RespBody exception(HttpServletRequest request, Exception e){
-        log.error("系统异常 url:[{}]",request.getRequestURI(),e);
+    public RespBody exception(HttpServletRequest request, Exception e) {
+        log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 }

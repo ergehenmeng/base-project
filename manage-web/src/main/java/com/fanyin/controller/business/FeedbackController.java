@@ -28,7 +28,7 @@ public class FeedbackController extends AbstractController {
      */
     @PostMapping("/feedback/list_page")
     @ResponseBody
-    public Paging<FeedbackVO> listPage(FeedbackQueryRequest request){
+    public Paging<FeedbackVO> listPage(FeedbackQueryRequest request) {
         PageInfo<FeedbackVO> byPage = feedbackService.getByPage(request);
         return new Paging<>(byPage);
     }
@@ -38,7 +38,7 @@ public class FeedbackController extends AbstractController {
      */
     @PostMapping("/feedback/dispose")
     @ResponseBody
-    public RespBody dispose(FeedbackDisposeRequest request){
+    public RespBody dispose(FeedbackDisposeRequest request) {
         request.setOperatorId(getOperatorId());
         request.setOperatorName(getOperatorName());
         feedbackService.dispose(request);

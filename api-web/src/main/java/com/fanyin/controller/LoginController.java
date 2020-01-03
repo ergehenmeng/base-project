@@ -19,13 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登陆,找回密码相关
+ *
  * @author 二哥很猛
  * @date 2019/8/20 10:17
  */
 @RestController
 @RequestMapping("/api")
 @Api(tags = "登陆,找回密码功能")
-public class LoginController extends AbstractController{
+public class LoginController extends AbstractController {
 
     @Autowired
     private UserService userService;
@@ -35,7 +36,7 @@ public class LoginController extends AbstractController{
      */
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
-    public RespBody sendSms(LoginSendSmsRequest request){
+    public RespBody sendSms(LoginSendSmsRequest request) {
         userService.loginSendSms(request.getMobile());
         return RespBody.getInstance();
     }
@@ -45,7 +46,7 @@ public class LoginController extends AbstractController{
      */
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/by_sms")
-    public RespBody<LoginToken> bySms(SmsLoginRequest login, HttpServletRequest request){
+    public RespBody<LoginToken> bySms(SmsLoginRequest login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.smsLogin(login));
     }
@@ -56,7 +57,7 @@ public class LoginController extends AbstractController{
     @ApiOperation("手机或邮箱密码登陆")
     @PostMapping("/login/by_account")
     @SkipAccess
-    public RespBody<LoginToken> byAccount(AccountLoginRequest login,HttpServletRequest request){
+    public RespBody<LoginToken> byAccount(AccountLoginRequest login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.accountLogin(login));
     }

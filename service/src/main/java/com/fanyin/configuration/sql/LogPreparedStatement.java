@@ -50,8 +50,8 @@ public class LogPreparedStatement implements PreparedStatement {
         }
     }
 
-    private void clearRecordArgs(){
-        synchronized (argsList){
+    private void clearRecordArgs() {
+        synchronized (argsList) {
             argsList.clear();
         }
     }
@@ -107,91 +107,91 @@ public class LogPreparedStatement implements PreparedStatement {
 
     @Override
     public void setNull(int parameterIndex, int sqlType) throws SQLException {
-        this.recordArgs(parameterIndex,sqlType);
+        this.recordArgs(parameterIndex, sqlType);
         delegate.setNull(parameterIndex, sqlType);
     }
 
     @Override
     public void setBoolean(int parameterIndex, boolean x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setBoolean(parameterIndex, x);
     }
 
     @Override
     public void setByte(int parameterIndex, byte x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setByte(parameterIndex, x);
     }
 
     @Override
     public void setShort(int parameterIndex, short x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setShort(parameterIndex, x);
     }
 
     @Override
     public void setInt(int parameterIndex, int x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setInt(parameterIndex, x);
     }
 
     @Override
     public void setLong(int parameterIndex, long x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setLong(parameterIndex, x);
     }
 
     @Override
     public void setFloat(int parameterIndex, float x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setFloat(parameterIndex, x);
     }
 
     @Override
     public void setDouble(int parameterIndex, double x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setDouble(parameterIndex, x);
     }
 
     @Override
     public void setBigDecimal(int parameterIndex, BigDecimal x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setBigDecimal(parameterIndex, x);
     }
 
     @Override
     public void setString(int parameterIndex, String x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setString(parameterIndex, x);
     }
 
     @Override
     public void setBytes(int parameterIndex, byte[] x) throws SQLException {
-        this.recordArgs(parameterIndex,"<byte[]>");
+        this.recordArgs(parameterIndex, "<byte[]>");
         delegate.setBytes(parameterIndex, x);
     }
 
     @Override
     public void setDate(int parameterIndex, Date x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setDate(parameterIndex, x);
     }
 
     @Override
     public void setTime(int parameterIndex, Time x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setTime(parameterIndex, x);
     }
 
     @Override
     public void setTimestamp(int parameterIndex, Timestamp x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setTimestamp(parameterIndex, x);
     }
 
     @Override
     public void setAsciiStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Ascii Stream>" );
+        this.recordArgs(parameterIndex, "<Ascii Stream>");
         delegate.setAsciiStream(parameterIndex, x, length);
     }
 
@@ -202,7 +202,7 @@ public class LogPreparedStatement implements PreparedStatement {
 
     @Override
     public void setBinaryStream(int parameterIndex, InputStream x, int length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Binary Stream>" );
+        this.recordArgs(parameterIndex, "<Binary Stream>");
         delegate.setBinaryStream(parameterIndex, x, length);
     }
 
@@ -215,7 +215,7 @@ public class LogPreparedStatement implements PreparedStatement {
 
     @Override
     public void setObject(int parameterIndex, Object x, int targetSqlType) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setObject(parameterIndex, x, targetSqlType);
     }
 
@@ -240,31 +240,31 @@ public class LogPreparedStatement implements PreparedStatement {
 
     @Override
     public void setCharacterStream(int parameterIndex, Reader reader, int length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Character Stream>");
+        this.recordArgs(parameterIndex, "<Character Stream>");
         delegate.setCharacterStream(parameterIndex, reader, length);
     }
 
     @Override
     public void setRef(int parameterIndex, Ref x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setRef(parameterIndex, x);
     }
 
     @Override
     public void setBlob(int parameterIndex, Blob x) throws SQLException {
-        this.recordArgs(parameterIndex,"<Blob>");
+        this.recordArgs(parameterIndex, "<Blob>");
         delegate.setBlob(parameterIndex, x);
     }
 
     @Override
     public void setClob(int parameterIndex, Clob x) throws SQLException {
-        this.recordArgs(parameterIndex,"<Clob>");
+        this.recordArgs(parameterIndex, "<Clob>");
         delegate.setClob(parameterIndex, x);
     }
 
     @Override
     public void setArray(int parameterIndex, Array x) throws SQLException {
-        this.recordArgs(parameterIndex,"<Array>");
+        this.recordArgs(parameterIndex, "<Array>");
         delegate.setArray(parameterIndex, x);
     }
 
@@ -275,31 +275,31 @@ public class LogPreparedStatement implements PreparedStatement {
 
     @Override
     public void setDate(int parameterIndex, Date x, Calendar cal) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setDate(parameterIndex, x, cal);
     }
 
     @Override
     public void setTime(int parameterIndex, Time x, Calendar cal) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setTime(parameterIndex, x, cal);
     }
 
     @Override
     public void setTimestamp(int parameterIndex, Timestamp x, Calendar cal) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setTimestamp(parameterIndex, x, cal);
     }
 
     @Override
     public void setNull(int parameterIndex, int sqlType, String typeName) throws SQLException {
-        this.recordArgs(parameterIndex,null);
+        this.recordArgs(parameterIndex, null);
         delegate.setNull(parameterIndex, sqlType, typeName);
     }
 
     @Override
     public void setURL(int parameterIndex, URL x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setURL(parameterIndex, x);
     }
 
@@ -310,115 +310,115 @@ public class LogPreparedStatement implements PreparedStatement {
 
     @Override
     public void setRowId(int parameterIndex, RowId x) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setRowId(parameterIndex, x);
     }
 
     @Override
     public void setNString(int parameterIndex, String value) throws SQLException {
-        this.recordArgs(parameterIndex,value);
+        this.recordArgs(parameterIndex, value);
         delegate.setNString(parameterIndex, value);
     }
 
     @Override
     public void setNCharacterStream(int parameterIndex, Reader value, long length) throws SQLException {
-        this.recordArgs(parameterIndex,"<NCharacter Stream>");
+        this.recordArgs(parameterIndex, "<NCharacter Stream>");
         delegate.setNCharacterStream(parameterIndex, value, length);
     }
 
     @Override
     public void setNClob(int parameterIndex, NClob value) throws SQLException {
-        this.recordArgs(parameterIndex,"<NClob>");
+        this.recordArgs(parameterIndex, "<NClob>");
         delegate.setNClob(parameterIndex, value);
     }
 
     @Override
     public void setClob(int parameterIndex, Reader reader, long length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Clob>");
+        this.recordArgs(parameterIndex, "<Clob>");
         delegate.setClob(parameterIndex, reader);
     }
 
     @Override
     public void setBlob(int parameterIndex, InputStream inputStream, long length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Blob>");
+        this.recordArgs(parameterIndex, "<Blob>");
         delegate.setBlob(parameterIndex, inputStream, length);
     }
 
     @Override
     public void setNClob(int parameterIndex, Reader reader, long length) throws SQLException {
-        this.recordArgs(parameterIndex,"<NClob>");
+        this.recordArgs(parameterIndex, "<NClob>");
         delegate.setNClob(parameterIndex, reader, length);
     }
 
     @Override
     public void setSQLXML(int parameterIndex, SQLXML xmlObject) throws SQLException {
-        this.recordArgs(parameterIndex,xmlObject);
+        this.recordArgs(parameterIndex, xmlObject);
         delegate.setSQLXML(parameterIndex, xmlObject);
     }
 
     @Override
     public void setObject(int parameterIndex, Object x, int targetSqlType, int scaleOrLength) throws SQLException {
-        this.recordArgs(parameterIndex,x);
+        this.recordArgs(parameterIndex, x);
         delegate.setObject(parameterIndex, x, targetSqlType, scaleOrLength);
     }
 
     @Override
     public void setAsciiStream(int parameterIndex, InputStream x, long length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Ascii Stream>");
+        this.recordArgs(parameterIndex, "<Ascii Stream>");
         delegate.setAsciiStream(parameterIndex, x, length);
     }
 
     @Override
     public void setBinaryStream(int parameterIndex, InputStream x, long length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Binary Stream>");
+        this.recordArgs(parameterIndex, "<Binary Stream>");
         delegate.setBinaryStream(parameterIndex, x, length);
     }
 
     @Override
     public void setCharacterStream(int parameterIndex, Reader reader, long length) throws SQLException {
-        this.recordArgs(parameterIndex,"<Character Stream>");
+        this.recordArgs(parameterIndex, "<Character Stream>");
         delegate.setCharacterStream(parameterIndex, reader, length);
     }
 
     @Override
     public void setAsciiStream(int parameterIndex, InputStream x) throws SQLException {
-        this.recordArgs(parameterIndex,"<Ascii Stream>");
+        this.recordArgs(parameterIndex, "<Ascii Stream>");
         delegate.setAsciiStream(parameterIndex, x);
     }
 
     @Override
     public void setBinaryStream(int parameterIndex, InputStream x) throws SQLException {
-        this.recordArgs(parameterIndex,"<Binary Stream>");
+        this.recordArgs(parameterIndex, "<Binary Stream>");
         delegate.setBinaryStream(parameterIndex, x);
     }
 
     @Override
     public void setCharacterStream(int parameterIndex, Reader reader) throws SQLException {
-        this.recordArgs(parameterIndex,"<Character Stream>");
+        this.recordArgs(parameterIndex, "<Character Stream>");
         delegate.setCharacterStream(parameterIndex, reader);
     }
 
     @Override
     public void setNCharacterStream(int parameterIndex, Reader value) throws SQLException {
-        this.recordArgs(parameterIndex,"<NCharacter Stream>");
+        this.recordArgs(parameterIndex, "<NCharacter Stream>");
         delegate.setNCharacterStream(parameterIndex, value);
     }
 
     @Override
     public void setClob(int parameterIndex, Reader reader) throws SQLException {
-        this.recordArgs(parameterIndex,"<Clob>");
+        this.recordArgs(parameterIndex, "<Clob>");
         delegate.setClob(parameterIndex, reader);
     }
 
     @Override
     public void setBlob(int parameterIndex, InputStream inputStream) throws SQLException {
-        this.recordArgs(parameterIndex,"<Blob>");
+        this.recordArgs(parameterIndex, "<Blob>");
         delegate.setBlob(parameterIndex, inputStream);
     }
 
     @Override
     public void setNClob(int parameterIndex, Reader reader) throws SQLException {
-        this.recordArgs(parameterIndex,"<NClob>");
+        this.recordArgs(parameterIndex, "<NClob>");
         delegate.setNClob(parameterIndex, reader);
     }
 

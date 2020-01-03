@@ -26,25 +26,26 @@ public class FreemarkerHtmlTemplate implements HtmlTemplate {
 
     @Override
     public String renderHtml(String html, Map<String, Object> param) {
-        try{
+        try {
             Template textTemplate = new Template(DEFAULT_TITLE, html, configuration);
-            return this.doRender(textTemplate,param);
-        }catch (Exception e){
-            log.error("freemarker解析异常",e);
+            return this.doRender(textTemplate, param);
+        } catch (Exception e) {
+            log.error("freemarker解析异常", e);
             throw new BusinessException(ErrorCode.TEMPLATE_RENDER_ERROR);
         }
     }
 
     /**
      * 渲染
+     *
      * @param template 模板
-     * @param params 参数
+     * @param params   参数
      * @return 字符串
      * @throws Exception 解析异常
      */
-    private String doRender(Template template,Map<String, Object> params)throws Exception{
-        try (StringWriter writer = new StringWriter()){
-            template.process(params,writer);
+    private String doRender(Template template, Map<String, Object> params) throws Exception {
+        try (StringWriter writer = new StringWriter()) {
+            template.process(params, writer);
             return writer.toString();
         }
     }
@@ -52,11 +53,11 @@ public class FreemarkerHtmlTemplate implements HtmlTemplate {
 
     @Override
     public String renderFile(String path, Map<String, Object> params) {
-        try{
+        try {
             Template template = configuration.getTemplate(path, Locale.getDefault(), SystemConstant.CHARSET);
-            return this.doRender(template,params);
-        }catch (Exception e){
-            log.error("freemarker获取模板异常 path:[{}]",path,e);
+            return this.doRender(template, params);
+        } catch (Exception e) {
+            log.error("freemarker获取模板异常 path:[{}]", path, e);
             throw new BusinessException(ErrorCode.TEMPLATE_RENDER_ERROR);
         }
     }

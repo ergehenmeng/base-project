@@ -32,12 +32,12 @@ public class SystemCacheServiceImpl implements SystemCacheService {
     public void clearCache(List<String> cacheNames) {
         for (String cacheName : cacheNames) {
             boolean cache = this.clearCache(cacheName);
-            this.updateCacheState(cacheName,cache);
+            this.updateCacheState(cacheName, cache);
         }
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<SystemCache> getList() {
         return systemCacheMapper.getList();
     }
@@ -45,12 +45,13 @@ public class SystemCacheServiceImpl implements SystemCacheService {
     /**
      * 根据缓存名称,清除缓存<br>
      * 注意新增缓存cacheName,需要在此处及system_cache表中配置
+     *
      * @param cacheName 缓存名称
      * @return 是否成功
      */
-    private boolean clearCache(String cacheName){
+    private boolean clearCache(String cacheName) {
         try {
-            switch (cacheName){
+            switch (cacheName) {
                 case CacheConstant.SYSTEM_CONFIG:
                     clearCacheService.clearSystemConfig();
                     break;
@@ -73,8 +74,8 @@ public class SystemCacheServiceImpl implements SystemCacheService {
                     break;
             }
             return true;
-        }catch (Exception e){
-            log.error("缓存清除异常,cacheName:[{}]",cacheName,e);
+        } catch (Exception e) {
+            log.error("缓存清除异常,cacheName:[{}]", cacheName, e);
         }
         return false;
     }
@@ -82,17 +83,18 @@ public class SystemCacheServiceImpl implements SystemCacheService {
 
     /**
      * 更新缓存刷新状态
+     *
      * @param cacheName 缓存名称
-     * @param state 状态
+     * @param state     状态
      */
-    private void updateCacheState(String cacheName,boolean state){
+    private void updateCacheState(String cacheName, boolean state) {
         SystemCache cache = new SystemCache();
         cache.setCacheName(cacheName);
         cache.setUpdateTime(DateUtil.getNow());
-        if(state){
-            cache.setState((byte)1);
-        }else{
-            cache.setState((byte)2);
+        if (state) {
+            cache.setState((byte) 1);
+        } else {
+            cache.setState((byte) 2);
         }
         systemCacheMapper.updateCache(cache);
     }

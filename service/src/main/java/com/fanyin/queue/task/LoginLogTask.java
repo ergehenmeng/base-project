@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginLogTask extends AbstractTask<LoginRecord, LoginLogService> {
 
 
-    public LoginLogTask(LoginRecord data,LoginLogService loginLogService) {
-        super(data,loginLogService);
+    public LoginLogTask(LoginRecord data, LoginLogService loginLogService) {
+        super(data, loginLogService);
     }
 
     @Override
@@ -24,6 +24,6 @@ public class LoginLogTask extends AbstractTask<LoginRecord, LoginLogService> {
 
     @Override
     protected void doException(Exception e) {
-        log.error("登陆日志保存异常",e);
+        log.error("登陆日志保存异常", e);
     }
 }

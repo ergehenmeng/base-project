@@ -43,10 +43,10 @@ public class BannerController extends AbstractController {
      */
     @PostMapping("/business/banner/list_page")
     @ResponseBody
-    public Paging<Banner> listPage(BannerQueryRequest request){
+    public Paging<Banner> listPage(BannerQueryRequest request) {
         PageInfo<Banner> byPage = bannerService.getByPage(request);
-        return DataUtil.transform(byPage,banner -> {
-            banner.setClassifyName(cacheProxyService.getDictValue(DictConstant.BANNER_CLASSIFY,banner.getClassify()));
+        return DataUtil.transform(byPage, banner -> {
+            banner.setClassifyName(cacheProxyService.getDictValue(DictConstant.BANNER_CLASSIFY, banner.getClassify()));
             return banner;
         });
     }
@@ -55,9 +55,9 @@ public class BannerController extends AbstractController {
      * 轮播图编辑页面
      */
     @GetMapping("/business/banner/edit_page")
-    public String editPage(Model model, Integer id){
+    public String editPage(Model model, Integer id) {
         Banner banner = bannerService.getById(id);
-        model.addAttribute("banner",banner);
+        model.addAttribute("banner", banner);
         return "business/banner/edit_page";
     }
 
@@ -66,7 +66,7 @@ public class BannerController extends AbstractController {
      */
     @PostMapping("/business/banner/add")
     @ResponseBody
-    public RespBody add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile){
+    public RespBody add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
         request.setImgUrl(fileService.saveFile(imgFile).getPath());
         bannerService.addBanner(request);
         return RespBody.getInstance();
@@ -77,8 +77,8 @@ public class BannerController extends AbstractController {
      */
     @PostMapping("/business/banner/edit")
     @ResponseBody
-    public RespBody edit(BannerEditRequest request, @RequestParam(value = "imgFile",required = false) MultipartFile imgFile){
-        if(imgFile != null){
+    public RespBody edit(BannerEditRequest request, @RequestParam(value = "imgFile", required = false) MultipartFile imgFile) {
+        if (imgFile != null) {
             request.setImgUrl(fileService.saveFile(imgFile).getPath());
         }
         bannerService.editBanner(request);

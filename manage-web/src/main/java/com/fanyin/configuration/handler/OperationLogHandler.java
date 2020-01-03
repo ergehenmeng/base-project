@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 操作日志
+ *
  * @author 二哥很猛
  * @date 2019/1/15 16:19
  */
@@ -52,22 +53,23 @@ public class OperationLogHandler {
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
      * {@link com.google.gson.annotations.Expose} serialize = false
+     *
      * @param joinPoint 切入点
-     * @param mark 操作日志标示注解
+     * @param mark      操作日志标示注解
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
     @Around("@annotation(mark) && within(com.fanyin.controller..*)")
-    public Object around(ProceedingJoinPoint joinPoint,Mark mark)throws Throwable{
+    public Object around(ProceedingJoinPoint joinPoint, Mark mark) throws Throwable {
 
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if(requestAttributes == null){
+        if (requestAttributes == null) {
             return joinPoint.proceed();
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         SecurityOperator operator = AbstractController.getOperator();
-        if(operator == null){
-            log.warn("操作日志无法查询到登陆用户 url:[{}]",request.getRequestURI());
+        if (operator == null) {
+            log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();
         }
         SystemOperationLog sy = new SystemOperationLog();
@@ -76,9 +78,9 @@ public class OperationLogHandler {
         sy.setOperatorName(operator.getOperatorName());
         sy.setIp(IpUtil.getIpAddress(request));
 
-        if(mark.request()){
+        if (mark.request()) {
             Object[] args = joinPoint.getArgs();
-            if(args != null && args.length > 0){
+            if (args != null && args.length > 0) {
                 sy.setRequest(formatRequest(args));
             }
         }
@@ -86,14 +88,14 @@ public class OperationLogHandler {
         Object proceed = joinPoint.proceed();
         long end = System.currentTimeMillis();
         sy.setBusinessTime(end - System.currentTimeMillis());
-        if(mark.response() && proceed != null){
+        if (mark.response() && proceed != null) {
             sy.setResponse(gson.toJson(proceed));
         }
         boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
-        if(logSwitch){
-            taskHandler.executeOperateLog(new OperationLogTask(sy,operationLogService));
-        }else{
-            log.debug("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]",sy.getUrl(),sy.getRequest(),sy.getResponse(),sy.getIp(),sy.getOperatorId(),sy.getBusinessTime());
+        if (logSwitch) {
+            taskHandler.executeOperateLog(new OperationLogTask(sy, operationLogService));
+        } else {
+            log.debug("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getOperatorId(), sy.getBusinessTime());
         }
         return proceed;
     }
@@ -101,26 +103,27 @@ public class OperationLogHandler {
 
     /**
      * 格式化请求参数 逗号分割
+     *
      * @param args 请求参数
      * @return requestParam
      */
-    private String formatRequest(Object[] args){
+    private String formatRequest(Object[] args) {
         StringBuilder builder = new StringBuilder();
-        for (Object object : args){
-            if(builder.length() > 0){
+        for (Object object : args) {
+            if (builder.length() > 0) {
                 builder.append(",");
             }
             //request,response,文件上传过滤掉
-            if(object instanceof HttpServletRequest){
+            if (object instanceof HttpServletRequest) {
                 continue;
             }
-            if(object instanceof HttpServletResponse){
+            if (object instanceof HttpServletResponse) {
                 continue;
             }
-            if(object instanceof MultipartFile){
+            if (object instanceof MultipartFile) {
                 continue;
             }
-            if(object instanceof Model){
+            if (object instanceof Model) {
                 continue;
             }
             builder.append(gson.toJson(object));

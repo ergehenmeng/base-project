@@ -37,9 +37,9 @@ public abstract class AbstractIgnoreFilter implements Filter {
 
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
         String param = filterConfig.getInitParameter(EXCLUDE);
-        if(StringUtil.isNotEmpty(param)){
+        if (StringUtil.isNotEmpty(param)) {
             String[] array = StringUtils.tokenizeToStringArray(param, DELIMITERS);
             exclude.addAll(Lists.newArrayList(array));
         }
@@ -47,12 +47,13 @@ public abstract class AbstractIgnoreFilter implements Filter {
 
     /**
      * 当前request的url是否为忽略拦截的url
+     *
      * @param request request
      * @return true:需要忽略 false:不需要忽略
      */
-    private boolean isIgnoreUrl(HttpServletRequest request){
-        for (String url : exclude){
-            if(matcher.match(url,request.getRequestURI())){
+    private boolean isIgnoreUrl(HttpServletRequest request) {
+        for (String url : exclude) {
+            if (matcher.match(url, request.getRequestURI())) {
                 return true;
             }
         }
@@ -62,6 +63,7 @@ public abstract class AbstractIgnoreFilter implements Filter {
 
     /**
      * 排除不需要拦截的地址
+     *
      * @param matchUrl 不需要拦截的地址
      */
     public void exclude(@NonNull String... matchUrl) {
@@ -71,19 +73,20 @@ public abstract class AbstractIgnoreFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        if(this.isIgnoreUrl(httpRequest)){
-            chain.doFilter(request,response);
-        }else{
+        if (this.isIgnoreUrl(httpRequest)) {
+            chain.doFilter(request, response);
+        } else {
             this.doInternalFilter(request, response, chain);
         }
     }
 
     /**
      * 过滤器拦截处理由子类实现业务逻辑
-     * @param request request
+     *
+     * @param request  request
      * @param response response
-     * @param chain chain
-     * @throws IOException IOException
+     * @param chain    chain
+     * @throws IOException      IOException
      * @throws ServletException ServletException
      */
     protected abstract void doInternalFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException;

@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * mvc全局配置,继承WebMvcConfigurerAdapter无需@EnableWebMvc
+ *
  * @author 二哥很猛
  * @date 2018/1/18 18:35
  */
@@ -27,7 +28,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     /**
      * 过滤器不拦截的地址
      */
-    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**","/upload/**"};
+    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/upload/**"};
 
     /**
      * 移动端请求地址
@@ -42,10 +43,10 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(clientTypeHandlerInterceptor()).order(Integer.MIN_VALUE + 6);
-        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
-        registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
-        registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 20);
+        registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(ssoHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 25);
+        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 20);
     }
 
     @Override
@@ -60,21 +61,22 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     }
 
     @Bean
-    public HandlerInterceptor ssoHandlerInterceptor(){
+    public HandlerInterceptor ssoHandlerInterceptor() {
         return new SsoHandlerInterceptor();
     }
 
     @Bean
-    public JsonExtractHandlerArgumentResolver jsonHandlerMethodArgumentResolver(){
+    public JsonExtractHandlerArgumentResolver jsonHandlerMethodArgumentResolver() {
         return new JsonExtractHandlerArgumentResolver();
     }
 
     /**
      * 登陆校验拦截器
+     *
      * @return com.fanyin.interceptor
      */
     @Bean
-    public HandlerInterceptor accessTokenHandlerInterceptor(){
+    public HandlerInterceptor accessTokenHandlerInterceptor() {
         return new AccessTokenHandlerInterceptor();
     }
 
@@ -82,37 +84,39 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      * 客户端类型拦截器
      */
     @Bean
-    public HandlerInterceptor clientTypeHandlerInterceptor(){
+    public HandlerInterceptor clientTypeHandlerInterceptor() {
         return new ClientTypeHandlerInterceptor();
     }
 
     /**
      * 签名校验拦截器
+     *
      * @return com.fanyin.interceptor
      */
     @Bean
-    public HandlerInterceptor signatureHandlerInterceptor(){
+    public HandlerInterceptor signatureHandlerInterceptor() {
         return new SignatureHandlerInterceptor();
     }
 
 
     /**
      * 请求基础信息收集拦截器
+     *
      * @return com.fanyin.interceptor
      */
     @Bean
-    public HandlerInterceptor messageHandlerInterceptor(){
+    public HandlerInterceptor messageHandlerInterceptor() {
         return new MessageHandlerInterceptor();
     }
 
 
     @Bean("ipBlackListFilter")
-    public Filter ipFilter(){
+    public Filter ipFilter() {
         return new IpBlackListFilter();
     }
 
     @Bean
-    public DelegatingFilterProxyRegistrationBean registrationBean(){
+    public DelegatingFilterProxyRegistrationBean registrationBean() {
         DelegatingFilterProxyRegistrationBean registrationBean = new DelegatingFilterProxyRegistrationBean("ipBlackListFilter");
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE);
@@ -123,7 +127,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      * 过滤器,不由spring管理
      */
     @Bean("byteHttpRequestFilter")
-    public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter(){
+    public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter() {
         FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();
         ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
         requestFilter.exclude(FILTER_EXCLUDE_URL);

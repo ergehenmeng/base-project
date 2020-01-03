@@ -29,7 +29,7 @@ import java.util.concurrent.ScheduledFuture;
  * @date 2019/9/6 14:49
  */
 @Configuration
-@ConditionalOnProperty(prefix = "application",name = "job")
+@ConditionalOnProperty(prefix = "application", name = "job")
 @Slf4j
 @EnableScheduling
 public class DynamicTask implements SchedulingConfigurer, DisposableBean {
@@ -54,7 +54,7 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
     /**
      * 创建定时任务线程池
      */
-    private TaskScheduler createScheduler(){
+    private TaskScheduler createScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(5);
         scheduler.setThreadNamePrefix("定时任务-");
@@ -65,7 +65,7 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
     /**
      * 开启或刷新定时任务
      */
-    public synchronized void openOrRefreshTask(){
+    public synchronized void openOrRefreshTask() {
         log.info("定时任务配置信息开始加载...");
         List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();
         List<DynamicTriggerTask> taskList = new ArrayList<>();
@@ -79,12 +79,13 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
 
     /**
      * 重置定时任务
+     *
      * @param taskList 新的定时任务配置列表
      */
-    private void doRefreshTask(List<DynamicTriggerTask> taskList){
+    private void doRefreshTask(List<DynamicTriggerTask> taskList) {
         for (DynamicTriggerTask task : taskList) {
-            if(StringUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())){
-                log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]",task.getNid(),task.getCronExpression());
+            if (StringUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())) {
+                log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getCronExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }
         }
@@ -92,34 +93,34 @@ public class DynamicTask implements SchedulingConfigurer, DisposableBean {
         boolean isEmpty = taskList.isEmpty();
         for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledFutures.entrySet()) {
             //将所有不在指定任务列表的中已经在运行的任务全部取消
-            if(isEmpty || taskList.stream().map(DynamicTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))){
+            if (isEmpty || taskList.stream().map(DynamicTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) {
                 entry.getValue().cancel(false);
             }
         }
 
-        for (DynamicTriggerTask task : taskList){
-            if(triggerTaskMap.containsKey(task.getNid()) && triggerTaskMap.get(task.getNid()).getCronExpression().equals(task.getCronExpression())){
-                log.info("定时任务配置信息未发生变化 nid:[{}]",task.getNid());
+        for (DynamicTriggerTask task : taskList) {
+            if (triggerTaskMap.containsKey(task.getNid()) && triggerTaskMap.get(task.getNid()).getCronExpression().equals(task.getCronExpression())) {
+                log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
                 continue;
             }
-            if(scheduledFutures.containsKey(task.getNid())){
+            if (scheduledFutures.containsKey(task.getNid())) {
                 //定时任务存在,但配置发生变化 移除旧定时任务
                 scheduledFutures.get(task.getNid()).cancel(false);
             }
             TaskScheduler scheduler = scheduledTaskRegistrar.getScheduler();
-            if(scheduler != null){
+            if (scheduler != null) {
                 ScheduledFuture<?> schedule = scheduler.schedule(task.getRunnable(), task.getTrigger());
-                scheduledFutures.put(task.getNid(),schedule);
+                scheduledFutures.put(task.getNid(), schedule);
             }
-            triggerTaskMap.put(task.getNid(),task);
+            triggerTaskMap.put(task.getNid(), task);
         }
     }
 
     @Override
-    public void destroy(){
+    public void destroy() {
         //默认情况下 取消操作ScheduledTaskRegistrar#destroy,由于手动调用scheduler#schedule,因此不受ScheduledTaskRegistrar管理
         for (ScheduledFuture<?> future : scheduledFutures.values()) {
-            if(future != null){
+            if (future != null) {
                 future.cancel(true);
             }
         }

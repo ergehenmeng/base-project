@@ -27,12 +27,12 @@ public class IpBlackListFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest servletRequest = (HttpServletRequest)request;
-        HttpServletResponse servletResponse = (HttpServletResponse)response;
+        HttpServletRequest servletRequest = (HttpServletRequest) request;
+        HttpServletResponse servletResponse = (HttpServletResponse) response;
         String ipAddress = IpUtil.getIpAddress(servletRequest);
-        if(cacheProxyService.isInterceptIp(ipAddress)){
+        if (cacheProxyService.isInterceptIp(ipAddress)) {
             WebUtil.printJson(servletResponse, RespBody.error(ErrorCode.SYSTEM_AUTH));
-        }else{
+        } else {
             chain.doFilter(request, response);
         }
     }

@@ -37,34 +37,36 @@ public class ConfigController extends AbstractController {
     @PostMapping("/system/config/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(ConfigEditRequest request){
+    public RespBody edit(ConfigEditRequest request) {
         systemConfigService.updateConfig(request);
         return RespBody.getInstance();
     }
 
     /**
      * 参数编辑页面
+     *
      * @param model 存放参数对象
-     * @param id 主键
+     * @param id    主键
      * @return 页面
      */
     @GetMapping("/system/config/edit_page")
-    public String editPage(Model model, Integer id){
+    public String editPage(Model model, Integer id) {
         SystemConfig config = systemConfigService.getById(id);
-        model.addAttribute("config",config);
+        model.addAttribute("config", config);
         return "system/config/edit_page";
     }
 
     /**
      * 分页获取系统参数配置
+     *
      * @param request 查询
      * @return 分页列表
      */
     @PostMapping("/system/config/list_page")
     @ResponseBody
-    public Paging<SystemConfig> listPage(ConfigQueryRequest request){
+    public Paging<SystemConfig> listPage(ConfigQueryRequest request) {
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
-        return DataUtil.transform(listByPage,systemConfig -> {
+        return DataUtil.transform(listByPage, systemConfig -> {
             String dictValue = cacheProxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, systemConfig.getClassify());
             systemConfig.setClassifyName(dictValue);
             return systemConfig;

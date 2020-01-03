@@ -27,11 +27,12 @@ public class DepartmentController {
 
     /**
      * 查询所有部门列表
+     *
      * @return list
      */
     @PostMapping("/system/department/list_page")
     @ResponseBody
-    public List<SystemDepartment> listPage(){
+    public List<SystemDepartment> listPage() {
         return systemDepartmentService.getDepartment();
     }
 
@@ -40,8 +41,8 @@ public class DepartmentController {
      * 添加部门页面
      */
     @GetMapping("/system/department/add_page")
-    public String addPage(Model model, String code){
-        model.addAttribute("code",code);
+    public String addPage(Model model, String code) {
+        model.addAttribute("code", code);
         return "system/department/add_page";
     }
 
@@ -51,7 +52,7 @@ public class DepartmentController {
     @PostMapping("/system/department/add")
     @ResponseBody
     @Mark
-    public RespBody add(DepartmentAddRequest request){
+    public RespBody add(DepartmentAddRequest request) {
         systemDepartmentService.addDepartment(request);
         return RespBody.getInstance();
     }
@@ -60,9 +61,9 @@ public class DepartmentController {
      * 编辑部门页面
      */
     @GetMapping("/system/department/edit_page")
-    public String editPage(Model model,Integer id){
+    public String editPage(Model model, Integer id) {
         SystemDepartment department = systemDepartmentService.getById(id);
-        model.addAttribute("department",department);
+        model.addAttribute("department", department);
         return "system/department/edit_page";
     }
 
@@ -72,7 +73,7 @@ public class DepartmentController {
     @PostMapping("/system/department/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(DepartmentEditRequest request){
+    public RespBody edit(DepartmentEditRequest request) {
         systemDepartmentService.editDepartment(request);
         return RespBody.getInstance();
     }

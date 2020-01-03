@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 签名验证 md5(appKey + Base64(json) + timestamp)
+ * 签名验证 md5(accessKey + Base64(json) + timestamp) 仅在登陆后才有效
+ *
  * @author 二哥很猛
  * @date 2019/7/4 14:23
  */
@@ -30,27 +31,30 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if(systemConfigApi.getBoolean(ConfigConstant.SIGNATURE_VERIFICATION)){
+        if (systemConfigApi.getBoolean(ConfigConstant.SIGNATURE_VERIFICATION)) {
             String signature = request.getHeader(AppHeader.SIGNATURE);
-            if(signature == null){
+            if (signature == null) {
                 throw new RequestException(ErrorCode.SIGNATURE_ERROR);
             }
             String timestamp = request.getHeader(AppHeader.TIMESTAMP);
-            if(timestamp == null){
+            if (timestamp == null) {
                 throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);
             }
             int timestampDeviation = systemConfigApi.getInt(ConfigConstant.TIMESTAMP_DEVIATION);
             long clientTimestamp = Long.parseLong(timestamp);
             //客户端与服务端时间戳对比
-            if(Math.abs(System.currentTimeMillis() - clientTimestamp) > timestampDeviation){
+            if (Math.abs(System.currentTimeMillis() - clientTimestamp) > timestampDeviation) {
                 throw new RequestException(ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             }
-            String json = this.getRequestBody(request);
+            RequestMessage message = RequestThreadLocal.get();
+            String requestBody = this.getRequestBody(request);
             //签名处理
-            String sign = Md5Util.md5(CommonConstant.APP_KEY + BaseEncoding.base64().encode(json.getBytes(SystemConstant.CHARSET)) + timestamp);
-            if(!signature.equals(sign)){
+            String sign = Md5Util.md5(message.getAccessKey() + BaseEncoding.base64().encode(requestBody.getBytes(SystemConstant.CHARSET)) + timestamp);
+            if (!signature.equals(sign)) {
                 throw new RequestException(ErrorCode.SIGNATURE_VERIFY_ERROR);
             }
+            //解析后放入缓存方便后面程序使用
+            message.setRequestBody(requestBody);
         }
         return true;
     }
@@ -58,17 +62,14 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * 获取请求中的json串
+     *
      * @param request request
      * @return {"a":b}
      */
-    private String getRequestBody(HttpServletRequest request){
+    private String getRequestBody(HttpServletRequest request) {
         try {
-            String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
-            //解析后放入缓存方便后面程序使用
-            RequestMessage message = RequestThreadLocal.get();
-            message.setRequestBody(requestBody);
-            return requestBody;
-        }catch (Exception e){
+            return IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+        } catch (Exception e) {
             throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }
     }

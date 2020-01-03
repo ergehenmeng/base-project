@@ -41,7 +41,7 @@ public class VersionServiceImpl implements VersionService {
 
     @Override
     public PageInfo<Version> getByPage(VersionQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<Version> list = versionMapper.getList(request);
         return new PageInfo<>(list);
     }
@@ -62,10 +62,10 @@ public class VersionServiceImpl implements VersionService {
     public void putAwayVersion(Integer id) {
         Version appVersion = versionMapper.selectByPrimaryKey(id);
         Version version = versionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
-        if(version != null){
+        if (version != null) {
             throw new BusinessException(ErrorCode.VERSION_REDO);
         }
-        appVersion.setState((byte)1);
+        appVersion.setState((byte) 1);
         versionMapper.updateByPrimaryKeySelective(appVersion);
     }
 
@@ -73,7 +73,7 @@ public class VersionServiceImpl implements VersionService {
     public void soldOutVersion(Integer id) {
         Version version = new Version();
         version.setId(id);
-        version.setState((byte)0);
+        version.setState((byte) 0);
         versionMapper.updateByPrimaryKeySelective(version);
     }
 
@@ -83,17 +83,17 @@ public class VersionServiceImpl implements VersionService {
         Version latestVersion = versionMapper.getLatestVersion(channel);
         String version = RequestThreadLocal.getVersion();
         //未找到最新版本,或者用户版本大于等于已上架版本
-        if(latestVersion == null || VersionUtil.gte(version,latestVersion.getVersion())){
+        if (latestVersion == null || VersionUtil.gte(version, latestVersion.getVersion())) {
             return VersionVO.builder().latest(true).build();
         }
         VersionVO response = DataUtil.copy(latestVersion, VersionVO.class);
         //最新版本是强制更新版本
-        if(latestVersion.getForceUpdate()){
+        if (latestVersion.getForceUpdate()) {
             return response;
         }
         Version appVersion = versionMapper.getVersion(channel, version);
         //未找到用户安装的版本信息,默认不强更
-        if(appVersion == null){
+        if (appVersion == null) {
             return response;
         }
         //如果用户版本非常老,最新版本不是强制更新版本,但中间某个版本是强制更新,用户一样需要强制更新
@@ -107,7 +107,7 @@ public class VersionServiceImpl implements VersionService {
 
     @Override
     public String getLatestVersionUrl(String channel) {
-        if(Channel.IOS.name().equals(channel)){
+        if (Channel.IOS.name().equals(channel)) {
             return systemConfigApi.getString(ConfigConstant.APP_STORE_URL);
         }
         Version latestVersion = versionMapper.getLatestVersion(channel);

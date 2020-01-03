@@ -36,8 +36,8 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(content);
             helper.setFrom(systemConfigApi.getString(ConfigConstant.SEND_FROM));
             javaMailSender.send(mimeMessage);
-        }catch (Exception e){
-            log.error("发送邮件异常 to:[{}],title:[{}],content:[{}]",to,title,content,e);
+        } catch (Exception e) {
+            log.error("发送邮件异常 to:[{}],title:[{}],content:[{}]", to, title, content, e);
         }
     }
 }

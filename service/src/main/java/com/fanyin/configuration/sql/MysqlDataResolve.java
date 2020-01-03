@@ -12,13 +12,13 @@ public class MysqlDataResolve implements DataResolve {
 
     @Override
     public String resolve(Object param) {
-        if(param == null){
+        if (param == null) {
             return "Null";
         }
-        if(param instanceof String){
+        if (param instanceof String) {
             return "'" + param.toString() + "'";
         }
-        if(param instanceof Date){
+        if (param instanceof Date) {
             return "'" + DateUtil.format(param) + "'";
         }
         return "'" + param.toString() + "'";

@@ -1,8 +1,8 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.model.dto.system.log.OperationQueryRequest;
 import com.fanyin.dao.mapper.system.SystemOperationLogMapper;
 import com.fanyin.dao.model.system.SystemOperationLog;
+import com.fanyin.model.dto.system.log.OperationQueryRequest;
 import com.fanyin.service.system.OperationLogService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * 操作日期
+ *
  * @author 二哥很猛
  * @date 2019/1/15 17:55
  */
@@ -31,7 +32,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 
     @Override
     public PageInfo<SystemOperationLog> getByPage(OperationQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<SystemOperationLog> list = systemOperationLogMapper.getList(request);
         return new PageInfo<>(list);
     }

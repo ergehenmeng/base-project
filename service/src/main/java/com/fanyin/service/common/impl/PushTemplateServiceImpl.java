@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2019/8/29 10:45
  */
 @Service("pushTemplateService")
-@Transactional(rollbackFor = RuntimeException.class,readOnly = true)
+@Transactional(rollbackFor = RuntimeException.class, readOnly = true)
 public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Autowired
@@ -29,13 +29,13 @@ public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Override
     public PageInfo<PushTemplate> getByPage(PushTemplateQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<PushTemplate> list = pushTemplateMapper.getList(request);
         return new PageInfo<>(list);
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE,key = "#p0",unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE, key = "#p0", unless = "#result == null")
     public PushTemplate getTemplate(String nid) {
         return pushTemplateMapper.getByNid(nid);
     }

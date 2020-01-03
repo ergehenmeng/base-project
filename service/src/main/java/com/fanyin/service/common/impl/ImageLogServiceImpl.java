@@ -1,10 +1,10 @@
 package com.fanyin.service.common.impl;
 
+import com.fanyin.dao.mapper.common.ImageLogMapper;
+import com.fanyin.dao.model.business.ImageLog;
 import com.fanyin.model.dto.business.image.ImageAddRequest;
 import com.fanyin.model.dto.business.image.ImageEditRequest;
 import com.fanyin.model.dto.business.image.ImageQueryRequest;
-import com.fanyin.dao.mapper.common.ImageLogMapper;
-import com.fanyin.dao.model.business.ImageLog;
 import com.fanyin.service.common.ImageLogService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
@@ -28,7 +28,7 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     @Override
     public PageInfo<ImageLog> getByPage(ImageQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<ImageLog> list = imageLogMapper.getList(request);
         return new PageInfo<>(list);
     }

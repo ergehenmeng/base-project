@@ -19,6 +19,7 @@ import java.util.Properties;
 
 /**
  * 公用配置,所有web模块所公用的配置信息均可在该配置文件中声明
+ *
  * @author 二哥很猛
  * @date 2018/9/13 11:19
  */
@@ -30,22 +31,23 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     /**
      * 图形验证码
+     *
      * @return bean
      */
     @Bean("producer")
-    public DefaultKaptcha captcha(){
+    public DefaultKaptcha captcha() {
         DefaultKaptcha captcha = new DefaultKaptcha();
         Properties properties = new Properties();
-        properties.setProperty(Constants.KAPTCHA_BORDER,"no");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR,"black");
-        properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH,"125");
-        properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT,"45");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH,"4");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE,"5");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING,"abcdefhkmnprstwxy23456789ABCEFGHGKMNPRSTWXY");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES,"宋体");
-        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL,"com.google.code.kaptcha.impl.ShadowGimpy");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL,"com.fanyin.configuration.CaptchaProducer");
+        properties.setProperty(Constants.KAPTCHA_BORDER, "no");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "black");
+        properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "125");
+        properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "45");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "5");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy23456789ABCEFGHGKMNPRSTWXY");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "宋体");
+        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, "com.google.code.kaptcha.impl.ShadowGimpy");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, "com.fanyin.configuration.CaptchaProducer");
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;
@@ -53,11 +55,12 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations( "file:///" + applicationProperties.getUploadDir() + SystemConstant.DEFAULT_PATTERN);
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:///" + applicationProperties.getUploadDir() + SystemConstant.DEFAULT_PATTERN);
     }
 
     /**
      * url中如果包含 "." 默认情况下后面的会被截取,将参数设置为false则会全部匹配
+     *
      * @param configurer configurer
      */
     @Override
@@ -67,19 +70,21 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     /**
      * 密码加密bean 独立于spring-security之外的工具类
+     *
      * @return bean
      */
     @Bean
-    public Encoder encoder(){
+    public Encoder encoder() {
         return new BcEncoder();
     }
 
     /**
      * html模板渲染
+     *
      * @return bean
      */
     @Bean
-    public HtmlTemplate htmlTemplate(){
+    public HtmlTemplate htmlTemplate() {
         return new FreemarkerHtmlTemplate();
     }
 

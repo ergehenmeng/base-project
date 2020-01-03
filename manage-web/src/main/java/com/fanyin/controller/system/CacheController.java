@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * 缓存管理
+ *
  * @author 二哥很猛
  * @date 2019/1/14 14:12
  */
@@ -26,23 +27,25 @@ public class CacheController {
 
     /**
      * 查询所有的缓存列表
+     *
      * @return 缓存列表
      */
     @PostMapping("/system/cache/list")
     @ResponseBody
-    public Paging<SystemCache> list(){
+    public Paging<SystemCache> list() {
         return new Paging<>(systemCacheService.getList());
     }
 
     /**
      * 清除缓存
+     *
      * @param cacheName 缓存名称
      * @return 成功响应
      */
     @PostMapping("/system/cache/clear")
     @ResponseBody
     @Mark
-    public RespBody clear(String cacheName){
+    public RespBody clear(String cacheName) {
         List<String> cacheList = Splitter.on(",").splitToList(cacheName);
         systemCacheService.clearCache(cacheList);
         return RespBody.getInstance();

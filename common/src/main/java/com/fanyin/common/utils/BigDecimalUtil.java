@@ -68,10 +68,11 @@ public class BigDecimalUtil {
 
     /**
      * 将元转为分
+     *
      * @param money 金额 元
      * @return double
      */
-    public static BigDecimal yuanToCent(BigDecimal money){
+    public static BigDecimal yuanToCent(BigDecimal money) {
 
         return money.multiply(BigDecimal.valueOf(100)).setScale(ROUND_SCALE, BigDecimal.ROUND_HALF_UP);
     }
@@ -89,10 +90,11 @@ public class BigDecimalUtil {
 
     /**
      * 分转元
+     *
      * @param money 金额 分
      * @return double
      */
-    public static BigDecimal centToYuan(BigDecimal money){
+    public static BigDecimal centToYuan(BigDecimal money) {
         return BigDecimal.valueOf(centToYuan(money.doubleValue()));
     }
 
@@ -234,8 +236,8 @@ public class BigDecimalUtil {
      * @param decimal 入参
      * @return double
      */
-    public static String formatMoney(BigDecimal decimal){
-        if(decimal == null){
+    public static String formatMoney(BigDecimal decimal) {
+        if (decimal == null) {
             return "0.00";
         }
         return formatMoney(decimal.doubleValue());

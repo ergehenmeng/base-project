@@ -14,6 +14,7 @@ import java.io.IOException;
 
 /**
  * 访问权限不足处理器(用于前后端分离时,返回前台json)
+ *
  * @author 二哥很猛
  * @date 2019/7/10 14:33
  */
@@ -21,8 +22,8 @@ import java.io.IOException;
 public class FailureAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException{
-        log.warn("权限不足ip:[{}], url:[{}]", IpUtil.getIpAddress(request),request.getRequestURI());
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {
+        log.warn("权限不足ip:[{}], url:[{}]", IpUtil.getIpAddress(request), request.getRequestURI());
         RespBody<Object> returnJson = RespBody.error(ErrorCode.ACCESS_DENIED);
         WebUtil.printJson(response, returnJson);
     }

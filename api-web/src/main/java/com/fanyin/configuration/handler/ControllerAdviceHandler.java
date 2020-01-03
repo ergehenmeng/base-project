@@ -37,45 +37,48 @@ public class ControllerAdviceHandler {
     private TaskHandler taskHandler;
 
     @InitBinder
-    public void initBinder(WebDataBinder binder){
-        binder.registerCustomEditor(Date.class,new DatePropertyEditor());
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new DatePropertyEditor());
     }
 
     /**
      * 业务异常统一拦截
+     *
      * @param e 异常
      * @return 返回标准对象
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public RespBody businessException(HttpServletRequest request, BusinessException e){
-        log.error("业务异常:[{}] [{}:{}]",request.getRequestURI(),e.getCode(),e.getMessage());
+    public RespBody businessException(HttpServletRequest request, BusinessException e) {
+        log.error("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return RespBody.getInstance().setCode(e.getCode()).setMsg(e.getMessage());
     }
 
     /**
      * 系统级异常统一拦截
+     *
      * @param e 异常
      * @return 返回标准对象
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public RespBody exception(HttpServletRequest request, Exception e){
-        log.error("系统异常 url:[{}]",request.getRequestURI(),e);
+    public RespBody exception(HttpServletRequest request, Exception e) {
+        log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(RequestThreadLocal.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
-        taskHandler.executeExceptionLog(new ExceptionLogTask(exceptionLog,exceptionLogService));
+        taskHandler.executeExceptionLog(new ExceptionLogTask(exceptionLog, exceptionLogService));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 
     /**
      * 非系统url请求
+     *
      * @param request 请求request
      * @return 404
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
-    public RespBody noHandlerFoundException(HttpServletRequest request){
-        log.error("访问地址不存在:[{}]",request.getRequestURI());
+    public RespBody noHandlerFoundException(HttpServletRequest request) {
+        log.error("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }
 

@@ -1,10 +1,10 @@
 package com.fanyin.service.system.impl;
 
 import com.fanyin.common.utils.StringUtil;
-import com.fanyin.model.dto.system.department.DepartmentAddRequest;
-import com.fanyin.model.dto.system.department.DepartmentEditRequest;
 import com.fanyin.dao.mapper.system.SystemDepartmentMapper;
 import com.fanyin.dao.model.system.SystemDepartment;
+import com.fanyin.model.dto.system.department.DepartmentAddRequest;
+import com.fanyin.model.dto.system.department.DepartmentEditRequest;
 import com.fanyin.service.system.SystemDepartmentService;
 import com.fanyin.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,17 +49,17 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
 
     @Override
     public void editDepartment(DepartmentEditRequest request) {
-        SystemDepartment department = DataUtil.copy(request,SystemDepartment.class);
+        SystemDepartment department = DataUtil.copy(request, SystemDepartment.class);
         systemDepartmentMapper.updateByPrimaryKeySelective(department);
     }
 
     @Override
     public String getNextCode(String code) {
-        if(StringUtil.isBlank(code)){
+        if (StringUtil.isBlank(code)) {
             return ROOT_CODE;
         }
         SystemDepartment child = systemDepartmentMapper.getMaxCodeChild(code);
-        if(child == null){
+        if (child == null) {
             return code + ROOT_CODE;
         }
         return String.valueOf(Long.parseLong(child.getCode()) + 1);

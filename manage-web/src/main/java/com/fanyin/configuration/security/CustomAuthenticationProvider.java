@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * 自定义校验规则 authenticate校验图形验证码 super.authenticate方法会调用additionalAuthenticationChecks来校验密码信息
+ *
  * @author 二哥很猛
  * @date 2018/1/25 13:48
  */
@@ -28,10 +29,10 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        ImageCodeAuthenticationDetails principal = (ImageCodeAuthenticationDetails)authentication.getDetails();
+        ImageCodeAuthenticationDetails principal = (ImageCodeAuthenticationDetails) authentication.getDetails();
         String imageCode = principal.getImageCode();
         String sessionImageCode = principal.getSessionImageCode();
-        if(imageCode == null || !imageCode.equalsIgnoreCase(sessionImageCode)){
+        if (imageCode == null || !imageCode.equalsIgnoreCase(sessionImageCode)) {
             throw new SystemAuthenticationException(ErrorCode.IMAGE_CODE_ERROR);
         }
         return super.authenticate(authentication);
@@ -39,8 +40,8 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-        SystemOperator operator = (SystemOperator)userDetails;
-        if (!encoder.matches((String)authentication.getCredentials(),operator.getPwd())){
+        SystemOperator operator = (SystemOperator) userDetails;
+        if (!encoder.matches((String) authentication.getCredentials(), operator.getPwd())) {
             throw new SystemAuthenticationException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
     }

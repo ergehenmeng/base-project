@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 全局统一异常处理器,返回前台的数据格式由ReturnJson包装
+ *
  * @author 二哥很猛
  * @date 2018/1/18 16:20
  */
@@ -28,8 +29,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public RespBody exception(Exception e, HttpServletRequest request){
-        log.error("系统异常,url:[{}]",request.getRequestURI(),e);
+    public RespBody exception(Exception e, HttpServletRequest request) {
+        log.error("系统异常,url:[{}]", request.getRequestURI(), e);
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 
@@ -39,8 +40,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(SystemException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public RespBody systemException(SystemException e, HttpServletRequest request){
-        log.error("业务异常,url:[{}]",request.getRequestURI());
+    public RespBody systemException(SystemException e, HttpServletRequest request) {
+        log.error("业务异常,url:[{}]", request.getRequestURI());
         return RespBody.<String>getInstance().setCode(e.getCode()).setMsg(e.getMessage());
     }
 
@@ -50,8 +51,8 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public RespBody exception(HttpServletRequest request){
-        log.error("访问地址异常,url:[{}]",request.getRequestURI());
+    public RespBody exception(HttpServletRequest request) {
+        log.error("访问地址异常,url:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }
 }

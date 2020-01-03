@@ -28,7 +28,7 @@ public class TaskLogServiceImpl implements TaskLogService {
 
     @Override
     public PageInfo<TaskLog> getByPage(TaskLogQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<TaskLog> list = taskLogMapper.getList(request);
         return new PageInfo<>(list);
     }

@@ -24,25 +24,27 @@ public class OperationLogController {
 
     /**
      * 操作日期查询请求
+     *
      * @param request 查询条件
      * @return 分页
      */
     @PostMapping("/system/operation_log/list_page")
     @ResponseBody
-    public Paging<SystemOperationLog> listPage(OperationQueryRequest request){
+    public Paging<SystemOperationLog> listPage(OperationQueryRequest request) {
         return new Paging<>(operationLogService.getByPage(request));
     }
 
     /**
      * 响应结果信息
+     *
      * @param id di
      * @return 结果页面
      */
     @GetMapping("/system/operation_log/query_page")
     @Mark
-    public String queryPage(Model model, Integer id){
+    public String queryPage(Model model, Integer id) {
         String response = operationLogService.getResponseById(id);
-        model.addAttribute("response",response);
+        model.addAttribute("response", response);
         return "query_page";
     }
 }

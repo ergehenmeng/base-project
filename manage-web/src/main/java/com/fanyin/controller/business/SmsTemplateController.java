@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 短信模板修改
+ *
  * @author 二哥很猛
  * @date 2019/8/21 18:01
  */
@@ -30,7 +31,7 @@ public class SmsTemplateController {
      */
     @PostMapping("/business/sms_template/list_page")
     @ResponseBody
-    public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request){
+    public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request) {
         PageInfo<SmsTemplate> byPage = smsTemplateService.getByPage(request);
         return new Paging<>(byPage);
     }
@@ -39,9 +40,9 @@ public class SmsTemplateController {
      * 短信模板编辑页面
      */
     @GetMapping("/business/sms_template/edit_page")
-    public String editPage(Model model,Integer id){
+    public String editPage(Model model, Integer id) {
         SmsTemplate template = smsTemplateService.getById(id);
-        model.addAttribute("template",template);
+        model.addAttribute("template", template);
         return "business/sms_template/edit_page";
     }
 
@@ -50,7 +51,7 @@ public class SmsTemplateController {
      */
     @PostMapping("/business/sms_template/edit")
     @ResponseBody
-    public RespBody edit(SmsTemplateEditRequest request){
+    public RespBody edit(SmsTemplateEditRequest request) {
         smsTemplateService.updateSmsTemplate(request);
         return RespBody.getInstance();
     }

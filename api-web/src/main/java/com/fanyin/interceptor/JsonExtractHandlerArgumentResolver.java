@@ -29,6 +29,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 数据校验解析器
+ *
  * @author 二哥很猛
  * @date 2018/1/8 14:42
  */
@@ -39,7 +40,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
 
     @Override
     public boolean supportsParameter(@Nullable MethodParameter parameter) {
-        if(parameter == null || parameter.hasMethodAnnotation(SkipDataBinder.class)){
+        if (parameter == null || parameter.hasMethodAnnotation(SkipDataBinder.class)) {
             return false;
         }
         Class<?> paramType = parameter.getParameterType();
@@ -52,20 +53,20 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
 
     @Override
     public Object resolveArgument(@Nullable MethodParameter parameter, ModelAndViewContainer mavContainer, @Nullable NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        if(webRequest == null || parameter == null){
+        if (webRequest == null || parameter == null) {
             throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }
 
-        HttpServletRequest request = ((ServletWebRequest)webRequest).getRequest();
+        HttpServletRequest request = ((ServletWebRequest) webRequest).getRequest();
 
         Object args = jsonFormat(request, parameter.getParameterType());
         WebDataBinder binder = binderFactory.createBinder(webRequest, args, parameter.getParameterType().getName());
         binder.validate(args);
         BindingResult bindingResult = binder.getBindingResult();
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             //只显示第一条校验失败的信息
             ObjectError objectError = bindingResult.getAllErrors().get(0);
-            throw new RequestException(ErrorCode.PARAM_VERIFY_ERROR.getCode(),objectError.getDefaultMessage());
+            throw new RequestException(ErrorCode.PARAM_VERIFY_ERROR.getCode(), objectError.getDefaultMessage());
         }
         return args;
     }
@@ -73,23 +74,24 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
 
     /**
      * 将request中对象转换为转换为指定接收的参数对象
+     *
      * @param request 请求信息
-     * @param cls 接收参数的类型
+     * @param cls     接收参数的类型
      * @return 结果对象
      */
-    private Object jsonFormat(HttpServletRequest request,Class<?> cls){
+    private Object jsonFormat(HttpServletRequest request, Class<?> cls) {
         try {
             //如果开启签名,则此处可以获取到前台的json
             String requestBody = RequestThreadLocal.getRequestBody();
-            if(requestBody != null){
-                return objectMapper.readValue(requestBody,cls);
+            if (requestBody != null) {
+                return objectMapper.readValue(requestBody, cls);
             }
             String args = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
-            if(args == null){
+            if (args == null) {
                 return cls.newInstance();
             }
-            return objectMapper.readValue(args,cls);
-        }catch (Exception e){
+            return objectMapper.readValue(args, cls);
+        } catch (Exception e) {
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
     }

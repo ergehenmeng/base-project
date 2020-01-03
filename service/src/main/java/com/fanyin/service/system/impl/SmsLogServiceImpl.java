@@ -38,7 +38,7 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     @Override
     public PageInfo<SmsLog> getByPage(SmsLogQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<SmsLog> list = smsLogMapper.getList(request);
         return new PageInfo<>(list);
     }

@@ -12,7 +12,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 接口客户端类型限制
+ * 限制某个方法的客户端访问类型 在Controller方法中使用
+ *
  * @author 二哥很猛
  * @date 2018/8/14 16:19
  */
@@ -23,6 +24,7 @@ public @interface ClientType {
 
     /**
      * 接口访问类型限制
+     *
      * @return 默认后台请求
      */
     Channel[] value() default {};

@@ -11,29 +11,30 @@ public interface AccessTokenService {
 
     /**
      * 根据accessKey查找token
-     * @param accessKey accessKey
+     * @param accessToken token信息
      * @return token
      */
-    AccessToken getByAccessKey(String accessKey);
+    AccessToken getByAccessToken(String accessToken);
 
     /**
      * 根据userId查找token
      * @param userId userId
      * @return token
      */
-    AccessToken getByUserId(int userId);
+    String getByUserId(int userId);
 
     /**
      * 保存token
      * @param token token对象
      */
-    void saveByAccessKey(AccessToken token);
+    void saveByAccessToken(AccessToken token);
 
     /**
-     * 保存token
-     * @param token token对象
+     * 保存 userId:token关系
+     * @param userId   用户id
+     * @param accessToken token
      */
-    void saveByUserId(AccessToken token);
+    void saveByUserId(int userId,String accessToken);
 
 }
 

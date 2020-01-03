@@ -31,9 +31,9 @@ public class BannerServiceImpl implements BannerService {
     private BannerMapper bannerMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER,key = "#channel.name() + #classify",unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")
     public List<Banner> getBanner(Channel channel, Byte classify) {
-        return bannerMapper.getBannerList(classify,channel.name());
+        return bannerMapper.getBannerList(classify, channel.name());
     }
 
     @Override
@@ -43,20 +43,20 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public PageInfo<Banner> getByPage(BannerQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<Banner> list = bannerMapper.getList(request);
         return new PageInfo<>(list);
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.BANNER,key = "#request.clientType + #request.classify",allEntries = true)
+    @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
     public void addBanner(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.insertSelective(banner);
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.BANNER,key = "#request.clientType + #request.classify",allEntries = true)
+    @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
     public void editBanner(BannerEditRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.updateByPrimaryKeySelective(banner);

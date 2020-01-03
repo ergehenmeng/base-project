@@ -46,12 +46,12 @@ public class RequestMessage implements Serializable {
     private String deviceModel;
 
     /**
-     * accessKey
+     * accessKey 验签使用
      */
     private String accessKey;
 
     /**
-     * token
+     * token 用户登陆状态保持
      */
     private String accessToken;
 

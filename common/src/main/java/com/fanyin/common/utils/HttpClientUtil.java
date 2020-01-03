@@ -31,6 +31,7 @@ import java.util.Map;
 
 /**
  * http请求工具类
+ *
  * @author 二哥很猛
  * @date 2018/7/30 10:16
  */
@@ -50,7 +51,7 @@ public class HttpClientUtil {
         SSLContextBuilder builder = SSLContexts.custom();
         try {
             builder.loadTrustMaterial(null, (chain, authType) -> true);
-            factory = new SSLConnectionSocketFactory(builder.build(),new String[]{"SSLv2Hello", "SSLv3", "TLSv1", "TLSv1.2"},null,NoopHostnameVerifier.INSTANCE);
+            factory = new SSLConnectionSocketFactory(builder.build(), new String[]{"SSLv2Hello", "SSLv3", "TLSv1", "TLSv1.2"}, null, NoopHostnameVerifier.INSTANCE);
             Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
                     .register("https", factory)
                     .build();
@@ -63,34 +64,37 @@ public class HttpClientUtil {
 
     /**
      * https post请求
-     * @param url 请求地址
+     *
+     * @param url  请求地址
      * @param body 请求参数
      * @return 响应信息
      */
-    public static String postSSL(String url,String body){
-        log.debug("https post请求地址:[{}],请求参数:[{}]",url,body);
+    public static String postSSL(String url, String body) {
+        log.debug("https post请求地址:[{}],请求参数:[{}]", url, body);
         HttpPost post = new HttpPost(url);
-        post.setEntity(new StringEntity(body,ContentType.APPLICATION_JSON));
-        return execute(post,sslHttpClient(),null);
+        post.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
+        return execute(post, sslHttpClient(), null);
     }
 
     /**
      * https get请求
-     * @param url 请求地址
+     *
+     * @param url    请求地址
      * @param params 请求参数
      * @return 响应结果
      */
-    public static String getSSL(String url,Map<String,String> params){
+    public static String getSSL(String url, Map<String, String> params) {
         String finalUrl = urlJoin(url, params);
         HttpGet get = new HttpGet(finalUrl);
-        return execute(get,sslHttpClient(),null);
+        return execute(get, sslHttpClient(), null);
     }
 
     /**
      * https 连接client
+     *
      * @return httpclient
      */
-    private static CloseableHttpClient sslHttpClient(){
+    private static CloseableHttpClient sslHttpClient() {
         return HttpClients.custom()
                 .setSSLSocketFactory(factory)
                 .setConnectionManager(manager)
@@ -100,26 +104,28 @@ public class HttpClientUtil {
 
     /**
      * get请求
-     * @param url 请求地址,可带参数或者"?"符号
+     *
+     * @param url    请求地址,可带参数或者"?"符号
      * @param params 请求参数 可为空
      * @return 响应结果
      */
-    public static String get(String url,Map<String,String> params){
-        return get(urlJoin(url,params));
+    public static String get(String url, Map<String, String> params) {
+        return get(urlJoin(url, params));
     }
 
     /**
      * 拼接get请求参数
-     * @param url 请求地址
+     *
+     * @param url    请求地址
      * @param params 请求参数
      * @return 最终的地址
      */
-    private static String urlJoin(String url,Map<String,String> params){
+    private static String urlJoin(String url, Map<String, String> params) {
         String requestParams = formatParams(params);
-        if (url.contains(SYMBOL)){
-            if (url.endsWith(SYMBOL)){
+        if (url.contains(SYMBOL)) {
+            if (url.endsWith(SYMBOL)) {
                 url = url + requestParams;
-            }else{
+            } else {
                 url = url + "&" + params;
             }
         }
@@ -128,30 +134,32 @@ public class HttpClientUtil {
 
     /**
      * get请求
+     *
      * @param url 请求地址+参数
      * @return 响应数据
      */
-    public static String get(String url){
-        log.debug("http get请求地址及参数:[{}]",url);
+    public static String get(String url) {
+        log.debug("http get请求地址及参数:[{}]", url);
         HttpGet get = new HttpGet(url);
-        return execute(get,null,null);
+        return execute(get, null, null);
     }
 
     /**
      * 格式化请求参数
+     *
      * @param params get请求参数
-     * @return 结果,如果还有特殊字符会进行转义或编码
+     * @return 结果, 如果还有特殊字符会进行转义或编码
      */
-    private static String formatParams(Map<String,String> params){
-        if (params != null && !params.isEmpty()){
+    private static String formatParams(Map<String, String> params) {
+        if (params != null && !params.isEmpty()) {
             List<NameValuePair> valuePairs = Lists.newArrayList();
-            for (Map.Entry<String,String> entry : params.entrySet()){
-                valuePairs.add(new BasicNameValuePair(entry.getKey(),entry.getValue()));
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                valuePairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
             try {
                 return EntityUtils.toString(new UrlEncodedFormEntity(valuePairs, Consts.UTF_8));
-            }catch (Exception e){
-                log.error("url参数编码错误",e);
+            } catch (Exception e) {
+                log.error("url参数编码错误", e);
             }
         }
         return null;
@@ -159,52 +167,56 @@ public class HttpClientUtil {
 
     /**
      * post请求 application/json
-     * @param url 请求地址
-     * @param body 请求参数
+     *
+     * @param url     请求地址
+     * @param body    请求参数
      * @param headers 头信息
      * @param config  请求配置信息
      * @return 响应结果
      */
-    public static String post(String url,String body, Map<String,String> headers,RequestConfig config){
-        log.debug("http post请求地址:[{}],请求参数:[{}]",url,body);
+    public static String post(String url, String body, Map<String, String> headers, RequestConfig config) {
+        log.debug("http post请求地址:[{}],请求参数:[{}]", url, body);
         HttpPost post = new HttpPost(url);
         post.setHeaders(formatHeaders(headers));
-        post.setEntity(new StringEntity(body,ContentType.APPLICATION_JSON));
-        return execute(post,null,config);
+        post.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
+        return execute(post, null, config);
     }
 
     /**
      * post请求 application/json
-     * @param url 请求地址
-     * @param body 请求参数
+     *
+     * @param url     请求地址
+     * @param body    请求参数
      * @param headers 头信息
      * @return 响应结果
      */
-    public static String post(String url,String body,Map<String,String> headers){
-        return post(url,body,headers,null);
+    public static String post(String url, String body, Map<String, String> headers) {
+        return post(url, body, headers, null);
     }
 
     /**
      * post请求 application/json
-     * @param url 请求地址
+     *
+     * @param url  请求地址
      * @param body 请求参数
      * @return 响应结果
      */
-    public static String post(String url,String body){
-        return post(url,body,null,null);
+    public static String post(String url, String body) {
+        return post(url, body, null, null);
     }
 
 
     /**
      * 格式化http header信息
+     *
      * @param headers 源headers
      * @return 结果
      */
-    private static Header[] formatHeaders(Map<String,String> headers){
-        if(headers != null && !headers.isEmpty()){
+    private static Header[] formatHeaders(Map<String, String> headers) {
+        if (headers != null && !headers.isEmpty()) {
             List<Header> list = Lists.newArrayList();
-            for (Map.Entry<String,String> entry : headers.entrySet()){
-                list.add(new BasicHeader(entry.getKey(),entry.getValue()));
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                list.add(new BasicHeader(entry.getKey(), entry.getValue()));
             }
             return list.toArray(new Header[]{});
         }
@@ -213,39 +225,41 @@ public class HttpClientUtil {
 
     /**
      * 执行Http请求
+     *
      * @param request 请求参数
-     * @param client httpClient对象
-     * @param config 请求配置
+     * @param client  httpClient对象
+     * @param config  请求配置
      * @return 结果响应
      */
-    private static String execute(HttpUriRequest request, CloseableHttpClient client, RequestConfig config){
-        if (config == null){
+    private static String execute(HttpUriRequest request, CloseableHttpClient client, RequestConfig config) {
+        if (config == null) {
             config = defaultConfig();
         }
-        if(client == null){
+        if (client == null) {
             client = HttpClients.custom().setDefaultRequestConfig(config).build();
         }
-        try (CloseableHttpResponse response = client.execute(request)){
+        try (CloseableHttpResponse response = client.execute(request)) {
             int code = response.getStatusLine().getStatusCode();
-            if (code != HttpStatus.SC_OK){
-                log.error("http请求响应状态码异常,code:[{}]",code);
+            if (code != HttpStatus.SC_OK) {
+                log.error("http请求响应状态码异常,code:[{}]", code);
                 return null;
             }
             HttpEntity responseEntity = response.getEntity();
             String entity = EntityUtils.toString(responseEntity, Consts.UTF_8);
-            log.debug("http响应结果:[{}]",entity);
+            log.debug("http响应结果:[{}]", entity);
             return entity;
         } catch (IOException e) {
-            log.error("http请求异常",e);
+            log.error("http请求异常", e);
         }
         return null;
     }
 
     /**
      * 默认请求配置 post get通用
+     *
      * @return 配置信息
      */
-    private static RequestConfig defaultConfig(){
+    private static RequestConfig defaultConfig() {
         return RequestConfig.custom().setSocketTimeout(6000).setConnectionRequestTimeout(6000).setConnectTimeout(6000).build();
     }
 

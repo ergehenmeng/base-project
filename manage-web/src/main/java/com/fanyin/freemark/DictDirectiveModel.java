@@ -20,6 +20,7 @@ import java.util.Map;
 /**
  * 数据字典下拉列表渲染
  * <@select id="" name="" class="" title="" nid="" value="" ></@select>
+ *
  * @author 二哥很猛
  * @date 2018/11/27 17:25
  */
@@ -81,30 +82,30 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
         String optionValue = null;
         String nid = null;
 
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             String key = iterator.next().toString();
             Object value = params.get(key);
-            if(value == null){
+            if (value == null) {
                 continue;
             }
-            if(NID.equals(key)){
+            if (NID.equals(key)) {
                 nid = value.toString();
-            }else if(NAME.equals(key)){
+            } else if (NAME.equals(key)) {
                 builder.append(" name='").append(value).append("' ");
-            }else if(CLS.equals(key)){
+            } else if (CLS.equals(key)) {
                 builder.append(" class='").append(value).append("' ");
-            }else if(ID.equals(key)){
+            } else if (ID.equals(key)) {
                 builder.append(" id='").append(value).append("' ");
-            }else if(TITLE.equals(key)){
+            } else if (TITLE.equals(key)) {
                 builder.append(" title='").append(value).append("' ");
-            }else if(VALUE.equals(key)){
+            } else if (VALUE.equals(key)) {
                 optionValue = value.toString();
-            }else if(TOTAL.equals(key)){
+            } else if (TOTAL.equals(key)) {
                 total = value.toString();
             }
         }
         builder.append(">");
-        if(nid == null){
+        if (nid == null) {
             throw new BusinessException(ErrorCode.NID_IS_NULL);
         }
         StringBuilder renderOption = renderOption(nid, total, optionValue);
@@ -116,23 +117,24 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
 
     /**
      * 渲染option列
-     * @param nid system_dict表中的nid
+     *
+     * @param nid   system_dict表中的nid
      * @param total 是否显示全部
      * @param value 选中值
      * @return option列表
      */
-    private StringBuilder renderOption(String nid,String total,String value){
+    private StringBuilder renderOption(String nid, String total, String value) {
         List<SystemDict> dictList = systemDictService.getDictByNid(nid);
         StringBuilder builder = new StringBuilder();
-        if (TOTAL_VALUE.equals(total)){
+        if (TOTAL_VALUE.equals(total)) {
             builder.append("<option value=''>全部</option>");
         }
-        if(dictList != null && dictList.size() > 0){
-            for (SystemDict dict : dictList){
-                if(value != null && value.equals(dict.getHiddenValue().toString())){
+        if (dictList != null && dictList.size() > 0) {
+            for (SystemDict dict : dictList) {
+                if (value != null && value.equals(dict.getHiddenValue().toString())) {
                     //<option value='1' selected>类型</option>
                     builder.append("<option value='").append(dict.getHiddenValue()).append("' selected >").append(dict.getShowValue()).append("</option>");
-                }else{
+                } else {
                     builder.append("<option value='").append(dict.getHiddenValue()).append("' >").append(dict.getShowValue()).append("</option>");
                 }
             }

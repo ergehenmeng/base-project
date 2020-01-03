@@ -2,10 +2,10 @@ package com.fanyin.service.system.impl;
 
 import com.fanyin.common.enums.ErrorCode;
 import com.fanyin.common.exception.BusinessException;
-import com.fanyin.model.dto.system.menu.MenuAddRequest;
-import com.fanyin.model.dto.system.menu.MenuEditRequest;
 import com.fanyin.dao.mapper.system.SystemMenuMapper;
 import com.fanyin.dao.model.system.SystemMenu;
+import com.fanyin.model.dto.system.menu.MenuAddRequest;
+import com.fanyin.model.dto.system.menu.MenuEditRequest;
 import com.fanyin.service.system.SystemMenuService;
 import com.fanyin.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +33,14 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     private final Comparator<SystemMenu> comparator = Comparator.comparing(SystemMenu::getSort);
 
     @Override
-    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SystemMenu> getMenuList(Integer operatorId) {
         List<SystemMenu> list = systemMenuMapper.getMenuList(operatorId);
         List<SystemMenu> parentList = new ArrayList<>();
 
         for (SystemMenu parent : list) {
             if (parent.getPid() == 0) {
-                setChild(parent,list);
+                setChild(parent, list);
                 parentList.add(parent);
             }
         }
@@ -49,25 +49,25 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     }
 
     @Override
-    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SystemMenu> getButtonList(Integer operatorId) {
         return systemMenuMapper.getButtonList(operatorId);
     }
 
     @Override
-    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SystemMenu> getList(Integer operatorId) {
         return systemMenuMapper.getList(operatorId);
     }
 
     @Override
-    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SystemMenu getMenuById(Integer id) {
         return systemMenuMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SystemMenu> getAllList() {
         return systemMenuMapper.getAllList();
     }
@@ -75,9 +75,9 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     @Override
     public void addMenu(MenuAddRequest request) {
         SystemMenu copy = DataUtil.copy(request, SystemMenu.class);
-        try{
+        try {
             systemMenuMapper.insertSelective(copy);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new BusinessException(ErrorCode.MENU_NID_ERROR);
         }
     }
@@ -88,13 +88,13 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
         SystemMenu copy = DataUtil.copy(request, SystemMenu.class);
         int index;
-        try{
+        try {
             index = systemMenuMapper.updateByPrimaryKeySelective(copy);
-        }catch (Exception e){
+        } catch (Exception e) {
             //唯一索引会导致异常
             throw new BusinessException(ErrorCode.MENU_NID_ERROR);
         }
-        if(index != 1){
+        if (index != 1) {
             throw new BusinessException(ErrorCode.UPDATE_MENU_ERROR);
         }
     }
@@ -105,12 +105,12 @@ public class SystemMenuServiceImpl implements SystemMenuService {
     }
 
     @Override
-    @Transactional(readOnly = true,rollbackFor = RuntimeException.class)
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<GrantedAuthority> getAuthorityByOperatorId(Integer operator) {
         List<SystemMenu> list = systemMenuMapper.getList(operator);
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if(!CollectionUtils.isEmpty(list)){
-            for (SystemMenu menu : list){
+        if (!CollectionUtils.isEmpty(list)) {
+            for (SystemMenu menu : list) {
                 GrantedAuthority authority = new SimpleGrantedAuthority(menu.getNid());
                 authorities.add(authority);
             }
@@ -120,14 +120,15 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     /**
      * 设置子菜单列表
+     *
      * @param parent 当前菜单
-     * @param list 所有用户可操作的菜单
+     * @param list   所有用户可操作的菜单
      */
-    private void setChild(SystemMenu parent, List<SystemMenu> list){
-        List<SystemMenu> childList = getChild(parent.getId(),list);
-        if(!childList.isEmpty()){
-            for(SystemMenu child : childList){
-                setChild(child,list);
+    private void setChild(SystemMenu parent, List<SystemMenu> list) {
+        List<SystemMenu> childList = getChild(parent.getId(), list);
+        if (!childList.isEmpty()) {
+            for (SystemMenu child : childList) {
+                setChild(child, list);
             }
             childList.sort(comparator);
             parent.setSubList(childList);
@@ -136,14 +137,15 @@ public class SystemMenuServiceImpl implements SystemMenuService {
 
     /**
      * 根据ID查看是否存在子元素
-     * @param id 相当于子元素的pid
+     *
+     * @param id   相当于子元素的pid
      * @param list 所有菜单列表
      * @return 子菜单列表
      */
-    private List<SystemMenu> getChild(int id, List<SystemMenu> list){
+    private List<SystemMenu> getChild(int id, List<SystemMenu> list) {
         List<SystemMenu> childList = new ArrayList<>();
-        for(SystemMenu menu : list){
-            if(menu.getPid() == id){
+        for (SystemMenu menu : list) {
+            if (menu.getPid() == id) {
                 childList.add(menu);
             }
         }

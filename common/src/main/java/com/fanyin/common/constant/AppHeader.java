@@ -33,12 +33,12 @@ public class AppHeader {
     public static final String DEVICE_MODEL = "Device-Model";
 
     /**
-     * 登陆参数 accessKey
+     * 登陆签名信息 accessKey
      */
     public static final String ACCESS_KEY = "Access-Key";
 
     /**
-     * 登陆参数 accessToken
+     * 用户登陆信息 accessToken
      */
     public static final String ACCESS_TOKEN = "Access-Token";
 

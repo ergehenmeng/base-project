@@ -11,33 +11,34 @@ import java.io.IOException;
 
 /**
  * 权限管理过滤器
+ *
  * @author 二哥很猛
  * @date 2018/1/25 10:46
  */
-public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter{
+public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
-    CustomFilterSecurityInterceptor(FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource){
+    CustomFilterSecurityInterceptor(FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource) {
         this.securityMetadataSource = filterInvocationSecurityMetadataSource;
     }
 
     @Override
-    public void init(FilterConfig filterConfig){
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        FilterInvocation invocation = new FilterInvocation(request,response,chain);
+        FilterInvocation invocation = new FilterInvocation(request, response, chain);
         invoke(invocation);
     }
 
-    private void invoke(FilterInvocation invocation)throws IOException, ServletException  {
+    private void invoke(FilterInvocation invocation) throws IOException, ServletException {
         InterceptorStatusToken token = super.beforeInvocation(invocation);
         try {
-            invocation.getChain().doFilter(invocation.getRequest(),invocation.getResponse());
-        }finally {
-            super.afterInvocation(token,null);
+            invocation.getChain().doFilter(invocation.getRequest(), invocation.getResponse());
+        } finally {
+            super.afterInvocation(token, null);
         }
     }
 

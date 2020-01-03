@@ -27,7 +27,7 @@ public class TaskLogController {
      */
     @PostMapping("/business/task_log/list_page")
     @ResponseBody
-    public Paging<TaskLog> listPage(TaskLogQueryRequest request){
+    public Paging<TaskLog> listPage(TaskLogQueryRequest request) {
         PageInfo<TaskLog> byPage = taskLogService.getByPage(request);
         return new Paging<>(byPage);
     }
@@ -36,9 +36,9 @@ public class TaskLogController {
      * 错误信息
      */
     @GetMapping("/business/task_log/error_msg")
-    public String errorMsg(Model model,Integer id){
+    public String errorMsg(Model model, Integer id) {
         String errorMsg = taskLogService.getErrorMsg(id).getErrorMsg();
-        model.addAttribute("response",errorMsg);
+        model.addAttribute("response", errorMsg);
         return "query_page";
     }
 }

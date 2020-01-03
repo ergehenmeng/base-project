@@ -48,7 +48,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
 
     @Override
     public PageInfo<HelpCenter> getByPage(HelpQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<HelpCenter> list = helpCenterMapper.getList(request);
         return new PageInfo<>(list);
     }

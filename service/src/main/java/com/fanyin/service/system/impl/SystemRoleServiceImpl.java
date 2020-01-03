@@ -1,11 +1,11 @@
 package com.fanyin.service.system.impl;
 
-import com.fanyin.model.dto.system.role.RoleAddRequest;
-import com.fanyin.model.dto.system.role.RoleEditRequest;
-import com.fanyin.model.dto.system.role.RoleQueryRequest;
 import com.fanyin.dao.mapper.system.SystemOperatorRoleMapper;
 import com.fanyin.dao.mapper.system.SystemRoleMapper;
 import com.fanyin.dao.model.system.SystemRole;
+import com.fanyin.model.dto.system.role.RoleAddRequest;
+import com.fanyin.model.dto.system.role.RoleEditRequest;
+import com.fanyin.model.dto.system.role.RoleQueryRequest;
 import com.fanyin.service.system.SystemRoleService;
 import com.fanyin.utils.DataUtil;
 import com.github.pagehelper.PageHelper;
@@ -35,7 +35,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     @Override
     public PageInfo<SystemRole> getByPage(RoleQueryRequest request) {
-        PageHelper.startPage(request.getPage(),request.getPageSize());
+        PageHelper.startPage(request.getPage(), request.getPageSize());
         List<SystemRole> list = systemRoleMapper.getList(request);
         return new PageInfo<>(list);
     }
@@ -84,9 +84,9 @@ public class SystemRoleServiceImpl implements SystemRoleService {
     @Override
     public void authMenu(Integer roleId, String menuIds) {
         systemRoleMapper.deleteRoleMenu(roleId);
-        if(StringUtils.isNotEmpty(menuIds)){
+        if (StringUtils.isNotEmpty(menuIds)) {
             List<Integer> menuIdList = Splitter.on(",").splitToList(menuIds).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
-            systemRoleMapper.batchInsertRoleMenu(roleId,menuIdList);
+            systemRoleMapper.batchInsertRoleMenu(roleId, menuIdList);
         }
     }
 }

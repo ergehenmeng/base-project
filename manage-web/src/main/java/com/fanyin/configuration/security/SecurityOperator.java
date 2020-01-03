@@ -10,18 +10,19 @@ import java.util.Collection;
 
 /**
  * 组装校验的基础参数信息 账户,密码,权限列表
+ *
  * @author 二哥很猛
  * @date 2018/1/25 10:13
  */
-public class SecurityOperator extends SystemOperator implements UserDetails{
+public class SecurityOperator extends SystemOperator implements UserDetails {
 
     private static final long serialVersionUID = -7835234722564262280L;
 
     private Collection<? extends GrantedAuthority> authorities;
 
 
-    SecurityOperator(SystemOperator operator,Collection<GrantedAuthority> authorityList){
-        BeanUtils.copyProperties(operator,this);
+    SecurityOperator(SystemOperator operator, Collection<GrantedAuthority> authorityList) {
+        BeanUtils.copyProperties(operator, this);
         this.authorities = authorityList;
     }
 

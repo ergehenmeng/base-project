@@ -16,12 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 注册相关接口
+ *
  * @author 二哥很猛
  * @date 2019/8/20 10:18
  */
 @RestController
 @Api("注册")
-public class RegisterController extends AbstractController{
+public class RegisterController extends AbstractController {
 
     @Autowired
     private UserService userService;
@@ -31,7 +32,7 @@ public class RegisterController extends AbstractController{
      */
     @PostMapping("/register/send_sms")
     @ApiOperation("注册发送验证码")
-    public RespBody sendSms(RegisterSendSmsRequest request){
+    public RespBody sendSms(RegisterSendSmsRequest request) {
         userService.registerSendSms(request.getMobile());
         return RespBody.getInstance();
     }
@@ -41,7 +42,7 @@ public class RegisterController extends AbstractController{
      */
     @PostMapping("/register/user")
     @ApiOperation("短信注册用户")
-    public LoginToken user(HttpServletRequest servletRequest, RegisterUserRequest request){
+    public LoginToken user(HttpServletRequest servletRequest, RegisterUserRequest request) {
         request.setChannel(super.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));
         return userService.registerByMobile(request);

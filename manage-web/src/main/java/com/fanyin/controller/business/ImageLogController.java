@@ -48,19 +48,20 @@ public class ImageLogController extends AbstractController {
      * 图片列表页面
      */
     @GetMapping("/system/image/manage_page")
-    public String managePage(Model model){
-        model.addAttribute("address",systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
+    public String managePage(Model model) {
+        model.addAttribute("address", systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
         return "system/image/manage_page";
     }
 
     /**
      * 分页查询图片列表
+     *
      * @return 分页数据
      */
     @PostMapping("/system/image/list_page")
     @ResponseBody
     @Mark
-    public Paging<ImageLog> listPage(ImageQueryRequest request){
+    public Paging<ImageLog> listPage(ImageQueryRequest request) {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.transform(page, imageLog -> {
             //将数据字典类型转换实际类型
@@ -72,13 +73,14 @@ public class ImageLogController extends AbstractController {
 
     /**
      * 添加图片
+     *
      * @return 成功
      */
     @PostMapping("/system/image/add")
     @ResponseBody
     @Mark
-    public RespBody addImage(ImageAddRequest request, MultipartFile imgFile){
-        if(imgFile != null && !imgFile.isEmpty()){
+    public RespBody addImage(ImageAddRequest request, MultipartFile imgFile) {
+        if (imgFile != null && !imgFile.isEmpty()) {
             FilePath filePath = fileService.saveFile(imgFile);
             request.setUrl(filePath.getPath());
             request.setSize(imgFile.getSize());
@@ -89,13 +91,14 @@ public class ImageLogController extends AbstractController {
 
     /**
      * 编辑图片信息,不让重新上传因为图片可能已经被其他地方引用了
+     *
      * @param request 更新参数
      * @return 成功
      */
     @PostMapping("/system/image/edit")
     @ResponseBody
     @Mark
-    public RespBody editImage(ImageEditRequest request){
+    public RespBody editImage(ImageEditRequest request) {
         imageLogService.updateImageLog(request);
         return RespBody.getInstance();
     }
@@ -103,26 +106,28 @@ public class ImageLogController extends AbstractController {
 
     /**
      * 删除图片
+     *
      * @param id 用户id
      * @return 删除
      */
     @PostMapping("/system/image/delete")
     @ResponseBody
     @Mark
-    public RespBody deleteImage(Integer id){
+    public RespBody deleteImage(Integer id) {
         imageLogService.deleteImageLog(id);
         return RespBody.getInstance();
     }
 
     /**
      * 图片编辑页面
+     *
      * @return 图片地址
      */
     @GetMapping("/system/image/edit_page")
     @Mark
-    public String editImagePage(Model model, Integer id){
+    public String editImagePage(Model model, Integer id) {
         ImageLog log = imageLogService.getById(id);
-        model.addAttribute("log",log);
+        model.addAttribute("log", log);
         return "system/image/edit_page";
     }
 }

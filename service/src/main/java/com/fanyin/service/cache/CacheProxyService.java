@@ -13,7 +13,8 @@ public interface CacheProxyService {
 
     /**
      * 根据nid与隐藏值获取显示信息 数据字典格式化数据
-     * @param nid nid
+     *
+     * @param nid         nid
      * @param hiddenValue 隐藏值
      * @return 显示值
      */
@@ -21,7 +22,8 @@ public interface CacheProxyService {
 
     /**
      * 创建登陆后的token,并将token放入缓存中
-     * @param user 用户信息
+     *
+     * @param user    用户信息
      * @param channel 访问渠道
      * @return token
      */
@@ -29,6 +31,7 @@ public interface CacheProxyService {
 
     /**
      * 是否是需要拦截的ip
+     *
      * @param ip ip地址
      * @return true:黑名单 false:白名单
      */

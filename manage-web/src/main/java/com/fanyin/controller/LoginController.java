@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * 首页及登陆
+ *
  * @author 二哥很猛
  * @date 2018/1/8 14:41
  */
@@ -21,60 +22,65 @@ public class LoginController extends AbstractController {
 
     /**
      * 未登录的首页
+     *
      * @return 首页index.ftl
      */
-    @GetMapping(value = {"/","/index"})
-    public String index(){
+    @GetMapping(value = {"/", "/index"})
+    public String index() {
         return "index";
     }
 
     /**
      * 登陆后的首页,注意如果权限重新分配,需重新登陆系统
+     *
      * @return home页面
      */
     @GetMapping("/home")
-    public String home(Model model){
+    public String home(Model model) {
         SystemOperator operator = getRequiredOperator();
         //导航菜单
-        if(operator.getLeftMenu() == null){
+        if (operator.getLeftMenu() == null) {
             operator.setLeftMenu(systemMenuService.getMenuList(operator.getId()));
         }
         //按钮菜单
-        if(operator.getButtonMenu() == null){
+        if (operator.getButtonMenu() == null) {
             operator.setButtonMenu(systemMenuService.getButtonList(operator.getId()));
         }
         model.addAttribute("menuList", operator.getLeftMenu());
-        model.addAttribute("isInit",operator.getPwd().equals(operator.getInitPwd()));
+        model.addAttribute("isInit", operator.getPwd().equals(operator.getInitPwd()));
         return "home";
     }
 
     /**
      * 首页门户框
+     *
      * @return 门户页面
      */
     @GetMapping("/portal")
-    public String portal(){
+    public String portal() {
         return "portal";
     }
 
     /**
      * 全局页面定向,由于模糊映射可能会导致js,css,img也会映射到此处,因此在静态资源文件目录结构必须保证4层结构
-     * @param modules 所属主模块
+     *
+     * @param modules  所属主模块
      * @param function 所属子模块
-     * @param page 页面名称
+     * @param page     页面名称
      * @return 对应的页面
      */
     @GetMapping("/{modules}/{function}/{page}")
-    public String modules(@PathVariable("modules")String modules,@PathVariable("function")String function,@PathVariable("page")String page){
-        return  modules + "/" + function +"/" + page;
+    public String modules(@PathVariable("modules") String modules, @PathVariable("function") String function, @PathVariable("page") String page) {
+        return modules + "/" + function + "/" + page;
     }
 
     /**
      * 首页修改密码
+     *
      * @return 页面
      */
     @GetMapping("/home/change_password_page")
-    public String changePasswordPage(){
+    public String changePasswordPage() {
         return "home/change_password_page";
     }
 
@@ -82,7 +88,7 @@ public class LoginController extends AbstractController {
      * 角色列表展示
      */
     @GetMapping("/home/role_menu_page")
-    public String roleMenuPage(){
+    public String roleMenuPage() {
         return "home/role_menu_page";
     }
 }

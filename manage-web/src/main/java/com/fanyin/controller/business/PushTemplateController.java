@@ -36,7 +36,7 @@ public class PushTemplateController {
      */
     @PostMapping("/business/push_template/list_page")
     @ResponseBody
-    public Paging<PushTemplate> listPage(PushTemplateQueryRequest request){
+    public Paging<PushTemplate> listPage(PushTemplateQueryRequest request) {
         PageInfo<PushTemplate> byPage = pushTemplateService.getByPage(request);
         return new Paging<>(byPage);
     }
@@ -45,11 +45,11 @@ public class PushTemplateController {
      * 推送模板编辑页面
      */
     @GetMapping("/business/push_template/edit_page")
-    public String editPage(Model model, Integer id){
+    public String editPage(Model model, Integer id) {
         PushTemplate template = pushTemplateService.getById(id);
         List<TagView> list = tagViewService.getList();
-        model.addAttribute("template",template);
-        model.addAttribute("view",list);
+        model.addAttribute("template", template);
+        model.addAttribute("view", list);
         return "business/push_template/edit_page";
     }
 
@@ -58,7 +58,7 @@ public class PushTemplateController {
      */
     @PostMapping("/business/push_template/edit")
     @ResponseBody
-    public RespBody edit(PushTemplateEditRequest request){
+    public RespBody edit(PushTemplateEditRequest request) {
         pushTemplateService.editPushTemplate(request);
         return RespBody.getInstance();
     }

@@ -24,23 +24,23 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     private SystemConfigApi systemConfigApi;
 
     @Override
-    public AccessToken getByAccessKey(String accessKey) {
-        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessKey,AccessToken.class);
+    public AccessToken getByAccessToken(String accessToken) {
+        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessToken, AccessToken.class);
     }
 
     @Override
-    public AccessToken getByUserId(int userId) {
-        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + userId,AccessToken.class);
+    public String getByUserId(int userId) {
+        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + userId, String.class);
     }
 
     @Override
-    public void saveByAccessKey(AccessToken token) {
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessKey(),token,systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+    public void saveByAccessToken(AccessToken token) {
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessToken(), token, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
     }
 
     @Override
-    public void saveByUserId(AccessToken token) {
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getUserId(),token,systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+    public void saveByUserId(int userId, String accessToken) {
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + userId, accessToken, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
     }
 
 }
