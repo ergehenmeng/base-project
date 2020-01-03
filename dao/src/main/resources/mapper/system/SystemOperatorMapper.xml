@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.system.SystemOperatorMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.system.SystemOperator">
+<mapper namespace="com.eghm.dao.mapper.system.SystemOperatorMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SystemOperator">
     <!--
       @create by mybatis
     -->
@@ -34,7 +34,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.system.SystemOperator" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SystemOperator" useGeneratedKeys="true">
       <selectKey order="AFTER" keyProperty="id" keyColumn="id" resultType="java.lang.Integer">
           select LAST_INSERT_ID()
       </selectKey>
@@ -113,7 +113,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SystemOperator">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SystemOperator">
     <!--
       @create by mybatis
     -->
@@ -157,7 +157,7 @@
         SELECT <include refid="BaseColumnList" /> from system_operator where deleted = false and mobile = #{mobile}
     </select>
     
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.system.operator.OperatorQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.system.operator.OperatorQueryRequest">
         select <include refid="BaseColumnList" />
         from system_operator where deleted = false
         <if test="queryName != null and queryName != ''">

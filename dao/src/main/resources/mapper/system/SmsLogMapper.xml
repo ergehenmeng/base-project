@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.system.SmsLogMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.SmsLog">
+<mapper namespace="com.eghm.dao.mapper.system.SmsLogMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.SmsLog">
     <!--
       @create by mybatis
     -->
@@ -28,7 +28,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.business.SmsLog">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.SmsLog">
     <!--
       @create by mybatis
     -->
@@ -74,7 +74,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.SmsLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.SmsLog">
     <!--
       @create by mybatis
     -->
@@ -113,7 +113,7 @@
         </if>
     </select>
 
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.business.sms.SmsLogQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.business.sms.SmsLogQueryRequest">
         select <include refid="BaseColumnList"/>
         from sms_log
         <where>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.system.SystemConfigMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.system.SystemConfig">
+<mapper namespace="com.eghm.dao.mapper.system.SystemConfigMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SystemConfig">
     <!--
       @create by mybatis
     -->
@@ -30,7 +30,7 @@
     from system_config
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.system.SystemConfig">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SystemConfig">
     <!--
       @create by mybatis
     -->
@@ -94,7 +94,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SystemConfig">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SystemConfig">
     <!--
       @create by mybatis
     -->
@@ -134,7 +134,7 @@
         from system_config WHERE nid = #{nid} limit 1
     </select>
     
-    <update id="updateConfig" parameterType="com.fanyin.model.dto.system.config.ConfigEditRequest">
+    <update id="updateConfig" parameterType="com.eghm.model.dto.system.config.ConfigEditRequest">
         update system_config SET
             title = #{title},
             classify = #{classify},
@@ -144,7 +144,7 @@
         where locked = false and nid = #{nid}
     </update>
     
-    <select id="getList" parameterType="com.fanyin.model.dto.system.config.ConfigEditRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.system.config.ConfigEditRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from system_config
         <where>

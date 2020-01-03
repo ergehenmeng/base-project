@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.common.BannerMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.Banner">
+<mapper namespace="com.eghm.dao.mapper.common.BannerMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.Banner">
     <!--
       @create by mybatis
     -->
@@ -44,7 +44,7 @@
        and client_type = {clientType} and classify = #{classify} order by sort desc
     </select>
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.business.Banner">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.Banner">
     <!--
       @create by mybatis
     -->
@@ -138,7 +138,7 @@
         </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.Banner">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.Banner">
     <!--
       @create by mybatis
     -->
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.business.banner.BannerQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.business.banner.BannerQueryRequest">
         select <include refid="BaseColumnList"/>
         from banner
         <where>

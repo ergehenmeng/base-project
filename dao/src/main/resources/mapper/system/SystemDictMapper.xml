@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.system.SystemDictMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.system.SystemDict">
+<mapper namespace="com.eghm.dao.mapper.system.SystemDictMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SystemDict">
     <!--
       @create by mybatis
     -->
@@ -32,7 +32,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.system.SystemDict">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SystemDict">
     <!--
       @create by mybatis
     -->
@@ -102,7 +102,7 @@
         </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SystemDict">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SystemDict">
     <!--
       @create by mybatis
     -->
@@ -143,7 +143,7 @@
         select <include refid="BaseColumnList" />
         from system_dict where deleted = false and nid = #{nid}
     </select>
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.system.dict.DictQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.system.dict.DictQueryRequest">
         select <include refid="BaseColumnList"/>
         from system_dict
         <where>
@@ -157,7 +157,7 @@
         order by add_time desc
     </select>
 
-    <update id="updateByIdSelective" parameterType="com.fanyin.dao.model.system.SystemDict">
+    <update id="updateByIdSelective" parameterType="com.eghm.dao.model.system.SystemDict">
         <!--
           @create by mybatis
         -->

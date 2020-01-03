@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.system.SystemOperationLogMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.system.SystemOperationLog">
+<mapper namespace="com.eghm.dao.mapper.system.SystemOperationLogMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SystemOperationLog">
     <!--
       @create by mybatis
     -->
@@ -13,7 +13,7 @@
     <result column="ip" jdbcType="VARCHAR" property="ip" />
     <result column="business_time" jdbcType="BIGINT" property="businessTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.fanyin.dao.model.system.SystemOperationLog">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eghm.dao.model.system.SystemOperationLog">
     <!--
       @create by mybatis
     -->
@@ -43,7 +43,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.system.SystemOperationLog">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SystemOperationLog">
     <!--
       @create by mybatis
     -->
@@ -101,7 +101,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SystemOperationLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SystemOperationLog">
     <!--
       @create by mybatis
     -->
@@ -132,11 +132,11 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
     
-    <resultMap id="ExtBaseResultMap" type="com.fanyin.dao.model.system.SystemOperationLog" extends="BaseResultMap">
+    <resultMap id="ExtBaseResultMap" type="com.eghm.dao.model.system.SystemOperationLog" extends="BaseResultMap">
         <result column="operator_name" jdbcType="VARCHAR" property="operatorName"/>
     </resultMap>
     
-    <select id="getList" parameterType="com.fanyin.model.dto.system.log.OperationQueryRequest" resultMap="ExtBaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.system.log.OperationQueryRequest" resultMap="ExtBaseResultMap">
        select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,r.operator_name
         from system_operation_log t inner join system_operator r on t.operator_id = r.id
         <where>

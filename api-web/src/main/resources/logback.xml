@@ -79,7 +79,7 @@
         <appender-ref ref="console"/>
     </root>
 
-    <logger name="com.fanyin" additivity="false" level="info">
+    <logger name="com.eghm" additivity="false" level="info">
         <appender-ref ref="console"/>
         <appender-ref ref="info_rolling_file"/>
     </logger>

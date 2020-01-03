@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.business.TaskConfigMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.TaskConfig">
+<mapper namespace="com.eghm.dao.mapper.business.TaskConfigMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.TaskConfig">
     <!--
       @create by mybatis
     -->
@@ -29,7 +29,7 @@
     from task_config
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.TaskConfig">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.TaskConfig">
     <!--
       @create by mybatis
     -->
@@ -64,7 +64,7 @@
         from task_config where state = 1
     </select>
 
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.fanyin.model.dto.business.task.TaskQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.business.task.TaskQueryRequest">
         select <include refid="BaseColumnList"/>
         from task_config
         <where>

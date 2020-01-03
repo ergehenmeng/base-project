@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.business.FeedbackLogMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.FeedbackLog">
+<mapper namespace="com.eghm.dao.mapper.business.FeedbackLogMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.FeedbackLog">
     <!--
       @create by mybatis
     -->
@@ -33,7 +33,7 @@
     from app_feedback
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.business.FeedbackLog">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.FeedbackLog">
     <!--
       @create by mybatis
     -->
@@ -103,7 +103,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.FeedbackLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.FeedbackLog">
     <!--
       @create by mybatis
     -->
@@ -139,12 +139,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <resultMap id="ListResultMap" type="com.fanyin.model.vo.feedback.FeedbackVO" extends="BaseResultMap">
+    <resultMap id="ListResultMap" type="com.eghm.model.vo.feedback.FeedbackVO" extends="BaseResultMap">
         <result column="nick_name" jdbcType="CHAR" property="nickName" />
         <result column="mobile" jdbcType="CHAR" property="mobile" />
     </resultMap>
 
-    <select id="getList" parameterType="com.fanyin.model.dto.business.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.business.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
         select
         t.id,
         t.user_id,

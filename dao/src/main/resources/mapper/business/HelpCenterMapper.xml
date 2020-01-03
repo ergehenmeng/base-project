@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.business.HelpCenterMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.business.HelpCenter">
+<mapper namespace="com.eghm.dao.mapper.business.HelpCenterMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.HelpCenter">
     <!--
       @create by mybatis
     -->
@@ -30,7 +30,7 @@
     from help_center
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.business.HelpCenter">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.HelpCenter">
     <!--
       @create by mybatis
     -->
@@ -94,7 +94,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.business.HelpCenter">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.HelpCenter">
     <!--
       @create by mybatis
     -->
@@ -127,7 +127,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getList" parameterType="com.fanyin.model.dto.business.help.HelpQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.business.help.HelpQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList" />
         from help_center where deleted = false
     </select>

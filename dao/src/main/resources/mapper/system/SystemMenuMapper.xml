@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fanyin.dao.mapper.system.SystemMenuMapper">
-  <resultMap id="BaseResultMap" type="com.fanyin.dao.model.system.SystemMenu">
+<mapper namespace="com.eghm.dao.mapper.system.SystemMenuMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->
@@ -34,7 +34,7 @@
     where t.deleted = false and  t.id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.fanyin.dao.model.system.SystemMenu">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->
@@ -116,7 +116,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fanyin.dao.model.system.SystemMenu">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SystemMenu">
     <!--
       @create by mybatis
     -->

@@ -30,7 +30,7 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包位置 -->
-        <javaModelGenerator targetPackage="com.fanyin.dao.model.system"
+        <javaModelGenerator targetPackage="com.eghm.dao.model.system"
             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
@@ -44,7 +44,7 @@
         
         <!-- 生成mapper的接口位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.fanyin.dao.mapper.system" targetProject="src/main/java">
+                             targetPackage="com.eghm.dao.mapper.system" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         
