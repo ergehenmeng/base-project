@@ -32,7 +32,7 @@ public class ApplicationProperties {
     private String loginIgnoreUrl;
 
     /**
-     * 上传文件保存目录
+     * 上传文件保存的文件夹目录
      */
     private String uploadDir;
 
