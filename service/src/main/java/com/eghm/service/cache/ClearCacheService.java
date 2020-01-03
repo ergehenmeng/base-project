@@ -17,11 +17,6 @@ public interface ClearCacheService {
     void clearSystemDict();
 
     /**
-     * 清除登陆信息(用户需重新登陆)
-     */
-    void clearAccessToken();
-
-    /**
      * 清空短信模板
      */
     void clearSmsTemplate();

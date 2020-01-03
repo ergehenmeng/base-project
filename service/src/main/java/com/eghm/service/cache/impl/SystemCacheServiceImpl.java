@@ -58,9 +58,6 @@ public class SystemCacheServiceImpl implements SystemCacheService {
                 case CacheConstant.SYSTEM_DICT:
                     clearCacheService.clearSystemDict();
                     break;
-                case CacheConstant.ACCESS_TOKEN:
-                    clearCacheService.clearAccessToken();
-                    break;
                 case CacheConstant.SMS_TEMPLATE:
                     clearCacheService.clearSmsTemplate();
                     break;

@@ -26,11 +26,6 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.ACCESS_TOKEN, allEntries = true)
-    public void clearAccessToken() {
-    }
-
-    @Override
     @CacheEvict(cacheNames = CacheConstant.SMS_TEMPLATE, allEntries = true)
     public void clearSmsTemplate() {
     }
