@@ -2,7 +2,10 @@ package com.eghm.service.common.impl;
 
 
 import com.eghm.common.constant.CacheConstant;
+import com.eghm.common.utils.StringUtil;
+import com.eghm.configuration.security.Encoder;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dao.model.user.User;
 import com.eghm.model.ext.AccessToken;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.AccessTokenService;
@@ -23,6 +26,19 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Autowired
     private SystemConfigApi systemConfigApi;
 
+    @Autowired
+    private Encoder encoder;
+
+    @Override
+    public AccessToken createAccessToken(User user, String channel) {
+        String signKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
+        String accessToken = encoder.encode(user.getId() + signKey);
+        AccessToken token = AccessToken.builder().signKey(signKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
+        this.cacheByAccessToken(token);
+        this.cacheByUserId(token.getUserId(), accessToken);
+        return token;
+    }
+
     @Override
     public AccessToken getByAccessToken(String accessToken) {
         return cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessToken, AccessToken.class);
@@ -34,13 +50,22 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     }
 
     @Override
-    public void saveByAccessToken(AccessToken token) {
+    public void cacheByAccessToken(AccessToken token) {
         cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessToken(), token, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
     }
 
     @Override
-    public void saveByUserId(int userId, String accessToken) {
+    public void cacheByUserId(int userId, String accessToken) {
         cacheService.setValue(CacheConstant.ACCESS_TOKEN + userId, accessToken, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
     }
 
+    @Override
+    public void cleanAccessToken(String accessToken) {
+        cacheService.delete(CacheConstant.ACCESS_TOKEN + accessToken);
+    }
+
+    @Override
+    public void cleanUserId(Integer userId) {
+        cacheService.delete(CacheConstant.ACCESS_TOKEN + userId);
+    }
 }

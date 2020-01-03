@@ -78,5 +78,11 @@ public interface CacheService {
      * @return 个数
      */
     int keySize(String key);
+
+    /**
+     * 清除缓存
+     * @param key key
+     */
+    void delete(String key);
 }
 

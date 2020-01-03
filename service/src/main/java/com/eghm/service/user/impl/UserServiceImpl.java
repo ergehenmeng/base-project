@@ -16,7 +16,7 @@ import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.service.user.LoginLogService;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     private Encoder encoder;
 
     @Autowired
-    private CacheProxyService cacheProxyService;
+    private AccessTokenService accessTokenService;
 
     @Autowired
     private SmsService smsService;
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
      */
     private LoginTokenVO doLogin(User user, String ip) {
         RequestMessage request = RequestThreadLocal.get();
-        AccessToken accessToken = cacheProxyService.createAccessToken(user, request.getChannel());
+        AccessToken accessToken = accessTokenService.createAccessToken(user, request.getChannel());
         LoginRecord record = LoginRecord.builder()
                 .channel(request.getChannel())
                 .ip(ip)
@@ -151,6 +151,17 @@ public class UserServiceImpl implements UserService {
             return userMapper.getByMobile(account);
         }
         return userMapper.getByEmail(account);
+    }
+
+
+    @Override
+    public void updateState(Integer userId, Boolean state) {
+        User user = new User();
+        user.setId(userId);
+        user.setState(state);
+        userMapper.updateByPrimaryKeySelective(user);
+        //强制下线
+        this.forceOffline(user);
     }
 
     @Override
@@ -192,6 +203,21 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.getByMobile(mobile);
         if (user == null) {
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
+        }
+    }
+
+    /**
+     * 强制将用户踢下线
+     * @param user user信息
+     */
+    private void forceOffline(User user){
+        if(!user.getState()){
+            String accessToken = accessTokenService.getByUserId(user.getId());
+            if(StringUtil.isBlank(accessToken)){
+                return;
+            }
+            accessTokenService.cleanAccessToken(accessToken);
+            accessTokenService.cleanUserId(user.getId());
         }
     }
 }

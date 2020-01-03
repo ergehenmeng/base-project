@@ -43,6 +43,7 @@ public class SsoHandlerInterceptor extends HandlerInterceptorAdapter {
                 if (!accessToken.equals(message.getAccessToken())) {
                     throw new BusinessException(ErrorCode.MULTIPLE_CLIENT_LOGIN);
                 }
+                accessTokenService.cacheByUserId(message.getUserId(),accessToken);
             }
         }
         return true;

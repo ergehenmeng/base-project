@@ -2,14 +2,9 @@ package com.eghm.service.cache.impl;
 
 
 import com.eghm.common.utils.DateUtil;
-import com.eghm.common.utils.StringUtil;
-import com.eghm.configuration.security.Encoder;
 import com.eghm.dao.model.system.BlackRoster;
 import com.eghm.dao.model.system.SystemDict;
-import com.eghm.dao.model.user.User;
-import com.eghm.model.ext.AccessToken;
 import com.eghm.service.cache.CacheProxyService;
-import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.system.BlackRosterService;
 import com.eghm.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +29,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     private SystemDictService systemDictService;
 
     @Autowired
-    private Encoder encoder;
-
-    @Autowired
-    private AccessTokenService accessTokenService;
-
-    @Autowired
     private BlackRosterService blackRosterService;
 
     @Override
@@ -53,15 +42,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         return null;
     }
 
-    @Override
-    public AccessToken createAccessToken(User user, String channel) {
-        String signKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
-        String accessToken = encoder.encode(user.getId() + signKey);
-        AccessToken token = AccessToken.builder().signKey(signKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
-        accessTokenService.saveByAccessToken(token);
-        accessTokenService.saveByUserId(token.getUserId(), accessToken);
-        return token;
-    }
 
     @Override
     public boolean isInterceptIp(String ip) {

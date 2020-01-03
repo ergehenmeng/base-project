@@ -77,4 +77,9 @@ public class CacheServiceImpl implements CacheService {
         }
         return 0;
     }
+
+    @Override
+    public void delete(String key) {
+        redisTemplate.delete(key);
+    }
 }

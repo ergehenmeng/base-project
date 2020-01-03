@@ -41,6 +41,15 @@ public interface UserService {
      */
     User getByAccount(String account);
 
+    /**
+     * 更新用户状态
+     * 1.更新状态
+     * 2.清除用户登陆状态
+     *
+     * @param userId 用户id
+     * @param state  新状态 true:解冻 false:冻结
+     */
+    void updateState(Integer userId,Boolean state);
 
     /**
      * 登陆发送验证码

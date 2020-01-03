@@ -20,14 +20,6 @@ public interface CacheProxyService {
      */
     String getDictValue(String nid, Byte hiddenValue);
 
-    /**
-     * 创建登陆后的token,并将token放入缓存中
-     *
-     * @param user    用户信息
-     * @param channel 访问渠道
-     * @return token
-     */
-    AccessToken createAccessToken(User user, String channel);
 
     /**
      * 是否是需要拦截的ip

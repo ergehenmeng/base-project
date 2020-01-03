@@ -267,9 +267,9 @@ public enum ErrorCode {
     MULTIPLE_CLIENT_LOGIN(3016,"用户已在其他设备上登陆"),
 
     /**
-     * 用户信息未查询到
+     * 用户不存在或已冻结
      */
-    USER_NOT_FOUND(3017,"用户信息未查询到"),
+    USER_NOT_FOUND(3017,"用户不存在或已冻结"),
 
     /**
      * 账号或密码错误
