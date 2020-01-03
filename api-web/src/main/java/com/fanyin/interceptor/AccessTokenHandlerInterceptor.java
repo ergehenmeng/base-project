@@ -34,7 +34,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         RequestMessage message = RequestThreadLocal.get();
         boolean skipAccess = this.skipAccess(handler);
-        this.accessTokenVerify(message.getAccessKey(), message, skipAccess);
+        this.accessTokenVerify(message.getAccessToken(), message, skipAccess);
         return true;
     }
 
@@ -54,6 +54,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
                 //用户确实已经登录 跳过不跳过无所谓了
                 accessTokenService.saveByAccessToken(token);
                 message.setUserId(token.getUserId());
+                message.setSignKey(token.getSignKey());
                 return;
             }
         }

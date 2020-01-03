@@ -13,7 +13,7 @@ import com.fanyin.model.dto.login.AccountLoginRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
 import com.fanyin.model.dto.register.RegisterUserRequest;
 import com.fanyin.model.ext.*;
-import com.fanyin.model.vo.login.LoginToken;
+import com.fanyin.model.vo.login.LoginTokenVO;
 import com.fanyin.queue.TaskHandler;
 import com.fanyin.queue.task.LoginLogTask;
 import com.fanyin.service.cache.CacheProxyService;
@@ -104,7 +104,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public LoginToken accountLogin(AccountLoginRequest login) {
+    public LoginTokenVO accountLogin(AccountLoginRequest login) {
         User user = this.getByAccount(login.getAccount());
         if (user == null || !encoder.matches(login.getPwd(), user.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public LoginToken smsLogin(SmsLoginRequest login) {
+    public LoginTokenVO smsLogin(SmsLoginRequest login) {
         User user = this.getByAccountRequired(login.getMobile());
         smsService.verifySmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile(), login.getSmsCode());
         return this.doLogin(user, login.getIp());
@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
      * @param ip   登陆ip
      * @return token信息
      */
-    private LoginToken doLogin(User user, String ip) {
+    private LoginTokenVO doLogin(User user, String ip) {
         RequestMessage request = RequestThreadLocal.get();
         AccessToken accessToken = cacheProxyService.createAccessToken(user, request.getChannel());
         LoginRecord record = LoginRecord.builder()
@@ -141,7 +141,7 @@ public class UserServiceImpl implements UserService {
                 .softwareVersion(request.getVersion())
                 .build();
         taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
-        return LoginToken.builder().accessKey(accessToken.getAccessKey()).accessToken(accessToken.getAccessToken()).build();
+        return LoginTokenVO.builder().signKey(accessToken.getSignKey()).accessToken(accessToken.getAccessToken()).build();
     }
 
 
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginToken registerByMobile(RegisterUserRequest request) {
+    public LoginTokenVO registerByMobile(RegisterUserRequest request) {
         this.registerRedoVerify(request.getMobile());
         smsService.verifySmsCode(SmsTypeConstant.REGISTER_SMS, request.getMobile(), request.getSmsCode());
         UserRegister register = DataUtil.copy(request, UserRegister.class);

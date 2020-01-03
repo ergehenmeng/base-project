@@ -32,15 +32,12 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
         String deviceBrand = request.getHeader(AppHeader.DEVICE_BRAND);
         String deviceModel = request.getHeader(AppHeader.DEVICE_MODEL);
         String accessToken = request.getHeader(AppHeader.ACCESS_TOKEN);
-        String accessKey = request.getHeader(AppHeader.ACCESS_KEY);
-
         if (checkHeaderLength(channel)
                 || checkHeaderLength(version)
                 || checkHeaderLength(osVersion)
                 || checkHeaderLength(deviceBrand)
                 || checkHeaderLength(deviceModel)
-                || checkHeaderLength(accessToken)
-                || checkHeaderLength(accessKey)) {
+                || checkHeaderLength(accessToken)) {
             //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             throw new RequestException(ErrorCode.REQUEST_PARAM_ILLEGAL);
         }
@@ -50,7 +47,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
         message.setOsVersion(osVersion);
         message.setDeviceBrand(deviceBrand);
         message.setDeviceModel(deviceModel);
-        message.setAccessKey(accessKey);
         message.setAccessToken(accessToken);
         return true;
     }

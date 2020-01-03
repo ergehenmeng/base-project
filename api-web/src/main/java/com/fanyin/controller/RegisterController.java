@@ -3,7 +3,7 @@ package com.fanyin.controller;
 import com.fanyin.model.dto.register.RegisterSendSmsRequest;
 import com.fanyin.model.dto.register.RegisterUserRequest;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.model.vo.login.LoginToken;
+import com.fanyin.model.vo.login.LoginTokenVO;
 import com.fanyin.service.user.UserService;
 import com.fanyin.utils.IpUtil;
 import io.swagger.annotations.Api;
@@ -42,7 +42,7 @@ public class RegisterController extends AbstractController {
      */
     @PostMapping("/register/user")
     @ApiOperation("短信注册用户")
-    public LoginToken user(HttpServletRequest servletRequest, RegisterUserRequest request) {
+    public LoginTokenVO user(HttpServletRequest servletRequest, RegisterUserRequest request) {
         request.setChannel(super.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));
         return userService.registerByMobile(request);

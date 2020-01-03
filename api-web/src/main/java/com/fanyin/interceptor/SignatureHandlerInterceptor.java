@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 签名验证 md5(accessKey + Base64(json) + timestamp) 仅在登陆后才有效
+ * 签名验证 md5(signKey + Base64(json) + timestamp) 仅在登陆后才有效
  *
  * @author 二哥很猛
  * @date 2019/7/4 14:23
@@ -49,7 +49,7 @@ public class SignatureHandlerInterceptor extends HandlerInterceptorAdapter {
             RequestMessage message = RequestThreadLocal.get();
             String requestBody = this.getRequestBody(request);
             //签名处理
-            String sign = Md5Util.md5(message.getAccessKey() + BaseEncoding.base64().encode(requestBody.getBytes(SystemConstant.CHARSET)) + timestamp);
+            String sign = Md5Util.md5(message.getSignKey() + BaseEncoding.base64().encode(requestBody.getBytes(SystemConstant.CHARSET)) + timestamp);
             if (!signature.equals(sign)) {
                 throw new RequestException(ErrorCode.SIGNATURE_VERIFY_ERROR);
             }

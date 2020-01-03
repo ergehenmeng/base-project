@@ -46,7 +46,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
         registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(ssoHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 25);
-        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 20);
+        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 30);
     }
 
     @Override

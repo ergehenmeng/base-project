@@ -21,9 +21,9 @@ public class AccessToken implements Serializable {
     private static final long serialVersionUID = -539686478899884844L;
 
     /**
-     * accessKey 用于登陆签名
+     * 用于签名
      */
-    private String accessKey;
+    private String signKey;
 
     /**
      * token 保持登陆信息

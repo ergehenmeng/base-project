@@ -5,11 +5,10 @@
     * `Os-Version` 系统版本
     * `Device-Brand` 设备厂商
     * `Device-Model` 设备型号
-* 登陆请求头字段:
-    * `Access-Key` 登陆后由后台返回
+* 登陆后额外请求头字段:
     * `Access-Token` 登陆后由后台返回
-* 验签请求头字段:
-    * `Signature` 签名信息 MD5(appKey + Base64(json) + Timestamp) appKey由线下约定
+* 验签请求头字段(需登录后):
+    * `Signature` 签名信息 MD5(signKey + Base64(json) + Timestamp) signKey由登录后传递给前台
     * `Timestamp` 时间戳    
 * 如非特殊要求全部采用post请求
 * 普通接口`application/json`格式 

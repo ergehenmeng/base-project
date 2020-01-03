@@ -10,7 +10,7 @@ import com.fanyin.model.ext.AccessToken;
 public interface AccessTokenService {
 
     /**
-     * 根据accessKey查找token
+     * 根据accessToken查找token
      * @param accessToken token信息
      * @return token
      */

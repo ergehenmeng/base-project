@@ -18,15 +18,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel
-public class LoginToken implements Serializable {
+public class LoginTokenVO implements Serializable {
 
     private static final long serialVersionUID = 5945495590088977331L;
 
     /**
-     * accessKey
+     * signKey
      */
-    @ApiModelProperty("登陆accessKey")
-    private String accessKey;
+    @ApiModelProperty("签名signKey")
+    private String signKey;
 
     /**
      * token

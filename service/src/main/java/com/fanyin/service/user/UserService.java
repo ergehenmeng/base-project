@@ -2,12 +2,10 @@ package com.fanyin.service.user;
 
 import com.fanyin.dao.model.user.User;
 import com.fanyin.model.dto.login.AccountLoginRequest;
-import com.fanyin.model.dto.login.LoginSendSmsRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
-import com.fanyin.model.dto.register.RegisterSendSmsRequest;
 import com.fanyin.model.dto.register.RegisterUserRequest;
 import com.fanyin.model.ext.UserRegister;
-import com.fanyin.model.vo.login.LoginToken;
+import com.fanyin.model.vo.login.LoginTokenVO;
 
 /**
  * @author 二哥很猛
@@ -27,14 +25,14 @@ public interface UserService {
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
-    LoginToken accountLogin(AccountLoginRequest login);
+    LoginTokenVO accountLogin(AccountLoginRequest login);
 
     /**
      * 短信验证码+手机号登陆
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
-    LoginToken smsLogin(SmsLoginRequest login);
+    LoginTokenVO smsLogin(SmsLoginRequest login);
 
     /**
      * 根据账号查询用户信息
@@ -68,5 +66,5 @@ public interface UserService {
      * @param request 手机号及验证码信息
      * @return 注册后直接登陆
      */
-    LoginToken registerByMobile(RegisterUserRequest request);
+    LoginTokenVO registerByMobile(RegisterUserRequest request);
 }

@@ -5,7 +5,7 @@ import com.fanyin.model.dto.login.AccountLoginRequest;
 import com.fanyin.model.dto.login.LoginSendSmsRequest;
 import com.fanyin.model.dto.login.SmsLoginRequest;
 import com.fanyin.model.ext.RespBody;
-import com.fanyin.model.vo.login.LoginToken;
+import com.fanyin.model.vo.login.LoginTokenVO;
 import com.fanyin.service.user.UserService;
 import com.fanyin.utils.IpUtil;
 import io.swagger.annotations.Api;
@@ -46,7 +46,7 @@ public class LoginController extends AbstractController {
      */
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/by_sms")
-    public RespBody<LoginToken> bySms(SmsLoginRequest login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> bySms(SmsLoginRequest login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.smsLogin(login));
     }
@@ -57,7 +57,7 @@ public class LoginController extends AbstractController {
     @ApiOperation("手机或邮箱密码登陆")
     @PostMapping("/login/by_account")
     @SkipAccess
-    public RespBody<LoginToken> byAccount(AccountLoginRequest login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> byAccount(AccountLoginRequest login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.accountLogin(login));
     }

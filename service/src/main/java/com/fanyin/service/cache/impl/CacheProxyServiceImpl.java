@@ -55,9 +55,9 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Override
     public AccessToken createAccessToken(User user, String channel) {
-        String accessKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
-        String accessToken = encoder.encode(user.getId() + accessKey);
-        AccessToken token = AccessToken.builder().accessKey(accessKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
+        String signKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
+        String accessToken = encoder.encode(user.getId() + signKey);
+        AccessToken token = AccessToken.builder().signKey(signKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
         accessTokenService.saveByAccessToken(token);
         accessTokenService.saveByUserId(token.getUserId(), accessToken);
         return token;
