@@ -7,17 +7,17 @@ import org.springframework.scheduling.support.CronTrigger;
  * @author 二哥很猛
  * @date 2019/9/6 14:54
  */
-public class DynamicTriggerTask extends TriggerTask {
+public class CronTriggerTask extends TriggerTask {
 
     private String nid;
 
     private String cronExpression;
 
 
-    DynamicTriggerTask(String nid, String beanName, String cronExpression) {
-        super(new TaskRunnable(beanName, nid), new CronTrigger(cronExpression));
-        this.nid = nid;
-        this.cronExpression = cronExpression;
+    CronTriggerTask(CronTask config) {
+        super(new RunnableTask(config.getNid(), config.getBeanName()), new CronTrigger(config.getCronExpression()));
+        this.nid = config.getNid();
+        this.cronExpression = config.getCronExpression();
     }
 
     public String getNid() {
@@ -36,7 +36,7 @@ public class DynamicTriggerTask extends TriggerTask {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DynamicTriggerTask that = (DynamicTriggerTask) o;
+        CronTriggerTask that = (CronTriggerTask) o;
         return nid != null && nid.equals(that.nid);
     }
 
