@@ -4,8 +4,10 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.StringUtil;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.business.TaskConfig;
 import com.eghm.service.common.TaskConfigService;
+import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
@@ -37,6 +39,9 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
 
     @Autowired
     private TaskConfigService taskConfigService;
+
+    @Autowired
+    private SystemConfigApi systemConfigApi;
 
     private ScheduledTaskRegistrar scheduledTaskRegistrar;
 
@@ -148,7 +153,7 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
      */
     public void addTask(OnceTask task) {
         this.cancelTask();
-        task.setNid(task.getNid() + "-" + counter.getAndDecrement());
+        task.setNid(task.getNid() + "-" + counter.getAndIncrement());
         TaskScheduler scheduler = scheduledTaskRegistrar.getScheduler();
         OnceTriggerTask onceTriggerTask = new OnceTriggerTask(task);
         if (scheduler != null) {
@@ -163,10 +168,14 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
      */
     private void cancelTask() {
         Date now = DateUtil.getNow();
-        for (Map.Entry<String, OnceTriggerTask> entry : onceTaskMap.entrySet()) {
-            if(entry.getValue().shouldRemove(now)){
-                log.info("移除定时任务 nid:[{}]",entry.getKey());
-                ScheduledFuture<?> future = scheduledFutures.remove(entry.getKey());
+        int maxSurvivalTime = systemConfigApi.getInt(ConfigConstant.TASK_MAX_SURVIVAL_TIME);
+        Iterator<Map.Entry<String, OnceTriggerTask>> iterator = onceTaskMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, OnceTriggerTask> next = iterator.next();
+            if(next.getValue().shouldRemove(now, maxSurvivalTime)) {
+                log.info("移除定时任务 nid:[{}]", next.getKey());
+                iterator.remove();
+                ScheduledFuture<?> future = scheduledFutures.remove(next.getKey());
                 if (future != null){
                     future.cancel(false);
                 }

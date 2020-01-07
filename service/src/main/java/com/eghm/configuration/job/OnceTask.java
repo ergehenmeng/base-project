@@ -1,6 +1,9 @@
 package com.eghm.configuration.job;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -9,6 +12,9 @@ import java.util.Date;
  * @date 2020/1/6 18:36
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OnceTask {
 
     /**

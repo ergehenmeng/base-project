@@ -104,10 +104,15 @@ public class ConfigConstant {
     /**
      * 非注解缓存的默认过期时间
      */
-    public static final String CACHE_EXPIRE = "cache_expire:";
+    public static final String CACHE_EXPIRE = "cache_expire";
 
     /**
      * 登陆token过期时间
      */
-    public static final String TOKEN_EXPIRE = "token_expire:";
+    public static final String TOKEN_EXPIRE = "token_expire";
+
+    /**
+     * 针对只执行一次的任务最大存活时间
+     */
+    public static final String TASK_MAX_SURVIVAL_TIME = "task_max_survival_time";
 }

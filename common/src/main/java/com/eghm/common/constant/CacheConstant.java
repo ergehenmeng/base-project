@@ -24,14 +24,9 @@ public class CacheConstant {
     public static final String ASYNC_RESPONSE = "async_response:";
 
     /**
-     * 会话令牌缓存key前缀
+     * 用户登录token
      */
-    public static final String ACCESS_TOKEN = "access_token";
-
-    /**
-     * 用户基本信息缓存
-     */
-    public static final String USER = "user:";
+    public static final String ACCESS_TOKEN = "access_token:";
 
     /**
      * 同一类型短信发送间隔
@@ -78,8 +73,4 @@ public class CacheConstant {
      */
     public static final String BLACK_ROSTER = "black_roster";
 
-    /**
-     * 移动端页面标签
-     */
-    public static final String TAG_VIEW = "tag_view";
 }
