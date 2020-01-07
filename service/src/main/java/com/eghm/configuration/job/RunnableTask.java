@@ -15,7 +15,7 @@ import java.util.Date;
  * @date 2019/9/6 15:27
  */
 @Slf4j
-public class TaskRunnable implements Runnable {
+public class RunnableTask implements Runnable {
 
     /**
      * 具体业务实现
@@ -37,9 +37,9 @@ public class TaskRunnable implements Runnable {
      */
     private String nid;
 
-    TaskRunnable(String beanName, String nid) {
-        this.beanName = beanName;
+    RunnableTask(String nid, String beanName) {
         this.nid = nid;
+        this.beanName = beanName;
     }
 
     @Override

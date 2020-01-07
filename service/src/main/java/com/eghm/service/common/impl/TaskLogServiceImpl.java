@@ -8,6 +8,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2019/9/11 11:18
  */
 @Service("taskLogService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class TaskLogServiceImpl implements TaskLogService {
 
     @Autowired
@@ -27,6 +29,7 @@ public class TaskLogServiceImpl implements TaskLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public PageInfo<TaskLog> getByPage(TaskLogQueryRequest request) {
         PageHelper.startPage(request.getPage(), request.getPageSize());
         List<TaskLog> list = taskLogMapper.getList(request);
@@ -34,6 +37,7 @@ public class TaskLogServiceImpl implements TaskLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public TaskLog getErrorMsg(Integer id) {
         return taskLogMapper.getErrorMsg(id);
     }
