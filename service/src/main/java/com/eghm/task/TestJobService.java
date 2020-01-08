@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TestJobService implements Task {
 
-    @Autowired
+    @Autowired(required = false)
     private TaskConfiguration taskConfiguration;
 
     @Override

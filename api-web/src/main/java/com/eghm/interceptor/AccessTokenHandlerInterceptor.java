@@ -52,7 +52,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
             boolean accessFail = token != null && token.getChannel().equals(message.getChannel());
             if (accessFail) {
                 //用户确实已经登录 跳过不跳过无所谓了
-                accessTokenService.saveByAccessToken(token);
+                accessTokenService.cacheByAccessToken(token);
                 message.setUserId(token.getUserId());
                 message.setSignKey(token.getSignKey());
                 return;
