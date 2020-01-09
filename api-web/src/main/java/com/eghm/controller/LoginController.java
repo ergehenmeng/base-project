@@ -45,8 +45,8 @@ public class LoginController extends AbstractController {
      * 短信验证码登陆❷
      */
     @ApiOperation("短信验证码登陆")
-    @PostMapping("/login/by_sms")
-    public RespBody<LoginTokenVO> bySms(SmsLoginRequest login, HttpServletRequest request) {
+    @PostMapping("/login/mobile")
+    public RespBody<LoginTokenVO> mobile(SmsLoginRequest login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.smsLogin(login));
     }
@@ -55,9 +55,9 @@ public class LoginController extends AbstractController {
      * 邮箱或手机号密码登陆
      */
     @ApiOperation("手机或邮箱密码登陆")
-    @PostMapping("/login/by_account")
+    @PostMapping("/login/account")
     @SkipAccess
-    public RespBody<LoginTokenVO> byAccount(AccountLoginRequest login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> account(AccountLoginRequest login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.accountLogin(login));
     }
