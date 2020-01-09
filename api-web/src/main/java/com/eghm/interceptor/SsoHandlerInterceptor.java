@@ -43,6 +43,7 @@ public class SsoHandlerInterceptor extends HandlerInterceptorAdapter {
                 if (!accessToken.equals(message.getAccessToken())) {
                     throw new BusinessException(ErrorCode.MULTIPLE_CLIENT_LOGIN);
                 }
+                //重置缓存过期时间
                 accessTokenService.cacheByUserId(message.getUserId(),accessToken);
             }
         }
