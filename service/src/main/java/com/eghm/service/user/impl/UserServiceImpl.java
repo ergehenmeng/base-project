@@ -122,24 +122,20 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 移动端登陆系统
-     * 1.创建token
-     * 2.添加登陆日志
+     * 1.清除旧token信息
+     * 2.创建token
+     * 3.添加登陆日志
      *
      * @param user 用户id
      * @param ip   登陆ip
      * @return token信息
      */
     private LoginTokenVO doLogin(User user, String ip) {
+        //将原用户踢掉
+        this.offline(user.getId());
         RequestMessage request = RequestThreadLocal.get();
         AccessToken accessToken = accessTokenService.createAccessToken(user, request.getChannel());
-        LoginRecord record = LoginRecord.builder()
-                .channel(request.getChannel())
-                .ip(ip)
-                .deviceBrand(request.getDeviceBrand())
-                .deviceModel(request.getDeviceModel())
-                .userId(user.getId())
-                .softwareVersion(request.getVersion())
-                .build();
+        LoginRecord record = LoginRecord.builder().channel(request.getChannel()).ip(ip).deviceBrand(request.getDeviceBrand()).deviceModel(request.getDeviceModel()).userId(user.getId()).softwareVersion(request.getVersion()).build();
         taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
         return LoginTokenVO.builder().signKey(accessToken.getSignKey()).accessToken(accessToken.getAccessToken()).build();
     }
@@ -160,8 +156,9 @@ public class UserServiceImpl implements UserService {
         user.setId(userId);
         user.setState(state);
         userMapper.updateByPrimaryKeySelective(user);
-        //强制下线
-        this.forceOffline(user);
+        if (!user.getState()){
+            this.offline(user.getId());
+        }
     }
 
     @Override
@@ -208,16 +205,14 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 强制将用户踢下线
-     * @param user user信息
+     * @param userId 用户id
      */
-    private void forceOffline(User user){
-        if(!user.getState()){
-            String accessToken = accessTokenService.getByUserId(user.getId());
-            if(StringUtil.isBlank(accessToken)){
-                return;
-            }
-            accessTokenService.cleanAccessToken(accessToken);
-            accessTokenService.cleanUserId(user.getId());
+    private void offline(Integer userId){
+        String accessToken = accessTokenService.getByUserId(userId);
+        if(StringUtil.isBlank(accessToken)){
+            return;
         }
+        accessTokenService.cleanAccessToken(accessToken);
+        accessTokenService.cleanUserId(userId);
     }
 }
