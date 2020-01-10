@@ -27,8 +27,6 @@
     </parent>
 
     <properties>
-        <!--项目版本-->
-        <project-version>1.0-SNAPSHOT</project-version>
         <!--spring boot版本-->
         <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
         <!--项目编码-->
