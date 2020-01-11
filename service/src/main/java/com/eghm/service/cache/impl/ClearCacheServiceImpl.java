@@ -2,6 +2,8 @@ package com.eghm.service.cache.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.service.cache.ClearCacheService;
+import freemarker.template.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Service("clearCacheService")
 public class ClearCacheServiceImpl implements ClearCacheService {
 
+    @Autowired(required = false)
+    private Configuration configuration;
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYSTEM_CONFIG, allEntries = true)
@@ -38,5 +42,10 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     @Override
     @CacheEvict(cacheNames = CacheConstant.BLACK_ROSTER, allEntries = true)
     public void clearBlackRoster() {
+    }
+
+    @Override
+    public void clearFreemarkerTemplate() {
+        configuration.clearTemplateCache();
     }
 }

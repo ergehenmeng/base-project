@@ -30,5 +30,10 @@ public interface ClearCacheService {
      * 清除黑名单
      */
     void clearBlackRoster();
+
+    /**
+     * 清除freemarker模板
+     */
+    void clearFreemarkerTemplate();
 }
 
