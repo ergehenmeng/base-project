@@ -48,7 +48,7 @@ function loginFun() {
     $.post("/login",{mobile : mobile,password : md5(Base64.encode(password)),validCode : validCode},function(data){
         if (data.code === 200) {
             // 跳转前清空密码框
-            window.location.href = "/home";
+            window.location.href = "/main";
         } else {
             errorTip(data.msg);
             $validCode.val("");
@@ -86,7 +86,7 @@ function successAnimate(){
             $loginTips.html(text);
         },500);
         setTimeout(function(){
-            window.location.href = "/home";
+            window.location.href = "/main";
         },2000);
     });
 }

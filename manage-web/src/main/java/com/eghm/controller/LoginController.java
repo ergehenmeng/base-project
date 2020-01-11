@@ -35,7 +35,7 @@ public class LoginController extends AbstractController {
      *
      * @return home页面
      */
-    @GetMapping("/home")
+    @GetMapping("/main")
     public String home(Model model) {
         SystemOperator operator = getRequiredOperator();
         //导航菜单
@@ -48,7 +48,7 @@ public class LoginController extends AbstractController {
         }
         model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit", operator.getPwd().equals(operator.getInitPwd()));
-        return "home";
+        return "main/home";
     }
 
     /**
@@ -79,16 +79,16 @@ public class LoginController extends AbstractController {
      *
      * @return 页面
      */
-    @GetMapping("/home/change_password_page")
+    @GetMapping("/main/change_password_page")
     public String changePasswordPage() {
-        return "home/change_password_page";
+        return "main/change_password_page";
     }
 
     /**
      * 角色列表展示
      */
-    @GetMapping("/home/role_menu_page")
+    @GetMapping("/main/role_menu_page")
     public String roleMenuPage() {
-        return "home/role_menu_page";
+        return "main/role_menu_page";
     }
 }

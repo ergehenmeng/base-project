@@ -12,4 +12,4 @@
 	</div>
 </body>
 </html>
-<script src="/static/js/home/portal.js"></script>
+<script src="/static/js/main/portal.js"></script>

@@ -64,7 +64,7 @@ var changePwd = function(isClose){
         width : 400,
         height : 220,
         closable:isClose,
-        href : "/home/change_password_page",
+        href : "/main/change_password_page",
         buttons : [{
             text : '确定',
             handler : function() {
@@ -102,7 +102,7 @@ var logout = function(){
  * 菜单列表
  */
 var menuList = function(){
-    $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/home/role_menu_page");
+    $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/main/role_menu_page");
 };
 
 var lockScreen = function () {
@@ -111,7 +111,7 @@ var lockScreen = function () {
         width : 400,
         height : 140,
         closable:false,
-        href : "/home/lock_screen_page",
+        href : "/main/lock_screen_page",
         buttons : [{
             text : '确定',
             handler : function() {

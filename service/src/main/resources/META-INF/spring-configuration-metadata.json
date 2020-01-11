@@ -24,7 +24,7 @@
     {
       "sourceType": "com.eghm.configuration.ApplicationProperties",
       "name": "application.login-ignore-url",
-      "defaultValue": "/home;/portal;",
+      "defaultValue": "/main;/portal;",
       "description": "登陆后,需要忽略拦截的url",
       "type": "java.lang.String"
     },
