@@ -5,7 +5,9 @@ import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.common.exception.RequestException;
+import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.utils.DataUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +58,11 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         if (webRequest == null || parameter == null) {
             throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }
-
+        //注入RequestMessage对象
+        if (parameter.getParameterType().isAssignableFrom(RequestMessage.class)) {
+            return DataUtil.copy(RequestThreadLocal.get(), RequestMessage.class);
+        }
         HttpServletRequest request = ((ServletWebRequest) webRequest).getRequest();
-
         Object args = jsonFormat(request, parameter.getParameterType());
         WebDataBinder binder = binderFactory.createBinder(webRequest, args, parameter.getParameterType().getName());
         binder.validate(args);

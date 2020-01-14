@@ -1,5 +1,8 @@
 package com.eghm.model.ext;
 
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/22 14:22
@@ -29,6 +32,26 @@ public class RequestThreadLocal {
      */
     public static String getChannel(){
         return get().getChannel();
+    }
+
+    /**
+     * 获取用户id,如果未登陆则为零
+     */
+    public static int getUserId() {
+        return getUserId(false);
+    }
+
+    /**
+     * 获取用户id
+     * @param need 用户是否需要登陆,如果必须登陆登陆,用户id不存在则抛异常
+     * @return 用户id
+     */
+    public static int getUserId(boolean need) {
+        int userId = get().getUserId();
+        if (need && userId == 0) {
+            throw new BusinessException(ErrorCode.USER_LOGIN_TIMEOUT);
+        }
+        return userId;
     }
 
     /**

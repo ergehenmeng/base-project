@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api("用户相关接口")
-public class UserController extends AbstractController {
+public class UserController {
 
     @PostMapping("/user/set_password")
     public RespBody setPassword(){

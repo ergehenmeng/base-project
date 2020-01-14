@@ -60,7 +60,6 @@ public class RequestMessage implements Serializable {
      */
     private int userId;
 
-
     /**
      * http请求内容,json格式
      */

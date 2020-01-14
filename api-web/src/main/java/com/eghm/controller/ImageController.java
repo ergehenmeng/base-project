@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @Api(tags = "图片上传")
-public class ImageController extends AbstractController {
+public class ImageController {
 
     @Autowired
     private FileService fileService;

@@ -1,6 +1,7 @@
 package com.eghm.controller;
 
 import com.eghm.model.dto.business.feedback.FeedbackAddRequest;
+import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.common.FeedbackService;
 import io.swagger.annotations.Api;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "问题反馈")
 @RequestMapping("/api")
-public class FeedbackController extends AbstractController {
+public class FeedbackController{
 
     @Autowired
     private FeedbackService feedbackService;
@@ -28,8 +29,8 @@ public class FeedbackController extends AbstractController {
     @PostMapping("/user/feedback")
     @ApiOperation("保存反馈信息")
     public RespBody feedback(FeedbackAddRequest request) {
-        request.setSystemVersion(super.getOsVersion());
-        request.setVersion(super.getVersion());
+        request.setSystemVersion(RequestThreadLocal.getOsVersion());
+        request.setVersion(RequestThreadLocal.getVersion());
         feedbackService.addFeedback(request);
         return RespBody.getInstance();
     }

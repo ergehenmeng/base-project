@@ -24,4 +24,5 @@
 * 默认所有的接口均需要登录才能访问,如果某个接口不需要登陆校验则方法上添加`@SkipAccess`
 * 所有接口的请求参数均为映射为对象,如果不需要映射则方法上添加`@SkipDataBinder`
 * 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加`@ClientType`
+* 后台获取用户id方法`RequestThreadLocal.getUser()`,同理获取其他相关属性也可以通过该类,也可在`RequestMapping`所在的方法上声明一个RequestMessage对象,该对象会自动被注入
 

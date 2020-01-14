@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api")
 @Api(tags = "登陆,找回密码功能")
-public class LoginController extends AbstractController {
+public class LoginController {
 
     @Autowired
     private UserService userService;
