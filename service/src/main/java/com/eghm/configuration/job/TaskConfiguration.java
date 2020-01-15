@@ -101,24 +101,19 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
      * @param taskList 新的定时任务配置列表
      */
     private void doRefreshTask(List<CronTriggerTask> taskList) {
-        for (CronTriggerTask task : taskList) {
-            if (StringUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())) {
-                log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getCronExpression());
-                throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
-            }
-        }
+        //cron校验
+        this.verifyCronExpression(taskList);
+        //移除不需要运行的任务
+        this.removeCronTask(taskList);
+        //添加新的任务
+        this.addCronTask(taskList);
+    }
 
-        boolean isEmpty = taskList.isEmpty();
-        Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
-            //将所有不在指定任务列表的中已经在运行的任务全部取消,注意该移除不包含一次执行的定时任务
-            boolean shouldCancel = (isEmpty || taskList.stream().map(CronTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) && !onceTaskMap.containsKey(entry.getKey());
-            if (shouldCancel) {
-                entry.getValue().cancel(false);
-                iterator.remove();
-            }
-        }
+    /**
+     * 添加cron定时任务
+     * @param taskList 待添加的定时任务列表
+     */
+    private void addCronTask(List<CronTriggerTask> taskList) {
         for (CronTriggerTask task : taskList) {
             if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getCronExpression().equals(task.getCronExpression())) {
                 log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
@@ -134,6 +129,37 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
                 scheduledFutures.put(task.getNid(), schedule);
             }
             cronTaskMap.put(task.getNid(), task);
+        }
+    }
+
+    /**
+     * 移除不在指定任务列表的中其他任务
+     * @param taskList 指定的任务列表
+     */
+    private void removeCronTask(List<CronTriggerTask> taskList) {
+        boolean isEmpty = taskList.isEmpty();
+        Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
+            //将所有不在指定任务列表的中已经在运行的任务全部取消,注意该移除不包含一次执行的定时任务
+            boolean shouldCancel = (isEmpty || taskList.stream().map(CronTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) && !onceTaskMap.containsKey(entry.getKey());
+            if (shouldCancel) {
+                entry.getValue().cancel(false);
+                iterator.remove();
+            }
+        }
+    }
+
+    /**
+     * 校验任务的的cron表达式是否正确
+     * @param taskList cron任务列表
+     */
+    private void verifyCronExpression(List<CronTriggerTask> taskList) {
+        for (CronTriggerTask task : taskList) {
+            if (StringUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())) {
+                log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getCronExpression());
+                throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
+            }
         }
     }
 
