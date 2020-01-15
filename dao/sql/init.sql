@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2019-11-22 18:03:43
+Date: 2020-01-15 15:56:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,10 +20,10 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(50) DEFAULT NULL COMMENT '标题信息',
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
-  `client_type` tinyint(1) unsigned DEFAULT '0' COMMENT '客户端类型 0:PC 1:APP',
+  `client_type` char(20) DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
   `img_url` varchar(200) NOT NULL COMMENT '轮播图片地址',
   `turn_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
   `sort` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(大<->小) 最大的在最前面',
@@ -38,11 +38,12 @@ CREATE TABLE `banner` (
   KEY `type_client_type_index` (`classify`,`client_type`) USING BTREE COMMENT '组合索引',
   KEY `type_index` (`classify`) USING BTREE,
   KEY `client_type_index` (`classify`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='轮播图维护表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='轮播图维护表';
 
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
+INSERT INTO `banner` VALUES ('2', '上线测试', '1', 'PC', '/upload/image/20191127/064b581a-70c5-4b6f-afdd-8ab20f3a216e.png', 'https://github.com/ergehenmeng/base-project/blob/0.1.0/api-web/src/main/java/com/fanyin/interceptor/IpHandlerInterceptor.java', '1', '2019-11-12 16:00:00', '2019-12-21 16:00:00', '', '2019-11-27 15:12:56', '2019-11-27 18:13:38', '\0', '测试编辑');
 
 -- ----------------------------
 -- Table structure for black_roster
@@ -60,6 +61,44 @@ CREATE TABLE `black_roster` (
 
 -- ----------------------------
 -- Records of black_roster
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for comment_log
+-- ----------------------------
+DROP TABLE IF EXISTS `comment_log`;
+CREATE TABLE `comment_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tag_id` int(10) unsigned DEFAULT NULL COMMENT '文章id',
+  `parent_id` int(10) unsigned DEFAULT '0',
+  `user_id` int(11) unsigned DEFAULT NULL COMMENT '评论人',
+  `content` varchar(200) NOT NULL COMMENT '评论内容',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '评论时间',
+  `state` tinyint(1) DEFAULT '0' COMMENT '状态 0:待审核 1:已审核 2:已删除',
+  `remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='评论记录表';
+
+-- ----------------------------
+-- Records of comment_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for exception_log
+-- ----------------------------
+DROP TABLE IF EXISTS `exception_log`;
+CREATE TABLE `exception_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `url` char(50) DEFAULT NULL COMMENT '访问链接',
+  `request_params` varchar(1000) DEFAULT NULL COMMENT '请求参数(json)',
+  `error_msg` text COMMENT '错误日志',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  KEY `url_index` (`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统异常记录表';
+
+-- ----------------------------
+-- Records of exception_log
 -- ----------------------------
 
 -- ----------------------------
@@ -125,11 +164,13 @@ CREATE TABLE `image_log` (
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='图片上传记录';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='图片上传记录';
 
 -- ----------------------------
 -- Records of image_log
 -- ----------------------------
+INSERT INTO `image_log` VALUES ('1', '123123', '2', '/upload/image/20191122/7a7af978-0a23-4935-9bee-78af57ffa09f.png', '72843', '', '', '2019-11-22 18:25:35', '2020-01-03 15:33:33');
+INSERT INTO `image_log` VALUES ('2', '我就是个测试项', '1', '/resource/image/20200103/6326a167-5558-448b-bf3d-e03b2bfe8a2b.png', '159663', 'ccc ', '\0', '2020-01-03 15:24:26', '2020-01-03 15:24:26');
 
 -- ----------------------------
 -- Table structure for login_log
@@ -159,18 +200,18 @@ CREATE TABLE `push_template` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(50) DEFAULT NULL COMMENT '消息名称',
   `nid` char(50) DEFAULT NULL COMMENT '消息nid',
-  `state` bit(1) DEFAULT b'1' COMMENT '状态 0:关闭 1:开启',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '消息类型',
-  `content` varchar(1000) DEFAULT NULL COMMENT '消息内容',
+  `state` tinyint(1) DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
+  `content` varchar(200) DEFAULT NULL COMMENT '消息内容',
+  `tag` char(50) DEFAULT NULL COMMENT '标签(消息推送跳转页面,与移动端约定好)',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `tag` char(50) DEFAULT NULL COMMENT '后置处理标示符(消息推送跳转页面)',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='推送消息模板表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='推送消息模板表';
 
 -- ----------------------------
 -- Records of push_template
 -- ----------------------------
+INSERT INTO `push_template` VALUES ('1', '降价通知', 'reduced_price', '1', '您关注的商品{0}降价啦，赶紧加入购物车吧', 'home', '2019-11-27 14:18:21', '代码使用');
 
 -- ----------------------------
 -- Table structure for sms_log
@@ -182,14 +223,15 @@ CREATE TABLE `sms_log` (
   `mobile` char(11) DEFAULT NULL COMMENT '手机号',
   `content` varchar(100) DEFAULT NULL COMMENT '短信内容',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '发送时间',
-  `state` tinyint(1) unsigned DEFAULT NULL COMMENT '发送状态 0:发送中 1:已发送 2:发送失败',
+  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '发送状态 0:发送中 1:已发送 2:发送失败',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `mobile_index` (`mobile`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='短信日志记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='短信日志记录表';
 
 -- ----------------------------
 -- Records of sms_log
 -- ----------------------------
+INSERT INTO `sms_log` VALUES ('1', 'login_sms', '13136110000', '您正在登陆EGHM平台，短信验证码：9527。如非本人操作，请忽略此短信', '2019-11-25 11:50:10', '1');
 
 -- ----------------------------
 -- Table structure for sms_template
@@ -207,7 +249,7 @@ CREATE TABLE `sms_template` (
 -- ----------------------------
 -- Records of sms_template
 -- ----------------------------
-INSERT INTO `sms_template` VALUES ('1', 'login_sms', '您正在登陆EGHM平台，短信验证码：{0}。否则请忽略此短信', '2019-08-21 15:23:16', '短信登陆发送验证码');
+INSERT INTO `sms_template` VALUES ('1', 'login_sms', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2019-11-25 11:52:33', '短信登陆发送验证码');
 
 -- ----------------------------
 -- Table structure for system_address
@@ -3812,13 +3854,11 @@ CREATE TABLE `system_cache` (
 -- ----------------------------
 -- Records of system_cache
 -- ----------------------------
-INSERT INTO `system_cache` VALUES ('1', '系统参数缓存', 'system_config', '1', '2019-11-22 07:15:05', '全局系统参数缓存(查询缓存)');
-INSERT INTO `system_cache` VALUES ('2', '数据字典缓存', 'system_dict', '1', '2019-08-23 08:10:27', '全局数据字典缓存(查询缓存)');
-INSERT INTO `system_cache` VALUES ('4', '用户登陆token缓存', 'access_token', '1', '2019-08-20 08:39:20', '登陆信息(保存缓存)');
-INSERT INTO `system_cache` VALUES ('6', '异步结果缓存', 'async_response', '1', '2019-08-20 08:39:20', '异步信息(保存缓存)');
-INSERT INTO `system_cache` VALUES ('7', '短信模板缓存', 'sms_template', '1', '2019-08-29 10:55:24', '全局短信模板缓存(查询缓存)');
-INSERT INTO `system_cache` VALUES ('8', '推送模板缓存', 'push_template', '1', '2019-08-30 06:02:21', '全局消息推送模板缓存(查询缓存)');
-INSERT INTO `system_cache` VALUES ('9', '黑名单缓存', 'black_roster', '1', '2019-09-09 14:19:29', '黑名单信息(查询缓存)');
+INSERT INTO `system_cache` VALUES ('1', '系统参数缓存', 'system_config', '1', '2020-01-03 08:03:36', '全局系统参数缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('2', '数据字典缓存', 'system_dict', '1', '2020-01-03 08:03:36', '全局数据字典缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('7', '短信模板缓存', 'sms_template', '1', '2020-01-03 08:03:36', '全局短信模板缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('8', '推送模板缓存', 'push_template', '1', '2020-01-03 08:03:36', '全局消息推送模板缓存(查询缓存)');
+INSERT INTO `system_cache` VALUES ('9', '黑名单缓存', 'black_roster', '1', '2020-01-03 08:03:36', '黑名单信息(查询缓存)');
 
 -- ----------------------------
 -- Table structure for system_config
@@ -3837,7 +3877,7 @@ CREATE TABLE `system_config` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `nid_index` (`nid`) USING BTREE,
   KEY `type_index` (`classify`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
 
 -- ----------------------------
 -- Records of system_config
@@ -3874,6 +3914,7 @@ INSERT INTO `system_config` VALUES ('33', 'batch_max_file_size', '批量文件�
 INSERT INTO `system_config` VALUES ('34', 'default_upload_folder', '默认文件上传的文件夹名称', 'image', '1', '\0', null, '2019-11-15 16:51:43', '2019-11-15 16:56:59');
 INSERT INTO `system_config` VALUES ('35', 'signature_verification', '接口签名验证', '0', '1', '\0', '是否开启接口签名验证 0:关闭 1:开启', '2019-11-21 11:19:29', '2019-11-21 16:07:38');
 INSERT INTO `system_config` VALUES ('36', 'android_max_size', '安卓软件包最大限制', '104857600', '1', '\0', '安卓软件包大小限制 单位byte 最大100M', '2019-11-22 17:05:36', '2019-11-22 17:09:37');
+INSERT INTO `system_config` VALUES ('37', 'analog_sms_code', '模拟短信验证码', '9527', '1', '\0', '短信功能未开启时,所有验证码短信都以此验证码为准', '2019-11-25 11:54:05', '2019-11-25 11:54:44');
 
 -- ----------------------------
 -- Table structure for system_department
@@ -3914,7 +3955,7 @@ CREATE TABLE `system_dict` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='系统数据字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='系统数据字典表';
 
 -- ----------------------------
 -- Records of system_dict
@@ -3925,6 +3966,25 @@ INSERT INTO `system_dict` VALUES ('3', '图片分类', 'image_classify', '3', 'h
 INSERT INTO `system_dict` VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', '\0', '', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
 INSERT INTO `system_dict` VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', '\0', '', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
 INSERT INTO `system_dict` VALUES ('6', '轮播图类型', 'banner_classify', '1', '首页轮播', '\0', '\0', '2019-08-23 16:09:53', '2019-08-30 11:46:03', null);
+INSERT INTO `system_dict` VALUES ('8', '公告分类', 'notice_classify', '1', '科普', '\0', '\0', '2019-11-25 16:13:43', '2019-11-27 11:39:52', null);
+INSERT INTO `system_dict` VALUES ('9', '公告分类', 'notice_classify', '2', '通知', '\0', '\0', '2019-11-25 16:14:10', '2019-11-27 11:39:54', null);
+
+-- ----------------------------
+-- Table structure for system_holiday
+-- ----------------------------
+DROP TABLE IF EXISTS `system_holiday`;
+CREATE TABLE `system_holiday` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `calendar` date DEFAULT NULL COMMENT '日期',
+  `date_month` char(10) DEFAULT NULL COMMENT '月份 yyyy-MM',
+  `weekday` tinyint(1) unsigned DEFAULT NULL COMMENT '星期几',
+  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '是否为节假日 0:否 1:是',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统节假日表';
+
+-- ----------------------------
+-- Records of system_holiday
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for system_menu
@@ -3946,7 +4006,7 @@ CREATE TABLE `system_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
   KEY `pid_index` (`pid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1070 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=1080 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of system_menu
@@ -3960,15 +4020,15 @@ INSERT INTO `system_menu` VALUES ('1010', '图片管理', 'imageManage', '1001',
 INSERT INTO `system_menu` VALUES ('1011', '数据字典', 'dictManage', '1001', '/system/dict/manage_page', null, '2', '6', '\0', null, '2019-01-11 17:51:31', '2019-09-15 12:21:30');
 INSERT INTO `system_menu` VALUES ('1012', '缓存管理', 'cacheManage', '1001', '/system/cache/manage_page', '', '2', '7', '\0', null, '2019-01-14 15:27:58', '2019-09-15 12:21:31');
 INSERT INTO `system_menu` VALUES ('1013', '操作日志', 'operationManage', '1001', '/system/operation/manage_page', null, '2', '8', '\0', null, '2019-01-16 14:31:01', '2019-09-15 12:21:31');
-INSERT INTO `system_menu` VALUES ('1014', '部门管理', 'departmentManage', '1001', '/system/department/manage_page', null, '2', '9', '\0', null, '2019-01-17 18:03:54', '2019-09-15 12:21:39');
+INSERT INTO `system_menu` VALUES ('1014', '部门管理', 'departmentManage', '1001', '/system/department/manage_page', '', '2', '9', '\0', '暂未实现', '2019-01-17 18:03:54', '2019-11-27 11:34:08');
 INSERT INTO `system_menu` VALUES ('1015', '新增', 'menuManageAdd', '1004', '/system/menu/add', '/system/menu/add_page', '3', '2', '\0', '按钮权限', '2019-01-22 14:16:11', '2019-09-15 12:21:52');
 INSERT INTO `system_menu` VALUES ('1016', '基础', 'menuManageBase', '1004', '/system/menu/list_page', '', '3', '1', '\0', '基础必选(相当于查询)', '2019-01-22 14:19:01', '2019-09-15 12:21:53');
 INSERT INTO `system_menu` VALUES ('1017', '运营管理', 'businessManage', '0', '', '', '1', '2', '\0', '', '2019-08-23 11:54:33', '2019-09-15 12:21:23');
 INSERT INTO `system_menu` VALUES ('1018', '轮播管理', 'bannerManage', '1017', '/business/banner/manage_page', '', '2', '1', '\0', '', '2019-08-23 11:55:35', '2019-11-22 11:23:10');
-INSERT INTO `system_menu` VALUES ('1019', '公告管理', 'noticeManage', '1017', '/business/notice/manage_page', '/business/notice/list_page', '2', '2', '\0', '', '2019-08-23 15:09:57', '2019-11-22 11:23:05');
+INSERT INTO `system_menu` VALUES ('1019', '公告管理', 'noticeManage', '1017', '/business/notice/manage_page', '', '2', '2', '\0', '', '2019-08-23 15:09:57', '2019-11-25 15:54:22');
 INSERT INTO `system_menu` VALUES ('1020', '短信日志', 'smsLogManage', '1017', '/business/sms_log/manage_page', '/business/sms_log/list_page', '2', '3', '\0', '', '2019-08-23 15:12:01', '2019-09-15 12:22:02');
-INSERT INTO `system_menu` VALUES ('1021', '短信模板', 'smsTemplate', '1017', '/business/sms_template/manage_page', '/business/sms_template/list_page', '2', '4', '\0', '', '2019-08-23 15:13:56', '2019-09-15 13:03:47');
-INSERT INTO `system_menu` VALUES ('1022', '版本管理', 'versionManage', '1017', '/business/version/manage_page', '/business/version/list_page', '2', '5', '\0', '', '2019-08-23 15:16:59', '2019-09-15 12:22:05');
+INSERT INTO `system_menu` VALUES ('1021', '短信模板', 'smsTemplate', '1017', '/business/sms_template/manage_page', '', '2', '4', '\0', '', '2019-08-23 15:13:56', '2019-11-25 15:54:42');
+INSERT INTO `system_menu` VALUES ('1022', '版本管理', 'versionManage', '1017', '/business/version/manage_page', '', '2', '5', '\0', '', '2019-08-23 15:16:59', '2019-11-25 15:54:51');
 INSERT INTO `system_menu` VALUES ('1025', '任务配置', 'taskConfig', '1017', '/business/task/manage_page', '', '2', '10', '\0', '', '2019-09-09 15:36:39', '2019-09-15 12:39:49');
 INSERT INTO `system_menu` VALUES ('1026', '编辑', 'menuManageEdit', '1004', '/system/menu/edit', '/system/menu/edit_page', '3', '3', '\0', '', '2019-09-09 15:59:57', '2019-09-15 12:22:49');
 INSERT INTO `system_menu` VALUES ('1027', '删除', 'menuManageDelete', '1004', '/system/menu/delete', '', '3', '4', '\0', '', '2019-09-09 16:01:28', '2019-09-15 12:22:49');
@@ -4004,16 +4064,25 @@ INSERT INTO `system_menu` VALUES ('1056', '任务日志', 'taskLog', '1017', '/b
 INSERT INTO `system_menu` VALUES ('1057', '基础', 'taskConfigBase', '1025', '/business/task/list_page', '', '3', '1', '\0', '', '2019-09-15 12:41:57', '2019-09-15 12:41:57');
 INSERT INTO `system_menu` VALUES ('1058', '编辑', 'taskConfigEdit', '1025', '/business/task/edit_page', '/business/task/edit', '3', '2', '\0', '', '2019-09-15 12:57:40', '2019-09-15 13:01:50');
 INSERT INTO `system_menu` VALUES ('1059', '基础', 'smsTemplateBase', '1021', '/business/sms_template/list_page', '', '3', '1', '\0', '', '2019-09-15 13:04:45', '2019-09-15 13:04:45');
-INSERT INTO `system_menu` VALUES ('1060', '编辑', 'smsTemplateEdit', '1021', '/business/sms_template/edit_page', '/business/sms_template/edit', '3', '2', '\0', '', '2019-09-15 13:05:38', '2019-09-15 13:05:38');
+INSERT INTO `system_menu` VALUES ('1060', '编辑', 'smsTemplateEdit', '1021', '/business/sms_template/edit', '', '3', '2', '\0', '', '2019-09-15 13:05:38', '2019-11-25 15:55:14');
 INSERT INTO `system_menu` VALUES ('1061', '基础', 'versionManageBase', '1022', '/business/version/list_page', '', '3', '1', '\0', '', '2019-09-15 13:06:36', '2019-09-15 13:06:36');
 INSERT INTO `system_menu` VALUES ('1062', '添加', 'versionManageAdd', '1022', '/business/version/add_page', '/business/version/add', '3', '2', '\0', '', '2019-09-15 13:07:18', '2019-09-15 13:07:18');
-INSERT INTO `system_menu` VALUES ('1063', '编辑', 'versionManageEdit', '1022', '/business/version/edit_page', '/business/version/edit', '3', '3', '\0', '', '2019-09-15 13:07:51', '2019-09-15 13:07:51');
+INSERT INTO `system_menu` VALUES ('1063', '编辑', 'versionManageEdit', '1022', '/business/version/edit_page', '/business/version/edit', '3', '3', '\0', '暂未实现前端页面', '2019-09-15 13:07:51', '2019-11-26 16:59:27');
 INSERT INTO `system_menu` VALUES ('1064', '上架', 'versionManagePut', '1022', '/business/version/put_away', '', '3', '4', '\0', '', '2019-09-15 13:08:32', '2019-09-15 13:08:32');
 INSERT INTO `system_menu` VALUES ('1065', '下架', 'versionManageDown', '1022', '/business/version/sold_out', '', '3', '5', '\0', '', '2019-09-15 13:09:11', '2019-09-15 13:09:11');
 INSERT INTO `system_menu` VALUES ('1066', '删除', 'versionManageDelete', '1022', '/business/version/delete', '', '3', '6', '\0', '', '2019-09-15 13:09:34', '2019-09-15 13:09:34');
-INSERT INTO `system_menu` VALUES ('1067', '刷新', 'taskManageRefreseh', '1025', '/business/task/refresh', '', '3', '3', '\0', '刷新任务', '2019-11-22 13:59:52', '2019-11-22 13:59:52');
+INSERT INTO `system_menu` VALUES ('1067', '刷新', 'taskConfigRefreseh', '1025', '/business/task/refresh', '', '3', '3', '\0', '刷新任务', '2019-11-22 13:59:52', '2019-11-25 11:37:39');
 INSERT INTO `system_menu` VALUES ('1068', '基础', 'taskLogBase', '1056', '/business/task_log/list_page', '', '3', '1', '\0', '', '2019-11-22 14:01:12', '2019-11-22 14:01:12');
 INSERT INTO `system_menu` VALUES ('1069', '错误', 'taskLogError', '1056', '/business/task_log/error_msg', '', '3', '2', '\0', '日志错误详细信息', '2019-11-22 14:02:14', '2019-11-22 14:02:14');
+INSERT INTO `system_menu` VALUES ('1071', '基础', 'noticeManageBase', '1019', '/business/notice/list_page', '/business/notice/preview', '3', '1', '\0', '', '2019-11-25 15:51:19', '2019-11-26 14:58:05');
+INSERT INTO `system_menu` VALUES ('1072', '编辑', 'noticeManageEdit', '1019', '/business/notice/edit', '', '3', '3', '\0', '', '2019-11-25 15:51:56', '2019-11-25 16:09:30');
+INSERT INTO `system_menu` VALUES ('1073', '发布', 'noticeManagePublish', '1019', '/business/notice/publish', '', '3', '4', '\0', '', '2019-11-25 15:52:22', '2019-11-25 16:09:39');
+INSERT INTO `system_menu` VALUES ('1074', '取消', 'noticeManageCancel', '1019', '/business/notice/cancel_publish', '', '3', '5', '\0', '', '2019-11-25 15:52:53', '2019-11-25 16:09:51');
+INSERT INTO `system_menu` VALUES ('1075', '删除', 'noticeManageDelete', '1019', '/business/notice/delete', '', '3', '6', '\0', '', '2019-11-25 15:53:31', '2019-11-25 16:10:04');
+INSERT INTO `system_menu` VALUES ('1076', '添加', 'noticeManageAdd', '1019', '/business/notice/add', '', '3', '2', '\0', '', '2019-11-25 16:09:16', '2019-11-25 16:10:16');
+INSERT INTO `system_menu` VALUES ('1077', '推送模板', 'pushTemplate', '1017', '/business/push_template/manage_page', '', '2', '30', '\0', '', '2019-11-27 09:53:11', '2019-11-27 09:53:28');
+INSERT INTO `system_menu` VALUES ('1078', '基础', 'pushTemplateBase', '1077', '/business/push_template/list_page', '', '3', '1', '\0', '', '2019-11-27 14:20:12', '2019-11-27 14:20:12');
+INSERT INTO `system_menu` VALUES ('1079', '编辑', 'pushTemplateEdit', '1077', '/business/push_template/edit', '', '3', '2', '\0', '', '2019-11-27 14:20:38', '2019-11-27 14:20:38');
 
 -- ----------------------------
 -- Table structure for system_notice
@@ -4024,15 +4093,26 @@ CREATE TABLE `system_notice` (
   `title` char(100) NOT NULL COMMENT '公告标题',
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表notice_classify)',
   `content` text COMMENT '公告内容(富文本)',
+  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '是否发布 0:未发布 1:已发布',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统公告信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='系统公告信息表';
 
 -- ----------------------------
 -- Records of system_notice
 -- ----------------------------
+INSERT INTO `system_notice` VALUES ('2', '是电风扇', '1', '<p>阿萨大大奥德赛</p>', '0', '', '2019-11-25 19:13:13', '2019-11-26 14:38:09');
+INSERT INTO `system_notice` VALUES ('3', '杀敌发所多敷', '1', '', '0', '', '2019-11-25 19:14:24', '2019-11-26 14:38:06');
+INSERT INTO `system_notice` VALUES ('4', '水电费水电费试试', '1', '', '0', '', '2019-11-25 19:15:11', '2019-11-26 14:38:01');
+INSERT INTO `system_notice` VALUES ('5', '是对方是否', '1', '<p>是电风扇</p>', '0', '', '2019-11-25 19:15:49', '2019-11-26 14:37:57');
+INSERT INTO `system_notice` VALUES ('6', '是放水电费水电费', '1', '', '1', '', '2019-11-25 19:16:11', '2019-11-26 14:37:55');
+INSERT INTO `system_notice` VALUES ('7', '水电费水电费', '1', '<p><br></p>', '0', '', '2019-11-26 11:44:15', '2019-11-26 14:38:03');
+INSERT INTO `system_notice` VALUES ('8', '是对方信息', '1', '<p><br></p>', '0', '', '2019-11-26 11:45:05', '2019-11-26 14:38:11');
+INSERT INTO `system_notice` VALUES ('9', '测试公告', '1', '<p>沙发大水电费水电费收水电费想<span style=\"text-decoration-line: line-through;\">信息水电费</span>水电费水电费sdf水电费水电费水电费水电费xxx<a href=\"https://www.baidu.com\" target=\"_blank\">二哥很猛</a>&nbsp;sdf&nbsp;<span style=\"font-weight: bold;\">sdf ssdf&nbsp;</span></p>', '0', '', '2019-11-26 14:18:13', '2019-11-26 14:38:14');
+INSERT INTO `system_notice` VALUES ('10', '编辑公告', '1', '<p>收水电费水电费<span style=\"font-weight: bold;\">水电费</span>水电费水电费<span style=\"font-style: italic;\">水电费水电费 </span>我<span style=\"font-weight: bold;\">是编辑菜单</span></p>', '0', '\0', '2019-11-26 14:20:06', '2019-11-26 14:37:46');
+INSERT INTO `system_notice` VALUES ('11', '图片上传', '1', '<p style=\"text-align: left;\"><img src=\"http://127.0.0.1:8080/upload/image/20191126/c76c27a0-ebe9-49a7-855e-22e35d6acbc7.png\" style=\"max-width:30%;\"></p><p style=\"text-align: left;\">&nbsp;&nbsp;&nbsp;&nbsp;我是个图片上传</p><p style=\"text-align: left;\">最后是谁啊</p>', '0', '\0', '2019-11-26 15:47:53', '2019-11-26 15:50:59');
 
 -- ----------------------------
 -- Table structure for system_operation_log
@@ -4134,74 +4214,100 @@ CREATE TABLE `system_role_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `role_id_index` (`role_id`) USING BTREE,
   KEY `menu_id_index` (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=630 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=975 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Records of system_role_menu
 -- ----------------------------
-INSERT INTO `system_role_menu` VALUES ('567', '1', '1001', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('568', '1', '1004', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('569', '1', '1016', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('570', '1', '1015', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('571', '1', '1026', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('572', '1', '1027', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('573', '1', '1007', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('574', '1', '1028', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('575', '1', '1029', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('576', '1', '1008', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('577', '1', '1030', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('578', '1', '1031', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('579', '1', '1032', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('580', '1', '1033', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('581', '1', '1034', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('582', '1', '1035', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('583', '1', '1036', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('584', '1', '1009', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('585', '1', '1037', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('586', '1', '1038', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('587', '1', '1039', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('588', '1', '1040', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('589', '1', '1041', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('590', '1', '1010', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('591', '1', '1042', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('592', '1', '1043', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('593', '1', '1044', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('594', '1', '1045', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('595', '1', '1011', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('596', '1', '1046', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('597', '1', '1047', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('598', '1', '1048', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('599', '1', '1049', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('600', '1', '1012', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('601', '1', '1050', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('602', '1', '1051', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('603', '1', '1013', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('604', '1', '1014', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('605', '1', '1017', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('606', '1', '1018', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('607', '1', '1052', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('608', '1', '1053', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('609', '1', '1054', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('610', '1', '1055', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('611', '1', '1019', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('612', '1', '1020', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('613', '1', '1021', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('614', '1', '1059', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('615', '1', '1060', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('616', '1', '1022', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('617', '1', '1061', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('618', '1', '1062', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('619', '1', '1063', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('620', '1', '1064', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('621', '1', '1065', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('622', '1', '1066', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('623', '1', '1025', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('624', '1', '1057', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('625', '1', '1058', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('626', '1', '1067', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('627', '1', '1056', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('628', '1', '1068', '2019-11-22 14:03:22');
-INSERT INTO `system_role_menu` VALUES ('629', '1', '1069', '2019-11-22 14:03:22');
+INSERT INTO `system_role_menu` VALUES ('904', '1', '1001', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('905', '1', '1004', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('906', '1', '1016', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('907', '1', '1015', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('908', '1', '1026', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('909', '1', '1027', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('910', '1', '1007', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('911', '1', '1028', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('912', '1', '1029', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('913', '1', '1008', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('914', '1', '1030', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('915', '1', '1031', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('916', '1', '1032', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('917', '1', '1033', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('918', '1', '1034', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('919', '1', '1035', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('920', '1', '1036', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('921', '1', '1009', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('922', '1', '1037', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('923', '1', '1038', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('924', '1', '1039', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('925', '1', '1040', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('926', '1', '1041', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('927', '1', '1010', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('928', '1', '1042', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('929', '1', '1043', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('930', '1', '1044', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('931', '1', '1045', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('932', '1', '1011', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('933', '1', '1046', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('934', '1', '1047', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('935', '1', '1048', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('936', '1', '1049', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('937', '1', '1012', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('938', '1', '1050', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('939', '1', '1051', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('940', '1', '1013', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('941', '1', '1017', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('942', '1', '1018', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('943', '1', '1052', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('944', '1', '1053', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('945', '1', '1054', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('946', '1', '1055', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('947', '1', '1019', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('948', '1', '1071', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('949', '1', '1076', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('950', '1', '1072', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('951', '1', '1073', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('952', '1', '1074', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('953', '1', '1075', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('954', '1', '1020', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('955', '1', '1021', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('956', '1', '1059', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('957', '1', '1060', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('958', '1', '1022', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('959', '1', '1061', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('960', '1', '1062', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('961', '1', '1063', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('962', '1', '1064', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('963', '1', '1065', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('964', '1', '1066', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('965', '1', '1025', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('966', '1', '1057', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('967', '1', '1058', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('968', '1', '1067', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('969', '1', '1056', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('970', '1', '1068', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('971', '1', '1069', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('972', '1', '1077', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('973', '1', '1078', '2019-11-27 14:22:21');
+INSERT INTO `system_role_menu` VALUES ('974', '1', '1079', '2019-11-27 14:22:21');
+
+-- ----------------------------
+-- Table structure for tag_view
+-- ----------------------------
+DROP TABLE IF EXISTS `tag_view`;
+CREATE TABLE `tag_view` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` char(50) DEFAULT NULL COMMENT '页面名称',
+  `tag` char(50) DEFAULT NULL COMMENT 'view唯一标示符',
+  `url` varchar(500) DEFAULT NULL COMMENT 'view页面涉及到的接口,分号分割',
+  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='移动端页面映射表';
+
+-- ----------------------------
+-- Records of tag_view
+-- ----------------------------
+INSERT INTO `tag_view` VALUES ('1', '首页', 'home', '/home_banner;/home_list', '移动端首页');
 
 -- ----------------------------
 -- Table structure for task_config
@@ -4240,7 +4346,7 @@ CREATE TABLE `task_log` (
   `ip` char(50) DEFAULT NULL COMMENT '执行任务的机器ip',
   PRIMARY KEY (`id`),
   KEY `nid_index` (`nid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务执行日志';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='定时任务执行日志';
 
 -- ----------------------------
 -- Records of task_log
@@ -4261,7 +4367,7 @@ CREATE TABLE `user` (
   `nick_name` char(20) DEFAULT '' COMMENT '昵称',
   `email` char(50) DEFAULT NULL COMMENT '电子邮箱',
   `pwd` char(128) DEFAULT NULL COMMENT '登陆密码',
-  `state` bit(1) DEFAULT b'1' COMMENT '状态 0:注销  1正常 ',
+  `state` bit(1) DEFAULT b'1' COMMENT '状态 0:冻结 1:正常 ',
   `channel` tinyint(1) unsigned DEFAULT '0' COMMENT '注册渠道',
   `register_ip` char(32) DEFAULT NULL COMMENT '注册地址',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
@@ -4316,9 +4422,11 @@ CREATE TABLE `version` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `state` tinyint(1) unsigned DEFAULT '0' COMMENT '上架状态 0:未上架 1:上架',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='APP版本管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='APP版本管理表';
 
 -- ----------------------------
 -- Records of version
 -- ----------------------------
 INSERT INTO `version` VALUES ('1', 'ANDROID', 'v1.28.21', '\0', '/upload/image/20191122/a957d012-614c-4498-8892-1d29f47b9b90.jar', '2019-11-22 17:29:44', '上都是', '\0', '2019-11-22 17:29:44', '0');
+INSERT INTO `version` VALUES ('2', 'IOS', 'v1.25.2', '\0', 'https://www.baidu.com/', '2019-11-22 18:21:29', '', '\0', '2019-11-22 18:21:29', '0');
+
