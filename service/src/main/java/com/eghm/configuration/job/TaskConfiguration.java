@@ -111,6 +111,7 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
 
     /**
      * 添加cron定时任务
+     *
      * @param taskList 待添加的定时任务列表
      */
     private void addCronTask(List<CronTriggerTask> taskList) {
@@ -133,7 +134,10 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
     }
 
     /**
-     * 移除不在指定任务列表的中其他任务
+     * 移除旧的定时任务,注意:
+     * 1.如果旧定时任务与新的要执行的定时任务一样,则不移除.在添加定时任务时再判断(减少过多的停止任务的操作)
+     * 2.如果旧定时任务是仅执行一次的定时任务,则不移除.由系统参数 task_max_survival_time 来决定是否移除
+     *
      * @param taskList 指定的任务列表
      */
     private void removeCronTask(List<CronTriggerTask> taskList) {
@@ -152,6 +156,7 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
 
     /**
      * 校验任务的的cron表达式是否正确
+     *
      * @param taskList cron任务列表
      */
     private void verifyCronExpression(List<CronTriggerTask> taskList) {
