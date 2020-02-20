@@ -1,6 +1,5 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO `push_template` INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login_sms', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2019-11-25 11:52:33', '短信登陆发送验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login_sms', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2019-11-25 11:52:33', '短信登陆发送验证码');
 
 INSERT INTO `system_address` VALUES ('1', '北京', '110000', '0', null, 'B', '1');
