@@ -275,10 +275,6 @@ textarea{
     padding: 0 10px;
 }
 
-.datagrid-cell-c1-icon-action{
-    line-height: 11px;
-}
-
 .datagrid-cell-c1-icon-action .detail{
     display: inline-block;
     width: 16px;
