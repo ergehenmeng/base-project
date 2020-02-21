@@ -106,4 +106,13 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
             systemOperatorRoleMapper.batchInsertOperatorRole(request.getId(), roleList);
         }
     }
+
+    @Override
+    public void resetPassword(Integer id) {
+        SystemOperator operator = this.getById(id);
+        String password = this.initPassword(operator.getMobile());
+        operator.setPwd(password);
+        operator.setInitPwd(password);
+        systemOperatorMapper.updateByPrimaryKeySelective(operator);
+    }
 }

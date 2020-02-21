@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @PostMapping("/user/set_password")
-    public RespBody setPassword(){
+    public RespBody<Object> setPassword(){
 
         return RespBody.getInstance();
     }

@@ -50,7 +50,7 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/change_password")
     @ResponseBody
     @Mark
-    public RespBody changePassword(HttpSession session, PasswordEditRequest request) {
+    public RespBody<Object> changePassword(HttpSession session, PasswordEditRequest request) {
         SecurityOperator operator = getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = systemOperatorService.updateLoginPassword(request);
@@ -88,7 +88,7 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/add")
     @ResponseBody
     @Mark
-    public RespBody addOperator(OperatorAddRequest request) {
+    public RespBody<Object> addOperator(OperatorAddRequest request) {
         systemOperatorService.addOperator(request);
         return RespBody.getInstance();
     }
@@ -121,8 +121,21 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/edit")
     @ResponseBody
     @Mark
-    public RespBody editOperator(OperatorEditRequest request) {
+    public RespBody<Object> editOperator(OperatorEditRequest request) {
         systemOperatorService.updateOperator(request);
+        return RespBody.getInstance();
+    }
+
+    /**
+     * 重置用户登录密码
+     *
+     * @return 成功
+     */
+    @PostMapping("/system/operator/reset_password")
+    @ResponseBody
+    @Mark
+    public RespBody<Object> resetPassword(Integer id) {
+        systemOperatorService.resetPassword(id);
         return RespBody.getInstance();
     }
 

@@ -1,0 +1,1058 @@
+2020-02-21 14:41:53 [restartedMain] INFO  com.eghm.ManageApplication - Starting ManageApplication on WYBs-iMac with PID 1255 (/Users/wyb/IdeaProjects/base-project/manage-web/target/classes started by wyb in /Users/wyb/IdeaProjects/base-project)
+2020-02-21 14:41:53 [restartedMain] INFO  com.eghm.ManageApplication - No active profile set, falling back to default profiles: default
+2020-02-21 14:41:53 [restartedMain] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@591c734a: startup date [Fri Feb 21 14:41:53 CST 2020]; root of context hierarchy
+2020-02-21 14:41:54 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-02-21 14:41:54 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$3a87c2aa] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-21 14:41:55 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-02-21 14:41:55 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2333 ms
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.b.w.s.DelegatingFilterProxyRegistrationBean - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpTraceFilter' to: [/*]
+2020-02-21 14:41:56 [localhost-startStop-1] INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-02-21 14:41:56 [restartedMain] INFO  o.s.ui.freemarker.SpringTemplateLoader - SpringTemplateLoader for FreeMarker: using resource loader [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@591c734a: startup date [Fri Feb 21 14:41:53 CST 2020]; root of context hierarchy] and template loader path [file:////usr/local/template/]
+2020-02-21 14:41:56 [restartedMain] INFO  o.s.w.servlet.view.freemarker.FreeMarkerConfigurer - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@591c734a: startup date [Fri Feb 21 14:41:53 CST 2020]; root of context hierarchy
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Detected @InitBinder methods in controllerAdviceHandler
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Detected ResponseBodyAdvice bean in respBodyAdviceHandler
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/ || /index],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.index()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/portal],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.portal()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/change_password_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.changePasswordPage()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/role_menu_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.roleMenuPage()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.home(org.springframework.ui.Model)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/{modules}/{function}/{page}],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.modules(java.lang.String,java.lang.String,java.lang.String)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.BannerController.add(com.eghm.model.dto.business.banner.BannerAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.Banner> com.eghm.controller.business.BannerController.listPage(com.eghm.model.dto.business.banner.BannerQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.BannerController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.BannerController.edit(com.eghm.model.dto.business.banner.BannerEditRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/feedback/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.model.vo.feedback.FeedbackVO> com.eghm.controller.business.FeedbackController.listPage(com.eghm.model.dto.business.feedback.FeedbackQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/feedback/dispose],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.FeedbackController.dispose(com.eghm.model.dto.business.feedback.FeedbackDisposeRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.ImageLog> com.eghm.controller.business.ImageLogController.listPage(com.eghm.model.dto.business.image.ImageQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.ImageLogController.addImage(com.eghm.model.dto.business.image.ImageAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/manage_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.ImageLogController.managePage(org.springframework.ui.Model)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.ImageLogController.editImage(com.eghm.model.dto.business.image.ImageEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.ImageLogController.deleteImage(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.ImageLogController.editImagePage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.PushTemplate> com.eghm.controller.business.PushTemplateController.listPage(com.eghm.model.dto.business.push.PushTemplateQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.PushTemplateController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.PushTemplateController.edit(com.eghm.model.dto.business.push.PushTemplateEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SmsLog> com.eghm.controller.business.SmsLogController.listPage(com.eghm.model.dto.business.sms.SmsLogQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SmsTemplate> com.eghm.controller.business.SmsTemplateController.listPage(com.eghm.model.dto.business.sms.SmsTemplateQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SmsTemplateController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SmsTemplateController.edit(com.eghm.model.dto.business.sms.SmsTemplateEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.add(com.eghm.model.dto.business.notice.NoticeAddRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.delete(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SystemNotice> com.eghm.controller.business.SystemNoticeController.listPage(com.eghm.model.dto.business.notice.NoticeQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SystemNoticeController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.edit(com.eghm.model.dto.business.notice.NoticeEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/cancel_publish],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.cancelPublish(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/preview],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SystemNoticeController.preview(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/publish],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.publish(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.TaskConfig> com.eghm.controller.business.TaskConfigController.listPage(com.eghm.model.dto.business.task.TaskQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.TaskConfigController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.TaskConfigController.edit(com.eghm.model.dto.business.task.TaskEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/refresh],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.TaskConfigController.refresh()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.TaskLog> com.eghm.controller.business.TaskLogController.listPage(com.eghm.model.dto.business.task.TaskLogQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task_log/error_msg],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.TaskLogController.errorMsg(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/upload/image],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.UploadController.image(org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.add(com.eghm.model.dto.business.version.VersionAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.delete(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.Version> com.eghm.controller.business.VersionController.listPage(com.eghm.model.dto.business.version.VersionQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.edit(com.eghm.model.dto.business.version.VersionEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/manage_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.VersionController.managePage(org.springframework.ui.Model)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.VersionController.addPage(org.springframework.ui.Model)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/put_away],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.putAway(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/sold_out],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.soldOut(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/change_password],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.operator.OperatorController.changePassword(javax.servlet.http.HttpSession,com.eghm.model.dto.system.operator.PasswordEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemOperator> com.eghm.controller.operator.OperatorController.operatorListPage(com.eghm.model.dto.system.operator.OperatorQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.operator.OperatorController.addOperator(com.eghm.model.dto.system.operator.OperatorAddRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.operator.OperatorController.editOperatorPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.operator.OperatorController.editOperator(com.eghm.model.dto.system.operator.OperatorEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/cache/clear],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.CacheController.clear(java.lang.String)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/cache/list],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemCache> com.eghm.controller.system.CacheController.list()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/captcha],methods=[GET]}" onto public void com.eghm.controller.system.CaptchaController.captcha(javax.servlet.http.HttpSession,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/{module}/captcha],methods=[GET]}" onto public void com.eghm.controller.system.CaptchaController.module(java.lang.String,javax.servlet.http.HttpSession,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemConfig> com.eghm.controller.system.ConfigController.listPage(com.eghm.model.dto.system.config.ConfigQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.ConfigController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.ConfigController.edit(com.eghm.model.dto.system.config.ConfigEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DepartmentController.add(com.eghm.model.dto.system.department.DepartmentAddRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/list_page],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemDepartment> com.eghm.controller.system.DepartmentController.listPage()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DepartmentController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DepartmentController.edit(com.eghm.model.dto.system.department.DepartmentEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DepartmentController.addPage(org.springframework.ui.Model,java.lang.String)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.add(com.eghm.model.dto.system.dict.DictAddRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.delete(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemDict> com.eghm.controller.system.DictController.listPage(com.eghm.model.dto.system.dict.DictQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DictController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.edit(com.eghm.model.dto.system.dict.DictEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.add(com.eghm.model.dto.system.menu.MenuAddRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.delete(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/list_page],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemMenu> com.eghm.controller.system.MenuController.listPage()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.edit(com.eghm.model.dto.system.menu.MenuEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.MenuController.addPage(org.springframework.ui.Model,java.lang.Integer,java.lang.Byte)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.MenuController.editMenuPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/menu_list],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemMenu> com.eghm.controller.system.MenuController.operatorMenuList()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operation_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemOperationLog> com.eghm.controller.system.OperationLogController.listPage(com.eghm.model.dto.system.log.OperationQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operation_log/query_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.OperationLogController.queryPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.add(com.eghm.model.dto.system.role.RoleAddRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.delete(java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/list],methods=[POST]}" onto public java.util.List<com.eghm.model.ext.CheckBox> com.eghm.controller.system.RoleController.list()
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemRole> com.eghm.controller.system.RoleController.listPage(com.eghm.model.dto.system.role.RoleQueryRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.RoleController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.edit(com.eghm.model.dto.system.role.RoleEditRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/auth_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.RoleController.addPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/auth],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.authRole(java.lang.Integer,java.lang.String)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/static/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:41:57 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/resource/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in controllerAdviceHandler
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected ResponseBodyAdvice implementation in respBodyAdviceHandler
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/static/**'], []
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6ac7a9f3, org.springframework.security.web.context.SecurityContextPersistenceFilter@5e82f4dc, org.springframework.security.web.header.HeaderWriterFilter@5b619fe0, org.springframework.security.web.authentication.logout.LogoutFilter@33945df9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6c28627e, org.springframework.security.web.session.ConcurrentSessionFilter@6cc997a7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b5301f6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@54eee726, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@45531d47, org.springframework.security.web.session.SessionManagementFilter@29f1680a, org.springframework.security.web.access.ExceptionTranslationFilter@3a8cfb47, com.eghm.configuration.security.CustomFilterSecurityInterceptor@27d08456, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4aa760c4]
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator/health],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator/info],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto protected java.util.Map<java.lang.String, java.util.Map<java.lang.String, org.springframework.boot.actuate.endpoint.web.Link>> org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping.links(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-21 14:41:58 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-02-21 14:41:59 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-02-21 14:41:59 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-02-21 14:41:59 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-02-21 14:41:59 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-02-21 14:41:59 [restartedMain] INFO  com.eghm.configuration.job.TaskConfiguration - 定时任务配置信息开始加载...
+2020-02-21 14:41:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-02-21 14:41:59 [restartedMain] INFO  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Driver does not support get/set network timeout for connections. (net.sf.log4jdbc.ConnectionSpy.getNetworkTimeout()I)
+2020-02-21 14:41:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-02-21 14:41:59 [restartedMain] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+where state = 1 
+
+2020-02-21 14:41:59 [restartedMain] INFO  com.eghm.configuration.job.TaskConfiguration - 定时任务配置信息加载完成..
+2020-02-21 14:41:59 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-02-21 14:41:59 [restartedMain] INFO  com.eghm.ManageApplication - Started ManageApplication in 6.339 seconds (JVM running for 7.372)
+2020-02-21 14:41:59 [RMI TCP Connection(14)-192.168.50.190] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-02-21 14:41:59 [RMI TCP Connection(13)-192.168.50.190] INFO  jdbc.sqlonly - /* ping */ SELECT 1 
+
+2020-02-21 14:41:59 [RMI TCP Connection(14)-192.168.50.190] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 14 ms
+2020-02-21 14:41:59 [RMI TCP Connection(13)-192.168.50.190] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-02-21 14:41:59 [RMI TCP Connection(13)-192.168.50.190] INFO  io.lettuce.core.KqueueProvider - Starting with kqueue library
+2020-02-21 14:42:07 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t where t.deleted = false order by t.pid ,t.sort 
+
+2020-02-21 14:42:07 [http-nio-8080-exec-1] INFO  com.eghm.controller.system.CaptchaController - 图形验证码[img_auth_code]:[4Bmc]
+2020-02-21 14:42:12 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false and mobile = '13000000000' 
+
+2020-02-21 14:42:12 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false 
+
+2020-02-21 14:42:12 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade <> 3 
+
+2020-02-21 14:42:12 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade = 3 
+
+2020-02-21 14:42:15 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t where t.deleted = false order by t.pid ,t.sort 
+
+2020-02-21 14:42:15 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+WHERE nid = 'operation_log_switch' limit 1 
+
+2020-02-21 14:42:16 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT count(0) FROM system_config 
+
+2020-02-21 14:42:16 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+LIMIT 20 
+
+2020-02-21 14:42:16 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - select id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark 
+from system_dict where deleted = false and nid = 'config_classify' 
+
+2020-02-21 14:42:17 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operator WHERE deleted = false 
+
+2020-02-21 14:42:17 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false LIMIT 20 
+
+2020-02-21 14:42:17 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT count(0) FROM system_role WHERE deleted = false 
+
+2020-02-21 14:42:17 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false LIMIT 20 
+
+2020-02-21 14:42:18 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operator WHERE deleted = false 
+
+2020-02-21 14:42:18 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false LIMIT 20 
+
+2020-02-21 14:42:20 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT count(0) FROM system_role WHERE deleted = false 
+
+2020-02-21 14:42:20 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false LIMIT 20 
+
+2020-02-21 14:42:20 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+WHERE nid = 'file_server_address' limit 1 
+
+2020-02-21 14:42:20 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark 
+from system_dict where deleted = false and nid = 'image_classify' 
+
+2020-02-21 14:42:20 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT count(0) FROM image_log WHERE deleted = false 
+
+2020-02-21 14:42:20 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - select id, title, cache_name, state, update_time, remark from system_cache 
+
+2020-02-21 14:42:21 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT count(0) FROM image_log WHERE deleted = false 
+
+2020-02-21 14:42:22 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - select id, title, cache_name, state, update_time, remark from system_cache 
+
+2020-02-21 14:42:22 [http-nio-8080-exec-8] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operation_log t INNER JOIN system_operator r ON t.operator_id = 
+r.id 
+
+2020-02-21 14:42:23 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - select id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark 
+from system_dict where deleted = false and nid = 'banner_classify' 
+
+2020-02-21 14:42:23 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - SELECT count(0) FROM banner 
+
+2020-02-21 14:42:24 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark 
+from system_dict where deleted = false and nid = 'notice_classify' 
+
+2020-02-21 14:42:24 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM system_notice WHERE deleted = false 
+
+2020-02-21 14:42:24 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_log 
+
+2020-02-21 14:42:25 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_template 
+
+2020-02-21 14:42:25 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template LIMIT 20 
+
+2020-02-21 14:42:25 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_template 
+
+2020-02-21 14:42:25 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template LIMIT 20 
+
+2020-02-21 14:42:26 [http-nio-8080-exec-8] INFO  jdbc.sqlonly - SELECT count(0) FROM version 
+
+2020-02-21 14:42:26 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - SELECT count(0) FROM task_config 
+
+2020-02-21 14:42:26 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+LIMIT 20 
+
+2020-02-21 14:42:28 [http-nio-8080-exec-8] INFO  jdbc.sqlonly - SELECT count(0) FROM banner 
+
+2020-02-21 14:42:29 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - SELECT count(0) FROM system_notice WHERE deleted = false 
+
+2020-02-21 14:42:30 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_log 
+
+2020-02-21 14:42:31 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_template 
+
+2020-02-21 14:42:31 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template LIMIT 20 
+
+2020-02-21 14:42:34 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_template 
+
+2020-02-21 14:42:34 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template LIMIT 20 
+
+2020-02-21 14:46:46 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_template 
+
+2020-02-21 14:46:46 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template LIMIT 20 
+
+2020-02-21 14:46:50 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - SELECT count(0) FROM system_notice WHERE deleted = false 
+
+2020-02-21 14:46:51 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM banner 
+
+2020-02-21 14:46:52 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - SELECT count(0) FROM system_config 
+
+2020-02-21 14:46:52 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+LIMIT 20 
+
+2020-02-21 14:46:53 [http-nio-8080-exec-8] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operator WHERE deleted = false 
+
+2020-02-21 14:46:53 [http-nio-8080-exec-8] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false LIMIT 20 
+
+2020-02-21 14:47:08 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where id = 1 
+
+2020-02-21 14:47:08 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - select role_id from system_operator_role where operator_id = 1 
+
+2020-02-21 14:47:08 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false 
+
+2020-02-21 14:47:10 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - update system_operator SET operator_name = '超管', mobile = '13000000000', remark = '' where 
+id = 1 
+
+2020-02-21 14:47:10 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - delete from system_operator_role where operator_id = 1 
+
+2020-02-21 14:47:10 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - insert into system_operator_role(operator_id,role_id) values (1,1) 
+
+2020-02-21 14:47:10 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operator WHERE deleted = false 
+
+2020-02-21 14:47:10 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false LIMIT 20 
+
+2020-02-21 14:47:12 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where id = 1 
+
+2020-02-21 14:47:12 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - select role_id from system_operator_role where operator_id = 1 
+
+2020-02-21 14:47:12 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false 
+
+2020-02-21 14:47:35 [http-nio-8080-exec-8] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where id = 1 
+
+2020-02-21 14:47:35 [http-nio-8080-exec-8] INFO  jdbc.sqlonly - select role_id from system_operator_role where operator_id = 1 
+
+2020-02-21 14:47:35 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false 
+
+2020-02-21 14:48:39 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false 
+
+2020-02-21 14:48:43 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - SELECT count(0) FROM image_log WHERE deleted = false 
+
+2020-02-21 14:48:45 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - SELECT count(0) FROM system_role WHERE deleted = false 
+
+2020-02-21 14:48:45 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false LIMIT 20 
+
+2020-02-21 14:48:54 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operation_log t INNER JOIN system_operator r ON t.operator_id = 
+r.id 
+
+2020-02-21 14:48:56 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operation_log t INNER JOIN system_operator r ON t.operator_id = 
+r.id 
+
+2020-02-21 14:48:57 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operation_log t INNER JOIN system_operator r ON t.operator_id = 
+r.id 
+
+2020-02-21 14:48:58 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operation_log t INNER JOIN system_operator r ON t.operator_id = 
+r.id 
+
+2020-02-21 14:48:59 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - SELECT count(0) FROM task_config 
+
+2020-02-21 14:48:59 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+LIMIT 20 
+
+2020-02-21 14:49:02 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+where id = 1 
+
+2020-02-21 14:49:07 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_log 
+
+2020-02-21 14:52:19 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - SELECT count(0) FROM banner 
+
+2020-02-21 14:55:50 [Thread-23] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@591c734a: startup date [Fri Feb 21 14:41:53 CST 2020]; root of context hierarchy
+2020-02-21 14:55:50 [Thread-23] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-02-21 14:55:50 [Thread-23] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+2020-02-21 14:56:13 [restartedMain] INFO  com.eghm.ManageApplication - Starting ManageApplication on WYBs-iMac with PID 1342 (/Users/wyb/IdeaProjects/base-project/manage-web/target/classes started by wyb in /Users/wyb/IdeaProjects/base-project)
+2020-02-21 14:56:13 [restartedMain] INFO  com.eghm.ManageApplication - No active profile set, falling back to default profiles: default
+2020-02-21 14:56:13 [restartedMain] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@48b722fe: startup date [Fri Feb 21 14:56:13 CST 2020]; root of context hierarchy
+2020-02-21 14:56:14 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-02-21 14:56:15 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$fc776bfc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-21 14:56:15 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-02-21 14:56:15 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2018 ms
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.b.w.s.DelegatingFilterProxyRegistrationBean - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpTraceFilter' to: [/*]
+2020-02-21 14:56:16 [localhost-startStop-1] INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-02-21 14:56:16 [restartedMain] INFO  o.s.ui.freemarker.SpringTemplateLoader - SpringTemplateLoader for FreeMarker: using resource loader [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@48b722fe: startup date [Fri Feb 21 14:56:13 CST 2020]; root of context hierarchy] and template loader path [file:////usr/local/template/]
+2020-02-21 14:56:16 [restartedMain] INFO  o.s.w.servlet.view.freemarker.FreeMarkerConfigurer - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@48b722fe: startup date [Fri Feb 21 14:56:13 CST 2020]; root of context hierarchy
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Detected @InitBinder methods in controllerAdviceHandler
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Detected ResponseBodyAdvice bean in respBodyAdviceHandler
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/ || /index],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.index()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/{modules}/{function}/{page}],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.modules(java.lang.String,java.lang.String,java.lang.String)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.home(org.springframework.ui.Model)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/portal],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.portal()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/change_password_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.changePasswordPage()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/role_menu_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.roleMenuPage()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.BannerController.add(com.eghm.model.dto.business.banner.BannerAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.Banner> com.eghm.controller.business.BannerController.listPage(com.eghm.model.dto.business.banner.BannerQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.BannerController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.BannerController.edit(com.eghm.model.dto.business.banner.BannerEditRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/feedback/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.model.vo.feedback.FeedbackVO> com.eghm.controller.business.FeedbackController.listPage(com.eghm.model.dto.business.feedback.FeedbackQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/feedback/dispose],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.FeedbackController.dispose(com.eghm.model.dto.business.feedback.FeedbackDisposeRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.ImageLog> com.eghm.controller.business.ImageLogController.listPage(com.eghm.model.dto.business.image.ImageQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.ImageLogController.addImage(com.eghm.model.dto.business.image.ImageAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/manage_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.ImageLogController.managePage(org.springframework.ui.Model)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.ImageLogController.editImage(com.eghm.model.dto.business.image.ImageEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.ImageLogController.deleteImage(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.ImageLogController.editImagePage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.PushTemplate> com.eghm.controller.business.PushTemplateController.listPage(com.eghm.model.dto.business.push.PushTemplateQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.PushTemplateController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.PushTemplateController.edit(com.eghm.model.dto.business.push.PushTemplateEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SmsLog> com.eghm.controller.business.SmsLogController.listPage(com.eghm.model.dto.business.sms.SmsLogQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SmsTemplate> com.eghm.controller.business.SmsTemplateController.listPage(com.eghm.model.dto.business.sms.SmsTemplateQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SmsTemplateController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SmsTemplateController.edit(com.eghm.model.dto.business.sms.SmsTemplateEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.add(com.eghm.model.dto.business.notice.NoticeAddRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.delete(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SystemNotice> com.eghm.controller.business.SystemNoticeController.listPage(com.eghm.model.dto.business.notice.NoticeQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SystemNoticeController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.edit(com.eghm.model.dto.business.notice.NoticeEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/cancel_publish],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.cancelPublish(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/preview],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SystemNoticeController.preview(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/publish],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.publish(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.TaskConfig> com.eghm.controller.business.TaskConfigController.listPage(com.eghm.model.dto.business.task.TaskQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.TaskConfigController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.TaskConfigController.edit(com.eghm.model.dto.business.task.TaskEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/refresh],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.TaskConfigController.refresh()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.TaskLog> com.eghm.controller.business.TaskLogController.listPage(com.eghm.model.dto.business.task.TaskLogQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task_log/error_msg],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.TaskLogController.errorMsg(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/upload/image],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.UploadController.image(org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.add(com.eghm.model.dto.business.version.VersionAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.delete(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.Version> com.eghm.controller.business.VersionController.listPage(com.eghm.model.dto.business.version.VersionQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.edit(com.eghm.model.dto.business.version.VersionEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/manage_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.VersionController.managePage(org.springframework.ui.Model)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.VersionController.addPage(org.springframework.ui.Model)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/put_away],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.putAway(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/sold_out],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.soldOut(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/change_password],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.operator.OperatorController.changePassword(javax.servlet.http.HttpSession,com.eghm.model.dto.system.operator.PasswordEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemOperator> com.eghm.controller.operator.OperatorController.operatorListPage(com.eghm.model.dto.system.operator.OperatorQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.operator.OperatorController.addOperator(com.eghm.model.dto.system.operator.OperatorAddRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.operator.OperatorController.editOperatorPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.operator.OperatorController.editOperator(com.eghm.model.dto.system.operator.OperatorEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/cache/clear],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.CacheController.clear(java.lang.String)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/cache/list],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemCache> com.eghm.controller.system.CacheController.list()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/captcha],methods=[GET]}" onto public void com.eghm.controller.system.CaptchaController.captcha(javax.servlet.http.HttpSession,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/{module}/captcha],methods=[GET]}" onto public void com.eghm.controller.system.CaptchaController.module(java.lang.String,javax.servlet.http.HttpSession,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemConfig> com.eghm.controller.system.ConfigController.listPage(com.eghm.model.dto.system.config.ConfigQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.ConfigController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.ConfigController.edit(com.eghm.model.dto.system.config.ConfigEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DepartmentController.add(com.eghm.model.dto.system.department.DepartmentAddRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/list_page],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemDepartment> com.eghm.controller.system.DepartmentController.listPage()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DepartmentController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DepartmentController.edit(com.eghm.model.dto.system.department.DepartmentEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DepartmentController.addPage(org.springframework.ui.Model,java.lang.String)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.add(com.eghm.model.dto.system.dict.DictAddRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.delete(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemDict> com.eghm.controller.system.DictController.listPage(com.eghm.model.dto.system.dict.DictQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DictController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.edit(com.eghm.model.dto.system.dict.DictEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.add(com.eghm.model.dto.system.menu.MenuAddRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.delete(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/list_page],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemMenu> com.eghm.controller.system.MenuController.listPage()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.edit(com.eghm.model.dto.system.menu.MenuEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.MenuController.addPage(org.springframework.ui.Model,java.lang.Integer,java.lang.Byte)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.MenuController.editMenuPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/menu_list],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemMenu> com.eghm.controller.system.MenuController.operatorMenuList()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operation_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemOperationLog> com.eghm.controller.system.OperationLogController.listPage(com.eghm.model.dto.system.log.OperationQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operation_log/query_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.OperationLogController.queryPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.add(com.eghm.model.dto.system.role.RoleAddRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.delete(java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/list],methods=[POST]}" onto public java.util.List<com.eghm.model.ext.CheckBox> com.eghm.controller.system.RoleController.list()
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemRole> com.eghm.controller.system.RoleController.listPage(com.eghm.model.dto.system.role.RoleQueryRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.RoleController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.edit(com.eghm.model.dto.system.role.RoleEditRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/auth_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.RoleController.addPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/auth],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.authRole(java.lang.Integer,java.lang.String)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/static/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/resource/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in controllerAdviceHandler
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected ResponseBodyAdvice implementation in respBodyAdviceHandler
+2020-02-21 14:56:17 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/static/**'], []
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@26167001, org.springframework.security.web.context.SecurityContextPersistenceFilter@71e5cc0d, org.springframework.security.web.header.HeaderWriterFilter@af31c70, org.springframework.security.web.authentication.logout.LogoutFilter@1e48c813, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@487222c2, org.springframework.security.web.session.ConcurrentSessionFilter@6cfe45b9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@10126113, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@77827de8, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7f2b2233, org.springframework.security.web.session.SessionManagementFilter@3a6c3e73, org.springframework.security.web.access.ExceptionTranslationFilter@40e241a3, com.eghm.configuration.security.CustomFilterSecurityInterceptor@34079145, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@58bf422e]
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator/health],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator/info],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto protected java.util.Map<java.lang.String, java.util.Map<java.lang.String, org.springframework.boot.actuate.endpoint.web.Link>> org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping.links(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-02-21 14:56:18 [restartedMain] INFO  com.eghm.configuration.job.TaskConfiguration - 定时任务配置信息开始加载...
+2020-02-21 14:56:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2020-02-21 14:56:18 [restartedMain] INFO  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Driver does not support get/set network timeout for connections. (net.sf.log4jdbc.ConnectionSpy.getNetworkTimeout()I)
+2020-02-21 14:56:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2020-02-21 14:56:18 [restartedMain] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+where state = 1 
+
+2020-02-21 14:56:18 [restartedMain] INFO  com.eghm.configuration.job.TaskConfiguration - 定时任务配置信息加载完成..
+2020-02-21 14:56:18 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-02-21 14:56:18 [restartedMain] INFO  com.eghm.ManageApplication - Started ManageApplication in 5.58 seconds (JVM running for 6.255)
+2020-02-21 14:56:19 [RMI TCP Connection(3)-192.168.50.190] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization started
+2020-02-21 14:56:19 [RMI TCP Connection(4)-192.168.50.190] INFO  jdbc.sqlonly - /* ping */ SELECT 1 
+
+2020-02-21 14:56:19 [RMI TCP Connection(3)-192.168.50.190] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 14 ms
+2020-02-21 14:56:19 [RMI TCP Connection(4)-192.168.50.190] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-02-21 14:56:19 [RMI TCP Connection(4)-192.168.50.190] INFO  io.lettuce.core.KqueueProvider - Starting with kqueue library
+2020-02-21 14:56:55 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t where t.deleted = false order by t.pid ,t.sort 
+
+2020-02-21 14:56:55 [http-nio-8080-exec-1] INFO  com.eghm.controller.system.CaptchaController - 图形验证码[img_auth_code]:[5p76]
+2020-02-21 14:57:02 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false and mobile = '13000000000' 
+
+2020-02-21 14:57:02 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false 
+
+2020-02-21 14:57:05 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade <> 3 
+
+2020-02-21 14:57:05 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade = 3 
+
+2020-02-21 14:57:07 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t where t.deleted = false order by t.pid ,t.sort 
+
+2020-02-21 14:57:11 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_template 
+
+2020-02-21 14:57:11 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template LIMIT 20 
+
+2020-02-21 14:57:12 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template where id = 1 
+
+2020-02-21 14:58:21 [http-nio-8080-exec-7] INFO  com.eghm.controller.system.CaptchaController - 图形验证码[img_auth_code]:[53c7]
+2020-02-21 14:58:24 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false and mobile = '13000000000' 
+
+2020-02-21 14:58:24 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false 
+
+2020-02-21 14:58:24 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade <> 3 
+
+2020-02-21 14:58:24 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade = 3 
+
+2020-02-21 14:58:26 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - SELECT count(0) FROM system_role WHERE deleted = false 
+
+2020-02-21 14:58:26 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+deleted = false LIMIT 20 
+
+2020-02-21 14:58:28 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id, role_name, role_type, add_time, update_time, deleted, remark from system_role where 
+id = 1 
+
+2020-02-21 14:58:30 [http-nio-8080-exec-5] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operation_log t INNER JOIN system_operator r ON t.operator_id = 
+r.id 
+
+2020-02-21 14:58:31 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT count(0) FROM system_dict 
+
+2020-02-21 14:58:31 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - select id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark 
+from system_dict order by add_time desc LIMIT 20 
+
+2020-02-21 14:58:33 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - select id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark 
+from system_dict where id = 5 
+
+2020-02-21 14:59:22 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - update sms_template SET remark = '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信,短信登陆发送验证码' where id = 
+1 
+
+2020-02-21 14:59:22 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - SELECT count(0) FROM sms_template 
+
+2020-02-21 14:59:22 [http-nio-8080-exec-9] INFO  jdbc.sqlonly - select id, nid, content, update_time, remark from sms_template LIMIT 20 
+
+2020-02-21 14:59:23 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - SELECT count(0) FROM version 
+
+2020-02-21 14:59:23 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - SELECT count(0) FROM task_config 
+
+2020-02-21 14:59:23 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+LIMIT 20 
+
+2020-02-21 14:59:24 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - SELECT count(0) FROM push_template 
+
+2020-02-21 14:59:25 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT count(0) FROM task_config 
+
+2020-02-21 14:59:25 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+LIMIT 20 
+
+2020-02-21 14:59:26 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+where id = 1 
+
+2020-02-21 15:00:05 [http-nio-8080-exec-3] INFO  com.eghm.controller.system.CaptchaController - 图形验证码[img_auth_code]:[CPYw]
+2020-02-21 15:00:08 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false and mobile = '13000000000' 
+
+2020-02-21 15:00:08 [http-nio-8080-exec-1] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false 
+
+2020-02-21 15:00:08 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade <> 3 
+
+2020-02-21 15:00:08 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t LEFT JOIN system_role_menu s on t.id = s.menu_id 
+LEFT JOIN system_operator_role o on s.role_id = o.role_id where o.operator_id = 1 and t.deleted 
+= false and t.grade = 3 
+
+2020-02-21 15:00:10 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - SELECT count(0) FROM system_config 
+
+2020-02-21 15:00:10 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+LIMIT 20 
+
+2020-02-21 15:00:12 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+where id = 1 
+
+2020-02-21 15:02:11 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - SELECT t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t where t.deleted = false order by t.pid ,t.sort 
+
+2020-02-21 15:02:12 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - select t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, 
+t.add_time, t.update_time from system_menu t where t.deleted = false and t.id = 1001 
+
+2020-02-21 15:03:29 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - SELECT count(0) FROM system_config 
+
+2020-02-21 15:03:29 [http-nio-8080-exec-4] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+LIMIT 20 
+
+2020-02-21 15:03:30 [http-nio-8080-exec-2] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+where id = 1 
+
+2020-02-21 15:03:32 [http-nio-8080-exec-3] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+where id = 5 
+
+2020-02-21 15:03:35 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - SELECT count(0) FROM system_config 
+
+2020-02-21 15:03:35 [http-nio-8080-exec-10] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+LIMIT 20 
+
+2020-02-21 15:03:36 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - SELECT count(0) FROM system_config 
+
+2020-02-21 15:03:36 [http-nio-8080-exec-6] INFO  jdbc.sqlonly - select id,title, nid, content, remark, classify, locked, add_time, update_time from system_config 
+LIMIT 20 
+
+2020-02-21 15:03:36 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - SELECT count(0) FROM system_operator WHERE deleted = false 
+
+2020-02-21 15:03:36 [http-nio-8080-exec-7] INFO  jdbc.sqlonly - select id, operator_name, mobile, state, pwd, init_pwd, department, deleted, add_time, update_time, 
+remark from system_operator where deleted = false LIMIT 20 
+
+2020-02-21 15:03:39 [http-nio-8080-exec-3] ERROR c.e.configuration.handler.ControllerAdviceHandler - 系统异常 url:[/system/operator/reset_password]
+org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:197)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:379)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:318)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:62)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:350)
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1188)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:981)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:884)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:858)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:90)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at com.eghm.configuration.security.CustomFilterSecurityInterceptor.invoke(CustomFilterSecurityInterceptor.java:39)
+	at com.eghm.configuration.security.CustomFilterSecurityInterceptor.doFilter(CustomFilterSecurityInterceptor.java:33)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:155)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:117)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:106)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:800)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:806)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2020-02-21 15:03:39 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved exception caused by handler execution: org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported
+2020-02-21 15:03:44 [http-nio-8080-exec-10] ERROR c.e.configuration.handler.ControllerAdviceHandler - 系统异常 url:[/system/operator/reset_password]
+org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:197)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:379)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:318)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:62)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:350)
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1188)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:964)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:925)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:981)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:884)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:661)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:858)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:742)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:52)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:90)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127)
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at com.eghm.configuration.security.CustomFilterSecurityInterceptor.invoke(CustomFilterSecurityInterceptor.java:39)
+	at com.eghm.configuration.security.CustomFilterSecurityInterceptor.doFilter(CustomFilterSecurityInterceptor.java:33)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.session.ConcurrentSessionFilter.doFilter(ConcurrentSessionFilter.java:155)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter.doFilter(AbstractAuthenticationProcessingFilter.java:200)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:74)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HttpPutFormContentFilter.doFilterInternal(HttpPutFormContentFilter.java:109)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:117)
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:106)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:198)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:493)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:140)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:81)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:87)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:800)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:806)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1498)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
+2020-02-21 15:03:44 [http-nio-8080-exec-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved exception caused by handler execution: org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported
+2020-02-21 15:25:04 [Thread-18] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@48b722fe: startup date [Fri Feb 21 14:56:13 CST 2020]; root of context hierarchy
+2020-02-21 15:25:04 [Thread-18] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-02-21 15:25:04 [Thread-18] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+2020-02-21 15:25:05 [Thread-18] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2020-02-21 15:25:05 [Thread-18] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2020-02-21 15:25:05 [restartedMain] INFO  com.eghm.ManageApplication - Starting ManageApplication on WYBs-iMac with PID 1342 (/Users/wyb/IdeaProjects/base-project/manage-web/target/classes started by wyb in /Users/wyb/IdeaProjects/base-project)
+2020-02-21 15:25:05 [restartedMain] INFO  com.eghm.ManageApplication - No active profile set, falling back to default profiles: default
+2020-02-21 15:25:05 [restartedMain] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@31354733: startup date [Fri Feb 21 15:25:05 CST 2020]; root of context hierarchy
+2020-02-21 15:25:06 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.eghm.dao.mapper]' package. Please check your configuration.
+2020-02-21 15:25:06 [restartedMain] WARN  org.mybatis.spring.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.eghm]' package. Please check your configuration.
+2020-02-21 15:25:06 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-02-21 15:25:06 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$fc776bfc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-21 15:25:06 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-02-21 15:25:06 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 914 ms
+2020-02-21 15:25:06 [localhost-startStop-1] ERROR o.s.boot.web.embedded.tomcat.TomcatStarter - Error starting Tomcat context. Exception: org.springframework.beans.factory.BeanCreationException. Message: Error creating bean with name 'servletEndpointRegistrar' defined in class path resource [org/springframework/boot/actuate/autoconfigure/endpoint/web/ServletEndpointManagementContextConfiguration$WebMvcServletEndpointManagementContextConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar]: Factory method 'servletEndpointRegistrar' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'healthEndpoint' defined in class path resource [org/springframework/boot/actuate/autoconfigure/health/HealthEndpointConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.actuate.health.HealthEndpoint]: Factory method 'healthEndpoint' threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthIndicatorAutoConfiguration': Bean instantiation via constructor failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthIndicatorAutoConfiguration$$EnhancerBySpringCGLIB$$6b5bbd82]: Constructor threw exception; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSource' defined in class path resource [org/springframework/boot/autoconfigure/jdbc/DataSourceConfiguration$Hikari.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.zaxxer.hikari.HikariDataSource]: Factory method 'dataSource' threw exception; nested exception is org.springframework.boot.autoconfigure.jdbc.DataSourceProperties$DataSourceBeanCreationException: Failed to determine a suitable driver class
+2020-02-21 15:25:06 [localhost-startStop-1] ERROR org.apache.catalina.session.StandardManager - Exception loading sessions from persistent storage
+java.lang.ClassNotFoundException: com.eghm.configuration.security.ImageCodeAuthenticationDetails
+	at org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader.loadClass(TomcatEmbeddedWebappClassLoader.java:70)
+	at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1172)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at org.apache.catalina.util.CustomObjectInputStream.resolveClass(CustomObjectInputStream.java:160)
+	at java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:1868)
+	at java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1751)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2042)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)
+	at java.io.ObjectInputStream.defaultReadFields(ObjectInputStream.java:2287)
+	at java.io.ObjectInputStream.readSerialData(ObjectInputStream.java:2211)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:2069)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1573)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:431)
+	at org.apache.catalina.session.StandardSession.doReadObject(StandardSession.java:1611)
+	at org.apache.catalina.session.StandardSession.readObjectData(StandardSession.java:1077)
+	at org.apache.catalina.session.StandardManager.doLoad(StandardManager.java:217)
+	at org.apache.catalina.session.StandardManager.load(StandardManager.java:161)
+	at org.apache.catalina.session.StandardManager.startInternal(StandardManager.java:351)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.StandardContext.startInternal(StandardContext.java:5295)
+	at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:150)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1423)
+	at org.apache.catalina.core.ContainerBase$StartChild.call(ContainerBase.java:1413)
+	at java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:266)
+	at java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2020-02-21 15:25:06 [restartedMain] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Unable to start web server; nested exception is org.springframework.boot.web.server.WebServerException: Unable to start embedded Tomcat
+2020-02-21 15:25:06 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-02-21 15:25:06 [restartedMain] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to configure a DataSource: 'url' attribute is not specified and no embedded datasource could be configured.
+
+Reason: Failed to determine a suitable driver class
+
+
+Action:
+
+Consider the following:
+	If you want an embedded database (H2, HSQL or Derby), please put it on the classpath.
+	If you have database settings to be loaded from a particular profile you may need to activate it (no profiles are currently active).
+
+2020-02-21 15:25:09 [restartedMain] INFO  com.eghm.ManageApplication - Starting ManageApplication on WYBs-iMac with PID 1342 (/Users/wyb/IdeaProjects/base-project/manage-web/target/classes started by wyb in /Users/wyb/IdeaProjects/base-project)
+2020-02-21 15:25:09 [restartedMain] INFO  com.eghm.ManageApplication - No active profile set, falling back to default profiles: default
+2020-02-21 15:25:09 [restartedMain] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@518ab111: startup date [Fri Feb 21 15:25:09 CST 2020]; root of context hierarchy
+2020-02-21 15:25:09 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-02-21 15:25:09 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$fc776bfc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-02-21 15:25:09 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2020-02-21 15:25:09 [localhost-startStop-1] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 840 ms
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'requestContextFilter' to: [/*]
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.b.w.s.DelegatingFilterProxyRegistrationBean - Mapping filter: 'springSecurityFilterChain' to: [/*]
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.boot.web.servlet.FilterRegistrationBean - Mapping filter: 'httpTraceFilter' to: [/*]
+2020-02-21 15:25:10 [localhost-startStop-1] INFO  o.s.boot.web.servlet.ServletRegistrationBean - Servlet dispatcherServlet mapped to [/]
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.ui.freemarker.SpringTemplateLoader - SpringTemplateLoader for FreeMarker: using resource loader [org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@518ab111: startup date [Fri Feb 21 15:25:09 CST 2020]; root of context hierarchy] and template loader path [file:////usr/local/template/]
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.servlet.view.freemarker.FreeMarkerConfigurer - ClassTemplateLoader for Spring macros added to FreeMarker configuration
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@518ab111: startup date [Fri Feb 21 15:25:09 CST 2020]; root of context hierarchy
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Detected @InitBinder methods in controllerAdviceHandler
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerAdapter - Detected ResponseBodyAdvice bean in respBodyAdviceHandler
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/ || /index],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.index()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/{modules}/{function}/{page}],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.modules(java.lang.String,java.lang.String,java.lang.String)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.home(org.springframework.ui.Model)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/portal],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.portal()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/change_password_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.changePasswordPage()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/main/role_menu_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.LoginController.roleMenuPage()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.BannerController.add(com.eghm.model.dto.business.banner.BannerAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.Banner> com.eghm.controller.business.BannerController.listPage(com.eghm.model.dto.business.banner.BannerQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.BannerController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/banner/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.BannerController.edit(com.eghm.model.dto.business.banner.BannerEditRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/feedback/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.model.vo.feedback.FeedbackVO> com.eghm.controller.business.FeedbackController.listPage(com.eghm.model.dto.business.feedback.FeedbackQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/feedback/dispose],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.FeedbackController.dispose(com.eghm.model.dto.business.feedback.FeedbackDisposeRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.ImageLog> com.eghm.controller.business.ImageLogController.listPage(com.eghm.model.dto.business.image.ImageQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.ImageLogController.addImage(com.eghm.model.dto.business.image.ImageAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/manage_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.ImageLogController.managePage(org.springframework.ui.Model)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.ImageLogController.editImage(com.eghm.model.dto.business.image.ImageEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.ImageLogController.deleteImage(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/image/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.ImageLogController.editImagePage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.PushTemplate> com.eghm.controller.business.PushTemplateController.listPage(com.eghm.model.dto.business.push.PushTemplateQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.PushTemplateController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/push_template/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.PushTemplateController.edit(com.eghm.model.dto.business.push.PushTemplateEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SmsLog> com.eghm.controller.business.SmsLogController.listPage(com.eghm.model.dto.business.sms.SmsLogQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SmsTemplate> com.eghm.controller.business.SmsTemplateController.listPage(com.eghm.model.dto.business.sms.SmsTemplateQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SmsTemplateController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/sms_template/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SmsTemplateController.edit(com.eghm.model.dto.business.sms.SmsTemplateEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.SystemNoticeController.add(com.eghm.model.dto.business.notice.NoticeAddRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.SystemNoticeController.delete(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.SystemNotice> com.eghm.controller.business.SystemNoticeController.listPage(com.eghm.model.dto.business.notice.NoticeQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SystemNoticeController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.SystemNoticeController.edit(com.eghm.model.dto.business.notice.NoticeEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/cancel_publish],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.SystemNoticeController.cancelPublish(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/preview],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.SystemNoticeController.preview(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/notice/publish],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.SystemNoticeController.publish(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.TaskConfig> com.eghm.controller.business.TaskConfigController.listPage(com.eghm.model.dto.business.task.TaskQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.TaskConfigController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.TaskConfigController.edit(com.eghm.model.dto.business.task.TaskEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task/refresh],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.TaskConfigController.refresh()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.TaskLog> com.eghm.controller.business.TaskLogController.listPage(com.eghm.model.dto.business.task.TaskLogQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/task_log/error_msg],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.TaskLogController.errorMsg(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/upload/image],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.business.UploadController.image(org.springframework.web.multipart.MultipartFile)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.add(com.eghm.model.dto.business.version.VersionAddRequest,org.springframework.web.multipart.MultipartFile)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.delete(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.business.Version> com.eghm.controller.business.VersionController.listPage(com.eghm.model.dto.business.version.VersionQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.edit(com.eghm.model.dto.business.version.VersionEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/manage_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.VersionController.managePage(org.springframework.ui.Model)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.business.VersionController.addPage(org.springframework.ui.Model)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/put_away],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.putAway(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/business/version/sold_out],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.business.VersionController.soldOut(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/change_password],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.operator.OperatorController.changePassword(javax.servlet.http.HttpSession,com.eghm.model.dto.system.operator.PasswordEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemOperator> com.eghm.controller.operator.OperatorController.operatorListPage(com.eghm.model.dto.system.operator.OperatorQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.operator.OperatorController.addOperator(com.eghm.model.dto.system.operator.OperatorAddRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.operator.OperatorController.editOperatorPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.operator.OperatorController.editOperator(com.eghm.model.dto.system.operator.OperatorEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/reset_password],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.operator.OperatorController.resetPassword(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/cache/clear],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.CacheController.clear(java.lang.String)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/cache/list],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemCache> com.eghm.controller.system.CacheController.list()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/captcha],methods=[GET]}" onto public void com.eghm.controller.system.CaptchaController.captcha(javax.servlet.http.HttpSession,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/{module}/captcha],methods=[GET]}" onto public void com.eghm.controller.system.CaptchaController.module(java.lang.String,javax.servlet.http.HttpSession,javax.servlet.http.HttpServletResponse) throws java.io.IOException
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemConfig> com.eghm.controller.system.ConfigController.listPage(com.eghm.model.dto.system.config.ConfigQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.ConfigController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/config/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody<java.lang.Object> com.eghm.controller.system.ConfigController.edit(com.eghm.model.dto.system.config.ConfigEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DepartmentController.add(com.eghm.model.dto.system.department.DepartmentAddRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/list_page],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemDepartment> com.eghm.controller.system.DepartmentController.listPage()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DepartmentController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DepartmentController.edit(com.eghm.model.dto.system.department.DepartmentEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/department/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DepartmentController.addPage(org.springframework.ui.Model,java.lang.String)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.add(com.eghm.model.dto.system.dict.DictAddRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.delete(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemDict> com.eghm.controller.system.DictController.listPage(com.eghm.model.dto.system.dict.DictQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.DictController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/dict/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.DictController.edit(com.eghm.model.dto.system.dict.DictEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.add(com.eghm.model.dto.system.menu.MenuAddRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.delete(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/list_page],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemMenu> com.eghm.controller.system.MenuController.listPage()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.MenuController.edit(com.eghm.model.dto.system.menu.MenuEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/add_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.MenuController.addPage(org.springframework.ui.Model,java.lang.Integer,java.lang.Byte)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/menu/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.MenuController.editMenuPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operator/menu_list],methods=[POST]}" onto public java.util.List<com.eghm.dao.model.system.SystemMenu> com.eghm.controller.system.MenuController.operatorMenuList()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operation_log/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemOperationLog> com.eghm.controller.system.OperationLogController.listPage(com.eghm.model.dto.system.log.OperationQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/operation_log/query_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.OperationLogController.queryPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/add],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.add(com.eghm.model.dto.system.role.RoleAddRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/delete],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.delete(java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/list],methods=[POST]}" onto public java.util.List<com.eghm.model.ext.CheckBox> com.eghm.controller.system.RoleController.list()
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/list_page],methods=[POST]}" onto public com.eghm.model.ext.Paging<com.eghm.dao.model.system.SystemRole> com.eghm.controller.system.RoleController.listPage(com.eghm.model.dto.system.role.RoleQueryRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/edit_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.RoleController.editPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/edit],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.edit(com.eghm.model.dto.system.role.RoleEditRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/auth_page],methods=[GET]}" onto public java.lang.String com.eghm.controller.system.RoleController.addPage(org.springframework.ui.Model,java.lang.Integer)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/system/role/auth],methods=[POST]}" onto public com.eghm.model.ext.RespBody com.eghm.controller.system.RoleController.authRole(java.lang.Integer,java.lang.String)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/static/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.web.servlet.handler.SimpleUrlHandlerMapping - Mapped URL path [/resource/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected @ExceptionHandler methods in controllerAdviceHandler
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Detected ResponseBodyAdvice implementation in respBodyAdviceHandler
+2020-02-21 15:25:10 [restartedMain] INFO  o.s.b.a.web.servlet.WelcomePageHandlerMapping - Adding welcome page template: index
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: Ant [pattern='/static/**'], []
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.security.web.DefaultSecurityFilterChain - Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@63679726, org.springframework.security.web.context.SecurityContextPersistenceFilter@7190d9be, org.springframework.security.web.header.HeaderWriterFilter@f0e7248, org.springframework.security.web.authentication.logout.LogoutFilter@535f600, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4d07a760, org.springframework.security.web.session.ConcurrentSessionFilter@165901a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@d7069f6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@287d5655, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4cd681d3, org.springframework.security.web.session.SessionManagementFilter@435cde8b, org.springframework.security.web.access.ExceptionTranslationFilter@4b677c54, com.eghm.configuration.security.CustomFilterSecurityInterceptor@349ed6db, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@64439e6c]
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator/health],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator/info],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.b.a.e.web.servlet.WebMvcEndpointHandlerMapping - Mapped "{[/actuator],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto protected java.util.Map<java.lang.String, java.util.Map<java.lang.String, org.springframework.boot.actuate.endpoint.web.Link>> org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping.links(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Registering beans for JMX exposure on startup
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-02-21 15:25:11 [restartedMain] INFO  com.eghm.configuration.job.TaskConfiguration - 定时任务配置信息开始加载...
+2020-02-21 15:25:11 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2020-02-21 15:25:11 [restartedMain] INFO  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Driver does not support get/set network timeout for connections. (net.sf.log4jdbc.ConnectionSpy.getNetworkTimeout()I)
+2020-02-21 15:25:11 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2020-02-21 15:25:11 [restartedMain] INFO  jdbc.sqlonly - select id, title, nid, bean_name, cron_expression, state, update_time, remark from task_config 
+where state = 1 
+
+2020-02-21 15:25:11 [restartedMain] INFO  com.eghm.configuration.job.TaskConfiguration - 定时任务配置信息加载完成..
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2020-02-21 15:25:11 [restartedMain] INFO  com.eghm.ManageApplication - Started ManageApplication in 2.313 seconds (JVM running for 1738.393)
+2020-02-21 15:25:11 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2020-02-21 15:25:19 [Thread-46] INFO  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@518ab111: startup date [Fri Feb 21 15:25:09 CST 2020]; root of context hierarchy
+2020-02-21 15:25:19 [Thread-46] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2020-02-21 15:25:19 [Thread-46] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+2020-02-21 15:25:19 [Thread-46] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2020-02-21 15:25:19 [Thread-46] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

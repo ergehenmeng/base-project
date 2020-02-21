@@ -28,7 +28,7 @@ public class FeedbackController{
      */
     @PostMapping("/user/feedback")
     @ApiOperation("保存反馈信息")
-    public RespBody feedback(FeedbackAddRequest request) {
+    public RespBody<Object> feedback(FeedbackAddRequest request) {
         request.setSystemVersion(RequestThreadLocal.getOsVersion());
         request.setVersion(RequestThreadLocal.getVersion());
         feedbackService.addFeedback(request);

@@ -33,7 +33,7 @@ public class RegisterController {
      */
     @PostMapping("/register/send_sms")
     @ApiOperation("注册发送验证码")
-    public RespBody sendSms(RegisterSendSmsRequest request) {
+    public RespBody<Object> sendSms(RegisterSendSmsRequest request) {
         userService.registerSendSms(request.getMobile());
         return RespBody.getInstance();
     }

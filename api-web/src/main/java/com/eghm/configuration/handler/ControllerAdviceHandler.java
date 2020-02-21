@@ -49,7 +49,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public RespBody businessException(HttpServletRequest request, BusinessException e) {
+    public RespBody<Object> businessException(HttpServletRequest request, BusinessException e) {
         log.error("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return RespBody.getInstance().setCode(e.getCode()).setMsg(e.getMessage());
     }

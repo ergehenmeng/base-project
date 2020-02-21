@@ -53,7 +53,7 @@ public class SystemNoticeController {
     @PostMapping("/business/notice/add")
     @ResponseBody
     @Mark
-    public RespBody add(NoticeAddRequest request) {
+    public RespBody<Object> add(NoticeAddRequest request) {
         if (StringUtil.isBlank(request.getOriginalContent())) {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
@@ -77,7 +77,7 @@ public class SystemNoticeController {
     @PostMapping("/business/notice/publish")
     @ResponseBody
     @Mark
-    public RespBody publish(Integer id) {
+    public RespBody<Object> publish(Integer id) {
         systemNoticeService.publish(id);
         return RespBody.getInstance();
     }
@@ -88,7 +88,7 @@ public class SystemNoticeController {
     @PostMapping("/business/notice/cancel_publish")
     @ResponseBody
     @Mark
-    public RespBody cancelPublish(Integer id) {
+    public RespBody<Object> cancelPublish(Integer id) {
         systemNoticeService.cancelPublish(id);
         return RespBody.getInstance();
     }
@@ -99,7 +99,7 @@ public class SystemNoticeController {
     @PostMapping("/business/notice/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(NoticeEditRequest request) {
+    public RespBody<Object> edit(NoticeEditRequest request) {
         if (StringUtil.isBlank(request.getOriginalContent())) {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }

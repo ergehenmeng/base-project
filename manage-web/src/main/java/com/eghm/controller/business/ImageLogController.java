@@ -79,7 +79,7 @@ public class ImageLogController extends AbstractController {
     @PostMapping("/system/image/add")
     @ResponseBody
     @Mark
-    public RespBody addImage(ImageAddRequest request, MultipartFile imgFile) {
+    public RespBody<Object> addImage(ImageAddRequest request, MultipartFile imgFile) {
         if (imgFile != null && !imgFile.isEmpty()) {
             FilePath filePath = fileService.saveFile(imgFile);
             request.setUrl(filePath.getPath());
@@ -98,7 +98,7 @@ public class ImageLogController extends AbstractController {
     @PostMapping("/system/image/edit")
     @ResponseBody
     @Mark
-    public RespBody editImage(ImageEditRequest request) {
+    public RespBody<Object> editImage(ImageEditRequest request) {
         imageLogService.updateImageLog(request);
         return RespBody.getInstance();
     }
@@ -113,7 +113,7 @@ public class ImageLogController extends AbstractController {
     @PostMapping("/system/image/delete")
     @ResponseBody
     @Mark
-    public RespBody deleteImage(Integer id) {
+    public RespBody<Object> deleteImage(Integer id) {
         imageLogService.deleteImageLog(id);
         return RespBody.getInstance();
     }

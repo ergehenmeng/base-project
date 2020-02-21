@@ -38,7 +38,7 @@ public class FeedbackController extends AbstractController {
      */
     @PostMapping("/feedback/dispose")
     @ResponseBody
-    public RespBody dispose(FeedbackDisposeRequest request) {
+    public RespBody<Object> dispose(FeedbackDisposeRequest request) {
         request.setOperatorId(getOperatorId());
         request.setOperatorName(getOperatorName());
         feedbackService.dispose(request);

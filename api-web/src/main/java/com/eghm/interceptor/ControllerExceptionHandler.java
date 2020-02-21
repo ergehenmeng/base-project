@@ -29,7 +29,7 @@ public class ControllerExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public RespBody exception(Exception e, HttpServletRequest request) {
+    public RespBody<Object> exception(Exception e, HttpServletRequest request) {
         log.error("系统异常,url:[{}]", request.getRequestURI(), e);
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }

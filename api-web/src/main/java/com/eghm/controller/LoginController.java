@@ -36,7 +36,7 @@ public class LoginController {
      */
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
-    public RespBody sendSms(LoginSendSmsRequest request) {
+    public RespBody<Object> sendSms(LoginSendSmsRequest request) {
         userService.loginSendSms(request.getMobile());
         return RespBody.getInstance();
     }

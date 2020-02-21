@@ -1,10 +1,10 @@
 package com.eghm.service.system;
 
+import com.eghm.dao.model.system.SystemOperator;
 import com.eghm.model.dto.system.operator.OperatorAddRequest;
 import com.eghm.model.dto.system.operator.OperatorEditRequest;
 import com.eghm.model.dto.system.operator.OperatorQueryRequest;
 import com.eghm.model.dto.system.operator.PasswordEditRequest;
-import com.eghm.dao.model.system.SystemOperator;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -59,5 +59,12 @@ public interface SystemOperatorService {
      * @param request 请求参数
      */
     void updateOperator(OperatorEditRequest request);
+
+    /**
+     * 重置用户登录密码 默认手机号后六位
+     *
+     * @param id 系统用户id
+     */
+    void resetPassword(Integer id);
 }
 

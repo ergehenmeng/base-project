@@ -58,7 +58,7 @@ public class PushTemplateController {
      */
     @PostMapping("/business/push_template/edit")
     @ResponseBody
-    public RespBody edit(PushTemplateEditRequest request) {
+    public RespBody<Object> edit(PushTemplateEditRequest request) {
         pushTemplateService.editPushTemplate(request);
         return RespBody.getInstance();
     }

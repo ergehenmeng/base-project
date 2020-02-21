@@ -37,7 +37,7 @@ public class ConfigController extends AbstractController {
     @PostMapping("/system/config/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(ConfigEditRequest request) {
+    public RespBody<Object> edit(ConfigEditRequest request) {
         systemConfigService.updateConfig(request);
         return RespBody.getInstance();
     }

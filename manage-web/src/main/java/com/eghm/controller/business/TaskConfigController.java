@@ -55,7 +55,7 @@ public class TaskConfigController {
     @PostMapping("/business/task/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(TaskEditRequest request) {
+    public RespBody<Object> edit(TaskEditRequest request) {
         taskConfigService.editTaskConfig(request);
         return RespBody.getInstance();
     }
@@ -66,7 +66,7 @@ public class TaskConfigController {
     @PostMapping("/business/task/refresh")
     @ResponseBody
     @Mark
-    public RespBody refresh() {
+    public RespBody<Object> refresh() {
         taskConfiguration.openOrRefreshTask();
         return RespBody.getInstance();
     }
