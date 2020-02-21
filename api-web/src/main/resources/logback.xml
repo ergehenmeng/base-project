@@ -28,7 +28,7 @@
     <!-- 普通日志 -->
     <appender name="info_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:\\info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/Users/wyb/logs/api/info.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -39,7 +39,7 @@
     <!-- 出入参日志 -->
     <appender name="param_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:\\param.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/Users/wyb/logs/api/param.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -49,7 +49,7 @@
     <!--错误日志-->
     <appender name="error_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:\\error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/Users/wyb/logs/api/error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -65,7 +65,7 @@
     <!-- 推送日志 -->
     <appender name="push_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:\\jpush.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/Users/wyb/logs/api/jpush.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>

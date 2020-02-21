@@ -58,7 +58,7 @@
                     </dependency>
                     <!-- 修改为中文注释方式 -->
                     <dependency>
-                        <groupId>com.act.mybatis</groupId>
+                        <groupId>com.eghm.mybatis</groupId>
                         <artifactId>mybatis-generator-core</artifactId>
                         <version>1.0.0</version>
                     </dependency>

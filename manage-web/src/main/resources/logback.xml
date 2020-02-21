@@ -28,7 +28,7 @@
     <!-- 每天生成一个文件,保存30天的日志文件 -->
     <appender name="rolling_info_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:\\info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/Users/wyb/logs/manage/info.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -38,7 +38,7 @@
 
     <appender name="rolling_error_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>D:\\error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>/Users/wyb/logs/manage/error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
