@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>短信记录管理</title>
@@ -61,9 +61,6 @@
                         <input type="hidden" name="endTime" id="endTime" />
                     </li>
                 </@search>
-                <div class="right">
-                    <a href="#" class="search-btn" onclick="$.fn.dataGridOptions.editFun(0,addTitle,winWidth,winHeight,addUrl);"><i class="fa fa-plus"></i>&nbsp;添加</a>
-                </div>
             </div>
         </div>
         <div data-options="region:'center'">
