@@ -1317,10 +1317,10 @@
     z-index: 2;
 }
 
-.layout-panel-north,
+/*.layout-panel-north,
 .layout-panel-south {
     z-index: 3;
-}
+}*/
 
 .layout-expand {
     position: absolute;
