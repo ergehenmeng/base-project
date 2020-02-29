@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>系统参数管理</title>
@@ -8,7 +8,7 @@
         var dataGrid;
 
         var winWidth = 420;
-        var winHeight = 600;
+        var winHeight = 460;
 
         var editTitle = "编辑系统参数";
         var editUrl = "/system/config/edit_page";

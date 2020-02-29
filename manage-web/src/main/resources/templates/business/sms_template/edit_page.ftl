@@ -12,7 +12,7 @@
         </div>
         <div class="form-item">
             <label>内容:</label>
-            <textarea title="短信内容" name="remark" class="h60" maxlength="70" class="easyui-validatebox" data-options="required: true">${(template.content)!}</textarea>
+            <textarea title="短信内容" name="content" class="h60" maxlength="70" class="easyui-validatebox" data-options="required: true">${(template.content)!}</textarea>
             <small>*</small>
         </div>
         <div class="form-item">
