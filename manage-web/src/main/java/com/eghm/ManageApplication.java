@@ -9,7 +9,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -23,14 +23,14 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = {"com.eghm.filter", "com.eghm.listener"})
 @MapperScan(basePackages = "com.eghm.dao.mapper")
-public class ManageApplication implements ApplicationListener<ApplicationContextEvent> {
+public class ManageApplication implements ApplicationListener<ContextRefreshedEvent> {
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
     }
 
     @Override
-    public void onApplicationEvent(@NonNull ApplicationContextEvent event) {
+    public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
         SpringContextUtil.setApplicationContext(event.getApplicationContext());
     }
 }

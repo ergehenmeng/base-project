@@ -1,15 +1,11 @@
 package com.eghm.service.cache;
 
 
-import com.eghm.dao.model.user.User;
-import com.eghm.model.ext.AccessToken;
-
 /**
  * @author 二哥很猛
  * @date 2018/10/11 13:47
  */
 public interface CacheProxyService {
-
 
     /**
      * 根据nid与隐藏值获取显示信息 数据字典格式化数据
