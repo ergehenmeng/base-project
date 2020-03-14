@@ -1,4 +1,4 @@
-package com.eghm.configuration.job;
+package com.eghm.configuration.task.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -31,6 +31,11 @@ public enum ErrorCode {
     SYSTEM_ERROR(500,"系统繁忙,请稍后再试"),
 
     /**
+     * 应用上下文尚未完全启动
+     */
+    SPRING_ON_LOADING(505,"Spring上下文尚未完全启动"),
+
+    /**
      * json转换异常
      */
     JSON_FORMAT_ERROR(1000,"json转换异常"),

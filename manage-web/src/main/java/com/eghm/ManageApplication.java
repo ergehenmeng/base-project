@@ -1,8 +1,12 @@
 package com.eghm;
 
 
+import com.eghm.configuration.task.config.SystemTaskRegistrar;
 import com.eghm.utils.SpringContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -23,7 +27,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = {"com.eghm.filter", "com.eghm.listener"})
 @MapperScan(basePackages = "com.eghm.dao.mapper")
-public class ManageApplication implements ApplicationListener<ContextRefreshedEvent> {
+public class ManageApplication implements ApplicationListener<ContextRefreshedEvent>, ApplicationRunner {
+
+    @Autowired
+    private SystemTaskRegistrar systemTaskRegistrar;
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
@@ -32,5 +39,10 @@ public class ManageApplication implements ApplicationListener<ContextRefreshedEv
     @Override
     public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
         SpringContextUtil.setApplicationContext(event.getApplicationContext());
+    }
+
+    @Override
+    public void run(ApplicationArguments args) {
+        systemTaskRegistrar.loadOrRefreshTask();
     }
 }

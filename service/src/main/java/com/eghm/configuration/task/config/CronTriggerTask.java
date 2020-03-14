@@ -1,4 +1,4 @@
-package com.eghm.configuration.job;
+package com.eghm.configuration.task.config;
 
 import org.springframework.scheduling.config.TriggerTask;
 import org.springframework.scheduling.support.CronTrigger;

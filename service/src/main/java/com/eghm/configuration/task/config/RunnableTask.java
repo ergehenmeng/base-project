@@ -1,4 +1,4 @@
-package com.eghm.configuration.job;
+package com.eghm.configuration.task.config;
 
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.TaskLog;

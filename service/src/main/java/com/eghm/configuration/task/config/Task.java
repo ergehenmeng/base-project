@@ -1,4 +1,4 @@
-package com.eghm.configuration.job;
+package com.eghm.configuration.task.config;
 
 /**
  * @author 二哥很猛

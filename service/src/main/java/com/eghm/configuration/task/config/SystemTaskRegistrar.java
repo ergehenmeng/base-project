@@ -1,4 +1,4 @@
-package com.eghm.configuration.job;
+package com.eghm.configuration.task.config;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
@@ -12,16 +12,10 @@ import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.PostConstruct;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
@@ -29,13 +23,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author 二哥很猛
- * @date 2019/9/6 14:49
  */
-@Configuration
-@ConditionalOnProperty(prefix = "application", name = "job")
 @Slf4j
-@EnableScheduling
-public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
+public class SystemTaskRegistrar implements DisposableBean {
 
     @Autowired
     private TaskConfigService taskConfigService;
@@ -43,47 +33,33 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
     @Autowired
     private SystemConfigApi systemConfigApi;
 
-    private ScheduledTaskRegistrar scheduledTaskRegistrar;
-
-    private final Map<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>();
+    @Autowired
+    private TaskScheduler taskScheduler;
 
     /**
      * 周期定时任务
      */
-    private final Map<String, CronTriggerTask> cronTaskMap = new ConcurrentHashMap<>();
+    private final Map<String, CronTriggerTask> cronTaskMap = new ConcurrentHashMap<>(32);
+
+    /**
+     * 任务执行句柄
+     */
+    private final Map<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>(32);
 
     /**
      * 单次定时任务
      */
-    private final Map<String, OnceTriggerTask> onceTaskMap = new ConcurrentHashMap<>();
+    private final Map<String, OnceTriggerTask> onceTaskMap = new ConcurrentHashMap<>(32);
 
     /**
      * 计数器 用于单次任务的nid生成
      */
     private AtomicLong counter = new AtomicLong();
 
-    @Override
-    public void configureTasks(@NotNull ScheduledTaskRegistrar taskRegistrar) {
-        this.scheduledTaskRegistrar = taskRegistrar;
-        taskRegistrar.setScheduler(this.createScheduler());
-        this.openOrRefreshTask();
-    }
-
     /**
-     * 创建定时任务线程池
+     * 加载或刷新系统中配置的定时任务
      */
-    private TaskScheduler createScheduler() {
-        ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
-        scheduler.setPoolSize(5);
-        scheduler.setThreadNamePrefix("定时任务-");
-        scheduler.afterPropertiesSet();
-        return scheduler;
-    }
-
-    /**
-     * 开启或刷新定时任务
-     */
-    public synchronized void openOrRefreshTask() {
+    public synchronized void loadOrRefreshTask() {
         log.info("定时任务配置信息开始加载...");
         List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();
         List<CronTriggerTask> taskList = new ArrayList<>();
@@ -116,21 +92,27 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
      */
     private void addCronTask(List<CronTriggerTask> taskList) {
         for (CronTriggerTask task : taskList) {
-            if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getCronExpression().equals(task.getCronExpression())) {
-                log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
-                continue;
-            }
-            if (scheduledFutures.containsKey(task.getNid())) {
-                //定时任务存在,但配置发生变化 移除旧定时任务
-                scheduledFutures.get(task.getNid()).cancel(false);
-            }
-            TaskScheduler scheduler = scheduledTaskRegistrar.getScheduler();
-            if (scheduler != null) {
-                ScheduledFuture<?> schedule = scheduler.schedule(task.getRunnable(), task.getTrigger());
-                scheduledFutures.put(task.getNid(), schedule);
-            }
-            cronTaskMap.put(task.getNid(), task);
+            this.addCronTask(task);
         }
+    }
+
+    /**
+     * 添加cron定时任务
+     *
+     * @param task 待添加的定时任务
+     */
+    private void addCronTask(CronTriggerTask task) {
+        if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getCronExpression().equals(task.getCronExpression())) {
+            log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
+            return;
+        }
+        if (scheduledFutures.containsKey(task.getNid())) {
+            //定时任务存在,但配置发生变化 移除旧定时任务
+            scheduledFutures.get(task.getNid()).cancel(false);
+        }
+        ScheduledFuture<?> schedule = taskScheduler.schedule(task.getRunnable(), task.getTrigger());
+        scheduledFutures.put(task.getNid(), schedule);
+        cronTaskMap.put(task.getNid(), task);
     }
 
     /**
@@ -138,8 +120,8 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
      * 1.如果旧定时任务与新的要执行的定时任务一样,则不移除.在添加定时任务时再判断(减少过多的停止任务的操作)
      * 2.如果旧定时任务是仅执行一次的定时任务,则不移除.由系统参数 task_max_survival_time 来决定是否移除
      *
-     * @see TaskConfiguration#addTask(OnceTask)
      * @param taskList 指定的任务列表
+     * @see SystemTaskRegistrar#addTask(OnceTask)
      */
     private void removeCronTask(List<CronTriggerTask> taskList) {
         boolean isEmpty = taskList.isEmpty();
@@ -169,29 +151,17 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
         }
     }
 
-    @Override
-    public void destroy() {
-        //默认情况下 取消操作ScheduledTaskRegistrar#destroy,由于手动调用scheduler#schedule,因此不受ScheduledTaskRegistrar管理
-        for (ScheduledFuture<?> future : scheduledFutures.values()) {
-            if (future != null) {
-                future.cancel(true);
-            }
-        }
-    }
-
     /**
      * 添加任务,只能添加仅执行一次的定时任务
+     *
      * @param task 任务配置信息
      */
     public void addTask(OnceTask task) {
         this.cancelTask();
         task.setNid(task.getNid() + "-" + counter.getAndIncrement());
-        TaskScheduler scheduler = scheduledTaskRegistrar.getScheduler();
         OnceTriggerTask onceTriggerTask = new OnceTriggerTask(task);
-        if (scheduler != null) {
-            ScheduledFuture<?> schedule = scheduler.schedule(onceTriggerTask.getRunnable(), onceTriggerTask.getTrigger());
-            scheduledFutures.put(task.getNid(), schedule);
-        }
+        ScheduledFuture<?> schedule = taskScheduler.schedule(onceTriggerTask.getRunnable(), onceTriggerTask.getTrigger());
+        scheduledFutures.put(task.getNid(), schedule);
         onceTaskMap.put(task.getNid(), onceTriggerTask);
     }
 
@@ -204,13 +174,22 @@ public class TaskConfiguration implements SchedulingConfigurer, DisposableBean {
         Iterator<Map.Entry<String, OnceTriggerTask>> iterator = onceTaskMap.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, OnceTriggerTask> next = iterator.next();
-            if(next.getValue().shouldRemove(now, maxSurvivalTime)) {
+            if (next.getValue().shouldRemove(now, maxSurvivalTime)) {
                 log.info("移除定时任务 nid:[{}]", next.getKey());
                 iterator.remove();
                 ScheduledFuture<?> future = scheduledFutures.remove(next.getKey());
-                if (future != null){
+                if (future != null) {
                     future.cancel(false);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        for (ScheduledFuture<?> future : scheduledFutures.values()) {
+            if (future != null) {
+                future.cancel(true);
             }
         }
     }

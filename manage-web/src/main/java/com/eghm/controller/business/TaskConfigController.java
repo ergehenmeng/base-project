@@ -1,7 +1,7 @@
 package com.eghm.controller.business;
 
 import com.eghm.annotation.Mark;
-import com.eghm.configuration.job.TaskConfiguration;
+import com.eghm.configuration.task.config.SystemTaskRegistrar;
 import com.eghm.dao.model.business.TaskConfig;
 import com.eghm.model.dto.business.task.TaskEditRequest;
 import com.eghm.model.dto.business.task.TaskQueryRequest;
@@ -27,7 +27,7 @@ public class TaskConfigController {
     private TaskConfigService taskConfigService;
 
     @Autowired
-    private TaskConfiguration taskConfiguration;
+    private SystemTaskRegistrar systemTaskRegistrar;
 
     /**
      * 分页查询定时任务列表
@@ -67,7 +67,7 @@ public class TaskConfigController {
     @ResponseBody
     @Mark
     public RespBody<Object> refresh() {
-        taskConfiguration.openOrRefreshTask();
+        systemTaskRegistrar.loadOrRefreshTask();
         return RespBody.getInstance();
     }
 }

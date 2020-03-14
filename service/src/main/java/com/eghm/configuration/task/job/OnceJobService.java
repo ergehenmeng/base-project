@@ -1,7 +1,7 @@
-package com.eghm.task;
+package com.eghm.configuration.task.job;
 
 import com.eghm.common.utils.DateUtil;
-import com.eghm.configuration.job.Task;
+import com.eghm.configuration.task.config.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

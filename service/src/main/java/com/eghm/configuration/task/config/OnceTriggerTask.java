@@ -1,6 +1,9 @@
-package com.eghm.configuration.job;
+package com.eghm.configuration.task.config;
 
 import com.eghm.common.utils.DateUtil;
+import org.springframework.lang.NonNull;
+import org.springframework.scheduling.Trigger;
+import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.config.TriggerTask;
 
 import java.util.Date;
@@ -30,4 +33,26 @@ public class OnceTriggerTask extends TriggerTask {
         }
         return DateUtil.addSeconds(executeTime, maxSurvivalTime).before(nowTime);
     }
+
+    static class OnceTrigger implements Trigger {
+
+        private boolean executed = false;
+
+        private Date executeTime;
+
+        public OnceTrigger(Date executeTime) {
+            this.executeTime = executeTime;
+        }
+
+        @Override
+        public Date nextExecutionTime(@NonNull TriggerContext triggerContext) {
+            if(executed){
+                return null;
+            }
+            executed = true;
+            return executeTime;
+        }
+    }
 }
+
+

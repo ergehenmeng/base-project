@@ -17,7 +17,7 @@ public class SystemException extends RuntimeException {
      * 构造方法
      * @param error 错误类型枚举
      */
-    SystemException(ErrorCode error){
+    public SystemException(ErrorCode error){
         this(error.getCode(),error.getMsg());
     }
     /**

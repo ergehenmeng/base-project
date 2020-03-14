@@ -1,9 +1,9 @@
-package com.eghm.task;
+package com.eghm.configuration.task.job;
 
 import com.eghm.common.utils.DateUtil;
-import com.eghm.configuration.job.OnceTask;
-import com.eghm.configuration.job.Task;
-import com.eghm.configuration.job.TaskConfiguration;
+import com.eghm.configuration.task.config.OnceTask;
+import com.eghm.configuration.task.config.SystemTaskRegistrar;
+import com.eghm.configuration.task.config.Task;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,12 +18,12 @@ import org.springframework.stereotype.Service;
 public class TestJobService implements Task {
 
     @Autowired(required = false)
-    private TaskConfiguration taskConfiguration;
+    private SystemTaskRegistrar systemTaskRegistrar;
 
     @Override
     public void execute() {
         log.error("我是个数据库配置的Job {}", DateUtil.formatLong(DateUtil.getNow()));
-        taskConfiguration.addTask(OnceTask.builder().beanName("onceJobService").nid("onceJobService").executeTime(DateUtil.addSeconds(DateUtil.getNow(),10)).build());
+        systemTaskRegistrar.addTask(OnceTask.builder().beanName("onceJobService").nid("onceJobService").executeTime(DateUtil.addSeconds(DateUtil.getNow(),10)).build());
     }
 
     @Scheduled(cron = "0 0 0-5 * * ?")

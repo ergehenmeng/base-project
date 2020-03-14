@@ -8,7 +8,7 @@
     * 支持数据库配置cron定时,spring原生注解定时,单次执行的定时
     * 在`job_task`表中`bean`字段为要执行定时任务的bean的名称 `cron_expression`为cron表达式
     * 如需简单定时任务可使用`@Scheduled`
-    * 非原生定时需要bean实现`com.eghm.configuration.job.Task`接口
+    * 非原生定时需要bean实现`com.eghm.configuration.task.Task`接口
     * 定时任务配置更新后需要*手动刷新配置*才能重新生效
     * 只执行一次的定时任务可通过 `TaskConfiguration.addTask()` 实现
     * demo例子`TestJobService` `OnceJobService`

@@ -1,5 +1,8 @@
 package com.eghm.utils;
 
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.SystemException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -8,6 +11,7 @@ import org.springframework.context.ApplicationContext;
  * @author 二哥很猛
  * @date 2018/1/18 18:44
  */
+@Slf4j
 public class SpringContextUtil {
 
     private static ApplicationContext applicationContext;
@@ -21,10 +25,19 @@ public class SpringContextUtil {
     }
 
     public static Object getBean(String beanName) {
+        verifyApplication();
         return applicationContext.getBean(beanName);
     }
 
     public static Object getBean(Class<?> requiredType) {
+        verifyApplication();
         return applicationContext.getBean(requiredType);
     }
+
+    public static void verifyApplication() {
+        if (applicationContext == null) {
+            throw new SystemException(ErrorCode.SPRING_ON_LOADING);
+        }
+    }
+
 }
