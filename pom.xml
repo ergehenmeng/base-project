@@ -72,7 +72,7 @@
         <!--kafka客户端-->
         <kafka.version>1.0.0</kafka.version>
         <!--配置文件密码加密-->
-        <jasypt.version>1.18</jasypt.version>
+        <jasypt.version>3.0.2</jasypt.version>
         <!--生成编译的工具类-->
         <lombok.version>1.18.0</lombok.version>
         <!--阿里redis缓存-->
@@ -106,6 +106,36 @@
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>dao</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>api-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.eghm</groupId>
+                <artifactId>manage-web</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -155,7 +185,11 @@
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
