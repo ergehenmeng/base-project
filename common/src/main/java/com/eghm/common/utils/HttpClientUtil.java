@@ -9,20 +9,12 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.config.Registry;
-import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.socket.ConnectionSocketFactory;
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.ssl.SSLContextBuilder;
-import org.apache.http.ssl.SSLContexts;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
@@ -43,63 +35,22 @@ public class HttpClientUtil {
      */
     private static final String SYMBOL = "?";
 
-    private static SSLConnectionSocketFactory factory = null;
-
-    private static PoolingHttpClientConnectionManager manager = null;
+    private static CloseableHttpClient httpClient;
 
     static {
-        SSLContextBuilder builder = SSLContexts.custom();
-        try {
-            builder.loadTrustMaterial(null, (chain, authType) -> true);
-            factory = new SSLConnectionSocketFactory(builder.build(), new String[]{"SSLv2Hello", "SSLv3", "TLSv1", "TLSv1.2"}, null, NoopHostnameVerifier.INSTANCE);
-            Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
-                    .register("https", factory)
-                    .build();
-            manager = new PoolingHttpClientConnectionManager(registry);
-            manager.setMaxTotal(100);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * https post请求
-     *
-     * @param url  请求地址
-     * @param body 请求参数
-     * @return 响应信息
-     */
-    public static String postSSL(String url, String body) {
-        log.debug("https post请求地址:[{}],请求参数:[{}]", url, body);
-        HttpPost post = new HttpPost(url);
-        post.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
-        return execute(post, sslHttpClient(), null);
-    }
-
-    /**
-     * https get请求
-     *
-     * @param url    请求地址
-     * @param params 请求参数
-     * @return 响应结果
-     */
-    public static String getSSL(String url, Map<String, String> params) {
-        String finalUrl = urlJoin(url, params);
-        HttpGet get = new HttpGet(finalUrl);
-        return execute(get, sslHttpClient(), null);
-    }
-
-    /**
-     * https 连接client
-     *
-     * @return httpclient
-     */
-    private static CloseableHttpClient sslHttpClient() {
-        return HttpClients.custom()
-                .setSSLSocketFactory(factory)
-                .setConnectionManager(manager)
-                .setConnectionManagerShared(true)
+        httpClient = HttpClients.custom()
+                .setMaxConnTotal(100)
+                .setDefaultRequestConfig(defaultConfig())
                 .build();
+    }
+
+    /**
+     * 默认请求配置 post get通用
+     *
+     * @return 配置信息
+     */
+    private static RequestConfig defaultConfig() {
+        return RequestConfig.custom().setSocketTimeout(60000).setConnectionRequestTimeout(60000).setConnectTimeout(60000).build();
     }
 
     /**
@@ -141,7 +92,7 @@ public class HttpClientUtil {
     public static String get(String url) {
         log.debug("http get请求地址及参数:[{}]", url);
         HttpGet get = new HttpGet(url);
-        return execute(get, null, null);
+        return execute(get);
     }
 
     /**
@@ -171,27 +122,14 @@ public class HttpClientUtil {
      * @param url     请求地址
      * @param body    请求参数
      * @param headers 头信息
-     * @param config  请求配置信息
      * @return 响应结果
      */
-    public static String post(String url, String body, Map<String, String> headers, RequestConfig config) {
+    public static String post(String url, String body, Map<String, String> headers) {
         log.debug("http post请求地址:[{}],请求参数:[{}]", url, body);
         HttpPost post = new HttpPost(url);
         post.setHeaders(formatHeaders(headers));
         post.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
-        return execute(post, null, config);
-    }
-
-    /**
-     * post请求 application/json
-     *
-     * @param url     请求地址
-     * @param body    请求参数
-     * @param headers 头信息
-     * @return 响应结果
-     */
-    public static String post(String url, String body, Map<String, String> headers) {
-        return post(url, body, headers, null);
+        return execute(post);
     }
 
     /**
@@ -202,7 +140,7 @@ public class HttpClientUtil {
      * @return 响应结果
      */
     public static String post(String url, String body) {
-        return post(url, body, null, null);
+        return post(url, body, null);
     }
 
 
@@ -227,18 +165,10 @@ public class HttpClientUtil {
      * 执行Http请求
      *
      * @param request 请求参数
-     * @param client  httpClient对象
-     * @param config  请求配置
      * @return 结果响应
      */
-    private static String execute(HttpUriRequest request, CloseableHttpClient client, RequestConfig config) {
-        if (config == null) {
-            config = defaultConfig();
-        }
-        if (client == null) {
-            client = HttpClients.custom().setDefaultRequestConfig(config).build();
-        }
-        try (CloseableHttpResponse response = client.execute(request)) {
+    private static String execute(HttpUriRequest request) {
+        try (CloseableHttpResponse response = httpClient.execute(request)) {
             int code = response.getStatusLine().getStatusCode();
             if (code != HttpStatus.SC_OK) {
                 log.error("http请求响应状态码异常,code:[{}]", code);
@@ -254,13 +184,9 @@ public class HttpClientUtil {
         return null;
     }
 
-    /**
-     * 默认请求配置 post get通用
-     *
-     * @return 配置信息
-     */
-    private static RequestConfig defaultConfig() {
-        return RequestConfig.custom().setSocketTimeout(6000).setConnectionRequestTimeout(6000).setConnectTimeout(6000).build();
+    public static void main(String[] args) {
+        String s = HttpClientUtil.get("https://www.baidu.com/");
+        System.out.println(s);
     }
 
 }
