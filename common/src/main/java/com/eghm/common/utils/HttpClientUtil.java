@@ -38,8 +38,11 @@ public class HttpClientUtil {
     private static CloseableHttpClient httpClient;
 
     static {
+
         httpClient = HttpClients.custom()
                 .setMaxConnTotal(100)
+                //同一域名的最大并发数
+                .setMaxConnPerRoute(10)
                 .setDefaultRequestConfig(defaultConfig())
                 .build();
     }
@@ -50,7 +53,7 @@ public class HttpClientUtil {
      * @return 配置信息
      */
     private static RequestConfig defaultConfig() {
-        return RequestConfig.custom().setSocketTimeout(60000).setConnectionRequestTimeout(60000).setConnectTimeout(60000).build();
+        return RequestConfig.custom().setSocketTimeout(30000).setConnectionRequestTimeout(10000).setConnectTimeout(6000).build();
     }
 
     /**
