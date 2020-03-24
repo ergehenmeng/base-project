@@ -2,6 +2,7 @@ package com.eghm.service.common.impl;
 
 
 import com.eghm.common.constant.CacheConstant;
+import com.eghm.common.utils.Md5Util;
 import com.eghm.common.utils.StringUtil;
 import com.eghm.configuration.security.Encoder;
 import com.eghm.constants.ConfigConstant;
@@ -33,9 +34,11 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     public AccessToken createAccessToken(int userId, String channel) {
         String signKey = encoder.encode(userId + channel + StringUtil.random(16));
         String accessToken = encoder.encode(userId + signKey);
-        AccessToken token = AccessToken.builder().signKey(signKey).accessToken(accessToken).userId(userId).channel(channel).build();
+        String refreshToken = encoder.encode(Md5Util.md5(signKey + accessToken));
+        AccessToken token = AccessToken.builder().signKey(signKey).accessToken(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
         this.cacheByAccessToken(token);
         this.cacheByUserId(token.getUserId(), accessToken);
+        this.cacheRefreshToken(refreshToken, token);
         return token;
     }
 
@@ -50,6 +53,11 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     }
 
     @Override
+    public AccessToken getByRefreshToken(String refreshToken) {
+        return cacheService.getValue(CacheConstant.REFRESH_TOKEN + refreshToken, AccessToken.class);
+    }
+
+    @Override
     public void cacheByAccessToken(AccessToken token) {
         cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessToken(), token, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
     }
@@ -60,6 +68,11 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     }
 
     @Override
+    public void cacheRefreshToken(String refreshToken, AccessToken token) {
+        cacheService.setValue(CacheConstant.REFRESH_TOKEN + refreshToken, token, systemConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+    }
+
+    @Override
     public void cleanAccessToken(String accessToken) {
         cacheService.delete(CacheConstant.ACCESS_TOKEN + accessToken);
     }
@@ -67,5 +80,10 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Override
     public void cleanUserId(int userId) {
         cacheService.delete(CacheConstant.ACCESS_TOKEN + userId);
+    }
+
+    @Override
+    public void cleanRefreshToken(String refreshToken) {
+        cacheService.delete(CacheConstant.REFRESH_TOKEN + refreshToken);
     }
 }

@@ -29,6 +29,11 @@ public class CacheConstant {
     public static final String ACCESS_TOKEN = "access_token::";
 
     /**
+     * 用户登陆刷新token
+     */
+    public static final String REFRESH_TOKEN = "refresh_token::";
+
+    /**
      * 同一类型短信发送间隔
      */
     public static final String SMS_TYPE_INTERVAL = "sms_type_interval::";

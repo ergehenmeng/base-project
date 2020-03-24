@@ -1,5 +1,6 @@
 package com.eghm.model.ext;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +30,12 @@ public class AccessToken implements Serializable {
      * token 保持登陆信息
      */
     private String accessToken;
+
+    /**
+     * 刷新token 不序列号保存到redis中
+     */
+    @JsonIgnore
+    private String refreshToken;
 
     /**
      * 用户id

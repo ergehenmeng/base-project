@@ -34,10 +34,24 @@ public interface AccessTokenService {
     String getByUserId(int userId);
 
     /**
+     * 根据刷新token信息获取用户登陆信息
+     * @param refreshToken 刷新token
+     * @return 用户登陆信息
+     */
+    AccessToken getByRefreshToken(String refreshToken);
+
+    /**
      * 保存token
      * @param token token对象
      */
     void cacheByAccessToken(AccessToken token);
+
+    /**
+     * 保存刷新token,减少不必要的每次请求更新
+     * @param refreshToken token信息
+     * @param token 用户登陆信息
+     */
+    void cacheRefreshToken(String refreshToken, AccessToken token);
 
     /**
      * 保存 userId:token关系
@@ -57,5 +71,11 @@ public interface AccessTokenService {
      * @param userId userId
      */
     void cleanUserId(int userId);
+
+    /**
+     * 清除refreshToken信息
+     * @param refreshToken 刷新token
+     */
+    void cleanRefreshToken(String refreshToken);
 }
 

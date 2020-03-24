@@ -112,6 +112,11 @@ public class ConfigConstant {
     public static final String TOKEN_EXPIRE = "token_expire";
 
     /**
+     * 刷新token过期时间(比登陆token过期时间要大)
+     */
+    public static final String REFRESH_TOKEN_EXPIRE = "refresh_token_expire";
+
+    /**
      * 针对只执行一次的任务最大存活时间
      */
     public static final String TASK_MAX_SURVIVAL_TIME = "task_max_survival_time";

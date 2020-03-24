@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
         AccessToken accessToken = accessTokenService.createAccessToken(user.getId(), request.getChannel());
         LoginRecord record = LoginRecord.builder().channel(request.getChannel()).ip(ip).deviceBrand(request.getDeviceBrand()).deviceModel(request.getDeviceModel()).userId(user.getId()).softwareVersion(request.getVersion()).build();
         taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
-        return LoginTokenVO.builder().signKey(accessToken.getSignKey()).accessToken(accessToken.getAccessToken()).build();
+        return LoginTokenVO.builder().signKey(accessToken.getSignKey()).accessToken(accessToken.getAccessToken()).refreshToken(accessToken.getRefreshToken()).build();
     }
 
 
