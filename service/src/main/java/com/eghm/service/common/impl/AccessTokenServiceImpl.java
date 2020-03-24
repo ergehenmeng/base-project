@@ -30,10 +30,10 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     private Encoder encoder;
 
     @Override
-    public AccessToken createAccessToken(User user, String channel) {
-        String signKey = encoder.encode(user.getId() + channel + StringUtil.random(16));
-        String accessToken = encoder.encode(user.getId() + signKey);
-        AccessToken token = AccessToken.builder().signKey(signKey).accessToken(accessToken).userId(user.getId()).channel(channel).build();
+    public AccessToken createAccessToken(int userId, String channel) {
+        String signKey = encoder.encode(userId + channel + StringUtil.random(16));
+        String accessToken = encoder.encode(userId + signKey);
+        AccessToken token = AccessToken.builder().signKey(signKey).accessToken(accessToken).userId(userId).channel(channel).build();
         this.cacheByAccessToken(token);
         this.cacheByUserId(token.getUserId(), accessToken);
         return token;
@@ -65,7 +65,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     }
 
     @Override
-    public void cleanUserId(Integer userId) {
+    public void cleanUserId(int userId) {
         cacheService.delete(CacheConstant.ACCESS_TOKEN + userId);
     }
 }

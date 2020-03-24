@@ -18,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/9/12 14:36
  * @see SystemConfigServiceImpl
  */
-@Service("systemConfigApi")
 @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
 @Slf4j
+@Service("systemConfigApi")
 public class SystemConfigApi {
 
     @Autowired

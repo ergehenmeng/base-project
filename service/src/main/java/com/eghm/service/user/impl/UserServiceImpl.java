@@ -134,7 +134,7 @@ public class UserServiceImpl implements UserService {
         //将原用户踢掉
         this.offline(user.getId());
         RequestMessage request = RequestThreadLocal.get();
-        AccessToken accessToken = accessTokenService.createAccessToken(user, request.getChannel());
+        AccessToken accessToken = accessTokenService.createAccessToken(user.getId(), request.getChannel());
         LoginRecord record = LoginRecord.builder().channel(request.getChannel()).ip(ip).deviceBrand(request.getDeviceBrand()).deviceModel(request.getDeviceModel()).userId(user.getId()).softwareVersion(request.getVersion()).build();
         taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
         return LoginTokenVO.builder().signKey(accessToken.getSignKey()).accessToken(accessToken.getAccessToken()).build();
@@ -207,7 +207,7 @@ public class UserServiceImpl implements UserService {
      * 强制将用户踢下线
      * @param userId 用户id
      */
-    private void offline(Integer userId){
+    private void offline(int userId){
         String accessToken = accessTokenService.getByUserId(userId);
         if(StringUtil.isBlank(accessToken)){
             return;

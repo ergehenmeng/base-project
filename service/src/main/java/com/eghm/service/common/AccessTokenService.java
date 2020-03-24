@@ -13,11 +13,11 @@ public interface AccessTokenService {
     /**
      * 创建登陆后的token,并将token放入缓存中
      *
-     * @param user    用户信息
+     * @param userId    用户信息
      * @param channel 访问渠道
      * @return token
      */
-    AccessToken createAccessToken(User user, String channel);
+    AccessToken createAccessToken(int userId, String channel);
 
     /**
      * 根据accessToken查找token
@@ -56,6 +56,6 @@ public interface AccessTokenService {
      * 清除用户信息
      * @param userId userId
      */
-    void cleanUserId(Integer userId);
+    void cleanUserId(int userId);
 }
 
