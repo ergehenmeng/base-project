@@ -59,16 +59,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     /**
-     * url中如果包含 "." 默认情况下后面的会被截取,将参数设置为false则会全部匹配
-     *
-     * @param configurer configurer
-     */
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.setUseRegisteredSuffixPatternMatch(false);
-    }
-
-    /**
      * 密码加密bean 独立于spring-security之外的工具类
      *
      * @return bean

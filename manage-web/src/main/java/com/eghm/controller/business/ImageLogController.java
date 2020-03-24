@@ -86,7 +86,7 @@ public class ImageLogController extends AbstractController {
             request.setSize(imgFile.getSize());
         }
         imageLogService.addImageLog(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -100,7 +100,7 @@ public class ImageLogController extends AbstractController {
     @Mark
     public RespBody<Object> editImage(ImageEditRequest request) {
         imageLogService.updateImageLog(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 
@@ -115,7 +115,7 @@ public class ImageLogController extends AbstractController {
     @Mark
     public RespBody<Object> deleteImage(Integer id) {
         imageLogService.deleteImageLog(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**

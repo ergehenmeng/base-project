@@ -38,7 +38,7 @@ public class LoginController {
     @PostMapping("/login/send_sms")
     public RespBody<Object> sendSms(LoginSendSmsRequest request) {
         userService.loginSendSms(request.getMobile());
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**

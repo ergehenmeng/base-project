@@ -42,12 +42,13 @@ public class CacheController {
      * @param cacheName 缓存名称
      * @return 成功响应
      */
+    @SuppressWarnings("UnstableApiUsage")
     @PostMapping("/system/cache/clear")
     @ResponseBody
     @Mark
-    public RespBody clear(String cacheName) {
+    public RespBody<Object> clear(String cacheName) {
         List<String> cacheList = Splitter.on(",").splitToList(cacheName);
         systemCacheService.clearCache(cacheList);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 }

@@ -35,7 +35,7 @@ public class RegisterController {
     @ApiOperation("注册发送验证码")
     public RespBody<Object> sendSms(RegisterSendSmsRequest request) {
         userService.registerSendSms(request.getMobile());
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**

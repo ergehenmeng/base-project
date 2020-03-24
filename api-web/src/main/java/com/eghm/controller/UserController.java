@@ -17,7 +17,6 @@ public class UserController {
 
     @PostMapping("/user/set_password")
     public RespBody<Object> setPassword(){
-
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 }

@@ -39,7 +39,7 @@ public class ConfigController extends AbstractController {
     @Mark
     public RespBody<Object> edit(ConfigEditRequest request) {
         systemConfigService.updateConfig(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**

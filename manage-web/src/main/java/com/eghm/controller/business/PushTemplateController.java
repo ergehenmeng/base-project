@@ -60,7 +60,7 @@ public class PushTemplateController {
     @ResponseBody
     public RespBody<Object> edit(PushTemplateEditRequest request) {
         pushTemplateService.editPushTemplate(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 }

@@ -84,13 +84,13 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/menu/add")
     @ResponseBody
     @Mark
-    public RespBody add(MenuAddRequest request) {
+    public RespBody<Object> add(MenuAddRequest request) {
         if (request.getGrade() > SystemMenu.BUTTON) {
             return RespBody.error(ErrorCode.SUB_MENU_ERROR);
         }
         systemMenuService.addMenu(request);
         metadataSource.refreshResource();
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -102,10 +102,10 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/menu/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(MenuEditRequest request) {
+    public RespBody<Object> edit(MenuEditRequest request) {
         systemMenuService.updateMenu(request);
         metadataSource.refreshResource();
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -117,10 +117,10 @@ public class MenuController extends AbstractController {
     @PostMapping("/system/menu/delete")
     @Mark
     @ResponseBody
-    public RespBody delete(Integer id) {
+    public RespBody<Object> delete(Integer id) {
         systemMenuService.deleteMenu(id);
         metadataSource.refreshResource();
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**

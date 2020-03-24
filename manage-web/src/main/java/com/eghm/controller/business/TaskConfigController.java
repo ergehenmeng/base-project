@@ -57,7 +57,7 @@ public class TaskConfigController {
     @Mark
     public RespBody<Object> edit(TaskEditRequest request) {
         taskConfigService.editTaskConfig(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -68,6 +68,6 @@ public class TaskConfigController {
     @Mark
     public RespBody<Object> refresh() {
         systemTaskRegistrar.loadOrRefreshTask();
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 }

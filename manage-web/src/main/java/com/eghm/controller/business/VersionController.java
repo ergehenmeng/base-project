@@ -71,14 +71,14 @@ public class VersionController {
     @PostMapping("/business/version/add")
     @ResponseBody
     @Mark
-    public RespBody add(VersionAddRequest request, MultipartFile file) {
+    public RespBody<Object> add(VersionAddRequest request, MultipartFile file) {
         if (file != null && !file.isEmpty()) {
             long maxSize = systemConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
             FilePath filePath = fileService.saveFile(file, CommonConstant.VERSION, maxSize);
             request.setUrl(filePath.getPath());
         }
         versionService.addAppVersion(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -87,9 +87,9 @@ public class VersionController {
     @PostMapping("/business/version/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(VersionEditRequest request) {
+    public RespBody<Object> edit(VersionEditRequest request) {
         versionService.editAppVersion(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -100,9 +100,9 @@ public class VersionController {
     @PostMapping("/business/version/put_away")
     @ResponseBody
     @Mark
-    public RespBody putAway(Integer id) {
+    public RespBody<Object> putAway(Integer id) {
         versionService.putAwayVersion(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -113,9 +113,9 @@ public class VersionController {
     @PostMapping("/business/version/sold_out")
     @ResponseBody
     @Mark
-    public RespBody soldOut(Integer id) {
+    public RespBody<Object> soldOut(Integer id) {
         versionService.soldOutVersion(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -124,8 +124,8 @@ public class VersionController {
     @PostMapping("/business/version/delete")
     @ResponseBody
     @Mark
-    public RespBody delete(Integer id) {
+    public RespBody<Object> delete(Integer id) {
         versionService.deleteVersion(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 }

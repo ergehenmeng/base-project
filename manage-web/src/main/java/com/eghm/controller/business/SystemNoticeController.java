@@ -58,7 +58,7 @@ public class SystemNoticeController {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
         systemNoticeService.addNotice(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -79,7 +79,7 @@ public class SystemNoticeController {
     @Mark
     public RespBody<Object> publish(Integer id) {
         systemNoticeService.publish(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -90,7 +90,7 @@ public class SystemNoticeController {
     @Mark
     public RespBody<Object> cancelPublish(Integer id) {
         systemNoticeService.cancelPublish(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -104,7 +104,7 @@ public class SystemNoticeController {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
         systemNoticeService.editNotice(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -113,9 +113,9 @@ public class SystemNoticeController {
     @PostMapping("/business/notice/delete")
     @ResponseBody
     @Mark
-    public RespBody delete(Integer id) {
+    public RespBody<Object> delete(Integer id) {
         systemNoticeService.deleteNotice(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**

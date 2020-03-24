@@ -51,7 +51,7 @@ public class ControllerAdviceHandler {
     @ResponseBody
     public RespBody<Object> businessException(HttpServletRequest request, BusinessException e) {
         log.error("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
-        return RespBody.getInstance().setCode(e.getCode()).setMsg(e.getMessage());
+        return RespBody.error(e.getCode(), e.getMessage());
     }
 
     /**
@@ -62,7 +62,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public RespBody exception(HttpServletRequest request, Exception e) {
+    public RespBody<Object> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(RequestThreadLocal.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
         taskHandler.executeExceptionLog(new ExceptionLogTask(exceptionLog, exceptionLogService));
@@ -77,7 +77,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
-    public RespBody noHandlerFoundException(HttpServletRequest request) {
+    public RespBody<Object> noHandlerFoundException(HttpServletRequest request) {
         log.error("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }

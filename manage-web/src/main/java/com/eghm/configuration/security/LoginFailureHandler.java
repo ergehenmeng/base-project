@@ -25,7 +25,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         if (exception instanceof SystemAuthenticationException) {
             SystemAuthenticationException exc = (SystemAuthenticationException) exception;
-            RespBody<Object> returnJson = RespBody.getInstance().setCode(exc.getCode()).setMsg(exc.getMessage());
+            RespBody<Object> returnJson = RespBody.error(exc.getCode(), exc.getMessage());
             WebUtil.printJson(response, returnJson);
             return;
         }

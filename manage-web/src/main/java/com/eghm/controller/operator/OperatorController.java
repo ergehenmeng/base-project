@@ -61,8 +61,7 @@ public class OperatorController extends AbstractController {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(operator, authentication, operator.getAuthorities());
         token.setDetails(authentication.getDetails());
         context.setAuthentication(token);
-
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -90,7 +89,7 @@ public class OperatorController extends AbstractController {
     @Mark
     public RespBody<Object> addOperator(OperatorAddRequest request) {
         systemOperatorService.addOperator(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -123,7 +122,7 @@ public class OperatorController extends AbstractController {
     @Mark
     public RespBody<Object> editOperator(OperatorEditRequest request) {
         systemOperatorService.updateOperator(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -136,7 +135,7 @@ public class OperatorController extends AbstractController {
     @Mark
     public RespBody<Object> resetPassword(Integer id) {
         systemOperatorService.resetPassword(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 }

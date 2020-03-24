@@ -61,9 +61,9 @@ public class DictController {
     @PostMapping("/system/dict/add")
     @ResponseBody
     @Mark
-    public RespBody add(DictAddRequest request) {
+    public RespBody<Object> add(DictAddRequest request) {
         systemDictService.addDict(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -75,9 +75,9 @@ public class DictController {
     @PostMapping("/system/dict/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(DictEditRequest request) {
+    public RespBody<Object> edit(DictEditRequest request) {
         systemDictService.updateDict(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 
@@ -90,9 +90,9 @@ public class DictController {
     @PostMapping("/system/dict/delete")
     @ResponseBody
     @Mark
-    public RespBody delete(Integer id) {
+    public RespBody<Object> delete(Integer id) {
         systemDictService.deleteDict(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 }

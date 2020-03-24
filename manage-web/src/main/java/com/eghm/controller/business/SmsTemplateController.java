@@ -51,8 +51,8 @@ public class SmsTemplateController {
      */
     @PostMapping("/business/sms_template/edit")
     @ResponseBody
-    public RespBody edit(SmsTemplateEditRequest request) {
+    public RespBody<Object> edit(SmsTemplateEditRequest request) {
         smsTemplateService.updateSmsTemplate(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 }

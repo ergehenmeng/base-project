@@ -25,6 +25,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
         super.clearAuthenticationAttributes(request);
         SecurityOperator principal = (SecurityOperator) authentication.getPrincipal();
         log.debug("用户:[{}]登陆系统,登陆IP:[{}]", principal.getOperatorName(), IpUtil.getIpAddress(request));
-        WebUtil.printJson(response, RespBody.getInstance());
+        WebUtil.printJson(response, RespBody.success());
     }
 }

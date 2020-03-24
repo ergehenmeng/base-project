@@ -32,7 +32,7 @@ public class FeedbackController{
         request.setSystemVersion(RequestThreadLocal.getOsVersion());
         request.setVersion(RequestThreadLocal.getVersion());
         feedbackService.addFeedback(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 }

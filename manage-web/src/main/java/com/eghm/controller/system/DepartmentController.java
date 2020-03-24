@@ -52,9 +52,9 @@ public class DepartmentController {
     @PostMapping("/system/department/add")
     @ResponseBody
     @Mark
-    public RespBody add(DepartmentAddRequest request) {
+    public RespBody<Object> add(DepartmentAddRequest request) {
         systemDepartmentService.addDepartment(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -73,9 +73,9 @@ public class DepartmentController {
     @PostMapping("/system/department/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(DepartmentEditRequest request) {
+    public RespBody<Object> edit(DepartmentEditRequest request) {
         systemDepartmentService.editDepartment(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 }

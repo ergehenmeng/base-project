@@ -69,7 +69,7 @@ public class BannerController extends AbstractController {
     public RespBody<Object> add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
         request.setImgUrl(fileService.saveFile(imgFile).getPath());
         bannerService.addBanner(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -82,7 +82,7 @@ public class BannerController extends AbstractController {
             request.setImgUrl(fileService.saveFile(imgFile).getPath());
         }
         bannerService.editBanner(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
 

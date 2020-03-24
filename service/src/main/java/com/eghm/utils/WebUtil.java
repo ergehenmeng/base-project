@@ -26,7 +26,7 @@ public class WebUtil {
     public static void printJson(HttpServletResponse response, RespBody<Object> object) throws IOException {
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter writer = response.getWriter()) {
-            response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             writer.write(new Gson().toJson(object));
             writer.flush();
         }

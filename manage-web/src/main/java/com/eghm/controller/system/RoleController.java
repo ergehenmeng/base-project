@@ -82,9 +82,9 @@ public class RoleController {
     @PostMapping("/system/role/edit")
     @ResponseBody
     @Mark
-    public RespBody edit(RoleEditRequest request) {
+    public RespBody<Object> edit(RoleEditRequest request) {
         systemRoleService.updateRole(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -96,9 +96,9 @@ public class RoleController {
     @PostMapping("/system/role/delete")
     @ResponseBody
     @Mark
-    public RespBody delete(Integer id) {
+    public RespBody<Object> delete(Integer id) {
         systemRoleService.deleteRole(id);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -110,9 +110,9 @@ public class RoleController {
     @PostMapping("/system/role/add")
     @ResponseBody
     @Mark
-    public RespBody add(RoleAddRequest request) {
+    public RespBody<Object> add(RoleAddRequest request) {
         systemRoleService.addRole(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 
     /**
@@ -142,8 +142,8 @@ public class RoleController {
     @PostMapping("/system/role/auth")
     @ResponseBody
     @Mark
-    public RespBody authRole(Integer roleId, String menuIds) {
+    public RespBody<Object> authRole(Integer roleId, String menuIds) {
         systemRoleService.authMenu(roleId, menuIds);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 }

@@ -42,6 +42,6 @@ public class FeedbackController extends AbstractController {
         request.setOperatorId(getOperatorId());
         request.setOperatorName(getOperatorName());
         feedbackService.dispose(request);
-        return RespBody.getInstance();
+        return RespBody.success();
     }
 }

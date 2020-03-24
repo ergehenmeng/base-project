@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 /**
  * 用于返回前台的结果集 json
+ *
  * @author 二哥很猛
  * @date 2018/1/12 17:41
  */
@@ -35,50 +36,44 @@ public class RespBody<T> implements Serializable {
      */
     @ApiModelProperty("成功时可能包含的数据集")
     private T data;
-    
-    private RespBody(){
+
+    private RespBody() {
     }
 
-    public static <T> RespBody<T> getInstance(){
-        return new RespBody<>();
-    }
-
-    public static <T> RespBody<T> success(T data){
-        RespBody<T> body = new RespBody<>();
-        body.setData(data);
-        return body;
-    }
-
-    public static <T> RespBody<T> error(ErrorCode error){
-        RespBody<T> body = new RespBody<>();
-        body.setCode(error.getCode());
-        body.setMsg(error.getMsg());
-        return body;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
+    private RespBody(T data) {
         this.data = data;
     }
 
-    public String getMsg() {
-        return msg;
+    private RespBody(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
     }
 
-    public RespBody<T> setMsg(String msg) {
-        this.msg = msg;
-        return this;
+    public static <T> RespBody<T> success() {
+        return new RespBody<>();
+    }
+
+    public static <T> RespBody<T> success(T data) {
+        return new RespBody<>(data);
+    }
+
+    public static <T> RespBody<T> error(ErrorCode error) {
+        return new RespBody<>(error.getCode(), error.getMsg());
+    }
+
+    public static <T> RespBody<T> error(int code, String msg) {
+        return new RespBody<>(code, msg);
     }
 
     public int getCode() {
         return code;
     }
 
-    public RespBody<T> setCode(int code) {
-        this.code = code;
-        return this;
+    public String getMsg() {
+        return msg;
+    }
+
+    public T getData() {
+        return data;
     }
 }
