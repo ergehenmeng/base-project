@@ -22,13 +22,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.8.RELEASE</version>
+        <version>2.2.5.RELEASE</version>
         <relativePath/>
     </parent>
 
     <properties>
         <!--spring boot版本-->
-        <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
+        <spring.boot.version>2.2.5.RELEASE</spring.boot.version>
         <!--项目编码-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--jdk编译版本-->
