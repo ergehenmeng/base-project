@@ -33,7 +33,7 @@ public class LoginLog implements Serializable {
      * 表 : user_login_log<br>
      * 对应字段 : channel<br>
      */
-    private Byte channel;
+    private String channel;
 
     /**
      * 登陆ip<br>

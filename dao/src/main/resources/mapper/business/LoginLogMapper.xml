@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="channel" jdbcType="TINYINT" property="channel" />
+    <result column="channel" jdbcType="CHAR" property="channel" />
     <result column="ip" jdbcType="CHAR" property="ip" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="device_brand" jdbcType="CHAR" property="deviceBrand" />
@@ -68,7 +68,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="channel != null">
-        #{channel,jdbcType=TINYINT},
+        #{channel,jdbcType=CHAR},
       </if>
       <if test="ip != null">
         #{ip,jdbcType=CHAR},
@@ -97,7 +97,7 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="channel != null">
-        channel = #{channel,jdbcType=TINYINT},
+        channel = #{channel,jdbcType=CHAR},
       </if>
       <if test="ip != null">
         ip = #{ip,jdbcType=CHAR},

@@ -44,6 +44,8 @@ public class BaseTest {
         headers.add("Channel","ANDROID");
         headers.add("Version","v1.2.8");
         headers.add("Os-Version","8.0.1");
+        headers.add("Device-Brand","小米");
+        headers.add("Device-Model","xiaomi 10 pro");
     }
 
 
