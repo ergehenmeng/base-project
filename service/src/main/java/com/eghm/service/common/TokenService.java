@@ -41,21 +41,24 @@ public interface TokenService {
 
     /**
      * 保存accessToken:token关系
-     * @param token token对象
+     * @param accessToken key
+     * @param tokenJson token对象
      */
-    void cacheByAccessToken(Token token);
+    void cacheByAccessToken(String accessToken, String tokenJson);
 
     /**
      * 保存refreshToken:token关系
-     * @param token 用户登陆信息
+     * @param refreshToken key
+     * @param tokenJson token序列化对象
      */
-    void cacheByRefreshToken(Token token);
+    void cacheByRefreshToken(String refreshToken, String tokenJson);
 
     /**
      * 保存 userId:token关系
-     * @param token token信息
+     * @param userId    key
+     * @param tokenJson token序列化对象
      */
-    void cacheByUserId(Token token);
+    void cacheByUserId(int userId, String tokenJson);
 
     /**
      * 清除用户token信息
