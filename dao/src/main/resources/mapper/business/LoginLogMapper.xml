@@ -33,7 +33,7 @@
     <!--
       @create by mybatis
     -->
-    insert into user_login_log
+    insert into login_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -91,7 +91,7 @@
     <!--
       @create by mybatis
     -->
-    update user_login_log
+    update login_log
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
@@ -119,6 +119,6 @@
   </update>
     <select id="getLastLogin" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from user_login_log where user_id = #{userId} order by add_time desc limit 1
+        from login_log where user_id = #{userId} order by add_time desc limit 1
     </select>
 </mapper>
