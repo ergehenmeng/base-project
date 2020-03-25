@@ -38,10 +38,7 @@ public class TokenServiceImpl implements TokenService {
         String refreshToken = StringUtil.random(32);
         String accessToken = StringUtil.random(32);
         Token token = Token.builder().secret(secret).accessToken(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
-        String tokenJson = gson.toJson(token);
-        this.cacheByAccessToken(accessToken, tokenJson);
-        this.cacheByUserId(userId, tokenJson);
-        this.cacheByRefreshToken(refreshToken, tokenJson);
+        this.cacheToken(token);
         return token;
     }
 
@@ -61,23 +58,6 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void cacheByAccessToken(String accessToken, String tokenJson) {
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + accessToken, tokenJson, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
-    }
-
-    @Override
-    public void cacheByUserId(int userId, String tokenJson) {
-        //注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
-        //因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过userId定位登陆信息,以便于删除无用缓存
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + userId, tokenJson, systemConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
-    }
-
-    @Override
-    public void cacheByRefreshToken(String refreshToken, String tokenJson) {
-        cacheService.setValue(CacheConstant.REFRESH_TOKEN + refreshToken, tokenJson, systemConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
-    }
-
-    @Override
     public void cleanAccessToken(String accessToken) {
         cacheService.delete(CacheConstant.ACCESS_TOKEN + accessToken);
     }
@@ -90,5 +70,15 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void cleanRefreshToken(String refreshToken) {
         cacheService.delete(CacheConstant.REFRESH_TOKEN + refreshToken);
+    }
+
+    @Override
+    public void cacheToken(Token token) {
+        String tokenJson = gson.toJson(token);
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessToken(), tokenJson, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+        //注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
+        //因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过userId定位登陆信息,以便于删除无用缓存
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getUserId(), tokenJson, systemConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.REFRESH_TOKEN + token.getRefreshToken(), tokenJson, systemConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
     }
 }

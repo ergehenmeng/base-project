@@ -61,9 +61,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
         token = tokenService.getByRefreshToken(refreshToken);
         if (token != null) {
             //在accessToken过期时,可通过refreshToken进行刷新用户信息
-            tokenService.cacheByUserId(token);
-            tokenService.cacheByAccessToken(token);
-            tokenService.cacheByRefreshToken(token);
+            tokenService.cacheToken(token);
             this.verifyBind(token, message, exception);
             return;
         }

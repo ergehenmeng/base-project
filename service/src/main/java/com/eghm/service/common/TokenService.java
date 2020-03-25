@@ -40,27 +40,6 @@ public interface TokenService {
     Token getByRefreshToken(String refreshToken);
 
     /**
-     * 保存accessToken:token关系
-     * @param accessToken key
-     * @param tokenJson token对象
-     */
-    void cacheByAccessToken(String accessToken, String tokenJson);
-
-    /**
-     * 保存refreshToken:token关系
-     * @param refreshToken key
-     * @param tokenJson token序列化对象
-     */
-    void cacheByRefreshToken(String refreshToken, String tokenJson);
-
-    /**
-     * 保存 userId:token关系
-     * @param userId    key
-     * @param tokenJson token序列化对象
-     */
-    void cacheByUserId(int userId, String tokenJson);
-
-    /**
      * 清除用户token信息
      * @param accessToken token
      */
@@ -77,5 +56,12 @@ public interface TokenService {
      * @param refreshToken 刷新token
      */
     void cleanRefreshToken(String refreshToken);
+
+    /**
+     * 缓存登陆时所有需要保存的用户信息
+     *
+     * @param token 用户登陆信息
+     */
+    void cacheToken(Token token);
 }
 

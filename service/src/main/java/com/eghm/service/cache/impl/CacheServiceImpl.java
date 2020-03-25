@@ -7,7 +7,7 @@ import com.eghm.service.cache.CacheService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheServiceImpl implements CacheService {
 
     @Autowired
-    private RedisTemplate<String,String> redisTemplate;
+    private StringRedisTemplate redisTemplate;
 
     @Autowired
     private SystemConfigApi systemConfigApi;
@@ -40,7 +40,11 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void setValue(String key, Object value, long expire) {
-        redisTemplate.opsForValue().set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
+        if (value instanceof String) {
+            redisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.SECONDS);
+        } else {
+            redisTemplate.opsForValue().set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
+        }
     }
 
     @Override
