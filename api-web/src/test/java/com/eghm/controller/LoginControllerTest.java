@@ -2,6 +2,7 @@ package com.eghm.controller;
 
 import com.eghm.BaseTest;
 import com.eghm.common.utils.HttpClientUtil;
+import com.eghm.configuration.security.BcEncoder;
 import org.junit.Test;
 
 public class LoginControllerTest extends BaseTest {
@@ -10,8 +11,9 @@ public class LoginControllerTest extends BaseTest {
     public void byAccount() {
         params.put("account","13136113694");
         params.put("pwd","ab7792a82e6ed7c0ab12ab322e0f1171");
-        super.post("/api/login/by_account");
+        super.post("/api/login/account");
     }
+
 
     @Test
     public void test2(){

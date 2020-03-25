@@ -27,11 +27,6 @@ public class ConfigConstant {
     public static final String SEND_FROM = "send_from";
 
     /**
-     * 是否开启单客户端登陆
-     */
-    public static final String SINGLE_CLIENT_LOGIN = "single_client_login";
-
-    /**
      * 昵称前缀
      */
     public static final String NICK_NAME_PREFIX = "nick_name_prefix";
@@ -85,11 +80,6 @@ public class ConfigConstant {
      * 默认文件上传的文件夹名称
      */
     public static final String DEFAULT_UPLOAD_FOLDER = "default_upload_folder";
-
-    /**
-     * 接口验签
-     */
-    public static final String SIGNATURE_VERIFICATION = "signature_verification";
 
     /**
      * 安卓软件包大小

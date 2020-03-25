@@ -16,7 +16,7 @@ import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
-import com.eghm.service.common.AccessTokenService;
+import com.eghm.service.common.TokenService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.service.user.LoginLogService;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     private Encoder encoder;
 
     @Autowired
-    private AccessTokenService accessTokenService;
+    private TokenService tokenService;
 
     @Autowired
     private SmsService smsService;
@@ -134,10 +134,10 @@ public class UserServiceImpl implements UserService {
         //将原用户踢掉
         this.offline(user.getId());
         RequestMessage request = RequestThreadLocal.get();
-        AccessToken accessToken = accessTokenService.createAccessToken(user.getId(), request.getChannel());
+        Token token = tokenService.createToken(user.getId(), request.getChannel());
         LoginRecord record = LoginRecord.builder().channel(request.getChannel()).ip(ip).deviceBrand(request.getDeviceBrand()).deviceModel(request.getDeviceModel()).userId(user.getId()).softwareVersion(request.getVersion()).build();
         taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
-        return LoginTokenVO.builder().signKey(accessToken.getSignKey()).accessToken(accessToken.getAccessToken()).refreshToken(accessToken.getRefreshToken()).build();
+        return LoginTokenVO.builder().secret(token.getSecret()).accessToken(token.getAccessToken()).refreshToken(token.getRefreshToken()).build();
     }
 
 
@@ -208,11 +208,12 @@ public class UserServiceImpl implements UserService {
      * @param userId 用户id
      */
     private void offline(int userId){
-        String accessToken = accessTokenService.getByUserId(userId);
-        if(StringUtil.isBlank(accessToken)){
+        Token token = tokenService.getByUserId(userId);
+        if (token == null) {
             return;
         }
-        accessTokenService.cleanAccessToken(accessToken);
-        accessTokenService.cleanUserId(userId);
+        tokenService.cleanRefreshToken(token.getRefreshToken());
+        tokenService.cleanAccessToken(token.getAccessToken());
+        tokenService.cleanUserId(userId);
     }
 }

@@ -80,11 +80,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public String getSmsCode(String smsType, String mobile) {
-        Object value = cacheService.getValue(smsType + mobile);
-        if (value != null) {
-            return (String) value;
-        }
-        return null;
+        return cacheService.getValue(smsType + mobile);
     }
 
     @Override
@@ -162,7 +158,7 @@ public class SmsServiceImpl implements SmsService {
      */
     private void smsLimitCheck(String smsType, String mobile) {
         //短信时间间隔判断
-        Object value = cacheService.getValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile);
+        String value = cacheService.getValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile);
         if (value == null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }

@@ -46,19 +46,14 @@ public class RequestMessage implements Serializable {
     private String deviceModel;
 
     /**
-     * signKey 验签使用,由后台设置进去
-     */
-    private String signKey;
-
-    /**
-     * token 用户登陆状态保持
-     */
-    private String accessToken;
-
-    /**
      * 用户id
      */
     private int userId;
+
+    /**
+     * 加密信息
+     */
+    private String secret;
 
     /**
      * http请求内容,json格式

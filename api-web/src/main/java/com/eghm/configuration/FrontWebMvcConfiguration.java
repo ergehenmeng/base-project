@@ -45,8 +45,6 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
         registry.addInterceptor(clientTypeHandlerInterceptor()).order(Integer.MIN_VALUE + 6);
         registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
-        registry.addInterceptor(ssoHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 25);
-        registry.addInterceptor(signatureHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 30);
     }
 
     @Override
@@ -60,10 +58,6 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
         resolvers.add(jsonHandlerMethodArgumentResolver());
     }
 
-    @Bean
-    public HandlerInterceptor ssoHandlerInterceptor() {
-        return new SsoHandlerInterceptor();
-    }
 
     @Bean
     public JsonExtractHandlerArgumentResolver jsonHandlerMethodArgumentResolver() {
@@ -73,7 +67,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     /**
      * 登陆校验拦截器
      *
-     * @return com.fanyin.interceptor
+     * @return com.eghm.interceptor
      */
     @Bean
     public HandlerInterceptor accessTokenHandlerInterceptor() {
@@ -89,20 +83,9 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     }
 
     /**
-     * 签名校验拦截器
-     *
-     * @return com.fanyin.interceptor
-     */
-    @Bean
-    public HandlerInterceptor signatureHandlerInterceptor() {
-        return new SignatureHandlerInterceptor();
-    }
-
-
-    /**
      * 请求基础信息收集拦截器
      *
-     * @return com.fanyin.interceptor
+     * @return com.eghm.interceptor
      */
     @Bean
     public HandlerInterceptor messageHandlerInterceptor() {

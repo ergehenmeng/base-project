@@ -1,6 +1,5 @@
 package com.eghm.model.ext;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,14 +16,14 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccessToken implements Serializable {
+public class Token implements Serializable {
 
     private static final long serialVersionUID = -539686478899884844L;
 
     /**
-     * 用于签名
+     * 用于加密签名
      */
-    private String signKey;
+    private String secret;
 
     /**
      * token 保持登陆信息
@@ -34,7 +33,6 @@ public class AccessToken implements Serializable {
     /**
      * 刷新token 不序列号保存到redis中
      */
-    @JsonIgnore
     private String refreshToken;
 
     /**

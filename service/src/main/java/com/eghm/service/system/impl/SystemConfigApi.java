@@ -38,6 +38,7 @@ public class SystemConfigApi {
     public String getString(String nid) {
         String content = systemConfigService.getByNid(nid);
         if (content == null) {
+            log.error("系统参数未找到 nid:[{}]", nid);
             throw new ParameterException(ErrorCode.CONFIG_NOT_FOUND_ERROR);
         }
         return content;

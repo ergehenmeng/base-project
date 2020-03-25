@@ -5,6 +5,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.system.impl.SystemConfigApi;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -24,10 +25,13 @@ import java.util.concurrent.TimeUnit;
 public class CacheServiceImpl implements CacheService {
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String,String> redisTemplate;
 
     @Autowired
     private SystemConfigApi systemConfigApi;
+
+    @Autowired
+    private Gson gson;
 
     @Override
     public void setValue(String key, Object value) {
@@ -36,7 +40,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void setValue(String key, Object value, long expire) {
-        redisTemplate.opsForValue().set(key, value, expire, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
     }
 
     @Override
@@ -56,15 +60,15 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public Object getValue(String key) {
+    public String getValue(String key) {
         return redisTemplate.opsForValue().get(key);
     }
 
     @Override
     public <T> T getValue(String key, Class<T> cls) {
-        Object o = redisTemplate.opsForValue().get(key);
+        String o = redisTemplate.opsForValue().get(key);
         if (o != null) {
-            return cls.cast(o);
+            return gson.fromJson(o, cls);
         }
         return null;
     }

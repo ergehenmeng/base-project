@@ -1,14 +1,16 @@
 package com.eghm.interceptor;
 
 import com.eghm.annotation.SkipAccess;
+import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.RequestException;
-import com.eghm.model.ext.AccessToken;
+import com.eghm.model.ext.Token;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
-import com.eghm.service.common.AccessTokenService;
+import com.eghm.service.common.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -28,39 +30,61 @@ import javax.servlet.http.HttpServletResponse;
 public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private AccessTokenService accessTokenService;
+    private TokenService tokenService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         RequestMessage message = RequestThreadLocal.get();
         boolean skipAccess = this.skipAccess(handler);
-        this.accessTokenVerify(message.getAccessToken(), message, skipAccess);
+        this.tryLoginVerify(request.getHeader(AppHeader.ACCESS_TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
         return true;
     }
 
 
     /**
-     * 登陆校验
+     * 尝试获取登陆用户的信息(前提用户确实已经登陆)
      *
-     * @param accessToken 令牌
-     * @param message     存放用户信息的对象
-     * @param skipAccess  是否跳过登陆认证
+     * @param accessToken 登陆的token
+     * @param refreshToken 刷新的token
+     * @param message 用户信息
+     * @param exception true:如果获取用户信息失败则会抛异常,false:获取用户信息失败不做处理
      */
-    private void accessTokenVerify(String accessToken, RequestMessage message, boolean skipAccess) {
-        if (accessToken != null) {
-            AccessToken token = accessTokenService.getByAccessToken(accessToken);
-            boolean accessFail = token != null && token.getChannel().equals(message.getChannel());
-            if (accessFail) {
-                //用户确实已经登录 跳过不跳过无所谓了
-                accessTokenService.cacheByAccessToken(token);
-                message.setUserId(token.getUserId());
-                message.setSignKey(token.getSignKey());
-                return;
-            }
+    private void tryLoginVerify(@Nullable String accessToken, @Nullable String refreshToken, RequestMessage message, boolean exception) {
+        if (accessToken == null || refreshToken == null) {
+            return;
         }
-        //用户未登录或者登录验证失败 但接口需要登录,需抛异常
-        if (!skipAccess) {
-            log.error("令牌为空,accessToken:[{}]", accessToken);
+        Token token = tokenService.getByAccessToken(accessToken);
+        if (token != null) {
+            this.verifyBind(token, message, exception);
+            return;
+        }
+        token = tokenService.getByRefreshToken(refreshToken);
+        if (token != null) {
+            //在accessToken过期时,可通过refreshToken进行刷新用户信息
+            tokenService.cacheByUserId(token);
+            tokenService.cacheByAccessToken(token);
+            tokenService.cacheByRefreshToken(token);
+            this.verifyBind(token, message, exception);
+            return;
+        }
+        if (exception) {
+            log.error("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
+            throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
+        }
+    }
+
+    /**
+     * 校验并绑定用户信息
+     *
+     * @param token 用户信息
+     * @param message 线程变量信息
+     * @param exception 校验失败是否需要抛异常
+     */
+    private void verifyBind(Token token, RequestMessage message, boolean exception) {
+        if (token.getChannel().equals(message.getChannel())) {
+            message.setUserId(token.getUserId());
+        }else if (exception) {
+            log.error("令牌为空,accessToken:[{}],sourceChannel:[{}],targetChannel:[{}]", token.getAccessToken(), message.getChannel(), token.getChannel());
             throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
     }

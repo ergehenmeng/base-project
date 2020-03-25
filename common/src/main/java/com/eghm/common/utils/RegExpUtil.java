@@ -56,7 +56,4 @@ public class RegExpUtil {
         return match(REGEXP_MOBILE, mobile);
     }
 
-    public static void main(String[] args) {
-        System.out.println(mobile("13136113694"));
-    }
 }

@@ -38,6 +38,11 @@ public class AppHeader {
     public static final String ACCESS_TOKEN = "Access-Token";
 
     /**
+     * 用户登陆信息 refreshToken
+     */
+    public static final String REFRESH_TOKEN = "Refresh-Token";
+
+    /**
      * 签名参数 签名
      */
     public static final String SIGNATURE = "Signature";

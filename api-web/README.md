@@ -17,12 +17,12 @@
 
 
 ### 其他注意事项
+* 一个账户只能登陆一台设备
 * `swagger`访问地址`http://host:ip/swagger/index.html`
 * `RequestMapping`标示的方法返回前台数据时,可以为任意对象,最终会由`RespBodyAdviceHandler`包装为`RespBody`对象,如果不想返回前台`RespBody`格式的对象可在方法上添加`@SkipWrapper`
-* 系统参数`single_client_login` 用来开启或关闭单客户端最多一个人登陆的校验
 * 表`black_roster` 为ip黑名单 可限制某些用户访问
 * 默认所有的接口均需要登录才能访问,如果某个接口不需要登陆校验则方法上添加`@SkipAccess`
 * 所有接口的请求参数均为映射为对象,如果不需要映射则方法上添加`@SkipDataBinder`
 * 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加`@ClientType`
-* 后台获取用户id方法`RequestThreadLocal.getUser()`,同理获取其他相关属性也可以通过该类,也可在`RequestMapping`所在的方法上声明一个RequestMessage对象,该对象会自动被注入
+* 后台获取用户id方法`RequestThreadLocal.getUserId()`,同理获取其他相关属性也可以通过该类,也可在`RequestMapping`所在的方法上声明一个RequestMessage对象,该对象会自动被注入
 

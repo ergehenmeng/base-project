@@ -44,7 +44,7 @@ public interface CacheService {
      * @param key key
      * @return 缓存信息
      */
-    Object getValue(String key);
+    String getValue(String key);
 
     /**
      * 获取缓存信息

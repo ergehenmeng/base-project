@@ -1,6 +1,12 @@
 package com.eghm.queue;
 
 import com.eghm.constants.TaskConstant;
+import com.eghm.dao.model.system.ExceptionLog;
+import com.eghm.dao.model.system.SystemOperationLog;
+import com.eghm.model.ext.LoginRecord;
+import com.eghm.service.system.ExceptionLogService;
+import com.eghm.service.system.OperationLogService;
+import com.eghm.service.user.LoginLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TaskHandler {
 
+    @SuppressWarnings("rawtypes")
     private static class ExecutorHolder {
 
         /**
@@ -47,7 +54,7 @@ public class TaskHandler {
      * 添加操作日志
      * @param task 任务
      */
-    public void executeOperateLog(AbstractTask task){
+    public void executeOperateLog(AbstractTask<SystemOperationLog, OperationLogService> task){
         ExecutorHolder.OPERATE_LOG.execute(task);
     }
 
@@ -55,7 +62,7 @@ public class TaskHandler {
      * 添加登陆日志
      * @param task 任务
      */
-    public void executeLoginLog(AbstractTask task){
+    public void executeLoginLog(AbstractTask<LoginRecord, LoginLogService> task){
         ExecutorHolder.LOGIN_LOG.execute(task);
     }
 
@@ -63,7 +70,7 @@ public class TaskHandler {
      * 添加异常日志
      * @param task 任务
      */
-    public void executeExceptionLog(AbstractTask task){
+    public void executeExceptionLog(AbstractTask<ExceptionLog, ExceptionLogService> task){
         ExecutorHolder.EXCEPTION_LOG.execute(task);
     }
 }

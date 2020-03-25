@@ -2,7 +2,10 @@ package com.eghm.configuration;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,8 +16,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -52,27 +54,6 @@ public class RedisConfiguration {
 
 
     /**
-     * 用于业务上进行缓存数据 获取缓存数据
-     * <br>在新版本fastJson也提供了序列化:
-     * <br>FastJsonRedisSerializer(可配置化)
-     * <br>GenericFastJsonRedisSerializer(默认配置)
-     *
-     * @param connectionFactory 由LettuceConnectionConfiguration生成
-     * @return bean
-     */
-    @Bean("redisTemplate")
-    @Primary
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(connectionFactory);
-        redisTemplate.setValueSerializer(valueSerializer());
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
-    }
-
-
-    /**
      * 默认缓存管理期 默认30分钟过期
      *
      * @return bean
@@ -88,11 +69,15 @@ public class RedisConfiguration {
      * @return jackson
      */
     private RedisSerializer<Object> valueSerializer() {
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        serializer.setObjectMapper(mapper);
-        return serializer;
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+        mapper.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
+        mapper.registerModule(new JavaTimeModule());
+        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        return new GenericJackson2JsonRedisSerializer(mapper);
     }
 
     /**

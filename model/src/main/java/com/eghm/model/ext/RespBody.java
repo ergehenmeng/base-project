@@ -44,6 +44,12 @@ public class RespBody<T> implements Serializable {
         this.data = data;
     }
 
+    private RespBody(int code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
     private RespBody(int code, String msg) {
         this.code = code;
         this.msg = msg;
@@ -76,4 +82,5 @@ public class RespBody<T> implements Serializable {
     public T getData() {
         return data;
     }
+
 }
