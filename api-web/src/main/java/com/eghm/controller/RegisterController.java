@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipAccess;
 import com.eghm.model.dto.register.RegisterSendSmsRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
 import com.eghm.model.ext.RequestThreadLocal;
@@ -33,6 +34,7 @@ public class RegisterController {
      */
     @PostMapping("/register/send_sms")
     @ApiOperation("注册发送验证码")
+    @SkipAccess
     public RespBody<Object> sendSms(RegisterSendSmsRequest request) {
         userService.registerSendSms(request.getMobile());
         return RespBody.success();
@@ -43,6 +45,7 @@ public class RegisterController {
      */
     @PostMapping("/register/user")
     @ApiOperation("短信注册用户")
+    @SkipAccess
     public LoginTokenVO user(HttpServletRequest servletRequest, RegisterUserRequest request) {
         request.setChannel(RequestThreadLocal.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));

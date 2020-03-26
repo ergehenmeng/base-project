@@ -3,7 +3,7 @@ package com.eghm.configuration.handler;
 
 import com.eghm.annotation.SkipAccess;
 import com.eghm.common.utils.AesUtil;
-import com.eghm.configuration.annotation.SkipEncrypt;
+import com.eghm.annotation.SkipEncrypt;
 import com.eghm.configuration.annotation.SkipWrapper;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;
@@ -49,14 +49,26 @@ public class EncryptRespBodyAdviceHandler implements ResponseBodyAdvice<Object> 
         }
         //只对响应信息中的data进行加密,减少前端不必要的解密工作
         if (body instanceof RespBody) {
-            RespBody respBody = (RespBody) body;
-            String encrypt = null;
-            if (respBody.getData() != null) {
-                encrypt = AesUtil.encrypt(gson.toJson(respBody.getData()), RequestThreadLocal.get().getSecret());
-            }
-            return RespBody.success(encrypt);
+            return RespBody.success(this.encryptData(((RespBody)body).getData()));
         }
-        return RespBody.success(AesUtil.encrypt(gson.toJson(body), RequestThreadLocal.get().getSecret()));
+        return RespBody.success(this.encryptData(body));
+    }
+
+    /**
+     * 对返回的正文内容加密
+     *
+     * @param data 正文内容
+     * @return 加密后的数据
+     */
+    private String encryptData(Object data) {
+        if (data != null) {
+            if (data instanceof String) {
+                return AesUtil.encrypt(data.toString(), RequestThreadLocal.get().getSecret());
+            } else {
+                return AesUtil.encrypt(gson.toJson(data), RequestThreadLocal.get().getSecret());
+            }
+        }
+        return null;
     }
 
 }

@@ -85,15 +85,12 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
      */
     private Object jsonFormat(HttpServletRequest request, Class<?> cls) {
         try {
-            //如果开启签名,则此处可以获取到前台的json
-            String requestBody = RequestThreadLocal.getRequestBody();
-            if (requestBody != null) {
-                return objectMapper.readValue(requestBody, cls);
-            }
             String args = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
             if (args == null) {
                 return cls.newInstance();
             }
+            //用于记录日志使用
+            RequestThreadLocal.get().setRequestBody(args);
             return objectMapper.readValue(args, cls);
         } catch (Exception e) {
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);

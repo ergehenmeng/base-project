@@ -36,6 +36,7 @@ public class LoginController {
      */
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
+    @SkipAccess
     public RespBody<Object> sendSms(LoginSendSmsRequest request) {
         userService.loginSendSms(request.getMobile());
         return RespBody.success();
@@ -46,6 +47,7 @@ public class LoginController {
      */
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/mobile")
+    @SkipAccess
     public RespBody<LoginTokenVO> mobile(SmsLoginRequest login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.smsLogin(login));

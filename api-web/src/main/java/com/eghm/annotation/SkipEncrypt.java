@@ -1,4 +1,4 @@
-package com.eghm.configuration.annotation;
+package com.eghm.annotation;
 
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Documented;

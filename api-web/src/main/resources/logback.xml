@@ -6,6 +6,7 @@
     scan="true" debug="false" scanPeriod="6000">
     <!--键值对常量,其他地方可以引用-->
     <property name="appName" value="web-front"/>
+    <property name="logPath" value="/Users/wyb/logs/project/api"/>
     <!--上下文名称-->
     <contextName>${appName}</contextName>
     <!--当前时间戳字符串 其他地方可以引用-->
@@ -28,7 +29,7 @@
     <!-- 普通日志 -->
     <appender name="info_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/Users/wyb/logs/api/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${logPath}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -39,7 +40,7 @@
     <!-- 出入参日志 -->
     <appender name="param_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/Users/wyb/logs/api/param.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${logPath}/param.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -49,7 +50,7 @@
     <!--错误日志-->
     <appender name="error_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/Users/wyb/logs/api/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${logPath}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -65,7 +66,7 @@
     <!-- 推送日志 -->
     <appender name="push_rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>/Users/wyb/logs/api/jpush.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${logPath}/jpush.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>

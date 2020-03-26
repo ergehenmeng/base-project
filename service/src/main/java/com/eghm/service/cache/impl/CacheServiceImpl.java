@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheServiceImpl implements CacheService {
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private SystemConfigApi systemConfigApi;
@@ -41,16 +41,16 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setValue(String key, Object value, long expire) {
         if (value instanceof String) {
-            redisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.SECONDS);
+            stringRedisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.SECONDS);
         } else {
-            redisTemplate.opsForValue().set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
+            stringRedisTemplate.opsForValue().set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
         }
     }
 
     @Override
     public void setValue(String key, Object value, Date expireTime) {
         this.setValue(key, value);
-        redisTemplate.expireAt(key, expireTime);
+        stringRedisTemplate.expireAt(key, expireTime);
     }
 
     @Override
@@ -65,12 +65,12 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public String getValue(String key) {
-        return redisTemplate.opsForValue().get(key);
+        return stringRedisTemplate.opsForValue().get(key);
     }
 
     @Override
     public <T> T getValue(String key, Class<T> cls) {
-        String o = redisTemplate.opsForValue().get(key);
+        String o = stringRedisTemplate.opsForValue().get(key);
         if (o != null) {
             return gson.fromJson(o, cls);
         }
@@ -79,7 +79,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public int keySize(String key) {
-        Set<String> keys = redisTemplate.keys(key);
+        Set<String> keys = stringRedisTemplate.keys(key);
         if (!CollectionUtils.isEmpty(keys)) {
             return keys.size();
         }
@@ -88,6 +88,6 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void delete(String key) {
-        redisTemplate.delete(key);
+        stringRedisTemplate.delete(key);
     }
 }

@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.ext.FilePath;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.common.FileService;
@@ -31,6 +32,7 @@ public class ImageController {
     @PostMapping("/upload/image")
     @ApiParam(name = "image", value = "文件流", required = true)
     @ApiOperation("图片单张上传")
+    @SkipLogger
     public RespBody<Object> image(@RequestParam("image") MultipartFile image) {
         FilePath filePath = fileService.saveFile(image);
         return RespBody.success(filePath);

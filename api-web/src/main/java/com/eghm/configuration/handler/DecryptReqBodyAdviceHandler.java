@@ -3,7 +3,7 @@ package com.eghm.configuration.handler;
 import com.eghm.annotation.SkipAccess;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.utils.AesUtil;
-import com.eghm.configuration.annotation.SkipDecrypt;
+import com.eghm.annotation.SkipDecrypt;
 import com.eghm.model.ext.RequestThreadLocal;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;

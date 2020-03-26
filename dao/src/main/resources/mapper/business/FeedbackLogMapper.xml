@@ -30,14 +30,14 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from app_feedback
+    from feedback_log
     where id = #{id,jdbcType=INTEGER}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.business.FeedbackLog">
     <!--
       @create by mybatis
     -->
-    insert into app_feedback
+    insert into feedback_log
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -107,7 +107,7 @@
     <!--
       @create by mybatis
     -->
-    update app_feedback
+    update feedback_log
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},

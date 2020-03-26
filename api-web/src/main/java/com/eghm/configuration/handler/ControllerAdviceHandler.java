@@ -3,7 +3,7 @@ package com.eghm.configuration.handler;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.DatePropertyEditor;
-import com.eghm.configuration.annotation.SkipEncrypt;
+import com.eghm.annotation.SkipEncrypt;
 import com.eghm.dao.model.system.ExceptionLog;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;

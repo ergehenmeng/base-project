@@ -1,6 +1,7 @@
 package com.eghm.controller;
 
 import com.eghm.model.dto.business.feedback.FeedbackAddRequest;
+import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.common.FeedbackService;
@@ -28,9 +29,11 @@ public class FeedbackController{
      */
     @PostMapping("/user/feedback")
     @ApiOperation("保存反馈信息")
-    public RespBody<Object> feedback(FeedbackAddRequest request) {
-        request.setSystemVersion(RequestThreadLocal.getOsVersion());
-        request.setVersion(RequestThreadLocal.getVersion());
+    public RespBody<String> feedback(FeedbackAddRequest request) {
+        RequestMessage message = RequestThreadLocal.get();
+        request.setSystemVersion(message.getOsVersion());
+        request.setVersion(message.getVersion());
+        request.setUserId(message.getUserId());
         feedbackService.addFeedback(request);
         return RespBody.success();
     }
