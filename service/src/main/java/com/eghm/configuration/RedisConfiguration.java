@@ -1,11 +1,8 @@
 package com.eghm.configuration;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.eghm.common.constant.CommonConstant;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -16,9 +13,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
@@ -52,6 +49,8 @@ public class RedisConfiguration {
     @Value("${small-expire:60}")
     private int smallExpire;
 
+    @Autowired
+    private Gson gson;
 
     /**
      * 默认缓存管理期 默认30分钟过期
@@ -69,15 +68,17 @@ public class RedisConfiguration {
      * @return jackson
      */
     private RedisSerializer<Object> valueSerializer() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        mapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
-        mapper.configure(SerializationFeature.WRITE_DATE_KEYS_AS_TIMESTAMPS, false);
-        mapper.registerModule(new JavaTimeModule());
-        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        return new GenericJackson2JsonRedisSerializer(mapper);
+        return new RedisSerializer<Object>() {
+            @Override
+            public byte[] serialize(Object o) throws SerializationException {
+                return gson.toJson(o).getBytes(CommonConstant.CHARSET);
+            }
+
+            @Override
+            public Object deserialize(byte[] bytes) throws SerializationException {
+                return gson.fromJson(new String(bytes,CommonConstant.CHARSET), Object.class);
+            }
+        };
     }
 
     /**

@@ -38,8 +38,8 @@ public class RequestResponseLogHandler {
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
-    @Around("!@annotation(skipLogger) &&within(com.eghm.controller..*)")
-    public Object around(ProceedingJoinPoint joinPoint, SkipLogger skipLogger) throws Throwable {
+    @Around("(!@annotation(com.eghm.annotation.SkipLogger)) && within(com.eghm.controller..*)")
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
             return joinPoint.proceed();

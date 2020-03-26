@@ -34,6 +34,8 @@ public class FeedbackController{
         request.setSystemVersion(message.getOsVersion());
         request.setVersion(message.getVersion());
         request.setUserId(message.getUserId());
+        request.setDeviceBrand(message.getDeviceBrand());
+        request.setDeviceModel(message.getDeviceModel());
         feedbackService.addFeedback(request);
         return RespBody.success();
     }

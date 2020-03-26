@@ -48,6 +48,9 @@
       <if test="state != null">
         state,
       </if>
+      <if test="classify != null">
+        classify,
+      </if>
       <if test="version != null">
         version,
       </if>
@@ -79,6 +82,9 @@
       </if>
       <if test="state != null">
         #{state,jdbcType=TINYINT},
+      </if>
+      <if test="classify != null">
+        #{classify,jdbcType=TINYINT},
       </if>
       <if test="version != null">
         #{version,jdbcType=CHAR},
@@ -114,6 +120,9 @@
       </if>
       <if test="state != null">
         state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="classify != null">
+        classify = #{classify},
       </if>
       <if test="version != null">
         version = #{version,jdbcType=CHAR},

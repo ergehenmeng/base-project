@@ -8,7 +8,7 @@ import com.eghm.common.exception.RequestException;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.utils.DataUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -38,7 +38,7 @@ import javax.servlet.http.HttpSession;
 public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private Gson gson;
 
     @Override
     public boolean supportsParameter(@Nullable MethodParameter parameter) {
@@ -91,7 +91,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             }
             //用于记录日志使用
             RequestThreadLocal.get().setRequestBody(args);
-            return objectMapper.readValue(args, cls);
+            return gson.fromJson(args, cls);
         } catch (Exception e) {
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
