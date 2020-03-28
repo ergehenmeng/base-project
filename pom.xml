@@ -101,6 +101,8 @@
         <javassist.version>3.26.0-GA</javassist.version>
         <!--动态代理-->
         <cglib.version>3.2.12</cglib.version>
+        <!--连接池-->
+        <pool.version>2.7.0</pool.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -241,6 +243,11 @@
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${pool.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

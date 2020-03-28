@@ -1,8 +1,10 @@
 package com.eghm.service.cache;
 
 import com.eghm.model.ext.AsyncResponse;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.Date;
+import java.util.function.Supplier;
 
 
 /**
@@ -19,6 +21,18 @@ public interface CacheService {
      * @param value value
      */
     void setValue(String key, Object value);
+
+
+    /**
+     * 根据key 获取缓存信息,
+     *
+     * @param key 缓存key
+     * @param typeToken 缓存结果类型
+     * @param supplier 如果缓存为空时,通过该回调方法进行查询数据库等
+     * @param <T> 结果类型
+     * @return 缓存结果
+     */
+    <T> T getCacheValue(String key, TypeToken<T> typeToken, Supplier<T> supplier);
 
     /**
      * 缓存对象
@@ -51,10 +65,20 @@ public interface CacheService {
      *
      * @param key 缓存key
      * @param cls 缓存信息类型
-     * @param <T> 泛型结果
+     * @param <T> 普通数据类型
      * @return 缓存结果对象
      */
     <T> T getValue(String key, Class<T> cls);
+
+    /**
+     * 获取缓存信息
+     *
+     * @param key 缓存key
+     * @param typeToken 返回值为泛型时的定义类型
+     * @param <T> 泛型结果
+     * @return 缓存结果对象
+     */
+    <T> T getValue(String key, TypeToken<T> typeToken);
 
     /**
      * 缓存任务异步结果  默认30分钟

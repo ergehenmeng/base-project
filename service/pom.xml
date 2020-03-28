@@ -76,6 +76,10 @@
             <groupId>cn.jpush.api</groupId>
             <artifactId>jpush-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

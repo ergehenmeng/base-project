@@ -6,6 +6,8 @@ import com.eghm.model.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.Date;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 /**
  * 用于缓存数据信息,不涉及数据查询数据缓存
@@ -22,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/11/21 16:28
  */
 @Service("cacheService")
+@Slf4j
 public class CacheServiceImpl implements CacheService {
 
     @Autowired
@@ -33,10 +37,56 @@ public class CacheServiceImpl implements CacheService {
     @Autowired
     private Gson gson;
 
+    /**
+     * 数据查询为空时 默认的缓存占位符
+     */
+    private static final String PLACE_HOLDER = "#";
+
+    /**
+     * 默认过期数据
+     */
+    private static final long DEFAULT_EXPIRE = 30;
+
+
     @Override
     public void setValue(String key, Object value) {
         this.setValue(key, value, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
     }
+
+    @Override
+    public <T> T getCacheValue(String key, TypeToken<T> returnType, Supplier<T> supplier) {
+        try {
+            String value = this.getValue(key);
+            if (PLACE_HOLDER.equals(value)) {
+                return null;
+            }
+            if (value != null) {
+                return gson.fromJson(value, returnType.getType());
+            }
+        } catch (RuntimeException e) {
+            log.warn("获取缓存数据异常", e);
+        }
+        return this.doSupplier(key, supplier);
+    }
+
+    /**
+     * 调用回调函数获取结果,并将结果缓存
+     *
+     * @param key  缓存的key
+     * @param supplier 会到函数
+     * @param <T> 结果类型
+     * @return 结果信息
+     */
+    private <T> T doSupplier(String key, Supplier<T> supplier) {
+        T result = supplier.get();
+        if (result != null) {
+            this.setValue(key, result, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
+        } else {
+            this.setValue(key, PLACE_HOLDER, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
+        }
+        return result;
+    }
+
 
     @Override
     public void setValue(String key, Object value, long expire) {
@@ -70,9 +120,18 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public <T> T getValue(String key, Class<T> cls) {
-        String o = stringRedisTemplate.opsForValue().get(key);
+        String o = this.getValue(key);
         if (o != null) {
             return gson.fromJson(o, cls);
+        }
+        return null;
+    }
+
+    @Override
+    public <T> T getValue(String key, TypeToken<T> typeToken) {
+        String value = this.getValue(key);
+        if (value != null) {
+            return gson.fromJson(value, typeToken.getType());
         }
         return null;
     }

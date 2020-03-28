@@ -76,6 +76,23 @@ public class SystemConfigApi {
     }
 
     /**
+     * 根据nid获取系统参数配置信息
+     *
+     * @param nid 唯一nid
+     * @param defaultValue 解析失败时,返回默认值
+     * @return 系统参数结果 double
+     */
+    public double getDouble(String nid, double defaultValue) {
+        String value = this.getString(nid);
+        try {
+            return Double.parseDouble(value);
+        } catch (Exception e) {
+            log.error("系统参数转double异常 [{}]", value);
+            return defaultValue;
+        }
+    }
+
+    /**
      * 根据nid获取系统参数配置信息的值
      *
      * @param nid 唯一nid
@@ -95,6 +112,23 @@ public class SystemConfigApi {
      * 根据nid获取系统参数配置信息的值
      *
      * @param nid 唯一nid
+     * @param defaultValue 解析失败时,采用默认值
+     * @return 系统参数结果值int 如果转换失败为0
+     */
+    public int getInt(String nid, int defaultValue) {
+        String value = this.getString(nid);
+        try {
+            return Integer.parseInt(value);
+        } catch (Exception e) {
+            log.error("系统参数转int异常 [{}]", value);
+            return defaultValue;
+        }
+    }
+
+    /**
+     * 根据nid获取系统参数配置信息的值
+     *
+     * @param nid 唯一nid
      * @return 系统参数结果值long 如果转换失败为0
      */
     public long getLong(String nid) {
@@ -104,6 +138,23 @@ public class SystemConfigApi {
         } catch (Exception e) {
             log.error("系统参数转long异常 [{}]", value);
             return 0L;
+        }
+    }
+
+    /**
+     * 根据nid获取系统参数配置信息的值
+     *
+     * @param nid 唯一nid
+     * @param defaultValue 解析错误时 采用默认值
+     * @return 系统参数结果值long 如果转换失败为0
+     */
+    public long getLong(String nid, long defaultValue) {
+        String value = this.getString(nid);
+        try {
+            return Long.parseLong(value);
+        } catch (Exception e) {
+            log.error("系统参数转long异常 [{}]", value);
+            return defaultValue;
         }
     }
 
