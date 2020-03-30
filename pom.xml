@@ -89,8 +89,6 @@
         <swagger.verison>2.9.2</swagger.verison>
         <!--中文拼音解析-->
         <pinyin.version>2.5.1</pinyin.version>
-        <!--工具类-->
-        <hutool.version>4.6.1</hutool.version>
         <!--mysql版本-->
         <mysql.version>8.0.13</mysql.version>
         <!--极光推送-->
@@ -103,6 +101,8 @@
         <cglib.version>3.2.12</cglib.version>
         <!--连接池-->
         <pool.version>2.7.0</pool.version>
+        <!--工具类-->
+        <hutool.verison>5.2.3</hutool.verison>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -248,6 +248,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${pool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.verison}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
