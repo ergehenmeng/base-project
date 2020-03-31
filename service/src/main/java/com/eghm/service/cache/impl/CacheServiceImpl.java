@@ -38,7 +38,7 @@ public class CacheServiceImpl implements CacheService {
     private Gson gson;
 
     /**
-     * 数据查询为空时 默认的缓存占位符
+     * 默认的缓存占位符
      */
     private static final String PLACE_HOLDER = "#";
 
@@ -46,6 +46,11 @@ public class CacheServiceImpl implements CacheService {
      * 默认过期数据
      */
     private static final long DEFAULT_EXPIRE = 30;
+
+    /**
+     * 互斥等待时间
+     */
+    private static final long MUTEX_EXPIRE = 10;
 
 
     @Override
@@ -55,17 +60,20 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public <T> T getCacheValue(String key, TypeToken<T> returnType, Supplier<T> supplier) {
+        String value;
         try {
-            String value = this.getValue(key);
-            if (PLACE_HOLDER.equals(value)) {
-                return null;
-            }
-            if (value != null) {
-                return gson.fromJson(value, returnType.getType());
-            }
+            value = this.getValue(key);
         } catch (RuntimeException e) {
             log.warn("获取缓存数据异常", e);
+            return supplier.get();
         }
+        if (PLACE_HOLDER.equals(value)) {
+            return null;
+        }
+        if (value != null) {
+            return gson.fromJson(value, returnType.getType());
+        }
+        //缓存数据为空,从数据库获取
         return this.doSupplier(key, supplier);
     }
 
@@ -78,15 +86,37 @@ public class CacheServiceImpl implements CacheService {
      * @return 结果信息
      */
     private <T> T doSupplier(String key, Supplier<T> supplier) {
-        T result = supplier.get();
+        T result = this.mutexLock(key, supplier);
         if (result != null) {
             this.setValue(key, result, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
-            this.setValue(key, PLACE_HOLDER, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
+            this.setValue(key, PLACE_HOLDER, systemConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
         }
         return result;
     }
 
+    /**
+     * 从提供商处获取数据信息(一般为数据库),采用互斥锁进行获取,互斥锁默认过期时间10秒,即数据库查询时间不能超过10秒,否则可能出现缓存击穿
+     * @param key 缓存key
+     * @param supplier 数据提供方
+     * @param <T> 数据结果类型
+     * @return 数据结果
+     */
+    private <T> T mutexLock(String key, Supplier<T> supplier) {
+        Boolean absent = stringRedisTemplate.opsForValue().setIfAbsent(CacheConstant.MUTEX_LOCK + key, PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.SECONDS);
+        if (absent != null && absent) {
+            T result = supplier.get();
+            stringRedisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
+            return result;
+        }
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            log.error("缓存互斥锁中断异常 key:[{}]", key, e);
+            return null;
+        }
+        return this.doSupplier(key, supplier);
+    }
 
     @Override
     public void setValue(String key, Object value, long expire) {

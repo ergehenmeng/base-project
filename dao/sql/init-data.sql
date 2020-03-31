@@ -3780,3 +3780,4 @@ INSERT INTO `system_role_menu` (`id`, `role_id`, `menu_id`, `add_time`) VALUES (
 INSERT INTO `task_config` (`id`, `title`, `nid`, `bean_name`, `cron_expression`, `state`, `update_time`, `remark`) VALUES ('1', '测试定时任务', 'testJob', 'testJobService', '0/1 * * * * ?', '0', '2019-11-22 14:50:22', '');
 
 INSERT INTO `user` (`id`, `mobile`, `open_id`, `nick_name`, `email`, `pwd`, `state`, `channel`, `register_ip`, `add_time`, `update_time`, `avatar`) VALUES ('1', '13136113636', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', '0', '127.0.0.1', '2019-10-25 15:59:22', '2019-10-25 16:01:16', NULL);
+INSERT INTO `system_config` ( `nid`, `title`, `content`, `classify`, `locked`, `remark`, `add_time`, `update_time`) VALUES ('null_expire', '占位符缓存过期时间', '30', '1', b'0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-01-15 16:39:55');

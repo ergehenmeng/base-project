@@ -83,4 +83,8 @@ public class CacheConstant {
      */
     public static final String FREEMARKER_TEMPLATE = "freemarker_template";
 
+    /**
+     * 互斥锁
+     */
+    public static final String MUTEX_LOCK = "mutex_lock::";
 }
