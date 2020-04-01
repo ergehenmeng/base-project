@@ -1,8 +1,8 @@
 package com.eghm.configuration;
 
-import com.eghm.common.constant.CommonConstant;
-import com.google.gson.Gson;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -13,9 +13,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
@@ -49,9 +49,6 @@ public class RedisConfiguration {
     @Value("${small-expire:60}")
     private int smallExpire;
 
-    @Autowired
-    private Gson gson;
-
     /**
      * 默认缓存管理期 默认30分钟过期
      *
@@ -60,25 +57,6 @@ public class RedisConfiguration {
     @Bean("longCacheManager")
     public CacheManager longCacheManager(RedisConnectionFactory connectionFactory) {
         return this.getCacheManager(connectionFactory, longExpire);
-    }
-
-    /**
-     * 值序列号方式
-     *
-     * @return jackson
-     */
-    private RedisSerializer<Object> valueSerializer() {
-        return new RedisSerializer<Object>() {
-            @Override
-            public byte[] serialize(Object o) throws SerializationException {
-                return gson.toJson(o).getBytes(CommonConstant.CHARSET);
-            }
-
-            @Override
-            public Object deserialize(byte[] bytes) throws SerializationException {
-                return gson.fromJson(new String(bytes,CommonConstant.CHARSET), Object.class);
-            }
-        };
     }
 
     /**
@@ -97,6 +75,20 @@ public class RedisConfiguration {
                                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(valueSerializer()))
                 ).build();
+    }
+
+    /**
+     * 值序列化方式,此处已经采用jackson序列化,因为jackson可以根据缓存中json中的附加信息生成相应类(尤其是泛型对象),gson只能手动指定
+     *
+     * @return jackson
+     */
+    private RedisSerializer<Object> valueSerializer() {
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        serializer.setObjectMapper(mapper);
+        return serializer;
     }
 
     /**
