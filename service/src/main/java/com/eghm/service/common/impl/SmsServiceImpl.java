@@ -56,6 +56,8 @@ public class SmsServiceImpl implements SmsService {
         String content = this.formatTemplate(template, smsCode);
         this.doSendSms(mobile, content, smsType);
         this.saveSmsCode(smsType, mobile, smsCode);
+        long expire = systemConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
+        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile,expire);
     }
 
 
@@ -137,7 +139,7 @@ public class SmsServiceImpl implements SmsService {
     private void smsLimitCheck(String smsType, String mobile) {
         //短信时间间隔判断
         String value = cacheService.getValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile);
-        if (value == null) {
+        if (value != null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
         int smsTypeHourLimit = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);

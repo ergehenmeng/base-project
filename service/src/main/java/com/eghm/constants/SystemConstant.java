@@ -17,4 +17,9 @@ public class SystemConstant {
      * 文件相对路径的顶级路径
      */
     public static final String DEFAULT_PATTERN = File.separator + "resource" + File.separator;
+
+    /**
+     * 默认的缓存占位符
+     */
+    public static final String CACHE_PLACE_HOLDER = "#";
 }

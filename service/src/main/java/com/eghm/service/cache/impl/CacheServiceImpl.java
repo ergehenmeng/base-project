@@ -2,6 +2,7 @@ package com.eghm.service.cache.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.constants.SystemConstant;
 import com.eghm.model.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.system.impl.SystemConfigApi;
@@ -38,10 +39,7 @@ public class CacheServiceImpl implements CacheService {
     @Autowired
     private Gson gson;
 
-    /**
-     * 默认的缓存占位符
-     */
-    private static final String PLACE_HOLDER = "#";
+
 
     /**
      * 默认过期数据
@@ -68,7 +66,7 @@ public class CacheServiceImpl implements CacheService {
             log.warn("获取缓存数据异常", e);
             return supplier.get();
         }
-        if (PLACE_HOLDER.equals(value)) {
+        if (SystemConstant.CACHE_PLACE_HOLDER.equals(value)) {
             return null;
         }
         if (value != null) {
@@ -91,7 +89,7 @@ public class CacheServiceImpl implements CacheService {
         if (result != null) {
             this.setValue(key, result, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
-            this.setValue(key, PLACE_HOLDER, systemConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
+            this.setValue(key, SystemConstant.CACHE_PLACE_HOLDER, systemConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
         }
         return result;
     }
@@ -104,7 +102,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 数据结果
      */
     private <T> T mutexLock(String key, Supplier<T> supplier) {
-        Boolean absent = stringRedisTemplate.opsForValue().setIfAbsent(CacheConstant.MUTEX_LOCK + key, PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.SECONDS);
+        Boolean absent = stringRedisTemplate.opsForValue().setIfAbsent(CacheConstant.MUTEX_LOCK + key, SystemConstant.CACHE_PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.SECONDS);
         if (absent != null && absent) {
             T result = supplier.get();
             stringRedisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
@@ -194,7 +192,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     private void limitPut(String key, long maxTtl) {
-        stringRedisTemplate.opsForList().leftPush(key, PLACE_HOLDER);
+        stringRedisTemplate.opsForList().leftPush(key, SystemConstant.CACHE_PLACE_HOLDER);
         stringRedisTemplate.expire(key, maxTtl, TimeUnit.SECONDS);
     }
 }
