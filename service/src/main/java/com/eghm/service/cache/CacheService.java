@@ -108,5 +108,16 @@ public interface CacheService {
      * @param key key
      */
     void delete(String key);
+
+    /**
+     * 用来限制单位时间内的访问次数(一般用来限制单位时间的短信发送次数或者登录次数),注意调用该方法一次如果返回false默认访问次数会+1
+     * 例如 发送短信 maxLimit=3, maxTtl=3600,表示在一个小时内最多发送3条短信
+     * 表示在{maxTtl}时间内最多能访问{maxLimit}次
+     * @param key key
+     * @param maxLimit 次数限制
+     * @param maxTtl 单位:秒
+     * @return true:允许 false:不允许
+     */
+    boolean limit(String key, int maxLimit, long maxTtl);
 }
 

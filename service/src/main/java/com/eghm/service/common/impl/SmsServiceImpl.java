@@ -4,7 +4,6 @@ import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.business.SmsLog;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,11 +44,6 @@ public class SmsServiceImpl implements SmsService {
     private SystemConfigApi systemConfigApi;
 
     /**
-     * 模糊匹配符
-     */
-    private static final String MATCH = "*";
-
-    /**
      * 验证码过期时间 10分钟
      */
     private static final int SMS_CODE_EXPIRE = 600;
@@ -63,7 +56,6 @@ public class SmsServiceImpl implements SmsService {
         String content = this.formatTemplate(template, smsCode);
         this.doSendSms(mobile, content, smsType);
         this.saveSmsCode(smsType, mobile, smsCode);
-        this.smsLimitSet(smsType, mobile, smsCode);
     }
 
 
@@ -137,20 +129,6 @@ public class SmsServiceImpl implements SmsService {
     }
 
     /**
-     * 保存短信信息,用于发送短信前的校验
-     *
-     * @param smsType 短信类型
-     * @param mobile  手机号
-     */
-    private void smsLimitSet(String smsType, String mobile, String smsCode) {
-        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile, 1, systemConfigApi.getInt(ConfigConstant.SMS_TYPE_INTERVAL));
-        cacheService.setValue(CacheConstant.SMS_TYPE_HOUR + smsType + mobile + smsCode, 1, 3600);
-        Date expireDate = DateUtil.endOfDay(DateUtil.getNow());
-        cacheService.setValue(CacheConstant.SMS_TYPE_DAY + smsType + mobile + smsCode, 1, expireDate);
-        cacheService.setValue(CacheConstant.SMS_DAY + mobile + smsCode, 1, expireDate);
-    }
-
-    /**
      * 根据短信类型和手机号判断短信发送间隔及短信次数是否上限
      *
      * @param smsType 短信类型
@@ -162,22 +140,22 @@ public class SmsServiceImpl implements SmsService {
         if (value == null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
+        int smsTypeHourLimit = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
         //单位小时统一类型内短信限制
-        int countSms = cacheService.keySize(CacheConstant.SMS_TYPE_HOUR + smsType + mobile + MATCH);
-        int smsTypeHour = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR);
-        if (countSms > smsTypeHour) {
+        boolean limit = cacheService.limit(CacheConstant.SMS_TYPE_HOUR_LIMIT + smsType + mobile, smsTypeHourLimit, 3600);
+        if (limit) {
             throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
+        int smsTypeDayLimit = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
         //当天同一类型短信限制
-        countSms = cacheService.keySize(CacheConstant.SMS_TYPE_DAY + smsType + mobile + MATCH);
-        int smsTypeDay = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY);
-        if (countSms > smsTypeDay) {
+        limit = cacheService.limit(CacheConstant.SMS_TYPE_DAY_LIMIT + smsType + mobile, smsTypeDayLimit, 86400);
+        if (limit) {
             throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }
+        int smsDay = systemConfigApi.getInt(ConfigConstant.SMS_DAY_LIMIT);
         //当天手机号限制
-        countSms = cacheService.keySize(CacheConstant.SMS_DAY + mobile + MATCH);
-        int smsDay = systemConfigApi.getInt(ConfigConstant.SMS_DAY);
-        if (countSms > smsDay) {
+        limit = cacheService.limit(CacheConstant.SMS_DAY + mobile, smsDay, 86400);
+        if (limit) {
             throw new BusinessException(ErrorCode.MOBILE_DAY_LIMIT);
         }
     }

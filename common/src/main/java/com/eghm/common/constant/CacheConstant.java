@@ -41,12 +41,12 @@ public class CacheConstant {
     /**
      * 同一类型短信单小时总次数
      */
-    public static final String SMS_TYPE_HOUR = "sms_type_hour::";
+    public static final String SMS_TYPE_HOUR_LIMIT = "sms_type_hour_limit::";
 
     /**
      * 同一类型短信一天总次数
      */
-    public static final String SMS_TYPE_DAY = "sms_type_day::";
+    public static final String SMS_TYPE_DAY_LIMIT = "sms_type_day_limit::";
 
     /**
      * 同一天同手机号最大次数

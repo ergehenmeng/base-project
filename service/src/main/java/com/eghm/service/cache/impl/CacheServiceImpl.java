@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -178,5 +179,22 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void delete(String key) {
         stringRedisTemplate.delete(key);
+    }
+
+    @Override
+    public boolean limit(String key, int maxLimit, long maxTtl) {
+        ListOperations<String, String> ops = stringRedisTemplate.opsForList();
+        Long size = ops.size(key);
+        if (size == null || size < maxLimit) {
+            this.limitPut(key, maxTtl);
+            return false;
+        }
+        //如果刚好此时,在maxTtl时间内的第一次存储的数据过期了,依旧返回true,不做毫秒值等判断
+        return true;
+    }
+
+    private void limitPut(String key, long maxTtl) {
+        stringRedisTemplate.opsForList().leftPush(key, PLACE_HOLDER);
+        stringRedisTemplate.expire(key, maxTtl, TimeUnit.SECONDS);
     }
 }
