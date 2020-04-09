@@ -36,7 +36,7 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
     public RespBody<Object> businessException(HttpServletRequest request, BusinessException e) {
-        log.error("业务异常:[{}]", request.getRequestURI(), e);
+        log.warn("业务异常:[{}]", request.getRequestURI(), e);
         return RespBody.error(e.getCode(), e.getMessage());
     }
 
