@@ -8,13 +8,13 @@
 * 登陆后额外请求头字段:
     * `Access-Token` 登陆成功时,由后台返回给前台
     * `Refresh-Token` 刷新token,由后台传递给前台
-* 默认登陆后的请求响应均加密(`DecryptReqBodyAdviceHandler`,`EncryptRespBodyAdviceHandler`)
-    * 请求加密是对所有json参数进行加密 AES.encrypt(jsonBody,secret)
-    * 响应数据加密是对data参数进行加密
-
+* 默认登陆后的请求响应均加密
+    * 请求加密是对所有json参数进行解密 (`JsonExtractHandlerArgumentResolver`)
+    * 响应数据加密是对data参数进行加密 (`EncryptRespBodyAdviceHandler`) 
+* 响应结果 code=200为成功,其他均有异常或错误
 ```json
 {
-  "code": 200,
+  "code": 200, 
   "msg": "success",
   "data": "加密信息" 
 }
