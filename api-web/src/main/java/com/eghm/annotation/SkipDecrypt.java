@@ -9,6 +9,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * 已经登陆的用户,强制会对请求进行解密操作,如果不需要解密则添加该注解
+ *
+ * @see com.eghm.interceptor.JsonExtractHandlerArgumentResolver 请求参数解密
  * @author 二哥很猛
  */
 @Documented

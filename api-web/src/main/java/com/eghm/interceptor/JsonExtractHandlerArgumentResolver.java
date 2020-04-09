@@ -1,14 +1,18 @@
 package com.eghm.interceptor;
 
+import com.eghm.annotation.SkipAccess;
 import com.eghm.annotation.SkipDataBinder;
+import com.eghm.annotation.SkipDecrypt;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.common.exception.RequestException;
+import com.eghm.common.utils.AesUtil;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.utils.DataUtil;
 import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -35,6 +39,7 @@ import javax.servlet.http.HttpSession;
  * @author 二哥很猛
  * @date 2018/1/8 14:42
  */
+@Slf4j
 public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Autowired
@@ -63,7 +68,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             return DataUtil.copy(RequestThreadLocal.get(), RequestMessage.class);
         }
         HttpServletRequest request = ((ServletWebRequest) webRequest).getRequest();
-        Object args = jsonFormat(request, parameter.getParameterType());
+        Object args = jsonFormat(request, parameter);
         WebDataBinder binder = binderFactory.createBinder(webRequest, args, parameter.getParameterType().getName());
         binder.validate(args);
         BindingResult bindingResult = binder.getBindingResult();
@@ -80,20 +85,43 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
      * 将request中对象转换为转换为指定接收的参数对象
      *
      * @param request 请求信息
-     * @param cls     接收参数的类型
+     * @param parameter method参数信息
      * @return 结果对象
      */
-    private Object jsonFormat(HttpServletRequest request, Class<?> cls) {
+    private Object jsonFormat(HttpServletRequest request, MethodParameter parameter) {
         try {
-            String args = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
-            if (args == null) {
-                return cls.newInstance();
+            String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+            Class<?> parameterType = parameter.getParameterType();
+            if (requestBody == null) {
+                return parameterType.newInstance();
             }
+            //解密
+            requestBody = this.decryptRequestBody(requestBody, parameter);
             //用于记录日志使用
-            RequestThreadLocal.get().setRequestBody(args);
-            return gson.fromJson(args, cls);
+            RequestThreadLocal.get().setRequestBody(requestBody);
+            return gson.fromJson(requestBody, parameterType);
         } catch (Exception e) {
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
+    }
+
+    private String decryptRequestBody(String requestBody, MethodParameter parameter) {
+        if (this.needDecrypt(parameter)) {
+            String secret = RequestThreadLocal.get().getSecret();
+            String decrypt = AesUtil.decrypt(requestBody, secret);
+            log.debug("原始数据:[{}],解密数据:[{}]", requestBody, decrypt);
+            return decrypt;
+        }
+        return requestBody;
+    }
+
+    /**
+     * 是否需要解密步骤
+     *
+     * @param parameter controller方法参数信息
+     * @return true:需要解密操作,false不需要
+     */
+    private boolean needDecrypt(MethodParameter parameter) {
+        return !parameter.hasMethodAnnotation(SkipDecrypt.class) && !parameter.hasMethodAnnotation(SkipAccess.class);
     }
 }

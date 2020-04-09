@@ -13,6 +13,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * 限制某个方法的客户端访问类型 在Controller方法中使用
  *
+ * @see com.eghm.interceptor.ClientTypeHandlerInterceptor 拦截规则
  * @author 二哥很猛
  * @date 2018/8/14 16:19
  */
