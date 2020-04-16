@@ -53,7 +53,7 @@ public enum WorkSpace {
             throw new ParameterException(ErrorCode.UN_KNOW_HOST_ADDRESS);
         }
         byte[] ipAddressByteArray = address.getAddress();
-        WORK_ID = (long) (((ipAddressByteArray[ipAddressByteArray.length - 2] & 0B11) << Byte.SIZE) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 0xFF));
+        WORK_ID = (((ipAddressByteArray[ipAddressByteArray.length - 2] & 0B11) << Byte.SIZE) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 0xFF));
     }
 
     /**
