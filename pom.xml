@@ -103,6 +103,8 @@
         <pool.version>2.7.0</pool.version>
         <!--工具类-->
         <hutool.verison>5.2.3</hutool.verison>
+        <!--mybatis Ognl表达式支持-->
+        <ognl.version>3.2.10</ognl.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -253,6 +255,11 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.verison}</version>
+            </dependency>
+            <dependency>
+                <groupId>ognl</groupId>
+                <artifactId>ognl</artifactId>
+                <version>${ognl.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

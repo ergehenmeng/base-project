@@ -18,7 +18,7 @@ public class DatePropertyEditor extends PropertyEditorSupport {
 
         try {
             if (StringUtil.isNotBlank(text)) {
-                super.setValue(DateUtil.parseLong(text));
+                super.setValue(DateUtil.parseLongJava8(text));
             }
         } catch (Exception e) {
             try {
