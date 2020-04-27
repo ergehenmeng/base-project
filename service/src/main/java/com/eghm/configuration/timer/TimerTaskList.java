@@ -84,12 +84,12 @@ public class TimerTaskList implements Delayed {
      * 将提供的函数应用于此列表的每个任务中
      * @param function 需要执行的函数
      */
-    public synchronized void foreach(Function<TimerTask,Void> function){
+    public synchronized void foreach(Function<AbstractTimerTask,Void> function){
         TimerTaskEntry entry = root.next;
         while (entry != root){
             TimerTaskEntry nextEntry = entry.next;
             if(!entry.cancelled()){
-                function.apply(entry.getTimerTask());
+                function.apply(entry.getAbstractTimerTask());
             }
             entry = nextEntry;
         }

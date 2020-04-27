@@ -4,7 +4,7 @@ package com.eghm.configuration.timer;
  * @author 二哥很猛
  * @date 2018/9/11 11:56
  */
-public class TimerTaskOperation extends TimerTask {
+public class TimerTaskOperation extends AbstractTimerTask {
 
     /**
      * 构造方法

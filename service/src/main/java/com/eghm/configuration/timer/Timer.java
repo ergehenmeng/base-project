@@ -11,7 +11,7 @@ public interface Timer  {
      * 添加任务
      * @param task 任务
      */
-    void add(TimerTask task);
+    void add(AbstractTimerTask task);
 
 
     /**

@@ -5,7 +5,7 @@ package com.eghm.configuration.timer;
  * @author 二哥很猛
  * @date 2018/9/11 9:19
  */
-public abstract class TimerTask implements Runnable {
+public abstract class AbstractTimerTask implements Runnable {
 
     /**
      * 存放该TimerTask的entry对象,相互引用
@@ -21,7 +21,7 @@ public abstract class TimerTask implements Runnable {
      * 构造方法
      * @param delayMs 延迟多长时间执行
      */
-    public TimerTask(long delayMs){
+    public AbstractTimerTask(long delayMs){
         this.delayMs = delayMs;
     }
 

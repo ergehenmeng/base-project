@@ -1,29 +1,25 @@
 package com.eghm.configuration.timer;
 
-import java.util.concurrent.DelayQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
 
 /**
  * 延迟定时执行器
+ *
  * @author 二哥很猛
  * @date 2018/9/11 11:01
  */
-public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
+@Slf4j
+public class SystemTimer implements Timer, Function<TimerTaskEntry, Void> {
 
     /**
      * 线程池
      */
     private ExecutorService taskExecutor;
-
-    /**
-     * 线程名称
-     */
-    private String executeName;
 
     /**
      * 一格占的毫秒值
@@ -40,10 +36,26 @@ public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
      */
     private long startMs;
 
+    /**
+     * 最大执行业务的线程数
+     */
+    private static final int DEFAULT_MAX_THREAD = 50;
+
+    /**
+     * 最小执行业务的线程数
+     */
+    private static final int DEFAULT_MIN_THREAD = 5;
+
+    /**
+     * 默认队列容量
+     */
+    private static final int DEFAULT_QUEUE_CAPACITY = 1000;
 
     private DelayQueue<TimerTaskList> queue = new DelayQueue<>();
 
     private AtomicInteger taskCounter = new AtomicInteger(0);
+
+    private AtomicInteger threadCounter = new AtomicInteger(1);
 
     /**
      * 时间轮对象
@@ -64,40 +76,67 @@ public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
 
     /**
      * 全局时间轮定时器
-     * @param executeName 线程池名称
-     * @param tickMs 初始值 一格多少毫秒
+     *
+     * @param tickMs    初始值 一格多少毫秒
      * @param wheelSize 初始值 一圈的格数
      */
-    public SystemTimer(String executeName,long tickMs,int wheelSize) {
-        this.executeName = executeName;
+    public SystemTimer(long tickMs, int wheelSize) {
+        this(tickMs, wheelSize, DEFAULT_MIN_THREAD, DEFAULT_MAX_THREAD, "timer-", DEFAULT_QUEUE_CAPACITY);
+    }
+
+    /**
+     * 全局时间轮定时器
+     *
+     * @param threadPrefix 线程池名称
+     * @param tickMs      初始值 一格多少毫秒
+     * @param wheelSize   初始值 一圈的格数
+     */
+    public SystemTimer(long tickMs, int wheelSize, int minThread, int maxThread, String threadPrefix, int capacity) {
         this.tickMs = tickMs;
         this.wheelSize = wheelSize;
         this.startMs = Time.getHiresClockMs();
-        this.taskExecutor = Executors.newFixedThreadPool(100,r -> new Thread(r,executeName));
-        this.timingWheel = new TimingWheel(tickMs,wheelSize,startMs,taskCounter,queue);
+        this.timingWheel = new TimingWheel(tickMs, wheelSize, startMs, taskCounter, queue);
+        this.taskExecutor = new ThreadPoolExecutor(minThread, maxThread, 5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(capacity), this.threadFactory(threadPrefix));
+    }
+
+    private ThreadFactory threadFactory(String prefix) {
+        return r -> new Thread(r, prefix + threadCounter.getAndIncrement());
+    }
+
+    /**
+     * 全局时间轮定时器
+     *
+     * @param tickMs      初始值 一格多少毫秒
+     * @param wheelSize   初始值 一圈的格数
+     * @param minThread   最小业务线程数
+     * @param maxThread   最大业务线程数
+     */
+    public SystemTimer(long tickMs, int wheelSize, int minThread, int maxThread) {
+        this(tickMs, wheelSize, minThread, maxThread, "timer-", DEFAULT_QUEUE_CAPACITY);
     }
 
     @Override
-    public void add(TimerTask task) {
+    public void add(AbstractTimerTask task) {
         readLock.lock();
         try {
-            this.addTimerTaskEntry(new TimerTaskEntry(task,task.getDelayMs() + Time.getHiresClockMs()));
-        }finally {
+            this.addTimerTaskEntry(new TimerTaskEntry(task, task.getDelayMs() + Time.getHiresClockMs()));
+        } finally {
             readLock.unlock();
         }
     }
 
     /**
      * 添加任务条目
+     *
      * @param timerTaskEntry entry对象 封装了TimerTask对象
      */
-    private void addTimerTaskEntry(TimerTaskEntry timerTaskEntry){
+    private void addTimerTaskEntry(TimerTaskEntry timerTaskEntry) {
         //过期或取消时,会返回false
-        if (!timingWheel.add(timerTaskEntry)){
+        if (!timingWheel.add(timerTaskEntry)) {
             //过期了,需要执行
-            if(!timerTaskEntry.cancelled()){
+            if (!timerTaskEntry.cancelled()) {
                 //过期时执行一次
-                taskExecutor.submit(timerTaskEntry.getTimerTask());
+                taskExecutor.submit(timerTaskEntry.getAbstractTimerTask());
             }
         }
     }
@@ -105,24 +144,23 @@ public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
     @Override
     public boolean advanceClock(long timeoutMs) {
         try {
-            TimerTaskList bucket = queue.poll(timeoutMs,TimeUnit.MILLISECONDS);
-            if(bucket != null){
+            TimerTaskList bucket = queue.poll(timeoutMs, TimeUnit.MILLISECONDS);
+            if (bucket != null) {
                 writeLock.lock();
                 try {
-                    while (bucket != null){
+                    while (bucket != null) {
                         timingWheel.advanceClock(bucket.getExpiration());
                         bucket.flush(this);
                         bucket = queue.poll();
                     }
-                }finally {
+                } finally {
                     writeLock.unlock();
                 }
                 return true;
             }
-        }catch (InterruptedException e){
-            e.printStackTrace();
+        } catch (InterruptedException e) {
+            log.error("获取队列头元素异常", e);
         }
-
         return false;
     }
 
@@ -134,6 +172,14 @@ public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
     @Override
     public void shutdown() {
         taskExecutor.shutdown();
+    }
+
+    public ExecutorService getTaskExecutor() {
+        return taskExecutor;
+    }
+
+    public void setTaskExecutor(ExecutorService taskExecutor) {
+        this.taskExecutor = taskExecutor;
     }
 
     @Override
@@ -154,7 +200,4 @@ public class SystemTimer implements Timer,Function<TimerTaskEntry,Void> {
         return startMs;
     }
 
-    public String getExecuteName() {
-        return executeName;
-    }
 }

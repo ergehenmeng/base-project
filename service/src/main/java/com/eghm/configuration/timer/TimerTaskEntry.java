@@ -27,7 +27,7 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
     /**
      * 真实要执行的任务对象
      */
-    private TimerTask timerTask;
+    private AbstractTimerTask abstractTimerTask;
 
     /**
      * 任务延迟执行时间 2000 + Time.getHiresClockMs() 表示:2000毫秒之后执行
@@ -36,14 +36,14 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
 
     /**
      * 构造方法
-     * @param timerTask 定时任务
+     * @param abstractTimerTask 定时任务
      * @param expirationMs  到期执行时间
      */
-    public TimerTaskEntry(TimerTask timerTask,long expirationMs){
-        if(timerTask != null){
-            timerTask.setTimerTaskEntry(this);
+    public TimerTaskEntry(AbstractTimerTask abstractTimerTask, long expirationMs){
+        if(abstractTimerTask != null){
+            abstractTimerTask.setTimerTaskEntry(this);
         }
-        this.timerTask = timerTask;
+        this.abstractTimerTask = abstractTimerTask;
         this.expirationMs = expirationMs;
     }
 
@@ -52,7 +52,7 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
      * @return true 已删除(取消) false 未取消
      */
     public boolean cancelled(){
-        return timerTask.getTimerTaskEntry() != this;
+        return abstractTimerTask.getTimerTaskEntry() != this;
     }
 
     /**
@@ -68,8 +68,8 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
 
     @Override
     public int compareTo(@Nonnull TimerTaskEntry o) {
-        Long expirationMs1 = this.getExpirationMs();
-        Long expirationMs2 = o.getExpirationMs();
+        long expirationMs1 = this.getExpirationMs();
+        long expirationMs2 = o.getExpirationMs();
         if (expirationMs1 < expirationMs2) {
             return -1;
         }
@@ -83,8 +83,8 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
      * 获取任务
      * @return timerTask
      */
-    public TimerTask getTimerTask() {
-        return timerTask;
+    public AbstractTimerTask getAbstractTimerTask() {
+        return abstractTimerTask;
     }
 
     public long getExpirationMs() {
