@@ -95,7 +95,7 @@ public class OperationLogHandler {
         if (logSwitch) {
             taskHandler.executeOperateLog(new OperationLogTask(sy, operationLogService));
         } else {
-            log.debug("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getOperatorId(), sy.getBusinessTime());
+            log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getOperatorId(), sy.getBusinessTime());
         }
         return proceed;
     }

@@ -186,7 +186,7 @@ public class SystemTaskRegistrar implements DisposableBean {
     }
 
     @Override
-    public void destroy() throws Exception {
+    public void destroy() {
         for (ScheduledFuture<?> future : scheduledFutures.values()) {
             if (future != null) {
                 future.cancel(true);

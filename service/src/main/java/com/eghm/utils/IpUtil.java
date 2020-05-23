@@ -58,4 +58,14 @@ public class IpUtil {
         return null;
     }
 
+    /**
+     * 将ip转为long类型 ip4类型的
+     * @param ip  ip地址
+     * @return long
+     */
+    public static long longIpv4(String ip){
+        String[] split = ip.split("\\.");
+        return (Long.parseLong(split[0]) << 24) + (Long.parseLong(split[1]) << 16) + (Long.parseLong(split[2]) << 8)  + Long.parseLong(split[3]);
+    }
+
 }

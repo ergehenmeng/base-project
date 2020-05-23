@@ -109,7 +109,9 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         if (this.needDecrypt(parameter)) {
             String secret = RequestThreadLocal.get().getSecret();
             String decrypt = AesUtil.decrypt(requestBody, secret);
-            log.debug("原始数据:[{}],解密数据:[{}]", requestBody, decrypt);
+            if (log.isDebugEnabled()) {
+                log.debug("原始数据:[{}],解密数据:[{}]", requestBody, decrypt);
+            }
             return decrypt;
         }
         return requestBody;

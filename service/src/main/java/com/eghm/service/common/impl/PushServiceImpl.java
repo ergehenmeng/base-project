@@ -61,7 +61,9 @@ public class PushServiceImpl implements PushService {
         this.addTag(pushBuilder, template.getTag());
         try {
             PushResult pushResult = jPushClient.sendPush(this.getPushPayload(pushBuilder, MessageFormat.format(template.getContent(), params)));
-            log.debug("推送通知异步返回:[{}]", pushResult);
+            if (log.isDebugEnabled()) {
+                log.debug("推送通知异步返回:[{}]", pushResult);
+            }
         } catch (APIConnectionException | APIRequestException e) {
             log.error("推送通知异常:[{}]", pushBuilder, e);
         }
@@ -71,7 +73,9 @@ public class PushServiceImpl implements PushService {
     public void pushMessage(PushBuilder pushBuilder) {
         try {
             PushResult pushResult = jPushClient.sendPush(this.getPushPayloadMessage(pushBuilder));
-            log.debug("推送消息异步响应:[{}]", pushResult);
+            if (log.isDebugEnabled()) {
+                log.debug("推送消息异步响应:[{}]", pushResult);
+            }
         } catch (Exception e) {
             log.error("推送消息异常:[{}]", pushBuilder, e);
         }

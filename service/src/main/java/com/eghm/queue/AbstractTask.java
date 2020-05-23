@@ -27,7 +27,9 @@ public abstract class AbstractTask<T, B> implements Runnable {
 
     @Override
     public void run() {
-        log.debug("队列任务开始执行");
+        if (log.isDebugEnabled()) {
+            log.debug("队列任务[{}]开始执行", bean.getClass().getName());
+        }
         try {
             this.execute(data);
         } catch (Exception e) {
@@ -35,7 +37,9 @@ public abstract class AbstractTask<T, B> implements Runnable {
         } finally {
             this.doFinally();
         }
-        log.debug("队列任务执行结束");
+        if (log.isDebugEnabled()) {
+            log.debug("队列任务[{}]执行结束", bean.getClass().getName());
+        }
     }
 
     public T getData() {
@@ -63,7 +67,6 @@ public abstract class AbstractTask<T, B> implements Runnable {
      * 执行完业务的后置处理操作
      */
     protected void doFinally() {
-        log.debug("队列任务执行完成");
     }
 
     /**

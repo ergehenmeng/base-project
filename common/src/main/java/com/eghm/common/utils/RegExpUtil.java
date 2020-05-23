@@ -13,12 +13,12 @@ public class RegExpUtil {
     /**
      * 身份证校验正则表达式
      */
-    private static final String REGEXP_ID_CARD = "(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}$)";
+    private static final Pattern REGEXP_ID_CARD = Pattern.compile("(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}$)");
 
     /**
      * 手机号正则表达式
      */
-    private static final String REGEXP_MOBILE = "^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8])|(19[0,2,6,7,8,9]))\\d{8}$";
+    private static final Pattern REGEXP_MOBILE = Pattern.compile("^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8])|(19[0,2,6,7,8,9]))\\d{8}$");
 
     /**
      * 隐藏字符串要替换的正则表达式值
@@ -32,7 +32,7 @@ public class RegExpUtil {
      * @return boolean true:合法 false:不合法
      */
     public static boolean idCard(String idCard) {
-        return match(REGEXP_ID_CARD, idCard);
+        return REGEXP_ID_CARD.matcher(idCard).matches();
     }
 
     /**
@@ -53,7 +53,7 @@ public class RegExpUtil {
      * @return true:是手机号 false:不是
      */
     public static boolean mobile(String mobile) {
-        return match(REGEXP_MOBILE, mobile);
+        return REGEXP_MOBILE.matcher(mobile).matches();
     }
 
 }
