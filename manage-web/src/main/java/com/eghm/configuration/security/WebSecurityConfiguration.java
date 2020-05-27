@@ -28,160 +28,157 @@ import org.springframework.util.StringUtils;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
-    @Autowired
-    private ApplicationProperties applicationProperties;
+	@Autowired
+	private ApplicationProperties applicationProperties;
 
-    @Autowired
-    private WebMvcProperties webMvcProperties;
+	@Autowired
+	private WebMvcProperties webMvcProperties;
 
-    @Autowired
-    private Encoder encoder;
-
-
-    @Override
-    protected UserDetailsService userDetailsService() {
-        return detailsService();
-    }
-
-    @Bean("userDetailsService")
-    public UserDetailsService detailsService() {
-        return new OperatorDetailsServiceImpl();
-    }
-
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers(webMvcProperties.getStaticPathPattern());
-    }
+	@Autowired
+	private Encoder encoder;
 
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //Iframe同一域名内可以访问
-        http.headers().frameOptions().sameOrigin();
+	@Override
+	protected UserDetailsService userDetailsService() {
+		return detailsService();
+	}
 
-        http
-                .authorizeRequests()
-                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getIgnoreUrl(), ";")).permitAll()
-                .antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getLoginIgnoreUrl(), ";")).fullyAuthenticated()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/")
-                .loginProcessingUrl("/login")
-                .usernameParameter("mobile")
-                .passwordParameter("password")
-                .authenticationDetailsSource(detailsSource())
-                .successHandler(loginSuccessHandler())
-                .failureHandler(loginFailureHandler())
-                .and()
-                .logout()
-                .logoutSuccessHandler(logoutSuccessHandler())
-                .permitAll()
-                .invalidateHttpSession(true);
-        http.sessionManagement().maximumSessions(1).expiredUrl("/index");
-        //权限拦截
-        http
-                .addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
-                .csrf()
-                .disable()
-                //默认访问拒绝由AccessDeniedHandlerImpl(重定向)处理.手动实现返回前台为json
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler());
-    }
+	@Bean("userDetailsService")
+	public UserDetailsService detailsService() {
+		return new OperatorDetailsServiceImpl();
+	}
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-    /**
-     * 登陆校验器
-     *
-     * @return bean
-     */
-    private AuthenticationProvider authenticationProvider() {
-        CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
-        //屏蔽原始错误异常
-        provider.setHideUserNotFoundExceptions(false);
-        provider.setUserDetailsService(userDetailsService());
-        provider.setEncoder(encoder);
-        return provider;
-    }
-
-    /**
-     * 登陆成功后置处理
-     *
-     * @return bean
-     */
-    private LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler();
-    }
-
-    /**
-     * 退出登陆
-     *
-     * @return bean
-     */
-    private LogoutSuccessHandler logoutSuccessHandler() {
-        return new LogoutSuccessHandler();
-    }
-
-    /**
-     * 登陆失败后置处理
-     *
-     * @return bean
-     */
-    private LoginFailureHandler loginFailureHandler() {
-        return new LoginFailureHandler();
-    }
+	@Override
+	public void configure(WebSecurity web) {
+		web.ignoring().antMatchers(webMvcProperties.getStaticPathPattern());
+	}
 
 
-    /**
-     * 权限管理过滤器,
-     * 声明为Bean会加入到全局FilterChain中拦截所有请求
-     * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
-     *
-     * @return bean
-     */
-    private CustomFilterSecurityInterceptor filterSecurityInterceptor() {
-        CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor(metadataSource());
-        interceptor.setAccessDecisionManager(accessDecisionManager());
-        return interceptor;
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		//Iframe同一域名内可以访问
+		http.headers().frameOptions().sameOrigin();
+		http.authorizeRequests()
+				.antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getIgnoreUrl(), ";")).permitAll()
+				.antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getLoginIgnoreUrl(), ";")).fullyAuthenticated()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/")
+				.loginProcessingUrl("/login")
+				.usernameParameter("mobile")
+				.passwordParameter("password")
+				.authenticationDetailsSource(detailsSource())
+				.successHandler(loginSuccessHandler())
+				.failureHandler(loginFailureHandler())
+				.and()
+				.logout()
+				.logoutSuccessHandler(logoutSuccessHandler())
+				.permitAll()
+				.invalidateHttpSession(true);
+		http.sessionManagement().maximumSessions(1).expiredUrl("/index");
+		//权限拦截
+		http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
+				.csrf()
+				.disable()
+				//默认访问拒绝由AccessDeniedHandlerImpl(重定向)处理.手动实现返回前台为json
+				.exceptionHandling()
+				.accessDeniedHandler(accessDeniedHandler());
+	}
+
+	@Override
+	public void configure(AuthenticationManagerBuilder auth) {
+		auth.authenticationProvider(authenticationProvider());
+	}
+
+	/**
+	 * 登陆校验器
+	 *
+	 * @return bean
+	 */
+	private AuthenticationProvider authenticationProvider() {
+		CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
+		//屏蔽原始错误异常
+		provider.setHideUserNotFoundExceptions(false);
+		provider.setUserDetailsService(userDetailsService());
+		provider.setEncoder(encoder);
+		return provider;
+	}
+
+	/**
+	 * 登陆成功后置处理
+	 *
+	 * @return bean
+	 */
+	private LoginSuccessHandler loginSuccessHandler() {
+		return new LoginSuccessHandler();
+	}
+
+	/**
+	 * 退出登陆
+	 *
+	 * @return bean
+	 */
+	private LogoutSuccessHandler logoutSuccessHandler() {
+		return new LogoutSuccessHandler();
+	}
+
+	/**
+	 * 登陆失败后置处理
+	 *
+	 * @return bean
+	 */
+	private LoginFailureHandler loginFailureHandler() {
+		return new LoginFailureHandler();
+	}
 
 
-    private CustomAccessDecisionManager accessDecisionManager() {
-        return new CustomAccessDecisionManager();
-    }
+	/**
+	 * 权限管理过滤器,
+	 * 声明为Bean会加入到全局FilterChain中拦截所有请求
+	 * 不声明Bean默认会在FilterChainProxy子调用链中按条件执行,减少不必要执行逻辑
+	 *
+	 * @return bean
+	 */
+	private CustomFilterSecurityInterceptor filterSecurityInterceptor() {
+		CustomFilterSecurityInterceptor interceptor = new CustomFilterSecurityInterceptor(metadataSource());
+		interceptor.setAccessDecisionManager(accessDecisionManager());
+		return interceptor;
+	}
 
 
-    /**
-     * 角色权限资源管理
-     *
-     * @return bean
-     */
-    @Bean
-    public CustomFilterInvocationSecurityMetadataSource metadataSource() {
-        return new CustomFilterInvocationSecurityMetadataSource();
-    }
-
-    /**
-     * 附加信息管理
-     *
-     * @return bean
-     */
-    private CustomAuthenticationDetailsSource detailsSource() {
-        return new CustomAuthenticationDetailsSource();
-    }
+	private CustomAccessDecisionManager accessDecisionManager() {
+		return new CustomAccessDecisionManager();
+	}
 
 
-    /**
-     * 权限不足
-     *
-     * @return bean
-     */
-    private AccessDeniedHandler accessDeniedHandler() {
-        return new FailureAccessDeniedHandler();
-    }
+	/**
+	 * 角色权限资源管理
+	 *
+	 * @return bean
+	 */
+	@Bean
+	public CustomFilterInvocationSecurityMetadataSource metadataSource() {
+		return new CustomFilterInvocationSecurityMetadataSource();
+	}
+
+	/**
+	 * 附加信息管理
+	 *
+	 * @return bean
+	 */
+	private CustomAuthenticationDetailsSource detailsSource() {
+		return new CustomAuthenticationDetailsSource();
+	}
+
+
+	/**
+	 * 权限不足
+	 *
+	 * @return bean
+	 */
+	private AccessDeniedHandler accessDeniedHandler() {
+		return new FailureAccessDeniedHandler();
+	}
 
 }
