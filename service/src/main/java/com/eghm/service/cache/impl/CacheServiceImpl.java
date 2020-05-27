@@ -87,6 +87,7 @@ public class CacheServiceImpl implements CacheService {
         if (result != null) {
             this.setValue(key, result, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
+            // 数据库也没有查询到,填充默认值
             this.setValue(key, SystemConstant.CACHE_PLACE_HOLDER, systemConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
         }
         return result;
@@ -112,6 +113,7 @@ public class CacheServiceImpl implements CacheService {
             log.error("缓存互斥锁中断异常 key:[{}]", key, e);
             return null;
         }
+        // 递归获取
         return this.doSupplier(key, supplier);
     }
 
