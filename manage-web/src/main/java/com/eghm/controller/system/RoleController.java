@@ -56,7 +56,7 @@ public class RoleController {
     public List<CheckBox> list() {
         List<SystemRole> list = systemRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return DataUtil.transform(list, systemRole -> CheckBox.builder().hide(systemRole.getId()).show(systemRole.getRoleName()).build());
+        return DataUtil.convert(list, systemRole -> CheckBox.builder().hide(systemRole.getId()).show(systemRole.getRoleName()).build());
     }
 
     /**

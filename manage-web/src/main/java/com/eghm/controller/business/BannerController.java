@@ -45,7 +45,7 @@ public class BannerController extends AbstractController {
     @ResponseBody
     public Paging<Banner> listPage(BannerQueryRequest request) {
         PageInfo<Banner> byPage = bannerService.getByPage(request);
-        return DataUtil.transform(byPage, banner -> {
+        return DataUtil.convert(byPage, banner -> {
             banner.setClassifyName(cacheProxyService.getDictValue(DictConstant.BANNER_CLASSIFY, banner.getClassify()));
             return banner;
         });

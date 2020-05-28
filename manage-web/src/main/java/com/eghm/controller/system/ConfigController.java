@@ -66,7 +66,7 @@ public class ConfigController extends AbstractController {
     @ResponseBody
     public Paging<SystemConfig> listPage(ConfigQueryRequest request) {
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
-        return DataUtil.transform(listByPage, systemConfig -> {
+        return DataUtil.convert(listByPage, systemConfig -> {
             String dictValue = cacheProxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, systemConfig.getClassify());
             systemConfig.setClassifyName(dictValue);
             return systemConfig;

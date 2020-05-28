@@ -63,7 +63,7 @@ public class ImageLogController extends AbstractController {
     @Mark
     public Paging<ImageLog> listPage(ImageQueryRequest request) {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
-        return DataUtil.transform(page, imageLog -> {
+        return DataUtil.convert(page, imageLog -> {
             //将数据字典类型转换实际类型
             String dictValue = cacheProxyService.getDictValue(DictConstant.IMAGE_CLASSIFY, imageLog.getClassify());
             imageLog.setClassifyName(dictValue);

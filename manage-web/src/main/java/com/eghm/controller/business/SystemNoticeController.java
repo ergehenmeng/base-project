@@ -41,7 +41,7 @@ public class SystemNoticeController {
     @ResponseBody
     public Paging<SystemNotice> listPage(NoticeQueryRequest request) {
         PageInfo<SystemNotice> byPage = systemNoticeService.getByPage(request);
-        return DataUtil.transform(byPage, notice -> {
+        return DataUtil.convert(byPage, notice -> {
             notice.setClassifyName(cacheProxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
             return notice;
         });

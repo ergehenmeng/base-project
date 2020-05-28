@@ -40,7 +40,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
     public List<TopNoticeVO> getList() {
         int noticeLimit = systemConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SystemNotice> noticeList = systemNoticeMapper.getTopList(noticeLimit);
-        return DataUtil.transform(noticeList, notice -> DataUtil.copy(notice, TopNoticeVO.class));
+        return DataUtil.convert(noticeList, notice -> DataUtil.copy(notice, TopNoticeVO.class));
     }
 
     @Override
