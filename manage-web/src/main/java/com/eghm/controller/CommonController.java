@@ -1,6 +1,8 @@
 package com.eghm.controller;
 
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.model.system.SystemOperator;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.system.SystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,13 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @date 2018/1/8 14:41
  */
 @Controller
-public class LoginController extends AbstractController {
+public class CommonController extends AbstractController {
 
     @Autowired
     private SystemMenuService systemMenuService;
+
+    @Autowired
+    private CacheService cacheService;
 
     /**
      * 未登录的首页
@@ -48,8 +53,11 @@ public class LoginController extends AbstractController {
         }
         model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit", operator.getPwd().equals(operator.getInitPwd()));
+        model.addAttribute("isLock", cacheService.exist(CacheConstant.LOCK_SCREEN + operator.getId()));
         return "main/home";
     }
+
+
 
     /**
      * 首页门户框

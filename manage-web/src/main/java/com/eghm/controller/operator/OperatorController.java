@@ -1,6 +1,7 @@
 package com.eghm.controller.operator;
 
 import com.eghm.annotation.Mark;
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.controller.AbstractController;
 import com.eghm.dao.model.system.SystemOperator;
@@ -10,6 +11,7 @@ import com.eghm.model.dto.system.operator.OperatorQueryRequest;
 import com.eghm.model.dto.system.operator.PasswordEditRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.system.SystemOperatorService;
 import com.eghm.service.system.SystemRoleService;
 import com.github.pagehelper.PageInfo;
@@ -40,6 +42,9 @@ public class OperatorController extends AbstractController {
 
     @Autowired
     private SystemRoleService systemRoleService;
+
+    @Autowired
+    private CacheService cacheService;
 
     /**
      * 修改密码
@@ -138,4 +143,26 @@ public class OperatorController extends AbstractController {
         return RespBody.success();
     }
 
+    /**
+     * 锁屏操作
+     */
+    @PostMapping("/lock_screen")
+    @ResponseBody
+    public RespBody<Object> lockScreen() {
+        SystemOperator operator = getRequiredOperator();
+        cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
+        return RespBody.success();
+    }
+
+    /**
+     * 解锁
+     */
+    @PostMapping("/unlock_screen")
+    @ResponseBody
+    public RespBody<Object> unlockScreen(String password) {
+        SystemOperator operator = getRequiredOperator();
+        systemOperatorService.checkPassword(password, operator.getPwd());
+        cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
+        return RespBody.success();
+    }
 }

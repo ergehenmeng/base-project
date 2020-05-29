@@ -9,7 +9,8 @@
     <script src="/static/js/common/home.js?v=${version!}" type="text/javascript" ></script>
     <script src="/static/js/layer/layer.js?v=${version!}" type="text/javascript"  ></script>
     <script type="text/javascript" >
-        var isInit = ${isInit?c};//0不是初始用户,1是初始用户
+        let isInit = ${isInit?c};
+        let isLock = ${isLock?c};
     </script>
 </head>
 <body class="easyui-layout">

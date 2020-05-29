@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -30,8 +31,11 @@ import java.util.function.Supplier;
 @Slf4j
 public class CacheServiceImpl implements CacheService {
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate redisTemplate;
+
+    private ValueOperations<String, String> opsForValue;
+
+    private ListOperations<String, String> opsForList;
 
     @Autowired
     private SystemConfigApi systemConfigApi;
@@ -49,6 +53,11 @@ public class CacheServiceImpl implements CacheService {
      */
     private static final long MUTEX_EXPIRE = 10;
 
+    public CacheServiceImpl(StringRedisTemplate stringRedisTemplate) {
+        this.redisTemplate = stringRedisTemplate;
+        this.opsForValue = stringRedisTemplate.opsForValue();
+        this.opsForList = stringRedisTemplate.opsForList();
+    }
 
     @Override
     public void setValue(String key, Object value) {
@@ -56,7 +65,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public <T> T getCacheValue(String key, TypeToken<T> returnType, Supplier<T> supplier) {
+    public <T> T getValue(String key, TypeToken<T> returnType, Supplier<T> supplier) {
         String value;
         try {
             value = this.getValue(key);
@@ -101,10 +110,10 @@ public class CacheServiceImpl implements CacheService {
      * @return 数据结果
      */
     private <T> T mutexLock(String key, Supplier<T> supplier) {
-        Boolean absent = stringRedisTemplate.opsForValue().setIfAbsent(CacheConstant.MUTEX_LOCK + key, SystemConstant.CACHE_PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.SECONDS);
+        Boolean absent = opsForValue.setIfAbsent(CacheConstant.MUTEX_LOCK + key, SystemConstant.CACHE_PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.SECONDS);
         if (absent != null && absent) {
             T result = supplier.get();
-            stringRedisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
+            redisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
             return result;
         }
         try {
@@ -120,16 +129,22 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setValue(String key, Object value, long expire) {
         if (value instanceof String) {
-            stringRedisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.SECONDS);
+            opsForValue.set(key, (String)value, expire, TimeUnit.SECONDS);
         } else {
-            stringRedisTemplate.opsForValue().set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
+            opsForValue.set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
         }
+    }
+
+    @Override
+    public boolean exist(String key) {
+        Boolean hasKey = redisTemplate.hasKey(key);
+        return hasKey != null && hasKey;
     }
 
     @Override
     public void setValue(String key, Object value, Date expireTime) {
         this.setValue(key, value);
-        stringRedisTemplate.expireAt(key, expireTime);
+        redisTemplate.expireAt(key, expireTime);
     }
 
     @Override
@@ -144,7 +159,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public String getValue(String key) {
-        return stringRedisTemplate.opsForValue().get(key);
+        return opsForValue.get(key);
     }
 
     @Override
@@ -167,7 +182,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public int keySize(String key) {
-        Set<String> keys = stringRedisTemplate.keys(key);
+        Set<String> keys = redisTemplate.keys(key);
         if (!CollectionUtils.isEmpty(keys)) {
             return keys.size();
         }
@@ -176,13 +191,12 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void delete(String key) {
-        stringRedisTemplate.delete(key);
+        redisTemplate.delete(key);
     }
 
     @Override
     public boolean limit(String key, int maxLimit, long maxTtl) {
-        ListOperations<String, String> ops = stringRedisTemplate.opsForList();
-        Long size = ops.size(key);
+        Long size = opsForList.size(key);
         if (size == null || size < maxLimit) {
             this.limitPut(key, maxTtl);
             return false;
@@ -192,7 +206,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     private void limitPut(String key, long maxTtl) {
-        stringRedisTemplate.opsForList().leftPush(key, SystemConstant.CACHE_PLACE_HOLDER);
-        stringRedisTemplate.expire(key, maxTtl, TimeUnit.SECONDS);
+        opsForList.leftPush(key, SystemConstant.CACHE_PLACE_HOLDER);
+        redisTemplate.expire(key, maxTtl, TimeUnit.SECONDS);
     }
 }

@@ -32,7 +32,7 @@ public interface CacheService {
      * @param <T> 结果类型
      * @return 缓存结果
      */
-    <T> T getCacheValue(String key, TypeToken<T> typeToken, Supplier<T> supplier);
+    <T> T getValue(String key, TypeToken<T> typeToken, Supplier<T> supplier);
 
     /**
      * 缓存对象
@@ -42,6 +42,13 @@ public interface CacheService {
      * @param expire 过期时间 单位秒
      */
     void setValue(String key, Object value, long expire);
+
+    /**
+     * 是否存在指定key的缓存
+     * @param key  key
+     * @return true:存在 false:不存在
+     */
+    boolean exist(String key);
 
     /**
      * 缓存对象,并设置过期时间
@@ -96,7 +103,7 @@ public interface CacheService {
     AsyncResponse getAsyncResponse(String key);
 
     /**
-     * 获取指定key的总数 (模糊查询)
+     * 获取指定key的总数 (模糊查询) 慎用
      *
      * @param key key
      * @return 个数

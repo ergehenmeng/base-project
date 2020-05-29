@@ -50,14 +50,19 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
     @Override
     public String updateLoginPassword(PasswordEditRequest request) {
         SystemOperator operator = systemOperatorMapper.selectByPrimaryKey(request.getOperatorId());
-        String oldPassword = encoder.encode(request.getOldPwd());
-        if (!operator.getPwd().equals(oldPassword)) {
-            throw new BusinessException(ErrorCode.OPERATOR_PASSWORD_ERROR);
-        }
+        checkPassword(request.getOldPwd(), operator.getPwd());
         String newPassword = encoder.encode(request.getNewPwd());
         operator.setPwd(newPassword);
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         return newPassword;
+    }
+
+    @Override
+    public void checkPassword(String rawPassword, String targetPassword) {
+        String oldPassword = encoder.encode(rawPassword);
+        if (!targetPassword.equals(oldPassword)) {
+            throw new BusinessException(ErrorCode.OPERATOR_PASSWORD_ERROR);
+        }
     }
 
     @Override

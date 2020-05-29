@@ -28,6 +28,13 @@ public interface SystemOperatorService {
     String updateLoginPassword(PasswordEditRequest request);
 
     /**
+     * 校验密码是否正确
+     * @param rawPassword 原始密码
+     * @param targetPassword 真实加密后的密码
+     */
+    void checkPassword(String rawPassword, String targetPassword);
+
+    /**
      * 分页查询系统人员信息
      * @param request 请求参数
      * @return 系统人员信息

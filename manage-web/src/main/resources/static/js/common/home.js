@@ -1,52 +1,59 @@
 $(function(){
-    if(isInit){
-        $.messager.alert("提示","您的密码为原始密码,请先修改","warning",function(){
-            changePwd(false);
-        });
-    }
 
 	$("body").layout({
 		fit:true
 	});
-	
-	$(".change-pwd-btn").on("click",function(){
-		changePwd(true);
-	});
-	$(".logout-btn").on("click",function(){
-		logout();
-	});
-	$(".lock-screen").on("click",function(){
-        lockScreen();
-    });
-	$(".user-role-menu").on("click",function(){
-        menuList();
-    });
 
 	//增加首页tabs信息
 	addTabs("首页","/portal");
+    //导航菜单
+    initMenuList();
 
-	var $accordion = $("#accordion");
-	new accordion($accordion, false);
-    var $li = $accordion.find("li");
-    $li.find("a").on("click",function(){
-        $li.removeClass("clicked");
-		$(this).parent("li").addClass("clicked");
-		var url = $(this).attr("rel");
-		addTabs($(this).text(),url,true);
-	});
+    if (isInit) {
+        $.messager.alert("提示","您的密码为原始密码,请先修改","warning",function(){
+            changePwd(false);
+        });
+        return;
+    }
+    if (isLock) {
+        doLockScreen();
+    }
+    $(".change-pwd-btn").on("click",function(){
+        changePwd(true);
+    });
+    $(".logout-btn").on("click",function(){
+        logout();
+    });
+    $(".lock-screen").on("click",function(){
+        lockScreen();
+    });
+    $(".user-role-menu").on("click",function(){
+        menuList();
+    });
 });
 
+let initMenuList = function() {
+    let $accordion = $("#accordion");
+    new accordion($accordion, false);
+    let $li = $accordion.find("li");
+    $li.find("a").on("click",function(){
+        $li.removeClass("clicked");
+        $(this).parent("li").addClass("clicked");
+        let url = $(this).attr("rel");
+        addTabs($(this).text(),url,true);
+    });
+};
 
-var accordion = function(el, multiple) {
+let accordion = function(el, multiple) {
 	this.el = el || {};
 	multiple = multiple || false;
-	var links = this.el.find('.link');
+    let links = this.el.find('.link');
 	links.on('click', {el: this.el, multiple: multiple}, this.dropdown);
 };
 
 accordion.prototype.dropdown = function(e) {
-	var $el = e.data.el;
-	var	$next = $(this).next();
+    let $el = e.data.el;
+    let	$next = $(this).next();
 	$next.slideToggle("fast");
     $(this).parent().toggleClass('open');
 	if (!e.data.multiple) {
@@ -58,7 +65,7 @@ accordion.prototype.dropdown = function(e) {
  * 修改密码
  * @param isClose 是否显示关闭按钮
  */
-var changePwd = function(isClose){
+let changePwd = function(isClose){
     $.windowDialog({
         title : "修改密码",
         width : 400,
@@ -68,8 +75,7 @@ var changePwd = function(isClose){
         buttons : [{
             text : '确定',
             handler : function() {
-                var f = $.windowDialog.handler.find('form');
-                f.submit();
+                $.windowDialog.handler.find('form').submit();
             }
         }]
     });
@@ -78,7 +84,7 @@ var changePwd = function(isClose){
 /**
  * 注销
  */
-var logout = function(){
+let logout = function(){
 	$.messager.confirm("提示","您确定要退出该系统吗?",function(r){
 		if(r){
 		    $.ajax({
@@ -101,11 +107,27 @@ var logout = function(){
 /**
  * 菜单列表
  */
-var menuList = function(){
+let menuList = function(){
     $.fn.dataGridOptions.show(null,"菜单权限",350,400,"/main/role_menu_page");
 };
 
-var lockScreen = function () {
+let lockScreen = function () {
+    $.ajax({
+        url:"/lock",
+        dataType:"json",
+        type:"post",
+        success:function(data){
+            if(data.code === 200){
+                doLockScreen();
+            }
+        },
+        error:function(){
+            $.messager.alert("服务器超时,请重试","warning");
+        }
+    });
+};
+
+let doLockScreen = function () {
     $.windowDialog({
         title : "锁屏",
         width : 400,
@@ -115,8 +137,7 @@ var lockScreen = function () {
         buttons : [{
             text : '确定',
             handler : function() {
-                var f = $.windowDialog.handler.find("form");
-                f.submit();
+                $.windowDialog.handler.find("form").submit();
             }
         },{
             text : '注销',
@@ -124,7 +145,8 @@ var lockScreen = function () {
         }]
     });
 };
-var imagePreview = function(photoUrl,title){
+
+let imagePreview = function(photoUrl,title){
     layer.photos({
         photos: {
             title:title,
