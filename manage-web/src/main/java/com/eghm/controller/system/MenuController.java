@@ -89,7 +89,7 @@ public class MenuController extends AbstractController {
             return RespBody.error(ErrorCode.SUB_MENU_ERROR);
         }
         systemMenuService.addMenu(request);
-        metadataSource.refreshResource();
+        metadataSource.loadResource();
         return RespBody.success();
     }
 
@@ -104,7 +104,7 @@ public class MenuController extends AbstractController {
     @Mark
     public RespBody<Object> edit(MenuEditRequest request) {
         systemMenuService.updateMenu(request);
-        metadataSource.refreshResource();
+        metadataSource.loadResource();
         return RespBody.success();
     }
 
@@ -119,7 +119,7 @@ public class MenuController extends AbstractController {
     @ResponseBody
     public RespBody<Object> delete(Integer id) {
         systemMenuService.deleteMenu(id);
-        metadataSource.refreshResource();
+        metadataSource.loadResource();
         return RespBody.success();
     }
 

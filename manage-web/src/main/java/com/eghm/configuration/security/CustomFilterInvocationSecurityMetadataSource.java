@@ -12,6 +12,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CustomFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
-    private Map<String, Collection<ConfigAttribute>> map = new ConcurrentHashMap<>(256);
+    private final Map<String, Collection<ConfigAttribute>> map = new ConcurrentHashMap<>(256);
 
     @Autowired
     private SystemMenuService systemMenuService;
@@ -32,7 +33,8 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     /**
      * 重新加载所有菜单权限
      */
-    public void refreshResource() {
+    @PostConstruct
+    public void loadResource() {
         map.clear();
         List<SystemMenu> list = systemMenuService.getAllList();
         for (SystemMenu menu : list) {
@@ -65,9 +67,6 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        if (map.isEmpty()) {
-            refreshResource();
-        }
         HttpServletRequest request = ((FilterInvocation) object).getRequest();
         for (Map.Entry<String, Collection<ConfigAttribute>> entry : map.entrySet()) {
             if (new AntPathRequestMatcher(entry.getKey()).matches(request)) {
