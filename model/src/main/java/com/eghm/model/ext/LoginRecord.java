@@ -28,7 +28,7 @@ public class LoginRecord implements Serializable {
     /**
      * ip
      */
-    private String ip;
+    private Long ip;
 
     /**
      * 登陆渠道
@@ -49,4 +49,9 @@ public class LoginRecord implements Serializable {
      * 软件版本
      */
     private String softwareVersion;
+
+    /**
+     * 设备唯一编号
+     */
+    private String serialNumber;
 }

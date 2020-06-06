@@ -8,6 +8,7 @@ import com.eghm.common.utils.StringUtil;
 import com.eghm.configuration.security.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
+import com.eghm.dao.model.business.LoginLog;
 import com.eghm.dao.model.user.User;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
@@ -23,6 +24,7 @@ import com.eghm.service.user.LoginLogService;
 import com.eghm.service.user.UserExtService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,6 +62,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private TaskHandler taskHandler;
+
 
     @Override
     public User doRegister(UserRegister register) {
@@ -109,6 +112,12 @@ public class UserServiceImpl implements UserService {
         if (user == null || !encoder.matches(login.getPwd(), user.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
+        RequestMessage request = RequestThreadLocal.get();
+        LoginLog loginLog = loginLogService.getBySerialNumber(user.getId(), request.getSerialNumber());
+        if (loginLog == null) {
+            // 新设备登陆
+            throw new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
+        }
         return this.doLogin(user, login.getIp());
     }
 
@@ -135,7 +144,15 @@ public class UserServiceImpl implements UserService {
         this.offline(user.getId());
         RequestMessage request = RequestThreadLocal.get();
         Token token = tokenService.createToken(user.getId(), request.getChannel());
-        LoginRecord record = LoginRecord.builder().channel(request.getChannel()).ip(ip).deviceBrand(request.getDeviceBrand()).deviceModel(request.getDeviceModel()).userId(user.getId()).softwareVersion(request.getVersion()).build();
+        LoginRecord record = LoginRecord.builder()
+                .ip(IpUtil.ipToLong(ip))
+                .userId(user.getId())
+                .channel(request.getChannel())
+                .deviceBrand(request.getDeviceBrand())
+                .deviceModel(request.getDeviceModel())
+                .softwareVersion(request.getVersion())
+                .serialNumber(request.getSerialNumber())
+                .build();
         taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
         return LoginTokenVO.builder().secret(token.getSecret()).accessToken(token.getAccessToken()).refreshToken(token.getRefreshToken()).build();
     }

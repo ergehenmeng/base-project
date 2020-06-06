@@ -140,7 +140,6 @@ public enum ErrorCode {
      */
     READ_PARAM_ERROR(1019,"读取参数异常"),
 
-
     /**
      * 参数解析异常
      */
@@ -341,6 +340,11 @@ public enum ErrorCode {
      * 内容不能为空
      */
     TEXT_CONTENT_EMPTY(3028,"内容不能为空"),
+
+    /**
+     * 登陆设备校验
+     */
+    NEW_DEVICE_LOGIN(3029,"登陆设备校验"),
     ;
     /**
      * 构造方法

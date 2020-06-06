@@ -141,21 +141,6 @@ CREATE TABLE `image_log` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='图片上传记录';
 
--- ----------------------------
--- Table structure for login_log
--- ----------------------------
-DROP TABLE IF EXISTS `login_log`;
-CREATE TABLE `login_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
-  `channel` tinyint(1) unsigned DEFAULT NULL COMMENT '登陆渠道',
-  `ip` char(32) DEFAULT NULL COMMENT '登陆ip',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '登陆时间',
-  `device_brand` char(30) DEFAULT NULL COMMENT '设备厂商',
-  `device_model` char(50) DEFAULT NULL COMMENT '设备型号',
-  `software_version` char(12) DEFAULT NULL COMMENT '软件版本',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户登陆日志信息';
 
 -- ----------------------------
 -- Table structure for push_template
@@ -526,16 +511,17 @@ CREATE TABLE `version` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='APP版本管理表';
 
-DROP TABLE IF EXISTS `login_log`;
 
 CREATE TABLE `login_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
   `channel` char(10) DEFAULT NULL COMMENT '登陆渠道',
-  `ip` char(32) DEFAULT NULL COMMENT '登陆ip',
+  `ip` bigint(20) DEFAULT 0 COMMENT '登陆ip',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '登陆时间',
   `device_brand` char(30) DEFAULT NULL COMMENT '设备厂商',
   `device_model` char(50) DEFAULT NULL COMMENT '设备型号',
   `software_version` char(12) DEFAULT NULL COMMENT '软件版本',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='用户登陆日志信息';
+
+alter table login_log add column serial_number varchar(64) comment '设备唯一编号';

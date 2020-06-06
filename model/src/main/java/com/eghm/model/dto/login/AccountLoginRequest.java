@@ -35,4 +35,10 @@ public class AccountLoginRequest implements Serializable {
      */
     @ApiModelProperty(hidden = true)
     private String ip;
+
+    /**
+     * 设备唯一编号
+     */
+    @ApiModelProperty(value = "设备唯一号",required = true)
+    private String serialNumber;
 }

@@ -46,6 +46,11 @@ public class RequestMessage implements Serializable {
     private String deviceModel;
 
     /**
+     * 设备唯一编号
+     */
+    private String serialNumber;
+
+    /**
      * 用户id
      */
     private int userId;

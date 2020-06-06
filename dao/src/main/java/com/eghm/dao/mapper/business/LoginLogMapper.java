@@ -36,4 +36,12 @@ public interface LoginLogMapper {
      */
     LoginLog getLastLogin(@Param("userId")Integer userId);
 
+    /**
+     * 查找指定设备是否有登陆日志
+     * @param userId   用户id
+     * @param serialNumber 唯一编号
+     * @return 登陆日志
+     */
+    LoginLog getBySerialNumber(@Param("userId")Integer userId, @Param("serialNumber") String serialNumber);
+
 }

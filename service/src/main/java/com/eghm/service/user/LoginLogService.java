@@ -21,4 +21,12 @@ public interface LoginLogService {
      * @return 登陆信息
      */
     LoginLog getLastLogin(Integer userId);
+
+    /**
+     * 查找指定设备是否有登陆日志
+     * @param userId       用户id
+     * @param serialNumber 唯一编号
+     * @return 登陆日志
+     */
+    LoginLog getBySerialNumber(Integer userId, String serialNumber);
 }

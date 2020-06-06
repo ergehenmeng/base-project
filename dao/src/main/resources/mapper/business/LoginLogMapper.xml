@@ -8,17 +8,18 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="channel" jdbcType="CHAR" property="channel" />
-    <result column="ip" jdbcType="CHAR" property="ip" />
+    <result column="ip" jdbcType="BIGINT" property="ip" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="device_brand" jdbcType="CHAR" property="deviceBrand" />
     <result column="device_model" jdbcType="CHAR" property="deviceModel" />
     <result column="software_version" jdbcType="CHAR" property="softwareVersion" />
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, user_id, channel, ip, add_time, device_brand, device_model, software_version
+    id, user_id, channel, ip, add_time, device_brand, device_model, software_version, serial_number
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -26,7 +27,7 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from user_login_log
+    from login_log
     where id = #{id,jdbcType=INTEGER}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.business.LoginLog">
@@ -59,6 +60,9 @@
       <if test="softwareVersion != null">
         software_version,
       </if>
+        <if test="serialNumber != null">
+          serial_number,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -71,7 +75,7 @@
         #{channel,jdbcType=CHAR},
       </if>
       <if test="ip != null">
-        #{ip,jdbcType=CHAR},
+        #{ip,jdbcType=BIGINT},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -85,6 +89,9 @@
       <if test="softwareVersion != null">
         #{softwareVersion,jdbcType=CHAR},
       </if>
+        <if test="serialNumber != null" >
+          #{serialNumber},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.LoginLog">
@@ -100,7 +107,7 @@
         channel = #{channel,jdbcType=CHAR},
       </if>
       <if test="ip != null">
-        ip = #{ip,jdbcType=CHAR},
+        ip = #{ip,jdbcType=BIGINT},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -114,11 +121,21 @@
       <if test="softwareVersion != null">
         software_version = #{softwareVersion,jdbcType=CHAR},
       </if>
+        <if test="serialNumber != null">
+          serial_number = #{serialNumber},
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getLastLogin" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
-        from login_log where user_id = #{userId} order by add_time desc limit 1
-    </select>
+
+  <select id="getLastLogin" resultMap="BaseResultMap">
+      select <include refid="BaseColumnList"/>
+      from login_log where user_id = #{userId} order by add_time desc limit 1
+  </select>
+
+  <select id="getBySerialNumber" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList"/>
+    from login_log where user_id = #{userId} and serial_number = #{serialNumber} limit 1
+  </select>
+
 </mapper>
