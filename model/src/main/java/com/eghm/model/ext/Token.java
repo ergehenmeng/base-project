@@ -44,4 +44,9 @@ public class Token implements Serializable {
      * 登陆来源 ANDROID IOS
      */
     private String channel;
+
+    /**
+     * 是否过期 true:已过期 false:未过期 默认是未过期
+     */
+    private boolean expire;
 }

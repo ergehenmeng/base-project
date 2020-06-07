@@ -33,6 +33,13 @@ public interface TokenService {
     Token getByUserId(int userId);
 
     /**
+     * 获取token剩余过期时间
+     * @param userId userId
+     * @return 过期时间 小于0表示key没有过期时间或者已经清楚
+     */
+    long getTokenExpire(int userId);
+
+    /**
      * 根据刷新token信息获取用户登陆信息
      * @param refreshToken 刷新token
      * @return 用户登陆信息
@@ -63,5 +70,19 @@ public interface TokenService {
      * @param token 用户登陆信息
      */
     void cacheToken(Token token);
+
+    /**
+     * 缓存强制下线token信息
+     * @param token token
+     * @param expire 过期时间
+     */
+    void cacheOfflineToken(Token token, long expire);
+
+    /**
+     * 获取用户强制被踢下线时保留的token信息
+     * @param accessToken key
+     * @return token信息
+     */
+    Token getOfflineToken(String accessToken);
 }
 

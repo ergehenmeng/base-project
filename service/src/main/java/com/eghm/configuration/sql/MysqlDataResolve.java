@@ -19,7 +19,7 @@ public class MysqlDataResolve implements DataResolve {
             return "'" + param.toString() + "'";
         }
         if (param instanceof Date) {
-            return "'" + DateUtil.format(param) + "'";
+            return "'" + DateUtil.formatLong((Date)param) + "'";
         }
         return "'" + param.toString() + "'";
     }

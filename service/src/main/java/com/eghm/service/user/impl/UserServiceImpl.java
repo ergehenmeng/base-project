@@ -114,9 +114,11 @@ public class UserServiceImpl implements UserService {
         }
         RequestMessage request = RequestThreadLocal.get();
         LoginLog loginLog = loginLogService.getBySerialNumber(user.getId(), request.getSerialNumber());
-        if (loginLog == null) {
-            // 新设备登陆
-            throw new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
+        if (loginLog == null && StringUtil.isNotBlank(user.getMobile())) {
+            // 新设备登陆时,如果使用密码登陆需要验证短信
+            BusinessException exception = new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
+            exception.setData(StringUtil.hiddenMobile(user.getMobile()));
+            throw exception;
         }
         return this.doLogin(user, login.getIp());
     }
@@ -222,12 +224,19 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 强制将用户踢下线
+     * 1.增加一条用户被踢下线的记录
+     * 2.清空之前用户登陆的信息
+     *
      * @param userId 用户id
      */
     private void offline(int userId){
         Token token = tokenService.getByUserId(userId);
         if (token == null) {
             return;
+        }
+        long expire = tokenService.getTokenExpire(userId);
+        if (expire > 0) {
+            tokenService.cacheOfflineToken(token, expire);
         }
         tokenService.cleanRefreshToken(token.getRefreshToken());
         tokenService.cleanAccessToken(token.getAccessToken());

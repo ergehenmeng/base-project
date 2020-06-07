@@ -6,7 +6,6 @@ import com.eghm.model.ext.LoginRecord;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,6 @@ public class LoginLogServiceImpl implements LoginLogService {
     private LoginLogMapper loginLogMapper;
 
     @Override
-    @Async
     public void addLoginLog(LoginRecord record) {
         LoginLog loginLog = DataUtil.copy(record, LoginLog.class);
         loginLogMapper.insertSelective(loginLog);

@@ -133,15 +133,6 @@ public class DateUtil extends DateUtils {
         return formatter.format(date.toInstant());
     }
 
-    /**
-     * 日期格式化
-     *
-     * @param o 日期date或者毫秒值等
-     * @return 格式化后的日期
-     */
-    public static String format(Object o) {
-        return FAST_DATE_FORMAT.format(o);
-    }
 
     /**
      * 将字符串转为Date yyyy-MM-dd HH:mm:ss

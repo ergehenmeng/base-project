@@ -34,8 +34,11 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        RequestMessage message = RequestThreadLocal.get();
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
         boolean skipAccess = this.skipAccess(handler);
+        RequestMessage message = RequestThreadLocal.get();
         this.tryLoginVerify(request.getHeader(AppHeader.ACCESS_TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
         return true;
     }
@@ -64,6 +67,11 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
             tokenService.cacheToken(token);
             this.verifyBind(token, message, exception);
             return;
+        }
+        Token offlineToken = tokenService.getOfflineToken(accessToken);
+        if (offlineToken != null && exception) {
+            log.error("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
+            throw new RequestException(ErrorCode.KICK_OFF_LINE);
         }
         if (exception) {
             log.error("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
@@ -108,12 +116,9 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
      * @return AccessToken
      */
     private SkipAccess getSkipAccessAnnotation(Object handler) {
-        if (handler instanceof HandlerMethod) {
-            HandlerMethod method = (HandlerMethod) handler;
-            SkipAccess t = method.getMethodAnnotation(SkipAccess.class);
-            return t != null ? t : method.getBeanType().getAnnotation(SkipAccess.class);
-        }
-        return null;
+        HandlerMethod method = (HandlerMethod) handler;
+        SkipAccess t = method.getMethodAnnotation(SkipAccess.class);
+        return t != null ? t : method.getBeanType().getAnnotation(SkipAccess.class);
     }
 
 

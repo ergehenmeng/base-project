@@ -44,7 +44,9 @@ public class ControllerAdviceHandler {
     @SkipEncrypt
     public RespBody<Object> businessException(HttpServletRequest request, BusinessException e) {
         log.warn("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
-        return RespBody.error(e.getCode(), e.getMessage());
+        RespBody<Object> error = RespBody.error(e.getCode(), e.getMessage());
+        error.setData(e.getData());
+        return error;
     }
 
     /**

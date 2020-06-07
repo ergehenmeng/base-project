@@ -24,6 +24,9 @@ public class ClientTypeHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
         String channel = request.getHeader(AppHeader.CHANNEL);
         Channel[] channels = getClientTypeAnnotation(handler);
         for (Channel ch : channels) {
@@ -41,11 +44,8 @@ public class ClientTypeHandlerInterceptor extends HandlerInterceptorAdapter {
      * @return ClientType
      */
     private Channel[] getClientTypeAnnotation(Object handler) {
-        if (handler instanceof HandlerMethod) {
-            HandlerMethod method = (HandlerMethod) handler;
-            ClientType clientType = method.getMethodAnnotation(ClientType.class);
-            return clientType != null ? clientType.value() : DEFAULT_CHANNEL;
-        }
-        return DEFAULT_CHANNEL;
+        HandlerMethod method = (HandlerMethod) handler;
+        ClientType clientType = method.getMethodAnnotation(ClientType.class);
+        return clientType != null ? clientType.value() : DEFAULT_CHANNEL;
     }
 }

@@ -36,7 +36,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
                 || checkHeaderLength(osVersion)
                 || checkHeaderLength(deviceBrand)
                 || checkHeaderLength(deviceModel)) {
-            //该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
+            // 该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             throw new RequestException(ErrorCode.REQUEST_PARAM_ILLEGAL);
         }
         RequestMessage message = RequestThreadLocal.get();

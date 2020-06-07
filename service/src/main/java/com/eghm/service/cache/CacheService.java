@@ -87,6 +87,14 @@ public interface CacheService {
      */
     <T> T getValue(String key, TypeToken<T> typeToken);
 
+
+    /**
+     * 获取key的过期时间
+     * @param key key
+     * @return 剩余过期时间
+     */
+    long getExpire(String key);
+
     /**
      * 缓存任务异步结果  默认30分钟
      *

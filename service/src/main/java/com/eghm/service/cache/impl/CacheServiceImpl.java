@@ -181,6 +181,12 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public long getExpire(String key) {
+        Long expire = redisTemplate.getExpire(key);
+        return expire != null ? expire : -1;
+    }
+
+    @Override
     public int keySize(String key) {
         Set<String> keys = redisTemplate.keys(key);
         if (!CollectionUtils.isEmpty(keys)) {

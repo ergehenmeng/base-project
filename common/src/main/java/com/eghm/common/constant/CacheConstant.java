@@ -92,4 +92,9 @@ public class CacheConstant {
      * 锁屏
      */
     public static final String LOCK_SCREEN = "lock_screen::";
+
+    /**
+     * 账号被踢下线
+     */
+    public static final String FORCE_OFFLINE = "force_offline::";
 }

@@ -342,9 +342,14 @@ public enum ErrorCode {
     TEXT_CONTENT_EMPTY(3028,"内容不能为空"),
 
     /**
-     * 登陆设备校验
+     * 新设备登陆校验
      */
-    NEW_DEVICE_LOGIN(3029,"登陆设备校验"),
+    NEW_DEVICE_LOGIN(3029,"新设备登陆校验"),
+
+    /**
+     * 账号在其他设备上登陆
+     */
+    KICK_OFF_LINE(3030,"账号在其他设备上登陆"),
     ;
     /**
      * 构造方法

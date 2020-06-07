@@ -58,7 +58,7 @@ public class RequestMessage implements Serializable {
     /**
      * 加密信息
      */
-    private String secret;
+    private String  secret;
 
     /**
      * http请求内容,json格式

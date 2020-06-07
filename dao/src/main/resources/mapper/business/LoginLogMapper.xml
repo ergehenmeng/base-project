@@ -130,7 +130,7 @@
 
   <select id="getLastLogin" resultMap="BaseResultMap">
       select <include refid="BaseColumnList"/>
-      from login_log where user_id = #{userId} order by add_time desc limit 1
+      from login_log where user_id = #{userId} order by id desc limit 1
   </select>
 
   <select id="getBySerialNumber" resultMap="BaseResultMap">
