@@ -29,11 +29,19 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemNoticeServiceImpl implements SystemNoticeService {
 
-    @Autowired
     private SystemNoticeMapper systemNoticeMapper;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
+
+    @Autowired
+    public void setSystemNoticeMapper(SystemNoticeMapper systemNoticeMapper) {
+        this.systemNoticeMapper = systemNoticeMapper;
+    }
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE, cacheManager = "smallCacheManager", unless = "#result.size() == 0")

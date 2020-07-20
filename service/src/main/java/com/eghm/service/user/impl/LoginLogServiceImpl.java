@@ -17,8 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = RuntimeException.class)
 public class LoginLogServiceImpl implements LoginLogService {
 
-    @Autowired
     private LoginLogMapper loginLogMapper;
+
+    @Autowired
+    public void setLoginLogMapper(LoginLogMapper loginLogMapper) {
+        this.loginLogMapper = loginLogMapper;
+    }
 
     @Override
     public void addLoginLog(LoginRecord record) {

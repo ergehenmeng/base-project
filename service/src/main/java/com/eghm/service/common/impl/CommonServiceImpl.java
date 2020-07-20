@@ -1,7 +1,7 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.common.utils.Md5Util;
 import com.eghm.service.common.CommonService;
 import com.eghm.service.key.KeyGenerator;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -19,12 +19,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
 public class CommonServiceImpl implements CommonService {
 
-    @Autowired
     private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Override
     public String encryptPassword(String password, String random) {
-        return Md5Util.md5(password + random);
+        return MD5.create().digestHex16(password + random);
     }
 
     @Override

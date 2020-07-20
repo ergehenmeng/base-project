@@ -27,11 +27,19 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemRoleServiceImpl implements SystemRoleService {
 
-    @Autowired
     private SystemRoleMapper systemRoleMapper;
 
-    @Autowired
     private SystemOperatorRoleMapper systemOperatorRoleMapper;
+
+    @Autowired
+    public void setSystemRoleMapper(SystemRoleMapper systemRoleMapper) {
+        this.systemRoleMapper = systemRoleMapper;
+    }
+
+    @Autowired
+    public void setSystemOperatorRoleMapper(SystemOperatorRoleMapper systemOperatorRoleMapper) {
+        this.systemOperatorRoleMapper = systemOperatorRoleMapper;
+    }
 
     @Override
     public PageInfo<SystemRole> getByPage(RoleQueryRequest request) {

@@ -27,8 +27,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class BannerServiceImpl implements BannerService {
 
-    @Autowired
     private BannerMapper bannerMapper;
+
+    @Autowired
+    public void setBannerMapper(BannerMapper bannerMapper) {
+        this.bannerMapper = bannerMapper;
+    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")

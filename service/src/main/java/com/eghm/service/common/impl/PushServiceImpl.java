@@ -38,18 +38,37 @@ import java.util.Map;
 @Slf4j(topic = "push_response")
 public class PushServiceImpl implements PushService {
 
-    @Autowired
-    private PushTemplateService pushTemplateService;
-
-    @Autowired
-    private JpushProperties jpushProperties;
-
-    private JPushClient jPushClient;
-
     /**
      * 移动端通知跳转标示符
      */
     private static final String PAGE_TAG = "pageTag";
+
+    private PushTemplateService pushTemplateService;
+
+    private JpushProperties jpushProperties;
+
+    private JPushClient jPushClient;
+
+    @Autowired
+    public void setPushTemplateService(PushTemplateService pushTemplateService) {
+        this.pushTemplateService = pushTemplateService;
+    }
+
+    @Autowired
+    public void setJpushProperties(JpushProperties jpushProperties) {
+        this.jpushProperties = jpushProperties;
+    }
+
+    @PostConstruct
+    public void init() {
+        ClientConfig config = ClientConfig.getInstance();
+        jPushClient = new JPushClient(jpushProperties.getMasterSecret(), jpushProperties.getAppKey(), null, config);
+        PushClient pushClient = jPushClient.getPushClient();
+        String authCode = ServiceHelper.getBasicAuthorization(jpushProperties.getMasterSecret(), jpushProperties.getAppKey());
+        ApacheHttpClient client = new ApacheHttpClient(authCode, null, config);
+        pushClient.setHttpClient(client);
+        log.info("极光推送客户端初始化成功...");
+    }
 
     @Override
     public void pushNotification(PushType pushType, PushBuilder pushBuilder, Object... params) {
@@ -89,16 +108,7 @@ public class PushServiceImpl implements PushService {
         extras.put(PAGE_TAG, tag);
     }
 
-    @PostConstruct
-    public void init() {
-        ClientConfig config = ClientConfig.getInstance();
-        jPushClient = new JPushClient(jpushProperties.getMasterSecret(), jpushProperties.getAppKey(), null, config);
-        PushClient pushClient = jPushClient.getPushClient();
-        String authCode = ServiceHelper.getBasicAuthorization(jpushProperties.getMasterSecret(), jpushProperties.getAppKey());
-        ApacheHttpClient client = new ApacheHttpClient(authCode, null, config);
-        pushClient.setHttpClient(client);
-        log.info("极光推送客户端初始化成功...");
-    }
+
 
     private PushPayload getPushPayloadMessage(PushBuilder pushBuilder) {
         return PushPayload.newBuilder()

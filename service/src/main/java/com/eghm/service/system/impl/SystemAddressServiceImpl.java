@@ -18,9 +18,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemAddressServiceImpl implements SystemAddressService {
 
-    @Autowired
     private SystemAddressMapper systemAddressMapper;
 
+    @Autowired
+    public void setSystemAddressMapper(SystemAddressMapper systemAddressMapper) {
+        this.systemAddressMapper = systemAddressMapper;
+    }
 
     @Override
     public void calcInitial() {

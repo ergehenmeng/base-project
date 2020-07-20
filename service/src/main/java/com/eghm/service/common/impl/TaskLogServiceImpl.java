@@ -20,8 +20,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class TaskLogServiceImpl implements TaskLogService {
 
-    @Autowired
     private TaskLogMapper taskLogMapper;
+
+    @Autowired
+    public void setTaskLogMapper(TaskLogMapper taskLogMapper) {
+        this.taskLogMapper = taskLogMapper;
+    }
 
     @Override
     public void addTaskLog(TaskLog log) {

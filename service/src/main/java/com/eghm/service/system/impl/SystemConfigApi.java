@@ -23,11 +23,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("systemConfigApi")
 public class SystemConfigApi {
 
-    @Autowired
     private SystemConfigService systemConfigService;
 
-    @Autowired
     private Gson gson;
+
+    @Autowired
+    public void setSystemConfigService(SystemConfigService systemConfigService) {
+        this.systemConfigService = systemConfigService;
+    }
+
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
 
     /**
      * 根据nid获取系统参数配置信息的值

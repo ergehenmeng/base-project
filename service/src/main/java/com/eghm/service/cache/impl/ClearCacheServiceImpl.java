@@ -16,8 +16,12 @@ import org.springframework.stereotype.Service;
 @Service("clearCacheService")
 public class ClearCacheServiceImpl implements ClearCacheService {
 
-    @Autowired(required = false)
     private Configuration configuration;
+
+    @Autowired(required = false)
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYSTEM_CONFIG, allEntries = true)

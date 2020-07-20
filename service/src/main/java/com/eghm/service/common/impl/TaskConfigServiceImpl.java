@@ -25,8 +25,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class TaskConfigServiceImpl implements TaskConfigService {
 
-    @Autowired
     private TaskConfigMapper taskConfigMapper;
+
+    @Autowired
+    public void setTaskConfigMapper(TaskConfigMapper taskConfigMapper) {
+        this.taskConfigMapper = taskConfigMapper;
+    }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)

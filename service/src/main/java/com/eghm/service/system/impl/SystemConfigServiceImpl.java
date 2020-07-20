@@ -28,8 +28,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemConfigServiceImpl implements SystemConfigService {
 
-    @Autowired
     private SystemConfigMapper systemConfigMapper;
+
+    @Autowired
+    public void setSystemConfigMapper(SystemConfigMapper systemConfigMapper) {
+        this.systemConfigMapper = systemConfigMapper;
+    }
 
     @Override
     public void updateConfig(ConfigEditRequest request) {

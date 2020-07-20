@@ -1,7 +1,7 @@
 package com.eghm;
 
+import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.utils.AesUtil;
-import com.eghm.common.utils.Md5Util;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.google.common.collect.Maps;
@@ -100,7 +100,7 @@ public class BaseTest {
      */
     public void loginByAccount(String account, String password) {
         params.put("account",account);
-        params.put("pwd", Md5Util.md5(password));
+        params.put("pwd", MD5.create().digestHex16(password));
         String content = this.post("/api/login/account");
         Type type = new TypeToken<RespBody<LoginTokenVO>>(){}.getType();
         RespBody<LoginTokenVO> json = gson.fromJson(content, type);

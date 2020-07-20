@@ -27,8 +27,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemMenuServiceImpl implements SystemMenuService {
 
-    @Autowired
     private SystemMenuMapper systemMenuMapper;
+
+    @Autowired
+    public void setSystemMenuMapper(SystemMenuMapper systemMenuMapper) {
+        this.systemMenuMapper = systemMenuMapper;
+    }
 
     private final Comparator<SystemMenu> comparator = Comparator.comparing(SystemMenu::getSort);
 

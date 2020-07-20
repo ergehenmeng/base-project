@@ -22,8 +22,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SmsLogServiceImpl implements SmsLogService {
 
-    @Autowired
     private SmsLogMapper smsLogMapper;
+
+    @Autowired
+    public void setSmsLogMapper(SmsLogMapper smsLogMapper) {
+        this.smsLogMapper = smsLogMapper;
+    }
 
     @Override
     @Async

@@ -22,8 +22,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class OperationLogServiceImpl implements OperationLogService {
 
-    @Autowired
     private SystemOperationLogMapper systemOperationLogMapper;
+
+    @Autowired
+    public void setSystemOperationLogMapper(SystemOperationLogMapper systemOperationLogMapper) {
+        this.systemOperationLogMapper = systemOperationLogMapper;
+    }
 
     @Override
     public void insertOperationLog(SystemOperationLog log) {

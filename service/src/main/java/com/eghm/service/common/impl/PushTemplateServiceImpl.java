@@ -24,8 +24,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
 public class PushTemplateServiceImpl implements PushTemplateService {
 
-    @Autowired
     private PushTemplateMapper pushTemplateMapper;
+
+    @Autowired
+    public void setPushTemplateMapper(PushTemplateMapper pushTemplateMapper) {
+        this.pushTemplateMapper = pushTemplateMapper;
+    }
 
     @Override
     public PageInfo<PushTemplate> getByPage(PushTemplateQueryRequest request) {

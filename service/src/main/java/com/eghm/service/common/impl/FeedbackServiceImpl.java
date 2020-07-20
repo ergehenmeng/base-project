@@ -24,8 +24,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class FeedbackServiceImpl implements FeedbackService {
 
-    @Autowired
     private FeedbackLogMapper feedbackLogMapper;
+
+    @Autowired
+    public void setFeedbackLogMapper(FeedbackLogMapper feedbackLogMapper) {
+        this.feedbackLogMapper = feedbackLogMapper;
+    }
 
     @Override
     public void addFeedback(FeedbackAddRequest request) {

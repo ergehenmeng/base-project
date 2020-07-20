@@ -23,8 +23,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class ImageLogServiceImpl implements ImageLogService {
 
-    @Autowired
     private ImageLogMapper imageLogMapper;
+
+    @Autowired
+    public void setImageLogMapper(ImageLogMapper imageLogMapper) {
+        this.imageLogMapper = imageLogMapper;
+    }
 
     @Override
     public PageInfo<ImageLog> getByPage(ImageQueryRequest request) {

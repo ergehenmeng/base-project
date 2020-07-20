@@ -20,17 +20,33 @@ import org.springframework.stereotype.Service;
 @Service("tokenService")
 public class TokenServiceImpl implements TokenService {
 
-    @Autowired
     private CacheService cacheService;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
 
-    @Autowired
     private Encoder encoder;
 
-    @Autowired
     private Gson gson;
+
+    @Autowired
+    public void setCacheService(CacheService cacheService) {
+        this.cacheService = cacheService;
+    }
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
+
+    @Autowired
+    public void setEncoder(Encoder encoder) {
+        this.encoder = encoder;
+    }
+
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
 
     @Override
     public Token createToken(int userId, String channel) {

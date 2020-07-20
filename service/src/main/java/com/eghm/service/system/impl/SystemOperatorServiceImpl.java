@@ -1,9 +1,9 @@
 package com.eghm.service.system.impl;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.common.utils.Md5Util;
 import com.eghm.configuration.security.Encoder;
 import com.eghm.dao.mapper.system.SystemOperatorMapper;
 import com.eghm.dao.mapper.system.SystemOperatorRoleMapper;
@@ -32,14 +32,26 @@ import java.util.stream.Collectors;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemOperatorServiceImpl implements SystemOperatorService {
 
-    @Autowired
     private SystemOperatorMapper systemOperatorMapper;
 
-    @Autowired
     private Encoder encoder;
 
-    @Autowired
     private SystemOperatorRoleMapper systemOperatorRoleMapper;
+
+    @Autowired
+    public void setSystemOperatorMapper(SystemOperatorMapper systemOperatorMapper) {
+        this.systemOperatorMapper = systemOperatorMapper;
+    }
+
+    @Autowired
+    public void setEncoder(Encoder encoder) {
+        this.encoder = encoder;
+    }
+
+    @Autowired
+    public void setSystemOperatorRoleMapper(SystemOperatorRoleMapper systemOperatorRoleMapper) {
+        this.systemOperatorRoleMapper = systemOperatorRoleMapper;
+    }
 
     @Override
     public SystemOperator getByMobile(String mobile) {
@@ -90,7 +102,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
 
     @Override
     public String initPassword(String mobile) {
-        String md5Password = Md5Util.md5(mobile.substring(5));
+        String md5Password = MD5.create().digestHex(mobile.substring(5));
         return encoder.encode(md5Password);
     }
 

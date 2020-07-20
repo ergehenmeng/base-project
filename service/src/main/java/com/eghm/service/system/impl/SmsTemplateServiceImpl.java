@@ -24,8 +24,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SmsTemplateServiceImpl implements SmsTemplateService {
 
-    @Autowired
     private SmsTemplateMapper smsTemplateMapper;
+
+    @Autowired
+    public void setSmsTemplateMapper(SmsTemplateMapper smsTemplateMapper) {
+        this.smsTemplateMapper = smsTemplateMapper;
+    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")

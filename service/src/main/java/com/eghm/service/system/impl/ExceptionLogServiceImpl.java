@@ -13,8 +13,12 @@ import org.springframework.stereotype.Service;
 @Service("exceptionLogService")
 public class ExceptionLogServiceImpl implements ExceptionLogService {
 
-    @Autowired
     private ExceptionLogMapper exceptionLogMapper;
+
+    @Autowired
+    public void setExceptionLogMapper(ExceptionLogMapper exceptionLogMapper) {
+        this.exceptionLogMapper = exceptionLogMapper;
+    }
 
     @Override
     public void insertExceptionLog(ExceptionLog log) {

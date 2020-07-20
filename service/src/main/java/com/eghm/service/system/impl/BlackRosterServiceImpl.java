@@ -21,8 +21,12 @@ import java.util.List;
 @Service("blackRosterService")
 public class BlackRosterServiceImpl implements BlackRosterService {
 
-    @Autowired
     private BlackRosterMapper blackRosterMapper;
+
+    @Autowired
+    public void setBlackRosterMapper(BlackRosterMapper blackRosterMapper) {
+        this.blackRosterMapper = blackRosterMapper;
+    }
 
     @Override
     public PageInfo<BlackRoster> getByPage(BlackRosterQueryRequest request) {

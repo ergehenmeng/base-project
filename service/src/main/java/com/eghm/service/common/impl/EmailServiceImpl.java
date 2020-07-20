@@ -1,5 +1,7 @@
 package com.eghm.service.common.impl;
 
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.system.impl.SystemConfigApi;
@@ -20,14 +22,25 @@ import javax.mail.internet.MimeMessage;
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
 
-    @Autowired(required = false)
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
+
+    @Autowired(required = false)
+    public void setJavaMailSender(JavaMailSender javaMailSender) {
+        this.javaMailSender = javaMailSender;
+    }
 
     @Override
     public void sendEmail(String to, String title, String content) {
+        if (javaMailSender == null) {
+            throw new ParameterException(ErrorCode.MAIL_NOT_CONFIG);
+        }
         try {
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);

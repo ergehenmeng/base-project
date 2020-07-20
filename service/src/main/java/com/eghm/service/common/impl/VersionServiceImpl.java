@@ -33,11 +33,19 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class VersionServiceImpl implements VersionService {
 
-    @Autowired
     private VersionMapper versionMapper;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
+
+    @Autowired
+    public void setVersionMapper(VersionMapper versionMapper) {
+        this.versionMapper = versionMapper;
+    }
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
 
     @Override
     public PageInfo<Version> getByPage(VersionQueryRequest request) {

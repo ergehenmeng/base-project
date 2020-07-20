@@ -28,20 +28,40 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SmsServiceImpl implements SmsService {
 
-    @Autowired
     private CacheService cacheService;
 
-    @Autowired
     private SendSmsService sendSmsService;
 
-    @Autowired
     private SmsLogService smsLogService;
 
-    @Autowired
     private SmsTemplateService smsTemplateService;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
+
+    @Autowired
+    public void setCacheService(CacheService cacheService) {
+        this.cacheService = cacheService;
+    }
+
+    @Autowired
+    public void setSendSmsService(SendSmsService sendSmsService) {
+        this.sendSmsService = sendSmsService;
+    }
+
+    @Autowired
+    public void setSmsLogService(SmsLogService smsLogService) {
+        this.smsLogService = smsLogService;
+    }
+
+    @Autowired
+    public void setSmsTemplateService(SmsTemplateService smsTemplateService) {
+        this.smsTemplateService = smsTemplateService;
+    }
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
 
     /**
      * 验证码过期时间 10分钟

@@ -23,8 +23,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class HelpCenterServiceImpl implements HelpCenterService {
 
-    @Autowired
     private HelpCenterMapper helpCenterMapper;
+
+    @Autowired
+    public void setHelpCenterMapper(HelpCenterMapper helpCenterMapper) {
+        this.helpCenterMapper = helpCenterMapper;
+    }
 
     @Override
     public void addHelpCenter(HelpAddRequest request) {

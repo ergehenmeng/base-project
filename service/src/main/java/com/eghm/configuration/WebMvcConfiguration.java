@@ -25,8 +25,12 @@ import java.util.Properties;
 @EnableConfigurationProperties({ApplicationProperties.class})
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    @Autowired
     private ApplicationProperties applicationProperties;
+
+    @Autowired
+    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
 
     /**
      * 图形验证码

@@ -30,8 +30,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemDictServiceImpl implements SystemDictService {
 
-    @Autowired
     private SystemDictMapper systemDictMapper;
+
+    @Autowired
+    public void setSystemDictMapper(SystemDictMapper systemDictMapper) {
+        this.systemDictMapper = systemDictMapper;
+    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYSTEM_DICT, key = "#p0", unless = "#result.size() == 0")

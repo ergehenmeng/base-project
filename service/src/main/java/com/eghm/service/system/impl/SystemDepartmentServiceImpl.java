@@ -21,13 +21,17 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemDepartmentServiceImpl implements SystemDepartmentService {
 
-    @Autowired
     private SystemDepartmentMapper systemDepartmentMapper;
 
     /**
      * 根节点或子节点的根节点编码
      */
     private static final String ROOT_CODE = "100";
+
+    @Autowired
+    public void setSystemDepartmentMapper(SystemDepartmentMapper systemDepartmentMapper) {
+        this.systemDepartmentMapper = systemDepartmentMapper;
+    }
 
     @Override
     public SystemDepartment getById(Integer id) {

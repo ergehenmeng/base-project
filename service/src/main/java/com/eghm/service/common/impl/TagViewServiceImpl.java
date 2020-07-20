@@ -17,8 +17,12 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class TagViewServiceImpl implements TagViewService {
 
-    @Autowired
     private TagViewMapper tagViewMapper;
+
+    @Autowired
+    public void setTagViewMapper(TagViewMapper tagViewMapper) {
+        this.tagViewMapper = tagViewMapper;
+    }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

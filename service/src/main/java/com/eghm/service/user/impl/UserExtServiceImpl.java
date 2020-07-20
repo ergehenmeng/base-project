@@ -1,7 +1,7 @@
 package com.eghm.service.user.impl;
 
+import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.utils.BankCardUtil;
-import com.eghm.common.utils.Md5Util;
 import com.eghm.configuration.security.Encoder;
 import com.eghm.dao.mapper.business.UserExtMapper;
 import com.eghm.dao.model.business.UserExt;
@@ -20,11 +20,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = RuntimeException.class)
 public class UserExtServiceImpl implements UserExtService {
 
-    @Autowired
     private UserExtMapper userExtMapper;
 
-    @Autowired
     private Encoder encoder;
+
+    @Autowired
+    public void setUserExtMapper(UserExtMapper userExtMapper) {
+        this.userExtMapper = userExtMapper;
+    }
+
+    @Autowired
+    public void setEncoder(Encoder encoder) {
+        this.encoder = encoder;
+    }
 
     @Override
     public void init(User user) {
@@ -39,7 +47,7 @@ public class UserExtServiceImpl implements UserExtService {
         ext.setRealName(request.getRealName());
         ext.setUserId(request.getUserId());
         ext.setBirthday(BankCardUtil.getNormalBirthDay(request.getIdCard()));
-        ext.setIdCard(Md5Util.md5(encoder.encode(request.getIdCard())));
+        ext.setIdCard(MD5.create().digestHex16(encoder.encode(request.getIdCard())));
         userExtMapper.updateByPrimaryKeySelective(ext);
         //TODO 实名制认证
     }
