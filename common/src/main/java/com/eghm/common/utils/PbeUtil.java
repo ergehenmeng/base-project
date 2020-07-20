@@ -12,7 +12,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**

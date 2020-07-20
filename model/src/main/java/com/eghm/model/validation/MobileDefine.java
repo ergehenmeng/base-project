@@ -1,8 +1,8 @@
 package com.eghm.model.validation;
 
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.utils.RegExpUtil;
-import com.eghm.common.utils.StringUtil;
 import com.eghm.model.validation.annotation.RangeDouble;
 
 import javax.validation.ConstraintValidator;
@@ -26,6 +26,6 @@ public class MobileDefine implements ConstraintValidator<RangeDouble,String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && value == null) || (StringUtil.isNotBlank(value) && RegExpUtil.mobile(value));
+        return (!required && value == null) || (StrUtil.isNotBlank(value) && RegExpUtil.mobile(value));
     }
 }

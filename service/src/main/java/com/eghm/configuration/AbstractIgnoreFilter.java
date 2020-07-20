@@ -1,6 +1,6 @@
 package com.eghm.configuration;
 
-import com.eghm.common.utils.StringUtil;
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import org.springframework.lang.NonNull;
 import org.springframework.util.AntPathMatcher;
@@ -34,7 +34,7 @@ public abstract class AbstractIgnoreFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) {
         String param = filterConfig.getInitParameter("exclude");
-        if (StringUtil.isNotEmpty(param)) {
+        if (StrUtil.isNotEmpty(param)) {
             String[] array = StringUtils.tokenizeToStringArray(param, DELIMITERS);
             exclude.addAll(Lists.newArrayList(array));
         }

@@ -1,9 +1,9 @@
 package com.eghm.configuration;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.common.utils.StringUtil;
 
 import java.beans.PropertyEditorSupport;
 
@@ -17,7 +17,7 @@ public class DatePropertyEditor extends PropertyEditorSupport {
     public void setAsText(String text) {
 
         try {
-            if (StringUtil.isNotBlank(text)) {
+            if (StrUtil.isNotBlank(text)) {
                 super.setValue(DateUtil.parseLongJava8(text));
             }
         } catch (Exception e) {

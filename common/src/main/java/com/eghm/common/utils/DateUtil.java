@@ -16,7 +16,10 @@ import java.util.Date;
  * @date 2018/11/9 16:56
  */
 @Slf4j
-public class DateUtil extends DateUtils {
+public class DateUtil {
+
+    private DateUtil() {
+    }
 
     private static final String LONG_DATE = "yyyy-MM-dd HH:mm:ss";
 
@@ -250,9 +253,49 @@ public class DateUtil extends DateUtils {
      * @param day           天数
      * @return 指定day的LocalDateTime
      */
-    public static LocalDateTime addDay(LocalDateTime localDateTime, int day) {
+    public static LocalDateTime addDays(LocalDateTime localDateTime, int day) {
         return localDateTime.minusDays(day);
     }
+
+    public static Date addYears(Date date, int year) {
+        return DateUtils.addYears(date, year);
+    }
+
+    public static Date addMonths(Date date, int month) {
+        return DateUtils.addMonths(date, month);
+    }
+
+    public static Date addWeeks(Date date, int week) {
+        return DateUtils.addWeeks(date, week);
+    }
+
+    public static Date addHours(Date date, int hour) {
+        return DateUtils.addHours(date, hour);
+    }
+
+    public static Date addMinutes(Date date, int minute) {
+        return DateUtils.addMinutes(date, minute);
+    }
+
+    public static Date addSeconds(Date date, int second) {
+        return DateUtils.addSeconds(date, second);
+    }
+
+    public static Date addMilliseconds(Date date, int millisecond) {
+        return DateUtils.addMilliseconds(date, millisecond);
+    }
+
+    /**
+     * 日期增减多少天
+     * @param date  日期
+     * @param day 天数 可以为负数
+     * @return 新的日期
+     */
+    public static Date addDays(Date date, int day) {
+        return DateUtils.addDays(date, day);
+    }
+
+
 
 
     /**

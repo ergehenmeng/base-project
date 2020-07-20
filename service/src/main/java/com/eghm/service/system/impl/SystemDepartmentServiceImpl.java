@@ -1,6 +1,6 @@
 package com.eghm.service.system.impl;
 
-import com.eghm.common.utils.StringUtil;
+import cn.hutool.core.util.StrUtil;
 import com.eghm.dao.mapper.system.SystemDepartmentMapper;
 import com.eghm.dao.model.system.SystemDepartment;
 import com.eghm.model.dto.system.department.DepartmentAddRequest;
@@ -55,7 +55,7 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
 
     @Override
     public String getNextCode(String code) {
-        if (StringUtil.isBlank(code)) {
+        if (StrUtil.isBlank(code)) {
             return ROOT_CODE;
         }
         SystemDepartment child = systemDepartmentMapper.getMaxCodeChild(code);

@@ -1,9 +1,9 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.business.TaskConfig;
 import com.eghm.service.common.TaskConfigService;
@@ -143,7 +143,7 @@ public class SystemTaskRegistrar implements DisposableBean {
      */
     private void verifyCronExpression(List<CronTriggerTask> taskList) {
         for (CronTriggerTask task : taskList) {
-            if (StringUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())) {
+            if (StrUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())) {
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getCronExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }

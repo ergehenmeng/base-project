@@ -1,5 +1,6 @@
 package com.eghm.service.user.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
@@ -17,8 +18,8 @@ import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
-import com.eghm.service.common.TokenService;
 import com.eghm.service.common.SmsService;
+import com.eghm.service.common.TokenService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.service.user.UserExtService;
@@ -120,7 +121,7 @@ public class UserServiceImpl implements UserService {
      * @param user 用户信息
      */
     private void encodePassword(User user) {
-        if (StringUtil.isNotBlank(user.getPwd())) {
+        if (StrUtil.isNotBlank(user.getPwd())) {
             user.setPwd(encoder.encode(user.getPwd()));
         }
     }
@@ -131,7 +132,7 @@ public class UserServiceImpl implements UserService {
      * @param user 用户信息
      */
     private void generateNickName(User user) {
-        if (StringUtil.isBlank(user.getNickName())) {
+        if (StrUtil.isBlank(user.getNickName())) {
             user.setNickName(systemConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
         }
     }
@@ -145,7 +146,7 @@ public class UserServiceImpl implements UserService {
         }
         RequestMessage request = RequestThreadLocal.get();
         LoginLog loginLog = loginLogService.getBySerialNumber(user.getId(), request.getSerialNumber());
-        if (loginLog == null && StringUtil.isNotBlank(user.getMobile())) {
+        if (loginLog == null && StrUtil.isNotBlank(user.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信
             BusinessException exception = new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
             exception.setData(StringUtil.hiddenMobile(user.getMobile()));
@@ -206,7 +207,7 @@ public class UserServiceImpl implements UserService {
         user.setId(userId);
         user.setState(state);
         userMapper.updateByPrimaryKeySelective(user);
-        if (!user.getState()){
+        if (Boolean.FALSE.equals(user.getState())){
             this.offline(user.getId());
         }
     }

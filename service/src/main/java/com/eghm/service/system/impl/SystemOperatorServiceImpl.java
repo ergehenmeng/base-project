@@ -1,9 +1,9 @@
 package com.eghm.service.system.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.Md5Util;
-import com.eghm.common.utils.StringUtil;
 import com.eghm.configuration.security.Encoder;
 import com.eghm.dao.mapper.system.SystemOperatorMapper;
 import com.eghm.dao.mapper.system.SystemOperatorRoleMapper;
@@ -17,7 +17,6 @@ import com.eghm.service.system.SystemOperatorService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
-import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,8 +80,8 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
         systemOperatorMapper.insertSelective(operator);
-        if (StringUtil.isNotBlank(request.getRoleIds())) {
-            List<String> roleStringList = Splitter.on(",").splitToList(request.getRoleIds());
+        if (StrUtil.isNotBlank(request.getRoleIds())) {
+            List<String> roleStringList = StrUtil.split(request.getRoleIds(), ',');
             //循环插入角色关联信息
             roleStringList.forEach(s -> systemOperatorRoleMapper.insertSelective(new SystemOperatorRole(operator.getId(), Integer.parseInt(s))));
         }
@@ -105,8 +104,8 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
         SystemOperator operator = DataUtil.copy(request, SystemOperator.class);
         systemOperatorMapper.updateByPrimaryKeySelective(operator);
         systemOperatorRoleMapper.deleteByOperatorId(request.getId());
-        if (StringUtil.isNotBlank(request.getRoleIds())) {
-            List<String> stringList = Splitter.on(",").splitToList(request.getRoleIds());
+        if (StrUtil.isNotBlank(request.getRoleIds())) {
+            List<String> stringList = StrUtil.split(request.getRoleIds(), ',');
             List<Integer> roleList = stringList.stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
             systemOperatorRoleMapper.batchInsertOperatorRole(request.getId(), roleList);
         }

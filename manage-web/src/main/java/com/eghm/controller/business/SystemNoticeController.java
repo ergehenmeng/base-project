@@ -1,8 +1,8 @@
 package com.eghm.controller.business;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.Mark;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.business.SystemNotice;
 import com.eghm.model.dto.business.notice.NoticeAddRequest;
@@ -62,7 +62,7 @@ public class SystemNoticeController {
     @ResponseBody
     @Mark
     public RespBody<Object> add(NoticeAddRequest request) {
-        if (StringUtil.isBlank(request.getOriginalContent())) {
+        if (StrUtil.isBlank(request.getOriginalContent())) {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
         systemNoticeService.addNotice(request);
@@ -108,7 +108,7 @@ public class SystemNoticeController {
     @ResponseBody
     @Mark
     public RespBody<Object> edit(NoticeEditRequest request) {
-        if (StringUtil.isBlank(request.getOriginalContent())) {
+        if (StrUtil.isBlank(request.getOriginalContent())) {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
         systemNoticeService.editNotice(request);

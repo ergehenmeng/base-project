@@ -1,6 +1,6 @@
 package com.eghm.configuration.security;
 
-import com.eghm.common.utils.StringUtil;
+import cn.hutool.core.util.StrUtil;
 import com.eghm.dao.model.system.SystemMenu;
 import com.eghm.service.system.SystemMenuService;
 import com.google.common.base.Splitter;
@@ -14,7 +14,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -42,7 +45,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         map.clear();
         List<SystemMenu> list = systemMenuService.getAllList();
         for (SystemMenu menu : list) {
-            if (StringUtil.isNotBlank(menu.getUrl())) {
+            if (StrUtil.isNotBlank(menu.getUrl())) {
                 List<String> subUrl = this.getTotalUrl(menu);
                 List<ConfigAttribute> attributes = SecurityConfig.createList(menu.getNid());
                 //将该权限所涉及到所有访问链接均放入,防止操作人员知道连接,但没有权限,却能访问的问题
@@ -61,7 +64,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
      */
     private List<String> getTotalUrl(SystemMenu menu) {
         List<String> stringList = Lists.newArrayList(menu.getUrl());
-        if (StringUtil.isNotBlank(menu.getSubUrl())) {
+        if (StrUtil.isNotBlank(menu.getSubUrl())) {
             Iterable<String> split = Splitter.on(";").split(menu.getSubUrl());
             split.forEach(stringList::add);
         }

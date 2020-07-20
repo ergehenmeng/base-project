@@ -1,12 +1,12 @@
 package com.eghm.common.utils;
 
 
+import cn.hutool.core.util.StrUtil;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -16,7 +16,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author 二哥很猛
  * @date 2018/1/8 14:56
  */
-public class StringUtil extends StringUtils {
+public class StringUtil {
+
+    private StringUtil() {
+    }
 
     /**
      * 随机字符串
@@ -130,7 +133,7 @@ public class StringUtil extends StringUtils {
      * @return 首字母
      */
     public static String getInitial(String chinese) {
-        if (isBlank(chinese)) {
+        if (StrUtil.isBlank(chinese)) {
             return null;
         }
         char charAt = chinese.charAt(0);
@@ -154,7 +157,7 @@ public class StringUtil extends StringUtils {
      * @return 二哥很猛 -> EGHM
      */
     public static String getCompleteInitial(String chinese) {
-        if (isBlank(chinese)) {
+        if (StrUtil.isBlank(chinese)) {
             return null;
         }
         StringBuilder builder = new StringBuilder();

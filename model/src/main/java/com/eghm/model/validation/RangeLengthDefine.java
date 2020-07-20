@@ -1,6 +1,6 @@
 package com.eghm.model.validation;
 
-import com.eghm.common.utils.StringUtil;
+import cn.hutool.core.util.StrUtil;
 import com.eghm.model.validation.annotation.RangeLength;
 
 import javax.validation.ConstraintValidator;
@@ -38,6 +38,6 @@ public class RangeLengthDefine implements ConstraintValidator<RangeLength,String
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return (!required && value == null) || (StringUtil.isNotBlank(value) && max >= value.length() && min <= value.length()) ;
+        return (!required && value == null) || (StrUtil.isNotBlank(value) && max >= value.length() && min <= value.length()) ;
     }
 }
