@@ -1,3 +1,5 @@
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="bookmark" href="favicon.ico" type="image/x-icon">
 <!-- jquery库2.0版本 -->
 <script src="/static/js/common/jquery.min.js?v=${version!}" type="text/javascript" charset="utf-8"></script>
 

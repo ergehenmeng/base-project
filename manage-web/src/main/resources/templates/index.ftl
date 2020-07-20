@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>后台管理系统-登陆</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="bookmark" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/static/css/login/index.css?v=${version!}" type="text/css">
 </head>
 <body>
