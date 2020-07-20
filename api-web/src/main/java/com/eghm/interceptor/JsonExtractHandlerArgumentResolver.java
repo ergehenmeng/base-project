@@ -97,7 +97,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
             Class<?> parameterType = parameter.getParameterType();
             if (requestBody == null) {
-                return parameterType.newInstance();
+                return parameterType.getDeclaredConstructor().newInstance();
             }
             //解密
             requestBody = this.decryptRequestBody(requestBody, parameter);

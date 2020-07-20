@@ -2,7 +2,6 @@ package com.eghm.model.validation;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.Channel;
-import com.eghm.common.utils.StringUtil;
 import com.eghm.model.validation.annotation.ChannelType;
 
 import javax.validation.ConstraintValidator;

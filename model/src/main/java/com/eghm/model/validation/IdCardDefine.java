@@ -3,7 +3,6 @@ package com.eghm.model.validation;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.utils.RegExpUtil;
-import com.eghm.common.utils.StringUtil;
 import com.eghm.model.validation.annotation.IdCard;
 
 import javax.validation.ConstraintValidator;

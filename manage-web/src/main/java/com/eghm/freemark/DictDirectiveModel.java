@@ -1,5 +1,6 @@
 package com.eghm.freemark;
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.system.SystemDict;
@@ -133,7 +134,7 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
         if (TOTAL_VALUE.equals(total)) {
             builder.append("<option value=''>全部</option>");
         }
-        if (dictList != null && dictList.size() > 0) {
+        if (CollUtil.isNotEmpty(dictList)) {
             for (SystemDict dict : dictList) {
                 if (value != null && value.equals(dict.getHiddenValue().toString())) {
                     //<option value='1' selected>类型</option>

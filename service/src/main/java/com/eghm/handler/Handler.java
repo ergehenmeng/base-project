@@ -15,6 +15,6 @@ public interface Handler {
      * @param messageData 传输对象
      * @param invoker     调用链
      */
-    void doHandler(MessageData messageData, HandlerInvoker invoker);
+    void doHandler(MessageData messageData, HandlerInvoker<? extends Handler> invoker);
 }
 

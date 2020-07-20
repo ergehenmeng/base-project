@@ -73,6 +73,16 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
         return Long.compare(expirationMs1, expirationMs2);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     /**
      * 获取任务
      * @return timerTask

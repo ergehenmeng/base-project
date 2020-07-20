@@ -34,7 +34,7 @@ public class PbeUtil {
     /**
      * 迭代次数
      */
-    private final static int SALT_COUNT = 100;
+    private static final int SALT_COUNT = 100;
 
     /**
      * pbe加密填充方式

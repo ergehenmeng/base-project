@@ -92,9 +92,9 @@ public class TimingWheel {
             TimerTaskList bucket = buckets[(int)(virtualId % wheelSize)];
             bucket.add(timerTaskEntry);
             if(bucket.setExpiration(virtualId * tickMs)){
-                queue.offer(bucket);
+                return queue.offer(bucket);
             }
-            return true;
+            return false;
         }else{
             //父级桶内查询
             if(overflowWheel == null){

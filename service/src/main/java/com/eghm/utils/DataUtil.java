@@ -72,7 +72,7 @@ public class DataUtil {
             return null;
         }
         try {
-            T t = cls.newInstance();
+            T t = cls.getDeclaredConstructor().newInstance();
             if (ignoreProperties != null && ignoreProperties.length > 0) {
                 BeanUtils.copyProperties(source, t, ignoreProperties);
             } else {

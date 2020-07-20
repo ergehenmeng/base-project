@@ -88,7 +88,7 @@ public class VersionServiceImpl implements VersionService {
         }
         VersionVO response = DataUtil.copy(latestVersion, VersionVO.class);
         //最新版本是强制更新版本
-        if (latestVersion.getForceUpdate()) {
+        if (Boolean.TRUE.equals(latestVersion.getForceUpdate())) {
             return response;
         }
         Version appVersion = versionMapper.getVersion(channel, version);

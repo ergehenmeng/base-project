@@ -1,5 +1,6 @@
 package com.eghm.freemark;
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityOperator;
@@ -36,8 +37,8 @@ public class AuthDirectiveModel implements TemplateDirectiveModel {
         }
         String nid = nidValue.toString();
         SecurityOperator operator = AbstractController.getRequiredOperator();
-        List<SystemMenu> menuList = operator.getButtonMenu();
-        if (menuList != null && menuList.size() > 0) {
+        List<SystemMenu>  menuList = operator.getButtonMenu();
+        if (CollUtil.isNotEmpty(menuList)) {
             for (SystemMenu menu : menuList) {
                 String authNid = menu.getNid();
                 if (authNid.equals(nid)) {
