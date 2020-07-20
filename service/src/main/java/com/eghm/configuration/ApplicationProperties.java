@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ApplicationProperties {
 
-    protected static final String PREFIX = "application";
+    static final String PREFIX = "application";
 
     /**
      * 系统版本号
