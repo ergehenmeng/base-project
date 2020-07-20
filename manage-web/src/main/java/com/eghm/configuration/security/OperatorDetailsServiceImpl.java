@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/1/25 10:00
  */
+@Service("userDetailsService")
 public class OperatorDetailsServiceImpl implements UserDetailsService {
 
     private SystemOperatorService systemOperatorService;

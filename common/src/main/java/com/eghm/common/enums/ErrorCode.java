@@ -16,6 +16,11 @@ public enum ErrorCode {
     ACCESS_DENIED(403,"暂无访问权限"),
 
     /**
+     * 用户登陆已过期(后台系统使用)
+     */
+    SESSION_TIMEOUT(402,"用户登陆已过期"),
+
+    /**
      * 未知请求地址
      */
     PAGE_NOT_FOUND(404,"未知请求地址"),
@@ -355,6 +360,9 @@ public enum ErrorCode {
      * 邮件服务可能未配置
      */
     MAIL_NOT_CONFIG(3031,"邮件服务可能未配置"),
+
+
+
 
     ;
     /**

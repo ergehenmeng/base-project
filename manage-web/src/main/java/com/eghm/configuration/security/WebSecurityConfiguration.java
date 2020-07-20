@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.session.InvalidSessionStrategy;
 
 /**
  * spring security权限配置
@@ -32,6 +33,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private Encoder encoder;
 
+	private UserDetailsService userDetailsService;
+
 	@Autowired
 	public void setApplicationProperties(ApplicationProperties applicationProperties) {
 		this.applicationProperties = applicationProperties;
@@ -47,14 +50,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		this.encoder = encoder;
 	}
 
-	@Override
-	protected UserDetailsService userDetailsService() {
-		return detailsService();
+	@Autowired
+	public void setUserDetailsService(UserDetailsService userDetailsService) {
+		this.userDetailsService = userDetailsService;
 	}
 
-	@Bean("userDetailsService")
-	public UserDetailsService detailsService() {
-		return new OperatorDetailsServiceImpl();
+	@Override
+	protected UserDetailsService userDetailsService() {
+		return userDetailsService;
 	}
 
 	@Override
@@ -85,7 +88,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.logoutSuccessHandler(logoutSuccessHandler())
 				.permitAll()
 				.invalidateHttpSession(true);
-		http.sessionManagement().maximumSessions(1).expiredUrl("/index");
+		http.sessionManagement()
+				.invalidSessionStrategy(invalidSessionStrategy())
+				.maximumSessions(1);
 		//权限拦截
 		http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
 				.csrf()
@@ -109,9 +114,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
 		//屏蔽原始错误异常
 		provider.setHideUserNotFoundExceptions(false);
-		provider.setUserDetailsService(userDetailsService());
+		provider.setUserDetailsService(userDetailsService);
 		provider.setEncoder(encoder);
 		return provider;
+	}
+
+	/**
+	 * session过期处理
+	 * @return bean
+	 */
+	private InvalidSessionStrategy invalidSessionStrategy() {
+		return new SessionTimeoutHandler();
 	}
 
 	/**
