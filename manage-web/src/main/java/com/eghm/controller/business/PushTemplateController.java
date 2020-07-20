@@ -25,11 +25,19 @@ import java.util.List;
 @Controller
 public class PushTemplateController {
 
-    @Autowired
     private PushTemplateService pushTemplateService;
 
-    @Autowired
     private TagViewService tagViewService;
+
+    @Autowired
+    public void setPushTemplateService(PushTemplateService pushTemplateService) {
+        this.pushTemplateService = pushTemplateService;
+    }
+
+    @Autowired
+    public void setTagViewService(TagViewService tagViewService) {
+        this.tagViewService = tagViewService;
+    }
 
     /**
      * 分页查询推送消息模板信息

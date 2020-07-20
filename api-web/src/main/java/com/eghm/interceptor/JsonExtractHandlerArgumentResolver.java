@@ -42,8 +42,12 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgumentResolver {
 
-    @Autowired
     private Gson gson;
+
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
 
     @Override
     public boolean supportsParameter(@Nullable MethodParameter parameter) {

@@ -28,11 +28,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SystemNoticeController {
 
-    @Autowired
     private SystemNoticeService systemNoticeService;
 
-    @Autowired
     private CacheProxyService cacheProxyService;
+
+    @Autowired
+    public void setSystemNoticeService(SystemNoticeService systemNoticeService) {
+        this.systemNoticeService = systemNoticeService;
+    }
+
+    @Autowired
+    public void setCacheProxyService(CacheProxyService cacheProxyService) {
+        this.cacheProxyService = cacheProxyService;
+    }
 
     /**
      * 系统公告列表查询

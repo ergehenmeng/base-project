@@ -29,25 +29,19 @@ public class TaskHandler {
          * 操作日志 多线程处理
          */
         private static final ThreadPoolExecutor OPERATE_LOG = new ThreadPoolExecutor(5,10,30,TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.OPERATE_LOG_THREAD),((r, executor) -> {
-                    log.warn("操作日志的线程池已满,data:[{}]",((AbstractTask)r).getData());
-        }));
+                new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.OPERATE_LOG_THREAD),((r, executor) ->  log.warn("操作日志的线程池已满,data:[{}]",((AbstractTask)r).getData())));
 
         /**
          * 登陆日志 多线程处理
          */
         private static final ThreadPoolExecutor LOGIN_LOG = new ThreadPoolExecutor(1,2,30,TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.LOGIN_LOG_THREAD),(r, executor) -> {
-                    log.warn("登陆日志的线程池已满,data:[{}]",((AbstractTask)r).getData());
-        });
+                new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.LOGIN_LOG_THREAD),(r, executor) -> log.warn("登陆日志的线程池已满,data:[{}]",((AbstractTask)r).getData()));
 
         /**
          * 登陆日志 多线程处理
          */
         private static final ThreadPoolExecutor EXCEPTION_LOG = new ThreadPoolExecutor(1,2,30,TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.EXCEPTION_LOG_THREAD),(r, executor) -> {
-                    log.warn("异常日志的线程池已满,data:[{}]",((AbstractTask)r).getData());
-        });
+                new LinkedBlockingQueue<>(),r -> new Thread(r,TaskConstant.EXCEPTION_LOG_THREAD),(r, executor) -> log.warn("异常日志的线程池已满,data:[{}]",((AbstractTask)r).getData()));
     }
 
     /**

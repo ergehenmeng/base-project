@@ -37,18 +37,33 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j(topic = "request_response")
 public class OperationLogHandler {
 
-
-    @Autowired
     private SystemConfigApi systemConfigApi;
 
-    @Autowired
     private OperationLogService operationLogService;
 
-    @Autowired
     private Gson gson;
 
-    @Autowired
     private TaskHandler taskHandler;
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
+
+    @Autowired
+    public void setOperationLogService(OperationLogService operationLogService) {
+        this.operationLogService = operationLogService;
+    }
+
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
+
+    @Autowired
+    public void setTaskHandler(TaskHandler taskHandler) {
+        this.taskHandler = taskHandler;
+    }
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
@@ -113,17 +128,10 @@ public class OperationLogHandler {
             if (builder.length() > 0) {
                 builder.append(",");
             }
-            //request,response,文件上传过滤掉
-            if (object instanceof HttpServletRequest) {
-                continue;
-            }
-            if (object instanceof HttpServletResponse) {
-                continue;
-            }
-            if (object instanceof MultipartFile) {
-                continue;
-            }
-            if (object instanceof Model) {
+            // 过滤内置参数
+            boolean flag = object instanceof HttpServletRequest || object instanceof HttpServletResponse || object instanceof MultipartFile || object instanceof Model;
+
+            if (flag) {
                 continue;
             }
             builder.append(gson.toJson(object));

@@ -7,6 +7,9 @@ package com.eghm.common.constant;
  */
 public class SmsTypeConstant {
 
+    private SmsTypeConstant() {
+    }
+
     /**
      * 未指定短信类型,则为默认短信:default
      */

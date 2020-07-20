@@ -30,6 +30,5 @@ public class OperationLogTask extends AbstractTask<SystemOperationLog, Operation
 
     @Override
     protected void doFinally() {
-        super.doFinally();
     }
 }

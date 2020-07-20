@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class FeedbackController extends AbstractController {
 
-    @Autowired
     private FeedbackService feedbackService;
+
+    @Autowired
+    public void setFeedbackService(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
+    }
 
     /**
      * 分页查询反馈列表

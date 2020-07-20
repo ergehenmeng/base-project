@@ -1,9 +1,12 @@
 package com.eghm.configuration.timer;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author 二哥很猛
  * @date 2018/9/11 11:56
  */
+@Slf4j
 public class TimerTaskOperation extends AbstractTimerTask {
 
     /**
@@ -17,6 +20,6 @@ public class TimerTaskOperation extends AbstractTimerTask {
 
     @Override
     public void execute() {
-        System.out.println("任务执行:" + Thread.currentThread() + " : " + System.currentTimeMillis());
+        log.info("任务执行:" + Thread.currentThread() + " : " + System.currentTimeMillis());
     }
 }

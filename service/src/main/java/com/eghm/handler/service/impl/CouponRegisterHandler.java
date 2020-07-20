@@ -3,6 +3,7 @@ package com.eghm.handler.service.impl;
 import com.eghm.handler.HandlerInvoker;
 import com.eghm.handler.MessageData;
 import com.eghm.handler.service.RegisterHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,11 @@ import org.springframework.stereotype.Service;
  */
 @Service("couponRegisterHandler")
 @Order(11)
+@Slf4j
 public class CouponRegisterHandler implements RegisterHandler {
     @Override
     public void doHandler(MessageData messageData, HandlerInvoker invoker) {
-        System.out.println("第二个调用");
+        log.info("第二个调用");
         invoker.doHandler(messageData);
     }
 }

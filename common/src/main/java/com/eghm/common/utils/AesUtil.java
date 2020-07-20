@@ -9,6 +9,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 
@@ -20,9 +21,12 @@ import java.security.SecureRandom;
 @Slf4j
 public class AesUtil {
 
+    private AesUtil() {
+    }
+
     private static final String ALGORITHM = "AES";
 
-    private static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
+    private static final String CIPHER_ALGORITHM = "AES/GCM/NoPadding";
 
     public static String encrypt(String source, String password) {
         try {
@@ -48,7 +52,7 @@ public class AesUtil {
         }
     }
 
-    private static SecretKey getSecretKey(String password)throws Exception {
+    private static SecretKey getSecretKey(String password) throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
         SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         random.setSeed(password.getBytes());

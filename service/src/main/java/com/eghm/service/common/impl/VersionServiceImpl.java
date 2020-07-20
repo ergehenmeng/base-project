@@ -15,8 +15,8 @@ import com.eghm.model.vo.version.VersionVO;
 import com.eghm.service.common.VersionService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +41,7 @@ public class VersionServiceImpl implements VersionService {
 
     @Override
     public PageInfo<Version> getByPage(VersionQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<Version> list = versionMapper.getList(request);
         return new PageInfo<>(list);
     }

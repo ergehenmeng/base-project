@@ -11,8 +11,8 @@ import com.eghm.model.dto.system.dict.DictEditRequest;
 import com.eghm.model.dto.system.dict.DictQueryRequest;
 import com.eghm.service.system.SystemDictService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class SystemDictServiceImpl implements SystemDictService {
 
     @Override
     public PageInfo<SystemDict> getByPage(DictQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SystemDict> list = systemDictMapper.getList(request);
         return new PageInfo<>(list);
     }

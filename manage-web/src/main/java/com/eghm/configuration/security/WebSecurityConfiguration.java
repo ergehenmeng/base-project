@@ -27,16 +27,26 @@ import org.springframework.util.StringUtils;
 @EnableConfigurationProperties({WebMvcProperties.class, ApplicationProperties.class})
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
-	@Autowired
 	private ApplicationProperties applicationProperties;
 
-	@Autowired
 	private WebMvcProperties webMvcProperties;
 
-	@Autowired
 	private Encoder encoder;
 
+	@Autowired
+	public void setApplicationProperties(ApplicationProperties applicationProperties) {
+		this.applicationProperties = applicationProperties;
+	}
+
+	@Autowired
+	public void setWebMvcProperties(WebMvcProperties webMvcProperties) {
+		this.webMvcProperties = webMvcProperties;
+	}
+
+	@Autowired
+	public void setEncoder(Encoder encoder) {
+		this.encoder = encoder;
+	}
 
 	@Override
 	protected UserDetailsService userDetailsService() {

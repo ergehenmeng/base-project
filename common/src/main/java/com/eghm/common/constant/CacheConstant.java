@@ -7,6 +7,9 @@ package com.eghm.common.constant;
  */
 public class CacheConstant {
 
+    private CacheConstant() {
+    }
+
     /**
      * 系统参数缓存key前缀
      */

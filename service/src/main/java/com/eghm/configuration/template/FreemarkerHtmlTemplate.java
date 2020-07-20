@@ -5,9 +5,11 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.SystemConstant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Locale;
 import java.util.Map;
@@ -41,9 +43,10 @@ public class FreemarkerHtmlTemplate implements HtmlTemplate {
      * @param template 模板
      * @param params   参数
      * @return 字符串
-     * @throws Exception 解析异常
+     * @throws IOException 异常
+     * @throws TemplateException 异常
      */
-    private String doRender(Template template, Map<String, Object> params) throws Exception {
+    private String doRender(Template template, Map<String, Object> params) throws IOException, TemplateException {
         try (StringWriter writer = new StringWriter()) {
             template.process(params, writer);
             return writer.toString();

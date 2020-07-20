@@ -29,14 +29,26 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class BannerController extends AbstractController {
 
-    @Autowired
     private BannerService bannerService;
 
-    @Autowired
     private FileService fileService;
 
-    @Autowired
     private CacheProxyService cacheProxyService;
+
+    @Autowired
+    public void setBannerService(BannerService bannerService) {
+        this.bannerService = bannerService;
+    }
+
+    @Autowired
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+    @Autowired
+    public void setCacheProxyService(CacheProxyService cacheProxyService) {
+        this.cacheProxyService = cacheProxyService;
+    }
 
     /**
      * 分页查询轮播图配置信息
@@ -46,7 +58,8 @@ public class BannerController extends AbstractController {
     public Paging<Banner> listPage(BannerQueryRequest request) {
         PageInfo<Banner> byPage = bannerService.getByPage(request);
         return DataUtil.convert(byPage, banner -> {
-            banner.setClassifyName(cacheProxyService.getDictValue(DictConstant.BANNER_CLASSIFY, banner.getClassify()));
+            String dictValue = cacheProxyService.getDictValue(DictConstant.BANNER_CLASSIFY, banner.getClassify());
+            banner.setClassifyName(dictValue);
             return banner;
         });
     }

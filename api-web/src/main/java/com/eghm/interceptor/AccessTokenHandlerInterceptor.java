@@ -29,8 +29,12 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
 
-    @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    public void setTokenService(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

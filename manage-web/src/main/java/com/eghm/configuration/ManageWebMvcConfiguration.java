@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ManageWebMvcConfiguration extends WebMvcConfiguration {
 
-
     /**
      * 将所有的链接由8081 转到 8080
      *

@@ -6,6 +6,9 @@ package com.eghm.constants;
  */
 public class ConfigConstant {
 
+    private ConfigConstant() {
+    }
+
     /**
      * 操作日志开关
      */

@@ -11,6 +11,9 @@ public class RequestThreadLocal {
 
     private static final ThreadLocal<RequestMessage> TOKEN_LOCAL = ThreadLocal.withInitial(RequestMessage::new);
 
+    private RequestThreadLocal() {
+    }
+
     /**
      * 获取请求信息
      * @return 头信息及用户id

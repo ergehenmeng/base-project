@@ -8,6 +8,9 @@ package com.eghm.common.utils;
  */
 public class VersionUtil {
 
+    private VersionUtil() {
+    }
+
     private static final String[] REPLACE_CHAR = {"v", "version"};
 
     /**

@@ -70,13 +70,7 @@ public class TimerTaskEntry implements Comparable<TimerTaskEntry> {
     public int compareTo(@Nonnull TimerTaskEntry o) {
         long expirationMs1 = this.getExpirationMs();
         long expirationMs2 = o.getExpirationMs();
-        if (expirationMs1 < expirationMs2) {
-            return -1;
-        }
-        if (expirationMs1 > expirationMs2) {
-            return 1;
-        }
-        return 0;
+        return Long.compare(expirationMs1, expirationMs2);
     }
 
     /**

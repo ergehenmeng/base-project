@@ -4,8 +4,8 @@ import com.eghm.dao.mapper.system.SystemOperationLogMapper;
 import com.eghm.dao.model.system.SystemOperationLog;
 import com.eghm.model.dto.system.log.OperationQueryRequest;
 import com.eghm.service.system.OperationLogService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 
     @Override
     public PageInfo<SystemOperationLog> getByPage(OperationQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SystemOperationLog> list = systemOperationLogMapper.getList(request);
         return new PageInfo<>(list);
     }

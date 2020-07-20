@@ -1,5 +1,7 @@
 package com.eghm.common.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +12,7 @@ import java.util.stream.Collectors;
  * @author 二哥很猛
  * @date 2019/2/21 15:07
  */
+@Slf4j
 public class HolidayUtil {
     public static void main(String[] args) {
 
@@ -42,9 +45,9 @@ public class HolidayUtil {
             String formatMonth = DateUtil.format(calendar.getTime(), "yyyy-MM");
             boolean contains = ((week == 1 || week == 7) && !overtimeList.contains(format)) || holidayList.contains(format);
             if (contains) {
-                System.out.println("insert into system_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',2," + week + "); ");
+                log.info("insert into system_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',2," + week + "); ");
             } else {
-                System.out.println("insert into system_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',1," + week + "); ");
+                log.info("insert into system_holiday(calendar,date_month,type,weekday)values('" + format + "','" + formatMonth + "',1," + week + "); ");
             }
             calendar.add(Calendar.DAY_OF_WEEK, 1);
         }

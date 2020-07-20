@@ -27,8 +27,12 @@ import java.util.Map;
 @Component
 public class DictDirectiveModel implements TemplateDirectiveModel {
 
-    @Autowired
     private SystemDictService systemDictService;
+
+    @Autowired
+    public void setSystemDictService(SystemDictService systemDictService) {
+        this.systemDictService = systemDictService;
+    }
 
     /**
      * select标签id
@@ -73,7 +77,7 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
 
     @Override
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws IOException {
-        Iterator iterator = params.keySet().iterator();
+        Iterator<?> iterator = params.keySet().iterator();
 
         StringBuilder builder = new StringBuilder("<select ");
         //默认不显示

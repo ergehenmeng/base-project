@@ -7,8 +7,8 @@ import com.eghm.model.dto.business.push.PushTemplateEditRequest;
 import com.eghm.model.dto.business.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Override
     public PageInfo<PushTemplate> getByPage(PushTemplateQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<PushTemplate> list = pushTemplateMapper.getList(request);
         return new PageInfo<>(list);
     }

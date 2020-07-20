@@ -27,9 +27,12 @@ import java.io.IOException;
 @Slf4j
 public class CaptchaController extends AbstractController {
 
+    private Producer producer;
 
     @Autowired
-    private Producer producer;
+    public void setProducer(Producer producer) {
+        this.producer = producer;
+    }
 
     /**
      * 图形验证码

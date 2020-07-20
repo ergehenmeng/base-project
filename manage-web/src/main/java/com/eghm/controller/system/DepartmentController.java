@@ -22,8 +22,12 @@ import java.util.List;
 @Controller
 public class DepartmentController {
 
-    @Autowired
     private SystemDepartmentService systemDepartmentService;
+
+    @Autowired
+    public void setSystemDepartmentService(SystemDepartmentService systemDepartmentService) {
+        this.systemDepartmentService = systemDepartmentService;
+    }
 
     /**
      * 查询所有部门列表

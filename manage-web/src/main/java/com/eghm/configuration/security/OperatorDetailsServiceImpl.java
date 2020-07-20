@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 
@@ -22,14 +21,22 @@ import java.util.List;
  */
 public class OperatorDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
     private SystemOperatorService systemOperatorService;
 
-    @Autowired
     private SystemMenuService systemMenuService;
 
+    @Autowired
+    public void setSystemOperatorService(SystemOperatorService systemOperatorService) {
+        this.systemOperatorService = systemOperatorService;
+    }
+
+    @Autowired
+    public void setSystemMenuService(SystemMenuService systemMenuService) {
+        this.systemMenuService = systemMenuService;
+    }
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) {
         SystemOperator operator = systemOperatorService.getByMobile(username);
         if (operator == null) {
             throw new SystemAuthenticationException(ErrorCode.OPERATOR_NOT_FOUND);

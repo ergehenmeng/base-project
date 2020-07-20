@@ -132,12 +132,9 @@ public class SystemTimer implements Timer, Function<TimerTaskEntry, Void> {
      */
     private void addTimerTaskEntry(TimerTaskEntry timerTaskEntry) {
         //过期或取消时,会返回false
-        if (!timingWheel.add(timerTaskEntry)) {
-            //过期了,需要执行
-            if (!timerTaskEntry.cancelled()) {
-                //过期时执行一次
-                taskExecutor.submit(timerTaskEntry.getAbstractTimerTask());
-            }
+        if (!timingWheel.add(timerTaskEntry) && !timerTaskEntry.cancelled()) {
+            //过期时执行一次
+            taskExecutor.submit(timerTaskEntry.getAbstractTimerTask());
         }
     }
 
@@ -160,6 +157,7 @@ public class SystemTimer implements Timer, Function<TimerTaskEntry, Void> {
             }
         } catch (InterruptedException e) {
             log.error("获取队列头元素异常", e);
+            Thread.currentThread().interrupt();
         }
         return false;
     }

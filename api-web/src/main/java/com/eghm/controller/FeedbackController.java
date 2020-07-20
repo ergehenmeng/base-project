@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class FeedbackController{
 
-    @Autowired
     private FeedbackService feedbackService;
+
+    @Autowired
+    public void setFeedbackService(FeedbackService feedbackService) {
+        this.feedbackService = feedbackService;
+    }
 
     /**
      * 移动端保存反馈信息

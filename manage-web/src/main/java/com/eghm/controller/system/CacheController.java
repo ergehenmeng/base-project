@@ -1,9 +1,9 @@
 package com.eghm.controller.system;
 
 import com.eghm.annotation.Mark;
+import com.eghm.dao.model.system.SystemCache;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
-import com.eghm.dao.model.system.SystemCache;
 import com.eghm.service.cache.SystemCacheService;
 import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,12 @@ import java.util.List;
 @Controller
 public class CacheController {
 
-    @Autowired
     private SystemCacheService systemCacheService;
+
+    @Autowired
+    public void setSystemCacheService(SystemCacheService systemCacheService) {
+        this.systemCacheService = systemCacheService;
+    }
 
     /**
      * 查询所有的缓存列表

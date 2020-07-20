@@ -8,8 +8,8 @@ import com.eghm.model.dto.business.task.TaskEditRequest;
 import com.eghm.model.dto.business.task.TaskQueryRequest;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
@@ -37,7 +37,7 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<TaskConfig> getByPage(TaskQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<TaskConfig> list = taskConfigMapper.getList(request);
         return new PageInfo<>(list);
     }

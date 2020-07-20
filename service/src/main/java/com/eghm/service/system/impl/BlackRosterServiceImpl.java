@@ -6,8 +6,8 @@ import com.eghm.dao.model.system.BlackRoster;
 import com.eghm.model.dto.system.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.system.roster.BlackRosterQueryRequest;
 import com.eghm.service.system.BlackRosterService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     public PageInfo<BlackRoster> getByPage(BlackRosterQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<BlackRoster> list = blackRosterMapper.getList(request);
         return new PageInfo<>(list);
     }

@@ -27,11 +27,19 @@ import java.util.List;
 @Controller
 public class MenuController extends AbstractController {
 
-    @Autowired
     private SystemMenuService systemMenuService;
 
-    @Autowired
     private CustomFilterInvocationSecurityMetadataSource metadataSource;
+
+    @Autowired
+    public void setSystemMenuService(SystemMenuService systemMenuService) {
+        this.systemMenuService = systemMenuService;
+    }
+
+    @Autowired
+    public void setMetadataSource(CustomFilterInvocationSecurityMetadataSource metadataSource) {
+        this.metadataSource = metadataSource;
+    }
 
     /**
      * 菜单编辑页面

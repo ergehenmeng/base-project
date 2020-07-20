@@ -23,8 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Api(tags = "图片上传")
 public class ImageController {
 
-    @Autowired
     private FileService fileService;
+
+    @Autowired
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
+    }
 
     /**
      * 文件上传

@@ -23,8 +23,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SmsTemplateController {
 
-    @Autowired
     private SmsTemplateService smsTemplateService;
+
+    @Autowired
+    public void setSmsTemplateService(SmsTemplateService smsTemplateService) {
+        this.smsTemplateService = smsTemplateService;
+    }
 
     /**
      * 短信模板分页列表

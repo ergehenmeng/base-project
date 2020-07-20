@@ -29,8 +29,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @MapperScan(basePackages = "com.eghm.dao.mapper")
 public class ManageApplication implements ApplicationListener<ContextRefreshedEvent>, ApplicationRunner {
 
-    @Autowired
     private SystemTaskRegistrar systemTaskRegistrar;
+
+    @Autowired
+    public void setSystemTaskRegistrar(SystemTaskRegistrar systemTaskRegistrar) {
+        this.systemTaskRegistrar = systemTaskRegistrar;
+    }
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);

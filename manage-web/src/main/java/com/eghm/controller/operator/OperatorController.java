@@ -1,5 +1,6 @@
 package com.eghm.controller.operator;
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.annotation.Mark;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
@@ -37,14 +38,26 @@ import java.util.List;
 @Controller
 public class OperatorController extends AbstractController {
 
-    @Autowired
     private SystemOperatorService systemOperatorService;
 
-    @Autowired
     private SystemRoleService systemRoleService;
 
-    @Autowired
     private CacheService cacheService;
+
+    @Autowired
+    public void setSystemRoleService(SystemRoleService systemRoleService) {
+        this.systemRoleService = systemRoleService;
+    }
+
+    @Autowired
+    public void setSystemOperatorService(SystemOperatorService systemOperatorService) {
+        this.systemOperatorService = systemOperatorService;
+    }
+
+    @Autowired
+    public void setCacheService(CacheService cacheService) {
+        this.cacheService = cacheService;
+    }
 
     /**
      * 修改密码
@@ -109,7 +122,7 @@ public class OperatorController extends AbstractController {
         SystemOperator operator = systemOperatorService.getById(id);
         model.addAttribute("operator", operator);
         List<Integer> roleList = systemRoleService.getByOperatorId(id);
-        if (roleList != null && roleList.size() > 0) {
+        if (CollUtil.isNotEmpty(roleList)) {
             String roleIds = Joiner.on(",").join(roleList);
             model.addAttribute("roleIds", roleIds);
         }

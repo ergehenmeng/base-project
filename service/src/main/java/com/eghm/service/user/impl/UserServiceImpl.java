@@ -39,30 +39,61 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
 
-    @Autowired
     private UserMapper userMapper;
 
-    @Autowired
     private Encoder encoder;
 
-    @Autowired
     private TokenService tokenService;
 
-    @Autowired
     private SmsService smsService;
 
-    @Autowired
     private LoginLogService loginLogService;
 
-    @Autowired
     private UserExtService userExtService;
 
-    @Autowired
     private TaskHandler taskHandler;
 
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
+
+    @Autowired
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    @Autowired
+    public void setEncoder(Encoder encoder) {
+        this.encoder = encoder;
+    }
+
+    @Autowired
+    public void setTokenService(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+    @Autowired
+    public void setSmsService(SmsService smsService) {
+        this.smsService = smsService;
+    }
+
+    @Autowired
+    public void setLoginLogService(LoginLogService loginLogService) {
+        this.loginLogService = loginLogService;
+    }
+
+    @Autowired
+    public void setUserExtService(UserExtService userExtService) {
+        this.userExtService = userExtService;
+    }
+
+    @Autowired
+    public void setTaskHandler(TaskHandler taskHandler) {
+        this.taskHandler = taskHandler;
+    }
 
     @Override
     public User doRegister(UserRegister register) {

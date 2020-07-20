@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SmsLogController extends AbstractController {
 
-    @Autowired
     private SmsLogService smsLogService;
+
+    @Autowired
+    public void setSmsLogService(SmsLogService smsLogService) {
+        this.smsLogService = smsLogService;
+    }
 
     /**
      * 分页查询短信记录列表

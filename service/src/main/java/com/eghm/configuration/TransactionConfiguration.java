@@ -4,7 +4,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -27,11 +26,8 @@ public class TransactionConfiguration {
 
     private static final String METHOD_EXPRESSION = "execution (* com.eghm.service..*.*(..))";
 
-    @Autowired
-    private PlatformTransactionManager transactionManager;
-
     @Bean
-    public TransactionInterceptor txAdvice() {
+    public TransactionInterceptor txAdvice(PlatformTransactionManager transactionManager) {
         DefaultTransactionAttribute required = new DefaultTransactionAttribute();
         required.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         DefaultTransactionAttribute readOnly = new DefaultTransactionAttribute();
@@ -55,10 +51,10 @@ public class TransactionConfiguration {
     }
 
     @Bean
-    public Advisor txAdvisor() {
+    public Advisor txAdvisor(TransactionInterceptor transactionInterceptor) {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression(METHOD_EXPRESSION);
-        return new DefaultPointcutAdvisor(pointcut, txAdvice());
+        return new DefaultPointcutAdvisor(pointcut, transactionInterceptor);
     }
 
 }

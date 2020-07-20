@@ -14,6 +14,10 @@ import org.springframework.context.ApplicationContext;
 @Slf4j
 public class SpringContextUtil {
 
+    private SpringContextUtil() {
+    }
+
+
     private static ApplicationContext applicationContext;
 
     public static ApplicationContext getApplicationContext() {

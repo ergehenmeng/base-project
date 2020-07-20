@@ -27,11 +27,19 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class ControllerAdviceHandler {
 
-    @Autowired
     private ExceptionLogService exceptionLogService;
 
-    @Autowired
     private TaskHandler taskHandler;
+
+    @Autowired
+    public void setExceptionLogService(ExceptionLogService exceptionLogService) {
+        this.exceptionLogService = exceptionLogService;
+    }
+
+    @Autowired
+    public void setTaskHandler(TaskHandler taskHandler) {
+        this.taskHandler = taskHandler;
+    }
 
     /**
      * 业务异常统一拦截

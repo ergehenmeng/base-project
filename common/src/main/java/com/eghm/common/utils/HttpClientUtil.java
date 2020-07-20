@@ -30,6 +30,9 @@ import java.util.Map;
 @Slf4j
 public class HttpClientUtil {
 
+    private HttpClientUtil() {
+    }
+
     /**
      * get请求参数符号
      */
@@ -161,7 +164,7 @@ public class HttpClientUtil {
             }
             return list.toArray(new Header[]{});
         }
-        return null;
+        return new Header[]{};
     }
 
     /**

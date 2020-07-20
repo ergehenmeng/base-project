@@ -22,11 +22,19 @@ import java.util.List;
 @Transactional(rollbackFor = RuntimeException.class)
 public class SystemCacheServiceImpl implements SystemCacheService {
 
-    @Autowired
     private SystemCacheMapper systemCacheMapper;
 
-    @Autowired
     private ClearCacheService clearCacheService;
+
+    @Autowired
+    public void setSystemCacheMapper(SystemCacheMapper systemCacheMapper) {
+        this.systemCacheMapper = systemCacheMapper;
+    }
+
+    @Autowired
+    public void setClearCacheService(ClearCacheService clearCacheService) {
+        this.clearCacheService = clearCacheService;
+    }
 
     @Override
     public void clearCache(List<String> cacheNames) {

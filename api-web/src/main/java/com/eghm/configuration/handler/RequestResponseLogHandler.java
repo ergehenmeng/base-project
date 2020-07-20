@@ -26,8 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class RequestResponseLogHandler {
 
-    @Autowired
     private Gson gson;
+
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加

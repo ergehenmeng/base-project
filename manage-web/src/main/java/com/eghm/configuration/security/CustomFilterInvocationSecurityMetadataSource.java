@@ -27,8 +27,12 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 
     private final Map<String, Collection<ConfigAttribute>> map = new ConcurrentHashMap<>(256);
 
-    @Autowired
     private SystemMenuService systemMenuService;
+
+    @Autowired
+    public void setSystemMenuService(SystemMenuService systemMenuService) {
+        this.systemMenuService = systemMenuService;
+    }
 
     /**
      * 重新加载所有菜单权限
@@ -66,14 +70,14 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 
 
     @Override
-    public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+    public Collection<ConfigAttribute> getAttributes(Object object) {
         HttpServletRequest request = ((FilterInvocation) object).getRequest();
         for (Map.Entry<String, Collection<ConfigAttribute>> entry : map.entrySet()) {
             if (new AntPathRequestMatcher(entry.getKey()).matches(request)) {
                 return entry.getValue();
             }
         }
-        return null;
+        return new ArrayList<>(1);
     }
 
     @Override

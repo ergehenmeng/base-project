@@ -32,17 +32,33 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class ImageLogController extends AbstractController {
 
-    @Autowired
     private ImageLogService imageLogService;
 
-    @Autowired
     private CacheProxyService cacheProxyService;
 
-    @Autowired
     private FileService fileService;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
+
+    @Autowired
+    public void setImageLogService(ImageLogService imageLogService) {
+        this.imageLogService = imageLogService;
+    }
+
+    @Autowired
+    public void setCacheProxyService(CacheProxyService cacheProxyService) {
+        this.cacheProxyService = cacheProxyService;
+    }
+
+    @Autowired
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
 
     /**
      * 图片列表页面

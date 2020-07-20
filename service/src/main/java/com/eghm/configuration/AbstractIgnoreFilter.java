@@ -23,11 +23,6 @@ public abstract class AbstractIgnoreFilter implements Filter {
     private List<String> exclude = Lists.newArrayListWithCapacity(4);
 
     /**
-     * 忽略的parameter字段名称
-     */
-    private static final String EXCLUDE = "exclude";
-
-    /**
      * url分隔符
      */
     private static final String DELIMITERS = ";";
@@ -38,7 +33,7 @@ public abstract class AbstractIgnoreFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-        String param = filterConfig.getInitParameter(EXCLUDE);
+        String param = filterConfig.getInitParameter("exclude");
         if (StringUtil.isNotEmpty(param)) {
             String[] array = StringUtils.tokenizeToStringArray(param, DELIMITERS);
             exclude.addAll(Lists.newArrayList(array));

@@ -36,11 +36,19 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FileServiceImpl implements FileService {
 
-    @Autowired
     private ApplicationProperties applicationProperties;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
+
+    @Autowired
+    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
 
     @Override
     public FilePath saveFile(@NotNull MultipartFile file) {
@@ -142,11 +150,9 @@ public class FileServiceImpl implements FileService {
     private File createFile(String filePath) {
         File file = new File(this.getFullPath(filePath));
         File parentFile = file.getParentFile();
-        if (!parentFile.exists()) {
-            if (!parentFile.mkdirs()) {
-                log.error("文件目录创建失败:[{}]", parentFile.getAbsoluteFile());
-                throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
-            }
+        if (!parentFile.exists() && !parentFile.mkdirs()) {
+            log.error("文件目录创建失败:[{}]", parentFile.getAbsoluteFile());
+            throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
         return file;
     }

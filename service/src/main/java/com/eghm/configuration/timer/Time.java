@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class Time {
 
+    private Time() {
+    }
     /**
      * 获取系统nanoTime,并纳秒值转换为毫秒值
      * @return 毫秒值

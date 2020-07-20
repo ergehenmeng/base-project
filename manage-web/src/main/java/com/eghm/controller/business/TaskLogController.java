@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TaskLogController {
 
-    @Autowired
     private TaskLogService taskLogService;
+
+    @Autowired
+    public void setTaskLogService(TaskLogService taskLogService) {
+        this.taskLogService = taskLogService;
+    }
 
     /**
      * 分页查询定时任务列表

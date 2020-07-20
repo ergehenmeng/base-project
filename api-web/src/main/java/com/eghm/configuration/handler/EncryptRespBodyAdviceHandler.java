@@ -31,8 +31,12 @@ import javax.annotation.Nullable;
 @SuppressWarnings("rawtypes")
 public class EncryptRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
-    @Autowired
     private Gson gson;
+
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
 
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {

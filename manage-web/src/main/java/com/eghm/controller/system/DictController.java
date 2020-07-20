@@ -1,12 +1,12 @@
 package com.eghm.controller.system;
 
 import com.eghm.annotation.Mark;
+import com.eghm.dao.model.system.SystemDict;
 import com.eghm.model.dto.system.dict.DictAddRequest;
 import com.eghm.model.dto.system.dict.DictEditRequest;
 import com.eghm.model.dto.system.dict.DictQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
-import com.eghm.dao.model.system.SystemDict;
 import com.eghm.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +22,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class DictController {
 
-    @Autowired
     private SystemDictService systemDictService;
+
+    @Autowired
+    public void setSystemDictService(SystemDictService systemDictService) {
+        this.systemDictService = systemDictService;
+    }
 
     /**
      * 分页查询数据字典列表

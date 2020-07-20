@@ -13,14 +13,10 @@ public class SystemAuthenticationException extends AuthenticationException {
 
     private static final long serialVersionUID = 645673408616288144L;
 
-    private int code;
-
-    private SystemAuthenticationException(String msg) {
-        super(msg);
-    }
+    private final int code;
 
     SystemAuthenticationException(ErrorCode codeEnum) {
-        this(codeEnum.getMsg());
+        super(codeEnum.getMsg());
         this.code = codeEnum.getCode();
     }
 

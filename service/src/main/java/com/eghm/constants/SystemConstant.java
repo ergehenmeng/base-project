@@ -8,6 +8,10 @@ import java.io.File;
  */
 public class SystemConstant {
 
+    private SystemConstant() {
+
+    }
+
     /**
      * 全局字符集 utf-8
      */

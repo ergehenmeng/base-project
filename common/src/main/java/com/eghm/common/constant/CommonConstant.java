@@ -9,6 +9,9 @@ import java.nio.charset.StandardCharsets;
  */
 public class CommonConstant {
 
+    private CommonConstant() {
+    }
+
     /**
      * 系统默认字符集
      */
@@ -28,4 +31,9 @@ public class CommonConstant {
      * app版本上传目录文件夹名称
      */
     public static final String VERSION = "version";
+
+    /**
+     * url分隔符
+     */
+    public static final String SEPARATOR = "/";
 }

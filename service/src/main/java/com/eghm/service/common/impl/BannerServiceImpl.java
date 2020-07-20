@@ -9,8 +9,8 @@ import com.eghm.model.dto.business.banner.BannerEditRequest;
 import com.eghm.model.dto.business.banner.BannerQueryRequest;
 import com.eghm.service.common.BannerService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -43,7 +43,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public PageInfo<Banner> getByPage(BannerQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<Banner> list = bannerMapper.getList(request);
         return new PageInfo<>(list);
     }

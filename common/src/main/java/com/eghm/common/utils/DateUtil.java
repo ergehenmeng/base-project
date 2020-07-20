@@ -2,7 +2,6 @@ package com.eghm.common.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -38,8 +37,6 @@ public class DateUtil extends DateUtils {
     private static final DateTimeFormatter TIMES_FORMAT = DateTimeFormatter.ofPattern(TIMES);
 
     private static final DateTimeFormatter SHORT_LIMIT_FORMAT = DateTimeFormatter.ofPattern(SHORT_DATE_LIMIT);
-
-    private static final FastDateFormat FAST_DATE_FORMAT = FastDateFormat.getInstance(LONG_DATE);
 
     /**
      * 格式化日期 yyyy-MM-dd HH:mm:ss

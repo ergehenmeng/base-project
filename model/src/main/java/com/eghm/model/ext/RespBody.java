@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import java.io.Serializable;
-
 /**
  * 用于返回前台的结果集 json
  *
@@ -15,9 +13,7 @@ import java.io.Serializable;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @ApiModel("响应基础对象")
-public class RespBody<T> implements Serializable {
-
-    private static final long serialVersionUID = 1574813862539970945L;
+public class RespBody<T> {
 
     /**
      * 代码 默认200为成功
@@ -41,12 +37,6 @@ public class RespBody<T> implements Serializable {
     }
 
     private RespBody(T data) {
-        this.data = data;
-    }
-
-    private RespBody(int code, String msg, T data) {
-        this.code = code;
-        this.msg = msg;
         this.data = data;
     }
 

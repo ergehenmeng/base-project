@@ -7,6 +7,9 @@ package com.eghm.common.constant;
  */
 public class VersionConstant {
 
+    private VersionConstant() {
+    }
+
     /**
      * 当前使用的版本
      */

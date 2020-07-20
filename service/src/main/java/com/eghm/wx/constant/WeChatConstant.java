@@ -6,9 +6,11 @@ package com.eghm.wx.constant;
  */
 public class WeChatConstant {
 
+    private WeChatConstant() {
+    }
+
     public static final String ACCESS_TOKEN = "https://api.weixin.qq.com/cgi-bin/token";
 
     public static final String CREATE_MENU = "https://api.weixin.qq.com/cgi-bin/menu/create";
-
 
 }

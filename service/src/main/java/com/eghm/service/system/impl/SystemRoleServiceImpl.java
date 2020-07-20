@@ -8,8 +8,8 @@ import com.eghm.model.dto.system.role.RoleEditRequest;
 import com.eghm.model.dto.system.role.RoleQueryRequest;
 import com.eghm.service.system.SystemRoleService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class SystemRoleServiceImpl implements SystemRoleService {
 
     @Override
     public PageInfo<SystemRole> getByPage(RoleQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SystemRole> list = systemRoleMapper.getList(request);
         return new PageInfo<>(list);
     }

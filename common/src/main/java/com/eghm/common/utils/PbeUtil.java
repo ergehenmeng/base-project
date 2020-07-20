@@ -13,6 +13,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * PBE加密 对比DES 增加盐作为混淆
@@ -22,6 +23,9 @@ import java.nio.charset.Charset;
  */
 @Slf4j
 public class PbeUtil {
+
+    private PbeUtil() {
+    }
 
     /**
      * 盐 直接写死
@@ -118,7 +122,7 @@ public class PbeUtil {
             cipher.init(Cipher.DECRYPT_MODE, secretKey, spec);
             byte[] bytes = Base64.decodeBase64(str);
             byte[] result = cipher.doFinal(bytes);
-            return new String(result, Charset.forName("UTF-8"));
+            return new String(result, StandardCharsets.UTF_8);
         } catch (Exception e) {
             log.error("pbe解密失败", e);
             throw new ParameterException(ErrorCode.DECRYPT_ERROR);

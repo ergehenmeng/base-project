@@ -7,6 +7,9 @@ package com.eghm.common.constant;
  */
 public class AppHeader {
 
+    private AppHeader() {
+    }
+
     /**
      * 基础参数 请求渠道
      */

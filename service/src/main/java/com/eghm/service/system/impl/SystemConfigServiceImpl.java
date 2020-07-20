@@ -9,8 +9,8 @@ import com.eghm.dao.model.system.SystemConfig;
 import com.eghm.model.dto.system.config.ConfigEditRequest;
 import com.eghm.model.dto.system.config.ConfigQueryRequest;
 import com.eghm.service.system.SystemConfigService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class SystemConfigServiceImpl implements SystemConfigService {
     @Override
     @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public PageInfo<SystemConfig> getByPage(ConfigQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SystemConfig> list = systemConfigMapper.getList(request);
         return new PageInfo<>(list);
     }

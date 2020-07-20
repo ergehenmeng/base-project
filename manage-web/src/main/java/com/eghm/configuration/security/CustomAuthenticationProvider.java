@@ -6,7 +6,6 @@ import com.eghm.dao.model.system.SystemOperator;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
@@ -28,7 +27,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     }
 
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) {
         ImageCodeAuthenticationDetails principal = (ImageCodeAuthenticationDetails) authentication.getDetails();
         String imageCode = principal.getImageCode();
         String sessionImageCode = principal.getSessionImageCode();
@@ -39,7 +38,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     }
 
     @Override
-    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) {
         SystemOperator operator = (SystemOperator) userDetails;
         if (!encoder.matches((String) authentication.getCredentials(), operator.getPwd())) {
             throw new SystemAuthenticationException(ErrorCode.ACCOUNT_PASSWORD_ERROR);

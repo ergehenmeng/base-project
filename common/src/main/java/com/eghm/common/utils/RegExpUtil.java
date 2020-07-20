@@ -10,6 +10,9 @@ import java.util.regex.Pattern;
  */
 public class RegExpUtil {
 
+    private RegExpUtil() {
+    }
+
     /**
      * 身份证校验正则表达式
      */

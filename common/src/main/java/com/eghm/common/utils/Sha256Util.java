@@ -17,6 +17,9 @@ import java.security.MessageDigest;
 @Slf4j
 public class Sha256Util {
 
+    private Sha256Util() {
+    }
+
     /**
      * sha256加密
      *

@@ -4,8 +4,8 @@ import com.eghm.dao.mapper.business.TaskLogMapper;
 import com.eghm.dao.model.business.TaskLog;
 import com.eghm.model.dto.business.task.TaskLogQueryRequest;
 import com.eghm.service.common.TaskLogService;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +31,7 @@ public class TaskLogServiceImpl implements TaskLogService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public PageInfo<TaskLog> getByPage(TaskLogQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<TaskLog> list = taskLogMapper.getList(request);
         return new PageInfo<>(list);
     }

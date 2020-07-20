@@ -11,8 +11,8 @@ import com.eghm.model.vo.notice.TopNoticeVO;
 import com.eghm.service.common.SystemNoticeService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -65,7 +65,7 @@ public class SystemNoticeServiceImpl implements SystemNoticeService {
 
     @Override
     public PageInfo<SystemNotice> getByPage(NoticeQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SystemNotice> list = systemNoticeMapper.getList(request);
         return new PageInfo<>(list);
     }

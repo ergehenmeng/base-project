@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -21,6 +22,9 @@ import java.util.function.Function;
 @Slf4j
 public class DataUtil {
 
+    private DataUtil() {
+    }
+
     /**
      * 分页数据格式转换
      *
@@ -28,7 +32,7 @@ public class DataUtil {
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S, T> Paging<T> convert(PageInfo<S> pageInfo, Function<S, T> transfer) {
+    public static <S, T extends Serializable> Paging<T> convert(PageInfo<S> pageInfo, Function<S, T> transfer) {
 
         Paging<T> paging = new Paging<>();
 

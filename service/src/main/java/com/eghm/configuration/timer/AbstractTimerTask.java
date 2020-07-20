@@ -51,16 +51,14 @@ public abstract class AbstractTimerTask implements Runnable {
      * 如果存在,先删除旧entry,再赋值
      * @param entry 新entry
      */
-    public void setTimerTaskEntry(TimerTaskEntry entry) {
-        synchronized (this){
-            if(this.timerTaskEntry != null && this.timerTaskEntry != entry){
-                this.timerTaskEntry.remove();
-            }
-            this.timerTaskEntry = entry;
+    public synchronized void setTimerTaskEntry(TimerTaskEntry entry) {
+        if(this.timerTaskEntry != null && this.timerTaskEntry != entry){
+            this.timerTaskEntry.remove();
         }
+        this.timerTaskEntry = entry;
     }
 
-    public TimerTaskEntry getTimerTaskEntry() {
+    public synchronized TimerTaskEntry getTimerTaskEntry() {
         return timerTaskEntry;
     }
 
@@ -68,7 +66,4 @@ public abstract class AbstractTimerTask implements Runnable {
         return delayMs;
     }
 
-    public void setDelayMs(long delayMs) {
-        this.delayMs = delayMs;
-    }
 }

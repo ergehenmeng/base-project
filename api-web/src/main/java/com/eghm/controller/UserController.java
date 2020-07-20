@@ -25,12 +25,19 @@ import javax.servlet.http.HttpServletRequest;
 @Api("用户相关接口")
 public class UserController {
 
-    @Autowired
     private TokenService tokenService;
 
-    @Autowired
     private LoginLogService loginLogService;
 
+    @Autowired
+    public void setTokenService(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
+    @Autowired
+    public void setLoginLogService(LoginLogService loginLogService) {
+        this.loginLogService = loginLogService;
+    }
 
     @PostMapping("/user/set_password")
     public RespBody<Object> setPassword(){

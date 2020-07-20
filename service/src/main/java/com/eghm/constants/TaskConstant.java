@@ -7,6 +7,9 @@ package com.eghm.constants;
  */
 public class TaskConstant {
 
+    private TaskConstant() {
+    }
+
     /**
      * 操作日志
      */

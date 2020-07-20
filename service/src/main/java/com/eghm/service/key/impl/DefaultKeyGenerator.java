@@ -38,7 +38,7 @@ public class DefaultKeyGenerator implements KeyGenerator {
     /**
      * 自增序列最大值 4095,如果同一毫秒生成序列超过4095个,会等待下一毫秒再生成
      */
-    private static final long SEQUENCE_MASK = (1 << SEQUENCE_BITS) - 1;
+    private static final long SEQUENCE_MASK = (1L << SEQUENCE_BITS) - 1;
 
     /**
      * 机器id左移长度

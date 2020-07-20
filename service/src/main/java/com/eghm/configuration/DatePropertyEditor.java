@@ -14,7 +14,7 @@ import java.beans.PropertyEditorSupport;
 public class DatePropertyEditor extends PropertyEditorSupport {
 
     @Override
-    public void setAsText(String text) throws IllegalArgumentException {
+    public void setAsText(String text) {
 
         try {
             if (StringUtil.isNotBlank(text)) {

@@ -16,14 +16,26 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class FreemarkerConfiguration {
 
-    @Autowired
     private freemarker.template.Configuration configuration;
 
-    @Autowired
     private DictDirectiveModel dictDirectiveModel;
 
-    @Autowired
     private AuthDirectiveModel authDirectiveModel;
+
+    @Autowired
+    public void setConfiguration(freemarker.template.Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    @Autowired
+    public void setDictDirectiveModel(DictDirectiveModel dictDirectiveModel) {
+        this.dictDirectiveModel = dictDirectiveModel;
+    }
+
+    @Autowired
+    public void setAuthDirectiveModel(AuthDirectiveModel authDirectiveModel) {
+        this.authDirectiveModel = authDirectiveModel;
+    }
 
     /**
      * 加载自定义宏和全局定义的宏

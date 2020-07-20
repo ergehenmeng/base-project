@@ -17,8 +17,13 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class ContextWebListener implements ServletContextListener {
 
-    @Autowired
+
     private ApplicationProperties applicationProperties;
+
+    @Autowired
+    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
@@ -27,8 +32,4 @@ public class ContextWebListener implements ServletContextListener {
         servletContext.setAttribute("version", applicationProperties.getVersion());
     }
 
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-
-    }
 }

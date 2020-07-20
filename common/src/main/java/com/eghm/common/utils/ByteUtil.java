@@ -8,6 +8,9 @@ package com.eghm.common.utils;
  */
 public class ByteUtil {
 
+    private ByteUtil() {
+    }
+
     /**
      * 16进制数组
      */

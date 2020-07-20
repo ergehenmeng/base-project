@@ -28,11 +28,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class ConfigController extends AbstractController {
 
-    @Autowired
     private SystemConfigService systemConfigService;
 
-    @Autowired
     private CacheProxyService cacheProxyService;
+
+    @Autowired
+    public void setSystemConfigService(SystemConfigService systemConfigService) {
+        this.systemConfigService = systemConfigService;
+    }
+
+    @Autowired
+    public void setCacheProxyService(CacheProxyService cacheProxyService) {
+        this.cacheProxyService = cacheProxyService;
+    }
 
     @PostMapping("/system/config/edit")
     @ResponseBody

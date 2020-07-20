@@ -23,11 +23,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TaskConfigController {
 
-    @Autowired
     private TaskConfigService taskConfigService;
 
-    @Autowired
     private SystemTaskRegistrar systemTaskRegistrar;
+
+    @Autowired
+    public void setTaskConfigService(TaskConfigService taskConfigService) {
+        this.taskConfigService = taskConfigService;
+    }
+
+    @Autowired
+    public void setSystemTaskRegistrar(SystemTaskRegistrar systemTaskRegistrar) {
+        this.systemTaskRegistrar = systemTaskRegistrar;
+    }
 
     /**
      * 分页查询定时任务列表

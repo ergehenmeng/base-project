@@ -7,8 +7,8 @@ import com.eghm.model.dto.business.image.ImageEditRequest;
 import com.eghm.model.dto.business.image.ImageQueryRequest;
 import com.eghm.service.common.ImageLogService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     @Override
     public PageInfo<ImageLog> getByPage(ImageQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<ImageLog> list = imageLogMapper.getList(request);
         return new PageInfo<>(list);
     }

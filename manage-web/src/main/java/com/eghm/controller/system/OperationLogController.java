@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class OperationLogController {
 
-    @Autowired
     private OperationLogService operationLogService;
+
+    @Autowired
+    public void setOperationLogService(OperationLogService operationLogService) {
+        this.operationLogService = operationLogService;
+    }
 
     /**
      * 操作日期查询请求

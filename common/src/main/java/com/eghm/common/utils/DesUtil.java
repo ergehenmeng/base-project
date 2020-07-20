@@ -22,6 +22,9 @@ import javax.crypto.spec.SecretKeySpec;
 @Slf4j
 public class DesUtil {
 
+    private DesUtil() {
+    }
+
     /**
      * DES算法填充方式
      */

@@ -8,8 +8,8 @@ import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +35,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     @Override
     public PageInfo<FeedbackVO> getByPage(FeedbackQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<FeedbackVO> list = feedbackLogMapper.getList(request);
         return new PageInfo<>(list);
     }

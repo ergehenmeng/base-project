@@ -14,6 +14,8 @@ import java.time.LocalDate;
  */
 public class BankCardUtil {
 
+    private BankCardUtil() {
+    }
 
     /**
      * 身份证号码长度 默认18位

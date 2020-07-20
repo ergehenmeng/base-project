@@ -7,8 +7,8 @@ import com.eghm.model.dto.business.help.HelpEditRequest;
 import com.eghm.model.dto.business.help.HelpQueryRequest;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +48,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
 
     @Override
     public PageInfo<HelpCenter> getByPage(HelpQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<HelpCenter> list = helpCenterMapper.getList(request);
         return new PageInfo<>(list);
     }

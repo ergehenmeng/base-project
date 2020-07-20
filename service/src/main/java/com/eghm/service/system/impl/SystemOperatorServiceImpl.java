@@ -15,8 +15,8 @@ import com.eghm.model.dto.system.operator.OperatorQueryRequest;
 import com.eghm.model.dto.system.operator.PasswordEditRequest;
 import com.eghm.service.system.SystemOperatorService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,7 +67,7 @@ public class SystemOperatorServiceImpl implements SystemOperatorService {
 
     @Override
     public PageInfo<SystemOperator> getByPage(OperatorQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SystemOperator> list = systemOperatorMapper.getList(request);
         return new PageInfo<>(list);
     }

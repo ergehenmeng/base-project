@@ -7,6 +7,9 @@ package com.eghm.common.constant;
  */
 public class SecurityParam {
 
+    private SecurityParam() {
+    }
+
     /**
      * 图形验证码key
      */

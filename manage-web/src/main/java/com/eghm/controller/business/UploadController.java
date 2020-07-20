@@ -16,8 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class UploadController {
 
-    @Autowired
     private FileService fileService;
+
+    @Autowired
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
+    }
 
     /**
      * 文件上传

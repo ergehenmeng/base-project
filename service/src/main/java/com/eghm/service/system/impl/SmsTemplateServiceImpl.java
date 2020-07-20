@@ -7,8 +7,8 @@ import com.eghm.model.dto.business.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.business.sms.SmsTemplateQueryRequest;
 import com.eghm.service.system.SmsTemplateService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     @Override
     public PageInfo<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
-        PageHelper.startPage(request.getPage(), request.getPageSize());
+        PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SmsTemplate> list = smsTemplateMapper.getList(request);
         return new PageInfo<>(list);
     }

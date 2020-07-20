@@ -37,11 +37,19 @@ public class CacheServiceImpl implements CacheService {
 
     private ListOperations<String, String> opsForList;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
 
-    @Autowired
     private Gson gson;
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
+
+    @Autowired
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
 
     /**
      * 默认过期数据
@@ -120,7 +128,7 @@ public class CacheServiceImpl implements CacheService {
             Thread.sleep(50);
         } catch (InterruptedException e) {
             log.error("缓存互斥锁中断异常 key:[{}]", key, e);
-            return null;
+            Thread.currentThread().interrupt();
         }
         // 递归获取
         return this.doSupplier(key, supplier);

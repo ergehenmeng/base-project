@@ -15,6 +15,9 @@ import java.security.MessageDigest;
 @Slf4j
 public class Md5Util {
 
+    private Md5Util() {
+    }
+
     /**
      * md5加密
      *

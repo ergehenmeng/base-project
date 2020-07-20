@@ -29,15 +29,26 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class VersionController {
 
-    @Autowired
     private VersionService versionService;
 
-    @Autowired
     private FileService fileService;
 
-    @Autowired
     private SystemConfigApi systemConfigApi;
 
+    @Autowired
+    public void setVersionService(VersionService versionService) {
+        this.versionService = versionService;
+    }
+
+    @Autowired
+    public void setFileService(FileService fileService) {
+        this.fileService = fileService;
+    }
+
+    @Autowired
+    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
+        this.systemConfigApi = systemConfigApi;
+    }
 
     /**
      * app版本管理列表

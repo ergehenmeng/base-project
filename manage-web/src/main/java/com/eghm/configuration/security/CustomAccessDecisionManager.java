@@ -3,7 +3,6 @@ package com.eghm.configuration.security;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.FilterInvocation;
@@ -19,9 +18,9 @@ import java.util.Collection;
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
     @Override
-    public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
+    public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) {
         //可能是公共页面访问
-        if (authentication == null || configAttributes == null || configAttributes.size() <= 0) {
+        if (authentication == null || configAttributes == null || configAttributes.isEmpty()) {
             return;
         }
         for (ConfigAttribute attribute : configAttributes) {

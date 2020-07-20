@@ -25,11 +25,19 @@ import java.util.List;
 @Service("cacheProxyService")
 public class CacheProxyServiceImpl implements CacheProxyService {
 
-    @Autowired
     private SystemDictService systemDictService;
 
-    @Autowired
     private BlackRosterService blackRosterService;
+
+    @Autowired
+    public void setSystemDictService(SystemDictService systemDictService) {
+        this.systemDictService = systemDictService;
+    }
+
+    @Autowired
+    public void setBlackRosterService(BlackRosterService blackRosterService) {
+        this.blackRosterService = blackRosterService;
+    }
 
     @Override
     public String getDictValue(String nid, Byte hiddenValue) {

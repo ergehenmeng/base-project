@@ -28,8 +28,12 @@ import java.util.List;
 @Controller
 public class RoleController {
 
-    @Autowired
     private SystemRoleService systemRoleService;
+
+    @Autowired
+    public void setSystemRoleService(SystemRoleService systemRoleService) {
+        this.systemRoleService = systemRoleService;
+    }
 
     /**
      * 根据条件分页查询角色列表

@@ -28,8 +28,12 @@ import javax.servlet.http.HttpServletRequest;
 @Api(tags = "登陆,找回密码功能")
 public class LoginController {
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 发送登陆验证码❶

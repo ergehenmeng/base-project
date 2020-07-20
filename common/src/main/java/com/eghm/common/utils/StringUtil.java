@@ -8,7 +8,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 字符串日常工具类
@@ -77,11 +77,10 @@ public class StringUtil extends StringUtils {
         if (length < 0) {
             return null;
         }
-        Random random = new Random();
         StringBuilder builder = new StringBuilder();
         do {
             length--;
-            builder.append(scope.charAt(random.nextInt(scope.length())));
+            builder.append(scope.charAt(ThreadLocalRandom.current().nextInt(scope.length())));
         } while (length > 0);
         return builder.toString();
     }

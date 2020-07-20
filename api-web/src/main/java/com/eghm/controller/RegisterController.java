@@ -26,8 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 @Api("注册")
 public class RegisterController {
 
-    @Autowired
     private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * 注册发送短信验证码❶

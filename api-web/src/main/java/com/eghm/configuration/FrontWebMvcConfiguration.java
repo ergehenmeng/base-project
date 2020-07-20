@@ -2,7 +2,10 @@ package com.eghm.configuration;
 
 import com.eghm.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.configuration.filter.IpBlackListFilter;
-import com.eghm.interceptor.*;
+import com.eghm.interceptor.AccessTokenHandlerInterceptor;
+import com.eghm.interceptor.ClientTypeHandlerInterceptor;
+import com.eghm.interceptor.JsonExtractHandlerArgumentResolver;
+import com.eghm.interceptor.MessageHandlerInterceptor;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -34,11 +37,6 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      * 移动端请求地址
      */
     private static final String[] MOBILE_INCLUDE_URL = {"/api/**"};
-
-    /**
-     * 小程序端请求地址
-     */
-    private static final String[] APPLET_URL = {"/applet/**"};
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

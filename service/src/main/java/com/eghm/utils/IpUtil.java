@@ -14,6 +14,8 @@ import java.net.InetAddress;
 @Slf4j
 public class IpUtil {
 
+    private IpUtil() {
+    }
 
     private static final long MAX_IP = 0xffffffff;
 

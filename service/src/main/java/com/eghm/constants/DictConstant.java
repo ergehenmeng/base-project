@@ -7,6 +7,9 @@ package com.eghm.constants;
  */
 public class DictConstant {
 
+    private DictConstant() {
+    }
+
     /**
      * 图片上传,图片分类
      */

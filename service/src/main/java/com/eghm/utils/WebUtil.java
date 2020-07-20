@@ -16,6 +16,9 @@ import java.io.PrintWriter;
  */
 public class WebUtil {
 
+    private WebUtil() {
+    }
+
     /**
      * 直接返回前台json格式信息
      *

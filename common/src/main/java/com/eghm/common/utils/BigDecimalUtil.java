@@ -9,6 +9,9 @@ import java.text.DecimalFormat;
  */
 public class BigDecimalUtil {
 
+    private BigDecimalUtil() {
+    }
+
     /**
      * 除法精度
      */

@@ -18,11 +18,11 @@ import java.io.IOException;
  */
 public class IpBlackListFilter implements Filter {
 
-    @Autowired
     private CacheProxyService cacheProxyService;
 
-    @Override
-    public void init(FilterConfig filterConfig) {
+    @Autowired
+    public void setCacheProxyService(CacheProxyService cacheProxyService) {
+        this.cacheProxyService = cacheProxyService;
     }
 
     @Override
@@ -37,7 +37,4 @@ public class IpBlackListFilter implements Filter {
         }
     }
 
-    @Override
-    public void destroy() {
-    }
 }
