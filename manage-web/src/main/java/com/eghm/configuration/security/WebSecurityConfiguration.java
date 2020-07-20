@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.util.StringUtils;
 
 /**
  * spring security权限配置
@@ -69,8 +68,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		//Iframe同一域名内可以访问
 		http.headers().frameOptions().sameOrigin();
 		http.authorizeRequests()
-				.antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getIgnoreUrl(), ";")).permitAll()
-				.antMatchers(StringUtils.tokenizeToStringArray(applicationProperties.getLoginIgnoreUrl(), ";")).fullyAuthenticated()
+				.antMatchers(applicationProperties.getIgnoreUrl()).permitAll()
+				.antMatchers(applicationProperties.getLoginIgnoreUrl()).fullyAuthenticated()
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()

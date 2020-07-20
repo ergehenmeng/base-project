@@ -2,8 +2,8 @@
   "group": [
     {
       "name": "application",
-      "type": "com.fanyin.configuration.ApplicationProperties",
-      "sourceType": "com.fanyin.configuration.ApplicationProperties"
+      "type": "com.eghm.configuration.ApplicationProperties",
+      "sourceType": "com.eghm.configuration.ApplicationProperties"
     }
   ],
   "properties": [
@@ -17,16 +17,16 @@
     {
       "sourceType": "com.eghm.configuration.ApplicationProperties",
       "name": "application.ignore-url",
-      "defaultValue": "/;/index/;/captcha;/**/captcha",
       "description": "未登录,需要忽略拦截的url",
-      "type": "java.lang.String"
+      "type": "java.lang.String[]",
+      "defaultValue": ["/", "/index", "/captcha", "/**/captcha"]
     },
     {
       "sourceType": "com.eghm.configuration.ApplicationProperties",
       "name": "application.login-ignore-url",
-      "defaultValue": "/main;/portal;",
       "description": "登陆后,需要忽略拦截的url",
-      "type": "java.lang.String"
+      "type": "java.lang.String[]",
+      "defaultValue": ["/main", "/portal"]
     },
     {
       "sourceType": "com.eghm.configuration.ApplicationProperties",

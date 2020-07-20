@@ -1,0 +1,47 @@
+## tomcat配置
+server:
+  servlet:
+    session:
+      timeout: 1800s
+  tomcat:
+    uri-encoding: UTF-8
+## spring应用上下文配置
+spring:
+  application:
+    name: manage
+  profiles:
+    ## 环境切换
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 500MB
+  main:
+    web-application-type: servlet
+  mvc:
+    static-path-pattern: /static/**
+  jackson:
+    time-zone: GMT+8
+  ## freemarker配置
+  freemarker:
+    suffix: .ftl
+    ## freemarker内置参数设置
+    settings:
+      template_update_delay: 60s
+      number_format: 0.##
+      default_encoding: UTF-8
+      output_encoding: UTF-8
+      url_escaping_charset: UTF-8
+      locale: zh_CN
+      time_format: HH:mm:ss
+      date_format: yyyy-MM-dd
+      datetime_format: yyyy-MM-dd HH:mm:ss
+    template-loader-path: classpath:/templates/,file:////usr/local/template
+    cache: true
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+## mybatis配置
+mybatis:
+  config-location: classpath:mapper/**/*.xml
+

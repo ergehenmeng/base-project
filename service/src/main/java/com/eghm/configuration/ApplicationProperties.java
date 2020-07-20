@@ -1,6 +1,5 @@
 package com.eghm.configuration;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = ApplicationProperties.PREFIX)
 @Component
-@Data
 public class ApplicationProperties {
 
     protected static final String PREFIX = "application";
@@ -24,12 +22,12 @@ public class ApplicationProperties {
     /**
      * 未登陆忽略,不拦截的地址
      */
-    private String ignoreUrl;
+    private String[] ignoreUrl = new String[]{};
 
     /**
      * 已登录 忽略的地址
      */
-    private String loginIgnoreUrl;
+    private String[] loginIgnoreUrl = new String[]{};
 
     /**
      * 上传文件保存的文件夹目录
@@ -40,4 +38,44 @@ public class ApplicationProperties {
      * 是否开启定时任务
      */
     private boolean job;
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String[] getIgnoreUrl() {
+        return ignoreUrl;
+    }
+
+    public void setIgnoreUrl(String... ignoreUrl) {
+        this.ignoreUrl = ignoreUrl;
+    }
+
+    public String[] getLoginIgnoreUrl() {
+        return loginIgnoreUrl;
+    }
+
+    public void setLoginIgnoreUrl(String... loginIgnoreUrl) {
+        this.loginIgnoreUrl = loginIgnoreUrl;
+    }
+
+    public String getUploadDir() {
+        return uploadDir;
+    }
+
+    public void setUploadDir(String uploadDir) {
+        this.uploadDir = uploadDir;
+    }
+
+    public boolean isJob() {
+        return job;
+    }
+
+    public void setJob(boolean job) {
+        this.job = job;
+    }
 }
