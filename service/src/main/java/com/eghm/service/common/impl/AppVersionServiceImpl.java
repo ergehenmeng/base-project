@@ -5,14 +5,14 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.VersionUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.mapper.business.VersionMapper;
-import com.eghm.dao.model.business.Version;
+import com.eghm.dao.mapper.business.AppVersionMapper;
+import com.eghm.dao.model.business.AppVersion;
 import com.eghm.model.dto.business.version.VersionAddRequest;
 import com.eghm.model.dto.business.version.VersionEditRequest;
 import com.eghm.model.dto.business.version.VersionQueryRequest;
 import com.eghm.model.ext.RequestThreadLocal;
-import com.eghm.model.vo.version.VersionVO;
-import com.eghm.service.common.VersionService;
+import com.eghm.model.vo.version.AppVersionVO;
+import com.eghm.service.common.AppVersionService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -31,15 +31,15 @@ import java.util.List;
  */
 @Service("versionService")
 @Transactional(rollbackFor = RuntimeException.class)
-public class VersionServiceImpl implements VersionService {
+public class AppVersionServiceImpl implements AppVersionService {
 
-    private VersionMapper versionMapper;
+    private AppVersionMapper appVersionMapper;
 
     private SystemConfigApi systemConfigApi;
 
     @Autowired
-    public void setVersionMapper(VersionMapper versionMapper) {
-        this.versionMapper = versionMapper;
+    public void setAppVersionMapper(AppVersionMapper appVersionMapper) {
+        this.appVersionMapper = appVersionMapper;
     }
 
     @Autowired
@@ -48,58 +48,58 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
-    public PageInfo<Version> getByPage(VersionQueryRequest request) {
+    public PageInfo<AppVersion> getByPage(VersionQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<Version> list = versionMapper.getList(request);
+        List<AppVersion> list = appVersionMapper.getList(request);
         return new PageInfo<>(list);
     }
 
     @Override
     public void addAppVersion(VersionAddRequest request) {
-        Version version = DataUtil.copy(request, Version.class);
-        versionMapper.insertSelective(version);
+        AppVersion version = DataUtil.copy(request, AppVersion.class);
+        appVersionMapper.insertSelective(version);
     }
 
     @Override
     public void editAppVersion(VersionEditRequest request) {
-        Version version = DataUtil.copy(request, Version.class);
-        versionMapper.updateByPrimaryKeySelective(version);
+        AppVersion version = DataUtil.copy(request, AppVersion.class);
+        appVersionMapper.updateByPrimaryKeySelective(version);
     }
 
     @Override
     public void putAwayVersion(Integer id) {
-        Version appVersion = versionMapper.selectByPrimaryKey(id);
-        Version version = versionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
+        AppVersion appVersion = appVersionMapper.selectByPrimaryKey(id);
+        AppVersion version = appVersionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
         if (version != null) {
             throw new BusinessException(ErrorCode.VERSION_REDO);
         }
         appVersion.setState((byte) 1);
-        versionMapper.updateByPrimaryKeySelective(appVersion);
+        appVersionMapper.updateByPrimaryKeySelective(appVersion);
     }
 
     @Override
     public void soldOutVersion(Integer id) {
-        Version version = new Version();
+        AppVersion version = new AppVersion();
         version.setId(id);
         version.setState((byte) 0);
-        versionMapper.updateByPrimaryKeySelective(version);
+        appVersionMapper.updateByPrimaryKeySelective(version);
     }
 
     @Override
-    public VersionVO getLatestVersion() {
+    public AppVersionVO getLatestVersion() {
         String channel = RequestThreadLocal.getChannel();
-        Version latestVersion = versionMapper.getLatestVersion(channel);
+        AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
         String version = RequestThreadLocal.getVersion();
         //未找到最新版本,或者用户版本大于等于已上架版本
         if (latestVersion == null || VersionUtil.gte(version, latestVersion.getVersion())) {
-            return VersionVO.builder().latest(true).build();
+            return AppVersionVO.builder().latest(true).build();
         }
-        VersionVO response = DataUtil.copy(latestVersion, VersionVO.class);
+        AppVersionVO response = DataUtil.copy(latestVersion, AppVersionVO.class);
         //最新版本是强制更新版本
         if (Boolean.TRUE.equals(latestVersion.getForceUpdate())) {
             return response;
         }
-        Version appVersion = versionMapper.getVersion(channel, version);
+        AppVersion appVersion = appVersionMapper.getVersion(channel, version);
         //未找到用户安装的版本信息,默认不强更
         if (appVersion == null) {
             return response;
@@ -107,7 +107,7 @@ public class VersionServiceImpl implements VersionService {
         //如果用户版本非常老,最新版本不是强制更新版本,但中间某个版本是强制更新,用户一样需要强制更新
         Date addTime = appVersion.getUpdateTime();
         //查询用户版本与最新版本之间的版本
-        List<Version> versionList = versionMapper.getForceUpdateVersion(channel, addTime, latestVersion.getUpdateTime());
+        List<AppVersion> versionList = appVersionMapper.getForceUpdateVersion(channel, addTime, latestVersion.getUpdateTime());
         boolean forceUpdate = !CollectionUtils.isEmpty(versionList);
         response.setForceUpdate(forceUpdate);
         return response;
@@ -118,15 +118,15 @@ public class VersionServiceImpl implements VersionService {
         if (Channel.IOS.name().equals(channel)) {
             return systemConfigApi.getString(ConfigConstant.APP_STORE_URL);
         }
-        Version latestVersion = versionMapper.getLatestVersion(channel);
+        AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
         return latestVersion.getUrl();
     }
 
     @Override
     public void deleteVersion(Integer id) {
-        Version version = new Version();
+        AppVersion version = new AppVersion();
         version.setId(id);
         version.setDeleted(true);
-        versionMapper.updateByPrimaryKeySelective(version);
+        appVersionMapper.updateByPrimaryKeySelective(version);
     }
 }

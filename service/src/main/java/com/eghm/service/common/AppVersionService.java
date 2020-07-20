@@ -1,24 +1,24 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.business.Version;
+import com.eghm.dao.model.business.AppVersion;
 import com.eghm.model.dto.business.version.VersionAddRequest;
 import com.eghm.model.dto.business.version.VersionEditRequest;
 import com.eghm.model.dto.business.version.VersionQueryRequest;
-import com.eghm.model.vo.version.VersionVO;
+import com.eghm.model.vo.version.AppVersionVO;
 import com.github.pagehelper.PageInfo;
 
 /**
  * @author 二哥很猛
  * @date 2019/8/22 14:38
  */
-public interface VersionService {
+public interface AppVersionService {
 
     /**
      * 分页查询app管理列表
      * @param request 查询条件
      * @return 管理列表
      */
-    PageInfo<Version> getByPage(VersionQueryRequest request);
+    PageInfo<AppVersion> getByPage(VersionQueryRequest request);
 
     /**
      * 添加app版本管理信息
@@ -48,7 +48,7 @@ public interface VersionService {
      * 获取最新可用的版本 用于检测是否有新版本
      * @return 版本信息
      */
-    VersionVO getLatestVersion();
+    AppVersionVO getLatestVersion();
 
     /**
      * 获取最新app下载地址

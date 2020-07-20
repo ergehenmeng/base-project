@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.business.VersionMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.Version">
+<mapper namespace="com.eghm.dao.mapper.business.AppVersionMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.AppVersion">
     <!--
       @create by mybatis
     -->
@@ -28,15 +28,15 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from version
+    from app_version
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.Version">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.AppVersion">
     <!--
       @create by mybatis
     -->
-    insert into version
+    insert into app_version
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -96,11 +96,11 @@
         </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.Version">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.AppVersion">
     <!--
       @create by mybatis
     -->
-    update version
+    update app_version
     <set>
       <if test="classify != null">
         classify = #{classify,jdbcType=CHAR},
@@ -131,7 +131,7 @@
   </update>
     <select id="getList" parameterType="com.eghm.model.dto.business.version.VersionQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from version
+        from app_version
         <where>
             <if test="queryName != null and queryName != ''">
                 and version like concat('%',#{queryName},'%')
@@ -147,16 +147,16 @@
 
     <select id="getLatestVersion" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from version where classify = #{classify} and deleted = false and state = 1 order by update_time limit 1
+        from app_version where classify = #{classify} and deleted = false and state = 1 order by update_time limit 1
     </select>
 
     <select id="getVersion" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from version where classify = #{classify} and deleted = false and state = 1 and version = #{version} limit 1
+        from app_version where classify = #{classify} and deleted = false and state = 1 and version = #{version} limit 1
     </select>
 
     <select id="getForceUpdateVersion" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from version where classify = #{classify} and deleted = false and state = 1 and force_update = true and add_time &gt; #{startTime} and add_time &lt;  #{endTime}
+        from app_version where classify = #{classify} and deleted = false and state = 1 and force_update = true and add_time &gt; #{startTime} and add_time &lt;  #{endTime}
     </select>
 </mapper>

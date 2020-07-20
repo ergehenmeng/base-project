@@ -494,10 +494,10 @@ CREATE TABLE `user_ext` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='普通用户扩展信息表';
 
 -- ----------------------------
--- Table structure for version
+-- Table structure for app_version
 -- ----------------------------
-DROP TABLE IF EXISTS `version`;
-CREATE TABLE `version` (
+DROP TABLE IF EXISTS `app_version`;
+CREATE TABLE `app_version` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `classify` char(10) NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
   `version` char(10) NOT NULL COMMENT '版本号:1.2.8',

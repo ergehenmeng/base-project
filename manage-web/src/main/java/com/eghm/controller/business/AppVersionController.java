@@ -3,7 +3,7 @@ package com.eghm.controller.business;
 import com.eghm.annotation.Mark;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.model.business.Version;
+import com.eghm.dao.model.business.AppVersion;
 import com.eghm.model.dto.business.version.VersionAddRequest;
 import com.eghm.model.dto.business.version.VersionEditRequest;
 import com.eghm.model.dto.business.version.VersionQueryRequest;
@@ -11,7 +11,7 @@ import com.eghm.model.ext.FilePath;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.common.FileService;
-import com.eghm.service.common.VersionService;
+import com.eghm.service.common.AppVersionService;
 import com.eghm.service.system.impl.SystemConfigApi;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +27,17 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2019/8/22 15:08
  */
 @Controller
-public class VersionController {
+public class AppVersionController {
 
-    private VersionService versionService;
+    private AppVersionService appVersionService;
 
     private FileService fileService;
 
     private SystemConfigApi systemConfigApi;
 
     @Autowired
-    public void setVersionService(VersionService versionService) {
-        this.versionService = versionService;
+    public void setAppVersionService(AppVersionService appVersionService) {
+        this.appVersionService = appVersionService;
     }
 
     @Autowired
@@ -55,8 +55,8 @@ public class VersionController {
      */
     @PostMapping("/business/version/list_page")
     @ResponseBody
-    public Paging<Version> listPage(VersionQueryRequest request) {
-        PageInfo<Version> byPage = versionService.getByPage(request);
+    public Paging<AppVersion> listPage(VersionQueryRequest request) {
+        PageInfo<AppVersion> byPage = appVersionService.getByPage(request);
         return new Paging<>(byPage);
     }
 
@@ -88,7 +88,7 @@ public class VersionController {
             FilePath filePath = fileService.saveFile(file, CommonConstant.VERSION, maxSize);
             request.setUrl(filePath.getPath());
         }
-        versionService.addAppVersion(request);
+        appVersionService.addAppVersion(request);
         return RespBody.success();
     }
 
@@ -99,7 +99,7 @@ public class VersionController {
     @ResponseBody
     @Mark
     public RespBody<Object> edit(VersionEditRequest request) {
-        versionService.editAppVersion(request);
+        appVersionService.editAppVersion(request);
         return RespBody.success();
     }
 
@@ -112,7 +112,7 @@ public class VersionController {
     @ResponseBody
     @Mark
     public RespBody<Object> putAway(Integer id) {
-        versionService.putAwayVersion(id);
+        appVersionService.putAwayVersion(id);
         return RespBody.success();
     }
 
@@ -125,7 +125,7 @@ public class VersionController {
     @ResponseBody
     @Mark
     public RespBody<Object> soldOut(Integer id) {
-        versionService.soldOutVersion(id);
+        appVersionService.soldOutVersion(id);
         return RespBody.success();
     }
 
@@ -136,7 +136,7 @@ public class VersionController {
     @ResponseBody
     @Mark
     public RespBody<Object> delete(Integer id) {
-        versionService.deleteVersion(id);
+        appVersionService.deleteVersion(id);
         return RespBody.success();
     }
 }
