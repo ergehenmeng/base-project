@@ -27,7 +27,6 @@ public class BankCardUtil {
      */
     private static final int BIRTH_DAY_SHORT = 6;
 
-
     /**
      * 18位身份证隐藏需要的正则表达式
      */
@@ -126,7 +125,7 @@ public class BankCardUtil {
      */
     public static String encryptBirthDay(String idCard) {
         String birthDay = getBirthDay(idCard);
-        return DesUtil.encrypt3Des(birthDay, DEFAULT_DES_PASSWORD);
+        return AesUtil.encrypt(birthDay, DEFAULT_DES_PASSWORD);
     }
 
     /**
@@ -137,7 +136,7 @@ public class BankCardUtil {
      * @return 真实身份证号码 例如:310223198901146831
      */
     public static String decryptIdCard(String idCard, String data) {
-        String s = DesUtil.decrypt3Des(data, DEFAULT_DES_PASSWORD);
+        String s = AesUtil.decrypt(data, DEFAULT_DES_PASSWORD);
         return idCard.replace("****", s);
     }
 
