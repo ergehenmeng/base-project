@@ -74,29 +74,34 @@ public class TimingWheel {
      * @return true:添加成功, false:添加失败,任务已过期或者已取消
      */
     public boolean add(Entry entry) {
-        long expiration = entry.getExpirationMs();
+
+        //任务取消
+        long expireMs = entry.getExpireMs();
         if (entry.cancelled()) {
-            //任务取消
             return false;
-        } else if (expiration < currentTime + scaleMs) {
-            //任务过期
+        }
+
+        //任务过期
+        if (expireMs < currentTime + scaleMs) {
             return false;
-        } else if (expiration < currentTime + interval) {
-            //当前桶内查找
-            long virtualId = expiration / scaleMs;
+        }
+        if (expireMs < (currentTime + interval)) {
+            // 该处定位桶的下标也不分顺序
+            long virtualId = expireMs / scaleMs;
             TaskBucket bucket = buckets[(int) (virtualId % wheelSize)];
             bucket.add(entry);
-            if (bucket.setExpiration(virtualId * scaleMs)) {
+            // 做取证操作,这样每个桶中所有元素的过期时间都相同
+            if (bucket.setExpire(virtualId * scaleMs)) {
                 return queue.offer(bucket);
             }
             return true;
-        } else {
-            //父级桶内查询
-            if (overflowWheel == null) {
-                addOverflowWheel();
-            }
-            return overflowWheel.add(entry);
         }
+
+        // 父桶中添加
+        if (overflowWheel == null) {
+            addOverflowWheel();
+        }
+        return overflowWheel.add(entry);
     }
 
     /**

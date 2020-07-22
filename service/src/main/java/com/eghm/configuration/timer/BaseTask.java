@@ -30,7 +30,7 @@ public abstract class BaseTask implements Runnable {
     }
 
     public BaseTask(Duration duration) {
-        this.delayMs = duration.toMillis();
+        this(duration.toMillis());
     }
 
     @Override

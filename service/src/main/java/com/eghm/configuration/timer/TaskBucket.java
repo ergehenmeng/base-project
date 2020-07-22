@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * 存放任务的列表
@@ -31,6 +30,10 @@ public class TaskBucket implements Delayed {
      */
     private AtomicLong expiration;
 
+    /**
+     * 当前桶中的任务数
+     */
+    private final AtomicInteger taskSize;
 
     public TaskBucket(AtomicInteger taskCounter) {
         this.taskCounter = taskCounter;
@@ -38,41 +41,31 @@ public class TaskBucket implements Delayed {
         this.root.prev = root;
         this.root.next = root;
         this.expiration = new AtomicLong(-1L);
+        this.taskSize = new AtomicInteger();
     }
 
     @Override
     public long getDelay(@Nonnull TimeUnit unit) {
-        long hiresClockMs = System.currentTimeMillis();
-        long expire = getExpiration() - hiresClockMs;
-        return unit.convert(Long.max(expire, 0), TimeUnit.MILLISECONDS);
+        return Long.max(unit.convert(getExpire() - System.currentTimeMillis(), TimeUnit.MILLISECONDS), 0);
     }
 
 
     @Override
     public int compareTo(@Nonnull Delayed o) {
-        TaskBucket other;
-        if (o instanceof TaskBucket) {
-            other = (TaskBucket) o;
-        } else {
+        if (!(o instanceof TaskBucket)) {
             throw new ClassCastException("TimerTaskList类型转换错误");
         }
-
-        if (getExpiration() < other.getExpiration()) {
-            return -1;
-        } else if (getExpiration() > other.getExpiration()) {
-            return 1;
-        }
-        return 0;
+        return Long.compare(this.getExpire(), ((TaskBucket) o).getExpire());
     }
 
     /**
      * 设置 桶的到期时间
      *
-     * @param expirationMs 到期时间 毫秒值
+     * @param expireMs 到期时间 毫秒值
      * @return true 到期时间被改变
      */
-    public boolean setExpiration(Long expirationMs) {
-        return expiration.getAndSet(expirationMs) != expirationMs;
+    public boolean setExpire(Long expireMs) {
+        return expiration.getAndSet(expireMs) != expireMs;
     }
 
     /**
@@ -80,21 +73,21 @@ public class TaskBucket implements Delayed {
      *
      * @return 到期时间
      */
-    public Long getExpiration() {
+    public Long getExpire() {
         return expiration.get();
     }
 
     /**
      * 将提供的函数应用于此列表的每个任务中
      *
-     * @param function 需要执行的函数
+     * @param consumer 需要执行的函数
      */
-    public synchronized void foreach(Function<BaseTask, Void> function) {
+    public synchronized void foreach(Consumer<BaseTask> consumer) {
         Entry entry = root.next;
         while (entry != root) {
             Entry nextEntry = entry.next;
             if (!entry.cancelled()) {
-                function.apply(entry.getBaseTask());
+                consumer.accept(entry.getBaseTask());
             }
             entry = nextEntry;
         }
@@ -121,6 +114,7 @@ public class TaskBucket implements Delayed {
                     tail.next = entry;
                     root.prev = entry;
                     taskCounter.incrementAndGet();
+                    taskSize.incrementAndGet();
                     done = true;
                 }
             }
@@ -141,6 +135,7 @@ public class TaskBucket implements Delayed {
                 entry.prev = null;
                 entry.setTaskBucket(null);
                 taskCounter.decrementAndGet();
+                taskSize.decrementAndGet();
             }
         }
     }
@@ -160,5 +155,9 @@ public class TaskBucket implements Delayed {
             }
             expiration.set(-1L);
         }
+    }
+
+    public int size() {
+        return taskSize.get();
     }
 }

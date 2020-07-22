@@ -1,13 +1,12 @@
 package com.eghm.configuration.timer;
 
-import com.eghm.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * 延迟定时执行器
@@ -16,17 +15,32 @@ import java.util.function.Function;
  * @date 2018/9/11 11:01
  */
 @Slf4j
-public class SystemTimer implements Timer, Consumer<Entry> {
+public class SystemTimer implements InitializingBean, DisposableBean {
 
     /**
-     * 线程池
+     * 工作线程
      */
-    private ExecutorService taskExecutor;
+    private ExecutorService executor;
+
+    /**
+     * 指针线程
+     */
+    private ExecutorService bossExecutor;
 
     /**
      * 最底层时间轮对象
      */
     private TimingWheel rootWheel;
+
+    /**
+     * 关闭处理
+     */
+    private ShutdownHandler shutdownHandler;
+
+    /**
+     * 默认队列容量
+     */
+    private static final int DEFAULT_QUEUE_CAPACITY = 100000;
 
     /**
      * 最大执行业务的线程数
@@ -36,12 +50,17 @@ public class SystemTimer implements Timer, Consumer<Entry> {
     /**
      * 最小执行业务的线程数
      */
-    private static final int DEFAULT_MIN_THREAD = 5;
+    private static final int DEFAULT_CORE_THREAD = 5;
 
     /**
-     * 默认队列容量
+     * 默认步长 200毫秒
      */
-    private static final int DEFAULT_QUEUE_CAPACITY = 100000;
+    private static final int DEFAULT_STEP = 200;
+
+    /**
+     * 是否开启任务
+     */
+    private volatile boolean started = false;
 
     /**
      * 该队列间接关联时间轮的所有任务,即:每个刻度的所有任务,同时也包含所有时间轮的任务
@@ -64,14 +83,42 @@ public class SystemTimer implements Timer, Consumer<Entry> {
      */
     private ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
 
+
+
+
     /**
-     * 全局时间轮定时器
-     *
-     * @param scaleMs   初始值 一格多少毫秒
-     * @param wheelSize 初始值 一圈的格数
+     * 启动时间轮
      */
-    public SystemTimer(long scaleMs, int wheelSize) {
-        this(scaleMs, wheelSize, DEFAULT_MIN_THREAD, DEFAULT_MAX_THREAD, DEFAULT_QUEUE_CAPACITY);
+    public void start() {
+        this.start(DEFAULT_STEP);
+    }
+
+    /**
+     * 启动时间轮,以{step}的时间速度进行轮训
+     * @param step 步长
+     */
+    public void start(long step) {
+        if (executor == null) {
+            executor = new ThreadPoolExecutor(DEFAULT_CORE_THREAD, DEFAULT_MAX_THREAD,
+                    5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(DEFAULT_QUEUE_CAPACITY), this.threadFactory());
+        }
+        this.initTimer(step);
+    }
+
+    /**
+     * 初始化刻度线程
+     * @param ms 毫秒
+     */
+    private void initTimer(long ms) {
+        if (!started) {
+            started = true;
+            this.bossExecutor = Executors.newFixedThreadPool(1);
+            bossExecutor.submit(() -> {
+                while (started) {
+                    this.advanceClock(ms);
+                }
+            });
+        }
     }
 
     /**
@@ -79,13 +126,9 @@ public class SystemTimer implements Timer, Consumer<Entry> {
      *
      * @param scaleMs   初始值 一格多少毫秒
      * @param wheelSize  初始值 一圈的格数
-     * @param minThread 线程池最小数
-     * @param maxThread 线程池最大数
-     * @param capacity 线程池任务最大容量
      */
-    public SystemTimer(long scaleMs, int wheelSize, int minThread, int maxThread, int capacity) {
-        this.rootWheel = new TimingWheel(scaleMs, wheelSize, DateUtil.millisTime(), taskCounter, queue);
-        setTaskExecutor(new ThreadPoolExecutor(minThread, maxThread, 5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(capacity), this.threadFactory()));
+    public SystemTimer(long scaleMs, int wheelSize) {
+        this.rootWheel = new TimingWheel(scaleMs, wheelSize, System.currentTimeMillis(), taskCounter, queue);
     }
 
 
@@ -93,23 +136,15 @@ public class SystemTimer implements Timer, Consumer<Entry> {
         return r -> new Thread(r, "时间轮-" + threadCounter.getAndIncrement());
     }
 
-    /**
-     * 全局时间轮定时器
-     *
-     * @param tickMs    初始值 一格多少毫秒
-     * @param wheelSize 初始值 一圈的格数
-     * @param minThread 最小业务线程数
-     * @param maxThread 最大业务线程数
-     */
-    public SystemTimer(long tickMs, int wheelSize, int minThread, int maxThread) {
-        this(tickMs, wheelSize, minThread, maxThread, DEFAULT_QUEUE_CAPACITY);
-    }
 
-    @Override
+    /**
+     * 添加新任务
+     * @param task 任务
+     */
     public void addTask(BaseTask task) {
         readLock.lock();
         try {
-            this.addEntry(new Entry(task, task.getDelayMs() + DateUtil.millisTime()));
+            this.addEntry(new Entry(task, task.getDelayMs() + System.currentTimeMillis()));
         } finally {
             readLock.unlock();
         }
@@ -124,20 +159,23 @@ public class SystemTimer implements Timer, Consumer<Entry> {
         //过期或取消时,会返回false
         if (!rootWheel.add(entry) && !entry.cancelled()) {
             //过期时执行一次
-            taskExecutor.submit(entry.getBaseTask());
+            executor.submit(entry.getBaseTask());
         }
     }
 
-    @Override
-    public void advanceClock(long seconds) {
+    /**
+     * 时间移动步长
+     * @param ms 毫秒
+     */
+    private void advanceClock(long ms) {
         try {
-            TaskBucket bucket = queue.poll(seconds, TimeUnit.SECONDS);
+            TaskBucket bucket = queue.poll(ms, TimeUnit.MILLISECONDS);
             if (bucket != null) {
                 writeLock.lock();
                 try {
                     while (bucket != null) {
-                        rootWheel.advanceClock(bucket.getExpiration());
-                        bucket.flush(this);
+                        rootWheel.advanceClock(bucket.getExpire());
+                        bucket.flush(this::addEntry);
                         bucket = queue.poll();
                     }
                 } finally {
@@ -150,29 +188,42 @@ public class SystemTimer implements Timer, Consumer<Entry> {
         }
     }
 
-    @Override
+    /**
+     * @return 当前任务总数
+     */
     public int size() {
         return taskCounter.get();
     }
 
-    @Override
+    /**
+     * 关闭定时任务执行器
+     */
     public void shutdown() {
-        taskExecutor.shutdown();
+        if (started) {
+            started = false;
+            executor.shutdown();
+            bossExecutor.shutdown();
+            if (shutdownHandler != null) {
+                shutdownHandler.shutdown(queue);
+            }
+        }
     }
 
-    public ExecutorService getTaskExecutor() {
-        return taskExecutor;
+    public void setShutdownHandler(ShutdownHandler shutdownHandler) {
+        this.shutdownHandler = shutdownHandler;
     }
 
-    public void setTaskExecutor(ExecutorService taskExecutor) {
-        this.taskExecutor = taskExecutor;
+    public void setExecutor(ExecutorService executor) {
+        this.executor = executor;
     }
 
     @Override
-    public void accept(Entry entry) {
-        // 将任务重新添加到时间轮中(任务可能由父时间轮转为子时间轮)
-        addEntry(entry);
+    public void destroy() {
+        shutdown();
     }
 
-
+    @Override
+    public void afterPropertiesSet() {
+        start();
+    }
 }

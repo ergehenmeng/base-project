@@ -1,6 +1,7 @@
 package com.eghm.configuration.timer.job;
 
 import com.eghm.configuration.timer.BaseTask;
+import com.eghm.configuration.timer.SystemTimer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,6 +22,12 @@ public class TaskOperation extends BaseTask {
 
     @Override
     public void execute() {
-        log.info("任务执行:" + Thread.currentThread() + " : " + System.currentTimeMillis());
+        log.info("任务执行:" + Thread.currentThread());
+    }
+
+    public static void main(String[] args) {
+        SystemTimer timer = new SystemTimer(100, 20);
+        timer.start();
+        timer.addTask(new TaskOperation(1000));
     }
 }

@@ -31,20 +31,20 @@ public class Entry {
     /**
      * 任务延迟执行时间 (2000 + Date.millisTime()) 表示:2000毫秒之后执行
      */
-    private long expirationMs;
+    private long expireMs;
 
     /**
      * 构造方法
      *
      * @param baseTask 定时任务
-     * @param expirationMs 到期执行时间
+     * @param expireMs 到期执行时间
      */
-    public Entry(BaseTask baseTask, long expirationMs) {
+    public Entry(BaseTask baseTask, long expireMs) {
         if (baseTask != null) {
             baseTask.setEntry(this);
         }
         this.baseTask = baseTask;
-        this.expirationMs = expirationMs;
+        this.expireMs = expireMs;
     }
 
     /**
@@ -86,8 +86,8 @@ public class Entry {
         return baseTask;
     }
 
-    public long getExpirationMs() {
-        return expirationMs;
+    public long getExpireMs() {
+        return expireMs;
     }
 
     public TaskBucket getTaskBucket() {
