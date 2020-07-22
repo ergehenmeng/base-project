@@ -17,8 +17,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TestJobService implements Task {
 
-    @Autowired(required = false)
     private SystemTaskRegistrar systemTaskRegistrar;
+
+    @Autowired(required = false)
+    public void setSystemTaskRegistrar(SystemTaskRegistrar systemTaskRegistrar) {
+        this.systemTaskRegistrar = systemTaskRegistrar;
+    }
 
     @Override
     public void execute() {

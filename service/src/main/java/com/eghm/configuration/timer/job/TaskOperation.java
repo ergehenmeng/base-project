@@ -1,5 +1,6 @@
-package com.eghm.configuration.timer;
+package com.eghm.configuration.timer.job;
 
+import com.eghm.configuration.timer.AbstractTask;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -7,14 +8,14 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018/9/11 11:56
  */
 @Slf4j
-public class TimerTaskOperation extends AbstractTimerTask {
+public class TaskOperation extends AbstractTask {
 
     /**
      * 构造方法
      *
      * @param delayMs 延迟多长时间执行
      */
-    public TimerTaskOperation(long delayMs) {
+    public TaskOperation(long delayMs) {
         super(delayMs);
     }
 

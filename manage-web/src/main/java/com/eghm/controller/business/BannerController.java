@@ -8,7 +8,7 @@ import com.eghm.model.dto.business.banner.BannerEditRequest;
 import com.eghm.model.dto.business.banner.BannerQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.BannerService;
 import com.eghm.service.common.FileService;
 import com.eghm.utils.DataUtil;
@@ -33,7 +33,7 @@ public class BannerController extends AbstractController {
 
     private FileService fileService;
 
-    private CacheProxyService cacheProxyService;
+    private ProxyService proxyService;
 
     @Autowired
     public void setBannerService(BannerService bannerService) {
@@ -46,8 +46,8 @@ public class BannerController extends AbstractController {
     }
 
     @Autowired
-    public void setCacheProxyService(CacheProxyService cacheProxyService) {
-        this.cacheProxyService = cacheProxyService;
+    public void setProxyService(ProxyService proxyService) {
+        this.proxyService = proxyService;
     }
 
     /**
@@ -58,7 +58,7 @@ public class BannerController extends AbstractController {
     public Paging<Banner> listPage(BannerQueryRequest request) {
         PageInfo<Banner> byPage = bannerService.getByPage(request);
         return DataUtil.convert(byPage, banner -> {
-            String dictValue = cacheProxyService.getDictValue(DictConstant.BANNER_CLASSIFY, banner.getClassify());
+            String dictValue = proxyService.getDictValue(DictConstant.BANNER_CLASSIFY, banner.getClassify());
             banner.setClassifyName(dictValue);
             return banner;
         });

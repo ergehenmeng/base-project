@@ -32,7 +32,7 @@ public class DataUtil {
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S, T extends Serializable> Paging<T> convert(PageInfo<S> pageInfo, Function<S, T> transfer) {
+    public static <S, T> Paging<T> convert(PageInfo<S> pageInfo, Function<S, T> transfer) {
 
         Paging<T> paging = new Paging<>();
 

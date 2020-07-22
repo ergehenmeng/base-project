@@ -10,7 +10,7 @@ import com.eghm.model.dto.business.notice.NoticeEditRequest;
 import com.eghm.model.dto.business.notice.NoticeQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.SystemNoticeService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -30,7 +30,7 @@ public class SystemNoticeController {
 
     private SystemNoticeService systemNoticeService;
 
-    private CacheProxyService cacheProxyService;
+    private ProxyService proxyService;
 
     @Autowired
     public void setSystemNoticeService(SystemNoticeService systemNoticeService) {
@@ -38,8 +38,8 @@ public class SystemNoticeController {
     }
 
     @Autowired
-    public void setCacheProxyService(CacheProxyService cacheProxyService) {
-        this.cacheProxyService = cacheProxyService;
+    public void setProxyService(ProxyService proxyService) {
+        this.proxyService = proxyService;
     }
 
     /**
@@ -50,7 +50,7 @@ public class SystemNoticeController {
     public Paging<SystemNotice> listPage(NoticeQueryRequest request) {
         PageInfo<SystemNotice> byPage = systemNoticeService.getByPage(request);
         return DataUtil.convert(byPage, notice -> {
-            notice.setClassifyName(cacheProxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
+            notice.setClassifyName(proxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
             return notice;
         });
     }

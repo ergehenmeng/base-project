@@ -9,7 +9,7 @@ import com.eghm.model.dto.system.config.ConfigEditRequest;
 import com.eghm.model.dto.system.config.ConfigQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.service.system.SystemConfigService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -30,17 +30,19 @@ public class ConfigController extends AbstractController {
 
     private SystemConfigService systemConfigService;
 
-    private CacheProxyService cacheProxyService;
+    private ProxyService proxyService;
+
+    @Autowired
+    public void setProxyService(ProxyService proxyService) {
+        this.proxyService = proxyService;
+    }
 
     @Autowired
     public void setSystemConfigService(SystemConfigService systemConfigService) {
         this.systemConfigService = systemConfigService;
     }
 
-    @Autowired
-    public void setCacheProxyService(CacheProxyService cacheProxyService) {
-        this.cacheProxyService = cacheProxyService;
-    }
+
 
     @PostMapping("/system/config/edit")
     @ResponseBody
@@ -75,11 +77,9 @@ public class ConfigController extends AbstractController {
     public Paging<SystemConfig> listPage(ConfigQueryRequest request) {
         PageInfo<SystemConfig> listByPage = systemConfigService.getByPage(request);
         return DataUtil.convert(listByPage, systemConfig -> {
-            String dictValue = cacheProxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, systemConfig.getClassify());
-            systemConfig.setClassifyName(dictValue);
+            proxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, systemConfig.getClassify());
             return systemConfig;
         });
     }
-
 
 }

@@ -11,7 +11,7 @@ import com.eghm.model.dto.business.image.ImageQueryRequest;
 import com.eghm.model.ext.FilePath;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.FileService;
 import com.eghm.service.common.ImageLogService;
 import com.eghm.service.system.impl.SystemConfigApi;
@@ -34,7 +34,7 @@ public class ImageLogController extends AbstractController {
 
     private ImageLogService imageLogService;
 
-    private CacheProxyService cacheProxyService;
+    private ProxyService proxyService;
 
     private FileService fileService;
 
@@ -46,8 +46,8 @@ public class ImageLogController extends AbstractController {
     }
 
     @Autowired
-    public void setCacheProxyService(CacheProxyService cacheProxyService) {
-        this.cacheProxyService = cacheProxyService;
+    public void setProxyService(ProxyService proxyService) {
+        this.proxyService = proxyService;
     }
 
     @Autowired
@@ -81,7 +81,7 @@ public class ImageLogController extends AbstractController {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.convert(page, imageLog -> {
             //将数据字典类型转换实际类型
-            String dictValue = cacheProxyService.getDictValue(DictConstant.IMAGE_CLASSIFY, imageLog.getClassify());
+            String dictValue = proxyService.getDictValue(DictConstant.IMAGE_CLASSIFY, imageLog.getClassify());
             imageLog.setClassifyName(dictValue);
             return imageLog;
         });

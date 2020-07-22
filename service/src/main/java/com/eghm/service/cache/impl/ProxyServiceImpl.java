@@ -4,7 +4,7 @@ package com.eghm.service.cache.impl;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.system.BlackRoster;
 import com.eghm.dao.model.system.SystemDict;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.service.system.BlackRosterService;
 import com.eghm.service.system.SystemDictService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,8 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/10/11 13:47
  */
-@Service("cacheProxyService")
-public class CacheProxyServiceImpl implements CacheProxyService {
+@Service("proxyService")
+public class ProxyServiceImpl implements ProxyService {
 
     private SystemDictService systemDictService;
 

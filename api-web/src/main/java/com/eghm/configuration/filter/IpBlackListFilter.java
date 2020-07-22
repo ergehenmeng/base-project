@@ -2,7 +2,7 @@ package com.eghm.configuration.filter;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.model.ext.RespBody;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +18,11 @@ import java.io.IOException;
  */
 public class IpBlackListFilter implements Filter {
 
-    private CacheProxyService cacheProxyService;
+    private ProxyService proxyService;
 
     @Autowired
-    public void setCacheProxyService(CacheProxyService cacheProxyService) {
-        this.cacheProxyService = cacheProxyService;
+    public void setProxyService(ProxyService proxyService) {
+        this.proxyService = proxyService;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class IpBlackListFilter implements Filter {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         String ipAddress = IpUtil.getIpAddress(servletRequest);
-        if (cacheProxyService.isInterceptIp(ipAddress)) {
+        if (proxyService.isInterceptIp(ipAddress)) {
             WebUtil.printJson(servletResponse, RespBody.error(ErrorCode.SYSTEM_AUTH));
         } else {
             chain.doFilter(request, response);
