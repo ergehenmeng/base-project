@@ -6,7 +6,6 @@ import org.springframework.beans.factory.InitializingBean;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
  * 延迟定时执行器
@@ -71,21 +70,6 @@ public class SystemTimer implements InitializingBean, DisposableBean {
 
     private AtomicInteger threadCounter = new AtomicInteger(1);
 
-    private ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
-
-    /**
-     * 读锁
-     */
-    private ReentrantReadWriteLock.ReadLock readLock = lock.readLock();
-
-    /**
-     * 写锁
-     */
-    private ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
-
-
-
-
     /**
      * 启动时间轮
      */
@@ -142,12 +126,7 @@ public class SystemTimer implements InitializingBean, DisposableBean {
      * @param task 任务
      */
     public void addTask(BaseTask task) {
-        readLock.lock();
-        try {
-            this.addEntry(new Entry(task, task.getDelayMs() + System.currentTimeMillis()));
-        } finally {
-            readLock.unlock();
-        }
+        this.addEntry(new Entry(task, task.getDelayMs() + System.currentTimeMillis()));
     }
 
     /**
@@ -170,17 +149,10 @@ public class SystemTimer implements InitializingBean, DisposableBean {
     private void advanceClock(long ms) {
         try {
             TaskBucket bucket = queue.poll(ms, TimeUnit.MILLISECONDS);
-            if (bucket != null) {
-                writeLock.lock();
-                try {
-                    while (bucket != null) {
-                        rootWheel.advanceClock(bucket.getExpire());
-                        bucket.flush(this::addEntry);
-                        bucket = queue.poll();
-                    }
-                } finally {
-                    writeLock.unlock();
-                }
+            while (bucket != null) {
+                rootWheel.advanceClock(bucket.getExpire());
+                bucket.flush(this::addEntry);
+                bucket = queue.poll();
             }
         } catch (InterruptedException e) {
             log.error("获取队列头元素异常", e);
