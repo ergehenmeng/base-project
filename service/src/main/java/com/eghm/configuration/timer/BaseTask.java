@@ -8,12 +8,12 @@ import java.time.Duration;
  * @author 二哥很猛
  * @date 2018/9/11 9:19
  */
-public abstract class AbstractTask implements Runnable {
+public abstract class BaseTask implements Runnable {
 
     /**
      * 存放该TimerTask的entry对象,相互引用
      */
-    private TaskEntry taskEntry;
+    private Entry entry;
 
     /**
      * 延迟多长时间执行 毫秒值
@@ -23,13 +23,13 @@ public abstract class AbstractTask implements Runnable {
     /**
      * 构造方法
      *
-     * @param delayMs 延迟多长时间执行
+     * @param delayMs 延迟多长时间执行,例如 4000 表示4秒后执行
      */
-    public AbstractTask(long delayMs) {
+    public BaseTask(long delayMs) {
         this.delayMs = delayMs;
     }
 
-    public AbstractTask(Duration duration) {
+    public BaseTask(Duration duration) {
         this.delayMs = duration.toMillis();
     }
 
@@ -48,10 +48,10 @@ public abstract class AbstractTask implements Runnable {
      */
     public void cancel() {
         synchronized (this) {
-            if (taskEntry != null) {
-                taskEntry.remove();
+            if (entry != null) {
+                entry.remove();
             }
-            taskEntry = null;
+            entry = null;
         }
     }
 
@@ -60,15 +60,15 @@ public abstract class AbstractTask implements Runnable {
      *
      * @param entry 新entry
      */
-    public synchronized void setTaskEntry(TaskEntry entry) {
-        if (this.taskEntry != null && this.taskEntry != entry) {
-            this.taskEntry.remove();
+    public synchronized void setEntry(Entry entry) {
+        if (this.entry != null && this.entry != entry) {
+            this.entry.remove();
         }
-        this.taskEntry = entry;
+        this.entry = entry;
     }
 
-    public synchronized TaskEntry getTaskEntry() {
-        return taskEntry;
+    public synchronized Entry getEntry() {
+        return entry;
     }
 
     public long getDelayMs() {

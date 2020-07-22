@@ -1,6 +1,6 @@
 package com.eghm.configuration.timer.job;
 
-import com.eghm.configuration.timer.AbstractTask;
+import com.eghm.configuration.timer.BaseTask;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018/9/11 11:56
  */
 @Slf4j
-public class TaskOperation extends AbstractTask {
+public class TaskOperation extends BaseTask {
 
     /**
      * 构造方法

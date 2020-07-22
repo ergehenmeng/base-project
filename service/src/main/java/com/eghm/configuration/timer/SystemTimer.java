@@ -1,10 +1,12 @@
 package com.eghm.configuration.timer;
 
+import com.eghm.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -14,17 +16,12 @@ import java.util.function.Function;
  * @date 2018/9/11 11:01
  */
 @Slf4j
-public class SystemTimer implements Timer, Function<TaskEntry, Void> {
+public class SystemTimer implements Timer, Consumer<Entry> {
 
     /**
      * 线程池
      */
     private ExecutorService taskExecutor;
-
-    /**
-     * 计时开始时间
-     */
-    private long startTime;
 
     /**
      * 最底层时间轮对象
@@ -46,7 +43,10 @@ public class SystemTimer implements Timer, Function<TaskEntry, Void> {
      */
     private static final int DEFAULT_QUEUE_CAPACITY = 100000;
 
-    private DelayQueue<TaskQueue> queue = new DelayQueue<>();
+    /**
+     * 该队列间接关联时间轮的所有任务,即:每个刻度的所有任务,同时也包含所有时间轮的任务
+     */
+    private DelayQueue<TaskBucket> queue = new DelayQueue<>();
 
     private AtomicInteger taskCounter = new AtomicInteger(0);
 
@@ -84,8 +84,7 @@ public class SystemTimer implements Timer, Function<TaskEntry, Void> {
      * @param capacity 线程池任务最大容量
      */
     public SystemTimer(long scaleMs, int wheelSize, int minThread, int maxThread, int capacity) {
-        this.startTime = System.currentTimeMillis();
-        this.rootWheel = new TimingWheel(scaleMs, wheelSize, startTime, taskCounter, queue);
+        this.rootWheel = new TimingWheel(scaleMs, wheelSize, DateUtil.millisTime(), taskCounter, queue);
         setTaskExecutor(new ThreadPoolExecutor(minThread, maxThread, 5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(capacity), this.threadFactory()));
     }
 
@@ -107,10 +106,10 @@ public class SystemTimer implements Timer, Function<TaskEntry, Void> {
     }
 
     @Override
-    public void addTask(AbstractTask task) {
+    public void addTask(BaseTask task) {
         readLock.lock();
         try {
-            this.addTimerTaskEntry(new TaskEntry(task, task.getDelayMs() + System.currentTimeMillis()));
+            this.addEntry(new Entry(task, task.getDelayMs() + DateUtil.millisTime()));
         } finally {
             readLock.unlock();
         }
@@ -119,20 +118,20 @@ public class SystemTimer implements Timer, Function<TaskEntry, Void> {
     /**
      * 添加任务条目
      *
-     * @param taskEntry entry对象 封装了TimerTask对象
+     * @param entry entry对象 封装了TimerTask对象
      */
-    private void addTimerTaskEntry(TaskEntry taskEntry) {
+    private void addEntry(Entry entry) {
         //过期或取消时,会返回false
-        if (!rootWheel.add(taskEntry) && !taskEntry.cancelled()) {
+        if (!rootWheel.add(entry) && !entry.cancelled()) {
             //过期时执行一次
-            taskExecutor.submit(taskEntry.getAbstractTask());
+            taskExecutor.submit(entry.getBaseTask());
         }
     }
 
     @Override
     public void advanceClock(long seconds) {
         try {
-            TaskQueue bucket = queue.poll(seconds, TimeUnit.SECONDS);
+            TaskBucket bucket = queue.poll(seconds, TimeUnit.SECONDS);
             if (bucket != null) {
                 writeLock.lock();
                 try {
@@ -170,13 +169,10 @@ public class SystemTimer implements Timer, Function<TaskEntry, Void> {
     }
 
     @Override
-    public Void apply(TaskEntry taskEntry) {
-        addTimerTaskEntry(taskEntry);
-        return null;
+    public void accept(Entry entry) {
+        // 将任务重新添加到时间轮中(任务可能由父时间轮转为子时间轮)
+        addEntry(entry);
     }
 
-    public long getStartTime() {
-        return startTime;
-    }
 
 }

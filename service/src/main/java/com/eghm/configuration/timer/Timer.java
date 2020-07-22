@@ -13,7 +13,7 @@ public interface Timer {
      *
      * @param task 任务
      */
-    void addTask(AbstractTask task);
+    void addTask(BaseTask task);
 
     /**
      * 指针一次移动的时间(一次移动多少毫秒)

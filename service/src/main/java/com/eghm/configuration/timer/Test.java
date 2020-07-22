@@ -11,7 +11,7 @@ public class Test {
         SystemTimer timer = new SystemTimer(1L,20);
         System.out.println(System.nanoTime());
         for (long i = 0; i < 100L; i++ ){
-            timer.addTask(new TaskOperation(500 + i * 100 ));
+            timer.addTask(new TaskOperation(500 + i * 500 ));
         }
         while (true){
             timer.advanceClock(200);

@@ -29,11 +29,6 @@ public class TimingWheel {
     private long interval;
 
     /**
-     * 开始时间
-     */
-    private long startMs;
-
-    /**
      * 所有桶内任务总数
      */
     private AtomicInteger taskCounter;
@@ -41,7 +36,7 @@ public class TimingWheel {
     /**
      * 任务队列
      */
-    private DelayQueue<TaskQueue> queue;
+    private DelayQueue<TaskBucket> queue;
 
     /**
      * 开启任务时的时间
@@ -56,32 +51,31 @@ public class TimingWheel {
     /**
      * 当前桶的任务列表
      */
-    private TaskQueue[] buckets;
+    private TaskBucket[] buckets;
 
 
-    public TimingWheel(long scaleMs, int wheelSize, long startMs, AtomicInteger taskCounter, DelayQueue<TaskQueue> queue) {
+    public TimingWheel(long scaleMs, int wheelSize, long startMs, AtomicInteger taskCounter, DelayQueue<TaskBucket> queue) {
         this.scaleMs = scaleMs;
         this.wheelSize = wheelSize;
-        this.startMs = startMs;
         this.taskCounter = taskCounter;
         this.queue = queue;
         this.interval = scaleMs * wheelSize;
         this.currentTime = startMs - (startMs % scaleMs);
-        this.buckets = new TaskQueue[wheelSize];
+        this.buckets = new TaskBucket[wheelSize];
         for (int i = 0; i < wheelSize; i++) {
-            this.buckets[i] = new TaskQueue(taskCounter);
+            this.buckets[i] = new TaskBucket(taskCounter);
         }
     }
 
     /**
      * 添加新任务到时间轮上
      *
-     * @param taskEntry entry
+     * @param entry entry
      * @return true:添加成功, false:添加失败,任务已过期或者已取消
      */
-    public boolean add(TaskEntry taskEntry) {
-        long expiration = taskEntry.getExpirationMs();
-        if (taskEntry.cancelled()) {
+    public boolean add(Entry entry) {
+        long expiration = entry.getExpirationMs();
+        if (entry.cancelled()) {
             //任务取消
             return false;
         } else if (expiration < currentTime + scaleMs) {
@@ -90,18 +84,18 @@ public class TimingWheel {
         } else if (expiration < currentTime + interval) {
             //当前桶内查找
             long virtualId = expiration / scaleMs;
-            TaskQueue bucket = buckets[(int) (virtualId % wheelSize)];
-            bucket.add(taskEntry);
+            TaskBucket bucket = buckets[(int) (virtualId % wheelSize)];
+            bucket.add(entry);
             if (bucket.setExpiration(virtualId * scaleMs)) {
                 return queue.offer(bucket);
             }
-            return false;
+            return true;
         } else {
             //父级桶内查询
             if (overflowWheel == null) {
                 addOverflowWheel();
             }
-            return overflowWheel.add(taskEntry);
+            return overflowWheel.add(entry);
         }
     }
 
@@ -140,10 +134,6 @@ public class TimingWheel {
 
     public long getInterval() {
         return interval;
-    }
-
-    public long getStartMs() {
-        return startMs;
     }
 
     public AtomicInteger getTaskCounter() {

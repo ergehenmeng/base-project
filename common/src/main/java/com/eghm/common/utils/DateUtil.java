@@ -10,6 +10,7 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 二哥很猛
@@ -133,6 +134,14 @@ public class DateUtil {
         return formatter.format(date.toInstant());
     }
 
+
+    /**
+     * 返回相对毫秒时间
+     * @return 相对时间
+     */
+    public static long millisTime() {
+        return TimeUnit.NANOSECONDS.toMillis(System.nanoTime());
+    }
 
     /**
      * 将字符串转为Date yyyy-MM-dd HH:mm:ss

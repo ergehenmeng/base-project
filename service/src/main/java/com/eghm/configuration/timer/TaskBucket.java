@@ -5,6 +5,7 @@ import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 /**
@@ -13,7 +14,7 @@ import java.util.function.Function;
  * @author 二哥很猛
  * @date 2018/9/11 9:14
  */
-public class TaskQueue implements Delayed {
+public class TaskBucket implements Delayed {
 
     /**
      * 任务数统计,所有桶公用
@@ -23,17 +24,17 @@ public class TaskQueue implements Delayed {
     /**
      * 根任务,默认为空,不进行任务处理
      */
-    private TaskEntry root;
+    private Entry root;
 
     /**
-     * 该TimerTaskList的过期时间
+     * 该TaskBucket的过期时间,内部所有任务的过期时间是一样的
      */
     private AtomicLong expiration;
 
 
-    public TaskQueue(AtomicInteger taskCounter) {
+    public TaskBucket(AtomicInteger taskCounter) {
         this.taskCounter = taskCounter;
-        this.root = new TaskEntry(null, -1L);
+        this.root = new Entry(null, -1L);
         this.root.prev = root;
         this.root.next = root;
         this.expiration = new AtomicLong(-1L);
@@ -49,9 +50,9 @@ public class TaskQueue implements Delayed {
 
     @Override
     public int compareTo(@Nonnull Delayed o) {
-        TaskQueue other;
-        if (o instanceof TaskQueue) {
-            other = (TaskQueue) o;
+        TaskBucket other;
+        if (o instanceof TaskBucket) {
+            other = (TaskBucket) o;
         } else {
             throw new ClassCastException("TimerTaskList类型转换错误");
         }
@@ -88,12 +89,12 @@ public class TaskQueue implements Delayed {
      *
      * @param function 需要执行的函数
      */
-    public synchronized void foreach(Function<AbstractTask, Void> function) {
-        TaskEntry entry = root.next;
+    public synchronized void foreach(Function<BaseTask, Void> function) {
+        Entry entry = root.next;
         while (entry != root) {
-            TaskEntry nextEntry = entry.next;
+            Entry nextEntry = entry.next;
             if (!entry.cancelled()) {
-                function.apply(entry.getAbstractTask());
+                function.apply(entry.getBaseTask());
             }
             entry = nextEntry;
         }
@@ -102,23 +103,23 @@ public class TaskQueue implements Delayed {
     /**
      * 添加任务
      *
-     * @param taskEntry 任务entry
+     * @param entry 任务entry
      */
-    public void add(TaskEntry taskEntry) {
+    public void add(Entry entry) {
         boolean done = false;
         while (!done) {
             //为防止任务已经在其他列表中,先移除其他列表的该任务
             //为防止死锁,在外面进行操作
-            taskEntry.remove();
+            entry.remove();
             synchronized (this) {
-                if (taskEntry.getTaskQueue() == null) {
+                if (entry.getTaskBucket() == null) {
                     //将该任务添加到列表的最后 root
-                    TaskEntry tail = root.prev;
-                    taskEntry.next = root;
-                    taskEntry.prev = tail;
-                    taskEntry.setTaskQueue(this);
-                    tail.next = taskEntry;
-                    root.prev = taskEntry;
+                    Entry tail = root.prev;
+                    entry.next = root;
+                    entry.prev = tail;
+                    entry.setTaskBucket(this);
+                    tail.next = entry;
+                    root.prev = entry;
                     taskCounter.incrementAndGet();
                     done = true;
                 }
@@ -129,16 +130,16 @@ public class TaskQueue implements Delayed {
     /**
      * 移除一个任务
      *
-     * @param taskEntry 任务
+     * @param entry 任务
      */
-    public void remove(TaskEntry taskEntry) {
+    public void remove(Entry entry) {
         synchronized (this) {
-            if (taskEntry.getTaskQueue() == this) {
-                taskEntry.next.prev = taskEntry.prev;
-                taskEntry.prev.next = taskEntry.next;
-                taskEntry.next = null;
-                taskEntry.prev = null;
-                taskEntry.setTaskQueue(null);
+            if (entry.getTaskBucket() == this) {
+                entry.next.prev = entry.prev;
+                entry.prev.next = entry.next;
+                entry.next = null;
+                entry.prev = null;
+                entry.setTaskBucket(null);
                 taskCounter.decrementAndGet();
             }
         }
@@ -147,14 +148,14 @@ public class TaskQueue implements Delayed {
     /**
      * 删除所有任务,并执行一次删除的任务
      *
-     * @param function 执行函数
+     * @param consumer 执行函数
      */
-    public void flush(Function<TaskEntry, Void> function) {
+    public void flush(Consumer<Entry> consumer) {
         synchronized (this) {
-            TaskEntry head = root.next;
+            Entry head = root.next;
             while (head != root) {
                 remove(head);
-                function.apply(head);
+                consumer.accept(head);
                 head = root.next;
             }
             expiration.set(-1L);

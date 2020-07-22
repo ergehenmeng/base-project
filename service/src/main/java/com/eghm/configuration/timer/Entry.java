@@ -1,51 +1,49 @@
 package com.eghm.configuration.timer;
 
-import javax.annotation.Nonnull;
-
 /**
  * 存放TimerTask任务 双向链表结构 最后一个对象的下一个元素持有第一个元素引用 第一个元素的前一个对象持有最后一个元素的引用
  *
  * @author 二哥很猛
  * @date 2018/9/11 9:15
  */
-public class TaskEntry implements Comparable<TaskEntry> {
+public class Entry {
 
     /**
      * 存放entry的列表,相互引用
      */
-    private TaskQueue taskQueue;
+    private TaskBucket taskBucket;
 
     /**
      * 当前entry的下一个对象
      */
-    TaskEntry next;
+    Entry next;
 
     /**
      * 当前entry的上一个对象
      */
-    TaskEntry prev;
+    Entry prev;
 
     /**
      * 真实要执行的任务对象
      */
-    private AbstractTask abstractTask;
+    private BaseTask baseTask;
 
     /**
-     * 任务延迟执行时间 2000 + Time.getHiresClockMs() 表示:2000毫秒之后执行
+     * 任务延迟执行时间 (2000 + Date.millisTime()) 表示:2000毫秒之后执行
      */
     private long expirationMs;
 
     /**
      * 构造方法
      *
-     * @param abstractTask 定时任务
+     * @param baseTask 定时任务
      * @param expirationMs 到期执行时间
      */
-    public TaskEntry(AbstractTask abstractTask, long expirationMs) {
-        if (abstractTask != null) {
-            abstractTask.setTaskEntry(this);
+    public Entry(BaseTask baseTask, long expirationMs) {
+        if (baseTask != null) {
+            baseTask.setEntry(this);
         }
-        this.abstractTask = abstractTask;
+        this.baseTask = baseTask;
         this.expirationMs = expirationMs;
     }
 
@@ -55,25 +53,18 @@ public class TaskEntry implements Comparable<TaskEntry> {
      * @return true 已删除(取消) false 未取消
      */
     public boolean cancelled() {
-        return abstractTask.getTaskEntry() != this;
+        return baseTask.getEntry() != this;
     }
 
     /**
      * 移除当前对象
      */
     public void remove() {
-        TaskQueue currentList = taskQueue;
+        TaskBucket currentList = taskBucket;
         while (currentList != null) {
             currentList.remove(this);
-            currentList = taskQueue;
+            currentList = taskBucket;
         }
-    }
-
-    @Override
-    public int compareTo(@Nonnull TaskEntry o) {
-        long expirationMs1 = this.getExpirationMs();
-        long expirationMs2 = o.getExpirationMs();
-        return Long.compare(expirationMs1, expirationMs2);
     }
 
     @Override
@@ -91,19 +82,19 @@ public class TaskEntry implements Comparable<TaskEntry> {
      *
      * @return timerTask
      */
-    public AbstractTask getAbstractTask() {
-        return abstractTask;
+    public BaseTask getBaseTask() {
+        return baseTask;
     }
 
     public long getExpirationMs() {
         return expirationMs;
     }
 
-    public TaskQueue getTaskQueue() {
-        return taskQueue;
+    public TaskBucket getTaskBucket() {
+        return taskBucket;
     }
 
-    public void setTaskQueue(TaskQueue taskQueue) {
-        this.taskQueue = taskQueue;
+    public void setTaskBucket(TaskBucket taskBucket) {
+        this.taskBucket = taskBucket;
     }
 }
