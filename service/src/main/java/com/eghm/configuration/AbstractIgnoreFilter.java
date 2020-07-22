@@ -86,7 +86,4 @@ public abstract class AbstractIgnoreFilter implements Filter {
      */
     protected abstract void doInternalFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException;
 
-    @Override
-    public void destroy() {
-    }
 }

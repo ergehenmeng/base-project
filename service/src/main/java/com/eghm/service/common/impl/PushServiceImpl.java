@@ -16,7 +16,7 @@ import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.eghm.common.enums.PushType;
-import com.eghm.configuration.JpushProperties;
+import com.eghm.configuration.PushProperties;
 import com.eghm.dao.model.business.PushTemplate;
 import com.eghm.model.ext.PushBuilder;
 import com.eghm.service.common.PushService;
@@ -45,7 +45,7 @@ public class PushServiceImpl implements PushService {
 
     private PushTemplateService pushTemplateService;
 
-    private JpushProperties jpushProperties;
+    private PushProperties pushProperties;
 
     private JPushClient jPushClient;
 
@@ -55,16 +55,16 @@ public class PushServiceImpl implements PushService {
     }
 
     @Autowired
-    public void setJpushProperties(JpushProperties jpushProperties) {
-        this.jpushProperties = jpushProperties;
+    public void setPushProperties(PushProperties pushProperties) {
+        this.pushProperties = pushProperties;
     }
 
     @PostConstruct
     public void init() {
         ClientConfig config = ClientConfig.getInstance();
-        jPushClient = new JPushClient(jpushProperties.getMasterSecret(), jpushProperties.getAppKey(), null, config);
+        jPushClient = new JPushClient(pushProperties.getMasterSecret(), pushProperties.getAppKey(), null, config);
         PushClient pushClient = jPushClient.getPushClient();
-        String authCode = ServiceHelper.getBasicAuthorization(jpushProperties.getMasterSecret(), jpushProperties.getAppKey());
+        String authCode = ServiceHelper.getBasicAuthorization(pushProperties.getMasterSecret(), pushProperties.getAppKey());
         ApacheHttpClient client = new ApacheHttpClient(authCode, null, config);
         pushClient.setHttpClient(client);
         log.info("极光推送客户端初始化成功...");
