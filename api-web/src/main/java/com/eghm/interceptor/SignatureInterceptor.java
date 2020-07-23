@@ -56,6 +56,6 @@ public class SignatureInterceptor implements InterceptorAdapter {
                 throw new ParameterException(ErrorCode.SIGNATURE_VERIFY_ERROR);
             }
         }
-        return false;
+        return true;
     }
 }
