@@ -122,6 +122,7 @@ public class TimingWheel {
      */
     public void advanceClock(long timeMs) {
         if (timeMs >= currentTime + scaleMs) {
+            // 该处是为了让currentTime更接近真实时间, 取余后 currentTime能直接落在某个刻度中
             currentTime = timeMs - (timeMs % scaleMs);
             if (overflowWheel != null) {
                 overflowWheel.advanceClock(currentTime);
