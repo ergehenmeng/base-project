@@ -80,11 +80,6 @@ public class ConfigConstant {
     public static final String BATCH_MAX_FILE_SIZE = "batch_max_file_size";
 
     /**
-     * 默认文件上传的文件夹名称
-     */
-    public static final String DEFAULT_UPLOAD_FOLDER = "default_upload_folder";
-
-    /**
      * 安卓软件包大小
      */
     public static final String ANDROID_MAX_SIZE = "android_max_size";

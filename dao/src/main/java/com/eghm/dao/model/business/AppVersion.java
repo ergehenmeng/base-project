@@ -83,7 +83,7 @@ public class AppVersion implements Serializable {
     private Date updateTime;
 
     /**
-     * 状态<br>
+     * 上架状态 0:待上架 1:已上架<br>
      * 表 : app_version<br>
      * 对应字段 : state<br>
      */

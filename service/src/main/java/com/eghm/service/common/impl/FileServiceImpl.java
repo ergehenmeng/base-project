@@ -52,7 +52,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(@NotNull MultipartFile file) {
-        return this.saveFile(file, this.getFolder(), this.getSingleMaxSize());
+        return this.saveFile(file, this.getDefaultFolder(), this.getSingleMaxSize());
     }
 
     @Override
@@ -69,12 +69,12 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFile(@NotNull MultipartFile file, long maxSize) {
-        return this.saveFile(file, this.getFolder(), maxSize);
+        return this.saveFile(file, this.getDefaultFolder(), maxSize);
     }
 
     @Override
     public FilePath saveFiles(@NotNull List<MultipartFile> files) {
-        return this.saveFiles(files, this.getFolder(), this.getBatchMaxSize());
+        return this.saveFiles(files, this.getDefaultFolder(), this.getBatchMaxSize());
     }
 
 
@@ -92,7 +92,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFiles(@NotNull List<MultipartFile> files, long maxSize) {
-        return this.saveFiles(files, this.getFolder(), maxSize);
+        return this.saveFiles(files, this.getDefaultFolder(), maxSize);
     }
 
     /**
@@ -163,13 +163,13 @@ public class FileServiceImpl implements FileService {
      *
      * @param originalFileName 用户上传的文件名及后缀
      * @param folderName       文件保存的父级文件夹名称
-     * @return /upload/20191229/image/3e1be532-4862-49f4-b053-2a2e594ba187.png
+     * @return /resource/image/20191229/3e1be532-4862-49f4-b053-2a2e594ba187.png
      */
     private String getFilePath(String originalFileName, String folderName) {
         if (originalFileName == null) {
             originalFileName = "default.png";
         }
-        //fileName:3e1be532-4862-49f4-b053-2a2e594ba187.png
+        // fileName:3e1be532-4862-49f4-b053-2a2e594ba187.png
         String fileName = UUID.randomUUID().toString() + originalFileName.substring(originalFileName.lastIndexOf("."));
         return SystemConstant.DEFAULT_PATTERN + folderName + File.separator + DateUtil.formatShortLimit(DateUtil.getNow()) + File.separator + fileName;
     }
@@ -192,8 +192,8 @@ public class FileServiceImpl implements FileService {
         return systemConfigApi.getLong(ConfigConstant.BATCH_MAX_FILE_SIZE);
     }
 
-    private String getFolder() {
-        return systemConfigApi.getString(ConfigConstant.DEFAULT_UPLOAD_FOLDER);
+    private String getDefaultFolder() {
+        return SystemConstant.DEFAULT_FOLDER;
     }
 
     private String getFileAddress() {

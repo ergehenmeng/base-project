@@ -50,12 +50,6 @@ public interface AppVersionService {
      */
     AppVersionVO getLatestVersion();
 
-    /**
-     * 获取最新app下载地址
-     * @param channel app类型
-     * @return 下载地址
-     */
-    String getLatestVersionUrl(String channel);
 
     /**
      * 删除版本信息
