@@ -2,10 +2,10 @@ package com.eghm.configuration;
 
 import com.eghm.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.configuration.filter.IpBlackListFilter;
-import com.eghm.interceptor.AccessTokenHandlerInterceptor;
-import com.eghm.interceptor.ClientTypeHandlerInterceptor;
+import com.eghm.interceptor.AccessTokenInterceptorInterceptor;
+import com.eghm.interceptor.ClientTypeInterceptorInterceptor;
 import com.eghm.interceptor.JsonExtractHandlerArgumentResolver;
-import com.eghm.interceptor.MessageHandlerInterceptor;
+import com.eghm.interceptor.MessageInterceptorInterceptor;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     /**
      * 过滤器不拦截的地址
      */
-    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/upload/**"};
+    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/resource/**"};
 
     /**
      * 移动端请求地址
@@ -69,7 +69,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      */
     @Bean
     public HandlerInterceptor accessTokenHandlerInterceptor() {
-        return new AccessTokenHandlerInterceptor();
+        return new AccessTokenInterceptorInterceptor();
     }
 
     /**
@@ -77,7 +77,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      */
     @Bean
     public HandlerInterceptor clientTypeHandlerInterceptor() {
-        return new ClientTypeHandlerInterceptor();
+        return new ClientTypeInterceptorInterceptor();
     }
 
     /**
@@ -87,7 +87,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      */
     @Bean
     public HandlerInterceptor messageHandlerInterceptor() {
-        return new MessageHandlerInterceptor();
+        return new MessageInterceptorInterceptor();
     }
 
 

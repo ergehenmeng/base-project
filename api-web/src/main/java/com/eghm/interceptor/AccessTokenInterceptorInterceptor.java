@@ -4,15 +4,13 @@ import com.eghm.annotation.SkipAccess;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.RequestException;
-import com.eghm.model.ext.Token;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.Token;
 import com.eghm.service.common.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018/1/23 12:02
  */
 @Slf4j
-public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
+public class AccessTokenInterceptorInterceptor implements InterceptorAdapter {
 
     private TokenService tokenService;
 
@@ -38,9 +36,10 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if (!(handler instanceof HandlerMethod)) {
+        if (!supportHandler(handler)) {
             return true;
         }
+
         boolean skipAccess = this.skipAccess(handler);
         RequestMessage message = RequestThreadLocal.get();
         this.tryLoginVerify(request.getHeader(AppHeader.ACCESS_TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
@@ -108,22 +107,7 @@ public class AccessTokenHandlerInterceptor extends HandlerInterceptorAdapter {
      * @return true:需要验签 false不需要
      */
     private boolean skipAccess(Object handler) {
-        SkipAccess clientTypeToken = this.getSkipAccessAnnotation(handler);
-        return clientTypeToken != null;
+        return this.getAnnotation(handler, SkipAccess.class) != null;
     }
-
-
-    /**
-     * 获取handlerMethod上指定类型的注解,如果类上有也会返回
-     *
-     * @param handler handlerMethod
-     * @return AccessToken
-     */
-    private SkipAccess getSkipAccessAnnotation(Object handler) {
-        HandlerMethod method = (HandlerMethod) handler;
-        SkipAccess t = method.getMethodAnnotation(SkipAccess.class);
-        return t != null ? t : method.getBeanType().getAnnotation(SkipAccess.class);
-    }
-
 
 }

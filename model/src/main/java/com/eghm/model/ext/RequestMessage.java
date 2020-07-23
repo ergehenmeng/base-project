@@ -56,7 +56,7 @@ public class RequestMessage implements Serializable {
     private int userId;
 
     /**
-     * 加密信息
+     * 秘钥
      */
     private String  secret;
 
@@ -64,4 +64,14 @@ public class RequestMessage implements Serializable {
      * http请求内容,json格式
      */
     private String requestBody;
+
+    /**
+     * 时间戳
+     */
+    private String timestamp;
+
+    /**
+     * 签名信息
+     */
+    private String signature;
 }

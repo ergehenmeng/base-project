@@ -3,7 +3,6 @@ package com.eghm.interceptor;
 import com.eghm.annotation.SkipAccess;
 import com.eghm.annotation.SkipDataBinder;
 import com.eghm.annotation.SkipDecrypt;
-import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.common.exception.RequestException;
@@ -13,7 +12,6 @@ import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.utils.DataUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.validation.BindingResult;
@@ -21,7 +19,6 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +27,6 @@ import org.springframework.web.multipart.MultipartRequest;
 import javax.annotation.Nullable;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -71,8 +67,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         if (parameter.getParameterType().isAssignableFrom(RequestMessage.class)) {
             return DataUtil.copy(RequestThreadLocal.get(), RequestMessage.class);
         }
-        HttpServletRequest request = ((ServletWebRequest) webRequest).getRequest();
-        Object args = jsonFormat(request, parameter);
+        Object args = jsonFormat(parameter);
         WebDataBinder binder = binderFactory.createBinder(webRequest, args, parameter.getParameterType().getName());
         binder.validate(args);
         BindingResult bindingResult = binder.getBindingResult();
@@ -88,20 +83,19 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
     /**
      * 将request中对象转换为转换为指定接收的参数对象
      *
-     * @param request 请求信息
      * @param parameter method参数信息
      * @return 结果对象
      */
-    private Object jsonFormat(HttpServletRequest request, MethodParameter parameter) {
+    private Object jsonFormat(MethodParameter parameter) {
         try {
-            String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+            String requestBody = RequestThreadLocal.get().getRequestBody();
             Class<?> parameterType = parameter.getParameterType();
             if (requestBody == null) {
                 return parameterType.getDeclaredConstructor().newInstance();
             }
-            //解密
+            // 解密
             requestBody = this.decryptRequestBody(requestBody, parameter);
-            //用于记录日志使用
+            // 将解密后的数据继续放入到,以便于做日志记录
             RequestThreadLocal.get().setRequestBody(requestBody);
             return gson.fromJson(requestBody, parameterType);
         } catch (Exception e) {

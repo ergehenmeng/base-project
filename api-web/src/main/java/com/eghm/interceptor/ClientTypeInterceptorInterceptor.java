@@ -5,8 +5,6 @@ import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.Channel;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 二哥很猛
  * @date 2019/11/21 10:00
  */
-public class ClientTypeHandlerInterceptor extends HandlerInterceptorAdapter {
+public class ClientTypeInterceptorInterceptor implements InterceptorAdapter {
 
     /**
      * 默认只允许 ios和android的设备访问接口
@@ -24,7 +22,7 @@ public class ClientTypeHandlerInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        if (!(handler instanceof HandlerMethod)) {
+        if (!supportHandler(handler)) {
             return true;
         }
         String channel = request.getHeader(AppHeader.CHANNEL);
@@ -44,8 +42,7 @@ public class ClientTypeHandlerInterceptor extends HandlerInterceptorAdapter {
      * @return ClientType
      */
     private Channel[] getClientTypeAnnotation(Object handler) {
-        HandlerMethod method = (HandlerMethod) handler;
-        ClientType clientType = method.getMethodAnnotation(ClientType.class);
+        ClientType clientType = this.getAnnotation(handler, ClientType.class);
         return clientType != null ? clientType.value() : DEFAULT_CHANNEL;
     }
 }

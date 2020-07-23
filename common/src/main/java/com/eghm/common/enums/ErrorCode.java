@@ -41,9 +41,9 @@ public enum ErrorCode {
     SPRING_ON_LOADING(505,"Spring上下文尚未完全启动"),
 
     /**
-     * json转换异常
+     * 数据转换异常
      */
-    JSON_FORMAT_ERROR(1000,"json转换异常"),
+    JSON_FORMAT_ERROR(1000,"数据转换异常"),
 
     /**
      * pbe加密失败
@@ -131,9 +131,9 @@ public enum ErrorCode {
     SIGNATURE_TIMESTAMP_NULL(1016,"数字签名为空"),
 
     /**
-     * 签名校验异常
+     * 请求已过期
      */
-    SIGNATURE_TIMESTAMP_ERROR(1017,"签名时间失效"),
+    SIGNATURE_TIMESTAMP_ERROR(1017,"请求已过期"),
 
     /**
      * 签名校验异常
