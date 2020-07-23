@@ -20,9 +20,4 @@ public interface CommonService {
      */
     String getOrderNo();
 
-    /**
-     * 生成全局存管号
-     * @return 存管号
-     */
-    String getDepositNo();
 }

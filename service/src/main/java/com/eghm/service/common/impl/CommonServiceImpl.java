@@ -36,10 +36,5 @@ public class CommonServiceImpl implements CommonService {
         return DateFormatUtils.format(DateUtil.getNow(), "yyyyMMddHHmmss00") + keyGenerator.generateKey();
     }
 
-    @Override
-    public String getDepositNo() {
-        return DateFormatUtils.format(DateUtil.getNow(), "yyyyMMdd00") + keyGenerator.generateKey();
-    }
-
 
 }
