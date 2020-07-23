@@ -1,19 +1,24 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : root
-Source Server Version : 50628
-Source Host           : 127.0.0.1:3306
-Source Database       : project
-
-Target Server Type    : MYSQL
-Target Server Version : 50628
-File Encoding         : 65001
-
-Date: 2020-01-15 16:00:32
-*/
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for app_version
+-- ----------------------------
+DROP TABLE IF EXISTS `app_version`;
+CREATE TABLE `app_version` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `classify` char(10) NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
+  `version` char(10) NOT NULL COMMENT '版本号:1.2.8 范围(0.0.01~99.99.99)',
+  `version_no` int(10) DEFAULT NULL COMMENT '数字格式化后的版本号',
+  `force_update` bit(1) DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
+  `url` varchar(500) DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `remark` varchar(500) DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '上架状态 0:待上架 1:已上架',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='APP版本管理表';
 
 -- ----------------------------
 -- Table structure for banner
@@ -53,22 +58,6 @@ CREATE TABLE `black_roster` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='访问黑名单';
-
--- ----------------------------
--- Table structure for comment_log
--- ----------------------------
-DROP TABLE IF EXISTS `comment_log`;
-CREATE TABLE `comment_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `tag_id` int(10) unsigned DEFAULT NULL COMMENT '文章id',
-  `parent_id` int(10) unsigned DEFAULT '0',
-  `user_id` int(11) unsigned DEFAULT NULL COMMENT '评论人',
-  `content` varchar(200) NOT NULL COMMENT '评论内容',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '评论时间',
-  `state` tinyint(1) DEFAULT '0' COMMENT '状态 0:待审核 1:已审核 2:已删除',
-  `remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='评论记录表';
 
 -- ----------------------------
 -- Table structure for exception_log
@@ -141,6 +130,22 @@ CREATE TABLE `image_log` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='图片上传记录';
 
+-- ----------------------------
+-- Table structure for login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `login_log`;
+CREATE TABLE `login_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
+  `channel` char(10) DEFAULT NULL COMMENT '登陆渠道',
+  `ip` bigint(20) DEFAULT '0' COMMENT '登陆ip',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '登陆时间',
+  `device_brand` char(30) DEFAULT NULL COMMENT '设备厂商',
+  `device_model` char(50) DEFAULT NULL COMMENT '设备型号',
+  `software_version` char(12) DEFAULT NULL COMMENT '软件版本',
+  `serial_number` varchar(64) DEFAULT NULL COMMENT '设备唯一编号',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='用户登陆日志信息';
 
 -- ----------------------------
 -- Table structure for push_template
@@ -232,7 +237,7 @@ CREATE TABLE `system_config` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `nid_index` (`nid`) USING BTREE,
   KEY `type_index` (`classify`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
 
 -- ----------------------------
 -- Table structure for system_department
@@ -492,36 +497,3 @@ CREATE TABLE `user_ext` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `user_id_index` (`user_id`) USING BTREE COMMENT '唯一索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='普通用户扩展信息表';
-
--- ----------------------------
--- Table structure for app_version
--- ----------------------------
-DROP TABLE IF EXISTS `app_version`;
-CREATE TABLE `app_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `classify` char(10) NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
-  `version` char(10) NOT NULL COMMENT '版本号:1.2.8',
-  `force_update` bit(1) DEFAULT b'0' COMMENT '是否强制更新 0:否 1:是',
-  `url` varchar(500) DEFAULT NULL COMMENT '下载地址,android为实际下载地址,ios是跳转到app_store',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `remark` varchar(500) DEFAULT NULL COMMENT '备注信息:版本更新的东西或解决的问题',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '上架状态 0:未上架 1:上架',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='APP版本管理表';
-
-
-CREATE TABLE `login_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
-  `channel` char(10) DEFAULT NULL COMMENT '登陆渠道',
-  `ip` bigint(20) DEFAULT 0 COMMENT '登陆ip',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '登陆时间',
-  `device_brand` char(30) DEFAULT NULL COMMENT '设备厂商',
-  `device_model` char(50) DEFAULT NULL COMMENT '设备型号',
-  `software_version` char(12) DEFAULT NULL COMMENT '软件版本',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='用户登陆日志信息';
-
-alter table login_log add column serial_number varchar(64) comment '设备唯一编号';

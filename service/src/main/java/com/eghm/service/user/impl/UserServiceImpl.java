@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
         if (loginLog == null && StrUtil.isNotBlank(user.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信
             BusinessException exception = new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
-            exception.setData(StringUtil.hiddenMobile(user.getMobile()));
+            exception.setData(user.getMobile());
             throw exception;
         }
         return this.doLogin(user, login.getIp());
