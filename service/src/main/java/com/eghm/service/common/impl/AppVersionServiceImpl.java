@@ -1,5 +1,6 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.Channel;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
@@ -110,8 +111,7 @@ public class AppVersionServiceImpl implements AppVersionService {
         Integer startVersion = appVersion.getVersionNo();
         //查询用户版本与最新版本之间的版本
         List<AppVersion> versionList = appVersionMapper.getForceUpdateVersion(channel, startVersion, latestVersion.getVersionNo());
-        boolean forceUpdate = !CollectionUtils.isEmpty(versionList);
-        response.setForceUpdate(forceUpdate);
+        response.setForceUpdate(CollUtil.isNotEmpty(versionList));
         return response;
     }
 
