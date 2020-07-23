@@ -147,7 +147,7 @@
 
     <select id="getLatestVersion" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from app_version where classify = #{classify} and deleted = false and state = 1 order by update_time limit 1
+        from app_version where classify = #{classify} and deleted = false and state = 1 order by version_no desc  limit 1
     </select>
 
     <select id="getVersion" resultMap="BaseResultMap">
@@ -157,6 +157,13 @@
 
     <select id="getForceUpdateVersion" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
-        from app_version where classify = #{classify} and deleted = false and state = 1 and force_update = true and add_time &gt; #{startTime} and add_time &lt;  #{endTime}
+        from app_version
+        where
+        classify = #{classify}
+        and deleted = false
+        and state = 1
+        and force_update = true
+        and version_no &gt; #{startVersion}
+        and version_no &lt;  #{endVersion}
     </select>
 </mapper>

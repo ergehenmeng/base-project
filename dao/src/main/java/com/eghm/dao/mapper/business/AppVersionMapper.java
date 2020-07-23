@@ -58,9 +58,11 @@ public interface AppVersionMapper {
     /**
      * 在指定时间段内获取强制更新的版本列表
      * @param classify app类型
-     * @param startTime 开始时间
-     * @param endTime 结束时间
+     * @param startVersion 开始版本
+     * @param endVersion 结束版本
      * @return 强制更新的版本列表
      */
-    List<AppVersion> getForceUpdateVersion(@Param("classify")String classify, @Param("startTime")Date startTime, @Param("endTime")Date endTime);
+    List<AppVersion> getForceUpdateVersion(@Param("classify")String classify,
+                                           @Param("startVersion")Integer startVersion,
+                                           @Param("endVersion")Integer endVersion);
 }

@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,12 +56,14 @@ public class AppVersionServiceImpl implements AppVersionService {
     @Override
     public void addAppVersion(VersionAddRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
+        version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
         appVersionMapper.insertSelective(version);
     }
 
     @Override
     public void editAppVersion(VersionEditRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
+        version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
         appVersionMapper.updateByPrimaryKeySelective(version);
     }
 
@@ -99,15 +100,16 @@ public class AppVersionServiceImpl implements AppVersionService {
         if (Boolean.TRUE.equals(latestVersion.getForceUpdate())) {
             return response;
         }
+        // 用户自己当前的软件版本信息
         AppVersion appVersion = appVersionMapper.getVersion(channel, version);
         //未找到用户安装的版本信息,默认不强更
         if (appVersion == null) {
             return response;
         }
         //如果用户版本非常老,最新版本不是强制更新版本,但中间某个版本是强制更新,用户一样需要强制更新
-        Date addTime = appVersion.getUpdateTime();
+        Integer startVersion = appVersion.getVersionNo();
         //查询用户版本与最新版本之间的版本
-        List<AppVersion> versionList = appVersionMapper.getForceUpdateVersion(channel, addTime, latestVersion.getUpdateTime());
+        List<AppVersion> versionList = appVersionMapper.getForceUpdateVersion(channel, startVersion, latestVersion.getVersionNo());
         boolean forceUpdate = !CollectionUtils.isEmpty(versionList);
         response.setForceUpdate(forceUpdate);
         return response;

@@ -321,9 +321,9 @@ public enum ErrorCode {
     MOBILE_DAY_LIMIT(3025,"当天内短信发送上限"),
 
     /**
-     * 版本号重复
+     * 该版本已上架
      */
-    VERSION_REDO(3025,"版本号重复"),
+    VERSION_REDO(3025,"该版本已上架"),
 
     /**
      * 该手机号已注册
