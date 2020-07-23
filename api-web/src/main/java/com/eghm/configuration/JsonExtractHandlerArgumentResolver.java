@@ -1,4 +1,4 @@
-package com.eghm.interceptor;
+package com.eghm.configuration;
 
 import com.eghm.annotation.SkipAccess;
 import com.eghm.annotation.SkipDataBinder;

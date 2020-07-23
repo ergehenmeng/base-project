@@ -1,6 +1,5 @@
 package com.eghm.annotation;
 
-import com.eghm.interceptor.JsonExtractHandlerArgumentResolver;
 import org.springframework.core.MethodParameter;
 
 import java.lang.annotation.Documented;

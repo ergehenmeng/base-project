@@ -20,7 +20,7 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2019/7/4 14:24
  */
-public class MessageInterceptorInterceptor implements InterceptorAdapter {
+public class MessageInterceptor implements InterceptorAdapter {
 
     /**
      * 请求头最大长度 默认256

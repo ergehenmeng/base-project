@@ -2,10 +2,9 @@ package com.eghm.configuration;
 
 import com.eghm.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.configuration.filter.IpBlackListFilter;
-import com.eghm.interceptor.AccessTokenInterceptorInterceptor;
-import com.eghm.interceptor.ClientTypeInterceptorInterceptor;
-import com.eghm.interceptor.JsonExtractHandlerArgumentResolver;
-import com.eghm.interceptor.MessageInterceptorInterceptor;
+import com.eghm.interceptor.AccessTokenInterceptor;
+import com.eghm.interceptor.ClientTypeInterceptor;
+import com.eghm.interceptor.MessageInterceptor;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -69,7 +68,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      */
     @Bean
     public HandlerInterceptor accessTokenHandlerInterceptor() {
-        return new AccessTokenInterceptorInterceptor();
+        return new AccessTokenInterceptor();
     }
 
     /**
@@ -77,7 +76,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      */
     @Bean
     public HandlerInterceptor clientTypeHandlerInterceptor() {
-        return new ClientTypeInterceptorInterceptor();
+        return new ClientTypeInterceptor();
     }
 
     /**
@@ -87,7 +86,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      */
     @Bean
     public HandlerInterceptor messageHandlerInterceptor() {
-        return new MessageInterceptorInterceptor();
+        return new MessageInterceptor();
     }
 
 

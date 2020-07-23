@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 二哥很猛
  * @date 2019/11/21 10:00
  */
-public class ClientTypeInterceptorInterceptor implements InterceptorAdapter {
+public class ClientTypeInterceptor implements InterceptorAdapter {
 
     /**
      * 默认只允许 ios和android的设备访问接口

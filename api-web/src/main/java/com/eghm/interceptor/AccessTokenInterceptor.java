@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018/1/23 12:02
  */
 @Slf4j
-public class AccessTokenInterceptorInterceptor implements InterceptorAdapter {
+public class AccessTokenInterceptor implements InterceptorAdapter {
 
     private TokenService tokenService;
 
