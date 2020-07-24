@@ -22,7 +22,7 @@ public class BlackRoster implements Serializable {
      * 表 : black_roster<br>
      * 对应字段 : ip<br>
      */
-    private String ip;
+    private Long ip;
 
     /**
      * 是否删除 0:未删除 1:已删除<br>

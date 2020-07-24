@@ -13,7 +13,7 @@
     <result column="pwd" jdbcType="CHAR" property="pwd" />
     <result column="state" jdbcType="BIT" property="state" />
     <result column="channel" jdbcType="TINYINT" property="channel" />
-    <result column="register_ip" jdbcType="VARCHAR" property="registerIp" />
+    <result column="register_ip" jdbcType="BIGINT" property="registerIp" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -102,7 +102,7 @@
         #{channel,jdbcType=TINYINT},
       </if>
       <if test="registerIp != null">
-        #{registerIp,jdbcType=VARCHAR},
+        #{registerIp,jdbcType=BIGINT},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -140,7 +140,7 @@
         channel = #{channel,jdbcType=TINYINT},
       </if>
       <if test="registerIp != null">
-        register_ip = #{registerIp,jdbcType=VARCHAR},
+        register_ip = #{registerIp,jdbcType=BIGINT},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},

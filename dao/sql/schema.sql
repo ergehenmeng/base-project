@@ -51,7 +51,7 @@ CREATE TABLE `banner` (
 DROP TABLE IF EXISTS `black_roster`;
 CREATE TABLE `black_roster` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `ip` char(32) DEFAULT NULL COMMENT '访问ip',
+  `ip` bigint(20) DEFAULT NULL COMMENT '访问ip',
   `deleted` bit(1) DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
   `end_time` datetime DEFAULT NULL COMMENT '黑名单截止时间',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
@@ -339,7 +339,7 @@ CREATE TABLE `system_operation_log` (
   `request` varchar(1000) DEFAULT NULL COMMENT '请求参数',
   `response` text COMMENT '响应参数',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `ip` char(64) DEFAULT NULL COMMENT '访问ip',
+  `ip` bigint(20) DEFAULT NULL COMMENT '访问ip',
   `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
   `classify` tinyint(1) unsigned DEFAULT NULL COMMENT '操作日志分类,参考:MethodType',
   PRIMARY KEY (`id`) USING BTREE
@@ -467,10 +467,10 @@ CREATE TABLE `user` (
   `open_id` char(64) DEFAULT NULL COMMENT '微信小程序openId',
   `nick_name` char(20) DEFAULT '' COMMENT '昵称',
   `email` char(50) DEFAULT NULL COMMENT '电子邮箱',
-  `pwd` char(128) DEFAULT NULL COMMENT '登陆密码',
+  `pwd` varchar(256) DEFAULT NULL COMMENT '登陆密码',
   `state` bit(1) DEFAULT b'1' COMMENT '状态 0:冻结 1:正常 ',
   `channel` tinyint(1) unsigned DEFAULT '0' COMMENT '注册渠道',
-  `register_ip` char(32) DEFAULT NULL COMMENT '注册地址',
+  `register_ip` bigint(20) DEFAULT NULL COMMENT '注册地址',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `avatar` varchar(200) DEFAULT NULL COMMENT '头像路径',

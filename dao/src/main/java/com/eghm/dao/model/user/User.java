@@ -73,7 +73,7 @@ public class User implements Serializable {
      * 表 : user<br>
      * 对应字段 : register_ip<br>
      */
-    private String registerIp;
+    private Long registerIp;
 
     /**
      * 注册时间<br>

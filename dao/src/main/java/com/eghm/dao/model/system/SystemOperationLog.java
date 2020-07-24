@@ -51,7 +51,7 @@ public class SystemOperationLog implements Serializable {
      * 表 : system_operation_log<br>
      * 对应字段 : ip<br>
      */
-    private String ip;
+    private Long ip;
 
     /**
      * 业务耗时<br>

@@ -6,7 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="ip" jdbcType="CHAR" property="ip" />
+    <result column="ip" jdbcType="BIGINT" property="ip" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -58,7 +58,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="ip != null">
-        #{ip,jdbcType=CHAR},
+        #{ip,jdbcType=BIGINT},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -81,7 +81,7 @@
     update black_roster
     <set>
       <if test="ip != null">
-        ip = #{ip,jdbcType=CHAR},
+        ip = #{ip,jdbcType=BIGINT},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},

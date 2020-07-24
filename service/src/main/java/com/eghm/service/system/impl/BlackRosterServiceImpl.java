@@ -6,6 +6,7 @@ import com.eghm.dao.model.system.BlackRoster;
 import com.eghm.model.dto.system.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.system.roster.BlackRosterQueryRequest;
 import com.eghm.service.system.BlackRosterService;
+import com.eghm.utils.IpUtil;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     @Override
     public void addBlackRoster(BlackRosterAddRequest request) {
         BlackRoster roster = new BlackRoster();
-        roster.setIp(request.getIp());
+        roster.setIp(IpUtil.ipToLong(request.getIp()));
         roster.setEndTime(request.getEndTime());
         blackRosterMapper.insertSelective(roster);
     }

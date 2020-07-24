@@ -1,12 +1,14 @@
 package com.eghm.service.system.impl;
 
-import cn.hutool.core.util.StrUtil;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.system.SystemDepartmentMapper;
 import com.eghm.dao.model.system.SystemDepartment;
 import com.eghm.model.dto.system.department.DepartmentAddRequest;
 import com.eghm.model.dto.system.department.DepartmentEditRequest;
 import com.eghm.service.system.SystemDepartmentService;
 import com.eghm.utils.DataUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +21,20 @@ import java.util.List;
  */
 @Service("systemDepartmentService")
 @Transactional(rollbackFor = RuntimeException.class)
+@Slf4j
 public class SystemDepartmentServiceImpl implements SystemDepartmentService {
 
     private SystemDepartmentMapper systemDepartmentMapper;
 
     /**
-     * 根节点或子节点的根节点编码
+     * 部门步长 即:一个部门对多有900个直属部门 100~999
      */
-    private static final String ROOT_CODE = "100";
+    private static final String STEP = "100";
+
+    /**
+     * 根节点默认 0
+     */
+    private static final String ROOT = "0";
 
     @Autowired
     public void setSystemDepartmentMapper(SystemDepartmentMapper systemDepartmentMapper) {
@@ -59,14 +67,17 @@ public class SystemDepartmentServiceImpl implements SystemDepartmentService {
 
     @Override
     public String getNextCode(String code) {
-        if (StrUtil.isBlank(code)) {
-            return ROOT_CODE;
-        }
         SystemDepartment child = systemDepartmentMapper.getMaxCodeChild(code);
         if (child == null) {
-            return code + ROOT_CODE;
+            return ROOT.equals(code) ? STEP :  code + STEP;
         }
-        return String.valueOf(Long.parseLong(child.getCode()) + 1);
+        // 不校验子部门上限,傻子才会有900个部门
+        try {
+            return String.valueOf(Long.parseLong(child.getCode()) + 1);
+        } catch (NumberFormatException e) {
+            log.warn("部门编号生成失败 code:[{}]", code);
+            throw new BusinessException(ErrorCode.DEPARTMENT_DEPTH_ERROR);
+        }
     }
 
 }

@@ -361,7 +361,10 @@ public enum ErrorCode {
      */
     MAIL_NOT_CONFIG(3031,"邮件服务可能未配置"),
 
-
+    /**
+     * 部门层级已上限
+     */
+    DEPARTMENT_DEPTH_ERROR(3032,"部门层级已上限"),
 
 
     ;

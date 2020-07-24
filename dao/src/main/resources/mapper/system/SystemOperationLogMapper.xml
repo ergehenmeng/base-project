@@ -10,7 +10,7 @@
     <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
     <result column="request" jdbcType="VARCHAR" property="request" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="ip" jdbcType="BIGINT" property="ip" />
     <result column="business_time" jdbcType="BIGINT" property="businessTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eghm.dao.model.system.SystemOperationLog">
@@ -91,7 +91,7 @@
         #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
+        #{ip,jdbcType=BIGINT},
       </if>
       <if test="businessTime != null">
         #{businessTime,jdbcType=BIGINT},
@@ -120,7 +120,7 @@
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="ip != null">
-        ip = #{ip,jdbcType=VARCHAR},
+        ip = #{ip,jdbcType=BIGINT},
       </if>
       <if test="businessTime != null">
         business_time = #{businessTime,jdbcType=BIGINT},

@@ -1,5 +1,6 @@
 package com.eghm.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
 
@@ -72,6 +73,9 @@ public class IpUtil {
      * @return long
      */
     public static long ipToLong(String ip){
+        if (StrUtil.isBlank(ip)) {
+            return 0L;
+        }
         String[] split = ip.split("\\.");
         return (Long.parseLong(split[0]) << 24) + (Long.parseLong(split[1]) << 16) + (Long.parseLong(split[2]) << 8)  + Long.parseLong(split[3]);
     }

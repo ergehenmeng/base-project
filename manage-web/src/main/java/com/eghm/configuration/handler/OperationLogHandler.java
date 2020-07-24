@@ -91,7 +91,7 @@ public class OperationLogHandler {
 
         sy.setOperatorId(operator.getId());
         sy.setOperatorName(operator.getOperatorName());
-        sy.setIp(IpUtil.getIpAddress(request));
+        sy.setIp(IpUtil.ipToLong(IpUtil.getIpAddress(request)));
 
         if (mark.request()) {
             Object[] args = joinPoint.getArgs();
