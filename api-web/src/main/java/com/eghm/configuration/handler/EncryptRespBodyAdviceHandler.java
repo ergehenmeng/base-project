@@ -28,7 +28,6 @@ import javax.annotation.Nullable;
  */
 @RestControllerAdvice
 @Slf4j
-@SuppressWarnings("rawtypes")
 public class EncryptRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
     private Gson gson;

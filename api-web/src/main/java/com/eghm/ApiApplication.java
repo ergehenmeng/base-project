@@ -9,7 +9,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
@@ -29,7 +28,7 @@ public class ApiApplication implements ApplicationListener<ContextRefreshedEvent
     }
 
     @Override
-    public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
+    public void onApplicationEvent(ContextRefreshedEvent event) {
         SpringContextUtil.setApplicationContext(event.getApplicationContext());
     }
 }
