@@ -1,7 +1,7 @@
 package com.eghm.configuration.task.job;
 
 import com.eghm.common.utils.DateUtil;
-import com.eghm.configuration.task.config.OnceTask;
+import com.eghm.configuration.task.config.OnceDetail;
 import com.eghm.configuration.task.config.SystemTaskRegistrar;
 import com.eghm.configuration.task.config.Task;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class TestJobService implements Task {
     @Override
     public void execute() {
         log.error("我是个数据库配置的Job {}", DateUtil.formatLong(DateUtil.getNow()));
-        systemTaskRegistrar.addTask(OnceTask.builder().beanName("onceJobService").nid("onceJobService").executeTime(DateUtil.addSeconds(DateUtil.getNow(),10)).build());
+        systemTaskRegistrar.addTask(OnceDetail.builder().beanName("onceJobService").nid("onceJobService").executeTime(DateUtil.addSeconds(DateUtil.getNow(),10)).build());
     }
 
     @Scheduled(cron = "0 0 0-5 * * ?")

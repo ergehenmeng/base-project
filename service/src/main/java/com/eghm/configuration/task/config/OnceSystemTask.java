@@ -12,11 +12,14 @@ import java.util.Date;
  * @author 二哥很猛
  * @date 2020/1/6 18:28
  */
-public class OnceTriggerTask extends TriggerTask {
+public class OnceSystemTask extends TriggerTask {
 
+    /**
+     * 任务理应执行的时间
+     */
     private Date executeTime;
 
-    OnceTriggerTask(OnceTask config) {
+    OnceSystemTask(OnceDetail config) {
         super(new RunnableTask(config.getNid(), config.getBeanName()), new OnceTrigger(config.getExecuteTime()));
         this.executeTime = config.getExecuteTime();
     }

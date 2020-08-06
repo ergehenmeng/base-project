@@ -38,7 +38,7 @@ public class SystemTaskRegistrar implements DisposableBean {
     /**
      * 周期定时任务
      */
-    private final Map<String, CronTriggerTask> cronTaskMap = new ConcurrentHashMap<>(32);
+    private final Map<String, CronSystemTask> cronTaskMap = new ConcurrentHashMap<>(32);
 
     /**
      * 任务执行句柄
@@ -48,7 +48,7 @@ public class SystemTaskRegistrar implements DisposableBean {
     /**
      * 单次定时任务
      */
-    private final Map<String, OnceTriggerTask> onceTaskMap = new ConcurrentHashMap<>(32);
+    private final Map<String, OnceSystemTask> onceTaskMap = new ConcurrentHashMap<>(32);
 
     /**
      * 计数器 用于单次任务的nid生成
@@ -61,9 +61,9 @@ public class SystemTaskRegistrar implements DisposableBean {
     public synchronized void loadOrRefreshTask() {
         log.info("定时任务配置信息开始加载...");
         List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();
-        List<CronTriggerTask> taskList = new ArrayList<>();
+        List<CronSystemTask> taskList = new ArrayList<>();
         for (TaskConfig taskConfig : taskConfigs) {
-            CronTriggerTask triggerTask = new CronTriggerTask(DataUtil.copy(taskConfig, CronTask.class));
+            CronSystemTask triggerTask = new CronSystemTask(DataUtil.copy(taskConfig, CronDetail.class));
             taskList.add(triggerTask);
         }
         this.doRefreshTask(taskList);
@@ -75,7 +75,7 @@ public class SystemTaskRegistrar implements DisposableBean {
      *
      * @param taskList 新的定时任务配置列表
      */
-    private void doRefreshTask(List<CronTriggerTask> taskList) {
+    private void doRefreshTask(List<CronSystemTask> taskList) {
         //cron校验
         this.verifyCronExpression(taskList);
         //移除不需要运行的任务
@@ -89,8 +89,8 @@ public class SystemTaskRegistrar implements DisposableBean {
      *
      * @param taskList 待添加的定时任务列表
      */
-    private void addCronTask(List<CronTriggerTask> taskList) {
-        for (CronTriggerTask task : taskList) {
+    private void addCronTask(List<CronSystemTask> taskList) {
+        for (CronSystemTask task : taskList) {
             this.addCronTask(task);
         }
     }
@@ -100,8 +100,8 @@ public class SystemTaskRegistrar implements DisposableBean {
      *
      * @param task 待添加的定时任务
      */
-    private void addCronTask(CronTriggerTask task) {
-        if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getCronExpression().equals(task.getCronExpression())) {
+    private void addCronTask(CronSystemTask task) {
+        if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getExpression().equals(task.getExpression())) {
             log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
             return;
         }
@@ -120,15 +120,15 @@ public class SystemTaskRegistrar implements DisposableBean {
      * 2.如果旧定时任务是仅执行一次的定时任务,则不移除.由系统参数 task_max_survival_time 来决定是否移除
      *
      * @param taskList 指定的任务列表
-     * @see SystemTaskRegistrar#addTask(OnceTask)
+     * @see SystemTaskRegistrar#addTask(OnceDetail)
      */
-    private void removeCronTask(List<CronTriggerTask> taskList) {
+    private void removeCronTask(List<CronSystemTask> taskList) {
         boolean isEmpty = taskList.isEmpty();
         Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
             //将所有不在指定任务列表的中已经在运行的任务全部取消,注意该移除不包含一次执行的定时任务
-            boolean shouldCancel = (isEmpty || taskList.stream().map(CronTriggerTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) && !onceTaskMap.containsKey(entry.getKey());
+            boolean shouldCancel = (isEmpty || taskList.stream().map(CronSystemTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) && !onceTaskMap.containsKey(entry.getKey());
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 iterator.remove();
@@ -141,10 +141,10 @@ public class SystemTaskRegistrar implements DisposableBean {
      *
      * @param taskList cron任务列表
      */
-    private void verifyCronExpression(List<CronTriggerTask> taskList) {
-        for (CronTriggerTask task : taskList) {
-            if (StrUtil.isBlank(task.getCronExpression()) || !CronSequenceGenerator.isValidExpression(task.getCronExpression())) {
-                log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getCronExpression());
+    private void verifyCronExpression(List<CronSystemTask> taskList) {
+        for (CronSystemTask task : taskList) {
+            if (StrUtil.isBlank(task.getExpression()) || !CronSequenceGenerator.isValidExpression(task.getExpression())) {
+                log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }
         }
@@ -155,13 +155,13 @@ public class SystemTaskRegistrar implements DisposableBean {
      *
      * @param task 任务配置信息
      */
-    public void addTask(OnceTask task) {
+    public void addTask(OnceDetail task) {
         this.cancelTask();
         task.setNid(task.getNid() + "-" + counter.getAndIncrement());
-        OnceTriggerTask onceTriggerTask = new OnceTriggerTask(task);
-        ScheduledFuture<?> schedule = taskScheduler.schedule(onceTriggerTask.getRunnable(), onceTriggerTask.getTrigger());
+        OnceSystemTask onceSystemTask = new OnceSystemTask(task);
+        ScheduledFuture<?> schedule = taskScheduler.schedule(onceSystemTask.getRunnable(), onceSystemTask.getTrigger());
         scheduledFutures.put(task.getNid(), schedule);
-        onceTaskMap.put(task.getNid(), onceTriggerTask);
+        onceTaskMap.put(task.getNid(), onceSystemTask);
     }
 
     /**
@@ -170,9 +170,9 @@ public class SystemTaskRegistrar implements DisposableBean {
     private void cancelTask() {
         Date now = DateUtil.getNow();
         int maxSurvivalTime = systemConfigApi.getInt(ConfigConstant.TASK_MAX_SURVIVAL_TIME);
-        Iterator<Map.Entry<String, OnceTriggerTask>> iterator = onceTaskMap.entrySet().iterator();
+        Iterator<Map.Entry<String, OnceSystemTask>> iterator = onceTaskMap.entrySet().iterator();
         while (iterator.hasNext()) {
-            Map.Entry<String, OnceTriggerTask> next = iterator.next();
+            Map.Entry<String, OnceSystemTask> next = iterator.next();
             if (next.getValue().shouldRemove(now, maxSurvivalTime)) {
                 log.info("移除定时任务 nid:[{}]", next.getKey());
                 iterator.remove();

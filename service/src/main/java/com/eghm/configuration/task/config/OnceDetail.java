@@ -1,13 +1,21 @@
 package com.eghm.configuration.task.config;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 /**
  * @author 二哥很猛
- * @date 2020/1/6 18:43
+ * @date 2020/1/6 18:36
  */
 @Data
-public class CronTask {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class OnceDetail {
 
     /**
      * 任务标示符
@@ -20,8 +28,8 @@ public class CronTask {
     private String beanName;
 
     /**
-     * 任务cron表达式
+     * 任务执行的时间
      */
-    private String cronExpression;
+    private Date executeTime;
 
 }
