@@ -21,7 +21,7 @@ public class TaskConfiguration {
     /**
      * 创建定时任务线程池
      */
-    @Bean
+    @Bean("taskScheduler")
     public TaskScheduler taskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(5);
