@@ -3773,5 +3773,4 @@ INSERT INTO `system_config` VALUES ('36', 'android_max_size', '安卓软件包�
 INSERT INTO `system_config` VALUES ('37', 'analog_sms_code', '模拟短信验证码', '9527', '1', '\0', '短信功能未开启时,所有验证码短信都以此验证码为准', '2019-11-25 11:54:05', '2019-11-25 11:54:44');
 INSERT INTO `system_config` VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800', '1', '\0', '单位:秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-01-15 16:38:59');
 INSERT INTO `system_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', '1', '\0', '单位:秒 默认7天过期', '2020-01-15 16:38:47', '2020-01-15 16:38:47');
-INSERT INTO `system_config` VALUES ('40', 'task_max_survival_time', '单次的任务最大存活时间', '60', '1', '\0', '超过该时间后,将会被清除', '2020-01-15 16:39:33', '2020-01-15 16:39:55');
 INSERT INTO `system_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', '1', '\0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-01-15 16:39:55');
