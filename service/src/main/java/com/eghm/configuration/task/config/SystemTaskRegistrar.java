@@ -1,13 +1,11 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.common.utils.DateUtil;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.business.TaskConfig;
 import com.eghm.service.common.TaskConfigService;
-import com.eghm.service.system.impl.SystemConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
@@ -30,9 +28,6 @@ public class SystemTaskRegistrar implements DisposableBean {
     private TaskConfigService taskConfigService;
 
     @Autowired
-    private SystemConfigApi systemConfigApi;
-
-    @Autowired
     private TaskScheduler taskScheduler;
 
     /**
@@ -48,7 +43,7 @@ public class SystemTaskRegistrar implements DisposableBean {
     /**
      * 单次定时任务
      */
-    private final Map<String, OnceSystemTask> onceTaskMap = new ConcurrentHashMap<>(32);
+    private final Set<String> onceTaskSet = new ConcurrentHashSet<>(32);
 
     /**
      * 计数器 用于单次任务的nid生成
@@ -128,7 +123,7 @@ public class SystemTaskRegistrar implements DisposableBean {
         while (iterator.hasNext()) {
             Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
             //将所有不在指定任务列表的中已经在运行的任务全部取消,注意该移除不包含一次执行的定时任务
-            boolean shouldCancel = (isEmpty || taskList.stream().map(CronSystemTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) && !onceTaskMap.containsKey(entry.getKey());
+            boolean shouldCancel = (isEmpty || taskList.stream().map(CronSystemTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) && !onceTaskSet.contains(entry.getKey());
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 iterator.remove();
@@ -156,33 +151,12 @@ public class SystemTaskRegistrar implements DisposableBean {
      * @param task 任务配置信息
      */
     public void addTask(OnceDetail task) {
-        this.cancelTask();
-        task.setNid(task.getNid() + "-" + counter.getAndIncrement());
-        OnceSystemTask onceSystemTask = new OnceSystemTask(task);
-        ScheduledFuture<?> schedule = taskScheduler.schedule(onceSystemTask.getRunnable(), onceSystemTask.getTrigger());
-        scheduledFutures.put(task.getNid(), schedule);
-        onceTaskMap.put(task.getNid(), onceSystemTask);
+        String nid = task.getNid() + "-" + counter.getAndIncrement();
+        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task.getNid(), task.getBeanName()), task.getExecuteTime());
+        scheduledFutures.put(nid, schedule);
+        onceTaskSet.add(nid);
     }
 
-    /**
-     * 移除过期的一次性任务
-     */
-    private void cancelTask() {
-        Date now = DateUtil.getNow();
-        int maxSurvivalTime = systemConfigApi.getInt(ConfigConstant.TASK_MAX_SURVIVAL_TIME);
-        Iterator<Map.Entry<String, OnceSystemTask>> iterator = onceTaskMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, OnceSystemTask> next = iterator.next();
-            if (next.getValue().shouldRemove(now, maxSurvivalTime)) {
-                log.info("移除定时任务 nid:[{}]", next.getKey());
-                iterator.remove();
-                ScheduledFuture<?> future = scheduledFutures.remove(next.getKey());
-                if (future != null) {
-                    future.cancel(false);
-                }
-            }
-        }
-    }
 
     @Override
     public void destroy() {

@@ -85,11 +85,6 @@ public class ConfigConstant {
     public static final String ANDROID_MAX_SIZE = "android_max_size";
 
     /**
-     * 模拟短信验证码
-     */
-    public static final String ANALOG_SMS_CODE = "analog_sms_code";
-
-    /**
      * 非注解缓存的默认过期时间
      */
     public static final String CACHE_EXPIRE = "cache_expire";
@@ -109,8 +104,4 @@ public class ConfigConstant {
      */
     public static final String REFRESH_TOKEN_EXPIRE = "refresh_token_expire";
 
-    /**
-     * 针对只执行一次的任务最大存活时间
-     */
-    public static final String TASK_MAX_SURVIVAL_TIME = "task_max_survival_time";
 }
