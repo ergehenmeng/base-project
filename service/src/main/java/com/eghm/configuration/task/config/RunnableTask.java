@@ -40,6 +40,7 @@ public class RunnableTask implements Runnable {
     RunnableTask(String nid, String beanName) {
         this.nid = nid;
         this.beanName = beanName;
+        initBeans();
     }
 
     @Override
@@ -48,7 +49,8 @@ public class RunnableTask implements Runnable {
         long startTime = now.getTime();
         TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(nid).beanName(beanName).ip(IpUtil.getLocalIp()).startTime(now);
         try {
-            getTaskBean().execute();
+            // 任务幂等由业务来决定
+            task.execute();
         } catch (Exception e) {
             log.error("定时任务执行异常 nid:[{}] bean:[{}]", nid, beanName, e);
             builder.state(false);
@@ -68,12 +70,10 @@ public class RunnableTask implements Runnable {
         return taskLogService;
     }
 
-    private Task getTaskBean() {
-        if (task != null) {
-            return task;
-        }
-        //必须保证bean名称正确
-        this.task = (Task) SpringContextUtil.getBean(beanName);
-        return task;
+    /**
+     * 从Spring容器中获取Bean
+     */
+    private void initBeans() {
+        task = (Task) SpringContextUtil.getBean(beanName);
     }
 }

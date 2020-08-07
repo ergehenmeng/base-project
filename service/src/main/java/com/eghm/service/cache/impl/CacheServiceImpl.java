@@ -150,6 +150,21 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public boolean setIfAbsent(String key, String value) {
+        Boolean absent = opsForValue.setIfAbsent(key, value);
+        return Boolean.TRUE.equals(absent);
+    }
+
+    @Override
+    public boolean setIfAbsent(String key, String value, long expire) {
+        boolean absent = this.setIfAbsent(key, value);
+        if (absent) {
+            redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+        }
+        return absent;
+    }
+
+    @Override
     public void setValue(String key, Object value, Date expireTime) {
         this.setValue(key, value);
         redisTemplate.expireAt(key, expireTime);

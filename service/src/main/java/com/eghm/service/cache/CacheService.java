@@ -51,6 +51,23 @@ public interface CacheService {
     boolean exist(String key);
 
     /**
+     * 如果没有则添加否则不添加
+     * @param key key
+     * @param value value
+     * @return true:添加成功 false:添加失败
+     */
+    boolean setIfAbsent(String key, String value);
+
+    /**
+     * 如果没有则添加否则不添加
+     * @param key key
+     * @param value value
+     * @param expire 过期时间
+     * @return true:添加成功 false:添加失败
+     */
+    boolean setIfAbsent(String key, String value, long expire);
+
+    /**
      * 缓存对象,并设置过期时间
      *
      * @param key        key
