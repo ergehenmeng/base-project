@@ -4,7 +4,7 @@
 
 
 ### 定时任务相关
-* 开启定时任务需在`application.properties`中添加`application.job=true`即可
+* 开启定时任务添加`@EnableTask`注解即可
     * 支持数据库配置cron定时,spring原生注解定时,单次执行的定时
     * 在`job_task`表中`bean`字段为要执行定时任务的bean的名称 `cron_expression`为cron表达式
     * 如需简单定时任务可使用`@Scheduled`

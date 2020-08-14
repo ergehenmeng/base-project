@@ -1,6 +1,7 @@
 package com.eghm;
 
 
+import com.eghm.configuration.annotation.EnableTask;
 import com.eghm.configuration.task.config.SystemTaskRegistrar;
 import com.eghm.utils.SpringContextUtil;
 import org.mybatis.spring.annotation.MapperScan;
@@ -25,8 +26,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableAspectJAutoProxy
-@ServletComponentScan(basePackages = {"com.eghm.filter", "com.eghm.listener"})
+@ServletComponentScan(basePackages = "com.eghm.listener")
 @MapperScan(basePackages = "com.eghm.dao.mapper")
+@EnableTask
 public class ManageApplication implements ApplicationListener<ContextRefreshedEvent>, ApplicationRunner {
 
     private SystemTaskRegistrar systemTaskRegistrar;

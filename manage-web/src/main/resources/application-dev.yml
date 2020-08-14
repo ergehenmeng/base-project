@@ -35,5 +35,3 @@ application:
     - /main
     - /portal
     - /upload
-  # 是否开启定时任务
-  job: true

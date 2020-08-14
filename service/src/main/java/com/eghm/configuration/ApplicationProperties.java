@@ -34,10 +34,6 @@ public class ApplicationProperties {
      */
     private String uploadDir;
 
-    /**
-     * 是否开启定时任务
-     */
-    private boolean job;
 
     public String getVersion() {
         return version;
@@ -71,11 +67,4 @@ public class ApplicationProperties {
         this.uploadDir = uploadDir;
     }
 
-    public boolean isJob() {
-        return job;
-    }
-
-    public void setJob(boolean job) {
-        this.job = job;
-    }
 }
