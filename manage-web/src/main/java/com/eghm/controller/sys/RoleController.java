@@ -41,7 +41,7 @@ public class RoleController {
      * @param request 查询条件
      * @return 列表
      */
-    @PostMapping("/system/role/list_page")
+    @PostMapping("/sys/role/list_page")
     @ResponseBody
     @Mark
     public Paging<SysRole> listPage(RoleQueryRequest request) {
@@ -54,7 +54,7 @@ public class RoleController {
      *
      * @return 角色列表
      */
-    @PostMapping("/system/role/list")
+    @PostMapping("/sys/role/list")
     @ResponseBody
     @Mark
     public List<CheckBox> list() {
@@ -69,12 +69,12 @@ public class RoleController {
      * @param id 角色id
      * @return 角色编辑信息
      */
-    @GetMapping("/system/role/edit_page")
+    @GetMapping("/sys/role/edit_page")
     @Mark
     public String editPage(Model model, Integer id) {
         SysRole role = sysRoleService.getById(id);
         model.addAttribute("role", role);
-        return "system/role/edit_page";
+        return "sys/role/edit_page";
     }
 
     /**
@@ -83,7 +83,7 @@ public class RoleController {
      * @param request 前台请求参数
      * @return 成功
      */
-    @PostMapping("/system/role/edit")
+    @PostMapping("/sys/role/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(RoleEditRequest request) {
@@ -97,7 +97,7 @@ public class RoleController {
      * @param id 主键
      * @return 成功
      */
-    @PostMapping("/system/role/delete")
+    @PostMapping("/sys/role/delete")
     @ResponseBody
     @Mark
     public RespBody<Object> delete(Integer id) {
@@ -111,7 +111,7 @@ public class RoleController {
      * @param request 前台参数
      * @return 成功
      */
-    @PostMapping("/system/role/add")
+    @PostMapping("/sys/role/add")
     @ResponseBody
     @Mark
     public RespBody<Object> add(RoleAddRequest request) {
@@ -126,14 +126,14 @@ public class RoleController {
      * @param id    角色id
      * @return 角色编辑信息
      */
-    @GetMapping("/system/role/auth_page")
+    @GetMapping("/sys/role/auth_page")
     @Mark
     public String addPage(Model model, Integer id) {
         List<Integer> role = sysRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);
         model.addAttribute("menuIds", menuIds);
         model.addAttribute("roleId", id);
-        return "system/role/auth_page";
+        return "sys/role/auth_page";
     }
 
     /**
@@ -143,7 +143,7 @@ public class RoleController {
      * @param menuIds 菜单
      * @return 响应
      */
-    @PostMapping("/system/role/auth")
+    @PostMapping("/sys/role/auth")
     @ResponseBody
     @Mark
     public RespBody<Object> authRole(Integer roleId, String menuIds) {

@@ -32,7 +32,7 @@ public class OperationLogController {
      * @param request 查询条件
      * @return 分页
      */
-    @PostMapping("/system/operation_log/list_page")
+    @PostMapping("/sys/operation_log/list_page")
     @ResponseBody
     public Paging<SysOperationLog> listPage(OperationQueryRequest request) {
         return new Paging<>(operationLogService.getByPage(request));
@@ -44,7 +44,7 @@ public class OperationLogController {
      * @param id di
      * @return 结果页面
      */
-    @GetMapping("/system/operation_log/query_page")
+    @GetMapping("/sys/operation_log/query_page")
     @Mark
     public String queryPage(Model model, Integer id) {
         String response = operationLogService.getResponseById(id);

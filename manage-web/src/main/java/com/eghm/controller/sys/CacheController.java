@@ -34,7 +34,7 @@ public class CacheController {
      *
      * @return 缓存列表
      */
-    @PostMapping("/system/cache/list")
+    @PostMapping("/sys/cache/list")
     @ResponseBody
     public Paging<SysCache> list() {
         return new Paging<>(sysCacheService.getList());
@@ -47,7 +47,7 @@ public class CacheController {
      * @return 成功响应
      */
     @SuppressWarnings("UnstableApiUsage")
-    @PostMapping("/system/cache/clear")
+    @PostMapping("/sys/cache/clear")
     @ResponseBody
     @Mark
     public RespBody<Object> clear(String cacheName) {

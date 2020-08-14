@@ -35,7 +35,7 @@ public class DictController {
      * @param request 前台参数
      * @return 分页列表
      */
-    @PostMapping("/system/dict/list_page")
+    @PostMapping("/sys/dict/list_page")
     @ResponseBody
     @Mark
     public Paging<SysDict> listPage(DictQueryRequest request) {
@@ -48,12 +48,12 @@ public class DictController {
      * @param id id
      * @return 页面地址
      */
-    @GetMapping("/system/dict/edit_page")
+    @GetMapping("/sys/dict/edit_page")
     @Mark
     public String editPage(Model model, Integer id) {
         SysDict dict = sysDictService.getById(id);
         model.addAttribute("dict", dict);
-        return "system/dict/edit_page";
+        return "sys/dict/edit_page";
     }
 
     /**
@@ -62,7 +62,7 @@ public class DictController {
      * @param request 前台参数
      * @return 成功响应
      */
-    @PostMapping("/system/dict/add")
+    @PostMapping("/sys/dict/add")
     @ResponseBody
     @Mark
     public RespBody<Object> add(DictAddRequest request) {
@@ -76,7 +76,7 @@ public class DictController {
      * @param request 前台参数
      * @return 结果
      */
-    @PostMapping("/system/dict/edit")
+    @PostMapping("/sys/dict/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(DictEditRequest request) {
@@ -91,7 +91,7 @@ public class DictController {
      * @param id 主键
      * @return 成功响应
      */
-    @PostMapping("/system/dict/delete")
+    @PostMapping("/sys/dict/delete")
     @ResponseBody
     @Mark
     public RespBody<Object> delete(Integer id) {
