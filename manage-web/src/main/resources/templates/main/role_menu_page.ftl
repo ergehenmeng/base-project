@@ -2,7 +2,7 @@
     $(function(){
         $("#tree").tree({
             // 获取所有的菜单及角色拥有的菜单
-            url:"/system/operator/menu_list",
+            url:"/sys/operator/menu_list",
             loadFilter:loadFilter
         });
     });

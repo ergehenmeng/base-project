@@ -39,11 +39,11 @@
     <include refid="BaseColumnList" />
     ,
     <include refid="BlobColumnList" />
-    from system_notice
+    from sys_notice
     where id = #{id,jdbcType=INTEGER}
   </select>
     <select id="getList" parameterType="com.eghm.model.dto.business.notice.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
-        select id, title, classify, deleted, add_time, update_time, state from system_notice
+        select id, title, classify, deleted, add_time, update_time, state from sys_notice
         where deleted = false
         <if test="queryName != null and queryName != ''">
             and title like concat('%',#{queryName},'%')
@@ -59,7 +59,7 @@
     <!--
       @create by mybatis
     -->
-    insert into system_notice
+    insert into sys_notice
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -117,7 +117,7 @@
     <!--
       @create by mybatis
     -->
-    update system_notice
+    update sys_notice
     <set>
       <if test="title != null">
         title = #{title,jdbcType=CHAR},
@@ -145,7 +145,7 @@
   </update>
     <select id="getTopList" resultMap="BaseResultMap">
         select id,title
-        from system_notice where state = 1 and deleted = false order by update_time desc limit #{noticeLimit}
+        from sys_notice where state = 1 and deleted = false order by update_time desc limit #{noticeLimit}
     </select>
 
 </mapper>

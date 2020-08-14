@@ -29,7 +29,7 @@ public class Banner implements Serializable {
     private String title;
 
     /**
-     * 轮播图类型:由system_dict的banner_type维护(不同模块的轮播均在该表中维护)<br>
+     * 轮播图类型:由sys_dict的banner_type维护(不同模块的轮播均在该表中维护)<br>
      * 表 : banner<br>
      * 对应字段 : classify<br>
      */

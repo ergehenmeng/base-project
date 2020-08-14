@@ -63,10 +63,10 @@ public class ImageLogController extends AbstractController {
     /**
      * 图片列表页面
      */
-    @GetMapping("/system/image/manage_page")
+    @GetMapping("/sys/image/manage_page")
     public String managePage(Model model) {
         model.addAttribute("address", sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
-        return "system/image/manage_page";
+        return "sys/image/manage_page";
     }
 
     /**
@@ -74,7 +74,7 @@ public class ImageLogController extends AbstractController {
      *
      * @return 分页数据
      */
-    @PostMapping("/system/image/list_page")
+    @PostMapping("/sys/image/list_page")
     @ResponseBody
     @Mark
     public Paging<ImageLog> listPage(ImageQueryRequest request) {
@@ -92,7 +92,7 @@ public class ImageLogController extends AbstractController {
      *
      * @return 成功
      */
-    @PostMapping("/system/image/add")
+    @PostMapping("/sys/image/add")
     @ResponseBody
     @Mark
     public RespBody<Object> addImage(ImageAddRequest request, MultipartFile imgFile) {
@@ -111,7 +111,7 @@ public class ImageLogController extends AbstractController {
      * @param request 更新参数
      * @return 成功
      */
-    @PostMapping("/system/image/edit")
+    @PostMapping("/sys/image/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> editImage(ImageEditRequest request) {
@@ -126,7 +126,7 @@ public class ImageLogController extends AbstractController {
      * @param id 用户id
      * @return 删除
      */
-    @PostMapping("/system/image/delete")
+    @PostMapping("/sys/image/delete")
     @ResponseBody
     @Mark
     public RespBody<Object> deleteImage(Integer id) {
@@ -139,11 +139,11 @@ public class ImageLogController extends AbstractController {
      *
      * @return 图片地址
      */
-    @GetMapping("/system/image/edit_page")
+    @GetMapping("/sys/image/edit_page")
     @Mark
     public String editImagePage(Model model, Integer id) {
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log", log);
-        return "system/image/edit_page";
+        return "sys/image/edit_page";
     }
 }

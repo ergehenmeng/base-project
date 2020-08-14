@@ -65,7 +65,7 @@ public class OperatorController extends AbstractController {
      * @param request 请求参数
      * @return 成功状态
      */
-    @PostMapping("/system/operator/change_password")
+    @PostMapping("/sys/operator/change_password")
     @ResponseBody
     @Mark
     public RespBody<Object> changePassword(HttpSession session, PasswordEditRequest request) {
@@ -88,7 +88,7 @@ public class OperatorController extends AbstractController {
      * @param request 查询条件
      * @return 列表
      */
-    @PostMapping("/system/operator/list_page")
+    @PostMapping("/sys/operator/list_page")
     @ResponseBody
     @Mark
     public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
@@ -102,7 +102,7 @@ public class OperatorController extends AbstractController {
      *
      * @return 成功
      */
-    @PostMapping("/system/operator/add")
+    @PostMapping("/sys/operator/add")
     @ResponseBody
     @Mark
     public RespBody<Object> addOperator(OperatorAddRequest request) {
@@ -116,7 +116,7 @@ public class OperatorController extends AbstractController {
      * @param id 管理人员id
      * @return 页面
      */
-    @GetMapping("/system/operator/edit_page")
+    @GetMapping("/sys/operator/edit_page")
     @Mark
     public String editOperatorPage(Model model, Integer id) {
         SysOperator operator = sysOperatorService.getById(id);
@@ -126,7 +126,7 @@ public class OperatorController extends AbstractController {
             String roleIds = Joiner.on(",").join(roleList);
             model.addAttribute("roleIds", roleIds);
         }
-        return "system/operator/edit_page";
+        return "sys/operator/edit_page";
     }
 
     /**
@@ -135,7 +135,7 @@ public class OperatorController extends AbstractController {
      * @param request 前台参数
      * @return 成功
      */
-    @PostMapping("/system/operator/edit")
+    @PostMapping("/sys/operator/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> editOperator(OperatorEditRequest request) {
@@ -148,7 +148,7 @@ public class OperatorController extends AbstractController {
      *
      * @return 成功
      */
-    @PostMapping("/system/operator/reset_password")
+    @PostMapping("/sys/operator/reset_password")
     @ResponseBody
     @Mark
     public RespBody<Object> resetPassword(Integer id) {

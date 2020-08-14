@@ -56,7 +56,7 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
     private static final String TITLE = "title";
 
     /**
-     * system_dict表nid
+     * sys_dict表nid
      */
     private static final String NID = "nid";
 
@@ -123,7 +123,7 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
     /**
      * 渲染option列
      *
-     * @param nid   system_dict表中的nid
+     * @param nid   sys_dict表中的nid
      * @param total 是否显示全部
      * @param value 选中值
      * @return option列表

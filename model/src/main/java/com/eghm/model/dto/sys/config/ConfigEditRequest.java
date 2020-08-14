@@ -15,7 +15,7 @@ public class ConfigEditRequest {
      */
     private String title;
     /**
-     * 参数类型 system_dict#config_classify所配置
+     * 参数类型 sys_dict#config_classify所配置
      */
     private Byte classify;
 

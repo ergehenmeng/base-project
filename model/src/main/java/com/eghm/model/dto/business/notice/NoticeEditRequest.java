@@ -24,7 +24,7 @@ public class NoticeEditRequest implements Serializable {
     private String title;
 
     /**
-     * 公告类型(数据字典表system_notice_type)
+     * 公告类型(数据字典表sys_notice_type)
      */
     private Byte classify;
 
