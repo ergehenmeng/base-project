@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(50) DEFAULT NULL COMMENT '标题信息',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
+  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由sys_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
   `client_type` char(20) DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
   `img_url` varchar(200) NOT NULL COMMENT '轮播图片地址',
   `turn_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
@@ -83,7 +83,7 @@ CREATE TABLE `feedback_log` (
   `classify` tinyint(1) DEFAULT NULL COMMENT '反馈类型分类',
   `state` tinyint(1) unsigned DEFAULT '0' COMMENT '状态: 0:待解决 1:已解决',
   `version` char(50) DEFAULT NULL COMMENT '软件版本',
-  `system_version` char(50) DEFAULT NULL COMMENT '系统版本',
+  `sys_version` char(50) DEFAULT NULL COMMENT '系统版本',
   `content` varchar(200) DEFAULT NULL COMMENT '反馈内容',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '反馈时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -102,7 +102,7 @@ CREATE TABLE `feedback_log` (
 DROP TABLE IF EXISTS `help_center`;
 CREATE TABLE `help_center` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
+  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取sys_dict表中help_classify字段',
   `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
   `ask` char(50) DEFAULT NULL COMMENT '问',
   `answer` varchar(500) DEFAULT NULL COMMENT '答 支持',
@@ -192,10 +192,10 @@ CREATE TABLE `sms_template` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='短信模板类型';
 
 -- ----------------------------
--- Table structure for system_address
+-- Table structure for sys_address
 -- ----------------------------
-DROP TABLE IF EXISTS `system_address`;
-CREATE TABLE `system_address` (
+DROP TABLE IF EXISTS `sys_address`;
+CREATE TABLE `sys_address` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL COMMENT '区域名称',
   `nid` char(12) DEFAULT NULL COMMENT '区域代码',
@@ -207,10 +207,10 @@ CREATE TABLE `system_address` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3574 DEFAULT CHARSET=utf8mb4 COMMENT='省市县代码表';
 
 -- ----------------------------
--- Table structure for system_cache
+-- Table structure for sys_cache
 -- ----------------------------
-DROP TABLE IF EXISTS `system_cache`;
-CREATE TABLE `system_cache` (
+DROP TABLE IF EXISTS `sys_cache`;
+CREATE TABLE `sys_cache` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(50) DEFAULT NULL COMMENT '缓存名称',
   `cache_name` char(50) DEFAULT NULL COMMENT '缓存名称 必须与CacheConstant中保持一致',
@@ -221,15 +221,15 @@ CREATE TABLE `system_cache` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='缓存信息管理表';
 
 -- ----------------------------
--- Table structure for system_config
+-- Table structure for sys_config
 -- ----------------------------
-DROP TABLE IF EXISTS `system_config`;
-CREATE TABLE `system_config` (
+DROP TABLE IF EXISTS `sys_config`;
+CREATE TABLE `sys_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `nid` char(50) NOT NULL COMMENT '参数标示符',
   `title` char(50) DEFAULT NULL COMMENT '参数名称',
   `content` varchar(500) NOT NULL COMMENT '参数值',
-  `classify` tinyint(2) unsigned DEFAULT '1' COMMENT '参数类型,见system_dict表nid=config_classify',
+  `classify` tinyint(2) unsigned DEFAULT '1' COMMENT '参数类型,见sys_dict表nid=config_classify',
   `locked` bit(1) DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
@@ -240,10 +240,10 @@ CREATE TABLE `system_config` (
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
 
 -- ----------------------------
--- Table structure for system_department
+-- Table structure for sys_department
 -- ----------------------------
-DROP TABLE IF EXISTS `system_department`;
-CREATE TABLE `system_department` (
+DROP TABLE IF EXISTS `sys_department`;
+CREATE TABLE `sys_department` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(50) DEFAULT NULL COMMENT '部门名称',
   `code` char(128) DEFAULT NULL COMMENT '部门编号',
@@ -259,10 +259,10 @@ CREATE TABLE `system_department` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='部门信息表';
 
 -- ----------------------------
--- Table structure for system_dict
+-- Table structure for sys_dict
 -- ----------------------------
-DROP TABLE IF EXISTS `system_dict`;
-CREATE TABLE `system_dict` (
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(50) DEFAULT NULL COMMENT '字典中文名称',
   `nid` char(50) DEFAULT NULL COMMENT '数据字典nid(英文名称)',
@@ -277,10 +277,10 @@ CREATE TABLE `system_dict` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COMMENT='系统数据字典表';
 
 -- ----------------------------
--- Table structure for system_holiday
+-- Table structure for sys_holiday
 -- ----------------------------
-DROP TABLE IF EXISTS `system_holiday`;
-CREATE TABLE `system_holiday` (
+DROP TABLE IF EXISTS `sys_holiday`;
+CREATE TABLE `sys_holiday` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `calendar` date DEFAULT NULL COMMENT '日期',
   `date_month` char(10) DEFAULT NULL COMMENT '月份 yyyy-MM',
@@ -290,10 +290,10 @@ CREATE TABLE `system_holiday` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统节假日表';
 
 -- ----------------------------
--- Table structure for system_menu
+-- Table structure for sys_menu
 -- ----------------------------
-DROP TABLE IF EXISTS `system_menu`;
-CREATE TABLE `system_menu` (
+DROP TABLE IF EXISTS `sys_menu`;
+CREATE TABLE `sys_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(20) NOT NULL COMMENT '菜单名称',
   `nid` char(50) NOT NULL COMMENT '菜单标示符 唯一',
@@ -312,10 +312,10 @@ CREATE TABLE `system_menu` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1080 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
--- Table structure for system_notice
+-- Table structure for sys_notice
 -- ----------------------------
-DROP TABLE IF EXISTS `system_notice`;
-CREATE TABLE `system_notice` (
+DROP TABLE IF EXISTS `sys_notice`;
+CREATE TABLE `sys_notice` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` char(100) NOT NULL COMMENT '公告标题',
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表notice_classify)',
@@ -328,10 +328,10 @@ CREATE TABLE `system_notice` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='系统公告信息表';
 
 -- ----------------------------
--- Table structure for system_operation_log
+-- Table structure for sys_operation_log
 -- ----------------------------
-DROP TABLE IF EXISTS `system_operation_log`;
-CREATE TABLE `system_operation_log` (
+DROP TABLE IF EXISTS `sys_operation_log`;
+CREATE TABLE `sys_operation_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `url` varchar(200) DEFAULT NULL COMMENT '请求地址',
   `operator_id` int(10) unsigned DEFAULT NULL COMMENT '操作人',
@@ -346,10 +346,10 @@ CREATE TABLE `system_operation_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台操作记录';
 
 -- ----------------------------
--- Table structure for system_operator
+-- Table structure for sys_operator
 -- ----------------------------
-DROP TABLE IF EXISTS `system_operator`;
-CREATE TABLE `system_operator` (
+DROP TABLE IF EXISTS `sys_operator`;
+CREATE TABLE `sys_operator` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `operator_name` char(20) NOT NULL COMMENT '用户名称',
   `mobile` char(11) NOT NULL COMMENT '手机号码(登陆账户)',
@@ -368,10 +368,10 @@ CREATE TABLE `system_operator` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理后台用户表';
 
 -- ----------------------------
--- Table structure for system_operator_role
+-- Table structure for sys_operator_role
 -- ----------------------------
-DROP TABLE IF EXISTS `system_operator_role`;
-CREATE TABLE `system_operator_role` (
+DROP TABLE IF EXISTS `sys_operator_role`;
+CREATE TABLE `sys_operator_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `operator_id` int(10) unsigned NOT NULL COMMENT '用户id',
   `role_id` int(10) unsigned NOT NULL COMMENT '角色id',
@@ -381,10 +381,10 @@ CREATE TABLE `system_operator_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='角色与用户关系表';
 
 -- ----------------------------
--- Table structure for system_role
+-- Table structure for sys_role
 -- ----------------------------
-DROP TABLE IF EXISTS `system_role`;
-CREATE TABLE `system_role` (
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_name` char(10) DEFAULT NULL COMMENT '角色名称',
   `role_type` char(20) DEFAULT NULL COMMENT '角色类型',
@@ -397,10 +397,10 @@ CREATE TABLE `system_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
 -- ----------------------------
--- Table structure for system_role_menu
+-- Table structure for sys_role_menu
 -- ----------------------------
-DROP TABLE IF EXISTS `system_role_menu`;
-CREATE TABLE `system_role_menu` (
+DROP TABLE IF EXISTS `sys_role_menu`;
+CREATE TABLE `sys_role_menu` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_id` int(10) unsigned NOT NULL COMMENT '角色Id',
   `menu_id` int(10) unsigned NOT NULL COMMENT '菜单Id',

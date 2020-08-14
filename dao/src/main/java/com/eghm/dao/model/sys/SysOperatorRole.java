@@ -13,21 +13,21 @@ public class SysOperatorRole implements Serializable {
     private static final long serialVersionUID = 987553406182629138L;
     /**
      * 主键<br>
-     * 表 : system_operator_role<br>
+     * 表 : sys_operator_role<br>
      * 对应字段 : id<br>
      */
     private Integer id;
 
     /**
      * 用户id<br>
-     * 表 : system_operator_role<br>
+     * 表 : sys_operator_role<br>
      * 对应字段 : operator_id<br>
      */
     private Integer operatorId;
 
     /**
      * 角色id<br>
-     * 表 : system_operator_role<br>
+     * 表 : sys_operator_role<br>
      * 对应字段 : role_id<br>
      */
     private Integer roleId;

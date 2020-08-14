@@ -13,56 +13,56 @@ import java.util.Date;
 public class SysOperationLog implements Serializable {
     /**
      * 主键<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : id<br>
      */
     private Integer id;
 
     /**
      * 请求地址<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : url<br>
      */
     private String url;
 
     /**
      * 操作人<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : operator_id<br>
      */
     private Integer operatorId;
 
     /**
      * 请求参数<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : request<br>
      */
     private String request;
 
     /**
      * 添加时间<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : add_time<br>
      */
     private Date addTime;
 
     /**
      * 访问ip<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : ip<br>
      */
     private Long ip;
 
     /**
      * 业务耗时<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : business_time<br>
      */
     private Long businessTime;
 
     /**
      * 响应参数<br>
-     * 表 : system_operation_log<br>
+     * 表 : sys_operation_log<br>
      * 对应字段 : response<br>
      */
     private String response;
