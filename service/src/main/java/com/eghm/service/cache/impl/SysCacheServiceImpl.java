@@ -61,10 +61,10 @@ public class SysCacheServiceImpl implements SysCacheService {
         try {
             switch (cacheName) {
                 case CacheConstant.SYS_CONFIG:
-                    clearCacheService.clearSystemConfig();
+                    clearCacheService.clearSysConfig();
                     break;
                 case CacheConstant.SYS_DICT:
-                    clearCacheService.clearSystemDict();
+                    clearCacheService.clearSysDict();
                     break;
                 case CacheConstant.SMS_TEMPLATE:
                     clearCacheService.clearSmsTemplate();

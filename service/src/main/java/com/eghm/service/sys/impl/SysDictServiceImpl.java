@@ -38,7 +38,7 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_DICT, key = "#p0", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")
     public List<SysDict> getDictByNid(String nid) {
         return sysDictMapper.getDictByNid(nid);
     }

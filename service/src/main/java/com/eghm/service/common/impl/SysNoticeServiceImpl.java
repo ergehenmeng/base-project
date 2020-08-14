@@ -44,7 +44,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_NOTICE, cacheManager = "smallCacheManager", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, cacheManager = "smallCacheManager", unless = "#result.size() == 0")
     public List<TopNoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = sysNoticeMapper.getTopList(noticeLimit);
@@ -84,7 +84,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE, beforeInvocation = true)
+    @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
     public void publish(Integer id) {
         SysNotice notice = new SysNotice();
         notice.setState((byte) 1);
@@ -93,7 +93,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYSTEM_NOTICE, beforeInvocation = true)
+    @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
     public void cancelPublish(Integer id) {
         SysNotice notice = new SysNotice();
         notice.setState((byte) 0);

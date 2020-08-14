@@ -52,7 +52,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYSTEM_CONFIG, key = "#p0", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.SYS_CONFIG, key = "#p0", unless = "#result == null")
     @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public String getByNid(String nid) {
         SysConfig config = sysConfigMapper.getByNid(nid);
