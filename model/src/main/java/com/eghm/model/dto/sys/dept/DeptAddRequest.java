@@ -1,4 +1,4 @@
-package com.eghm.model.dto.sys.department;
+package com.eghm.model.dto.sys.dept;
 
 import com.eghm.model.ext.ActionRecord;
 import lombok.EqualsAndHashCode;
@@ -8,21 +8,24 @@ import lombok.ToString;
 
 /**
  * @author 二哥很猛
- * @date 2019/8/9 14:59
+ * @date 2018/12/14 14:11
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class DepartmentEditRequest extends ActionRecord {
+public class DeptAddRequest extends ActionRecord {
+
+    private static final long serialVersionUID = -4129318805129787627L;
 
     /**
-     * 主键
+     * 父编码
      */
-    private Integer id;
+    private String parentCode;
+
 
     /**
-     * 标题
+     * 部门名称
      */
     private String title;
 
@@ -30,4 +33,5 @@ public class DepartmentEditRequest extends ActionRecord {
      * 备注信息
      */
     private String remark;
+
 }

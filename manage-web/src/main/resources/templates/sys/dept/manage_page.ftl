@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>部门管理</title>
@@ -11,17 +11,17 @@
         var winHeight = 250;
 
         var addTitle = "添加部门";
-        var addUrl = "/sys/department/add_page";
+        var addUrl = "/sys/dept/add_page";
 
         var editTitle = "编辑部门";
-        var editUrl = "/sys/department/edit_page";
+        var editUrl = "/sys/dept/edit_page";
 
-        var delUrl = "/sys/department/delete";
+        var delUrl = "/sys/dept/delete";
         var delMsg = "确定要删除该数据吗?";
 
         $(function() {
             dataGrid = $.fn.treeGridOptions.treeGrid("#treeGrid",{
-                url : "/sys/department/list_page",
+                url : "/sys/dept/list_page",
                 loadFilter : pageFilter,
                 columns : [[
                     {

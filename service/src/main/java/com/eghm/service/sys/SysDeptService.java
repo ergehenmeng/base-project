@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
-import com.eghm.model.dto.sys.department.DepartmentAddRequest;
-import com.eghm.model.dto.sys.department.DepartmentEditRequest;
+import com.eghm.model.dto.sys.dept.DeptAddRequest;
+import com.eghm.model.dto.sys.dept.DeptEditRequest;
 import com.eghm.dao.model.sys.SysDept;
 
 import java.util.List;
@@ -29,13 +29,13 @@ public interface SysDeptService {
      * 添加部门
      * @param request 前台参数
      */
-    void addDepartment(DepartmentAddRequest request);
+    void addDepartment(DeptAddRequest request);
 
     /**
      * 编辑部门节点信息
      * @param request 前天参数
      */
-    void editDepartment(DepartmentEditRequest request);
+    void editDepartment(DeptEditRequest request);
 
     /**
      * 根据列表计算出子级部门下一个编码的值

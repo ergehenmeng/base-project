@@ -2,8 +2,8 @@ package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
 import com.eghm.dao.model.sys.SysDept;
-import com.eghm.model.dto.sys.department.DepartmentAddRequest;
-import com.eghm.model.dto.sys.department.DepartmentEditRequest;
+import com.eghm.model.dto.sys.dept.DeptAddRequest;
+import com.eghm.model.dto.sys.dept.DeptEditRequest;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class DeptController {
      *
      * @return list
      */
-    @PostMapping("/sys/department/list_page")
+    @PostMapping("/sys/dept/list_page")
     @ResponseBody
     public List<SysDept> listPage() {
         return sysDeptService.getDepartment();
@@ -44,19 +44,19 @@ public class DeptController {
     /**
      * 添加部门页面
      */
-    @GetMapping("/sys/department/add_page")
+    @GetMapping("/sys/dept/add_page")
     public String addPage(Model model, String code) {
         model.addAttribute("code", code);
-        return "sys/department/add_page";
+        return "sys/dept/add_page";
     }
 
     /**
      * 添加部门节点信息
      */
-    @PostMapping("/sys/department/add")
+    @PostMapping("/sys/dept/add")
     @ResponseBody
     @Mark
-    public RespBody<Object> add(DepartmentAddRequest request) {
+    public RespBody<Object> add(DeptAddRequest request) {
         sysDeptService.addDepartment(request);
         return RespBody.success();
     }
@@ -64,20 +64,20 @@ public class DeptController {
     /**
      * 编辑部门页面
      */
-    @GetMapping("/sys/department/edit_page")
+    @GetMapping("/sys/dept/edit_page")
     public String editPage(Model model, Integer id) {
-        SysDept department = sysDeptService.getById(id);
-        model.addAttribute("department", department);
-        return "sys/department/edit_page";
+        SysDept dept = sysDeptService.getById(id);
+        model.addAttribute("dept", dept);
+        return "sys/dept/edit_page";
     }
 
     /**
      * 编辑部门节点信息
      */
-    @PostMapping("/sys/department/edit")
+    @PostMapping("/sys/dept/edit")
     @ResponseBody
     @Mark
-    public RespBody<Object> edit(DepartmentEditRequest request) {
+    public RespBody<Object> edit(DeptEditRequest request) {
         sysDeptService.editDepartment(request);
         return RespBody.success();
     }

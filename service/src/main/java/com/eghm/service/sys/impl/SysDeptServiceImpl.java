@@ -4,8 +4,8 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.sys.SysDeptMapper;
 import com.eghm.dao.model.sys.SysDept;
-import com.eghm.model.dto.sys.department.DepartmentAddRequest;
-import com.eghm.model.dto.sys.department.DepartmentEditRequest;
+import com.eghm.model.dto.sys.dept.DeptAddRequest;
+import com.eghm.model.dto.sys.dept.DeptEditRequest;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +53,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    public void addDepartment(DepartmentAddRequest request) {
+    public void addDepartment(DeptAddRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
@@ -61,7 +61,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    public void editDepartment(DepartmentEditRequest request) {
+    public void editDepartment(DeptEditRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         sysDeptMapper.updateByPrimaryKeySelective(department);
     }
