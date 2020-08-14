@@ -2,7 +2,7 @@ package com.eghm.configuration.security;
 
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.dao.model.system.SystemOperator;
+import com.eghm.dao.model.sys.SysOperator;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -39,7 +39,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) {
-        SystemOperator operator = (SystemOperator) userDetails;
+        SysOperator operator = (SysOperator) userDetails;
         if (!encoder.matches((String) authentication.getCredentials(), operator.getPwd())) {
             throw new SystemAuthenticationException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }

@@ -1,8 +1,8 @@
 package com.eghm.queue.task;
 
-import com.eghm.dao.model.system.SystemOperationLog;
+import com.eghm.dao.model.sys.SysOperationLog;
 import com.eghm.queue.AbstractTask;
-import com.eghm.service.system.OperationLogService;
+import com.eghm.service.sys.OperationLogService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,14 +12,14 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2019/1/15 17:58
  */
 @Slf4j
-public class OperationLogTask extends AbstractTask<SystemOperationLog, OperationLogService> {
+public class OperationLogTask extends AbstractTask<SysOperationLog, OperationLogService> {
 
-    public OperationLogTask(SystemOperationLog data, OperationLogService logService) {
+    public OperationLogTask(SysOperationLog data, OperationLogService logService) {
         super(data, logService);
     }
 
     @Override
-    protected void execute(SystemOperationLog data) {
+    protected void execute(SysOperationLog data) {
         getBean().insertOperationLog(data);
     }
 

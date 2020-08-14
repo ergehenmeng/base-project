@@ -8,7 +8,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.model.ext.FilePath;
 import com.eghm.service.common.FileService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class FileServiceImpl implements FileService {
 
     private ApplicationProperties applicationProperties;
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     @Autowired
     public void setApplicationProperties(ApplicationProperties applicationProperties) {
@@ -46,8 +46,8 @@ public class FileServiceImpl implements FileService {
     }
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Override
@@ -185,11 +185,11 @@ public class FileServiceImpl implements FileService {
     }
 
     private long getSingleMaxSize() {
-        return systemConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE);
+        return sysConfigApi.getLong(ConfigConstant.SINGLE_MAX_FILE_SIZE);
     }
 
     private long getBatchMaxSize() {
-        return systemConfigApi.getLong(ConfigConstant.BATCH_MAX_FILE_SIZE);
+        return sysConfigApi.getLong(ConfigConstant.BATCH_MAX_FILE_SIZE);
     }
 
     private String getDefaultFolder() {
@@ -197,6 +197,6 @@ public class FileServiceImpl implements FileService {
     }
 
     private String getFileAddress() {
-        return systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS);
+        return sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS);
     }
 }

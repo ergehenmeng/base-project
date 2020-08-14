@@ -10,9 +10,9 @@ import com.eghm.dao.model.business.SmsLog;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.SendSmsService;
 import com.eghm.service.common.SmsService;
-import com.eghm.service.system.SmsLogService;
-import com.eghm.service.system.SmsTemplateService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.SmsLogService;
+import com.eghm.service.sys.SmsTemplateService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +36,7 @@ public class SmsServiceImpl implements SmsService {
 
     private SmsTemplateService smsTemplateService;
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     @Autowired
     public void setCacheService(CacheService cacheService) {
@@ -59,8 +59,8 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     /**
@@ -76,7 +76,7 @@ public class SmsServiceImpl implements SmsService {
         String content = this.formatTemplate(template, smsCode);
         this.doSendSms(mobile, content, smsType);
         this.saveSmsCode(smsType, mobile, smsCode);
-        long expire = systemConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
+        long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
         cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile,expire);
     }
 
@@ -162,19 +162,19 @@ public class SmsServiceImpl implements SmsService {
         if (value != null) {
             throw new BusinessException(ErrorCode.SMS_FREQUENCY_FAST);
         }
-        int smsTypeHourLimit = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
+        int smsTypeHourLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_HOUR_LIMIT);
         //单位小时统一类型内短信限制
         boolean limit = cacheService.limit(CacheConstant.SMS_TYPE_HOUR_LIMIT + smsType + mobile, smsTypeHourLimit, 3600);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_HOUR_LIMIT);
         }
-        int smsTypeDayLimit = systemConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
+        int smsTypeDayLimit = sysConfigApi.getInt(ConfigConstant.SMS_TYPE_DAY_LIMIT);
         //当天同一类型短信限制
         limit = cacheService.limit(CacheConstant.SMS_TYPE_DAY_LIMIT + smsType + mobile, smsTypeDayLimit, 86400);
         if (limit) {
             throw new BusinessException(ErrorCode.SMS_DAY_LIMIT);
         }
-        int smsDay = systemConfigApi.getInt(ConfigConstant.SMS_DAY_LIMIT);
+        int smsDay = sysConfigApi.getInt(ConfigConstant.SMS_DAY_LIMIT);
         //当天手机号限制
         limit = cacheService.limit(CacheConstant.SMS_DAY + mobile, smsDay, 86400);
         if (limit) {

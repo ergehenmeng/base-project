@@ -8,7 +8,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ext.Token;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class TokenServiceImpl implements TokenService {
 
     private CacheService cacheService;
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     private Encoder encoder;
 
@@ -34,8 +34,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Autowired
@@ -96,11 +96,11 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public void cacheToken(Token token) {
         String tokenJson = gson.toJson(token);
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessToken(), tokenJson, systemConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getAccessToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
         //注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
         //因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过userId定位登陆信息,以便于删除无用缓存,方便强制下线
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getUserId(), tokenJson, systemConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
-        cacheService.setValue(CacheConstant.REFRESH_TOKEN + token.getRefreshToken(), tokenJson, systemConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getUserId(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.REFRESH_TOKEN + token.getRefreshToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
     }
 
     @Override

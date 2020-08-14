@@ -1,9 +1,9 @@
 package com.eghm.configuration.security;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.dao.model.system.SystemOperator;
-import com.eghm.service.system.SystemMenuService;
-import com.eghm.service.system.SystemOperatorService;
+import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.service.sys.SysMenuService;
+import com.eghm.service.sys.SysOperatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,23 +23,23 @@ import java.util.List;
 @Service("userDetailsService")
 public class OperatorDetailsServiceImpl implements UserDetailsService {
 
-    private SystemOperatorService systemOperatorService;
+    private SysOperatorService sysOperatorService;
 
-    private SystemMenuService systemMenuService;
+    private SysMenuService sysMenuService;
 
     @Autowired
-    public void setSystemOperatorService(SystemOperatorService systemOperatorService) {
-        this.systemOperatorService = systemOperatorService;
+    public void setSysOperatorService(SysOperatorService sysOperatorService) {
+        this.sysOperatorService = sysOperatorService;
     }
 
     @Autowired
-    public void setSystemMenuService(SystemMenuService systemMenuService) {
-        this.systemMenuService = systemMenuService;
+    public void setSysMenuService(SysMenuService sysMenuService) {
+        this.sysMenuService = sysMenuService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        SystemOperator operator = systemOperatorService.getByMobile(username);
+        SysOperator operator = sysOperatorService.getByMobile(username);
         if (operator == null) {
             throw new SystemAuthenticationException(ErrorCode.OPERATOR_NOT_FOUND);
         }
@@ -47,7 +47,7 @@ public class OperatorDetailsServiceImpl implements UserDetailsService {
             throw new SystemAuthenticationException(ErrorCode.OPERATOR_LOCKED_ERROR);
         }
         //查询并组织权限信息
-        List<GrantedAuthority> authorities = systemMenuService.getAuthorityByOperatorId(operator.getId());
+        List<GrantedAuthority> authorities = sysMenuService.getAuthorityByOperatorId(operator.getId());
         return new SecurityOperator(operator, authorities);
     }
 }

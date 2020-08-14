@@ -5,7 +5,6 @@ import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.RegExpUtil;
-import com.eghm.common.utils.StringUtil;
 import com.eghm.configuration.security.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
@@ -20,7 +19,7 @@ import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.service.user.UserExtService;
 import com.eghm.service.user.UserService;
@@ -40,7 +39,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class UserServiceImpl implements UserService {
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     private UserMapper userMapper;
 
@@ -57,8 +56,8 @@ public class UserServiceImpl implements UserService {
     private TaskHandler taskHandler;
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Autowired
@@ -133,7 +132,7 @@ public class UserServiceImpl implements UserService {
      */
     private void generateNickName(User user) {
         if (StrUtil.isBlank(user.getNickName())) {
-            user.setNickName(systemConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
+            user.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
         }
     }
 

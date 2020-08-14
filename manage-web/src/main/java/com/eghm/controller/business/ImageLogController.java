@@ -14,7 +14,7 @@ import com.eghm.model.ext.RespBody;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.FileService;
 import com.eghm.service.common.ImageLogService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class ImageLogController extends AbstractController {
 
     private FileService fileService;
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     @Autowired
     public void setImageLogService(ImageLogService imageLogService) {
@@ -56,8 +56,8 @@ public class ImageLogController extends AbstractController {
     }
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     /**
@@ -65,7 +65,7 @@ public class ImageLogController extends AbstractController {
      */
     @GetMapping("/system/image/manage_page")
     public String managePage(Model model) {
-        model.addAttribute("address", systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
+        model.addAttribute("address", sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
         return "system/image/manage_page";
     }
 

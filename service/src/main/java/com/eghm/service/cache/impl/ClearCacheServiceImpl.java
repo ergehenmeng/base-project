@@ -24,13 +24,13 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYSTEM_CONFIG, allEntries = true)
-    public void clearSystemConfig() {
+    @CacheEvict(cacheNames = CacheConstant.SYS_CONFIG, allEntries = true)
+    public void clearSysConfig() {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYSTEM_DICT, allEntries = true)
-    public void clearSystemDict() {
+    @CacheEvict(cacheNames = CacheConstant.SYS_DICT, allEntries = true)
+    public void clearSysDict() {
     }
 
     @Override

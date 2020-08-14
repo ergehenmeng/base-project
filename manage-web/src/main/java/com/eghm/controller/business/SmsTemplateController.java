@@ -5,7 +5,7 @@ import com.eghm.model.dto.business.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.business.sms.SmsTemplateQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
-import com.eghm.service.system.SmsTemplateService;
+import com.eghm.service.sys.SmsTemplateService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

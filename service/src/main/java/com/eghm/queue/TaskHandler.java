@@ -1,11 +1,11 @@
 package com.eghm.queue;
 
 import com.eghm.constants.TaskConstant;
-import com.eghm.dao.model.system.ExceptionLog;
-import com.eghm.dao.model.system.SystemOperationLog;
+import com.eghm.dao.model.sys.ExceptionLog;
+import com.eghm.dao.model.sys.SysOperationLog;
 import com.eghm.model.ext.LoginRecord;
-import com.eghm.service.system.ExceptionLogService;
-import com.eghm.service.system.OperationLogService;
+import com.eghm.service.sys.ExceptionLogService;
+import com.eghm.service.sys.OperationLogService;
 import com.eghm.service.user.LoginLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -48,7 +48,7 @@ public class TaskHandler {
      * 添加操作日志
      * @param task 任务
      */
-    public void executeOperateLog(AbstractTask<SystemOperationLog, OperationLogService> task){
+    public void executeOperateLog(AbstractTask<SysOperationLog, OperationLogService> task){
         ExecutorHolder.OPERATE_LOG.execute(task);
     }
 

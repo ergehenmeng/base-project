@@ -2,9 +2,9 @@ package com.eghm.controller;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
-import com.eghm.dao.model.system.SystemOperator;
+import com.eghm.dao.model.sys.SysOperator;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.system.SystemMenuService;
+import com.eghm.service.sys.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class CommonController extends AbstractController {
 
-    private SystemMenuService systemMenuService;
+    private SysMenuService sysMenuService;
 
     private CacheService cacheService;
 
     @Autowired
-    public void setSystemMenuService(SystemMenuService systemMenuService) {
-        this.systemMenuService = systemMenuService;
+    public void setSysMenuService(SysMenuService sysMenuService) {
+        this.sysMenuService = sysMenuService;
     }
 
     @Autowired
@@ -51,14 +51,14 @@ public class CommonController extends AbstractController {
      */
     @GetMapping("/main")
     public String home(Model model) {
-        SystemOperator operator = getRequiredOperator();
+        SysOperator operator = getRequiredOperator();
         //导航菜单
         if (operator.getLeftMenu() == null) {
-            operator.setLeftMenu(systemMenuService.getMenuList(operator.getId()));
+            operator.setLeftMenu(sysMenuService.getMenuList(operator.getId()));
         }
         //按钮菜单
         if (operator.getButtonMenu() == null) {
-            operator.setButtonMenu(systemMenuService.getButtonList(operator.getId()));
+            operator.setButtonMenu(sysMenuService.getButtonList(operator.getId()));
         }
         model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit", operator.getPwd().equals(operator.getInitPwd()));

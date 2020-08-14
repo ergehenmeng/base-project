@@ -9,12 +9,12 @@ public interface ClearCacheService {
     /**
      * 清除系统参数缓存
      */
-    void clearSystemConfig();
+    void clearSysConfig();
 
     /**
      * 清除数据字典缓存
      */
-    void clearSystemDict();
+    void clearSysDict();
 
     /**
      * 清空短信模板

@@ -9,7 +9,7 @@ import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -25,11 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class SignatureInterceptor implements InterceptorAdapter {
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SignatureInterceptor implements InterceptorAdapter {
         }
         long clientTimestamp = Long.parseLong(message.getTimestamp());
         long systemTimestamp = System.currentTimeMillis();
-        long deviation = systemConfigApi.getLong(ConfigConstant.TIMESTAMP_DEVIATION);
+        long deviation = sysConfigApi.getLong(ConfigConstant.TIMESTAMP_DEVIATION);
         // 服务端时间误差
         if (Math.abs(systemTimestamp - clientTimestamp) > deviation) {
             log.warn("客户端服务端时间误差:[{}]", Math.abs(systemTimestamp - clientTimestamp));

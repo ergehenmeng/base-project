@@ -1,6 +1,6 @@
 package com.eghm.configuration.security;
 
-import com.eghm.dao.model.system.SystemOperator;
+import com.eghm.dao.model.sys.SysOperator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,14 +14,14 @@ import java.util.Collection;
  * @author 二哥很猛
  * @date 2018/1/25 10:13
  */
-public class SecurityOperator extends SystemOperator implements UserDetails {
+public class SecurityOperator extends SysOperator implements UserDetails {
 
     private static final long serialVersionUID = -7835234722564262280L;
 
     private Collection<? extends GrantedAuthority> authorities;
 
 
-    SecurityOperator(SystemOperator operator, Collection<GrantedAuthority> authorityList) {
+    SecurityOperator(SysOperator operator, Collection<GrantedAuthority> authorityList) {
         BeanUtils.copyProperties(operator, this);
         this.authorities = authorityList;
     }

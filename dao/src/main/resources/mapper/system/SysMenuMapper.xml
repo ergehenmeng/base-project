@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.dao.mapper.sys.SysMenuMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.sys.SysMenu">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="CHAR" property="title" />
+    <result column="nid" jdbcType="CHAR" property="nid" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="sub_url" jdbcType="VARCHAR" property="subUrl" />
+    <result column="grade" jdbcType="TINYINT" property="grade" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from sys_menu t
+    where t.deleted = false and  t.id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.sys.SysMenu">
+    <!--
+      @create by mybatis
+    -->
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="nid != null">
+        nid,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+        <if test="subUrl != null">
+            sub_url,
+        </if>
+      <if test="grade != null">
+          grade,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=CHAR},
+      </if>
+      <if test="nid != null">
+        #{nid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+        <if test="subUrl != null">
+            #{subUrl,jdbcType=VARCHAR},
+        </if>
+      <if test="grade != null">
+        #{grade,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.sys.SysMenu">
+    <!--
+      @create by mybatis
+    -->
+    update sys_menu
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=CHAR},
+      </if>
+      <if test="nid != null">
+        nid = #{nid,jdbcType=CHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+        <if test="subUrl != null">
+            sub_url = #{subUrl,jdbcType=VARCHAR},
+        </if>
+      <if test="grade != null">
+          grade = #{classify,jdbcType=TINYINT},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where deleted = false and id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="getAllList" resultMap="BaseResultMap">
+        SELECT <include refid="BaseColumnList"/>
+        from sys_menu t where t.deleted = false order by t.pid ,t.sort
+    </select>
+
+    <select id="getMenuList" resultMap="BaseResultMap" >
+        SELECT <include refid="BaseColumnList"/>
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
+        where o.operator_id = #{operatorId} and t.deleted = false and t.grade &lt;&gt; 3
+    </select>
+
+    <select id="getButtonList" resultMap="BaseResultMap" >
+        SELECT <include refid="BaseColumnList"/>
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
+        where o.operator_id = #{operatorId} and t.deleted = false and t.grade = 3
+    </select>
+
+    <select id="getList" resultMap="BaseResultMap" >
+        SELECT <include refid="BaseColumnList"/>
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
+        where o.operator_id = #{operatorId} and t.deleted = false
+    </select>
+
+    <select id="getByNid" resultMap="BaseResultMap">
+        select <include refid="BaseColumnList"/>
+        from sys_menu where nid = #{nid} and pid = #{pid} and deleted = false limit 1
+    </select>
+
+    <update id="deleteById">
+        update sys_menu set deleted = true where id = #{id}
+    </update>
+</mapper>

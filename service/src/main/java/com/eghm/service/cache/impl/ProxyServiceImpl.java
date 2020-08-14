@@ -2,11 +2,11 @@ package com.eghm.service.cache.impl;
 
 
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.model.system.BlackRoster;
-import com.eghm.dao.model.system.SystemDict;
+import com.eghm.dao.model.sys.BlackRoster;
+import com.eghm.dao.model.sys.SysDict;
 import com.eghm.service.cache.ProxyService;
-import com.eghm.service.system.BlackRosterService;
-import com.eghm.service.system.SystemDictService;
+import com.eghm.service.sys.BlackRosterService;
+import com.eghm.service.sys.SysDictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -25,13 +25,13 @@ import java.util.List;
 @Service("proxyService")
 public class ProxyServiceImpl implements ProxyService {
 
-    private SystemDictService systemDictService;
+    private SysDictService sysDictService;
 
     private BlackRosterService blackRosterService;
 
     @Autowired
-    public void setSystemDictService(SystemDictService systemDictService) {
-        this.systemDictService = systemDictService;
+    public void setSysDictService(SysDictService sysDictService) {
+        this.sysDictService = sysDictService;
     }
 
     @Autowired
@@ -41,8 +41,8 @@ public class ProxyServiceImpl implements ProxyService {
 
     @Override
     public String getDictValue(String nid, Byte hiddenValue) {
-        List<SystemDict> dictList = systemDictService.getDictByNid(nid);
-        for (SystemDict dict : dictList) {
+        List<SysDict> dictList = sysDictService.getDictByNid(nid);
+        for (SysDict dict : dictList) {
             if (dict.getHiddenValue().equals(hiddenValue)) {
                 return dict.getShowValue();
             }

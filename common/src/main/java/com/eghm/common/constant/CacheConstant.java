@@ -13,12 +13,12 @@ public class CacheConstant {
     /**
      * 系统参数缓存key前缀
      */
-    public static final String SYSTEM_CONFIG = "system_config";
+    public static final String SYS_CONFIG = "sys_config";
 
     /**
      * 数据字典缓存key前缀
      */
-    public static final String SYSTEM_DICT = "system_dict";
+    public static final String SYS_DICT = "sys_dict";
 
 
     /**
@@ -69,7 +69,7 @@ public class CacheConstant {
     /**
      * 公告
      */
-    public static final String SYSTEM_NOTICE = "system_notice";
+    public static final String SYS_NOTICE = "sys_notice";
 
     /**
      * 推送消息模板

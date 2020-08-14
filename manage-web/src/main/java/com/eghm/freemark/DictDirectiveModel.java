@@ -3,8 +3,8 @@ package com.eghm.freemark;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.system.SystemDict;
-import com.eghm.service.system.SystemDictService;
+import com.eghm.dao.model.sys.SysDict;
+import com.eghm.service.sys.SysDictService;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
@@ -28,11 +28,11 @@ import java.util.Map;
 @Component
 public class DictDirectiveModel implements TemplateDirectiveModel {
 
-    private SystemDictService systemDictService;
+    private SysDictService sysDictService;
 
     @Autowired
-    public void setSystemDictService(SystemDictService systemDictService) {
-        this.systemDictService = systemDictService;
+    public void setSysDictService(SysDictService sysDictService) {
+        this.sysDictService = sysDictService;
     }
 
     /**
@@ -129,13 +129,13 @@ public class DictDirectiveModel implements TemplateDirectiveModel {
      * @return option列表
      */
     private StringBuilder renderOption(String nid, String total, String value) {
-        List<SystemDict> dictList = systemDictService.getDictByNid(nid);
+        List<SysDict> dictList = sysDictService.getDictByNid(nid);
         StringBuilder builder = new StringBuilder();
         if (TOTAL_VALUE.equals(total)) {
             builder.append("<option value=''>全部</option>");
         }
         if (CollUtil.isNotEmpty(dictList)) {
-            for (SystemDict dict : dictList) {
+            for (SysDict dict : dictList) {
                 if (value != null && value.equals(dict.getHiddenValue().toString())) {
                     //<option value='1' selected>类型</option>
                     builder.append("<option value='").append(dict.getHiddenValue()).append("' selected >").append(dict.getShowValue()).append("</option>");

@@ -5,16 +5,16 @@ import com.eghm.annotation.Mark;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.controller.AbstractController;
-import com.eghm.dao.model.system.SystemOperator;
-import com.eghm.model.dto.system.operator.OperatorAddRequest;
-import com.eghm.model.dto.system.operator.OperatorEditRequest;
-import com.eghm.model.dto.system.operator.OperatorQueryRequest;
-import com.eghm.model.dto.system.operator.PasswordEditRequest;
+import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.model.dto.sys.operator.OperatorAddRequest;
+import com.eghm.model.dto.sys.operator.OperatorEditRequest;
+import com.eghm.model.dto.sys.operator.OperatorQueryRequest;
+import com.eghm.model.dto.sys.operator.PasswordEditRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.system.SystemOperatorService;
-import com.eghm.service.system.SystemRoleService;
+import com.eghm.service.sys.SysOperatorService;
+import com.eghm.service.sys.SysRoleService;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,20 +38,20 @@ import java.util.List;
 @Controller
 public class OperatorController extends AbstractController {
 
-    private SystemOperatorService systemOperatorService;
+    private SysOperatorService sysOperatorService;
 
-    private SystemRoleService systemRoleService;
+    private SysRoleService sysRoleService;
 
     private CacheService cacheService;
 
     @Autowired
-    public void setSystemRoleService(SystemRoleService systemRoleService) {
-        this.systemRoleService = systemRoleService;
+    public void setSysRoleService(SysRoleService sysRoleService) {
+        this.sysRoleService = sysRoleService;
     }
 
     @Autowired
-    public void setSystemOperatorService(SystemOperatorService systemOperatorService) {
-        this.systemOperatorService = systemOperatorService;
+    public void setSysOperatorService(SysOperatorService sysOperatorService) {
+        this.sysOperatorService = sysOperatorService;
     }
 
     @Autowired
@@ -71,7 +71,7 @@ public class OperatorController extends AbstractController {
     public RespBody<Object> changePassword(HttpSession session, PasswordEditRequest request) {
         SecurityOperator operator = getRequiredOperator();
         request.setOperatorId(operator.getId());
-        String newPassword = systemOperatorService.updateLoginPassword(request);
+        String newPassword = sysOperatorService.updateLoginPassword(request);
         operator.setPwd(newPassword);
         //更新用户权限
         SecurityContext context = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
@@ -91,8 +91,8 @@ public class OperatorController extends AbstractController {
     @PostMapping("/system/operator/list_page")
     @ResponseBody
     @Mark
-    public Paging<SystemOperator> operatorListPage(OperatorQueryRequest request) {
-        PageInfo<SystemOperator> page = systemOperatorService.getByPage(request);
+    public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
+        PageInfo<SysOperator> page = sysOperatorService.getByPage(request);
         return new Paging<>(page);
     }
 
@@ -106,7 +106,7 @@ public class OperatorController extends AbstractController {
     @ResponseBody
     @Mark
     public RespBody<Object> addOperator(OperatorAddRequest request) {
-        systemOperatorService.addOperator(request);
+        sysOperatorService.addOperator(request);
         return RespBody.success();
     }
 
@@ -119,9 +119,9 @@ public class OperatorController extends AbstractController {
     @GetMapping("/system/operator/edit_page")
     @Mark
     public String editOperatorPage(Model model, Integer id) {
-        SystemOperator operator = systemOperatorService.getById(id);
+        SysOperator operator = sysOperatorService.getById(id);
         model.addAttribute("operator", operator);
-        List<Integer> roleList = systemRoleService.getByOperatorId(id);
+        List<Integer> roleList = sysRoleService.getByOperatorId(id);
         if (CollUtil.isNotEmpty(roleList)) {
             String roleIds = Joiner.on(",").join(roleList);
             model.addAttribute("roleIds", roleIds);
@@ -139,7 +139,7 @@ public class OperatorController extends AbstractController {
     @ResponseBody
     @Mark
     public RespBody<Object> editOperator(OperatorEditRequest request) {
-        systemOperatorService.updateOperator(request);
+        sysOperatorService.updateOperator(request);
         return RespBody.success();
     }
 
@@ -152,7 +152,7 @@ public class OperatorController extends AbstractController {
     @ResponseBody
     @Mark
     public RespBody<Object> resetPassword(Integer id) {
-        systemOperatorService.resetPassword(id);
+        sysOperatorService.resetPassword(id);
         return RespBody.success();
     }
 
@@ -162,7 +162,7 @@ public class OperatorController extends AbstractController {
     @PostMapping("/lock_screen")
     @ResponseBody
     public RespBody<Object> lockScreen() {
-        SystemOperator operator = getRequiredOperator();
+        SysOperator operator = getRequiredOperator();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
         return RespBody.success();
     }
@@ -173,8 +173,8 @@ public class OperatorController extends AbstractController {
     @PostMapping("/unlock_screen")
     @ResponseBody
     public RespBody<Object> unlockScreen(String password) {
-        SystemOperator operator = getRequiredOperator();
-        systemOperatorService.checkPassword(password, operator.getPwd());
+        SysOperator operator = getRequiredOperator();
+        sysOperatorService.checkPassword(password, operator.getPwd());
         cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
         return RespBody.success();
     }

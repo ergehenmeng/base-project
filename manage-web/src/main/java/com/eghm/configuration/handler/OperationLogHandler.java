@@ -4,11 +4,11 @@ import com.eghm.annotation.Mark;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.controller.AbstractController;
-import com.eghm.dao.model.system.SystemOperationLog;
+import com.eghm.dao.model.sys.SysOperationLog;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.OperationLogTask;
-import com.eghm.service.system.OperationLogService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.OperationLogService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j(topic = "request_response")
 public class OperationLogHandler {
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     private OperationLogService operationLogService;
 
@@ -46,8 +46,8 @@ public class OperationLogHandler {
     private TaskHandler taskHandler;
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Autowired
@@ -87,7 +87,7 @@ public class OperationLogHandler {
             log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();
         }
-        SystemOperationLog sy = new SystemOperationLog();
+        SysOperationLog sy = new SysOperationLog();
 
         sy.setOperatorId(operator.getId());
         sy.setOperatorName(operator.getOperatorName());
@@ -106,7 +106,7 @@ public class OperationLogHandler {
         if (mark.response() && proceed != null) {
             sy.setResponse(gson.toJson(proceed));
         }
-        boolean logSwitch = systemConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
+        boolean logSwitch = sysConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if (logSwitch) {
             taskHandler.executeOperateLog(new OperationLogTask(sy, operationLogService));
         } else {

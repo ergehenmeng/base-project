@@ -4,7 +4,7 @@ import com.eghm.controller.AbstractController;
 import com.eghm.dao.model.business.SmsLog;
 import com.eghm.model.dto.business.sms.SmsLogQueryRequest;
 import com.eghm.model.ext.Paging;
-import com.eghm.service.system.SmsLogService;
+import com.eghm.service.sys.SmsLogService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

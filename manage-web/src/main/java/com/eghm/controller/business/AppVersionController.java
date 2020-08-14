@@ -12,7 +12,7 @@ import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.common.FileService;
 import com.eghm.service.common.AppVersionService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,7 @@ public class AppVersionController {
 
     private FileService fileService;
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     @Autowired
     public void setAppVersionService(AppVersionService appVersionService) {
@@ -46,8 +46,8 @@ public class AppVersionController {
     }
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     /**
@@ -62,7 +62,7 @@ public class AppVersionController {
 
     @GetMapping("/business/version/manage_page")
     public String managePage(Model model) {
-        model.addAttribute("address", systemConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
+        model.addAttribute("address", sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
         return "business/version/manage_page";
     }
 
@@ -71,7 +71,7 @@ public class AppVersionController {
      */
     @GetMapping("/business/version/add_page")
     public String addPage(Model model) {
-        String appStoreUrl = systemConfigApi.getString(ConfigConstant.APP_STORE_URL);
+        String appStoreUrl = sysConfigApi.getString(ConfigConstant.APP_STORE_URL);
         model.addAttribute("appStoreUrl", appStoreUrl);
         return "business/version/add_page";
     }
@@ -84,7 +84,7 @@ public class AppVersionController {
     @Mark
     public RespBody<Object> add(VersionAddRequest request, MultipartFile file) {
         if (file != null && !file.isEmpty()) {
-            long maxSize = systemConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
+            long maxSize = sysConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
             FilePath filePath = fileService.saveFile(file, CommonConstant.VERSION, maxSize);
             request.setUrl(filePath.getPath());
         }

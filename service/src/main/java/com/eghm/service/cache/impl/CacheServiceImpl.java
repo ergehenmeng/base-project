@@ -5,7 +5,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.model.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
@@ -37,13 +37,13 @@ public class CacheServiceImpl implements CacheService {
 
     private ListOperations<String, String> opsForList;
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     private Gson gson;
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Autowired
@@ -69,7 +69,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void setValue(String key, Object value) {
-        this.setValue(key, value, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
+        this.setValue(key, value, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
     }
 
     @Override
@@ -102,10 +102,10 @@ public class CacheServiceImpl implements CacheService {
     private <T> T doSupplier(String key, Supplier<T> supplier) {
         T result = this.mutexLock(key, supplier);
         if (result != null) {
-            this.setValue(key, result, systemConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
+            this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
             // 数据库也没有查询到,填充默认值
-            this.setValue(key, SystemConstant.CACHE_PLACE_HOLDER, systemConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
+            this.setValue(key, SystemConstant.CACHE_PLACE_HOLDER, sysConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
         }
         return result;
     }

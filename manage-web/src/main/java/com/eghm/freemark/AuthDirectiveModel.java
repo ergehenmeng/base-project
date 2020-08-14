@@ -5,7 +5,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.controller.AbstractController;
-import com.eghm.dao.model.system.SystemMenu;
+import com.eghm.dao.model.sys.SysMenu;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;
 import freemarker.template.TemplateDirectiveModel;
@@ -37,9 +37,9 @@ public class AuthDirectiveModel implements TemplateDirectiveModel {
         }
         String nid = nidValue.toString();
         SecurityOperator operator = AbstractController.getRequiredOperator();
-        List<SystemMenu>  menuList = operator.getButtonMenu();
+        List<SysMenu>  menuList = operator.getButtonMenu();
         if (CollUtil.isNotEmpty(menuList)) {
-            for (SystemMenu menu : menuList) {
+            for (SysMenu menu : menuList) {
                 String authNid = menu.getNid();
                 if (authNid.equals(nid)) {
                     body.render(env.getOut());

@@ -4,7 +4,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.service.common.EmailService;
-import com.eghm.service.system.impl.SystemConfigApi;
+import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,13 +22,13 @@ import javax.mail.internet.MimeMessage;
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
-    private SystemConfigApi systemConfigApi;
+    private SysConfigApi sysConfigApi;
 
     private JavaMailSender javaMailSender;
 
     @Autowired
-    public void setSystemConfigApi(SystemConfigApi systemConfigApi) {
-        this.systemConfigApi = systemConfigApi;
+    public void setSysConfigApi(SysConfigApi sysConfigApi) {
+        this.sysConfigApi = sysConfigApi;
     }
 
     @Autowired(required = false)
@@ -47,7 +47,7 @@ public class EmailServiceImpl implements EmailService {
             helper.addTo(to);
             helper.setSubject(title);
             helper.setText(content);
-            helper.setFrom(systemConfigApi.getString(ConfigConstant.SEND_FROM));
+            helper.setFrom(sysConfigApi.getString(ConfigConstant.SEND_FROM));
             javaMailSender.send(mimeMessage);
         } catch (Exception e) {
             log.error("发送邮件异常 to:[{}],title:[{}],content:[{}]", to, title, content, e);

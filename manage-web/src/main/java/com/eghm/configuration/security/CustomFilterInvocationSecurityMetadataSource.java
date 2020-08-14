@@ -1,8 +1,8 @@
 package com.eghm.configuration.security;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.dao.model.system.SystemMenu;
-import com.eghm.service.system.SystemMenuService;
+import com.eghm.dao.model.sys.SysMenu;
+import com.eghm.service.sys.SysMenuService;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,11 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
 
     private final Map<String, Collection<ConfigAttribute>> map = new ConcurrentHashMap<>(256);
 
-    private SystemMenuService systemMenuService;
+    private SysMenuService sysMenuService;
 
     @Autowired
-    public void setSystemMenuService(SystemMenuService systemMenuService) {
-        this.systemMenuService = systemMenuService;
+    public void setSysMenuService(SysMenuService sysMenuService) {
+        this.sysMenuService = sysMenuService;
     }
 
     /**
@@ -43,8 +43,8 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     @PostConstruct
     public void loadResource() {
         map.clear();
-        List<SystemMenu> list = systemMenuService.getAllList();
-        for (SystemMenu menu : list) {
+        List<SysMenu> list = sysMenuService.getAllList();
+        for (SysMenu menu : list) {
             if (StrUtil.isNotBlank(menu.getUrl())) {
                 List<String> subUrl = this.getTotalUrl(menu);
                 List<ConfigAttribute> attributes = SecurityConfig.createList(menu.getNid());
@@ -62,7 +62,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
      * @param menu 菜单
      * @return 列表
      */
-    private List<String> getTotalUrl(SystemMenu menu) {
+    private List<String> getTotalUrl(SysMenu menu) {
         List<String> stringList = Lists.newArrayList(menu.getUrl());
         if (StrUtil.isNotBlank(menu.getSubUrl())) {
             Iterable<String> split = Splitter.on(";").split(menu.getSubUrl());
