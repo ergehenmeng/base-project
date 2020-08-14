@@ -1,5 +1,7 @@
 package com.eghm.permission;
 
+import com.eghm.configuration.security.SecurityOperator;
+import com.eghm.controller.AbstractController;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,8 +31,7 @@ public class DataScopeAspect {
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
         try {
-            
-
+            SecurityOperator operator = AbstractController.getRequiredOperator();
             return joinPoint.proceed();
         } finally {
             DATA_SCOPE_PARAM.remove();
