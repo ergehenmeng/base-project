@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 @Aspect
 @Slf4j(topic = "request_response")
-public class OperationLogHandler {
+public class OperationLogAspect {
 
     private SysConfigApi sysConfigApi;
 

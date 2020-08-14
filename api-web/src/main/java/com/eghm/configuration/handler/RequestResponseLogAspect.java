@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j(topic = "request_response")
 @Aspect
 @Component
-public class RequestResponseLogHandler {
+public class RequestResponseLogAspect {
 
     private Gson gson;
 

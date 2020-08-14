@@ -4,7 +4,6 @@ import com.eghm.dao.model.business.AppVersion;
 import com.eghm.model.dto.business.version.VersionQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.Date;
 import java.util.List;
 
 /**
