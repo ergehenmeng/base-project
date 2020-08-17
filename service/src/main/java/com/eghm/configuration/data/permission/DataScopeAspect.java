@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
+ * 生成数据权限拦截sql
+ * @see DataScopeInterceptor
  * @author 殿小二
  * @date 2020/8/14
  */
@@ -53,20 +55,20 @@ public class DataScopeAspect {
         // 自定义
         if (operator.getPermissionType() == PermissionType.CUSTOM.getValue()) {
             List<Integer> deptList = operator.getDeptList();
-            builder.append(scope.tableAlias()).append(".dept_id in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
+            builder.append(scope.tableAlias()).append(".dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
         }
         // 本部门及子部门
         if (operator.getPermissionType() == PermissionType.DEPT.getValue()) {
-            builder.append(scope.tableAlias()).append(".dept_id like '").append(operator.getDeptCode()).append("%' ");
+            builder.append(scope.tableAlias()).append(".dept_code like '").append(operator.getDeptCode()).append("%' ");
         }
         // 本部门
         if (operator.getPermissionType() == PermissionType.SELF_DEPT.getValue()) {
-            builder.append(scope.tableAlias()).append(".dept_id = '").append(operator.getDeptCode()).append("' ");
+            builder.append(scope.tableAlias()).append(".dept_code = '").append(operator.getDeptCode()).append("' ");
         }
         // 自己,可能会涉及到部门变更,默认老部门信息无法查看,因此此处过滤部门信息
         if (operator.getPermissionType() == PermissionType.SELF.getValue()) {
             builder.append(scope.tableAlias())
-                    .append(".dept_id = '").append(operator.getDeptCode()).append("' and ")
+                    .append(".dept_code = '").append(operator.getDeptCode()).append("' and ")
                     .append(scope.tableAlias()).append(".operator_id = ").append(operator.getId());
         }
         builder.append(" ) ");
