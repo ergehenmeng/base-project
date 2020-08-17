@@ -24,17 +24,17 @@ public class SysOperatorDept implements Serializable {
     /**
      * 部门id<br>
      * 表 : sys_operator_dept<br>
-     * 对应字段 : dept_id<br>
+     * 对应字段 : dept_code<br>
      */
-    private Integer deptId;
+    private String deptCode;
 
     private static final long serialVersionUID = 1L;
 
     public SysOperatorDept() {
     }
 
-    public SysOperatorDept(Integer operatorId, Integer deptId) {
+    public SysOperatorDept(Integer operatorId, String deptCode) {
         this.operatorId = operatorId;
-        this.deptId = deptId;
+        this.deptCode = deptCode;
     }
 }

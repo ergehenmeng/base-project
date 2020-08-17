@@ -25,9 +25,9 @@ public class OperatorAddRequest implements Serializable {
     private String mobile;
 
     /**
-     * 所属部门
+     * 所属部门编号
      */
-    private Integer deptId;
+    private String deptCode;
 
     /**
      * 角色列表

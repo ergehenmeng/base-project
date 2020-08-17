@@ -110,7 +110,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         // 数据权限
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
-            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), Integer.parseInt(s))));
+            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), s)));
         }
     }
 
@@ -140,7 +140,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
             sysOperatorDeptService.deleteByOperatorId(operator.getId());
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
-            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), Integer.parseInt(s))));
+            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), s)));
         }
     }
 

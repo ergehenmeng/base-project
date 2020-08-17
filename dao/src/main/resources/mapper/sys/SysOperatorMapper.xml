@@ -11,7 +11,7 @@
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="init_pwd" jdbcType="VARCHAR" property="initPwd" />
-    <result column="department" jdbcType="CHAR" property="department" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -21,7 +21,7 @@
     <!--
       @create by mybatis
     -->
-    id, operator_name, mobile, state, pwd, init_pwd, department, deleted,
+    id, operator_name, mobile, state, pwd, init_pwd, dept_code, deleted,
     add_time, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -61,8 +61,8 @@
       <if test="initPwd != null">
         init_pwd,
       </if>
-      <if test="department != null">
-        department,
+      <if test="deptCode != null">
+        dept_code,
       </if>
       <if test="deleted != null">
         deleted,
@@ -96,8 +96,8 @@
       <if test="initPwd != null">
         #{initPwd,jdbcType=VARCHAR},
       </if>
-      <if test="department != null">
-        #{department,jdbcType=CHAR},
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -134,8 +134,8 @@
       <if test="initPwd != null">
         init_pwd = #{initPwd,jdbcType=VARCHAR},
       </if>
-      <if test="department != null">
-        department = #{department,jdbcType=CHAR},
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},

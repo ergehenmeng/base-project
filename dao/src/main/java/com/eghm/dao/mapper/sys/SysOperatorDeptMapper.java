@@ -33,7 +33,7 @@ public interface SysOperatorDeptMapper {
      * @param operatorId 用户id
      * @return 部门id
      */
-    List<Integer> getDeptList(@Param("operatorId") Integer operatorId);
+    List<String> getDeptList(@Param("operatorId") Integer operatorId);
 
     /**
      * 删除用户对应的部门的数据权限

@@ -7,13 +7,13 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
-    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="dept_code" jdbcType="INTEGER" property="deptCode" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, operator_id, dept_id
+    id, operator_id, dept_code
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -36,8 +36,8 @@
       <if test="operatorId != null">
         operator_id,
       </if>
-      <if test="deptId != null">
-        dept_id,
+      <if test="deptCode != null">
+        dept_code,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -47,8 +47,8 @@
       <if test="operatorId != null">
         #{operatorId,jdbcType=INTEGER},
       </if>
-      <if test="deptId != null">
-        #{deptId,jdbcType=INTEGER},
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -61,15 +61,15 @@
       <if test="operatorId != null">
         operator_id = #{operatorId,jdbcType=INTEGER},
       </if>
-      <if test="deptId != null">
-        dept_id = #{deptId,jdbcType=INTEGER},
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="getDeptList" resultType="integer">
-    select dept_id from sys_operator_dept where operator_id = #{operatorId}
+  <select id="getDeptList" resultType="string">
+    select dept_code from sys_operator_dept where operator_id = #{operatorId}
   </select>
 
   <delete id="deleteByOperatorId" >

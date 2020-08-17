@@ -28,9 +28,9 @@ public class OperatorEditRequest implements Serializable {
     private String mobile;
 
     /**
-     * 用户所属部门id
+     * 用户所属部门编号
      */
-    private Long deptId;
+    private String deptCode;
 
     /**
      * 角色列表
