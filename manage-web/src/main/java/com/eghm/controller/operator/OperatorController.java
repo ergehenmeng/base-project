@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.eghm.annotation.Mark;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
-import com.eghm.controller.AbstractController;
+import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.sys.SysOperator;
 import com.eghm.model.dto.sys.operator.OperatorAddRequest;
 import com.eghm.model.dto.sys.operator.OperatorEditRequest;
@@ -36,7 +36,7 @@ import java.util.List;
  * @date 2018/11/26 17:10
  */
 @Controller
-public class OperatorController extends AbstractController {
+public class OperatorController {
 
     private SysOperatorService sysOperatorService;
 
@@ -69,7 +69,7 @@ public class OperatorController extends AbstractController {
     @ResponseBody
     @Mark
     public RespBody<Object> changePassword(HttpSession session, PasswordEditRequest request) {
-        SecurityOperator operator = getRequiredOperator();
+        SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = sysOperatorService.updateLoginPassword(request);
         operator.setPwd(newPassword);
@@ -162,7 +162,7 @@ public class OperatorController extends AbstractController {
     @PostMapping("/lock_screen")
     @ResponseBody
     public RespBody<Object> lockScreen() {
-        SysOperator operator = getRequiredOperator();
+        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
         return RespBody.success();
     }
@@ -173,7 +173,7 @@ public class OperatorController extends AbstractController {
     @PostMapping("/unlock_screen")
     @ResponseBody
     public RespBody<Object> unlockScreen(String password) {
-        SysOperator operator = getRequiredOperator();
+        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         sysOperatorService.checkPassword(password, operator.getPwd());
         cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
         return RespBody.success();

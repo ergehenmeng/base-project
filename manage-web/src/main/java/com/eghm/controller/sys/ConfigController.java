@@ -3,7 +3,6 @@ package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
 import com.eghm.constants.DictConstant;
-import com.eghm.controller.AbstractController;
 import com.eghm.dao.model.sys.SysConfig;
 import com.eghm.model.dto.sys.config.ConfigEditRequest;
 import com.eghm.model.dto.sys.config.ConfigQueryRequest;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2018/1/12 17:40
  */
 @Controller
-public class ConfigController extends AbstractController {
+public class ConfigController {
 
     private SysConfigService sysConfigService;
 

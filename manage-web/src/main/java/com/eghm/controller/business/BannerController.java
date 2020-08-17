@@ -1,7 +1,6 @@
 package com.eghm.controller.business;
 
 import com.eghm.constants.DictConstant;
-import com.eghm.controller.AbstractController;
 import com.eghm.dao.model.business.Banner;
 import com.eghm.model.dto.business.banner.BannerAddRequest;
 import com.eghm.model.dto.business.banner.BannerEditRequest;
@@ -27,7 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2019/8/22 11:22
  */
 @Controller
-public class BannerController extends AbstractController {
+public class BannerController {
 
     private BannerService bannerService;
 

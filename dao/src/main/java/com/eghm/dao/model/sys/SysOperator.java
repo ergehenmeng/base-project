@@ -62,9 +62,9 @@ public class SysOperator implements Serializable {
     /**
      * <br>
      * 表 : sys_operator<br>
-     * 对应字段 : department<br>
+     * 对应字段 : dept_id<br>
      */
-    private String department;
+    private String deptId;
 
     /**
      * 删除状态 0:正常,1:已删除<br>

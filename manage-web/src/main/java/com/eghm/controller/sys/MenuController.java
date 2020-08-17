@@ -3,7 +3,7 @@ package com.eghm.controller.sys;
 import com.eghm.annotation.Mark;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.configuration.security.CustomFilterInvocationSecurityMetadataSource;
-import com.eghm.controller.AbstractController;
+import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.sys.SysMenu;
 import com.eghm.dao.model.sys.SysOperator;
 import com.eghm.model.dto.sys.menu.MenuAddRequest;
@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2018/1/30 09:30
  */
 @Controller
-public class MenuController extends AbstractController {
+public class MenuController {
 
     private SysMenuService sysMenuService;
 
@@ -140,7 +140,7 @@ public class MenuController extends AbstractController {
     @ResponseBody
     @Mark
     public List<SysMenu> operatorMenuList() {
-        SysOperator operator = getRequiredOperator();
+        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         return sysMenuService.getList(operator.getId());
     }
 

@@ -3,7 +3,6 @@ package com.eghm.controller.business;
 import com.eghm.annotation.Mark;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
-import com.eghm.controller.AbstractController;
 import com.eghm.dao.model.business.ImageLog;
 import com.eghm.model.dto.business.image.ImageAddRequest;
 import com.eghm.model.dto.business.image.ImageEditRequest;
@@ -30,7 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2018/11/27 17:13
  */
 @Controller
-public class ImageLogController extends AbstractController {
+public class ImageLogController {
 
     private ImageLogService imageLogService;
 

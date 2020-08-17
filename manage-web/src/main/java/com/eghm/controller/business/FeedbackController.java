@@ -1,6 +1,7 @@
 package com.eghm.controller.business;
 
-import com.eghm.controller.AbstractController;
+import com.eghm.configuration.security.SecurityOperator;
+import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.model.dto.business.feedback.FeedbackDisposeRequest;
 import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
 import com.eghm.model.ext.Paging;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2019/8/28 14:16
  */
 @Controller
-public class FeedbackController extends AbstractController {
+public class FeedbackController {
 
     private FeedbackService feedbackService;
 
@@ -43,8 +44,9 @@ public class FeedbackController extends AbstractController {
     @PostMapping("/feedback/dispose")
     @ResponseBody
     public RespBody<Object> dispose(FeedbackDisposeRequest request) {
-        request.setOperatorId(getOperatorId());
-        request.setOperatorName(getOperatorName());
+        SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
+        request.setOperatorId(operator.getId());
+        request.setOperatorName(operator.getOperatorName());
         feedbackService.dispose(request);
         return RespBody.success();
     }

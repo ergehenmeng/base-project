@@ -1,7 +1,6 @@
 package com.eghm.controller.sys;
 
 import com.eghm.common.constant.CommonConstant;
-import com.eghm.controller.AbstractController;
 import com.google.code.kaptcha.Producer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ import java.io.IOException;
  */
 @Controller
 @Slf4j
-public class CaptchaController extends AbstractController {
+public class CaptchaController {
 
     private Producer producer;
 
@@ -77,7 +76,7 @@ public class CaptchaController extends AbstractController {
         response.setHeader("Pragma", "no-cache");
         response.setContentType("image/jpeg");
         log.info("图形验证码[{}]:[{}]", key, value);
-        this.putSession(session, key, value);
+        session.setAttribute(key, value);
         BufferedImage bi = producer.createImage(value);
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(bi, "jpg", out);

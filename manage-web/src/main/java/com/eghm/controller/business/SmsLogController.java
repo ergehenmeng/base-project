@@ -1,6 +1,5 @@
 package com.eghm.controller.business;
 
-import com.eghm.controller.AbstractController;
 import com.eghm.dao.model.business.SmsLog;
 import com.eghm.model.dto.business.sms.SmsLogQueryRequest;
 import com.eghm.model.ext.Paging;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2019/8/21 16:12
  */
 @Controller
-public class SmsLogController extends AbstractController {
+public class SmsLogController {
 
     private SmsLogService smsLogService;
 

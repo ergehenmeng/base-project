@@ -2,6 +2,7 @@ package com.eghm.controller;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
+import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.sys.SysOperator;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysMenuService;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @date 2018/1/8 14:41
  */
 @Controller
-public class CommonController extends AbstractController {
+public class CommonController {
 
     private SysMenuService sysMenuService;
 
@@ -51,7 +52,7 @@ public class CommonController extends AbstractController {
      */
     @GetMapping("/main")
     public String home(Model model) {
-        SysOperator operator = getRequiredOperator();
+        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         //导航菜单
         if (operator.getLeftMenu() == null) {
             operator.setLeftMenu(sysMenuService.getMenuList(operator.getId()));
