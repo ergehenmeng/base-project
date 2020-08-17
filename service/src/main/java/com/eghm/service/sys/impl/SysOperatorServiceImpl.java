@@ -3,16 +3,19 @@ package com.eghm.service.sys.impl;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.PermissionType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dao.mapper.sys.SysOperatorMapper;
 import com.eghm.dao.mapper.sys.SysOperatorRoleMapper;
 import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.dao.model.sys.SysOperatorDept;
 import com.eghm.dao.model.sys.SysOperatorRole;
 import com.eghm.model.dto.sys.operator.OperatorAddRequest;
 import com.eghm.model.dto.sys.operator.OperatorEditRequest;
 import com.eghm.model.dto.sys.operator.OperatorQueryRequest;
 import com.eghm.model.dto.sys.operator.PasswordEditRequest;
+import com.eghm.service.sys.SysOperatorDeptService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -38,6 +41,8 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     private SysOperatorRoleMapper sysOperatorRoleMapper;
 
+    private SysOperatorDeptService sysOperatorDeptService;
+
     @Autowired
     public void setSysOperatorMapper(SysOperatorMapper sysOperatorMapper) {
         this.sysOperatorMapper = sysOperatorMapper;
@@ -51,6 +56,11 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     @Autowired
     public void setSysOperatorRoleMapper(SysOperatorRoleMapper sysOperatorRoleMapper) {
         this.sysOperatorRoleMapper = sysOperatorRoleMapper;
+    }
+
+    @Autowired
+    public void setSysOperatorDeptService(SysOperatorDeptService sysOperatorDeptService) {
+        this.sysOperatorDeptService = sysOperatorDeptService;
     }
 
     @Override
@@ -97,6 +107,11 @@ public class SysOperatorServiceImpl implements SysOperatorService {
             //循环插入角色关联信息
             roleStringList.forEach(s -> sysOperatorRoleMapper.insertSelective(new SysOperatorRole(operator.getId(), Integer.parseInt(s))));
         }
+        // 数据权限
+        if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
+            List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
+            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), Integer.parseInt(s))));
+        }
     }
 
 
@@ -118,8 +133,14 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         sysOperatorRoleMapper.deleteByOperatorId(request.getId());
         if (StrUtil.isNotBlank(request.getRoleIds())) {
             List<String> stringList = StrUtil.split(request.getRoleIds(), ',');
-            List<Integer> roleList = stringList.stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+            List<Integer> roleList = stringList.stream().map(Integer::parseInt).collect(Collectors.toList());
             sysOperatorRoleMapper.batchInsertOperatorRole(request.getId(), roleList);
+        }
+        // 数据权限
+        if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
+            sysOperatorDeptService.deleteByOperatorId(operator.getId());
+            List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
+            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), Integer.parseInt(s))));
         }
     }
 

@@ -25,9 +25,24 @@ public class OperatorAddRequest implements Serializable {
     private String mobile;
 
     /**
+     * 所属部门
+     */
+    private Integer deptId;
+
+    /**
      * 角色列表
      */
     private String roleIds;
+
+    /**
+     * 数据权限类型
+     */
+    private Byte permissionType;
+
+    /**
+     * 自定义数据权限时的部门id
+     */
+    private String deptIds;
 
     /**
      * 备注信息

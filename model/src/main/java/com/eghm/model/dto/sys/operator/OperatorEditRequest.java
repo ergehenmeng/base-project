@@ -28,9 +28,24 @@ public class OperatorEditRequest implements Serializable {
     private String mobile;
 
     /**
+     * 用户所属部门id
+     */
+    private Long deptId;
+
+    /**
      * 角色列表
      */
     private String roleIds;
+
+    /**
+     * 数据权限类型
+     */
+    private Byte permissionType;
+
+    /**
+     * 自定义数据权限时的部门id
+     */
+    private String deptIds;
 
     /**
      * 备注信息
