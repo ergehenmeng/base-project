@@ -1,7 +1,7 @@
 package com.eghm.configuration;
 
-import com.eghm.configuration.security.BcEncoder;
-import com.eghm.configuration.security.Encoder;
+import com.eghm.configuration.encoder.BcEncoder;
+import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.template.FreemarkerHtmlTemplate;
 import com.eghm.configuration.template.HtmlTemplate;
 import com.eghm.constants.SystemConstant;

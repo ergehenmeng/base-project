@@ -1,7 +1,8 @@
-package com.eghm.permission;
+package com.eghm.configuration.data.permission;
+
 
 import com.eghm.configuration.security.SecurityOperator;
-import com.eghm.controller.AbstractController;
+import com.eghm.configuration.security.SecurityOperatorHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +22,7 @@ public class DataScopeAspect {
     /**
      * 切点
      */
-    @Pointcut("@annotation(com.eghm.permission.DataScope) && within(com.eghm.dao.mapper..*)")
+    @Pointcut("@annotation(com.eghm.configuration.data.permission.DataScope) && within(com.eghm.service..*)")
     public void pointcut() {
     }
 
@@ -31,7 +32,7 @@ public class DataScopeAspect {
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable{
         try {
-            SecurityOperator operator = AbstractController.getRequiredOperator();
+            SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
             return joinPoint.proceed();
         } finally {
             DATA_SCOPE_PARAM.remove();

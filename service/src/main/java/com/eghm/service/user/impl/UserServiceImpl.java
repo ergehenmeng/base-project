@@ -5,7 +5,7 @@ import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.RegExpUtil;
-import com.eghm.configuration.security.Encoder;
+import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
 import com.eghm.dao.model.business.LoginLog;

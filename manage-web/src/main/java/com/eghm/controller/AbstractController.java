@@ -1,11 +1,8 @@
 package com.eghm.controller;
 
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityOperator;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.eghm.configuration.security.SecurityOperatorHolder;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,12 +28,7 @@ public class AbstractController {
      * @return 系统登陆的用户
      */
     public static SecurityOperator getOperator() {
-        SecurityContext context = SecurityContextHolder.getContext();
-        Object details = context.getAuthentication().getPrincipal();
-        if (details != null) {
-            return (SecurityOperator) details;
-        }
-        return null;
+        return SecurityOperatorHolder.getOperator();
     }
 
     /**
@@ -45,25 +37,21 @@ public class AbstractController {
      * @return 系统用户
      */
     public static SecurityOperator getRequiredOperator() {
-        SecurityOperator operator = getOperator();
-        if (operator == null) {
-            throw new BusinessException(ErrorCode.OPERATOR_TIMEOUT);
-        }
-        return operator;
+        return SecurityOperatorHolder.getRequiredOperator();
     }
 
     /**
      * 登陆用户姓名
      */
     public static String getOperatorName() {
-        return getRequiredOperator().getOperatorName();
+        return SecurityOperatorHolder.getOperatorName();
     }
 
     /**
      * 登陆用户id
      */
     public static Integer getOperatorId() {
-        return getRequiredOperator().getId();
+        return SecurityOperatorHolder.getOperatorId();
     }
 
 }

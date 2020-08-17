@@ -3,7 +3,7 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.utils.StringUtil;
-import com.eghm.configuration.security.Encoder;
+import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ext.Token;
 import com.eghm.service.cache.CacheService;

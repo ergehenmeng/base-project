@@ -2,8 +2,8 @@ package com.eghm.configuration.handler;
 
 import com.eghm.annotation.Mark;
 import com.eghm.configuration.security.SecurityOperator;
+import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.controller.AbstractController;
 import com.eghm.dao.model.sys.SysOperationLog;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.OperationLogTask;
@@ -82,7 +82,7 @@ public class OperationLogAspect {
             return joinPoint.proceed();
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        SecurityOperator operator = AbstractController.getOperator();
+        SecurityOperator operator = SecurityOperatorHolder.getOperator();
         if (operator == null) {
             log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();

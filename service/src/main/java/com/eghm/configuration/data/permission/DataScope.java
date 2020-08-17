@@ -1,4 +1,4 @@
-package com.eghm.permission;
+package com.eghm.configuration.data.permission;
 
 import java.lang.annotation.*;
 

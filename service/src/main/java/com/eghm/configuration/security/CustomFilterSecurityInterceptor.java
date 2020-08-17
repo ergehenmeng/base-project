@@ -19,7 +19,7 @@ public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor
 
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
-    CustomFilterSecurityInterceptor(FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource) {
+    public CustomFilterSecurityInterceptor(FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource) {
         this.securityMetadataSource = filterInvocationSecurityMetadataSource;
     }
 

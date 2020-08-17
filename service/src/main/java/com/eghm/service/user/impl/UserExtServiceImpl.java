@@ -2,7 +2,7 @@ package com.eghm.service.user.impl;
 
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.utils.BankCardUtil;
-import com.eghm.configuration.security.Encoder;
+import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dao.mapper.business.UserExtMapper;
 import com.eghm.dao.model.business.UserExt;
 import com.eghm.dao.model.user.User;

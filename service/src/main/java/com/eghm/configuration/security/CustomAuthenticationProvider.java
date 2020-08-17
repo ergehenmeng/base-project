@@ -2,6 +2,7 @@ package com.eghm.configuration.security;
 
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dao.model.sys.SysOperator;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,7 +23,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
      */
     private Encoder encoder;
 
-    void setEncoder(Encoder encoder) {
+    public void setEncoder(Encoder encoder) {
         this.encoder = encoder;
     }
 

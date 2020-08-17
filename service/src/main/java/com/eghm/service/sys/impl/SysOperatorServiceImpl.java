@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.configuration.security.Encoder;
+import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dao.mapper.sys.SysOperatorMapper;
 import com.eghm.dao.mapper.sys.SysOperatorRoleMapper;
 import com.eghm.dao.model.sys.SysOperator;

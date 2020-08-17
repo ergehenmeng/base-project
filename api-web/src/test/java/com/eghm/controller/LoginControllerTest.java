@@ -2,7 +2,6 @@ package com.eghm.controller;
 
 import com.eghm.BaseTest;
 import com.eghm.common.utils.HttpClientUtil;
-import com.eghm.configuration.security.BcEncoder;
 import org.junit.Test;
 
 public class LoginControllerTest extends BaseTest {

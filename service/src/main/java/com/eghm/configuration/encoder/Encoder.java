@@ -1,4 +1,4 @@
-package com.eghm.configuration.security;
+package com.eghm.configuration.encoder;
 
 
 /**

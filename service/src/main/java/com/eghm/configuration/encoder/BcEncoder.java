@@ -1,4 +1,4 @@
-package com.eghm.configuration.security;
+package com.eghm.configuration.encoder;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;

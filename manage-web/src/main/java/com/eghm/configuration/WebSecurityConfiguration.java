@@ -1,6 +1,7 @@
-package com.eghm.configuration.security;
+package com.eghm.configuration;
 
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
