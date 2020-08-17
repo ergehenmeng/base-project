@@ -67,6 +67,13 @@ public class SysOperator implements Serializable {
     private String deptId;
 
     /**
+     * <br>
+     * 表 : sys_operator<br>
+     * 对应字段 : permission_type<br>
+     */
+    private Byte permissionType;
+
+    /**
      * 删除状态 0:正常,1:已删除<br>
      * 表 : sys_operator<br>
      * 对应字段 : deleted<br>

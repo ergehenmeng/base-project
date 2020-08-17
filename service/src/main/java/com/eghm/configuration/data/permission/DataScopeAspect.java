@@ -38,4 +38,11 @@ public class DataScopeAspect {
             DATA_SCOPE_PARAM.remove();
         }
     }
+
+    private String createPermissionSql(byte permissionType) {
+
+
+        return null;
+    }
+
 }
