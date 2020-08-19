@@ -50,7 +50,7 @@ public interface TokenService {
      * 清除用户token信息
      * @param accessToken token
      */
-    void cleanAccessToken(String accessToken);
+    void cleanToken(String accessToken);
 
     /**
      * 清除用户信息

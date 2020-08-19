@@ -28,7 +28,7 @@ public class Token implements Serializable {
     /**
      * token 保持登陆信息
      */
-    private String accessToken;
+    private String token;
 
     /**
      * 刷新token 不序列号保存到redis中
@@ -45,8 +45,4 @@ public class Token implements Serializable {
      */
     private String channel;
 
-    /**
-     * 是否过期 true:已过期 false:未过期 默认是未过期
-     */
-    private boolean expire;
 }

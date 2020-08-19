@@ -187,7 +187,7 @@ public class UserServiceImpl implements UserService {
                 .serialNumber(request.getSerialNumber())
                 .build();
         taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
-        return LoginTokenVO.builder().secret(token.getSecret()).accessToken(token.getAccessToken()).refreshToken(token.getRefreshToken()).build();
+        return LoginTokenVO.builder().secret(token.getSecret()).token(token.getToken()).refreshToken(token.getRefreshToken()).build();
     }
 
 
@@ -270,7 +270,7 @@ public class UserServiceImpl implements UserService {
             tokenService.cacheOfflineToken(token, expire);
         }
         tokenService.cleanRefreshToken(token.getRefreshToken());
-        tokenService.cleanAccessToken(token.getAccessToken());
+        tokenService.cleanToken(token.getToken());
         tokenService.cleanUserId(userId);
     }
 }

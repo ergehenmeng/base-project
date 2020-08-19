@@ -31,8 +31,8 @@ public class LoginTokenVO implements Serializable {
     /**
      * token
      */
-    @ApiModelProperty("登陆accessToken")
-    private String accessToken;
+    @ApiModelProperty("登陆token")
+    private String token;
 
     /**
      * refreshToken

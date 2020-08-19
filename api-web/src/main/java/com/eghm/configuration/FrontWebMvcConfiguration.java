@@ -2,7 +2,7 @@ package com.eghm.configuration;
 
 import com.eghm.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.configuration.filter.IpBlackListFilter;
-import com.eghm.interceptor.AccessTokenInterceptor;
+import com.eghm.interceptor.TokenInterceptor;
 import com.eghm.interceptor.ClientTypeInterceptor;
 import com.eghm.interceptor.MessageInterceptor;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
@@ -39,9 +39,9 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(clientTypeHandlerInterceptor()).order(Integer.MIN_VALUE + 6);
-        registry.addInterceptor(messageHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
-        registry.addInterceptor(accessTokenHandlerInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(clientTypeInterceptor()).order(Integer.MIN_VALUE + 6);
+        registry.addInterceptor(messageInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(tokenInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
     }
 
     @Override
@@ -52,12 +52,12 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(jsonHandlerMethodArgumentResolver());
+        resolvers.add(jsonExtractHandlerArgumentResolver());
     }
 
 
     @Bean
-    public JsonExtractHandlerArgumentResolver jsonHandlerMethodArgumentResolver() {
+    public JsonExtractHandlerArgumentResolver jsonExtractHandlerArgumentResolver() {
         return new JsonExtractHandlerArgumentResolver();
     }
 
@@ -67,15 +67,15 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      * @return com.eghm.interceptor
      */
     @Bean
-    public HandlerInterceptor accessTokenHandlerInterceptor() {
-        return new AccessTokenInterceptor();
+    public HandlerInterceptor tokenInterceptor() {
+        return new TokenInterceptor();
     }
 
     /**
      * 客户端类型拦截器
      */
     @Bean
-    public HandlerInterceptor clientTypeHandlerInterceptor() {
+    public HandlerInterceptor clientTypeInterceptor() {
         return new ClientTypeInterceptor();
     }
 
@@ -85,7 +85,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      * @return com.eghm.interceptor
      */
     @Bean
-    public HandlerInterceptor messageHandlerInterceptor() {
+    public HandlerInterceptor messageInterceptor() {
         return new MessageInterceptor();
     }
 

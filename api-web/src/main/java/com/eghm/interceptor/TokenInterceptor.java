@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018/1/23 12:02
  */
 @Slf4j
-public class AccessTokenInterceptor implements InterceptorAdapter {
+public class TokenInterceptor implements InterceptorAdapter {
 
     private TokenService tokenService;
 
@@ -94,7 +94,7 @@ public class AccessTokenInterceptor implements InterceptorAdapter {
             message.setUserId(token.getUserId());
             message.setSecret(token.getSecret());
         }else if (exception) {
-            log.error("令牌为空,accessToken:[{}],sourceChannel:[{}],targetChannel:[{}]", token.getAccessToken(), message.getChannel(), token.getChannel());
+            log.error("令牌为空,token:[{}],sourceChannel:[{}],targetChannel:[{}]", token.getToken(), message.getChannel(), token.getChannel());
             throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
     }
