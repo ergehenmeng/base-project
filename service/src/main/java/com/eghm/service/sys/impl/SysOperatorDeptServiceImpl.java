@@ -24,7 +24,7 @@ public class SysOperatorDeptServiceImpl implements SysOperatorDeptService {
 
 
     @Override
-    public List<Integer> getDeptList(Integer operatorId) {
+    public List<String> getDeptList(Integer operatorId) {
         return sysOperatorDeptMapper.getDeptList(operatorId);
     }
 

@@ -12,6 +12,7 @@
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="init_pwd" jdbcType="VARCHAR" property="initPwd" />
     <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="permission_type" jdbcType="VARCHAR" property="permissionType" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -21,7 +22,7 @@
     <!--
       @create by mybatis
     -->
-    id, operator_name, mobile, state, pwd, init_pwd, dept_code, deleted,
+    id, operator_name, mobile, state, pwd, init_pwd, dept_code,permission_type, deleted,
     add_time, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -64,6 +65,9 @@
       <if test="deptCode != null">
         dept_code,
       </if>
+      <if test="permissionType != null" >
+        permission_type,
+      </if>
       <if test="deleted != null">
         deleted,
       </if>
@@ -98,6 +102,9 @@
       </if>
       <if test="deptCode != null">
         #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        #{permissionType, jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -136,6 +143,9 @@
       </if>
       <if test="deptCode != null">
         dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        permission_type = #{permissionType,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=BIT},

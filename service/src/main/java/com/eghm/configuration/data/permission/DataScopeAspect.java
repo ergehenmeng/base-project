@@ -2,6 +2,7 @@ package com.eghm.configuration.data.permission;
 
 
 import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.PermissionType;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
@@ -14,7 +15,6 @@ import java.util.List;
 
 /**
  * 生成数据权限拦截sql
- * @see DataScopeInterceptor
  * @author 殿小二
  * @date 2020/8/14
  */
@@ -52,24 +52,25 @@ public class DataScopeAspect {
         if (operator.getPermissionType() == PermissionType.ALL.getValue()) {
             builder.append(" 1 = 1");
         }
+        String alias = StrUtil.isBlank(scope.tableAlias()) ? "" : scope.tableAlias() + ".";
         // 自定义
         if (operator.getPermissionType() == PermissionType.CUSTOM.getValue()) {
-            List<Integer> deptList = operator.getDeptList();
-            builder.append(scope.tableAlias()).append(".dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
+            List<String> deptList = operator.getDeptList();
+            builder.append(alias).append("dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
         }
         // 本部门及子部门
         if (operator.getPermissionType() == PermissionType.DEPT.getValue()) {
-            builder.append(scope.tableAlias()).append(".dept_code like '").append(operator.getDeptCode()).append("%' ");
+            builder.append(alias).append("dept_code like '").append(operator.getDeptCode()).append("%' ");
         }
         // 本部门
         if (operator.getPermissionType() == PermissionType.SELF_DEPT.getValue()) {
-            builder.append(scope.tableAlias()).append(".dept_code = '").append(operator.getDeptCode()).append("' ");
+            builder.append(alias).append("dept_code = '").append(operator.getDeptCode()).append("' ");
         }
         // 自己,可能会涉及到部门变更,默认老部门信息无法查看,因此此处过滤部门信息
         if (operator.getPermissionType() == PermissionType.SELF.getValue()) {
-            builder.append(scope.tableAlias())
-                    .append(".dept_code = '").append(operator.getDeptCode()).append("' and ")
-                    .append(scope.tableAlias()).append(".operator_id = ").append(operator.getId());
+            builder.append(alias)
+                    .append("dept_code = '").append(operator.getDeptCode()).append("' and ")
+                    .append(alias).append(".operator_id = ").append(operator.getId());
         }
         builder.append(" ) ");
         return builder.toString();
@@ -79,7 +80,7 @@ public class DataScopeAspect {
      * 获取数据权限sql
      * @return sql
      */
-    public static String getSql() {
+    public static String getScope() {
         return DATA_SCOPE_PARAM.get();
     }
 

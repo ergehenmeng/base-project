@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -46,11 +49,12 @@ public class BaseTest {
     mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
   }
 
+
   protected void get(String url) {
     try {
       mockMvc
           .perform(
-              MockMvcRequestBuilders.post(URI.create(url))
+              MockMvcRequestBuilders.get(URI.create(url))
                   .contentType(MediaType.APPLICATION_JSON_VALUE)
                   .headers(headers)
                   .content(gson.toJson(params)))

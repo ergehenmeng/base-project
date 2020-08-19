@@ -15,7 +15,7 @@ public interface SysOperatorDeptService {
      * @param operatorId 用户id
      * @return 部门id
      */
-    List<Integer> getDeptList(Integer operatorId);
+    List<String> getDeptList(Integer operatorId);
 
     /**
      * 插入用户与部门数据权限关联信息

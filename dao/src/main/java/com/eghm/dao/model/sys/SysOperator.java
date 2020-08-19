@@ -114,5 +114,5 @@ public class SysOperator implements Serializable {
     /**
      * 用户的部门数据权限
      */
-    private List<Integer> deptList;
+    private List<String> deptList;
 }

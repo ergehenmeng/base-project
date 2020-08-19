@@ -44,5 +44,6 @@ public interface SysDeptService {
      * @return 下一个编号
      */
     String getNextCode(String code);
+
 }
 
