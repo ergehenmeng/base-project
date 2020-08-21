@@ -53,7 +53,7 @@ public class RequestMessage implements Serializable {
     /**
      * 用户id
      */
-    private int userId;
+    private Integer userId;
 
     /**
      * 秘钥

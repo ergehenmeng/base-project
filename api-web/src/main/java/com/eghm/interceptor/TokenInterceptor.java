@@ -53,50 +53,46 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @param accessToken 登陆的token
      * @param refreshToken 刷新的token
      * @param message 用户信息
-     * @param exception true:如果获取用户信息失败则会抛异常,false:获取用户信息失败不做处理
+     * @param exception true:获取用户信息失败是否要抛异常 true:抛异常 false:不做任何处理
      */
     private void tryLoginVerify(@Nullable String accessToken, @Nullable String refreshToken, RequestMessage message, boolean exception) {
-        if (accessToken == null || refreshToken == null) {
+        boolean shouldSkip = (accessToken == null || refreshToken == null) && !exception;
+        if (shouldSkip) {
             return;
         }
+        if (accessToken == null || refreshToken == null) {
+            throw new RequestException(ErrorCode.ACCESS_TOKEN_NULL);
+        }
+
+        // 尝试获取用户信息
         Token token = tokenService.getByAccessToken(accessToken);
         if (token != null) {
-            this.verifyBind(token, message, exception);
-            return;
+            message.setUserId(token.getUserId());
         }
-        token = tokenService.getByRefreshToken(refreshToken);
-        if (token != null) {
-            //在accessToken过期时,可通过refreshToken进行刷新用户信息
-            tokenService.cacheToken(token);
-            this.verifyBind(token, message, exception);
-            return;
+
+        // token获取失败,尝试从refreshToken中获取用户信息
+        if (message.getUserId() == null) {
+            token = tokenService.getByRefreshToken(refreshToken);
+            if (token != null) {
+                //在accessToken过期时,可通过refreshToken进行刷新用户信息
+                tokenService.cacheToken(token);
+                message.setUserId(token.getUserId());
+            }
         }
-        Token offlineToken = tokenService.getOfflineToken(accessToken);
-        if (offlineToken != null && exception) {
-            log.error("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
-            throw new RequestException(ErrorCode.KICK_OFF_LINE);
-        }
-        if (exception) {
+        // 接口确实需要登陆但是也确实没有获取到userId,则抛异常
+        if (exception && message.getUserId() == null) {
+            Token offlineToken = tokenService.getOfflineToken(accessToken);
+            if (offlineToken != null) {
+                log.error("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
+                throw new RequestException(ErrorCode.KICK_OFF_LINE);
+            }
             log.error("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
             throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
+
     }
 
-    /**
-     * 校验并绑定用户信息
-     *
-     * @param token 用户信息
-     * @param message 线程变量信息
-     * @param exception 校验失败是否需要抛异常
-     */
-    private void verifyBind(Token token, RequestMessage message, boolean exception) {
-        if (token.getChannel().equals(message.getChannel())) {
-            message.setUserId(token.getUserId());
-        }else if (exception) {
-            log.error("令牌为空,token:[{}],sourceChannel:[{}],targetChannel:[{}]", token.getToken(), message.getChannel(), token.getChannel());
-            throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
-        }
-    }
+
 
 
     /**

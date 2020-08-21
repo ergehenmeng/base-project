@@ -267,6 +267,7 @@ public class UserServiceImpl implements UserService {
         }
         long expire = tokenService.getTokenExpire(userId);
         if (expire > 0) {
+            // 缓存踢下线的信息
             tokenService.cacheOfflineToken(token, expire);
         }
         tokenService.cleanRefreshToken(token.getRefreshToken());

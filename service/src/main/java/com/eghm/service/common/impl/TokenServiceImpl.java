@@ -88,8 +88,9 @@ public class TokenServiceImpl implements TokenService {
     public void cacheToken(Token token) {
         String tokenJson = gson.toJson(token);
         cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
-        //注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
-        //因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过userId定位登陆信息,以便于删除无用缓存,方便强制下线
+        // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
+        // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
+        // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过userId定位登陆信息,仅仅方便删除无用缓存,方便强制下线
         cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getUserId(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
         cacheService.setValue(CacheConstant.REFRESH_TOKEN + token.getRefreshToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
     }
