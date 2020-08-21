@@ -1,12 +1,9 @@
 package com.eghm.configuration;
 
-import com.eghm.annotation.SkipAccess;
 import com.eghm.annotation.SkipDataBinder;
-import com.eghm.annotation.SkipDecrypt;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.common.exception.RequestException;
-import com.eghm.common.utils.AesUtil;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.utils.DataUtil;
@@ -79,7 +76,6 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         return args;
     }
 
-
     /**
      * 将request中对象转换为转换为指定接收的参数对象
      *
@@ -93,8 +89,6 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             if (requestBody == null) {
                 return parameterType.getDeclaredConstructor().newInstance();
             }
-            // 解密
-            requestBody = this.decryptRequestBody(requestBody, parameter);
             // 将解密后的数据继续放入到,以便于做日志记录
             RequestThreadLocal.get().setRequestBody(requestBody);
             return gson.fromJson(requestBody, parameterType);
@@ -103,25 +97,4 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         }
     }
 
-    private String decryptRequestBody(String requestBody, MethodParameter parameter) {
-        if (this.needDecrypt(parameter)) {
-            String secret = RequestThreadLocal.get().getSecret();
-            String decrypt = AesUtil.decrypt(requestBody, secret);
-            if (log.isDebugEnabled()) {
-                log.debug("原始数据:[{}],解密数据:[{}]", requestBody, decrypt);
-            }
-            return decrypt;
-        }
-        return requestBody;
-    }
-
-    /**
-     * 是否需要解密步骤
-     *
-     * @param parameter controller方法参数信息
-     * @return true:需要解密操作,false不需要
-     */
-    private boolean needDecrypt(MethodParameter parameter) {
-        return !parameter.hasMethodAnnotation(SkipDecrypt.class) && !parameter.hasMethodAnnotation(SkipAccess.class);
-    }
 }

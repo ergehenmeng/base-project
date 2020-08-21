@@ -1,7 +1,6 @@
 package com.eghm;
 
 import cn.hutool.crypto.digest.MD5;
-import com.eghm.common.utils.AesUtil;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.google.common.collect.Maps;
@@ -35,8 +34,6 @@ public class BaseTest {
 
     protected Map<String,Object> params = Maps.newHashMapWithExpectedSize(10);
 
-    private String secret;
-
     @Autowired
     private WebApplicationContext webApplicationContext;
 
@@ -61,21 +58,6 @@ public class BaseTest {
         String content = this.doPost(url, gson.toJson(params));
         System.out.println("响应结果: " + content);
         return content;
-    }
-
-    public String postSecret(String url) {
-        String content = this.doPost(url, AesUtil.encrypt(gson.toJson(params), secret));
-        RespBody<String> json = gson.fromJson(content, new TypeToken<RespBody<String>>() {
-        }.getType());
-        if (json != null && json.getData() != null) {
-            String decrypt = AesUtil.decrypt(json.getData(), secret);
-            String toJson = gson.toJson(RespBody.success(decrypt));
-            System.out.println("响应结果: " + toJson);
-            return toJson;
-        } else {
-            System.out.println("响应结果: " + content);
-            return content;
-        }
     }
 
     private String doPost(String url, String content){
@@ -105,9 +87,8 @@ public class BaseTest {
         Type type = new TypeToken<RespBody<LoginTokenVO>>(){}.getType();
         RespBody<LoginTokenVO> json = gson.fromJson(content, type);
         LoginTokenVO data = json.getData();
-        headers.add("Access-Token",data.getAccessToken());
+        headers.add("Token",data.getToken());
         headers.add("Refresh-Token", data.getRefreshToken());
-        this.secret = data.getSecret();
         params.clear();
     }
 }

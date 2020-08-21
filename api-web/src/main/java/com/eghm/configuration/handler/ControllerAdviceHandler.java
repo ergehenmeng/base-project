@@ -1,6 +1,5 @@
 package com.eghm.configuration.handler;
 
-import com.eghm.annotation.SkipEncrypt;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.sys.ExceptionLog;
@@ -49,7 +48,6 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    @SkipEncrypt
     public RespBody<Object> businessException(HttpServletRequest request, BusinessException e) {
         log.warn("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         RespBody<Object> error = RespBody.error(e.getCode(), e.getMessage());
@@ -65,7 +63,6 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    @SkipEncrypt
     public RespBody<Object> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(RequestThreadLocal.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
@@ -81,7 +78,6 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
-    @SkipEncrypt
     public RespBody<Object> noHandlerFoundException(HttpServletRequest request) {
         log.error("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);

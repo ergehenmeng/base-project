@@ -3,7 +3,6 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.utils.StringUtil;
-import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ext.Token;
 import com.eghm.service.cache.CacheService;
@@ -24,8 +23,6 @@ public class TokenServiceImpl implements TokenService {
 
     private SysConfigApi sysConfigApi;
 
-    private Encoder encoder;
-
     private Gson gson;
 
     @Autowired
@@ -39,21 +36,15 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Autowired
-    public void setEncoder(Encoder encoder) {
-        this.encoder = encoder;
-    }
-
-    @Autowired
     public void setGson(Gson gson) {
         this.gson = gson;
     }
 
     @Override
     public Token createToken(int userId, String channel) {
-        String secret = encoder.encode(userId + channel + StringUtil.random(16));
         String refreshToken = StringUtil.random(32);
-        String accessToken = StringUtil.random(32);
-        Token token = Token.builder().secret(secret).token(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
+        String accessToken = StringUtil.random(64);
+        Token token = Token.builder().token(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
         this.cacheToken(token);
         return token;
     }

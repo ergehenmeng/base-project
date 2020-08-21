@@ -21,11 +21,6 @@ public class Token implements Serializable {
     private static final long serialVersionUID = -539686478899884844L;
 
     /**
-     * 用于加密签名
-     */
-    private String secret;
-
-    /**
      * token 保持登陆信息
      */
     private String token;

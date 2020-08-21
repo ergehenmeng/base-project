@@ -16,6 +16,5 @@ public class FeedbackControllerTest extends BaseTest {
     public void feedback() {
         params.put("classify", "1");
         params.put("content", "你吃了没");
-        super.postSecret("/api/user/feedback");
     }
 }

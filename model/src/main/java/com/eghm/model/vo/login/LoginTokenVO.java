@@ -23,12 +23,6 @@ public class LoginTokenVO implements Serializable {
     private static final long serialVersionUID = 5945495590088977331L;
 
     /**
-     * secret
-     */
-    @ApiModelProperty("签名secret")
-    private String secret;
-
-    /**
      * token
      */
     @ApiModelProperty("登陆token")

@@ -92,7 +92,6 @@ public class TokenInterceptor implements InterceptorAdapter {
     private void verifyBind(Token token, RequestMessage message, boolean exception) {
         if (token.getChannel().equals(message.getChannel())) {
             message.setUserId(token.getUserId());
-            message.setSecret(token.getSecret());
         }else if (exception) {
             log.error("令牌为空,token:[{}],sourceChannel:[{}],targetChannel:[{}]", token.getToken(), message.getChannel(), token.getChannel());
             throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
