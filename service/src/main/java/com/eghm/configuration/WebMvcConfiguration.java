@@ -5,6 +5,10 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.template.FreemarkerHtmlTemplate;
 import com.eghm.configuration.template.HtmlTemplate;
 import com.eghm.constants.SystemConstant;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
+import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -14,6 +18,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -26,6 +33,13 @@ import java.util.Properties;
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
     private ApplicationProperties applicationProperties;
+
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Autowired
     public void setApplicationProperties(ApplicationProperties applicationProperties) {
@@ -79,6 +93,46 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Bean
     public HtmlTemplate htmlTemplate() {
         return new FreemarkerHtmlTemplate();
+    }
+
+
+    /**
+     * 如果对象为空则返回空串 而不是 null
+     * 如果对象空数组或集合 则返回[]
+     * 该功能比较鸡肋,最好在开发时约定好格式
+     */
+    @PostConstruct
+    public void jsonNullToString() {
+
+        JsonSerializer<Object> serializer = new JsonSerializer<Object>() {
+            @Override
+            public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+                gen.writeString("");
+            }
+        };
+
+        JsonSerializer<Object> arraySerializer = new JsonSerializer<Object>() {
+            @Override
+            public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+                gen.writeStartArray();
+                gen.writeEndArray();
+            }
+        };
+
+        objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanSerializerModifier() {
+                    @Override
+                    public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
+                        for (BeanPropertyWriter writer : beanProperties) {
+                            JavaType javaType = writer.getType();
+                            if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
+                                writer.assignNullSerializer(arraySerializer);
+                            } else {
+                                writer.assignNullSerializer(serializer);
+                            }
+                        }
+                        return beanProperties;
+                    }
+                }));
     }
 
 }
