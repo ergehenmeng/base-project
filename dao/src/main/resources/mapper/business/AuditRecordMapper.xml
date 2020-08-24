@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.dao.mapper.business.AuditRecordMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.AuditRecord">
+    <!--
+      @create by mybatis
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="audit_no" jdbcType="VARCHAR" property="auditNo" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="opinion" jdbcType="VARCHAR" property="opinion" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="role_type" jdbcType="VARCHAR" property="roleType" />
+    <result column="audit_type" jdbcType="VARCHAR" property="auditType" />
+    <result column="step" jdbcType="TINYINT" property="step" />
+    <result column="audit_operator_id" jdbcType="INTEGER" property="auditOperatorId" />
+    <result column="audit_operator_name" jdbcType="VARCHAR" property="auditOperatorName" />
+    <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="BaseColumnList">
+    <!--
+      @create by mybatis
+    -->
+    id, audit_no, state, opinion, title, apply_id, role_type, audit_type, step, audit_operator_id, 
+    audit_operator_name, audit_time, add_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      @create by mybatis
+    -->
+    select 
+    <include refid="BaseColumnList" />
+    from audit_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.AuditRecord">
+    <!--
+      @create by mybatis
+    -->
+    insert into audit_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auditNo != null">
+        audit_no,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="opinion != null">
+        opinion,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="applyId != null">
+        apply_id,
+      </if>
+      <if test="roleType != null">
+        role_type,
+      </if>
+      <if test="auditType != null">
+        audit_type,
+      </if>
+      <if test="step != null">
+        step,
+      </if>
+      <if test="auditOperatorId != null">
+        audit_operator_id,
+      </if>
+      <if test="auditOperatorName != null">
+        audit_operator_name,
+      </if>
+      <if test="auditTime != null">
+        audit_time,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="auditNo != null">
+        #{auditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+      <if test="opinion != null">
+        #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null">
+        #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=VARCHAR},
+      </if>
+      <if test="auditType != null">
+        #{auditType,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null">
+        #{step,jdbcType=TINYINT},
+      </if>
+      <if test="auditOperatorId != null">
+        #{auditOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="auditOperatorName != null">
+        #{auditOperatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.AuditRecord">
+    <!--
+      @create by mybatis
+    -->
+    update audit_record
+    <set>
+      <if test="auditNo != null">
+        audit_no = #{auditNo,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="opinion != null">
+        opinion = #{opinion,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null">
+        apply_id = #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="roleType != null">
+        role_type = #{roleType,jdbcType=VARCHAR},
+      </if>
+      <if test="auditType != null">
+        audit_type = #{auditType,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null">
+        step = #{step,jdbcType=TINYINT},
+      </if>
+      <if test="auditOperatorId != null">
+        audit_operator_id = #{auditOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="auditOperatorName != null">
+        audit_operator_name = #{auditOperatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null">
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+</mapper>

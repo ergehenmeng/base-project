@@ -497,3 +497,35 @@ CREATE TABLE `user_ext` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `user_id_index` (`user_id`) USING BTREE COMMENT '唯一索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='普通用户扩展信息表';
+
+
+CREATE TABLE `audit_config` (
+  `id` int(10) NOT NULL COMMENT '主键',
+  `audit_type` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核类型',
+  `role_type` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '角色类型',
+  `step` tinyint(2) DEFAULT '1' COMMENT '审批时的步骤(1,2,3)',
+  `rejection_policy` bigint(1) unsigned DEFAULT '1' COMMENT '拒绝策略 1:结束流程 2:退回上一步 3:退回第一步',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='审核流程配置表';
+
+CREATE TABLE `audit_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `audit_no` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审批单号(在整个审批流程中不变)',
+  `state` tinyint(1) DEFAULT NULL COMMENT '审核状态 0:待审核 1:审批通过 2:审批拒绝',
+  `opinion` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审批意见',
+  `title` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核信息标题',
+  `apply_id` int(11) DEFAULT NULL COMMENT '关联该审批的申请id',
+  `role_type` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核人角色类型',
+  `audit_type` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核类型',
+  `step` tinyint(2) DEFAULT NULL COMMENT '当前审核的步骤',
+  `audit_operator_id` int(11) DEFAULT NULL COMMENT '审核人id',
+  `audit_operator_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核人姓名',
+  `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_operator_id_state` (`audit_operator_id`,`state`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='审核记录表';
+
