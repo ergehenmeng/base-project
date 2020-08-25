@@ -371,6 +371,11 @@ public enum ErrorCode {
      */
     DEPARTMENT_DEPTH_ERROR(3032,"部门层级已上限"),
 
+    /**
+     * 审批配置信息为空
+     */
+    AUDIT_CONFIG_ERROR(3035,"审批配置信息为空"),
+
 
     ;
     /**

@@ -1,6 +1,6 @@
 package com.eghm.service.key.impl;
 
-import com.eghm.common.enums.WorkSpace;
+import com.eghm.common.enums.Workspace;
 import com.eghm.service.key.KeyGenerator;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
@@ -73,11 +73,11 @@ public class DefaultKeyGenerator implements KeyGenerator {
 
     @Override
     public synchronized Number generateKey() {
-        return this.generateKey(WorkSpace.IP);
+        return this.generateKey(Workspace.IP);
     }
 
     @Override
-    public synchronized Number generateKey(WorkSpace workSpace) {
+    public synchronized Number generateKey(Workspace workSpace) {
 
         long currentMillis = System.currentTimeMillis();
 

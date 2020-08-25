@@ -5,6 +5,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author 二哥很猛
+ */
 @Data
 public class AuditRecord implements Serializable {
     /**
@@ -48,6 +51,20 @@ public class AuditRecord implements Serializable {
      * 对应字段 : apply_id<br>
      */
     private Integer applyId;
+
+    /**
+     * 申请人userId<br>
+     * 表 : audit_record<br>
+     * 对应字段 : apply_operator_id<br>
+     */
+    private Integer applyOperatorId;
+
+    /**
+     * 申请人姓名<br>
+     * 表 : audit_record<br>
+     * 对应字段 : apply_operator_name<br>
+     */
+    private String applyOperatorName;
 
     /**
      * 审核人角色类型<br>

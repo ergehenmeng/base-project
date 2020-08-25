@@ -24,7 +24,7 @@
     <!--
       @create by mybatis
     -->
-    id, audit_no, state, opinion, title, apply_id, role_type, audit_type, step, audit_operator_id, 
+    id, audit_no, state, opinion, title, apply_id, apply_operator_id, apply_operator_name,  role_type, audit_type, step, audit_operator_id,
     audit_operator_name, audit_time, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -59,6 +59,12 @@
       </if>
       <if test="applyId != null">
         apply_id,
+      </if>
+      <if test="applyOperatorId != null" >
+        apply_operator_id,
+      </if>
+      <if test="applyOperatorName != null" >
+        apply_operator_name,
       </if>
       <if test="roleType != null">
         role_type,
@@ -103,6 +109,12 @@
       </if>
       <if test="applyId != null">
         #{applyId,jdbcType=INTEGER},
+      </if>
+      <if test="applyOperatorId != null">
+        #{applyOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="applyOperatorName != null">
+        #{applyOperatorName,jdbcType=VARCHAR},
       </if>
       <if test="roleType != null">
         #{roleType,jdbcType=VARCHAR},

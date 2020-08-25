@@ -1,13 +1,13 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.crypto.digest.MD5;
-import com.eghm.common.utils.DateUtil;
-import com.eghm.service.common.CommonService;
+import com.eghm.service.common.NumberService;
 import com.eghm.service.key.KeyGenerator;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 常用服务类
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 二哥很猛
  * @date 2018/1/18 14:17
  */
-@Service("commonService")
+@Service("numberService")
 @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-public class CommonServiceImpl implements CommonService {
+public class NumberServiceImpl implements NumberService {
 
     private KeyGenerator keyGenerator;
 
@@ -27,14 +27,12 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public String encryptPassword(String password, String random) {
-        return MD5.create().digestHex16(password + random);
+    public String getNumber(String prefix) {
+        return prefix + this.getNumber();
     }
 
     @Override
-    public String getOrderNo() {
-        return DateFormatUtils.format(DateUtil.getNow(), "yyyyMMddHHmmss00") + keyGenerator.generateKey();
+    public String getNumber() {
+        return DateTimeFormatter.ofPattern("yyyyMMdd").format(LocalDate.now()) + keyGenerator.generateKey();
     }
-
-
 }

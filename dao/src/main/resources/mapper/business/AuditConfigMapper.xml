@@ -29,4 +29,8 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
+  <select id="getConfig" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList"/>
+    from audit_config where audit_type = #{auditType} order by step asc
+  </select>
 </mapper>

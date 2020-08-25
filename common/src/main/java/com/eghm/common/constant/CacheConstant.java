@@ -20,6 +20,10 @@ public class CacheConstant {
      */
     public static final String SYS_DICT = "sys_dict";
 
+    /**
+     * 审核配置信息
+     */
+    public static final String AUDIT_CONFIG = "audit_config";
 
     /**
      * 任务异步结果

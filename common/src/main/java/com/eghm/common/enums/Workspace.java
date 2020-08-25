@@ -7,14 +7,15 @@ import java.net.UnknownHostException;
 
 /**
  * 分布式id workId生成类型
+ *
  * @author 二哥很猛
  */
-public enum WorkSpace {
+public enum Workspace {
 
     /**
      * 主机名称方式,该方式要求主机序号以数字开始或结尾,且中间不能包含数字
      */
-    HOSTNAME{
+    HOSTNAME {
         @Override
         public long getId() {
             return HOSTNAME_WORK_ID;
@@ -24,7 +25,7 @@ public enum WorkSpace {
     /**
      * ip方式
      */
-    IP{
+    IP {
         @Override
         public long getId() {
             return workId;
@@ -58,6 +59,7 @@ public enum WorkSpace {
 
     /**
      * 获取机器id [0,1024)
+     *
      * @return id
      */
     public long getId() {

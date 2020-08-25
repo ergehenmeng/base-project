@@ -1,6 +1,6 @@
 package com.eghm.service.key;
 
-import com.eghm.common.enums.WorkSpace;
+import com.eghm.common.enums.Workspace;
 
 /**
  * 项目中只能指定一种生成方式,否则可能会出现id重复
@@ -20,6 +20,6 @@ public interface KeyGenerator {
      * @param workSpace 指定生成方式
      * @return 63bit的id
      */
-    Number generateKey(WorkSpace workSpace);
+    Number generateKey(Workspace workSpace);
 }
 

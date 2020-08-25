@@ -33,6 +33,11 @@ public class SpringContextUtil {
         return applicationContext.getBean(beanName);
     }
 
+    public static <T> T getBean(String beanName, Class<T> cls) {
+        verifyApplication();
+        return applicationContext.getBean(beanName, cls);
+    }
+
     public static <T> T getBean(Class<T> requiredType) {
         verifyApplication();
         return applicationContext.getBean(requiredType);
