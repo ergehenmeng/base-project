@@ -13,4 +13,17 @@ public interface AuditRecordService {
      * @param record  record
      */
     void insertSelective(AuditRecord record);
+
+    /**
+     * 不为空更新
+     * @param record record
+     */
+    void updateSelective(AuditRecord record);
+
+    /**
+     * 主键查询
+     * @param id id
+     * @return audit
+     */
+    AuditRecord getById(Integer id);
 }

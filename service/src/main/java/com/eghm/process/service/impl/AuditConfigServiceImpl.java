@@ -1,7 +1,6 @@
 package com.eghm.process.service.impl;
 
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.AuditType;
 import com.eghm.dao.mapper.business.AuditConfigMapper;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.process.service.AuditConfigService;
@@ -26,8 +25,8 @@ public class AuditConfigServiceImpl implements AuditConfigService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.AUDIT_CONFIG, key = "#type.value", cacheManager = "shortCacheManager")
-    public List<AuditConfig> getConfig(AuditType type) {
-        return auditConfigMapper.getConfig(type.getValue());
+    @Cacheable(cacheNames = CacheConstant.AUDIT_CONFIG, key = "#p0", cacheManager = "shortCacheManager")
+    public List<AuditConfig> getConfig(String auditType) {
+        return auditConfigMapper.getConfig(auditType);
     }
 }

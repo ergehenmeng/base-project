@@ -24,4 +24,14 @@ public class AuditRecordServiceImpl implements AuditRecordService {
     public void insertSelective(AuditRecord record) {
         auditRecordMapper.insertSelective(record);
     }
+
+    @Override
+    public void updateSelective(AuditRecord record) {
+        auditRecordMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public AuditRecord getById(Integer id) {
+        return auditRecordMapper.selectByPrimaryKey(id);
+    }
 }

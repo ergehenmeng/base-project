@@ -376,6 +376,16 @@ public enum ErrorCode {
      */
     AUDIT_CONFIG_ERROR(3035,"审批配置信息为空"),
 
+    /**
+     * 审批申请信息未查询到
+     */
+    AUDIT_APPLY_NULL(3038,"审批申请信息未查询到"),
+
+    /**
+     * 该申请已审批
+     */
+    AUDIT_REDO(3040,"该申请已审批"),
+
 
     ;
     /**

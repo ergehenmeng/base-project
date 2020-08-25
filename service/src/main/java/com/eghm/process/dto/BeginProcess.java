@@ -12,6 +12,11 @@ import lombok.Data;
 public class BeginProcess {
 
     /**
+     * 申请信息id
+     */
+    private Integer applyId;
+
+    /**
      * 审核类型
      */
     private AuditType auditType;
@@ -20,11 +25,6 @@ public class BeginProcess {
      * 审批标题信息
      */
     private String title;
-
-    /**
-     * 申请信息id
-     */
-    private Integer applyId;
 
     /**
      * 申请人id
