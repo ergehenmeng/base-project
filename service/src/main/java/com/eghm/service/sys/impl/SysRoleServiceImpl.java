@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.dao.mapper.sys.SysOperatorRoleMapper;
 import com.eghm.dao.mapper.sys.SysRoleMapper;
 import com.eghm.dao.model.sys.SysRole;
@@ -10,7 +11,6 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
-import com.google.common.base.Splitter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 二哥很猛
@@ -93,8 +94,13 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void authMenu(Integer roleId, String menuIds) {
         sysRoleMapper.deleteRoleMenu(roleId);
         if (StringUtils.isNotEmpty(menuIds)) {
-            List<Integer> menuIdList = Splitter.on(",").splitToList(menuIds).stream().mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+            List<Integer> menuIdList = Stream.of(StrUtil.split(menuIds, ",")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
             sysRoleMapper.batchInsertRoleMenu(roleId, menuIdList);
         }
+    }
+
+    @Override
+    public List<SysRole> getRoleList(Integer operatorId) {
+        return sysRoleMapper.getRoleList(operatorId);
     }
 }

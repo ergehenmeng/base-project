@@ -72,5 +72,12 @@ public interface SysRoleService {
      * @param menuIds 菜单ids
      */
     void authMenu(Integer roleId, String menuIds);
+
+    /**
+     * 获取用户角色列表
+     * @param operatorId 用户id
+     * @return 角色列表
+     */
+    List<SysRole> getRoleList(Integer operatorId);
 }
 

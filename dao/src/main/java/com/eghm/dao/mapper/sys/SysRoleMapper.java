@@ -40,6 +40,13 @@ public interface SysRoleMapper {
     List<SysRole> getList(RoleQueryRequest request);
 
     /**
+     * 查询用户所拥有的角色列表
+     * @param operatorId 用户id
+     * @return 角色列表
+     */
+    List<SysRole> getRoleList(@Param("operatorId") Integer operatorId);
+
+    /**
      * 获取角色拥有的菜单列表
      * @param roleId 角色id
      * @return 菜单menuIds

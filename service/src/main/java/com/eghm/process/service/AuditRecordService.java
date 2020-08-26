@@ -1,6 +1,9 @@
 package com.eghm.process.service;
 
+import com.eghm.common.enums.AuditState;
 import com.eghm.dao.model.business.AuditRecord;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -26,4 +29,12 @@ public interface AuditRecordService {
      * @return audit
      */
     AuditRecord getById(Integer id);
+
+    /**
+     * 根据角色和状态获取审批列表
+     * @param roleList 角色列表
+     * @param state 状态
+     * @return 审核记录
+     */
+    List<AuditRecord> getAuditList(List<String> roleList, AuditState state);
 }

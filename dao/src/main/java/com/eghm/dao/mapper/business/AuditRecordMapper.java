@@ -1,6 +1,10 @@
 package com.eghm.dao.mapper.business;
 
+import com.eghm.common.enums.AuditState;
 import com.eghm.dao.model.business.AuditRecord;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AuditRecordMapper {
 
@@ -26,4 +30,11 @@ public interface AuditRecordMapper {
      */
     int updateByPrimaryKeySelective(AuditRecord record);
 
+    /**
+     * 根据角色和状态获取审批列表
+     * @param roleList 角色列表
+     * @param state 状态
+     * @return 审核记录
+     */
+    List<AuditRecord> getAuditList(@Param("roleList") List<String> roleList, @Param("state") byte state);
 }

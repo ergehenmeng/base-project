@@ -386,6 +386,11 @@ public enum ErrorCode {
      */
     AUDIT_REDO(3040,"该申请已审批"),
 
+    /**
+     * 暂无审批权限
+     */
+    AUDIT_NO_ACCESS(3042,"暂无审批权限"),
+
 
     ;
     /**

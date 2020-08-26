@@ -6,16 +6,23 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.dao.model.sys.SysRole;
+import com.eghm.process.dto.AuditProcess;
 import com.eghm.process.dto.BeginProcess;
+import com.eghm.process.handler.BaseAuditHandler;
 import com.eghm.process.service.AuditConfigService;
 import com.eghm.process.service.AuditRecordService;
 import com.eghm.process.service.AuditService;
 import com.eghm.service.common.NumberService;
+import com.eghm.service.sys.SysRoleService;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 殿小二
@@ -31,6 +38,8 @@ public class AuditServiceImpl implements AuditService {
 
     private NumberService numberService;
 
+    private SysRoleService sysRoleService;
+
     @Autowired
     public void setAuditRecordService(AuditRecordService auditRecordService) {
         this.auditRecordService = auditRecordService;
@@ -44,6 +53,11 @@ public class AuditServiceImpl implements AuditService {
     @Autowired
     public void setNumberService(NumberService numberService) {
         this.numberService = numberService;
+    }
+
+    @Autowired
+    public void setSysRoleService(SysRoleService sysRoleService) {
+        this.sysRoleService = sysRoleService;
     }
 
     @Override
@@ -68,7 +82,17 @@ public class AuditServiceImpl implements AuditService {
     }
 
     @Override
-    public void audit() {
-
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void audit(AuditProcess process) {
+        BaseAuditHandler handler = SpringContextUtil.getBean(process.getAuditType().getHandler(), BaseAuditHandler.class);
+        handler.handler(process);
     }
+
+    @Override
+    public List<AuditRecord> getAuditList(Integer operatorId, AuditState state) {
+        List<SysRole> userRoleList = sysRoleService.getRoleList(operatorId);
+        List<String> roleList = userRoleList.stream().map(SysRole::getRoleType).collect(Collectors.toList());
+        return auditRecordService.getAuditList(roleList, state);
+    }
+
 }

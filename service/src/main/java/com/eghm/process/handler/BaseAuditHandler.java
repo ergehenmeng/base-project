@@ -7,9 +7,11 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.dao.model.sys.SysRole;
 import com.eghm.process.dto.AuditProcess;
 import com.eghm.process.service.AuditConfigService;
 import com.eghm.process.service.AuditRecordService;
+import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public abstract class BaseAuditHandler {
 
     private AuditConfigService auditConfigService;
 
+    private SysRoleService sysRoleService;
+
     @Autowired
     public void setAuditRecordService(AuditRecordService auditRecordService) {
         this.auditRecordService = auditRecordService;
@@ -38,14 +42,20 @@ public abstract class BaseAuditHandler {
         this.auditConfigService = auditConfigService;
     }
 
+    @Autowired
+    public void setSysRoleService(SysRoleService sysRoleService) {
+        this.sysRoleService = sysRoleService;
+    }
+
     /**
-     * 审批
+     * 审批主入口
      * @param process 审批信息
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public void handler(AuditProcess process) {
         AuditRecord record = this.getCheckedRecord(process.getId());
         this.checkParam(process, record);
+        this.checkRole(process.getAuditOperatorId(), record.getRoleType());
         this.updateRecord(process, record);
         this.postProcess(process, record);
 
@@ -62,6 +72,23 @@ public abstract class BaseAuditHandler {
         this.finallyProcess(process, record);
     }
 
+    /**
+     * 校验角色是否有审批权限
+     * @param operatorId 审批人
+     * @param roleType  审批角色
+     */
+    private void checkRole(Integer operatorId, String roleType) {
+        List<SysRole> roleList = sysRoleService.getRoleList(operatorId);
+        SysRole role = roleList.stream().filter(sysRole -> sysRole.getRoleType().equals(roleType)).findFirst().orElse(null);
+        if (role == null) {
+            log.warn("该用户没有审批权限 operatorId:[{}], roleType:[{}]", operatorId, roleType);
+            throw new BusinessException(ErrorCode.AUDIT_NO_ACCESS);
+        }
+    }
+
+    /**
+     * 更新审批记录信息
+     */
     private void updateRecord(AuditProcess process, AuditRecord record) {
         record.setState(process.getState().getValue());
         record.setAuditTime(DateUtil.getNow());
@@ -102,21 +129,21 @@ public abstract class BaseAuditHandler {
      * @param process 前台传递过来的审批信息
      * @param record 审批申请信息
      */
-    public abstract void checkParam(AuditProcess process, AuditRecord record);
+    protected abstract void checkParam(AuditProcess process, AuditRecord record);
 
     /**
      * 当前审核流程结束
      * @param process 审批信息
      * @param record 审批申请信息
      */
-    public abstract void postProcess(AuditProcess process, AuditRecord record);
+    protected abstract void postProcess(AuditProcess process, AuditRecord record);
 
     /**
      * 整个审核流程审核结束
      * @param process 审批信息
      * @param record 审批申请记录
      */
-    public abstract void finallyProcess(AuditProcess process, AuditRecord record);
+    protected abstract void finallyProcess(AuditProcess process, AuditRecord record);
 
     /**
      * 下一个处理节点
@@ -124,7 +151,7 @@ public abstract class BaseAuditHandler {
      * @param record 当前节点审批记录
      * @param nextRecord 下一个节点审批记录
      */
-    public void nextProcess(AuditProcess process, AuditRecord record, AuditRecord nextRecord) {
+    protected void nextProcess(AuditProcess process, AuditRecord record, AuditRecord nextRecord) {
     }
 
 
