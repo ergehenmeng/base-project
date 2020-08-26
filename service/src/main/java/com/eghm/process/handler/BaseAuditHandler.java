@@ -22,7 +22,7 @@ import java.util.List;
  * @date 2020/8/25
  */
 @Slf4j
-public class AuditHandler {
+public abstract class BaseAuditHandler {
 
     private AuditRecordService auditRecordService;
 
@@ -46,13 +46,7 @@ public class AuditHandler {
     public void handler(AuditProcess process) {
         AuditRecord record = this.getCheckedRecord(process.getId());
         this.checkParam(process, record);
-        record.setState(process.getState().getValue());
-        record.setAuditTime(DateUtil.getNow());
-        record.setAuditOperatorId(process.getAuditOperatorId());
-        record.setAuditOperatorName(process.getAuditOperatorName());
-        record.setOpinion(process.getOpinion());
-        auditRecordService.updateSelective(record);
-
+        this.updateRecord(process, record);
         this.postProcess(process, record);
 
         if (process.getState() == AuditState.PASS) {
@@ -63,8 +57,18 @@ public class AuditHandler {
                 this.nextProcess(process, record, nextAuditRecord);
                 return;
             }
+            // 没有找到证明该节点是最后的审批节点
         }
         this.finallyProcess(process, record);
+    }
+
+    private void updateRecord(AuditProcess process, AuditRecord record) {
+        record.setState(process.getState().getValue());
+        record.setAuditTime(DateUtil.getNow());
+        record.setAuditOperatorId(process.getAuditOperatorId());
+        record.setAuditOperatorName(process.getAuditOperatorName());
+        record.setOpinion(process.getOpinion());
+        auditRecordService.updateSelective(record);
     }
 
     /**
@@ -93,34 +97,36 @@ public class AuditHandler {
         return configList.stream().filter(config -> config.getStep() > currentStep).findFirst().orElse(null);
     }
 
-
-    /**
-     * 当前审核流程结束
-     */
-    public void postProcess(AuditProcess process, AuditRecord record) {
-    }
-
-    /**
-     * 整个审核流程审核结束
-     */
-    public void finallyProcess(AuditProcess process, AuditRecord record) {
-    }
-
-    /**
-     * 下一个处理节点
-     */
-    public void nextProcess(AuditProcess process, AuditRecord record, AuditRecord nextRecord) {
-
-    }
-
-
     /**
      * 校验其他参数信息
      * @param process 前台传递过来的审批信息
      * @param record 审批申请信息
      */
-    public void checkParam(AuditProcess process, AuditRecord record) {
+    public abstract void checkParam(AuditProcess process, AuditRecord record);
+
+    /**
+     * 当前审核流程结束
+     * @param process 审批信息
+     * @param record 审批申请信息
+     */
+    public abstract void postProcess(AuditProcess process, AuditRecord record);
+
+    /**
+     * 整个审核流程审核结束
+     * @param process 审批信息
+     * @param record 审批申请记录
+     */
+    public abstract void finallyProcess(AuditProcess process, AuditRecord record);
+
+    /**
+     * 下一个处理节点
+     * @param process    审批信息
+     * @param record 当前节点审批记录
+     * @param nextRecord 下一个节点审批记录
+     */
+    public void nextProcess(AuditProcess process, AuditRecord record, AuditRecord nextRecord) {
     }
+
 
     /**
      * 获取审批信息
