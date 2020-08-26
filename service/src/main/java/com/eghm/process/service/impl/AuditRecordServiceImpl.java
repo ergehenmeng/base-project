@@ -1,9 +1,11 @@
 package com.eghm.process.service.impl;
 
-import com.eghm.common.enums.AuditState;
 import com.eghm.dao.mapper.business.AuditRecordMapper;
 import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.model.dto.business.audit.AuditQueryRequest;
 import com.eghm.process.service.AuditRecordService;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +41,9 @@ public class AuditRecordServiceImpl implements AuditRecordService {
     }
 
     @Override
-    public List<AuditRecord> getAuditList(List<String> roleList, AuditState state) {
-        return auditRecordMapper.getAuditList(roleList, state.getValue());
+    public PageInfo<AuditRecord> getByPage(AuditQueryRequest request) {
+        PageMethod.startPage(request.getPage(), request.getPageSize());
+        List<AuditRecord> auditList = auditRecordMapper.getAuditList(request.getRoleList(), request.getState());
+        return new PageInfo<>(auditList);
     }
 }

@@ -36,5 +36,5 @@ public interface AuditRecordMapper {
      * @param state 状态
      * @return 审核记录
      */
-    List<AuditRecord> getAuditList(@Param("roleList") List<String> roleList, @Param("state") byte state);
+    List<AuditRecord> getAuditList(@Param("roleList") List<String> roleList, @Param("state") Byte state);
 }

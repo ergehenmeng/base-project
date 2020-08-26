@@ -2,6 +2,8 @@ package com.eghm.process.service;
 
 import com.eghm.common.enums.AuditState;
 import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.model.dto.business.audit.AuditQueryRequest;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -31,10 +33,9 @@ public interface AuditRecordService {
     AuditRecord getById(Integer id);
 
     /**
-     * 根据角色和状态获取审批列表
-     * @param roleList 角色列表
-     * @param state 状态
+     * 根据角色和状态获取审批列表 分页
+     * @param request 查询条件
      * @return 审核记录
      */
-    List<AuditRecord> getAuditList(List<String> roleList, AuditState state);
+    PageInfo<AuditRecord> getByPage(AuditQueryRequest request);
 }

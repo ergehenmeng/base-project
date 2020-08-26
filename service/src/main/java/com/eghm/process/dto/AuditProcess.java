@@ -2,7 +2,7 @@ package com.eghm.process.dto;
 
 import com.eghm.common.enums.AuditState;
 import com.eghm.common.enums.AuditType;
-import com.eghm.configuration.annotation.BackstageTag;
+import com.eghm.model.annotation.BackstageTag;
 import lombok.Data;
 
 /**

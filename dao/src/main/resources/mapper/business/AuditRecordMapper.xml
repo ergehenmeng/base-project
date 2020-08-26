@@ -192,9 +192,12 @@
   </update>
   <select id="getAuditList" resultMap="BaseResultMap">
     select <include refid="BaseColumnList" />
-    from audit_record where state = #{state} and role_type in
+    from audit_record where role_type in
     <foreach collection="roleList" item="item" open="(" close=")" separator=",">
       #{item}
     </foreach>
+    <if test="state != null" >
+      and state = #{state}
+    </if>
   </select>
 </mapper>

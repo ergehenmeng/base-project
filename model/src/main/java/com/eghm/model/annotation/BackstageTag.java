@@ -1,4 +1,4 @@
-package com.eghm.configuration.annotation;
+package com.eghm.model.annotation;
 
 import java.lang.annotation.*;
 

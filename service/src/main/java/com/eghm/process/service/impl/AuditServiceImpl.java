@@ -7,6 +7,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.dao.model.business.AuditRecord;
 import com.eghm.dao.model.sys.SysRole;
+import com.eghm.model.dto.business.audit.AuditQueryRequest;
 import com.eghm.process.dto.AuditProcess;
 import com.eghm.process.dto.BeginProcess;
 import com.eghm.process.handler.BaseAuditHandler;
@@ -16,6 +17,7 @@ import com.eghm.process.service.AuditService;
 import com.eghm.service.common.NumberService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.SpringContextUtil;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,10 +91,11 @@ public class AuditServiceImpl implements AuditService {
     }
 
     @Override
-    public List<AuditRecord> getAuditList(Integer operatorId, AuditState state) {
-        List<SysRole> userRoleList = sysRoleService.getRoleList(operatorId);
+    public PageInfo<AuditRecord> getByPage(AuditQueryRequest request) {
+        List<SysRole> userRoleList = sysRoleService.getRoleList(request.getOperatorId());
         List<String> roleList = userRoleList.stream().map(SysRole::getRoleType).collect(Collectors.toList());
-        return auditRecordService.getAuditList(roleList, state);
+        request.setRoleList(roleList);
+        return auditRecordService.getByPage(request);
     }
 
 }

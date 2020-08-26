@@ -1,11 +1,10 @@
 package com.eghm.process.service;
 
-import com.eghm.common.enums.AuditState;
 import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.model.dto.business.audit.AuditQueryRequest;
 import com.eghm.process.dto.AuditProcess;
 import com.eghm.process.dto.BeginProcess;
-
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 审核相关的所有逻辑
@@ -27,10 +26,9 @@ public interface AuditService {
     void audit(AuditProcess process);
 
     /**
-     * 获取用户所能看到的审核列表
-     * @param operatorId 用户id
-     * @param state 审核状态
+     * 分页获取用户所能看到的审核列表
+     * @param request 前台请求参数
      * @return 审核列表
      */
-    List<AuditRecord> getAuditList(Integer operatorId, AuditState state);
+    PageInfo<AuditRecord> getByPage(AuditQueryRequest request);
 }
