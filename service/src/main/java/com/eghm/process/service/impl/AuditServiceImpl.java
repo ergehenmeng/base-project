@@ -64,7 +64,7 @@ public class AuditServiceImpl implements AuditService {
 
     @Override
     public void beginProcess(BeginProcess process) {
-        List<AuditConfig> configList = auditConfigService.getConfig(process.getAuditType().getValue());
+        List<AuditConfig> configList = auditConfigService.getConfig(process.getAuditType().name());
         if (CollUtil.isEmpty(configList)) {
             log.warn("流程审核配置信息未查询到:[{}]", process.getAuditType());
             throw new BusinessException(ErrorCode.AUDIT_CONFIG_ERROR);

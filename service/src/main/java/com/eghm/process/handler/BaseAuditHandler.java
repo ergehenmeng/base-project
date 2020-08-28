@@ -58,11 +58,11 @@ public abstract class BaseAuditHandler {
         this.checkRole(process.getAuditOperatorId(), record.getRoleType());
         this.updateRecord(process, record);
         this.postProcess(process, record);
-
         if (process.getState() == AuditState.PASS) {
-            List<AuditConfig> configList = this.getCheckedConfig(process.getAuditType().getValue());
+            List<AuditConfig> configList = this.getCheckedConfig(process.getAuditType().name());
             AuditConfig nextConfig = this.getNextStepConfig(record.getStep(), configList);
             if (nextConfig != null) {
+                // 创建下一个节点的审批信息
                 AuditRecord nextAuditRecord = this.generateNextAuditRecord(record, nextConfig);
                 this.nextProcess(process, record, nextAuditRecord);
                 return;
