@@ -1,8 +1,8 @@
 package com.eghm.service.user.impl;
 
-import cn.hutool.crypto.digest.MD5;
+import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.BankCardUtil;
-import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.dao.mapper.business.UserExtMapper;
 import com.eghm.dao.model.business.UserExt;
 import com.eghm.dao.model.user.User;
@@ -22,16 +22,16 @@ public class UserExtServiceImpl implements UserExtService {
 
     private UserExtMapper userExtMapper;
 
-    private Encoder encoder;
+    private ApplicationProperties applicationProperties;
+
+    @Autowired
+    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
 
     @Autowired
     public void setUserExtMapper(UserExtMapper userExtMapper) {
         this.userExtMapper = userExtMapper;
-    }
-
-    @Autowired
-    public void setEncoder(Encoder encoder) {
-        this.encoder = encoder;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UserExtServiceImpl implements UserExtService {
         ext.setRealName(request.getRealName());
         ext.setUserId(request.getUserId());
         ext.setBirthday(BankCardUtil.getNormalBirthDay(request.getIdCard()));
-        ext.setIdCard(MD5.create().digestHex16(encoder.encode(request.getIdCard())));
+        ext.setIdCard(AesUtil.encrypt(request.getIdCard(), applicationProperties.getSecretKey()));
         userExtMapper.updateByPrimaryKeySelective(ext);
         //TODO 实名制认证
     }

@@ -26,7 +26,7 @@ public class AesUtil {
 
     private static final String ALGORITHM = "AES";
 
-    private static final String CIPHER_ALGORITHM = "AES/GCM/NoPadding";
+    private static final String CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";
 
     public static String encrypt(String source, String password) {
         try {

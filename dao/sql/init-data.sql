@@ -2,6 +2,7 @@ SET FOREIGN_KEY_CHECKS=0;
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login_sms', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2019-11-25 11:52:33', '短信登陆发送验证码');
 
+
 INSERT INTO `sys_address` VALUES ('1', '北京', '110000', '0', null, 'B', '1');
 INSERT INTO `sys_address` VALUES ('2', '市辖区', '110100', '110000', null, 'S', '2');
 INSERT INTO `sys_address` VALUES ('3', '东城区', '110101', '110100', '100000', 'D', '3');
@@ -417,7 +418,7 @@ INSERT INTO `sys_address` VALUES ('412', '鄂尔多斯市', '150600', '150000', 
 INSERT INTO `sys_address` VALUES ('413', '东胜区', '150602', '150600', '017000', 'D', '3');
 INSERT INTO `sys_address` VALUES ('414', '达拉特旗', '150621', '150600', '014300', 'D', '3');
 INSERT INTO `sys_address` VALUES ('415', '准格尔旗', '150622', '150600', '017100', 'Z', '3');
-INSERT INTO `sys_address` VALUES ('416', '鄂托克前旗', '150623', '150600', '016200	', 'E', '3');
+INSERT INTO `sys_address` VALUES ('416', '鄂托克前旗', '150623', '150600', '016200', 'E', '3');
 INSERT INTO `sys_address` VALUES ('417', '鄂托克旗', '150624', '150600', '016100', 'E', '3');
 INSERT INTO `sys_address` VALUES ('418', '杭锦旗', '150625', '150600', '017400', 'H', '3');
 INSERT INTO `sys_address` VALUES ('419', '乌审旗', '150626', '150600', '017300', 'W', '3');
@@ -425,7 +426,7 @@ INSERT INTO `sys_address` VALUES ('420', '伊金霍洛旗', '150627', '150600', 
 INSERT INTO `sys_address` VALUES ('421', '呼伦贝尔市', '150700', '150000', null, 'H', '2');
 INSERT INTO `sys_address` VALUES ('422', '海拉尔区', '150702', '150700', '021000', 'H', '3');
 INSERT INTO `sys_address` VALUES ('423', '扎赉诺尔区', '150703', '150700', '162750', 'Z', '3');
-INSERT INTO `sys_address` VALUES ('424', '阿荣旗', '150721', '150700', '162750	', 'A', '3');
+INSERT INTO `sys_address` VALUES ('424', '阿荣旗', '150721', '150700', '162750', 'A', '3');
 INSERT INTO `sys_address` VALUES ('425', '莫力达瓦达斡尔族自治旗', '150722', '150700', '162850', 'M', '3');
 INSERT INTO `sys_address` VALUES ('426', '鄂伦春自治旗', '150723', '150700', '022450', 'E', '3');
 INSERT INTO `sys_address` VALUES ('427', '鄂温克族自治旗', '150724', '150700', '021100', 'E', '3');
@@ -756,7 +757,7 @@ INSERT INTO `sys_address` VALUES ('751', '红岗区', '230605', '230600', '16300
 INSERT INTO `sys_address` VALUES ('752', '大同区', '230606', '230600', '163000', 'D', '3');
 INSERT INTO `sys_address` VALUES ('753', '肇州县', '230621', '230600', '166400', 'Z', '3');
 INSERT INTO `sys_address` VALUES ('754', '肇源县', '230622', '230600', '166500', 'Z', '3');
-INSERT INTO `sys_address` VALUES ('755', '林甸县', '230623', '230600', '166300	', 'L', '3');
+INSERT INTO `sys_address` VALUES ('755', '林甸县', '230623', '230600', '166300', 'L', '3');
 INSERT INTO `sys_address` VALUES ('756', '杜尔伯特蒙古族自治县', '230624', '230600', '166200', 'D', '3');
 INSERT INTO `sys_address` VALUES ('757', '伊春市', '230700', '230000', null, 'Y', '2');
 INSERT INTO `sys_address` VALUES ('758', '伊春区', '230702', '230700', '153000', 'Y', '3');
@@ -1178,7 +1179,7 @@ INSERT INTO `sys_address` VALUES ('1173', '明光市', '341182', '341100', '2394
 INSERT INTO `sys_address` VALUES ('1174', '阜阳市', '341200', '340000', null, 'F', '2');
 INSERT INTO `sys_address` VALUES ('1175', '颍州区', '341202', '341200', '236000', 'Y', '3');
 INSERT INTO `sys_address` VALUES ('1176', '颍东区', '341203', '341200', '236000', 'Y', '3');
-INSERT INTO `sys_address` VALUES ('1177', '颍泉区', '341204', '341200', '236000	', 'Y', '3');
+INSERT INTO `sys_address` VALUES ('1177', '颍泉区', '341204', '341200', '236000', 'Y', '3');
 INSERT INTO `sys_address` VALUES ('1178', '临泉县', '341221', '341200', '236400', 'L', '3');
 INSERT INTO `sys_address` VALUES ('1179', '太和县', '341222', '341200', '236600', 'T', '3');
 INSERT INTO `sys_address` VALUES ('1180', '阜南县', '341225', '341200', '236300', 'F', '3');
@@ -1292,7 +1293,7 @@ INSERT INTO `sys_address` VALUES ('1287', '政和县', '350725', '350700', '3536
 INSERT INTO `sys_address` VALUES ('1288', '邵武市', '350781', '350700', '354000', 'S', '3');
 INSERT INTO `sys_address` VALUES ('1289', '武夷山市', '350782', '350700', '354300', 'W', '3');
 INSERT INTO `sys_address` VALUES ('1290', '建瓯市', '350783', '350700', '353100', 'J', '3');
-INSERT INTO `sys_address` VALUES ('1291', '建阳区', '350784', '350700', '354200	', 'J', '3');
+INSERT INTO `sys_address` VALUES ('1291', '建阳区', '350784', '350700', '354200', 'J', '3');
 INSERT INTO `sys_address` VALUES ('1292', '龙岩市', '350800', '350000', null, 'L', '2');
 INSERT INTO `sys_address` VALUES ('1293', '新罗区', '350802', '350800', '364000', 'X', '3');
 INSERT INTO `sys_address` VALUES ('1294', '长汀县', '350821', '350800', '366300', 'Z', '3');
@@ -1936,9 +1937,9 @@ INSERT INTO `sys_address` VALUES ('1931', '祁东县', '430426', '430400', '4216
 INSERT INTO `sys_address` VALUES ('1932', '耒阳市', '430481', '430400', '421800', 'L', '3');
 INSERT INTO `sys_address` VALUES ('1933', '常宁市', '430482', '430400', '421500', 'C', '3');
 INSERT INTO `sys_address` VALUES ('1934', '邵阳市', '430500', '430000', null, 'S', '2');
-INSERT INTO `sys_address` VALUES ('1935', '双清区', '430502', '430500', '422000	', 'S', '3');
-INSERT INTO `sys_address` VALUES ('1936', '大祥区', '430503', '430500', '422000	', 'D', '3');
-INSERT INTO `sys_address` VALUES ('1937', '北塔区', '430511', '430500', '422000	', 'B', '3');
+INSERT INTO `sys_address` VALUES ('1935', '双清区', '430502', '430500', '422000', 'S', '3');
+INSERT INTO `sys_address` VALUES ('1936', '大祥区', '430503', '430500', '422000', 'D', '3');
+INSERT INTO `sys_address` VALUES ('1937', '北塔区', '430511', '430500', '422000', 'B', '3');
 INSERT INTO `sys_address` VALUES ('1938', '邵东县', '430521', '430500', '422800', 'S', '3');
 INSERT INTO `sys_address` VALUES ('1939', '新邵县', '430522', '430500', '422900', 'X', '3');
 INSERT INTO `sys_address` VALUES ('1940', '邵阳县', '430523', '430500', '422100', 'S', '3');
@@ -2015,7 +2016,7 @@ INSERT INTO `sys_address` VALUES ('2010', '麻阳苗族自治县', '431226', '43
 INSERT INTO `sys_address` VALUES ('2011', '新晃侗族自治县', '431227', '431200', '419200', 'X', '3');
 INSERT INTO `sys_address` VALUES ('2012', '芷江侗族自治县', '431228', '431200', '419100', 'Z', '3');
 INSERT INTO `sys_address` VALUES ('2013', '靖州苗族侗族自治县', '431229', '431200', '418400', 'J', '3');
-INSERT INTO `sys_address` VALUES ('2014', '通道侗族自治县', '431230', '431200', '418500	', 'T', '3');
+INSERT INTO `sys_address` VALUES ('2014', '通道侗族自治县', '431230', '431200', '418500', 'T', '3');
 INSERT INTO `sys_address` VALUES ('2015', '洪江市', '431281', '431200', '418200', 'H', '3');
 INSERT INTO `sys_address` VALUES ('2016', '娄底市', '431300', '430000', null, 'L', '2');
 INSERT INTO `sys_address` VALUES ('2017', '娄星区', '431302', '431300', '417000', 'L', '3');
@@ -3047,7 +3048,7 @@ INSERT INTO `sys_address` VALUES ('3047', '红古区', '620111', '620100', '7300
 INSERT INTO `sys_address` VALUES ('3048', '永登县', '620121', '620100', '730300', 'Y', '3');
 INSERT INTO `sys_address` VALUES ('3049', '皋兰县', '620122', '620100', '730200', 'G', '3');
 INSERT INTO `sys_address` VALUES ('3050', '榆中县', '620123', '620100', '730100', 'Y', '3');
-INSERT INTO `sys_address` VALUES ('3051', '兰州新区', '1000665', '620100', '730000', 'L', '3');
+INSERT INTO `sys_address` VALUES ('3051', '兰州新区', '100665', '620100', '730000', 'L', '3');
 INSERT INTO `sys_address` VALUES ('3052', '嘉峪关市', '620200', '620000', null, 'J', '2');
 INSERT INTO `sys_address` VALUES ('3053', '金昌市', '620300', '620000', null, 'J', '2');
 INSERT INTO `sys_address` VALUES ('3054', '金川区', '620302', '620300', '737100', 'J', '3');

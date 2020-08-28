@@ -1,5 +1,6 @@
 package com.eghm.model.dto.user;
 
+import com.eghm.model.annotation.BackstageTag;
 import com.eghm.model.validation.annotation.IdCard;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class UserAuthRequest implements Serializable {
     /**
      * 用户id
      */
+    @BackstageTag
     private Integer userId;
 
     /**

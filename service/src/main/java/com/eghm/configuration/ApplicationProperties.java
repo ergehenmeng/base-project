@@ -34,6 +34,11 @@ public class ApplicationProperties {
      */
     private String uploadDir;
 
+    /**
+     * 加密串,用于需要在数据库加密时
+     */
+    private String secretKey = "OciVH4YY6xAzqWXUOpIi5KS2rsYuRl==";
+
 
     public String getVersion() {
         return version;
@@ -67,4 +72,11 @@ public class ApplicationProperties {
         this.uploadDir = uploadDir;
     }
 
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
 }
