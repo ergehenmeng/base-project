@@ -488,7 +488,6 @@ DROP TABLE IF EXISTS `user_ext`;
 CREATE TABLE `user_ext` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户ID',
-  `avatar` varchar(200) DEFAULT NULL COMMENT '头像地址',
   `real_name` char(20) DEFAULT NULL COMMENT '真实姓名',
   `id_card` char(128) DEFAULT NULL COMMENT '身份证号码(前10位加密[18位身份证],前8位加密[15位身份证])',
   `birthday` char(8) DEFAULT NULL COMMENT '生日yyyyMMdd',

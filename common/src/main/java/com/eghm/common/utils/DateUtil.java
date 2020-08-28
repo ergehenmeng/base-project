@@ -179,6 +179,8 @@ public class DateUtil {
         return convertDate(LocalDateTime.parse(date, formatter));
     }
 
+
+
     /**
      * 相隔天数
      *
@@ -191,6 +193,28 @@ public class DateUtil {
     }
 
     /**
+     * 相隔年
+     *
+     * @param beginDate 开始时间
+     * @param endDate   结束时间
+     * @return 天数
+     */
+    private static long diffYear(Temporal beginDate, Temporal endDate) {
+        return ChronoUnit.YEARS.between(beginDate, endDate);
+    }
+
+    /**
+     * 相隔月数
+     *
+     * @param beginDate 开始时间
+     * @param endDate   结束时间
+     * @return 天数
+     */
+    private static long diffMonth(Temporal beginDate, Temporal endDate) {
+        return ChronoUnit.MONTHS.between(beginDate, endDate);
+    }
+
+    /**
      * 相隔天数
      *
      * @param beginDate 开始时间
@@ -199,6 +223,39 @@ public class DateUtil {
      */
     private static long diffDay(Temporal beginDate, Temporal endDate) {
         return ChronoUnit.DAYS.between(beginDate, endDate);
+    }
+
+    /**
+     * 相隔小时
+     *
+     * @param beginDate 开始时间
+     * @param endDate   结束时间
+     * @return 天数
+     */
+    private static long diffHour(Temporal beginDate, Temporal endDate) {
+        return ChronoUnit.HOURS.between(beginDate, endDate);
+    }
+
+    /**
+     * 相隔分钟
+     *
+     * @param beginDate 开始时间
+     * @param endDate   结束时间
+     * @return 天数
+     */
+    private static long diffMinute(Temporal beginDate, Temporal endDate) {
+        return ChronoUnit.MINUTES.between(beginDate, endDate);
+    }
+
+    /**
+     * 相隔秒
+     *
+     * @param beginDate 开始时间
+     * @param endDate   结束时间
+     * @return 天数
+     */
+    private static long diffSecond(Temporal beginDate, Temporal endDate) {
+        return ChronoUnit.SECONDS.between(beginDate, endDate);
     }
 
     /**
@@ -436,4 +493,37 @@ public class DateUtil {
         calendar.set(Calendar.SECOND, 59);
         return calendar.getTime();
     }
+
+    /**
+     * 将日期格式转换为中文表达
+     * @param date 日期
+     * @return 中文表示
+     */
+    public static String chineseValue(Date date) {
+        LocalDateTime dateTime = convertLocalDateTime(date);
+        LocalDateTime nowTime = LocalDateTime.now();
+        if (diffSecond(dateTime, nowTime) < 60) {
+            return "刚刚";
+        }
+        long minute = diffMinute(dateTime, nowTime);
+        if (minute < 60) {
+            return minute + "分钟前";
+        }
+        long day = diffDay(dateTime, nowTime);
+        // 可能会涉及跨天,因此先计算时昨天还是今天
+        if (day < 1) {
+            long hour = diffHour(dateTime, nowTime);
+            return hour + "小时前";
+        }
+        long month = diffMonth(dateTime, nowTime);
+        if (month < 1) {
+            return day + "天前";
+        }
+        long year = diffYear(dateTime, nowTime);
+        if (year < 1) {
+            return day + "月前";
+        }
+        return year + "年前";
+    }
+
 }

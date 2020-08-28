@@ -8,6 +8,7 @@ import com.eghm.model.ext.Token;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
+import com.eghm.service.user.UserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,8 @@ public class UserController {
     private TokenService tokenService;
 
     private LoginLogService loginLogService;
+
+    private UserService userService;
 
     @Autowired
     public void setTokenService(TokenService tokenService) {
