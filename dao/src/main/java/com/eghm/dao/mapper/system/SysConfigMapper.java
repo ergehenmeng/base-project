@@ -1,4 +1,4 @@
-package com.eghm.dao.mapper.sys;
+package com.eghm.dao.mapper.system;
 
 import com.eghm.model.dto.sys.config.ConfigEditRequest;
 import com.eghm.model.dto.sys.config.ConfigQueryRequest;

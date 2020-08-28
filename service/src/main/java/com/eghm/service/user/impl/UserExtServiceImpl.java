@@ -3,7 +3,7 @@ package com.eghm.service.user.impl;
 import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.BankCardUtil;
 import com.eghm.configuration.ApplicationProperties;
-import com.eghm.dao.mapper.business.UserExtMapper;
+import com.eghm.dao.mapper.user.UserExtMapper;
 import com.eghm.dao.model.business.UserExt;
 import com.eghm.dao.model.user.User;
 import com.eghm.model.dto.user.UserAuthRequest;

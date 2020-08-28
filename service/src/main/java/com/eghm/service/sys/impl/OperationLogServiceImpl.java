@@ -1,6 +1,6 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.dao.mapper.sys.SysOperationLogMapper;
+import com.eghm.dao.mapper.system.SysOperationLogMapper;
 import com.eghm.dao.model.sys.SysOperationLog;
 import com.eghm.model.dto.sys.log.OperationQueryRequest;
 import com.eghm.service.sys.OperationLogService;

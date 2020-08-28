@@ -1,4 +1,4 @@
-package com.eghm.dao.mapper.business;
+package com.eghm.dao.mapper.user;
 
 import com.eghm.dao.model.business.UserExt;
 

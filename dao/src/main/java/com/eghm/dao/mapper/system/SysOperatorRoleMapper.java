@@ -1,4 +1,4 @@
-package com.eghm.dao.mapper.sys;
+package com.eghm.dao.mapper.system;
 
 import com.eghm.dao.model.sys.SysOperatorRole;
 import org.apache.ibatis.annotations.Param;

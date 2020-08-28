@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.dao.mapper.sys.BlackRosterMapper;
+import com.eghm.dao.mapper.system.BlackRosterMapper;
 import com.eghm.dao.model.sys.BlackRoster;
 import com.eghm.model.dto.sys.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.sys.roster.BlackRosterQueryRequest;

@@ -1,4 +1,4 @@
-package com.eghm.dao.mapper.sys;
+package com.eghm.dao.mapper.system;
 
 import com.eghm.model.dto.sys.role.RoleQueryRequest;
 import com.eghm.dao.model.sys.SysRole;

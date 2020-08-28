@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.sys.ExceptionLogMapper">
+<mapper namespace="com.eghm.dao.mapper.system.ExceptionLogMapper">
   <resultMap id="BaseResultMap" type="com.eghm.dao.model.sys.ExceptionLog">
     <!--
       @create by mybatis

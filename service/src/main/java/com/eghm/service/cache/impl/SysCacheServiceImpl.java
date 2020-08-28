@@ -2,7 +2,7 @@ package com.eghm.service.cache.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.mapper.sys.SysCacheMapper;
+import com.eghm.dao.mapper.system.SysCacheMapper;
 import com.eghm.dao.model.sys.SysCache;
 import com.eghm.service.cache.ClearCacheService;
 import com.eghm.service.cache.SysCacheService;

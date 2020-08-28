@@ -1,4 +1,4 @@
-package com.eghm.dao.mapper.sys;
+package com.eghm.dao.mapper.system;
 
 import com.eghm.model.dto.sys.log.OperationQueryRequest;
 import com.eghm.dao.model.sys.SysOperationLog;

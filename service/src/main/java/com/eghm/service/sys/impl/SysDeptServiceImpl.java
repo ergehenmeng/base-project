@@ -2,10 +2,9 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.configuration.data.permission.DataScope;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
-import com.eghm.dao.mapper.sys.SysDeptMapper;
+import com.eghm.dao.mapper.system.SysDeptMapper;
 import com.eghm.dao.model.sys.SysDept;
 import com.eghm.model.dto.sys.dept.DeptAddRequest;
 import com.eghm.model.dto.sys.dept.DeptEditRequest;

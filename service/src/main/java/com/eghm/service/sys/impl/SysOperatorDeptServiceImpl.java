@@ -1,6 +1,6 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.dao.mapper.sys.SysOperatorDeptMapper;
+import com.eghm.dao.mapper.system.SysOperatorDeptMapper;
 import com.eghm.dao.model.sys.SysOperatorDept;
 import com.eghm.service.sys.SysOperatorDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
