@@ -192,6 +192,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public User getByAccount(String account) {
         if (RegExpUtil.mobile(account)) {
             return userMapper.getByMobile(account);
@@ -218,6 +219,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public User getByAccountRequired(String account) {
         User user = this.getByAccount(account);
         if (user == null) {
@@ -241,17 +243,6 @@ public class UserServiceImpl implements UserService {
         return this.doLogin(user, register.getRegisterIp());
     }
 
-    /**
-     * 注册手机号被占用校验
-     *
-     * @param mobile 手机号
-     */
-    private void registerRedoVerify(String mobile) {
-        User user = userMapper.getByMobile(mobile);
-        if (user == null) {
-            throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
-        }
-    }
 
     /**
      * 强制将用户踢下线
@@ -260,7 +251,8 @@ public class UserServiceImpl implements UserService {
      *
      * @param userId 用户id
      */
-    private void offline(int userId){
+    @Override
+    public void offline(int userId){
         Token token = tokenService.getByUserId(userId);
         if (token == null) {
             return;
@@ -274,4 +266,18 @@ public class UserServiceImpl implements UserService {
         tokenService.cleanToken(token.getToken());
         tokenService.cleanUserId(userId);
     }
+
+    /**
+     * 注册手机号被占用校验
+     *
+     * @param mobile 手机号
+     */
+    private void registerRedoVerify(String mobile) {
+        User user = userMapper.getByMobile(mobile);
+        if (user == null) {
+            throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
+        }
+    }
+
+
 }

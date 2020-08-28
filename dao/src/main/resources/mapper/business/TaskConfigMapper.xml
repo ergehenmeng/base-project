@@ -6,10 +6,10 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="CHAR" property="title" />
-    <result column="nid" jdbcType="CHAR" property="nid" />
-    <result column="bean_name" jdbcType="CHAR" property="beanName" />
-    <result column="cron_expression" jdbcType="CHAR" property="cronExpression" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="nid" jdbcType="VARCHAR" property="nid" />
+    <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
+    <result column="cron_expression" jdbcType="VARCHAR" property="cronExpression" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
@@ -36,16 +36,16 @@
     update task_config
     <set>
       <if test="title != null">
-        title = #{title,jdbcType=CHAR},
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="nid != null">
-        nid = #{nid,jdbcType=CHAR},
+        nid = #{nid,jdbcType=VARCHAR},
       </if>
       <if test="beanName != null">
-        bean_name = #{beanName,jdbcType=CHAR},
+        bean_name = #{beanName,jdbcType=VARCHAR},
       </if>
       <if test="cronExpression != null">
-        cron_expression = #{cronExpression,jdbcType=CHAR},
+        cron_expression = #{cronExpression,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=TINYINT},

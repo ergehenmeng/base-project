@@ -6,8 +6,8 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="nid" jdbcType="CHAR" property="nid" />
-    <result column="content" jdbcType="CHAR" property="content" />
+    <result column="nid" jdbcType="VARCHAR" property="nid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
@@ -33,10 +33,10 @@
     update sms_template
     <set>
       <if test="nid != null">
-        nid = #{nid,jdbcType=CHAR},
+        nid = #{nid,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
-        content = #{content,jdbcType=CHAR},
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},

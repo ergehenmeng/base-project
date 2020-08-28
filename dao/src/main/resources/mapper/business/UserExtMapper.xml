@@ -7,8 +7,8 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="real_name" jdbcType="CHAR" property="realName" />
-    <result column="id_card" jdbcType="CHAR" property="idCard" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
     <result column="birthday" jdbcType="CHAR" property="birthday" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -60,10 +60,10 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="realName != null">
-        #{realName,jdbcType=CHAR},
+        #{realName,jdbcType=VARCHAR},
       </if>
       <if test="idCard != null">
-        #{idCard,jdbcType=CHAR},
+        #{idCard,jdbcType=VARCHAR},
       </if>
       <if test="birthday != null">
         #{birthday,jdbcType=CHAR},
@@ -83,10 +83,10 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="realName != null">
-        real_name = #{realName,jdbcType=CHAR},
+        real_name = #{realName,jdbcType=VARCHAR},
       </if>
       <if test="idCard != null">
-        id_card = #{idCard,jdbcType=CHAR},
+        id_card = #{idCard,jdbcType=VARCHAR},
       </if>
       <if test="birthday != null">
         birthday = #{birthday,jdbcType=CHAR},

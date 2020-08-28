@@ -76,4 +76,10 @@ public interface UserService {
      * @return 注册后直接登陆
      */
     LoginTokenVO registerByMobile(RegisterUserRequest request);
+
+    /**
+     * 对用户强制下线操作 (仅适用于移动端用户)
+     * @param userId userId
+     */
+    void offline(int userId);
 }

@@ -9,13 +9,13 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="classify" jdbcType="TINYINT" property="classify" />
-    <result column="version" jdbcType="CHAR" property="version" />
-    <result column="system_version" jdbcType="CHAR" property="systemVersion" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="system_version" jdbcType="VARCHAR" property="systemVersion" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="device_brand" jdbcType="CHAR" property="deviceBrand" />
-    <result column="device_model" jdbcType="CHAR" property="deviceModel" />
+    <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand" />
+    <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
@@ -87,10 +87,10 @@
         #{classify,jdbcType=TINYINT},
       </if>
       <if test="version != null">
-        #{version,jdbcType=CHAR},
+        #{version,jdbcType=VARCHAR},
       </if>
       <if test="systemVersion != null">
-        #{systemVersion,jdbcType=CHAR},
+        #{systemVersion,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
@@ -102,10 +102,10 @@
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="deviceBrand != null">
-        #{deviceBrand,jdbcType=CHAR},
+        #{deviceBrand,jdbcType=VARCHAR},
       </if>
       <if test="deviceModel != null">
-        #{deviceModel,jdbcType=CHAR},
+        #{deviceModel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -125,10 +125,10 @@
         classify = #{classify},
       </if>
       <if test="version != null">
-        version = #{version,jdbcType=CHAR},
+        version = #{version,jdbcType=VARCHAR},
       </if>
       <if test="systemVersion != null">
-        system_version = #{systemVersion,jdbcType=CHAR},
+        system_version = #{systemVersion,jdbcType=VARCHAR},
       </if>
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
@@ -140,10 +140,10 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="deviceBrand != null">
-        device_brand = #{deviceBrand,jdbcType=CHAR},
+        device_brand = #{deviceBrand,jdbcType=VARCHAR},
       </if>
       <if test="deviceModel != null">
-        device_model = #{deviceModel,jdbcType=CHAR},
+        device_model = #{deviceModel,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

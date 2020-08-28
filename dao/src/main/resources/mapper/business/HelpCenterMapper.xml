@@ -8,7 +8,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="state" jdbcType="TINYINT" property="state" />
-    <result column="ask" jdbcType="CHAR" property="ask" />
+    <result column="ask" jdbcType="VARCHAR" property="ask" />
     <result column="answer" jdbcType="VARCHAR" property="answer" />
     <result column="sort" jdbcType="TINYINT" property="sort" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -75,7 +75,7 @@
         #{state,jdbcType=TINYINT},
       </if>
       <if test="ask != null">
-        #{ask,jdbcType=CHAR},
+        #{ask,jdbcType=VARCHAR},
       </if>
       <if test="answer != null">
         #{answer,jdbcType=VARCHAR},
@@ -107,7 +107,7 @@
         state = #{state,jdbcType=TINYINT},
       </if>
       <if test="ask != null">
-        ask = #{ask,jdbcType=CHAR},
+        ask = #{ask,jdbcType=VARCHAR},
       </if>
       <if test="answer != null">
         answer = #{answer,jdbcType=VARCHAR},

@@ -6,7 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="sms_type" jdbcType="CHAR" property="smsType" />
+    <result column="sms_type" jdbcType="VARCHAR" property="smsType" />
     <result column="mobile" jdbcType="CHAR" property="mobile" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -58,7 +58,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="smsType != null">
-        #{smsType,jdbcType=CHAR},
+        #{smsType,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
         #{mobile,jdbcType=CHAR},
@@ -81,7 +81,7 @@
     update sms_log
     <set>
       <if test="smsType != null">
-        sms_type = #{smsType,jdbcType=CHAR},
+        sms_type = #{smsType,jdbcType=VARCHAR},
       </if>
       <if test="mobile != null">
         mobile = #{mobile,jdbcType=CHAR},

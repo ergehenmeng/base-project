@@ -6,8 +6,8 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="classify" jdbcType="CHAR" property="classify" />
-    <result column="version" jdbcType="CHAR" property="version" />
+    <result column="classify" jdbcType="VARCHAR" property="classify" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
     <result column="force_update" jdbcType="BIT" property="forceUpdate" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -71,10 +71,10 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="classify != null">
-        #{classify,jdbcType=CHAR},
+        #{classify,jdbcType=VARCHAR},
       </if>
       <if test="version != null">
-        #{version,jdbcType=CHAR},
+        #{version,jdbcType=VARCHAR},
       </if>
       <if test="forceUpdate != null">
         #{forceUpdate,jdbcType=BIT},
@@ -103,10 +103,10 @@
     update app_version
     <set>
       <if test="classify != null">
-        classify = #{classify,jdbcType=CHAR},
+        classify = #{classify,jdbcType=VARCHAR},
       </if>
       <if test="version != null">
-        version = #{version,jdbcType=CHAR},
+        version = #{version,jdbcType=VARCHAR},
       </if>
       <if test="forceUpdate != null">
         force_update = #{forceUpdate,jdbcType=BIT},

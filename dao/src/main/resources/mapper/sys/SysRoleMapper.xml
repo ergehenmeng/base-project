@@ -6,8 +6,8 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="role_name" jdbcType="CHAR" property="roleName" />
-    <result column="role_type" jdbcType="CHAR" property="roleType" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_type" jdbcType="VARCHAR" property="roleType" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -62,10 +62,10 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="roleName != null">
-        #{roleName,jdbcType=CHAR},
+        #{roleName,jdbcType=VARCHAR},
       </if>
       <if test="roleType != null">
-        #{roleType,jdbcType=CHAR},
+        #{roleType,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -88,10 +88,10 @@
     update sys_role
     <set>
       <if test="roleName != null">
-        role_name = #{roleName,jdbcType=CHAR},
+        role_name = #{roleName,jdbcType=VARCHAR},
       </if>
       <if test="roleType != null">
-        role_type = #{roleType,jdbcType=CHAR},
+        role_type = #{roleType,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},

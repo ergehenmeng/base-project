@@ -6,7 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="CHAR" property="title" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="nid" jdbcType="CHAR" property="nid" />
     <result column="pid" jdbcType="CHAR" property="pid" />
     <result column="zip_code" jdbcType="CHAR" property="zipCode" />
@@ -62,7 +62,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="title != null">
-        #{title,jdbcType=CHAR},
+        #{title,jdbcType=VARCHAR},
       </if>
       <if test="nid != null">
         #{nid,jdbcType=CHAR},
@@ -85,7 +85,7 @@
     update sys_address
     <set>
       <if test="title != null">
-        title = #{title,jdbcType=CHAR},
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="nid != null">
           nid = #{nid,jdbcType=CHAR},

@@ -6,7 +6,7 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="url" jdbcType="CHAR" property="url" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="request_param" jdbcType="VARCHAR" property="requestParam" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
@@ -66,7 +66,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="url != null">
-        #{url,jdbcType=CHAR},
+        #{url,jdbcType=VARCHAR},
       </if>
       <if test="requestParam != null">
         #{requestParam,jdbcType=VARCHAR},

@@ -7,12 +7,12 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="channel" jdbcType="CHAR" property="channel" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
     <result column="ip" jdbcType="BIGINT" property="ip" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="device_brand" jdbcType="CHAR" property="deviceBrand" />
-    <result column="device_model" jdbcType="CHAR" property="deviceModel" />
-    <result column="software_version" jdbcType="CHAR" property="softwareVersion" />
+    <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand" />
+    <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
+    <result column="software_version" jdbcType="VARCHAR" property="softwareVersion" />
     <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
   </resultMap>
   <sql id="BaseColumnList">
@@ -72,7 +72,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="channel != null">
-        #{channel,jdbcType=CHAR},
+        #{channel,jdbcType=VARCHAR},
       </if>
       <if test="ip != null">
         #{ip,jdbcType=BIGINT},
@@ -81,13 +81,13 @@
         #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="deviceBrand != null">
-        #{deviceBrand,jdbcType=CHAR},
+        #{deviceBrand,jdbcType=VARCHAR},
       </if>
       <if test="deviceModel != null">
-        #{deviceModel,jdbcType=CHAR},
+        #{deviceModel,jdbcType=VARCHAR},
       </if>
       <if test="softwareVersion != null">
-        #{softwareVersion,jdbcType=CHAR},
+        #{softwareVersion,jdbcType=VARCHAR},
       </if>
         <if test="serialNumber != null" >
           #{serialNumber},
@@ -104,7 +104,7 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="channel != null">
-        channel = #{channel,jdbcType=CHAR},
+        channel = #{channel,jdbcType=VARCHAR},
       </if>
       <if test="ip != null">
         ip = #{ip,jdbcType=BIGINT},
@@ -113,13 +113,13 @@
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
       <if test="deviceBrand != null">
-        device_brand = #{deviceBrand,jdbcType=CHAR},
+        device_brand = #{deviceBrand,jdbcType=VARCHAR},
       </if>
       <if test="deviceModel != null">
-        device_model = #{deviceModel,jdbcType=CHAR},
+        device_model = #{deviceModel,jdbcType=VARCHAR},
       </if>
       <if test="softwareVersion != null">
-        software_version = #{softwareVersion,jdbcType=CHAR},
+        software_version = #{softwareVersion,jdbcType=VARCHAR},
       </if>
         <if test="serialNumber != null">
           serial_number = #{serialNumber},

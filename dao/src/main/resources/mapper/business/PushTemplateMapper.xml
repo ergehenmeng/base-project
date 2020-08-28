@@ -6,12 +6,12 @@
       @create by mybatis
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="CHAR" property="title" />
-    <result column="nid" jdbcType="CHAR" property="nid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="tag" jdbcType="CHAR" property="tag" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="BaseColumnList">
@@ -36,10 +36,10 @@
     update push_template
     <set>
       <if test="title != null">
-        title = #{title,jdbcType=CHAR},
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="nid != null">
-        nid = #{nid,jdbcType=CHAR},
+        nid = #{nid,jdbcType=VARCHAR},
       </if>
       <if test="state != null">
         state = #{state,jdbcType=TINYINT},
@@ -51,7 +51,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="tag != null">
-        tag = #{tag,jdbcType=CHAR},
+        tag = #{tag,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
