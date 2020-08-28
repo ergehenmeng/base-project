@@ -23,6 +23,7 @@
             <groupId>com.eghm</groupId>
             <artifactId>model</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.eghm</groupId>
             <artifactId>dao</artifactId>
@@ -79,6 +80,10 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
         </dependency>
     </dependencies>
 

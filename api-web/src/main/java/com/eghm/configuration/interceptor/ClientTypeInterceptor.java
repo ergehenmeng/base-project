@@ -1,10 +1,10 @@
-package com.eghm.interceptor;
+package com.eghm.configuration.interceptor;
 
 import com.eghm.annotation.ClientType;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.Channel;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.common.exception.ParameterException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
                 return true;
             }
         }
-        throw new BusinessException(ErrorCode.REQUEST_INTERFACE_ERROR);
+        throw new ParameterException(ErrorCode.REQUEST_INTERFACE_ERROR);
     }
 
     /**

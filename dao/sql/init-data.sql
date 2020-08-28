@@ -3774,3 +3774,5 @@ INSERT INTO `sys_config` VALUES ('37', 'analog_sms_code', '模拟短信验证码
 INSERT INTO `sys_config` VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800', '1', '\0', '单位:秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-01-15 16:38:59');
 INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', '1', '\0', '单位:秒 默认7天过期', '2020-01-15 16:38:47', '2020-01-15 16:38:47');
 INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', '1', '\0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-01-15 16:39:55');
+
+INSERT INTO `sys_config` VALUES ('42', 'jwt_secret_key', 'jwt秘钥', 'VjM0ea1vz92wQ8pohXVcKHdrnFh854IRDIaMmoERLoH4naPDeo8nXChY7gtrlAp1', '1', '', '用于生成token时的秘钥', '2020-08-28 10:30:09', '2020-08-28 10:30:36');

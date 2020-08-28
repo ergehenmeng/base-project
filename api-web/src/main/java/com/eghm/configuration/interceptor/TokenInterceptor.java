@@ -1,9 +1,9 @@
-package com.eghm.interceptor;
+package com.eghm.configuration.interceptor;
 
 import com.eghm.annotation.SkipAccess;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.RequestException;
+import com.eghm.common.exception.ParameterException;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.Token;
@@ -42,7 +42,7 @@ public class TokenInterceptor implements InterceptorAdapter {
 
         boolean skipAccess = this.skipAccess(handler);
         RequestMessage message = RequestThreadLocal.get();
-        this.tryLoginVerify(request.getHeader(AppHeader.ACCESS_TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
+        this.tryLoginVerify(request.getHeader(AppHeader.TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
         return true;
     }
 
@@ -61,7 +61,7 @@ public class TokenInterceptor implements InterceptorAdapter {
             return;
         }
         if (accessToken == null || refreshToken == null) {
-            throw new RequestException(ErrorCode.ACCESS_TOKEN_NULL);
+            throw new ParameterException(ErrorCode.ACCESS_TOKEN_NULL);
         }
 
         // 尝试获取用户信息
@@ -84,10 +84,10 @@ public class TokenInterceptor implements InterceptorAdapter {
             Token offlineToken = tokenService.getOfflineToken(accessToken);
             if (offlineToken != null) {
                 log.error("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
-                throw new RequestException(ErrorCode.KICK_OFF_LINE);
+                throw new ParameterException(ErrorCode.KICK_OFF_LINE);
             }
             log.error("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
-            throw new RequestException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
+            throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
 
     }

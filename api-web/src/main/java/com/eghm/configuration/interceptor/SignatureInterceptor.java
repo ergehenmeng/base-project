@@ -1,4 +1,4 @@
-package com.eghm.interceptor;
+package com.eghm.configuration.interceptor;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;

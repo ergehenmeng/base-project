@@ -2,9 +2,9 @@ package com.eghm.configuration;
 
 import com.eghm.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.configuration.filter.IpBlackListFilter;
-import com.eghm.interceptor.TokenInterceptor;
-import com.eghm.interceptor.ClientTypeInterceptor;
-import com.eghm.interceptor.MessageInterceptor;
+import com.eghm.configuration.interceptor.ClientTypeInterceptor;
+import com.eghm.configuration.interceptor.MessageInterceptor;
+import com.eghm.configuration.interceptor.TokenInterceptor;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

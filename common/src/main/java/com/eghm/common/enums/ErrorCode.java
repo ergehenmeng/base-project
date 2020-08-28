@@ -241,9 +241,9 @@ public enum ErrorCode {
     ACCESS_TOKEN_TIMEOUT(3008,"登陆已过期,请重新登陆"),
 
     /**
-     * 用户已超时,请重新登陆 (获取用户id失败)
+     * 用户登陆过期,请重新登陆 (获取用户id失败)
      */
-    USER_LOGIN_TIMEOUT(3009,"用户已超时,请重新登陆"),
+    USER_LOGIN_TIMEOUT(3009,"用户登陆过期,请重新登陆"),
 
     /**
      * 旧密码输入错误

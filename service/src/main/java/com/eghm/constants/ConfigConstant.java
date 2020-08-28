@@ -104,4 +104,8 @@ public class ConfigConstant {
      */
     public static final String REFRESH_TOKEN_EXPIRE = "refresh_token_expire";
 
+    /**
+     * jwt秘钥
+     */
+    public static final String JWT_SECRET_KEY = "jwt_secret_key";
 }

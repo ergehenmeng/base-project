@@ -1,11 +1,10 @@
-package com.eghm.interceptor;
+package com.eghm.configuration.interceptor;
 
 import com.eghm.annotation.SkipDataBinder;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
-import com.eghm.common.exception.RequestException;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import org.apache.commons.io.IOUtils;
@@ -45,7 +44,7 @@ public class MessageInterceptor implements InterceptorAdapter {
                 || checkHeaderLength(signature)
                 || checkHeaderLength(timestamp)) {
             // 该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
-            throw new RequestException(ErrorCode.REQUEST_PARAM_ILLEGAL);
+            throw new ParameterException(ErrorCode.REQUEST_PARAM_ILLEGAL);
         }
         RequestMessage message = RequestThreadLocal.get();
         message.setVersion(version);

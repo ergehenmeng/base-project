@@ -3,7 +3,6 @@ package com.eghm.configuration;
 import com.eghm.annotation.SkipDataBinder;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
-import com.eghm.common.exception.RequestException;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.utils.DataUtil;
@@ -58,7 +57,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
     @Override
     public Object resolveArgument(@Nullable MethodParameter parameter, ModelAndViewContainer mavContainer, @Nullable NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         if (webRequest == null || parameter == null) {
-            throw new RequestException(ErrorCode.REQUEST_RESOLVE_ERROR);
+            throw new ParameterException(ErrorCode.REQUEST_RESOLVE_ERROR);
         }
         //注入RequestMessage对象
         if (parameter.getParameterType().isAssignableFrom(RequestMessage.class)) {
@@ -71,7 +70,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         if (bindingResult.hasErrors()) {
             //只显示第一条校验失败的信息
             ObjectError objectError = bindingResult.getAllErrors().get(0);
-            throw new RequestException(ErrorCode.PARAM_VERIFY_ERROR.getCode(), objectError.getDefaultMessage());
+            throw new ParameterException(ErrorCode.PARAM_VERIFY_ERROR.getCode(), objectError.getDefaultMessage());
         }
         return args;
     }

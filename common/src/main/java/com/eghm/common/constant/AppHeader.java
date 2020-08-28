@@ -38,7 +38,7 @@ public class AppHeader {
     /**
      * 用户登陆信息 accessToken
      */
-    public static final String ACCESS_TOKEN = "Token";
+    public static final String TOKEN = "Token";
 
     /**
      * 用户登陆信息 refreshToken
