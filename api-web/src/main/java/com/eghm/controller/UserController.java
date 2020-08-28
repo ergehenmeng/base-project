@@ -49,7 +49,7 @@ public class UserController {
      */
     @PostMapping("/user/last_login_device")
     public RespBody<LoginDeviceVO> lastLoginDevice(HttpServletRequest request) {
-        String accessToken = request.getHeader(AppHeader.ACCESS_TOKEN);
+        String accessToken = request.getHeader(AppHeader.TOKEN);
         Token token = tokenService.getOfflineToken(accessToken);
         if (token == null) {
             // 用户强制登陆信息可能已过期
