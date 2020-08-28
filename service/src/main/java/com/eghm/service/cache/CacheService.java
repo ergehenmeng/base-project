@@ -1,8 +1,10 @@
 package com.eghm.service.cache;
 
 import com.eghm.model.ext.AsyncResponse;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.function.Supplier;
 
@@ -27,12 +29,12 @@ public interface CacheService {
      * 根据key 获取缓存信息,
      *
      * @param key 缓存key
-     * @param typeToken 缓存结果类型
+     * @param typeReference 缓存结果泛型类型
      * @param supplier 如果缓存为空时,通过该回调方法进行查询数据库等
      * @param <T> 结果类型
      * @return 缓存结果
      */
-    <T> T getValue(String key, TypeToken<T> typeToken, Supplier<T> supplier);
+    <T> T getValue(String key, TypeReference<T> typeReference, Supplier<T> supplier);
 
     /**
      * 缓存对象
@@ -98,11 +100,11 @@ public interface CacheService {
      * 获取缓存信息
      *
      * @param key 缓存key
-     * @param typeToken 返回值为泛型时的定义类型
+     * @param type 返回值为泛型时的定义类型
      * @param <T> 泛型结果
      * @return 缓存结果对象
      */
-    <T> T getValue(String key, TypeToken<T> typeToken);
+    <T> T getValue(String key, TypeReference<T> type);
 
 
     /**

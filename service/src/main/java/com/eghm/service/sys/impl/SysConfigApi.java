@@ -2,8 +2,8 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.SysConfigService;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class SysConfigApi {
 
     private SysConfigService sysConfigService;
 
-    private Gson gson;
+    private JsonService jsonService;
 
     @Autowired
     public void setSysConfigService(SysConfigService sysConfigService) {
@@ -33,8 +33,8 @@ public class SysConfigApi {
     }
 
     @Autowired
-    public void setGson(Gson gson) {
-        this.gson = gson;
+    public void setJsonService(JsonService jsonService) {
+        this.jsonService = jsonService;
     }
 
     /**
@@ -176,7 +176,7 @@ public class SysConfigApi {
     public <T> T getClass(String nid, Class<T> cls) {
         String value = this.getString(nid);
         try {
-            return gson.fromJson(value, cls);
+            return jsonService.fromJson(value, cls);
         } catch (Exception e) {
             log.error("系统参数转对象异常 [{}]", value);
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);

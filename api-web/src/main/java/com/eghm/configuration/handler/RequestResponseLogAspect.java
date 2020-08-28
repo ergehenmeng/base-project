@@ -3,8 +3,8 @@ package com.eghm.configuration.handler;
 
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.service.common.JsonService;
 import com.eghm.utils.IpUtil;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -26,11 +26,11 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class RequestResponseLogAspect {
 
-    private Gson gson;
+    private JsonService jsonService;
 
     @Autowired
-    public void setGson(Gson gson) {
-        this.gson = gson;
+    public void setJsonService(JsonService jsonService) {
+        this.jsonService = jsonService;
     }
 
     /**
@@ -77,6 +77,6 @@ public class RequestResponseLogAspect {
         if (proceed == null || proceed instanceof Void || proceed instanceof String) {
             return proceed;
         }
-        return gson.toJson(proceed);
+        return jsonService.toJson(proceed);
     }
 }

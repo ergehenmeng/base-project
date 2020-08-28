@@ -6,7 +6,7 @@ import com.eghm.common.exception.ParameterException;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.utils.DataUtil;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -34,11 +34,11 @@ import javax.servlet.http.HttpSession;
 @Slf4j
 public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgumentResolver {
 
-    private Gson gson;
+    private ObjectMapper objectMapper;
 
     @Autowired
-    public void setGson(Gson gson) {
-        this.gson = gson;
+    public void setObjectMapper(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             }
             // 将解密后的数据继续放入到,以便于做日志记录
             RequestThreadLocal.get().setRequestBody(requestBody);
-            return gson.fromJson(requestBody, parameterType);
+            return objectMapper.readValue(requestBody, parameterType);
         } catch (Exception e) {
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }

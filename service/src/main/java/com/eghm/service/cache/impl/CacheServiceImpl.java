@@ -5,9 +5,9 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.model.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.impl.SysConfigApi;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
@@ -39,7 +39,7 @@ public class CacheServiceImpl implements CacheService {
 
     private SysConfigApi sysConfigApi;
 
-    private Gson gson;
+    private JsonService jsonService;
 
     @Autowired
     public void setSysConfigApi(SysConfigApi sysConfigApi) {
@@ -47,8 +47,13 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Autowired
-    public void setGson(Gson gson) {
-        this.gson = gson;
+    public void setRedisTemplate(StringRedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    @Autowired
+    public void setJsonService(JsonService jsonService) {
+        this.jsonService = jsonService;
     }
 
     /**
@@ -73,7 +78,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public <T> T getValue(String key, TypeToken<T> returnType, Supplier<T> supplier) {
+    public <T> T getValue(String key, TypeReference<T> type, Supplier<T> supplier) {
         String value;
         try {
             value = this.getValue(key);
@@ -85,11 +90,12 @@ public class CacheServiceImpl implements CacheService {
             return null;
         }
         if (value != null) {
-            return gson.fromJson(value, returnType.getType());
+            return jsonService.fromJson(value, type);
         }
         //缓存数据为空,从数据库获取
         return this.doSupplier(key, supplier);
     }
+
 
     /**
      * 调用回调函数获取结果,并将结果缓存
@@ -139,7 +145,7 @@ public class CacheServiceImpl implements CacheService {
         if (value instanceof String) {
             opsForValue.set(key, (String)value, expire, TimeUnit.SECONDS);
         } else {
-            opsForValue.set(key, gson.toJson(value), expire, TimeUnit.SECONDS);
+            opsForValue.set(key, jsonService.toJson(value), expire, TimeUnit.SECONDS);
         }
     }
 
@@ -189,16 +195,16 @@ public class CacheServiceImpl implements CacheService {
     public <T> T getValue(String key, Class<T> cls) {
         String o = this.getValue(key);
         if (o != null) {
-            return gson.fromJson(o, cls);
+            return jsonService.fromJson(o, cls);
         }
         return null;
     }
 
     @Override
-    public <T> T getValue(String key, TypeToken<T> typeToken) {
+    public <T> T getValue(String key, TypeReference<T> type) {
         String value = this.getValue(key);
         if (value != null) {
-            return gson.fromJson(value, typeToken.getType());
+            return jsonService.fromJson(value, type);
         }
         return null;
     }

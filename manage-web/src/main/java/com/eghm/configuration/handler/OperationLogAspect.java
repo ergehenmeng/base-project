@@ -7,10 +7,10 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.system.SysOperationLog;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.OperationLogTask;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.OperationLogService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
-import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -41,7 +41,7 @@ public class OperationLogAspect {
 
     private OperationLogService operationLogService;
 
-    private Gson gson;
+    private JsonService jsonService;
 
     private TaskHandler taskHandler;
 
@@ -56,8 +56,8 @@ public class OperationLogAspect {
     }
 
     @Autowired
-    public void setGson(Gson gson) {
-        this.gson = gson;
+    public void setJsonService(JsonService jsonService) {
+        this.jsonService = jsonService;
     }
 
     @Autowired
@@ -104,7 +104,7 @@ public class OperationLogAspect {
         long end = System.currentTimeMillis();
         sy.setBusinessTime(end - System.currentTimeMillis());
         if (mark.response() && proceed != null) {
-            sy.setResponse(gson.toJson(proceed));
+            sy.setResponse(jsonService.toJson(proceed));
         }
         boolean logSwitch = sysConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if (logSwitch) {
@@ -134,7 +134,7 @@ public class OperationLogAspect {
             if (flag) {
                 continue;
             }
-            builder.append(gson.toJson(object));
+            builder.append(jsonService.toJson(object));
         }
         return builder.toString();
     }

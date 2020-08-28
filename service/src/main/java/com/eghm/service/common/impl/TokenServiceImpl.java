@@ -6,9 +6,10 @@ import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ext.Token;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
-import com.google.gson.Gson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class TokenServiceImpl implements TokenService {
 
     private SysConfigApi sysConfigApi;
 
-    private Gson gson;
+    private JsonService jsonService;
 
     @Autowired
     public void setCacheService(CacheService cacheService) {
@@ -36,8 +37,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Autowired
-    public void setGson(Gson gson) {
-        this.gson = gson;
+    public void setJsonService(JsonService jsonService) {
+        this.jsonService = jsonService;
     }
 
     @Override
@@ -86,7 +87,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void cacheToken(Token token) {
-        String tokenJson = gson.toJson(token);
+        String tokenJson = jsonService.toJson(token);
         cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
         // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
         // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
@@ -97,7 +98,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void cacheOfflineToken(Token token, long expire) {
-        cacheService.setValue(CacheConstant.FORCE_OFFLINE + token.getToken(), gson.toJson(token), expire);
+        cacheService.setValue(CacheConstant.FORCE_OFFLINE + token.getToken(), jsonService.toJson(token), expire);
     }
 
     @Override
