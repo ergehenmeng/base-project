@@ -25,7 +25,7 @@ public class TagViewServiceImpl implements TagViewService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<TagView> getList() {
         return tagViewMapper.getList();
     }

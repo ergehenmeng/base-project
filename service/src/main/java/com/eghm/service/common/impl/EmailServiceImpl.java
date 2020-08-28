@@ -1,5 +1,6 @@
 package com.eghm.service.common.impl;
 
+import com.eghm.common.enums.EmailCode;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.MimeMessage;
 
@@ -52,5 +54,11 @@ public class EmailServiceImpl implements EmailService {
         } catch (Exception e) {
             log.error("发送邮件异常 to:[{}],title:[{}],content:[{}]", to, title, content, e);
         }
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void sendEmail(String to, EmailCode code) {
+
     }
 }

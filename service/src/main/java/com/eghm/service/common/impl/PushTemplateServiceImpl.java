@@ -32,6 +32,7 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<PushTemplate> getByPage(PushTemplateQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<PushTemplate> list = pushTemplateMapper.getList(request);
@@ -40,11 +41,13 @@ public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE, key = "#p0", unless = "#result == null")
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PushTemplate getTemplate(String nid) {
         return pushTemplateMapper.getByNid(nid);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PushTemplate getById(Integer id) {
         return pushTemplateMapper.selectByPrimaryKey(id);
     }

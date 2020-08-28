@@ -1,9 +1,9 @@
-package com.eghm.process.service;
+package com.eghm.service.common;
 
 import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.model.dto.business.audit.AuditProcess;
 import com.eghm.model.dto.business.audit.AuditQueryRequest;
-import com.eghm.process.dto.AuditProcess;
-import com.eghm.process.dto.BeginProcess;
+import com.eghm.model.dto.business.audit.BeginProcess;
 import com.github.pagehelper.PageInfo;
 
 /**

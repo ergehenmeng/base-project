@@ -45,6 +45,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, cacheManager = "smallCacheManager", unless = "#result.size() == 0")
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<TopNoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = sysNoticeMapper.getTopList(noticeLimit);
@@ -72,6 +73,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<SysNotice> getByPage(NoticeQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SysNotice> list = sysNoticeMapper.getList(request);
@@ -79,6 +81,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public SysNotice getById(Integer id) {
         return sysNoticeMapper.selectByPrimaryKey(id);
     }

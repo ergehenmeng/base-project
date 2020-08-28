@@ -31,6 +31,7 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<ImageLog> getByPage(ImageQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<ImageLog> list = imageLogMapper.getList(request);
@@ -59,6 +60,7 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public ImageLog getById(Integer id) {
         return imageLogMapper.selectByPrimaryKey(id);
     }

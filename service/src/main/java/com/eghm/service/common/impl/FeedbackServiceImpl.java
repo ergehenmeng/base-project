@@ -38,6 +38,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<FeedbackVO> getByPage(FeedbackQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<FeedbackVO> list = feedbackLogMapper.getList(request);

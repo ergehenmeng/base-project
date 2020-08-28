@@ -1,4 +1,4 @@
-package com.eghm.process.handler;
+package com.eghm.handler.process;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.AuditState;
@@ -8,9 +8,9 @@ import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.dao.model.business.AuditRecord;
 import com.eghm.dao.model.system.SysRole;
-import com.eghm.process.dto.AuditProcess;
-import com.eghm.process.service.AuditConfigService;
-import com.eghm.process.service.AuditRecordService;
+import com.eghm.model.dto.business.audit.AuditProcess;
+import com.eghm.service.common.AuditConfigService;
+import com.eghm.service.common.AuditRecordService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;

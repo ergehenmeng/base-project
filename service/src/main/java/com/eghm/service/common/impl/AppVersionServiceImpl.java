@@ -37,6 +37,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<AppVersion> getByPage(VersionQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<AppVersion> list = appVersionMapper.getList(request);
@@ -78,6 +79,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public AppVersionVO getLatestVersion() {
         String channel = RequestThreadLocal.getChannel();
         AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);

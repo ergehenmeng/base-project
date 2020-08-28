@@ -36,16 +36,19 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<Banner> getBanner(Channel channel, Byte classify) {
         return bannerMapper.getBannerList(classify, channel.name());
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Banner getById(Integer id) {
         return bannerMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<Banner> getByPage(BannerQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<Banner> list = bannerMapper.getList(request);

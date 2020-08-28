@@ -51,6 +51,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<HelpCenter> getByPage(HelpQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<HelpCenter> list = helpCenterMapper.getList(request);

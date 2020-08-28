@@ -1,11 +1,8 @@
-package com.eghm.process.service;
+package com.eghm.service.common;
 
-import com.eghm.common.enums.AuditState;
 import com.eghm.dao.model.business.AuditRecord;
 import com.eghm.model.dto.business.audit.AuditQueryRequest;
 import com.github.pagehelper.PageInfo;
-
-import java.util.List;
 
 /**
  * @author 殿小二

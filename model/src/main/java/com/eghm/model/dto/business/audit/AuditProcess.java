@@ -1,4 +1,4 @@
-package com.eghm.process.dto;
+package com.eghm.model.dto.business.audit;
 
 import com.eghm.common.enums.AuditState;
 import com.eghm.common.enums.AuditType;

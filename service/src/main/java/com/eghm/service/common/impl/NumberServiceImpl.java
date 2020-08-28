@@ -16,7 +16,6 @@ import java.time.format.DateTimeFormatter;
  * @date 2018/1/18 14:17
  */
 @Service("numberService")
-@Transactional(rollbackFor = RuntimeException.class, readOnly = true)
 public class NumberServiceImpl implements NumberService {
 
     private KeyGenerator keyGenerator;

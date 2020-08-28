@@ -1,4 +1,4 @@
-package com.eghm.process.service.impl;
+package com.eghm.service.common.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.AuditState;
@@ -7,13 +7,13 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.dao.model.business.AuditRecord;
 import com.eghm.dao.model.system.SysRole;
+import com.eghm.handler.process.BaseAuditHandler;
+import com.eghm.model.dto.business.audit.AuditProcess;
 import com.eghm.model.dto.business.audit.AuditQueryRequest;
-import com.eghm.process.dto.AuditProcess;
-import com.eghm.process.dto.BeginProcess;
-import com.eghm.process.handler.BaseAuditHandler;
-import com.eghm.process.service.AuditConfigService;
-import com.eghm.process.service.AuditRecordService;
-import com.eghm.process.service.AuditService;
+import com.eghm.model.dto.business.audit.BeginProcess;
+import com.eghm.service.common.AuditConfigService;
+import com.eghm.service.common.AuditRecordService;
+import com.eghm.service.common.AuditService;
 import com.eghm.service.common.NumberService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.SpringContextUtil;

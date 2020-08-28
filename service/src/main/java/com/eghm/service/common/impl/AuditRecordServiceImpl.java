@@ -1,13 +1,14 @@
-package com.eghm.process.service.impl;
+package com.eghm.service.common.impl;
 
 import com.eghm.dao.mapper.business.AuditRecordMapper;
 import com.eghm.dao.model.business.AuditRecord;
 import com.eghm.model.dto.business.audit.AuditQueryRequest;
-import com.eghm.process.service.AuditRecordService;
+import com.eghm.service.common.AuditRecordService;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @date 2020/8/25
  */
 @Service("auditRecordService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class AuditRecordServiceImpl implements AuditRecordService {
 
     private AuditRecordMapper auditRecordMapper;
@@ -36,11 +38,13 @@ public class AuditRecordServiceImpl implements AuditRecordService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public AuditRecord getById(Integer id) {
         return auditRecordMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<AuditRecord> getByPage(AuditQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<AuditRecord> auditList = auditRecordMapper.getAuditList(request.getRoleList(), request.getState());

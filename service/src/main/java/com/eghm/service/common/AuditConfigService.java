@@ -1,4 +1,4 @@
-package com.eghm.process.service;
+package com.eghm.service.common;
 
 import com.eghm.dao.model.business.AuditConfig;
 

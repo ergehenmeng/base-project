@@ -1,9 +1,9 @@
-package com.eghm.process.service.impl;
+package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.business.AuditConfigMapper;
 import com.eghm.dao.model.business.AuditConfig;
-import com.eghm.process.service.AuditConfigService;
+import com.eghm.service.common.AuditConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
