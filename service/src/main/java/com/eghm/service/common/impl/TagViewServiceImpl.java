@@ -1,7 +1,7 @@
 package com.eghm.service.common.impl;
 
 import com.eghm.dao.mapper.system.TagViewMapper;
-import com.eghm.dao.model.sys.TagView;
+import com.eghm.dao.model.system.TagView;
 import com.eghm.service.common.TagViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

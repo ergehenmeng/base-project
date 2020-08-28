@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.system;
 
-import com.eghm.dao.model.sys.SysHoliday;
+import com.eghm.dao.model.system.SysHoliday;
 
 public interface SysHolidayMapper {
 

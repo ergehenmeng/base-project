@@ -7,7 +7,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.dao.model.business.AuditRecord;
-import com.eghm.dao.model.sys.SysRole;
+import com.eghm.dao.model.system.SysRole;
 import com.eghm.process.dto.AuditProcess;
 import com.eghm.process.service.AuditConfigService;
 import com.eghm.process.service.AuditRecordService;

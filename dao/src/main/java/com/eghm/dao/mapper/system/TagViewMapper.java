@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.system;
 
-import com.eghm.dao.model.sys.TagView;
+import com.eghm.dao.model.system.TagView;
 
 import java.util.List;
 

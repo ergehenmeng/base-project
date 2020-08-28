@@ -3,7 +3,7 @@ package com.eghm.service.sys;
 
 import com.eghm.model.dto.sys.config.ConfigEditRequest;
 import com.eghm.model.dto.sys.config.ConfigQueryRequest;
-import com.eghm.dao.model.sys.SysConfig;
+import com.eghm.dao.model.system.SysConfig;
 import com.github.pagehelper.PageInfo;
 
 

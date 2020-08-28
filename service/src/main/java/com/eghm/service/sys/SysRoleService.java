@@ -3,7 +3,7 @@ package com.eghm.service.sys;
 import com.eghm.model.dto.sys.role.RoleAddRequest;
 import com.eghm.model.dto.sys.role.RoleEditRequest;
 import com.eghm.model.dto.sys.role.RoleQueryRequest;
-import com.eghm.dao.model.sys.SysRole;
+import com.eghm.dao.model.system.SysRole;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

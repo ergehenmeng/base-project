@@ -1,7 +1,7 @@
 package com.eghm.controller.business;
 
 import com.eghm.dao.model.business.PushTemplate;
-import com.eghm.dao.model.sys.TagView;
+import com.eghm.dao.model.system.TagView;
 import com.eghm.model.dto.business.push.PushTemplateEditRequest;
 import com.eghm.model.dto.business.push.PushTemplateQueryRequest;
 import com.eghm.model.ext.Paging;

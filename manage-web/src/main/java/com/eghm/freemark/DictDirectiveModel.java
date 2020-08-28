@@ -3,7 +3,7 @@ package com.eghm.freemark;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.sys.SysDict;
+import com.eghm.dao.model.system.SysDict;
 import com.eghm.service.sys.SysDictService;
 import freemarker.core.Environment;
 import freemarker.template.TemplateDirectiveBody;

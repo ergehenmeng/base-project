@@ -5,7 +5,7 @@ import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.system.SysDictMapper;
-import com.eghm.dao.model.sys.SysDict;
+import com.eghm.dao.model.system.SysDict;
 import com.eghm.model.dto.sys.dict.DictAddRequest;
 import com.eghm.model.dto.sys.dict.DictEditRequest;
 import com.eghm.model.dto.sys.dict.DictQueryRequest;

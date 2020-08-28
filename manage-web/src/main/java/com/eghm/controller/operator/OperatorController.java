@@ -5,7 +5,7 @@ import com.eghm.annotation.Mark;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
-import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.dao.model.system.SysOperator;
 import com.eghm.model.dto.sys.operator.OperatorAddRequest;
 import com.eghm.model.dto.sys.operator.OperatorEditRequest;
 import com.eghm.model.dto.sys.operator.OperatorQueryRequest;

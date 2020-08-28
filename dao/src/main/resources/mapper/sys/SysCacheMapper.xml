@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.system.SysCacheMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.sys.SysCache">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SysCache">
     <!--
       @create by mybatis
     -->
@@ -28,7 +28,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.sys.SysCache">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SysCache">
     <!--
       @create by mybatis
     -->
@@ -74,7 +74,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.sys.SysCache">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SysCache">
     <!--
       @create by mybatis
     -->
@@ -99,7 +99,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <update id="updateCache" parameterType="com.eghm.dao.model.sys.SysCache">
+    <update id="updateCache" parameterType="com.eghm.dao.model.system.SysCache">
         update sys_cache set state = #{state},update_time = #{updateTime} where cache_name = #{cacheName}
     </update>
 

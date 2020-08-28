@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.system;
 
-import com.eghm.dao.model.sys.BlackRoster;
+import com.eghm.dao.model.system.BlackRoster;
 import com.eghm.model.dto.sys.roster.BlackRosterQueryRequest;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.system;
 
-import com.eghm.dao.model.sys.SysAddress;
+import com.eghm.dao.model.system.SysAddress;
 
 import java.util.List;
 

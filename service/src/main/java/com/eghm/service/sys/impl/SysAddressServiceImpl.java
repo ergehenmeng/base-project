@@ -2,7 +2,7 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.utils.StringUtil;
 import com.eghm.dao.mapper.system.SysAddressMapper;
-import com.eghm.dao.model.sys.SysAddress;
+import com.eghm.dao.model.system.SysAddress;
 import com.eghm.service.sys.SysAddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

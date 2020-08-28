@@ -2,7 +2,7 @@ package com.eghm.dao.mapper.system;
 
 import com.eghm.model.dto.sys.config.ConfigEditRequest;
 import com.eghm.model.dto.sys.config.ConfigQueryRequest;
-import com.eghm.dao.model.sys.SysConfig;
+import com.eghm.dao.model.system.SysConfig;
 
 import java.util.List;
 

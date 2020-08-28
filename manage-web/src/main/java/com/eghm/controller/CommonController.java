@@ -3,7 +3,7 @@ package com.eghm.controller;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.configuration.security.SecurityOperatorHolder;
-import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.dao.model.system.SysOperator;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorDeptService;

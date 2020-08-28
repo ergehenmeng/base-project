@@ -1,4 +1,4 @@
-package com.eghm.dao.model.sys;
+package com.eghm.dao.model.system;
 
 import lombok.Data;
 

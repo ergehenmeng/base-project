@@ -1,6 +1,6 @@
 package com.eghm.queue.task;
 
-import com.eghm.dao.model.sys.SysOperationLog;
+import com.eghm.dao.model.system.SysOperationLog;
 import com.eghm.queue.AbstractTask;
 import com.eghm.service.sys.OperationLogService;
 import lombok.extern.slf4j.Slf4j;

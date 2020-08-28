@@ -5,7 +5,7 @@ import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.system.SysConfigMapper;
-import com.eghm.dao.model.sys.SysConfig;
+import com.eghm.dao.model.system.SysConfig;
 import com.eghm.model.dto.sys.config.ConfigEditRequest;
 import com.eghm.model.dto.sys.config.ConfigQueryRequest;
 import com.eghm.service.sys.SysConfigService;

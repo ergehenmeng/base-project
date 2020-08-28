@@ -3,7 +3,7 @@ package com.eghm.service.sys;
 import com.eghm.model.dto.sys.dict.DictAddRequest;
 import com.eghm.model.dto.sys.dict.DictEditRequest;
 import com.eghm.model.dto.sys.dict.DictQueryRequest;
-import com.eghm.dao.model.sys.SysDict;
+import com.eghm.dao.model.system.SysDict;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

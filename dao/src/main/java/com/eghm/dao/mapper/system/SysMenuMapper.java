@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.system;
 
-import com.eghm.dao.model.sys.SysMenu;
+import com.eghm.dao.model.system.SysMenu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

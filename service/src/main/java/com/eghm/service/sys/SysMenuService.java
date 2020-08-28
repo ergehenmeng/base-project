@@ -2,7 +2,7 @@ package com.eghm.service.sys;
 
 import com.eghm.model.dto.sys.menu.MenuAddRequest;
 import com.eghm.model.dto.sys.menu.MenuEditRequest;
-import com.eghm.dao.model.sys.SysMenu;
+import com.eghm.dao.model.system.SysMenu;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;

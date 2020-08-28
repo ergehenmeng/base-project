@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.system;
 
-import com.eghm.dao.model.sys.ExceptionLog;
+import com.eghm.dao.model.system.ExceptionLog;
 
 public interface ExceptionLogMapper {
 

@@ -1,6 +1,6 @@
 package com.eghm.configuration.security;
 
-import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.dao.model.system.SysOperator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

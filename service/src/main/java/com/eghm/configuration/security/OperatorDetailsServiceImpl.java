@@ -1,7 +1,7 @@
 package com.eghm.configuration.security;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.dao.model.system.SysOperator;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorService;
 import org.springframework.beans.factory.annotation.Autowired;

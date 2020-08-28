@@ -1,6 +1,6 @@
 package com.eghm.service.sys;
 
-import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.dao.model.system.SysOperator;
 import com.eghm.model.dto.sys.operator.OperatorAddRequest;
 import com.eghm.model.dto.sys.operator.OperatorEditRequest;
 import com.eghm.model.dto.sys.operator.OperatorQueryRequest;

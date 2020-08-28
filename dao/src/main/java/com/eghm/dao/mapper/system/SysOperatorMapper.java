@@ -2,7 +2,7 @@ package com.eghm.dao.mapper.system;
 
 
 import com.eghm.model.dto.sys.operator.OperatorQueryRequest;
-import com.eghm.dao.model.sys.SysOperator;
+import com.eghm.dao.model.system.SysOperator;
 
 import java.util.List;
 

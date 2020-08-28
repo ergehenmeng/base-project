@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.sys.TagView;
+import com.eghm.dao.model.system.TagView;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
-import com.eghm.dao.model.sys.SysRole;
+import com.eghm.dao.model.system.SysRole;
 import com.eghm.model.dto.sys.role.RoleAddRequest;
 import com.eghm.model.dto.sys.role.RoleEditRequest;
 import com.eghm.model.dto.sys.role.RoleQueryRequest;

@@ -6,7 +6,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.business.AuditConfig;
 import com.eghm.dao.model.business.AuditRecord;
-import com.eghm.dao.model.sys.SysRole;
+import com.eghm.dao.model.system.SysRole;
 import com.eghm.model.dto.business.audit.AuditQueryRequest;
 import com.eghm.process.dto.AuditProcess;
 import com.eghm.process.dto.BeginProcess;

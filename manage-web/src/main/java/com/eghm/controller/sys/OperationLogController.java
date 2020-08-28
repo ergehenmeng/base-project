@@ -1,7 +1,7 @@
 package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
-import com.eghm.dao.model.sys.SysOperationLog;
+import com.eghm.dao.model.system.SysOperationLog;
 import com.eghm.model.dto.sys.log.OperationQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.service.sys.OperationLogService;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.system.SysOperatorDeptMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.sys.SysOperatorDept">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SysOperatorDept">
     <!--
       @create by mybatis
     -->
@@ -24,7 +24,7 @@
     from sys_operator_dept
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.sys.SysOperatorDept">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SysOperatorDept">
     <!--
       @create by mybatis
     -->
@@ -52,7 +52,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.sys.SysOperatorDept">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SysOperatorDept">
     <!--
       @create by mybatis
     -->

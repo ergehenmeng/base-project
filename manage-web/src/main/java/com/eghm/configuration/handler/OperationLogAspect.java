@@ -4,7 +4,7 @@ import com.eghm.annotation.Mark;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.model.sys.SysOperationLog;
+import com.eghm.dao.model.system.SysOperationLog;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.OperationLogTask;
 import com.eghm.service.sys.OperationLogService;

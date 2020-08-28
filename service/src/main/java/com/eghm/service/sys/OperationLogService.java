@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.eghm.model.dto.sys.log.OperationQueryRequest;
-import com.eghm.dao.model.sys.SysOperationLog;
+import com.eghm.dao.model.system.SysOperationLog;
 import com.github.pagehelper.PageInfo;
 
 /**
