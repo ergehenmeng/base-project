@@ -26,6 +26,56 @@ public class CacheConstant {
     public static final String AUDIT_CONFIG = "audit_config";
 
     /**
+     * 短信模板
+     */
+    public static final String SMS_TEMPLATE = "sms_template";
+
+    /**
+     * 轮播图
+     */
+    public static final String BANNER = "banner";
+
+    /**
+     * 公告
+     */
+    public static final String SYS_NOTICE = "sys_notice";
+
+    /**
+     * 推送消息模板
+     */
+    public static final String PUSH_TEMPLATE = "push_template";
+
+    /**
+     * 黑名单缓存
+     */
+    public static final String BLACK_ROSTER = "black_roster";
+
+    /**
+     * freemarker模板缓存 主要针对邮件模板
+     */
+    public static final String FREEMARKER_TEMPLATE = "freemarker_template";
+
+    /**
+     * 邮件模板
+     */
+    public static final String EMAIL_TEMPLATE = "email_template";
+
+    /**
+     * 互斥锁
+     */
+    public static final String MUTEX_LOCK = "mutex_lock::";
+
+    /**
+     * 锁屏
+     */
+    public static final String LOCK_SCREEN = "lock_screen::";
+
+    /**
+     * 账号被踢下线
+     */
+    public static final String FORCE_OFFLINE = "force_offline::";
+
+    /**
      * 任务异步结果
      */
     public static final String ASYNC_RESPONSE = "async_response::";
@@ -60,48 +110,4 @@ public class CacheConstant {
      */
     public static final String SMS_DAY = "sms_day::";
 
-    /**
-     * 短信模板
-     */
-    public static final String SMS_TEMPLATE = "sms_template";
-
-    /**
-     * 轮播图
-     */
-    public static final String BANNER = "banner";
-
-    /**
-     * 公告
-     */
-    public static final String SYS_NOTICE = "sys_notice";
-
-    /**
-     * 推送消息模板
-     */
-    public static final String PUSH_TEMPLATE = "push_template";
-
-    /**
-     * 黑名单缓存
-     */
-    public static final String BLACK_ROSTER = "black_roster";
-
-    /**
-     * freemarker模板缓存 主要针对邮件模板
-     */
-    public static final String FREEMARKER_TEMPLATE = "freemarker_template";
-
-    /**
-     * 互斥锁
-     */
-    public static final String MUTEX_LOCK = "mutex_lock::";
-
-    /**
-     * 锁屏
-     */
-    public static final String LOCK_SCREEN = "lock_screen::";
-
-    /**
-     * 账号被踢下线
-     */
-    public static final String FORCE_OFFLINE = "force_offline::";
 }

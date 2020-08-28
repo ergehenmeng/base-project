@@ -43,7 +43,7 @@ public class SpringContextUtil {
         return applicationContext.getBean(requiredType);
     }
 
-    public static void verifyApplication() {
+    private static void verifyApplication() {
         if (applicationContext == null) {
             throw new SystemException(ErrorCode.SPRING_ON_LOADING);
         }

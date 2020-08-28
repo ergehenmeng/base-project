@@ -391,6 +391,11 @@ public enum ErrorCode {
      */
     AUDIT_NO_ACCESS(3042,"暂无审批权限"),
 
+    /**
+     * 邮件模板未配置
+     */
+    EMAIL_TEMPLATE_NULL(3045,"邮件模板未配置"),
+
 
     ;
     /**

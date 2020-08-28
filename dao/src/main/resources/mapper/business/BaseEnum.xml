@@ -97,4 +97,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getByNid" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList"/> from email_template where nid = #{nid} limit 1
+  </select>
 </mapper>

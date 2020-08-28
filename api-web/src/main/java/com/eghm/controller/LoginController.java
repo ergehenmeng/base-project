@@ -36,7 +36,7 @@ public class LoginController {
     }
 
     /**
-     * 发送登陆验证码❶
+     * 发送登陆验证码(1)
      */
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
@@ -47,7 +47,7 @@ public class LoginController {
     }
 
     /**
-     * 短信验证码登陆❷
+     * 短信验证码登陆(2)
      */
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/mobile")

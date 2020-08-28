@@ -1,10 +1,11 @@
 package com.eghm.common.enums;
 
 /**
+ * 映射 email_template表的nid字段
  * @author 殿小二
  * @date 2020/8/28
  */
-public enum EmailCode {
+public enum EmailType {
 
     /**
      * 绑定邮箱时发送验证码
@@ -21,7 +22,7 @@ public enum EmailCode {
 
     private String handler;
 
-    EmailCode(String msg, String handler) {
+    EmailType(String msg, String handler) {
         this.msg = msg;
         this.handler = handler;
     }
@@ -33,4 +34,5 @@ public enum EmailCode {
     public String getHandler() {
         return handler;
     }
+
 }

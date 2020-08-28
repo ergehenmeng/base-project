@@ -1,6 +1,7 @@
 package com.eghm.dao.mapper.business;
 
 import com.eghm.dao.model.business.EmailTemplate;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author 二哥很猛
@@ -27,5 +28,12 @@ public interface EmailTemplateMapper {
      * @param record 条件 
      */
     int updateByPrimaryKeySelective(EmailTemplate record);
+
+    /**
+     * 根据nid查找邮件模板信息
+     * @param nid nid
+     * @return template
+     */
+    EmailTemplate getByNid(@Param("nid") String nid);
 
 }

@@ -1,11 +1,14 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.common.enums.EmailCode;
+import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.handler.email.BaseEmailHandler;
+import com.eghm.model.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -39,7 +42,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmail(String to, String title, String content) {
+    public boolean sendEmail(String to, String title, String content) {
         if (javaMailSender == null) {
             throw new ParameterException(ErrorCode.MAIL_NOT_CONFIG);
         }
@@ -51,14 +54,17 @@ public class EmailServiceImpl implements EmailService {
             helper.setText(content);
             helper.setFrom(sysConfigApi.getString(ConfigConstant.SEND_FROM));
             javaMailSender.send(mimeMessage);
+            return true;
         } catch (Exception e) {
             log.error("发送邮件异常 to:[{}],title:[{}],content:[{}]", to, title, content, e);
         }
+        return false;
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendEmail(String to, EmailCode code) {
-
+    public void sendEmail(String to, EmailType type) {
+        BaseEmailHandler handler = SpringContextUtil.getBean(type.getHandler(), BaseEmailHandler.class);
+        handler.handler(new SendEmail(to, type));
     }
 }

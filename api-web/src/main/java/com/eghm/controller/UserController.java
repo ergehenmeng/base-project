@@ -3,13 +3,15 @@ package com.eghm.controller;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.LoginLog;
+import com.eghm.model.dto.user.SendAuthCodeRequest;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.ext.Token;
 import com.eghm.model.vo.user.LoginDeviceVO;
+import com.eghm.service.common.EmailService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
-import com.eghm.service.user.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +34,7 @@ public class UserController {
 
     private LoginLogService loginLogService;
 
-    private UserService userService;
+    private EmailService userService;
 
     @Autowired
     public void setTokenService(TokenService tokenService) {
@@ -53,6 +55,7 @@ public class UserController {
      * 查询上次用户设备登陆信息
      */
     @PostMapping("/user/last_login_device")
+    @ApiOperation("查询用户上次登陆的时间和设备")
     public RespBody<LoginDeviceVO> lastLoginDevice(HttpServletRequest request) {
         String accessToken = request.getHeader(AppHeader.TOKEN);
         Token token = tokenService.getOfflineToken(accessToken);
@@ -63,5 +66,13 @@ public class UserController {
         LoginLog lastLogin = loginLogService.getLastLogin(token.getUserId());
         return RespBody.success(LoginDeviceVO.builder().date(DateUtil.format(lastLogin.getAddTime(), "MM-dd HH:mm:ss")).deviceModel(lastLogin.getDeviceModel()).build());
     }
+
+    @PostMapping("/user/send_bind_email")
+    @ApiOperation("绑定邮箱发送验证码请求")
+    public RespBody<Object> sendBindEmail(SendAuthCodeRequest request) {
+        return RespBody.success();
+    }
+
+
 
 }
