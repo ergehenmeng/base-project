@@ -396,7 +396,20 @@ public enum ErrorCode {
      */
     EMAIL_TEMPLATE_NULL(3045,"邮件模板未配置"),
 
+    /**
+     * 请勿重复绑定邮箱
+     */
+    EMAIL_REDO_BIND(3048,"请勿重复绑定邮箱"),
 
+    /**
+     * 请先获取邮箱验证码
+     */
+    EMAIL_ADDRESS_ERROR(3050,"请先获取邮箱验证码"),
+
+    /**
+     * 邮箱验证码输入错误
+     */
+    EMAIL_CODE_ERROR(3050,"邮箱验证码输入错误"),
     ;
     /**
      * 构造方法

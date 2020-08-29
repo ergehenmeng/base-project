@@ -63,11 +63,6 @@ public class SmsServiceImpl implements SmsService {
         this.sysConfigApi = sysConfigApi;
     }
 
-    /**
-     * 验证码过期时间 10分钟
-     */
-    private static final int SMS_CODE_EXPIRE = 600;
-
     @Override
     public void sendSmsCode(String smsType, String mobile) {
         this.smsLimitCheck(smsType, mobile);
@@ -147,7 +142,7 @@ public class SmsServiceImpl implements SmsService {
      * @param smsCode 短信验证码
      */
     private void saveSmsCode(String smsType, String mobile, String smsCode) {
-        cacheService.setValue(smsType + mobile, smsCode, SMS_CODE_EXPIRE);
+        cacheService.setValue(smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
     }
 
     /**

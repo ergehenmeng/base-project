@@ -83,10 +83,10 @@ public class TokenInterceptor implements InterceptorAdapter {
         if (exception && message.getUserId() == null) {
             Token offlineToken = tokenService.getOfflineToken(accessToken);
             if (offlineToken != null) {
-                log.error("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
+                log.warn("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
                 throw new ParameterException(ErrorCode.KICK_OFF_LINE);
             }
-            log.error("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
+            log.warn("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
 

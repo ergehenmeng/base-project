@@ -3,6 +3,7 @@ package com.eghm.controller;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.LoginLog;
+import com.eghm.model.dto.user.BindEmailRequest;
 import com.eghm.model.dto.user.SendAuthCodeRequest;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;
@@ -75,7 +76,7 @@ public class UserController {
     }
 
     /**
-     * 用户首次绑定邮箱
+     * 绑定邮箱发送邮箱验证码
      */
     @PostMapping("/user/send_bind_email")
     @ApiOperation("绑定邮箱发送验证码请求")
@@ -85,6 +86,16 @@ public class UserController {
         return RespBody.success();
     }
 
+    /**
+     * 绑定邮箱 目前绑定邮箱不需要短信二次校验,后期可以改为先短信校验,再邮箱校验
+     */
+    @PostMapping("/user/bind_email")
+    @ApiOperation("首次绑定邮箱")
+    public RespBody<Object> bindEmail(BindEmailRequest request) {
+        request.setUserId(RequestThreadLocal.getUserId());
+        userService.bindEmail(request);
+        return RespBody.success();
+    }
 
 
 }

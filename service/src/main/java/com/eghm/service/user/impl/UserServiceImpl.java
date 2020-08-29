@@ -1,6 +1,7 @@
 package com.eghm.service.user.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
@@ -10,15 +11,18 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
 import com.eghm.dao.model.business.LoginLog;
 import com.eghm.dao.model.user.User;
+import com.eghm.handler.email.service.BindEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
+import com.eghm.model.dto.user.BindEmailRequest;
 import com.eghm.model.dto.user.SendAuthCodeRequest;
 import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
@@ -32,6 +36,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.sql.Struct;
+import java.util.Objects;
 
 /**
  * @author 二哥很猛
@@ -59,6 +66,13 @@ public class UserServiceImpl implements UserService {
     private TaskHandler taskHandler;
 
     private EmailService emailService;
+
+    private CacheService cacheService;
+
+    @Autowired
+    public void setCacheService(CacheService cacheService) {
+        this.cacheService = cacheService;
+    }
 
     @Autowired
     public void setEmailService(EmailService emailService) {
@@ -183,10 +197,12 @@ public class UserServiceImpl implements UserService {
      * @return token信息
      */
     private LoginTokenVO doLogin(User user, String ip) {
-        //将原用户踢掉
+        // 将原用户踢掉
         this.offline(user.getId());
         RequestMessage request = RequestThreadLocal.get();
+        // 创建token
         Token token = tokenService.createToken(user.getId(), request.getChannel());
+        // 记录登陆日志信息
         LoginRecord record = LoginRecord.builder()
                 .ip(IpUtil.ipToLong(ip))
                 .userId(user.getId())
@@ -254,13 +270,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    /**
-     * 强制将用户踢下线
-     * 1.增加一条用户被踢下线的记录
-     * 2.清空之前用户登陆的信息
-     *
-     * @param userId 用户id
-     */
     @Override
     public void offline(int userId){
         Token token = tokenService.getByUserId(userId);
@@ -282,6 +291,26 @@ public class UserServiceImpl implements UserService {
         SendEmail email = DataUtil.copy(request, SendEmail.class);
         email.put("userId", request.getUserId());
         emailService.sendEmail(email);
+    }
+
+    @Override
+    public void bindEmail(BindEmailRequest request) {
+        User user = userMapper.selectByPrimaryKey(request.getUserId());
+        if (StrUtil.isNotBlank(user.getEmail())) {
+            throw new BusinessException(ErrorCode.EMAIL_REDO_BIND);
+        }
+        String hashKey = CacheConstant.BIND_EMAIL_CODE + user.getId();
+        String email = cacheService.getHashValue(hashKey, BindEmailHandler.EMAIL);
+        if (email == null || !email.equals(request.getEmail())) {
+            throw new BusinessException(ErrorCode.EMAIL_ADDRESS_ERROR);
+        }
+        String authCode = cacheService.getHashValue(hashKey, BindEmailHandler.AUTH_CODE);
+        if (authCode == null || !authCode.equals(request.getAuthCode())) {
+            throw new BusinessException(ErrorCode.EMAIL_CODE_ERROR);
+        }
+        user.setEmail(request.getEmail());
+        userMapper.updateByPrimaryKeySelective(user);
+        cacheService.delete(hashKey);
     }
 
     /**

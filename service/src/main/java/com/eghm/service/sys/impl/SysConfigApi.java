@@ -44,7 +44,7 @@ public class SysConfigApi {
     public String getString(String nid) {
         String content = sysConfigService.getByNid(nid);
         if (content == null) {
-            log.error("系统参数未找到 nid:[{}]", nid);
+            log.warn("系统参数未找到 nid:[{}]", nid);
             throw new ParameterException(ErrorCode.CONFIG_NOT_FOUND_ERROR);
         }
         return content;
@@ -76,7 +76,7 @@ public class SysConfigApi {
         try {
             return Double.parseDouble(value);
         } catch (Exception e) {
-            log.error("系统参数转double异常 [{}]", value);
+            log.warn("系统参数转double异常 [{}]", value);
         }
         return 0D;
     }
@@ -93,7 +93,7 @@ public class SysConfigApi {
         try {
             return Double.parseDouble(value);
         } catch (Exception e) {
-            log.error("系统参数转double异常 [{}]", value);
+            log.warn("系统参数转double异常 [{}]", value);
             return defaultValue;
         }
     }
@@ -109,7 +109,7 @@ public class SysConfigApi {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
-            log.error("系统参数转int异常 [{}]", value);
+            log.warn("系统参数转int异常 [{}]", value);
             return 0;
         }
     }
@@ -126,7 +126,7 @@ public class SysConfigApi {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
-            log.error("系统参数转int异常 [{}]", value);
+            log.warn("系统参数转int异常 [{}]", value);
             return defaultValue;
         }
     }
@@ -142,7 +142,7 @@ public class SysConfigApi {
         try {
             return Long.parseLong(value);
         } catch (Exception e) {
-            log.error("系统参数转long异常 [{}]", value);
+            log.warn("系统参数转long异常 [{}]", value);
             return 0L;
         }
     }
@@ -159,7 +159,7 @@ public class SysConfigApi {
         try {
             return Long.parseLong(value);
         } catch (Exception e) {
-            log.error("系统参数转long异常 [{}]", value);
+            log.warn("系统参数转long异常 [{}]", value);
             return defaultValue;
         }
     }
@@ -176,7 +176,7 @@ public class SysConfigApi {
         try {
             return jsonService.fromJson(value, cls);
         } catch (Exception e) {
-            log.error("系统参数转对象异常 [{}]", value);
+            log.warn("系统参数转对象异常 [{}]", value);
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
     }

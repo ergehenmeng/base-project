@@ -4,6 +4,7 @@ import com.eghm.dao.model.user.User;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
+import com.eghm.model.dto.user.BindEmailRequest;
 import com.eghm.model.dto.user.SendAuthCodeRequest;
 import com.eghm.model.ext.UserRegister;
 import com.eghm.model.vo.login.LoginTokenVO;
@@ -79,14 +80,22 @@ public interface UserService {
     LoginTokenVO registerByMobile(RegisterUserRequest request);
 
     /**
-     * 对用户强制下线操作 (仅适用于移动端用户)
+     * 强制将用户踢下线  (仅适用于移动端用户)
+     * 1.增加一条用户被踢下线的记录
+     * 2.清空之前用户登陆的信息
      * @param userId userId
      */
     void offline(int userId);
 
     /**
-     * 绑定邮箱 发送邮件验证码
+     * 绑定邮箱 发送邮件验证码 (1)
      * @param request 邮箱信息
      */
     void toBindEmail(SendAuthCodeRequest request);
+
+    /**
+     * 绑定邮箱
+     * @param request 邮箱信息
+     */
+    void bindEmail(BindEmailRequest request);
 }

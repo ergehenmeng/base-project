@@ -59,7 +59,7 @@ public class JwtTokenInterceptor implements InterceptorAdapter {
         message.setUserId(jwtToken.getUserId());
         // 无法从token总解析出userId,但该接口确实需要登陆
         if (exception && message.getUserId() == null) {
-            log.error("令牌解析为空,token:[{}]", token);
+            log.warn("令牌解析为空,token:[{}]", token);
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
     }

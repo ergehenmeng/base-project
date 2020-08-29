@@ -10,6 +10,7 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -36,6 +37,8 @@ public class CacheServiceImpl implements CacheService {
     private ValueOperations<String, String> opsForValue;
 
     private ListOperations<String, String> opsForList;
+
+    private HashOperations<String, String, String> opsForHash;
 
     private SysConfigApi sysConfigApi;
 
@@ -70,6 +73,7 @@ public class CacheServiceImpl implements CacheService {
         this.redisTemplate = stringRedisTemplate;
         this.opsForValue = stringRedisTemplate.opsForValue();
         this.opsForList = stringRedisTemplate.opsForList();
+        this.opsForHash = stringRedisTemplate.opsForHash();
     }
 
     @Override
@@ -238,6 +242,22 @@ public class CacheServiceImpl implements CacheService {
         }
         //如果刚好此时,在maxTtl时间内的第一次存储的数据过期了,依旧返回true,不做毫秒值等判断
         return true;
+    }
+
+    @Override
+    public void setHashValue(String key, String hKey, String hValue) {
+        opsForHash.put(key, hKey, hValue);
+    }
+
+    @Override
+    public void setHashValue(String key, long expire, String hKey, String hValue) {
+        opsForHash.put(key, hKey, hValue);
+        redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public String getHashValue(String key, String hKey) {
+        return opsForHash.get(key, hKey);
     }
 
     private void limitPut(String key, long maxTtl) {

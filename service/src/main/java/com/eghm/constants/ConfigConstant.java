@@ -103,4 +103,9 @@ public class ConfigConstant {
      * jwt秘钥
      */
     public static final String JWT_SECRET_KEY = "jwt_secret_key";
+
+    /**
+     * 验证码过期时间
+     */
+    public static final String AUTH_CODE_EXPIRE = "auth_code_expire";
 }

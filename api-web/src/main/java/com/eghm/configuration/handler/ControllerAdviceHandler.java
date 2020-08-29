@@ -79,7 +79,7 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
     public RespBody<Object> noHandlerFoundException(HttpServletRequest request) {
-        log.error("访问地址不存在:[{}]", request.getRequestURI());
+        log.warn("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }
 

@@ -13,7 +13,6 @@ import java.util.function.Supplier;
  */
 public interface CacheService {
 
-
     /**
      * 缓存对象 默认30分钟
      *
@@ -21,7 +20,6 @@ public interface CacheService {
      * @param value value
      */
     void setValue(String key, Object value);
-
 
     /**
      * 根据key 获取缓存信息,
@@ -151,5 +149,30 @@ public interface CacheService {
      * @return true:允许 false:不允许
      */
     boolean limit(String key, int maxLimit, long maxTtl);
+
+    /**
+     * 设置hash值
+     * @param key hashKey
+     * @param hKey key
+     * @param hValue value
+     */
+    void setHashValue(String key, String hKey, String hValue);
+
+    /**
+     * 设置hash值
+     * @param key key
+     * @param expire 过期时间 秒
+     * @param hKey hKey
+     * @param hValue hValue
+     */
+    void setHashValue(String key, long expire,String hKey, String hValue);
+
+    /**
+     * 获取hash中的值
+     * @param key key
+     * @param hKey hashKey
+     * @return hValue
+     */
+    String getHashValue(String key, String hKey);
 }
 
