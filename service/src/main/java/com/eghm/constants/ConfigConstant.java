@@ -25,11 +25,6 @@ public class ConfigConstant {
     public static final String TIMESTAMP_DEVIATION = "timestamp_deviation";
 
     /**
-     * 发件人
-     */
-    public static final String SEND_FROM = "send_from";
-
-    /**
      * 昵称前缀
      */
     public static final String NICK_NAME_PREFIX = "nick_name_prefix";

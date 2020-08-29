@@ -3757,7 +3757,6 @@ INSERT INTO `sys_config` VALUES ('13', 'manage_domain', '后台系统域名', 'h
 INSERT INTO `sys_config` VALUES ('14', 'operation_log_switch', '操作日志开关', 'false', '1', '\0', '操作日志开关 false:不开启操作日志 true:开启操作日志', '2019-01-17 16:50:54', '2020-07-23 14:15:37');
 INSERT INTO `sys_config` VALUES ('15', 'env', '系统环境', '2', '2', '\0', '1 生产 2 开发 3  测试', '2019-01-22 17:23:19', null);
 INSERT INTO `sys_config` VALUES ('16', 'timestamp_deviation', '客户端与服务端时间容错值', '60000', '1', '\0', '单位:毫秒', '2019-07-10 16:50:31', '2020-07-23 14:06:50');
-INSERT INTO `sys_config` VALUES ('17', 'send_from', '系统邮件发件人', '664956140@qq.com', '2', '\0', null, '2019-07-10 16:53:01', '2019-07-10 16:53:14');
 INSERT INTO `sys_config` VALUES ('19', 'single_client_login', '是否开启单设备单点登录', 'true', '2', '\0', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
 INSERT INTO `sys_config` VALUES ('20', 'nick_name_prefix', '默认昵称前缀', 'eghm_', '1', '\0', '昵称为空时会自动生成以此为前缀的昵称', '2019-08-19 16:06:04', '2019-08-19 16:06:04');
 INSERT INTO `sys_config` VALUES ('21', 'sms_type_interval', '同一类型短信发送间隔', '60', '1', '\0', '单位秒', '2019-08-20 17:18:53', '2019-08-20 17:18:53');

@@ -2,11 +2,9 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.handler.email.BaseEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
-import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +24,7 @@ import javax.mail.internet.MimeMessage;
 @Slf4j
 public class EmailServiceImpl implements EmailService {
 
-    private SysConfigApi sysConfigApi;
-
     private JavaMailSender javaMailSender;
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
@@ -51,7 +42,6 @@ public class EmailServiceImpl implements EmailService {
             helper.addTo(to);
             helper.setSubject(title);
             helper.setText(content);
-            helper.setFrom(sysConfigApi.getString(ConfigConstant.SEND_FROM));
             javaMailSender.send(mimeMessage);
             return true;
         } catch (Exception e) {
