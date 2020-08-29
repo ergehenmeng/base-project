@@ -547,3 +547,14 @@ CREATE TABLE `user_ext` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `user_id_index` (`user_id`) USING BTREE COMMENT '唯一索引'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='普通用户扩展信息表';
+
+CREATE TABLE `email_template` (
+  `id` int(10) NOT NULL COMMENT '主键',
+  `nid` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板唯一编码',
+  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板标题',
+  `content` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `remark` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`),
+  KEY `idx_nid` (`nid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='邮件模板';

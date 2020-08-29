@@ -11,11 +11,11 @@ public interface HtmlTemplate {
 
     /**
      * 模板渲染
-     * @param html html文件
+     * @param content 普通文字, html文件
      * @param param 参数名
      * @return 字符串格式html
      */
-    String renderHtml(String html, Map<String, Object> param);
+    String render(String content, Map<String, Object> param);
 
     /**
      * 模板渲染

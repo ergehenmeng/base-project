@@ -24,13 +24,12 @@ public class BaseEmailHandler {
     private EmailService emailService;
 
     /**
-     * 发送邮件
+     * 发送邮件 (主入口)
      * @param email 邮件信息
      */
     public void handler(SendEmail email) {
         EmailTemplate template = this.getCheckedTemplate(email.getType());
-        this.checkParam(email, template);
-        boolean result = emailService.sendEmail(email.getEmail(), this.getTitle(template), this.getContent(template));
+        boolean result = emailService.sendEmail(email.getEmail(), this.getTitle(template, email), this.getContent(template, email));
         this.finallyProcess(email, template, result);
     }
 
@@ -45,22 +44,16 @@ public class BaseEmailHandler {
     }
 
     /**
-     * 校验参数,子类可以重写方法,改变流程
-     */
-    protected void checkParam(SendEmail email, EmailTemplate template) {
-    }
-
-    /**
      * 邮件内容 子类可以重写该方法
      */
-    protected String getContent(EmailTemplate template) {
+    protected String getContent(EmailTemplate template, SendEmail email) {
         return template.getContent();
     }
 
     /**
      * 邮件标题 子类可以重写该方法
      */
-    protected String getTitle(EmailTemplate template) {
+    protected String getTitle(EmailTemplate template, SendEmail email) {
         return template.getTitle();
     }
 

@@ -4,6 +4,7 @@ import com.eghm.dao.model.user.User;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
+import com.eghm.model.dto.user.SendAuthCodeRequest;
 import com.eghm.model.ext.UserRegister;
 import com.eghm.model.vo.login.LoginTokenVO;
 
@@ -82,4 +83,10 @@ public interface UserService {
      * @param userId userId
      */
     void offline(int userId);
+
+    /**
+     * 绑定邮箱 发送邮件验证码
+     * @param request 邮箱信息
+     */
+    void toBindEmail(SendAuthCodeRequest request);
 }

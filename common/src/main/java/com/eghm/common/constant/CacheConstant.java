@@ -110,4 +110,9 @@ public class CacheConstant {
      */
     public static final String SMS_DAY = "sms_day::";
 
+    /**
+     * 绑定邮箱时发送邮件验证码
+     */
+    public static final String BIND_EMAIL_CODE = "bind_email_code::";
+
 }

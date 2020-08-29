@@ -10,13 +10,16 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
 import com.eghm.dao.model.business.LoginLog;
 import com.eghm.dao.model.user.User;
+import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
+import com.eghm.model.dto.user.SendAuthCodeRequest;
 import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
+import com.eghm.service.common.EmailService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -54,6 +57,13 @@ public class UserServiceImpl implements UserService {
     private UserExtService userExtService;
 
     private TaskHandler taskHandler;
+
+    private EmailService emailService;
+
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
     @Autowired
     public void setSysConfigApi(SysConfigApi sysConfigApi) {
@@ -265,6 +275,14 @@ public class UserServiceImpl implements UserService {
         tokenService.cleanRefreshToken(token.getRefreshToken());
         tokenService.cleanToken(token.getToken());
         tokenService.cleanUserId(userId);
+    }
+
+    @Override
+    public void toBindEmail(SendAuthCodeRequest request) {
+        SendEmail email = DataUtil.copy(request, SendEmail.class);
+        email.put("userId", request.getUserId());
+
+
     }
 
     /**

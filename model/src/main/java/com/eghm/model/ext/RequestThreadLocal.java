@@ -38,9 +38,17 @@ public class RequestThreadLocal {
     }
 
     /**
-     * 获取用户id,如果未登陆则为零
+     * 强制获取用户信息
      */
     public static int getUserId() {
+        return getUserId(true);
+    }
+
+    /**
+     * 尝试获取用户信息
+     * @return 如果用户未登陆获取结果为0
+     */
+    public static int tryGetUserId() {
         return getUserId(false);
     }
 
@@ -49,7 +57,7 @@ public class RequestThreadLocal {
      * @param need 用户是否需要登陆,如果必须登陆登陆,用户id不存在则抛异常
      * @return 用户id
      */
-    public static int getUserId(boolean need) {
+    private static int getUserId(boolean need) {
         int userId = get().getUserId();
         if (need && userId == 0) {
             throw new BusinessException(ErrorCode.USER_LOGIN_TIMEOUT);

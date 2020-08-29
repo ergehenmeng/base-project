@@ -1,6 +1,5 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
@@ -63,8 +62,8 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendEmail(String to, EmailType type) {
-        BaseEmailHandler handler = SpringContextUtil.getBean(type.getHandler(), BaseEmailHandler.class);
-        handler.handler(new SendEmail(to, type));
+    public void sendEmail(SendEmail email) {
+        BaseEmailHandler handler = SpringContextUtil.getBean(email.getType().getHandler(), BaseEmailHandler.class);
+        handler.handler(email);
     }
 }

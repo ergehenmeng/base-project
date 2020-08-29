@@ -8,6 +8,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @date 2019/7/10 15:50
  */
 @Slf4j
+@Service("freemarkerHtmlTemplate")
 public class FreemarkerHtmlTemplate implements HtmlTemplate {
 
     @Autowired
@@ -27,9 +29,9 @@ public class FreemarkerHtmlTemplate implements HtmlTemplate {
     private static final String DEFAULT_TITLE = "freemarker_title";
 
     @Override
-    public String renderHtml(String html, Map<String, Object> param) {
+    public String render(String content, Map<String, Object> param) {
         try {
-            Template textTemplate = new Template(DEFAULT_TITLE, html, configuration);
+            Template textTemplate = new Template(DEFAULT_TITLE, content, configuration);
             return this.doRender(textTemplate, param);
         } catch (Exception e) {
             log.error("freemarker解析异常", e);

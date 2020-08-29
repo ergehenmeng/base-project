@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TaskHandler {
 
-    @SuppressWarnings("rawtypes")
     private static class ExecutorHolder {
 
         /**

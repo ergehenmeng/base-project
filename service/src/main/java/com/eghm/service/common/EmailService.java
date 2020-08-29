@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.common.enums.EmailType;
+import com.eghm.model.dto.email.SendEmail;
 
 /**
  * @author 二哥很猛
@@ -18,9 +18,8 @@ public interface EmailService {
     boolean sendEmail(String to, String title, String content);
 
     /**
-     * 发送邮件
-     * @param to 邮件接收人地址
-     * @param type 邮件模板类型
+     * 发送模板邮件
+     * @param email 发送信息
      */
-    void sendEmail(String to, EmailType type);
+    void sendEmail(SendEmail email);
 }

@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author 殿小二
  * @date 2020/8/28
@@ -23,4 +26,21 @@ public class SendEmail {
      * 邮箱模板类型
      */
     private EmailType type;
+
+    /**
+     * 附加信息 可以用于渲染模板,也可以用作参数的传递
+     */
+    private Map<String, Object> params;
+
+    /**
+     * 添加参数信息
+     * @param key key
+     * @param value value
+     */
+    public void put(String key, Object value) {
+        if (params == null) {
+            params = new HashMap<>();
+        }
+        params.put(key, value);
+    }
 }

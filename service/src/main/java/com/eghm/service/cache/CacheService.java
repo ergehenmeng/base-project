@@ -2,9 +2,7 @@ package com.eghm.service.cache;
 
 import com.eghm.model.ext.AsyncResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.function.Supplier;
 

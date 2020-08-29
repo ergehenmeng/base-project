@@ -4,12 +4,14 @@ import com.eghm.common.constant.AppHeader;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.LoginLog;
 import com.eghm.model.dto.user.SendAuthCodeRequest;
+import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.ext.Token;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
+import com.eghm.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +36,12 @@ public class UserController {
 
     private LoginLogService loginLogService;
 
-    private EmailService userService;
+    private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Autowired
     public void setTokenService(TokenService tokenService) {
@@ -67,9 +74,14 @@ public class UserController {
         return RespBody.success(LoginDeviceVO.builder().date(DateUtil.format(lastLogin.getAddTime(), "MM-dd HH:mm:ss")).deviceModel(lastLogin.getDeviceModel()).build());
     }
 
+    /**
+     * 用户首次绑定邮箱
+     */
     @PostMapping("/user/send_bind_email")
     @ApiOperation("绑定邮箱发送验证码请求")
     public RespBody<Object> sendBindEmail(SendAuthCodeRequest request) {
+        request.setUserId(RequestThreadLocal.getUserId());
+        userService.toBindEmail(request);
         return RespBody.success();
     }
 
