@@ -64,6 +64,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysOperator getByMobile(String mobile) {
         return sysOperatorMapper.getByMobile(mobile);
     }
@@ -79,6 +80,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public void checkPassword(String rawPassword, String targetPassword) {
         String oldPassword = encoder.encode(rawPassword);
         if (!targetPassword.equals(oldPassword)) {
@@ -87,6 +89,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public PageInfo<SysOperator> getByPage(OperatorQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SysOperator> list = sysOperatorMapper.getList(request);
@@ -122,6 +125,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysOperator getById(Integer id) {
         return sysOperatorMapper.selectByPrimaryKey(id);
     }

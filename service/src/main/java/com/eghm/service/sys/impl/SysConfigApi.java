@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 系统参数公用Api接口
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/9/12 14:36
  * @see SysConfigServiceImpl
  */
-@Transactional(rollbackFor = RuntimeException.class, readOnly = true)
 @Slf4j
 @Service("sysConfigApi")
 public class SysConfigApi {

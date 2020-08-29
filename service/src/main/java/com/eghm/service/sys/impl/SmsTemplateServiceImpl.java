@@ -33,17 +33,20 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public String getTemplate(String nid) {
         SmsTemplate smsTemplate = smsTemplateMapper.getByNid(nid);
         return smsTemplate.getContent();
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public SmsTemplate getById(Integer id) {
         return smsTemplateMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SmsTemplate> list = smsTemplateMapper.getList(request);

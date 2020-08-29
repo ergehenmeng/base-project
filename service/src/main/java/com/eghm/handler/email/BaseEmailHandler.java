@@ -29,7 +29,9 @@ public class BaseEmailHandler {
      */
     public void handler(SendEmail email) {
         EmailTemplate template = this.getCheckedTemplate(email.getType());
-        boolean result = emailService.sendEmail(email.getEmail(), this.getTitle(template, email), this.getContent(template, email));
+        String title = this.getTitle(template, email);
+        String content = this.getContent(template, email);
+        boolean result = emailService.sendEmail(email.getEmail(), title, content);
         this.finallyProcess(email, template, result);
     }
 

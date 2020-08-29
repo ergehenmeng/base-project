@@ -5,6 +5,7 @@ import com.eghm.dao.model.system.SysOperatorDept;
 import com.eghm.service.sys.SysOperatorDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @date 2020/8/17
  */
 @Service("sysOperatorDeptService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class SysOperatorDeptServiceImpl implements SysOperatorDeptService {
 
     private SysOperatorDeptMapper sysOperatorDeptMapper;
@@ -22,8 +24,8 @@ public class SysOperatorDeptServiceImpl implements SysOperatorDeptService {
         this.sysOperatorDeptMapper = sysOperatorDeptMapper;
     }
 
-
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<String> getDeptList(Integer operatorId) {
         return sysOperatorDeptMapper.getDeptList(operatorId);
     }

@@ -43,6 +43,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public PageInfo<SysRole> getByPage(RoleQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SysRole> list = sysRoleMapper.getList(request);
@@ -50,6 +51,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysRole getById(int id) {
         return sysRoleMapper.selectByPrimaryKey(id);
     }
@@ -75,17 +77,20 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysRole> getList() {
         RoleQueryRequest request = new RoleQueryRequest();
         return sysRoleMapper.getList(request);
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<Integer> getByOperatorId(Integer operatorId) {
         return sysOperatorRoleMapper.getByOperatorId(operatorId);
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<Integer> getRoleMenu(Integer roleId) {
         return sysRoleMapper.getRoleMenu(roleId);
     }
@@ -100,6 +105,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysRole> getRoleList(Integer operatorId) {
         return sysRoleMapper.getRoleList(operatorId);
     }

@@ -39,11 +39,13 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysDict> getDictByNid(String nid) {
         return sysDictMapper.getDictByNid(nid);
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public PageInfo<SysDict> getByPage(DictQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SysDict> list = sysDictMapper.getList(request);
@@ -75,6 +77,7 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysDict getById(Integer id) {
         return sysDictMapper.selectByPrimaryKey(id);
     }

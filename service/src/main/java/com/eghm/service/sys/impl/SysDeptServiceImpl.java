@@ -45,11 +45,13 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysDept getById(Integer id) {
         return sysDeptMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysDept> getDepartment() {
         return sysDeptMapper.getList();
     }
@@ -72,6 +74,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public String getNextCode(String code) {
         SysDept child = sysDeptMapper.getMaxCodeChild(code);
         if (child == null) {

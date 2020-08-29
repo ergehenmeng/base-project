@@ -35,6 +35,7 @@ public class OperationLogServiceImpl implements OperationLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<SysOperationLog> getByPage(OperationQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SysOperationLog> list = sysOperationLogMapper.getList(request);
@@ -42,6 +43,7 @@ public class OperationLogServiceImpl implements OperationLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public String getResponseById(Integer id) {
         return sysOperationLogMapper.getResponseById(id);
     }

@@ -36,11 +36,13 @@ public class SmsLogServiceImpl implements SmsLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public int countSms(String smsType, String mobile, Date startTime, Date endTime) {
         return smsLogMapper.countSms(smsType, mobile, startTime, endTime);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<SmsLog> getByPage(SmsLogQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<SmsLog> list = smsLogMapper.getList(request);

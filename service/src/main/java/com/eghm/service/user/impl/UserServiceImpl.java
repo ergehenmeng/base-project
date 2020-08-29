@@ -281,8 +281,7 @@ public class UserServiceImpl implements UserService {
     public void toBindEmail(SendAuthCodeRequest request) {
         SendEmail email = DataUtil.copy(request, SendEmail.class);
         email.put("userId", request.getUserId());
-
-
+        emailService.sendEmail(email);
     }
 
     /**

@@ -12,6 +12,7 @@ import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @date 2019/9/9 13:45
  */
 @Service("blackRosterService")
+@Transactional(rollbackFor = RuntimeException.class)
 public class BlackRosterServiceImpl implements BlackRosterService {
 
     private BlackRosterMapper blackRosterMapper;
@@ -30,6 +32,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<BlackRoster> getByPage(BlackRosterQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<BlackRoster> list = blackRosterMapper.getList(request);
@@ -46,6 +49,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER, unless = "#result.size() == 0")
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<BlackRoster> getAvailableList() {
         return blackRosterMapper.getAvailableList();
     }

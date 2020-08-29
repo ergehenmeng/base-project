@@ -63,6 +63,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
+    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysConfig getById(Integer id) {
         return sysConfigMapper.selectByPrimaryKey(id);
     }
