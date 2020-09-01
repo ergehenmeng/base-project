@@ -9,7 +9,6 @@ import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.ext.Token;
 import com.eghm.model.vo.user.LoginDeviceVO;
-import com.eghm.service.common.EmailService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.service.user.UserService;
