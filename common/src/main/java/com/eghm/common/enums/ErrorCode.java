@@ -151,9 +151,9 @@ public enum ErrorCode {
     PARAM_VERIFY_ERROR(2000,"参数校验失败"),
 
     /**
-     * 身份证格式校验错误
+     * 身份证格式错误
      */
-    ID_CARD_ERROR(2001,"身份证格式校验错误"),
+    ID_CARD_ERROR(2001,"身份证格式错误"),
 
     /**
      * 对象不能为空

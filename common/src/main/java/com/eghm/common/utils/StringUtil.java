@@ -3,6 +3,8 @@ package com.eghm.common.utils;
 
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -11,6 +13,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -215,4 +218,5 @@ public class StringUtil {
         }
         return age;
     }
+
 }
