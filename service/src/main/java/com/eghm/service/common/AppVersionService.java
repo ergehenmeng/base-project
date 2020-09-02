@@ -46,6 +46,8 @@ public interface AppVersionService {
 
     /**
      * 获取最新可用的版本 用于检测是否有新版本
+     * 如果下载地址永久不变,则该方法返回的url可以作废,
+     * 同时在固定下载地址时,保证每次更新的版本apk需要上传到该路径下
      * @return 版本信息
      */
     AppVersionVO getLatestVersion();

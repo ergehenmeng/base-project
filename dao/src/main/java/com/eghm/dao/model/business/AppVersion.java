@@ -34,7 +34,7 @@ public class AppVersion implements Serializable {
     private String version;
 
     /**
-     * 版本号:1002008<br>
+     * 版本号:10208<br>
      * 表 : app_version<br>
      * 对应字段 : version_no<br>
      */

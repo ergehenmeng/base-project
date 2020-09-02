@@ -64,7 +64,7 @@ public class VersionUtil {
     }
 
     /**
-     * 将版本号转换为数字,以三位的版本号补零计算得到
+     * 将版本号转换为数字,以2位的版本号补零计算得到
      * @param version  v2.10.2
      * @return 2010002
      */
@@ -72,7 +72,7 @@ public class VersionUtil {
         String[] split = replace(version).split("\\.");
         StringBuilder builder = new StringBuilder();
         for (String v : split) {
-            builder.append(String.format("%03d", Integer.parseInt(v)));
+            builder.append(String.format("%02d", Integer.parseInt(v)));
         }
         return Integer.parseInt(builder.toString());
     }
