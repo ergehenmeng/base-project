@@ -1,7 +1,5 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login_sms', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2019-11-25 11:52:33', '短信登陆发送验证码');
-
 
 INSERT INTO `sys_address` VALUES ('1', '北京', '110000', '0', null, 'B', '1');
 INSERT INTO `sys_address` VALUES ('2', '市辖区', '110100', '110000', null, 'S', '2');
@@ -3776,4 +3774,7 @@ INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间
 INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', '1', '\0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-01-15 16:39:55');
 
 INSERT INTO `sys_config` VALUES ('42', 'jwt_secret_key', 'jwt秘钥', 'VjM0ea1vz92wQ8pohXVcKHdrnFh854IRDIaMmoERLoH4naPDeo8nXChY7gtrlAp1', '1', '', '用于生成token时的秘钥', '2020-08-28 10:30:09', '2020-08-28 10:30:36');
-INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register_sms', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:16:03', '注册短信验证码');
+
+INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
+INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
+INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('3', 'change_email', '您正在更换EGHM平台账号的邮箱，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:44:19', NULL);

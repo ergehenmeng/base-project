@@ -75,7 +75,7 @@ public class UserController {
     }
 
     /**
-     * 绑定邮箱发送邮箱验证码
+     * 绑定邮箱发送邮箱验证码 (1)
      */
     @PostMapping("/user/send_bind_email")
     @ApiOperation("绑定邮箱发送验证码请求")
@@ -86,7 +86,7 @@ public class UserController {
     }
 
     /**
-     * 绑定邮箱 目前绑定邮箱不需要短信二次校验,后期可以改为先短信校验,再邮箱校验
+     * 绑定邮箱 目前绑定邮箱不需要短信二次校验,后期可以改为先短信校验,再邮箱校验 (2)
      */
     @PostMapping("/user/bind_email")
     @ApiOperation("首次绑定邮箱")
@@ -102,7 +102,7 @@ public class UserController {
     @PostMapping("/user/send_change_email_sms")
     @ApiOperation("发送换绑邮箱的短信验证码")
     public RespBody<Object> sendChangeEmailSms() {
-
+        userService.sendChangeEmailSms(RequestThreadLocal.getUserId());
         return RespBody.success();
     }
 

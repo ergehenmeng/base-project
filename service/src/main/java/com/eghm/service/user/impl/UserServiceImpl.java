@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginTokenVO smsLogin(SmsLoginRequest login) {
         User user = this.getByAccountRequired(login.getMobile());
-        smsService.verifySmsCode(SmsType.LOGIN_SMS, login.getMobile(), login.getSmsCode());
+        smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());
         return this.doLogin(user, login.getIp());
     }
 
@@ -241,7 +241,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void sendLoginSms(String mobile) {
         User user = this.getByAccountRequired(mobile);
-        smsService.sendSmsCode(SmsType.LOGIN_SMS, user.getMobile());
+        smsService.sendSmsCode(SmsType.LOGIN, user.getMobile());
     }
 
     @Override
@@ -257,13 +257,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerSendSms(String mobile) {
         this.registerRedoVerify(mobile);
-        smsService.sendSmsCode(SmsType.REGISTER_SMS, mobile);
+        smsService.sendSmsCode(SmsType.REGISTER, mobile);
     }
 
     @Override
     public LoginTokenVO registerByMobile(RegisterUserRequest request) {
         this.registerRedoVerify(request.getMobile());
-        smsService.verifySmsCode(SmsType.REGISTER_SMS, request.getMobile(), request.getSmsCode());
+        smsService.verifySmsCode(SmsType.REGISTER, request.getMobile(), request.getSmsCode());
         UserRegister register = DataUtil.copy(request, UserRegister.class);
         User user = this.doRegister(register);
         return this.doLogin(user, register.getRegisterIp());
@@ -343,7 +343,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void sendChangeEmailSms(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
-        smsService.sendSmsCode(SmsType.REGISTER_SMS, user.getMobile());
+        if (StrUtil.isBlank(user.getMobile())) {
+            log.warn("未绑定手机号,无法发送邮箱验证短信 userId:[{}]", userId);
+            throw new BusinessException(ErrorCode.MOBILE_NOT_BIND);
+        }
+        smsService.sendSmsCode(SmsType.REGISTER, user.getMobile());
     }
 
     /**

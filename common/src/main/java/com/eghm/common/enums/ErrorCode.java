@@ -415,6 +415,11 @@ public enum ErrorCode {
      * 邮箱已被占用
      */
     EMAIL_OCCUPY_ERROR(3053,"邮箱已被占用"),
+
+    /**
+     * 请先绑定手机号
+     */
+    MOBILE_NOT_BIND(3055,"请先绑定手机号"),
     ;
     /**
      * 构造方法
