@@ -96,5 +96,14 @@ public class UserController {
         return RespBody.success();
     }
 
+    /**
+     * 更新邮箱时,需要短信验证码,因此此时必须绑定手机号码
+     */
+    @PostMapping("/user/send_change_email_sms")
+    @ApiOperation("发送换绑邮箱的短信验证码")
+    public RespBody<Object> sendChangeEmailSms() {
+
+        return RespBody.success();
+    }
 
 }

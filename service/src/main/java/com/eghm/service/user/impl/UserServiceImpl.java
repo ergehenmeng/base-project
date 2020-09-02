@@ -3,8 +3,8 @@ package com.eghm.service.user.impl;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.RegExpUtil;
@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public LoginTokenVO smsLogin(SmsLoginRequest login) {
         User user = this.getByAccountRequired(login.getMobile());
-        smsService.verifySmsCode(SmsTypeConstant.LOGIN_SMS, login.getMobile(), login.getSmsCode());
+        smsService.verifySmsCode(SmsType.LOGIN_SMS, login.getMobile(), login.getSmsCode());
         return this.doLogin(user, login.getIp());
     }
 
@@ -239,9 +239,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void loginSendSms(String mobile) {
+    public void sendLoginSms(String mobile) {
         User user = this.getByAccountRequired(mobile);
-        smsService.sendSmsCode(SmsTypeConstant.LOGIN_SMS, user.getMobile());
+        smsService.sendSmsCode(SmsType.LOGIN_SMS, user.getMobile());
     }
 
     @Override
@@ -257,13 +257,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void registerSendSms(String mobile) {
         this.registerRedoVerify(mobile);
-        smsService.sendSmsCode(SmsTypeConstant.REGISTER_SMS, mobile);
+        smsService.sendSmsCode(SmsType.REGISTER_SMS, mobile);
     }
 
     @Override
     public LoginTokenVO registerByMobile(RegisterUserRequest request) {
         this.registerRedoVerify(request.getMobile());
-        smsService.verifySmsCode(SmsTypeConstant.REGISTER_SMS, request.getMobile(), request.getSmsCode());
+        smsService.verifySmsCode(SmsType.REGISTER_SMS, request.getMobile(), request.getSmsCode());
         UserRegister register = DataUtil.copy(request, UserRegister.class);
         User user = this.doRegister(register);
         return this.doLogin(user, register.getRegisterIp());
@@ -288,10 +288,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void toBindEmail(SendAuthCodeRequest request) {
+        this.checkEmail(request.getEmail());
         SendEmail email = DataUtil.copy(request, SendEmail.class);
         email.put("userId", request.getUserId());
         emailService.sendEmail(email);
     }
+
 
     @Override
     public void bindEmail(BindEmailRequest request) {
@@ -323,6 +325,25 @@ public class UserServiceImpl implements UserService {
         user.setSex((byte)IdcardUtil.getGenderByIdCard(request.getIdCard()));
         userMapper.updateByPrimaryKeySelective(user);
         //TODO 实名制认证
+    }
+
+    /**
+     * 查看邮箱是会否被占用
+     * @param email 邮箱号
+     */
+    @Override
+    public void checkEmail(String email) {
+        User user = userMapper.getByEmail(email);
+        if (user == null) {
+            log.warn("邮箱号已被占用 email:[{}]", email);
+            throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
+        }
+    }
+
+    @Override
+    public void sendChangeEmailSms(Integer userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        smsService.sendSmsCode(SmsType.REGISTER_SMS, user.getMobile());
     }
 
     /**

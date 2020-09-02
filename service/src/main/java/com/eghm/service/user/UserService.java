@@ -1,5 +1,7 @@
 package com.eghm.service.user;
 
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.user.User;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
@@ -58,7 +60,7 @@ public interface UserService {
      * 登陆发送验证码
      * @param mobile 手机号码
      */
-    void loginSendSms(String mobile);
+    void sendLoginSms(String mobile);
 
     /**
      * 根据账号查询用户信息(如果不存在,则抛异常)
@@ -106,4 +108,15 @@ public interface UserService {
      */
     void realNameAuth(UserAuthRequest request);
 
+    /**
+     * 查看邮箱是会否被占用
+     * @param email 邮箱号
+     */
+    void checkEmail(String email);
+
+    /**
+     * 更新邮箱发送短信验证码
+     * @param userId userId
+     */
+    void sendChangeEmailSms(Integer userId);
 }

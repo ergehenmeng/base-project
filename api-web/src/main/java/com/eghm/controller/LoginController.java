@@ -42,7 +42,7 @@ public class LoginController {
     @PostMapping("/login/send_sms")
     @SkipAccess
     public RespBody<Object> sendSms(LoginSendSmsRequest request) {
-        userService.loginSendSms(request.getMobile());
+        userService.sendLoginSms(request.getMobile());
         return RespBody.success();
     }
 

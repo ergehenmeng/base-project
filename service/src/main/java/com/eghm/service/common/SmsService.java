@@ -1,5 +1,7 @@
 package com.eghm.service.common;
 
+import com.eghm.common.enums.SmsType;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ public interface SmsService {
      * @param smsType 短信验证码类型
      * @param mobile 手机号
      */
-    void sendSmsCode(String smsType, String mobile);
+    void sendSmsCode(SmsType smsType, String mobile);
 
     /**
      * 获取短信验证码
@@ -21,7 +23,7 @@ public interface SmsService {
      * @param mobile 手机号码
      * @return 短信验证码
      */
-    String getSmsCode(String smsType,String mobile);
+    String getSmsCode(SmsType smsType,String mobile);
 
     /**
      * 验证短信验证码是否正确
@@ -29,7 +31,7 @@ public interface SmsService {
      * @param mobile 手机号
      * @param smsCode 待验证的验证码
      */
-    void verifySmsCode(String smsType,String mobile ,String smsCode);
+    void verifySmsCode(SmsType smsType,String mobile ,String smsCode);
 
     /**
      * 根据短信模板发送短信 (不需要次数校验)
@@ -37,7 +39,7 @@ public interface SmsService {
      * @param mobile 手机号
      * @param params 短信模板参数
      */
-    void sendSms(String smsType,String mobile,Object... params);
+    void sendSms(SmsType smsType,String mobile,Object... params);
 
     /**
      * 直接发送短信 (不需要校验次数)

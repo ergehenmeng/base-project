@@ -410,6 +410,11 @@ public enum ErrorCode {
      * 邮箱验证码输入错误
      */
     EMAIL_CODE_ERROR(3050,"邮箱验证码输入错误"),
+
+    /**
+     * 邮箱已被占用
+     */
+    EMAIL_OCCUPY_ERROR(3053,"邮箱已被占用"),
     ;
     /**
      * 构造方法

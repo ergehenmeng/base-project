@@ -1,8 +1,8 @@
 package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
@@ -64,13 +64,13 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public void sendSmsCode(String smsType, String mobile) {
-        this.smsLimitCheck(smsType, mobile);
-        String template = smsTemplateService.getTemplate(smsType);
+    public void sendSmsCode(SmsType smsType, String mobile) {
+        this.smsLimitCheck(smsType.getValue(), mobile);
+        String template = smsTemplateService.getTemplate(smsType.getValue());
         String smsCode = StringUtil.randomNumber();
         String content = this.formatTemplate(template, smsCode);
         this.doSendSms(mobile, content, smsType);
-        this.saveSmsCode(smsType, mobile, smsCode);
+        this.saveSmsCode(smsType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
         cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType + mobile,expire);
     }
@@ -88,12 +88,12 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public String getSmsCode(String smsType, String mobile) {
+    public String getSmsCode(SmsType smsType, String mobile) {
         return cacheService.getValue(smsType + mobile);
     }
 
     @Override
-    public void verifySmsCode(String smsType, String mobile, String smsCode) {
+    public void verifySmsCode(SmsType smsType, String mobile, String smsCode) {
         String originalSmsCode = this.getSmsCode(smsType, mobile);
         if (originalSmsCode == null) {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
@@ -104,15 +104,15 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
-    public void sendSms(String smsType, String mobile, Object... params) {
-        String template = smsTemplateService.getTemplate(smsType);
+    public void sendSms(SmsType smsType, String mobile, Object... params) {
+        String template = smsTemplateService.getTemplate(smsType.getValue());
         String content = this.formatTemplate(template, params);
         this.doSendSms(mobile, content, smsType);
     }
 
     @Override
     public void sendSms(String mobile, String content) {
-        this.doSendSms(mobile, content, SmsTypeConstant.DEFAULT);
+        this.doSendSms(mobile, content, SmsType.DEFAULT);
     }
 
 
@@ -128,9 +128,9 @@ public class SmsServiceImpl implements SmsService {
      * @param content 短信内容
      * @param smsType 短信类型
      */
-    private void doSendSms(String mobile, String content, String smsType) {
+    private void doSendSms(String mobile, String content, SmsType smsType) {
         byte state = sendSmsService.sendSms(mobile, content);
-        SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType).state(state).build();
+        SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType.getValue()).state(state).build();
         smsLogService.addSmsLog(smsLog);
     }
 
