@@ -6,6 +6,7 @@ import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
 import com.eghm.model.dto.user.BindEmailRequest;
 import com.eghm.model.dto.user.SendAuthCodeRequest;
+import com.eghm.model.dto.user.UserAuthRequest;
 import com.eghm.model.ext.UserRegister;
 import com.eghm.model.vo.login.LoginTokenVO;
 
@@ -98,4 +99,11 @@ public interface UserService {
      * @param request 邮箱信息
      */
     void bindEmail(BindEmailRequest request);
+
+    /**
+     * 用户实名制认证
+     * @param request 实名制信息
+     */
+    void realNameAuth(UserAuthRequest request);
+
 }

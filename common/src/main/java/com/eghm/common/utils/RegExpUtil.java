@@ -14,29 +14,14 @@ public class RegExpUtil {
     }
 
     /**
-     * 身份证校验正则表达式
-     */
-    private static final Pattern REGEXP_ID_CARD = Pattern.compile("(^[1-9]\\d{5}(18|19|([23]\\d))\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}[0-9Xx]$)|(^[1-9]\\d{5}\\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\\d{3}$)");
-
-    /**
      * 手机号正则表达式
      */
-    private static final Pattern REGEXP_MOBILE = Pattern.compile("^((13[0-9])|(14[5,7,9])|(15[^4])|(18[0-9])|(17[0,1,3,5,6,7,8])|(19[0,2,6,7,8,9]))\\d{8}$");
+    private static final Pattern REGEXP_MOBILE = Pattern.compile("^((13[0-9])|(14[579])|(15[^4])|(18[0-9])|(17[0135678])|(19[026789]))\\d{8}$");
 
     /**
      * 隐藏字符串要替换的正则表达式值
      */
     static final String HIDDEN_REGEXP_VALUE = "$1****$2";
-
-    /**
-     * 校验身份证是否合法 只做较为基础的校验
-     *
-     * @param idCard 身份证编号 15位或18位
-     * @return boolean true:合法 false:不合法
-     */
-    public static boolean idCard(String idCard) {
-        return REGEXP_ID_CARD.matcher(idCard).matches();
-    }
 
     /**
      * 根据给定的正则表达式判断字符串是否匹配

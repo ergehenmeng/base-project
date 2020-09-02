@@ -1,11 +1,14 @@
 package com.eghm.service.user.impl;
 
+import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.SmsTypeConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.RegExpUtil;
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
@@ -18,6 +21,7 @@ import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
 import com.eghm.model.dto.user.BindEmailRequest;
 import com.eghm.model.dto.user.SendAuthCodeRequest;
+import com.eghm.model.dto.user.UserAuthRequest;
 import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.queue.TaskHandler;
@@ -28,7 +32,6 @@ import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.LoginLogService;
-import com.eghm.service.user.UserExtService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
@@ -58,13 +61,18 @@ public class UserServiceImpl implements UserService {
 
     private LoginLogService loginLogService;
 
-    private UserExtService userExtService;
-
     private TaskHandler taskHandler;
 
     private EmailService emailService;
 
     private CacheService cacheService;
+
+    private ApplicationProperties applicationProperties;
+
+    @Autowired
+    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+        this.applicationProperties = applicationProperties;
+    }
 
     @Autowired
     public void setCacheService(CacheService cacheService) {
@@ -107,11 +115,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public void setUserExtService(UserExtService userExtService) {
-        this.userExtService = userExtService;
-    }
-
-    @Autowired
     public void setTaskHandler(TaskHandler taskHandler) {
         this.taskHandler = taskHandler;
     }
@@ -127,12 +130,12 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 用户注册后置处理 初始化用户附加信息
+     * 用户注册后置处理
      *
      * @param user 用户信息
      */
     private void doPostRegister(User user) {
-        userExtService.init(user);
+        // 可添加其他处理
     }
 
     /**
@@ -310,6 +313,17 @@ public class UserServiceImpl implements UserService {
         cacheService.delete(hashKey);
     }
 
+    @Override
+    public void realNameAuth(UserAuthRequest request) {
+        User user = new User();
+        user.setId(request.getUserId());
+        user.setRealName(request.getRealName());
+        user.setBirthday(IdcardUtil.getBirthByIdCard(request.getIdCard()));
+        user.setIdCard(AesUtil.encrypt(request.getIdCard(), applicationProperties.getSecretKey()));
+        userMapper.updateByPrimaryKeySelective(user);
+        //TODO 实名制认证
+    }
+
     /**
      * 注册手机号被占用校验
      *
@@ -321,6 +335,5 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
         }
     }
-
 
 }

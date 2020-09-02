@@ -55,6 +55,34 @@ public class User implements Serializable {
     private Boolean state;
 
     /**
+     * 真实姓名<br>
+     * 表 : user<br>
+     * 对应字段 : real_name<br>
+     */
+    private String realName;
+
+    /**
+     * 身份证号码,前6位加密<br>
+     * 表 : user<br>
+     * 对应字段 : id_card<br>
+     */
+    private String idCard;
+
+    /**
+     * 生日yyyyMMdd<br>
+     * 表 : user<br>
+     * 对应字段 : birthday<br>
+     */
+    private String birthday;
+
+    /**
+     * 性别 性别 0:未知 1:男 2:女 <br>
+     * 表 : user<br>
+     * 对应字段 : sex<br>
+     */
+    private Byte sex;
+
+    /**
      * 注册渠道 pc,android,ios,h5,other<br>
      * 表 : user<br>
      * 对应字段 : channel<br>

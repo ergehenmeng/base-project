@@ -1,13 +1,16 @@
 package com.eghm.common.utils;
 
 
+import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
+import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -16,6 +19,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author 二哥很猛
  * @date 2018/1/8 14:56
  */
+@Slf4j
 public class StringUtil {
 
     private StringUtil() {
@@ -144,7 +148,7 @@ public class StringUtil {
                 return Character.toString(stringArray[0].charAt(0));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("获取汉字首字母异常 chinese:[{}]", chinese, e);
         }
         return firstChar.toUpperCase();
     }
@@ -172,9 +176,43 @@ public class StringUtil {
                     builder.append(string.toUpperCase());
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                log.warn("汉字解析拼音异常 chinese:[{}]", chinese, e);
             }
         }
         return builder.toString();
+    }
+
+    /**
+     * 获取身份证年龄
+     *
+     * @param idCard 身份证编号
+     * @return 不合法, 异常均返回0
+     */
+    public static int getAge(String idCard) {
+        if (!IdcardUtil.isValidCard18(idCard)) {
+            return 0;
+        }
+        String birth = IdcardUtil.getBirthByIdCard(idCard);
+
+        int birthYear = Integer.parseInt(birth.substring(0, 4));
+        int birthMonth = Integer.parseInt(birth.substring(4, 6));
+        int birthDay = Integer.parseInt(birth.substring(6, 8));
+
+        LocalDate now = LocalDate.now();
+        int nowYear = now.getYear();
+        int nowMonth = now.getDayOfMonth();
+        int nowDay = now.getDayOfMonth();
+
+        int age = 0;
+        if (nowYear <= birthYear) {
+            return age;
+        }
+        age = nowYear - birthYear;
+        //生日月份大于当前月份表明今年还没过生日,或者生日月份等于当前月份,生日天比当天大已经表示今天未过生日
+        boolean flag = birthMonth > nowMonth || (birthMonth == nowMonth && birthDay > nowDay);
+        if (flag) {
+            return age - 1;
+        }
+        return age;
     }
 }

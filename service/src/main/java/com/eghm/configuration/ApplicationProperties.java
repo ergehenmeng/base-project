@@ -37,7 +37,7 @@ public class ApplicationProperties {
     /**
      * 加密串,用于需要在数据库加密时
      */
-    private String secretKey = "OciVH4YY6xAzqWXUOpIi5KS2rsYuRl==";
+    private String secretKey = "Mfw7MfWbaUbvz7X3aKqItx94oAUQH60FiKXe65QN3cUTbwJ2V2ux6ilf361yEU==";
 
 
     public String getVersion() {
