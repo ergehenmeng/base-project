@@ -17,7 +17,7 @@ import java.util.Map;
  * @date 2020/9/3
  */
 @Component("baseAuthCodeHandler")
-public class BaseAuthCodeHandler extends BaseEmailHandler{
+public class AuthCodeEmailHandler extends BaseEmailHandler{
 
     private CacheService cacheService;
 

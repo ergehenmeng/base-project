@@ -1,6 +1,6 @@
 package com.eghm.handler.email.service;
 
-import com.eghm.handler.email.BaseAuthCodeHandler;
+import com.eghm.handler.email.AuthCodeEmailHandler;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
  * @date 2020/9/3
  */
 @Component("changeEmailHandler")
-public class ChangeEmailHandler extends BaseAuthCodeHandler {
+public class ChangeEmailEmailHandler extends AuthCodeEmailHandler {
 }

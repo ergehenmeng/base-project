@@ -15,7 +15,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
 import com.eghm.dao.model.business.LoginLog;
 import com.eghm.dao.model.user.User;
-import com.eghm.handler.email.service.BindEmailHandler;
+import com.eghm.handler.email.service.BindEmailEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
@@ -41,8 +41,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.validation.constraints.Email;
 
 /**
  * @author 二哥很猛
@@ -306,11 +304,11 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ErrorCode.EMAIL_REDO_BIND);
         }
         String hashKey = CacheConstant.BIND_EMAIL_CODE + user.getId();
-        String email = cacheService.getHashValue(hashKey, BindEmailHandler.EMAIL);
+        String email = cacheService.getHashValue(hashKey, BindEmailEmailHandler.EMAIL);
         if (email == null || !email.equals(request.getEmail())) {
             throw new BusinessException(ErrorCode.EMAIL_ADDRESS_ERROR);
         }
-        String authCode = cacheService.getHashValue(hashKey, BindEmailHandler.AUTH_CODE);
+        String authCode = cacheService.getHashValue(hashKey, BindEmailEmailHandler.AUTH_CODE);
         if (authCode == null || !authCode.equals(request.getAuthCode())) {
             throw new BusinessException(ErrorCode.EMAIL_CODE_ERROR);
         }
