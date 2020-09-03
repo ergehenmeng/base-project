@@ -1,13 +1,12 @@
 package com.eghm.service.user;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.user.User;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
 import com.eghm.model.dto.user.BindEmailRequest;
-import com.eghm.model.dto.user.SendAuthCodeRequest;
+import com.eghm.model.dto.user.ChangeEmailRequest;
+import com.eghm.model.dto.user.SendEmailAuthCodeRequest;
 import com.eghm.model.dto.user.UserAuthRequest;
 import com.eghm.model.ext.UserRegister;
 import com.eghm.model.vo.login.LoginTokenVO;
@@ -92,12 +91,13 @@ public interface UserService {
 
     /**
      * 绑定邮箱 发送邮件验证码 (1)
-     * @param request 邮箱信息
+     * @param email  邮箱
+     * @param userId 用户id
      */
-    void toBindEmail(SendAuthCodeRequest request);
+    void sendBindEmail(String email, Integer userId);
 
     /**
-     * 绑定邮箱
+     * 绑定邮箱  (2)
      * @param request 邮箱信息
      */
     void bindEmail(BindEmailRequest request);
@@ -119,4 +119,16 @@ public interface UserService {
      * @param userId userId
      */
     void sendChangeEmailSms(Integer userId);
+
+    /**
+     * 发送更换邮箱的邮件信息(邮件内容为验证码)
+     * @param request 前台参数
+     */
+    void sendChangeEmailCode(SendEmailAuthCodeRequest request);
+
+    /**
+     * 换绑邮箱
+     * @param request 新邮箱信息
+     */
+    void changeEmail(ChangeEmailRequest request);
 }

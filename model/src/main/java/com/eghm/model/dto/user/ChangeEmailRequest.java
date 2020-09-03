@@ -1,6 +1,5 @@
 package com.eghm.model.dto.user;
 
-import com.eghm.common.enums.EmailType;
 import com.eghm.model.annotation.BackstageTag;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,17 +8,24 @@ import javax.validation.constraints.Email;
 
 /**
  * @author 殿小二
- * @date 2020/8/28
+ * @date 2020/9/3
  */
 @Data
-public class SendAuthCodeRequest {
+public class ChangeEmailRequest {
 
     /**
-     * 邮箱
+     * 邮箱账号
      */
     @ApiModelProperty(value = "手机号或邮箱",required = true)
     @Email(message = "邮箱格式错误")
     private String email;
+
+    /**
+     * 邮箱验证码
+     */
+    @ApiModelProperty("邮箱验证码")
+    @Email(message = "邮箱验证码不能为空")
+    private String authCode;
 
     /**
      * 用户id
@@ -27,9 +33,4 @@ public class SendAuthCodeRequest {
     @BackstageTag
     private Integer userId;
 
-    /**
-     * 邮件模板类型
-     */
-    @BackstageTag
-    private EmailType type;
 }

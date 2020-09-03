@@ -3,6 +3,7 @@ package com.eghm.service.user.impl;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.CacheConstant;
+import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
@@ -20,7 +21,8 @@ import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
 import com.eghm.model.dto.register.RegisterUserRequest;
 import com.eghm.model.dto.user.BindEmailRequest;
-import com.eghm.model.dto.user.SendAuthCodeRequest;
+import com.eghm.model.dto.user.ChangeEmailRequest;
+import com.eghm.model.dto.user.SendEmailAuthCodeRequest;
 import com.eghm.model.dto.user.UserAuthRequest;
 import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
@@ -39,6 +41,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.constraints.Email;
 
 /**
  * @author 二哥很猛
@@ -287,13 +291,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void toBindEmail(SendAuthCodeRequest request) {
-        this.checkEmail(request.getEmail());
-        SendEmail email = DataUtil.copy(request, SendEmail.class);
-        email.put("userId", request.getUserId());
-        emailService.sendEmail(email);
+    public void sendBindEmail(String email, Integer userId) {
+        this.checkEmail(email);
+        SendEmail sendEmail = new SendEmail();
+        sendEmail.setType(EmailType.BIND_EMAIL);
+        sendEmail.put("userId", userId);
+        emailService.sendEmail(sendEmail);
     }
-
 
     @Override
     public void bindEmail(BindEmailRequest request) {
@@ -347,7 +351,25 @@ public class UserServiceImpl implements UserService {
             log.warn("未绑定手机号,无法发送邮箱验证短信 userId:[{}]", userId);
             throw new BusinessException(ErrorCode.MOBILE_NOT_BIND);
         }
-        smsService.sendSmsCode(SmsType.REGISTER, user.getMobile());
+        smsService.sendSmsCode(SmsType.CHANGE_EMAIL, user.getMobile());
+    }
+
+    @Override
+    public void sendChangeEmailCode(SendEmailAuthCodeRequest request) {
+        User user = userMapper.selectByPrimaryKey(request.getUserId());
+        smsService.verifySmsCode(SmsType.CHANGE_EMAIL, user.getMobile(), request.getSmsCode());
+        this.checkEmail(request.getEmail());
+        SendEmail email = new SendEmail();
+        email.setType(EmailType.BIND_EMAIL);
+        email.put("userId", request.getUserId());
+        emailService.sendEmail(email);
+    }
+
+    @Override
+    public void changeEmail(ChangeEmailRequest request) {
+        User user = userMapper.selectByPrimaryKey(request.getUserId());
+
+
     }
 
     /**

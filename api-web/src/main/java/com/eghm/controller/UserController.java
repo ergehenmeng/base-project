@@ -4,7 +4,8 @@ import com.eghm.common.constant.AppHeader;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.business.LoginLog;
 import com.eghm.model.dto.user.BindEmailRequest;
-import com.eghm.model.dto.user.SendAuthCodeRequest;
+import com.eghm.model.dto.user.ChangeEmailRequest;
+import com.eghm.model.dto.user.SendEmailAuthCodeRequest;
 import com.eghm.model.ext.RequestThreadLocal;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.ext.Token;
@@ -25,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
  * 用户相关信息
  *
  * @author 二哥很猛
- * @date 2019/9/3 17:07
  */
 @RestController
 @Api("用户相关接口")
@@ -75,18 +75,18 @@ public class UserController {
     }
 
     /**
-     * 绑定邮箱发送邮箱验证码 (1)
+     * 绑定邮箱发送邮箱验证码 ❶
      */
-    @PostMapping("/user/send_bind_email")
+    @PostMapping("/user/send_bind_email_code")
     @ApiOperation("绑定邮箱发送验证码请求")
-    public RespBody<Object> sendBindEmail(SendAuthCodeRequest request) {
+    public RespBody<Object> sendBindEmail(SendEmailAuthCodeRequest request) {
         request.setUserId(RequestThreadLocal.getUserId());
-        userService.toBindEmail(request);
+        userService.sendBindEmail(request);
         return RespBody.success();
     }
 
     /**
-     * 绑定邮箱 目前绑定邮箱不需要短信二次校验,后期可以改为先短信校验,再邮箱校验 (2)
+     * 绑定邮箱 目前绑定邮箱不需要短信二次校验,后期可以改为先短信校验,再邮箱校验 ❷
      */
     @PostMapping("/user/bind_email")
     @ApiOperation("首次绑定邮箱")
@@ -97,7 +97,7 @@ public class UserController {
     }
 
     /**
-     * 更新邮箱时,需要短信验证码,因此此时必须绑定手机号码
+     * 更新邮箱时,需要短信验证码,因此此时必须绑定手机号码 ①
      */
     @PostMapping("/user/send_change_email_sms")
     @ApiOperation("发送换绑邮箱的短信验证码")
@@ -106,4 +106,23 @@ public class UserController {
         return RespBody.success();
     }
 
+    /**
+     * 更新邮箱时,新邮箱地址需要验证码确认 ②
+     */
+    @PostMapping("/user/send_change_email_code")
+    @ApiOperation("发送换绑邮箱的邮箱验证码")
+    public RespBody<Object> sendChangeEmailCode(SendEmailAuthCodeRequest request) {
+
+        return RespBody.success();
+    }
+
+    /**
+     * 绑定新邮箱账号
+     */
+    @PostMapping("/user/bind_change_email")
+    @ApiOperation("绑定新邮箱账号")
+    public RespBody<Object> bindChangeEmail(ChangeEmailRequest request) {
+
+        return RespBody.success();
+    }
 }
