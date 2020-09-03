@@ -80,8 +80,7 @@ public class UserController {
     @PostMapping("/user/send_bind_email_code")
     @ApiOperation("绑定邮箱发送验证码请求")
     public RespBody<Object> sendBindEmail(SendEmailAuthCodeRequest request) {
-        request.setUserId(RequestThreadLocal.getUserId());
-        userService.sendBindEmail(request);
+        userService.sendBindEmail(request.getEmail(), RequestThreadLocal.getUserId());
         return RespBody.success();
     }
 

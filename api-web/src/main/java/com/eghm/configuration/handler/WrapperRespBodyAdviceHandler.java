@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
  */
 @RestControllerAdvice
 @Slf4j
-public class EncryptRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
+public class WrapperRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
