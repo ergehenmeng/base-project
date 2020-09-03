@@ -1,5 +1,6 @@
 package com.eghm.service.cache.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
@@ -235,13 +236,21 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public boolean limit(String key, int maxLimit, long maxTtl) {
+        // 数组不设置过期时间,默认最多保留maxLimit个元素
         Long size = opsForList.size(key);
-        if (size == null || size < maxLimit) {
-            this.limitPut(key, maxTtl);
+        String leftPop;
+        if (size == null || size < maxLimit || (leftPop = opsForList.leftPop(key)) == null) {
+            opsForList.rightPush(key, String.valueOf(System.currentTimeMillis()));
             return false;
         }
-        //如果刚好此时,在maxTtl时间内的第一次存储的数据过期了,依旧返回true,不做毫秒值等判断
-        return true;
+        // 如果刚好此时,在maxTtl时间内的第一次存储的数据过期了,依旧返回true,不做毫秒值等判断
+        if (DateUtil.currentSeconds() - Long.parseLong(leftPop) < maxLimit) {
+            return true;
+        }
+        opsForList.rightPush(key, String.valueOf(DateUtil.currentSeconds()));
+        // 相当于集合中只保留最多maxLimit个元素
+        opsForList.trim(key, size - maxLimit, size - 1);
+        return false;
     }
 
     @Override
@@ -260,8 +269,5 @@ public class CacheServiceImpl implements CacheService {
         return opsForHash.get(key, hKey);
     }
 
-    private void limitPut(String key, long maxTtl) {
-        opsForList.leftPush(key, SystemConstant.CACHE_PLACE_HOLDER);
-        redisTemplate.expire(key, maxTtl, TimeUnit.SECONDS);
-    }
+
 }
