@@ -109,7 +109,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="getList" parameterType="com.eghm.model.dto.sys.role.RoleQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.role.RoleQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from sys_role where deleted = false
         <if test="queryName != null and queryName != ''">

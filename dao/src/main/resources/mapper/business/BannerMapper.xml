@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.business.banner.BannerQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.banner.BannerQueryRequest">
         select <include refid="BaseColumnList"/>
         from banner
         <where>

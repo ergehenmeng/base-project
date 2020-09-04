@@ -64,7 +64,7 @@
         from task_config where state = 1
     </select>
 
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.business.task.TaskQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.task.TaskQueryRequest">
         select <include refid="BaseColumnList"/>
         from task_config
         <where>

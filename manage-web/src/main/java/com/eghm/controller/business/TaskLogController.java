@@ -1,7 +1,7 @@
 package com.eghm.controller.business;
 
 import com.eghm.dao.model.business.TaskLog;
-import com.eghm.model.dto.business.task.TaskLogQueryRequest;
+import com.eghm.model.dto.task.TaskLogQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.service.common.TaskLogService;
 import com.github.pagehelper.PageInfo;

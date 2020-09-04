@@ -2,9 +2,9 @@ package com.eghm.controller.business;
 
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.business.Banner;
-import com.eghm.model.dto.business.banner.BannerAddRequest;
-import com.eghm.model.dto.business.banner.BannerEditRequest;
-import com.eghm.model.dto.business.banner.BannerQueryRequest;
+import com.eghm.model.dto.banner.BannerAddRequest;
+import com.eghm.model.dto.banner.BannerEditRequest;
+import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.cache.ProxyService;

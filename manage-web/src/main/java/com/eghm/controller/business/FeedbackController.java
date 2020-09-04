@@ -2,8 +2,8 @@ package com.eghm.controller.business;
 
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
-import com.eghm.model.dto.business.feedback.FeedbackDisposeRequest;
-import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
+import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
+import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.feedback.FeedbackVO;

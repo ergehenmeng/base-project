@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.common;
 
 import com.eghm.dao.model.business.Banner;
-import com.eghm.model.dto.business.banner.BannerQueryRequest;
+import com.eghm.model.dto.banner.BannerQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

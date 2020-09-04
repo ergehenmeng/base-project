@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.system;
 
 
-import com.eghm.model.dto.sys.dict.DictQueryRequest;
+import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.dao.model.system.SysDict;
 
 import java.util.List;

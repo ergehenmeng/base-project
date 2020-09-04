@@ -130,7 +130,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getList" parameterType="com.eghm.model.dto.business.task.TaskLogQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.task.TaskLogQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from task_log
         <where>

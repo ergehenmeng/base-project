@@ -2,9 +2,9 @@ package com.eghm.service.common.impl;
 
 import com.eghm.dao.mapper.business.HelpCenterMapper;
 import com.eghm.dao.model.business.HelpCenter;
-import com.eghm.model.dto.business.help.HelpAddRequest;
-import com.eghm.model.dto.business.help.HelpEditRequest;
-import com.eghm.model.dto.business.help.HelpQueryRequest;
+import com.eghm.model.dto.help.HelpAddRequest;
+import com.eghm.model.dto.help.HelpEditRequest;
+import com.eghm.model.dto.help.HelpQueryRequest;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;

@@ -113,7 +113,7 @@
         </if>
     </select>
 
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.business.sms.SmsLogQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.sms.SmsLogQueryRequest">
         select <include refid="BaseColumnList"/>
         from sms_log
         <where>

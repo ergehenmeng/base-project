@@ -2,8 +2,8 @@ package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
 import com.eghm.dao.model.system.SysDept;
-import com.eghm.model.dto.sys.dept.DeptAddRequest;
-import com.eghm.model.dto.sys.dept.DeptEditRequest;
+import com.eghm.model.dto.dept.DeptAddRequest;
+import com.eghm.model.dto.dept.DeptEditRequest;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
-import com.eghm.model.dto.sys.dict.DictAddRequest;
-import com.eghm.model.dto.sys.dict.DictEditRequest;
-import com.eghm.model.dto.sys.dict.DictQueryRequest;
+import com.eghm.model.dto.dict.DictAddRequest;
+import com.eghm.model.dto.dict.DictEditRequest;
+import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.dao.model.system.SysDict;
 import com.github.pagehelper.PageInfo;
 

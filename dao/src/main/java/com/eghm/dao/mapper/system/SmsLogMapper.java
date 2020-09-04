@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.system;
 
 import com.eghm.dao.model.business.SmsLog;
-import com.eghm.model.dto.business.sms.SmsLogQueryRequest;
+import com.eghm.model.dto.sms.SmsLogQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;

@@ -51,7 +51,7 @@
         select <include refid="BaseColumnList"/>
         from sms_template where nid = #{nid}
     </select>
-    <select id="getList" parameterType="com.eghm.model.dto.business.sms.SmsTemplateQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.sms.SmsTemplateQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from sms_template
         <if test="queryName != null and queryName != ''">

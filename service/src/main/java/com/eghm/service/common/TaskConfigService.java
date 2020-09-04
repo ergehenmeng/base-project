@@ -1,8 +1,8 @@
 package com.eghm.service.common;
 
 import com.eghm.dao.model.business.TaskConfig;
-import com.eghm.model.dto.business.task.TaskEditRequest;
-import com.eghm.model.dto.business.task.TaskQueryRequest;
+import com.eghm.model.dto.task.TaskEditRequest;
+import com.eghm.model.dto.task.TaskQueryRequest;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

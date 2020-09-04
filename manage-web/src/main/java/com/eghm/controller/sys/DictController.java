@@ -2,9 +2,9 @@ package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
 import com.eghm.dao.model.system.SysDict;
-import com.eghm.model.dto.sys.dict.DictAddRequest;
-import com.eghm.model.dto.sys.dict.DictEditRequest;
-import com.eghm.model.dto.sys.dict.DictQueryRequest;
+import com.eghm.model.dto.dict.DictAddRequest;
+import com.eghm.model.dto.dict.DictEditRequest;
+import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.sys.SysDictService;

@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.system;
 
-import com.eghm.model.dto.sys.role.RoleQueryRequest;
+import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.dao.model.system.SysRole;
 import org.apache.ibatis.annotations.Param;
 

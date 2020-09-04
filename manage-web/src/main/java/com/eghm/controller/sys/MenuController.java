@@ -6,8 +6,8 @@ import com.eghm.configuration.security.CustomFilterInvocationSecurityMetadataSou
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.system.SysMenu;
 import com.eghm.dao.model.system.SysOperator;
-import com.eghm.model.dto.sys.menu.MenuAddRequest;
-import com.eghm.model.dto.sys.menu.MenuEditRequest;
+import com.eghm.model.dto.menu.MenuAddRequest;
+import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.sys.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;

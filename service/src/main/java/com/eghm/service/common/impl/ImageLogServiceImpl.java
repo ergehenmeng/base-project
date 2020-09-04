@@ -2,9 +2,9 @@ package com.eghm.service.common.impl;
 
 import com.eghm.dao.mapper.common.ImageLogMapper;
 import com.eghm.dao.model.business.ImageLog;
-import com.eghm.model.dto.business.image.ImageAddRequest;
-import com.eghm.model.dto.business.image.ImageEditRequest;
-import com.eghm.model.dto.business.image.ImageQueryRequest;
+import com.eghm.model.dto.image.ImageAddRequest;
+import com.eghm.model.dto.image.ImageEditRequest;
+import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.service.common.ImageLogService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;

@@ -1,9 +1,9 @@
 package com.eghm.service.common;
 
 import com.eghm.dao.model.business.AppVersion;
-import com.eghm.model.dto.business.version.VersionAddRequest;
-import com.eghm.model.dto.business.version.VersionEditRequest;
-import com.eghm.model.dto.business.version.VersionQueryRequest;
+import com.eghm.model.dto.version.VersionAddRequest;
+import com.eghm.model.dto.version.VersionEditRequest;
+import com.eghm.model.dto.version.VersionQueryRequest;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.github.pagehelper.PageInfo;
 

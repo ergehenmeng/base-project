@@ -2,9 +2,9 @@ package com.eghm.service.common.impl;
 
 import com.eghm.dao.mapper.business.FeedbackLogMapper;
 import com.eghm.dao.model.business.FeedbackLog;
-import com.eghm.model.dto.business.feedback.FeedbackAddDTO;
-import com.eghm.model.dto.business.feedback.FeedbackDisposeRequest;
-import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
+import com.eghm.model.dto.feedback.FeedbackAddDTO;
+import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
+import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.utils.DataUtil;

@@ -167,7 +167,7 @@
         SELECT <include refid="BaseColumnList" /> from sys_operator where deleted = false and mobile = #{mobile}
     </select>
     
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.sys.operator.OperatorQueryRequest">
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.operator.OperatorQueryRequest">
         select <include refid="BaseColumnList" />
         from sys_operator where deleted = false
         <if test="queryName != null and queryName != ''">

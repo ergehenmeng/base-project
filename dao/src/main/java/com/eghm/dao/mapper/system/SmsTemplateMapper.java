@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.system;
 
 import com.eghm.dao.model.business.SmsTemplate;
-import com.eghm.model.dto.business.sms.SmsTemplateQueryRequest;
+import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

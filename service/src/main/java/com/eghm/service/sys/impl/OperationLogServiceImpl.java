@@ -2,7 +2,7 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.dao.mapper.system.SysOperationLogMapper;
 import com.eghm.dao.model.system.SysOperationLog;
-import com.eghm.model.dto.sys.log.OperationQueryRequest;
+import com.eghm.model.dto.log.OperationQueryRequest;
 import com.eghm.service.sys.OperationLogService;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;

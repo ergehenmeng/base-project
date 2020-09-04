@@ -2,7 +2,7 @@ package com.eghm.service.common.impl;
 
 import com.eghm.dao.mapper.business.AuditRecordMapper;
 import com.eghm.dao.model.business.AuditRecord;
-import com.eghm.model.dto.business.audit.AuditQueryRequest;
+import com.eghm.model.dto.audit.AuditQueryRequest;
 import com.eghm.service.common.AuditRecordService;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;

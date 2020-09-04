@@ -1,7 +1,7 @@
 package com.eghm.controller.sys;
 
 import com.eghm.BaseTest;
-import com.eghm.model.dto.sys.dept.DeptAddRequest;
+import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.service.sys.SysDeptService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

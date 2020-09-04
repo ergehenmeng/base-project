@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
 import com.eghm.dao.model.business.SmsTemplate;
-import com.eghm.model.dto.business.sms.SmsTemplateEditRequest;
-import com.eghm.model.dto.business.sms.SmsTemplateQueryRequest;
+import com.eghm.model.dto.sms.SmsTemplateEditRequest;
+import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.github.pagehelper.PageInfo;
 
 /**

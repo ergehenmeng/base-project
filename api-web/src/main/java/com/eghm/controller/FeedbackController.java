@@ -1,6 +1,6 @@
 package com.eghm.controller;
 
-import com.eghm.model.dto.business.feedback.FeedbackAddDTO;
+import com.eghm.model.dto.feedback.FeedbackAddDTO;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;

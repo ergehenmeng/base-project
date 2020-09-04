@@ -2,7 +2,7 @@ package com.eghm.dao.mapper.business;
 
 import com.eghm.dao.model.business.FeedbackLog;
 import com.eghm.model.vo.feedback.FeedbackVO;
-import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
+import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 
 import java.util.List;
 

@@ -2,9 +2,9 @@ package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
 import com.eghm.dao.model.system.SysRole;
-import com.eghm.model.dto.sys.role.RoleAddRequest;
-import com.eghm.model.dto.sys.role.RoleEditRequest;
-import com.eghm.model.dto.sys.role.RoleQueryRequest;
+import com.eghm.model.dto.role.RoleAddRequest;
+import com.eghm.model.dto.role.RoleEditRequest;
+import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.model.ext.CheckBox;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;

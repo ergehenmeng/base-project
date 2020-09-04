@@ -98,7 +98,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getList" parameterType="com.eghm.model.dto.sys.roster.BlackRosterQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.roster.BlackRosterQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/> from black_roster where deleted = false
         <if test="queryName != null and queryName != ''">
             and ip = #{queryName}

@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.business;
 
 import com.eghm.dao.model.business.TaskLog;
-import com.eghm.model.dto.business.task.TaskLogQueryRequest;
+import com.eghm.model.dto.task.TaskLogQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.business;
 
 import com.eghm.dao.model.business.PushTemplate;
-import com.eghm.model.dto.business.push.PushTemplateQueryRequest;
+import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

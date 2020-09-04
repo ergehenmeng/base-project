@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.common;
 
-import com.eghm.model.dto.business.notice.NoticeQueryRequest;
+import com.eghm.model.dto.notice.NoticeQueryRequest;
 import com.eghm.dao.model.business.SysNotice;
 import org.apache.ibatis.annotations.Param;
 

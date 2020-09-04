@@ -127,7 +127,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getList" parameterType="com.eghm.model.dto.business.help.HelpQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList" />
         from help_center where deleted = false
     </select>

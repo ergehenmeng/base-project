@@ -1,9 +1,9 @@
 package com.eghm.service.common;
 
-import com.eghm.model.dto.business.feedback.FeedbackAddDTO;
-import com.eghm.model.dto.business.feedback.FeedbackDisposeRequest;
+import com.eghm.model.dto.feedback.FeedbackAddDTO;
+import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
-import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
+import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.github.pagehelper.PageInfo;
 
 /**

@@ -1,10 +1,10 @@
 package com.eghm.service.sys;
 
 import com.eghm.dao.model.system.SysOperator;
-import com.eghm.model.dto.sys.operator.OperatorAddRequest;
-import com.eghm.model.dto.sys.operator.OperatorEditRequest;
-import com.eghm.model.dto.sys.operator.OperatorQueryRequest;
-import com.eghm.model.dto.sys.operator.PasswordEditRequest;
+import com.eghm.model.dto.operator.OperatorAddRequest;
+import com.eghm.model.dto.operator.OperatorEditRequest;
+import com.eghm.model.dto.operator.OperatorQueryRequest;
+import com.eghm.model.dto.operator.PasswordEditRequest;
 import com.github.pagehelper.PageInfo;
 
 /**

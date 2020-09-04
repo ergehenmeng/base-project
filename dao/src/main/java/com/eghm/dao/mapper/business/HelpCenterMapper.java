@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.business;
 
 import com.eghm.dao.model.business.HelpCenter;
-import com.eghm.model.dto.business.help.HelpQueryRequest;
+import com.eghm.model.dto.help.HelpQueryRequest;
 
 import java.util.List;
 

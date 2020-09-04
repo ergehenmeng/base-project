@@ -134,7 +134,7 @@
         from sys_config WHERE nid = #{nid} limit 1
     </select>
     
-    <update id="updateConfig" parameterType="com.eghm.model.dto.sys.config.ConfigEditRequest">
+    <update id="updateConfig" parameterType="com.eghm.model.dto.config.ConfigEditRequest">
         update sys_config SET
             title = #{title},
             classify = #{classify},
@@ -144,7 +144,7 @@
         where locked = false and nid = #{nid}
     </update>
     
-    <select id="getList" parameterType="com.eghm.model.dto.sys.config.ConfigEditRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.config.ConfigEditRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from sys_config
         <where>

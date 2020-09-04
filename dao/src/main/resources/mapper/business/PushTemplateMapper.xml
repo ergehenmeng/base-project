@@ -64,7 +64,7 @@
         from push_template where nid = #{nid} and state = 1 limit 1
     </select>
 
-    <select id="getList" parameterType="com.eghm.model.dto.business.push.PushTemplateQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.push.PushTemplateQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from push_template
         <where>

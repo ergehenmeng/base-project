@@ -2,7 +2,7 @@ package com.eghm.handler.process.service;
 
 import com.eghm.dao.model.business.AuditRecord;
 import com.eghm.handler.process.BaseAuditHandler;
-import com.eghm.model.dto.business.audit.AuditProcess;
+import com.eghm.model.dto.audit.AuditProcess;
 
 /**
  * @author 殿小二

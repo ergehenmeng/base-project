@@ -42,7 +42,7 @@
     from sys_notice
     where id = #{id,jdbcType=INTEGER}
   </select>
-    <select id="getList" parameterType="com.eghm.model.dto.business.notice.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
+    <select id="getList" parameterType="com.eghm.model.dto.notice.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
         select id, title, classify, deleted, add_time, update_time, state from sys_notice
         where deleted = false
         <if test="queryName != null and queryName != ''">

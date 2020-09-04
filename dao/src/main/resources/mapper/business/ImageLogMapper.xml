@@ -130,7 +130,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <select id="getList" parameterType="com.eghm.model.dto.business.image.ImageQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.image.ImageQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from image_log
         where deleted = false

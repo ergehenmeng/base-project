@@ -129,7 +129,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-    <select id="getList" parameterType="com.eghm.model.dto.business.version.VersionQueryRequest" resultMap="BaseResultMap">
+    <select id="getList" parameterType="com.eghm.model.dto.version.VersionQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>
         from app_version
         <where>

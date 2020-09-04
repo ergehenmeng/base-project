@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper.common;
 
-import com.eghm.model.dto.business.image.ImageQueryRequest;
+import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.dao.model.business.ImageLog;
 
 import java.util.List;

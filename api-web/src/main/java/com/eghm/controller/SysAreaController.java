@@ -1,6 +1,6 @@
 package com.eghm.controller;
 
-import com.eghm.model.dto.sys.area.AreaQueryDTO;
+import com.eghm.model.dto.area.AreaQueryDTO;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.sys.SysAreaVO;
 import com.eghm.service.sys.SysAreaService;

@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper.business;
 
 import com.eghm.dao.model.business.TaskConfig;
-import com.eghm.model.dto.business.task.TaskQueryRequest;
+import com.eghm.model.dto.task.TaskQueryRequest;
 
 import java.util.List;
 
