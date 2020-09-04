@@ -17,11 +17,11 @@ public interface BannerService {
 
     /**
      * 根据客户端类型及模板获取轮播图信息
-     * @param source 客户端类型
+     * @param channel 客户端类型
      * @param classify banner所属模块,数据字典的值
      * @return 轮播图列表
      */
-    List<Banner> getBanner(Channel source, Byte classify);
+    List<Banner> getBanner(Channel channel, Byte classify);
 
     /**
      * 主键查询
@@ -38,7 +38,7 @@ public interface BannerService {
     PageInfo<Banner> getByPage(BannerQueryRequest request);
 
     /**
-     * 新增录播图信息
+     * 新增轮播图信息
      * @param request 前台参数
      */
     void addBanner(BannerAddRequest request);

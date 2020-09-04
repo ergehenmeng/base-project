@@ -1,9 +1,9 @@
 package com.eghm.controller;
 
 import com.eghm.annotation.SkipAccess;
-import com.eghm.model.dto.login.AccountLoginRequest;
-import com.eghm.model.dto.login.LoginSendSmsRequest;
-import com.eghm.model.dto.login.SmsLoginRequest;
+import com.eghm.model.dto.login.AccountLoginDTO;
+import com.eghm.model.dto.login.LoginSendSmsDTO;
+import com.eghm.model.dto.login.SmsLoginDTO;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.service.user.UserService;
@@ -39,7 +39,7 @@ public class LoginController {
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
     @SkipAccess
-    public RespBody<Object> sendSms(LoginSendSmsRequest request) {
+    public RespBody<Object> sendSms(LoginSendSmsDTO request) {
         userService.sendLoginSms(request.getMobile());
         return RespBody.success();
     }
@@ -50,7 +50,7 @@ public class LoginController {
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/mobile")
     @SkipAccess
-    public RespBody<LoginTokenVO> mobile(SmsLoginRequest login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> mobile(SmsLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.smsLogin(login));
     }
@@ -61,7 +61,7 @@ public class LoginController {
     @ApiOperation("手机或邮箱密码登陆")
     @PostMapping("/login/account")
     @SkipAccess
-    public RespBody<LoginTokenVO> account(AccountLoginRequest login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> account(AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.accountLogin(login));
     }

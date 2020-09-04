@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
- * 签名验证(建议https+签名+数据加密)
+ * 签名验证(建议https+签名)
  * @author 殿小二
  * @date 2020/7/23
  */

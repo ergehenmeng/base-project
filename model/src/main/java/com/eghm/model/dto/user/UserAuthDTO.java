@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @date 2019/8/28 16:29
  */
 @Data
-public class UserAuthRequest implements Serializable {
+public class UserAuthDTO implements Serializable {
 
     private static final long serialVersionUID = 7766577359309504055L;
 
@@ -22,6 +22,7 @@ public class UserAuthRequest implements Serializable {
      * 用户id
      */
     @BackstageTag
+    @ApiModelProperty(hidden = true)
     private Integer userId;
 
     /**

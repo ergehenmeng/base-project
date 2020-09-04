@@ -1,5 +1,6 @@
 package com.eghm.model.dto.business.feedback;
 
+import com.eghm.model.annotation.BackstageTag;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,27 +14,9 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel
-public class FeedbackAddRequest implements Serializable {
+public class FeedbackAddDTO implements Serializable {
 
     private static final long serialVersionUID = -1472450823258477249L;
-
-    /**
-     * 用户id
-     */
-    @ApiModelProperty(hidden = true)
-    private Integer userId;
-
-    /**
-     * 软件版本
-     */
-    @ApiModelProperty(hidden = true)
-    private String version;
-
-    /**
-     * 系统版本
-     */
-    @ApiModelProperty(hidden = true)
-    private String systemVersion;
 
     /**
      * 反馈分类
@@ -48,15 +31,38 @@ public class FeedbackAddRequest implements Serializable {
     private String content;
 
     /**
+     * 用户id
+     */
+    @ApiModelProperty(hidden = true)
+    @BackstageTag
+    private Integer userId;
+
+    /**
      * 设备品牌
      */
     @ApiModelProperty(hidden = true)
+    @BackstageTag
     private String deviceBrand;
 
     /**
      * 设备型号
      */
     @ApiModelProperty(hidden = true)
+    @BackstageTag
     private String deviceModel;
+
+    /**
+     * 软件版本
+     */
+    @ApiModelProperty(hidden = true)
+    @BackstageTag
+    private String version;
+
+    /**
+     * 系统版本
+     */
+    @ApiModelProperty(hidden = true)
+    @BackstageTag
+    private String systemVersion;
 
 }

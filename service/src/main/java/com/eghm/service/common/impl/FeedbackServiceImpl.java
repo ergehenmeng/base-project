@@ -2,7 +2,7 @@ package com.eghm.service.common.impl;
 
 import com.eghm.dao.mapper.business.FeedbackLogMapper;
 import com.eghm.dao.model.business.FeedbackLog;
-import com.eghm.model.dto.business.feedback.FeedbackAddRequest;
+import com.eghm.model.dto.business.feedback.FeedbackAddDTO;
 import com.eghm.model.dto.business.feedback.FeedbackDisposeRequest;
 import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
@@ -32,7 +32,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
-    public void addFeedback(FeedbackAddRequest request) {
+    public void addFeedback(FeedbackAddDTO request) {
         FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
         feedbackLogMapper.insertSelective(feedback);
     }

@@ -8,16 +8,16 @@ import javax.validation.constraints.Email;
 
 /**
  * @author 殿小二
- * @date 2020/9/3
+ * @date 2020/8/29
  */
 @Data
-public class ChangeEmailRequest {
+public class BindEmailDTO {
 
     /**
-     * 邮箱账号
+     * 邮箱号
      */
-    @ApiModelProperty(value = "手机号或邮箱",required = true)
-    @Email(message = "邮箱格式错误")
+    @ApiModelProperty("绑定的邮箱号")
+    @Email(message = "邮箱地址不能为空")
     private String email;
 
     /**
@@ -31,6 +31,6 @@ public class ChangeEmailRequest {
      * 用户id
      */
     @BackstageTag
+    @ApiModelProperty(hidden = true)
     private Integer userId;
-
 }

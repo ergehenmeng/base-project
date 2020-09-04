@@ -5,13 +5,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author 殿小二
  * @date 2020/8/28
  */
 @Data
-public class SendEmailAuthCodeRequest {
+public class SendEmailAuthCodeDTO {
 
     /**
      * 邮箱
@@ -24,12 +25,14 @@ public class SendEmailAuthCodeRequest {
      * 短信验证码
      */
     @ApiModelProperty(value = "短信验证码")
+    @NotEmpty(message = "短信验证码不能为空")
     private String smsCode;
 
     /**
      * 用户id
      */
     @BackstageTag
+    @ApiModelProperty(hidden = true)
     private Integer userId;
 
 }

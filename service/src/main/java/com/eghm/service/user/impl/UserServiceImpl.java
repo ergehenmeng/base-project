@@ -15,13 +15,13 @@ import com.eghm.dao.mapper.user.UserMapper;
 import com.eghm.dao.model.business.LoginLog;
 import com.eghm.dao.model.user.User;
 import com.eghm.model.dto.email.SendEmail;
-import com.eghm.model.dto.login.AccountLoginRequest;
-import com.eghm.model.dto.login.SmsLoginRequest;
-import com.eghm.model.dto.register.RegisterUserRequest;
-import com.eghm.model.dto.user.BindEmailRequest;
-import com.eghm.model.dto.user.ChangeEmailRequest;
-import com.eghm.model.dto.user.SendEmailAuthCodeRequest;
-import com.eghm.model.dto.user.UserAuthRequest;
+import com.eghm.model.dto.login.AccountLoginDTO;
+import com.eghm.model.dto.login.SmsLoginDTO;
+import com.eghm.model.dto.register.RegisterUserDTO;
+import com.eghm.model.dto.user.BindEmailDTO;
+import com.eghm.model.dto.user.ChangeEmailDTO;
+import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
+import com.eghm.model.dto.user.UserAuthDTO;
 import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.queue.TaskHandler;
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public LoginTokenVO accountLogin(AccountLoginRequest login) {
+    public LoginTokenVO accountLogin(AccountLoginDTO login) {
         User user = this.getByAccount(login.getAccount());
         if (user == null || !encoder.matches(login.getPwd(), user.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
@@ -180,7 +180,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public LoginTokenVO smsLogin(SmsLoginRequest login) {
+    public LoginTokenVO smsLogin(SmsLoginDTO login) {
         User user = this.getByAccountRequired(login.getMobile());
         smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());
         return this.doLogin(user, login.getIp());
@@ -261,7 +261,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public LoginTokenVO registerByMobile(RegisterUserRequest request) {
+    public LoginTokenVO registerByMobile(RegisterUserDTO request) {
         this.registerRedoVerify(request.getMobile());
         smsService.verifySmsCode(SmsType.REGISTER, request.getMobile(), request.getSmsCode());
         UserRegister register = DataUtil.copy(request, UserRegister.class);
@@ -296,7 +296,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void bindEmail(BindEmailRequest request) {
+    public void bindEmail(BindEmailDTO request) {
         User user = userMapper.selectByPrimaryKey(request.getUserId());
         if (StrUtil.isNotBlank(user.getEmail())) {
             throw new BusinessException(ErrorCode.EMAIL_REDO_BIND);
@@ -309,7 +309,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void realNameAuth(UserAuthRequest request) {
+    public void realNameAuth(UserAuthDTO request) {
         User user = new User();
         user.setId(request.getUserId());
         user.setRealName(request.getRealName());
@@ -344,7 +344,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendChangeEmailCode(SendEmailAuthCodeRequest request) {
+    public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
         User user = userMapper.selectByPrimaryKey(request.getUserId());
         smsService.verifySmsCode(SmsType.CHANGE_EMAIL, user.getMobile(), request.getSmsCode());
         this.checkEmail(request.getEmail());
@@ -355,7 +355,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changeEmail(ChangeEmailRequest request) {
+    public void changeEmail(ChangeEmailDTO request) {
         VerifyEmailCode emailCode = DataUtil.copy(request, VerifyEmailCode.class);
         emailCode.setEmailType(EmailType.CHANGE_EMAIL);
         emailService.verifyEmailCode(emailCode);

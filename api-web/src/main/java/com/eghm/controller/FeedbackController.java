@@ -1,6 +1,6 @@
 package com.eghm.controller;
 
-import com.eghm.model.dto.business.feedback.FeedbackAddRequest;
+import com.eghm.model.dto.business.feedback.FeedbackAddDTO;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
@@ -31,7 +31,7 @@ public class FeedbackController{
      */
     @PostMapping("/user/feedback")
     @ApiOperation("保存反馈信息")
-    public RespBody<String> feedback(FeedbackAddRequest request) {
+    public RespBody<String> feedback(FeedbackAddDTO request) {
         RequestMessage message = ApiHolder.get();
         request.setSystemVersion(message.getOsVersion());
         request.setVersion(message.getVersion());

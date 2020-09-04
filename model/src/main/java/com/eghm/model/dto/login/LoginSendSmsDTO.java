@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2019/8/20 10:50
  */
 @Data
-public class LoginSendSmsRequest implements Serializable {
+public class LoginSendSmsDTO implements Serializable {
 
     private static final long serialVersionUID = -9143167876516780812L;
 

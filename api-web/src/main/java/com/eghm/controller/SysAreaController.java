@@ -1,6 +1,6 @@
 package com.eghm.controller;
 
-import com.eghm.model.dto.sys.area.AreaQueryRequest;
+import com.eghm.model.dto.sys.area.AreaQueryDTO;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.sys.SysAreaVO;
 import com.eghm.service.sys.SysAreaService;
@@ -32,7 +32,7 @@ public class SysAreaController {
      */
     @ApiOperation("获取省市区列表")
     @PostMapping("/area/list")
-    public RespBody<Object> list(AreaQueryRequest request) {
+    public RespBody<List<SysAreaVO>> list(AreaQueryDTO request) {
         List<SysAreaVO> voList = sysAreaService.getByPid(request.getPid());
         return RespBody.success(voList);
     }

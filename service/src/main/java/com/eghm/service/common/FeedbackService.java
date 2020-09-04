@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.model.dto.business.feedback.FeedbackAddRequest;
+import com.eghm.model.dto.business.feedback.FeedbackAddDTO;
 import com.eghm.model.dto.business.feedback.FeedbackDisposeRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.model.dto.business.feedback.FeedbackQueryRequest;
@@ -16,7 +16,7 @@ public interface FeedbackService {
      * 添加反馈信息
      * @param request 前台参数
      */
-    void addFeedback(FeedbackAddRequest request);
+    void addFeedback(FeedbackAddDTO request);
 
     /**
      * 分页查询用户反馈列表

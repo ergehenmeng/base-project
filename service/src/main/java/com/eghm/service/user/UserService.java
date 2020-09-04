@@ -1,13 +1,13 @@
 package com.eghm.service.user;
 
 import com.eghm.dao.model.user.User;
-import com.eghm.model.dto.login.AccountLoginRequest;
-import com.eghm.model.dto.login.SmsLoginRequest;
-import com.eghm.model.dto.register.RegisterUserRequest;
-import com.eghm.model.dto.user.BindEmailRequest;
-import com.eghm.model.dto.user.ChangeEmailRequest;
-import com.eghm.model.dto.user.SendEmailAuthCodeRequest;
-import com.eghm.model.dto.user.UserAuthRequest;
+import com.eghm.model.dto.login.AccountLoginDTO;
+import com.eghm.model.dto.login.SmsLoginDTO;
+import com.eghm.model.dto.register.RegisterUserDTO;
+import com.eghm.model.dto.user.BindEmailDTO;
+import com.eghm.model.dto.user.ChangeEmailDTO;
+import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
+import com.eghm.model.dto.user.UserAuthDTO;
 import com.eghm.model.ext.UserRegister;
 import com.eghm.model.vo.login.LoginTokenVO;
 
@@ -29,14 +29,14 @@ public interface UserService {
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
-    LoginTokenVO accountLogin(AccountLoginRequest login);
+    LoginTokenVO accountLogin(AccountLoginDTO login);
 
     /**
      * 短信验证码+手机号登陆
      * @param login 登陆信息
      * @return 登陆成功后的用户信息
      */
-    LoginTokenVO smsLogin(SmsLoginRequest login);
+    LoginTokenVO smsLogin(SmsLoginDTO login);
 
     /**
      * 根据账号查询用户信息
@@ -79,7 +79,7 @@ public interface UserService {
      * @param request 手机号及验证码信息
      * @return 注册后直接登陆
      */
-    LoginTokenVO registerByMobile(RegisterUserRequest request);
+    LoginTokenVO registerByMobile(RegisterUserDTO request);
 
     /**
      * 强制将用户踢下线  (仅适用于移动端用户)
@@ -100,13 +100,13 @@ public interface UserService {
      * 绑定邮箱  (2)
      * @param request 邮箱信息
      */
-    void bindEmail(BindEmailRequest request);
+    void bindEmail(BindEmailDTO request);
 
     /**
      * 用户实名制认证
      * @param request 实名制信息
      */
-    void realNameAuth(UserAuthRequest request);
+    void realNameAuth(UserAuthDTO request);
 
     /**
      * 查看邮箱是会否被占用
@@ -124,11 +124,11 @@ public interface UserService {
      * 发送更换邮箱的邮件信息(邮件内容为验证码)
      * @param request 前台参数
      */
-    void sendChangeEmailCode(SendEmailAuthCodeRequest request);
+    void sendChangeEmailCode(SendEmailAuthCodeDTO request);
 
     /**
      * 换绑邮箱
      * @param request 新邮箱信息
      */
-    void changeEmail(ChangeEmailRequest request);
+    void changeEmail(ChangeEmailDTO request);
 }

@@ -1,7 +1,5 @@
 package com.eghm.common.enums;
 
-import java.util.Arrays;
-
 /**
  * 客户端类型
  * @author 二哥很猛
@@ -40,11 +38,5 @@ public enum Channel {
     ALIPAY;
 
 
-    /**
-     * 根据下标获取响应渠道信息
-     */
-    public static Channel getChannel(byte index){
-        return Arrays.stream(Channel.values()).filter(channel -> channel.ordinal() == index).findFirst().orElse(Channel.PC);
-    }
 }
 

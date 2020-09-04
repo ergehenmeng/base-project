@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @date 2019/9/3 14:26
  */
 @Data
-public class RegisterSendSmsRequest implements Serializable {
+public class RegisterSendSmsDTO implements Serializable {
 
     private static final long serialVersionUID = -8494768267600018260L;
 

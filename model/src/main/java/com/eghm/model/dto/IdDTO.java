@@ -1,6 +1,9 @@
 package com.eghm.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 用于单一id对象映射
@@ -9,10 +12,12 @@ import lombok.Data;
  * @date 2020/8/29
  */
 @Data
-public class IdRequest {
+public class IdDTO {
 
     /**
      * id
      */
+    @ApiModelProperty(value = "id", required = true)
+    @NotNull(message = "参数不能为空")
     private Integer id;
 }

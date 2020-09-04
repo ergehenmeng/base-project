@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @date 2019/8/19 16:57
  */
 @Data
-public class SmsLoginRequest implements Serializable {
+public class SmsLoginDTO implements Serializable {
 
     private static final long serialVersionUID = -297158371625408459L;
 
