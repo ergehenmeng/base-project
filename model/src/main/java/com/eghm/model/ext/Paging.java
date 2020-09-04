@@ -53,6 +53,8 @@ public class Paging<T> {
     public Paging(PageInfo<T> info){
         this.total = info.getTotal();
         this.rows = info.getList();
+        this.page = info.getPageNum();
+        this.pageSize = info.getPageSize();
     }
 
     public Paging(){

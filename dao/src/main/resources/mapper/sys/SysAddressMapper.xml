@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.system.SysAddressMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SysAddress">
+<mapper namespace="com.eghm.dao.mapper.system.SysAreaMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.SysArea">
     <!--
       @create by mybatis
     -->
@@ -29,7 +29,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SysAddress">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.SysArea">
     <!--
       @create by mybatis
     -->
@@ -78,7 +78,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SysAddress">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.SysArea">
     <!--
       @create by mybatis
     -->
@@ -106,4 +106,7 @@
         select <include refid="BaseColumnList"/>
         from sys_address
     </select>
+  <select id="getByPid" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList" /> from sys_address where pid = #{pid}
+  </select>
 </mapper>

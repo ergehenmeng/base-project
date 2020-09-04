@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;

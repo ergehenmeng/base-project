@@ -61,6 +61,11 @@ public class CacheConstant {
     public static final String EMAIL_TEMPLATE = "email_template";
 
     /**
+     * 全国地址
+     */
+    public static final String SYS_ADDRESS = "sys_address";
+
+    /**
      * 互斥锁
      */
     public static final String MUTEX_LOCK = "mutex_lock::";
