@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class TagView implements Serializable {
 
     /**
-     * <br>
+     * 主键<br>
      * 表 : tag_view<br>
      * 对应字段 : id<br>
      */

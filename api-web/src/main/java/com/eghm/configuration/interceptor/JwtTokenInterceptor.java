@@ -7,7 +7,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.model.ext.JwtToken;
 import com.eghm.model.ext.RequestMessage;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.service.common.JwtTokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class JwtTokenInterceptor implements InterceptorAdapter {
             return true;
         }
         boolean skipAccess = this.getAnnotation(handler, SkipAccess.class) != null;
-        RequestMessage message = RequestThreadLocal.get();
+        RequestMessage message = ApiHolder.get();
         this.tryLoginVerify(request.getHeader(AppHeader.TOKEN), message, !skipAccess);
         return true;
 

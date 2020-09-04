@@ -2,7 +2,7 @@ package com.eghm.configuration.handler;
 
 
 import com.eghm.model.ext.RequestMessage;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.service.common.JsonService;
 import com.eghm.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +50,7 @@ public class RequestResponseLogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
         String ip = IpUtil.getIpAddress(request);
         String uri = request.getRequestURI();
-        RequestMessage message = RequestThreadLocal.get();
+        RequestMessage message = ApiHolder.get();
         try {
             long start = System.currentTimeMillis();
             Object proceed = joinPoint.proceed();

@@ -466,7 +466,7 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tag_view`;
 CREATE TABLE `tag_view` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT comment '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '页面名称',
   `tag` varchar(50) DEFAULT NULL COMMENT 'view唯一标示符',
   `url` varchar(1000) DEFAULT NULL COMMENT 'view页面涉及到的接口,逗号分隔',

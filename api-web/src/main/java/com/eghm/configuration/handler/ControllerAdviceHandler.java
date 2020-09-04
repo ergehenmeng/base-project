@@ -3,7 +3,7 @@ package com.eghm.configuration.handler;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.system.ExceptionLog;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.ExceptionLogTask;
@@ -65,7 +65,7 @@ public class ControllerAdviceHandler {
     @ResponseBody
     public RespBody<Object> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
-        ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(RequestThreadLocal.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
+        ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(ApiHolder.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
         taskHandler.executeExceptionLog(new ExceptionLogTask(exceptionLog, exceptionLogService));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }

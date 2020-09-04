@@ -2,7 +2,6 @@ package com.eghm.service.user.impl;
 
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.SmsType;
@@ -15,7 +14,6 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.user.UserMapper;
 import com.eghm.dao.model.business.LoginLog;
 import com.eghm.dao.model.user.User;
-import com.eghm.handler.email.service.BindEmailEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.login.AccountLoginRequest;
 import com.eghm.model.dto.login.SmsLoginRequest;
@@ -169,7 +167,7 @@ public class UserServiceImpl implements UserService {
         if (user == null || !encoder.matches(login.getPwd(), user.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
-        RequestMessage request = RequestThreadLocal.get();
+        RequestMessage request = ApiHolder.get();
         LoginLog loginLog = loginLogService.getBySerialNumber(user.getId(), request.getSerialNumber());
         if (loginLog == null && StrUtil.isNotBlank(user.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信
@@ -201,7 +199,7 @@ public class UserServiceImpl implements UserService {
     private LoginTokenVO doLogin(User user, String ip) {
         // 将原用户踢掉
         this.offline(user.getId());
-        RequestMessage request = RequestThreadLocal.get();
+        RequestMessage request = ApiHolder.get();
         // 创建token
         Token token = tokenService.createToken(user.getId(), request.getChannel());
         // 记录登陆日志信息

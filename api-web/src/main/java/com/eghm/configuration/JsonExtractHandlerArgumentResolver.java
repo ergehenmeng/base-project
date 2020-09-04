@@ -4,7 +4,7 @@ import com.eghm.annotation.SkipDataBinder;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.model.ext.RequestMessage;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.utils.DataUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -61,7 +61,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         }
         //注入RequestMessage对象
         if (parameter.getParameterType().isAssignableFrom(RequestMessage.class)) {
-            return DataUtil.copy(RequestThreadLocal.get(), RequestMessage.class);
+            return DataUtil.copy(ApiHolder.get(), RequestMessage.class);
         }
         Object args = jsonFormat(parameter);
         WebDataBinder binder = binderFactory.createBinder(webRequest, args, parameter.getParameterType().getName());
@@ -83,13 +83,13 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
      */
     private Object jsonFormat(MethodParameter parameter) {
         try {
-            String requestBody = RequestThreadLocal.get().getRequestBody();
+            String requestBody = ApiHolder.get().getRequestBody();
             Class<?> parameterType = parameter.getParameterType();
             if (requestBody == null) {
                 return parameterType.getDeclaredConstructor().newInstance();
             }
             // 将解密后的数据继续放入到,以便于做日志记录
-            RequestThreadLocal.get().setRequestBody(requestBody);
+            ApiHolder.get().setRequestBody(requestBody);
             return objectMapper.readValue(requestBody, parameterType);
         } catch (Exception e) {
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);

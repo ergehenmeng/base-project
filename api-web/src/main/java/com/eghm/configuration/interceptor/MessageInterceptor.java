@@ -6,7 +6,7 @@ import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.model.ext.RequestMessage;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class MessageInterceptor implements InterceptorAdapter {
             // 该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             throw new ParameterException(ErrorCode.REQUEST_PARAM_ILLEGAL);
         }
-        RequestMessage message = RequestThreadLocal.get();
+        RequestMessage message = ApiHolder.get();
         message.setVersion(version);
         message.setChannel(channel);
         message.setOsVersion(osVersion);
@@ -69,7 +69,7 @@ public class MessageInterceptor implements InterceptorAdapter {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        RequestThreadLocal.remove();
+        ApiHolder.remove();
     }
 
     /**

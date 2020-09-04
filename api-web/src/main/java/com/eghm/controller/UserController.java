@@ -6,7 +6,7 @@ import com.eghm.dao.model.business.LoginLog;
 import com.eghm.model.dto.user.BindEmailRequest;
 import com.eghm.model.dto.user.ChangeEmailRequest;
 import com.eghm.model.dto.user.SendEmailAuthCodeRequest;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.ext.Token;
 import com.eghm.model.vo.user.LoginDeviceVO;
@@ -51,8 +51,8 @@ public class UserController {
         this.loginLogService = loginLogService;
     }
 
-    @PostMapping("/user/set_password")
-    public RespBody<Object> setPassword(){
+    @PostMapping("/user/setup_password")
+    public RespBody<Object> setupPassword(){
         return RespBody.success();
     }
 
@@ -78,7 +78,7 @@ public class UserController {
     @PostMapping("/user/send_bind_email_code")
     @ApiOperation("绑定邮箱发送验证码请求")
     public RespBody<Object> sendBindEmail(SendEmailAuthCodeRequest request) {
-        userService.sendBindEmail(request.getEmail(), RequestThreadLocal.getUserId());
+        userService.sendBindEmail(request.getEmail(), ApiHolder.getUserId());
         return RespBody.success();
     }
 
@@ -88,7 +88,7 @@ public class UserController {
     @PostMapping("/user/bind_email")
     @ApiOperation("首次绑定邮箱")
     public RespBody<Object> bindEmail(BindEmailRequest request) {
-        request.setUserId(RequestThreadLocal.getUserId());
+        request.setUserId(ApiHolder.getUserId());
         userService.bindEmail(request);
         return RespBody.success();
     }
@@ -99,7 +99,7 @@ public class UserController {
     @PostMapping("/user/send_change_email_sms")
     @ApiOperation("发送换绑邮箱的短信验证码")
     public RespBody<Object> sendChangeEmailSms() {
-        userService.sendChangeEmailSms(RequestThreadLocal.getUserId());
+        userService.sendChangeEmailSms(ApiHolder.getUserId());
         return RespBody.success();
     }
 
@@ -114,7 +114,7 @@ public class UserController {
     }
 
     /**
-     * 绑定新邮箱账号
+     * 绑定新邮箱账号 ③
      */
     @PostMapping("/user/bind_change_email")
     @ApiOperation("绑定新邮箱账号")

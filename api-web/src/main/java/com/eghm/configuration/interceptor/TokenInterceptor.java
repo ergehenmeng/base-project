@@ -5,7 +5,7 @@ import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.model.ext.RequestMessage;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.Token;
 import com.eghm.service.common.TokenService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class TokenInterceptor implements InterceptorAdapter {
         }
 
         boolean skipAccess = this.skipAccess(handler);
-        RequestMessage message = RequestThreadLocal.get();
+        RequestMessage message = ApiHolder.get();
         this.tryLoginVerify(request.getHeader(AppHeader.TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
         return true;
     }

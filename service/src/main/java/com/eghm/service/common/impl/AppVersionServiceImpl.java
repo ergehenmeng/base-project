@@ -9,7 +9,7 @@ import com.eghm.dao.model.business.AppVersion;
 import com.eghm.model.dto.business.version.VersionAddRequest;
 import com.eghm.model.dto.business.version.VersionEditRequest;
 import com.eghm.model.dto.business.version.VersionQueryRequest;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
 import com.eghm.utils.DataUtil;
@@ -81,9 +81,9 @@ public class AppVersionServiceImpl implements AppVersionService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public AppVersionVO getLatestVersion() {
-        String channel = RequestThreadLocal.getChannel();
+        String channel = ApiHolder.getChannel();
         AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
-        String version = RequestThreadLocal.getVersion();
+        String version = ApiHolder.getVersion();
         // 未找到最新版本,或者用户版本大于等于已上架版本
         if (latestVersion == null || VersionUtil.gte(version, latestVersion.getVersion())) {
             return AppVersionVO.builder().latest(true).build();

@@ -8,7 +8,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ext.RequestMessage;
-import com.eghm.model.ext.RequestThreadLocal;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class SignatureInterceptor implements InterceptorAdapter {
         if (!this.supportHandler(handler)) {
             return true;
         }
-        RequestMessage message = RequestThreadLocal.get();
+        RequestMessage message = ApiHolder.get();
         if (StrUtil.isBlank(message.getTimestamp())) {
             throw new ParameterException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);
         }

@@ -4,14 +4,15 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 
 /**
+ * 针对移动端项目用于获取用户token信息的静态类
  * @author 二哥很猛
  * @date 2019/8/22 14:22
  */
-public class RequestThreadLocal {
+public class ApiHolder {
 
     private static final ThreadLocal<RequestMessage> TOKEN_LOCAL = ThreadLocal.withInitial(RequestMessage::new);
 
-    private RequestThreadLocal() {
+    private ApiHolder() {
     }
 
     /**
