@@ -2,8 +2,8 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.utils.StringUtil;
-import com.eghm.dao.mapper.system.SysAreaMapper;
-import com.eghm.dao.model.system.SysArea;
+import com.eghm.dao.mapper.SysAreaMapper;
+import com.eghm.dao.model.SysArea;
 import com.eghm.model.vo.sys.SysAreaVO;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;

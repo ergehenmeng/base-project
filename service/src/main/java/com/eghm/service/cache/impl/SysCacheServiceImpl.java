@@ -2,8 +2,8 @@ package com.eghm.service.cache.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.mapper.system.SysCacheMapper;
-import com.eghm.dao.model.system.SysCache;
+import com.eghm.dao.mapper.SysCacheMapper;
+import com.eghm.dao.model.SysCache;
 import com.eghm.service.cache.ClearCacheService;
 import com.eghm.service.cache.SysCacheService;
 import lombok.extern.slf4j.Slf4j;

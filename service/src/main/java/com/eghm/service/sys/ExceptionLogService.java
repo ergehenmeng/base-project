@@ -1,6 +1,6 @@
 package com.eghm.service.sys;
 
-import com.eghm.dao.model.system.ExceptionLog;
+import com.eghm.dao.model.ExceptionLog;
 
 /**
  * @author 二哥很猛

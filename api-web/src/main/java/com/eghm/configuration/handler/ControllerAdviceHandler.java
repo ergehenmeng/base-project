@@ -2,7 +2,7 @@ package com.eghm.configuration.handler;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.system.ExceptionLog;
+import com.eghm.dao.model.ExceptionLog;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
 import com.eghm.queue.TaskHandler;

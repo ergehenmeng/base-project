@@ -4,7 +4,7 @@ import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.template.HtmlTemplate;
-import com.eghm.dao.model.business.EmailTemplate;
+import com.eghm.dao.model.EmailTemplate;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.EmailTemplateService;

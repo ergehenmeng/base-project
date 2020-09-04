@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.system.BlackRosterMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.system.BlackRoster">
+<mapper namespace="com.eghm.dao.mapper.BlackRosterMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.BlackRoster">
     <!--
       @create by mybatis
     -->
@@ -28,7 +28,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.system.BlackRoster">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.BlackRoster">
     <!--
       @create by mybatis
     -->
@@ -74,7 +74,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.system.BlackRoster">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.BlackRoster">
     <!--
       @create by mybatis
     -->

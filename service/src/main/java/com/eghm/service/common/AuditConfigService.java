@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.business.AuditConfig;
+import com.eghm.dao.model.AuditConfig;
 
 import java.util.List;
 

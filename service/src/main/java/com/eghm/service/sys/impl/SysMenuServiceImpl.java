@@ -2,8 +2,8 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.mapper.system.SysMenuMapper;
-import com.eghm.dao.model.system.SysMenu;
+import com.eghm.dao.mapper.SysMenuMapper;
+import com.eghm.dao.model.SysMenu;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.service.sys.SysMenuService;

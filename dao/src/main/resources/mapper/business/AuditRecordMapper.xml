@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.business.AuditRecordMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.AuditRecord">
+<mapper namespace="com.eghm.dao.mapper.AuditRecordMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.AuditRecord">
     <!--
       @create by mybatis
     -->
@@ -36,7 +36,7 @@
     from audit_record
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.AuditRecord">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.AuditRecord">
     <!--
       @create by mybatis
     -->
@@ -142,7 +142,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.AuditRecord">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.AuditRecord">
     <!--
       @create by mybatis
     -->

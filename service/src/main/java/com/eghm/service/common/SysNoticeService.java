@@ -3,7 +3,7 @@ package com.eghm.service.common;
 import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;
-import com.eghm.dao.model.business.SysNotice;
+import com.eghm.dao.model.SysNotice;
 import com.eghm.model.vo.notice.TopNoticeVO;
 import com.github.pagehelper.PageInfo;
 

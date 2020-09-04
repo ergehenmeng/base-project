@@ -2,7 +2,7 @@ package com.eghm.controller;
 
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.model.business.LoginLog;
+import com.eghm.dao.model.LoginLog;
 import com.eghm.model.dto.user.BindEmailDTO;
 import com.eghm.model.dto.user.ChangeEmailDTO;
 import com.eghm.model.dto.user.SendEmailAuthCodeDTO;

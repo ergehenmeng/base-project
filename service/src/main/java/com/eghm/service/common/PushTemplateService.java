@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.business.PushTemplate;
+import com.eghm.dao.model.PushTemplate;
 import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.github.pagehelper.PageInfo;

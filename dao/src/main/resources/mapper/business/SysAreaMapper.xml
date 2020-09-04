@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.business.EmailTemplateMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.EmailTemplate">
+<mapper namespace="com.eghm.dao.mapper.EmailTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.EmailTemplate">
     <!--
       @create by mybatis
     -->
@@ -27,7 +27,7 @@
     from email_template
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.EmailTemplate">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.EmailTemplate">
     <!--
       @create by mybatis
     -->
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.EmailTemplate">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.EmailTemplate">
     <!--
       @create by mybatis
     -->

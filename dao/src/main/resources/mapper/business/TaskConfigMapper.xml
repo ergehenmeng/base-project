@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.business.TaskConfigMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.TaskConfig">
+<mapper namespace="com.eghm.dao.mapper.TaskConfigMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.TaskConfig">
     <!--
       @create by mybatis
     -->
@@ -29,7 +29,7 @@
     from task_config
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.TaskConfig">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.TaskConfig">
     <!--
       @create by mybatis
     -->

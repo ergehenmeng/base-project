@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.business.FeedbackLogMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.FeedbackLog">
+<mapper namespace="com.eghm.dao.mapper.FeedbackLogMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.FeedbackLog">
     <!--
       @create by mybatis
     -->
@@ -33,7 +33,7 @@
     from feedback_log
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.business.FeedbackLog">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.FeedbackLog">
     <!--
       @create by mybatis
     -->
@@ -109,7 +109,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.FeedbackLog">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.FeedbackLog">
     <!--
       @create by mybatis
     -->

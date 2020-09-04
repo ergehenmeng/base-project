@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.Mark;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.constants.DictConstant;
-import com.eghm.dao.model.business.SysNotice;
+import com.eghm.dao.model.SysNotice;
 import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;

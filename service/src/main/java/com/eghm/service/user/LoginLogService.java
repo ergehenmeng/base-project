@@ -1,6 +1,6 @@
 package com.eghm.service.user;
 
-import com.eghm.dao.model.business.LoginLog;
+import com.eghm.dao.model.LoginLog;
 import com.eghm.model.ext.LoginRecord;
 
 /**

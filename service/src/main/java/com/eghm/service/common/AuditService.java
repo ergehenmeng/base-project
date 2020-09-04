@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.dao.model.AuditRecord;
 import com.eghm.model.dto.audit.AuditProcess;
 import com.eghm.model.dto.audit.AuditQueryRequest;
 import com.eghm.model.dto.audit.BeginProcess;

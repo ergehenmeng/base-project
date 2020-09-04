@@ -1,6 +1,6 @@
 package com.eghm.controller.business;
 
-import com.eghm.dao.model.business.SmsTemplate;
+import com.eghm.dao.model.SmsTemplate;
 import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.model.ext.Paging;

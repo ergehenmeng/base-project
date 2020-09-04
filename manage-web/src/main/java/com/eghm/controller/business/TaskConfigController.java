@@ -2,7 +2,7 @@ package com.eghm.controller.business;
 
 import com.eghm.annotation.Mark;
 import com.eghm.configuration.task.config.SystemTaskRegistrar;
-import com.eghm.dao.model.business.TaskConfig;
+import com.eghm.dao.model.TaskConfig;
 import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.model.ext.Paging;

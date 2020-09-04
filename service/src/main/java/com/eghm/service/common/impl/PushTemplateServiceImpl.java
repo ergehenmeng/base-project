@@ -1,8 +1,8 @@
 package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.dao.mapper.business.PushTemplateMapper;
-import com.eghm.dao.model.business.PushTemplate;
+import com.eghm.dao.mapper.PushTemplateMapper;
+import com.eghm.dao.model.PushTemplate;
 import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;

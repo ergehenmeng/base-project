@@ -1,8 +1,8 @@
 package com.eghm.service.sys.impl;
 
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.dao.mapper.system.SmsTemplateMapper;
-import com.eghm.dao.model.business.SmsTemplate;
+import com.eghm.dao.mapper.SmsTemplateMapper;
+import com.eghm.dao.model.SmsTemplate;
 import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.service.sys.SmsTemplateService;

@@ -2,8 +2,8 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.mapper.business.TaskConfigMapper;
-import com.eghm.dao.model.business.TaskConfig;
+import com.eghm.dao.mapper.TaskConfigMapper;
+import com.eghm.dao.model.TaskConfig;
 import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.service.common.TaskConfigService;

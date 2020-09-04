@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.dao.mapper.system.ExceptionLogMapper;
-import com.eghm.dao.model.system.ExceptionLog;
+import com.eghm.dao.mapper.ExceptionLogMapper;
+import com.eghm.dao.model.ExceptionLog;
 import com.eghm.service.sys.ExceptionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

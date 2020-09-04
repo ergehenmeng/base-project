@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.business.AppVersion;
+import com.eghm.dao.model.AppVersion;
 import com.eghm.model.dto.version.VersionAddRequest;
 import com.eghm.model.dto.version.VersionEditRequest;
 import com.eghm.model.dto.version.VersionQueryRequest;

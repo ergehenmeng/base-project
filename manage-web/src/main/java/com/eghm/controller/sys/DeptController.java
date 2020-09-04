@@ -1,7 +1,7 @@
 package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
-import com.eghm.dao.model.system.SysDept;
+import com.eghm.dao.model.SysDept;
 import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
 import com.eghm.model.ext.RespBody;

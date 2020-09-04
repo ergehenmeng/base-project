@@ -1,8 +1,8 @@
 package com.eghm.queue;
 
 import com.eghm.constants.TaskConstant;
-import com.eghm.dao.model.system.ExceptionLog;
-import com.eghm.dao.model.system.SysOperationLog;
+import com.eghm.dao.model.ExceptionLog;
+import com.eghm.dao.model.SysOperationLog;
 import com.eghm.model.ext.LoginRecord;
 import com.eghm.service.sys.ExceptionLogService;
 import com.eghm.service.sys.OperationLogService;

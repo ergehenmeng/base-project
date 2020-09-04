@@ -2,8 +2,8 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.Channel;
-import com.eghm.dao.mapper.common.BannerMapper;
-import com.eghm.dao.model.business.Banner;
+import com.eghm.dao.mapper.BannerMapper;
+import com.eghm.dao.model.Banner;
 import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;

@@ -2,8 +2,8 @@ package com.eghm.service.cache.impl;
 
 
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.model.system.BlackRoster;
-import com.eghm.dao.model.system.SysDict;
+import com.eghm.dao.model.BlackRoster;
+import com.eghm.dao.model.SysDict;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.service.sys.SysDictService;

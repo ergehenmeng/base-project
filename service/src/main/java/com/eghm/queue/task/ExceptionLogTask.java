@@ -1,6 +1,6 @@
 package com.eghm.queue.task;
 
-import com.eghm.dao.model.system.ExceptionLog;
+import com.eghm.dao.model.ExceptionLog;
 import com.eghm.queue.AbstractTask;
 import com.eghm.service.sys.ExceptionLogService;
 

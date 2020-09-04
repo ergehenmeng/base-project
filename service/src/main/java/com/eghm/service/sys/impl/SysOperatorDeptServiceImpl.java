@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.dao.mapper.system.SysOperatorDeptMapper;
-import com.eghm.dao.model.system.SysOperatorDept;
+import com.eghm.dao.mapper.SysOperatorDeptMapper;
+import com.eghm.dao.model.SysOperatorDept;
 import com.eghm.service.sys.SysOperatorDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

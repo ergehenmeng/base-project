@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.eghm.common.enums.Channel;
-import com.eghm.dao.model.business.Banner;
+import com.eghm.dao.model.Banner;
 import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;

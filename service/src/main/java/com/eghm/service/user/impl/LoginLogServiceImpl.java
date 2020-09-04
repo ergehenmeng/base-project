@@ -1,7 +1,7 @@
 package com.eghm.service.user.impl;
 
-import com.eghm.dao.mapper.business.LoginLogMapper;
-import com.eghm.dao.model.business.LoginLog;
+import com.eghm.dao.mapper.LoginLogMapper;
+import com.eghm.dao.model.LoginLog;
 import com.eghm.model.ext.LoginRecord;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.utils.DataUtil;

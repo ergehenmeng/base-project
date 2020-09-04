@@ -4,7 +4,7 @@ import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.business.TaskConfig;
+import com.eghm.dao.model.TaskConfig;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;

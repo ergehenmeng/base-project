@@ -2,8 +2,8 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.EmailType;
-import com.eghm.dao.mapper.business.EmailTemplateMapper;
-import com.eghm.dao.model.business.EmailTemplate;
+import com.eghm.dao.mapper.EmailTemplateMapper;
+import com.eghm.dao.model.EmailTemplate;
 import com.eghm.service.common.EmailTemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;

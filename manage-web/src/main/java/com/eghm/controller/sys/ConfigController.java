@@ -3,7 +3,7 @@ package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
 import com.eghm.constants.DictConstant;
-import com.eghm.dao.model.system.SysConfig;
+import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
 import com.eghm.model.dto.config.ConfigQueryRequest;
 import com.eghm.model.ext.Paging;

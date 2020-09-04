@@ -6,7 +6,7 @@ import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.model.business.SmsLog;
+import com.eghm.dao.model.SmsLog;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.SendSmsService;
 import com.eghm.service.common.SmsService;

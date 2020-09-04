@@ -17,7 +17,7 @@ import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.eghm.common.enums.PushType;
 import com.eghm.configuration.PushProperties;
-import com.eghm.dao.model.business.PushTemplate;
+import com.eghm.dao.model.PushTemplate;
 import com.eghm.model.ext.PushBuilder;
 import com.eghm.service.common.PushService;
 import com.eghm.service.common.PushTemplateService;

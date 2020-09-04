@@ -3,7 +3,7 @@ package com.eghm.controller.business;
 import com.eghm.annotation.Mark;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
-import com.eghm.dao.model.business.ImageLog;
+import com.eghm.dao.model.ImageLog;
 import com.eghm.model.dto.image.ImageAddRequest;
 import com.eghm.model.dto.image.ImageEditRequest;
 import com.eghm.model.dto.image.ImageQueryRequest;

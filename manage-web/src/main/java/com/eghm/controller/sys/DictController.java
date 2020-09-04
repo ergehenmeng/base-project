@@ -1,7 +1,7 @@
 package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
-import com.eghm.dao.model.system.SysDict;
+import com.eghm.dao.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;

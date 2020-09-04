@@ -2,7 +2,7 @@ package com.eghm.handler.email;
 
 import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.model.business.EmailTemplate;
+import com.eghm.dao.model.EmailTemplate;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.impl.SysConfigApi;

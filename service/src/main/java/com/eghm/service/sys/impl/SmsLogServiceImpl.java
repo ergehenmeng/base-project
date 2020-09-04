@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.dao.mapper.system.SmsLogMapper;
-import com.eghm.dao.model.business.SmsLog;
+import com.eghm.dao.mapper.SmsLogMapper;
+import com.eghm.dao.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
 import com.eghm.service.sys.SmsLogService;
 import com.github.pagehelper.PageInfo;

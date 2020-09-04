@@ -1,7 +1,7 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.dao.mapper.business.HelpCenterMapper;
-import com.eghm.dao.model.business.HelpCenter;
+import com.eghm.dao.mapper.HelpCenterMapper;
+import com.eghm.dao.model.HelpCenter;
 import com.eghm.model.dto.help.HelpAddRequest;
 import com.eghm.model.dto.help.HelpEditRequest;
 import com.eghm.model.dto.help.HelpQueryRequest;

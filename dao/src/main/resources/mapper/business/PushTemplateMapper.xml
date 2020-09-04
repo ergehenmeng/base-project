@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.business.PushTemplateMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.business.PushTemplate">
+<mapper namespace="com.eghm.dao.mapper.PushTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.PushTemplate">
     <!--
       @create by mybatis
     -->
@@ -29,7 +29,7 @@
     from push_template
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.business.PushTemplate">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.PushTemplate">
     <!--
       @create by mybatis
     -->

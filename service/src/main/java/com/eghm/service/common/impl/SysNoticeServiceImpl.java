@@ -2,8 +2,8 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.mapper.common.SysNoticeMapper;
-import com.eghm.dao.model.business.SysNotice;
+import com.eghm.dao.mapper.SysNoticeMapper;
+import com.eghm.dao.model.SysNotice;
 import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;

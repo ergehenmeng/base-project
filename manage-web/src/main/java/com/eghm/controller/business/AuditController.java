@@ -2,7 +2,7 @@ package com.eghm.controller.business;
 
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
-import com.eghm.dao.model.business.AuditRecord;
+import com.eghm.dao.model.AuditRecord;
 import com.eghm.model.dto.audit.AuditProcess;
 import com.eghm.model.dto.audit.AuditProcessRequest;
 import com.eghm.model.dto.audit.AuditQueryRequest;

@@ -1,6 +1,6 @@
 package com.eghm.controller.business;
 
-import com.eghm.dao.model.business.SmsLog;
+import com.eghm.dao.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.service.sys.SmsLogService;

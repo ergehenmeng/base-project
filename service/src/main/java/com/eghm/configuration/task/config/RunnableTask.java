@@ -1,7 +1,7 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.model.business.TaskLog;
+import com.eghm.dao.model.TaskLog;
 import com.eghm.service.common.TaskLogService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;

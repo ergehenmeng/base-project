@@ -1,9 +1,9 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.dao.mapper.system.SysOperatorRoleMapper;
-import com.eghm.dao.mapper.system.SysRoleMapper;
-import com.eghm.dao.model.system.SysRole;
+import com.eghm.dao.mapper.SysOperatorRoleMapper;
+import com.eghm.dao.mapper.SysRoleMapper;
+import com.eghm.dao.model.SysRole;
 import com.eghm.model.dto.role.RoleAddRequest;
 import com.eghm.model.dto.role.RoleEditRequest;
 import com.eghm.model.dto.role.RoleQueryRequest;

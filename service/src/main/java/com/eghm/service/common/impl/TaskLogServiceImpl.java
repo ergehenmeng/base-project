@@ -1,7 +1,7 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.dao.mapper.business.TaskLogMapper;
-import com.eghm.dao.model.business.TaskLog;
+import com.eghm.dao.mapper.TaskLogMapper;
+import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.TaskLogService;
 import com.github.pagehelper.PageInfo;

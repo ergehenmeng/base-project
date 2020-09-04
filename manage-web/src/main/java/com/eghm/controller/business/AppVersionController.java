@@ -3,7 +3,7 @@ package com.eghm.controller.business;
 import com.eghm.annotation.Mark;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.model.business.AppVersion;
+import com.eghm.dao.model.AppVersion;
 import com.eghm.model.dto.version.VersionAddRequest;
 import com.eghm.model.dto.version.VersionEditRequest;
 import com.eghm.model.dto.version.VersionQueryRequest;

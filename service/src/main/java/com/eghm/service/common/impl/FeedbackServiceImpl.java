@@ -1,7 +1,7 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.dao.mapper.business.FeedbackLogMapper;
-import com.eghm.dao.model.business.FeedbackLog;
+import com.eghm.dao.mapper.FeedbackLogMapper;
+import com.eghm.dao.model.FeedbackLog;
 import com.eghm.model.dto.feedback.FeedbackAddDTO;
 import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.model.dto.feedback.FeedbackQueryRequest;

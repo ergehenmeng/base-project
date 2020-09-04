@@ -1,7 +1,7 @@
 package com.eghm.controller.sys;
 
 import com.eghm.annotation.Mark;
-import com.eghm.dao.model.system.SysCache;
+import com.eghm.dao.model.SysCache;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
