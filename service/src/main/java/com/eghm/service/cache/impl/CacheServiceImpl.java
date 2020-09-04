@@ -269,5 +269,8 @@ public class CacheServiceImpl implements CacheService {
         return opsForHash.get(key, hKey);
     }
 
-
+    @Override
+    public void deleteHashKey(String key, Object... hKeys) {
+        opsForHash.delete(key, hKeys);
+    }
 }

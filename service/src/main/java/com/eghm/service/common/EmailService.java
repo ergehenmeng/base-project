@@ -1,6 +1,10 @@
 package com.eghm.service.common;
 
+import com.eghm.common.enums.EmailType;
+import com.eghm.common.enums.SmsType;
+import com.eghm.handler.email.AuthCodeEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
+import com.eghm.model.ext.VerifyEmailCode;
 
 /**
  * @author 二哥很猛
@@ -22,4 +26,11 @@ public interface EmailService {
      * @param email 发送信息
      */
     void sendEmail(SendEmail email);
+
+    /**
+     * 校验邮箱验证码是否正确.<br>
+     * 在{@link AuthCodeEmailHandler}该类中存入验证码相关信息,此处取出来校验一波
+     * @param emailCode 校验邮箱验证码的参数信息
+     */
+    void verifyEmailCode(VerifyEmailCode emailCode);
 }

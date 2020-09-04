@@ -1,9 +1,15 @@
 package com.eghm.service.common.impl;
 
+import com.eghm.common.constant.CacheConstant;
+import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.handler.email.BaseEmailHandler;
+import com.eghm.handler.email.service.BindEmailEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
+import com.eghm.model.ext.VerifyEmailCode;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +31,13 @@ import javax.mail.internet.MimeMessage;
 public class EmailServiceImpl implements EmailService {
 
     private JavaMailSender javaMailSender;
+
+    private CacheService cacheService;
+
+    @Autowired
+    public void setCacheService(CacheService cacheService) {
+        this.cacheService = cacheService;
+    }
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {
@@ -55,5 +68,20 @@ public class EmailServiceImpl implements EmailService {
     public void sendEmail(SendEmail email) {
         BaseEmailHandler handler = SpringContextUtil.getBean(email.getType().getHandler(), BaseEmailHandler.class);
         handler.handler(email);
+    }
+
+    @Override
+    public void verifyEmailCode(VerifyEmailCode emailCode) {
+        String hashKey = emailCode.getEmailType().getValue() + "::" + emailCode.getUserId();
+        String email = cacheService.getHashValue(hashKey, BindEmailEmailHandler.EMAIL);
+        if (email == null || !email.equals(emailCode.getEmail())) {
+            throw new BusinessException(ErrorCode.EMAIL_ADDRESS_ERROR);
+        }
+        String authCode = cacheService.getHashValue(hashKey, BindEmailEmailHandler.AUTH_CODE);
+        if (authCode == null || !authCode.equals(emailCode.getAuthCode())) {
+            throw new BusinessException(ErrorCode.EMAIL_CODE_ERROR);
+        }
+        // 成功之后删除,防止恶意更新
+        cacheService.delete(hashKey);
     }
 }

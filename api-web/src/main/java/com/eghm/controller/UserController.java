@@ -109,7 +109,7 @@ public class UserController {
     @PostMapping("/user/send_change_email_code")
     @ApiOperation("发送换绑邮箱的邮箱验证码")
     public RespBody<Object> sendChangeEmailCode(SendEmailAuthCodeRequest request) {
-
+        userService.sendChangeEmailCode(request);
         return RespBody.success();
     }
 
@@ -119,7 +119,7 @@ public class UserController {
     @PostMapping("/user/bind_change_email")
     @ApiOperation("绑定新邮箱账号")
     public RespBody<Object> bindChangeEmail(ChangeEmailRequest request) {
-
+        userService.changeEmail(request);
         return RespBody.success();
     }
 }

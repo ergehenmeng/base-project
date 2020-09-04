@@ -303,18 +303,11 @@ public class UserServiceImpl implements UserService {
         if (StrUtil.isNotBlank(user.getEmail())) {
             throw new BusinessException(ErrorCode.EMAIL_REDO_BIND);
         }
-        String hashKey = CacheConstant.BIND_EMAIL_CODE + user.getId();
-        String email = cacheService.getHashValue(hashKey, BindEmailEmailHandler.EMAIL);
-        if (email == null || !email.equals(request.getEmail())) {
-            throw new BusinessException(ErrorCode.EMAIL_ADDRESS_ERROR);
-        }
-        String authCode = cacheService.getHashValue(hashKey, BindEmailEmailHandler.AUTH_CODE);
-        if (authCode == null || !authCode.equals(request.getAuthCode())) {
-            throw new BusinessException(ErrorCode.EMAIL_CODE_ERROR);
-        }
+        VerifyEmailCode emailCode = DataUtil.copy(request, VerifyEmailCode.class);
+        emailCode.setEmailType(EmailType.BIND_EMAIL);
+        emailService.verifyEmailCode(emailCode);
         user.setEmail(request.getEmail());
         userMapper.updateByPrimaryKeySelective(user);
-        cacheService.delete(hashKey);
     }
 
     @Override
@@ -365,9 +358,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changeEmail(ChangeEmailRequest request) {
+        VerifyEmailCode emailCode = DataUtil.copy(request, VerifyEmailCode.class);
+        emailCode.setEmailType(EmailType.CHANGE_EMAIL);
+        emailService.verifyEmailCode(emailCode);
         User user = userMapper.selectByPrimaryKey(request.getUserId());
-
-
+        user.setEmail(user.getEmail());
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     /**

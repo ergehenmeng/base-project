@@ -174,5 +174,12 @@ public interface CacheService {
      * @return hValue
      */
     String getHashValue(String key, String hKey);
+
+    /**
+     * 删除hash中的某个key
+     * @param key 主key
+     * @param hKeys hKeys
+     */
+    void deleteHashKey(String key, Object... hKeys);
 }
 
