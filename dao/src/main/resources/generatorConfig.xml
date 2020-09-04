@@ -30,13 +30,13 @@
         </javaTypeResolver>
 
         <!-- 生成模型的包位置 -->
-        <javaModelGenerator targetPackage="com.eghm.dao.model.business"
+        <javaModelGenerator targetPackage="com.eghm.dao.model"
             targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
         <!-- 生成mapper.xml文件位置 -->
-        <sqlMapGenerator targetPackage="mapper.business"
+        <sqlMapGenerator targetPackage="mapper"
             targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"  />
 
@@ -44,12 +44,12 @@
         
         <!-- 生成mapper的接口位置 -->
         <javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.eghm.dao.mapper.business" targetProject="src/main/java">
+                             targetPackage="com.eghm.dao.mapper" targetProject="src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
         
         <!-- 注意该处必须一次只生成一个表的mapper,pojo,xml -->
-        <table tableName="email_template" domainObjectName="EmailTemplate"
+        <table tableName="login_device" domainObjectName="LoginDevice"
             enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false"
             selectByExampleQueryId="false" enableDeleteByPrimaryKey="false">
