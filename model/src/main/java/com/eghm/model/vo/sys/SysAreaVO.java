@@ -10,9 +10,9 @@ import lombok.Data;
 public class SysAreaVO {
 
     /**
-     * nid
+     * id
      */
-    private Long nid;
+    private Integer id;
 
     /**
      * 地区名称

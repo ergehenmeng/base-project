@@ -11,9 +11,9 @@ import java.io.Serializable;
 @Data
 public class SysArea implements Serializable {
     /**
-     * <br>
+     * 区域代码 <br>
      * 表 : sys_area<br>
-     * 对应字段 : id<br>
+     * 对应字段 : id <br>
      */
     private Integer id;
 
@@ -23,13 +23,6 @@ public class SysArea implements Serializable {
      * 对应字段 : title<br>
      */
     private String title;
-
-    /**
-     * 区域代码<br>
-     * 表 : sys_area<br>
-     * 对应字段 : nid<br>
-     */
-    private String nid;
 
     /**
      * 父级区域代码<br>

@@ -235,15 +235,14 @@ CREATE TABLE `sms_template` (
 DROP TABLE IF EXISTS `sys_address`;
 DROP TABLE IF EXISTS `sys_area`;
 CREATE TABLE `sys_area` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(10) unsigned NOT NULL COMMENT '区域代码 唯一',
   `title` varchar(50) DEFAULT NULL COMMENT '区域名称',
-  `nid` int(10) DEFAULT NULL COMMENT '区域代码',
   `pid` int(10) DEFAULT '0' COMMENT '父级区域代码',
   `zip_code` char(6) DEFAULT NULL COMMENT '邮编',
   `mark` char(1) DEFAULT NULL COMMENT '标示符-首字母',
   `classify` tinyint(1) unsigned DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3574 DEFAULT CHARSET=utf8mb4 COMMENT='省市县代码表';
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='省市县代码表';
 
 -- ----------------------------
 -- Table structure for sys_cache
