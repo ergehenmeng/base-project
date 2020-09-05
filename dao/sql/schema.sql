@@ -1,3 +1,17 @@
+/*
+Navicat MySQL Data Transfer
+
+Source Server         : 本地
+Source Server Version : 50729
+Source Host           : localhost:3306
+Source Database       : project
+
+Target Server Type    : MYSQL
+Target Server Version : 50729
+File Encoding         : 65001
+
+Date: 2020-09-05 13:53:15
+*/
 
 SET FOREIGN_KEY_CHECKS=0;
 
@@ -81,7 +95,7 @@ CREATE TABLE `banner` (
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `type_client_type_index` (`classify`,`client_type`) USING BTREE COMMENT '组合索引'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='轮播图维护表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='轮播图表';
 
 -- ----------------------------
 -- Table structure for black_roster
@@ -96,6 +110,21 @@ CREATE TABLE `black_roster` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='访问黑名单';
+
+-- ----------------------------
+-- Table structure for email_template
+-- ----------------------------
+DROP TABLE IF EXISTS `email_template`;
+CREATE TABLE `email_template` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `nid` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板唯一编码',
+  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板标题',
+  `content` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `remark` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`),
+  KEY `idx_nid` (`nid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='邮件模板';
 
 -- ----------------------------
 -- Table structure for exception_log
@@ -143,7 +172,7 @@ CREATE TABLE `help_center` (
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
   `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
   `ask` varchar(50) DEFAULT NULL COMMENT '问',
-  `answer` varchar(500) DEFAULT NULL COMMENT '答 支持',
+  `answer` varchar(500) DEFAULT NULL COMMENT '答',
   `sort` tinyint(4) DEFAULT '0' COMMENT '排序(小<->大)',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:不删除(正常) 1:已删除',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -169,6 +198,20 @@ CREATE TABLE `image_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='图片上传记录';
 
 -- ----------------------------
+-- Table structure for login_device
+-- ----------------------------
+DROP TABLE IF EXISTS `login_device`;
+CREATE TABLE `login_device` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `serial_number` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备唯一序列号',
+  `device_model` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备型号',
+  `login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_unique_complex` (`user_id`,`serial_number`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='登陆设备管理表';
+
+-- ----------------------------
 -- Table structure for login_log
 -- ----------------------------
 DROP TABLE IF EXISTS `login_log`;
@@ -182,7 +225,9 @@ CREATE TABLE `login_log` (
   `device_model` varchar(50) DEFAULT NULL COMMENT '设备型号',
   `software_version` varchar(12) DEFAULT NULL COMMENT '软件版本',
   `serial_number` varchar(64) DEFAULT NULL COMMENT '设备唯一编号',
-  PRIMARY KEY (`id`) USING BTREE
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_user_serial` (`user_id`,`serial_number`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户登陆日志信息';
 
 -- ----------------------------
@@ -227,12 +272,11 @@ CREATE TABLE `sms_template` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='短信模板类型';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='短信模板类型';
 
 -- ----------------------------
--- Table structure for sys_address
+-- Table structure for sys_area
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_address`;
 DROP TABLE IF EXISTS `sys_area`;
 CREATE TABLE `sys_area` (
   `id` int(10) unsigned NOT NULL COMMENT '区域代码 唯一',
@@ -275,7 +319,19 @@ CREATE TABLE `sys_config` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `nid_index` (`nid`) USING BTREE,
   KEY `type_index` (`classify`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COMMENT='系统参数配置信息表';
+
+-- ----------------------------
+-- Table structure for sys_data_dept
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_data_dept`;
+CREATE TABLE `sys_data_dept` (
+  `id` int(10) NOT NULL COMMENT '主键',
+  `operator_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `dept_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '部门编号',
+  PRIMARY KEY (`id`),
+  KEY `idx_operator_id` (`operator_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户与部门数据权限关联表(自定义数据权限)';
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -407,18 +463,6 @@ CREATE TABLE `sys_operator` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理后台用户表';
 
 -- ----------------------------
--- Table structure for sys_operator_dept
--- ----------------------------
-DROP TABLE IF EXISTS `sys_operator_dept`;
-CREATE TABLE `sys_operator_dept` (
-  `id` int(10) NOT NULL,
-  `operator_id` int(11) DEFAULT NULL COMMENT '用户id',
-  `dept_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '部门编号',
-  PRIMARY KEY (`id`),
-  KEY `idx_operator_id` (`operator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户与部门数据权限关联表(自定义数据权限)';
-
--- ----------------------------
 -- Table structure for sys_operator_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_operator_role`;
@@ -466,7 +510,7 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tag_view`;
 CREATE TABLE `tag_view` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT comment '主键',
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL COMMENT '页面名称',
   `tag` varchar(50) DEFAULT NULL COMMENT 'view唯一标示符',
   `url` varchar(1000) DEFAULT NULL COMMENT 'view页面涉及到的接口,逗号分隔',
@@ -497,13 +541,13 @@ CREATE TABLE `task_config` (
 DROP TABLE IF EXISTS `task_log`;
 CREATE TABLE `task_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `nid` char(50) DEFAULT NULL COMMENT '任务nid',
-  `bean_name` char(50) DEFAULT NULL COMMENT '定时任务bean名称',
+  `nid` varchar(50) DEFAULT NULL COMMENT '任务nid',
+  `bean_name` varchar(50) DEFAULT NULL COMMENT '定时任务bean名称',
   `state` bit(1) DEFAULT b'1' COMMENT '执行结果 0:失败 1:成功',
   `start_time` datetime DEFAULT NULL COMMENT '开始执行时间',
   `elapsed_time` bigint(20) DEFAULT '0' COMMENT '总耗时',
   `error_msg` text COMMENT '执行错误时的信息',
-  `ip` char(50) DEFAULT NULL COMMENT '执行任务的机器ip',
+  `ip` varchar(50) DEFAULT NULL COMMENT '执行任务的机器ip',
   PRIMARY KEY (`id`),
   KEY `nid_index` (`nid`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='定时任务执行日志';
@@ -520,6 +564,10 @@ CREATE TABLE `user` (
   `email` varchar(50) DEFAULT NULL COMMENT '电子邮箱',
   `pwd` varchar(256) DEFAULT NULL COMMENT '登陆密码',
   `state` bit(1) DEFAULT b'1' COMMENT '状态 0:冻结 1:正常 ',
+  `real_name` varchar(20) DEFAULT NULL COMMENT '真实姓名',
+  `id_card` varchar(256) DEFAULT NULL COMMENT '身份证号码',
+  `birthday` char(8) DEFAULT NULL COMMENT '生日 yyyyMMdd',
+  `sex` tinyint(1) DEFAULT '2' COMMENT '性别 0:女性 1:男 2:未知',
   `channel` tinyint(1) unsigned DEFAULT '0' COMMENT '注册渠道',
   `register_ip` bigint(20) DEFAULT NULL COMMENT '注册地址',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
@@ -528,45 +576,5 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `mobile_index` (`mobile`) USING BTREE,
   KEY `email_index` (`email`) USING BTREE,
-  KEY `status_index` (`state`) USING BTREE,
   KEY `channel_index` (`channel`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='前台用户基本信息表';
-
--- ----------------------------
--- Table structure for user_ext
--- ----------------------------
-DROP TABLE IF EXISTS `user_ext`;
-CREATE TABLE `user_ext` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户ID',
-  `real_name` varchar(20) DEFAULT NULL COMMENT '真实姓名',
-  `id_card` varchar(256) DEFAULT NULL COMMENT '身份证号码(前10位加密[18位身份证],前8位加密[15位身份证])',
-  `birthday` char(8) DEFAULT NULL COMMENT '生日yyyyMMdd',
-  `sex` tinyint(1) unsigned DEFAULT NULL COMMENT '性别 0:未知 1:男 2:女',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `user_id_index` (`user_id`) USING BTREE COMMENT '唯一索引'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='普通用户扩展信息表';
-
-CREATE TABLE `email_template` (
-  `id` int(10) NOT NULL COMMENT '主键',
-  `nid` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板唯一编码',
-  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板标题',
-  `content` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remark` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`),
-  KEY `idx_nid` (`nid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='邮件模板';
-
-CREATE TABLE `login_device` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
-  `serial_number` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备唯一序列号',
-  `device_model` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备型号',
-  `login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `idx_unique_complex` (`user_id`,`serial_number`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='登陆设备管理表';
-
-alter table login_log add column deleted bit(1) default 0 comment '删除状态 0:未删除 1:已删除';
