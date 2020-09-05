@@ -12,6 +12,7 @@ import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserMapper;
+import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.LoginLog;
 import com.eghm.dao.model.User;
 import com.eghm.model.dto.email.SendEmail;
@@ -31,6 +32,7 @@ import com.eghm.service.common.EmailService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.DataUtil;
@@ -59,24 +61,24 @@ public class UserServiceImpl implements UserService {
 
     private SmsService smsService;
 
+    private LoginDeviceService loginDeviceService;
+
     private LoginLogService loginLogService;
 
     private TaskHandler taskHandler;
 
     private EmailService emailService;
 
-    private CacheService cacheService;
-
     private ApplicationProperties applicationProperties;
+
+    @Autowired
+    public void setLoginLogService(LoginLogService loginLogService) {
+        this.loginLogService = loginLogService;
+    }
 
     @Autowired
     public void setApplicationProperties(ApplicationProperties applicationProperties) {
         this.applicationProperties = applicationProperties;
-    }
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
     }
 
     @Autowired
@@ -110,8 +112,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public void setLoginLogService(LoginLogService loginLogService) {
-        this.loginLogService = loginLogService;
+    public void setLoginDeviceService(LoginDeviceService loginDeviceService) {
+        this.loginDeviceService = loginDeviceService;
     }
 
     @Autowired
@@ -168,9 +170,9 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
         RequestMessage request = ApiHolder.get();
-        LoginLog loginLog = loginLogService.getBySerialNumber(user.getId(), request.getSerialNumber());
+        LoginDevice loginLog = loginDeviceService.getBySerialNumber(user.getId(), request.getSerialNumber());
         if (loginLog == null && StrUtil.isNotBlank(user.getMobile())) {
-            // 新设备登陆时,如果使用密码登陆需要验证短信
+            // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
             BusinessException exception = new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
             exception.setData(user.getMobile());
             throw exception;

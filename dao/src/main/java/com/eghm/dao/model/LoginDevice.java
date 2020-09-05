@@ -29,7 +29,7 @@ public class LoginDevice implements Serializable {
      * 表 : login_device<br>
      * 对应字段 : serial_number<br>
      */
-    private Integer serialNumber;
+    private String serialNumber;
 
     /**
      * 设备型号<br>

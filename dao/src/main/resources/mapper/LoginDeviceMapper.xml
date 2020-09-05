@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="serial_number" jdbcType="INTEGER" property="serialNumber" />
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
     <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
   </resultMap>
@@ -56,7 +56,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="serialNumber != null">
-        #{serialNumber,jdbcType=INTEGER},
+        #{serialNumber,jdbcType=VARCHAR},
       </if>
       <if test="deviceModel != null">
         #{deviceModel,jdbcType=VARCHAR},
@@ -76,7 +76,7 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="serialNumber != null">
-        serial_number = #{serialNumber,jdbcType=INTEGER},
+        serial_number = #{serialNumber,jdbcType=VARCHAR},
       </if>
       <if test="deviceModel != null">
         device_model = #{deviceModel,jdbcType=VARCHAR},
@@ -87,4 +87,19 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <insert id="insertOrUpdateSelective" parameterType="com.eghm.dao.model.LoginDevice">
+    insert into login_device(user_id, serial_number, device_model, login_time)
+    values(#{userId}, #{serialNumber}, #{deviceModel}, now())
+    on duplicate key update login_time = now();
+  </insert>
+
+  <select id="getBySerialNumber" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList"/>
+    from login_device where user_id = #{userId} and serial_number = #{serialNumber} limit 1
+  </select>
+
+  <delete id="deleteLoginDevice">
+    delete from login_device where  user_id = #{userId} and serial_number = #{serialNumber}
+  </delete>
 </mapper>

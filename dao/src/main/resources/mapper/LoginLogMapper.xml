@@ -14,12 +14,13 @@
     <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
     <result column="software_version" jdbcType="VARCHAR" property="softwareVersion" />
     <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, user_id, channel, ip, add_time, device_brand, device_model, software_version, serial_number
+    id, user_id, channel, ip, add_time, device_brand, device_model, software_version, serial_number,deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -63,6 +64,9 @@
         <if test="serialNumber != null">
           serial_number,
         </if>
+        <if test="deleted != null" >
+          deleted,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -91,6 +95,9 @@
       </if>
         <if test="serialNumber != null" >
           #{serialNumber},
+        </if>
+        <if test="deleted != null">
+          #{deleted},
         </if>
     </trim>
   </insert>
@@ -124,6 +131,9 @@
         <if test="serialNumber != null">
           serial_number = #{serialNumber},
         </if>
+        <if test="deleted != null">
+          deleted = #{deleted}
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -132,10 +142,7 @@
       select <include refid="BaseColumnList"/>
       from login_log where user_id = #{userId} order by id desc limit 1
   </select>
-
-  <select id="getBySerialNumber" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList"/>
-    from login_log where user_id = #{userId} and serial_number = #{serialNumber} limit 1
-  </select>
-
+  <update id="deleteLoginLog">
+    update login_log set deleted = true where user_id = #{userId} and serial_number = #{serialNumber}
+  </update>
 </mapper>

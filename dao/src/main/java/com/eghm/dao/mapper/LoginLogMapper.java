@@ -37,11 +37,10 @@ public interface LoginLogMapper {
     LoginLog getLastLogin(@Param("userId")Integer userId);
 
     /**
-     * 查找指定设备是否有登陆日志
-     * @param userId   用户id
-     * @param serialNumber 唯一编号
-     * @return 登陆日志
+     * 逻辑删除用户登陆日志信息
+     * @param userId 用户id
+     * @param serialNumber 设备号
+     * @return 批量删除
      */
-    LoginLog getBySerialNumber(@Param("userId")Integer userId, @Param("serialNumber") String serialNumber);
-
+    int deleteLoginLog(@Param("userId") Integer userId, @Param("serialNumber") String serialNumber);
 }

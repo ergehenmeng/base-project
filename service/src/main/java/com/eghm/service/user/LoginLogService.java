@@ -23,10 +23,10 @@ public interface LoginLogService {
     LoginLog getLastLogin(Integer userId);
 
     /**
-     * 查找指定设备是否有登陆日志
-     * @param userId       用户id
-     * @param serialNumber 唯一编号
-     * @return 登陆日志
+     * 逻辑删除用户登陆信息
+     * @param userId 用户id
+     * @param serialNumber 设备号
      */
-    LoginLog getBySerialNumber(Integer userId, String serialNumber);
+    void deleteLoginLog(Integer userId, String serialNumber);
+
 }
