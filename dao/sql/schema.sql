@@ -558,3 +558,15 @@ CREATE TABLE `email_template` (
   PRIMARY KEY (`id`),
   KEY `idx_nid` (`nid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='邮件模板';
+
+CREATE TABLE `login_device` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `serial_number` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备唯一序列号',
+  `device_model` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备型号',
+  `login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_unique_complex` (`user_id`,`serial_number`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='登陆设备管理表';
+
+alter table login_log add column deleted bit(1) default 0 comment '删除状态 0:未删除 1:已删除';
