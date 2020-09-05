@@ -96,24 +96,28 @@ public class CacheConstant {
     public static final String REFRESH_TOKEN = "refresh_token::";
 
     /**
-     * 同一类型短信发送间隔
+     * 同一类型短信发送间隔 sms_type_interval::smsType+mobile
      */
     public static final String SMS_TYPE_INTERVAL = "sms_type_interval::";
 
     /**
-     * 同一类型短信单小时总次数
+     * 同一类型短信单小时总次数 sms_type_hour_limit::smsType+mobile
      */
     public static final String SMS_TYPE_HOUR_LIMIT = "sms_type_hour_limit::";
 
     /**
-     * 同一类型短信一天总次数
+     * 同一类型短信一天总次数 sms_type_day_limit::smsType+mobile
      */
     public static final String SMS_TYPE_DAY_LIMIT = "sms_type_day_limit::";
 
     /**
-     * 同一天同手机号最大次数
+     * 同一天同手机号最大次数 sms_day::mobile
      */
     public static final String SMS_DAY = "sms_day::";
 
+    /**
+     * 用户签到缓存 user_sign_in::userId
+     */
+    public static final String USER_SIGN_IN = "user_sign_in::";
 
 }

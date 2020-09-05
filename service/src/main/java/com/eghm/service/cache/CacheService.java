@@ -181,5 +181,47 @@ public interface CacheService {
      * @param hKeys hKeys
      */
     void deleteHashKey(String key, Object... hKeys);
+
+    /**
+     * 设置bitmap值
+     * @param key  key
+     * @param ops 下标
+     * @param value 值
+     */
+    void setBitmap(String key, Long ops, Boolean value);
+
+    /**
+     * 获取bitmap的值
+     * @param key key
+     * @param ops ops
+     * @return boolean
+     */
+    Boolean getBitmap(String key, Long ops);
+
+    /**
+     * 判断在指定key上是否有succession个数连续为true 主要用于连续签到
+     * 采用bitField实现
+     * @param key key
+     * @param end 当前尾节点
+     * @param succession 连续天数
+     * @return 个数
+     */
+    boolean getBitmapSuccession(String key, Long end, Integer succession);
+
+    /**
+     * 判断在指定key上是否有succession个数连续为true 主要用于连续签到
+     * @param key key
+     * @param end 当前尾节点
+     * @param succession 连续天数,不能大于64
+     * @return 个数
+     */
+    boolean getSimpleBitmapSuccession(String key, Long end, Integer succession);
+
+    /**
+     * 统计bitmap中为true的总个数
+     * @param key key
+     * @return 个数
+     */
+    Long getBitmapCount(String key);
 }
 

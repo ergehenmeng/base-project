@@ -1,7 +1,11 @@
 package com.eghm.service.cache.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import com.eghm.common.constant.CacheConstant;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
+import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.model.ext.AsyncResponse;
@@ -11,14 +15,15 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.connection.BitFieldSubCommands;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -69,6 +74,11 @@ public class CacheServiceImpl implements CacheService {
      * 互斥等待时间
      */
     private static final long MUTEX_EXPIRE = 10;
+
+    /**
+     * bitmap最大位
+     */
+    private static final int BITMAP = 64;
 
     public CacheServiceImpl(StringRedisTemplate stringRedisTemplate) {
         this.redisTemplate = stringRedisTemplate;
@@ -272,5 +282,99 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void deleteHashKey(String key, Object... hKeys) {
         opsForHash.delete(key, hKeys);
+    }
+
+    @Override
+    public void setBitmap(String key, Long ops, Boolean value) {
+        opsForValue.setBit(key, ops, value);
+    }
+
+    @Override
+    public Boolean getBitmap(String key, Long ops) {
+        return opsForValue.getBit(key, ops);
+    }
+
+    @Override
+    public boolean getBitmapSuccession(String key, Long end, Integer succession) {
+        // end确认了该bitmap的位的总长度
+        if (end < succession) {
+            return false;
+        }
+        // 并非从头开始查找连续的节点
+        long start = end - succession;
+        // bigField key [GET type offset] [SET type offset value] 支持多命令同时查询,返回数组
+        // type: i8:表示取8位有符号 u16:表示无符号取16位 offset:表示从哪一位开始取
+        BitFieldSubCommands subCommands = BitFieldSubCommands.create();
+        // succession如果比较大的话 需要执行多次命令才能查询想要的结果
+        int commands = this.getCommands(succession);
+        int firstOffset = succession % 64;
+        long offset = start;
+        // 11111111 11111111 11111011 11111111 111111111 11111111 11111111 11111111 11111111 11111111 80位的总长度
+        // 判断最近70天是否连续, 则从第10位开始,第一次取6位(同时在判断时也只判断低位的6位) 第二次取64位
+        for (long i = start; i < commands; i++ ) {
+            // 第一个命令,如果直接设置64,在总长度时不变时,会导致最后一个数不准确
+            if (i == start && firstOffset > 0) {
+                subCommands = subCommands.get(BitFieldSubCommands.BitFieldType.signed(firstOffset)).valueAt(offset);
+                offset += firstOffset;
+            } else {
+                subCommands = subCommands.get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(offset);
+                offset += 64;
+            }
+        }
+
+        List<Long> bitField = opsForValue.bitField(key, subCommands);
+        if (CollUtil.isEmpty(bitField)) {
+            return false;
+        }
+        for (int i = 0,size = bitField.size(); i < size; i++) {
+            int maxSize = (i == 0) ? firstOffset : 64;
+            long longBit = bitField.get(i);
+            for (int j = 0; j < maxSize; j++) {
+                if (longBit >> 1 << 1 == longBit) {
+                    return false;
+                }
+                longBit >>= 1;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean getSimpleBitmapSuccession(String key, Long end, Integer succession) {
+        // end确认了该bitmap的位的总长度
+        if (end < succession) {
+            return false;
+        }
+        if (succession > 64) {
+            log.error("bitmap位数过大 [{}]", succession);
+            throw new ParameterException(ErrorCode.DATA_ERROR);
+        }
+        List<Long> longList = opsForValue.bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(end - succession));
+        if (CollUtil.isEmpty(longList)) {
+            return false;
+        }
+        Long longBit = longList.get(0);
+        for (int j = 0; j < succession; j++) {
+            if (longBit >> 1 << 1 == longBit) {
+                return false;
+            }
+            longBit >>= 1;
+        }
+        return true;
+    }
+
+    /**
+     * 计算需要多少个命令才能执行完, bitField采用有符号long数据时,最大支持64为数据
+     */
+    private int getCommands(Integer succession) {
+        if (succession / 64 == 0) {
+            return succession / 64;
+        }
+        return succession / 64 + 1;
+    }
+
+    @Override
+    public Long getBitmapCount(String key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 }

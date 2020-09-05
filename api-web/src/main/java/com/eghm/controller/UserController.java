@@ -84,7 +84,14 @@ public class UserController {
         return RespBody.success();
     }
 
-
-
+    /**
+     * 用户签到
+     */
+    @PostMapping("/user/sign_in")
+    @ApiOperation("用户签到")
+    public RespBody<Object> signIn() {
+        userService.signIn(ApiHolder.getUserId());
+        return RespBody.success();
+    }
 
 }

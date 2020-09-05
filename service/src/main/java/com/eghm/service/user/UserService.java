@@ -18,6 +18,13 @@ import com.eghm.model.vo.login.LoginTokenVO;
 public interface UserService {
 
     /**
+     * 主键查询
+     * @param userId id
+     * @return user
+     */
+    User getById(Integer userId);
+
+    /**
      * 注册新用户,必须保证参数已校验,昵称如果为空默认由系统生成
      * @param register 用户注册信息
      * @return 注册后的用户信息
@@ -131,4 +138,17 @@ public interface UserService {
      * @param request 新邮箱信息
      */
     void changeEmail(ChangeEmailDTO request);
+
+    /**
+     * 用户签到
+     * @param userId 用户id
+     */
+    void signIn(Integer userId);
+
+    /**
+     * 获取今天签到状态
+     * @param user user信息
+     * @return true 已签到 false 未签到
+     */
+    Boolean getSignInToday(User user);
 }

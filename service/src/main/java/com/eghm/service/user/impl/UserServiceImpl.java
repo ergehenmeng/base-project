@@ -2,18 +2,19 @@ package com.eghm.service.user.impl;
 
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.AesUtil;
+import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.RegExpUtil;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserMapper;
 import com.eghm.dao.model.LoginDevice;
-import com.eghm.dao.model.LoginLog;
 import com.eghm.dao.model.User;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.login.AccountLoginDTO;
@@ -42,12 +43,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/19 15:50
  */
 @Service("userService")
-@Transactional(rollbackFor = RuntimeException.class)
 @Slf4j
 public class UserServiceImpl implements UserService {
 
@@ -70,6 +72,13 @@ public class UserServiceImpl implements UserService {
     private EmailService emailService;
 
     private ApplicationProperties applicationProperties;
+
+    private CacheService cacheService;
+
+    @Autowired
+    public void setCacheService(CacheService cacheService) {
+        this.cacheService = cacheService;
+    }
 
     @Autowired
     public void setLoginLogService(LoginLogService loginLogService) {
@@ -122,6 +131,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getById(Integer userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
         this.encodePassword(user);
@@ -164,6 +179,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         User user = this.getByAccount(login.getAccount());
         if (user == null || !encoder.matches(login.getPwd(), user.getPwd())) {
@@ -230,6 +246,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateState(Integer userId, Boolean state) {
         User user = new User();
         user.setId(userId);
@@ -241,6 +258,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void sendLoginSms(String mobile) {
         User user = this.getByAccountRequired(mobile);
         smsService.sendSmsCode(SmsType.LOGIN, user.getMobile());
@@ -257,12 +275,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void registerSendSms(String mobile) {
         this.registerRedoVerify(mobile);
         smsService.sendSmsCode(SmsType.REGISTER, mobile);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public LoginTokenVO registerByMobile(RegisterUserDTO request) {
         this.registerRedoVerify(request.getMobile());
         smsService.verifySmsCode(SmsType.REGISTER, request.getMobile(), request.getSmsCode());
@@ -289,6 +309,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void sendBindEmail(String email, Integer userId) {
         this.checkEmail(email);
         SendEmail sendEmail = new SendEmail();
@@ -298,6 +319,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void bindEmail(BindEmailDTO request) {
         User user = userMapper.selectByPrimaryKey(request.getUserId());
         if (StrUtil.isNotBlank(user.getEmail())) {
@@ -311,6 +333,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void realNameAuth(UserAuthDTO request) {
         User user = new User();
         user.setId(request.getUserId());
@@ -336,6 +359,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void sendChangeEmailSms(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         if (StrUtil.isBlank(user.getMobile())) {
@@ -346,6 +370,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
         User user = userMapper.selectByPrimaryKey(request.getUserId());
         smsService.verifySmsCode(SmsType.CHANGE_EMAIL, user.getMobile(), request.getSmsCode());
@@ -364,6 +389,30 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.selectByPrimaryKey(request.getUserId());
         user.setEmail(user.getEmail());
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public void signIn(Integer userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        Date now = DateUtil.getNow();
+        long day = DateUtil.diffDay(user.getAddTime(), now);
+        String signKey = CacheConstant.USER_SIGN_IN + userId;
+        Boolean signIn = cacheService.getBitmap(signKey, day);
+        if (Boolean.TRUE.equals(signIn)) {
+            log.warn("用户重复签到 userId:[{}]", userId);
+            throw new BusinessException(ErrorCode.SIGN_IN_REDO);
+        }
+        cacheService.setBitmap(signKey, day, true);
+
+
+
+    }
+
+    @Override
+    public Boolean getSignInToday(User user) {
+        Date now = DateUtil.getNow();
+        long day = DateUtil.diffDay(user.getAddTime(), now);
+        return cacheService.getBitmap(CacheConstant.USER_SIGN_IN + user.getId(), day);
     }
 
     /**
