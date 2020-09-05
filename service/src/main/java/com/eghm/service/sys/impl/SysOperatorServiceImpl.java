@@ -9,13 +9,13 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dao.mapper.SysOperatorMapper;
 import com.eghm.dao.mapper.SysOperatorRoleMapper;
 import com.eghm.dao.model.SysOperator;
-import com.eghm.dao.model.SysOperatorDept;
+import com.eghm.dao.model.SysDataDept;
 import com.eghm.dao.model.SysOperatorRole;
 import com.eghm.model.dto.operator.OperatorAddRequest;
 import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.model.dto.operator.PasswordEditRequest;
-import com.eghm.service.sys.SysOperatorDeptService;
+import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -41,7 +41,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     private SysOperatorRoleMapper sysOperatorRoleMapper;
 
-    private SysOperatorDeptService sysOperatorDeptService;
+    private SysDataDeptService sysDataDeptService;
 
     @Autowired
     public void setSysOperatorMapper(SysOperatorMapper sysOperatorMapper) {
@@ -59,8 +59,8 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Autowired
-    public void setSysOperatorDeptService(SysOperatorDeptService sysOperatorDeptService) {
-        this.sysOperatorDeptService = sysOperatorDeptService;
+    public void setSysDataDeptService(SysDataDeptService sysDataDeptService) {
+        this.sysDataDeptService = sysDataDeptService;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         // 数据权限
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
-            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), s)));
+            roleStringList.forEach(s -> sysDataDeptService.insertSelective(new SysDataDept(operator.getId(), s)));
         }
     }
 
@@ -142,9 +142,9 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         }
         // 数据权限
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
-            sysOperatorDeptService.deleteByOperatorId(operator.getId());
+            sysDataDeptService.deleteByOperatorId(operator.getId());
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
-            roleStringList.forEach(s -> sysOperatorDeptService.insertSelective(new SysOperatorDept(operator.getId(), s)));
+            roleStringList.forEach(s -> sysDataDeptService.insertSelective(new SysDataDept(operator.getId(), s)));
         }
     }
 

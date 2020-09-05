@@ -6,7 +6,7 @@ import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.SysOperator;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysMenuService;
-import com.eghm.service.sys.SysOperatorDeptService;
+import com.eghm.service.sys.SysDataDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ public class CommonController {
 
     private CacheService cacheService;
 
-    private SysOperatorDeptService sysOperatorDeptService;
+    private SysDataDeptService sysDataDeptService;
 
     @Autowired
     public void setSysMenuService(SysMenuService sysMenuService) {
@@ -39,8 +39,8 @@ public class CommonController {
     }
 
     @Autowired
-    public void setSysOperatorDeptService(SysOperatorDeptService sysOperatorDeptService) {
-        this.sysOperatorDeptService = sysOperatorDeptService;
+    public void setSysDataDeptService(SysDataDeptService sysDataDeptService) {
+        this.sysDataDeptService = sysDataDeptService;
     }
 
     /**
@@ -71,7 +71,7 @@ public class CommonController {
         }
         // 数据权限
         if (operator.getDeptList() == null) {
-            operator.setDeptList(sysOperatorDeptService.getDeptList(operator.getId()));
+            operator.setDeptList(sysDataDeptService.getDeptList(operator.getId()));
         }
         model.addAttribute("menuList", operator.getLeftMenu());
         model.addAttribute("isInit", operator.getPwd().equals(operator.getInitPwd()));

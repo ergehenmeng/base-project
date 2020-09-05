@@ -1,6 +1,6 @@
 package com.eghm.service.sys;
 
-import com.eghm.dao.model.SysOperatorDept;
+import com.eghm.dao.model.SysDataDept;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import java.util.List;
  * @author 殿小二
  * @date 2020/8/17
  */
-public interface SysOperatorDeptService {
+public interface SysDataDeptService {
 
     /**
      * 获取用户所拥有的所有部门(数据权限)
@@ -21,7 +21,7 @@ public interface SysOperatorDeptService {
      * 插入用户与部门数据权限关联信息
      * @param dept operatorId + deptId
      */
-    void insertSelective(SysOperatorDept dept);
+    void insertSelective(SysDataDept dept);
 
     /**
      * 删除用户对应的部门的数据权限
