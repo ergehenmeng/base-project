@@ -28,6 +28,8 @@ public class DateUtil {
 
     private static final String MIN_DATE = "yyyy-MM";
 
+    private static final String SIMPLE_DATE = "MM-dd HH:mm:ss";
+
     private static final String TIMES = "HH:mm:ss";
 
     private static final String SHORT_DATE_LIMIT = "yyyyMMdd";
@@ -42,6 +44,8 @@ public class DateUtil {
 
     private static final DateTimeFormatter SHORT_LIMIT_FORMAT = DateTimeFormatter.ofPattern(SHORT_DATE_LIMIT);
 
+    private static final DateTimeFormatter SIMPLE_FORMAT = DateTimeFormatter.ofPattern(SIMPLE_DATE);
+
     /**
      * 格式化日期 yyyy-MM-dd HH:mm:ss
      *
@@ -49,7 +53,7 @@ public class DateUtil {
      * @return 字符串七日
      */
     public static String formatLong(Date date) {
-        return format(date, LONG_DATE);
+        return formatLong(date.toInstant());
     }
 
     /**
@@ -69,7 +73,7 @@ public class DateUtil {
      * @return 字符串日期
      */
     public static String formatShort(Date date) {
-        return format(date, SHORT_DATE);
+        return formatShort(date.toInstant());
     }
 
     /**
@@ -89,7 +93,7 @@ public class DateUtil {
      * @return 字符串日期
      */
     public static String formatShortLimit(Date date) {
-        return format(date, SHORT_DATE_LIMIT);
+        return formatShortLimit(date.toInstant());
     }
 
     /**
@@ -103,13 +107,33 @@ public class DateUtil {
     }
 
     /**
+     * 格式化日期 MM-dd HH:mm:ss
+     *
+     * @param date date
+     * @return 字符串日期
+     */
+    public static String formatSimple(Date date) {
+        return formatSimple(date.toInstant());
+    }
+
+    /**
+     * 格式化日期 MM-dd HH:mm:ss
+     *
+     * @param date date
+     * @return 字符串日期
+     */
+    public static String formatSimple(TemporalAccessor date) {
+        return SIMPLE_FORMAT.format(date);
+    }
+
+    /**
      * 格式化日期 HH:mm:ss
      *
      * @param date date
      * @return 字符串日期
      */
     public static String formatMin(Date date) {
-        return format(date, MIN_DATE);
+        return formatMin(date.toInstant());
     }
 
     /**

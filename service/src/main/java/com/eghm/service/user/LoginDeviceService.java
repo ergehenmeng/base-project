@@ -1,6 +1,9 @@
 package com.eghm.service.user;
 
 import com.eghm.dao.model.LoginDevice;
+import com.eghm.model.vo.user.LoginDeviceVO;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -9,7 +12,7 @@ import com.eghm.dao.model.LoginDevice;
 public interface LoginDeviceService {
 
     /**
-     * 非空插入
+     * 插入或更新,更新或插入字段中必须包含唯一性约束条件
      * @param device device
      */
     void insertOrUpdateSelective(LoginDevice device);
@@ -28,4 +31,11 @@ public interface LoginDeviceService {
      * @return 登陆日志
      */
     LoginDevice getBySerialNumber(Integer userId, String serialNumber);
+
+    /**
+     * 查询用户所有的登陆设备信息
+     * @param userId userId
+     * @return 登陆设备列表
+     */
+    List<LoginDeviceVO> getByUserId(Integer userId);
 }

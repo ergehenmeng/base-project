@@ -10,8 +10,6 @@ public class BusinessException extends SystemException {
 
     private static final long serialVersionUID = 860110039545282195L;
 
-    private Object data;
-
     public BusinessException(ErrorCode error) {
         super(error);
     }
@@ -20,11 +18,4 @@ public class BusinessException extends SystemException {
         super(code, msg);
     }
 
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 }

@@ -84,5 +84,11 @@ public interface TokenService {
      * @return token信息
      */
     Token getOfflineToken(String accessToken);
+
+    /**
+     * 清除被踢下线的token
+     * @param offlineToken token
+     */
+    void cleanOfflineToken(String offlineToken);
 }
 

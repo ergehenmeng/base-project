@@ -7,7 +7,9 @@ import com.eghm.common.exception.ParameterException;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.Token;
+import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
+import com.eghm.service.user.LoginLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
@@ -28,6 +30,13 @@ import javax.servlet.http.HttpServletResponse;
 public class TokenInterceptor implements InterceptorAdapter {
 
     private TokenService tokenService;
+
+    private LoginLogService loginLogService;
+
+    @Autowired
+    public void setLoginLogService(LoginLogService loginLogService) {
+        this.loginLogService = loginLogService;
+    }
 
     @Autowired
     public void setTokenService(TokenService tokenService) {
@@ -84,7 +93,8 @@ public class TokenInterceptor implements InterceptorAdapter {
             Token offlineToken = tokenService.getOfflineToken(accessToken);
             if (offlineToken != null) {
                 log.warn("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
-                throw new ParameterException(ErrorCode.KICK_OFF_LINE);
+                // 异常接口捎带一些额外信息方便移动端提醒用户
+                throw this.createOfflineException(offlineToken.getUserId());
             }
             log.warn("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
@@ -92,6 +102,17 @@ public class TokenInterceptor implements InterceptorAdapter {
 
     }
 
+    /**
+     * 给予用户被其他设备登陆的提示信息
+     * @param userId userId
+     * @return exception
+     */
+    private ParameterException createOfflineException(Integer userId) {
+        ParameterException exception = new ParameterException(ErrorCode.KICK_OFF_LINE);
+        LoginDeviceVO vo = loginLogService.getLastLogin(userId);
+        exception.setData(vo);
+        return exception;
+    }
 
 
 

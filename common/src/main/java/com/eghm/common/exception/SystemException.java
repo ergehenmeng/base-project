@@ -13,6 +13,8 @@ public class SystemException extends RuntimeException {
 
     private final int code;
 
+    private Object data;
+
     /**
      * 构造方法
      * @param error 错误类型枚举
@@ -30,4 +32,11 @@ public class SystemException extends RuntimeException {
         return code;
     }
 
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
 }

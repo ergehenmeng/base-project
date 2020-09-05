@@ -102,4 +102,7 @@
   <delete id="deleteLoginDevice">
     delete from login_device where  user_id = #{userId} and serial_number = #{serialNumber}
   </delete>
+  <select id="getByUserId" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList" /> from login_device where user_id = #{userId}
+  </select>
 </mapper>

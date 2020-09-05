@@ -105,4 +105,9 @@ public class TokenServiceImpl implements TokenService {
     public Token getOfflineToken(String accessToken) {
         return cacheService.getValue(CacheConstant.FORCE_OFFLINE + accessToken, Token.class);
     }
+
+    @Override
+    public void cleanOfflineToken(String offlineToken) {
+        cacheService.delete(CacheConstant.FORCE_OFFLINE + offlineToken);
+    }
 }

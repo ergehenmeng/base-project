@@ -4,6 +4,8 @@ import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.LoginLog;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author 二哥很猛
  */
@@ -50,4 +52,11 @@ public interface LoginDeviceMapper {
      * @return 1
      */
     int deleteLoginDevice(@Param("userId")Integer userId, @Param("serialNumber") String serialNumber);
+
+    /**
+     * 用户登陆设备列表
+     * @param userId userId
+     * @return 列表
+     */
+    List<LoginDevice> getByUserId(@Param("userId") Integer userId);
 }

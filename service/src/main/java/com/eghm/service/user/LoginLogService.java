@@ -2,6 +2,7 @@ package com.eghm.service.user;
 
 import com.eghm.dao.model.LoginLog;
 import com.eghm.model.ext.LoginRecord;
+import com.eghm.model.vo.user.LoginDeviceVO;
 
 /**
  * @author 二哥很猛
@@ -16,11 +17,11 @@ public interface LoginLogService {
     void addLoginLog(LoginRecord record);
 
     /**
-     * 获取用户最近一次登陆的信息, 首次登陆系统时结果为空
+     * 获取用户最近一次登陆的信息, 如果用户首次登陆系统时结果为空
      * @param userId 用户id
      * @return 登陆信息
      */
-    LoginLog getLastLogin(Integer userId);
+    LoginDeviceVO getLastLogin(Integer userId);
 
     /**
      * 逻辑删除用户登陆信息

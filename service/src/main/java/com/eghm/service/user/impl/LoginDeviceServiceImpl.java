@@ -1,13 +1,19 @@
 package com.eghm.service.user.impl;
 
+import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.mapper.LoginDeviceMapper;
 import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.LoginLog;
+import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;
+import com.eghm.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.xml.crypto.Data;
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -47,5 +53,16 @@ public class LoginDeviceServiceImpl implements LoginDeviceService {
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public LoginDevice getBySerialNumber(Integer userId, String serialNumber) {
         return loginDeviceMapper.getBySerialNumber(userId, serialNumber);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
+    public List<LoginDeviceVO> getByUserId(Integer userId) {
+        List<LoginDevice> deviceList = loginDeviceMapper.getByUserId(userId);
+        return DataUtil.convert(deviceList, device -> {
+            LoginDeviceVO vo = DataUtil.copy(device, LoginDeviceVO.class, "loginTime");
+            vo.setLoginTime(DateUtil.formatSimple(device.getLoginTime()));
+            return vo;
+        });
     }
 }
