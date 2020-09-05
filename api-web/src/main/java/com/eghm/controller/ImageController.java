@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 图片上传
- *
+ * 前端显示图片统一采用nginx方式
  * @author 二哥很猛
  * @date 2019/8/28 17:09
  */

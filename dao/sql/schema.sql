@@ -285,7 +285,8 @@ CREATE TABLE `sys_area` (
   `zip_code` char(6) DEFAULT NULL COMMENT '邮编',
   `mark` char(1) DEFAULT NULL COMMENT '标示符-首字母',
   `classify` tinyint(1) unsigned DEFAULT NULL COMMENT '分类 省份1级 市2级 县3级',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `idx_pid` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='省市县代码表';
 
 -- ----------------------------
