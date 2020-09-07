@@ -579,3 +579,5 @@ CREATE TABLE `user` (
   KEY `email_index` (`email`) USING BTREE,
   KEY `channel_index` (`channel`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='前台用户基本信息表';
+
+alter table user add column invite_code chat(6) comment '邀请码';

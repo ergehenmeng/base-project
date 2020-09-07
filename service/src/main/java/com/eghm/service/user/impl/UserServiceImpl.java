@@ -163,7 +163,10 @@ public class UserServiceImpl implements UserService {
      * @param user 用户信息
      */
     private void doPostRegister(User user) {
-        // 可添加其他处理
+        // 获取到用户id,再次更新邀请码
+        user.setInviteCode(StringUtil.encryptNumber(user.getId()));
+        userMapper.updateByPrimaryKeySelective(user);
+
     }
 
     /**

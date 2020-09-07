@@ -62,6 +62,13 @@ public class User implements Serializable {
     private Integer score;
 
     /**
+     * 邀请码 <br>
+     * 表 : user<br>
+     * 对应字段 : invite_code<br>
+     */
+    private String inviteCode;
+
+    /**
      * 真实姓名<br>
      * 表 : user<br>
      * 对应字段 : real_name<br>

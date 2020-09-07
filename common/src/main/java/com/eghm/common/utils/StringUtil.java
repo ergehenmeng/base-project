@@ -3,8 +3,6 @@ package com.eghm.common.utils;
 
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -13,7 +11,6 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -32,6 +29,16 @@ public class StringUtil {
      * 随机字符串
      */
     private static final String NUMBER_LETTERS = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
+
+    /**
+     * 进制串
+     */
+    private static final String ENCRYPT = "arQ9S3w46KyJYWm2qpP8AkjTVFZc7MvRUbNnHXz5teDu";
+
+    /**
+     * base值
+     */
+    private static final int BASE_VALUE = 168180425;
 
     /**
      * 随机数字
@@ -228,4 +235,22 @@ public class StringUtil {
     public static int random(int minValue, int maxValue) {
         return ThreadLocalRandom.current().nextInt(maxValue - minValue) + minValue;
     }
+
+    /**
+     * 数字进制 用于基础加密
+     * @param value value
+     * @return 可解密
+     */
+    public static String encryptNumber(int value) {
+        value = BASE_VALUE + value;
+        StringBuilder builder = new StringBuilder();
+        int length = ENCRYPT.length();
+        while (value > 0) {
+            builder.append(ENCRYPT.charAt(value % length));
+            value /= length;
+        }
+        return builder.toString();
+    }
+
+
 }
