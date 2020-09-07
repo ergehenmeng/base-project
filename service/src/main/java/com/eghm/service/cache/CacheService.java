@@ -191,7 +191,7 @@ public interface CacheService {
     void setBitmap(String key, Long ops, Boolean value);
 
     /**
-     * 获取bitmap的值
+     * 获取bitmap指定位置下标的值
      * @param key key
      * @param ops ops
      * @return boolean
@@ -199,14 +199,14 @@ public interface CacheService {
     Boolean getBitmap(String key, Long ops);
 
     /**
-     * 判断在指定key上是否有succession个数连续为true 主要用于连续签到
+     * 判断在指定key上是否有succession个数连续为true 增强版
      * 采用bitField实现
      * @param key key
      * @param end 当前尾节点
-     * @param succession 连续天数 该值越大性能越差 如果小于64更建议用 {@link CacheService#getSimpleBitmapSuccession(String, Long, Integer)}方法
+     * @param succession 连续天数 该值越大性能越差 如果小于64更建议用 {@link CacheService#checkSuccession(String, Long, Integer)}方法
      * @return 个数
      */
-    boolean getBitmapSuccession(String key, Long end, Integer succession);
+    boolean checkSuccessionEnhance(String key, Long end, Integer succession);
 
     /**
      * 判断在指定key上是否有succession个数连续为true 主要用于连续签到
@@ -215,7 +215,15 @@ public interface CacheService {
      * @param succession 连续天数,不能大于64
      * @return 个数
      */
-    boolean getSimpleBitmapSuccession(String key, Long end, Integer succession);
+    boolean checkSuccession(String key, Long end, Integer succession);
+
+    /**
+     * 查询bitmap中的点
+     * @param key  key
+     * @param end 结束位置 该值为了确认bitmap的总长度
+     * @return 值
+     */
+    Long getBitmap64(String key, Long end);
 
     /**
      * 统计bitmap中为true的总个数

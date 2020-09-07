@@ -29,6 +29,7 @@ import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
 import com.eghm.model.dto.user.UserAuthDTO;
 import com.eghm.model.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
+import com.eghm.model.vo.user.SignInVO;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
 import com.eghm.service.cache.CacheService;
@@ -42,12 +43,16 @@ import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -166,7 +171,6 @@ public class UserServiceImpl implements UserService {
         // 获取到用户id,再次更新邀请码
         user.setInviteCode(StringUtil.encryptNumber(user.getId()));
         userMapper.updateByPrimaryKeySelective(user);
-
     }
 
     /**
@@ -436,6 +440,35 @@ public class UserServiceImpl implements UserService {
         return cacheService.getBitmap(CacheConstant.USER_SIGN_IN + user.getId(), day);
     }
 
+    @Override
+    public SignInVO getUserSignIn(Integer userId) {
+        User user = userMapper.selectByPrimaryKey(userId);
+        Date now = DateUtil.getNow();
+        long day = DateUtil.diffDay(user.getAddTime(), now);
+        String signKey = CacheConstant.USER_SIGN_IN + userId;
+        Boolean signIn = cacheService.getBitmap(signKey, day);
+        List<Boolean> thisMonth = Lists.newArrayListWithCapacity(31);
+        boolean todaySignIn = Boolean.TRUE.equals(signIn);
+        thisMonth.add(todaySignIn);
+        SignInVO sign = new SignInVO();
+        sign.setToday(todaySignIn);
+        sign.setThisMonth(thisMonth);
+        Long bitmap64 = cacheService.getBitmap64(signKey, day);
+        if (bitmap64 == null) {
+            log.info("该用户尚未签到过 userId:[{}]", userId);
+            return sign;
+        }
+        Date monthStart = DateUtil.firstDayOfMonth(now);
+        // 本月已过天数
+        long monthDays = DateUtil.diffDay(now, monthStart);
+        for (int i = 0; i < monthDays; i++) {
+            thisMonth.add(bitmap64 >> 1 << 1 != bitmap64);
+            bitmap64 >>= 1;
+        }
+        Collections.reverse(thisMonth);
+        return sign;
+    }
+
     /**
      * 注册手机号被占用校验
      *
@@ -446,6 +479,12 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
         }
+    }
+
+    public static void main(String[] args) {
+        Date start = DateUtil.parseDate("20200801", "yyyyMMdd");
+        Date end = DateUtil.parseDate("20200901", "yyyyMMdd");
+        System.out.println(DateUtil.diffDay(start, end));
     }
 
 }

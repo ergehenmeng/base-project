@@ -10,6 +10,7 @@ import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
 import com.eghm.model.dto.user.UserAuthDTO;
 import com.eghm.model.ext.UserRegister;
 import com.eghm.model.vo.login.LoginTokenVO;
+import com.eghm.model.vo.user.SignInVO;
 
 /**
  * @author 二哥很猛
@@ -151,4 +152,11 @@ public interface UserService {
      * @return true 已签到 false 未签到
      */
     Boolean getSignInToday(User user);
+
+    /**
+     * 获取用户签到信息 只显示当月签到信息
+     * @param userId userId
+     * @return 签到信息
+     */
+    SignInVO getUserSignIn(Integer userId);
 }

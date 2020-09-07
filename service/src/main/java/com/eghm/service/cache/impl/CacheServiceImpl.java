@@ -295,7 +295,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public boolean getBitmapSuccession(String key, Long end, Integer succession) {
+    public boolean checkSuccessionEnhance(String key, Long end, Integer succession) {
         // end确认了该bitmap的位的总长度
         if (end < succession) {
             return false;
@@ -340,20 +340,11 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public boolean getSimpleBitmapSuccession(String key, Long end, Integer succession) {
-        // end确认了该bitmap的位的总长度
-        if (end < succession) {
+    public boolean checkSuccession(String key, Long end, Integer succession) {
+        Long longBit = this.getBitmapLong(key, end, succession);
+        if (longBit == null) {
             return false;
         }
-        if (succession > 64) {
-            log.error("bitmap位数不能超过64 succession:[{}]", succession);
-            throw new ParameterException(ErrorCode.DATA_ERROR);
-        }
-        List<Long> longList = opsForValue.bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(end - succession));
-        if (CollUtil.isEmpty(longList)) {
-            return false;
-        }
-        Long longBit = longList.get(0);
         for (int j = 0; j < succession; j++) {
             if (longBit >> 1 << 1 == longBit) {
                 return false;
@@ -361,6 +352,29 @@ public class CacheServiceImpl implements CacheService {
             longBit >>= 1;
         }
         return true;
+    }
+
+    @Override
+    public Long getBitmap64(String key, Long end) {
+        return this.getBitmapLong(key, end, 64);
+    }
+
+    private Long getBitmapLong(String key, Long end, int maxLength) {
+        if (maxLength > 64) {
+            log.error("bitmap位数过大 [{}]", maxLength);
+            throw new ParameterException(ErrorCode.DATA_ERROR);
+        }
+        long startIndex = (end - maxLength) > 0 ? end - maxLength : 0;
+        List<Long> longList = opsForValue.bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(startIndex));
+        if (CollUtil.isEmpty(longList)) {
+            return null;
+        }
+        return longList.get(0);
+    }
+
+    @Override
+    public Long getBitmapCount(String key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**
@@ -371,10 +385,5 @@ public class CacheServiceImpl implements CacheService {
             return succession / 64;
         }
         return succession / 64 + 1;
-    }
-
-    @Override
-    public Long getBitmapCount(String key) {
-        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 }

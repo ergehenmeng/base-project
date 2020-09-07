@@ -1,8 +1,12 @@
 package com.eghm.common.utils;
 
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -199,8 +203,13 @@ public class DateUtil {
 
 
     public static Date parseDate(String date, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return convertDate(LocalDateTime.parse(date, formatter));
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        try {
+            return format.parse(date);
+        } catch (ParseException e) {
+            log.warn("日期格式解析错误 date:[{}], pattern:[{}]", date, pattern, e);
+            throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
+        }
     }
 
 
@@ -549,5 +558,6 @@ public class DateUtil {
         }
         return year + "年前";
     }
+
 
 }
