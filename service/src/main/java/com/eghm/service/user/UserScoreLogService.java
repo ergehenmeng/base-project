@@ -1,6 +1,9 @@
 package com.eghm.service.user;
 
 import com.eghm.dao.model.UserScoreLog;
+import com.eghm.model.dto.score.UserScoreQueryDTO;
+import com.eghm.model.ext.Paging;
+import com.eghm.model.vo.score.UserScoreVO;
 
 /**
  * @author 殿小二
@@ -19,4 +22,11 @@ public interface UserScoreLogService {
      * @return 积分数
      */
     int getSignInScore();
+
+    /**
+     * 分页查询用户积分列表
+     * @param request 查询条件
+     * @return 积分列表
+     */
+    Paging<UserScoreVO> listPage(UserScoreQueryDTO request);
 }

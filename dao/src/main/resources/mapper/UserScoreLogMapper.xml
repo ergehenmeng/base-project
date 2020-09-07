@@ -98,4 +98,12 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.score.UserScoreQueryDTO">
+    select <include refid="BaseColumnList" />
+    from user_score_log
+    where user_id = #{userId}
+    <if test="type != null">
+      and type = #{type}
+    </if>
+  </select>
 </mapper>

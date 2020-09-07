@@ -480,11 +480,4 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
         }
     }
-
-    public static void main(String[] args) {
-        Date start = DateUtil.parseDate("20200801", "yyyyMMdd");
-        Date end = DateUtil.parseDate("20200901", "yyyyMMdd");
-        System.out.println(DateUtil.diffDay(start, end));
-    }
-
 }

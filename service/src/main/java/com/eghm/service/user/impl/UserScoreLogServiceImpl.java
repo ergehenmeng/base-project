@@ -4,11 +4,19 @@ import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserScoreLogMapper;
 import com.eghm.dao.model.UserScoreLog;
+import com.eghm.model.dto.score.UserScoreQueryDTO;
+import com.eghm.model.ext.Paging;
+import com.eghm.model.vo.score.UserScoreVO;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.UserScoreLogService;
+import com.eghm.utils.DataUtil;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -42,5 +50,10 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
         return StringUtil.random(1, sysConfigApi.getInt(ConfigConstant.SIGN_IN_SCORE));
     }
 
-
+    @Override
+    public Paging<UserScoreVO> listPage(UserScoreQueryDTO request) {
+        PageMethod.startPage(request.getPage(), request.getPageSize());
+        List<UserScoreLog> list = userScoreLogMapper.getList(request);
+        return DataUtil.convert(new PageInfo<>(list), scoreLog -> DataUtil.copy(scoreLog, UserScoreVO.class));
+    }
 }
