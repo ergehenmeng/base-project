@@ -14,4 +14,9 @@ public interface UserScoreLogService {
      */
     void insertSelective(UserScoreLog scoreLog);
 
+    /**
+     * 获取每日签到积分数 (随机,且由系统参数影响)
+     * @return 积分数
+     */
+    int getSignInScore();
 }

@@ -55,6 +55,13 @@ public class User implements Serializable {
     private Boolean state;
 
     /**
+     * 总积分数 <br>
+     * 表 : user<br>
+     * 对应字段 : score<br>
+     */
+    private Integer score;
+
+    /**
      * 真实姓名<br>
      * 表 : user<br>
      * 对应字段 : real_name<br>

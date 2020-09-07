@@ -346,7 +346,7 @@ public class CacheServiceImpl implements CacheService {
             return false;
         }
         if (succession > 64) {
-            log.error("bitmap位数过大 [{}]", succession);
+            log.error("bitmap位数不能超过64 succession:[{}]", succession);
             throw new ParameterException(ErrorCode.DATA_ERROR);
         }
         List<Long> longList = opsForValue.bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(end - succession));

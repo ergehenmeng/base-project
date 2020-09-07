@@ -108,4 +108,9 @@ public class ConfigConstant {
      * 全局所有验证码默认过期时间
      */
     public static final String AUTH_CODE_EXPIRE = "auth_code_expire";
+
+    /**
+     * 签到积分
+     */
+    public static final String SIGN_IN_SCORE = "sign_in_score";
 }

@@ -203,7 +203,7 @@ public interface CacheService {
      * 采用bitField实现
      * @param key key
      * @param end 当前尾节点
-     * @param succession 连续天数
+     * @param succession 连续天数 该值越大性能越差 如果小于64更建议用 {@link CacheService#getSimpleBitmapSuccession(String, Long, Integer)}方法
      * @return 个数
      */
     boolean getBitmapSuccession(String key, Long end, Integer succession);

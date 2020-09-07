@@ -219,4 +219,13 @@ public class StringUtil {
         return age;
     }
 
+    /**
+     * 获取随机数字
+     * @param minValue 随机数最小
+     * @param maxValue 随机数范围最大值 0~maxValue
+     * @return minValue >= x < maxValue
+     */
+    public static int random(int minValue, int maxValue) {
+        return ThreadLocalRandom.current().nextInt(maxValue - minValue) + minValue;
+    }
 }

@@ -5,17 +5,20 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ScoreType;
 import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.RegExpUtil;
+import com.eghm.common.utils.StringUtil;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserMapper;
 import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.User;
+import com.eghm.dao.model.UserScoreLog;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.login.AccountLoginDTO;
 import com.eghm.model.dto.login.SmsLoginDTO;
@@ -35,6 +38,7 @@ import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;
+import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
@@ -74,6 +78,13 @@ public class UserServiceImpl implements UserService {
     private ApplicationProperties applicationProperties;
 
     private CacheService cacheService;
+
+    private UserScoreLogService userScoreLogService;
+
+    @Autowired
+    public void setUserScoreLogService(UserScoreLogService userScoreLogService) {
+        this.userScoreLogService = userScoreLogService;
+    }
 
     @Autowired
     public void setCacheService(CacheService cacheService) {
@@ -198,6 +209,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         User user = this.getByAccountRequired(login.getMobile());
         smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());
@@ -402,10 +414,16 @@ public class UserServiceImpl implements UserService {
             log.warn("用户重复签到 userId:[{}]", userId);
             throw new BusinessException(ErrorCode.SIGN_IN_REDO);
         }
+        // 今日签到记录到缓存中
         cacheService.setBitmap(signKey, day, true);
-
-
-
+        int score = userScoreLogService.getSignInScore();
+        UserScoreLog log = new UserScoreLog();
+        log.setScore(score);
+        log.setUserId(userId);
+        log.setType(ScoreType.SIGN_IN.getValue());
+        userScoreLogService.insertSelective(log);
+        user.setScore(user.getScore() + score);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     @Override
