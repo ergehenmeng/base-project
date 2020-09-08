@@ -1,5 +1,6 @@
 package com.eghm.service.sys;
 
+import com.eghm.dao.model.SysArea;
 import com.eghm.model.vo.sys.SysAreaVO;
 
 import java.util.List;
@@ -21,5 +22,12 @@ public interface SysAreaService {
      * @return list
      */
     List<SysAreaVO> getByPid(Integer pid);
+
+    /**
+     * 主键查询
+     * @param id id
+     * @return 地区
+     */
+    SysArea getById(Integer id);
 }
 

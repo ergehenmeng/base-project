@@ -10,6 +10,22 @@ import java.io.Serializable;
  */
 @Data
 public class SysArea implements Serializable {
+
+    /**
+     * 省级
+     */
+    public static final byte CLASSIFY_PROVINCE = 1;
+
+    /**
+     * 市级
+     */
+    public static final byte CLASSIFY_CITY = 2;
+
+    /**
+     * 县级
+     */
+    public static final byte CLASSIFY_COUNTY = 3;
+
     /**
      * 区域代码 <br>
      * 表 : sys_area<br>

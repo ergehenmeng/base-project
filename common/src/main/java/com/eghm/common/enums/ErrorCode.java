@@ -431,6 +431,26 @@ public enum ErrorCode {
      */
     DATA_ERROR(3059,"数据格式异常"),
 
+    /**
+     * 用户地址未查询到
+     */
+    USER_ADDRESS_NULL(3062, "用户地址未查询到"),
+
+    /**
+     * 省份异常
+     */
+    PROVINCE_ERROR(3066, "省份异常"),
+
+    /**
+     * 城市异常
+     */
+    CITY_ERROR(3069, "城市异常"),
+
+    /**
+     * 县区异常
+     */
+    COUNTY_ERROR(3073, "县区异常"),
+
     ;
     /**
      * 构造方法

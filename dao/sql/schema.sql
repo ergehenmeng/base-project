@@ -581,3 +581,20 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='前台用户基本信息表';
 
 alter table user add column invite_code chat(6) comment '邀请码';
+
+CREATE TABLE `user_address` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(10) DEFAULT NULL COMMENT '用户id',
+  `state` tinyint(1) DEFAULT '0' COMMENT '状态 0: 普通地址  1:默认地址',
+  `province_id` int(11) DEFAULT NULL COMMENT '省份id',
+  `province_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '省份名称',
+  `city_id` int(10) DEFAULT NULL COMMENT '城市id',
+  `city_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '城市名称',
+  `county_id` int(11) DEFAULT NULL COMMENT '县区id',
+  `county_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '县区id',
+  `detail_address` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '详细地址',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户地址表';

@@ -1,6 +1,9 @@
 package com.eghm.service.user;
 
 import com.eghm.model.dto.address.AddressAddDTO;
+import com.eghm.model.vo.user.AddressVO;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -14,4 +17,17 @@ public interface UserAddressService {
      */
     void addUserAddress(AddressAddDTO dto);
 
+    /**
+     * 设置默认收货地址
+     * @param id  收货地址id
+     * @param userId 用户id
+     */
+    void setDefault(Integer id, Integer userId);
+
+    /**
+     * 用户地址列表
+     * @param userId userId
+     * @return 列表
+     */
+    List<AddressVO> getByUserId(Integer userId);
 }

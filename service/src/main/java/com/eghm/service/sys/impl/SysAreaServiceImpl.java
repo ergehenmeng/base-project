@@ -46,4 +46,10 @@ public class SysAreaServiceImpl implements SysAreaService {
         List<SysArea> addressList = sysAddressMapper.getByPid(pid);
         return DataUtil.convert(addressList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
     }
+
+    @Override
+    @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#id", unless = "#result == null")
+    public SysArea getById(Integer id) {
+        return sysAddressMapper.selectByPrimaryKey(id);
+    }
 }

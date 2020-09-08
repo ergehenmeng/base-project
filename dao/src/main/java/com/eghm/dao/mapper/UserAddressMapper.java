@@ -37,4 +37,12 @@ public interface UserAddressMapper {
      * @return 地址列表
      */
     List<UserAddress> getByUserId(@Param("userId")Integer userId);
+
+    /**
+     * 更新地址状态
+     * @param userId userId
+     * @param state 状态
+     * @return 批量多少条
+     */
+    int updateState(@Param("userId")Integer userId, @Param("state")Byte state);
 }
