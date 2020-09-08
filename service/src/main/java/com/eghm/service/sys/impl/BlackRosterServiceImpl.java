@@ -21,7 +21,6 @@ import java.util.List;
  * @date 2019/9/9 13:45
  */
 @Service("blackRosterService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class BlackRosterServiceImpl implements BlackRosterService {
 
     private BlackRosterMapper blackRosterMapper;
@@ -40,6 +39,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addBlackRoster(BlackRosterAddRequest request) {
         BlackRoster roster = new BlackRoster();
         roster.setIp(IpUtil.ipToLong(request.getIp()));
@@ -49,7 +49,6 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER, unless = "#result.size() == 0")
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<BlackRoster> getAvailableList() {
         return blackRosterMapper.getAvailableList();
     }

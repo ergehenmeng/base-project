@@ -51,7 +51,8 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
     }
 
     @Override
-    public Paging<UserScoreVO> listPage(UserScoreQueryDTO request) {
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
+    public Paging<UserScoreVO> getByPage(UserScoreQueryDTO request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<UserScoreLog> list = userScoreLogMapper.getList(request);
         return DataUtil.convert(new PageInfo<>(list), scoreLog -> DataUtil.copy(scoreLog, UserScoreVO.class));

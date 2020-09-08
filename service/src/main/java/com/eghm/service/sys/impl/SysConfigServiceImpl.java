@@ -25,7 +25,6 @@ import java.util.List;
  * @date 2018/1/12 09:46
  */
 @Service("sysConfigService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysConfigServiceImpl implements SysConfigService {
 
     private SysConfigMapper sysConfigMapper;
@@ -36,6 +35,7 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateConfig(ConfigEditRequest request) {
         int i = sysConfigMapper.updateConfig(request);
         if (i != 1) {
@@ -53,7 +53,6 @@ public class SysConfigServiceImpl implements SysConfigService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_CONFIG, key = "#p0", unless = "#result == null")
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public String getByNid(String nid) {
         SysConfig config = sysConfigMapper.getByNid(nid);
         if (config != null) {
@@ -63,7 +62,6 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysConfig getById(Integer id) {
         return sysConfigMapper.selectByPrimaryKey(id);
     }

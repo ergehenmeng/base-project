@@ -67,7 +67,7 @@ public class EmailServiceImpl implements EmailService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void sendEmail(SendEmail email) {
         BaseEmailHandler handler = SpringContextUtil.getBean(email.getType().getHandler(), BaseEmailHandler.class);
-        handler.handler(email);
+        handler.execute(email);
     }
 
     @Override

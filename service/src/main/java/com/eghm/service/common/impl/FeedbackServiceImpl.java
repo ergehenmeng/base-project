@@ -21,7 +21,6 @@ import java.util.List;
  * @date 2019/8/28 10:46
  */
 @Service("feedbackService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class FeedbackServiceImpl implements FeedbackService {
 
     private FeedbackLogMapper feedbackLogMapper;
@@ -32,6 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addFeedback(FeedbackAddDTO request) {
         FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
         feedbackLogMapper.insertSelective(feedback);
@@ -46,6 +46,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void dispose(FeedbackDisposeRequest request) {
         FeedbackLog feedbackLog = DataUtil.copy(request, FeedbackLog.class);
         feedbackLog.setState((byte) 1);

@@ -22,7 +22,6 @@ import java.util.List;
  * @date 2019/9/6 15:19
  */
 @Service("taskConfigService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class TaskConfigServiceImpl implements TaskConfigService {
 
     private TaskConfigMapper taskConfigMapper;
@@ -33,7 +32,6 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<TaskConfig> getAvailableList() {
         return taskConfigMapper.getAvailableList();
     }
@@ -47,12 +45,12 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public TaskConfig getById(Integer id) {
         return taskConfigMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void editTaskConfig(TaskEditRequest request) {
         if (!CronSequenceGenerator.isValidExpression(request.getCronExpression())) {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);

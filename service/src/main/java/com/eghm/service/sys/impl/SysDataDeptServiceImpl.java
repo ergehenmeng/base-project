@@ -14,7 +14,6 @@ import java.util.List;
  * @date 2020/8/17
  */
 @Service("sysDataDeptService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysDataDeptServiceImpl implements SysDataDeptService {
 
     private SysDataDeptMapper sysDataDeptMapper;
@@ -25,17 +24,18 @@ public class SysDataDeptServiceImpl implements SysDataDeptService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<String> getDeptList(Integer operatorId) {
         return sysDataDeptMapper.getDeptList(operatorId);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void insertSelective(SysDataDept dept) {
         sysDataDeptMapper.insertSelective(dept);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteByOperatorId(Integer operatorId) {
         sysDataDeptMapper.deleteByOperatorId(operatorId);
     }

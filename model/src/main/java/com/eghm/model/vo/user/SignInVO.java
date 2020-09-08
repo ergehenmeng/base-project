@@ -13,6 +13,12 @@ import java.util.List;
 public class SignInVO {
 
     /**
+     * 累计签到天数
+     */
+    @ApiModelProperty("今日是否签到 true:已签到 false:未签到")
+    private Integer addUp;
+
+    /**
      * 今日是否签到
      */
     @ApiModelProperty("今日是否签到 true:已签到 false:未签到")

@@ -3,7 +3,6 @@ package com.eghm.service.user.impl;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.mapper.LoginDeviceMapper;
 import com.eghm.dao.model.LoginDevice;
-import com.eghm.dao.model.LoginLog;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 /**

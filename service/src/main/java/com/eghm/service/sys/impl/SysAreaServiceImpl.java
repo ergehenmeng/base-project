@@ -19,7 +19,6 @@ import java.util.List;
  * @date 2019/2/13 10:25
  */
 @Service("sysAreaService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysAreaServiceImpl implements SysAreaService {
 
     private SysAreaMapper sysAddressMapper;
@@ -30,6 +29,7 @@ public class SysAreaServiceImpl implements SysAreaService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void calcInitial() {
         List<SysArea> list = sysAddressMapper.getList();
         list.forEach(sysArea -> {
@@ -42,7 +42,6 @@ public class SysAreaServiceImpl implements SysAreaService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid" ,cacheManager = "longCacheManager", sync = true)
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<SysAreaVO> getByPid(Integer pid) {
         List<SysArea> addressList = sysAddressMapper.getByPid(pid);
         return DataUtil.convert(addressList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));

@@ -19,7 +19,6 @@ import java.util.List;
  */
 @Service("sysCacheService")
 @Slf4j
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysCacheServiceImpl implements SysCacheService {
 
     private SysCacheMapper sysCacheMapper;
@@ -37,6 +36,7 @@ public class SysCacheServiceImpl implements SysCacheService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void clearCache(List<String> cacheNames) {
         for (String cacheName : cacheNames) {
             boolean cache = this.clearCache(cacheName);
@@ -45,7 +45,6 @@ public class SysCacheServiceImpl implements SysCacheService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<SysCache> getList() {
         return sysCacheMapper.getList();
     }

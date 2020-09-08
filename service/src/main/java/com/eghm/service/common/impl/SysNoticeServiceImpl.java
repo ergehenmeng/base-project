@@ -26,7 +26,6 @@ import java.util.List;
  * @date 2019/8/22 11:41
  */
 @Service("sysNoticeService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysNoticeServiceImpl implements SysNoticeService {
 
     private SysNoticeMapper sysNoticeMapper;
@@ -53,18 +52,21 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addNotice(NoticeAddRequest request) {
         SysNotice notice = DataUtil.copy(request, SysNotice.class);
         sysNoticeMapper.insertSelective(notice);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void editNotice(NoticeEditRequest request) {
         SysNotice notice = DataUtil.copy(request, SysNotice.class);
         sysNoticeMapper.updateByPrimaryKeySelective(notice);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteNotice(Integer id) {
         SysNotice notice = new SysNotice();
         notice.setId(id);
@@ -81,13 +83,13 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public SysNotice getById(Integer id) {
         return sysNoticeMapper.selectByPrimaryKey(id);
     }
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
+    @Transactional(rollbackFor = RuntimeException.class)
     public void publish(Integer id) {
         SysNotice notice = new SysNotice();
         notice.setState((byte) 1);
@@ -97,6 +99,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
+    @Transactional(rollbackFor = RuntimeException.class)
     public void cancelPublish(Integer id) {
         SysNotice notice = new SysNotice();
         notice.setState((byte) 0);

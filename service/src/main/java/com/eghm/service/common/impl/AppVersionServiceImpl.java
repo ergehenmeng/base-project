@@ -26,7 +26,6 @@ import java.util.List;
  * @date 2019/8/22 14:38
  */
 @Service("versionService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class AppVersionServiceImpl implements AppVersionService {
 
     private AppVersionMapper appVersionMapper;
@@ -45,6 +44,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addAppVersion(VersionAddRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
@@ -52,6 +52,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void editAppVersion(VersionEditRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
@@ -59,6 +60,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void putAwayVersion(Integer id) {
         AppVersion appVersion = appVersionMapper.selectByPrimaryKey(id);
         AppVersion version = appVersionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
@@ -71,6 +73,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void soldOutVersion(Integer id) {
         AppVersion version = new AppVersion();
         version.setId(id);
@@ -108,6 +111,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteVersion(Integer id) {
         AppVersion version = new AppVersion();
         version.setId(id);

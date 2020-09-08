@@ -34,7 +34,7 @@ public class ScoreController {
     @ApiOperation("用户积分列表")
     public RespBody<Paging<UserScoreVO>> listPage(UserScoreQueryDTO request) {
         request.setUserId(ApiHolder.getUserId());
-        Paging<UserScoreVO> page = userScoreLogService.listPage(request);
+        Paging<UserScoreVO> page = userScoreLogService.getByPage(request);
         return RespBody.success(page);
     }
 }

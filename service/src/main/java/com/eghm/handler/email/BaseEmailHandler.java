@@ -45,7 +45,7 @@ public class BaseEmailHandler {
      * 发送邮件 (主入口)
      * @param email 邮件信息
      */
-    public void handler(SendEmail email) {
+    public void execute(SendEmail email) {
         EmailTemplate template = this.getCheckedTemplate(email.getType());
         String title = this.getTitle(template, email);
         String content = this.getContent(template, email);

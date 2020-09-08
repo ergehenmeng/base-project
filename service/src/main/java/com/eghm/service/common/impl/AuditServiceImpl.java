@@ -63,6 +63,7 @@ public class AuditServiceImpl implements AuditService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void beginProcess(BeginProcess process) {
         List<AuditConfig> configList = auditConfigService.getConfig(process.getAuditType().name());
         if (CollUtil.isEmpty(configList)) {
@@ -91,6 +92,7 @@ public class AuditServiceImpl implements AuditService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<AuditRecord> getByPage(AuditQueryRequest request) {
         List<SysRole> userRoleList = sysRoleService.getRoleList(request.getOperatorId());
         List<String> roleList = userRoleList.stream().map(SysRole::getRoleType).collect(Collectors.toList());

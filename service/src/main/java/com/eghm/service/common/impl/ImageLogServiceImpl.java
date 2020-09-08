@@ -20,7 +20,6 @@ import java.util.List;
  * @date 2018/11/27 17:11
  */
 @Service("imageLogService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class ImageLogServiceImpl implements ImageLogService {
 
     private ImageLogMapper imageLogMapper;
@@ -39,6 +38,7 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addImageLog(ImageAddRequest request) {
         ImageLog imageLog = DataUtil.copy(request, ImageLog.class);
         imageLog.setDeleted(false);
@@ -46,6 +46,7 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteImageLog(Integer id) {
         ImageLog log = new ImageLog();
         log.setId(id);
@@ -54,13 +55,13 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateImageLog(ImageEditRequest request) {
         ImageLog log = DataUtil.copy(request, ImageLog.class);
         imageLogMapper.updateByPrimaryKeySelective(log);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public ImageLog getById(Integer id) {
         return imageLogMapper.selectByPrimaryKey(id);
     }

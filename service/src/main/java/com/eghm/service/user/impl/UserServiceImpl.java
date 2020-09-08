@@ -49,7 +49,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -155,8 +154,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = RuntimeException.class)
     public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
-        this.encodePassword(user);
-        this.generateNickName(user);
+        this.initUser(user);
         userMapper.insertSelective(user);
         this.doPostRegister(user);
         return user;
@@ -174,22 +172,14 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 对登陆密码进行加密
+     * 对用户部分信息进行初始化
      *
      * @param user 用户信息
      */
-    private void encodePassword(User user) {
+    private void initUser(User user) {
         if (StrUtil.isNotBlank(user.getPwd())) {
             user.setPwd(encoder.encode(user.getPwd()));
         }
-    }
-
-    /**
-     * 昵称为空时,动态生成昵称
-     *
-     * @param user 用户信息
-     */
-    private void generateNickName(User user) {
         if (StrUtil.isBlank(user.getNickName())) {
             user.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
         }
@@ -255,7 +245,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public User getByAccount(String account) {
         if (RegExpUtil.mobile(account)) {
             return userMapper.getByMobile(account);
@@ -284,7 +273,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public User getByAccountRequired(String account) {
         User user = this.getByAccount(account);
         if (user == null) {
@@ -401,6 +389,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void changeEmail(ChangeEmailDTO request) {
         VerifyEmailCode emailCode = DataUtil.copy(request, VerifyEmailCode.class);
         emailCode.setEmailType(EmailType.CHANGE_EMAIL);
@@ -411,6 +400,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void signIn(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         Date now = DateUtil.getNow();
@@ -446,13 +436,18 @@ public class UserServiceImpl implements UserService {
         Date now = DateUtil.getNow();
         long day = DateUtil.diffDay(user.getAddTime(), now);
         String signKey = CacheConstant.USER_SIGN_IN + userId;
+        // 今日是否签到
         Boolean signIn = cacheService.getBitmap(signKey, day);
         List<Boolean> thisMonth = Lists.newArrayListWithCapacity(31);
         boolean todaySignIn = Boolean.TRUE.equals(signIn);
         thisMonth.add(todaySignIn);
         SignInVO sign = new SignInVO();
         sign.setToday(todaySignIn);
+        // 先将参数放进去,防止返回时整个属性字段都为空
         sign.setThisMonth(thisMonth);
+        // 累计签到次数
+        Long count = cacheService.getBitmapCount(signKey);
+        sign.setAddUp(count == null ? 0 : count.intValue());
         Long bitmap64 = cacheService.getBitmap64(signKey, day);
         if (bitmap64 == null) {
             log.info("该用户尚未签到过 userId:[{}]", userId);
@@ -468,6 +463,7 @@ public class UserServiceImpl implements UserService {
         Collections.reverse(thisMonth);
         return sign;
     }
+
 
     /**
      * 注册手机号被占用校验

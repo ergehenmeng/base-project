@@ -14,7 +14,6 @@ import java.util.List;
  * @date 2019/11/27 10:22
  */
 @Service("tagViewService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class TagViewServiceImpl implements TagViewService {
 
     private TagViewMapper tagViewMapper;
@@ -25,7 +24,6 @@ public class TagViewServiceImpl implements TagViewService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<TagView> getList() {
         return tagViewMapper.getList();
     }

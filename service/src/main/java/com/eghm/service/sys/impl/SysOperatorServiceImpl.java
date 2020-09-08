@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
  * @date 2018/11/26 10:24
  */
 @Service("sysOperatorService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysOperatorServiceImpl implements SysOperatorService {
 
     private SysOperatorMapper sysOperatorMapper;
@@ -64,7 +63,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysOperator getByMobile(String mobile) {
         return sysOperatorMapper.getByMobile(mobile);
     }
@@ -72,7 +70,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     @Override
     public String updateLoginPassword(PasswordEditRequest request) {
         SysOperator operator = sysOperatorMapper.selectByPrimaryKey(request.getOperatorId());
-        checkPassword(request.getOldPwd(), operator.getPwd());
+        this.checkPassword(request.getOldPwd(), operator.getPwd());
         String newPassword = encoder.encode(request.getNewPwd());
         operator.setPwd(newPassword);
         sysOperatorMapper.updateByPrimaryKeySelective(operator);
@@ -80,7 +78,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public void checkPassword(String rawPassword, String targetPassword) {
         String oldPassword = encoder.encode(rawPassword);
         if (!targetPassword.equals(oldPassword)) {
@@ -97,6 +94,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addOperator(OperatorAddRequest request) {
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         operator.setDeleted(false);
@@ -125,12 +123,12 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysOperator getById(Integer id) {
         return sysOperatorMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateOperator(OperatorEditRequest request) {
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         sysOperatorMapper.updateByPrimaryKeySelective(operator);
@@ -149,6 +147,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void resetPassword(Integer id) {
         SysOperator operator = this.getById(id);
         String password = this.initPassword(operator.getMobile());

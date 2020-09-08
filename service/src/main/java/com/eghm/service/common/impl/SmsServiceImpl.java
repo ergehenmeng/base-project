@@ -25,7 +25,6 @@ import java.util.List;
  * @date 2019/8/16 18:46
  */
 @Service("smsService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SmsServiceImpl implements SmsService {
 
     private CacheService cacheService;
@@ -64,6 +63,7 @@ public class SmsServiceImpl implements SmsService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public void sendSmsCode(SmsType smsType, String mobile) {
         this.smsLimitCheck(smsType.getValue(), mobile);
         String template = smsTemplateService.getTemplate(smsType.getValue());

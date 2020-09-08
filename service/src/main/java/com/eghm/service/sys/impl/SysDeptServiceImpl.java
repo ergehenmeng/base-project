@@ -23,7 +23,6 @@ import java.util.List;
  * @date 2018/12/13 16:49
  */
 @Service("sysDeptService")
-@Transactional(rollbackFor = RuntimeException.class)
 @Slf4j
 public class SysDeptServiceImpl implements SysDeptService {
 
@@ -45,18 +44,17 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysDept getById(Integer id) {
         return sysDeptMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysDept> getDepartment() {
         return sysDeptMapper.getList();
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addDepartment(DeptAddRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
@@ -68,14 +66,19 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void editDepartment(DeptEditRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         sysDeptMapper.updateByPrimaryKeySelective(department);
     }
 
-    @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
-    public String getNextCode(String code) {
+    /**
+     * 根据列表计算出子级部门下一个编码的值
+     * 初始编号默认101,后面依次累计+1
+     * @param code 部门编号
+     * @return 下一个编号
+     */
+    private String getNextCode(String code) {
         SysDept child = sysDeptMapper.getMaxCodeChild(code);
         if (child == null) {
             return ROOT.equals(code) ? STEP :  code + STEP;

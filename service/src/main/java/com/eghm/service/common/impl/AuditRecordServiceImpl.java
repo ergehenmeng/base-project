@@ -17,7 +17,6 @@ import java.util.List;
  * @date 2020/8/25
  */
 @Service("auditRecordService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class AuditRecordServiceImpl implements AuditRecordService {
 
     private AuditRecordMapper auditRecordMapper;
@@ -28,17 +27,18 @@ public class AuditRecordServiceImpl implements AuditRecordService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void insertSelective(AuditRecord record) {
         auditRecordMapper.insertSelective(record);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateSelective(AuditRecord record) {
         auditRecordMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public AuditRecord getById(Integer id) {
         return auditRecordMapper.selectByPrimaryKey(id);
     }

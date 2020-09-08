@@ -27,7 +27,6 @@ import java.util.List;
  * @date 2018/1/12 14:31
  */
 @Service("sysDictService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysDictServiceImpl implements SysDictService {
 
     private SysDictMapper sysDictMapper;
@@ -39,7 +38,6 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysDict> getDictByNid(String nid) {
         return sysDictMapper.getDictByNid(nid);
     }
@@ -53,6 +51,7 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addDict(DictAddRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDict.setDeleted(false);
@@ -60,12 +59,14 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateDict(DictEditRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDictMapper.updateByPrimaryKeySelective(sysDict);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteDict(Integer id) {
         SysDict dict = new SysDict();
         dict.setDeleted(true);
@@ -77,7 +78,6 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysDict getById(Integer id) {
         return sysDictMapper.selectByPrimaryKey(id);
     }

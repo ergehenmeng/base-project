@@ -21,7 +21,6 @@ import java.util.List;
  * @date 2019/8/29 10:45
  */
 @Service("pushTemplateService")
-@Transactional(rollbackFor = RuntimeException.class, readOnly = true)
 public class PushTemplateServiceImpl implements PushTemplateService {
 
     private PushTemplateMapper pushTemplateMapper;
@@ -32,7 +31,6 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PageInfo<PushTemplate> getByPage(PushTemplateQueryRequest request) {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<PushTemplate> list = pushTemplateMapper.getList(request);
@@ -41,19 +39,16 @@ public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE, key = "#p0", unless = "#result == null")
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PushTemplate getTemplate(String nid) {
         return pushTemplateMapper.getByNid(nid);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public PushTemplate getById(Integer id) {
         return pushTemplateMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void editPushTemplate(PushTemplateEditRequest request) {
         PushTemplate template = DataUtil.copy(request, PushTemplate.class);
         pushTemplateMapper.updateByPrimaryKeySelective(template);

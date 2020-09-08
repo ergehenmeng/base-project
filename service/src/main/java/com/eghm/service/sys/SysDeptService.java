@@ -36,14 +36,5 @@ public interface SysDeptService {
      * @param request 前天参数
      */
     void editDepartment(DeptEditRequest request);
-
-    /**
-     * 根据列表计算出子级部门下一个编码的值
-     * 初始编号默认101,后面依次累计+1
-     * @param code 部门编号
-     * @return 下一个编号
-     */
-    String getNextCode(String code);
-
 }
 

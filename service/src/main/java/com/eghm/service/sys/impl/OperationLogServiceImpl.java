@@ -19,7 +19,6 @@ import java.util.List;
  * @date 2019/1/15 17:55
  */
 @Service("operationLogService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class OperationLogServiceImpl implements OperationLogService {
 
     private SysOperationLogMapper sysOperationLogMapper;
@@ -30,6 +29,7 @@ public class OperationLogServiceImpl implements OperationLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void insertOperationLog(SysOperationLog log) {
         sysOperationLogMapper.insertSelective(log);
     }
@@ -43,7 +43,6 @@ public class OperationLogServiceImpl implements OperationLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public String getResponseById(Integer id) {
         return sysOperationLogMapper.getResponseById(id);
     }

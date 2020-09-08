@@ -307,7 +307,7 @@ public class CacheServiceImpl implements CacheService {
         BitFieldSubCommands subCommands = BitFieldSubCommands.create();
         // succession如果比较大的话 需要执行多次命令才能查询想要的结果
         int commands = this.getCommands(succession);
-        int firstOffset = succession % 64;
+        int firstOffset = succession % BITMAP;
         long offset = start;
         // 11111111 11111111 11111011 11111111 111111111 11111111 11111111 11111111 11111111 11111111 80位的总长度
         // 判断最近70天是否连续, 则从第10位开始,第一次取6位(同时在判断时也只判断低位的6位) 第二次取64位
@@ -318,7 +318,7 @@ public class CacheServiceImpl implements CacheService {
                 offset += firstOffset;
             } else {
                 subCommands = subCommands.get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(offset);
-                offset += 64;
+                offset += BITMAP;
             }
         }
 
@@ -327,7 +327,7 @@ public class CacheServiceImpl implements CacheService {
             return false;
         }
         for (int i = 0,size = bitField.size(); i < size; i++) {
-            int maxSize = (i == 0) ? firstOffset : 64;
+            int maxSize = (i == 0) ? firstOffset : BITMAP;
             long longBit = bitField.get(i);
             for (int j = 0; j < maxSize; j++) {
                 if (longBit >> 1 << 1 == longBit) {
@@ -356,11 +356,11 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public Long getBitmap64(String key, Long end) {
-        return this.getBitmapLong(key, end, 64);
+        return this.getBitmapLong(key, end, BITMAP);
     }
 
     private Long getBitmapLong(String key, Long end, int maxLength) {
-        if (maxLength > 64) {
+        if (maxLength > BITMAP) {
             log.error("bitmap位数过大 [{}]", maxLength);
             throw new ParameterException(ErrorCode.DATA_ERROR);
         }
@@ -381,9 +381,9 @@ public class CacheServiceImpl implements CacheService {
      * 计算需要多少个命令才能执行完, bitField采用有符号long数据时,最大支持64为数据
      */
     private int getCommands(Integer succession) {
-        if (succession / 64 == 0) {
-            return succession / 64;
+        if (succession / BITMAP == 0) {
+            return succession / BITMAP;
         }
-        return succession / 64 + 1;
+        return succession / BITMAP + 1;
     }
 }

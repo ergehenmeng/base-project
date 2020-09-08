@@ -19,7 +19,6 @@ import java.util.List;
  * @date 2019/8/16 18:47
  */
 @Service("smsLogService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SmsLogServiceImpl implements SmsLogService {
 
     private SmsLogMapper smsLogMapper;
@@ -31,12 +30,12 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     @Override
     @Async
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addSmsLog(SmsLog smsLog) {
         smsLogMapper.insertSelective(smsLog);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public int countSms(String smsType, String mobile, Date startTime, Date endTime) {
         return smsLogMapper.countSms(smsType, mobile, startTime, endTime);
     }

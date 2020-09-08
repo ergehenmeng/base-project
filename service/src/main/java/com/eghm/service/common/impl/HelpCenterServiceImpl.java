@@ -20,7 +20,6 @@ import java.util.List;
  * @date 2018/11/20 20:20
  */
 @Service("helpCenterService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class HelpCenterServiceImpl implements HelpCenterService {
 
     private HelpCenterMapper helpCenterMapper;
@@ -31,18 +30,21 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addHelpCenter(HelpAddRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
         helpCenterMapper.insertSelective(helpCenter);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateHelpCenter(HelpEditRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
         helpCenterMapper.updateByPrimaryKeySelective(helpCenter);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteHelpCenter(HelpEditRequest request) {
         HelpCenter helpCenter = new HelpCenter();
         helpCenter.setId(request.getId());

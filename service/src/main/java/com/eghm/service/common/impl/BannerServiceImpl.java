@@ -24,7 +24,6 @@ import java.util.List;
  * @date 2018/10/17 9:50
  */
 @Service("bannerService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class BannerServiceImpl implements BannerService {
 
     private BannerMapper bannerMapper;
@@ -36,13 +35,11 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<Banner> getBanner(Channel channel, Byte classify) {
         return bannerMapper.getBannerList(classify, channel.name());
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Banner getById(Integer id) {
         return bannerMapper.selectByPrimaryKey(id);
     }
@@ -57,6 +54,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addBanner(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.insertSelective(banner);
@@ -64,6 +62,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
+    @Transactional(rollbackFor = RuntimeException.class)
     public void editBanner(BannerEditRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.updateByPrimaryKeySelective(banner);

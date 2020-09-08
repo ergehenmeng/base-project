@@ -25,7 +25,6 @@ import java.util.stream.Stream;
  * @date 2018/11/26 15:33
  */
 @Service("sysRoleService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysRoleServiceImpl implements SysRoleService {
 
     private SysRoleMapper sysRoleMapper;
@@ -51,18 +50,19 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysRole getById(int id) {
         return sysRoleMapper.selectByPrimaryKey(id);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateRole(RoleEditRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.updateByPrimaryKeySelective(role);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteRole(int id) {
         SysRole role = new SysRole();
         role.setDeleted(true);
@@ -70,6 +70,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addRole(RoleAddRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
         role.setDeleted(false);
@@ -77,25 +78,23 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysRole> getList() {
         RoleQueryRequest request = new RoleQueryRequest();
         return sysRoleMapper.getList(request);
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<Integer> getByOperatorId(Integer operatorId) {
         return sysOperatorRoleMapper.getByOperatorId(operatorId);
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<Integer> getRoleMenu(Integer roleId) {
         return sysRoleMapper.getRoleMenu(roleId);
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void authMenu(Integer roleId, String menuIds) {
         sysRoleMapper.deleteRoleMenu(roleId);
         if (StringUtils.isNotEmpty(menuIds)) {
@@ -105,7 +104,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysRole> getRoleList(Integer operatorId) {
         return sysRoleMapper.getRoleList(operatorId);
     }

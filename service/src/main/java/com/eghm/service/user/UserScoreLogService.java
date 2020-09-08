@@ -28,5 +28,5 @@ public interface UserScoreLogService {
      * @param request 查询条件
      * @return 积分列表
      */
-    Paging<UserScoreVO> listPage(UserScoreQueryDTO request);
+    Paging<UserScoreVO> getByPage(UserScoreQueryDTO request);
 }

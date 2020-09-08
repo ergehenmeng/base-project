@@ -21,7 +21,6 @@ import java.util.List;
  * @date 2019/8/21 10:35
  */
 @Service("smsTemplateService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     private SmsTemplateMapper smsTemplateMapper;
@@ -33,14 +32,12 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public String getTemplate(String nid) {
         SmsTemplate smsTemplate = smsTemplateMapper.getByNid(nid);
         return smsTemplate.getContent();
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public SmsTemplate getById(Integer id) {
         return smsTemplateMapper.selectByPrimaryKey(id);
     }
@@ -54,6 +51,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateSmsTemplate(SmsTemplateEditRequest request) {
         SmsTemplate template = DataUtil.copy(request, SmsTemplate.class);
         smsTemplateMapper.updateByPrimaryKeySelective(template);

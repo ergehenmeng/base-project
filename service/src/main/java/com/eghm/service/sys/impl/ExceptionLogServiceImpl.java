@@ -5,6 +5,7 @@ import com.eghm.dao.model.ExceptionLog;
 import com.eghm.service.sys.ExceptionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
@@ -21,6 +22,7 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void insertExceptionLog(ExceptionLog log) {
         exceptionLogMapper.insertSelective(log);
     }

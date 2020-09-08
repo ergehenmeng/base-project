@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2019/8/28 15:25
  */
 @Service("loginLogService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class LoginLogServiceImpl implements LoginLogService {
 
     private LoginLogMapper loginLogMapper;
@@ -45,7 +44,6 @@ public class LoginLogServiceImpl implements LoginLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public LoginDeviceVO getLastLogin(Integer userId) {
         LoginLog lastLogin = loginLogMapper.getLastLogin(userId);
         if (lastLogin == null) {

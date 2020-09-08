@@ -17,7 +17,6 @@ import java.util.List;
  * @date 2019/9/11 11:18
  */
 @Service("taskLogService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class TaskLogServiceImpl implements TaskLogService {
 
     private TaskLogMapper taskLogMapper;
@@ -28,6 +27,7 @@ public class TaskLogServiceImpl implements TaskLogService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addTaskLog(TaskLog log) {
         taskLogMapper.insertSelective(log);
     }
@@ -41,7 +41,6 @@ public class TaskLogServiceImpl implements TaskLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public TaskLog getErrorMsg(Integer id) {
         return taskLogMapper.getErrorMsg(id);
     }

@@ -24,7 +24,6 @@ import java.util.List;
  * @date 2018/1/26 16:15
  */
 @Service("sysMenuService")
-@Transactional(rollbackFor = RuntimeException.class)
 public class SysMenuServiceImpl implements SysMenuService {
 
     private SysMenuMapper sysMenuMapper;
@@ -37,7 +36,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     private final Comparator<SysMenu> comparator = Comparator.comparing(SysMenu::getSort);
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysMenu> getMenuList(Integer operatorId) {
         List<SysMenu> list = sysMenuMapper.getMenuList(operatorId);
         List<SysMenu> parentList = new ArrayList<>();
@@ -53,30 +51,27 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysMenu> getButtonList(Integer operatorId) {
         return sysMenuMapper.getButtonList(operatorId);
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysMenu> getList(Integer operatorId) {
         return sysMenuMapper.getList(operatorId);
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public SysMenu getMenuById(Integer id) {
         return sysMenuMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<SysMenu> getAllList() {
         return sysMenuMapper.getAllList();
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void addMenu(MenuAddRequest request) {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         try {
@@ -88,8 +83,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void updateMenu(MenuEditRequest request) {
-
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         int index;
         try {
@@ -104,12 +99,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteMenu(Integer id) {
         sysMenuMapper.deleteById(id);
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public List<GrantedAuthority> getAuthorityByOperatorId(Integer operator) {
         List<SysMenu> list = sysMenuMapper.getList(operator);
         List<GrantedAuthority> authorities = new ArrayList<>();
