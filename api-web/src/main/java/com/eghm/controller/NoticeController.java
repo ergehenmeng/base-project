@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.notice.TopNoticeVO;
 import com.eghm.service.common.SysNoticeService;
@@ -22,6 +23,7 @@ public class NoticeController {
     private SysNoticeService sysNoticeService;
 
     @Autowired
+    @SkipLogger
     public void setSysNoticeService(SysNoticeService sysNoticeService) {
         this.sysNoticeService = sysNoticeService;
     }

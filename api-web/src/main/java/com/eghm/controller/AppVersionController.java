@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
@@ -20,6 +21,7 @@ public class AppVersionController {
     private AppVersionService appVersionService;
 
     @Autowired
+    @SkipLogger
     public void setAppVersionService(AppVersionService appVersionService) {
         this.appVersionService = appVersionService;
     }

@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.common.enums.Channel;
 import com.eghm.dao.model.Banner;
 import com.eghm.model.dto.banner.BannerQueryDTO;
@@ -27,6 +28,7 @@ public class BannerController {
     private BannerService bannerService;
 
     @Autowired
+    @SkipLogger
     public void setBannerService(BannerService bannerService) {
         this.bannerService = bannerService;
     }

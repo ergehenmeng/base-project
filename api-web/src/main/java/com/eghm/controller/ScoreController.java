@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.score.UserScoreQueryDTO;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.Paging;
@@ -23,6 +24,7 @@ public class ScoreController {
     private UserScoreLogService userScoreLogService;
 
     @Autowired
+    @SkipLogger
     public void setUserScoreLogService(UserScoreLogService userScoreLogService) {
         this.userScoreLogService = userScoreLogService;
     }

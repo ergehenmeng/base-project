@@ -1,6 +1,7 @@
 package com.eghm.controller;
 
 import com.eghm.annotation.SkipAccess;
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.login.AccountLoginDTO;
 import com.eghm.model.dto.login.LoginSendSmsDTO;
 import com.eghm.model.dto.login.SmsLoginDTO;
@@ -29,6 +30,7 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
+    @SkipLogger
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

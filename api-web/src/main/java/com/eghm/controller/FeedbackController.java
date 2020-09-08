@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.feedback.FeedbackAddDTO;
 import com.eghm.model.ext.RequestMessage;
 import com.eghm.model.ext.ApiHolder;
@@ -22,6 +23,7 @@ public class FeedbackController{
     private FeedbackService feedbackService;
 
     @Autowired
+    @SkipLogger
     public void setFeedbackService(FeedbackService feedbackService) {
         this.feedbackService = feedbackService;
     }

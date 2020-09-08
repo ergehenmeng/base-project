@@ -26,6 +26,7 @@ public class ImageController {
     private FileService fileService;
 
     @Autowired
+    @SkipLogger
     public void setFileService(FileService fileService) {
         this.fileService = fileService;
     }

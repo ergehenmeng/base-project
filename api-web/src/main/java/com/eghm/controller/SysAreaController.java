@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.area.AreaQueryDTO;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.sys.SysAreaVO;
@@ -23,6 +24,7 @@ public class SysAreaController {
     private SysAreaService sysAreaService;
 
     @Autowired
+    @SkipLogger
     public void setSysAreaService(SysAreaService sysAreaService) {
         this.sysAreaService = sysAreaService;
     }

@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.user.LoginDeviceVO;
@@ -23,6 +24,7 @@ public class DeviceController {
     private LoginDeviceService loginDeviceService;
 
     @Autowired
+    @SkipLogger
     public void setLoginDeviceService(LoginDeviceService loginDeviceService) {
         this.loginDeviceService = loginDeviceService;
     }

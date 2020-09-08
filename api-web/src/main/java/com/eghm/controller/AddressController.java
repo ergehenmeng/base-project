@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.address.AddressAddDTO;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
@@ -21,6 +22,7 @@ public class AddressController {
     private UserAddressService userAddressService;
 
     @Autowired
+    @SkipLogger
     public void setUserAddressService(UserAddressService userAddressService) {
         this.userAddressService = userAddressService;
     }
@@ -32,6 +34,7 @@ public class AddressController {
     @ApiOperation("添加收货地址")
     public RespBody<Object> save(AddressAddDTO request) {
         request.setUserId(ApiHolder.getUserId());
+        userAddressService.addUserAddress(request);
         return RespBody.success();
     }
 }

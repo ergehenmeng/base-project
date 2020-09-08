@@ -1,5 +1,6 @@
 package com.eghm.controller;
 
+import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.user.BindEmailDTO;
 import com.eghm.model.dto.user.ChangeEmailDTO;
 import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
@@ -24,6 +25,7 @@ public class UserController {
     private UserService userService;
 
     @Autowired
+    @SkipLogger
     public void setUserService(UserService userService) {
         this.userService = userService;
     }

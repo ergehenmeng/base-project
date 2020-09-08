@@ -37,6 +37,5 @@ public class UserAddressServiceImpl implements UserAddressService {
             address.setState(UserAddress.STATE_COMMON);
         }
         userAddressMapper.insertSelective(address);
-
     }
 }
