@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/9/7
  */
 @RestController
-@Api("用户积分")
+@Api(tags = "用户积分")
 public class ScoreController {
 
     private UserScoreLogService userScoreLogService;

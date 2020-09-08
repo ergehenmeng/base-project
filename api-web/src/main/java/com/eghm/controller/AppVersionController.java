@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/9/4
  */
 @RestController
-@Api("更新版本")
+@Api(tags = "更新版本")
 public class AppVersionController {
 
     private AppVersionService appVersionService;

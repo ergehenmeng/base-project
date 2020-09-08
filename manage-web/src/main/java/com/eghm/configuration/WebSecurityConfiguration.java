@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private Encoder encoder;
 
-	private UserDetailsService userDetailsService;
-
 	@Autowired
 	public void setApplicationProperties(ApplicationProperties applicationProperties) {
 		this.applicationProperties = applicationProperties;
@@ -51,14 +50,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		this.encoder = encoder;
 	}
 
-	@Autowired
-	public void setUserDetailsService(UserDetailsService userDetailsService) {
-		this.userDetailsService = userDetailsService;
+	/**
+	 * 此处通过Bean方式声明,因为manage与api共同依赖了service包
+	 */
+	@Bean("userDetailsService")
+	public UserDetailsService detailsService() {
+		return new OperatorDetailsServiceImpl();
 	}
 
 	@Override
 	protected UserDetailsService userDetailsService() {
-		return userDetailsService;
+		return detailsService();
 	}
 
 	@Override
@@ -115,7 +117,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
 		//屏蔽原始错误异常
 		provider.setHideUserNotFoundExceptions(false);
-		provider.setUserDetailsService(userDetailsService);
+		provider.setUserDetailsService(userDetailsService());
 		provider.setEncoder(encoder);
 		return provider;
 	}
@@ -183,6 +185,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CustomFilterInvocationSecurityMetadataSource metadataSource() {
 		return new CustomFilterInvocationSecurityMetadataSource();
+	}
+
+	/**
+	 * 数据权限,必须在manage-web中声明为bean
+	 */
+	@Bean
+	public DataScopeAspect dataScopeAspect() {
+		return new DataScopeAspect();
 	}
 
 	/**

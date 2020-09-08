@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2019/8/20 10:18
  */
 @RestController
-@Api("注册")
+@Api(tags = "注册")
 public class RegisterController {
 
     private UserService userService;

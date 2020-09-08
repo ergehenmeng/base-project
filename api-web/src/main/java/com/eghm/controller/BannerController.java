@@ -22,7 +22,7 @@ import java.util.List;
  * @date 2020/9/4
  */
 @RestController
-@Api("轮播图")
+@Api(tags = "轮播图")
 public class BannerController {
 
     private BannerService bannerService;

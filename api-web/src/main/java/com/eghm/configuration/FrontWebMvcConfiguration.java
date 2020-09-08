@@ -30,7 +30,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     /**
      * 过滤器不拦截的地址
      */
-    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/resource/**"};
+    private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/resource/**", "/favicon.ico"};
 
     /**
      * 移动端请求地址
@@ -39,7 +39,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(clientTypeInterceptor()).order(Integer.MIN_VALUE + 6);
+        registry.addInterceptor(clientTypeInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 6);
         registry.addInterceptor(messageInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
     }
@@ -47,7 +47,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath*:/swagger/dist/");
+        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/swagger/dist/");
     }
 
     @Override
@@ -90,6 +90,9 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     }
 
 
+    /**
+     * ip黑名单
+     */
     @Bean("ipBlackListFilter")
     public Filter ipFilter() {
         return new IpBlackListFilter();

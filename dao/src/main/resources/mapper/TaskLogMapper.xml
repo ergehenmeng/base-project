@@ -17,7 +17,7 @@
     <!--
       @create by mybatis
     -->
-    <result column="error_msg" jdbcType="LONGVARVARCHAR" property="errorMsg" />
+    <result column="error_msg" jdbcType="LONGVARCHAR" property="errorMsg" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--

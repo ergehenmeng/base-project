@@ -20,7 +20,6 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/1/25 10:00
  */
-@Service("userDetailsService")
 public class OperatorDetailsServiceImpl implements UserDetailsService {
 
     private SysOperatorService sysOperatorService;

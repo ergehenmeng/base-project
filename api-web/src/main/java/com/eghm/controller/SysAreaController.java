@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2020/9/4
  */
 @RestController
-@Api("省份区域")
+@Api(tags = "省份区域")
 public class SysAreaController {
 
     private SysAreaService sysAreaService;

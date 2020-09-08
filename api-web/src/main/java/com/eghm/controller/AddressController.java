@@ -20,7 +20,7 @@ import java.util.List;
  * @date 2020/9/8
  */
 @RestController
-@Api("用户地址")
+@Api(tags = "用户地址")
 public class AddressController {
 
     private UserAddressService userAddressService;

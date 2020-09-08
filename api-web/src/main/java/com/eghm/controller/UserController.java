@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 二哥很猛
  */
 @RestController
-@Api("用户相关接口")
+@Api(tags = "用户相关接口")
 public class UserController {
 
     private UserService userService;

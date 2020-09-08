@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2020/9/5
  */
 @RestController
-@Api("登陆设备")
+@Api(tags = "登陆设备")
 public class DeviceController {
 
     private LoginDeviceService loginDeviceService;

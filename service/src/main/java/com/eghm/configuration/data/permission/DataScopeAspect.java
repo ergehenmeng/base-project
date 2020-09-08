@@ -19,7 +19,6 @@ import java.util.List;
  * @date 2020/8/14
  */
 @Aspect
-@Component
 public class DataScopeAspect {
 
     private static final ThreadLocal<String> DATA_SCOPE_PARAM = new ThreadLocal<>();

@@ -17,7 +17,7 @@ import java.util.List;
  * @date 2020/9/5
  */
 @RestController
-@Api("公告")
+@Api(tags = "公告")
 public class NoticeController {
 
     private SysNoticeService sysNoticeService;
