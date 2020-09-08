@@ -598,3 +598,5 @@ CREATE TABLE `user_address` (
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户地址表';
+
+alter table login_device add column ip bigint(20) comment '登陆ip';

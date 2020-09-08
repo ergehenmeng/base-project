@@ -1,5 +1,6 @@
 package com.eghm.model.dto.login;
 
+import com.eghm.model.annotation.BackstageTag;
 import com.eghm.model.validation.annotation.RangeLength;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,6 +35,7 @@ public class AccountLoginDTO implements Serializable {
      * 登陆ip
      */
     @ApiModelProperty(hidden = true)
+    @BackstageTag
     private String ip;
 
     /**

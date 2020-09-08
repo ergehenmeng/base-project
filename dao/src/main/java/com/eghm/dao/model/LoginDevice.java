@@ -39,6 +39,13 @@ public class LoginDevice implements Serializable {
     private String deviceModel;
 
     /**
+     * 登陆ip<br>
+     * 表 : login_device<br>
+     * 对应字段 : ip<br>
+     */
+    private Long ip;
+
+    /**
      * 最近一次登陆的时间<br>
      * 表 : login_device<br>
      * 对应字段 : login_time<br>

@@ -9,13 +9,14 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
     <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
+    <result column="ip" jdbcType="BIGINT" property="ip" />
     <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, user_id, serial_number, device_model, login_time
+    id, user_id, serial_number, device_model, login_time,ip
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -47,6 +48,9 @@
       <if test="loginTime != null">
         login_time,
       </if>
+        <if test="ip != null">
+          ip,
+        </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -64,6 +68,9 @@
       <if test="loginTime != null">
         #{loginTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="ip != null">
+          #{ip,jdbcType=BIGINT},
+        </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.LoginDevice">
@@ -84,13 +91,16 @@
       <if test="loginTime != null">
         login_time = #{loginTime,jdbcType=TIMESTAMP},
       </if>
+        <if test="ip != null">
+          ip = #{ip}
+        </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
 
   <insert id="insertOrUpdateSelective" parameterType="com.eghm.dao.model.LoginDevice">
-    insert into login_device(user_id, serial_number, device_model, login_time)
-    values(#{userId}, #{serialNumber}, #{deviceModel}, now())
+    insert into login_device(user_id, serial_number, device_model, login_time, ip)
+    values(#{userId}, #{serialNumber}, #{deviceModel}, now(), ip)
     on duplicate key update login_time = now();
   </insert>
 

@@ -30,4 +30,10 @@ public class LoginDeviceVO {
 	 */
 	@ApiModelProperty("设备唯一号")
 	private String serialNumber;
+
+	/**
+	 * 登陆ip
+	 */
+	@ApiModelProperty("登陆ip")
+	private String loginIp;
 }

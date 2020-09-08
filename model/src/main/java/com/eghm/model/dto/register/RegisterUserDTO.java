@@ -1,5 +1,6 @@
 package com.eghm.model.dto.register;
 
+import com.eghm.model.annotation.BackstageTag;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.annotation.RangeLength;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,5 +42,6 @@ public class RegisterUserDTO implements Serializable {
      * 注册ip
      */
     @ApiModelProperty(hidden = true)
+    @BackstageTag
     private String ip;
 }
