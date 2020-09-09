@@ -188,7 +188,7 @@ CREATE TABLE `image_log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '图片名称',
   `classify` tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典image_classify',
-  `url` varchar(200) DEFAULT NULL COMMENT '文件存放地址',
+  `path` varchar(200) DEFAULT NULL COMMENT '文件存放地址',
   `size` bigint(15) unsigned DEFAULT NULL COMMENT '文件大小',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

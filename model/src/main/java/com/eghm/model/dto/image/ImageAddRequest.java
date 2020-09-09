@@ -36,5 +36,5 @@ public class ImageAddRequest implements Serializable {
     /**
      * 地址
      */
-    private String url;
+    private String path;
 }

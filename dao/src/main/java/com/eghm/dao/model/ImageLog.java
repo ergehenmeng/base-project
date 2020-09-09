@@ -36,9 +36,9 @@ public class ImageLog implements Serializable {
     /**
      * 文件存放地址<br>
      * 表 : image_log<br>
-     * 对应字段 : url<br>
+     * 对应字段 : path<br>
      */
-    private String url;
+    private String path;
 
     /**
      * 文件大小<br>

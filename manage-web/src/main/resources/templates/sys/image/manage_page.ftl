@@ -41,7 +41,7 @@
                     },
                     {field : "title",title : "名称",width : 150,align : "center"},
                     {field : "classifyName",title : "分类",width : 80,align : "center"},
-                    {field : "url",title : "路径",width : 700,align : "center",
+                    {field : "path",title : "路径",width : 700,align : "center",
                         formatter:function(value,rows){
                             return '<a href="javascript:void(0);" onclick="parent.imagePreview(\''+ value +'\');">' + address + value + '</a>';
                         }

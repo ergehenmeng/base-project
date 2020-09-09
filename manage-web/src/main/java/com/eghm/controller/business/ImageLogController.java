@@ -97,7 +97,7 @@ public class ImageLogController {
     public RespBody<Object> addImage(ImageAddRequest request, MultipartFile imgFile) {
         if (imgFile != null && !imgFile.isEmpty()) {
             FilePath filePath = fileService.saveFile(imgFile);
-            request.setUrl(filePath.getPath());
+            request.setPath(filePath.getPath());
             request.setSize(imgFile.getSize());
         }
         imageLogService.addImageLog(request);
