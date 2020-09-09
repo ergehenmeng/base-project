@@ -26,5 +26,6 @@ public class UserScoreQueryDTO extends PagingQuery {
      * 用户id
      */
     @BackstageTag
+    @ApiModelProperty(hidden = true)
     private Integer userId;
 }

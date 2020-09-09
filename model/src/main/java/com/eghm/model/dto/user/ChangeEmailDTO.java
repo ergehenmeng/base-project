@@ -23,7 +23,7 @@ public class ChangeEmailDTO {
     /**
      * 邮箱验证码
      */
-    @ApiModelProperty("邮箱验证码")
+    @ApiModelProperty(value = "邮箱验证码",required = true)
     @Email(message = "邮箱验证码不能为空")
     private String authCode;
 

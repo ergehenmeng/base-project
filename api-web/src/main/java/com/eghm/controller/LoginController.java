@@ -5,6 +5,7 @@ import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.login.AccountLoginDTO;
 import com.eghm.model.dto.login.LoginSendSmsDTO;
 import com.eghm.model.dto.login.SmsLoginDTO;
+import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.service.user.UserService;
@@ -24,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2019/8/20 10:17
  */
 @RestController
-@Api(tags = "登陆,找回密码功能")
+@Api(tags = "登陆、密码功能")
 public class LoginController {
 
     private UserService userService;
@@ -65,6 +66,7 @@ public class LoginController {
     @SkipAccess
     public RespBody<LoginTokenVO> account(AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
+        login.setSerialNumber(ApiHolder.get().getSerialNumber());
         return RespBody.success(userService.accountLogin(login));
     }
 }

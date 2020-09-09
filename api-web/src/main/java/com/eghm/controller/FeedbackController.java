@@ -33,7 +33,7 @@ public class FeedbackController{
      */
     @PostMapping("/feedback/submit")
     @ApiOperation("保存反馈信息")
-    public RespBody<String> submit(FeedbackAddDTO request) {
+    public RespBody<Object> submit(FeedbackAddDTO request) {
         RequestMessage message = ApiHolder.get();
         request.setSystemVersion(message.getOsVersion());
         request.setVersion(message.getVersion());

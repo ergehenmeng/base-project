@@ -52,10 +52,11 @@ public class RegisterController {
     @PostMapping("/register/user")
     @ApiOperation("短信注册用户")
     @SkipAccess
-    public LoginTokenVO user(RegisterUserDTO request, HttpServletRequest servletRequest) {
+    public RespBody<LoginTokenVO> user(RegisterUserDTO request, HttpServletRequest servletRequest) {
         request.setChannel(ApiHolder.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));
-        return userService.registerByMobile(request);
+        LoginTokenVO tokenVO = userService.registerByMobile(request);
+        return RespBody.success(tokenVO);
     }
 
 }

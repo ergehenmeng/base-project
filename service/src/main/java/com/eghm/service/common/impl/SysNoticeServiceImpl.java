@@ -2,13 +2,16 @@ package com.eghm.service.common.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.constants.DictConstant;
 import com.eghm.dao.mapper.SysNoticeMapper;
 import com.eghm.dao.model.SysNotice;
 import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;
 import com.eghm.model.vo.notice.TopNoticeVO;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.SysNoticeService;
+import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -32,6 +35,13 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 
     private SysConfigApi sysConfigApi;
 
+    private ProxyService proxyService;
+
+    @Autowired
+    public void setProxyService(ProxyService proxyService) {
+        this.proxyService = proxyService;
+    }
+
     @Autowired
     public void setSysNoticeMapper(SysNoticeMapper sysNoticeMapper) {
         this.sysNoticeMapper = sysNoticeMapper;
@@ -48,7 +58,12 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     public List<TopNoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = sysNoticeMapper.getTopList(noticeLimit);
-        return DataUtil.convert(noticeList, notice -> DataUtil.copy(notice, TopNoticeVO.class));
+        return DataUtil.convert(noticeList, notice -> {
+            TopNoticeVO vo = DataUtil.copy(notice, TopNoticeVO.class);
+            // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
+            vo.setTitle(proxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());
+            return vo;
+        });
     }
 
     @Override

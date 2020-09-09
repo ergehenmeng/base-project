@@ -1,5 +1,6 @@
 package com.eghm.model.vo.user;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.util.List;
  * @date 2020/9/7
  */
 @Data
+@ApiModel
 public class SignInVO {
 
     /**

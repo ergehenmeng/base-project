@@ -4,6 +4,7 @@ import com.eghm.model.annotation.BackstageTag;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -45,7 +46,7 @@ public class AddressAddDTO {
      * 详细地址
      */
     @ApiModelProperty(value = "详细地址",required = true)
-    @NotNull(message = "详细地址不能为空")
+    @NotEmpty(message = "详细地址不能为空")
     private String detailAddress;
 
 }

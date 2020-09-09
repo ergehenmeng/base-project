@@ -5,6 +5,7 @@ import com.eghm.model.ext.FilePath;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.common.FileService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,10 @@ public class ImageController {
      * 文件上传
      */
     @PostMapping("/upload/image")
-    @ApiParam(name = "image", value = "文件流", required = true)
     @ApiOperation("图片单张上传")
     @SkipLogger
-    public RespBody<Object> image(@RequestParam("image") MultipartFile image) {
+    @ApiImplicitParam(name = "image", value = "文件流", required = true)
+    public RespBody<FilePath> image(@ApiParam(name = "image", value = "文件流") @RequestParam("image") MultipartFile image) {
         FilePath filePath = fileService.saveFile(image);
         return RespBody.success(filePath);
     }

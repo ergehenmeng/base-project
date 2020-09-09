@@ -38,5 +38,4 @@ public class NoticeController {
         return RespBody.success(list);
     }
 
-
 }

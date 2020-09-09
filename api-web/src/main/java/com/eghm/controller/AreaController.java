@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "省份区域")
-public class SysAreaController {
+public class AreaController {
 
     private SysAreaService sysAreaService;
 

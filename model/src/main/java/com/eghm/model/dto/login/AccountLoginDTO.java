@@ -41,6 +41,7 @@ public class AccountLoginDTO implements Serializable {
     /**
      * 设备唯一编号
      */
-    @ApiModelProperty(value = "设备唯一号",required = true)
+    @ApiModelProperty(hidden = true)
+    @BackstageTag
     private String serialNumber;
 }
