@@ -1,8 +1,11 @@
 package com.eghm.configuration.timer.job;
 
+import com.eghm.common.utils.DateUtil;
 import com.eghm.configuration.timer.BaseTask;
 import com.eghm.configuration.timer.SystemTimer;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Date;
 
 /**
  * @author 二哥很猛
@@ -22,12 +25,13 @@ public class TaskOperation extends BaseTask {
 
     @Override
     public void execute() {
-        log.info("任务执行:" + Thread.currentThread());
+        log.info("任务执行:" + Thread.currentThread().getName() + " " + DateUtil.formatLong(new Date()));
     }
 
     public static void main(String[] args) {
         SystemTimer timer = new SystemTimer(100, 20);
         timer.start();
-        timer.addTask(new TaskOperation(1000));
+        timer.addTask(new TaskOperation(6000));
+        timer.addTask(new TaskOperation(12000));
     }
 }

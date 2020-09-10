@@ -84,7 +84,7 @@ public class SystemTimer implements InitializingBean, DisposableBean {
     public void start(long step) {
         if (executor == null) {
             executor = new ThreadPoolExecutor(DEFAULT_CORE_THREAD, DEFAULT_MAX_THREAD,
-                    5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(DEFAULT_QUEUE_CAPACITY), this.threadFactory());
+                    5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(DEFAULT_QUEUE_CAPACITY), r -> new Thread(r, "时间轮线程-" + threadCounter.getAndIncrement()));
         }
         this.initTimer(step);
     }
@@ -114,12 +114,6 @@ public class SystemTimer implements InitializingBean, DisposableBean {
     public SystemTimer(long scaleMs, int wheelSize) {
         this.rootWheel = new TimingWheel(scaleMs, wheelSize, System.currentTimeMillis(), taskCounter, queue);
     }
-
-
-    private ThreadFactory threadFactory() {
-        return r -> new Thread(r, "时间轮-" + threadCounter.getAndIncrement());
-    }
-
 
     /**
      * 添加新任务

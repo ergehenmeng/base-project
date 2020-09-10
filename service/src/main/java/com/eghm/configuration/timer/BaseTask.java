@@ -1,5 +1,7 @@
 package com.eghm.configuration.timer;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.Duration;
 
 /**
@@ -8,6 +10,7 @@ import java.time.Duration;
  * @author 二哥很猛
  * @date 2018/9/11 9:19
  */
+@Slf4j
 public abstract class BaseTask implements Runnable {
 
     /**
@@ -35,7 +38,11 @@ public abstract class BaseTask implements Runnable {
 
     @Override
     public void run() {
-        execute();
+        try {
+            execute();
+        } catch (RuntimeException e) {
+            this.exception(e);
+        }
     }
 
     /**
@@ -73,6 +80,10 @@ public abstract class BaseTask implements Runnable {
 
     public long getDelayMs() {
         return delayMs;
+    }
+
+    protected void exception(RuntimeException e) {
+        log.error("任务执行异常", e);
     }
 
 }

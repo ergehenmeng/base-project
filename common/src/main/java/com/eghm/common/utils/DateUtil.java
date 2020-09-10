@@ -57,7 +57,7 @@ public class DateUtil {
      * @return 字符串七日
      */
     public static String formatLong(Date date) {
-        return formatLong(date.toInstant());
+        return formatLong(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
     /**
@@ -77,7 +77,7 @@ public class DateUtil {
      * @return 字符串日期
      */
     public static String formatShort(Date date) {
-        return formatShort(date.toInstant());
+        return formatShort(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
     /**
@@ -97,7 +97,7 @@ public class DateUtil {
      * @return 字符串日期
      */
     public static String formatShortLimit(Date date) {
-        return formatShortLimit(date.toInstant());
+        return formatShortLimit(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
     /**
@@ -117,7 +117,7 @@ public class DateUtil {
      * @return 字符串日期
      */
     public static String formatSimple(Date date) {
-        return formatSimple(date.toInstant());
+        return formatSimple(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
     /**
@@ -137,7 +137,7 @@ public class DateUtil {
      * @return 字符串日期
      */
     public static String formatMin(Date date) {
-        return formatMin(date.toInstant());
+        return formatMin(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
     /**
@@ -159,7 +159,7 @@ public class DateUtil {
      */
     public static String format(Date date, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return formatter.format(date.toInstant());
+        return formatter.format(date.toInstant().atZone(ZoneId.systemDefault()));
     }
 
 
@@ -458,17 +458,6 @@ public class DateUtil {
         return date;
     }
 
-    /**
-     * String 通过给定格式转为Date
-     *
-     * @param time    指定格式的时间
-     * @param pattern 指定格式
-     * @return 时间
-     */
-    public static Date getDate(String time, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return convertDate(LocalDateTime.parse(time, formatter));
-    }
 
     /**
      * 获取指定时间的月的第一天 00:00:00

@@ -75,12 +75,12 @@ public class TimingWheel {
      */
     public boolean add(Entry entry) {
 
-        //任务取消
-        long expireMs = entry.getExpireMs();
+
         if (entry.cancelled()) {
             return false;
         }
-
+        //任务取消
+        long expireMs = entry.getExpireMs();
         //任务过期
         if (expireMs < currentTime + scaleMs) {
             return false;
