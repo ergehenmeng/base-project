@@ -1,4 +1,4 @@
-package com.eghm.listener;
+package com.eghm.configuration.listener;
 
 import com.eghm.configuration.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;

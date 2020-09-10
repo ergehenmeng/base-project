@@ -26,7 +26,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableAsync
 @EnableAspectJAutoProxy
-@ServletComponentScan(basePackages = "com.eghm.listener")
+@ServletComponentScan(basePackages = "com.eghm.configuration.listener")
 @MapperScan(basePackages = "com.eghm.dao.mapper")
 @EnableTask
 public class ManageApplication implements ApplicationListener<ContextRefreshedEvent>, ApplicationRunner {
