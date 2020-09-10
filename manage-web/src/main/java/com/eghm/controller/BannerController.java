@@ -1,4 +1,4 @@
-package com.eghm.controller.business;
+package com.eghm.controller;
 
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.Banner;

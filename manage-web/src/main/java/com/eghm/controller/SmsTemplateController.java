@@ -1,4 +1,4 @@
-package com.eghm.controller.business;
+package com.eghm.controller;
 
 import com.eghm.dao.model.SmsTemplate;
 import com.eghm.model.dto.sms.SmsTemplateEditRequest;

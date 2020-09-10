@@ -1,4 +1,4 @@
-package com.eghm.controller.business;
+package com.eghm.controller;
 
 import com.eghm.dao.model.PushTemplate;
 import com.eghm.dao.model.TagView;

@@ -1,4 +1,4 @@
-package com.eghm.controller.operator;
+package com.eghm.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.annotation.Mark;

@@ -1,4 +1,4 @@
-package com.eghm.controller.sys;
+package com.eghm.controller;
 
 import com.eghm.annotation.Mark;
 import com.eghm.dao.model.SysCache;

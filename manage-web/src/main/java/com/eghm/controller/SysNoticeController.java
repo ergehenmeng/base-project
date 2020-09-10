@@ -1,4 +1,4 @@
-package com.eghm.controller.business;
+package com.eghm.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.Mark;

@@ -1,4 +1,4 @@
-package com.eghm.controller.sys;
+package com.eghm.controller;
 
 import com.eghm.common.constant.CommonConstant;
 import com.google.code.kaptcha.Producer;
