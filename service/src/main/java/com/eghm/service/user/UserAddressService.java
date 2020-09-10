@@ -1,6 +1,7 @@
 package com.eghm.service.user;
 
 import com.eghm.model.dto.address.AddressAddDTO;
+import com.eghm.model.dto.address.AddressEditDTO;
 import com.eghm.model.vo.user.AddressVO;
 
 import java.util.List;
@@ -24,6 +25,18 @@ public interface UserAddressService {
      */
     void setDefault(Integer id, Integer userId);
 
+    /**
+     * 删除地址
+     * @param id id
+     * @param userId userId
+     */
+    void deleteAddress(Integer id, Integer userId);
+
+    /**
+     * 更新收货地址
+     * @param dto dto
+     */
+    void updateAddress(AddressEditDTO dto);
     /**
      * 用户地址列表
      * @param userId userId

@@ -45,4 +45,19 @@ public interface UserAddressMapper {
      * @return 批量多少条
      */
     int updateState(@Param("userId")Integer userId, @Param("state")Byte state);
+
+    /**
+     * 主键删除地址
+     * @param id  主键
+     * @param userId userId
+     * @return 1
+     */
+    int deleteById(@Param("id") Integer id, @Param("userId")Integer userId);
+
+    /**
+     * 主键+userId更新地址
+     * @param address address
+     * @return
+     */
+    int updateByUserId(UserAddress address);
 }

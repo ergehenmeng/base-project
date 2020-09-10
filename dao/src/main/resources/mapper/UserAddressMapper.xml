@@ -15,6 +15,7 @@
     <result column="county_id" jdbcType="INTEGER" property="countyId" />
     <result column="county_name" jdbcType="VARCHAR" property="countyName" />
     <result column="detail_address" jdbcType="VARCHAR" property="detailAddress" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -23,7 +24,7 @@
       @create by mybatis
     -->
     id, user_id, state, province_id, province_name, city_id, city_name, county_id, county_name, 
-    detail_address, add_time, update_time
+    detail_address,deleted, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -71,6 +72,9 @@
       <if test="detailAddress != null">
         detail_address,
       </if>
+        <if test="deleted != null" >
+          deleted,
+        </if>
       <if test="addTime != null">
         add_time,
       </if>
@@ -108,6 +112,9 @@
       </if>
       <if test="detailAddress != null">
         #{detailAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -150,6 +157,9 @@
       <if test="detailAddress != null">
         detail_address = #{detailAddress,jdbcType=VARCHAR},
       </if>
+      <if test="deleted != null">
+        deleted = #{deleted},
+      </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
@@ -160,9 +170,43 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getByUserId" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList"/> from user_address where user_id = #{userId} order by state, update_time desc
+    select <include refid="BaseColumnList"/> from user_address where user_id = #{userId} and deleted = false order by state, update_time desc
   </select>
   <update id="updateState" >
     update user_address set state = #{state} where user_id = #{userId}
+  </update>
+  <update id="deleteById" >
+    update user_address set deleted = true where id = #{id} and user_id = #{userId}
+  </update>
+
+  <update id="updateByUserId" parameterType="com.eghm.dao.model.UserAddress">
+    update user_address
+    <set>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceName != null">
+        province_name = #{provinceName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="countyId != null">
+        county_id = #{countyId,jdbcType=INTEGER},
+      </if>
+      <if test="countyName != null">
+        county_name = #{countyName,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null">
+        detail_address = #{detailAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id} and user_id = #{userId}
   </update>
 </mapper>

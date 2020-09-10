@@ -92,6 +92,12 @@ public class UserAddress implements Serializable {
     private String detailAddress;
 
     /**
+     * 删除状态 0:未删除 1:已删除<br>
+     * 表 : user_address<br>
+     * 对应字段 : deleted<br>
+     */
+    private Boolean deleted;
+    /**
      * 添加时间<br>
      * 表 : user_address<br>
      * 对应字段 : add_time<br>

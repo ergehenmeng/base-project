@@ -593,6 +593,7 @@ CREATE TABLE `user_address` (
   `county_id` int(11) DEFAULT NULL COMMENT '县区id',
   `county_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '县区id',
   `detail_address` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '详细地址',
+  `deleted` bit(1) default false comment '删除状态 0:未删除 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),

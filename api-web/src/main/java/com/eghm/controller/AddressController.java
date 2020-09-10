@@ -3,6 +3,7 @@ package com.eghm.controller;
 import com.eghm.annotation.SkipLogger;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.address.AddressAddDTO;
+import com.eghm.model.dto.address.AddressEditDTO;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.user.AddressVO;
@@ -17,7 +18,6 @@ import java.util.List;
 
 /**
  * @author 殿小二
- * @date 2020/9/8
  */
 @RestController
 @Api(tags = "用户地址")
@@ -61,4 +61,26 @@ public class AddressController {
         List<AddressVO> voList = userAddressService.getByUserId(ApiHolder.getUserId());
         return RespBody.success(voList);
     }
+
+    /**
+     * 设置默认收货地址
+     */
+    @PostMapping("/address/delete")
+    @ApiOperation("设置默认地址")
+    public RespBody<Object> delete(IdDTO request) {
+        userAddressService.deleteAddress(request.getId(), ApiHolder.getUserId());
+        return RespBody.success();
+    }
+
+    /**
+     * 编辑地址
+     */
+    @PostMapping("/address/update")
+    @ApiOperation("编辑地址")
+    public RespBody<Object> update(AddressEditDTO request) {
+        request.setUserId(ApiHolder.getUserId());
+        userAddressService.updateAddress(request);
+        return RespBody.success();
+    }
+
 }

@@ -8,6 +8,7 @@ import com.eghm.dao.mapper.UserAddressMapper;
 import com.eghm.dao.model.SysArea;
 import com.eghm.dao.model.UserAddress;
 import com.eghm.model.dto.address.AddressAddDTO;
+import com.eghm.model.dto.address.AddressEditDTO;
 import com.eghm.model.vo.user.AddressVO;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.user.UserAddressService;
@@ -56,6 +57,7 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void setDefault(Integer id, Integer userId) {
         UserAddress userAddress = userAddressMapper.selectByPrimaryKey(id);
         if (userAddress == null || !userAddress.getUserId().equals(userId)) {
@@ -66,6 +68,23 @@ public class UserAddressServiceImpl implements UserAddressService {
         userAddressMapper.updateState(userId, UserAddress.STATE_COMMON);
         userAddress.setState(UserAddress.STATE_DEFAULT);
         userAddressMapper.updateByPrimaryKeySelective(userAddress);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void deleteAddress(Integer id, Integer userId) {
+        userAddressMapper.deleteById(id, userId);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void updateAddress(AddressEditDTO dto) {
+        // 表示当前地址为默认地址,需要将其他设置为非默认地址
+        if (Boolean.TRUE.equals(dto.getState())) {
+            userAddressMapper.updateState(dto.getUserId(), UserAddress.STATE_COMMON);
+        }
+        UserAddress address = DataUtil.copy(dto, UserAddress.class);
+        userAddressMapper.updateByUserId(address);
     }
 
     @Override
