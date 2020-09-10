@@ -1,4 +1,4 @@
-package com.eghm.configuration;
+package com.eghm.configuration.resolver;
 
 import com.eghm.annotation.SkipDataBinder;
 import com.eghm.common.enums.ErrorCode;

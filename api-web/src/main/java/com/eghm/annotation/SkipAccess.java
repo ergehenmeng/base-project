@@ -1,6 +1,6 @@
 package com.eghm.annotation;
 
-import com.eghm.configuration.JsonExtractHandlerArgumentResolver;
+import com.eghm.configuration.resolver.JsonExtractHandlerArgumentResolver;
 import com.eghm.configuration.interceptor.TokenInterceptor;
 
 import java.lang.annotation.Documented;

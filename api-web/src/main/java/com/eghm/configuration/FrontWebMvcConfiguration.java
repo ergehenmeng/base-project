@@ -5,6 +5,7 @@ import com.eghm.configuration.filter.IpBlackListFilter;
 import com.eghm.configuration.interceptor.ClientTypeInterceptor;
 import com.eghm.configuration.interceptor.MessageInterceptor;
 import com.eghm.configuration.interceptor.TokenInterceptor;
+import com.eghm.configuration.resolver.JsonExtractHandlerArgumentResolver;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
