@@ -1,10 +1,9 @@
 package com.eghm.service.common.impl;
 
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.NumberService;
-import com.eghm.service.key.KeyGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

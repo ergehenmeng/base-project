@@ -1,4 +1,4 @@
-package com.eghm.service.key;
+package com.eghm.service.common;
 
 import com.eghm.common.enums.Workspace;
 

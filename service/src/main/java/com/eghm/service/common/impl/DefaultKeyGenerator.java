@@ -1,7 +1,7 @@
-package com.eghm.service.key.impl;
+package com.eghm.service.common.impl;
 
 import com.eghm.common.enums.Workspace;
-import com.eghm.service.key.KeyGenerator;
+import com.eghm.service.common.KeyGenerator;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
