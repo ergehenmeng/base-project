@@ -26,11 +26,11 @@
 ### 其他注意事项
 * 一个账户只能登陆一台设备
 * `swagger`访问地址`http://host:ip/swagger/index.html`
-* `RequestMapping`标示的方法返回前台数据时,可以为任意对象,最终会由`EncryptRespBodyAdviceHandler`包装为`RespBody`对象,如果不想返回前台`RespBody`格式的对象可在方法上添加`@SkipWrapper`,注意如果添加该注解,加密自动实现(相当于添加`@SkipEncrypt`)
+* `RequestMapping`标示的方法返回前台数据时,可以为任意对象(此时swagger中不会显示RespBody的层级),最终会由`EncryptRespBodyAdviceHandler`包装为`RespBody`对象,如果不想返回前台`RespBody`格式的对象可在方法上添加`@SkipWrapper`,注意如果添加该注解,加密自动实现(相当于添加`@SkipEncrypt`)
 * 表`black_roster` 为ip黑名单 可限制某些用户访问
 * 默认所有的接口均需要登录才能访问,如果某个接口不需要登陆校验则方法上添加`@SkipAccess`
 * 所有接口的请求参数均为映射为对象,如果不需要映射则方法上添加`@SkipDataBinder`
 * 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加`@ClientType`
-* 所有接口的请求响应日志均会记录到日志文件中,如果不想记录则添加`SkipLogger`(内部采用gson格式化对象)
+* 所有接口的请求响应日志均会记录到日志文件中,如果不想记录则添加`SkipLogger`
 * 后台获取用户id方法`ApiHolder.getUserId()`,同理获取其他相关属性也可以通过该类,也可在`RequestMapping`所在的方法上声明一个RequestMessage对象,该对象会自动被注入
 * 禁止使用枚举ordinal()或name()作为参数进行传递,必须显式声明
