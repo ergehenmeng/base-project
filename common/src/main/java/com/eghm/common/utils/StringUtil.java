@@ -43,7 +43,7 @@ public class StringUtil {
     /**
      * 随机数字
      */
-    private static final String NUMBER = "1234567890";
+    private static final String NUMBER = "123456789";
 
     /**
      * 默认随机字符串长度

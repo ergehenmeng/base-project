@@ -96,7 +96,7 @@ public class HttpClientUtil {
      * @return 响应数据
      */
     public static String get(String url) {
-        log.info("Http-Get请求地址及参数:[{}]", url);
+        log.info("GET请求地址及参数:[{}]", url);
         HttpGet get = new HttpGet(url);
         return execute(get);
     }
@@ -131,7 +131,7 @@ public class HttpClientUtil {
      * @return 响应结果
      */
     public static String post(String url, String body, Map<String, String> headers) {
-        log.info("Http-Post请求地址:[{}],请求参数:[{}]", url, body);
+        log.info("POST请求地址:[{}],请求参数:[{}]", url, body);
         HttpPost post = new HttpPost(url);
         post.setHeaders(formatHeaders(headers));
         post.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
