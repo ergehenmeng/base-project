@@ -44,7 +44,7 @@ public class UserInMail implements Serializable {
      * 表 : user_in_mail<br>
      * 对应字段 : classify<br>
      */
-    private Byte classify;
+    private String classify;
 
     /**
      * 状态 0:未读 1:已读<br>

@@ -87,4 +87,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getTemplate" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList" /> from in_mail_template where code = #{code} limit 1
+  </select>
 </mapper>

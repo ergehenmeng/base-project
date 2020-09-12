@@ -451,6 +451,11 @@ public enum ErrorCode {
      */
     COUNTY_ERROR(3073, "县区异常"),
 
+    /**
+     * 站内信模板未配置
+     */
+    IN_MAIL_NULL(3075, "站内信模板未配置"),
+
     ;
     /**
      * 构造方法

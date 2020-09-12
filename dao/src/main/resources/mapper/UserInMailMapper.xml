@@ -9,7 +9,7 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="classify" jdbcType="TINYINT" property="classify" />
+    <result column="classify" jdbcType="VARCHAR" property="classify" />
     <result column="read" jdbcType="BIT" property="read" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -19,7 +19,7 @@
     <!--
       @create by mybatis
     -->
-    id, user_id, title, content, classify, read, deleted, add_time, update_time
+    id, user_id, title, content, classify, `read`, deleted, add_time, update_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -78,7 +78,7 @@
         #{content,jdbcType=VARCHAR},
       </if>
       <if test="classify != null">
-        #{classify,jdbcType=TINYINT},
+        #{classify,jdbcType=VARCHAR},
       </if>
       <if test="read != null">
         #{read,jdbcType=BIT},
@@ -110,7 +110,7 @@
         content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="classify != null">
-        classify = #{classify,jdbcType=TINYINT},
+        classify = #{classify,jdbcType=VARCHAR},
       </if>
       <if test="read != null">
         read = #{read,jdbcType=BIT},
