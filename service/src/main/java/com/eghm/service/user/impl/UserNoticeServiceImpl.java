@@ -9,12 +9,18 @@ import com.eghm.dao.mapper.UserNoticeMapper;
 import com.eghm.dao.model.NoticeTemplate;
 import com.eghm.dao.model.User;
 import com.eghm.dao.model.UserNotice;
+import com.eghm.model.ext.Paging;
+import com.eghm.model.ext.PagingQuery;
 import com.eghm.model.ext.PushNotice;
 import com.eghm.model.ext.SendNotice;
+import com.eghm.model.vo.user.UserNoticeVO;
 import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.service.common.PushService;
 import com.eghm.service.user.UserNoticeService;
 import com.eghm.service.user.UserService;
+import com.eghm.utils.DataUtil;
+import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -112,5 +118,30 @@ public class UserNoticeServiceImpl implements UserNoticeService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void sendNotice(List<Integer> userIdList, SendNotice sendNotice) {
         userIdList.forEach(userId -> this.sendNotice(userId, sendNotice));
+    }
+
+    @Override
+    public Paging<UserNoticeVO> getByPage(PagingQuery query, Integer userId) {
+        PageMethod.startPage(query.getPage(), query.getPageSize());
+        List<UserNotice> noticeList = userNoticeMapper.getList(userId);
+        return DataUtil.convert(new PageInfo<>(noticeList), userNotice -> DataUtil.copy(userNotice, UserNoticeVO.class));
+    }
+
+    @Override
+    public void deleteNotice(Integer id, Integer userId) {
+        UserNotice notice = new UserNotice();
+        notice.setId(id);
+        notice.setUserId(userId);
+        notice.setDeleted(true);
+        userNoticeMapper.updateNotice(notice);
+    }
+
+    @Override
+    public void setNoticeRead(Integer id, Integer userId) {
+        UserNotice notice = new UserNotice();
+        notice.setId(id);
+        notice.setUserId(userId);
+        notice.setRead(true);
+        userNoticeMapper.updateNotice(notice);
     }
 }

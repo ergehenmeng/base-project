@@ -8,35 +8,35 @@
   ],
   "properties": [
     {
-      "sourceType": "com.eghm.configuration.ApplicationProperties",
+      "sourceType": "com.eghm.web.configuration.ApplicationProperties",
       "name": "application.version",
       "defaultValue": "1.0.0",
       "description": "当前系统版本号",
       "type": "java.lang.String"
     },
     {
-      "sourceType": "com.eghm.configuration.ApplicationProperties",
+      "sourceType": "com.eghm.web.configuration.ApplicationProperties",
       "name": "application.ignore-url",
       "description": "未登录,需要忽略拦截的url",
       "type": "java.lang.String[]",
       "defaultValue": ["/", "/index", "/captcha", "/**/captcha"]
     },
     {
-      "sourceType": "com.eghm.configuration.ApplicationProperties",
+      "sourceType": "com.eghm.web.configuration.ApplicationProperties",
       "name": "application.login-ignore-url",
       "description": "登陆后,需要忽略拦截的url",
       "type": "java.lang.String[]",
       "defaultValue": ["/main", "/portal"]
     },
     {
-      "sourceType": "com.eghm.configuration.ApplicationProperties",
+      "sourceType": "com.eghm.web.configuration.ApplicationProperties",
       "name": "application.upload-dir",
       "defaultValue": "/data/",
       "description": "上传文件要保存的路径",
       "type": "java.lang.String"
     },
     {
-      "sourceType": "com.eghm.configuration.ApplicationProperties",
+      "sourceType": "com.eghm.web.configuration.ApplicationProperties",
       "name": "application.job",
       "defaultValue": "false",
       "description": "是否开启定时任务",

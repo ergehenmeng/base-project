@@ -127,4 +127,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getList" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList" /> from user_notice
+    where user_id = #{userId} and deleted = false order by `read`, id desc
+  </select>
+  <update id="updateNotice" parameterType="com.eghm.dao.model.UserNotice">
+    update user_notice
+    <set>
+      <if test="deleted != null">
+        deleted = #{deleted},
+      </if>
+      <if test="read != null">
+        `read` = #{read},
+      </if>
+    </set>
+    where id = #{id} and user_id = #{userId}
+  </update>
 </mapper>

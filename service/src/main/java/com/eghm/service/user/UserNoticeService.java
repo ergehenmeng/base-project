@@ -1,6 +1,9 @@
 package com.eghm.service.user;
 
+import com.eghm.model.ext.Paging;
+import com.eghm.model.ext.PagingQuery;
 import com.eghm.model.ext.SendNotice;
+import com.eghm.model.vo.user.UserNoticeVO;
 
 import java.util.List;
 
@@ -23,4 +26,26 @@ public interface UserNoticeService {
      * @param sendNotice 消息内容
      */
     void sendNotice(List<Integer> userIdList, SendNotice sendNotice);
+
+    /**
+     * 查询用户站内信通知列表
+     * @param query 分页参数
+     * @param userId 用户id
+     * @return 列表
+     */
+    Paging<UserNoticeVO> getByPage(PagingQuery query, Integer userId);
+
+    /**
+     * 删除消息通知
+     * @param id 主键id
+     * @param userId userId
+     */
+    void deleteNotice(Integer id, Integer userId);
+
+    /**
+     * 设置消息已读
+     * @param id id
+     * @param userId userId
+     */
+    void setNoticeRead(Integer id, Integer  userId);
 }
