@@ -92,14 +92,13 @@ public class CommonController {
     /**
      * 全局页面定向,由于模糊映射可能会导致js,css,img也会映射到此处,因此在静态资源文件目录结构必须保证4层结构
      *
-     * @param modules  所属主模块
      * @param function 所属子模块
      * @param page     页面名称
      * @return 对应的页面
      */
-    @GetMapping("/{modules}/{function}/{page}")
-    public String modules(@PathVariable("modules") String modules, @PathVariable("function") String function, @PathVariable("page") String page) {
-        return modules + CommonConstant.SEPARATOR + function + CommonConstant.SEPARATOR + page;
+    @GetMapping("/{function}/{page}")
+    public String modules(@PathVariable("function") String function, @PathVariable("page") String page) {
+        return function + CommonConstant.SEPARATOR + page;
     }
 
     /**

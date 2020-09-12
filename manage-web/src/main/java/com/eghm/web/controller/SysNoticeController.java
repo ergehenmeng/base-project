@@ -45,7 +45,7 @@ public class SysNoticeController {
     /**
      * 系统公告列表查询
      */
-    @PostMapping("/business/bulletin/list_page")
+    @PostMapping("/bulletin/list_page")
     @ResponseBody
     public Paging<SysBulletin> listPage(BulletinQueryRequest request) {
         PageInfo<SysBulletin> byPage = sysBulletinService.getByPage(request);
@@ -58,7 +58,7 @@ public class SysNoticeController {
     /**
      * 新增公告信息
      */
-    @PostMapping("/business/bulletin/add")
+    @PostMapping("/bulletin/add")
     @ResponseBody
     @Mark
     public RespBody<Object> add(BulletinAddRequest request) {
@@ -72,17 +72,17 @@ public class SysNoticeController {
     /**
      * 公告编辑页面
      */
-    @GetMapping("/business/bulletin/edit_page")
+    @GetMapping("/bulletin/edit_page")
     public String editPage(Model model, Integer id) {
         SysBulletin notice = sysBulletinService.getById(id);
         model.addAttribute("notice", notice);
-        return "business/bulletin/edit_page";
+        return "bulletin/edit_page";
     }
 
     /**
      * 发布公告
      */
-    @PostMapping("/business/bulletin/publish")
+    @PostMapping("/bulletin/publish")
     @ResponseBody
     @Mark
     public RespBody<Object> publish(Integer id) {
@@ -93,7 +93,7 @@ public class SysNoticeController {
     /**
      * 取消发布的公告
      */
-    @PostMapping("/business/bulletin/cancel_publish")
+    @PostMapping("/bulletin/cancel_publish")
     @ResponseBody
     @Mark
     public RespBody<Object> cancelPublish(Integer id) {
@@ -104,7 +104,7 @@ public class SysNoticeController {
     /**
      * 编辑公告信息
      */
-    @PostMapping("/business/bulletin/edit")
+    @PostMapping("/bulletin/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(BulletinEditRequest request) {
@@ -118,7 +118,7 @@ public class SysNoticeController {
     /**
      * 删除公告信息
      */
-    @PostMapping("/business/bulletin/delete")
+    @PostMapping("/bulletin/delete")
     @ResponseBody
     @Mark
     public RespBody<Object> delete(Integer id) {
@@ -129,7 +129,7 @@ public class SysNoticeController {
     /**
      * 富文本预览
      */
-    @GetMapping("/business/bulletin/preview")
+    @GetMapping("/bulletin/preview")
     public String preview(Model model, Integer id) {
         SysBulletin notice = sysBulletinService.getById(id);
         if (notice != null) {

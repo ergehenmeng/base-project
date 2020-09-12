@@ -29,7 +29,7 @@ public class SmsLogController {
     /**
      * 分页查询短信记录列表
      */
-    @PostMapping("/business/sms_log/list_page")
+    @PostMapping("/sms_log/list_page")
     @ResponseBody
     public Paging<SmsLog> listPage(SmsLogQueryRequest request) {
         PageInfo<SmsLog> byPage = smsLogService.getByPage(request);

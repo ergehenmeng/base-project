@@ -34,7 +34,7 @@ public class DeptController {
      *
      * @return list
      */
-    @PostMapping("/sys/dept/list_page")
+    @PostMapping("/dept/list_page")
     @ResponseBody
     public List<SysDept> listPage() {
         return sysDeptService.getDepartment();
@@ -44,16 +44,16 @@ public class DeptController {
     /**
      * 添加部门页面
      */
-    @GetMapping("/sys/dept/add_page")
+    @GetMapping("/dept/add_page")
     public String addPage(Model model, String code) {
         model.addAttribute("code", code);
-        return "sys/dept/add_page";
+        return "dept/add_page";
     }
 
     /**
      * 添加部门节点信息
      */
-    @PostMapping("/sys/dept/add")
+    @PostMapping("/dept/add")
     @ResponseBody
     @Mark
     public RespBody<Object> add(DeptAddRequest request) {
@@ -64,17 +64,17 @@ public class DeptController {
     /**
      * 编辑部门页面
      */
-    @GetMapping("/sys/dept/edit_page")
+    @GetMapping("/dept/edit_page")
     public String editPage(Model model, Integer id) {
         SysDept dept = sysDeptService.getById(id);
         model.addAttribute("dept", dept);
-        return "sys/dept/edit_page";
+        return "dept/edit_page";
     }
 
     /**
      * 编辑部门节点信息
      */
-    @PostMapping("/sys/dept/edit")
+    @PostMapping("/dept/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(DeptEditRequest request) {

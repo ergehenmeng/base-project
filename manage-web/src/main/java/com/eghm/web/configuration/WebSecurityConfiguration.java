@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
-import org.springframework.security.web.session.InvalidSessionStrategy;
 
 /**
  * spring security权限配置
@@ -93,7 +92,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.invalidateHttpSession(true);
 		http.sessionManagement()
-				.invalidSessionStrategy(invalidSessionStrategy())
+				.invalidSessionUrl("/")
 				.maximumSessions(1);
 		//权限拦截
 		http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
@@ -121,14 +120,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		provider.setUserDetailsService(userDetailsService());
 		provider.setEncoder(encoder);
 		return provider;
-	}
-
-	/**
-	 * session过期处理
-	 * @return bean
-	 */
-	private InvalidSessionStrategy invalidSessionStrategy() {
-		return new SessionTimeoutHandler();
 	}
 
 	/**

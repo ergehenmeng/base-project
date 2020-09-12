@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
                 .produces(Sets.newHashSet("application/json"))
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.eghm.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.eghm.web.controller"))
                 .build();
     }
 

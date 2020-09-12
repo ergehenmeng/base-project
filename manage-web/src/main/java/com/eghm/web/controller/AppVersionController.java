@@ -53,33 +53,33 @@ public class AppVersionController {
     /**
      * app版本管理列表
      */
-    @PostMapping("/business/version/list_page")
+    @PostMapping("/version/list_page")
     @ResponseBody
     public Paging<AppVersion> listPage(VersionQueryRequest request) {
         PageInfo<AppVersion> byPage = appVersionService.getByPage(request);
         return new Paging<>(byPage);
     }
 
-    @GetMapping("/business/version/manage_page")
+    @GetMapping("/version/manage_page")
     public String managePage(Model model) {
         model.addAttribute("address", sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
-        return "business/version/manage_page";
+        return "version/manage_page";
     }
 
     /**
      * 添加软件版本页面
      */
-    @GetMapping("/business/version/add_page")
+    @GetMapping("/version/add_page")
     public String addPage(Model model) {
         String appStoreUrl = sysConfigApi.getString(ConfigConstant.APP_STORE_URL);
         model.addAttribute("appStoreUrl", appStoreUrl);
-        return "business/version/add_page";
+        return "version/add_page";
     }
 
     /**
      * 添加app版本信息
      */
-    @PostMapping("/business/version/add")
+    @PostMapping("/version/add")
     @ResponseBody
     @Mark
     public RespBody<Object> add(VersionAddRequest request, MultipartFile file) {
@@ -95,7 +95,7 @@ public class AppVersionController {
     /**
      * 编辑保存app版本信息
      */
-    @PostMapping("/business/version/edit")
+    @PostMapping("/version/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(VersionEditRequest request) {
@@ -108,7 +108,7 @@ public class AppVersionController {
      *
      * @param id 主键
      */
-    @PostMapping("/business/version/put_away")
+    @PostMapping("/version/put_away")
     @ResponseBody
     @Mark
     public RespBody<Object> putAway(Integer id) {
@@ -121,7 +121,7 @@ public class AppVersionController {
      *
      * @param id 主键
      */
-    @PostMapping("/business/version/sold_out")
+    @PostMapping("/version/sold_out")
     @ResponseBody
     @Mark
     public RespBody<Object> soldOut(Integer id) {
@@ -132,7 +132,7 @@ public class AppVersionController {
     /**
      * 删除版本信息
      */
-    @PostMapping("/business/version/delete")
+    @PostMapping("/version/delete")
     @ResponseBody
     @Mark
     public RespBody<Object> delete(Integer id) {

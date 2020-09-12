@@ -1,11 +1,11 @@
 package com.eghm.web.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.dao.model.SysCache;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
 import com.eghm.web.annotation.Mark;
-import com.google.common.base.Splitter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +34,7 @@ public class CacheController {
      *
      * @return 缓存列表
      */
-    @PostMapping("/sys/cache/list")
+    @PostMapping("/cache/list")
     @ResponseBody
     public Paging<SysCache> list() {
         return new Paging<>(sysCacheService.getList());
@@ -46,12 +46,11 @@ public class CacheController {
      * @param cacheName 缓存名称
      * @return 成功响应
      */
-    @SuppressWarnings("UnstableApiUsage")
-    @PostMapping("/sys/cache/clear")
+    @PostMapping("/cache/clear")
     @ResponseBody
     @Mark
     public RespBody<Object> clear(String cacheName) {
-        List<String> cacheList = Splitter.on(",").splitToList(cacheName);
+        List<String> cacheList = StrUtil.split(cacheName, ',');
         sysCacheService.clearCache(cacheList);
         return RespBody.success();
     }

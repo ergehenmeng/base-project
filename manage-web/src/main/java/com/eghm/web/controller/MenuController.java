@@ -48,12 +48,12 @@ public class MenuController {
      * @param id    菜单主键
      * @return 页面地址
      */
-    @GetMapping("/sys/menu/edit_page")
+    @GetMapping("/menu/edit_page")
     @Mark
     public String editMenuPage(Model model, Integer id) {
         SysMenu menu = sysMenuService.getMenuById(id);
         model.addAttribute("menu", menu);
-        return "sys/menu/edit_page";
+        return "menu/edit_page";
     }
 
     /**
@@ -61,7 +61,7 @@ public class MenuController {
      *
      * @return list
      */
-    @PostMapping("/sys/menu/list_page")
+    @PostMapping("/menu/list_page")
     @ResponseBody
     @Mark
     public List<SysMenu> listPage() {
@@ -75,12 +75,12 @@ public class MenuController {
      * @param id    父级id
      * @return ftl地址
      */
-    @GetMapping("/sys/menu/add_page")
+    @GetMapping("/menu/add_page")
     @Mark
     public String addPage(Model model, Integer id, @RequestParam(defaultValue = "0", required = false) Byte grade) {
         model.addAttribute("pid", id);
         model.addAttribute("grade", grade + 1);
-        return "sys/menu/add_page";
+        return "menu/add_page";
     }
 
     /**
@@ -89,7 +89,7 @@ public class MenuController {
      * @param request 请求参数组装
      * @return 成功状态
      */
-    @PostMapping("/sys/menu/add")
+    @PostMapping("/menu/add")
     @ResponseBody
     @Mark
     public RespBody<Object> add(MenuAddRequest request) {
@@ -107,7 +107,7 @@ public class MenuController {
      * @param request 菜单信息
      * @return 成功返回值
      */
-    @PostMapping("/sys/menu/edit")
+    @PostMapping("/menu/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(MenuEditRequest request) {
@@ -122,7 +122,7 @@ public class MenuController {
      * @param id 主键
      * @return 成功后的返回信息
      */
-    @PostMapping("/sys/menu/delete")
+    @PostMapping("/menu/delete")
     @Mark
     @ResponseBody
     public RespBody<Object> delete(Integer id) {
@@ -136,7 +136,7 @@ public class MenuController {
      *
      * @return 菜单列表
      */
-    @PostMapping("/sys/operator/menu_list")
+    @PostMapping("/operator/menu_list")
     @ResponseBody
     @Mark
     public List<SysMenu> operatorMenuList() {

@@ -52,7 +52,7 @@ public class BannerController {
     /**
      * 分页查询轮播图配置信息
      */
-    @PostMapping("/business/banner/list_page")
+    @PostMapping("/banner/list_page")
     @ResponseBody
     public Paging<Banner> listPage(BannerQueryRequest request) {
         PageInfo<Banner> byPage = bannerService.getByPage(request);
@@ -66,17 +66,17 @@ public class BannerController {
     /**
      * 轮播图编辑页面
      */
-    @GetMapping("/business/banner/edit_page")
+    @GetMapping("/banner/edit_page")
     public String editPage(Model model, Integer id) {
         Banner banner = bannerService.getById(id);
         model.addAttribute("banner", banner);
-        return "business/banner/edit_page";
+        return "banner/edit_page";
     }
 
     /**
      * 新增轮播图信息
      */
-    @PostMapping("/business/banner/add")
+    @PostMapping("/banner/add")
     @ResponseBody
     public RespBody<Object> add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
         request.setImgUrl(fileService.saveFile(imgFile).getPath());
@@ -87,7 +87,7 @@ public class BannerController {
     /**
      * 编辑轮播图信息
      */
-    @PostMapping("/business/banner/edit")
+    @PostMapping("/banner/edit")
     @ResponseBody
     public RespBody<Object> edit(BannerEditRequest request, @RequestParam(value = "imgFile", required = false) MultipartFile imgFile) {
         if (imgFile != null) {

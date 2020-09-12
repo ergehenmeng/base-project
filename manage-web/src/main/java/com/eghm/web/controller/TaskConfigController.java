@@ -40,7 +40,7 @@ public class TaskConfigController {
     /**
      * 分页查询定时任务列表
      */
-    @PostMapping("/business/task/list_page")
+    @PostMapping("/task/list_page")
     @ResponseBody
     public Paging<TaskConfig> listPage(TaskQueryRequest request) {
         PageInfo<TaskConfig> byPage = taskConfigService.getByPage(request);
@@ -50,17 +50,17 @@ public class TaskConfigController {
     /**
      * 定时任务编辑页面
      */
-    @GetMapping("/business/task/edit_page")
+    @GetMapping("/task/edit_page")
     public String editPage(Model model, Integer id) {
         TaskConfig config = taskConfigService.getById(id);
         model.addAttribute("config", config);
-        return "business/task/edit_page";
+        return "task/edit_page";
     }
 
     /**
      * 定时任务编辑保存
      */
-    @PostMapping("/business/task/edit")
+    @PostMapping("/task/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(TaskEditRequest request) {
@@ -71,7 +71,7 @@ public class TaskConfigController {
     /**
      * 刷新定时任务配置信息
      */
-    @PostMapping("/business/task/refresh")
+    @PostMapping("/task/refresh")
     @ResponseBody
     @Mark
     public RespBody<Object> refresh() {

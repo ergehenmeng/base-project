@@ -43,7 +43,7 @@ public class ConfigController {
 
 
 
-    @PostMapping("/sys/config/edit")
+    @PostMapping("/config/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> edit(ConfigEditRequest request) {
@@ -58,11 +58,11 @@ public class ConfigController {
      * @param id    主键
      * @return 页面
      */
-    @GetMapping("/sys/config/edit_page")
+    @GetMapping("/config/edit_page")
     public String editPage(Model model, Integer id) {
         SysConfig config = sysConfigService.getById(id);
         model.addAttribute("config", config);
-        return "sys/config/edit_page";
+        return "config/edit_page";
     }
 
     /**
@@ -71,7 +71,7 @@ public class ConfigController {
      * @param request 查询
      * @return 分页列表
      */
-    @PostMapping("/sys/config/list_page")
+    @PostMapping("config/list_page")
     @ResponseBody
     public Paging<SysConfig> listPage(ConfigQueryRequest request) {
         PageInfo<SysConfig> listByPage = sysConfigService.getByPage(request);

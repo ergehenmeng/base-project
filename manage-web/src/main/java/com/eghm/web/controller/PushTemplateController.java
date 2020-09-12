@@ -42,7 +42,7 @@ public class PushTemplateController {
     /**
      * 分页查询推送消息模板信息
      */
-    @PostMapping("/business/push_template/list_page")
+    @PostMapping("/push_template/list_page")
     @ResponseBody
     public Paging<PushTemplate> listPage(PushTemplateQueryRequest request) {
         PageInfo<PushTemplate> byPage = pushTemplateService.getByPage(request);
@@ -52,19 +52,19 @@ public class PushTemplateController {
     /**
      * 推送模板编辑页面
      */
-    @GetMapping("/business/push_template/edit_page")
+    @GetMapping("push_template/edit_page")
     public String editPage(Model model, Integer id) {
         PushTemplate template = pushTemplateService.getById(id);
         List<TagView> list = tagViewService.getList();
         model.addAttribute("template", template);
         model.addAttribute("view", list);
-        return "business/push_template/edit_page";
+        return "push_template/edit_page";
     }
 
     /**
      * 推送模板编辑保存
      */
-    @PostMapping("/business/push_template/edit")
+    @PostMapping("/push_template/edit")
     @ResponseBody
     public RespBody<Object> edit(PushTemplateEditRequest request) {
         pushTemplateService.editPushTemplate(request);

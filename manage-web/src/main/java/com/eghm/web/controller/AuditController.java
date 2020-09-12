@@ -32,7 +32,7 @@ public class AuditController {
     /**
      * 分页查询审批列表
      */
-    @PostMapping("/business/audit/list_page")
+    @PostMapping("/audit/list_page")
     public Paging<AuditRecord> listPage(AuditQueryRequest request) {
         request.setOperatorId(SecurityOperatorHolder.getOperatorId());
         PageInfo<AuditRecord> byPage = auditService.getByPage(request);
@@ -43,7 +43,7 @@ public class AuditController {
     /**
      * 审批 (所有审批的入口)
      */
-    @PostMapping("/business/audit/approval")
+    @PostMapping("/audit/approval")
     public RespBody<Object> approval(AuditProcessRequest request) {
         AuditProcess process = DataUtil.copy(request, AuditProcess.class);
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();

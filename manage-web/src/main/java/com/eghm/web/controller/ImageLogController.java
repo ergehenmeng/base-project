@@ -62,10 +62,10 @@ public class ImageLogController {
     /**
      * 图片列表页面
      */
-    @GetMapping("/sys/image/manage_page")
+    @GetMapping("/image/manage_page")
     public String managePage(Model model) {
         model.addAttribute("address", sysConfigApi.getString(ConfigConstant.FILE_SERVER_ADDRESS));
-        return "sys/image/manage_page";
+        return "image/manage_page";
     }
 
     /**
@@ -73,7 +73,7 @@ public class ImageLogController {
      *
      * @return 分页数据
      */
-    @PostMapping("/sys/image/list_page")
+    @PostMapping("/image/list_page")
     @ResponseBody
     @Mark
     public Paging<ImageLog> listPage(ImageQueryRequest request) {
@@ -91,7 +91,7 @@ public class ImageLogController {
      *
      * @return 成功
      */
-    @PostMapping("/sys/image/add")
+    @PostMapping("/image/add")
     @ResponseBody
     @Mark
     public RespBody<Object> addImage(ImageAddRequest request, MultipartFile imgFile) {
@@ -110,7 +110,7 @@ public class ImageLogController {
      * @param request 更新参数
      * @return 成功
      */
-    @PostMapping("/sys/image/edit")
+    @PostMapping("/image/edit")
     @ResponseBody
     @Mark
     public RespBody<Object> editImage(ImageEditRequest request) {
@@ -125,7 +125,7 @@ public class ImageLogController {
      * @param id 用户id
      * @return 删除
      */
-    @PostMapping("/sys/image/delete")
+    @PostMapping("/image/delete")
     @ResponseBody
     @Mark
     public RespBody<Object> deleteImage(Integer id) {
@@ -138,11 +138,11 @@ public class ImageLogController {
      *
      * @return 图片地址
      */
-    @GetMapping("/sys/image/edit_page")
+    @GetMapping("/image/edit_page")
     @Mark
     public String editImagePage(Model model, Integer id) {
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log", log);
-        return "sys/image/edit_page";
+        return "image/edit_page";
     }
 }

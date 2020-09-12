@@ -29,7 +29,7 @@ public class TaskLogController {
     /**
      * 分页查询定时任务列表
      */
-    @PostMapping("/business/task_log/list_page")
+    @PostMapping("/task_log/list_page")
     @ResponseBody
     public Paging<TaskLog> listPage(TaskLogQueryRequest request) {
         PageInfo<TaskLog> byPage = taskLogService.getByPage(request);
@@ -39,7 +39,7 @@ public class TaskLogController {
     /**
      * 错误信息
      */
-    @GetMapping("/business/task_log/error_msg")
+    @GetMapping("/task_log/error_msg")
     public String errorMsg(Model model, Integer id) {
         String errorMsg = taskLogService.getErrorMsg(id).getErrorMsg();
         model.addAttribute("response", errorMsg);

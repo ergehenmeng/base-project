@@ -3,7 +3,7 @@
 <script type="text/javascript">
     $(function() {
         $("#form").form({
-            url:"/sys/operator/change_password",
+            url:"/operator/change_password",
             onSubmit:function(param){
                 parent.$.messager.progress({
                     title : '提示',

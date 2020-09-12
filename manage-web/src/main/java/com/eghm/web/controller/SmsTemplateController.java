@@ -33,7 +33,7 @@ public class SmsTemplateController {
     /**
      * 短信模板分页列表
      */
-    @PostMapping("/business/sms_template/list_page")
+    @PostMapping("/sms_template/list_page")
     @ResponseBody
     public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request) {
         PageInfo<SmsTemplate> byPage = smsTemplateService.getByPage(request);
@@ -43,17 +43,17 @@ public class SmsTemplateController {
     /**
      * 短信模板编辑页面
      */
-    @GetMapping("/business/sms_template/edit_page")
+    @GetMapping("/sms_template/edit_page")
     public String editPage(Model model, Integer id) {
         SmsTemplate template = smsTemplateService.getById(id);
         model.addAttribute("template", template);
-        return "business/sms_template/edit_page";
+        return "sms_template/edit_page";
     }
 
     /**
      * 短信模板编辑保存
      */
-    @PostMapping("/business/sms_template/edit")
+    @PostMapping("/sms_template/edit")
     @ResponseBody
     public RespBody<Object> edit(SmsTemplateEditRequest request) {
         smsTemplateService.updateSmsTemplate(request);
