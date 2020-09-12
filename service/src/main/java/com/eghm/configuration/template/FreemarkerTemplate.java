@@ -20,13 +20,17 @@ import java.util.Map;
  * @date 2019/7/10 15:50
  */
 @Slf4j
-@Service("freemarkerHtmlTemplate")
-public class FreemarkerHtmlTemplate implements HtmlTemplate {
+@Service("freemarkerTemplate")
+public class FreemarkerTemplate implements TemplateEngine {
 
-    @Autowired
     private Configuration configuration;
 
     private static final String DEFAULT_TITLE = "freemarker_title";
+
+    @Autowired
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
+    }
 
     @Override
     public String render(String content, Map<String, Object> param) {
@@ -48,7 +52,7 @@ public class FreemarkerHtmlTemplate implements HtmlTemplate {
      * @throws IOException 异常
      * @throws TemplateException 异常
      */
-    private String doRender(Template template, Map<String, Object> params) throws IOException, TemplateException {
+    private String doRender(freemarker.template.Template template, Map<String, Object> params) throws IOException, TemplateException {
         try (StringWriter writer = new StringWriter()) {
             template.process(params, writer);
             return writer.toString();

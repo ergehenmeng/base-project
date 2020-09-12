@@ -7,7 +7,7 @@ import java.util.Map;
  * @author 二哥很猛
  * @date 2019/7/10 15:47
  */
-public interface HtmlTemplate {
+public interface TemplateEngine {
 
     /**
      * 模板渲染

@@ -2,8 +2,8 @@ package com.eghm.configuration;
 
 import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
-import com.eghm.configuration.template.FreemarkerHtmlTemplate;
-import com.eghm.configuration.template.HtmlTemplate;
+import com.eghm.configuration.template.FreemarkerTemplate;
+import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.constants.SystemConstant;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
@@ -91,8 +91,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
      * @return bean
      */
     @Bean
-    public HtmlTemplate htmlTemplate() {
-        return new FreemarkerHtmlTemplate();
+    public TemplateEngine freemarkerTemplate() {
+        return new FreemarkerTemplate();
     }
 
 

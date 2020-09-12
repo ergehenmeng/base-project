@@ -3,7 +3,7 @@ package com.eghm.handler.email;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.configuration.template.HtmlTemplate;
+import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dao.model.EmailTemplate;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
@@ -24,11 +24,11 @@ public class BaseEmailHandler {
 
     private EmailService emailService;
 
-    private HtmlTemplate htmlTemplate;
+    private TemplateEngine template;
 
     @Autowired
-    public void setHtmlTemplate(HtmlTemplate htmlTemplate) {
-        this.htmlTemplate = htmlTemplate;
+    public void setTemplate(TemplateEngine template) {
+        this.template = template;
     }
 
     @Autowired
@@ -75,7 +75,7 @@ public class BaseEmailHandler {
      */
     protected String getContent(EmailTemplate template, SendEmail email) {
         Map<String, Object> params = this.renderParams(template, email);
-        return htmlTemplate.render(template.getContent(), params);
+        return this.template.render(template.getContent(), params);
     }
 
 
@@ -98,7 +98,7 @@ public class BaseEmailHandler {
     protected void finallyProcess(SendEmail email, EmailTemplate template, boolean result) {
     }
 
-    public HtmlTemplate getHtmlTemplate() {
-        return htmlTemplate;
+    public TemplateEngine getTemplate() {
+        return template;
     }
 }
