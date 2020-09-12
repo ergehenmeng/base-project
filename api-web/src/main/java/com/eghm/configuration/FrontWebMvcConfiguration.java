@@ -33,16 +33,12 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
      */
     private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/resource/**", "/favicon.ico"};
 
-    /**
-     * 移动端请求地址
-     */
-    private static final String[] MOBILE_INCLUDE_URL = {"/api/**"};
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(clientTypeInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 6);
-        registry.addInterceptor(messageInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 10);
-        registry.addInterceptor(tokenInterceptor()).addPathPatterns(MOBILE_INCLUDE_URL).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 6);
+        registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 15);
     }
 
     @Override

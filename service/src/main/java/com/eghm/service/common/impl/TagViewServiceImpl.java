@@ -5,7 +5,6 @@ import com.eghm.dao.model.TagView;
 import com.eghm.service.common.TagViewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
