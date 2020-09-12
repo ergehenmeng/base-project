@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.UserInMailMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserInMail">
+<mapper namespace="com.eghm.dao.mapper.UserNoticeMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserNotice">
     <!--
       @create by mybatis
     -->
@@ -27,14 +27,14 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from user_in_mail
+    from user_notice
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.UserInMail">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.UserNotice">
     <!--
       @create by mybatis
     -->
-    insert into user_in_mail
+    insert into user_notice
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -94,11 +94,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.UserInMail">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.UserNotice">
     <!--
       @create by mybatis
     -->
-    update user_in_mail
+    update user_notice
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},

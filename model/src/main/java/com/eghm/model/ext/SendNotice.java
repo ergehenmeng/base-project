@@ -1,21 +1,22 @@
 package com.eghm.model.ext;
 
-import com.eghm.common.enums.InMailType;
+import com.eghm.common.enums.NoticeType;
 import lombok.Data;
 
 import java.util.Map;
 
 /**
+ * 发送用户站内信
  * @author 殿小二
  * @date 2020/9/12
  */
 @Data
-public class SendInMail {
+public class SendNotice {
 
     /**
      * 站内信类型
      */
-    private InMailType inMailType;
+    private NoticeType noticeType;
 
     /**
      * 参数类型 用于渲染消息模板

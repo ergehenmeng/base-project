@@ -2,18 +2,18 @@ package com.eghm.service.user.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.InMailType;
+import com.eghm.common.enums.NoticeType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.dao.mapper.UserInMailMapper;
-import com.eghm.dao.model.InMailTemplate;
+import com.eghm.dao.mapper.UserNoticeMapper;
+import com.eghm.dao.model.NoticeTemplate;
 import com.eghm.dao.model.User;
-import com.eghm.dao.model.UserInMail;
+import com.eghm.dao.model.UserNotice;
 import com.eghm.model.ext.PushNotice;
-import com.eghm.model.ext.SendInMail;
-import com.eghm.service.common.InMailTemplateService;
+import com.eghm.model.ext.SendNotice;
+import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.service.common.PushService;
-import com.eghm.service.user.UserInMailService;
+import com.eghm.service.user.UserNoticeService;
 import com.eghm.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +27,13 @@ import java.util.Map;
  * @author 殿小二
  * @date 2020/9/11
  */
-@Service("userInMailService")
+@Service("userNoticeService")
 @Slf4j
-public class UserInMailServiceImpl implements UserInMailService {
+public class UserNoticeServiceImpl implements UserNoticeService {
 
-    private InMailTemplateService inMailTemplateService;
+    private NoticeTemplateService noticeTemplateService;
 
-    private UserInMailMapper userInMailMapper;
+    private UserNoticeMapper userNoticeMapper;
 
     private TemplateEngine templateEngine;
 
@@ -52,13 +52,13 @@ public class UserInMailServiceImpl implements UserInMailService {
     }
 
     @Autowired
-    public void setInMailTemplateService(InMailTemplateService inMailTemplateService) {
-        this.inMailTemplateService = inMailTemplateService;
+    public void setNoticeTemplateService(NoticeTemplateService noticeTemplateService) {
+        this.noticeTemplateService = noticeTemplateService;
     }
 
     @Autowired
-    public void setUserInMailMapper(UserInMailMapper userInMailMapper) {
-        this.userInMailMapper = userInMailMapper;
+    public void setUserNoticeMapper(UserNoticeMapper userNoticeMapper) {
+        this.userNoticeMapper = userNoticeMapper;
     }
 
     @Autowired
@@ -68,38 +68,38 @@ public class UserInMailServiceImpl implements UserInMailService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendInMail(Integer userId, SendInMail inMail) {
-        InMailType mailType = inMail.getInMailType();
-        InMailTemplate template = inMailTemplateService.getTemplate(mailType.getValue());
+    public void sendNotice(Integer userId, SendNotice sendNotice) {
+        NoticeType mailType = sendNotice.getNoticeType();
+        NoticeTemplate template = noticeTemplateService.getTemplate(mailType.getValue());
         if (template == null) {
             log.warn("站内性模板未配置 [{}]", mailType.getValue());
             throw new BusinessException(ErrorCode.IN_MAIL_NULL);
         }
-        String content = templateEngine.render(template.getContent(), inMail.getParams());
-        UserInMail mail = new UserInMail();
+        String content = templateEngine.render(template.getContent(), sendNotice.getParams());
+        UserNotice mail = new UserNotice();
         mail.setClassify(mailType.getValue());
         mail.setTitle(template.getTitle());
         mail.setContent(content);
         mail.setUserId(userId);
-        userInMailMapper.insertSelective(mail);
+        userNoticeMapper.insertSelective(mail);
         // 发送推送消息
         if (mailType.isPushNotice()) {
-            this.doSendNotice(mail, mailType, inMail.getExtras());
+            this.doSendNotice(mail, mailType, sendNotice.getExtras());
         }
     }
 
     /**
      * 拼接通知消息信息并调用极光发送推送
-     * @param userInMail 通知信息
+     * @param userNotice 通知信息
      * @param mailType 消息类型
      * @param extras 消息发送时附加的参数
      */
-    private void doSendNotice(UserInMail userInMail, InMailType mailType, Map<String, String> extras) {
-        User user = userService.getById(userInMail.getUserId());
+    private void doSendNotice(UserNotice userNotice, NoticeType mailType, Map<String, String> extras) {
+        User user = userService.getById(userNotice.getUserId());
         PushNotice notice = PushNotice.builder()
                 .alias(user.getMobile())
-                .content(userInMail.getContent())
-                .title(userInMail.getTitle())
+                .content(userNotice.getContent())
+                .title(userNotice.getTitle())
                 .viewTag(mailType.getViewTag()).build();
         if (CollUtil.isNotEmpty(extras)) {
             notice.getExtras().putAll(extras);
@@ -110,7 +110,7 @@ public class UserInMailServiceImpl implements UserInMailService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendInMail(List<Integer> userIdList, SendInMail inMail) {
-        userIdList.forEach(userId -> this.sendInMail(userId, inMail));
+    public void sendNotice(List<Integer> userIdList, SendNotice sendNotice) {
+        userIdList.forEach(userId -> this.sendNotice(userId, sendNotice));
     }
 }

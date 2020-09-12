@@ -1,6 +1,6 @@
 package com.eghm.service.user;
 
-import com.eghm.model.ext.SendInMail;
+import com.eghm.model.ext.SendNotice;
 
 import java.util.List;
 
@@ -8,19 +8,19 @@ import java.util.List;
  * @author 殿小二
  * @date 2020/9/11
  */
-public interface UserInMailService {
+public interface UserNoticeService {
 
     /**
      * 发送站内信
      * @param userId 接收消息的用户
-     * @param inMail 消息内容
+     * @param sendNotice 消息内容
      */
-    void sendInMail(Integer userId, SendInMail inMail);
+    void sendNotice(Integer userId, SendNotice sendNotice);
 
     /**
      * 批量发送站内信
      * @param userIdList 接收消息的用户列表
-     * @param inMail 消息内容
+     * @param sendNotice 消息内容
      */
-    void sendInMail(List<Integer> userIdList, SendInMail inMail);
+    void sendNotice(List<Integer> userIdList, SendNotice sendNotice);
 }

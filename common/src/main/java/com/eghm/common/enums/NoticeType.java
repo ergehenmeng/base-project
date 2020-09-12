@@ -4,12 +4,12 @@ package com.eghm.common.enums;
  * @author 殿小二
  * @date 2020/9/12
  */
-public enum InMailType {
+public enum NoticeType {
 
     /**
      * 通用类通知
      */
-    COMMON("COMMON", "通用类通知", false, "inMail");
+    COMMON("COMMON", "通用类通知", false, "userNotice");
 
     /**
      * 分类
@@ -31,7 +31,7 @@ public enum InMailType {
      */
     private String viewTag;
 
-    InMailType(String value, String msg, boolean pushNotice, String viewTag) {
+    NoticeType(String value, String msg, boolean pushNotice, String viewTag) {
         this.value = value;
         this.msg = msg;
         this.pushNotice = pushNotice;

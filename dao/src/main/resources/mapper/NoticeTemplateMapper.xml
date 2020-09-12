@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.InMailTemplateMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.InMailTemplate">
+<mapper namespace="com.eghm.dao.mapper.NoticeTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.NoticeTemplate">
     <!--
       @create by mybatis
     -->
@@ -23,14 +23,14 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from in_mail_template
+    from notice_template
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.InMailTemplate">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.NoticeTemplate">
     <!--
       @create by mybatis
     -->
-    insert into in_mail_template
+    insert into notice_template
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -66,11 +66,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.InMailTemplate">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.NoticeTemplate">
     <!--
       @create by mybatis
     -->
-    update in_mail_template
+    update notice_template
     <set>
       <if test="code != null">
         code = #{code,jdbcType=VARCHAR},
@@ -88,6 +88,6 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getTemplate" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList" /> from in_mail_template where code = #{code} limit 1
+    select <include refid="BaseColumnList" /> from notice_template where code = #{code} limit 1
   </select>
 </mapper>
