@@ -11,23 +11,23 @@
         var winHeight = 500;
 
         var addTitle = "添加公告";
-        var addUrl = "/business/notice/add_page";
+        var addUrl = "/business/bulletin/add_page";
 
         var editTitle = "编辑公告";
-        var editUrl = "/business/notice/edit_page";
+        var editUrl = "/business/bulletin/edit_page";
 
         var  delMsg = "确定要执行该操作吗";
-        var delUrl = "/business/notice/delete";
+        var delUrl = "/business/bulletin/delete";
 
         var publishMsg = "确定要发布该公告吗";
-        var publishUrl = "/business/notice/publish";
+        var publishUrl = "/business/bulletin/publish";
 
         var cancelPublishMsg = "确定要取消该公告吗";
-        var cancelPublishUrl = "/business/notice/cancel_publish";
+        var cancelPublishUrl = "/business/bulletin/cancel_publish";
 
         $(function() {
             dataGrid = $.fn.dataGridOptions.dataGrid("#dataGrid",{
-                url : "/business/notice/list_page",
+                url : "/business/bulletin/list_page",
                 columns : [ [
                     {
                         field : "icon-action",
@@ -57,7 +57,7 @@
                     },
                     {field : "title",title : "标题",width : 150,align : "center",
                         formatter :function (value,row) {
-                            return "<a href='/business/notice/preview?id=" + row.id + "' target='_blank'>" + value + "</a>";
+                            return "<a href='/business/bulletin/preview?id=" + row.id + "' target='_blank'>" + value + "</a>";
                         }
                     },
                     {field : "classifyName",title : "类型",width : 150,align : "center"},
