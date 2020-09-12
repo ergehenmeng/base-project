@@ -23,7 +23,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  *
  * @author 二哥很猛
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.eghm")
 @EnableAsync
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = "com.eghm.configuration.listener")

@@ -21,14 +21,14 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from sys_operator_dept
+    from sys_data_dept
     where id = #{id,jdbcType=INTEGER}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysDataDept">
     <!--
       @create by mybatis
     -->
-    insert into sys_operator_dept
+    insert into sys_data_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -56,7 +56,7 @@
     <!--
       @create by mybatis
     -->
-    update sys_operator_dept
+    update sys_data_dept
     <set>
       <if test="operatorId != null">
         operator_id = #{operatorId,jdbcType=INTEGER},
@@ -69,11 +69,11 @@
   </update>
 
   <select id="getDeptList" resultType="string">
-    select dept_code from sys_operator_dept where operator_id = #{operatorId}
+    select dept_code from sys_data_dept where operator_id = #{operatorId}
   </select>
 
   <delete id="deleteByOperatorId" >
-    delete from sys_operator_dept where operator_id = #{operatorId}
+    delete from sys_data_dept where operator_id = #{operatorId}
   </delete>
 
 </mapper>

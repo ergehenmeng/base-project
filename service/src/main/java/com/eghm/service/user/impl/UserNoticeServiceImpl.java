@@ -47,7 +47,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
 
     private PushService pushService;
 
-    @Autowired
+    @Autowired(required = false)
     public void setPushService(PushService pushService) {
         this.pushService = pushService;
     }

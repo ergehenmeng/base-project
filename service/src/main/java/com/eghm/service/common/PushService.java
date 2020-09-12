@@ -1,11 +1,8 @@
 package com.eghm.service.common;
 
-import com.eghm.common.enums.PushType;
 import com.eghm.model.ext.PushMessage;
 import com.eghm.model.ext.PushNotice;
 import com.eghm.model.ext.PushTemplateNotice;
-
-import java.util.Map;
 
 /**
  * @author 二哥很猛

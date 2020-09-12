@@ -17,7 +17,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * @author 二哥很猛
  * @date
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.eghm")
 @EnableAsync
 @EnableAspectJAutoProxy
 @MapperScan("com.eghm.dao.mapper")
