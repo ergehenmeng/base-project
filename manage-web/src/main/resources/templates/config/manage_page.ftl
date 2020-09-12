@@ -24,7 +24,7 @@
                         align : "center",
                         formatter : function(value, row, index) {
                             var str = '';
-                            <@auth nid='sysParamterQuery'>
+                            <@auth nid='sysParameterEdit'>
                                 str += '<a href="javascript:void(0);" class="edit" title="编辑系统参数" onclick="$.fn.dataGridOptions.editFun('+row.id+',editTitle,winWidth,winHeight,editUrl);"></a>&nbsp;';
                             </@auth>
                             return str;
