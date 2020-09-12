@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2019/8/23 13:35
  */
 @Controller
-public class SysNoticeController {
+public class SysBulletinController {
 
     private SysBulletinService sysBulletinService;
 
