@@ -1,10 +1,10 @@
 package com.eghm.service.common;
 
-import com.eghm.model.dto.notice.NoticeAddRequest;
-import com.eghm.model.dto.notice.NoticeEditRequest;
-import com.eghm.model.dto.notice.NoticeQueryRequest;
-import com.eghm.dao.model.SysNotice;
-import com.eghm.model.vo.notice.TopNoticeVO;
+import com.eghm.model.dto.bulletin.BulletinAddRequest;
+import com.eghm.model.dto.bulletin.BulletinEditRequest;
+import com.eghm.model.dto.bulletin.BulletinQueryRequest;
+import com.eghm.dao.model.SysBulletin;
+import com.eghm.model.vo.bulletin.TopBulletinVO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -13,26 +13,26 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/11/20 19:11
  */
-public interface SysNoticeService {
+public interface SysBulletinService {
 
 
     /**
      * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制
      * @return 公告列表
      */
-    List<TopNoticeVO> getList();
+    List<TopBulletinVO> getList();
 
     /**
      * 添加公告
      * @param request 前台参数
      */
-    void addNotice(NoticeAddRequest request);
+    void addNotice(BulletinAddRequest request);
 
     /**
      * 更新公告
      * @param request 前台参数
      */
-    void editNotice(NoticeEditRequest request);
+    void editNotice(BulletinEditRequest request);
 
     /**
      * 删除公告
@@ -45,14 +45,14 @@ public interface SysNoticeService {
      * @param request 查询条件
      * @return 结果集
      */
-    PageInfo<SysNotice> getByPage(NoticeQueryRequest request);
+    PageInfo<SysBulletin> getByPage(BulletinQueryRequest request);
 
     /**
      * 主键查询公告信息
      * @param id id
      * @return 公告信息
      */
-    SysNotice getById(Integer id);
+    SysBulletin getById(Integer id);
 
     /**
      * 发布公告

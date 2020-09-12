@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.SysNoticeMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysNotice">
+<mapper namespace="com.eghm.dao.mapper.SysBulletinMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysBulletin">
     <!--
       @create by mybatis
     -->
@@ -13,7 +13,7 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="state" jdbcType="TINYINT" property="state" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eghm.dao.model.SysNotice">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eghm.dao.model.SysBulletin">
     <!--
       @create by mybatis
     -->
@@ -39,11 +39,11 @@
     <include refid="BaseColumnList" />
     ,
     <include refid="BlobColumnList" />
-    from sys_notice
+    from sys_bulletin
     where id = #{id,jdbcType=INTEGER}
   </select>
-    <select id="getList" parameterType="com.eghm.model.dto.notice.NoticeQueryRequest" resultMap="ResultMapWithBLOBs">
-        select id, title, classify, deleted, add_time, update_time, state from sys_notice
+    <select id="getList" parameterType="com.eghm.model.dto.bulletin.BulletinQueryRequest" resultMap="ResultMapWithBLOBs">
+        select id, title, classify, deleted, add_time, update_time, state from sys_bulletin
         where deleted = false
         <if test="queryName != null and queryName != ''">
             and title like concat('%',#{queryName},'%')
@@ -55,11 +55,11 @@
     </select>
 
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.SysNotice">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.SysBulletin">
     <!--
       @create by mybatis
     -->
-    insert into sys_notice
+    insert into sys_bulletin
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -113,11 +113,11 @@
         </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.SysNotice">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.SysBulletin">
     <!--
       @create by mybatis
     -->
-    update sys_notice
+    update sys_bulletin
     <set>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
@@ -145,7 +145,7 @@
   </update>
     <select id="getTopList" resultMap="BaseResultMap">
         select id,title
-        from sys_notice where state = 1 and deleted = false order by update_time desc limit #{noticeLimit}
+        from sys_bulletin where state = 1 and deleted = false order by update_time desc limit #{noticeLimit}
     </select>
 
 </mapper>

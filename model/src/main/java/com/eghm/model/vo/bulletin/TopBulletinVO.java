@@ -1,4 +1,4 @@
-package com.eghm.model.vo.notice;
+package com.eghm.model.vo.bulletin;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel
-public class TopNoticeVO implements Serializable {
+public class TopBulletinVO implements Serializable {
 
     /**
      * 公告id

@@ -2,8 +2,8 @@ package com.eghm.controller;
 
 import com.eghm.annotation.SkipLogger;
 import com.eghm.model.ext.RespBody;
-import com.eghm.model.vo.notice.TopNoticeVO;
-import com.eghm.service.common.SysNoticeService;
+import com.eghm.model.vo.bulletin.TopBulletinVO;
+import com.eghm.service.common.SysBulletinService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +17,15 @@ import java.util.List;
  * @date 2020/9/5
  */
 @RestController
-@Api(tags = "公告")
-public class NoticeController {
+@Api(tags = "系统公告")
+public class BulletinController {
 
-    private SysNoticeService sysNoticeService;
+    private SysBulletinService sysBulletinService;
 
     @Autowired
     @SkipLogger
-    public void setSysNoticeService(SysNoticeService sysNoticeService) {
-        this.sysNoticeService = sysNoticeService;
+    public void setSysBulletinService(SysBulletinService sysBulletinService) {
+        this.sysBulletinService = sysBulletinService;
     }
 
     /**
@@ -33,8 +33,8 @@ public class NoticeController {
      */
     @PostMapping("/notice/list")
     @ApiOperation("获取首页公告列表")
-    public RespBody<List<TopNoticeVO>> list() {
-        List<TopNoticeVO> list = sysNoticeService.getList();
+    public RespBody<List<TopBulletinVO>> list() {
+        List<TopBulletinVO> list = sysBulletinService.getList();
         return RespBody.success(list);
     }
 

@@ -4,14 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.annotation.Mark;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.constants.DictConstant;
-import com.eghm.dao.model.SysNotice;
-import com.eghm.model.dto.notice.NoticeAddRequest;
-import com.eghm.model.dto.notice.NoticeEditRequest;
-import com.eghm.model.dto.notice.NoticeQueryRequest;
+import com.eghm.dao.model.SysBulletin;
+import com.eghm.model.dto.bulletin.BulletinAddRequest;
+import com.eghm.model.dto.bulletin.BulletinEditRequest;
+import com.eghm.model.dto.bulletin.BulletinQueryRequest;
 import com.eghm.model.ext.Paging;
 import com.eghm.model.ext.RespBody;
 import com.eghm.service.cache.ProxyService;
-import com.eghm.service.common.SysNoticeService;
+import com.eghm.service.common.SysBulletinService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +28,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class SysNoticeController {
 
-    private SysNoticeService sysNoticeService;
+    private SysBulletinService sysBulletinService;
 
     private ProxyService proxyService;
 
     @Autowired
-    public void setSysNoticeService(SysNoticeService sysNoticeService) {
-        this.sysNoticeService = sysNoticeService;
+    public void setSysBulletinService(SysBulletinService sysBulletinService) {
+        this.sysBulletinService = sysBulletinService;
     }
 
     @Autowired
@@ -47,8 +47,8 @@ public class SysNoticeController {
      */
     @PostMapping("/business/notice/list_page")
     @ResponseBody
-    public Paging<SysNotice> listPage(NoticeQueryRequest request) {
-        PageInfo<SysNotice> byPage = sysNoticeService.getByPage(request);
+    public Paging<SysBulletin> listPage(BulletinQueryRequest request) {
+        PageInfo<SysBulletin> byPage = sysBulletinService.getByPage(request);
         return DataUtil.convert(byPage, notice -> {
             notice.setClassifyName(proxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
             return notice;
@@ -61,11 +61,11 @@ public class SysNoticeController {
     @PostMapping("/business/notice/add")
     @ResponseBody
     @Mark
-    public RespBody<Object> add(NoticeAddRequest request) {
+    public RespBody<Object> add(BulletinAddRequest request) {
         if (StrUtil.isBlank(request.getOriginalContent())) {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
-        sysNoticeService.addNotice(request);
+        sysBulletinService.addNotice(request);
         return RespBody.success();
     }
 
@@ -74,7 +74,7 @@ public class SysNoticeController {
      */
     @GetMapping("/business/notice/edit_page")
     public String editPage(Model model, Integer id) {
-        SysNotice notice = sysNoticeService.getById(id);
+        SysBulletin notice = sysBulletinService.getById(id);
         model.addAttribute("notice", notice);
         return "business/notice/edit_page";
     }
@@ -86,7 +86,7 @@ public class SysNoticeController {
     @ResponseBody
     @Mark
     public RespBody<Object> publish(Integer id) {
-        sysNoticeService.publish(id);
+        sysBulletinService.publish(id);
         return RespBody.success();
     }
 
@@ -97,7 +97,7 @@ public class SysNoticeController {
     @ResponseBody
     @Mark
     public RespBody<Object> cancelPublish(Integer id) {
-        sysNoticeService.cancelPublish(id);
+        sysBulletinService.cancelPublish(id);
         return RespBody.success();
     }
 
@@ -107,11 +107,11 @@ public class SysNoticeController {
     @PostMapping("/business/notice/edit")
     @ResponseBody
     @Mark
-    public RespBody<Object> edit(NoticeEditRequest request) {
+    public RespBody<Object> edit(BulletinEditRequest request) {
         if (StrUtil.isBlank(request.getOriginalContent())) {
             return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
         }
-        sysNoticeService.editNotice(request);
+        sysBulletinService.editNotice(request);
         return RespBody.success();
     }
 
@@ -122,7 +122,7 @@ public class SysNoticeController {
     @ResponseBody
     @Mark
     public RespBody<Object> delete(Integer id) {
-        sysNoticeService.deleteNotice(id);
+        sysBulletinService.deleteNotice(id);
         return RespBody.success();
     }
 
@@ -131,7 +131,7 @@ public class SysNoticeController {
      */
     @GetMapping("/business/notice/preview")
     public String preview(Model model, Integer id) {
-        SysNotice notice = sysNoticeService.getById(id);
+        SysBulletin notice = sysBulletinService.getById(id);
         if (notice != null) {
             model.addAttribute("response", notice.getContent());
         }

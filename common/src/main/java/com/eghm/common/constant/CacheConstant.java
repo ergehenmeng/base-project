@@ -38,7 +38,7 @@ public class CacheConstant {
     /**
      * 公告
      */
-    public static final String SYS_NOTICE = "sys_notice";
+    public static final String SYS_BULLETIN = "sys_bulletin";
 
     /**
      * 推送消息模板

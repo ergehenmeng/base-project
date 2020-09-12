@@ -1,4 +1,4 @@
-package com.eghm.model.dto.notice;
+package com.eghm.model.dto.bulletin;
 
 import com.eghm.model.ext.PagingQuery;
 import lombok.Data;
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class NoticeQueryRequest extends PagingQuery implements Serializable {
+public class BulletinQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = -6968777991245814063L;
 

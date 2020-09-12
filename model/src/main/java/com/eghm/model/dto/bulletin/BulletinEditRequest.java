@@ -1,4 +1,4 @@
-package com.eghm.model.dto.notice;
+package com.eghm.model.dto.bulletin;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @date 2018/11/20 19:17
  */
 @Data
-public class NoticeEditRequest implements Serializable {
+public class BulletinEditRequest implements Serializable {
 
     private static final long serialVersionUID = 9017621972387136443L;
 
@@ -24,7 +24,7 @@ public class NoticeEditRequest implements Serializable {
     private String title;
 
     /**
-     * 公告类型(数据字典表sys_notice_type)
+     * 公告类型(数据字典表sys_bulletin_type)
      */
     private Byte classify;
 
