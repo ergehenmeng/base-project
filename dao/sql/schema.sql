@@ -598,3 +598,25 @@ CREATE TABLE `user_address` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户地址表';
 
 alter table login_device add column ip bigint(20) comment '登陆ip';
+
+CREATE TABLE `user_notice` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息标题',
+  `content` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '站内信内容',
+  `classify` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '站内信分类',
+  `read` bit(1) DEFAULT b'0' COMMENT '状态 0:未读 1:已读',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户站内信';
+
+CREATE TABLE `notice_template` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `code` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息模板code',
+  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息标题',
+  `content` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容消息',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='站内信消息模板';
