@@ -3775,3 +3775,5 @@ INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VAL
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('3', 'change_email', '您正在更换EGHM平台账号的邮箱，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:44:19', NULL);
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `classify`, `locked`, `remark`, `add_time`, `update_time`) VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', '1', '\0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
+
+INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('1', 'FEEDBACK_PROCESS', '反馈结果', '您反馈的${classify} "${content}"问题，我们已接收。后期会根据需要进行优化，感谢您的支持与理解！', '2020-09-14 15:54:18');

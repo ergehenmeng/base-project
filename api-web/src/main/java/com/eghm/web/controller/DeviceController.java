@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.eghm.model.dto.login.DeviceUnbindDTO;
 import com.eghm.model.ext.ApiHolder;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.user.LoginDeviceVO;
@@ -37,5 +38,15 @@ public class DeviceController {
     public RespBody<List<LoginDeviceVO>> loginDevice() {
         List<LoginDeviceVO> voList = loginDeviceService.getByUserId(ApiHolder.getUserId());
         return RespBody.success(voList);
+    }
+
+    /**
+     * 解除设备绑定 (解绑后,用户必须通过手机验证码才能登陆)
+     */
+    @ApiOperation("解除设备绑定")
+    @PostMapping("/device/unbind")
+    public RespBody<Object> unbind(DeviceUnbindDTO request) {
+        loginDeviceService.deleteLoginDevice(ApiHolder.getUserId(), request.getSerialNumber());
+        return RespBody.success();
     }
 }
