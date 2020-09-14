@@ -14,8 +14,8 @@ import java.util.Map;
  * @author 二哥很猛
  * @date 2018/12/19 17:47
  */
-@Service("handlerExecute")
-public class HandlerExecute<T extends Handler> {
+@Service("handlerChain")
+public class HandlerChain<T extends Handler> {
 
     /**
      * 存放bean的列表

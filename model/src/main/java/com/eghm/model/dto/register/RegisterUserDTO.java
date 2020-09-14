@@ -33,10 +33,19 @@ public class RegisterUserDTO implements Serializable {
     private String smsCode;
 
     /**
+     * 注册邀请码
+     */
+    @RangeLength(required = false,min = 6,max = 6,message = "邀请码格式错误")
+    @ApiModelProperty(value = "注册邀请码(非必填)")
+    private String inviteCode;
+
+    /**
      * 注册渠道
      */
     @ApiModelProperty(hidden = true)
+    @BackstageTag
     private String channel;
+
 
     /**
      * 注册ip

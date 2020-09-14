@@ -41,7 +41,7 @@ public class RequestResponseLogAspect {
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
-    @Around("(!@annotation(com.eghm.web.annotation.SkipLogger)) && within(com.eghm.controller..*)")
+    @Around("(!@annotation(com.eghm.web.annotation.SkipLogger)) && within(com.eghm.web.controller..*)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {

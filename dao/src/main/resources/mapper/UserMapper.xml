@@ -159,5 +159,7 @@
         select <include refid="BaseColumnList"/>
         from user where state = true and email = #{email}
     </select>
-
+    <select id="getByInviteCode" resultMap="BaseResultMap">
+      select <include refid="BaseColumnList"/> from user where invite_code = #{inviteCode} limit 1
+    </select>
 </mapper>

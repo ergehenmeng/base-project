@@ -125,4 +125,9 @@ public class CacheConstant {
      */
     public static final String USER_SIGN_IN = "user_sign_in::";
 
+    /**
+     * hash类型 用户邀请信息缓存
+     */
+    public static final String USER_INVITE_CODE = "user_invite_code";
+
 }

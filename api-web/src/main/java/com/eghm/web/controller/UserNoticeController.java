@@ -8,6 +8,7 @@ import com.eghm.model.ext.PagingQuery;
 import com.eghm.model.ext.RespBody;
 import com.eghm.model.vo.user.UserNoticeVO;
 import com.eghm.service.user.UserNoticeService;
+import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class UserNoticeController {
     private UserNoticeService userNoticeService;
 
     @Autowired
+    @SkipLogger
     public void setUserNoticeService(UserNoticeService userNoticeService) {
         this.userNoticeService = userNoticeService;
     }

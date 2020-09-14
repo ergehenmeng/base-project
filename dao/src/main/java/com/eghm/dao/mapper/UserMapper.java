@@ -43,4 +43,10 @@ public interface UserMapper {
      */
     User getByEmail(@Param("email")String email);
 
+    /**
+     * 通过邀请码查询用户信息
+     * @param inviteCode 邀请码
+     * @return user
+     */
+    User getByInviteCode(@Param("inviteCode") String inviteCode);
 }

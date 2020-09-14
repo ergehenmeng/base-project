@@ -19,6 +19,9 @@ import com.eghm.dao.mapper.UserMapper;
 import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.User;
 import com.eghm.dao.model.UserScoreLog;
+import com.eghm.handler.chain.HandlerChain;
+import com.eghm.handler.chain.MessageData;
+import com.eghm.handler.chain.service.RegisterHandler;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.login.AccountLoginDTO;
 import com.eghm.model.dto.login.SmsLoginDTO;
@@ -84,6 +87,13 @@ public class UserServiceImpl implements UserService {
     private CacheService cacheService;
 
     private UserScoreLogService userScoreLogService;
+
+    private HandlerChain handlerChain;
+
+    @Autowired
+    public void setHandlerChain(HandlerChain handlerChain) {
+        this.handlerChain = handlerChain;
+    }
 
     @Autowired
     public void setUserScoreLogService(UserScoreLogService userScoreLogService) {
@@ -156,7 +166,7 @@ public class UserServiceImpl implements UserService {
         User user = DataUtil.copy(register, User.class);
         this.initUser(user);
         userMapper.insertSelective(user);
-        this.doPostRegister(user);
+        this.doPostRegister(user, register);
         return user;
     }
 
@@ -165,10 +175,16 @@ public class UserServiceImpl implements UserService {
      *
      * @param user 用户信息
      */
-    private void doPostRegister(User user) {
+    private void doPostRegister(User user, UserRegister register) {
         // 获取到用户id,再次更新邀请码
-        user.setInviteCode(StringUtil.encryptNumber(user.getId()));
+        String inviteCode = StringUtil.encryptNumber(user.getId());
+        user.setInviteCode(inviteCode);
         userMapper.updateByPrimaryKeySelective(user);
+        // 执行注册后置链
+        MessageData data = new MessageData();
+        data.setUser(user);
+        data.setUserRegister(register);
+        handlerChain.execute(data, RegisterHandler.class);
     }
 
     /**
@@ -464,6 +480,10 @@ public class UserServiceImpl implements UserService {
         return sign;
     }
 
+    @Override
+    public User getByInviteCode(String inviteCode) {
+        return userMapper.getByInviteCode(inviteCode);
+    }
 
     /**
      * 注册手机号被占用校验

@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
@@ -20,7 +19,6 @@ import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
@@ -90,6 +88,15 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setValue(String key, Object value) {
         this.setValue(key, value, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
+    }
+
+    @Override
+    public void setDurable(String key, Object value) {
+        if (value instanceof String) {
+            opsForValue.set(key, (String) value);
+        } else {
+            opsForValue.set(key, jsonService.toJson(value));
+        }
     }
 
     @Override

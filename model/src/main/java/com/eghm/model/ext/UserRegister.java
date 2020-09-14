@@ -34,6 +34,11 @@ public class UserRegister implements Serializable {
     private String pwd;
 
     /**
+     * 注册邀请码
+     */
+    private String inviteCode;
+
+    /**
      * 注册渠道
      */
     private String channel;

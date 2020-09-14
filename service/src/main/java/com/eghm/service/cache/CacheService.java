@@ -22,6 +22,13 @@ public interface CacheService {
     void setValue(String key, Object value);
 
     /**
+     * 缓存对象 永久不会失效(慎用)
+     * @param key key
+     * @param value value
+     */
+    void setDurable(String key, Object value);
+
+    /**
      * 根据key 获取缓存信息,
      *
      * @param key 缓存key
