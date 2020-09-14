@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.model.ext.JwtToken;
+import com.eghm.model.dto.ext.JwtToken;
 
 /**
  * @author 殿小二

@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.dao.model.SysDept;
 import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;

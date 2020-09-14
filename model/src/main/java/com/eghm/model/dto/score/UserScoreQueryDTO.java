@@ -1,7 +1,7 @@
 package com.eghm.model.dto.score;
 
 import com.eghm.model.annotation.BackstageTag;
-import com.eghm.model.ext.PagingQuery;
+import com.eghm.model.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

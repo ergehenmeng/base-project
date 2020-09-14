@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.dao.model.SysOperationLog;
 import com.eghm.model.dto.log.OperationQueryRequest;
-import com.eghm.model.ext.Paging;
+import com.eghm.model.dto.ext.Paging;
 import com.eghm.service.sys.OperationLogService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -7,7 +7,7 @@ import com.eghm.dao.model.SysMenu;
 import com.eghm.dao.model.SysOperator;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.eghm.model.dto.feedback;
 
-import com.eghm.model.ext.ActionRecord;
+import com.eghm.model.dto.ext.ActionRecord;
 import lombok.Getter;
 import lombok.Setter;
 

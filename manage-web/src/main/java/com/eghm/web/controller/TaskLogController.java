@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
-import com.eghm.model.ext.Paging;
+import com.eghm.model.dto.ext.Paging;
 import com.eghm.service.common.TaskLogService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

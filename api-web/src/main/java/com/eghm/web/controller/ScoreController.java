@@ -1,9 +1,9 @@
 package com.eghm.web.controller;
 
 import com.eghm.model.dto.score.UserScoreQueryDTO;
-import com.eghm.model.ext.ApiHolder;
-import com.eghm.model.ext.Paging;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.score.UserScoreVO;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.web.annotation.SkipLogger;

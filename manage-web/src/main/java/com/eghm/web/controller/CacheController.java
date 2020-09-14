@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.dao.model.SysCache;
-import com.eghm.model.ext.Paging;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;

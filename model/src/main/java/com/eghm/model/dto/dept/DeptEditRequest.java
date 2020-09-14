@@ -1,6 +1,6 @@
 package com.eghm.model.dto.dept;
 
-import com.eghm.model.ext.ActionRecord;
+import com.eghm.model.dto.ext.ActionRecord;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

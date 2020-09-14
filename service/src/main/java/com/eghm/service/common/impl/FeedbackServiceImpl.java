@@ -8,7 +8,7 @@ import com.eghm.dao.model.FeedbackLog;
 import com.eghm.model.dto.feedback.FeedbackAddDTO;
 import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.model.dto.feedback.FeedbackQueryRequest;
-import com.eghm.model.ext.SendNotice;
+import com.eghm.model.dto.ext.SendNotice;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.service.user.UserNoticeService;

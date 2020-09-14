@@ -1,8 +1,8 @@
 package com.eghm.web.controller;
 
 import com.eghm.model.dto.login.DeviceUnbindDTO;
-import com.eghm.model.ext.ApiHolder;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.user.LoginDeviceService;
 import com.eghm.web.annotation.SkipLogger;

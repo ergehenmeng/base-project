@@ -1,8 +1,8 @@
 package com.eghm.web.configuration.handler;
 
 
-import com.eghm.model.ext.ApiHolder;
-import com.eghm.model.ext.RequestMessage;
+import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.service.common.JsonService;
 import com.eghm.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;

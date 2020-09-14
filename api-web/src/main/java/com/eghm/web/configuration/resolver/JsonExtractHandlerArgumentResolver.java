@@ -2,8 +2,8 @@ package com.eghm.web.configuration.resolver;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
-import com.eghm.model.ext.ApiHolder;
-import com.eghm.model.ext.RequestMessage;
+import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.SkipDataBinder;
 import com.fasterxml.jackson.databind.ObjectMapper;

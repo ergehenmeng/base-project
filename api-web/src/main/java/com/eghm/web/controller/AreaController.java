@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.model.dto.area.AreaQueryDTO;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.sys.SysAreaVO;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.web.annotation.SkipLogger;

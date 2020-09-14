@@ -1,7 +1,7 @@
 package com.eghm.handler.chain;
 
 import com.eghm.dao.model.User;
-import com.eghm.model.ext.UserRegister;
+import com.eghm.model.dto.ext.UserRegister;
 import lombok.Data;
 
 import java.io.Serializable;

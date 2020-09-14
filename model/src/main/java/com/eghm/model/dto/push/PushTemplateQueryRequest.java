@@ -1,6 +1,6 @@
 package com.eghm.model.dto.push;
 
-import com.eghm.model.ext.PagingQuery;
+import com.eghm.model.dto.ext.PagingQuery;
 import lombok.Getter;
 import lombok.Setter;
 

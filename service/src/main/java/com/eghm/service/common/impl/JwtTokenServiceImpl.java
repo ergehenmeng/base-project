@@ -8,7 +8,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eghm.common.enums.Channel;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.model.ext.JwtToken;
+import com.eghm.model.dto.ext.JwtToken;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import org.springframework.beans.factory.annotation.Autowired;

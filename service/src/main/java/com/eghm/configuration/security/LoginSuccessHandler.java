@@ -1,6 +1,6 @@
 package com.eghm.configuration.security;
 
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;

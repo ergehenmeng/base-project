@@ -1,4 +1,4 @@
-package com.eghm.model.ext;
+package com.eghm.model.dto.ext;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiModel;

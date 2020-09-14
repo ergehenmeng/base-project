@@ -1,7 +1,7 @@
 package com.eghm.web;
 
 import cn.hutool.crypto.digest.MD5;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;

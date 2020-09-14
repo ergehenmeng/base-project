@@ -5,7 +5,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserScoreLogMapper;
 import com.eghm.dao.model.UserScoreLog;
 import com.eghm.model.dto.score.UserScoreQueryDTO;
-import com.eghm.model.ext.Paging;
+import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.vo.score.UserScoreVO;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.UserScoreLogService;

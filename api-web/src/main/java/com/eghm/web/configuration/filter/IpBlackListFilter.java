@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.filter;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;

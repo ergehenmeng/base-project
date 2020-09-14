@@ -1,10 +1,8 @@
 package com.eghm.service.common;
 
-import com.eghm.common.enums.EmailType;
-import com.eghm.common.enums.SmsType;
 import com.eghm.handler.email.AuthCodeEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
-import com.eghm.model.ext.VerifyEmailCode;
+import com.eghm.model.dto.ext.VerifyEmailCode;
 
 /**
  * @author 二哥很猛

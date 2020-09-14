@@ -1,6 +1,6 @@
 package com.eghm.web.service.cache;
 
-import com.eghm.model.ext.AsyncResponse;
+import com.eghm.model.dto.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.web.BaseTest;
 import org.junit.Test;

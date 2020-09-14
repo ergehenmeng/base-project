@@ -6,7 +6,7 @@ import com.eghm.common.utils.DateUtil;
 import com.eghm.configuration.ApplicationProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
-import com.eghm.model.ext.FilePath;
+import com.eghm.model.dto.ext.FilePath;
 import com.eghm.service.common.FileService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.extern.slf4j.Slf4j;

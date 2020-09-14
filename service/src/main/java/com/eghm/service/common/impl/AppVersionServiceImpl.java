@@ -9,7 +9,7 @@ import com.eghm.dao.model.AppVersion;
 import com.eghm.model.dto.version.VersionAddRequest;
 import com.eghm.model.dto.version.VersionEditRequest;
 import com.eghm.model.dto.version.VersionQueryRequest;
-import com.eghm.model.ext.ApiHolder;
+import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
 import com.eghm.utils.DataUtil;

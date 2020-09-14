@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
 import com.eghm.web.annotation.SkipLogger;

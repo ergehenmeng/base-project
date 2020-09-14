@@ -1,6 +1,6 @@
 package com.eghm.utils;
 
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 

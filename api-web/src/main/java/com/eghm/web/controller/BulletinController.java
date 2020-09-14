@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.bulletin.TopBulletinVO;
 import com.eghm.service.common.SysBulletinService;
 import com.eghm.web.annotation.SkipLogger;

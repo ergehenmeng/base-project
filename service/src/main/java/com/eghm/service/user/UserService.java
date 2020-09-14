@@ -8,7 +8,7 @@ import com.eghm.model.dto.user.BindEmailDTO;
 import com.eghm.model.dto.user.ChangeEmailDTO;
 import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
 import com.eghm.model.dto.user.UserAuthDTO;
-import com.eghm.model.ext.UserRegister;
+import com.eghm.model.dto.ext.UserRegister;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.model.vo.user.SignInVO;
 

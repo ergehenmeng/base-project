@@ -7,7 +7,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
-import com.eghm.model.ext.AsyncResponse;
+import com.eghm.model.dto.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.impl.SysConfigApi;

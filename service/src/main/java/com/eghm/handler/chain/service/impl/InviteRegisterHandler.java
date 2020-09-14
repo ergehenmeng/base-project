@@ -7,7 +7,7 @@ import com.eghm.handler.chain.Handler;
 import com.eghm.handler.chain.HandlerInvoker;
 import com.eghm.handler.chain.MessageData;
 import com.eghm.handler.chain.service.RegisterHandler;
-import com.eghm.model.ext.UserRegister;
+import com.eghm.model.dto.ext.UserRegister;
 import com.eghm.service.user.UserInviteLogService;
 import com.eghm.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;

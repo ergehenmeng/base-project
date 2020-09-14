@@ -1,5 +1,6 @@
-package com.eghm.model.ext;
+package com.eghm.model.dto.ext;
 
+import com.eghm.common.enums.PushType;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,40 +10,33 @@ import lombok.NoArgsConstructor;
 import java.util.Map;
 
 /**
- * 通知类推送
- *
- * @author 二哥很猛
- * @date 2019/8/29 14:02
+ * 推送模板类通知
+ * @author 殿小二
+ * @date 2020/9/12
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PushNotice {
+public class PushTemplateNotice {
 
     /**
-     * 别名
+     * 模板类型
+     */
+    private PushType pushType;
+
+    /**
+     * 接收消息的用户
      */
     private String alias;
 
     /**
-     * 推送标题
+     * 模板参数
      */
-    private String title;
+    private Map<String, Object> params;
 
     /**
-     * 推送内容
-     */
-    private String content;
-
-    /**
-     * 通知跳转的页面
-     */
-    private String viewTag;
-
-    /**
-     * 消息通知附加信息
+     * 推送附加的参数信息
      */
     private final Map<String, String> extras = Maps.newHashMapWithExpectedSize(4);
-
 }

@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.dao.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
-import com.eghm.model.ext.Paging;
+import com.eghm.model.dto.ext.Paging;
 import com.eghm.service.sys.SmsLogService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

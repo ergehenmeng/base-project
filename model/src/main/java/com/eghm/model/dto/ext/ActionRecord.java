@@ -1,4 +1,4 @@
-package com.eghm.model.ext;
+package com.eghm.model.dto.ext;
 
 import lombok.Getter;
 import lombok.Setter;

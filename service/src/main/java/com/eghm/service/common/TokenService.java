@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.model.ext.Token;
+import com.eghm.model.dto.ext.Token;
 
 /**
  * 会话令牌service

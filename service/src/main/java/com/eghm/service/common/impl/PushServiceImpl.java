@@ -17,15 +17,14 @@ import cn.jpush.api.push.model.notification.Notification;
 import com.eghm.configuration.PushProperties;
 import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.dao.model.PushTemplate;
-import com.eghm.model.ext.PushMessage;
-import com.eghm.model.ext.PushNotice;
-import com.eghm.model.ext.PushTemplateNotice;
+import com.eghm.model.dto.ext.PushMessage;
+import com.eghm.model.dto.ext.PushNotice;
+import com.eghm.model.dto.ext.PushTemplateNotice;
 import com.eghm.service.common.PushService;
 import com.eghm.service.common.PushTemplateService;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;

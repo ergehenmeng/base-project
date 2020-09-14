@@ -1,6 +1,6 @@
 package com.eghm.model.dto.banner;
 
-import com.eghm.model.ext.PagingQuery;
+import com.eghm.model.dto.ext.PagingQuery;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;

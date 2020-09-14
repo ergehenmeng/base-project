@@ -2,10 +2,10 @@ package com.eghm.web.controller;
 
 
 import com.eghm.model.dto.IdDTO;
-import com.eghm.model.ext.ApiHolder;
-import com.eghm.model.ext.Paging;
-import com.eghm.model.ext.PagingQuery;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PagingQuery;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.user.UserNoticeVO;
 import com.eghm.service.user.UserNoticeService;
 import com.eghm.web.annotation.SkipLogger;

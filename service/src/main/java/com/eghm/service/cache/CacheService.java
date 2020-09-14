@@ -1,6 +1,6 @@
 package com.eghm.service.cache;
 
-import com.eghm.model.ext.AsyncResponse;
+import com.eghm.model.dto.ext.AsyncResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Date;

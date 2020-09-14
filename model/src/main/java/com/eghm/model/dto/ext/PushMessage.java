@@ -1,8 +1,7 @@
-package com.eghm.model.ext;
+package com.eghm.model.dto.ext;
 
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

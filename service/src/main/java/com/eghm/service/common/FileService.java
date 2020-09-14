@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.model.ext.FilePath;
+import com.eghm.model.dto.ext.FilePath;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;

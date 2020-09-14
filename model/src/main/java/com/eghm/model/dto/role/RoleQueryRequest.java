@@ -1,6 +1,6 @@
 package com.eghm.model.dto.role;
 
-import com.eghm.model.ext.PagingQuery;
+import com.eghm.model.dto.ext.PagingQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

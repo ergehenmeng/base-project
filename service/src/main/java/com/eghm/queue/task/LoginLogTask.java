@@ -1,6 +1,6 @@
 package com.eghm.queue.task;
 
-import com.eghm.model.ext.LoginRecord;
+import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.queue.AbstractTask;
 import com.eghm.service.user.LoginLogService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,6 @@
 package com.eghm.service.user;
 
-import com.eghm.dao.model.LoginLog;
-import com.eghm.model.ext.LoginRecord;
+import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.model.vo.user.LoginDeviceVO;
 
 /**

@@ -4,7 +4,7 @@ import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.mapper.LoginLogMapper;
 import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.LoginLog;
-import com.eghm.model.ext.LoginRecord;
+import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;

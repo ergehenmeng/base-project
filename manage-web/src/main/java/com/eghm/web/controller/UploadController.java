@@ -1,8 +1,8 @@
 package com.eghm.web.controller;
 
 
-import com.eghm.model.ext.FilePath;
-import com.eghm.model.ext.RespBody;
+import com.eghm.model.dto.ext.FilePath;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,14 +1,12 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.handler.email.BaseEmailHandler;
 import com.eghm.handler.email.service.BindEmailEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
-import com.eghm.model.ext.VerifyEmailCode;
+import com.eghm.model.dto.ext.VerifyEmailCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
 import com.eghm.utils.SpringContextUtil;

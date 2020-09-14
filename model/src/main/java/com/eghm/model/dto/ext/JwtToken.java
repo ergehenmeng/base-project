@@ -1,4 +1,4 @@
-package com.eghm.model.ext;
+package com.eghm.model.dto.ext;
 
 import com.eghm.common.enums.Channel;
 import lombok.Data;
