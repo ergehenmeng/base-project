@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <title>404页面未找到异常</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

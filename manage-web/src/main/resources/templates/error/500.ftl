@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <title>服务器错误异常</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
