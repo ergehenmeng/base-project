@@ -1,2 +1,2 @@
 org.springframework.boot.SpringApplicationRunListener=\
-com.eghm.web.configuration.AppSpringApplicationRunListener
+com.eghm.web.configuration.listener.AppSpringApplicationRunListener

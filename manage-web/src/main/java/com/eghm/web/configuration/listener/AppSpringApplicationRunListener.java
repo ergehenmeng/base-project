@@ -1,4 +1,4 @@
-package com.eghm.web.configuration;
+package com.eghm.web.configuration.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -7,6 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
+ * demo
  * @author 二哥很猛
  */
 @Slf4j
