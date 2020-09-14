@@ -5,6 +5,7 @@ import com.eghm.utils.SpringContextUtil;
 import com.google.common.collect.Lists;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ public class HandlerChain<T extends Handler> {
      * @param messageData 传递参数对象
      * @param cls         处理器类型
      */
+    @Transactional(rollbackFor = RuntimeException.class)
     public void execute(MessageData messageData, Class<T> cls) {
         List<T> handlers = getHandlers(cls);
         if (handlers != null) {
