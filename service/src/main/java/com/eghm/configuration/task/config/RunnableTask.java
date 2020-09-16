@@ -1,7 +1,10 @@
 package com.eghm.configuration.task.config;
 
+import com.eghm.common.enums.EmailType;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.TaskLog;
+import com.eghm.model.dto.email.SendEmail;
+import com.eghm.service.common.EmailService;
 import com.eghm.service.common.TaskLogService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;
@@ -37,10 +40,20 @@ public class RunnableTask implements Runnable {
      */
     private String nid;
 
-    RunnableTask(String nid, String beanName) {
+    /**
+     * 报警邮箱地址
+     */
+    private String alarmEmail;
+
+    RunnableTask(String nid, String beanName, String alarmEmail) {
         this.nid = nid;
         this.beanName = beanName;
+        this.alarmEmail = alarmEmail;
         initBeans();
+    }
+
+    RunnableTask(String nid, String beanName) {
+        this(nid, beanName, null);
     }
 
     @Override
@@ -51,10 +64,12 @@ public class RunnableTask implements Runnable {
         try {
             // 任务幂等由业务来决定
             task.execute();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             log.error("定时任务执行异常 nid:[{}] bean:[{}]", nid, beanName, e);
             builder.state(false);
-            builder.errorMsg(ExceptionUtils.getMessage(e));
+            String errorMsg = ExceptionUtils.getMessage(e);
+            builder.errorMsg(errorMsg);
+            this.sendExceptionEmail(errorMsg);
         } finally {
             long endTime = System.currentTimeMillis();
             builder.elapsedTime(endTime - startTime);
@@ -68,6 +83,20 @@ public class RunnableTask implements Runnable {
         }
         this.taskLogService = (TaskLogService) SpringContextUtil.getBean("taskLogService");
         return taskLogService;
+    }
+
+    /**
+     * 发送异常通知邮件
+     * @param errorMsg msg
+     */
+    private void sendExceptionEmail(String errorMsg) {
+        EmailService emailService = (EmailService) SpringContextUtil.getBean("emailService");
+        SendEmail sendEmail = new SendEmail();
+        sendEmail.setType(EmailType.TASK_ALARM);
+        sendEmail.setEmail(alarmEmail);
+        sendEmail.put("errorMsg", errorMsg);
+        sendEmail.put("nid", nid);
+        emailService.sendEmail(sendEmail);
     }
 
     /**

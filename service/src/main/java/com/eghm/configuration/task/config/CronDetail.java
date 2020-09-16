@@ -24,4 +24,9 @@ public class CronDetail {
      */
     private String cronExpression;
 
+    /**
+     * 报警邮箱
+     */
+    private String alarmEmail;
+
 }

@@ -41,6 +41,7 @@ public class TaskHandler {
          */
         private static final ThreadPoolExecutor EXCEPTION_LOG = new ThreadPoolExecutor(1, 2, 30, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(), r -> new Thread(r, TaskConstant.EXCEPTION_LOG_THREAD), (r, executor) -> log.warn("异常日志的线程池已满,data:[{}]", ((AbstractTask) r).getData()));
+
     }
 
     /**

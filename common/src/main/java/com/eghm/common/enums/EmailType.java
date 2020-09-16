@@ -22,6 +22,11 @@ public enum EmailType {
      */
     RETRIEVE_PASSWORD("retrieve_password","找回密码", "retrievePasswordHandler"),
 
+    /**
+     * 定时任务报警
+     */
+    TASK_ALARM("task_alarm","定时任务报警", "commonEmailHandler"),
+
     ;
 
     private String value;

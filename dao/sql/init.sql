@@ -3777,3 +3777,8 @@ INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VAL
 INSERT INTO `sys_config` (`id`, `nid`, `title`, `content`, `classify`, `locked`, `remark`, `add_time`, `update_time`) VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', '1', '\0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
 
 INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('1', 'FEEDBACK_PROCESS', '反馈结果', '您反馈的${classify} "${content}"问题，我们已接收。后期会根据需要进行优化，感谢您的支持与理解！', '2020-09-14 15:54:18');
+
+INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('3', 'bind_email', '绑定邮箱', '您正在使用该邮箱绑定EGHM平台账号，验证码为：${authCode}。如非本人操作，请忽略该邮件！', '2020-09-16 18:57:03', NULL);
+INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('4', 'change_email', '更换邮箱', '您正在更换EGHM账号的邮箱，验证码为：${authCode}。如非本人操作，请忽略该邮件！', '2020-09-16 18:57:10', NULL);
+INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('5', 'retrieve_password', '找回密码', '您正在使用该邮箱找回EGHM账号的密码，验证码为：${authCode}。如非本人操作，请忽略该邮件！', '2020-09-16 18:57:32', NULL);
+INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('6', 'task_alarm', '定时任务报警', '定时任务：[${nid}] 异常，请及时处理!  \r\n\r\n${errorMsg}  ', '2020-09-16 19:02:22', NULL);

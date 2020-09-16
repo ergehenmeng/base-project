@@ -10,6 +10,7 @@ import com.eghm.service.common.EmailService;
 import com.eghm.service.common.EmailTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
@@ -18,17 +19,18 @@ import java.util.Map;
  * @date 2020/8/28
  */
 @Slf4j
+@Component("commonEmailHandler")
 public class BaseEmailHandler {
 
     private EmailTemplateService emailTemplateService;
 
     private EmailService emailService;
 
-    private TemplateEngine template;
+    private TemplateEngine templateEngine;
 
     @Autowired
-    public void setTemplate(TemplateEngine template) {
-        this.template = template;
+    public void setTemplateEngine(TemplateEngine templateEngine) {
+        this.templateEngine = templateEngine;
     }
 
     @Autowired
@@ -46,10 +48,15 @@ public class BaseEmailHandler {
      * @param email 邮件信息
      */
     public void execute(SendEmail email) {
+        // 获取模板
         EmailTemplate template = this.getCheckedTemplate(email.getType());
+        // 邮件标题
         String title = this.getTitle(template, email);
+        // 邮件内容
         String content = this.getContent(template, email);
+        // 发送邮件
         boolean result = emailService.sendEmail(email.getEmail(), title, content);
+        // 后置处理
         this.finallyProcess(email, template, result);
     }
 
@@ -75,7 +82,7 @@ public class BaseEmailHandler {
      */
     protected String getContent(EmailTemplate template, SendEmail email) {
         Map<String, Object> params = this.renderParams(template, email);
-        return this.template.render(template.getContent(), params);
+        return templateEngine.render(template.getContent(), params);
     }
 
 
@@ -98,7 +105,4 @@ public class BaseEmailHandler {
     protected void finallyProcess(SendEmail email, EmailTemplate template, boolean result) {
     }
 
-    public TemplateEngine getTemplate() {
-        return template;
-    }
 }

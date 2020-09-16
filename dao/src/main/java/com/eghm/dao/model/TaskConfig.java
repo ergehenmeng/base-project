@@ -56,6 +56,13 @@ public class TaskConfig implements Serializable {
     private Byte state;
 
     /**
+     * 报警邮箱地址<br>
+     * 表 : job_task<br>
+     * 对应字段 : alarm_email<br>
+     */
+    private String alarmEmail;
+
+    /**
      * 更新时间<br>
      * 表 : job_task<br>
      * 对应字段 : update_time<br>
