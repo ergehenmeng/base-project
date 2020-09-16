@@ -8,11 +8,11 @@ import com.eghm.dao.model.TaskConfig;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 
+import javax.annotation.PreDestroy;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author 二哥很猛
  */
 @Slf4j
-public class SystemTaskRegistrar implements DisposableBean {
+public class SystemTaskRegistrar {
 
     @Autowired
     private TaskConfigService taskConfigService;
@@ -158,7 +158,7 @@ public class SystemTaskRegistrar implements DisposableBean {
     }
 
 
-    @Override
+    @PreDestroy
     public void destroy() {
         for (ScheduledFuture<?> future : scheduledFutures.values()) {
             if (future != null) {

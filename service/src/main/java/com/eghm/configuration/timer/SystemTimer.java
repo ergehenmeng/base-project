@@ -1,9 +1,9 @@
 package com.eghm.configuration.timer;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2018/9/11 11:01
  */
 @Slf4j
-public class SystemTimer implements InitializingBean, DisposableBean {
+public class SystemTimer {
 
     /**
      * 工作线程
@@ -183,12 +183,12 @@ public class SystemTimer implements InitializingBean, DisposableBean {
         this.executor = executor;
     }
 
-    @Override
+    @PreDestroy
     public void destroy() {
         shutdown();
     }
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() {
         start();
     }
