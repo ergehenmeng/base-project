@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.TaskLog;
@@ -65,12 +66,14 @@ public class RunnableTask implements Runnable {
             // 任务幂等由业务来决定
             task.execute();
         } catch (RuntimeException e) {
+            // 异常时记录日志并发送邮件
             log.error("定时任务执行异常 nid:[{}] bean:[{}]", nid, beanName, e);
             builder.state(false);
             String errorMsg = ExceptionUtils.getMessage(e);
             builder.errorMsg(errorMsg);
             this.sendExceptionEmail(errorMsg);
         } finally {
+            // 每次执行的日志都记入定时任务日志
             long endTime = System.currentTimeMillis();
             builder.elapsedTime(endTime - startTime);
             taskLogService().addTaskLog(builder.build());
@@ -90,13 +93,15 @@ public class RunnableTask implements Runnable {
      * @param errorMsg msg
      */
     private void sendExceptionEmail(String errorMsg) {
-        EmailService emailService = (EmailService) SpringContextUtil.getBean("emailService");
-        SendEmail sendEmail = new SendEmail();
-        sendEmail.setType(EmailType.TASK_ALARM);
-        sendEmail.setEmail(alarmEmail);
-        sendEmail.put("errorMsg", errorMsg);
-        sendEmail.put("nid", nid);
-        emailService.sendEmail(sendEmail);
+        if (StrUtil.isNotBlank(alarmEmail)) {
+            EmailService emailService = (EmailService) SpringContextUtil.getBean("emailService");
+            SendEmail sendEmail = new SendEmail();
+            sendEmail.setType(EmailType.TASK_ALARM);
+            sendEmail.setEmail(alarmEmail);
+            sendEmail.put("errorMsg", errorMsg);
+            sendEmail.put("nid", nid);
+            emailService.sendEmail(sendEmail);
+        }
     }
 
     /**
