@@ -2,8 +2,6 @@ package com.eghm.configuration;
 
 import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
-import com.eghm.configuration.template.FreemarkerTemplate;
-import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.constants.SystemConstant;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
@@ -60,7 +58,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "125");
         properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "45");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "5");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "6");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy23456789ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "宋体");
         properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, "com.google.code.kaptcha.impl.ShadowGimpy");

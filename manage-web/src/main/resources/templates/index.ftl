@@ -13,7 +13,7 @@
         <ul>
             <li>
                 <span class="user-icon"></span>
-                <input type="text" id="mobile" autocomplete="off" maxlength="11" value="13000000000"  placeholder="账号" class="login-text" />
+                <input type="text" id="mobile" autocomplete="off" maxlength="11" value="13000000000"  placeholder="手机号" class="login-text" />
             </li>
             <li>
                 <span class="pwd-icon"></span>
