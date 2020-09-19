@@ -22,25 +22,31 @@ function errorTip(msg){
 
 // login
 function loginFun() {
-    var $mobile = $("#mobile");
-    var mobile = $mobile.val();
+    let $mobile = $("#mobile");
+    let mobile = $mobile.val();
     if (!verifyMobile(mobile)) {
         errorTip("手机号码格式错误");
         $mobile.focus();
         return;
     }
-    var $password = $("#password");
-    var password = $password.val();
+    let $password = $("#password");
+    let password = $password.val();
     if (!password) {
         errorTip("密码格式错误");
         $password.focus();
         return;
     }
-    var $validCode = $("#validCode");
-    var validCode = $validCode.val();
-    if (!validCode || validCode.length < 4) {
+    let $validCode = $("#validCode");
+    let validCode = $validCode.val();
+    if (!validCode) {
         $validCode.focus();
-        errorTip("验证码格式错误");
+        errorTip("请输入验证码");
+        return;
+    }
+
+    if (validCode.length < 4) {
+        $validCode.focus();
+        errorTip("验证码输入错误");
         return;
     }
 
@@ -63,7 +69,7 @@ function loginFun() {
  * @returns {boolean}
  */
 function verifyMobile(mobile){
-    var regexp = /^((13[0-9])|(14[579])|(15([^4]))|(18[0-9])|(17[01235678]))\d{8}$/;
+    let regexp = /^((13[0-9])|(14[579])|(15([^4]))|(18[0-9])|(17[01235678]))\d{8}$/;
     return regexp.test(mobile);
 }
 
