@@ -14,7 +14,7 @@ public class CronSystemTask extends CronTask {
     private String nid;
 
     CronSystemTask(CronDetail config) {
-        super(new RunnableTask(config.getNid(), config.getBeanName()), config.getCronExpression());
+        super(new RunnableTask(config), config.getCronExpression());
         this.nid = config.getNid();
     }
 

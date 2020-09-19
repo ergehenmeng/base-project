@@ -1,32 +1,21 @@
 package com.eghm.configuration.task.config;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author 二哥很猛
  * @date 2020/1/6 18:43
  */
-@Data
-public class CronDetail {
-
-    /**
-     * 任务标示符
-     */
-    private String nid;
-
-    /**
-     * 执行任务的bean的名称 必须实现Task接口
-     */
-    private String beanName;
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+public class CronDetail extends TaskDetail {
 
     /**
      * 任务cron表达式
      */
     private String cronExpression;
-
-    /**
-     * 报警邮箱
-     */
-    private String alarmEmail;
 
 }

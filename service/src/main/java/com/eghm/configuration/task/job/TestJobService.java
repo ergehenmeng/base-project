@@ -27,7 +27,11 @@ public class TestJobService implements Task {
     @Override
     public void execute() {
         log.error("我是个数据库配置的Job {}", DateUtil.formatLong(DateUtil.getNow()));
-        systemTaskRegistrar.addTask(OnceDetail.builder().beanName("onceJobService").nid("onceJobService").executeTime(DateUtil.addSeconds(DateUtil.getNow(),10)).build());
+        OnceDetail onceDetail = new OnceDetail();
+        onceDetail.setBeanName("onceJobService");
+        onceDetail.setNid("onceJobService");
+        onceDetail.setExecuteTime(DateUtil.addSeconds(DateUtil.getNow(),10));
+        systemTaskRegistrar.addTask(onceDetail);
     }
 
     @Scheduled(cron = "0 0 0-5 * * ?")

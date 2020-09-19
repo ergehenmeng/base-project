@@ -152,7 +152,7 @@ public class SystemTaskRegistrar {
      */
     public void addTask(OnceDetail task) {
         String nid = task.getNid() + "-" + counter.getAndIncrement();
-        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task.getNid(), task.getBeanName()), task.getExecuteTime());
+        ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), task.getExecuteTime());
         scheduledFutures.put(nid, schedule);
         onceTaskSet.add(nid);
     }
