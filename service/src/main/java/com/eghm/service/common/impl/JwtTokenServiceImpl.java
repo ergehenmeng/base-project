@@ -34,6 +34,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         JWTCreator.Builder builder = JWT.create();
         return builder.withClaim("userId", userId)
                 .withClaim("channel", channel)
+                .withClaim("random", System.currentTimeMillis())
                 .withExpiresAt(DateUtil.addSeconds(DateUtil.getNow(), expireSeconds))
                 .sign(this.getAlgorithm());
     }
