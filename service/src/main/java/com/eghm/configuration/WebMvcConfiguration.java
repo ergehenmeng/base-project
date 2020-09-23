@@ -75,7 +75,6 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     /**
      * 密码加密bean 独立于spring-security之外的工具类
-     *
      * @return bean
      */
     @Bean
