@@ -4,6 +4,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
@@ -23,13 +24,18 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        if (exception instanceof SystemAuthenticationException) {
-            SystemAuthenticationException exc = (SystemAuthenticationException) exception;
-            RespBody<Object> returnJson = RespBody.error(exc.getCode(), exc.getMessage());
+        Throwable cause = exception;
+        if (exception instanceof InternalAuthenticationServiceException) {
+            InternalAuthenticationServiceException exc = (InternalAuthenticationServiceException) exception;
+            cause = exc.getCause();
+        }
+        if (cause instanceof SystemAuthenticationException) {
+            SystemAuthenticationException exp = (SystemAuthenticationException) cause;
+            RespBody<Object> returnJson = RespBody.error(exp.getCode(), exp.getMessage());
             WebUtil.printJson(response, returnJson);
             return;
         }
-        log.error("权限校验异常", exception);
+        log.error("权限校验异常", cause);
         RespBody<Object> returnJson = RespBody.error(ErrorCode.PERMISSION_ERROR);
         WebUtil.printJson(response, returnJson);
     }

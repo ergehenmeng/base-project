@@ -98,7 +98,7 @@ public class CommonController {
      */
     @GetMapping("/{function}/{page}")
     public String modules(@PathVariable("function") String function, @PathVariable("page") String page) {
-        return function + CommonConstant.SEPARATOR + page;
+        return function + CommonConstant.URL_SEPARATOR + page;
     }
 
     /**

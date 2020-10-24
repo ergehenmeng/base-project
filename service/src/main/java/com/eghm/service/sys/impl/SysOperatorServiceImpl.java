@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.enums.ErrorCode;
@@ -118,7 +119,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     public String initPassword(String mobile) {
-        String md5Password = MD5.create().digestHex(mobile.substring(5));
+        String md5Password = MD5.create().digestHex(Base64.encode(mobile.substring(5)));
         return encoder.encode(md5Password);
     }
 
@@ -153,6 +154,30 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         String password = this.initPassword(operator.getMobile());
         operator.setPwd(password);
         operator.setInitPwd(password);
+        sysOperatorMapper.updateByPrimaryKeySelective(operator);
+    }
+
+    @Override
+    public void deleteOperator(Integer id) {
+        SysOperator operator = new SysOperator();
+        operator.setId(id);
+        operator.setDeleted(true);
+        sysOperatorMapper.updateByPrimaryKeySelective(operator);
+    }
+
+    @Override
+    public void lockOperator(Integer id) {
+        SysOperator operator = new SysOperator();
+        operator.setId(id);
+        operator.setState(0);
+        sysOperatorMapper.updateByPrimaryKeySelective(operator);
+    }
+
+    @Override
+    public void unlockOperator(Integer id) {
+        SysOperator operator = new SysOperator();
+        operator.setId(id);
+        operator.setState(1);
         sysOperatorMapper.updateByPrimaryKeySelective(operator);
     }
 }

@@ -73,5 +73,23 @@ public interface SysOperatorService {
      * @param id 系统用户id
      */
     void resetPassword(Integer id);
+
+    /**
+     * 删除用户
+     * @param id operatorId
+     */
+    void deleteOperator(Integer id);
+
+    /**
+     * 锁定用户
+     * @param id operatorId
+     */
+    void lockOperator(Integer id);
+
+    /**
+     * 解锁用户
+     * @param id id
+     */
+    void unlockOperator(Integer id);
 }
 

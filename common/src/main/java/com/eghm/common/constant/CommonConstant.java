@@ -35,5 +35,5 @@ public class CommonConstant {
     /**
      * url分隔符
      */
-    public static final String SEPARATOR = "/";
+    public static final String URL_SEPARATOR = "/";
 }

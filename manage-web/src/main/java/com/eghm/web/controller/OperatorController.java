@@ -178,4 +178,34 @@ public class OperatorController {
         cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
         return RespBody.success();
     }
+
+    /**
+     * 锁定用户
+     */
+    @PostMapping("/operator/lock_operator")
+    @ResponseBody
+    public RespBody<Object> lockOperator(Integer id) {
+        sysOperatorService.lockOperator(id);
+        return RespBody.success();
+    }
+
+    /**
+     * 解锁用户
+     */
+    @PostMapping("/operator/unlock_operator")
+    @ResponseBody
+    public RespBody<Object> unlock(Integer id) {
+        sysOperatorService.unlockOperator(id);
+        return RespBody.success();
+    }
+
+    /**
+     * 删除用户
+     */
+    @PostMapping("/operator/delete")
+    @ResponseBody
+    public RespBody<Object> delete(Integer id) {
+        sysOperatorService.deleteOperator(id);
+        return RespBody.success();
+    }
 }

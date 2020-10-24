@@ -22,7 +22,7 @@
             <li>
                 <span class="valid-icon"></span>
                 <input type="text" autocomplete="off" id="validCode" placeholder="验证码" maxlength="4" class="login-text img-code-width"/>
-                <img title="点击刷新" src="/captcha" class="valid-code-img" onClick="this.src='/captcha?t=' + Math.random();"/>
+                <img alt="刷新验证码" title="点击刷新" src="/captcha" class="valid-code-img" onClick="this.src='/captcha?t=' + Math.random();"/>
             </li>
             <li>
                 <input type="button" value="立即登录" class="login-btn" title="回车登陆"/>
