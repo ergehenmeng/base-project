@@ -52,7 +52,7 @@
                 if (!rows || !rows.data){
                     return;
                 }
-                return $.fn.treeGridOptions.dataFilter(rows.data,"code","title","parentCode","100");
+                return $.fn.treeGridOptions.dataFilter(rows.data,"code","title","parentCode","0");
             }
         });
     </script>
