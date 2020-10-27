@@ -74,6 +74,7 @@ public class CommonController {
             operator.setDeptList(sysDataDeptService.getDeptList(operator.getId()));
         }
         model.addAttribute("menuList", operator.getLeftMenu());
+        model.addAttribute("userName", operator.getOperatorName());
         model.addAttribute("isInit", operator.getPwd().equals(operator.getInitPwd()));
         model.addAttribute("isLock", cacheService.exist(CacheConstant.LOCK_SCREEN + operator.getId()));
         return "main/home";
