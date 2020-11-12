@@ -29,7 +29,7 @@ public class SignInVO {
     /**
      * 本月签到信息1号~今日
      */
-    @ApiModelProperty("本月签到信息")
+    @ApiModelProperty("本月签到信息(1号~今日)")
     private List<Boolean> thisMonth;
 
 }

@@ -4,7 +4,9 @@ import com.eghm.dao.mapper.HelpCenterMapper;
 import com.eghm.dao.model.HelpCenter;
 import com.eghm.model.dto.help.HelpAddRequest;
 import com.eghm.model.dto.help.HelpEditRequest;
+import com.eghm.model.dto.help.HelpQueryDTO;
 import com.eghm.model.dto.help.HelpQueryRequest;
+import com.eghm.model.vo.help.HelpCenterVO;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -58,5 +60,12 @@ public class HelpCenterServiceImpl implements HelpCenterService {
         PageMethod.startPage(request.getPage(), request.getPageSize());
         List<HelpCenter> list = helpCenterMapper.getList(request);
         return new PageInfo<>(list);
+    }
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
+    public List<HelpCenterVO> list(HelpQueryDTO dto) {
+        List<HelpCenter> list = helpCenterMapper.getListSorted(dto.getClassify(), dto.getQueryName());
+        return DataUtil.convert(list, helpCenter -> DataUtil.copy(helpCenter, HelpCenterVO.class));
     }
 }
