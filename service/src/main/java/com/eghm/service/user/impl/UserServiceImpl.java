@@ -425,7 +425,7 @@ public class UserServiceImpl implements UserService {
         Boolean signIn = cacheService.getBitmap(signKey, day);
         if (Boolean.TRUE.equals(signIn)) {
             log.warn("用户重复签到 userId:[{}]", userId);
-            throw new BusinessException(ErrorCode.SIGN_IN_REDO);
+            return;
         }
         // 今日签到记录到缓存中
         cacheService.setBitmap(signKey, day, true);
@@ -440,22 +440,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean getSignInToday(User user) {
+    public Boolean isSignInToday(User user) {
         Date now = DateUtil.getNow();
         long day = DateUtil.diffDay(user.getAddTime(), now);
         return cacheService.getBitmap(CacheConstant.USER_SIGN_IN + user.getId(), day);
     }
 
     @Override
-    public SignInVO getUserSignIn(Integer userId) {
+    public SignInVO getSignIn(Integer userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         Date now = DateUtil.getNow();
         long day = DateUtil.diffDay(user.getAddTime(), now);
         String signKey = CacheConstant.USER_SIGN_IN + userId;
         // 今日是否签到
-        Boolean signIn = cacheService.getBitmap(signKey, day);
+        boolean todaySignIn = cacheService.getBitmap(signKey, day);
         List<Boolean> thisMonth = Lists.newArrayListWithCapacity(31);
-        boolean todaySignIn = Boolean.TRUE.equals(signIn);
         thisMonth.add(todaySignIn);
         SignInVO sign = new SignInVO();
         sign.setToday(todaySignIn);

@@ -27,7 +27,7 @@ public class SignInVO {
     private Boolean today;
 
     /**
-     * 本月签到信息1号~昨日
+     * 本月签到信息1号~今日
      */
     @ApiModelProperty("本月签到信息")
     private List<Boolean> thisMonth;

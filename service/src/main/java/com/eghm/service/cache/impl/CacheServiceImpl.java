@@ -297,12 +297,12 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public Boolean getBitmap(String key, Long ops) {
-        return opsForValue.getBit(key, ops);
+    public boolean getBitmap(String key, Long ops) {
+        return Boolean.TRUE.equals(opsForValue.getBit(key, ops));
     }
 
     @Override
-    public boolean checkSuccessionEnhance(String key, Long end, Integer succession) {
+    public boolean checkSerialBoost(String key, Long end, Integer succession) {
         // end确认了该bitmap的位的总长度
         if (end < succession) {
             return false;
@@ -347,7 +347,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public boolean checkSuccession(String key, Long end, Integer succession) {
+    public boolean checkSerial(String key, Long end, Integer succession) {
         Long longBit = this.getBitmapLong(key, end, succession);
         if (longBit == null) {
             return false;

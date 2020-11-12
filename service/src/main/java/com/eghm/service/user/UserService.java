@@ -151,14 +151,14 @@ public interface UserService {
      * @param user user信息
      * @return true 已签到 false 未签到
      */
-    Boolean getSignInToday(User user);
+    Boolean isSignInToday(User user);
 
     /**
      * 获取用户签到信息 只显示当月签到信息
      * @param userId userId
      * @return 签到信息
      */
-    SignInVO getUserSignIn(Integer userId);
+    SignInVO getSignIn(Integer userId);
 
     /**
      * 通过邀请码查询用户信息

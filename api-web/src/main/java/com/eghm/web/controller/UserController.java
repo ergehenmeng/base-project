@@ -5,11 +5,13 @@ import com.eghm.model.dto.user.ChangeEmailDTO;
 import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.vo.user.SignInVO;
 import com.eghm.service.user.UserService;
 import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -94,6 +96,16 @@ public class UserController {
     public RespBody<Object> signIn() {
         userService.signIn(ApiHolder.getUserId());
         return RespBody.success();
+    }
+
+    /**
+     * 查询用户签到信息
+     */
+    @GetMapping("/user/get_sign_in")
+    @ApiOperation("获取用户签到信息")
+    public RespBody<Object> getSignIn() {
+        SignInVO signIn = userService.getSignIn(ApiHolder.getUserId());
+        return RespBody.success(signIn);
     }
 
 }

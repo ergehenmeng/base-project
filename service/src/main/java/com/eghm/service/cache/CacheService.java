@@ -203,17 +203,17 @@ public interface CacheService {
      * @param ops ops
      * @return boolean
      */
-    Boolean getBitmap(String key, Long ops);
+    boolean getBitmap(String key, Long ops);
 
     /**
-     * 判断在指定key上是否有succession个数连续为true 增强版
+     * 判断在指定key上是否有succession个数连续为true(慎用)
      * 采用bitField实现
      * @param key key
      * @param end 当前尾节点
-     * @param succession 连续天数 该值越大性能越差 如果小于64更建议用 {@link CacheService#checkSuccession(String, Long, Integer)}方法
+     * @param succession 连续天数 该值越大性能越差 如果小于64更建议用 {@link CacheService#checkSerial(String, Long, Integer)}方法
      * @return 个数
      */
-    boolean checkSuccessionEnhance(String key, Long end, Integer succession);
+    boolean checkSerialBoost(String key, Long end, Integer succession);
 
     /**
      * 判断在指定key上是否有succession个数连续为true 主要用于连续签到
@@ -222,7 +222,7 @@ public interface CacheService {
      * @param succession 连续天数,不能大于64
      * @return 个数
      */
-    boolean checkSuccession(String key, Long end, Integer succession);
+    boolean checkSerial(String key, Long end, Integer succession);
 
     /**
      * 查询bitmap中的点
