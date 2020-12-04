@@ -90,4 +90,7 @@ public class IpUtil {
         return (ip >> 24) + "." + ((ip & 0xff0000) >> 16) + "." + ((ip & 0xff00) >> 8) + "." + (ip & 0xff);
     }
 
+    public static void main(String[] args) {
+        System.out.println(longToIp(1438636391L));
+    }
 }

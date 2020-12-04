@@ -10,17 +10,6 @@ import com.eghm.model.dto.audit.AuditProcess;
  */
 public class DefaultAuditHandler extends BaseAuditHandler {
 
-
-    @Override
-    protected void checkParam(AuditProcess process, AuditRecord record) {
-
-    }
-
-    @Override
-    protected void postProcess(AuditProcess process, AuditRecord record) {
-
-    }
-
     @Override
     protected void finallyProcess(AuditProcess process, AuditRecord record) {
 

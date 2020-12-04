@@ -57,7 +57,15 @@ public abstract class BaseAuditHandler {
         this.checkParam(process, record);
         this.checkRole(process.getAuditOperatorId(), record.getRoleType());
         this.updateRecord(process, record);
-        this.postProcess(process, record);
+        this.tryToNextStep(process, record);
+    }
+
+    /**
+     * 进入下个审批节点, 如果不存在则触发完成
+     * @param process 审批信息
+     * @param record 审批申请信息
+     */
+    private void tryToNextStep(AuditProcess process, AuditRecord record) {
         if (process.getState() == AuditState.PASS) {
             List<AuditConfig> configList = this.getCheckedConfig(process.getAuditType().name());
             AuditConfig nextConfig = this.getNextStepConfig(record.getStep(), configList);
@@ -129,14 +137,28 @@ public abstract class BaseAuditHandler {
      * @param process 前台传递过来的审批信息
      * @param record 审批申请信息
      */
-    protected abstract void checkParam(AuditProcess process, AuditRecord record);
+    protected void checkParam(AuditProcess process, AuditRecord record) {
+    }
+
 
     /**
-     * 当前审核流程结束
-     * @param process 审批信息
+     * 当前节点审批完成(通过,拒绝都有可能)
+     * @param process 前台传递过来的审批信息
      * @param record 审批申请信息
      */
-    protected abstract void postProcess(AuditProcess process, AuditRecord record);
+    protected void postProcess(AuditProcess process, AuditRecord record) {
+        log.info("当前节点审批完成 [{}] [{}] [{}]", record.getAuditNo(), process.getAuditType(), process.getState());
+    }
+
+    /**
+     * 下一个处理节点,相当于本节点已经通过
+     * @param process    审批信息
+     * @param record 当前节点审批记录
+     * @param nextRecord 下一个节点审批记录
+     */
+    protected void nextProcess(AuditProcess process, AuditRecord record, AuditRecord nextRecord) {
+        log.info("自动进入下一个审批节点 [{}] [{}] [{}]", nextRecord.getId(), nextRecord.getAuditType(), nextRecord.getState());
+    }
 
     /**
      * 整个审核流程审核结束
@@ -144,16 +166,6 @@ public abstract class BaseAuditHandler {
      * @param record 审批申请记录
      */
     protected abstract void finallyProcess(AuditProcess process, AuditRecord record);
-
-    /**
-     * 下一个处理节点
-     * @param process    审批信息
-     * @param record 当前节点审批记录
-     * @param nextRecord 下一个节点审批记录
-     */
-    protected void nextProcess(AuditProcess process, AuditRecord record, AuditRecord nextRecord) {
-    }
-
 
     /**
      * 获取审批信息

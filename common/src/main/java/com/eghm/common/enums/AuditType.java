@@ -10,7 +10,7 @@ public enum AuditType {
     /**
      * 开户申请
      */
-    OPEN_ACCOUNT("开户申请", "OA.", "");
+    OPEN_ACCOUNT("开户申请", "OA.", "defaultAuditHandler");
 
     /**
      * 显示信息
