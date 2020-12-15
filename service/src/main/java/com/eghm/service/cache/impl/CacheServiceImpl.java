@@ -64,14 +64,14 @@ public class CacheServiceImpl implements CacheService {
     }
 
     /**
-     * 默认过期数据
+     * 默认过期数据 30s
      */
-    private static final long DEFAULT_EXPIRE = 30;
+    private static final long DEFAULT_EXPIRE = 30_000;
 
     /**
-     * 互斥等待时间
+     * 互斥等待时间 10s
      */
-    private static final long MUTEX_EXPIRE = 10;
+    private static final long MUTEX_EXPIRE = 10_000;
 
     /**
      * bitmap最大位
@@ -91,7 +91,7 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public void setDurable(String key, Object value) {
+    public void setPersistent(String key, Object value) {
         if (value instanceof String) {
             opsForValue.set(key, (String) value);
         } else {
@@ -146,7 +146,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 数据结果
      */
     private <T> T mutexLock(String key, Supplier<T> supplier) {
-        Boolean absent = opsForValue.setIfAbsent(CacheConstant.MUTEX_LOCK + key, SystemConstant.CACHE_PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.SECONDS);
+        Boolean absent = opsForValue.setIfAbsent(CacheConstant.MUTEX_LOCK + key, SystemConstant.CACHE_PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.MILLISECONDS);
         if (absent != null && absent) {
             T result = supplier.get();
             redisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
@@ -165,9 +165,9 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setValue(String key, Object value, long expire) {
         if (value instanceof String) {
-            opsForValue.set(key, (String)value, expire, TimeUnit.SECONDS);
+            opsForValue.set(key, (String)value, expire, TimeUnit.MILLISECONDS);
         } else {
-            opsForValue.set(key, jsonService.toJson(value), expire, TimeUnit.SECONDS);
+            opsForValue.set(key, jsonService.toJson(value), expire, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -187,7 +187,7 @@ public class CacheServiceImpl implements CacheService {
     public boolean setIfAbsent(String key, String value, long expire) {
         boolean absent = this.setIfAbsent(key, value);
         if (absent) {
-            redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+            redisTemplate.expire(key, expire, TimeUnit.MILLISECONDS);
         }
         return absent;
     }
@@ -261,10 +261,10 @@ public class CacheServiceImpl implements CacheService {
             return false;
         }
         // 如果刚好此时,在maxTtl时间内的第一次存储的数据过期了,依旧返回true,不做毫秒值等判断
-        if (DateUtil.currentSeconds() - Long.parseLong(leftPop) < maxLimit) {
+        if (System.currentTimeMillis() - Long.parseLong(leftPop) < maxTtl) {
             return true;
         }
-        opsForList.rightPush(key, String.valueOf(DateUtil.currentSeconds()));
+        opsForList.rightPush(key, String.valueOf(System.currentTimeMillis()));
         // 相当于集合中只保留最多maxLimit个元素
         opsForList.trim(key, size - maxLimit, size - 1);
         return false;
@@ -278,7 +278,7 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setHashValue(String key, long expire, String hKey, String hValue) {
         opsForHash.put(key, hKey, hValue);
-        redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+        redisTemplate.expire(key, expire, TimeUnit.MILLISECONDS);
     }
 
     @Override

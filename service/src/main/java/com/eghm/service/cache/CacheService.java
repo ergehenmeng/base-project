@@ -26,7 +26,7 @@ public interface CacheService {
      * @param key key
      * @param value value
      */
-    void setDurable(String key, Object value);
+    void setPersistent(String key, Object value);
 
     /**
      * 根据key 获取缓存信息,
@@ -44,7 +44,7 @@ public interface CacheService {
      *
      * @param key    key
      * @param value  value
-     * @param expire 过期时间 单位秒
+     * @param expire 过期时间 单位毫秒
      */
     void setValue(String key, Object value, long expire);
 
@@ -67,7 +67,7 @@ public interface CacheService {
      * 如果没有则添加否则不添加
      * @param key key
      * @param value value
-     * @param expire 过期时间
+     * @param expire 过期时间 毫秒
      * @return true:添加成功 false:添加失败
      */
     boolean setIfAbsent(String key, String value, long expire);
@@ -152,8 +152,8 @@ public interface CacheService {
      * 表示在{maxTtl}时间内最多能访问{maxLimit}次
      * @param key key
      * @param maxLimit 次数限制
-     * @param maxTtl 单位:秒
-     * @return true:允许 false:不允许
+     * @param maxTtl 单位:毫秒
+     * @return true:限制() false:不限制(表示没有达到最大值 可以执行后续操作)
      */
     boolean limit(String key, int maxLimit, long maxTtl);
 
@@ -168,7 +168,7 @@ public interface CacheService {
     /**
      * 设置hash值
      * @param key key
-     * @param expire 过期时间 秒
+     * @param expire 过期时间 毫秒
      * @param hKey hKey
      * @param hValue hValue
      */

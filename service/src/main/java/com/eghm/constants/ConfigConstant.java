@@ -113,4 +113,9 @@ public class ConfigConstant {
      * 签到积分
      */
     public static final String SIGN_IN_SCORE = "sign_in_score";
+
+    /**
+     * 提交频率限制
+     */
+    public static final String SUBMIT_FREQUENCY_LIMIT = "submit_frequency_limit";
 }

@@ -11,6 +11,11 @@ package com.eghm.common.enums;
 public enum ErrorCode {
 
     /**
+     * 提交频繁,请重试
+     */
+    SUBMIT_FREQUENTLY(400, "提交频繁,请重试"),
+
+    /**
      * 暂无访问权限
      */
     ACCESS_DENIED(403,"暂无访问权限"),

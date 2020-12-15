@@ -130,4 +130,8 @@ public class CacheConstant {
      */
     public static final String USER_INVITE_CODE = "user_invite_code";
 
+    /**
+     * post提交限制
+     */
+    public static final String SUBMIT_LIMIT = "submit_limit::%s_%s";
 }

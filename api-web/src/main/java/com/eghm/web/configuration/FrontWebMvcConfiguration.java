@@ -5,6 +5,7 @@ import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
+import com.eghm.web.configuration.interceptor.SubmitFrequencyLimitInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.eghm.web.configuration.resolver.JsonExtractHandlerArgumentResolver;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
@@ -40,6 +41,7 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
         registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 6);
         registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(submitFrequencyLimitInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 30);
     }
 
     @Override
@@ -67,6 +69,14 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     @Bean
     public HandlerInterceptor tokenInterceptor() {
         return new TokenInterceptor();
+    }
+
+    /**
+     * 提交间隔限制
+     */
+    @Bean
+    public HandlerInterceptor submitFrequencyLimitInterceptor() {
+        return new SubmitFrequencyLimitInterceptor();
     }
 
     /**

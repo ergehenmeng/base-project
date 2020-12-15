@@ -13,6 +13,9 @@ import org.springframework.core.MethodParameter;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -24,9 +27,11 @@ import javax.annotation.Nullable;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 
 /**
- * 数据校验解析器
+ * 数据绑定及校验器 只针对post请求有效
  *
  * @author 二哥很猛
  * @date 2018/1/8 14:42
@@ -42,16 +47,16 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
     }
 
     @Override
-    public boolean supportsParameter(@Nullable MethodParameter parameter) {
-        if (parameter == null || parameter.hasMethodAnnotation(SkipDataBinder.class)) {
-            return false;
+    public boolean supportsParameter(@NotNull MethodParameter parameter) {
+        if (!parameter.hasMethodAnnotation(SkipDataBinder.class) && this.isPostRequest(parameter)) {
+            Class<?> paramType = parameter.getParameterType();
+            return !ServletRequest.class.isAssignableFrom(paramType) &&
+                    !ServletResponse.class.isAssignableFrom(paramType) &&
+                    !MultipartRequest.class.isAssignableFrom(paramType) &&
+                    !MultipartFile.class.isAssignableFrom(paramType) &&
+                    !HttpSession.class.isAssignableFrom(paramType);
         }
-        Class<?> paramType = parameter.getParameterType();
-        return !ServletRequest.class.isAssignableFrom(paramType) &&
-                !ServletResponse.class.isAssignableFrom(paramType) &&
-                !MultipartRequest.class.isAssignableFrom(paramType) &&
-                !MultipartFile.class.isAssignableFrom(paramType) &&
-                !HttpSession.class.isAssignableFrom(paramType);
+        return false;
     }
 
     @Override
@@ -96,4 +101,16 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         }
     }
 
+    /**
+     * 判断请求的接口是否为post请求
+     * @param parameter 请求方法参数
+     * @return true:是post请求 false:不是
+     */
+    private boolean isPostRequest(MethodParameter parameter) {
+        if (parameter.hasMethodAnnotation(PostMapping.class)) {
+            return true;
+        }
+        RequestMapping annotation = parameter.getMethodAnnotation(RequestMapping.class);
+        return annotation != null && Arrays.stream(annotation.method()).anyMatch(method -> method == RequestMethod.POST);
+    }
 }

@@ -3737,6 +3737,7 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `add_time`) VALUES ('97
 INSERT INTO `task_config` (`id`, `title`, `nid`, `bean_name`, `cron_expression`, `state`, `update_time`, `remark`) VALUES ('1', '测试定时任务', 'testJob', 'testJobService', '0/1 * * * * ?', '0', '2019-11-22 14:50:22', '');
 
 INSERT INTO `user` (`id`, `mobile`, `open_id`, `nick_name`, `email`, `pwd`, `state`, `channel`, `register_ip`, `add_time`, `update_time`, `avatar`) VALUES ('1', '13136113636', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', '0', '0', '2019-10-25 15:59:22', '2019-10-25 16:01:16', NULL);
+
 INSERT INTO `sys_config` VALUES ('1', 'application_name', '后台系统名称', '后台管理系统', '1', '\0', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
 INSERT INTO `sys_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', '1', '\0', null, '2018-02-08 14:38:59', null);
 INSERT INTO `sys_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市余杭区中泰街道338号', '1', '\0', null, '2018-02-08 14:40:01', null);
@@ -3764,12 +3765,14 @@ INSERT INTO `sys_config` VALUES ('33', 'batch_max_file_size', '批量文件最�
 INSERT INTO `sys_config` VALUES ('35', 'signature_verification', '接口签名验证', 'false', '1', '\0', '是否开启接口签名验证 false:关闭 true:开启', '2019-11-21 11:19:29', '2020-07-23 14:07:39');
 INSERT INTO `sys_config` VALUES ('36', 'android_max_size', '安卓软件包最大限制', '104857600', '1', '\0', '安卓软件包大小限制 单位byte 最大100M', '2019-11-22 17:05:36', '2019-11-22 17:09:37');
 INSERT INTO `sys_config` VALUES ('37', 'analog_sms_code', '模拟短信验证码', '9527', '1', '\0', '短信功能未开启时,所有验证码短信都以此验证码为准', '2019-11-25 11:54:05', '2019-11-25 11:54:44');
-INSERT INTO `sys_config` VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800', '1', '\0', '单位:秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-01-15 16:38:59');
-INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', '1', '\0', '单位:秒 默认7天过期', '2020-01-15 16:38:47', '2020-01-15 16:38:47');
-INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', '1', '\0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-01-15 16:39:55');
+INSERT INTO `sys_config` VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800000', '1', '\0', '单位:豪秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-12-15 19:07:30');
+INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800000', '1', '\0', '单位:豪秒默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
+INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30000', '1', '\0', '单位:豪秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
 INSERT INTO `sys_config` VALUES ('42', 'jwt_secret_key', 'jwt秘钥', 'VjM0ea1vz92wQ8pohXVcKHdrnFh854IRDIaMmoERLoH4naPDeo8nXChY7gtrlAp1', '1', '', '用于生成token时的秘钥', '2020-08-28 10:30:09', '2020-08-28 10:30:36');
-INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600', '1', b'1', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-08-29 14:07:32');
+INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600000', '1', '', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
 INSERT INTO `sys_config` VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', '1', '\0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
+INSERT INTO `sys_config` VALUES ('45', 'submit_frequency_limit', 'post请求最小间隔时间', '500', '1', '\0', '单位:毫秒 表示500内只允许访问一次', '2020-12-15 19:12:22', '2020-12-15 19:12:40');
+
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
