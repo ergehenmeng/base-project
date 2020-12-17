@@ -1,24 +1,24 @@
 <script type="text/javascript">
-    $(function() {
-        $.fn.dataGridOptions.formSubmit("#form",'/version/add');
-        $("#classify").on("change",function(){
+    $(function () {
+        $.fn.dataGridOptions.formSubmit("#form", '/version/add');
+        $("#classify").on("change", function () {
             var classify = $(this).val();
-            if(classify === "IOS"){
+            if (classify === "IOS") {
                 $("#url").validatebox({
-                    "required":true
+                    "required": true
                 });
                 $("#file").validatebox({
-                    "required":false
+                    "required": false
                 });
                 $("#fileDiv").hide();
                 $("#urlDiv").show();
 
-            }else{
+            } else {
                 $("#url").validatebox({
-                    "required":false
+                    "required": false
                 });
                 $("#file").validatebox({
-                    "required":true
+                    "required": true
                 });
                 $("#urlDiv").hide();
                 $("#fileDiv").show();
@@ -27,10 +27,11 @@
     });
 </script>
 <div class="platform-form">
-    <form id="form"  method="post" enctype="multipart/form-data">
+    <form id="form" method="post" enctype="multipart/form-data">
         <div class="form-item">
             <label>类型:</label>
-            <select title="客户端类型" name="classify" id="classify" class="easyui-validatebox" data-options="required: true">
+            <select title="客户端类型" name="classify" id="classify" class="easyui-validatebox"
+                    data-options="required: true">
                 <option value="ANDROID">安卓</option>
                 <option value="IOS">苹果</option>
             </select>
@@ -38,7 +39,8 @@
         </div>
         <div class="form-item">
             <label>版本号:</label>
-            <input title="软件版本号" maxlength="10" name="version" class="easyui-validatebox" data-options="required: true"  />
+            <input title="软件版本号" maxlength="10" name="version" class="easyui-validatebox"
+                   data-options="required: true"/>
             <small>*</small>
         </div>
         <div class="form-item">
@@ -51,12 +53,13 @@
         </div>
         <div class="form-item" id="urlDiv" style="display: none;">
             <label>下载地址:</label>
-            <input title="苹果appStore地址" maxlength="200" name="url" value="${appStoreUrl!}" class="easyui-validatebox" />
+            <input title="苹果appStore地址" maxlength="200" name="url" value="${appStoreUrl!}" class="easyui-validatebox"/>
             <small>*</small>
         </div>
         <div class="form-item" id="fileDiv">
             <label>上传文件:</label>
-            <input title="上传安卓版本包" type="file" name="file" id="file" class="easyui-validatebox" data-options="required: true"  />
+            <input title="上传安卓版本包" type="file" name="file" id="file" class="easyui-validatebox"
+                   data-options="required: true"/>
             <small>*</small>
         </div>
         <div class="form-item">
