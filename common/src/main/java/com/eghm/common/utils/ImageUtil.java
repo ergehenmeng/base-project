@@ -63,90 +63,41 @@ public class ImageUtil {
         int size = bufferedImages.size();
         int x;
         int y;
+        int width = getWidth(size);
+        // 横向多少张图片
+        int maxWidth = size > 4 ? 3 : 2;
+        // 纵向多少张图片
+        int maxHeight = size % maxWidth == 0 ? size / maxWidth : size / maxWidth + 1 ;
+        // 顶部多少张图片 2
+        int topWidth = size % maxWidth;
+        // 顶部间距
+        int topGap = getTopGap(maxWidth , maxHeight, width);
+        // 顶部间距
+        int leftGap = getLeftGap(maxWidth , topWidth, width);
         for (int i = 0; i < size; i++) {
-            int width = getWidth(size);
-            switch (size) {
-                case 2:
-                    y = (SIZE - width) / 2;
-                    x = GAP + (width + GAP) * i;
-                    g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    break;
-                case 3:
-                    if (i == 0) {
-                        g2d.drawImage(bufferedImages.get(i), (SIZE - width) / 2, GAP, null);
-                    } else {
-                        y = width + 2 * GAP;
-                        x = GAP + (width + GAP) * (i - 1);
-                        g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    }
-                    break;
-                case 4:
-                    if (i <= 1) {
-                        x = GAP + (width + GAP) * i;
-                        g2d.drawImage(bufferedImages.get(i), x, GAP, null);
-                    } else {
-                        y = width + 2 * GAP;
-                        x = GAP + (width + GAP) * (i - 2);
-                        g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    }
-                    break;
-                case 5:
-                    y = (SIZE - width * 2 - GAP) / 2;
-                    if (i <= 1) {
-                        x = y + (width + GAP) * i;
-                    } else {
-                        y = y + width + GAP;
-                        x = GAP + (width + GAP) * (i - 2);
-                    }
-                    g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    break;
-                case 6:
-                    y = (SIZE - width * 2 - GAP) / 2;
-                    if (i <= 2) {
-                        x = GAP + (width + GAP) * i;
-                    } else {
-                        y = y + width + GAP;
-                        x = GAP + (width + GAP) * (i - 3);
-                    }
-                    g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    break;
-                case 7:
-                    if (i == 0) {
-                        x = (SIZE - width) / 2;
-                        y = GAP;
-                    }else if (i <= 3) {
-                        x = GAP + (width + GAP) * (i - 1);
-                        y = GAP * 2 + width;
-                    } else {
-                        y = GAP * 3 + width * 2;
-                        x = GAP + (width + GAP) * (i - 4);
-                    }
-                    g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    break;
-                case 8:
-                    if (i < 2) {
-                        x = (SIZE - width * 2 - GAP) / 2 + (width + GAP) * i;
-                        y = GAP;
-                    }else if (i <= 4) {
-                        x = GAP + (width + GAP) * (i - 2);
-                        y = GAP * 2 + width;
-                    } else {
-                        y = GAP * 3 + width * 2;
-                        x = GAP + (width + GAP) * (i - 5);
-                    }
-                    g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    break;
-                case 9:
-                    x = GAP + (width + GAP) * (i % 3);
-                    y = GAP + (width + GAP) * (i / 3);
-                    g2d.drawImage(bufferedImages.get(i), x, y, null);
-                    break;
-                default: break;
+            if (i  < topWidth) {
+                y = topGap;
+                if (topWidth == 1) {
+                   x = leftGap;
+                } else {
+                    x = leftGap + (width + GAP) * i;
+                }
+            } else {
+                y = topGap + (width + GAP) * getRow(i, topWidth, maxWidth);
+                x = GAP + (width + GAP) * ((i - topWidth) % maxWidth);
             }
+            g2d.drawImage(bufferedImages.get(i), x, y, null);
         }
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         ImageIO.write(outImage, "jpg", stream);
         return stream.toByteArray();
+    }
+
+    private static int getRow(int i, int topWidth, int maxWidth) {
+        if (topWidth > 0) {
+            return 1 + (i - topWidth) / maxWidth;
+        }
+        return (i - topWidth) / maxWidth;
     }
 
     /**
@@ -168,14 +119,29 @@ public class ImageUtil {
         }
     }
 
+    /**
+     * 顶部间距
+     */
+    private static int getTopGap(int maxWidthImg, int maxHeightImg, int width) {
+        return maxHeightImg == maxWidthImg ? GAP : (maxHeightImg == 2 ? (SIZE - 2 * width - GAP) / 2 : (SIZE - width) / 2 );
+    }
+
+    /**
+     * 左间距
+     */
+    private static int getLeftGap(int maxWidthImg, int topWidth,  int width) {
+        return (maxWidthImg == topWidth || topWidth == 0) ? GAP : (topWidth == 2 ? (SIZE - 2 * width - GAP) / 2 : (SIZE - width) / 2 );
+    }
+
     public static void main(String[] args) throws IOException {
         List<String> list = Lists.newArrayList();
         list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
         list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
         list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
         list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        byte[] merge = merge(list);
-        String encode = Base64.encode(merge);
-        System.out.println(encode);
+        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
+        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
+        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
+        System.out.println(Base64.encode(merge(list)));
     }
 }
