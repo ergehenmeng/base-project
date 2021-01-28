@@ -45,6 +45,11 @@ public class StopWatch {
         this.taskName = taskName;
     }
 
+    /**
+     * 打印总耗时时间
+     * 注意: 调用该方法自动会停止计时,如需继续请调用继续调用start方法
+     * @return 耗时格式化打印
+     */
     public String prettyPrint() {
         if (!started) {
             return "任务未开启";
@@ -59,11 +64,25 @@ public class StopWatch {
         return builder.toString();
     }
 
+    /**
+     * 获取总耗时时间
+     * 注意: 调用该方法自动会停止计时,如需继续请调用继续调用start方法
+     * @return 耗时时间 单位: ms
+     */
+    public long getElapsedTime() {
+        if (started) {
+            started = false;
+            this.createTaskClock(System.nanoTime());
+        }
+        return TimeUnit.NANOSECONDS.toMillis(totalElapsedTime);
+    }
+
     private void createTaskClock(long nowTime) {
         long nowElapsed = nowTime - startTime;
         this.totalElapsedTime += nowElapsed;
         taskList.add(new TimeClock(this.taskName, nowElapsed));
     }
+
 
     @Data
     private static final class TimeClock {
