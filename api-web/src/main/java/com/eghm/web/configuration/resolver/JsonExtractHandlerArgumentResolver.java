@@ -1,8 +1,10 @@
 package com.eghm.web.configuration.resolver;
 
+import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.SkipDataBinder;
@@ -77,7 +79,23 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             ObjectError objectError = bindingResult.getAllErrors().get(0);
             throw new ParameterException(ErrorCode.PARAM_VERIFY_ERROR.getCode(), objectError.getDefaultMessage());
         }
+        this.validateMaxPageSize(args);
         return args;
+    }
+
+
+    /**
+     * 分页最大值校验
+     * @param args 参数对象
+     */
+    private void validateMaxPageSize(Object args) {
+        if (args instanceof PagingQuery ) {
+            PagingQuery query = (PagingQuery) args;
+            if (query.getPageSize() > CommonConstant.MAX_PAGE_SIZE) {
+                log.warn("页容量[{}]过大, 自动采用系统默认最大页容量[{}]", query.getPageSize(), CommonConstant.MAX_PAGE_SIZE);
+                query.setPageSize(CommonConstant.MAX_PAGE_SIZE);
+            }
+        }
     }
 
     /**
@@ -97,6 +115,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             ApiHolder.get().setRequestBody(requestBody);
             return objectMapper.readValue(requestBody, parameterType);
         } catch (Exception e) {
+            log.error("请求的Json参数解析异常", e);
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
     }

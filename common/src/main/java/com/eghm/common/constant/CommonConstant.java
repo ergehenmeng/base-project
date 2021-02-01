@@ -36,4 +36,9 @@ public class CommonConstant {
      * url分隔符
      */
     public static final String URL_SEPARATOR = "/";
+
+    /**
+     * 分页最大值 只适用于移动端
+     */
+    public static final int MAX_PAGE_SIZE = 20;
 }
