@@ -50,6 +50,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
 
     @Override
     public boolean supportsParameter(@NotNull MethodParameter parameter) {
+        // 只针对 post请求,且没有标示@SkipDataBinder,并且不是内置对象才会进行Json数据绑定
         if (!parameter.hasMethodAnnotation(SkipDataBinder.class) && this.isPostRequest(parameter)) {
             Class<?> paramType = parameter.getParameterType();
             return !ServletRequest.class.isAssignableFrom(paramType) &&
@@ -70,8 +71,22 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         if (parameter.getParameterType().isAssignableFrom(RequestMessage.class)) {
             return DataUtil.copy(ApiHolder.get(), RequestMessage.class);
         }
-        Object args = jsonFormat(parameter);
-        WebDataBinder binder = binderFactory.createBinder(webRequest, args, parameter.getParameterType().getName());
+        Object args = this.jsonFormat(parameter);
+        this.annotationValidate(binderFactory, webRequest, args, parameter.getParameterType().getName());
+        this.validateMaxPageSize(args);
+        return args;
+    }
+
+    /**
+     * 参数对象的注解校验
+     * @param binderFactory binderFactory
+     * @param webRequest webRequest
+     * @param args 对象
+     * @param objName 对象名称
+     * @throws Exception Exception
+     */
+    private void annotationValidate(WebDataBinderFactory binderFactory, NativeWebRequest webRequest, Object args, String objName) throws Exception {
+        WebDataBinder binder = binderFactory.createBinder(webRequest, args, objName);
         binder.validate(args);
         BindingResult bindingResult = binder.getBindingResult();
         if (bindingResult.hasErrors()) {
@@ -79,10 +94,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             ObjectError objectError = bindingResult.getAllErrors().get(0);
             throw new ParameterException(ErrorCode.PARAM_VERIFY_ERROR.getCode(), objectError.getDefaultMessage());
         }
-        this.validateMaxPageSize(args);
-        return args;
     }
-
 
     /**
      * 分页最大值校验
