@@ -1,11 +1,14 @@
 package com.eghm.common.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 版本比较工具类
  *
  * @author 二哥很猛
  * @date 2018/3/14 9:04
  */
+@Slf4j
 public class VersionUtil {
 
     private VersionUtil() {
@@ -66,14 +69,20 @@ public class VersionUtil {
     /**
      * 将版本号转换为数字,以2位的版本号补零计算得到
      * @param version  v2.10.2
-     * @return 2010002
+     * @return 21002
      */
     public static int parseInt(String version) {
         String[] split = replace(version).split("\\.");
         StringBuilder builder = new StringBuilder();
-        for (String v : split) {
-            builder.append(String.format("%02d", Integer.parseInt(v)));
+        try {
+            for (String v : split) {
+                builder.append(String.format("%02d", Integer.parseInt(v)));
+            }
+            return Integer.parseInt(builder.toString());
+        } catch (NumberFormatException e) {
+            log.error("版本号格式化异常 [{}]", version, e);
+            throw new RuntimeException("版本号解析失败");
         }
-        return Integer.parseInt(builder.toString());
     }
+
 }
