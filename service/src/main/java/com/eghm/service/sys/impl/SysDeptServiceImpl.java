@@ -8,6 +8,7 @@ import com.eghm.dao.mapper.SysDeptMapper;
 import com.eghm.dao.model.SysDept;
 import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,13 @@ public class SysDeptServiceImpl implements SysDeptService {
      */
     private static final String ROOT = "0";
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setSysDeptMapper(SysDeptMapper sysDeptMapper) {
         this.sysDeptMapper = sysDeptMapper;
@@ -62,6 +70,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         department.setOperatorId(operator.getId());
         department.setOperatorName(operator.getOperatorName());
+        department.setId(keyGenerator.generateKey());
         sysDeptMapper.insertSelective(department);
     }
 

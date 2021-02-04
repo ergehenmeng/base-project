@@ -2,6 +2,7 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.dao.mapper.ExceptionLogMapper;
 import com.eghm.dao.model.ExceptionLog;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.ExceptionLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,13 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
 
     private ExceptionLogMapper exceptionLogMapper;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setExceptionLogMapper(ExceptionLogMapper exceptionLogMapper) {
         this.exceptionLogMapper = exceptionLogMapper;
@@ -24,6 +32,7 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void insertExceptionLog(ExceptionLog log) {
+        log.setId(keyGenerator.generateKey());
         exceptionLogMapper.insertSelective(log);
     }
 }

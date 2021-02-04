@@ -3,6 +3,7 @@ package com.eghm.service.sys.impl;
 import com.eghm.dao.mapper.SysOperationLogMapper;
 import com.eghm.dao.model.SysOperationLog;
 import com.eghm.model.dto.log.OperationQueryRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.OperationLogService;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -23,6 +24,13 @@ public class OperationLogServiceImpl implements OperationLogService {
 
     private SysOperationLogMapper sysOperationLogMapper;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setSysOperationLogMapper(SysOperationLogMapper sysOperationLogMapper) {
         this.sysOperationLogMapper = sysOperationLogMapper;
@@ -31,6 +39,7 @@ public class OperationLogServiceImpl implements OperationLogService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void insertOperationLog(SysOperationLog log) {
+        log.setId(keyGenerator.generateKey());
         sysOperationLogMapper.insertSelective(log);
     }
 

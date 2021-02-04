@@ -5,6 +5,7 @@ import com.eghm.dao.mapper.BlackRosterMapper;
 import com.eghm.dao.model.BlackRoster;
 import com.eghm.model.dto.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.roster.BlackRosterQueryRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.utils.IpUtil;
 import com.github.pagehelper.PageInfo;
@@ -25,6 +26,13 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     private BlackRosterMapper blackRosterMapper;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setBlackRosterMapper(BlackRosterMapper blackRosterMapper) {
         this.blackRosterMapper = blackRosterMapper;
@@ -44,6 +52,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
         BlackRoster roster = new BlackRoster();
         roster.setIp(IpUtil.ipToLong(request.getIp()));
         roster.setEndTime(request.getEndTime());
+        roster.setId(keyGenerator.generateKey());
         blackRosterMapper.insertSelective(roster);
     }
 

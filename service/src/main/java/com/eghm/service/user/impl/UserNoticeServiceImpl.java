@@ -14,6 +14,7 @@ import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.PushNotice;
 import com.eghm.model.dto.ext.SendNotice;
 import com.eghm.model.vo.user.UserNoticeVO;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.service.common.PushService;
 import com.eghm.service.user.UserNoticeService;
@@ -46,6 +47,13 @@ public class UserNoticeServiceImpl implements UserNoticeService {
     private UserService userService;
 
     private PushService pushService;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired(required = false)
     public void setPushService(PushService pushService) {
@@ -87,6 +95,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
         mail.setTitle(template.getTitle());
         mail.setContent(content);
         mail.setUserId(userId);
+        mail.setId(keyGenerator.generateKey());
         userNoticeMapper.insertSelective(mail);
         // 发送推送消息
         if (mailType.isPushNotice()) {

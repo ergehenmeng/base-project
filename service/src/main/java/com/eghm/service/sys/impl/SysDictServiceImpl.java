@@ -9,6 +9,7 @@ import com.eghm.dao.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -30,6 +31,13 @@ import java.util.List;
 public class SysDictServiceImpl implements SysDictService {
 
     private SysDictMapper sysDictMapper;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired
     public void setSysDictMapper(SysDictMapper sysDictMapper) {
@@ -55,6 +63,7 @@ public class SysDictServiceImpl implements SysDictService {
     public void addDict(DictAddRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDict.setDeleted(false);
+        sysDict.setId(keyGenerator.generateKey());
         sysDictMapper.insertSelective(sysDict);
     }
 

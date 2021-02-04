@@ -7,6 +7,7 @@ import com.eghm.dao.model.SysDict;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.service.sys.SysDictService;
+import com.eghm.utils.IpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -56,7 +57,7 @@ public class ProxyServiceImpl implements ProxyService {
         List<BlackRoster> availableList = blackRosterService.getAvailableList();
         if (!CollectionUtils.isEmpty(availableList)) {
             Date now = DateUtil.getNow();
-            return availableList.stream().anyMatch(blackRoster -> ip.equals(blackRoster.getIp()) && (blackRoster.getEndTime() == null || now.before(blackRoster.getEndTime())));
+            return availableList.stream().anyMatch(blackRoster -> IpUtil.ipToLong(ip) == blackRoster.getIp() && (blackRoster.getEndTime() == null || now.before(blackRoster.getEndTime())));
         }
         return false;
     }

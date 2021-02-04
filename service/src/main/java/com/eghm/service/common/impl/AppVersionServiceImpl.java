@@ -12,6 +12,7 @@ import com.eghm.model.dto.version.VersionQueryRequest;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -29,6 +30,13 @@ import java.util.List;
 public class AppVersionServiceImpl implements AppVersionService {
 
     private AppVersionMapper appVersionMapper;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired
     public void setAppVersionMapper(AppVersionMapper appVersionMapper) {
@@ -48,6 +56,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     public void addAppVersion(VersionAddRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
+        version.setId(keyGenerator.generateKey());
         appVersionMapper.insertSelective(version);
     }
 

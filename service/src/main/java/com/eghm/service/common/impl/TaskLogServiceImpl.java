@@ -3,6 +3,7 @@ package com.eghm.service.common.impl;
 import com.eghm.dao.mapper.TaskLogMapper;
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.TaskLogService;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -21,6 +22,13 @@ public class TaskLogServiceImpl implements TaskLogService {
 
     private TaskLogMapper taskLogMapper;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setTaskLogMapper(TaskLogMapper taskLogMapper) {
         this.taskLogMapper = taskLogMapper;
@@ -29,6 +37,7 @@ public class TaskLogServiceImpl implements TaskLogService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void addTaskLog(TaskLog log) {
+        log.setId(keyGenerator.generateKey());
         taskLogMapper.insertSelective(log);
     }
 

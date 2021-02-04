@@ -7,6 +7,7 @@ import com.eghm.dao.model.UserScoreLog;
 import com.eghm.model.dto.score.UserScoreQueryDTO;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.vo.score.UserScoreVO;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.utils.DataUtil;
@@ -29,6 +30,13 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
 
     private SysConfigApi sysConfigApi;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setSysConfigApi(SysConfigApi sysConfigApi) {
         this.sysConfigApi = sysConfigApi;
@@ -42,6 +50,7 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void insertSelective(UserScoreLog scoreLog) {
+        scoreLog.setId(keyGenerator.generateKey());
         userScoreLogMapper.insertSelective(scoreLog);
     }
 

@@ -6,6 +6,7 @@ import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.LoginLog;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.model.vo.user.LoginDeviceVO;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.utils.DataUtil;
@@ -24,6 +25,13 @@ public class LoginLogServiceImpl implements LoginLogService {
 
     private LoginDeviceService loginDeviceService;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setLoginDeviceService(LoginDeviceService loginDeviceService) {
         this.loginDeviceService = loginDeviceService;
@@ -38,6 +46,7 @@ public class LoginLogServiceImpl implements LoginLogService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addLoginLog(LoginRecord record) {
         LoginLog loginLog = DataUtil.copy(record, LoginLog.class);
+        loginLog.setId(keyGenerator.generateKey());
         loginLogMapper.insertSelective(loginLog);
         LoginDevice device = DataUtil.copy(record, LoginDevice.class);
         loginDeviceService.insertOrUpdateSelective(device);

@@ -10,6 +10,7 @@ import com.eghm.model.dto.bulletin.BulletinEditRequest;
 import com.eghm.model.dto.bulletin.BulletinQueryRequest;
 import com.eghm.model.vo.bulletin.TopBulletinVO;
 import com.eghm.service.cache.ProxyService;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.SysBulletinService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
@@ -35,6 +36,13 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     private SysConfigApi sysConfigApi;
 
     private ProxyService proxyService;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired
     public void setProxyService(ProxyService proxyService) {
@@ -69,6 +77,7 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addNotice(BulletinAddRequest request) {
         SysBulletin notice = DataUtil.copy(request, SysBulletin.class);
+        notice.setId(keyGenerator.generateKey());
         sysBulletinMapper.insertSelective(notice);
     }
 

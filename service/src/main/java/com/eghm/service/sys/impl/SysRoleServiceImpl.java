@@ -7,6 +7,7 @@ import com.eghm.dao.model.SysRole;
 import com.eghm.model.dto.role.RoleAddRequest;
 import com.eghm.model.dto.role.RoleEditRequest;
 import com.eghm.model.dto.role.RoleQueryRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -30,6 +31,13 @@ public class SysRoleServiceImpl implements SysRoleService {
     private SysRoleMapper sysRoleMapper;
 
     private SysOperatorRoleMapper sysOperatorRoleMapper;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired
     public void setSysRoleMapper(SysRoleMapper sysRoleMapper) {
@@ -66,6 +74,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void deleteRole(Long id) {
         SysRole role = new SysRole();
         role.setDeleted(true);
+        role.setId(keyGenerator.generateKey());
         sysRoleMapper.updateByPrimaryKeySelective(role);
     }
 
@@ -74,6 +83,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void addRole(RoleAddRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
         role.setDeleted(false);
+        role.setId(keyGenerator.generateKey());
         sysRoleMapper.insertSelective(role);
     }
 

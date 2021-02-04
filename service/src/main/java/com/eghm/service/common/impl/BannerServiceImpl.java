@@ -8,6 +8,7 @@ import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.service.common.BannerService;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -27,6 +28,13 @@ import java.util.List;
 public class BannerServiceImpl implements BannerService {
 
     private BannerMapper bannerMapper;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired
     public void setBannerMapper(BannerMapper bannerMapper) {
@@ -57,6 +65,7 @@ public class BannerServiceImpl implements BannerService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addBanner(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
+        banner.setId(keyGenerator.generateKey());
         bannerMapper.insertSelective(banner);
     }
 

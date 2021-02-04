@@ -116,7 +116,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         if (StrUtil.isNotBlank(request.getRoleIds())) {
             List<String> roleStringList = StrUtil.split(request.getRoleIds(), ',');
             //循环插入角色关联信息
-            roleStringList.forEach(s -> sysOperatorRoleMapper.insertSelective(new SysOperatorRole(operator.getId(), Long.parseLong(s))));
+            roleStringList.forEach(s -> sysOperatorRoleMapper.insertSelective(new SysOperatorRole(keyGenerator.generateKey(), operator.getId(), Long.parseLong(s))));
         }
         // 数据权限
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {

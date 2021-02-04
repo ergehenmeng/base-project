@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * @author 二哥很猛
  */
 @Data
+@AllArgsConstructor
 public class SysOperatorRole implements Serializable {
     private static final long serialVersionUID = 987553406182629138L;
     /**
@@ -35,8 +37,4 @@ public class SysOperatorRole implements Serializable {
     public SysOperatorRole() {
     }
 
-    public SysOperatorRole(Long operatorId, Long roleId) {
-        this.operatorId = operatorId;
-        this.roleId = roleId;
-    }
 }

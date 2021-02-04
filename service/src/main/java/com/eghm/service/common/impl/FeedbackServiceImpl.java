@@ -11,6 +11,7 @@ import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.dto.ext.SendNotice;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.user.UserNoticeService;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
@@ -34,6 +35,13 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     private UserNoticeService userNoticeService;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setUserNoticeService(UserNoticeService userNoticeService) {
         this.userNoticeService = userNoticeService;
@@ -48,6 +56,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addFeedback(FeedbackAddDTO request) {
         FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
+        feedback.setId(keyGenerator.generateKey());
         feedbackLogMapper.insertSelective(feedback);
     }
 

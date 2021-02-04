@@ -8,6 +8,7 @@ import com.eghm.model.dto.help.HelpQueryDTO;
 import com.eghm.model.dto.help.HelpQueryRequest;
 import com.eghm.model.vo.help.HelpCenterVO;
 import com.eghm.service.common.HelpCenterService;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -26,6 +27,13 @@ public class HelpCenterServiceImpl implements HelpCenterService {
 
     private HelpCenterMapper helpCenterMapper;
 
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Autowired
     public void setHelpCenterMapper(HelpCenterMapper helpCenterMapper) {
         this.helpCenterMapper = helpCenterMapper;
@@ -35,6 +43,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addHelpCenter(HelpAddRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
+        helpCenter.setId(keyGenerator.generateKey());
         helpCenterMapper.insertSelective(helpCenter);
     }
 

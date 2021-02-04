@@ -3,6 +3,7 @@ package com.eghm.service.sys.impl;
 import com.eghm.dao.mapper.SmsLogMapper;
 import com.eghm.dao.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SmsLogService;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -23,6 +24,8 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     private SmsLogMapper smsLogMapper;
 
+    private KeyGenerator keyGenerator;
+
     @Autowired
     public void setSmsLogMapper(SmsLogMapper smsLogMapper) {
         this.smsLogMapper = smsLogMapper;
@@ -32,6 +35,7 @@ public class SmsLogServiceImpl implements SmsLogService {
     @Async
     @Transactional(rollbackFor = RuntimeException.class)
     public void addSmsLog(SmsLog smsLog) {
+        smsLog.setId(keyGenerator.generateKey());
         smsLogMapper.insertSelective(smsLog);
     }
 

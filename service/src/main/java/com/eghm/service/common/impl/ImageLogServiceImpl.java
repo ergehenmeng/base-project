@@ -6,6 +6,7 @@ import com.eghm.model.dto.image.ImageAddRequest;
 import com.eghm.model.dto.image.ImageEditRequest;
 import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.service.common.ImageLogService;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.utils.DataUtil;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
@@ -23,6 +24,13 @@ import java.util.List;
 public class ImageLogServiceImpl implements ImageLogService {
 
     private ImageLogMapper imageLogMapper;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired
     public void setImageLogMapper(ImageLogMapper imageLogMapper) {
@@ -42,6 +50,7 @@ public class ImageLogServiceImpl implements ImageLogService {
     public void addImageLog(ImageAddRequest request) {
         ImageLog imageLog = DataUtil.copy(request, ImageLog.class);
         imageLog.setDeleted(false);
+        imageLog.setId(keyGenerator.generateKey());
         imageLogMapper.insertSelective(imageLog);
     }
 
