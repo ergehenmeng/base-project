@@ -72,12 +72,12 @@ public class DefaultKeyGenerator implements KeyGenerator {
     }
 
     @Override
-    public synchronized Number generateKey() {
+    public synchronized long generateKey() {
         return this.generateKey(Workspace.IP);
     }
 
     @Override
-    public synchronized Number generateKey(Workspace workSpace) {
+    public synchronized long generateKey(Workspace workSpace) {
 
         long currentMillis = System.currentTimeMillis();
 

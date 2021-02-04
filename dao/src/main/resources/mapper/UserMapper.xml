@@ -33,9 +33,6 @@
     where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.User" useGeneratedKeys="true">
-      <selectKey keyProperty="id" keyColumn="id" order="AFTER" resultType="java.lang.Long">
-          select LAST_INSERT_ID()
-      </selectKey>
     <!--
       @create by mybatis
     -->

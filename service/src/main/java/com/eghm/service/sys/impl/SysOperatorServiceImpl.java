@@ -16,6 +16,7 @@ import com.eghm.model.dto.operator.OperatorAddRequest;
 import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.model.dto.operator.PasswordEditRequest;
+import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.utils.DataUtil;
@@ -42,6 +43,13 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     private SysOperatorRoleMapper sysOperatorRoleMapper;
 
     private SysDataDeptService sysDataDeptService;
+
+    private KeyGenerator keyGenerator;
+
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
 
     @Autowired
     public void setSysOperatorMapper(SysOperatorMapper sysOperatorMapper) {
@@ -103,6 +111,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         String initPassword = this.initPassword(request.getMobile());
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
+        operator.setId(keyGenerator.generateKey());
         sysOperatorMapper.insertSelective(operator);
         if (StrUtil.isNotBlank(request.getRoleIds())) {
             List<String> roleStringList = StrUtil.split(request.getRoleIds(), ',');

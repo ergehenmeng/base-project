@@ -13,13 +13,13 @@ public interface KeyGenerator {
      * 生成唯一id,默认IP方式生成
      * @return 63bit的id
      */
-    Number generateKey();
+    long generateKey();
 
     /**
      * 生成唯一id,后期扩展使用
      * @param workSpace 指定生成方式
      * @return 63bit的id
      */
-    Number generateKey(Workspace workSpace);
+    long generateKey(Workspace workSpace);
 }
 

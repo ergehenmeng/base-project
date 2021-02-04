@@ -36,9 +36,6 @@
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysOperator" useGeneratedKeys="true">
-      <selectKey order="AFTER" keyProperty="id" keyColumn="id" resultType="java.lang.Long">
-          select LAST_INSERT_ID()
-      </selectKey>
     <!--
       @create by mybatis
     -->

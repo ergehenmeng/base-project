@@ -4,11 +4,14 @@ import com.eghm.dao.mapper.AuditRecordMapper;
 import com.eghm.dao.model.AuditRecord;
 import com.eghm.model.dto.audit.AuditQueryRequest;
 import com.eghm.service.common.AuditRecordService;
+
+import com.eghm.service.common.KeyGenerator;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -21,14 +24,22 @@ public class AuditRecordServiceImpl implements AuditRecordService {
 
     private AuditRecordMapper auditRecordMapper;
 
+    private KeyGenerator keyGenerator;
+
     @Autowired
     public void setAuditRecordMapper(AuditRecordMapper auditRecordMapper) {
         this.auditRecordMapper = auditRecordMapper;
     }
 
+    @Autowired
+    public void setKeyGenerator(KeyGenerator keyGenerator) {
+        this.keyGenerator = keyGenerator;
+    }
+
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void insertSelective(AuditRecord record) {
+        record.setId(keyGenerator.generateKey());
         auditRecordMapper.insertSelective(record);
     }
 
