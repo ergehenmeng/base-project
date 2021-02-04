@@ -5,9 +5,9 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
-    <result column="dept_code" jdbcType="INTEGER" property="deptCode" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="dept_code" jdbcType="BIGINT" property="deptCode" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
@@ -22,7 +22,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_data_dept
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysDataDept">
     <!--
@@ -42,10 +42,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="operatorId != null">
-        #{operatorId,jdbcType=INTEGER},
+        #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="deptCode != null">
         #{deptCode,jdbcType=VARCHAR},
@@ -59,13 +59,13 @@
     update sys_data_dept
     <set>
       <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=INTEGER},
+        operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="deptCode != null">
         dept_code = #{deptCode,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
   <select id="getDeptList" resultType="string">

@@ -5,7 +5,7 @@
         <!--
           @create by mybatis
         -->
-        <id column="id" jdbcType="INTEGER" property="id"/>
+        <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="classify" jdbcType="TINYINT" property="classify"/>
         <result column="state" jdbcType="TINYINT" property="state"/>
         <result column="ask" jdbcType="VARCHAR" property="ask"/>
@@ -28,7 +28,7 @@
         select
         <include refid="BaseColumnList"/>
         from help_center
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=BIGINT}
     </select>
     <insert id="insertSelective" parameterType="com.eghm.dao.model.HelpCenter">
         <!--
@@ -66,7 +66,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
-                #{id,jdbcType=INTEGER},
+                #{id,jdbcType=BIGINT},
             </if>
             <if test="classify != null">
                 #{classify,jdbcType=TINYINT},
@@ -125,7 +125,7 @@
                 add_time = #{addTime,jdbcType=TIMESTAMP},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=BIGINT}
     </update>
     <select id="getList" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
         select

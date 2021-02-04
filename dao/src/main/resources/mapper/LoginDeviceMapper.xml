@@ -5,8 +5,8 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
     <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
     <result column="ip" jdbcType="BIGINT" property="ip" />
@@ -25,7 +25,7 @@
     select 
     <include refid="BaseColumnList" />
     from login_device
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.LoginDevice">
     <!--
@@ -54,10 +54,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="serialNumber != null">
         #{serialNumber,jdbcType=VARCHAR},
@@ -80,7 +80,7 @@
     update login_device
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="serialNumber != null">
         serial_number = #{serialNumber,jdbcType=VARCHAR},
@@ -95,7 +95,7 @@
           ip = #{ip}
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
   <insert id="insertOrUpdateSelective" parameterType="com.eghm.dao.model.LoginDevice">

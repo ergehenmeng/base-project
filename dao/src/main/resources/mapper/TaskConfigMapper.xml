@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
@@ -28,7 +28,7 @@
     select 
     <include refid="BaseColumnList" />
     from task_config
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.TaskConfig">
     <!--
@@ -61,7 +61,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getAvailableList" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>

@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="cache_name" jdbcType="VARCHAR" property="cacheName" />
     <result column="state" jdbcType="TINYINT" property="state" />
@@ -25,7 +25,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_cache
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysCache">
@@ -55,7 +55,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -96,7 +96,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
     <update id="updateCache" parameterType="com.eghm.dao.model.SysCache">

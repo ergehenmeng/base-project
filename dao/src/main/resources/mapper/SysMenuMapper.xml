@@ -5,14 +5,14 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
-    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="sub_url" jdbcType="VARCHAR" property="subUrl" />
     <result column="grade" jdbcType="TINYINT" property="grade" />
-    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="sort" jdbcType="BIGINT" property="sort" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -31,7 +31,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_menu t
-    where t.deleted = false and  t.id = #{id,jdbcType=INTEGER}
+    where t.deleted = false and  t.id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysMenu">
@@ -79,7 +79,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -88,7 +88,7 @@
         #{nid,jdbcType=VARCHAR},
       </if>
       <if test="pid != null">
-        #{pid,jdbcType=INTEGER},
+        #{pid,jdbcType=BIGINT},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
@@ -100,7 +100,7 @@
         #{grade,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
-        #{sort,jdbcType=INTEGER},
+        #{sort,jdbcType=BIGINT},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=BIT},
@@ -129,7 +129,7 @@
         nid = #{nid,jdbcType=VARCHAR},
       </if>
       <if test="pid != null">
-        pid = #{pid,jdbcType=INTEGER},
+        pid = #{pid,jdbcType=BIGINT},
       </if>
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
@@ -141,13 +141,13 @@
           grade = #{classify,jdbcType=TINYINT},
       </if>
       <if test="sort != null">
-        sort = #{sort,jdbcType=INTEGER},
+        sort = #{sort,jdbcType=BIGINT},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where deleted = false and id = #{id,jdbcType=INTEGER}
+    where deleted = false and id = #{id,jdbcType=BIGINT}
   </update>
 
     <select id="getAllList" resultMap="BaseResultMap">

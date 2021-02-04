@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="client_type" jdbcType="VARCHAR" property="clientType" />
@@ -33,7 +33,7 @@
     select 
     <include refid="BaseColumnList" />
     from banner
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
     <select id="getBannerList" resultMap="BaseResultMap">
@@ -95,7 +95,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
         <if test="title != null">
             #{title,jdbcType=VARCHAR},
@@ -184,7 +184,7 @@
             deleted = #{deleted,jdbcType=BIT},
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.banner.BannerQueryRequest">
         select <include refid="BaseColumnList"/>

@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="role_type" jdbcType="VARCHAR" property="roleType" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -26,7 +26,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_role
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysRole">
@@ -59,7 +59,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
@@ -106,7 +106,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
     <select id="getList" parameterType="com.eghm.model.dto.role.RoleQueryRequest" resultMap="BaseResultMap">

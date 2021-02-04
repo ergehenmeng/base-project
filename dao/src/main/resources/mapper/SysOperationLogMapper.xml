@@ -5,9 +5,9 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
     <result column="request" jdbcType="VARCHAR" property="request" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="ip" jdbcType="BIGINT" property="ip" />
@@ -40,7 +40,7 @@
     ,
     <include refid="BlobColumnList" />
     from sys_operation_log
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysOperationLog">
@@ -76,13 +76,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
       </if>
       <if test="operatorId != null">
-        #{operatorId,jdbcType=INTEGER},
+        #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="request != null">
         #{request,jdbcType=VARCHAR},
@@ -111,7 +111,7 @@
         url = #{url,jdbcType=VARCHAR},
       </if>
       <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=INTEGER},
+        operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="request != null">
         request = #{request,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
         response = #{response,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     
     <resultMap id="ExtBaseResultMap" type="com.eghm.dao.model.SysOperationLog" extends="BaseResultMap">

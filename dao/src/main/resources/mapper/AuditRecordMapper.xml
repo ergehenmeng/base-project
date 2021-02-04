@@ -5,16 +5,16 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="audit_no" jdbcType="VARCHAR" property="auditNo" />
     <result column="state" jdbcType="TINYINT" property="state" />
     <result column="opinion" jdbcType="VARCHAR" property="opinion" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="apply_id" jdbcType="INTEGER" property="applyId" />
+    <result column="apply_id" jdbcType="BIGINT" property="applyId" />
     <result column="role_type" jdbcType="VARCHAR" property="roleType" />
     <result column="audit_type" jdbcType="VARCHAR" property="auditType" />
     <result column="step" jdbcType="TINYINT" property="step" />
-    <result column="audit_operator_id" jdbcType="INTEGER" property="auditOperatorId" />
+    <result column="audit_operator_id" jdbcType="BIGINT" property="auditOperatorId" />
     <result column="audit_operator_name" jdbcType="VARCHAR" property="auditOperatorName" />
     <result column="audit_time" jdbcType="TIMESTAMP" property="auditTime" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -34,7 +34,7 @@
     select 
     <include refid="BaseColumnList" />
     from audit_record
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.AuditRecord" useGeneratedKeys="true">
     <selectKey keyColumn="id" keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -96,7 +96,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="auditNo != null">
         #{auditNo,jdbcType=VARCHAR},
@@ -111,10 +111,10 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="applyId != null">
-        #{applyId,jdbcType=INTEGER},
+        #{applyId,jdbcType=BIGINT},
       </if>
       <if test="applyOperatorId != null">
-        #{applyOperatorId,jdbcType=INTEGER},
+        #{applyOperatorId,jdbcType=BIGINT},
       </if>
       <if test="applyOperatorName != null">
         #{applyOperatorName,jdbcType=VARCHAR},
@@ -129,7 +129,7 @@
         #{step,jdbcType=TINYINT},
       </if>
       <if test="auditOperatorId != null">
-        #{auditOperatorId,jdbcType=INTEGER},
+        #{auditOperatorId,jdbcType=BIGINT},
       </if>
       <if test="auditOperatorName != null">
         #{auditOperatorName,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="applyId != null">
-        apply_id = #{applyId,jdbcType=INTEGER},
+        apply_id = #{applyId,jdbcType=BIGINT},
       </if>
       <if test="roleType != null">
         role_type = #{roleType,jdbcType=VARCHAR},
@@ -176,7 +176,7 @@
         step = #{step,jdbcType=TINYINT},
       </if>
       <if test="auditOperatorId != null">
-        audit_operator_id = #{auditOperatorId,jdbcType=INTEGER},
+        audit_operator_id = #{auditOperatorId,jdbcType=BIGINT},
       </if>
       <if test="auditOperatorName != null">
         audit_operator_name = #{auditOperatorName,jdbcType=VARCHAR},
@@ -191,7 +191,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="getAuditList" resultMap="BaseResultMap">
     select <include refid="BaseColumnList" />

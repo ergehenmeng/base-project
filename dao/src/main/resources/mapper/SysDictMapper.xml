@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="hidden_value" jdbcType="TINYINT" property="hiddenValue" />
@@ -29,7 +29,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_dict
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysDict">
@@ -71,7 +71,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -136,7 +136,7 @@
             remark = #{remark,jdbcType=VARCHAR},
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
     <select id="getDictByNid" resultMap="BaseResultMap">
@@ -188,6 +188,6 @@
                 remark = #{remark,jdbcType=VARCHAR},
             </if>
         </set>
-        where id = #{id,jdbcType=INTEGER} and locked = false
+        where id = #{id,jdbcType=BIGINT} and locked = false
     </update>
 </mapper>

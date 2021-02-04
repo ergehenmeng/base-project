@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="ip" jdbcType="BIGINT" property="ip" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
@@ -25,7 +25,7 @@
     select 
     <include refid="BaseColumnList" />
     from black_roster
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.BlackRoster">
@@ -55,7 +55,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="ip != null">
         #{ip,jdbcType=BIGINT},
@@ -96,7 +96,7 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getList" parameterType="com.eghm.model.dto.roster.BlackRosterQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/> from black_roster where deleted = false

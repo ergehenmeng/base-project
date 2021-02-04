@@ -21,35 +21,35 @@ import java.util.List;
 @Service("sysAreaService")
 public class SysAreaServiceImpl implements SysAreaService {
 
-    private SysAreaMapper sysAddressMapper;
+    private SysAreaMapper sysAreaMapper;
 
     @Autowired
-    public void setSysAddressMapper(SysAreaMapper sysAreaMapper) {
-        this.sysAddressMapper = sysAreaMapper;
+    public void setSysAreaMapper(SysAreaMapper sysAreaMapper) {
+        this.sysAreaMapper = sysAreaMapper;
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void calcInitial() {
-        List<SysArea> list = sysAddressMapper.getList();
+        List<SysArea> list = sysAreaMapper.getList();
         list.forEach(sysArea -> {
             String title = sysArea.getTitle();
             String initial = StringUtil.getInitial(title);
             sysArea.setMark(initial);
-            sysAddressMapper.updateByPrimaryKeySelective(sysArea);
+            sysAreaMapper.updateByPrimaryKeySelective(sysArea);
         });
     }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid" ,cacheManager = "longCacheManager", sync = true)
     public List<SysAreaVO> getByPid(Integer pid) {
-        List<SysArea> addressList = sysAddressMapper.getByPid(pid);
+        List<SysArea> addressList = sysAreaMapper.getByPid(pid);
         return DataUtil.convert(addressList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
     }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#id", unless = "#result == null")
     public SysArea getById(Integer id) {
-        return sysAddressMapper.selectByPrimaryKey(id);
+        return sysAreaMapper.selectByPrimaryKey(id);
     }
 }

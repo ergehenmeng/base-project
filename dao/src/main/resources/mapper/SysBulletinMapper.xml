@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -40,7 +40,7 @@
     ,
     <include refid="BlobColumnList" />
     from sys_bulletin
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
     <select id="getList" parameterType="com.eghm.model.dto.bulletin.BulletinQueryRequest" resultMap="ResultMapWithBLOBs">
         select id, title, classify, deleted, add_time, update_time, state from sys_bulletin
@@ -88,7 +88,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -141,7 +141,7 @@
             state = #{state,jdbcType=TINYINT},
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getTopList" resultMap="BaseResultMap">
         select id,title

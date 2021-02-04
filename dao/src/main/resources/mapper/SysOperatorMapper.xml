@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="operator_name" jdbcType="CHAR" property="operatorName" />
     <result column="mobile" jdbcType="CHAR" property="mobile" />
     <result column="state" jdbcType="TINYINT" property="state" />
@@ -32,7 +32,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_operator
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysOperator" useGeneratedKeys="true">
@@ -83,7 +83,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="operatorName != null">
         #{operatorName,jdbcType=CHAR},
@@ -160,7 +160,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
     <select id="getByMobile" resultMap="BaseResultMap">

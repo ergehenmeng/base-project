@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -24,7 +24,7 @@
     select 
     <include refid="BaseColumnList" />
     from sms_template
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.SmsTemplate">
     <!--
@@ -45,7 +45,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getByNid" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>

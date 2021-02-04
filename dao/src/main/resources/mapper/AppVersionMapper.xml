@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="classify" jdbcType="VARCHAR" property="classify" />
     <result column="version" jdbcType="VARCHAR" property="version" />
     <result column="force_update" jdbcType="BIT" property="forceUpdate" />
@@ -29,7 +29,7 @@
     select 
     <include refid="BaseColumnList" />
     from app_version
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.AppVersion">
@@ -68,7 +68,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="classify != null">
         #{classify,jdbcType=VARCHAR},
@@ -127,7 +127,7 @@
             state = #{state,jdbcType=TINYINT},
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getList" parameterType="com.eghm.model.dto.version.VersionQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>

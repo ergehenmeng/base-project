@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="parent_code" jdbcType="VARCHAR" property="parentCode" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="title" jdbcType="VARCHAR" property="title" />
@@ -14,7 +14,7 @@
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="operator_name" jdbcType="CHAR" property="operatorName" />
-    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
@@ -29,7 +29,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_dept
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
     <insert id="insertSelective" parameterType="com.eghm.dao.model.SysDept">
@@ -71,7 +71,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="parentCode != null">
         #{parentCode,jdbcType=VARCHAR},
@@ -136,7 +136,7 @@
             #{operatorId},
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
     <select id="getMaxCodeChild" resultMap="BaseResultMap">

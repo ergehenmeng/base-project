@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.NoticeTemplateMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.NoticeTemplate">
+<mapper namespace="com.eghm.dao.mapper.EmailTemplateMapper">
+  <resultMap id="BaseResultMap" type="com.eghm.dao.model.EmailTemplate">
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
       @create by mybatis
     -->
-    id, code, title, content, update_time
+    id, nid, title, content, update_time, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -23,20 +24,20 @@
     -->
     select 
     <include refid="BaseColumnList" />
-    from notice_template
-    where id = #{id,jdbcType=BIGINT}
+    from email_template
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.NoticeTemplate">
+  <insert id="insertSelective" parameterType="com.eghm.dao.model.EmailTemplate">
     <!--
       @create by mybatis
     -->
-    insert into notice_template
+    insert into email_template
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="code != null">
-        code,
+      <if test="nid != null">
+        nid,
       </if>
       <if test="title != null">
         title,
@@ -47,13 +48,16 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="remark != null">
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
+      <if test="nid != null">
+        #{nid,jdbcType=VARCHAR},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -64,16 +68,19 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.NoticeTemplate">
+  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.EmailTemplate">
     <!--
       @create by mybatis
     -->
-    update notice_template
+    update email_template
     <set>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
+      <if test="nid != null">
+        nid = #{nid,jdbcType=VARCHAR},
       </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
@@ -84,10 +91,14 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getTemplate" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList" /> from notice_template where code = #{code} limit 1
+
+  <select id="getByNid" resultMap="BaseResultMap">
+    select <include refid="BaseColumnList"/> from email_template where nid = #{nid} limit 1
   </select>
 </mapper>

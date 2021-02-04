@@ -5,9 +5,9 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="score" jdbcType="INTEGER" property="score" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="score" jdbcType="BIGINT" property="score" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -25,7 +25,7 @@
     select 
     <include refid="BaseColumnList" />
     from user_score_log
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.UserScoreLog">
@@ -55,13 +55,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="score != null">
-        #{score,jdbcType=INTEGER},
+        #{score,jdbcType=BIGINT},
       </if>
       <if test="type != null">
         #{type,jdbcType=TINYINT},
@@ -81,10 +81,10 @@
     update user_score_log
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="score != null">
-        score = #{score,jdbcType=INTEGER},
+        score = #{score,jdbcType=BIGINT},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=TINYINT},
@@ -96,7 +96,7 @@
         add_time = #{addTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.score.UserScoreQueryDTO">
     select <include refid="BaseColumnList" />

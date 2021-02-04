@@ -5,9 +5,9 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="operator_id" jdbcType="INTEGER" property="operatorId" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
+    <result column="role_id" jdbcType="BIGINT" property="roleId" />
   </resultMap>
   <sql id="BaseColumnList">
     <!--
@@ -22,7 +22,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_operator_role
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysOperatorRole">
@@ -43,13 +43,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="operatorId != null">
-        #{operatorId,jdbcType=INTEGER},
+        #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
+        #{roleId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -60,13 +60,13 @@
     update sys_operator_role
     <set>
       <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=INTEGER},
+        operator_id = #{operatorId,jdbcType=BIGINT},
       </if>
       <if test="roleId != null">
-        role_id = #{roleId,jdbcType=INTEGER},
+        role_id = #{roleId,jdbcType=BIGINT},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getByOperatorId"  resultType="java.lang.Integer">
         select role_id

@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
     <result column="state" jdbcType="BIT" property="state" />
@@ -40,7 +40,7 @@
     ,
     <include refid="BlobColumnList" />
     from task_log
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.TaskLog">
     <!--
@@ -75,7 +75,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
@@ -128,7 +128,7 @@
         error_msg = #{errorMsg,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getList" parameterType="com.eghm.model.dto.task.TaskLogQueryRequest" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>

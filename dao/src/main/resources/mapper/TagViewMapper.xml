@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="tag" jdbcType="VARCHAR" property="tag" />
     <result column="url" jdbcType="VARCHAR" property="url" />
@@ -24,7 +24,7 @@
     select 
     <include refid="BaseColumnList" />
     from tag_view
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.TagView">
     <!--
@@ -45,7 +45,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
     <select id="getList" resultMap="BaseResultMap">
         select <include refid="BaseColumnList"/>

@@ -5,8 +5,8 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="channel" jdbcType="VARCHAR" property="channel" />
     <result column="ip" jdbcType="BIGINT" property="ip" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
@@ -29,7 +29,7 @@
     select 
     <include refid="BaseColumnList" />
     from login_log
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.LoginLog">
     <!--
@@ -70,10 +70,10 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="channel != null">
         #{channel,jdbcType=VARCHAR},
@@ -108,7 +108,7 @@
     update login_log
     <set>
       <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="channel != null">
         channel = #{channel,jdbcType=VARCHAR},
@@ -135,7 +135,7 @@
           deleted = #{deleted}
         </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
   <select id="getLastLogin" resultMap="BaseResultMap">

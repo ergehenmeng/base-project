@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="calendar" jdbcType="DATE" property="calendar" />
     <result column="date_month" jdbcType="CHAR" property="dateMonth" />
     <result column="type" jdbcType="TINYINT" property="type" />
@@ -24,7 +24,7 @@
     select 
     <include refid="BaseColumnList" />
     from sys_holiday
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysHoliday">
     <!--
@@ -50,7 +50,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="calendar != null">
         #{calendar,jdbcType=DATE},
