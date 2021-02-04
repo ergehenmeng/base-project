@@ -25,7 +25,7 @@
     select 
     <include refid="BaseColumnList" />
     from email_template
-    where id = #{id,jdbcType=Long}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.EmailTemplate">
     <!--
@@ -54,7 +54,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=Long},
+        #{id,jdbcType=BIGINT},
       </if>
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
@@ -95,7 +95,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=Long}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 
   <select id="getByNid" resultMap="BaseResultMap">
