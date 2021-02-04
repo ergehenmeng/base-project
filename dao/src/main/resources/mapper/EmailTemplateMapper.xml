@@ -5,7 +5,7 @@
     <!--
       @create by mybatis
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="BIGINT" property="id" />
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="VARCHAR" property="content" />
@@ -18,14 +18,14 @@
     -->
     id, nid, title, content, update_time, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->
     select 
     <include refid="BaseColumnList" />
     from email_template
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=Long}
   </select>
   <insert id="insertSelective" parameterType="com.eghm.dao.model.EmailTemplate">
     <!--
@@ -54,7 +54,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=Long},
       </if>
       <if test="nid != null">
         #{nid,jdbcType=VARCHAR},
@@ -95,7 +95,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=Long}
   </update>
 
   <select id="getByNid" resultMap="BaseResultMap">

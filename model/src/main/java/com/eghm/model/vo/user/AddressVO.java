@@ -16,7 +16,7 @@ public class AddressVO {
      * 省份id
      */
     @ApiModelProperty("省份id")
-    private Integer provinceId;
+    private Long provinceId;
 
     /**
      * 省份名称
@@ -28,7 +28,7 @@ public class AddressVO {
      * 城市id
      */
     @ApiModelProperty("城市id")
-    private Integer cityId;
+    private Long cityId;
 
     /**
      * 城市名称
@@ -40,7 +40,7 @@ public class AddressVO {
      * 区县id
      */
     @ApiModelProperty("县区id")
-    private Integer countyId;
+    private Long countyId;
 
     /**
      * 区县名称

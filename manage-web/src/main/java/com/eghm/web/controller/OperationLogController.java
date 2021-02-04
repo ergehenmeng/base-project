@@ -46,7 +46,7 @@ public class OperationLogController {
      */
     @GetMapping("/operation_log/query_page")
     @Mark
-    public String queryPage(Model model, Integer id) {
+    public String queryPage(Model model, Long id) {
         String response = operationLogService.getResponseById(id);
         model.addAttribute("response", response);
         return "query_page";

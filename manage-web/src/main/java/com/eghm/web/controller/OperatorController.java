@@ -121,7 +121,7 @@ public class OperatorController {
     public String editOperatorPage(Model model, Long id) {
         SysOperator operator = sysOperatorService.getById(id);
         model.addAttribute("operator", operator);
-        List<Integer> roleList = sysRoleService.getByOperatorId(id);
+        List<Long> roleList = sysRoleService.getByOperatorId(id);
         if (CollUtil.isNotEmpty(roleList)) {
             String roleIds = Joiner.on(",").join(roleList);
             model.addAttribute("roleIds", roleIds);

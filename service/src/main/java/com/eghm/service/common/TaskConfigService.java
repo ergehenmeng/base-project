@@ -31,7 +31,7 @@ public interface TaskConfigService {
      * @param id id
      * @return 定时任务配置信息
      */
-    TaskConfig getById(Integer id);
+    TaskConfig getById(Long id);
 
     /**
      * 编辑保存任务配置信息

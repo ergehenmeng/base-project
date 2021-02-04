@@ -57,14 +57,14 @@ public interface SysRoleService {
      * @param operatorId 管理人员id
      * @return 角色id列表
      */
-    List<Integer> getByOperatorId(Long operatorId);
+    List<Long> getByOperatorId(Long operatorId);
 
     /**
      * 获取角色的菜单列表
      * @param roleId 角色
      * @return 菜单列表
      */
-    List<Integer> getRoleMenu(Long roleId);
+    List<Long> getRoleMenu(Long roleId);
 
     /**
      * 角色菜单权限保存

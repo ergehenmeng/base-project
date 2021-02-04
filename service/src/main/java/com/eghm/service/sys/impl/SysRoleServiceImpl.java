@@ -84,12 +84,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<Integer> getByOperatorId(Long operatorId) {
+    public List<Long> getByOperatorId(Long operatorId) {
         return sysOperatorRoleMapper.getByOperatorId(operatorId);
     }
 
     @Override
-    public List<Integer> getRoleMenu(Long roleId) {
+    public List<Long> getRoleMenu(Long roleId) {
         return sysRoleMapper.getRoleMenu(roleId);
     }
 

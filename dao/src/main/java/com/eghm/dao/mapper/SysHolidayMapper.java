@@ -17,5 +17,5 @@ public interface SysHolidayMapper {
      *
      * @param id 条件 
      */
-    SysHoliday selectByPrimaryKey(Integer id);
+    SysHoliday selectByPrimaryKey(Long id);
 }

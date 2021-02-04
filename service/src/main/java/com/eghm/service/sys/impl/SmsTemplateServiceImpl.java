@@ -38,7 +38,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     }
 
     @Override
-    public SmsTemplate getById(Integer id) {
+    public SmsTemplate getById(Long id) {
         return smsTemplateMapper.selectByPrimaryKey(id);
     }
 

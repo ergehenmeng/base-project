@@ -59,7 +59,7 @@ public class ConfigController {
      * @return 页面
      */
     @GetMapping("/config/edit_page")
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         SysConfig config = sysConfigService.getById(id);
         model.addAttribute("config", config);
         return "config/edit_page";

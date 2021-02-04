@@ -31,7 +31,7 @@
     -->
     response
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
     <!--
       @create by mybatis
     -->
@@ -154,7 +154,7 @@
         </where>
         order by id desc
     </select>
-    <select id="getResponseById" parameterType="integer" resultType="string">
+    <select id="getResponseById" parameterType="Long" resultType="string">
         select <include refid="BlobColumnList"/>
         from sys_operation_log where id = #{id}
     </select>

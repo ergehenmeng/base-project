@@ -28,7 +28,7 @@ public interface BannerService {
      * @param id id
      * @return banner
      */
-    Banner getById(Integer id);
+    Banner getById(Long id);
 
     /**
      * 根据条件分页查询录播图列表

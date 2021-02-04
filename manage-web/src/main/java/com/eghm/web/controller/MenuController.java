@@ -77,7 +77,7 @@ public class MenuController {
      */
     @GetMapping("/menu/add_page")
     @Mark
-    public String addPage(Model model, Integer id, @RequestParam(defaultValue = "0", required = false) Byte grade) {
+    public String addPage(Model model, Long id, @RequestParam(defaultValue = "0", required = false) Byte grade) {
         model.addAttribute("pid", id);
         model.addAttribute("grade", grade + 1);
         return "menu/add_page";

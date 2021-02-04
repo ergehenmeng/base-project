@@ -25,7 +25,7 @@
     id, operator_name, mobile, state, pwd, init_pwd, dept_code,permission_type, deleted,
     add_time, update_time, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->
@@ -36,7 +36,7 @@
   </select>
 
   <insert id="insertSelective" parameterType="com.eghm.dao.model.SysOperator" useGeneratedKeys="true">
-      <selectKey order="AFTER" keyProperty="id" keyColumn="id" resultType="java.lang.Integer">
+      <selectKey order="AFTER" keyProperty="id" keyColumn="id" resultType="java.lang.Long">
           select LAST_INSERT_ID()
       </selectKey>
     <!--

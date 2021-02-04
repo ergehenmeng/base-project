@@ -26,7 +26,7 @@ public interface PushTemplateService {
      * @param id id
      * @return 推送消息
      */
-    PushTemplate getById(Integer id);
+    PushTemplate getById(Long id);
 
     /**
      * 编辑保存推送模板

@@ -11,7 +11,7 @@ public interface TagViewMapper {
      *
      * @param id 条件 
      */
-    TagView selectByPrimaryKey(Integer id);
+    TagView selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

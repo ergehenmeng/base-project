@@ -21,13 +21,13 @@ public interface SysAreaService {
      * @param pid 当前级地址id
      * @return list
      */
-    List<SysAreaVO> getByPid(Integer pid);
+    List<SysAreaVO> getByPid(Long pid);
 
     /**
      * 主键查询
      * @param id id
      * @return 地区
      */
-    SysArea getById(Integer id);
+    SysArea getById(Long id);
 }
 

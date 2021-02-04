@@ -67,7 +67,7 @@ public class BannerController {
      * 轮播图编辑页面
      */
     @GetMapping("/banner/edit_page")
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         Banner banner = bannerService.getById(id);
         model.addAttribute("banner", banner);
         return "banner/edit_page";

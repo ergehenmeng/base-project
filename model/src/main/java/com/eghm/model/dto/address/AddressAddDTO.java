@@ -26,21 +26,21 @@ public class AddressAddDTO {
      */
     @ApiModelProperty(value = "省份id",required = true)
     @NotNull(message = "省份不能为空")
-    private Integer provinceId;
+    private Long provinceId;
 
     /**
      * 城市id
      */
     @ApiModelProperty(value = "城市id",required = true)
     @NotNull(message = "城市不能为空")
-    private Integer cityId;
+    private Long cityId;
 
     /**
      * 县区id
      */
     @ApiModelProperty(value = "县区id",required = true)
     @NotNull(message = "县区不能为空")
-    private Integer countyId;
+    private Long countyId;
 
     /**
      * 详细地址

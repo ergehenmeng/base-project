@@ -37,7 +37,7 @@ public interface SysOperatorRoleMapper {
      * @param operatorId 角色id
      * @return 角色id列表
      */
-    List<Integer> getByOperatorId(@Param("operatorId") Long operatorId);
+    List<Long> getByOperatorId(@Param("operatorId") Long operatorId);
 
     /**
      * 删除用户所有的角色

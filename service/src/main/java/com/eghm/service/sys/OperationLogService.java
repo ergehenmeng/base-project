@@ -28,6 +28,6 @@ public interface OperationLogService {
      * @param id id
      * @return 响应结果 可能为空
      */
-    String getResponseById(Integer id);
+    String getResponseById(Long id);
 }
 

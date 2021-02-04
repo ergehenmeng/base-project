@@ -40,7 +40,7 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public Banner getById(Integer id) {
+    public Banner getById(Long id) {
         return bannerMapper.selectByPrimaryKey(id);
     }
 

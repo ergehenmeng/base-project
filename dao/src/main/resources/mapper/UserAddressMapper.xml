@@ -26,7 +26,7 @@
     id, user_id, state, province_id, province_name, city_id, city_name, county_id, county_name, 
     detail_address,deleted, add_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->

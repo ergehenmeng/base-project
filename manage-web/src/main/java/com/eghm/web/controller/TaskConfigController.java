@@ -51,7 +51,7 @@ public class TaskConfigController {
      * 定时任务编辑页面
      */
     @GetMapping("/task/edit_page")
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         TaskConfig config = taskConfigService.getById(id);
         model.addAttribute("config", config);
         return "task/edit_page";

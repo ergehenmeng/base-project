@@ -42,14 +42,14 @@ public class SysAreaServiceImpl implements SysAreaService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid" ,cacheManager = "longCacheManager", sync = true)
-    public List<SysAreaVO> getByPid(Integer pid) {
+    public List<SysAreaVO> getByPid(Long pid) {
         List<SysArea> addressList = sysAreaMapper.getByPid(pid);
         return DataUtil.convert(addressList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
     }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#id", unless = "#result == null")
-    public SysArea getById(Integer id) {
+    public SysArea getById(Long id) {
         return sysAreaMapper.selectByPrimaryKey(id);
     }
 }

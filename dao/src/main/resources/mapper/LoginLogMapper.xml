@@ -22,7 +22,7 @@
     -->
     id, user_id, channel, ip, add_time, device_brand, device_model, software_version, serial_number,deleted
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->

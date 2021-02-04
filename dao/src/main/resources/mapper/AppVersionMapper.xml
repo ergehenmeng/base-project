@@ -10,6 +10,7 @@
     <result column="version" jdbcType="VARCHAR" property="version" />
     <result column="force_update" jdbcType="BIT" property="forceUpdate" />
     <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="version_no" jdbcType="INTEGER" property="versionNo" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="state" jdbcType="TINYINT" property="state" />
@@ -20,9 +21,9 @@
     <!--
       @create by mybatis
     -->
-    id, classify, version, force_update, url, add_time, remark, deleted,update_time,state
+    id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time,state
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->
@@ -47,6 +48,9 @@
       <if test="version != null">
         version,
       </if>
+        <if test="versionNo != null">
+            version_no,
+        </if>
       <if test="forceUpdate != null">
         force_update,
       </if>
@@ -76,6 +80,9 @@
       <if test="version != null">
         #{version,jdbcType=VARCHAR},
       </if>
+        <if test="versionNo != null">
+            #{versionNo},
+        </if>
       <if test="forceUpdate != null">
         #{forceUpdate,jdbcType=BIT},
       </if>
@@ -108,6 +115,9 @@
       <if test="version != null">
         version = #{version,jdbcType=VARCHAR},
       </if>
+        <if test="versionNo != null">
+            version_no = #{versionNo},
+        </if>
       <if test="forceUpdate != null">
         force_update = #{forceUpdate,jdbcType=BIT},
       </if>

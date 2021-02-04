@@ -20,7 +20,7 @@ public interface NoticeTemplateMapper {
      *
      * @param id 条件 
      */
-    NoticeTemplate selectByPrimaryKey(Integer id);
+    NoticeTemplate selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

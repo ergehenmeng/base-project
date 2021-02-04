@@ -26,7 +26,7 @@
     -->
     id,title, classify, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time,deleted
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->

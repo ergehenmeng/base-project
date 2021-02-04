@@ -65,7 +65,7 @@ public class DeptController {
      * 编辑部门页面
      */
     @GetMapping("/dept/edit_page")
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         SysDept dept = sysDeptService.getById(id);
         model.addAttribute("dept", dept);
         return "dept/edit_page";

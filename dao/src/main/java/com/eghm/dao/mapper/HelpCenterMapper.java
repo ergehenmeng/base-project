@@ -23,7 +23,7 @@ public interface HelpCenterMapper {
      *
      * @param id 条件 
      */
-    HelpCenter selectByPrimaryKey(Integer id);
+    HelpCenter selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

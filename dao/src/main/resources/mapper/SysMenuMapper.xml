@@ -24,7 +24,7 @@
     -->
     t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->

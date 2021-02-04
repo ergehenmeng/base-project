@@ -45,7 +45,7 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     }
 
     @Override
-    public TaskConfig getById(Integer id) {
+    public TaskConfig getById(Long id) {
         return taskConfigMapper.selectByPrimaryKey(id);
     }
 

@@ -23,7 +23,7 @@ public interface SysOperationLogMapper {
      *
      * @param id
      */
-    SysOperationLog selectByPrimaryKey(Integer id);
+    SysOperationLog selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -44,5 +44,5 @@ public interface SysOperationLogMapper {
      * @param id 主键
      * @return 响应结果,可能为空
      */
-    String getResponseById(@Param("id") Integer id);
+    String getResponseById(@Param("id") Long id);
 }

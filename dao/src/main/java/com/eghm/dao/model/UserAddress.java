@@ -47,7 +47,7 @@ public class UserAddress implements Serializable {
      * 表 : user_address<br>
      * 对应字段 : province_id<br>
      */
-    private Integer provinceId;
+    private Long provinceId;
 
     /**
      * 省份名称<br>
@@ -61,7 +61,7 @@ public class UserAddress implements Serializable {
      * 表 : user_address<br>
      * 对应字段 : city_id<br>
      */
-    private Integer cityId;
+    private Long cityId;
 
     /**
      * 城市名称<br>
@@ -75,7 +75,7 @@ public class UserAddress implements Serializable {
      * 表 : user_address<br>
      * 对应字段 : county_id<br>
      */
-    private Integer countyId;
+    private Long countyId;
 
     /**
      * 县区id<br>

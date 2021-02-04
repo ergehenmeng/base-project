@@ -33,7 +33,7 @@ public interface SysConfigMapper {
      * @param id
      * @return
      */
-    SysConfig selectByPrimaryKey(Integer id);
+    SysConfig selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

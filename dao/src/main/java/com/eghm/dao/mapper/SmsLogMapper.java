@@ -22,7 +22,7 @@ public interface SmsLogMapper {
      *
      * @param id 条件 
      */
-    SmsLog selectByPrimaryKey(Integer id);
+    SmsLog selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

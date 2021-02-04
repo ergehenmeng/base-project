@@ -20,7 +20,7 @@ public interface EmailTemplateMapper {
      *
      * @param id 条件 
      */
-    EmailTemplate selectByPrimaryKey(Integer id);
+    EmailTemplate selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

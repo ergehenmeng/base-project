@@ -23,7 +23,7 @@ public interface TaskLogMapper {
      *
      * @param id 条件 
      */
-    TaskLog selectByPrimaryKey(Integer id);
+    TaskLog selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -44,5 +44,5 @@ public interface TaskLogMapper {
      * @param id 主键
      * @return errorMsg字段有值
      */
-    TaskLog getErrorMsg(@Param("id") Integer id);
+    TaskLog getErrorMsg(@Param("id") Long id);
 }

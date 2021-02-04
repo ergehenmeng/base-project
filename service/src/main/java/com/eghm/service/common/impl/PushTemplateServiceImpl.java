@@ -43,7 +43,7 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     }
 
     @Override
-    public PushTemplate getById(Integer id) {
+    public PushTemplate getById(Long id) {
         return pushTemplateMapper.selectByPrimaryKey(id);
     }
 

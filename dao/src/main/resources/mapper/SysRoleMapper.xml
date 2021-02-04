@@ -19,7 +19,7 @@
     -->
     id, role_name, role_type, add_time, update_time, deleted, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->
@@ -123,7 +123,7 @@
         where r.operator_id = #{operatorId} and t.deleted = false
     </select>
 
-    <select id="getRoleMenu" resultType="integer">
+    <select id="getRoleMenu" resultType="long">
         select menu_id from sys_role_menu where role_id = #{roleId}
     </select>
     

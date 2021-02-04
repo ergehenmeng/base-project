@@ -51,7 +51,7 @@ public interface SysRoleMapper {
      * @param roleId 角色id
      * @return 菜单menuIds
      */
-    List<Integer> getRoleMenu(@Param("roleId") Long roleId);
+    List<Long> getRoleMenu(@Param("roleId") Long roleId);
 
     /**
      * 删除角色菜单关联信息 物理删除

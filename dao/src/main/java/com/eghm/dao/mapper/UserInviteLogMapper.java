@@ -19,6 +19,6 @@ public interface UserInviteLogMapper {
      *
      * @param id 条件 
      */
-    UserInviteLog selectByPrimaryKey(Integer id);
+    UserInviteLog selectByPrimaryKey(Long id);
 
 }

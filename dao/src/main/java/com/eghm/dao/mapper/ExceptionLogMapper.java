@@ -16,6 +16,6 @@ public interface ExceptionLogMapper {
      *
      * @param id 条件 
      */
-    ExceptionLog selectByPrimaryKey(Integer id);
+    ExceptionLog selectByPrimaryKey(Long id);
 
 }

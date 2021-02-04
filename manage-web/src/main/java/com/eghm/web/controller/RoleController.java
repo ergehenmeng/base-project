@@ -129,7 +129,7 @@ public class RoleController {
     @GetMapping("/role/auth_page")
     @Mark
     public String addPage(Model model, Long id) {
-        List<Integer> role = sysRoleService.getRoleMenu(id);
+        List<Long> role = sysRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);
         model.addAttribute("menuIds", menuIds);
         model.addAttribute("roleId", id);

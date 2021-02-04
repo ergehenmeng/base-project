@@ -19,7 +19,7 @@
     -->
     id, audit_type, role_type, step, rejection_policy, add_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->
@@ -31,6 +31,6 @@
 
   <select id="getConfig" resultMap="BaseResultMap">
     select <include refid="BaseColumnList"/>
-    from audit_config where audit_type = #{auditType} order by step asc
+    from audit_config where audit_type = #{auditType} order by step
   </select>
 </mapper>

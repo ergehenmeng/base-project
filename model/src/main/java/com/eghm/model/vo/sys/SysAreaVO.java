@@ -16,7 +16,7 @@ public class SysAreaVO {
      * id
      */
     @ApiModelProperty("区域code(唯一)")
-    private Integer id;
+    private Long id;
 
     /**
      * 地区名称

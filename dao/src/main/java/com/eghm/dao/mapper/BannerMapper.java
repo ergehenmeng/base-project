@@ -23,7 +23,7 @@ public interface BannerMapper {
      * @param id 主键
      * @return 主键查询对象
      */
-    Banner selectByPrimaryKey(Integer id);
+    Banner selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

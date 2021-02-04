@@ -21,7 +21,7 @@ public interface SysAreaMapper {
      * @param id 主键
      * @return 一条数据
      */
-    SysArea selectByPrimaryKey(Integer id);
+    SysArea selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -41,6 +41,6 @@ public interface SysAreaMapper {
      * @param pid pid
      * @return list
      */
-    List<SysArea> getByPid(@Param("pid")Integer pid);
+    List<SysArea> getByPid(@Param("pid")Long pid);
 
 }

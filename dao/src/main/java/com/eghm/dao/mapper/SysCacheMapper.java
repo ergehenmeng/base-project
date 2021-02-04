@@ -22,7 +22,7 @@ public interface SysCacheMapper {
      *
      * @param id
      */
-    SysCache selectByPrimaryKey(Integer id);
+    SysCache selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

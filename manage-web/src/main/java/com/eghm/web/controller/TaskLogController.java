@@ -40,7 +40,7 @@ public class TaskLogController {
      * 错误信息
      */
     @GetMapping("/task_log/error_msg")
-    public String errorMsg(Model model, Integer id) {
+    public String errorMsg(Model model, Long id) {
         String errorMsg = taskLogService.getErrorMsg(id).getErrorMsg();
         model.addAttribute("response", errorMsg);
         return "query_page";

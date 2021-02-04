@@ -16,7 +16,7 @@ public interface SmsTemplateMapper {
      *
      * @param id 条件 
      */
-    SmsTemplate selectByPrimaryKey(Integer id);
+    SmsTemplate selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

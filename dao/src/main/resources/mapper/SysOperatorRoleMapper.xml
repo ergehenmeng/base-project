@@ -15,7 +15,7 @@
     -->
     id, operator_id, role_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->
@@ -68,12 +68,12 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-    <select id="getByOperatorId"  resultType="java.lang.Integer">
+    <select id="getByOperatorId"  resultType="java.lang.Long">
         select role_id
         from sys_operator_role where operator_id = #{operatorId}
     </select>
 
-    <delete id="deleteByOperatorId" parameterType="java.lang.Integer">
+    <delete id="deleteByOperatorId" parameterType="java.lang.Long">
         delete from sys_operator_role where operator_id = #{operatorId}
     </delete>
 

@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author 二哥很猛
  * @date 2018/8/14 13:46
  */
-public class SectionIntDefine implements ConstraintValidator<SectionInt,Integer> {
+public class SectionIntDefine implements ConstraintValidator<SectionInt, Integer> {
 
     /**
      * 取值列表

@@ -22,7 +22,7 @@
     -->
     id, parent_code, code, title, add_time, update_time, deleted,remark,operator_name,operator_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->

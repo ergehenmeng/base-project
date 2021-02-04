@@ -16,7 +16,7 @@ public interface PushTemplateMapper {
      *
      * @param id 条件 
      */
-    PushTemplate selectByPrimaryKey(Integer id);
+    PushTemplate selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

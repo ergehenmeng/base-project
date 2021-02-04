@@ -44,7 +44,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    public SysDept getById(Integer id) {
+    public SysDept getById(Long id) {
         return sysDeptMapper.selectByPrimaryKey(id);
     }
 

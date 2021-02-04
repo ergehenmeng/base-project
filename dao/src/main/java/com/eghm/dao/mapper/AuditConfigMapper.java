@@ -13,7 +13,7 @@ public interface AuditConfigMapper {
      *
      * @param id 条件 
      */
-    AuditConfig selectByPrimaryKey(Integer id);
+    AuditConfig selectByPrimaryKey(Long id);
 
     /**
      * 查询指定审核类型的配置列表

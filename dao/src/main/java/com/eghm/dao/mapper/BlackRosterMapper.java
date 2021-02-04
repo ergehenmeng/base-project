@@ -22,7 +22,7 @@ public interface BlackRosterMapper {
      *
      * @param id 条件 
      */
-    BlackRoster selectByPrimaryKey(Integer id);
+    BlackRoster selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

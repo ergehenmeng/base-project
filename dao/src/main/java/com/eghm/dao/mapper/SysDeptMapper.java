@@ -22,7 +22,7 @@ public interface SysDeptMapper {
      *
      * @param id
      */
-    SysDept selectByPrimaryKey(Integer id);
+    SysDept selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

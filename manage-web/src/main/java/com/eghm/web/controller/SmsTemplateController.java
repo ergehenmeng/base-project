@@ -44,7 +44,7 @@ public class SmsTemplateController {
      * 短信模板编辑页面
      */
     @GetMapping("/sms_template/edit_page")
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         SmsTemplate template = smsTemplateService.getById(id);
         model.addAttribute("template", template);
         return "sms_template/edit_page";

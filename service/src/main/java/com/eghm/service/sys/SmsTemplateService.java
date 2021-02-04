@@ -23,7 +23,7 @@ public interface SmsTemplateService {
      * @param id id
      * @return 短信模板
      */
-    SmsTemplate getById(Integer id);
+    SmsTemplate getById(Long id);
 
     /**
      * 根据条件查询短信模板列表

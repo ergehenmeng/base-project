@@ -17,7 +17,7 @@ public interface SysDeptService {
      * @param id 主键
      * @return 部门节点
      */
-    SysDept getById(Integer id);
+    SysDept getById(Long id);
 
     /**
      * 获取所有的部门信息

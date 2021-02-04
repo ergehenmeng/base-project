@@ -22,7 +22,7 @@
     -->
     id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     <!--
       @create by mybatis
     -->

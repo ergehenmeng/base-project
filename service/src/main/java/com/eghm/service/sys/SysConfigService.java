@@ -38,6 +38,6 @@ public interface SysConfigService {
      * @param id 主键
      * @return 系统参数信息
      */
-    SysConfig getById(Integer id);
+    SysConfig getById(Long id);
 
 }

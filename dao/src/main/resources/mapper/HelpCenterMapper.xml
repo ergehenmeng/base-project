@@ -21,7 +21,7 @@
         -->
         id, classify, state, ask, answer, sort, deleted, update_time, add_time
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         <!--
           @create by mybatis
         -->

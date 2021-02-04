@@ -53,7 +53,7 @@ public class PushTemplateController {
      * 推送模板编辑页面
      */
     @GetMapping("push_template/edit_page")
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         PushTemplate template = pushTemplateService.getById(id);
         List<TagView> list = tagViewService.getList();
         model.addAttribute("template", template);

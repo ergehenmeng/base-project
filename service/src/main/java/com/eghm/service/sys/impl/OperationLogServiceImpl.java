@@ -43,7 +43,7 @@ public class OperationLogServiceImpl implements OperationLogService {
     }
 
     @Override
-    public String getResponseById(Integer id) {
+    public String getResponseById(Long id) {
         return sysOperationLogMapper.getResponseById(id);
     }
 }

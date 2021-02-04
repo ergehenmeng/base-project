@@ -22,7 +22,7 @@ public interface UserScoreLogMapper {
      *
      * @param id 条件 
      */
-    UserScoreLog selectByPrimaryKey(Integer id);
+    UserScoreLog selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

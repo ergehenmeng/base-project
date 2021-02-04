@@ -28,5 +28,5 @@ public interface TaskLogService {
      * @param id 主键
      * @return errorMsg字段有值
      */
-    TaskLog getErrorMsg(Integer id);
+    TaskLog getErrorMsg(Long id);
 }
