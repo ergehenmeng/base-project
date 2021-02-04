@@ -3769,7 +3769,7 @@ INSERT INTO `sys_config` VALUES ('38', 'cache_expire', '非注解缓存默认过
 INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800000', '1', '\0', '单位:豪秒默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
 INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30000', '1', '\0', '单位:豪秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
 INSERT INTO `sys_config` VALUES ('42', 'jwt_secret_key', 'jwt秘钥', 'VjM0ea1vz92wQ8pohXVcKHdrnFh854IRDIaMmoERLoH4naPDeo8nXChY7gtrlAp1', '1', '', '用于生成token时的秘钥', '2020-08-28 10:30:09', '2020-08-28 10:30:36');
-INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600000', '1', '', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
+INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600000', '1', '\0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
 INSERT INTO `sys_config` VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', '1', '\0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
 INSERT INTO `sys_config` VALUES ('45', 'submit_frequency_limit', 'post请求最小间隔时间', '500', '1', '\0', '单位:毫秒 表示500内只允许访问一次', '2020-12-15 19:12:22', '2020-12-15 19:12:40');
 
