@@ -111,7 +111,7 @@ public class AppVersionController {
     @PostMapping("/version/put_away")
     @ResponseBody
     @Mark
-    public RespBody<Object> putAway(Integer id) {
+    public RespBody<Object> putAway(Long id) {
         appVersionService.putAwayVersion(id);
         return RespBody.success();
     }
@@ -124,7 +124,7 @@ public class AppVersionController {
     @PostMapping("/version/sold_out")
     @ResponseBody
     @Mark
-    public RespBody<Object> soldOut(Integer id) {
+    public RespBody<Object> soldOut(Long id) {
         appVersionService.soldOutVersion(id);
         return RespBody.success();
     }
@@ -135,7 +135,7 @@ public class AppVersionController {
     @PostMapping("/version/delete")
     @ResponseBody
     @Mark
-    public RespBody<Object> delete(Integer id) {
+    public RespBody<Object> delete(Long id) {
         appVersionService.deleteVersion(id);
         return RespBody.success();
     }

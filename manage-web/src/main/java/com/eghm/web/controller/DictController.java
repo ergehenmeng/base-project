@@ -50,7 +50,7 @@ public class DictController {
      */
     @GetMapping("/dict/edit_page")
     @Mark
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         SysDict dict = sysDictService.getById(id);
         model.addAttribute("dict", dict);
         return "dict/edit_page";
@@ -94,7 +94,7 @@ public class DictController {
     @PostMapping("/dict/delete")
     @ResponseBody
     @Mark
-    public RespBody<Object> delete(Integer id) {
+    public RespBody<Object> delete(Long id) {
         sysDictService.deleteDict(id);
         return RespBody.success();
     }

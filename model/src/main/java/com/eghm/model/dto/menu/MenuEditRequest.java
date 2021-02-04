@@ -15,7 +15,7 @@ public class MenuEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 菜单名称
@@ -30,7 +30,7 @@ public class MenuEditRequest implements Serializable {
     /**
      * 菜单父id
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 菜单url

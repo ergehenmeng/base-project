@@ -23,7 +23,7 @@ public class LoginRecord implements Serializable {
     /**
      * 用户id
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * ip

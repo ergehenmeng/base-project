@@ -15,6 +15,16 @@ public class SysBulletin implements Serializable {
     private static final long serialVersionUID = -3328700458453468310L;
 
     /**
+     * 未发布
+     */
+    public static final byte STATE_0 = 0;
+
+    /**
+     * 已发布
+     */
+    public static final byte STATE_1 = 1;
+
+    /**
      * 主键<br>
      * 表 : sys_bulletin<br>
      * 对应字段 : id<br>

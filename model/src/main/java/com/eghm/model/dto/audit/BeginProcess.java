@@ -14,7 +14,7 @@ public class BeginProcess {
     /**
      * 申请信息id
      */
-    private Integer applyId;
+    private Long applyId;
 
     /**
      * 审核类型
@@ -29,7 +29,7 @@ public class BeginProcess {
     /**
      * 申请人id
      */
-    private Integer applyOperatorId;
+    private Long applyOperatorId;
 
     /**
      * 申请人姓名

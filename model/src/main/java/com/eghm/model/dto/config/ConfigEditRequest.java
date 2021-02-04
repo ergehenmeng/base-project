@@ -14,6 +14,7 @@ public class ConfigEditRequest {
      * 参数名称
      */
     private String title;
+
     /**
      * 参数类型 sys_dict#config_classify所配置
      */

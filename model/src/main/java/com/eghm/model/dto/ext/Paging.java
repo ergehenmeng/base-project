@@ -21,7 +21,7 @@ public class Paging<T> {
      * 总条数
      */
     @ApiModelProperty("总条数")
-    private long total;
+    private Integer total;
 
     /**
      * 数据集
@@ -33,15 +33,15 @@ public class Paging<T> {
      * 当前页数
      */
     @ApiModelProperty("第几页")
-    private long page;
+    private Integer page;
 
     /**
      * 页容量
      */
     @ApiModelProperty("页容量")
-    private long pageSize;
+    private Integer pageSize;
 
-    public Paging(int total,List<T> rows){
+    public Paging(Integer total,List<T> rows){
         this.total = total;
         this.rows = rows;
     }
@@ -51,7 +51,7 @@ public class Paging<T> {
      * @param info pageHelper对象
      */
     public Paging(PageInfo<T> info){
-        this.total = info.getTotal();
+        this.total = (int)info.getTotal();
         this.rows = info.getList();
         this.page = info.getPageNum();
         this.pageSize = info.getPageSize();

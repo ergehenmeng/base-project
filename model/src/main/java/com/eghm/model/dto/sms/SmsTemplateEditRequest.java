@@ -14,7 +14,7 @@ public class SmsTemplateEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 短信内容

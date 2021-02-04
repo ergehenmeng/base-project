@@ -26,7 +26,7 @@ public interface SysDictMapper {
      * @param id 主键
      * @return 查询到的数据字典对象
      */
-    SysDict selectByPrimaryKey(Integer id);
+    SysDict selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

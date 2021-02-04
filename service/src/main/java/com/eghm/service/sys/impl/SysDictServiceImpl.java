@@ -67,7 +67,7 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteDict(Integer id) {
+    public void deleteDict(Long id) {
         SysDict dict = new SysDict();
         dict.setDeleted(true);
         dict.setId(id);
@@ -78,7 +78,7 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    public SysDict getById(Integer id) {
+    public SysDict getById(Long id) {
         return sysDictMapper.selectByPrimaryKey(id);
     }
 

@@ -20,7 +20,7 @@ public interface FeedbackLogMapper {
      *
      * @param id 条件 
      */
-    FeedbackLog selectByPrimaryKey(Integer id);
+    FeedbackLog selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

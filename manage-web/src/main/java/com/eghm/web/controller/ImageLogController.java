@@ -128,7 +128,7 @@ public class ImageLogController {
     @PostMapping("/image/delete")
     @ResponseBody
     @Mark
-    public RespBody<Object> deleteImage(Integer id) {
+    public RespBody<Object> deleteImage(Long id) {
         imageLogService.deleteImageLog(id);
         return RespBody.success();
     }
@@ -140,7 +140,7 @@ public class ImageLogController {
      */
     @GetMapping("/image/edit_page")
     @Mark
-    public String editImagePage(Model model, Integer id) {
+    public String editImagePage(Model model, Long id) {
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log", log);
         return "image/edit_page";

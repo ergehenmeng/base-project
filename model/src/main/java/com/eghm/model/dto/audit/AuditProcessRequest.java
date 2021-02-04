@@ -14,7 +14,7 @@ public class AuditProcessRequest {
     /**
      * 审核记录id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 审核类型

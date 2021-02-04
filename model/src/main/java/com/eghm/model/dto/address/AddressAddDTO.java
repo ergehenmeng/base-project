@@ -19,7 +19,7 @@ public class AddressAddDTO {
      */
     @ApiModelProperty(hidden = true)
     @BackstageTag
-    private Integer userId;
+    private Long userId;
 
     /**
      * 省份id

@@ -27,7 +27,7 @@ public class AuditQueryRequest extends PagingQuery {
      * 用户id
      */
     @BackstageTag
-    private Integer operatorId;
+    private Long operatorId;
 
     /**
      * 角色列表

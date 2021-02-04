@@ -23,7 +23,7 @@ public interface UserService {
      * @param userId id
      * @return user
      */
-    User getById(Integer userId);
+    User getById(Long userId);
 
     /**
      * 注册新用户,必须保证参数已校验,昵称如果为空默认由系统生成
@@ -61,7 +61,7 @@ public interface UserService {
      * @param userId 用户id
      * @param state  新状态 true:解冻 false:冻结
      */
-    void updateState(Integer userId,Boolean state);
+    void updateState(Long userId,Boolean state);
 
     /**
      * 登陆发送验证码
@@ -95,14 +95,14 @@ public interface UserService {
      * 2.清空之前用户登陆的信息
      * @param userId userId
      */
-    void offline(int userId);
+    void offline(Long userId);
 
     /**
      * 绑定邮箱 发送邮件验证码 (1)
      * @param email  邮箱
      * @param userId 用户id
      */
-    void sendBindEmail(String email, Integer userId);
+    void sendBindEmail(String email, Long userId);
 
     /**
      * 绑定邮箱  (2)
@@ -126,7 +126,7 @@ public interface UserService {
      * 更新邮箱发送短信验证码
      * @param userId userId
      */
-    void sendChangeEmailSms(Integer userId);
+    void sendChangeEmailSms(Long userId);
 
     /**
      * 发送更换邮箱的邮件信息(邮件内容为验证码)
@@ -144,7 +144,7 @@ public interface UserService {
      * 用户签到
      * @param userId 用户id
      */
-    void signIn(Integer userId);
+    void signIn(Long userId);
 
     /**
      * 获取今天签到状态
@@ -158,7 +158,7 @@ public interface UserService {
      * @param userId userId
      * @return 签到信息
      */
-    SignInVO getSignIn(Integer userId);
+    SignInVO getSignIn(Long userId);
 
     /**
      * 通过邀请码查询用户信息

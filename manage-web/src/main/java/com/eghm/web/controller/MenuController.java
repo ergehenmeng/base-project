@@ -50,7 +50,7 @@ public class MenuController {
      */
     @GetMapping("/menu/edit_page")
     @Mark
-    public String editMenuPage(Model model, Integer id) {
+    public String editMenuPage(Model model, Long id) {
         SysMenu menu = sysMenuService.getMenuById(id);
         model.addAttribute("menu", menu);
         return "menu/edit_page";
@@ -125,7 +125,7 @@ public class MenuController {
     @PostMapping("/menu/delete")
     @Mark
     @ResponseBody
-    public RespBody<Object> delete(Integer id) {
+    public RespBody<Object> delete(Long id) {
         sysMenuService.deleteMenu(id);
         metadataSource.loadResource();
         return RespBody.success();

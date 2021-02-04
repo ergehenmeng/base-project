@@ -59,7 +59,7 @@ public interface SysOperatorService {
      * @param id 主键
      * @return 用户信息
      */
-    SysOperator getById(Integer id);
+    SysOperator getById(Long id);
 
     /**
      * 更新用户信息
@@ -72,24 +72,24 @@ public interface SysOperatorService {
      *
      * @param id 系统用户id
      */
-    void resetPassword(Integer id);
+    void resetPassword(Long id);
 
     /**
      * 删除用户
      * @param id operatorId
      */
-    void deleteOperator(Integer id);
+    void deleteOperator(Long id);
 
     /**
      * 锁定用户
      * @param id operatorId
      */
-    void lockOperator(Integer id);
+    void lockOperator(Long id);
 
     /**
      * 解锁用户
      * @param id id
      */
-    void unlockOperator(Integer id);
+    void unlockOperator(Long id);
 }
 

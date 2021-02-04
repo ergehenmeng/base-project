@@ -107,7 +107,7 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @param userId userId
      * @return exception
      */
-    private ParameterException createOfflineException(Integer userId) {
+    private ParameterException createOfflineException(Long userId) {
         ParameterException exception = new ParameterException(ErrorCode.KICK_OFF_LINE);
         LoginDeviceVO vo = loginLogService.getLastLogin(userId);
         exception.setData(vo);

@@ -19,7 +19,7 @@ public interface SysBulletinMapper {
     /**
      * 根据主键获取一条数据库记录
      */
-    SysBulletin selectByPrimaryKey(Integer id);
+    SysBulletin selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

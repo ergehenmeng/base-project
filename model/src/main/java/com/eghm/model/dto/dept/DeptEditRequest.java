@@ -19,7 +19,7 @@ public class DeptEditRequest extends ActionRecord {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 标题

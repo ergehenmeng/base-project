@@ -14,7 +14,7 @@ public class VerifyEmailCode {
     /**
      * 用户id
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 邮箱

@@ -36,7 +36,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     private final Comparator<SysMenu> comparator = Comparator.comparing(SysMenu::getSort);
 
     @Override
-    public List<SysMenu> getMenuList(Integer operatorId) {
+    public List<SysMenu> getMenuList(Long operatorId) {
         List<SysMenu> list = sysMenuMapper.getMenuList(operatorId);
         List<SysMenu> parentList = new ArrayList<>();
 
@@ -51,17 +51,17 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<SysMenu> getButtonList(Integer operatorId) {
+    public List<SysMenu> getButtonList(Long operatorId) {
         return sysMenuMapper.getButtonList(operatorId);
     }
 
     @Override
-    public List<SysMenu> getList(Integer operatorId) {
+    public List<SysMenu> getList(Long operatorId) {
         return sysMenuMapper.getList(operatorId);
     }
 
     @Override
-    public SysMenu getMenuById(Integer id) {
+    public SysMenu getMenuById(Long id) {
         return sysMenuMapper.selectByPrimaryKey(id);
     }
 
@@ -100,12 +100,12 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteMenu(Integer id) {
+    public void deleteMenu(Long id) {
         sysMenuMapper.deleteById(id);
     }
 
     @Override
-    public List<GrantedAuthority> getAuthorityByOperatorId(Integer operator) {
+    public List<GrantedAuthority> getAuthorityByOperatorId(Long operator) {
         List<SysMenu> list = sysMenuMapper.getList(operator);
         List<GrantedAuthority> authorities = new ArrayList<>();
         if (!CollectionUtils.isEmpty(list)) {
@@ -141,10 +141,10 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param list 所有菜单列表
      * @return 子菜单列表
      */
-    private List<SysMenu> getChild(int id, List<SysMenu> list) {
+    private List<SysMenu> getChild(Long id, List<SysMenu> list) {
         List<SysMenu> childList = new ArrayList<>();
         for (SysMenu menu : list) {
-            if (menu.getPid() == id) {
+            if (menu.getPid().equals(id)) {
                 childList.add(menu);
             }
         }

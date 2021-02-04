@@ -14,7 +14,7 @@ public interface JwtTokenService {
      * @param channel 登陆渠道
      * @return token
      */
-    String createToken(int userId, String channel);
+    String createToken(Long userId, String channel);
 
     /**
      * 验证token是否合法

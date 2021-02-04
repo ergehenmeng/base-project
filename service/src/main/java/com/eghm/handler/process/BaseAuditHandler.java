@@ -85,7 +85,7 @@ public abstract class BaseAuditHandler {
      * @param operatorId 审批人
      * @param roleType  审批角色
      */
-    private void checkRole(Integer operatorId, String roleType) {
+    private void checkRole(Long operatorId, String roleType) {
         List<SysRole> roleList = sysRoleService.getRoleList(operatorId);
         SysRole role = roleList.stream().filter(sysRole -> sysRole.getRoleType().equals(roleType)).findFirst().orElse(null);
         if (role == null) {
@@ -172,7 +172,7 @@ public abstract class BaseAuditHandler {
      * @param id id
      * @return 已经校验过的审批信息
      */
-    private AuditRecord getCheckedRecord(Integer id) {
+    private AuditRecord getCheckedRecord(Long id) {
         AuditRecord record = auditRecordService.getById(id);
         if (record == null) {
             log.warn("申请信息未查询到 id:[{}]", id);

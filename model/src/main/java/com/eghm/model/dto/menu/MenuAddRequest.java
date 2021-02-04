@@ -37,7 +37,7 @@ public class MenuAddRequest implements Serializable {
     /**
      * 父id
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 排序

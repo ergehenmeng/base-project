@@ -29,7 +29,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     @Override
-    public String createToken(int userId, String channel) {
+    public String createToken(Long userId, String channel) {
         int expireSeconds = sysConfigApi.getInt(ConfigConstant.TOKEN_EXPIRE);
         JWTCreator.Builder builder = JWT.create();
         return builder.withClaim("userId", userId)
@@ -44,7 +44,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         JWTVerifier verifier = JWT.require(this.getAlgorithm()).build();
         DecodedJWT verify = verifier.verify(token);
         JwtToken jwtToken = new JwtToken();
-        jwtToken.setUserId(verify.getClaim("userId").asInt());
+        jwtToken.setUserId(verify.getClaim("userId").asLong());
         jwtToken.setChannel(Channel.valueOf(verify.getClaim("channel").asString()));
         return jwtToken;
     }

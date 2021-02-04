@@ -19,7 +19,7 @@ public class UserNoticeVO {
      * 通知id
      */
     @ApiModelProperty(value = "通知id", required = true)
-    private Integer id;
+    private Long id;
 
     /**
      * 标题

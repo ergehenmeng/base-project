@@ -38,7 +38,7 @@ public class HelpAddRequest implements Serializable {
     /**
      * 排序
      */
-    private int sort;
+    private Integer sort;
     
 
 }

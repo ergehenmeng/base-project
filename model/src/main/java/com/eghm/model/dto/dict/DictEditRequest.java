@@ -36,7 +36,7 @@ public class DictEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * nid

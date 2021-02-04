@@ -16,6 +16,17 @@ import java.util.List;
 public class SysOperator implements Serializable {
 
     private static final long serialVersionUID = -4647762860063174639L;
+
+    /**
+     * 正常
+     */
+    public static final byte STATE_1 = 1;
+
+    /**
+     * 锁定
+     */
+    public static final byte STATE_0 = 0;
+
     /**
      * 主键<br>
      * 表 : sys_operator<br>
@@ -57,7 +68,6 @@ public class SysOperator implements Serializable {
      * 对应字段 : init_pwd<br>
      */
     private String initPwd;
-
 
     /**
      * <br>

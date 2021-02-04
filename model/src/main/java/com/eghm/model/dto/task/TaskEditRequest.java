@@ -16,7 +16,7 @@ public class TaskEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 表达式

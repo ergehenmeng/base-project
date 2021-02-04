@@ -73,7 +73,7 @@ public class SysBulletinController {
      * 公告编辑页面
      */
     @GetMapping("/bulletin/edit_page")
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         SysBulletin notice = sysBulletinService.getById(id);
         model.addAttribute("notice", notice);
         return "bulletin/edit_page";
@@ -85,7 +85,7 @@ public class SysBulletinController {
     @PostMapping("/bulletin/publish")
     @ResponseBody
     @Mark
-    public RespBody<Object> publish(Integer id) {
+    public RespBody<Object> publish(Long id) {
         sysBulletinService.publish(id);
         return RespBody.success();
     }
@@ -96,7 +96,7 @@ public class SysBulletinController {
     @PostMapping("/bulletin/cancel_publish")
     @ResponseBody
     @Mark
-    public RespBody<Object> cancelPublish(Integer id) {
+    public RespBody<Object> cancelPublish(Long id) {
         sysBulletinService.cancelPublish(id);
         return RespBody.success();
     }
@@ -121,7 +121,7 @@ public class SysBulletinController {
     @PostMapping("/bulletin/delete")
     @ResponseBody
     @Mark
-    public RespBody<Object> delete(Integer id) {
+    public RespBody<Object> delete(Long id) {
         sysBulletinService.deleteNotice(id);
         return RespBody.success();
     }
@@ -130,7 +130,7 @@ public class SysBulletinController {
      * 富文本预览
      */
     @GetMapping("/bulletin/preview")
-    public String preview(Model model, Integer id) {
+    public String preview(Model model, Long id) {
         SysBulletin notice = sysBulletinService.getById(id);
         if (notice != null) {
             model.addAttribute("response", notice.getContent());

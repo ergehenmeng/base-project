@@ -33,7 +33,7 @@ public class Token implements Serializable {
     /**
      * 用户id
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 登陆来源 ANDROID IOS

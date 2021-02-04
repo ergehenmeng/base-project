@@ -27,7 +27,7 @@ public interface AuditRecordService {
      * @param id id
      * @return audit
      */
-    AuditRecord getById(Integer id);
+    AuditRecord getById(Long id);
 
     /**
      * 根据角色和状态获取审批列表 分页

@@ -15,7 +15,7 @@ public class AuditProcess {
     /**
      * 审核记录id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 审核类型
@@ -36,7 +36,7 @@ public class AuditProcess {
      * 审核人id
      */
     @BackstageTag
-    private Integer auditOperatorId;
+    private Long auditOperatorId;
 
     /**
      * 审核人姓名

@@ -50,7 +50,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public SysRole getById(int id) {
+    public SysRole getById(Long id) {
         return sysRoleMapper.selectByPrimaryKey(id);
     }
 
@@ -63,7 +63,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteRole(int id) {
+    public void deleteRole(Long id) {
         SysRole role = new SysRole();
         role.setDeleted(true);
         sysRoleMapper.updateByPrimaryKeySelective(role);
@@ -84,27 +84,27 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<Integer> getByOperatorId(Integer operatorId) {
+    public List<Integer> getByOperatorId(Long operatorId) {
         return sysOperatorRoleMapper.getByOperatorId(operatorId);
     }
 
     @Override
-    public List<Integer> getRoleMenu(Integer roleId) {
+    public List<Integer> getRoleMenu(Long roleId) {
         return sysRoleMapper.getRoleMenu(roleId);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void authMenu(Integer roleId, String menuIds) {
+    public void authMenu(Long roleId, String menuIds) {
         sysRoleMapper.deleteRoleMenu(roleId);
         if (StringUtils.isNotEmpty(menuIds)) {
-            List<Integer> menuIdList = Stream.of(StrUtil.split(menuIds, ",")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+            List<Long> menuIdList = Stream.of(StrUtil.split(menuIds, ",")).mapToLong(Long::parseLong).boxed().collect(Collectors.toList());
             sysRoleMapper.batchInsertRoleMenu(roleId, menuIdList);
         }
     }
 
     @Override
-    public List<SysRole> getRoleList(Integer operatorId) {
+    public List<SysRole> getRoleList(Long operatorId) {
         return sysRoleMapper.getRoleList(operatorId);
     }
 }

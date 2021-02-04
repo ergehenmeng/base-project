@@ -19,7 +19,7 @@ public class TopBulletinVO implements Serializable {
      * 公告id
      */
     @ApiModelProperty("公告id")
-    private Integer id;
+    private Long id;
 
     /**
      * 公告标题

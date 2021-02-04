@@ -32,6 +32,6 @@ public class ChangeEmailDTO {
      */
     @BackstageTag
     @ApiModelProperty(hidden = true)
-    private Integer userId;
+    private Long userId;
 
 }

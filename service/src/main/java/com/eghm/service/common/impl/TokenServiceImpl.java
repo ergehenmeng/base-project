@@ -42,7 +42,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public Token createToken(int userId, String channel) {
+    public Token createToken(Long userId, String channel) {
         String refreshToken = StringUtil.random(32);
         String accessToken = StringUtil.random(64);
         Token token = Token.builder().token(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
@@ -56,12 +56,12 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public Token getByUserId(int userId) {
+    public Token getByUserId(Long userId) {
         return cacheService.getValue(CacheConstant.ACCESS_TOKEN + userId, Token.class);
     }
 
     @Override
-    public long getTokenExpire(int userId) {
+    public long getTokenExpire(Long userId) {
         return cacheService.getExpire(CacheConstant.ACCESS_TOKEN + userId);
     }
 
@@ -76,7 +76,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void cleanUserId(int userId) {
+    public void cleanUserId(Long userId) {
         cacheService.delete(CacheConstant.ACCESS_TOKEN + userId);
     }
 

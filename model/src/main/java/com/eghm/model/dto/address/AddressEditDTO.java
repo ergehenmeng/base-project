@@ -19,14 +19,14 @@ public class AddressEditDTO {
      */
     @ApiModelProperty(hidden = true)
     @BackstageTag
-    private Integer userId;
+    private Long userId;
 
     /**
      * id不能为空
      */
     @ApiModelProperty(value = "地址id",required = true)
     @NotNull(message = "id不能为空")
-    private Integer id;
+    private Long id;
 
     /**
      * 省份id

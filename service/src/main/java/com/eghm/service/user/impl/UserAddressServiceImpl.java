@@ -58,7 +58,7 @@ public class UserAddressServiceImpl implements UserAddressService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void setDefault(Integer id, Integer userId) {
+    public void setDefault(Long id, Long userId) {
         UserAddress userAddress = userAddressMapper.selectByPrimaryKey(id);
         if (userAddress == null || !userAddress.getUserId().equals(userId)) {
             log.warn("设置默认地址非当前用户 id:[{}], userId:[{}]", id, userId);
@@ -72,7 +72,7 @@ public class UserAddressServiceImpl implements UserAddressService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteAddress(Integer id, Integer userId) {
+    public void deleteAddress(Long id, Long userId) {
         userAddressMapper.deleteById(id, userId);
     }
 
@@ -88,7 +88,7 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     @Override
-    public List<AddressVO> getByUserId(Integer userId) {
+    public List<AddressVO> getByUserId(Long userId) {
         List<UserAddress> addressList = userAddressMapper.getByUserId(userId);
         return DataUtil.convert(addressList, address -> DataUtil.copy(address, AddressVO.class));
     }

@@ -44,7 +44,7 @@ public class DataUtil {
         });
 
         paging.setRows(formatList);
-        paging.setTotal(pageInfo.getTotal());
+        paging.setTotal((int)pageInfo.getTotal());
         paging.setPage(pageInfo.getPageNum());
         paging.setPageSize(pageInfo.getPageSize());
 

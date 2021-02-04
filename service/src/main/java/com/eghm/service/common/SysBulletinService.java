@@ -38,7 +38,7 @@ public interface SysBulletinService {
      * 删除公告
      * @param id 公告id
      */
-    void deleteNotice(Integer id);
+    void deleteNotice(Long id);
 
     /**
      * 分页查询公告信息
@@ -52,18 +52,18 @@ public interface SysBulletinService {
      * @param id id
      * @return 公告信息
      */
-    SysBulletin getById(Integer id);
+    SysBulletin getById(Long id);
 
     /**
      * 发布公告
      * @param id id主键
      */
-    void publish(Integer id);
+    void publish(Long id);
 
     /**
      * 取消发布
      * @param id 主键
      */
-    void cancelPublish(Integer id);
+    void cancelPublish(Long id);
 }
 

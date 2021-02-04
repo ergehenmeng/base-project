@@ -156,7 +156,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(Integer userId) {
+    public User getById(Long userId) {
         return userMapper.selectByPrimaryKey(userId);
     }
 
@@ -271,7 +271,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void updateState(Integer userId, Boolean state) {
+    public void updateState(Long userId, Boolean state) {
         User user = new User();
         user.setId(userId);
         user.setState(state);
@@ -316,7 +316,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void offline(int userId){
+    public void offline(Long userId){
         Token token = tokenService.getByUserId(userId);
         if (token == null) {
             return;
@@ -333,7 +333,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendBindEmail(String email, Integer userId) {
+    public void sendBindEmail(String email, Long userId) {
         this.checkEmail(email);
         SendEmail sendEmail = new SendEmail();
         sendEmail.setType(EmailType.BIND_EMAIL);
@@ -383,7 +383,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendChangeEmailSms(Integer userId) {
+    public void sendChangeEmailSms(Long userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         if (StrUtil.isBlank(user.getMobile())) {
             log.warn("未绑定手机号,无法发送邮箱验证短信 userId:[{}]", userId);
@@ -417,7 +417,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void signIn(Integer userId) {
+    public void signIn(Long userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         Date now = DateUtil.getNow();
         long day = DateUtil.diffDay(user.getAddTime(), now);
@@ -447,7 +447,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SignInVO getSignIn(Integer userId) {
+    public SignInVO getSignIn(Long userId) {
         User user = userMapper.selectByPrimaryKey(userId);
         Date now = DateUtil.getNow();
         long day = DateUtil.diffDay(user.getAddTime(), now);

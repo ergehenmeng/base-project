@@ -16,7 +16,7 @@ public class VersionEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 版本类型 0:android 2:ios

@@ -61,7 +61,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void putAwayVersion(Integer id) {
+    public void putAwayVersion(Long id) {
         AppVersion appVersion = appVersionMapper.selectByPrimaryKey(id);
         AppVersion version = appVersionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
         if (version != null) {
@@ -74,7 +74,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void soldOutVersion(Integer id) {
+    public void soldOutVersion(Long id) {
         AppVersion version = new AppVersion();
         version.setId(id);
         version.setState((byte) 0);
@@ -112,7 +112,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteVersion(Integer id) {
+    public void deleteVersion(Long id) {
         AppVersion version = new AppVersion();
         version.setId(id);
         version.setDeleted(true);

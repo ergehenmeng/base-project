@@ -36,13 +36,13 @@ public interface AppVersionService {
      * 上架版本
      * @param id 主键id
      */
-    void putAwayVersion(Integer id);
+    void putAwayVersion(Long id);
 
     /**
      * 下架版本
      * @param id 主键id
      */
-    void soldOutVersion(Integer id);
+    void soldOutVersion(Long id);
 
     /**
      * 获取最新可用的版本 用于检测是否有新版本
@@ -57,5 +57,5 @@ public interface AppVersionService {
      * 删除版本信息
      * @param id 主键
      */
-    void deleteVersion(Integer id);
+    void deleteVersion(Long id);
 }

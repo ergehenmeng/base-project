@@ -23,14 +23,14 @@ public interface UserAddressService {
      * @param id  收货地址id
      * @param userId 用户id
      */
-    void setDefault(Integer id, Integer userId);
+    void setDefault(Long id, Long userId);
 
     /**
      * 删除地址
      * @param id id
      * @param userId userId
      */
-    void deleteAddress(Integer id, Integer userId);
+    void deleteAddress(Long id, Long userId);
 
     /**
      * 更新收货地址
@@ -42,5 +42,5 @@ public interface UserAddressService {
      * @param userId userId
      * @return 列表
      */
-    List<AddressVO> getByUserId(Integer userId);
+    List<AddressVO> getByUserId(Long userId);
 }

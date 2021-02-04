@@ -22,7 +22,7 @@ public interface UserNoticeMapper {
      *
      * @param id 条件 
      */
-    UserNotice selectByPrimaryKey(Integer id);
+    UserNotice selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -36,7 +36,7 @@ public interface UserNoticeMapper {
      * @param userId
      * @return
      */
-    List<UserNotice> getList(@Param("userId")Integer userId);
+    List<UserNotice> getList(@Param("userId")Long userId);
 
     /**
      * 更新 delete read字段

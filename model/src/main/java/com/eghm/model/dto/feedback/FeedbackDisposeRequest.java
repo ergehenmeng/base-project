@@ -18,7 +18,7 @@ public class FeedbackDisposeRequest extends ActionRecord {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 备注信息

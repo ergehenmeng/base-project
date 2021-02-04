@@ -26,7 +26,7 @@ public interface SysRoleService {
      * @param id 主键
      * @return 角色信息
      */
-    SysRole getById(int id);
+    SysRole getById(Long id);
 
     /**
      * 更新角色信息
@@ -38,7 +38,7 @@ public interface SysRoleService {
      * 删除角色信息
      * @param id 主键
      */
-    void deleteRole(int id);
+    void deleteRole(Long id);
 
     /**
      * 添加角色信息
@@ -57,27 +57,27 @@ public interface SysRoleService {
      * @param operatorId 管理人员id
      * @return 角色id列表
      */
-    List<Integer> getByOperatorId(Integer operatorId);
+    List<Integer> getByOperatorId(Long operatorId);
 
     /**
      * 获取角色的菜单列表
      * @param roleId 角色
      * @return 菜单列表
      */
-    List<Integer> getRoleMenu(Integer roleId);
+    List<Integer> getRoleMenu(Long roleId);
 
     /**
      * 角色菜单权限保存
      * @param roleId 角色id
      * @param menuIds 菜单ids
      */
-    void authMenu(Integer roleId, String menuIds);
+    void authMenu(Long roleId, String menuIds);
 
     /**
      * 获取用户角色列表
      * @param operatorId 用户id
      * @return 角色列表
      */
-    List<SysRole> getRoleList(Integer operatorId);
+    List<SysRole> getRoleList(Long operatorId);
 }
 

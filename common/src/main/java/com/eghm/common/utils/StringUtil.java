@@ -241,12 +241,13 @@ public class StringUtil {
      * @param value value
      * @return 可解密
      */
-    public static String encryptNumber(int value) {
+    public static String encryptNumber(Long value) {
         value = BASE_VALUE + value;
         StringBuilder builder = new StringBuilder();
         int length = ENCRYPT.length();
         while (value > 0) {
-            builder.append(ENCRYPT.charAt(value % length));
+            // TODO 待定
+            builder.append(ENCRYPT.charAt((int)(value % length)));
             value /= length;
         }
         return builder.toString();

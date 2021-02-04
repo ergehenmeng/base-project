@@ -1,7 +1,6 @@
 package com.eghm.dao.mapper;
 
 import com.eghm.dao.model.LoginDevice;
-import com.eghm.dao.model.LoginLog;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public interface LoginDeviceMapper {
      *
      * @param id 条件 
      */
-    LoginDevice selectByPrimaryKey(Integer id);
+    LoginDevice selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -43,7 +42,7 @@ public interface LoginDeviceMapper {
      * @param serialNumber 唯一编号
      * @return 登陆日志
      */
-    LoginDevice getBySerialNumber(@Param("userId")Integer userId, @Param("serialNumber") String serialNumber);
+    LoginDevice getBySerialNumber(@Param("userId")Long userId, @Param("serialNumber") String serialNumber);
 
     /**
      * 物理删除登陆设备信息(减少不必要的垃圾数据)
@@ -51,12 +50,12 @@ public interface LoginDeviceMapper {
      * @param serialNumber 设备唯一识别号
      * @return 1
      */
-    int deleteLoginDevice(@Param("userId")Integer userId, @Param("serialNumber") String serialNumber);
+    int deleteLoginDevice(@Param("userId")Long userId, @Param("serialNumber") String serialNumber);
 
     /**
      * 用户登陆设备列表
      * @param userId userId
      * @return 列表
      */
-    List<LoginDevice> getByUserId(@Param("userId") Integer userId);
+    List<LoginDevice> getByUserId(@Param("userId") Long userId);
 }

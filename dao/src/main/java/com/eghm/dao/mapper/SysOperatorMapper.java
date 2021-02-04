@@ -24,7 +24,7 @@ public interface SysOperatorMapper {
      * @param id
      * @return
      */
-    SysOperator selectByPrimaryKey(Integer id);
+    SysOperator selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

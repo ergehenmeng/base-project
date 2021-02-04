@@ -118,7 +118,7 @@ public class OperatorController {
      */
     @GetMapping("/operator/edit_page")
     @Mark
-    public String editOperatorPage(Model model, Integer id) {
+    public String editOperatorPage(Model model, Long id) {
         SysOperator operator = sysOperatorService.getById(id);
         model.addAttribute("operator", operator);
         List<Integer> roleList = sysRoleService.getByOperatorId(id);
@@ -151,7 +151,7 @@ public class OperatorController {
     @PostMapping("/operator/reset_password")
     @ResponseBody
     @Mark
-    public RespBody<Object> resetPassword(Integer id) {
+    public RespBody<Object> resetPassword(Long id) {
         sysOperatorService.resetPassword(id);
         return RespBody.success();
     }
@@ -184,7 +184,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/lock_operator")
     @ResponseBody
-    public RespBody<Object> lockOperator(Integer id) {
+    public RespBody<Object> lockOperator(Long id) {
         sysOperatorService.lockOperator(id);
         return RespBody.success();
     }
@@ -194,7 +194,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/unlock_operator")
     @ResponseBody
-    public RespBody<Object> unlock(Integer id) {
+    public RespBody<Object> unlock(Long id) {
         sysOperatorService.unlockOperator(id);
         return RespBody.success();
     }
@@ -204,7 +204,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/delete")
     @ResponseBody
-    public RespBody<Object> delete(Integer id) {
+    public RespBody<Object> delete(Long id) {
         sysOperatorService.deleteOperator(id);
         return RespBody.success();
     }

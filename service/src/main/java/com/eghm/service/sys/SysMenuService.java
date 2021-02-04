@@ -18,28 +18,28 @@ public interface SysMenuService {
      * @param operatorId 用户id
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<SysMenu> getMenuList(Integer operatorId);
+    List<SysMenu> getMenuList(Long operatorId);
 
     /**
      * 获取用户按钮菜单列表
      * @param operatorId 用户id
      * @return 菜单列表
      */
-    List<SysMenu> getButtonList(Integer operatorId);
+    List<SysMenu> getButtonList(Long operatorId);
 
     /**
      * 获取用户按钮,导航菜单列表
      * @param operatorId 用户id
      * @return 菜单列表
      */
-    List<SysMenu> getList(Integer operatorId);
+    List<SysMenu> getList(Long operatorId);
 
     /**
      * 根据主键查询菜单
      * @param id 主键
      * @return 单个菜单
      */
-    SysMenu getMenuById(Integer id);
+    SysMenu getMenuById(Long id);
 
     /**
      * 获取所有可用的菜单
@@ -63,12 +63,12 @@ public interface SysMenuService {
      * 根据主键删除菜单
      * @param id 主键
      */
-    void deleteMenu(Integer id);
+    void deleteMenu(Long id);
 
     /**
      * 获取用户菜单权限 spring security
      * @param operator 用户id
      * @return 列表
      */
-    List<GrantedAuthority> getAuthorityByOperatorId(Integer operator);
+    List<GrantedAuthority> getAuthorityByOperatorId(Long operator);
 }

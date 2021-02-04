@@ -22,7 +22,7 @@ public class CheckBox implements Serializable {
     /**
      * 隐藏值
      */
-    private int hide;
+    private Long hide;
 
     /**
      * 显示值

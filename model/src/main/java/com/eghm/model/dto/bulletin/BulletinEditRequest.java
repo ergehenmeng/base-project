@@ -16,7 +16,7 @@ public class BulletinEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 公告标题

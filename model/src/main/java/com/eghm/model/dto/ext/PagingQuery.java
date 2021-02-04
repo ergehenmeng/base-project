@@ -23,13 +23,13 @@ public class PagingQuery implements Serializable{
      * 第几页
      */
     @ApiModelProperty(value = "第几页",required = true)
-    private int page = 1;
+    private Integer page = 1;
 
     /**
      * 页容量
      */
     @ApiModelProperty(value = "页容量",required = true)
-    private int pageSize = 20;
+    private Integer pageSize = 20;
 
     /**
      * 基础查询字段

@@ -71,7 +71,7 @@ public class RoleController {
      */
     @GetMapping("/role/edit_page")
     @Mark
-    public String editPage(Model model, Integer id) {
+    public String editPage(Model model, Long id) {
         SysRole role = sysRoleService.getById(id);
         model.addAttribute("role", role);
         return "role/edit_page";
@@ -100,7 +100,7 @@ public class RoleController {
     @PostMapping("/role/delete")
     @ResponseBody
     @Mark
-    public RespBody<Object> delete(Integer id) {
+    public RespBody<Object> delete(Long id) {
         sysRoleService.deleteRole(id);
         return RespBody.success();
     }
@@ -128,7 +128,7 @@ public class RoleController {
      */
     @GetMapping("/role/auth_page")
     @Mark
-    public String addPage(Model model, Integer id) {
+    public String addPage(Model model, Long id) {
         List<Integer> role = sysRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);
         model.addAttribute("menuIds", menuIds);
@@ -146,7 +146,7 @@ public class RoleController {
     @PostMapping("/role/auth")
     @ResponseBody
     @Mark
-    public RespBody<Object> authRole(Integer roleId, String menuIds) {
+    public RespBody<Object> authRole(Long roleId, String menuIds) {
         sysRoleService.authMenu(roleId, menuIds);
         return RespBody.success();
     }

@@ -17,12 +17,12 @@ public class FeedbackVO implements Serializable {
     /**
      * id
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户ID
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 状态: 0:待解决 1:已解决

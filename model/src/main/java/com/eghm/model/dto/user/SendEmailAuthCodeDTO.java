@@ -31,6 +31,6 @@ public class SendEmailAuthCodeDTO {
      */
     @BackstageTag
     @ApiModelProperty(hidden = true)
-    private Integer userId;
+    private Long userId;
 
 }

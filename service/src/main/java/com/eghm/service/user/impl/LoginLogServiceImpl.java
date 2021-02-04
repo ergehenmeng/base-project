@@ -44,7 +44,7 @@ public class LoginLogServiceImpl implements LoginLogService {
     }
 
     @Override
-    public LoginDeviceVO getLastLogin(Integer userId) {
+    public LoginDeviceVO getLastLogin(Long userId) {
         LoginLog lastLogin = loginLogMapper.getLastLogin(userId);
         if (lastLogin == null) {
             return null;
@@ -57,7 +57,7 @@ public class LoginLogServiceImpl implements LoginLogService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteLoginLog(Integer userId, String serialNumber) {
+    public void deleteLoginLog(Long userId, String serialNumber) {
         loginLogMapper.deleteLoginLog(userId, serialNumber);
     }
 }

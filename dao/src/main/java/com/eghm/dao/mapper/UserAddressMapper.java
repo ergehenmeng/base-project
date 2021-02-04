@@ -22,7 +22,7 @@ public interface UserAddressMapper {
      *
      * @param id 条件 
      */
-    UserAddress selectByPrimaryKey(Integer id);
+    UserAddress selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -36,7 +36,7 @@ public interface UserAddressMapper {
      * @param userId userId
      * @return 地址列表
      */
-    List<UserAddress> getByUserId(@Param("userId")Integer userId);
+    List<UserAddress> getByUserId(@Param("userId")Long userId);
 
     /**
      * 更新地址状态
@@ -44,7 +44,7 @@ public interface UserAddressMapper {
      * @param state 状态
      * @return 批量多少条
      */
-    int updateState(@Param("userId")Integer userId, @Param("state")Byte state);
+    int updateState(@Param("userId")Long userId, @Param("state")Byte state);
 
     /**
      * 主键删除地址
@@ -52,7 +52,7 @@ public interface UserAddressMapper {
      * @param userId userId
      * @return 1
      */
-    int deleteById(@Param("id") Integer id, @Param("userId")Integer userId);
+    int deleteById(@Param("id") Long id, @Param("userId")Long userId);
 
     /**
      * 主键+userId更新地址

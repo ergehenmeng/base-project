@@ -20,13 +20,13 @@ public interface LoginLogService {
      * @param userId 用户id
      * @return 登陆信息
      */
-    LoginDeviceVO getLastLogin(Integer userId);
+    LoginDeviceVO getLastLogin(Long userId);
 
     /**
      * 逻辑删除用户登陆信息
      * @param userId 用户id
      * @param serialNumber 设备号
      */
-    void deleteLoginLog(Integer userId, String serialNumber);
+    void deleteLoginLog(Long userId, String serialNumber);
 
 }

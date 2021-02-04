@@ -17,7 +17,7 @@ public class BannerEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 轮播图类型

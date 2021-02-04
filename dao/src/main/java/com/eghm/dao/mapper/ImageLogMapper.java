@@ -19,7 +19,7 @@ public interface ImageLogMapper {
     /**
      * 根据主键获取一条数据库记录
      */
-    ImageLog selectByPrimaryKey(Integer id);
+    ImageLog selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

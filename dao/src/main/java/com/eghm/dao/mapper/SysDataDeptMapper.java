@@ -19,7 +19,7 @@ public interface SysDataDeptMapper {
      *
      * @param id 条件 
      */
-    SysDataDept selectByPrimaryKey(Integer id);
+    SysDataDept selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -33,11 +33,11 @@ public interface SysDataDeptMapper {
      * @param operatorId 用户id
      * @return 部门id
      */
-    List<String> getDeptList(@Param("operatorId") Integer operatorId);
+    List<String> getDeptList(@Param("operatorId") Long operatorId);
 
     /**
      * 删除用户对应的部门的数据权限
      * @param operatorId 用户id
      */
-    void deleteByOperatorId(@Param("operatorId") Integer operatorId);
+    void deleteByOperatorId(@Param("operatorId") Long operatorId);
 }

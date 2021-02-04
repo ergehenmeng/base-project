@@ -52,7 +52,7 @@ public class SecurityOperatorHolder {
     /**
      * 登陆用户id
      */
-    public static Integer getOperatorId() {
+    public static Long getOperatorId() {
         return getRequiredOperator().getId();
     }
 }

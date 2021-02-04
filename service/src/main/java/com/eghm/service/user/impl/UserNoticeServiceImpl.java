@@ -74,7 +74,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendNotice(Integer userId, SendNotice sendNotice) {
+    public void sendNotice(Long userId, SendNotice sendNotice) {
         NoticeType mailType = sendNotice.getNoticeType();
         NoticeTemplate template = noticeTemplateService.getTemplate(mailType.getValue());
         if (template == null) {
@@ -116,19 +116,19 @@ public class UserNoticeServiceImpl implements UserNoticeService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void sendNotice(List<Integer> userIdList, SendNotice sendNotice) {
+    public void sendNotice(List<Long> userIdList, SendNotice sendNotice) {
         userIdList.forEach(userId -> this.sendNotice(userId, sendNotice));
     }
 
     @Override
-    public Paging<UserNoticeVO> getByPage(PagingQuery query, Integer userId) {
+    public Paging<UserNoticeVO> getByPage(PagingQuery query, Long userId) {
         PageMethod.startPage(query.getPage(), query.getPageSize());
         List<UserNotice> noticeList = userNoticeMapper.getList(userId);
         return DataUtil.convert(new PageInfo<>(noticeList), userNotice -> DataUtil.copy(userNotice, UserNoticeVO.class));
     }
 
     @Override
-    public void deleteNotice(Integer id, Integer userId) {
+    public void deleteNotice(Long id, Long userId) {
         UserNotice notice = new UserNotice();
         notice.setId(id);
         notice.setUserId(userId);
@@ -137,7 +137,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
     }
 
     @Override
-    public void setNoticeRead(Integer id, Integer userId) {
+    public void setNoticeRead(Long id, Long userId) {
         UserNotice notice = new UserNotice();
         notice.setId(id);
         notice.setUserId(userId);

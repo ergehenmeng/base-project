@@ -16,7 +16,7 @@ public class HelpEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 帮助说明类型

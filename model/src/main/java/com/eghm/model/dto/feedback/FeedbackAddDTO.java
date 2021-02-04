@@ -35,7 +35,7 @@ public class FeedbackAddDTO implements Serializable {
      */
     @ApiModelProperty(hidden = true)
     @BackstageTag
-    private Integer userId;
+    private Long userId;
 
     /**
      * 设备品牌

@@ -25,5 +25,5 @@ public class PasswordEditRequest implements Serializable {
     /**
      * 用户id
      */
-    private Integer operatorId;
+    private Long operatorId;
 }

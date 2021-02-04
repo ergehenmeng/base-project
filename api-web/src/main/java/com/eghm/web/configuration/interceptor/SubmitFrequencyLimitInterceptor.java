@@ -29,7 +29,7 @@ public class SubmitFrequencyLimitInterceptor implements InterceptorAdapter{
         if (!this.supportHandler(handler)) {
             return true;
         }
-        Integer userId = ApiHolder.getUserId();
+        Long userId = ApiHolder.getUserId();
         String uri = request.getRequestURI();
         String key = String.format(CacheConstant.SUBMIT_LIMIT, userId, uri);
         if (cacheService.exist(key)) {

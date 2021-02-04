@@ -81,7 +81,7 @@ public class SysBulletinServiceImpl implements SysBulletinService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteNotice(Integer id) {
+    public void deleteNotice(Long id) {
         SysBulletin notice = new SysBulletin();
         notice.setId(id);
         notice.setDeleted(true);
@@ -97,14 +97,14 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     }
 
     @Override
-    public SysBulletin getById(Integer id) {
+    public SysBulletin getById(Long id) {
         return sysBulletinMapper.selectByPrimaryKey(id);
     }
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYS_BULLETIN, beforeInvocation = true)
     @Transactional(rollbackFor = RuntimeException.class)
-    public void publish(Integer id) {
+    public void publish(Long id) {
         SysBulletin notice = new SysBulletin();
         notice.setState((byte) 1);
         notice.setId(id);
@@ -114,9 +114,9 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYS_BULLETIN, beforeInvocation = true)
     @Transactional(rollbackFor = RuntimeException.class)
-    public void cancelPublish(Integer id) {
+    public void cancelPublish(Long id) {
         SysBulletin notice = new SysBulletin();
-        notice.setState((byte) 0);
+        notice.setState(SysBulletin.STATE_0);
         notice.setId(id);
         sysBulletinMapper.updateByPrimaryKeySelective(notice);
     }

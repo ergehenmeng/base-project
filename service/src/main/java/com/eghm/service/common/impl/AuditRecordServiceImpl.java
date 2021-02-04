@@ -39,7 +39,7 @@ public class AuditRecordServiceImpl implements AuditRecordService {
     }
 
     @Override
-    public AuditRecord getById(Integer id) {
+    public AuditRecord getById(Long id) {
         return auditRecordMapper.selectByPrimaryKey(id);
     }
 

@@ -19,7 +19,7 @@ public class RespBody<T> {
      * 代码 默认200为成功
      */
     @ApiModelProperty("状态码,成功=200")
-    private int code = 200;
+    private Integer code = 200;
 
     /**
      * 信息

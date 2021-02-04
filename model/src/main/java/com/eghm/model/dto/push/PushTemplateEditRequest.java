@@ -14,7 +14,7 @@ public class PushTemplateEditRequest implements Serializable {
     /**
      * 主键
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 标题

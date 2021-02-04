@@ -27,6 +27,6 @@ public class ActionRecord implements Serializable {
      * 操作人id
      */
     @BackstageTag
-    private Integer operatorId;
+    private Long operatorId;
 
 }

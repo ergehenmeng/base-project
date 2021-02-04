@@ -20,7 +20,7 @@ public interface LoginLogMapper {
      *
      * @param id 条件 
      */
-    LoginLog selectByPrimaryKey(Integer id);
+    LoginLog selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录
@@ -34,7 +34,7 @@ public interface LoginLogMapper {
      * @param userId userId
      * @return 登陆信息
      */
-    LoginLog getLastLogin(@Param("userId")Integer userId);
+    LoginLog getLastLogin(@Param("userId")Long userId);
 
     /**
      * 逻辑删除用户登陆日志信息
@@ -42,5 +42,5 @@ public interface LoginLogMapper {
      * @param serialNumber 设备号
      * @return 批量删除
      */
-    int deleteLoginLog(@Param("userId") Integer userId, @Param("serialNumber") String serialNumber);
+    int deleteLoginLog(@Param("userId") Long userId, @Param("serialNumber") String serialNumber);
 }

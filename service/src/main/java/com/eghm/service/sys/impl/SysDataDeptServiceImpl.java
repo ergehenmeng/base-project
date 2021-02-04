@@ -24,7 +24,7 @@ public class SysDataDeptServiceImpl implements SysDataDeptService {
     }
 
     @Override
-    public List<String> getDeptList(Integer operatorId) {
+    public List<String> getDeptList(Long operatorId) {
         return sysDataDeptMapper.getDeptList(operatorId);
     }
 
@@ -36,7 +36,7 @@ public class SysDataDeptServiceImpl implements SysDataDeptService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteByOperatorId(Integer operatorId) {
+    public void deleteByOperatorId(Long operatorId) {
         sysDataDeptMapper.deleteByOperatorId(operatorId);
     }
 }

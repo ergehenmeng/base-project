@@ -99,7 +99,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     public void addOperator(OperatorAddRequest request) {
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         operator.setDeleted(false);
-        operator.setState(1);
+        operator.setState(SysOperator.STATE_1);
         String initPassword = this.initPassword(request.getMobile());
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
@@ -107,7 +107,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         if (StrUtil.isNotBlank(request.getRoleIds())) {
             List<String> roleStringList = StrUtil.split(request.getRoleIds(), ',');
             //循环插入角色关联信息
-            roleStringList.forEach(s -> sysOperatorRoleMapper.insertSelective(new SysOperatorRole(operator.getId(), Integer.parseInt(s))));
+            roleStringList.forEach(s -> sysOperatorRoleMapper.insertSelective(new SysOperatorRole(operator.getId(), Long.parseLong(s))));
         }
         // 数据权限
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
@@ -124,7 +124,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    public SysOperator getById(Integer id) {
+    public SysOperator getById(Long id) {
         return sysOperatorMapper.selectByPrimaryKey(id);
     }
 
@@ -136,7 +136,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         sysOperatorRoleMapper.deleteByOperatorId(request.getId());
         if (StrUtil.isNotBlank(request.getRoleIds())) {
             List<String> stringList = StrUtil.split(request.getRoleIds(), ',');
-            List<Integer> roleList = stringList.stream().map(Integer::parseInt).collect(Collectors.toList());
+            List<Long> roleList = stringList.stream().map(Long::parseLong).collect(Collectors.toList());
             sysOperatorRoleMapper.batchInsertOperatorRole(request.getId(), roleList);
         }
         // 数据权限
@@ -149,7 +149,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void resetPassword(Integer id) {
+    public void resetPassword(Long id) {
         SysOperator operator = this.getById(id);
         String password = this.initPassword(operator.getMobile());
         operator.setPwd(password);
@@ -158,7 +158,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    public void deleteOperator(Integer id) {
+    public void deleteOperator(Long id) {
         SysOperator operator = new SysOperator();
         operator.setId(id);
         operator.setDeleted(true);
@@ -166,18 +166,18 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    public void lockOperator(Integer id) {
+    public void lockOperator(Long id) {
         SysOperator operator = new SysOperator();
         operator.setId(id);
-        operator.setState(0);
+        operator.setState(SysOperator.STATE_0);
         sysOperatorMapper.updateByPrimaryKeySelective(operator);
     }
 
     @Override
-    public void unlockOperator(Integer id) {
+    public void unlockOperator(Long id) {
         SysOperator operator = new SysOperator();
         operator.setId(id);
-        operator.setState(1);
+        operator.setState(SysOperator.STATE_1);
         sysOperatorMapper.updateByPrimaryKeySelective(operator);
     }
 }

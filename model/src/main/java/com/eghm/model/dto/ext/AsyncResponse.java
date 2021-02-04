@@ -22,7 +22,7 @@ public class AsyncResponse implements Serializable {
     /**
      * 成功或失败code
      */
-    private int code;
+    private Integer code;
 
     /**
      * 成功或失败的信息

@@ -46,12 +46,12 @@ public interface SysDictService {
      * 删除数据字典
      * @param id 主键
      */
-    void deleteDict(Integer id);
+    void deleteDict(Long id);
 
     /**
      * 根据主键查询
      * @param id 主键
      * @return 数据字典
      */
-    SysDict getById(Integer id);
+    SysDict getById(Long id);
 }

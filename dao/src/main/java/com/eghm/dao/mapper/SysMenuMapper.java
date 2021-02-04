@@ -25,7 +25,7 @@ public interface SysMenuMapper {
      * @param id
      * @return
      */
-    SysMenu selectByPrimaryKey(Integer id);
+    SysMenu selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录<br>
@@ -47,28 +47,28 @@ public interface SysMenuMapper {
      * @param id 主键
      * @return 影响条数
      */
-    int deleteById(@Param("id") Integer id);
+    int deleteById(@Param("id") Long id);
 
     /**
      * 获取某用户的导航菜单
      * @param operatorId 用户id
      * @return 用户所有可查看菜单列表
      */
-    List<SysMenu> getMenuList(@Param("operatorId") Integer operatorId);
+    List<SysMenu> getMenuList(@Param("operatorId") Long operatorId);
 
     /**
      * 获取某用户的按钮菜单
      * @param operatorId 用户id
      * @return 用户所有可查看菜单列表
      */
-    List<SysMenu> getButtonList(@Param("operatorId")Integer operatorId);
+    List<SysMenu> getButtonList(@Param("operatorId")Long operatorId);
 
     /**
      * 获取某用户的所有菜单
      * @param operatorId 用户id
      * @return 用户所有可查看菜单列表
      */
-    List<SysMenu> getList(@Param("operatorId")Integer operatorId);
+    List<SysMenu> getList(@Param("operatorId")Long operatorId);
 
     /**
      * 根据nid与pid查询菜单
@@ -76,5 +76,5 @@ public interface SysMenuMapper {
      * @param pid pid
      * @return 菜单 默认只查一条
      */
-    SysMenu getByNid(@Param("nid") String nid, @Param("pid") Integer pid);
+    SysMenu getByNid(@Param("nid") String nid, @Param("pid") Long pid);
 }

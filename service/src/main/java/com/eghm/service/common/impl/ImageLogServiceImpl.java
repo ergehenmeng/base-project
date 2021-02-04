@@ -47,7 +47,7 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void deleteImageLog(Integer id) {
+    public void deleteImageLog(Long id) {
         ImageLog log = new ImageLog();
         log.setId(id);
         log.setDeleted(true);
@@ -62,7 +62,7 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
-    public ImageLog getById(Integer id) {
+    public ImageLog getById(Long id) {
         return imageLogMapper.selectByPrimaryKey(id);
     }
 }

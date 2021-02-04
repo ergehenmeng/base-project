@@ -20,7 +20,7 @@ public interface AuditRecordMapper {
      *
      * @param id 条件 
      */
-    AuditRecord selectByPrimaryKey(Integer id);
+    AuditRecord selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

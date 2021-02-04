@@ -23,7 +23,7 @@ public interface AppVersionMapper {
      *
      * @param id 条件 
      */
-    AppVersion selectByPrimaryKey(Integer id);
+    AppVersion selectByPrimaryKey(Long id);
 
     /**
      * 根据主键来更新部分数据库记录

@@ -15,7 +15,7 @@ public interface SysDataDeptService {
      * @param operatorId 用户id
      * @return 部门id
      */
-    List<String> getDeptList(Integer operatorId);
+    List<String> getDeptList(Long operatorId);
 
     /**
      * 插入用户与部门数据权限关联信息
@@ -27,5 +27,5 @@ public interface SysDataDeptService {
      * 删除用户对应的部门的数据权限
      * @param operatorId 用户id
      */
-    void deleteByOperatorId(Integer operatorId);
+    void deleteByOperatorId(Long operatorId);
 }

@@ -23,7 +23,7 @@ public class UserAuthDTO implements Serializable {
      */
     @BackstageTag
     @ApiModelProperty(hidden = true)
-    private Integer userId;
+    private Long userId;
 
     /**
      * 姓名

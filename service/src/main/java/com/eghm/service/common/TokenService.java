@@ -16,7 +16,7 @@ public interface TokenService {
      * @param channel 访问渠道
      * @return token
      */
-    Token createToken(int userId, String channel);
+    Token createToken(Long userId, String channel);
 
     /**
      * 根据accessToken查找token
@@ -30,14 +30,14 @@ public interface TokenService {
      * @param userId userId
      * @return token
      */
-    Token getByUserId(int userId);
+    Token getByUserId(Long userId);
 
     /**
      * 获取token剩余过期时间
      * @param userId userId
      * @return 过期时间 小于0表示key没有过期时间或者已经清楚
      */
-    long getTokenExpire(int userId);
+    long getTokenExpire(Long userId);
 
     /**
      * 根据刷新token信息获取用户登陆信息
@@ -56,7 +56,7 @@ public interface TokenService {
      * 清除用户信息
      * @param userId userId
      */
-    void cleanUserId(int userId);
+    void cleanUserId(Long userId);
 
     /**
      * 清除refreshToken信息

@@ -29,7 +29,7 @@ public interface ImageLogService {
      * 删除图片记录信息
      * @param id id
      */
-    void deleteImageLog(Integer id);
+    void deleteImageLog(Long id);
 
     /**
      * 更新图片信息
@@ -42,6 +42,6 @@ public interface ImageLogService {
      * @param id 主键
      * @return 图片上传记录
      */
-    ImageLog getById(Integer id);
+    ImageLog getById(Long id);
 }
 

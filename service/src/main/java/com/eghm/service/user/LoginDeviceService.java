@@ -22,7 +22,7 @@ public interface LoginDeviceService {
      * @param userId 用户id
      * @param serialNumber 设备号
      */
-    void deleteLoginDevice(Integer userId, String serialNumber);
+    void deleteLoginDevice(Long userId, String serialNumber);
 
     /**
      * 查找指定设备是否有登陆日志
@@ -30,12 +30,12 @@ public interface LoginDeviceService {
      * @param serialNumber 唯一编号
      * @return 登陆日志
      */
-    LoginDevice getBySerialNumber(Integer userId, String serialNumber);
+    LoginDevice getBySerialNumber(Long userId, String serialNumber);
 
     /**
      * 查询用户所有的登陆设备信息
      * @param userId userId
      * @return 登陆设备列表
      */
-    List<LoginDeviceVO> getByUserId(Integer userId);
+    List<LoginDeviceVO> getByUserId(Long userId);
 }
