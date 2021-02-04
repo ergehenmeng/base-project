@@ -22,7 +22,7 @@ public class ExceptionLog implements Serializable {
      * 表 : exception_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 访问链接<br>

@@ -15,7 +15,7 @@ public class EmailTemplate implements Serializable {
      * 表 : email_template<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 模板唯一编码<br>

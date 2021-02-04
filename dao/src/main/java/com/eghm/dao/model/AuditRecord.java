@@ -15,7 +15,7 @@ public class AuditRecord implements Serializable {
      * 表 : audit_record<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 审批单号(在整个审批流程中不变)<br>
@@ -50,14 +50,14 @@ public class AuditRecord implements Serializable {
      * 表 : audit_record<br>
      * 对应字段 : apply_id<br>
      */
-    private Integer applyId;
+    private Long applyId;
 
     /**
      * 申请人userId<br>
      * 表 : audit_record<br>
      * 对应字段 : apply_operator_id<br>
      */
-    private Integer applyOperatorId;
+    private Long applyOperatorId;
 
     /**
      * 申请人姓名<br>
@@ -92,7 +92,7 @@ public class AuditRecord implements Serializable {
      * 表 : audit_record<br>
      * 对应字段 : audit_operator_id<br>
      */
-    private Integer auditOperatorId;
+    private Long auditOperatorId;
 
     /**
      * 审核人姓名<br>

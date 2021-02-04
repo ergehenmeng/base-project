@@ -17,7 +17,7 @@ public class SysCache implements Serializable {
      * 表 : sys_cache<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 缓存名称<br>

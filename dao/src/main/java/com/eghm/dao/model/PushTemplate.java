@@ -16,7 +16,7 @@ public class PushTemplate implements Serializable {
      * 表 : push_template<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 消息名称<br>

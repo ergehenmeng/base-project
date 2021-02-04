@@ -16,7 +16,7 @@ public class SysOperationLog implements Serializable {
      * 表 : sys_operation_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 请求地址<br>
@@ -30,7 +30,7 @@ public class SysOperationLog implements Serializable {
      * 表 : sys_operation_log<br>
      * 对应字段 : operator_id<br>
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     /**
      * 请求参数<br>

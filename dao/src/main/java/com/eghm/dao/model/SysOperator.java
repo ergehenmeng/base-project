@@ -21,7 +21,7 @@ public class SysOperator implements Serializable {
      * 表 : sys_operator<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户姓名<br>
@@ -42,7 +42,7 @@ public class SysOperator implements Serializable {
      * 表 : sys_operator<br>
      * 对应字段 : state<br>
      */
-    private Integer state;
+    private Byte state;
 
     /**
      * 登陆密码MD5<br>

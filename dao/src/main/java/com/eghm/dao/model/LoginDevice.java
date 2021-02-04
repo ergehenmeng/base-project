@@ -15,14 +15,14 @@ public class LoginDevice implements Serializable {
      * 表 : login_device<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id<br>
      * 表 : login_device<br>
      * 对应字段 : user_id<br>
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 设备唯一序列号<br>

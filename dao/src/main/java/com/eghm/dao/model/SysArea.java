@@ -45,7 +45,7 @@ public class SysArea implements Serializable {
      * 表 : sys_area<br>
      * 对应字段 : pid<br>
      */
-    private String pid;
+    private Integer pid;
 
     /**
      * 邮编<br>

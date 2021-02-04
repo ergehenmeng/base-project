@@ -16,26 +16,26 @@ public class SysOperatorRole implements Serializable {
      * 表 : sys_operator_role<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id<br>
      * 表 : sys_operator_role<br>
      * 对应字段 : operator_id<br>
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     /**
      * 角色id<br>
      * 表 : sys_operator_role<br>
      * 对应字段 : role_id<br>
      */
-    private Integer roleId;
+    private Long roleId;
 
     public SysOperatorRole() {
     }
 
-    public SysOperatorRole(Integer operatorId, Integer roleId) {
+    public SysOperatorRole(Long operatorId, Long roleId) {
         this.operatorId = operatorId;
         this.roleId = roleId;
     }

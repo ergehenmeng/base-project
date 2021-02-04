@@ -15,7 +15,7 @@ public class AuditConfig implements Serializable {
      * 表 : audit_config<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 审核类型<br>
@@ -43,7 +43,7 @@ public class AuditConfig implements Serializable {
      * 表 : audit_config<br>
      * 对应字段 : rejection_policy<br>
      */
-    private Long rejectionPolicy;
+    private Byte rejectionPolicy;
 
     /**
      * 添加时间<br>

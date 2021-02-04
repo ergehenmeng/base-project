@@ -15,21 +15,21 @@ public class UserInviteLog implements Serializable {
      * 表 : user_invite_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id<br>
      * 表 : user_invite_log<br>
      * 对应字段 : user_id<br>
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 被邀请人id<br>
      * 表 : user_invite_log<br>
      * 对应字段 : invite_user_id<br>
      */
-    private Integer inviteUserId;
+    private Long inviteUserId;
 
     /**
      * 添加时间<br>

@@ -17,7 +17,7 @@ public class SysDict implements Serializable {
      * 表 : sys_dict<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 字典中文名称<br>

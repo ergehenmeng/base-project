@@ -17,7 +17,7 @@ public class SysRole implements Serializable {
      * 表 : sys_role<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 角色名称<br>

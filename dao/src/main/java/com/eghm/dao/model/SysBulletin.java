@@ -19,7 +19,7 @@ public class SysBulletin implements Serializable {
      * 表 : sys_bulletin<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 公告标题<br>

@@ -26,14 +26,14 @@ public class UserAddress implements Serializable {
      * 表 : user_address<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id<br>
      * 表 : user_address<br>
      * 对应字段 : user_id<br>
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 状态 0: 普通地址  1:默认地址<br>

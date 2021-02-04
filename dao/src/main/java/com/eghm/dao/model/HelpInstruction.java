@@ -17,7 +17,7 @@ public class HelpInstruction implements Serializable {
      * 表 : help_instruction<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 帮助分类取sys_dict表中help_type字段<br>

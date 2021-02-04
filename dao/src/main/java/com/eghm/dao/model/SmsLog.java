@@ -22,7 +22,7 @@ public class SmsLog implements Serializable {
      * 表 : sms_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 短信分类<br>

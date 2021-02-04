@@ -19,7 +19,7 @@ public class SysDept implements Serializable {
      * 表 : sys_dept<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 父级编号<br>
@@ -76,6 +76,6 @@ public class SysDept implements Serializable {
     /**
      * 操作人id
      */
-    private Integer operatorId;
+    private Long operatorId;
 
 }

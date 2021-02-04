@@ -15,7 +15,7 @@ public class SmsTemplate implements Serializable {
      * 表 : sms_template<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 短信模板nid即短信类型<br>

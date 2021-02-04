@@ -17,7 +17,7 @@ public class AppVersion implements Serializable {
      * 表 : app_version<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 版本类型 IOS,ANDROID<br>

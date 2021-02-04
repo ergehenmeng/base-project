@@ -15,14 +15,14 @@ public class UserScoreLog implements Serializable {
      * 表 : user_score_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id<br>
      * 表 : user_score_log<br>
      * 对应字段 : user_id<br>
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 本次收入或支出的积分数<br>

@@ -22,7 +22,7 @@ public class TaskLog implements Serializable {
      * 表 : task_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 任务nid<br>

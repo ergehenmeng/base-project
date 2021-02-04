@@ -19,7 +19,7 @@ public class SysConfig implements Serializable {
      * 表 : sys_config<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 参数标示符<br>

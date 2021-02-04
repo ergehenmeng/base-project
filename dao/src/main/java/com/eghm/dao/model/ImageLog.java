@@ -17,7 +17,7 @@ public class ImageLog implements Serializable {
      * 表 : image_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 文件名称<br>

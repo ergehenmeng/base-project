@@ -18,7 +18,7 @@ public class TaskConfig implements Serializable {
      * 表 : job_task<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 定时任务名称<br>

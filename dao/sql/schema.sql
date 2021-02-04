@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `app_version`;
 CREATE TABLE `app_version` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `classify` varchar(10) NOT NULL DEFAULT '' COMMENT '版本类型 ANDROID IOS',
   `version` varchar(10) NOT NULL COMMENT '版本号:1.2.8 范围(0.0.01~99.99.99)',
   `version_no` int(10) DEFAULT NULL COMMENT '数字格式化后的版本号',
@@ -39,11 +39,11 @@ CREATE TABLE `app_version` (
 -- ----------------------------
 DROP TABLE IF EXISTS `audit_config`;
 CREATE TABLE `audit_config` (
-  `id` int(10) NOT NULL COMMENT '主键',
+  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
   `audit_type` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核类型',
   `role_type` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '角色类型',
   `step` tinyint(2) DEFAULT '1' COMMENT '审批时的步骤(1,2,3)',
-  `rejection_policy` bigint(1) unsigned DEFAULT '1' COMMENT '拒绝策略 1:结束流程 2:退回上一步 3:退回第一步(不开启)',
+  `rejection_policy` tinyint(1) unsigned DEFAULT '1' COMMENT '拒绝策略 1:结束流程 2:退回上一步 3:退回第一步(不开启)',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -54,18 +54,19 @@ CREATE TABLE `audit_config` (
 -- ----------------------------
 DROP TABLE IF EXISTS `audit_record`;
 CREATE TABLE `audit_record` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `audit_no` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审批单号(在整个审批流程中不变)',
   `state` tinyint(1) DEFAULT NULL COMMENT '审核状态 0:待审核 1:审批通过 2:审批拒绝',
   `opinion` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审批意见',
   `title` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核信息标题',
-  `apply_id` int(11) DEFAULT NULL COMMENT '关联该审批的申请id',
-  `apply_operator_id` int(11) DEFAULT NULL COMMENT '申请人id',
+  `apply_id` bigint(20) DEFAULT NULL COMMENT '关联该审批的申请id',
+  `apply_operator_id` bigint(20) DEFAULT NULL COMMENT '申请人id',
+  `apply_operator_id` bigint(20) DEFAULT NULL COMMENT '申请人id',
   `apply_operator_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '申请人姓名',
   `role_type` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核人角色类型',
   `audit_type` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核类型',
   `step` tinyint(2) DEFAULT NULL COMMENT '当前审核的步骤',
-  `audit_operator_id` int(11) DEFAULT NULL COMMENT '审核人id',
+  `audit_operator_id` bigint(20) DEFAULT NULL COMMENT '审核人id',
   `audit_operator_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核人姓名',
   `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
@@ -79,7 +80,7 @@ CREATE TABLE `audit_record` (
 -- ----------------------------
 DROP TABLE IF EXISTS `banner`;
 CREATE TABLE `banner` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '标题信息',
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
   `client_type` varchar(20) DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
@@ -102,7 +103,7 @@ CREATE TABLE `banner` (
 -- ----------------------------
 DROP TABLE IF EXISTS `black_roster`;
 CREATE TABLE `black_roster` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `ip` bigint(20) DEFAULT NULL COMMENT '访问ip',
   `deleted` bit(1) DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
   `end_time` datetime DEFAULT NULL COMMENT '黑名单截止时间',
@@ -116,7 +117,7 @@ CREATE TABLE `black_roster` (
 -- ----------------------------
 DROP TABLE IF EXISTS `email_template`;
 CREATE TABLE `email_template` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `nid` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板唯一编码',
   `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板标题',
   `content` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容',
@@ -131,7 +132,7 @@ CREATE TABLE `email_template` (
 -- ----------------------------
 DROP TABLE IF EXISTS `exception_log`;
 CREATE TABLE `exception_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `url` varchar(50) DEFAULT NULL COMMENT '访问链接',
   `request_params` varchar(1000) DEFAULT NULL COMMENT '请求参数(json)',
   `error_msg` text COMMENT '错误日志',
@@ -145,8 +146,8 @@ CREATE TABLE `exception_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `feedback_log`;
 CREATE TABLE `feedback_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户ID',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
   `classify` tinyint(1) DEFAULT NULL COMMENT '反馈类型分类',
   `state` tinyint(1) unsigned DEFAULT '0' COMMENT '状态: 0:待解决 1:已解决',
   `version` varchar(50) DEFAULT NULL COMMENT '软件版本',
@@ -156,7 +157,7 @@ CREATE TABLE `feedback_log` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `device_brand` varchar(50) DEFAULT NULL COMMENT '设备厂商',
   `device_model` varchar(50) DEFAULT NULL COMMENT '设备型号',
-  `operator_id` int(10) unsigned DEFAULT NULL COMMENT '处理人id',
+  `operator_id` bigint(20) unsigned DEFAULT NULL COMMENT '处理人id',
   `operator_name` varchar(20) DEFAULT NULL COMMENT '处理人姓名',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
@@ -168,7 +169,7 @@ CREATE TABLE `feedback_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `help_center`;
 CREATE TABLE `help_center` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
   `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
   `ask` varchar(50) DEFAULT NULL COMMENT '问',
@@ -185,7 +186,7 @@ CREATE TABLE `help_center` (
 -- ----------------------------
 DROP TABLE IF EXISTS `image_log`;
 CREATE TABLE `image_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '图片名称',
   `classify` tinyint(3) unsigned DEFAULT NULL COMMENT '图片分类 数据字典image_classify',
   `path` varchar(200) DEFAULT NULL COMMENT '文件存放地址',
@@ -202,8 +203,8 @@ CREATE TABLE `image_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `login_device`;
 CREATE TABLE `login_device` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
   `serial_number` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备唯一序列号',
   `device_model` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备型号',
   `login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
@@ -216,8 +217,8 @@ CREATE TABLE `login_device` (
 -- ----------------------------
 DROP TABLE IF EXISTS `login_log`;
 CREATE TABLE `login_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) unsigned DEFAULT NULL COMMENT '用户id',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) unsigned DEFAULT NULL COMMENT '用户id',
   `channel` varchar(10) DEFAULT NULL COMMENT '登陆渠道',
   `ip` bigint(20) DEFAULT '0' COMMENT '登陆ip',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '登陆时间',
@@ -235,7 +236,7 @@ CREATE TABLE `login_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `push_template`;
 CREATE TABLE `push_template` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '消息名称',
   `nid` varchar(50) DEFAULT NULL COMMENT '消息nid',
   `state` tinyint(1) DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
@@ -251,7 +252,7 @@ CREATE TABLE `push_template` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sms_log`;
 CREATE TABLE `sms_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `sms_type` varchar(20) DEFAULT NULL COMMENT '短信分类',
   `mobile` char(11) DEFAULT NULL COMMENT '手机号',
   `content` varchar(100) DEFAULT NULL COMMENT '短信内容',
@@ -266,7 +267,7 @@ CREATE TABLE `sms_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sms_template`;
 CREATE TABLE `sms_template` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `nid` varchar(20) DEFAULT NULL COMMENT '短信模板nid即短信类型',
   `content` varchar(120) DEFAULT NULL COMMENT '短信内容',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -294,7 +295,7 @@ CREATE TABLE `sys_area` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_cache`;
 CREATE TABLE `sys_cache` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '缓存名称',
   `cache_name` varchar(50) DEFAULT NULL COMMENT '缓存名称 必须与CacheConstant中保持一致',
   `state` tinyint(3) unsigned DEFAULT '0' COMMENT '缓存更新状态 0:未更新 1:更新成功 2:更新失败',
@@ -308,7 +309,7 @@ CREATE TABLE `sys_cache` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `nid` varchar(50) NOT NULL COMMENT '参数标示符',
   `title` varchar(50) DEFAULT NULL COMMENT '参数名称',
   `content` varchar(500) NOT NULL COMMENT '参数值',
@@ -327,8 +328,8 @@ CREATE TABLE `sys_config` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_data_dept`;
 CREATE TABLE `sys_data_dept` (
-  `id` int(10) NOT NULL COMMENT '主键',
-  `operator_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `operator_id` bigint(20) DEFAULT NULL COMMENT '用户id',
   `dept_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '部门编号',
   PRIMARY KEY (`id`),
   KEY `idx_operator_id` (`operator_id`)
@@ -339,7 +340,7 @@ CREATE TABLE `sys_data_dept` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '部门名称',
   `code` varchar(128) DEFAULT NULL COMMENT '部门编号',
   `parent_code` varchar(128) DEFAULT '0' COMMENT '父级编号',
@@ -348,7 +349,7 @@ CREATE TABLE `sys_dept` (
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
   `operator_name` varchar(20) DEFAULT NULL COMMENT '操作人姓名',
-  `operator_id` int(10) unsigned DEFAULT NULL COMMENT '操作人id',
+  `operator_id` bigint(20) unsigned DEFAULT NULL COMMENT '操作人id',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `code_index` (`code`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COMMENT='部门信息表';
@@ -358,7 +359,7 @@ CREATE TABLE `sys_dept` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '字典中文名称',
   `nid` varchar(50) DEFAULT NULL COMMENT '数据字典nid(英文名称)',
   `hidden_value` tinyint(2) unsigned DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
@@ -376,7 +377,7 @@ CREATE TABLE `sys_dict` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_holiday`;
 CREATE TABLE `sys_holiday` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `calendar` date DEFAULT NULL COMMENT '日期',
   `date_month` char(7) DEFAULT NULL COMMENT '月份 yyyy-MM',
   `weekday` tinyint(1) unsigned DEFAULT NULL COMMENT '星期几',
@@ -389,10 +390,10 @@ CREATE TABLE `sys_holiday` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(20) NOT NULL COMMENT '菜单名称',
   `nid` varchar(50) NOT NULL COMMENT '菜单标示符 唯一',
-  `pid` int(10) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+  `pid` bigint(20) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
   `url` varchar(200) DEFAULT NULL COMMENT '菜单地址',
   `sub_url` varchar(500) DEFAULT NULL COMMENT '权限拦截路径',
   `grade` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)',
@@ -408,7 +409,7 @@ CREATE TABLE `sys_menu` (
 
 DROP TABLE IF EXISTS `sys_bulletin`;
 CREATE TABLE `sys_bulletin` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(100) NOT NULL COMMENT '公告标题',
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表bulletin_classify)',
   `content` text COMMENT '公告内容(富文本)',
@@ -424,9 +425,9 @@ CREATE TABLE `sys_bulletin` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_operation_log`;
 CREATE TABLE `sys_operation_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `url` varchar(200) DEFAULT NULL COMMENT '请求地址',
-  `operator_id` int(10) unsigned DEFAULT NULL COMMENT '操作人',
+  `operator_id` bigint(20) unsigned DEFAULT NULL COMMENT '操作人',
   `operator_name` varchar(50) DEFAULT NULL COMMENT '操作人姓名',
   `request` varchar(1000) DEFAULT NULL COMMENT '请求参数',
   `response` text COMMENT '响应参数',
@@ -442,7 +443,7 @@ CREATE TABLE `sys_operation_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_operator`;
 CREATE TABLE `sys_operator` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `operator_name` varchar(20) NOT NULL COMMENT '用户名称',
   `mobile` char(11) NOT NULL COMMENT '手机号码(登陆账户)',
   `state` tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
@@ -465,9 +466,9 @@ CREATE TABLE `sys_operator` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_operator_role`;
 CREATE TABLE `sys_operator_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `operator_id` int(10) unsigned NOT NULL COMMENT '用户id',
-  `role_id` int(10) unsigned NOT NULL COMMENT '角色id',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `operator_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
+  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `user_id_index` (`operator_id`) USING BTREE,
   KEY `role_id_index` (`role_id`) USING BTREE
@@ -478,7 +479,7 @@ CREATE TABLE `sys_operator_role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `role_name` varchar(10) DEFAULT NULL COMMENT '角色名称',
   `role_type` varchar(20) DEFAULT NULL COMMENT '角色类型',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
@@ -494,9 +495,9 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `role_id` int(10) unsigned NOT NULL COMMENT '角色Id',
-  `menu_id` int(10) unsigned NOT NULL COMMENT '菜单Id',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色Id',
+  `menu_id` bigint(20) unsigned NOT NULL COMMENT '菜单Id',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `role_id_index` (`role_id`) USING BTREE,
@@ -508,7 +509,7 @@ CREATE TABLE `sys_role_menu` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tag_view`;
 CREATE TABLE `tag_view` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(50) DEFAULT NULL COMMENT '页面名称',
   `tag` varchar(50) DEFAULT NULL COMMENT 'view唯一标示符',
   `url` varchar(1000) DEFAULT NULL COMMENT 'view页面涉及到的接口,逗号分隔',
@@ -521,7 +522,7 @@ CREATE TABLE `tag_view` (
 -- ----------------------------
 DROP TABLE IF EXISTS `task_config`;
 CREATE TABLE `task_config` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(50) DEFAULT NULL COMMENT '定时任务名称',
   `nid` varchar(20) DEFAULT NULL COMMENT '定时任务nid',
   `bean_name` varchar(200) DEFAULT NULL COMMENT 'bean名称 必须实现Task接口',
@@ -539,7 +540,7 @@ CREATE TABLE `task_config` (
 -- ----------------------------
 DROP TABLE IF EXISTS `task_log`;
 CREATE TABLE `task_log` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `nid` varchar(50) DEFAULT NULL COMMENT '任务nid',
   `bean_name` varchar(50) DEFAULT NULL COMMENT '定时任务bean名称',
   `state` bit(1) DEFAULT b'1' COMMENT '执行结果 0:失败 1:成功',
@@ -556,7 +557,7 @@ CREATE TABLE `task_log` (
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `mobile` char(11) DEFAULT NULL COMMENT '手机号码',
   `open_id` varchar(64) DEFAULT NULL COMMENT '微信小程序openId',
   `nick_name` varchar(20) DEFAULT '' COMMENT '昵称',
@@ -581,8 +582,8 @@ CREATE TABLE `user` (
 alter table user add column invite_code chat(6) comment '邀请码';
 
 CREATE TABLE `user_address` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(10) DEFAULT NULL COMMENT '用户id',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
   `state` tinyint(1) DEFAULT '0' COMMENT '状态 0: 普通地址  1:默认地址',
   `province_id` int(11) DEFAULT NULL COMMENT '省份id',
   `province_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '省份名称',
@@ -601,8 +602,8 @@ CREATE TABLE `user_address` (
 alter table login_device add column ip bigint(20) comment '登陆ip';
 
 CREATE TABLE `user_notice` (
-  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `user_id` bigint(21) DEFAULT NULL COMMENT '用户id',
   `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息标题',
   `content` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '站内信内容',
   `classify` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '站内信分类',
@@ -614,7 +615,7 @@ CREATE TABLE `user_notice` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户站内信';
 
 CREATE TABLE `notice_template` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息模板code',
   `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息标题',
   `content` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容消息',

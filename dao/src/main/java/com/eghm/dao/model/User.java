@@ -17,7 +17,7 @@ public class User implements Serializable {
      * 表 : user<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 昵称<br>

@@ -15,7 +15,7 @@ public class NoticeTemplate implements Serializable {
      * 表 : notice_template<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 消息模板code<br>

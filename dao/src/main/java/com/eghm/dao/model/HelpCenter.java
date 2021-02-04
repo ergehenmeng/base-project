@@ -16,7 +16,7 @@ public class HelpCenter implements Serializable {
      * 表 : help_center<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 帮助分类取sys_dict表中help_classify字段<br>

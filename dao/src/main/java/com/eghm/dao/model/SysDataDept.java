@@ -12,14 +12,14 @@ public class SysDataDept implements Serializable {
      * 表 : sys_data_dept<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id<br>
      * 表 : sys_data_dept<br>
      * 对应字段 : operator_id<br>
      */
-    private Integer operatorId;
+    private Long operatorId;
 
     /**
      * 部门id<br>
@@ -33,7 +33,7 @@ public class SysDataDept implements Serializable {
     public SysDataDept() {
     }
 
-    public SysDataDept(Integer operatorId, String deptCode) {
+    public SysDataDept(Long operatorId, String deptCode) {
         this.operatorId = operatorId;
         this.deptCode = deptCode;
     }

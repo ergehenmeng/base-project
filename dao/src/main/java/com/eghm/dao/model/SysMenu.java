@@ -24,7 +24,7 @@ public class SysMenu implements Serializable {
      * 表 : sys_menu<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 菜单名称<br>
@@ -45,7 +45,7 @@ public class SysMenu implements Serializable {
      * 表 : sys_menu<br>
      * 对应字段 : pid<br>
      */
-    private Integer pid;
+    private Long pid;
 
     /**
      * 菜单地址<br>

@@ -15,7 +15,7 @@ public class SysHoliday implements Serializable {
      * 表 : sys_holiday<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 日期<br>

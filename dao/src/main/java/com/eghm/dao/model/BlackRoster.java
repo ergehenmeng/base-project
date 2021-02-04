@@ -15,7 +15,7 @@ public class BlackRoster implements Serializable {
      * 表 : black_roster<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 访问ip<br>

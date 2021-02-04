@@ -18,14 +18,14 @@ public class FeedbackLog implements Serializable {
      * 表 : feedback_log<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户ID<br>
      * 表 : feedback_log<br>
      * 对应字段 : user_id<br>
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 状态: 0:待解决 1:已解决<br>

@@ -16,14 +16,14 @@ public class UserNotice implements Serializable {
      * 表 : user_notice<br>
      * 对应字段 : id<br>
      */
-    private Integer id;
+    private Long id;
 
     /**
      * 用户id<br>
      * 表 : user_notice<br>
      * 对应字段 : user_id<br>
      */
-    private Integer userId;
+    private Long userId;
 
     /**
      * 消息标题<br>
