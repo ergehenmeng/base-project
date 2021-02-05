@@ -9,6 +9,7 @@ import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,7 +35,7 @@ public class DeviceController {
      * 用户登陆的设备列表
      */
     @ApiOperation("用户登陆过的设备列表")
-    @PostMapping("/device/login_device")
+    @GetMapping("/device/login_device")
     public RespBody<List<LoginDeviceVO>> loginDevice() {
         List<LoginDeviceVO> voList = loginDeviceService.getByUserId(ApiHolder.getUserId());
         return RespBody.success(voList);

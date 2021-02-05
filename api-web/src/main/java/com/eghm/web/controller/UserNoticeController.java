@@ -12,6 +12,7 @@ import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,7 @@ public class UserNoticeController {
     /**
      * 分页查询用户站内信通知信息
      */
-    @PostMapping("/notice/list_page")
+    @GetMapping("/notice/list_page")
     @ApiOperation("分页查询站内信列表")
     public RespBody<Paging<UserNoticeVO>> listPage(PagingQuery query) {
         Paging<UserNoticeVO> paging = userNoticeService.getByPage(query, ApiHolder.getUserId());

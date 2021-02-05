@@ -7,7 +7,7 @@ import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,7 +29,7 @@ public class VersionController {
     /**
      * 获取可以下载的最新版本
      */
-    @PostMapping("/version/latest_version")
+    @GetMapping("/version/latest_version")
     @ApiOperation("获取最新的版本")
     public RespBody<AppVersionVO> getLatestVersion() {
         AppVersionVO latestVersion = appVersionService.getLatestVersion();

@@ -7,6 +7,7 @@ import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,7 +32,7 @@ public class BulletinController {
     /**
      * 获取首页公告列表
      */
-    @PostMapping("/bulletin/list")
+    @GetMapping("/bulletin/list")
     @ApiOperation("获取首页公告列表")
     public RespBody<List<TopBulletinVO>> list() {
         List<TopBulletinVO> list = sysBulletinService.getList();

@@ -11,6 +11,7 @@ import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,7 +56,7 @@ public class AddressController {
     /**
      * 用户地址列表
      */
-    @PostMapping("/address/list")
+    @GetMapping("/address/list")
     @ApiOperation("用户地址列表")
     public RespBody<List<AddressVO>> list() {
         List<AddressVO> voList = userAddressService.getByUserId(ApiHolder.getUserId());

@@ -12,6 +12,7 @@ import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,7 @@ public class BannerController {
     /**
      * 按类型查询的轮播图列表
      */
-    @PostMapping("/banner/list")
+    @GetMapping("/banner/list")
     @ApiOperation("查询可用的轮播图列表")
     public RespBody<List<BannerVO>> list(BannerQueryDTO dto) {
         List<Banner> bannerList = bannerService.getBanner(Channel.valueOf(ApiHolder.getChannel()), dto.getClassify());

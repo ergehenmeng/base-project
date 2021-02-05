@@ -10,6 +10,7 @@ import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +33,7 @@ public class ScoreController {
     /**
      * 分页查询用户积分列表
      */
-    @PostMapping("/score/list_page")
+    @GetMapping("/score/list_page")
     @ApiOperation("用户积分列表")
     public RespBody<Paging<UserScoreVO>> listPage(UserScoreQueryDTO request) {
         request.setUserId(ApiHolder.getUserId());
