@@ -26,7 +26,10 @@
             <label>角色:</label>
             <input title="选择角色" readonly="readonly"  id="roleSelect"  class="select" />
         </div>
-
+        <div class="form-item">
+            <label>部门:</label>
+            <input title="选择部门" readonly="readonly"  name="deptCode"  class="select" />
+        </div>
         <div class="form-item">
             <label>备注:</label>
             <textarea title="备注" name="remark" class="h60">${(operator.remark)!}</textarea>
