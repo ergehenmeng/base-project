@@ -236,7 +236,7 @@ public class StringUtil {
      * @param value value
      * @return 可解密
      */
-    public static String encryptNumber(Long value) {
+    public static String encryptNumber(long value) {
         StringBuilder builder = new StringBuilder();
         int length = ENCRYPT.length();
         while (value > 0) {
@@ -246,4 +246,19 @@ public class StringUtil {
         return builder.toString();
     }
 
+    /**
+     * 数字进制 用于基础解密
+     * @param value value
+     * @return 可解密
+     */
+    public static long decryptNumber(String value) {
+        int scale = ENCRYPT.length();
+        int length = value.length();
+        long result = 0L;
+        for (int i = length - 1; i >=0 ; i--) {
+            int index = ENCRYPT.indexOf(value.charAt(i));
+            result = result * scale + index;
+        }
+        return result;
+    }
 }
