@@ -11,14 +11,14 @@ package com.eghm.common.enums;
 public enum ErrorCode {
 
     /**
-     * 提交频繁,请重试
+     * 点击太快啦~~
      */
-    SUBMIT_FREQUENTLY(400, "提交频繁,请重试"),
+    SUBMIT_FREQUENTLY(400, "点击太快啦~~"),
 
     /**
-     * 暂无访问权限
+     * 木有访问的权限
      */
-    ACCESS_DENIED(403,"暂无访问权限"),
+    ACCESS_DENIED(403,"木有访问的权限"),
 
     /**
      * 用户登陆已过期(后台系统使用)
@@ -26,9 +26,9 @@ public enum ErrorCode {
     SESSION_TIMEOUT(402,"用户登陆已过期"),
 
     /**
-     * 未知请求地址
+     * 木有找到请求地址
      */
-    PAGE_NOT_FOUND(404,"未知请求地址"),
+    PAGE_NOT_FOUND(404,"木有找到请求地址"),
 
     /**
      * 暂无访问权限 (黑名单拦截)
