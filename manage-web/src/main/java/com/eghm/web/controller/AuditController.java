@@ -10,9 +10,11 @@ import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.AuditService;
 import com.eghm.utils.DataUtil;
+import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**
@@ -32,7 +34,7 @@ public class AuditController {
     /**
      * 分页查询审批列表
      */
-    @PostMapping("/audit/list_page")
+    @GetMapping("/audit/list_page")
     public Paging<AuditRecord> listPage(AuditQueryRequest request) {
         request.setOperatorId(SecurityOperatorHolder.getOperatorId());
         PageInfo<AuditRecord> byPage = auditService.getByPage(request);
@@ -44,6 +46,7 @@ public class AuditController {
      * 审批 (所有审批的入口)
      */
     @PostMapping("/audit/approval")
+    @Mark
     public RespBody<Object> approval(AuditProcessRequest request) {
         AuditProcess process = DataUtil.copy(request, AuditProcess.class);
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();

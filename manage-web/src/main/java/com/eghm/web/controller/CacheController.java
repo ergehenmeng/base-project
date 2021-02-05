@@ -8,6 +8,7 @@ import com.eghm.service.cache.SysCacheService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +35,7 @@ public class CacheController {
      *
      * @return 缓存列表
      */
-    @PostMapping("/cache/list")
+    @GetMapping("/cache/list")
     @ResponseBody
     public Paging<SysCache> list() {
         return new Paging<>(sysCacheService.getList());

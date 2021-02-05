@@ -88,9 +88,8 @@ public class OperatorController {
      * @param request 查询条件
      * @return 列表
      */
-    @PostMapping("/operator/list_page")
+    @GetMapping("/operator/list_page")
     @ResponseBody
-    @Mark
     public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
         PageInfo<SysOperator> page = sysOperatorService.getByPage(request);
         return new Paging<>(page);
@@ -117,7 +116,6 @@ public class OperatorController {
      * @return 页面
      */
     @GetMapping("/operator/edit_page")
-    @Mark
     public String editOperatorPage(Model model, Long id) {
         SysOperator operator = sysOperatorService.getById(id);
         model.addAttribute("operator", operator);
@@ -161,6 +159,7 @@ public class OperatorController {
      */
     @PostMapping("/lock_screen")
     @ResponseBody
+    @Mark
     public RespBody<Object> lockScreen() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
@@ -172,6 +171,7 @@ public class OperatorController {
      */
     @PostMapping("/unlock_screen")
     @ResponseBody
+    @Mark
     public RespBody<Object> unlockScreen(String password) {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         sysOperatorService.checkPassword(password, operator.getPwd());
@@ -184,6 +184,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/lock_operator")
     @ResponseBody
+    @Mark
     public RespBody<Object> lockOperator(Long id) {
         sysOperatorService.lockOperator(id);
         return RespBody.success();
@@ -194,6 +195,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/unlock_operator")
     @ResponseBody
+    @Mark
     public RespBody<Object> unlock(Long id) {
         sysOperatorService.unlockOperator(id);
         return RespBody.success();
@@ -204,6 +206,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/delete")
     @ResponseBody
+    @Mark
     public RespBody<Object> delete(Long id) {
         sysOperatorService.deleteOperator(id);
         return RespBody.success();

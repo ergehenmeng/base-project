@@ -11,7 +11,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * api项目默认记录所有请求日志,如需不添加日志记录,则添加该注解
- * 只针对Post请求时有效,Get自动无效
  *
  * @see RequestResponseLogAspect aop请求日志记录
  * @author 二哥很猛

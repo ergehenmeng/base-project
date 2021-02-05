@@ -29,7 +29,7 @@ public class TaskLogController {
     /**
      * 分页查询定时任务列表
      */
-    @PostMapping("/task_log/list_page")
+    @GetMapping("/task_log/list_page")
     @ResponseBody
     public Paging<TaskLog> listPage(TaskLogQueryRequest request) {
         PageInfo<TaskLog> byPage = taskLogService.getByPage(request);

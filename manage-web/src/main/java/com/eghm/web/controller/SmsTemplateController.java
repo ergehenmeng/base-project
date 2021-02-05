@@ -6,6 +6,7 @@ import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SmsTemplateService;
+import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class SmsTemplateController {
     /**
      * 短信模板分页列表
      */
-    @PostMapping("/sms_template/list_page")
+    @GetMapping("/sms_template/list_page")
     @ResponseBody
     public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request) {
         PageInfo<SmsTemplate> byPage = smsTemplateService.getByPage(request);
@@ -55,6 +56,7 @@ public class SmsTemplateController {
      */
     @PostMapping("/sms_template/edit")
     @ResponseBody
+    @Mark
     public RespBody<Object> edit(SmsTemplateEditRequest request) {
         smsTemplateService.updateSmsTemplate(request);
         return RespBody.success();

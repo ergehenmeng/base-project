@@ -40,7 +40,7 @@ public class TaskConfigController {
     /**
      * 分页查询定时任务列表
      */
-    @PostMapping("/task/list_page")
+    @GetMapping("/task/list_page")
     @ResponseBody
     public Paging<TaskConfig> listPage(TaskQueryRequest request) {
         PageInfo<TaskConfig> byPage = taskConfigService.getByPage(request);

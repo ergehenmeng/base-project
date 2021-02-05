@@ -10,6 +10,7 @@ import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.OperationLogService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
+import com.eghm.utils.WebUtil;
 import com.eghm.web.annotation.Mark;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -17,14 +18,11 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * 操作日志
@@ -126,12 +124,10 @@ public class OperationLogAspect {
         StringBuilder builder = new StringBuilder();
         for (Object object : args) {
             if (builder.length() > 0) {
-                builder.append(",");
+                builder.append("|");
             }
             // 过滤内置参数
-            boolean flag = object instanceof HttpServletRequest || object instanceof HttpServletResponse || object instanceof MultipartFile || object instanceof Model;
-
-            if (flag) {
+            if (WebUtil.isAutoInject(object.getClass())) {
                 continue;
             }
             builder.append(jsonService.toJson(object));

@@ -11,6 +11,7 @@ import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.BannerService;
 import com.eghm.service.common.FileService;
 import com.eghm.utils.DataUtil;
+import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,7 +53,7 @@ public class BannerController {
     /**
      * 分页查询轮播图配置信息
      */
-    @PostMapping("/banner/list_page")
+    @GetMapping("/banner/list_page")
     @ResponseBody
     public Paging<Banner> listPage(BannerQueryRequest request) {
         PageInfo<Banner> byPage = bannerService.getByPage(request);
@@ -78,6 +79,7 @@ public class BannerController {
      */
     @PostMapping("/banner/add")
     @ResponseBody
+    @Mark
     public RespBody<Object> add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
         request.setImgUrl(fileService.saveFile(imgFile).getPath());
         bannerService.addBanner(request);
@@ -89,6 +91,7 @@ public class BannerController {
      */
     @PostMapping("/banner/edit")
     @ResponseBody
+    @Mark
     public RespBody<Object> edit(BannerEditRequest request, @RequestParam(value = "imgFile", required = false) MultipartFile imgFile) {
         if (imgFile != null) {
             request.setImgUrl(fileService.saveFile(imgFile).getPath());
@@ -96,6 +99,5 @@ public class BannerController {
         bannerService.editBanner(request);
         return RespBody.success();
     }
-
 
 }

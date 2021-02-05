@@ -41,9 +41,8 @@ public class RoleController {
      * @param request 查询条件
      * @return 列表
      */
-    @PostMapping("/role/list_page")
+    @GetMapping("/role/list_page")
     @ResponseBody
-    @Mark
     public Paging<SysRole> listPage(RoleQueryRequest request) {
         PageInfo<SysRole> page = sysRoleService.getByPage(request);
         return new Paging<>(page);
@@ -56,7 +55,6 @@ public class RoleController {
      */
     @PostMapping("/role/list")
     @ResponseBody
-    @Mark
     public List<CheckBox> list() {
         List<SysRole> list = sysRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
@@ -70,7 +68,6 @@ public class RoleController {
      * @return 角色编辑信息
      */
     @GetMapping("/role/edit_page")
-    @Mark
     public String editPage(Model model, Long id) {
         SysRole role = sysRoleService.getById(id);
         model.addAttribute("role", role);
@@ -127,7 +124,6 @@ public class RoleController {
      * @return 角色编辑信息
      */
     @GetMapping("/role/auth_page")
-    @Mark
     public String addPage(Model model, Long id) {
         List<Long> role = sysRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);

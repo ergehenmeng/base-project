@@ -35,9 +35,8 @@ public class DictController {
      * @param request 前台参数
      * @return 分页列表
      */
-    @PostMapping("/dict/list_page")
+    @GetMapping("/dict/list_page")
     @ResponseBody
-    @Mark
     public Paging<SysDict> listPage(DictQueryRequest request) {
         return new Paging<>(sysDictService.getByPage(request));
     }
@@ -49,7 +48,6 @@ public class DictController {
      * @return 页面地址
      */
     @GetMapping("/dict/edit_page")
-    @Mark
     public String editPage(Model model, Long id) {
         SysDict dict = sysDictService.getById(id);
         model.addAttribute("dict", dict);

@@ -49,7 +49,6 @@ public class MenuController {
      * @return 页面地址
      */
     @GetMapping("/menu/edit_page")
-    @Mark
     public String editMenuPage(Model model, Long id) {
         SysMenu menu = sysMenuService.getMenuById(id);
         model.addAttribute("menu", menu);
@@ -61,9 +60,8 @@ public class MenuController {
      *
      * @return list
      */
-    @PostMapping("/menu/list_page")
+    @GetMapping("/menu/list_page")
     @ResponseBody
-    @Mark
     public List<SysMenu> listPage() {
         return sysMenuService.getAllList();
     }
@@ -76,7 +74,6 @@ public class MenuController {
      * @return ftl地址
      */
     @GetMapping("/menu/add_page")
-    @Mark
     public String addPage(Model model, Long id, @RequestParam(defaultValue = "0", required = false) Byte grade) {
         model.addAttribute("pid", id);
         model.addAttribute("grade", grade + 1);
@@ -123,8 +120,8 @@ public class MenuController {
      * @return 成功后的返回信息
      */
     @PostMapping("/menu/delete")
-    @Mark
     @ResponseBody
+    @Mark
     public RespBody<Object> delete(Long id) {
         sysMenuService.deleteMenu(id);
         metadataSource.loadResource();
@@ -136,9 +133,8 @@ public class MenuController {
      *
      * @return 菜单列表
      */
-    @PostMapping("/operator/menu_list")
+    @GetMapping("/operator/menu_list")
     @ResponseBody
-    @Mark
     public List<SysMenu> operatorMenuList() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         return sysMenuService.getList(operator.getId());

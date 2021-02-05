@@ -53,7 +53,7 @@ public class AppVersionController {
     /**
      * app版本管理列表
      */
-    @PostMapping("/version/list_page")
+    @GetMapping("/version/list_page")
     @ResponseBody
     public Paging<AppVersion> listPage(VersionQueryRequest request) {
         PageInfo<AppVersion> byPage = appVersionService.getByPage(request);

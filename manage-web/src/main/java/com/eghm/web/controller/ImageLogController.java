@@ -73,9 +73,8 @@ public class ImageLogController {
      *
      * @return 分页数据
      */
-    @PostMapping("/image/list_page")
+    @GetMapping("/image/list_page")
     @ResponseBody
-    @Mark
     public Paging<ImageLog> listPage(ImageQueryRequest request) {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.convert(page, imageLog -> {
@@ -139,7 +138,6 @@ public class ImageLogController {
      * @return 图片地址
      */
     @GetMapping("/image/edit_page")
-    @Mark
     public String editImagePage(Model model, Long id) {
         ImageLog log = imageLogService.getById(id);
         model.addAttribute("log", log);

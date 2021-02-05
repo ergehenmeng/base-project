@@ -71,7 +71,7 @@ public class ConfigController {
      * @param request 查询
      * @return 分页列表
      */
-    @PostMapping("config/list_page")
+    @GetMapping("config/list_page")
     @ResponseBody
     public Paging<SysConfig> listPage(ConfigQueryRequest request) {
         PageInfo<SysConfig> listByPage = sysConfigService.getByPage(request);

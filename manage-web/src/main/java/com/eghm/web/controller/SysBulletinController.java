@@ -45,7 +45,7 @@ public class SysBulletinController {
     /**
      * 系统公告列表查询
      */
-    @PostMapping("/bulletin/list_page")
+    @GetMapping("/bulletin/list_page")
     @ResponseBody
     public Paging<SysBulletin> listPage(BulletinQueryRequest request) {
         PageInfo<SysBulletin> byPage = sysBulletinService.getByPage(request);

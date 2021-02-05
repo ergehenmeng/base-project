@@ -8,9 +8,11 @@ import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
+import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,7 +33,7 @@ public class FeedbackController {
     /**
      * 分页查询反馈列表
      */
-    @PostMapping("/feedback/list_page")
+    @GetMapping("/feedback/list_page")
     @ResponseBody
     public Paging<FeedbackVO> listPage(FeedbackQueryRequest request) {
         PageInfo<FeedbackVO> byPage = feedbackService.getByPage(request);
@@ -43,6 +45,7 @@ public class FeedbackController {
      */
     @PostMapping("/feedback/dispose")
     @ResponseBody
+    @Mark
     public RespBody<Object> dispose(FeedbackDisposeRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());

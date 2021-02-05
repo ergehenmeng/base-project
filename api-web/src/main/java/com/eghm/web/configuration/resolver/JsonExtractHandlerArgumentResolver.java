@@ -7,6 +7,7 @@ import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.WebUtil;
 import com.eghm.web.annotation.SkipDataBinder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +23,8 @@ import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 
 import javax.annotation.Nullable;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
 
@@ -53,11 +49,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
         // 只针对 post请求,且没有标示@SkipDataBinder,并且不是内置对象才会进行Json数据绑定
         if (!parameter.hasMethodAnnotation(SkipDataBinder.class) && this.isPostRequest(parameter)) {
             Class<?> paramType = parameter.getParameterType();
-            return !ServletRequest.class.isAssignableFrom(paramType) &&
-                    !ServletResponse.class.isAssignableFrom(paramType) &&
-                    !MultipartRequest.class.isAssignableFrom(paramType) &&
-                    !MultipartFile.class.isAssignableFrom(paramType) &&
-                    !HttpSession.class.isAssignableFrom(paramType);
+            return !WebUtil.isAutoInject(paramType);
         }
         return false;
     }

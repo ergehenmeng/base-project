@@ -36,6 +36,11 @@ public class AppHeader {
     public static final String DEVICE_MODEL = "Device-Model";
 
     /**
+     * 设备唯一序列号
+     */
+    public static final String SERIAL_NUMBER = "Serial-Number";
+
+    /**
      * 用户登陆信息 accessToken
      */
     public static final String TOKEN = "Token";
@@ -54,6 +59,8 @@ public class AppHeader {
      * 签名参数 请求时间戳
      */
     public static final String TIMESTAMP = "Timestamp";
+
+
 
 
 }

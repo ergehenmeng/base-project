@@ -34,7 +34,7 @@ public class DeptController {
      *
      * @return list
      */
-    @PostMapping("/dept/list_page")
+    @GetMapping("/dept/list_page")
     @ResponseBody
     public List<SysDept> listPage() {
         return sysDeptService.getDepartment();

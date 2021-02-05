@@ -8,6 +8,7 @@ import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.service.common.TagViewService;
+import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class PushTemplateController {
     /**
      * 分页查询推送消息模板信息
      */
-    @PostMapping("/push_template/list_page")
+    @GetMapping("/push_template/list_page")
     @ResponseBody
     public Paging<PushTemplate> listPage(PushTemplateQueryRequest request) {
         PageInfo<PushTemplate> byPage = pushTemplateService.getByPage(request);
@@ -66,6 +67,7 @@ public class PushTemplateController {
      */
     @PostMapping("/push_template/edit")
     @ResponseBody
+    @Mark
     public RespBody<Object> edit(PushTemplateEditRequest request) {
         pushTemplateService.editPushTemplate(request);
         return RespBody.success();
