@@ -1,12 +1,13 @@
 package com.eghm.handler.chain;
 
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.utils.SpringContextUtil;
-import com.google.common.collect.Lists;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,13 +51,9 @@ public class HandlerChain<T extends Handler> {
             synchronized (handlerMap) {
                 handlerList = handlerMap.get(cls.getName());
                 if (handlerList == null) {
-                    String[] beanNames = SpringContextUtil.getApplicationContext().getBeanNamesForType(cls);
-                    if (beanNames.length > 0) {
-                        handlerList = Lists.newArrayList();
-                        for (String beanName : beanNames) {
-                            T bean = SpringContextUtil.getApplicationContext().getBean(beanName, cls);
-                            handlerList.add(bean);
-                        }
+                    Map<String, T> beansOfType = SpringContextUtil.getApplicationContext().getBeansOfType(cls);
+                    if (CollUtil.isNotEmpty(beansOfType)) {
+                        handlerList = new ArrayList<>(beansOfType.values());
                         AnnotationAwareOrderComparator.sort(handlerList);
                         handlerMap.put(cls.getName(), handlerList);
                     }
