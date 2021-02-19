@@ -461,6 +461,11 @@ public enum ErrorCode {
      */
     IN_MAIL_NULL(3075, "站内信模板未配置"),
 
+    /**
+     * 开奖程序出错啦
+     */
+    LOTTERY_ERROR(3088, "开奖程序出错啦"),
+
     ;
     /**
      * 构造方法
