@@ -9,12 +9,12 @@ import com.eghm.configuration.security.SecurityOperatorHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * 生成数据权限拦截sql
+ * 涉及数据权限的表中必须包含两个字段, 用户所属部门:dept_code, 用户ID:operator_id
  * @author 殿小二
  * @date 2020/8/14
  */
