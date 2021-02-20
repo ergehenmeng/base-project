@@ -1,20 +1,21 @@
-//全局通用JS
 //全局默认页容量
-var pageSize = 20;
+let pageSize = 20;
 //全局默认页容量列表
-var pageList = [20, 30, 40, 50 ];
-$.fn.dataGridOptions = function(){};
-$.fn.treeGridOptions = function(){};
-$.fn.extOptions = function(){};
-var editor;
+let pageList = [20, 30, 40, 50];
+$.fn.dataGridOptions = function () {};
+$.fn.treeGridOptions = function () {};
+$.fn.extOptions = function () {};
+
+let editor;
 /**
  * easyUI列表提炼
  * @param element 元素id
  * @param opts 配置项
  * @returns {*|jQuery} dataGrid对象
  */
-$.fn.dataGridOptions.dataGrid = function(element,opts){
-    var options = $.extend({
+$.fn.dataGridOptions.dataGrid = function (element, opts) {
+    let options = $.extend({
+        method: 'get',
         border: false,
         fit: true,
         fitColumns: false,
@@ -26,11 +27,11 @@ $.fn.dataGridOptions.dataGrid = function(element,opts){
         singleSelect: true,
         loadFilter: $.fn.extOptions.loadFilter,
         onLoadSuccess: $.fn.dataGridOptions.tips
-    },opts);
+    }, opts);
     return $(element).datagrid(options);
 };
 
-$.fn.dataGridOptions.tips = function(){
+$.fn.dataGridOptions.tips = function () {
     $(".dataGrid-tips").poshytip({
         className: 'tip-yellowsimple',
         fade: false,
@@ -39,11 +40,11 @@ $.fn.dataGridOptions.tips = function(){
     });
 };
 
-$.fn.extOptions.loadFilter = function(data){
-    if(data.code === 200){
+$.fn.extOptions.loadFilter = function (data) {
+    if (data.code === 200) {
         return data.data;
-    }else{
-        parent.$.messager.alert("提示",data.msg || "系统繁忙","error");
+    } else {
+        parent.$.messager.alert("提示", data.msg || "系统繁忙", "error");
     }
 };
 
@@ -52,12 +53,12 @@ $.fn.extOptions.loadFilter = function(data){
  * @param value 源值
  * @param maxLength 超过该长度后不会显示
  */
-$.fn.dataGridOptions.maxLength = function(value,maxLength){
-    if(!maxLength){
+$.fn.dataGridOptions.maxLength = function (value, maxLength) {
+    if (!maxLength) {
         maxLength = 40;
     }
-    if(value && value.length > maxLength){
-        return '<span title=\''+ newLine(value,maxLength) +'\' class="dataGrid-tips">' + value.substring(0,maxLength) + '...</span>';
+    if (value && value.length > maxLength) {
+        return '<span title=\'' + newLine(value, maxLength) + '\' class="dataGrid-tips">' + value.substring(0, maxLength) + '...</span>';
     }
     return value;
 };
@@ -68,26 +69,28 @@ $.fn.dataGridOptions.maxLength = function(value,maxLength){
  * @return {*}
  * @param maxLength 单行最大长度
  */
-function newLine(value,maxLength){
-    var valueLength = value.length;
-    var loop = valueLength / maxLength + 1;
-    if(loop === 1){
+function newLine(value, maxLength) {
+    let valueLength = value.length;
+    let loop = valueLength / maxLength + 1;
+    if (loop === 1) {
         return value;
     }
-    var result = "";
-    for (var i=0;i < loop;i++){
-        result += value.substring(maxLength * i,maxLength * (i+1)) + "\n" ;
+    let result = "";
+    for (let i = 0; i < loop; i++) {
+        result += value.substring(maxLength * i, maxLength * (i + 1)) + "\n";
     }
     return result;
 }
+
 /**
  * easyUI列表提炼
  * @param element 元素id
  * @param opts 配置项
  * @returns {*|jQuery} dataGrid对象
  */
-$.fn.treeGridOptions.treeGrid = function(element,opts){
-    var options = $.extend({
+$.fn.treeGridOptions.treeGrid = function (element, opts) {
+    let options = $.extend({
+        method: 'get',
         border: false,
         animate: true,
         fit: true,
@@ -97,41 +100,41 @@ $.fn.treeGridOptions.treeGrid = function(element,opts){
         nowrap: false,
         singleSelect: true,
         loadFilter: $.fn.extOptions.loadFilter
-    },opts);
+    }, opts);
     return $(element).treegrid(options);
 };
 /**
  * data弹出层
  */
-$.fn.dataGridOptions.editFun = function(id,title,width,height,url,data){
-	parent.$.windowDialog({
-		title: title,
-		width: width,
-		height: height,
-		href: formatUrl(id,url,data),
-		buttons: [ {
-			text: '确定',
-			handler: function() {
-				if(dataGrid !== undefined && dataGrid !== null){
+$.fn.dataGridOptions.editFun = function (id, title, width, height, url, data) {
+    parent.$.windowDialog({
+        title: title,
+        width: width,
+        height: height,
+        href: formatUrl(id, url, data),
+        buttons: [{
+            text: '确定',
+            handler: function () {
+                if (dataGrid !== undefined && dataGrid !== null) {
                     //必须要设定好这个该dataGridGrid,为后续点击提交表单
-					parent.$.windowDialog.opennerDataGrid = dataGrid;
-				}
-				var f = parent.$.windowDialog.handler.find('form');
-				f.submit();
-			}
-		} ]
-	});
+                    parent.$.windowDialog.opennerDataGrid = dataGrid;
+                }
+                let f = parent.$.windowDialog.handler.find('form');
+                f.submit();
+            }
+        }]
+    });
 };
 
-$.fn.downloadFun = function(url){
+$.fn.downloadFun = function (url) {
     $.ajax({
         "url": url,
         "type": "GET",
-        "success": function(){
+        "success": function () {
             window.location.href = url;
         },
-        "error": function(){
-            parent.$.messager.alert("提示","文件下载失败，请稍候再试！","warning");
+        "error": function () {
+            parent.$.messager.alert("提示", "文件下载失败，请稍候再试！", "warning");
         }
     });
 };
@@ -145,63 +148,63 @@ $.fn.downloadFun = function(url){
  * @param url
  * @param data
  */
-$.fn.dataGridOptions.show = function(id,title,width,height,url,data){
+$.fn.dataGridOptions.show = function (id, title, width, height, url, data) {
     parent.$.windowDialog({
         title: title,
         width: width,
         height: height,
-        href: formatUrl(id,url,data),
-        buttons: [ {
+        href: formatUrl(id, url, data),
+        buttons: [{
             text: '关闭',
-            handler: function() {
+            handler: function () {
                 parent.$.windowDialog.handler.dialog('close');
             }
-        } ]
+        }]
     });
 };
 
-function formatUrl(id,url,data){
-	url = url + "?id=" +id;
-	if(data !== undefined){
-		url = url + "&" + eachJson(data);
-	}
-	return url;
+function formatUrl(id, url, data) {
+    url = url + "?id=" + id;
+    if (data !== undefined) {
+        url = url + "&" + eachJson(data);
+    }
+    return url;
 }
 
 /**
  * 询问操作
  */
-$.fn.dataGridOptions.confirm = function(id,url,msg,data){
-	var delMsg = msg || "确定要执行该项操作吗?";
-	parent.$.messager.confirm("提示",delMsg,function(r){
-		if(r){
-			data = $.extend({},{id:id},data);
-			$.ajax({
-               type: "post",
-               dataType: "json",
-               data: data,
-               url: url,
-               success: function(data){
-                   if(data.code === 200){
-                       dataGrid.datagrid('reload');
-                   }else{
-                       parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
-                   }
-               },
-               error: function(){
-                   parent.$.messager.alert("提示","服务器超时,请重试","error");
-               }
+$.fn.dataGridOptions.confirm = function (id, url, msg, data) {
+    let delMsg = msg || "确定要执行该项操作吗?";
+    parent.$.messager.confirm("提示", delMsg, function (r) {
+        if (r) {
+            data = $.extend({}, {id: id}, data);
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: data,
+                url: url,
+                success: function (data) {
+                    if (data.code === 200) {
+                        dataGrid.datagrid('reload');
+                    } else {
+                        parent.$.messager.alert("提示", data.msg || "操作失败,请稍后再试", "error");
+                    }
+                },
+                error: function () {
+                    parent.$.messager.alert("提示", "服务器超时,请重试", "error");
+                }
             });
-		}
-	});
+        }
+    });
 };
 
-$.fn.dataGridOptions.wangEditor = function(source,target,originalTarget){
-    var E = window.wangEditor;
+$.fn.dataGridOptions.wangEditor = function (source, target, originalTarget) {
+    let E = window.wangEditor;
     editor = new E(source);
-    editor.customConfig.onchange = function(html){
+    editor.customConfig.onchange = function (html) {
         $(target).text(html);
-        if(originalTarget){
+        if (originalTarget) {
             $(originalTarget).text(editor.txt.text());
         }
     };
@@ -209,10 +212,10 @@ $.fn.dataGridOptions.wangEditor = function(source,target,originalTarget){
     editor.customConfig.uploadImgServer = "/upload/image";
     editor.customConfig.uploadFileName = "image";
     editor.customConfig.uploadImgHooks = {
-        customInsert : function(insertImg,result){
-            if(result.code === 200){
+        customInsert: function (insertImg, result) {
+            if (result.code === 200) {
                 insertImg(result.data.address + result.data.path);
-            }else{
+            } else {
                 alert(result.msg);
             }
         }
@@ -225,31 +228,31 @@ $.fn.dataGridOptions.wangEditor = function(source,target,originalTarget){
 /**
  * 表单提交
  */
-$.fn.dataGridOptions.formSubmit = function(formId,url){
-	$(formId).form({
-		url: url,
-		onSubmit: function(){
-			parent.$.messager.progress({
-	            title: '提示',
-	            text: '数据处理中，请稍后....'
-	        });				
-	        var isValid = $(this).form('validate');
-	        if (!isValid) {
-	            parent.$.messager.progress('close');
-	        }
-	        return isValid;
-		},
-		success: function(data){
-			 parent.$.messager.progress('close');
-		     data = (typeof data === 'object') ? data: $.parseJSON(data);
-		     if(data.code === 200){
-                 parent.$.windowDialog.handler.dialog('close');
-		         parent.$.windowDialog.opennerDataGrid.datagrid('reload');
-		     }else{
-                 parent.$.messager.alert('提示', data.msg, 'warning');
-		     }
-		}
-	});
+$.fn.dataGridOptions.formSubmit = function (formId, url) {
+    $(formId).form({
+        url: url,
+        onSubmit: function () {
+            parent.$.messager.progress({
+                title: '提示',
+                text: '数据处理中，请稍后....'
+            });
+            let isValid = $(this).form('validate');
+            if (!isValid) {
+                parent.$.messager.progress('close');
+            }
+            return isValid;
+        },
+        success: function (data) {
+            parent.$.messager.progress('close');
+            data = (typeof data === 'object') ? data : $.parseJSON(data);
+            if (data.code === 200) {
+                parent.$.windowDialog.handler.dialog('close');
+                parent.$.windowDialog.opennerDataGrid.datagrid('reload');
+            } else {
+                parent.$.messager.alert('提示', data.msg, 'warning');
+            }
+        }
+    });
 };
 /**
  * 表单提交 与上面的区别,上面是针对列表页面的弹出表单,
@@ -258,26 +261,26 @@ $.fn.dataGridOptions.formSubmit = function(formId,url){
  * @param url
  * @param callback 成功回调函数
  */
-$.fn.dataGridOptions.submit = function(formId,url,callback){
+$.fn.dataGridOptions.submit = function (formId, url, callback) {
     $(formId).form({
-        url:url,
-        onSubmit:function(){
+        url: url,
+        onSubmit: function () {
             parent.$.messager.progress({
                 title: '提示',
                 text: '数据处理中，请稍后....'
             });
-            var isValid = $(this).form('validate');
+            let isValid = $(this).form('validate');
             if (!isValid) {
                 parent.$.messager.progress('close');
             }
             return isValid;
         },
-        success:function(data){
+        success: function (data) {
             parent.$.messager.progress('close');
-            data = (typeof data === 'object') ? data: $.parseJSON(data);
-            if(data.code === 200){
-                parent.$.messager.alert('提示', data.msg, 'info',callback);
-            }else{
+            data = (typeof data === 'object') ? data : $.parseJSON(data);
+            if (data.code === 200) {
+                parent.$.messager.alert('提示', data.msg, 'info', callback);
+            } else {
                 parent.$.messager.alert('提示', data.msg, 'warning');
             }
         }
@@ -291,24 +294,24 @@ $.fn.dataGridOptions.submit = function(formId,url,callback){
  * @param msg 删除时提示语
  * @param data 附带的其他参数
  */
-$.fn.treeGridOptions.confirm = function(id,url,msg,data){
-    var confirmMsg = msg || "确定要执行该项操作吗?";
-    parent.$.messager.confirm("提示",confirmMsg,function(r){
-        if(r){
-            data = $.extend({},{id:id},data);
+$.fn.treeGridOptions.confirm = function (id, url, msg, data) {
+    let confirmMsg = msg || "确定要执行该项操作吗?";
+    parent.$.messager.confirm("提示", confirmMsg, function (r) {
+        if (r) {
+            data = $.extend({}, {id: id}, data);
             $.ajax({
-                type:"post",
-                url:url,
-                data:data,
-                dataType:"json",
-                success:function(data){
-                    if(data.code === 200){
+                type: "post",
+                url: url,
+                data: data,
+                dataType: "json",
+                success: function (data) {
+                    if (data.code === 200) {
                         treeGrid.treegrid('reload');
-                    }else{
-                        parent.$.messager.alert("提示",data.msg || "操作失败,请稍后再试","error");
+                    } else {
+                        parent.$.messager.alert("提示", data.msg || "操作失败,请稍后再试", "error");
                     }
                 },
-                error:function(){
+                error: function () {
                     parent.$.messager.alert('提示', "请求数据失败,请联系管理人员", 'error');
                 }
             });
@@ -318,77 +321,77 @@ $.fn.treeGridOptions.confirm = function(id,url,msg,data){
 /**
  * 表单新增或编辑
  */
-$.fn.treeGridOptions.editFun = function(id,title,width,height,url,data){
-	parent.$.windowDialog({
-		title: title,
-		width: width,
-		height: height,
-		href: formatUrl(id,url,data),
-		buttons: [ {
-			text: '确定',
-			handler: function() {
+$.fn.treeGridOptions.editFun = function (id, title, width, height, url, data) {
+    parent.$.windowDialog({
+        title: title,
+        width: width,
+        height: height,
+        href: formatUrl(id, url, data),
+        buttons: [{
+            text: '确定',
+            handler: function () {
                 //必须要设定好这个该dataGridGrid,为后续点击提交表单
-				parent.$.windowDialog.opennerTreeGrid = treeGrid;
+                parent.$.windowDialog.opennerTreeGrid = treeGrid;
                 //默认查找form表单 如果多个则会触发多个表单的提交
-				var f = parent.$.windowDialog.handler.find('form');
-				f.submit();
-			}
-		} ]
-	});
+                let f = parent.$.windowDialog.handler.find('form');
+                f.submit();
+            }
+        }]
+    });
 };
 
 /**
  * 表单提交
  */
-$.fn.treeGridOptions.formSubmit = function(formId,url){
-	$(formId).form({
-		url:url,
-		onSubmit:function(){
-			parent.$.messager.progress({
-	            title: '提示',
-	            text: '数据处理中，请稍后....'
-	        });				
-	        var isValid = $(this).form('validate');
-	        if (!isValid) {
-	            parent.$.messager.progress('close');
-	        }
-	        return isValid;
-		},
-		success:function(data){
-			 parent.$.messager.progress('close');
-		     data = (typeof data === 'object') ? data: $.parseJSON(data);
-		     if(data.code === 200){
-		         parent.$.windowDialog.handler.dialog('close');
-		         parent.$.windowDialog.opennerTreeGrid.treegrid('reload');
-		     }else{
-                 parent.$.messager.alert('提示', data.msg, 'warning');
-		     }
-		}
-	});
+$.fn.treeGridOptions.formSubmit = function (formId, url) {
+    $(formId).form({
+        url: url,
+        onSubmit: function () {
+            parent.$.messager.progress({
+                title: '提示',
+                text: '数据处理中，请稍后....'
+            });
+            let isValid = $(this).form('validate');
+            if (!isValid) {
+                parent.$.messager.progress('close');
+            }
+            return isValid;
+        },
+        success: function (data) {
+            parent.$.messager.progress('close');
+            data = (typeof data === 'object') ? data : $.parseJSON(data);
+            if (data.code === 200) {
+                parent.$.windowDialog.handler.dialog('close');
+                parent.$.windowDialog.opennerTreeGrid.treegrid('reload');
+            } else {
+                parent.$.messager.alert('提示', data.msg, 'warning');
+            }
+        }
+    });
 };
 
 /**
  * 普通get请求
  * @param url
  */
-$.fn.dataGridOptions.get = function(url){
+$.fn.dataGridOptions.get = function (url) {
     parent.$.messager.progress({
         title: '提示',
         text: '数据处理中，请稍后....'
     });
     $.ajax({
-        type:"get",
-        url:url,
-        dataType:"json",
-        success:function(data){
+        type: "get",
+        url: url,
+        dataType: "json",
+        success: function (data) {
             parent.$.messager.progress('close');
-            if(data.code === 200){
+            if (data.code === 200) {
                 dataGrid.datagrid('reload');
-            }else{
+            } else {
                 parent.$.messager.alert('提示', data.msg, 'warning');
             }
         },
-        error:function(){
+        error: function () {
             parent.$.messager.progress('close');
             parent.$.messager.alert('提示', "请求数据失败,请联系管理人员", 'error');
         }
@@ -402,23 +405,23 @@ $.fn.dataGridOptions.get = function(url){
  * @param rowName 选择的列名,同时该列列名作为key传递给后台
  * @return {boolean}
  */
-$.fn.dataGridOptions.select = function(url,unSelectMsg,rowName){
-    var rows = dataGrid.datagrid("getSelections");
-    if(rows.length <= 0){
-        parent.$.messager.alert("提示",unSelectMsg,"warning");
+$.fn.dataGridOptions.select = function (url, unSelectMsg, rowName) {
+    let rows = dataGrid.datagrid("getSelections");
+    if (rows.length <= 0) {
+        parent.$.messager.alert("提示", unSelectMsg, "warning");
         return false;
     }
-    var rowArray = [];
-    $.each(rows,function(i,row){
+    let rowArray = [];
+    $.each(rows, function (i, row) {
         rowArray.push(row[rowName]);
     });
-    var join = rowArray.join(",");
+    let join = rowArray.join(",");
     parent.$.messager.progress({
         title: '提示',
         text: '数据处理中，请稍后....'
     });
 
-    var data = {};
+    let data = {};
     data[rowName] = join;
     $.ajax({
         type: "post",
@@ -427,14 +430,14 @@ $.fn.dataGridOptions.select = function(url,unSelectMsg,rowName){
         data: data,
         success: function (data) {
             parent.$.messager.progress('close');
-            if(data.code === 200){
+            if (data.code === 200) {
                 dataGrid.datagrid("clearSelections");
                 dataGrid.datagrid('reload');
-            }else{
+            } else {
                 parent.$.messager.alert('提示', data.msg, 'warning');
             }
         },
-        error:function(){
+        error: function () {
             parent.$.messager.progress('close');
             parent.$.messager.alert('提示', "请求数据失败,请联系管理人员", 'error');
         }
@@ -464,33 +467,33 @@ $.fn.treeGridOptions.searchFun = function (formId) {
  * @param rootValue 根节点值,注意数据类型一定要和数据库保持一致
  * @param state 节点是关闭还是开启 closed:加载时关闭 open:开启(默认)
  */
-$.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,state){
-    var nodes = [];
-    if(!rows) return nodes;
+$.fn.treeGridOptions.dataFilter = function (rows, id, text, pid, rootValue, state) {
+    let nodes = [];
+    if (!rows) return nodes;
 
-    for(var s = 0,lens = rows.length; s < lens;s++){
+    for (let s = 0, lens = rows.length; s < lens; s++) {
         //一级节点
-        var rootRow = rows[s];
-        if(rootRow[pid] === rootValue){
+        let rootRow = rows[s];
+        if (rootRow[pid] === rootValue) {
             rootRow["text"] = rootRow[text];
             rootRow["state"] = state;
             nodes.push(rootRow);
         }
     }
-    var topNodes = [];
-    for(var x = 0,len = nodes.length; x < len; x++){
+    let topNodes = [];
+    for (let x = 0, len = nodes.length; x < len; x++) {
         //数组复制引用会改变原数组数据,因此下面增加子元素数据是有效的
         topNodes.push(nodes[x]);
     }
 
-    while(topNodes.length){
-        var node = topNodes.shift();
-        for(var i = 0,rowLen = rows.length;i < rowLen; i++){
-            var row = rows[i];
-            if (row[pid] === node[id]){
-                var child = $.extend(row,{});
-                    child["text"] = child[text];
-                if (node.children){
+    while (topNodes.length) {
+        let node = topNodes.shift();
+        for (let i = 0, rowLen = rows.length; i < rowLen; i++) {
+            let row = rows[i];
+            if (row[pid] === node[id]) {
+                let child = $.extend(row, {});
+                child["text"] = child[text];
+                if (node.children) {
                     node.children.push(child);
                 } else {
                     node.children = [child];
@@ -508,14 +511,14 @@ $.fn.treeGridOptions.dataFilter = function(rows,id,text,pid,rootValue,state){
  * @param treeObj tree对象
  * @param ids 待选中的节点id 逗号分割
  */
-$.fn.treeGridOptions.checkbox = function (treeObj,ids){
-    if(ids){
-        var splitArray = ids.split(",");
-        $.each(splitArray,function (i,id) {
-            var node = treeObj.tree('find', id);
+$.fn.treeGridOptions.checkbox = function (treeObj, ids) {
+    if (ids) {
+        let splitArray = ids.split(",");
+        $.each(splitArray, function (i, id) {
+            let node = treeObj.tree('find', id);
             if (node) {
-                var isLeaf = treeObj.tree('isLeaf', node.target);
-                if (isLeaf)  {
+                let isLeaf = treeObj.tree('isLeaf', node.target);
+                if (isLeaf) {
                     treeObj.tree('check', node.target);
                 }
             }
@@ -528,16 +531,16 @@ $.fn.treeGridOptions.checkbox = function (treeObj,ids){
  * @param treeObj treeObj必须在调用该方法的地方声明
  * @return {string} 选中的值
  */
-$.fn.treeGridOptions.checkNode = function(treeObj){
-	var nodes = treeObj.tree("getChecked",['checked','indeterminate']);
-	if(nodes !== null && nodes.length > 0){
-		var nodeId = "";
-		$.each(nodes,function(i,node){
-			nodeId += "," + node.id;
-		});
-		return nodeId.substring(1);
-	}
-	return "";
+$.fn.treeGridOptions.checkNode = function (treeObj) {
+    let nodes = treeObj.tree("getChecked", ['checked', 'indeterminate']);
+    if (nodes !== null && nodes.length > 0) {
+        let nodeId = "";
+        $.each(nodes, function (i, node) {
+            nodeId += "," + node.id;
+        });
+        return nodeId.substring(1);
+    }
+    return "";
 };
 
 /**
@@ -545,18 +548,18 @@ $.fn.treeGridOptions.checkNode = function(treeObj){
  * @param str 字符串
  * @return {boolean} 是否开头
  */
-String.prototype.startWith=function(str){    
-	  var reg = new RegExp("^" + str);
-	  return reg.test(this);       
-	} ;
+String.prototype.startWith = function (str) {
+    let reg = new RegExp("^" + str);
+    return reg.test(this);
+};
 /**
  * 添加字符串方法 结束
  * @param str 字符串呢
  * @return {boolean} 是否结尾
  */
-String.prototype.endWith=function(str){    
-  var reg = new RegExp(str + "$");
-  return reg.test(this);       
+String.prototype.endWith = function (str) {
+    let reg = new RegExp(str + "$");
+    return reg.test(this);
 };
 
 /**
@@ -564,30 +567,30 @@ String.prototype.endWith=function(str){
  * @param opts panel参数,详细配置见easyUI API
  * @returns {jQuery} jquery panel对象
  */
-$.windowDialog = function(opts){
-	if($.windowDialog.handler === undefined){
-		var options = $.extend({
-			title:"easyUI窗口",
-			width:680,
-			height:480,
-			modal:true,
-			border:false,
-            method:'GET',
-			onClose:function(){
-			    //防止部分第三方插件在panel关闭时不会自动关闭
-			    $("body").click();
-				$.windowDialog.handler = undefined;
-				$(this).dialog('destroy');
-			}
-		},opts);
-		return $.windowDialog.handler = $("<div/>").dialog(options);
-	}
+$.windowDialog = function (opts) {
+    if ($.windowDialog.handler === undefined) {
+        let options = $.extend({
+            title: "easyUI窗口",
+            width: 680,
+            height: 480,
+            modal: true,
+            border: false,
+            method: 'GET',
+            onClose: function () {
+                //防止部分第三方插件在panel关闭时不会自动关闭
+                $("body").click();
+                $.windowDialog.handler = undefined;
+                $(this).dialog('destroy');
+            }
+        }, opts);
+        return $.windowDialog.handler = $("<div/>").dialog(options);
+    }
 };
 /**
  * 清空查询条件
  * @param formId
  */
-$.fn.dataGridOptions.cleanFun = function(formId){
+$.fn.dataGridOptions.cleanFun = function (formId) {
     $(formId + ' input').val('');
     dataGrid.datagrid('load', {});
     $("#showAdw")[0].reset();
@@ -597,34 +600,36 @@ $.fn.dataGridOptions.cleanFun = function(formId){
  * 循环json并以url形式返回
  * @returns
  */
-function eachJson(data){
-	var url = "";
-	$.each(data,function(name,value){
-		url += ("&" + name + "=" + value);
-	});
-	return url;
+function eachJson(data) {
+    let url = "";
+    $.each(data, function (name, value) {
+        url += ("&" + name + "=" + value);
+    });
+    return url;
 }
 
 
 /**
  * 添加tabs
  */
-function addTabs(title,url,closable){
-	//判断该tabs是否已经打开
-    var $tabs = $("#div-tabs");
-	var isOpen = $tabs.tabs("exists",title);
-	if(isOpen){
-        $tabs.tabs("select",title);//选中点击的tabs
-        $tabs.tabs("getSelected").children("iframe").attr("src", url);//重新加载数据
-	}else{
-        $tabs.tabs("add",{
-			title:	title,
-			content: createIframe(url),
-			closable: closable,
-			fit: true,
-			width: $tabs.parent().width()
-		});
-	}
+function addTabs(title, url, closable) {
+    //判断该tabs是否已经打开
+    let $tabs = $("#div-tabs");
+    let isOpen = $tabs.tabs("exists", title);
+    if (isOpen) {
+        //选中点击的tabs
+        $tabs.tabs("select", title);
+        //重新加载数据
+        $tabs.tabs("getSelected").children("iframe").attr("src", url);
+    } else {
+        $tabs.tabs("add", {
+            title: title,
+            content: createIframe(url),
+            closable: closable,
+            fit: true,
+            width: $tabs.parent().width()
+        });
+    }
 }
 
 /**
@@ -632,28 +637,28 @@ function addTabs(title,url,closable){
  * @param url
  * @returns
  */
-function createIframe(url){
-	return '<iframe allowtransparency="true" scrolling="no" frameborder="0"  src="'+url+'" style="width:100%;height:99%"></iframe>';
+function createIframe(url) {
+    return '<iframe allowtransparency="true" scrolling="no" frameborder="0"  src="' + url + '" style="width:100%;height:99%"></iframe>';
 }
 
 
 //日期显示的格式化	
-Date.prototype.format = function (format){
-    var o = {
-        "M+": this.getMonth() + 1, //month 
-        "d+": this.getDate(),    //day 
-        "h+": this.getHours(),   //hour 
-        "m+": this.getMinutes(), //minute 
-        "s+": this.getSeconds(), //second
+Date.prototype.format = function (format) {
+    let o = {
+        "M+": this.getMonth() + 1,
+        "d+": this.getDate(),
+        "h+": this.getHours(),
+        "m+": this.getMinutes(),
+        "s+": this.getSeconds(),
         //刻度
         "q+": Math.floor((this.getMonth() + 3) / 3),
         "S": this.getMilliseconds() //millisecond 
     };
     if (/(y+)/.test(format)) {
-        format = format.replace(RegExp.$1,(this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
-    for (var k in o){
-        if (new RegExp("(" + k + ")").test(format)){
+    for (let k in o) {
+        if (new RegExp("(" + k + ")").test(format)) {
             format = format.replace(RegExp.$1, RegExp.$1.length === 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
         }
     }
@@ -666,26 +671,26 @@ Date.prototype.format = function (format){
  * @param type 格式化类型 1: yyyy年MM月dd日 2: yyyy年MM月dd日 hh:mm:ss 3: yyyy-MM-dd 4:yyyy-MM-dd hh:mm:ss
  * @returns {*}
  */
-var getLocalTime = function(value,type) {
+let getLocalTime = function (value, type) {
     if (!value) {
         return '';
     }
-	var dt;
-	if (value instanceof Date) {
-	    dt = value;
-	}else {
-	    dt = new Date(value);
-	}
-	 switch (type){
-	 case 1:
-		 return dt.format("yyyy年MM月dd日");
-	 case 2:
-		 return dt.format("yyyy年MM月dd日 hh:mm:ss");
-	 case 3:
-		 return dt.format("yyyy-MM-dd");
-	 case 4:
-		 return dt.format("yyyy-MM-dd hh:mm:ss");
-	 }
+    let dt;
+    if (value instanceof Date) {
+        dt = value;
+    } else {
+        dt = new Date(value);
+    }
+    switch (type) {
+        case 1:
+            return dt.format("yyyy年MM月dd日");
+        case 2:
+            return dt.format("yyyy年MM月dd日 hh:mm:ss");
+        case 3:
+            return dt.format("yyyy-MM-dd");
+        case 4:
+            return dt.format("yyyy-MM-dd hh:mm:ss");
+    }
 };
 
 /**
@@ -699,8 +704,8 @@ var getLocalTime = function(value,type) {
  * date:yyyy-MM-dd(默认),
  * datetime:yyyy-MM-dd HH:mm:ss
  */
-$.fn.extOptions.dateRange = function (elem,startElem,endElem,type){
-    var typeJson = {
+$.fn.extOptions.dateRange = function (elem, startElem, endElem, type) {
+    let typeJson = {
         year: 'yyyy',
         month: 'yyyy-MM',
         date: 'yyyy-MM-dd',
@@ -713,16 +718,16 @@ $.fn.extOptions.dateRange = function (elem,startElem,endElem,type){
         format: typeJson[type],
         range: "~",
         type: type,
-        done: function(value){
-            var dateSplit = value.split(" ~ ");
+        done: function (value) {
+            let dateSplit = value.split(" ~ ");
             $(startElem).val(dateSplit[0]);
             $(endElem).val(dateSplit[1]);
         }
     });
 };
 
-$.fn.extOptions.date = function(elem,type){
-    var typeJson = {
+$.fn.extOptions.date = function (elem, type) {
+    let typeJson = {
         year: 'yyyy',
         month: 'yyyy-MM',
         date: 'yyyy-MM-dd',
