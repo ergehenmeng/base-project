@@ -21,8 +21,9 @@ import com.eghm.dao.model.User;
 import com.eghm.dao.model.UserScoreLog;
 import com.eghm.handler.chain.HandlerChain;
 import com.eghm.handler.chain.MessageData;
-import com.eghm.handler.chain.service.RegisterHandler;
+import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.model.dto.email.SendEmail;
+import com.eghm.model.dto.ext.*;
 import com.eghm.model.dto.login.AccountLoginDTO;
 import com.eghm.model.dto.login.SmsLoginDTO;
 import com.eghm.model.dto.register.RegisterUserDTO;
@@ -30,7 +31,6 @@ import com.eghm.model.dto.user.BindEmailDTO;
 import com.eghm.model.dto.user.ChangeEmailDTO;
 import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
 import com.eghm.model.dto.user.UserAuthDTO;
-import com.eghm.model.dto.ext.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.model.vo.user.SignInVO;
 import com.eghm.queue.TaskHandler;
@@ -193,7 +193,7 @@ public class UserServiceImpl implements UserService {
         MessageData data = new MessageData();
         data.setUser(user);
         data.setUserRegister(register);
-        handlerChain.execute(data, RegisterHandler.class);
+        handlerChain.execute(data, HandlerEnum.REGISTER);
     }
 
     /**

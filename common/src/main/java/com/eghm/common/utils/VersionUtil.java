@@ -27,7 +27,7 @@ public class VersionUtil {
      * @return 如果source大于等于target则true   否则false
      */
     public static boolean gte(String source, String target) {
-        return parseVersion(source) >= parseVersion(target);
+        return parseInt(source) >= parseInt(target);
     }
 
 
@@ -43,7 +43,7 @@ public class VersionUtil {
      * @param version  v2.10.2
      * @return 21002
      */
-    public static int parseVersion(String version) {
+    public static int parseInt(String version) {
         String[] split = replace(version).split("\\.");
         StringBuilder builder = new StringBuilder();
         try {

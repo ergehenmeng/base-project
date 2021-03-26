@@ -7,7 +7,7 @@ package com.eghm.handler.chain;
  * @author 二哥很猛
  * @date 2018/12/19 17:46
  */
-public interface Handler {
+public interface Handler<T> {
 
     /**
      * 执行业务逻辑
@@ -15,6 +15,6 @@ public interface Handler {
      * @param messageData 传输对象
      * @param invoker     调用链
      */
-    void doHandler(MessageData messageData, HandlerInvoker<? extends Handler> invoker);
+    void doHandler(T messageData, HandlerInvoker<T> invoker);
 }
 

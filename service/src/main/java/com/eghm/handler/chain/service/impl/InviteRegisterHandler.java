@@ -1,12 +1,13 @@
 package com.eghm.handler.chain.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.eghm.handler.chain.annotation.HandlerEnum;
+import com.eghm.handler.chain.annotation.HandlerMark;
 import com.eghm.dao.model.User;
 import com.eghm.dao.model.UserInviteLog;
 import com.eghm.handler.chain.Handler;
 import com.eghm.handler.chain.HandlerInvoker;
 import com.eghm.handler.chain.MessageData;
-import com.eghm.handler.chain.service.RegisterHandler;
 import com.eghm.model.dto.ext.UserRegister;
 import com.eghm.service.user.UserInviteLogService;
 import com.eghm.service.user.UserService;
@@ -23,7 +24,8 @@ import org.springframework.stereotype.Service;
 @Service("inviteRegisterHandler")
 @Order(30)
 @Slf4j
-public class InviteRegisterHandler implements RegisterHandler {
+@HandlerMark(HandlerEnum.REGISTER)
+public class InviteRegisterHandler implements Handler<MessageData> {
 
     private UserInviteLogService userInviteLogService;
 
@@ -40,7 +42,7 @@ public class InviteRegisterHandler implements RegisterHandler {
     }
 
     @Override
-    public void doHandler(MessageData messageData, HandlerInvoker<? extends Handler> invoker) {
+    public void doHandler(MessageData messageData, HandlerInvoker<MessageData> invoker) {
         log.info("注册添加邀请记录");
         UserRegister register = messageData.getUserRegister();
         User dataUser = messageData.getUser();
@@ -57,4 +59,6 @@ public class InviteRegisterHandler implements RegisterHandler {
         }
         invoker.doHandler(messageData);
     }
+
+
 }

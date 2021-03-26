@@ -3,6 +3,10 @@ package com.eghm.web.controller.sys;
 import com.eghm.dao.mapper.MybatisSourceMapper;
 import com.eghm.dao.model.MybatisRoleMenu;
 import com.eghm.dao.model.SysMenu;
+import com.eghm.dao.model.User;
+import com.eghm.handler.chain.HandlerChain;
+import com.eghm.handler.chain.MessageData;
+import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.web.BaseTest;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,9 @@ public class MybatisSourceTest extends BaseTest {
 
     @Autowired
     private MybatisSourceMapper mybatisSourceMapper;
+
+    @Autowired
+    private HandlerChain handlerChain;
 
     @Test
     public void queryById() {
@@ -35,4 +42,13 @@ public class MybatisSourceTest extends BaseTest {
     public void getDiscriminator() {
         System.out.println(mybatisSourceMapper.getDiscriminator(1L));
     }
+
+
+    @Test
+    public void test() {
+        MessageData data = new MessageData();
+        data.setUser(new User());
+        handlerChain.execute(data, HandlerEnum.REGISTER);
+    }
 }
+

@@ -1,9 +1,10 @@
 package com.eghm.handler.chain.service.impl;
 
+import com.eghm.handler.chain.annotation.HandlerEnum;
+import com.eghm.handler.chain.annotation.HandlerMark;
 import com.eghm.handler.chain.Handler;
 import com.eghm.handler.chain.HandlerInvoker;
 import com.eghm.handler.chain.MessageData;
-import com.eghm.handler.chain.service.RegisterHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,11 @@ import org.springframework.stereotype.Service;
 @Service("couponRegisterHandler")
 @Order(20)
 @Slf4j
-public class CouponRegisterHandler implements RegisterHandler {
+@HandlerMark(HandlerEnum.REGISTER)
+public class CouponRegisterHandler implements Handler<MessageData> {
+
     @Override
-    public void doHandler(MessageData messageData, HandlerInvoker<? extends Handler> invoker) {
+    public void doHandler(MessageData messageData, HandlerInvoker<MessageData> invoker) {
         log.info("注册发放优惠券");
         invoker.doHandler(messageData);
     }
