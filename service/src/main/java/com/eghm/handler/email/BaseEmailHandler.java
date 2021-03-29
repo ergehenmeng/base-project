@@ -49,7 +49,7 @@ public class BaseEmailHandler {
      */
     public void execute(SendEmail email) {
         // 获取模板
-        EmailTemplate template = this.getCheckedTemplate(email.getType());
+        EmailTemplate template = this.getValidTemplate(email.getType());
         // 邮件标题
         String title = this.getTitle(template, email);
         // 邮件内容
@@ -61,7 +61,7 @@ public class BaseEmailHandler {
     }
 
 
-    private EmailTemplate getCheckedTemplate(EmailType type) {
+    private EmailTemplate getValidTemplate(EmailType type) {
         EmailTemplate template = emailTemplateService.getByNid(type);
         if (template == null) {
             log.warn("邮件模板未查询到 type:[{}]", type);
