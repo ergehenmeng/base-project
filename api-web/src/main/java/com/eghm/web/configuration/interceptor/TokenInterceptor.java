@@ -93,6 +93,7 @@ public class TokenInterceptor implements InterceptorAdapter {
             Token offlineToken = tokenService.getOfflineToken(accessToken);
             if (offlineToken != null) {
                 log.warn("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
+                tokenService.cleanOfflineToken(accessToken);
                 // 异常接口捎带一些额外信息方便移动端提醒用户
                 throw this.createOfflineException(offlineToken.getUserId());
             }
