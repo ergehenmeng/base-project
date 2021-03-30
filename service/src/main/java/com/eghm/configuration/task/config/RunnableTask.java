@@ -75,7 +75,7 @@ public class RunnableTask implements Runnable {
      * @param errorMsg msg
      */
     private void sendExceptionEmail(String errorMsg) {
-        TaskAlarmService taskAlarmService = (TaskAlarmService) SpringContextUtil.getBean("TaskAlarmService");
+        TaskAlarmService taskAlarmService = (TaskAlarmService) SpringContextUtil.getBean("taskAlarmService");
         taskAlarmService.noticeAlarm(detail, errorMsg);
     }
 
