@@ -7,6 +7,7 @@ import com.eghm.common.exception.ParameterException;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.web.annotation.SkipDataBinder;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2019/7/4 14:24
  */
+@Slf4j
 public class MessageInterceptor implements InterceptorAdapter {
 
     /**
@@ -63,7 +65,8 @@ public class MessageInterceptor implements InterceptorAdapter {
                 String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
                 message.setRequestBody(requestBody);
             } catch (IOException e) {
-                throw new ParameterException(ErrorCode.PARAM_VERIFY_ERROR);
+                log.warn("获取请求参数信息异常", e);
+                throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
             }
         }
         return true;

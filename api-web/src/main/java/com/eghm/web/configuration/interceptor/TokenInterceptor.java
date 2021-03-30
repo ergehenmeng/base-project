@@ -83,7 +83,8 @@ public class TokenInterceptor implements InterceptorAdapter {
         if (message.getUserId() == null) {
             token = tokenService.getByRefreshToken(refreshToken);
             if (token != null) {
-                //在accessToken过期时,可通过refreshToken进行刷新用户信息
+                // 在accessToken过期时,可通过refreshToken进行刷新用户信息
+                log.info("用户token已失效, 采用refreshToken重新激活 userId:[{}]", token.getUserId());
                 tokenService.cacheToken(token);
                 message.setUserId(token.getUserId());
             }

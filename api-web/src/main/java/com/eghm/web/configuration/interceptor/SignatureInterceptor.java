@@ -46,7 +46,7 @@ public class SignatureInterceptor implements InterceptorAdapter {
         long deviation = sysConfigApi.getLong(ConfigConstant.TIMESTAMP_DEVIATION);
         // 服务端时间误差
         if (Math.abs(systemTimestamp - clientTimestamp) > deviation) {
-            log.warn("客户端服务端时间误差:[{}]", Math.abs(systemTimestamp - clientTimestamp));
+            log.warn("客户端服务端时间误差:[{}] ms", Math.abs(systemTimestamp - clientTimestamp));
             throw new ParameterException(ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
         }
         if (StrUtil.isNotBlank(message.getRequestBody())) {

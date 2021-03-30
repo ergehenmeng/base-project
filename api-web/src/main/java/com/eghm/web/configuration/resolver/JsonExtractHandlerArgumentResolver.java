@@ -119,7 +119,7 @@ public class JsonExtractHandlerArgumentResolver implements HandlerMethodArgument
             ApiHolder.get().setRequestBody(requestBody);
             return objectMapper.readValue(requestBody, parameterType);
         } catch (Exception e) {
-            log.error("请求的Json参数解析异常", e);
+            log.error("请求的Json参数解析异常, 对象类型:[{}]", parameter.getParameterType(), e);
             throw new ParameterException(ErrorCode.JSON_FORMAT_ERROR);
         }
     }
