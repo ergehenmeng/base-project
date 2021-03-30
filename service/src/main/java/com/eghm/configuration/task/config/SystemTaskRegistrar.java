@@ -1,6 +1,5 @@
 package com.eghm.configuration.task.config;
 
-import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
@@ -13,7 +12,10 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 
 import javax.annotation.PreDestroy;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicLong;
@@ -39,11 +41,6 @@ public class SystemTaskRegistrar {
      * 任务执行句柄
      */
     private final Map<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>(32);
-
-    /**
-     * 单次定时任务
-     */
-    private final Set<String> onceTaskSet = new ConcurrentHashSet<>(32);
 
     /**
      * 计数器 用于单次任务的nid生成
@@ -112,7 +109,6 @@ public class SystemTaskRegistrar {
     /**
      * 移除旧的定时任务,注意:
      * 1.如果旧定时任务与新的要执行的定时任务一样,则不移除.在添加定时任务时再判断(减少过多的停止任务的操作)
-     * 2.如果旧定时任务是仅执行一次的定时任务,则不移除.由系统参数 task_max_survival_time 来决定是否移除
      *
      * @param taskList 指定的任务列表
      * @see SystemTaskRegistrar#addTask(OnceDetail)
@@ -122,8 +118,8 @@ public class SystemTaskRegistrar {
         Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
-            //将所有不在指定任务列表的中已经在运行的任务全部取消,注意该移除不包含一次执行的定时任务
-            boolean shouldCancel = (isEmpty || taskList.stream().map(CronSystemTask::getNid).noneMatch(s -> s.equals(entry.getKey()))) && !onceTaskSet.contains(entry.getKey());
+            //将所有不在指定任务列表的中已经在运行的任务全部取消
+            boolean shouldCancel = (isEmpty || taskList.stream().map(CronSystemTask::getNid).noneMatch(s -> s.equals(entry.getKey())));
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 iterator.remove();
@@ -154,7 +150,6 @@ public class SystemTaskRegistrar {
         String nid = task.getNid() + "-" + counter.getAndIncrement();
         ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), task.getExecuteTime());
         scheduledFutures.put(nid, schedule);
-        onceTaskSet.add(nid);
     }
 
 
