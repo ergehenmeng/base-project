@@ -112,7 +112,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
                             JavaType javaType = writer.getType();
                             if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
                                 writer.assignNullSerializer(arraySerializer);
-                            } else {
+                            } else if (javaType.hasRawClass(String.class)){
                                 writer.assignNullSerializer(serializer);
                             }
                         }
