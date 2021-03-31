@@ -40,7 +40,7 @@
         <!--sql日志打印版本-->
         <log4jdbc.version>1.2</log4jdbc.version>
         <!--guava工具类版本-->
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         <!--apache工具类版本-->
         <commons.lang3.version>3.4</commons.lang3.version>
         <!--common-io工具类-->
