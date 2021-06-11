@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class OperatorDetailsServiceImpl implements UserDetailsService {
         if (operator.getState() == 0) {
             throw new SystemAuthenticationException(ErrorCode.OPERATOR_LOCKED_ERROR);
         }
-        //查询并组织权限信息
+        // 查询并组织权限信息
         List<GrantedAuthority> authorities = sysMenuService.getAuthorityByOperatorId(operator.getId());
         return new SecurityOperator(operator, authorities);
     }

@@ -20,12 +20,12 @@ public class ApplicationProperties {
     private String version;
 
     /**
-     * 未登陆忽略,不拦截的地址
+     * 未登陆忽略,不拦截的地址 (一般是登陆页面)
      */
     private String[] ignoreUrl = new String[]{};
 
     /**
-     * 已登录 忽略的地址
+     * 已登录 忽略的地址 (即所有用户登陆后均可以看到的页面url)
      */
     private String[] loginIgnoreUrl = new String[]{};
 

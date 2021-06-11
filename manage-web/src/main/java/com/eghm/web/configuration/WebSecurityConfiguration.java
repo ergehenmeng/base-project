@@ -71,7 +71,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		//Iframe同一域名内可以访问
+		// Iframe同一域名内可以访问
 		http.headers().frameOptions().sameOrigin();
 		http.authorizeRequests()
 				.antMatchers(applicationProperties.getIgnoreUrl()).permitAll()
@@ -79,27 +79,33 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and()
 				.formLogin()
+				// 默认登陆地址
 				.loginPage("/")
+				// 登陆请求时请求的地址
 				.loginProcessingUrl("/login")
 				.usernameParameter("mobile")
 				.passwordParameter("password")
+				// 登陆时用户输入的信息解析
 				.authenticationDetailsSource(detailsSource())
+				// 登陆成功或失败的处理逻辑
 				.successHandler(loginSuccessHandler())
 				.failureHandler(loginFailureHandler())
 				.and()
 				.logout()
+				// 退出登陆的逻辑
 				.logoutSuccessHandler(logoutSuccessHandler())
 				.permitAll()
 				.invalidateHttpSession(true);
 		http.sessionManagement()
 				.invalidSessionUrl("/")
+				// 同一个账号只能一个人登陆
 				.maximumSessions(1);
-		//权限拦截
+		// 权限拦截
 		http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
 				.csrf()
 				.disable()
-				//默认访问拒绝由AccessDeniedHandlerImpl(重定向)处理.手动实现返回前台为json
 				.exceptionHandling()
+				// 默认访问拒绝由AccessDeniedHandlerImpl(重定向)处理.手动实现返回前台为json
 				.accessDeniedHandler(accessDeniedHandler());
 	}
 

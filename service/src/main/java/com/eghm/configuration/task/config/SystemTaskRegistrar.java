@@ -68,11 +68,11 @@ public class SystemTaskRegistrar {
      * @param taskList 新的定时任务配置列表
      */
     private void doRefreshTask(List<CronSystemTask> taskList) {
-        //cron校验
+        // cron校验
         this.verifyCronExpression(taskList);
-        //移除不需要运行的任务
+        // 移除不需要运行的任务
         this.removeCronTask(taskList);
-        //添加新的任务
+        // 添加新的任务
         this.addCronTask(taskList);
     }
 
@@ -98,7 +98,7 @@ public class SystemTaskRegistrar {
             return;
         }
         if (scheduledFutures.containsKey(task.getNid())) {
-            //定时任务存在,但配置发生变化 移除旧定时任务
+            // 定时任务存在,但配置发生变化 移除旧定时任务
             scheduledFutures.get(task.getNid()).cancel(false);
         }
         ScheduledFuture<?> schedule = taskScheduler.schedule(task.getRunnable(), task.getTrigger());
@@ -118,7 +118,7 @@ public class SystemTaskRegistrar {
         Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
-            //将所有不在指定任务列表的中已经在运行的任务全部取消
+            // 将所有不在指定任务列表的中已经在运行的任务全部取消
             boolean shouldCancel = (isEmpty || taskList.stream().map(CronSystemTask::getNid).noneMatch(s -> s.equals(entry.getKey())));
             if (shouldCancel) {
                 entry.getValue().cancel(false);
