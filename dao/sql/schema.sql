@@ -660,3 +660,29 @@ CREATE TABLE `user_score_log` (
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户积分日志表(不清零)';
+
+DROP TABLE IF EXISTS `pay_bank`;
+CREATE TABLE `pay_bank` (
+    `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `bank_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行类型',
+    `bank_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行名称',
+    `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='微信支付银行卡类型表';
+
+
+DROP TABLE IF EXISTS `applet_pay_config`;
+CREATE TABLE `applet_pay_config` (
+     `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
+     `nid` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '唯一标识符',
+     `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '微信小程序支付appId',
+     `merchant_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '商户号',
+     `expire_time` smallint(6) DEFAULT NULL COMMENT '订单过期时间 单位:秒',
+     `notify_url` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '订单支付异步通知地址',
+     `order_prefix` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '订单号前缀(限英文)',
+     `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+     `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+     PRIMARY KEY (`id`),
+     UNIQUE KEY `nid` (`nid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='小程序支付配置表';

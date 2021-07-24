@@ -466,6 +466,22 @@ public enum ErrorCode {
      */
     LOTTERY_ERROR(3088, "开奖程序出错啦"),
 
+    /**
+     * 请先配置支付信息
+     */
+    PAY_CONFIG_ERROR(3090, "请先配置支付信息"),
+
+    /**
+     * 支付接口超时
+     */
+    CREATE_PAY_ERROR(3092, "支付接口超时"),
+
+    /**
+     * 未知支付方式(微信)
+     */
+    UNKNOWN_PAY_TYPE(3093, "未知支付方式"),
+
+
     ;
     /**
      * 构造方法

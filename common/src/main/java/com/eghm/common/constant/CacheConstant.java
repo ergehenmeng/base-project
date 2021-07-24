@@ -134,4 +134,10 @@ public class CacheConstant {
      * post提交限制
      */
     public static final String SUBMIT_LIMIT = "submit_limit::%s_%s";
+
+    /**
+     * 小程序配置信息
+     */
+    public static final String APPLET_PAY_CONFIG = "applet_pay_config";
+
 }
