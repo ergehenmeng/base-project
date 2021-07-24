@@ -481,6 +481,11 @@ public enum ErrorCode {
      */
     UNKNOWN_PAY_TYPE(3093, "未知支付方式"),
 
+    /**
+     * 支付响应错误
+     */
+    PAY_ERROR(3111, "支付响应错误"),
+
 
     ;
     /**

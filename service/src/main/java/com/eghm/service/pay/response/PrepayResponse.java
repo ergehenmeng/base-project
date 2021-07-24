@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
- * @author 二哥
+ * @author 二哥很猛
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)

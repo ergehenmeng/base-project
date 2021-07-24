@@ -11,8 +11,11 @@ import com.eghm.service.pay.AppletPayConfigService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.constant.PayConstant;
 import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.service.pay.request.BaseRequest;
 import com.eghm.service.pay.request.PrepayRequest;
+import com.eghm.service.pay.response.ErrorResponse;
+import com.eghm.service.pay.response.OrderResponse;
 import com.eghm.service.pay.response.PrepayResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,11 +55,7 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public PrepayResponse createPrepay(PrepayDTO dto) {
-        AppletPayConfig config = appletPayConfigService.getByNid(dto.getMerchantType());
-        if (config == null) {
-            log.error("未配置小程序商户信息 [{}]", dto.getMerchantType().getCode());
-            throw new BusinessException(ErrorCode.PAY_CONFIG_ERROR);
-        }
+        AppletPayConfig config = this.getConfig(dto.getMerchantType());
         PrepayRequest request = this.createPrepayRequest(dto, config);
         PrepayResponse response = this.doPost(request, PayConstant.PREPAY_URL, PrepayResponse.class);
         response.setOrderNo(request.getOrderNo());
@@ -64,29 +63,24 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override
-    public void queryOrder(String orderNo) {
-
+    public OrderResponse queryOrder(String orderNo, MerchantType merchantType) {
+        AppletPayConfig config = this.getConfig(merchantType);
+        return this.doGet(String.format(PayConstant.QUERY_ORDER_URL, orderNo, config.getMerchantId()), OrderResponse.class);
     }
 
 
-    private <T> T sendGet(String url, Class<T> cls) {
-
-        return null;
+    private <T> T doGet(String url, Class<T> cls) {
+        log.info("get请求参数 [{}]", url);
+        String response = HttpUtil.get(url);
+        return this.parseResponse(response, cls);
     }
 
 
     private <T> T doPost(BaseRequest dto, String url, Class<T> cls) {
         String request = jsonService.toJson(dto);
         log.info("post请求参数 [{}] [{}]", url, dto);
-        try {
-            HttpResponse response = HttpUtil.createPost(url).body(request).execute();
-            String body = response.body();
-            log.info("post响应数据 [{}]", body);
-            return jsonService.fromJson(body, cls);
-        } catch (RuntimeException e) {
-            log.error("post请求异常", e);
-            throw new BusinessException(ErrorCode.CREATE_PAY_ERROR);
-        }
+        HttpResponse response = HttpUtil.createPost(url).body(request).execute();
+        return this.parseResponse(response.body(), cls);
     }
 
     /**
@@ -110,6 +104,23 @@ public class PayServiceImpl implements PayService {
     }
 
 
+    private <T> T parseResponse(String response, Class<T> cls) {
+        ErrorResponse errorResponse = jsonService.fromJson(response, ErrorResponse.class);
+        if (errorResponse.getCode() != null) {
+            log.error("接口响应状态失败 [{}]", response);
+            throw new BusinessException(ErrorCode.PAY_ERROR.getCode(), errorResponse.getMessage());
+        }
+        return jsonService.fromJson(response, cls);
+    }
+
+    private AppletPayConfig getConfig(MerchantType merchantType) {
+        AppletPayConfig config = appletPayConfigService.getByNid(merchantType);
+        if (config == null) {
+            log.error("未配置小程序商户信息 [{}]", merchantType.getCode());
+            throw new BusinessException(ErrorCode.PAY_CONFIG_ERROR);
+        }
+        return config;
+    }
 
 
 }
