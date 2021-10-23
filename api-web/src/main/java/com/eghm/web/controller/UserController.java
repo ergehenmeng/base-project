@@ -36,6 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/user/setup_password")
+    @ApiOperation("设置新密码")
     public RespBody<Object> setupPassword(){
         return RespBody.success();
     }

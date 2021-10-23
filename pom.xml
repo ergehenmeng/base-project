@@ -246,11 +246,6 @@
                 <version>1.5.22</version>
             </dependency>
             <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>swagger-bootstrap-ui</artifactId>
-                <version>1.9.6</version>
-            </dependency>
-            <dependency>
                 <groupId>cn.jpush.api</groupId>
                 <artifactId>jpush-client</artifactId>
                 <version>${jpush.version}</version>
@@ -279,6 +274,11 @@
                 <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>retrofit</artifactId>
                 <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.gitee.sophis</groupId>
+                <artifactId>spring-boot-knif4j-starter</artifactId>
+                <version>1.0.7.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
