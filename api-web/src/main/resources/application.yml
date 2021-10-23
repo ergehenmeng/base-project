@@ -1,0 +1,60 @@
+server:
+  port: 9090
+spring:
+  main:
+    web-application-type: servlet
+  application:
+    name: api
+    # 静态资源配置
+  mvc:
+    throw-exception-if-no-handler-found: true
+    static-path-pattern: /static/**
+    # redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 30s
+    database: 8
+    # mysql配置
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:log4jdbc:mysql://172.16.2.66:3306/project?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC&tinyInt1isBit=false
+    username: root
+    password: root
+    driver-class-name: net.sf.log4jdbc.DriverSpy
+    hikari:
+      connection-test-query: select 'X'
+      maximum-pool-size: 100
+      minimum-idle: 5
+  freemarker:
+    check-template-location: false
+    content-type: text/html
+    settings:
+      number_format: 0.##
+      default_encoding: UTF-8
+      output_encoding: UTF-8
+      url_escaping_charset: UTF-8
+      locale: zh_CN
+      time_format: HH:mm:ss
+      date_format: yyyy-MM-dd
+      datetime_format: yyyy-MM-dd HH:mm:ss
+      template_update_delay: 7200s
+    cache: true
+    template-loader-path: file:////usr/local/template,classpath:/templates/
+  mail:
+    host: smtp.exmail.qq.com
+    password: 6xAf4Gjr39mwlR
+    username: 664956140@qq.com
+    properties:
+      mail.from: 664956140@qq.com
+# mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-aliases-package: com.eghm.model;com.eghm.request
+  configuration:
+    lazy-loading-enabled: true
+    map-underscore-to-camel-case: true
+application:
+  upload-dir: /data/
+  ignore-url:
+    - /doc.html
