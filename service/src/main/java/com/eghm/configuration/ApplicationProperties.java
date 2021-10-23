@@ -39,6 +39,18 @@ public class ApplicationProperties {
      */
     private String secretKey = "Mfw7MfWbaUbvz7X3aKqItx94oAUQH60FiKXe65QN3cUTbwJ2V2ux6ilf361yEU==";
 
+    /**
+     * 自动针对@ResponseBody进行包装
+     */
+    private String basePackageWrapper;
+
+    public String getBasePackageWrapper() {
+        return basePackageWrapper;
+    }
+
+    public void setBasePackageWrapper(String basePackageWrapper) {
+        this.basePackageWrapper = basePackageWrapper;
+    }
 
     public String getVersion() {
         return version;

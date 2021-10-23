@@ -1,10 +1,11 @@
 package com.eghm.web.configuration.handler;
 
 
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.annotation.SkipWrapper;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.web.annotation.SkipAccess;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -13,7 +14,6 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import springfox.documentation.spring.web.json.Json;
 
 import javax.annotation.Nullable;
 
@@ -25,19 +25,20 @@ import javax.annotation.Nullable;
 @Slf4j
 public class WrapperRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
+    @Autowired
+    private ApplicationProperties applicationProperties;
+
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
-        return !returnType.hasMethodAnnotation(SkipWrapper.class)
-                && !returnType.hasMethodAnnotation(SkipAccess.class);
+        // 只针对部分controller且没有标示SkipWrapper的返回值进行包装
+        return applicationProperties.getBasePackageWrapper() != null
+                && returnType.getDeclaringClass().getPackage().getName().startsWith(applicationProperties.getBasePackageWrapper())
+                && !returnType.hasMethodAnnotation(SkipWrapper.class);
     }
 
     @Override
     public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType, @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType, @Nullable ServerHttpRequest request, @Nullable ServerHttpResponse response) {
-        //过滤掉swagger2返回前台的数据
-        if (body instanceof Json) {
-            return body;
-        }
-        //只对响应信息中的data进行加密,减少前端不必要的解密工作
+        // 可以针对data进行加密
         if (body instanceof RespBody) {
             return body;
         }

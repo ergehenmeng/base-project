@@ -41,6 +41,13 @@
       "defaultValue": "false",
       "description": "是否开启定时任务",
       "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.ApplicationProperties",
+      "name": "application.base-package-wrapper",
+      "defaultValue": "com.eghm.web.controller",
+      "description": "响应信息包装生效路径",
+      "type": "java.lang.String"
     }
   ]
 }
