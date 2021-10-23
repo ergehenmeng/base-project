@@ -14,9 +14,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * 登陆,找回密码相关
@@ -42,7 +44,7 @@ public class LoginController {
     @ApiOperation("发送登陆验证码")
     @PostMapping("/login/send_sms")
     @SkipAccess
-    public RespBody<Object> sendSms(LoginSendSmsDTO request) {
+    public RespBody<Object> sendSms(@RequestBody @Valid LoginSendSmsDTO request) {
         userService.sendLoginSms(request.getMobile());
         return RespBody.success();
     }
@@ -53,7 +55,7 @@ public class LoginController {
     @ApiOperation("短信验证码登陆")
     @PostMapping("/login/mobile")
     @SkipAccess
-    public RespBody<LoginTokenVO> mobile(SmsLoginDTO login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> mobile(@RequestBody @Valid SmsLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         return RespBody.success(userService.smsLogin(login));
     }
@@ -64,7 +66,7 @@ public class LoginController {
     @ApiOperation("手机或邮箱密码登陆")
     @PostMapping("/login/account")
     @SkipAccess
-    public RespBody<LoginTokenVO> account(AccountLoginDTO login, HttpServletRequest request) {
+    public RespBody<LoginTokenVO> account(@RequestBody @Valid AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         login.setSerialNumber(ApiHolder.get().getSerialNumber());
         return RespBody.success(userService.accountLogin(login));

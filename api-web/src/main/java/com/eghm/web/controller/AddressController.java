@@ -13,8 +13,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -37,7 +39,7 @@ public class AddressController {
      */
     @PostMapping("/address/save")
     @ApiOperation("添加地址")
-    public RespBody<Object> save(AddressAddDTO request) {
+    public RespBody<Object> save(@RequestBody @Valid AddressAddDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userAddressService.addUserAddress(request);
         return RespBody.success();
@@ -48,7 +50,7 @@ public class AddressController {
      */
     @PostMapping("/address/set_default")
     @ApiOperation("设置默认地址")
-    public RespBody<Object> setDefault(IdDTO request) {
+    public RespBody<Object> setDefault(@RequestBody @Valid IdDTO request) {
         userAddressService.setDefault(request.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }
@@ -68,7 +70,7 @@ public class AddressController {
      */
     @PostMapping("/address/delete")
     @ApiOperation("设置默认地址")
-    public RespBody<Object> delete(IdDTO request) {
+    public RespBody<Object> delete(@RequestBody @Valid IdDTO request) {
         userAddressService.deleteAddress(request.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }
@@ -78,7 +80,7 @@ public class AddressController {
      */
     @PostMapping("/address/update")
     @ApiOperation("编辑地址")
-    public RespBody<Object> update(AddressEditDTO request) {
+    public RespBody<Object> update(@RequestBody @Valid AddressEditDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userAddressService.updateAddress(request);
         return RespBody.success();

@@ -11,8 +11,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -46,7 +48,7 @@ public class DeviceController {
      */
     @ApiOperation("解除设备绑定")
     @PostMapping("/device/unbind")
-    public RespBody<Object> unbind(DeviceUnbindDTO request) {
+    public RespBody<Object> unbind(@RequestBody @Valid  DeviceUnbindDTO request) {
         loginDeviceService.deleteLoginDevice(ApiHolder.getUserId(), request.getSerialNumber());
         return RespBody.success();
     }

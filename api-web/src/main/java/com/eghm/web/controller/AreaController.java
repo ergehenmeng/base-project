@@ -10,8 +10,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -35,7 +37,7 @@ public class AreaController {
      */
     @ApiOperation("获取省市区列表")
     @GetMapping("/area/list")
-    public RespBody<List<SysAreaVO>> list(AreaQueryDTO request) {
+    public RespBody<List<SysAreaVO>> list(@RequestBody @Valid AreaQueryDTO request) {
         List<SysAreaVO> voList = sysAreaService.getByPid(request.getPid());
         return RespBody.success(voList);
     }

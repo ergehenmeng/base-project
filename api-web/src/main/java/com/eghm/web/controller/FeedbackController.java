@@ -10,7 +10,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -33,7 +36,7 @@ public class FeedbackController{
      */
     @PostMapping("/feedback/submit")
     @ApiOperation("保存反馈信息")
-    public RespBody<Object> submit(FeedbackAddDTO request) {
+    public RespBody<Object> submit(@RequestBody @Valid FeedbackAddDTO request) {
         RequestMessage message = ApiHolder.get();
         request.setSystemVersion(message.getOsVersion());
         request.setVersion(message.getVersion());

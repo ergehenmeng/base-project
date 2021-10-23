@@ -6,7 +6,6 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
-import com.eghm.web.annotation.SkipDataBinder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 
@@ -59,8 +58,8 @@ public class MessageInterceptor implements InterceptorAdapter {
         message.setTimestamp(timestamp);
         message.setSignature(signature);
         message.setSerialNumber(serialNumber);
-        // 需要将requestBody中的数据采集
-        if (supportHandler(handler) && getAnnotation(handler, SkipDataBinder.class) == null) {
+        // 需要将requestBody中的数据采集,方便做日志
+        if (supportHandler(handler)) {
             try {
                 String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
                 message.setRequestBody(requestBody);

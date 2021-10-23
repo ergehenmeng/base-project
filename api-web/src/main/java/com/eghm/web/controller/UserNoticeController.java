@@ -14,7 +14,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author 殿小二
@@ -36,7 +39,7 @@ public class UserNoticeController {
      */
     @GetMapping("/notice/list_page")
     @ApiOperation("分页查询站内信列表")
-    public RespBody<Paging<UserNoticeVO>> listPage(PagingQuery query) {
+    public RespBody<Paging<UserNoticeVO>> listPage(@RequestBody @Valid PagingQuery query) {
         Paging<UserNoticeVO> paging = userNoticeService.getByPage(query, ApiHolder.getUserId());
         return RespBody.success(paging);
     }
@@ -46,7 +49,7 @@ public class UserNoticeController {
      */
     @PostMapping("/notice/delete")
     @ApiOperation("删除站内信")
-    public RespBody<Object> delete(IdDTO dto) {
+    public RespBody<Object> delete(@RequestBody @Valid IdDTO dto) {
         userNoticeService.deleteNotice(dto.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }
@@ -56,7 +59,7 @@ public class UserNoticeController {
      */
     @PostMapping("/notice/set_read")
     @ApiOperation("设置消息已读(消息未读时才调用)")
-    public RespBody<Object> setRead(IdDTO dto) {
+    public RespBody<Object> setRead(@RequestBody @Valid IdDTO dto) {
         userNoticeService.setNoticeRead(dto.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }

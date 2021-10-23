@@ -7,7 +7,6 @@ import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitFrequencyLimitInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
-import com.eghm.web.configuration.resolver.JsonExtractHandlerArgumentResolver;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -48,17 +47,6 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
         registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/swagger/dist/");
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(jsonExtractHandlerArgumentResolver());
-    }
-
-
-    @Bean
-    public JsonExtractHandlerArgumentResolver jsonExtractHandlerArgumentResolver() {
-        return new JsonExtractHandlerArgumentResolver();
     }
 
     /**

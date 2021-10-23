@@ -12,7 +12,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author 殿小二
@@ -35,7 +38,7 @@ public class ScoreController {
      */
     @GetMapping("/score/list_page")
     @ApiOperation("用户积分列表")
-    public RespBody<Paging<UserScoreVO>> listPage(UserScoreQueryDTO request) {
+    public RespBody<Paging<UserScoreVO>> listPage(@RequestBody @Valid UserScoreQueryDTO request) {
         request.setUserId(ApiHolder.getUserId());
         Paging<UserScoreVO> page = userScoreLogService.getByPage(request);
         return RespBody.success(page);

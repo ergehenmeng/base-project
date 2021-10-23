@@ -14,8 +14,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,7 +41,7 @@ public class BannerController {
      */
     @GetMapping("/banner/list")
     @ApiOperation("查询可用的轮播图列表")
-    public RespBody<List<BannerVO>> list(BannerQueryDTO dto) {
+    public RespBody<List<BannerVO>> list(@RequestBody @Valid BannerQueryDTO dto) {
         List<Banner> bannerList = bannerService.getBanner(Channel.valueOf(ApiHolder.getChannel()), dto.getClassify());
         return RespBody.success(DataUtil.convert(bannerList, banner -> DataUtil.copy(banner, BannerVO.class)));
     }
