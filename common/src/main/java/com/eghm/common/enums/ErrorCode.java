@@ -13,7 +13,7 @@ public enum ErrorCode {
     /**
      * 点击太快啦~~
      */
-    SUBMIT_FREQUENTLY(400, "点击太快啦~~"),
+    SUBMIT_FREQUENTLY(400, "操作太快啦~~"),
 
     /**
      * 木有访问的权限

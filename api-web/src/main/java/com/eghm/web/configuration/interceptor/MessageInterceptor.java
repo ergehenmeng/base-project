@@ -59,7 +59,7 @@ public class MessageInterceptor implements InterceptorAdapter {
         message.setSignature(signature);
         message.setSerialNumber(serialNumber);
         // 需要将requestBody中的数据采集,方便做日志
-        if (supportHandler(handler)) {
+        if (this.supportHandler(handler)) {
             try {
                 String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
                 message.setRequestBody(requestBody);

@@ -17,7 +17,7 @@ public class ByteHttpRequestFilter extends AbstractIgnoreFilter {
 
     @Override
     protected void doInternalFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        //需要包装字节对象方便多次读写
+        // 需要包装字节对象方便多次读写
         ServletRequestWrapper wrapper = new ByteHttpServletRequestWrapper((HttpServletRequest) request);
         chain.doFilter(wrapper, response);
     }

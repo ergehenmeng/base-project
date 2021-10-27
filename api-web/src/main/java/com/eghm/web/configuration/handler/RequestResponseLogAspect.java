@@ -34,8 +34,7 @@ public class RequestResponseLogAspect {
     }
 
     /**
-     * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
-     * {@link com.google.gson.annotations.Expose} serialize = false
+     * 操作日志,采用默认jackson进行序列化
      *
      * @param joinPoint 切入点
      * @return aop方法调用结果对象
