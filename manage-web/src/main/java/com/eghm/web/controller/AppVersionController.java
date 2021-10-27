@@ -15,10 +15,13 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -81,7 +84,8 @@ public class AppVersionController {
      */
     @PostMapping("/version/add")
     @Mark
-    public RespBody<Object> add(VersionAddRequest request, MultipartFile file) {
+    @ApiImplicitParam(name = "file", value = "上传的文件", paramType = "formData", dataType = "file", required = true)
+    public RespBody<Object> add(VersionAddRequest request, @RequestParam("file") MultipartFile file) {
         if (file != null && !file.isEmpty()) {
             long maxSize = sysConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
             FilePath filePath = fileService.saveFile(file, CommonConstant.VERSION, maxSize);
