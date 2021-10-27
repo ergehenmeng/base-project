@@ -25,7 +25,6 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
@@ -66,7 +65,6 @@ public class OperatorController {
      * @return 成功状态
      */
     @PostMapping("/operator/change_password")
-    @ResponseBody
     @Mark
     public RespBody<Object> changePassword(HttpSession session, PasswordEditRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
@@ -89,7 +87,6 @@ public class OperatorController {
      * @return 列表
      */
     @GetMapping("/operator/list_page")
-    @ResponseBody
     public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
         PageInfo<SysOperator> page = sysOperatorService.getByPage(request);
         return new Paging<>(page);
@@ -102,7 +99,6 @@ public class OperatorController {
      * @return 成功
      */
     @PostMapping("/operator/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> addOperator(OperatorAddRequest request) {
         sysOperatorService.addOperator(request);
@@ -134,7 +130,6 @@ public class OperatorController {
      * @return 成功
      */
     @PostMapping("/operator/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> editOperator(OperatorEditRequest request) {
         sysOperatorService.updateOperator(request);
@@ -147,7 +142,6 @@ public class OperatorController {
      * @return 成功
      */
     @PostMapping("/operator/reset_password")
-    @ResponseBody
     @Mark
     public RespBody<Object> resetPassword(Long id) {
         sysOperatorService.resetPassword(id);
@@ -158,7 +152,6 @@ public class OperatorController {
      * 锁屏操作
      */
     @PostMapping("/lock_screen")
-    @ResponseBody
     @Mark
     public RespBody<Object> lockScreen() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
@@ -170,7 +163,6 @@ public class OperatorController {
      * 解锁
      */
     @PostMapping("/unlock_screen")
-    @ResponseBody
     @Mark
     public RespBody<Object> unlockScreen(String password) {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
@@ -183,7 +175,6 @@ public class OperatorController {
      * 锁定用户
      */
     @PostMapping("/operator/lock_operator")
-    @ResponseBody
     @Mark
     public RespBody<Object> lockOperator(Long id) {
         sysOperatorService.lockOperator(id);
@@ -194,7 +185,6 @@ public class OperatorController {
      * 解锁用户
      */
     @PostMapping("/operator/unlock_operator")
-    @ResponseBody
     @Mark
     public RespBody<Object> unlock(Long id) {
         sysOperatorService.unlockOperator(id);
@@ -205,7 +195,6 @@ public class OperatorController {
      * 删除用户
      */
     @PostMapping("/operator/delete")
-    @ResponseBody
     @Mark
     public RespBody<Object> delete(Long id) {
         sysOperatorService.deleteOperator(id);

@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -46,7 +45,6 @@ public class SysBulletinController {
      * 系统公告列表查询
      */
     @GetMapping("/bulletin/list_page")
-    @ResponseBody
     public Paging<SysBulletin> listPage(BulletinQueryRequest request) {
         PageInfo<SysBulletin> byPage = sysBulletinService.getByPage(request);
         return DataUtil.convert(byPage, notice -> {
@@ -59,7 +57,6 @@ public class SysBulletinController {
      * 新增公告信息
      */
     @PostMapping("/bulletin/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> add(BulletinAddRequest request) {
         if (StrUtil.isBlank(request.getOriginalContent())) {
@@ -83,7 +80,6 @@ public class SysBulletinController {
      * 发布公告
      */
     @PostMapping("/bulletin/publish")
-    @ResponseBody
     @Mark
     public RespBody<Object> publish(Long id) {
         sysBulletinService.publish(id);
@@ -94,7 +90,6 @@ public class SysBulletinController {
      * 取消发布的公告
      */
     @PostMapping("/bulletin/cancel_publish")
-    @ResponseBody
     @Mark
     public RespBody<Object> cancelPublish(Long id) {
         sysBulletinService.cancelPublish(id);
@@ -105,7 +100,6 @@ public class SysBulletinController {
      * 编辑公告信息
      */
     @PostMapping("/bulletin/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(BulletinEditRequest request) {
         if (StrUtil.isBlank(request.getOriginalContent())) {
@@ -119,7 +113,6 @@ public class SysBulletinController {
      * 删除公告信息
      */
     @PostMapping("/bulletin/delete")
-    @ResponseBody
     @Mark
     public RespBody<Object> delete(Long id) {
         sysBulletinService.deleteNotice(id);

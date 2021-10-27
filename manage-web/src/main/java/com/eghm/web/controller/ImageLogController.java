@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -74,7 +73,6 @@ public class ImageLogController {
      * @return 分页数据
      */
     @GetMapping("/image/list_page")
-    @ResponseBody
     public Paging<ImageLog> listPage(ImageQueryRequest request) {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.convert(page, imageLog -> {
@@ -91,7 +89,6 @@ public class ImageLogController {
      * @return 成功
      */
     @PostMapping("/image/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> addImage(ImageAddRequest request, MultipartFile imgFile) {
         if (imgFile != null && !imgFile.isEmpty()) {
@@ -110,7 +107,6 @@ public class ImageLogController {
      * @return 成功
      */
     @PostMapping("/image/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> editImage(ImageEditRequest request) {
         imageLogService.updateImageLog(request);
@@ -125,7 +121,6 @@ public class ImageLogController {
      * @return 删除
      */
     @PostMapping("/image/delete")
-    @ResponseBody
     @Mark
     public RespBody<Object> deleteImage(Long id) {
         imageLogService.deleteImageLog(id);

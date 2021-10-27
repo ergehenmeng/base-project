@@ -12,7 +12,10 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -57,7 +60,6 @@ public class MenuController {
      * @return list
      */
     @GetMapping("/menu/list_page")
-    @ResponseBody
     public List<SysMenu> listPage() {
         return sysMenuService.getAllList();
     }
@@ -83,7 +85,6 @@ public class MenuController {
      * @return 成功状态
      */
     @PostMapping("/menu/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> add(MenuAddRequest request) {
         if (request.getGrade() > SysMenu.BUTTON) {
@@ -101,7 +102,6 @@ public class MenuController {
      * @return 成功返回值
      */
     @PostMapping("/menu/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(MenuEditRequest request) {
         sysMenuService.updateMenu(request);
@@ -116,7 +116,6 @@ public class MenuController {
      * @return 成功后的返回信息
      */
     @PostMapping("/menu/delete")
-    @ResponseBody
     @Mark
     public RespBody<Object> delete(Long id) {
         sysMenuService.deleteMenu(id);
@@ -130,7 +129,6 @@ public class MenuController {
      * @return 菜单列表
      */
     @GetMapping("/operator/menu_list")
-    @ResponseBody
     public List<SysMenu> operatorMenuList() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         return sysMenuService.getList(operator.getId());

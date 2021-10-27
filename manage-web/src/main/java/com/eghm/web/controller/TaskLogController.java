@@ -8,7 +8,6 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,7 +28,6 @@ public class TaskLogController {
      * 分页查询定时任务列表
      */
     @GetMapping("/task_log/list_page")
-    @ResponseBody
     public Paging<TaskLog> listPage(TaskLogQueryRequest request) {
         PageInfo<TaskLog> byPage = taskLogService.getByPage(request);
         return new Paging<>(byPage);

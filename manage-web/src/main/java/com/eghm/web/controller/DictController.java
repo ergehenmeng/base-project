@@ -9,11 +9,9 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -37,7 +35,6 @@ public class DictController {
      * @return 分页列表
      */
     @GetMapping("/dict/list_page")
-    @ResponseBody
     public Paging<SysDict> listPage(DictQueryRequest request) {
         return new Paging<>(sysDictService.getByPage(request));
     }
@@ -62,7 +59,6 @@ public class DictController {
      * @return 成功响应
      */
     @PostMapping("/dict/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> add(DictAddRequest request) {
         sysDictService.addDict(request);
@@ -76,7 +72,6 @@ public class DictController {
      * @return 结果
      */
     @PostMapping("/dict/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(DictEditRequest request) {
         sysDictService.updateDict(request);
@@ -91,7 +86,6 @@ public class DictController {
      * @return 成功响应
      */
     @PostMapping("/dict/delete")
-    @ResponseBody
     @Mark
     public RespBody<Object> delete(Long id) {
         sysDictService.deleteDict(id);

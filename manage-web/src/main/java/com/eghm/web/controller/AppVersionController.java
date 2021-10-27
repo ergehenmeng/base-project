@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,7 +53,6 @@ public class AppVersionController {
      * app版本管理列表
      */
     @GetMapping("/version/list_page")
-    @ResponseBody
     public Paging<AppVersion> listPage(VersionQueryRequest request) {
         PageInfo<AppVersion> byPage = appVersionService.getByPage(request);
         return new Paging<>(byPage);
@@ -80,7 +78,6 @@ public class AppVersionController {
      * 添加app版本信息
      */
     @PostMapping("/version/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> add(VersionAddRequest request, MultipartFile file) {
         if (file != null && !file.isEmpty()) {
@@ -96,7 +93,6 @@ public class AppVersionController {
      * 编辑保存app版本信息
      */
     @PostMapping("/version/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(VersionEditRequest request) {
         appVersionService.editAppVersion(request);
@@ -109,7 +105,6 @@ public class AppVersionController {
      * @param id 主键
      */
     @PostMapping("/version/put_away")
-    @ResponseBody
     @Mark
     public RespBody<Object> putAway(Long id) {
         appVersionService.putAwayVersion(id);
@@ -122,7 +117,6 @@ public class AppVersionController {
      * @param id 主键
      */
     @PostMapping("/version/sold_out")
-    @ResponseBody
     @Mark
     public RespBody<Object> soldOut(Long id) {
         appVersionService.soldOutVersion(id);
@@ -133,7 +127,6 @@ public class AppVersionController {
      * 删除版本信息
      */
     @PostMapping("/version/delete")
-    @ResponseBody
     @Mark
     public RespBody<Object> delete(Long id) {
         appVersionService.deleteVersion(id);

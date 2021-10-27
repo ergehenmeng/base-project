@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -44,7 +43,6 @@ public class PushTemplateController {
      * 分页查询推送消息模板信息
      */
     @GetMapping("/push_template/list_page")
-    @ResponseBody
     public Paging<PushTemplate> listPage(PushTemplateQueryRequest request) {
         PageInfo<PushTemplate> byPage = pushTemplateService.getByPage(request);
         return new Paging<>(byPage);
@@ -66,7 +64,6 @@ public class PushTemplateController {
      * 推送模板编辑保存
      */
     @PostMapping("/push_template/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(PushTemplateEditRequest request) {
         pushTemplateService.editPushTemplate(request);

@@ -34,7 +34,6 @@ public class FeedbackController {
      * 分页查询反馈列表
      */
     @GetMapping("/feedback/list_page")
-    @ResponseBody
     public Paging<FeedbackVO> listPage(FeedbackQueryRequest request) {
         PageInfo<FeedbackVO> byPage = feedbackService.getByPage(request);
         return new Paging<>(byPage);

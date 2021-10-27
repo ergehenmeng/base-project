@@ -7,11 +7,9 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,7 +34,6 @@ public class DeptController {
      * @return list
      */
     @GetMapping("/dept/list_page")
-    @ResponseBody
     public List<SysDept> listPage() {
         return sysDeptService.getDepartment();
     }
@@ -55,7 +52,6 @@ public class DeptController {
      * 添加部门节点信息
      */
     @PostMapping("/dept/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> add(DeptAddRequest request) {
         sysDeptService.addDepartment(request);
@@ -76,7 +72,6 @@ public class DeptController {
      * 编辑部门节点信息
      */
     @PostMapping("/dept/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(DeptEditRequest request) {
         sysDeptService.editDepartment(request);

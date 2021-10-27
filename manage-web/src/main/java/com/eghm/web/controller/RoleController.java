@@ -1,23 +1,21 @@
 package com.eghm.web.controller;
 
 import com.eghm.dao.model.SysRole;
-import com.eghm.model.dto.role.RoleAddRequest;
-import com.eghm.model.dto.role.RoleEditRequest;
-import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.model.dto.ext.CheckBox;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.role.RoleAddRequest;
+import com.eghm.model.dto.role.RoleEditRequest;
+import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -43,7 +41,6 @@ public class RoleController {
      * @return 列表
      */
     @GetMapping("/role/list_page")
-    @ResponseBody
     public Paging<SysRole> listPage(RoleQueryRequest request) {
         PageInfo<SysRole> page = sysRoleService.getByPage(request);
         return new Paging<>(page);
@@ -55,7 +52,6 @@ public class RoleController {
      * @return 角色列表
      */
     @PostMapping("/role/list")
-    @ResponseBody
     public List<CheckBox> list() {
         List<SysRole> list = sysRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
@@ -82,7 +78,6 @@ public class RoleController {
      * @return 成功
      */
     @PostMapping("/role/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(RoleEditRequest request) {
         sysRoleService.updateRole(request);
@@ -96,7 +91,6 @@ public class RoleController {
      * @return 成功
      */
     @PostMapping("/role/delete")
-    @ResponseBody
     @Mark
     public RespBody<Object> delete(Long id) {
         sysRoleService.deleteRole(id);
@@ -110,7 +104,6 @@ public class RoleController {
      * @return 成功
      */
     @PostMapping("/role/add")
-    @ResponseBody
     @Mark
     public RespBody<Object> add(RoleAddRequest request) {
         sysRoleService.addRole(request);
@@ -141,7 +134,6 @@ public class RoleController {
      * @return 响应
      */
     @PostMapping("/role/auth")
-    @ResponseBody
     @Mark
     public RespBody<Object> authRole(Long roleId, String menuIds) {
         sysRoleService.authMenu(roleId, menuIds);

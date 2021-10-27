@@ -55,7 +55,6 @@ public class CaptchaController {
      * @throws IOException 写异常
      */
     @GetMapping("/captcha")
-    @ResponseBody
     public void captcha(HttpSession session, HttpServletResponse response) throws IOException {
         String text = producer.createText();
         writeBack(CommonConstant.IMG_AUTH_CODE, text, session, response);

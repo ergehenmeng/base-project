@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -41,7 +40,6 @@ public class TaskConfigController {
      * 分页查询定时任务列表
      */
     @GetMapping("/task/list_page")
-    @ResponseBody
     public Paging<TaskConfig> listPage(TaskQueryRequest request) {
         PageInfo<TaskConfig> byPage = taskConfigService.getByPage(request);
         return new Paging<>(byPage);
@@ -61,7 +59,6 @@ public class TaskConfigController {
      * 定时任务编辑保存
      */
     @PostMapping("/task/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(TaskEditRequest request) {
         taskConfigService.editTaskConfig(request);
@@ -72,7 +69,6 @@ public class TaskConfigController {
      * 刷新定时任务配置信息
      */
     @PostMapping("/task/refresh")
-    @ResponseBody
     @Mark
     public RespBody<Object> refresh() {
         systemTaskRegistrar.loadOrRefreshTask();

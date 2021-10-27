@@ -9,7 +9,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 操作日志注解 只有被注释才会保存到数据库
+ * 操作日志注解
  *
  * @author 二哥很猛
  * @date 2019/1/15 16:15

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -35,7 +34,6 @@ public class SmsTemplateController {
      * 短信模板分页列表
      */
     @GetMapping("/sms_template/list_page")
-    @ResponseBody
     public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request) {
         PageInfo<SmsTemplate> byPage = smsTemplateService.getByPage(request);
         return new Paging<>(byPage);
@@ -55,7 +53,6 @@ public class SmsTemplateController {
      * 短信模板编辑保存
      */
     @PostMapping("/sms_template/edit")
-    @ResponseBody
     @Mark
     public RespBody<Object> edit(SmsTemplateEditRequest request) {
         smsTemplateService.updateSmsTemplate(request);

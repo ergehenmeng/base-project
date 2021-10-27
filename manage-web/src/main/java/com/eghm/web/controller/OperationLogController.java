@@ -7,7 +7,6 @@ import com.eghm.service.sys.OperationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -31,7 +30,6 @@ public class OperationLogController {
      * @return 分页
      */
     @GetMapping("/operation_log/list_page")
-    @ResponseBody
     public Paging<SysOperationLog> listPage(OperationQueryRequest request) {
         return new Paging<>(operationLogService.getByPage(request));
     }

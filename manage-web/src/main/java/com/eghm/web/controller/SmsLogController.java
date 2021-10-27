@@ -7,7 +7,6 @@ import com.eghm.service.sys.SmsLogService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -30,7 +29,6 @@ public class SmsLogController {
      * 分页查询短信记录列表
      */
     @GetMapping("/sms_log/list_page")
-    @ResponseBody
     public Paging<SmsLog> listPage(SmsLogQueryRequest request) {
         PageInfo<SmsLog> byPage = smsLogService.getByPage(request);
         return new Paging<>(byPage);
