@@ -28,6 +28,9 @@ application:
     - /index
     - /captcha
     - /**/captcha
+    - /doc.html
+    - /v2/api-docs
+    - /swagger-resources/**
   ## 项目版本号
   version: 0.6.1
   ## 登陆后不需要拦截的url AntPathRequestMatcher匹配规则
@@ -35,3 +38,4 @@ application:
     - /main
     - /portal
     - /upload
+

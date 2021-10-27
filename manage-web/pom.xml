@@ -70,6 +70,10 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.gitee.sophis</groupId>
+            <artifactId>spring-boot-knif4j-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

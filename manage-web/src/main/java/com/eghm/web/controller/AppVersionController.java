@@ -14,6 +14,7 @@ import com.eghm.service.common.FileService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2019/8/22 15:08
  */
 @RestController
+@Api(tags = "版本管理")
 public class AppVersionController {
 
     private AppVersionService appVersionService;

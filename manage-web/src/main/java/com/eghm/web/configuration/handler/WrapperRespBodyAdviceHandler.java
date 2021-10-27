@@ -1,9 +1,11 @@
 package com.eghm.web.configuration.handler;
 
 
+import com.eghm.configuration.ApplicationProperties;
 import com.eghm.configuration.annotation.SkipWrapper;
 import com.eghm.model.dto.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,11 +23,17 @@ import javax.validation.constraints.NotNull;
  */
 @RestControllerAdvice
 @Slf4j
-public class RespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
-
+public class WrapperRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
+    
+    @Autowired
+    private ApplicationProperties applicationProperties;
+    
     @Override
     public boolean supports(@NotNull MethodParameter returnType, @NotNull Class<? extends HttpMessageConverter<?>> converterType) {
-        return !returnType.hasParameterAnnotation(SkipWrapper.class);
+        // 只针对部分controller且没有标示SkipWrapper的返回值进行包装
+        return applicationProperties.getBasePackageWrapper() != null
+                && returnType.getDeclaringClass().getPackage().getName().startsWith(applicationProperties.getBasePackageWrapper())
+                && !returnType.hasMethodAnnotation(SkipWrapper.class);
     }
 
     @Override

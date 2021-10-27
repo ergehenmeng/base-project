@@ -18,8 +18,6 @@ spring:
       max-request-size: 500MB
   main:
     web-application-type: servlet
-  mvc:
-    static-path-pattern: /static/**
   jackson:
     time-zone: GMT+8
   ## freemarker配置

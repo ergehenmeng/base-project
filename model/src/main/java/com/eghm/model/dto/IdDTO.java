@@ -18,6 +18,6 @@ public class IdDTO {
      * id
      */
     @ApiModelProperty(value = "id", required = true)
-    @NotNull(message = "参数不能为空")
+    @NotNull(message = "id不能为空")
     private Long id;
 }
