@@ -7,10 +7,10 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2019/1/14 14:12
  */
-@Controller
+@RestController
 public class CacheController {
 
     private SysCacheService sysCacheService;

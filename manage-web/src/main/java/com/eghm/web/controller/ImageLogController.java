@@ -3,12 +3,12 @@ package com.eghm.web.controller;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.ImageLog;
-import com.eghm.model.dto.image.ImageAddRequest;
-import com.eghm.model.dto.image.ImageEditRequest;
-import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.model.dto.ext.FilePath;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.image.ImageAddRequest;
+import com.eghm.model.dto.image.ImageEditRequest;
+import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.FileService;
 import com.eghm.service.common.ImageLogService;
@@ -17,18 +17,18 @@ import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/27 17:13
  */
-@Controller
+@RestController
 public class ImageLogController {
 
     private ImageLogService imageLogService;

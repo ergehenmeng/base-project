@@ -5,18 +5,14 @@ import com.eghm.configuration.security.CustomFilterInvocationSecurityMetadataSou
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.SysMenu;
 import com.eghm.dao.model.SysOperator;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.annotation.Mark;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +20,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/1/30 09:30
  */
-@Controller
+@RestController
 public class MenuController {
 
     private SysMenuService sysMenuService;

@@ -5,12 +5,12 @@ import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.SysOperator;
+import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.operator.OperatorAddRequest;
 import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.model.dto.operator.PasswordEditRequest;
-import com.eghm.model.dto.ext.Paging;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.SysRoleService;
@@ -22,11 +22,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -35,7 +35,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2018/11/26 17:10
  */
-@Controller
+@RestController
 public class OperatorController {
 
     private SysOperatorService sysOperatorService;

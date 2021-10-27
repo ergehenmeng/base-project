@@ -8,10 +8,10 @@ import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 首页及登陆
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author 二哥很猛
  * @date 2018/1/8 14:41
  */
-@Controller
+@RestController
 public class CommonController {
 
     private SysMenuService sysMenuService;

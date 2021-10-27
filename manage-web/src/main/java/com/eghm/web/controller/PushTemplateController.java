@@ -2,20 +2,20 @@ package com.eghm.web.controller;
 
 import com.eghm.dao.model.PushTemplate;
 import com.eghm.dao.model.TagView;
-import com.eghm.model.dto.push.PushTemplateEditRequest;
-import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.push.PushTemplateEditRequest;
+import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.service.common.TagViewService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2019/8/29 16:31
  */
-@Controller
+@RestController
 public class PushTemplateController {
 
     private PushTemplateService pushTemplateService;

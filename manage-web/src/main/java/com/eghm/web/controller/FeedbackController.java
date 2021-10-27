@@ -2,25 +2,25 @@ package com.eghm.web.controller;
 
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
-import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
-import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
+import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author 二哥很猛
  * @date 2019/8/28 14:16
  */
-@Controller
+@RestController
 public class FeedbackController {
 
     private FeedbackService feedbackService;

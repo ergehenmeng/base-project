@@ -1,19 +1,19 @@
 package com.eghm.web.controller;
 
 import com.eghm.dao.model.SmsTemplate;
-import com.eghm.model.dto.sms.SmsTemplateEditRequest;
-import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.sms.SmsTemplateEditRequest;
+import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 短信模板修改
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author 二哥很猛
  * @date 2019/8/21 18:01
  */
-@Controller
+@RestController
 public class SmsTemplateController {
 
     private SmsTemplateService smsTemplateService;

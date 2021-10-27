@@ -18,13 +18,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
  * @author 二哥很猛
  * @date 2018/1/12 17:40
  */
-@Controller
+@RestController
 public class ConfigController {
 
     private SysConfigService sysConfigService;

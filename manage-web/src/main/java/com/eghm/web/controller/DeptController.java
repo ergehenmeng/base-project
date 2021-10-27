@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2019/1/17 16:27
  */
-@Controller
+@RestController
 public class DeptController {
 
     private SysDeptService sysDeptService;
