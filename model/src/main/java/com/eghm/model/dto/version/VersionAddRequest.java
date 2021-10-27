@@ -20,9 +20,9 @@ public class VersionAddRequest implements Serializable {
     @SectionString({"ANDROID", "IOS"})
     private String classify;
     
-    @ApiModelProperty(required = true, value = "上架状态 false:待上架 true:已上架")
+    @ApiModelProperty(required = true, value = "上架状态 0:待上架 1:已上架")
     @NotNull(message = "上架状态不能为空")
-    private Boolean state;
+    private Byte state;
     
     @ApiModelProperty(required = true, value = "版本号(0.0.01~99.99.99)")
     @NotNull(message = "版本号不能为空")

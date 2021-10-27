@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +59,7 @@ public class AppVersionController {
      * app版本管理列表
      */
     @GetMapping("/version/list_page")
+    @ApiOperation("查询版本列表")
     public Paging<AppVersion> listPage(VersionQueryRequest request) {
         PageInfo<AppVersion> byPage = appVersionService.getByPage(request);
         return new Paging<>(byPage);
@@ -85,6 +87,7 @@ public class AppVersionController {
     @PostMapping("/version/add")
     @Mark
     @ApiImplicitParam(name = "file", value = "上传的文件", paramType = "formData", dataType = "file", required = true)
+    @ApiOperation("新增版本信息")
     public RespBody<Object> add(VersionAddRequest request, @RequestParam("file") MultipartFile file) {
         if (file != null && !file.isEmpty()) {
             long maxSize = sysConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
@@ -100,6 +103,7 @@ public class AppVersionController {
      */
     @PostMapping("/version/edit")
     @Mark
+    @ApiOperation("编辑版本信息")
     public RespBody<Object> edit(VersionEditRequest request) {
         appVersionService.editAppVersion(request);
         return RespBody.success();
@@ -112,7 +116,9 @@ public class AppVersionController {
      */
     @PostMapping("/version/put_away")
     @Mark
-    public RespBody<Object> putAway(Long id) {
+    @ApiImplicitParam(name = "id", value = "id", required = true)
+    @ApiOperation("版本上架")
+    public RespBody<Object> putAway(@RequestParam("id") Long id) {
         appVersionService.putAwayVersion(id);
         return RespBody.success();
     }
@@ -124,7 +130,9 @@ public class AppVersionController {
      */
     @PostMapping("/version/sold_out")
     @Mark
-    public RespBody<Object> soldOut(Long id) {
+    @ApiOperation("版本下架")
+    @ApiImplicitParam(name = "id", value = "id", required = true)
+    public RespBody<Object> soldOut(@RequestParam("id") Long id) {
         appVersionService.soldOutVersion(id);
         return RespBody.success();
     }
@@ -134,7 +142,9 @@ public class AppVersionController {
      */
     @PostMapping("/version/delete")
     @Mark
-    public RespBody<Object> delete(Long id) {
+    @ApiOperation("删除版本信息")
+    @ApiImplicitParam(name = "id", value = "id", required = true)
+    public RespBody<Object> delete(@RequestParam("id") Long id) {
         appVersionService.deleteVersion(id);
         return RespBody.success();
     }

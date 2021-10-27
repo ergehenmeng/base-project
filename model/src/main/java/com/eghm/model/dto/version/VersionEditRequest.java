@@ -16,18 +16,18 @@ public class VersionEditRequest implements Serializable {
 
     private static final long serialVersionUID = 8670667666853071583L;
 
-    @ApiModelProperty(required = true, value = "ID")
-    @NotNull(message = "ID不能为空")
+    @ApiModelProperty(required = true, value = "id")
+    @NotNull(message = "id不能为空")
     private Long id;
 
     @ApiModelProperty(required = true, value = "上架平台 ANDROID, IOS")
     @SectionString({"ANDROID", "IOS"})
     private String classify;
     
-    @ApiModelProperty(required = true, value = "上架状态 false:待上架 true:已上架")
+    @ApiModelProperty(required = true, value = "上架状态 0:待上架 1:已上架")
     @NotNull(message = "上架状态不能为空")
-    private Boolean state;
-
+    private Byte state;
+    
     @ApiModelProperty(required = true, value = "版本号(0.0.01~99.99.99)")
     @NotNull(message = "版本号不能为空")
     private String version;
