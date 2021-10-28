@@ -13,6 +13,9 @@ import com.eghm.service.common.FileService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2019/8/22 11:22
  */
 @RestController
+@Api(tags = "banner管理")
 public class BannerController {
 
     private BannerService bannerService;
@@ -53,6 +57,7 @@ public class BannerController {
      * 分页查询轮播图配置信息
      */
     @GetMapping("/banner/list_page")
+    @ApiOperation("轮播图列表")
     public Paging<Banner> listPage(BannerQueryRequest request) {
         PageInfo<Banner> byPage = bannerService.getByPage(request);
         return DataUtil.convert(byPage, banner -> {
@@ -77,6 +82,8 @@ public class BannerController {
      */
     @PostMapping("/banner/add")
     @Mark
+    @ApiOperation("添加轮播图")
+    @ApiImplicitParam(name = "imgFile", dataType = "file", paramType = "formData", value = "图片", required = true)
     public RespBody<Object> add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
         request.setImgUrl(fileService.saveFile(imgFile).getPath());
         bannerService.addBanner(request);
@@ -88,6 +95,8 @@ public class BannerController {
      */
     @PostMapping("/banner/edit")
     @Mark
+    @ApiOperation("修改轮播图")
+    @ApiImplicitParam(name = "imgFile", dataType = "file", paramType = "formData", value = "图片")
     public RespBody<Object> edit(BannerEditRequest request, @RequestParam(value = "imgFile", required = false) MultipartFile imgFile) {
         if (imgFile != null) {
             request.setImgUrl(fileService.saveFile(imgFile).getPath());
