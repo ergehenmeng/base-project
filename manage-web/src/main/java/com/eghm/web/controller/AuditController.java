@@ -12,6 +12,8 @@ import com.eghm.service.common.AuditService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2020/8/26
  */
 @RestController
+@Api(tags = "审批管理")
 public class AuditController {
 
     private AuditService auditService;
@@ -35,6 +38,7 @@ public class AuditController {
      * 分页查询审批列表
      */
     @GetMapping("/audit/list_page")
+    @ApiOperation("审批管理列表")
     public Paging<AuditRecord> listPage(AuditQueryRequest request) {
         request.setOperatorId(SecurityOperatorHolder.getOperatorId());
         PageInfo<AuditRecord> byPage = auditService.getByPage(request);

@@ -1,6 +1,6 @@
 package com.eghm.model.validation.annotation;
 
-import com.eghm.model.validation.SectionStringDefine;
+import com.eghm.model.validation.OptionByteDefine;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,16 +13,16 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 字符串限制
+ * Byte字段校验
  * @author 二哥很猛
- * @date 2018/11/9 10:35
+ * @date 2019/8/19 11:29
  */
 @Documented
-@Constraint(validatedBy = SectionStringDefine.class)
+@Constraint(validatedBy = OptionByteDefine.class)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @ReportAsSingleViolation
-public @interface SectionString {
+public @interface OptionByte {
 
     /**
      * 错误信息 必须包含该属性
@@ -34,7 +34,7 @@ public @interface SectionString {
      * 取值列表
      * @return 列表
      */
-    String[] value() default {};
+    byte[] value() default {};
 
     /**
      * 是否必填

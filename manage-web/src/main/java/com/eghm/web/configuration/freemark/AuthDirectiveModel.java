@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2019/1/18 17:19
  */
 @Component
-public class AuthDirectiveModel implements TemplateDirectiveModel {
+public class    AuthDirectiveModel implements TemplateDirectiveModel {
 
     private static final String NID = "nid";
 

@@ -3,6 +3,8 @@ package com.eghm.model.dto.audit;
 import com.eghm.common.enums.AuditState;
 import com.eghm.model.annotation.BackstageTag;
 import com.eghm.model.dto.ext.PagingQuery;
+import com.eghm.model.validation.annotation.OptionInt;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -21,6 +23,8 @@ public class AuditQueryRequest extends PagingQuery {
     /**
      * 审批状态 与 {@link AuditState}保持一致
      */
+    @ApiModelProperty(value = "审批管理状态", required = true)
+    @OptionInt()
     private Byte state;
 
     /**

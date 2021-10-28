@@ -1,6 +1,6 @@
 package com.eghm.model.dto.version;
 
-import com.eghm.model.validation.annotation.SectionInt;
+import com.eghm.model.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,6 +24,6 @@ public class VersionOperationRequest {
     private Long id;
     
     @ApiModelProperty(required = true, value = "id")
-    @SectionInt(value = {STATE_1, STATE_2, STATE_3}, message = "操作状态非法")
+    @OptionInt(value = {STATE_1, STATE_2, STATE_3}, message = "操作状态非法")
     private Integer state;
 }

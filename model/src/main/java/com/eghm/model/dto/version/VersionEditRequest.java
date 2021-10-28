@@ -1,6 +1,6 @@
 package com.eghm.model.dto.version;
 
-import com.eghm.model.validation.annotation.SectionString;
+import com.eghm.model.validation.annotation.OptionString;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class VersionEditRequest implements Serializable {
     private Long id;
 
     @ApiModelProperty(required = true, value = "上架平台 ANDROID, IOS")
-    @SectionString({"ANDROID", "IOS"})
+    @OptionString({"ANDROID", "IOS"})
     private String classify;
     
     @ApiModelProperty(required = true, value = "上架状态 0:待上架 1:已上架")

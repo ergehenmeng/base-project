@@ -1,6 +1,7 @@
 package com.eghm.model.validation.annotation;
 
-import com.eghm.model.validation.SelectionByteDefine;
+
+import com.eghm.model.validation.OptionIntDefine;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -13,16 +14,16 @@ import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Byte字段校验
+ * 参数范围拦截 只适用int
  * @author 二哥很猛
- * @date 2019/8/19 11:29
+ * @date 2018/8/14 13:40
  */
 @Documented
-@Constraint(validatedBy = SelectionByteDefine.class)
+@Constraint(validatedBy = OptionIntDefine.class)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @ReportAsSingleViolation
-public @interface SelectionByte {
+public @interface OptionInt {
 
     /**
      * 错误信息 必须包含该属性
@@ -34,7 +35,7 @@ public @interface SelectionByte {
      * 取值列表
      * @return 列表
      */
-    byte[] value() default {};
+    int[] value() default {};
 
     /**
      * 是否必填
@@ -53,4 +54,6 @@ public @interface SelectionByte {
      * @return 自定义校验必须包含该属性
      */
     Class<? extends Payload>[] payload() default {};
+
 }
+
