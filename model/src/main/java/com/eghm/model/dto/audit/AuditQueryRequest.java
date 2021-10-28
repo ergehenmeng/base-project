@@ -4,6 +4,7 @@ import com.eghm.common.enums.AuditState;
 import com.eghm.model.annotation.Label;
 import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.validation.annotation.OptionByte;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,11 +32,13 @@ public class AuditQueryRequest extends PagingQuery {
      * 用户id
      */
     @Label
+    @ApiModelProperty(hidden = true)
     private Long operatorId;
 
     /**
      * 角色列表
      */
     @Label
+    @ApiModelProperty(hidden = true)
     private List<String> roleList;
 }
