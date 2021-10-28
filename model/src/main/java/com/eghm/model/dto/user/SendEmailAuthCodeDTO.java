@@ -1,6 +1,6 @@
 package com.eghm.model.dto.user;
 
-import com.eghm.model.annotation.BackstageTag;
+import com.eghm.model.annotation.Label;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,7 +29,7 @@ public class SendEmailAuthCodeDTO {
     /**
      * 用户id
      */
-    @BackstageTag
+    @Label
     @ApiModelProperty(hidden = true)
     private Long userId;
 

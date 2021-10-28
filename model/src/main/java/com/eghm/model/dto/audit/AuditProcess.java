@@ -2,7 +2,7 @@ package com.eghm.model.dto.audit;
 
 import com.eghm.common.enums.AuditState;
 import com.eghm.common.enums.AuditType;
-import com.eghm.model.annotation.BackstageTag;
+import com.eghm.model.annotation.Label;
 import lombok.Data;
 
 /**
@@ -35,13 +35,13 @@ public class AuditProcess {
     /**
      * 审核人id
      */
-    @BackstageTag
+    @Label
     private Long auditOperatorId;
 
     /**
      * 审核人姓名
      */
-    @BackstageTag
+    @Label
     private String auditOperatorName;
 
 }

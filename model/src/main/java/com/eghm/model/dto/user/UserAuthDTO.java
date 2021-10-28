@@ -1,6 +1,6 @@
 package com.eghm.model.dto.user;
 
-import com.eghm.model.annotation.BackstageTag;
+import com.eghm.model.annotation.Label;
 import com.eghm.model.validation.annotation.IdCard;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class UserAuthDTO implements Serializable {
     /**
      * 用户id
      */
-    @BackstageTag
+    @Label
     @ApiModelProperty(hidden = true)
     private Long userId;
 

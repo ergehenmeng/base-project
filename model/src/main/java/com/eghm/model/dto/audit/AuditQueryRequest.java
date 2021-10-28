@@ -1,9 +1,9 @@
 package com.eghm.model.dto.audit;
 
 import com.eghm.common.enums.AuditState;
-import com.eghm.model.annotation.BackstageTag;
+import com.eghm.model.annotation.Label;
 import com.eghm.model.dto.ext.PagingQuery;
-import com.eghm.model.validation.annotation.OptionInt;
+import com.eghm.model.validation.annotation.OptionByte;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,18 +24,18 @@ public class AuditQueryRequest extends PagingQuery {
      * 审批状态 与 {@link AuditState}保持一致
      */
     @ApiModelProperty(value = "审批管理状态", required = true)
-    @OptionInt()
+    @OptionByte(value = {0, 1, 2})
     private Byte state;
 
     /**
      * 用户id
      */
-    @BackstageTag
+    @Label
     private Long operatorId;
 
     /**
      * 角色列表
      */
-    @BackstageTag
+    @Label
     private List<String> roleList;
 }

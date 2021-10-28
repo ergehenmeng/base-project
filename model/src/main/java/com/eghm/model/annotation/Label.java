@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.SOURCE)
 @Documented
-public @interface BackstageTag {
+public @interface Label {
 }

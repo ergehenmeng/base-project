@@ -1,6 +1,6 @@
 package com.eghm.model.dto.ext;
 
-import com.eghm.model.annotation.BackstageTag;
+import com.eghm.model.annotation.Label;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,13 +20,13 @@ public class ActionRecord implements Serializable {
     /**
      * 操作人姓名
      */
-    @BackstageTag
+    @Label
     private String operatorName;
 
     /**
      * 操作人id
      */
-    @BackstageTag
+    @Label
     private Long operatorId;
 
 }
