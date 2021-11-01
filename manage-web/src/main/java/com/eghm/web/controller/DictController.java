@@ -8,13 +8,17 @@ import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.web.annotation.Mark;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -64,7 +68,7 @@ public class DictController {
     @PostMapping("/dict/add")
     @Mark
     @ApiOperation("数据字典列表(分页)")
-    public RespBody<Object> add(DictAddRequest request) {
+    public RespBody<Object> add(@Valid DictAddRequest request) {
         sysDictService.addDict(request);
         return RespBody.success();
     }
@@ -78,7 +82,7 @@ public class DictController {
     @PostMapping("/dict/edit")
     @Mark
     @ApiOperation("编辑数据字典")
-    public RespBody<Object> edit(DictEditRequest request) {
+    public RespBody<Object> edit(@Valid DictEditRequest request) {
         sysDictService.updateDict(request);
         return RespBody.success();
     }
@@ -93,7 +97,8 @@ public class DictController {
     @PostMapping("/dict/delete")
     @Mark
     @ApiOperation("删除数据字典")
-    public RespBody<Object> delete(Long id) {
+    @ApiImplicitParam(name = "id", value = "id", required = true)
+    public RespBody<Object> delete(@RequestParam("id") Long id) {
         sysDictService.deleteDict(id);
         return RespBody.success();
     }

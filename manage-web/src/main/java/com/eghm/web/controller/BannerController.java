@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/22 11:22
@@ -84,7 +86,7 @@ public class BannerController {
     @Mark
     @ApiOperation("添加轮播图")
     @ApiImplicitParam(name = "imgFile", dataType = "file", paramType = "formData", value = "图片", required = true)
-    public RespBody<Object> add(BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
+    public RespBody<Object> add(@Valid BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
         request.setImgUrl(fileService.saveFile(imgFile).getPath());
         bannerService.addBanner(request);
         return RespBody.success();
@@ -97,7 +99,7 @@ public class BannerController {
     @Mark
     @ApiOperation("修改轮播图")
     @ApiImplicitParam(name = "imgFile", dataType = "file", paramType = "formData", value = "图片")
-    public RespBody<Object> edit(BannerEditRequest request, @RequestParam(value = "imgFile", required = false) MultipartFile imgFile) {
+    public RespBody<Object> edit(@Valid BannerEditRequest request, @RequestParam(value = "imgFile", required = false) MultipartFile imgFile) {
         if (imgFile != null) {
             request.setImgUrl(fileService.saveFile(imgFile).getPath());
         }

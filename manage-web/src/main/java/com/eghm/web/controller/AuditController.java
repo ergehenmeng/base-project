@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 /**
  * @author 殿小二
  * @date 2020/8/26
@@ -52,7 +54,7 @@ public class AuditController {
     @PostMapping("/audit/approval")
     @Mark
     @ApiOperation("审批操作")
-    public RespBody<Object> approval(AuditProcessRequest request) {
+    public RespBody<Object> approval(@Valid AuditProcessRequest request) {
         AuditProcess process = DataUtil.copy(request, AuditProcess.class);
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         process.setAuditOperatorId(operator.getId());

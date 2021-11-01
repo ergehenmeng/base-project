@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -56,7 +57,7 @@ public class DeptController {
     @PostMapping("/dept/add")
     @Mark
     @ApiOperation("添加部门")
-    public RespBody<Object> add(DeptAddRequest request) {
+    public RespBody<Object> add(@Valid DeptAddRequest request) {
         sysDeptService.addDepartment(request);
         return RespBody.success();
     }
@@ -77,7 +78,7 @@ public class DeptController {
     @PostMapping("/dept/edit")
     @Mark
     @ApiOperation("编辑部门")
-    public RespBody<Object> edit(DeptEditRequest request) {
+    public RespBody<Object> edit(@Valid DeptEditRequest request) {
         sysDeptService.editDepartment(request);
         return RespBody.success();
     }

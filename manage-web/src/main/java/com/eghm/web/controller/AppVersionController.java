@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/22 15:08
@@ -88,7 +90,7 @@ public class AppVersionController {
     @Mark
     @ApiImplicitParam(name = "file", value = "上传的文件", paramType = "formData", dataType = "file", required = true)
     @ApiOperation("新增版本信息")
-    public RespBody<Object> add(VersionAddRequest request, @RequestParam("file") MultipartFile file) {
+    public RespBody<Object> add(@Valid VersionAddRequest request, @RequestParam("file") MultipartFile file) {
         if (file != null && !file.isEmpty()) {
             long maxSize = sysConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
             FilePath filePath = fileService.saveFile(file, CommonConstant.VERSION, maxSize);
@@ -104,7 +106,7 @@ public class AppVersionController {
     @PostMapping("/version/edit")
     @Mark
     @ApiOperation("编辑版本信息")
-    public RespBody<Object> edit(VersionEditRequest request) {
+    public RespBody<Object> edit(@Valid VersionEditRequest request) {
         appVersionService.editAppVersion(request);
         return RespBody.success();
     }

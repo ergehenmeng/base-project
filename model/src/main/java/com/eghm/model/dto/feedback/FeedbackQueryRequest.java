@@ -1,6 +1,7 @@
 package com.eghm.model.dto.feedback;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,11 +20,13 @@ public class FeedbackQueryRequest extends PagingQuery {
     /**
      * 分类
      */
+    @ApiModelProperty("分类信息(数据字典)")
     private Byte classify;
 
     /**
      * 状态 0:待解决 1:已解决
      */
+    @ApiModelProperty("状态 0:待解决 1:已解决")
     private Byte state;
 
 }

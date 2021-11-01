@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/28 14:16
@@ -45,7 +47,7 @@ public class FeedbackController {
     @PostMapping("/feedback/dispose")
     @ResponseBody
     @Mark
-    public RespBody<Object> dispose(FeedbackDisposeRequest request) {
+    public RespBody<Object> dispose(@Valid FeedbackDisposeRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());
         request.setOperatorName(operator.getOperatorName());

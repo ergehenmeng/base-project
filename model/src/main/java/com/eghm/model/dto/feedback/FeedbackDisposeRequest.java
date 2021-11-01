@@ -1,8 +1,11 @@
 package com.eghm.model.dto.feedback;
 
 import com.eghm.model.dto.ext.ActionRecord;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 反馈处理
@@ -15,14 +18,12 @@ public class FeedbackDisposeRequest extends ActionRecord {
 
     private static final long serialVersionUID = -7275206427146713271L;
 
-    /**
-     * id
-     */
+    @ApiModelProperty(value = "id", required = true)
+    @NotNull(message = "id不能为空")
     private Long id;
 
-    /**
-     * 备注信息
-     */
+    @ApiModelProperty(value = "备注信息", required = true)
+    @NotNull(message = "备注信息不能为空")
     private String remark;
 
 }
