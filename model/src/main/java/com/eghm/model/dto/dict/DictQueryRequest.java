@@ -1,6 +1,7 @@
 package com.eghm.model.dto.dict;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -19,5 +20,6 @@ public class DictQueryRequest extends PagingQuery implements Serializable {
     /**
      * 是否锁定
      */
+    @ApiModelProperty("是否锁定 true:锁定 false:未锁定")
     private Boolean locked;
 }

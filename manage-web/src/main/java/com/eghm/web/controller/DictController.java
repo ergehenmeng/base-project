@@ -8,6 +8,8 @@ import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.web.annotation.Mark;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +37,7 @@ public class DictController {
      * @return 分页列表
      */
     @GetMapping("/dict/list_page")
+    @ApiOperation("数据字典列表(分页)")
     public Paging<SysDict> listPage(DictQueryRequest request) {
         return new Paging<>(sysDictService.getByPage(request));
     }
@@ -60,6 +63,7 @@ public class DictController {
      */
     @PostMapping("/dict/add")
     @Mark
+    @ApiOperation("数据字典列表(分页)")
     public RespBody<Object> add(DictAddRequest request) {
         sysDictService.addDict(request);
         return RespBody.success();
@@ -73,6 +77,7 @@ public class DictController {
      */
     @PostMapping("/dict/edit")
     @Mark
+    @ApiOperation("编辑数据字典")
     public RespBody<Object> edit(DictEditRequest request) {
         sysDictService.updateDict(request);
         return RespBody.success();
@@ -87,6 +92,7 @@ public class DictController {
      */
     @PostMapping("/dict/delete")
     @Mark
+    @ApiOperation("删除数据字典")
     public RespBody<Object> delete(Long id) {
         sysDictService.deleteDict(id);
         return RespBody.success();

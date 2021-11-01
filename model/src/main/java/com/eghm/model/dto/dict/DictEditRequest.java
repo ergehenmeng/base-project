@@ -1,7 +1,9 @@
 package com.eghm.model.dto.dict;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,13 +16,22 @@ public class DictEditRequest implements Serializable {
     private static final long serialVersionUID = 2506674696822623145L;
 
     /**
+     * 主键
+     */
+    private Long id;
+
+    /**
      * 字典名称
      */
+    @ApiModelProperty(value = "数据字典名称", required = true)
+    @NotNull(message = "名称不能为空")
     private String title;
 
     /**
      * 字典隐藏值
      */
+    @ApiModelProperty(value = "数据字典隐藏值", required = true)
+    @NotNull(message = "名称不能为空")
     private Integer hiddenValue;
 
     /**
@@ -33,15 +44,7 @@ public class DictEditRequest implements Serializable {
      */
     private Boolean locked;
 
-    /**
-     * 主键
-     */
-    private Long id;
 
-    /**
-     * nid
-     */
-    private String nid;
 
     /**
      * 备注信息
