@@ -51,6 +51,7 @@ public class AuditController {
      */
     @PostMapping("/audit/approval")
     @Mark
+    @ApiOperation("审批操作")
     public RespBody<Object> approval(AuditProcessRequest request) {
         AuditProcess process = DataUtil.copy(request, AuditProcess.class);
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();

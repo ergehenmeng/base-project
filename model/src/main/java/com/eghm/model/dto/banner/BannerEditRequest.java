@@ -1,7 +1,11 @@
 package com.eghm.model.dto.banner;
 
+import com.eghm.model.validation.annotation.OptionString;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,50 +21,47 @@ public class BannerEditRequest implements Serializable {
     /**
      * 主键
      */
+    @ApiModelProperty(value = "id不能为空", required = true)
+    @NotNull(message = "id不能为空")
     private Long id;
 
-    /**
-     * 轮播图类型
-     */
+    @ApiModelProperty(value = "标题名称", required = true)
+    @NotNull(message = "标题不能为空")
+    private String title;
+
+    @ApiModelProperty(value = "轮博图类型(数据字典)", required = true)
+    @NotNull(message = "轮博图类型不能为空")
     private Byte classify;
 
     /**
-     * 客户端类型 PC APP
+     * 客户端类型 {@link com.eghm.common.enums.Channel}
      */
+    @ApiModelProperty(value = "客户端类型 PC, ANDROID, IOS, H5, WECHAT", required = true)
+    @OptionString({"IOS", "PC", "ANDROID", "H5", "WECHAT"})
     private String clientType;
 
-    /**
-     * 轮播图片地址
-     */
+    @ApiModelProperty(value = "图片地址", required = true)
+    @NotNull(message = "图片地址不能为空")
     private String imgUrl;
 
-    /**
-     * 轮播图点击后跳转的URL
-     */
+    @ApiModelProperty(value = "点击后跳转的地址")
     private String turnUrl;
 
-    /**
-     * 轮播图顺序(大<->小) 最大的在最前面
-     */
+    @ApiModelProperty(value = "排序规则 大<->小 最大的在最前面", required = true)
+    @NotNull(message = "排序不能为空")
     private Byte sort;
 
-    /**
-     * 开始展示时间(可在指定时间后开始展示)
-     */
+    @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startTime;
 
-    /**
-     * 取消展示的时间(只在某个时间段展示)
-     */
+    @ApiModelProperty(value = "取消展示的时间(只在某个时间段展示)")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
-    /**
-     * 是否可点击 0:否 1:可以
-     */
+    @ApiModelProperty(value = "是否可点击 true:可以 false:不可以", required = true)
     private Boolean click;
 
-    /**
-     * 备注信息
-     */
+    @ApiModelProperty(value = "备注信息")
     private String remark;
 }

@@ -2,6 +2,7 @@ package com.eghm.model.dto.config;
 
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,16 +21,19 @@ public class ConfigQueryRequest extends PagingQuery implements Serializable {
     /**
      * 参数配置类型
      */
+    @ApiModelProperty("系统参数类型")
     private Integer classify;
 
     /**
      * 是否锁定(禁止编辑)
      */
+    @ApiModelProperty("是否禁止编辑 true:禁止编辑 false:可以编辑")
     private Boolean locked;
 
     /**
      * 备注信息
      */
+    @ApiModelProperty("备注信息")
     private String remark;
 
 

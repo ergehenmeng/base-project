@@ -12,6 +12,7 @@ import com.eghm.service.sys.SysConfigService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ public class ConfigController {
 
     @PostMapping("/config/edit")
     @Mark
+    @ApiOperation("编辑系统参数")
     public RespBody<Object> edit(ConfigEditRequest request) {
         sysConfigService.updateConfig(request);
         return RespBody.success();
@@ -70,6 +72,7 @@ public class ConfigController {
      * @return 分页列表
      */
     @GetMapping("config/list_page")
+    @ApiOperation("系统参数列表")
     public Paging<SysConfig> listPage(ConfigQueryRequest request) {
         PageInfo<SysConfig> listByPage = sysConfigService.getByPage(request);
         return DataUtil.convert(listByPage, sysConfig -> {

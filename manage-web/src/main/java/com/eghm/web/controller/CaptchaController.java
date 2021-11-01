@@ -2,6 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.common.constant.CommonConstant;
 import com.google.code.kaptcha.Producer;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +44,8 @@ public class CaptchaController {
      * @throws IOException 写流异常
      */
     @GetMapping("/{module}/captcha")
+    @ApiOperation("图形验证码获取")
+    @ApiImplicitParam(name = "module", value = "所属module", required = true)
     public void module(@PathVariable("module") String module, HttpSession session, HttpServletResponse response) throws IOException {
         String text = producer.createText();
         writeBack(module, text, session, response);

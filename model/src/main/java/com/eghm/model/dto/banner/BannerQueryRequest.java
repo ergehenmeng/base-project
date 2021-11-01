@@ -1,6 +1,7 @@
 package com.eghm.model.dto.banner;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,15 +22,18 @@ public class BannerQueryRequest extends PagingQuery {
     /**
      * 轮播图类型
      */
+    @ApiModelProperty("轮播图类型")
     private Byte classify;
 
     /**
      * 客户端类型
      */
+    @ApiModelProperty("客户端类型 ANDROID IOS")
     private String clientType;
 
     /**
      * 播放时间
      */
+    @ApiModelProperty("播放时间(在该时间段播放)")
     private Date middleTime;
 }
