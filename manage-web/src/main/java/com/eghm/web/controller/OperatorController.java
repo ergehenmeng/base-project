@@ -139,6 +139,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/edit")
     @Mark
+    @ApiOperation("更新")
     public RespBody<Object> editOperator(@Valid OperatorEditRequest request) {
         sysOperatorService.updateOperator(request);
         return RespBody.success();
@@ -154,7 +155,7 @@ public class OperatorController {
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
     @ApiOperation("重置用户登录密码")
     public RespBody<Object> resetPassword(Long id) {
-        sysOperatorService.resetPassword(id);
+
         return RespBody.success();
     }
 
@@ -189,12 +190,14 @@ public class OperatorController {
     @Mark
     @ApiOperation("用户操作接口")
     public RespBody<Object> handle(@Valid OperatorHandleRequest request) {
-        if (request.getState() == 1) {
+        if (request.getState() == OperatorHandleRequest.LOCK) {
             sysOperatorService.lockOperator(request.getId());
-        } else if (request.getState() == 2) {
+        } else if (request.getState() == OperatorHandleRequest.UNLOCK) {
             sysOperatorService.unlockOperator(request.getId());
-        } else {
+        } else if (request.getState() == OperatorHandleRequest.DELETE){
             sysOperatorService.deleteOperator(request.getId());
+        } else {
+            sysOperatorService.resetPassword(request.getId());
         }
         return RespBody.success();
     }
