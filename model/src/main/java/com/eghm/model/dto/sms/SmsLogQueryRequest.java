@@ -1,9 +1,11 @@
 package com.eghm.model.dto.sms;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -18,23 +20,17 @@ public class SmsLogQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -3461922717720251514L;
 
-    /**
-     * 开始时间
-     */
+    @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
 
-    /**
-     * 结束时间
-     */
+    @ApiModelProperty("结束时间 yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
-    /**
-     * 短信发送状态 0:发送中 1:发送成功 2:发送失败
-     */
+    @ApiModelProperty("短信发送状态 0:发送中 1:发送成功 2:发送失败")
     private Byte state;
 
-    /**
-     * 短信类型
-     */
+    @ApiModelProperty("短信类型")
     private String smsType;
 }

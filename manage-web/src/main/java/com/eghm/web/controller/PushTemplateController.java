@@ -10,7 +10,9 @@ import com.eghm.service.common.PushTemplateService;
 import com.eghm.service.common.TagViewService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apiguardian.api.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,7 @@ import java.util.List;
  * @date 2019/8/29 16:31
  */
 @RestController
+@Api(tags = "消息模板管理")
 public class PushTemplateController {
 
     private PushTemplateService pushTemplateService;
