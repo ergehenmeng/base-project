@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.common.constant.CommonConstant;
 import com.google.code.kaptcha.Producer;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import java.io.IOException;
  */
 @RestController
 @Slf4j
+@Api(tags = "图形验证码")
 public class CaptchaController {
 
     private Producer producer;
