@@ -12,12 +12,14 @@ import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -41,6 +43,7 @@ public class RoleController {
      * @return 列表
      */
     @GetMapping("/role/list_page")
+    @ApiOperation("角色列表(分页)")
     public Paging<SysRole> listPage(RoleQueryRequest request) {
         PageInfo<SysRole> page = sysRoleService.getByPage(request);
         return new Paging<>(page);
@@ -52,23 +55,11 @@ public class RoleController {
      * @return 角色列表
      */
     @PostMapping("/role/list")
+    @ApiOperation("角色列表(不分页)")
     public List<CheckBox> list() {
         List<SysRole> list = sysRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
         return DataUtil.convert(list, sysRole -> CheckBox.builder().hide(sysRole.getId()).show(sysRole.getRoleName()).build());
-    }
-
-    /**
-     * 编辑角色信息
-     *
-     * @param id 角色id
-     * @return 角色编辑信息
-     */
-    @GetMapping("/role/edit_page")
-    public String editPage(Model model, Long id) {
-        SysRole role = sysRoleService.getById(id);
-        model.addAttribute("role", role);
-        return "role/edit_page";
     }
 
     /**
@@ -79,7 +70,8 @@ public class RoleController {
      */
     @PostMapping("/role/edit")
     @Mark
-    public RespBody<Object> edit(RoleEditRequest request) {
+    @ApiOperation("编辑角色")
+    public RespBody<Object> edit(@Valid RoleEditRequest request) {
         sysRoleService.updateRole(request);
         return RespBody.success();
     }
@@ -92,6 +84,8 @@ public class RoleController {
      */
     @PostMapping("/role/delete")
     @Mark
+    @ApiOperation("编辑角色")
+    @ApiImplicitParam(name = "id", value = "id主键", required = true)
     public RespBody<Object> delete(Long id) {
         sysRoleService.deleteRole(id);
         return RespBody.success();
@@ -105,24 +99,21 @@ public class RoleController {
      */
     @PostMapping("/role/add")
     @Mark
-    public RespBody<Object> add(RoleAddRequest request) {
+    @ApiOperation("添加角色")
+    public RespBody<Object> add(@Valid RoleAddRequest request) {
         sysRoleService.addRole(request);
         return RespBody.success();
     }
 
     /**
-     * 角色授权页面
-     *
-     * @param model model
+     * 角色 查询角色要拥有的菜单列表
      * @param id    角色id
      * @return 角色编辑信息
      */
-    @GetMapping("/role/auth_page")
-    public String addPage(Model model, Long id) {
+    @GetMapping("/role/menu_list")
+    public String menuList(Long id) {
         List<Long> role = sysRoleService.getRoleMenu(id);
         String menuIds = Joiner.on(",").join(role);
-        model.addAttribute("menuIds", menuIds);
-        model.addAttribute("roleId", id);
         return "role/auth_page";
     }
 
@@ -135,7 +126,11 @@ public class RoleController {
      */
     @PostMapping("/role/auth")
     @Mark
-    public RespBody<Object> authRole(Long roleId, String menuIds) {
+    @ApiOperation("角色菜单授权")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", required = true, value = "角色id"),
+            @ApiImplicitParam(name = "menuIds", required = true, value = "菜单id,逗号分割")})
+    public RespBody<Object> authRole(@RequestParam("roleId") Long roleId, @RequestParam("menuIds") String menuIds) {
         sysRoleService.authMenu(roleId, menuIds);
         return RespBody.success();
     }

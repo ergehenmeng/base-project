@@ -10,6 +10,7 @@ import com.eghm.service.common.PushTemplateService;
 import com.eghm.service.common.TagViewService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,7 @@ public class PushTemplateController {
      * 分页查询推送消息模板信息
      */
     @GetMapping("/push_template/list_page")
+    @ApiOperation("消息模板列表")
     public Paging<PushTemplate> listPage(PushTemplateQueryRequest request) {
         PageInfo<PushTemplate> byPage = pushTemplateService.getByPage(request);
         return new Paging<>(byPage);

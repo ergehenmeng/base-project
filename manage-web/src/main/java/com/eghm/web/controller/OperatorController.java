@@ -139,25 +139,12 @@ public class OperatorController {
      */
     @PostMapping("/operator/edit")
     @Mark
-    @ApiOperation("更新")
+    @ApiOperation("系统用户信息")
     public RespBody<Object> editOperator(@Valid OperatorEditRequest request) {
         sysOperatorService.updateOperator(request);
         return RespBody.success();
     }
 
-    /**
-     * 重置用户登录密码
-     *
-     * @return 成功
-     */
-    @PostMapping("/operator/reset_password")
-    @Mark
-    @ApiImplicitParam(name = "id", value = "id主键", required = true)
-    @ApiOperation("重置用户登录密码")
-    public RespBody<Object> resetPassword(Long id) {
-
-        return RespBody.success();
-    }
 
     /**
      * 锁屏操作
