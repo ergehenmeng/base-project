@@ -18,6 +18,7 @@ import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,6 +27,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -118,8 +120,10 @@ public class OperatorController {
      * @param id 管理人员id
      * @return 页面
      */
-    @GetMapping("/operator/edit_page")
-    public String editOperatorPage(Model model, Long id) {
+    @GetMapping("/operator/{id}")
+    @ApiOperation("查询系统用户信息")
+    @ApiImplicitParam(name = "id", value = "id主键", required = true)
+    public String editOperatorPage(Model model, @PathVariable("id") Long id) {
         SysOperator operator = sysOperatorService.getById(id);
         model.addAttribute("operator", operator);
         List<Long> roleList = sysRoleService.getByOperatorId(id);
@@ -138,7 +142,7 @@ public class OperatorController {
      */
     @PostMapping("/operator/edit")
     @Mark
-    public RespBody<Object> editOperator(OperatorEditRequest request) {
+    public RespBody<Object> editOperator(@Valid OperatorEditRequest request) {
         sysOperatorService.updateOperator(request);
         return RespBody.success();
     }
