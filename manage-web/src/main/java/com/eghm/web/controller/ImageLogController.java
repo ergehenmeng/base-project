@@ -16,12 +16,17 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -73,6 +78,7 @@ public class ImageLogController {
      * @return 分页数据
      */
     @GetMapping("/image/list_page")
+    @ApiOperation("图片列表(分页)")
     public Paging<ImageLog> listPage(ImageQueryRequest request) {
         PageInfo<ImageLog> page = imageLogService.getByPage(request);
         return DataUtil.convert(page, imageLog -> {
@@ -90,7 +96,9 @@ public class ImageLogController {
      */
     @PostMapping("/image/add")
     @Mark
-    public RespBody<Object> addImage(ImageAddRequest request, MultipartFile imgFile) {
+    @ApiOperation("添加图片")
+    @ApiImplicitParam(name = "imgFile", value = "文件流", required = true, paramType = "formData", dataType = "file")
+    public RespBody<Object> addImage(@Valid ImageAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
         if (imgFile != null && !imgFile.isEmpty()) {
             FilePath filePath = fileService.saveFile(imgFile);
             request.setPath(filePath.getPath());
@@ -108,7 +116,8 @@ public class ImageLogController {
      */
     @PostMapping("/image/edit")
     @Mark
-    public RespBody<Object> editImage(ImageEditRequest request) {
+    @ApiOperation("添加图片")
+    public RespBody<Object> editImage(@Valid ImageEditRequest request) {
         imageLogService.updateImageLog(request);
         return RespBody.success();
     }
@@ -122,7 +131,9 @@ public class ImageLogController {
      */
     @PostMapping("/image/delete")
     @Mark
-    public RespBody<Object> deleteImage(Long id) {
+    @ApiOperation("删除图片")
+    @ApiImplicitParam(name = "id", value = "id", required = true)
+    public RespBody<Object> deleteImage(@RequestParam("id") Long id) {
         imageLogService.deleteImageLog(id);
         return RespBody.success();
     }

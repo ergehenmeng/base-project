@@ -1,6 +1,6 @@
 package com.eghm.model.dto.user;
 
-import com.eghm.model.annotation.Label;
+import com.eghm.model.annotation.Sign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,7 +29,7 @@ public class SendEmailAuthCodeDTO {
     /**
      * 用户id
      */
-    @Label
+    @Sign
     @ApiModelProperty(hidden = true)
     private Long userId;
 

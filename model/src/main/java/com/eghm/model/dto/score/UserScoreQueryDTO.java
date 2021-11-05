@@ -1,6 +1,6 @@
 package com.eghm.model.dto.score;
 
-import com.eghm.model.annotation.Label;
+import com.eghm.model.annotation.Sign;
 import com.eghm.model.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class UserScoreQueryDTO extends PagingQuery {
     /**
      * 用户id
      */
-    @Label
+    @Sign
     @ApiModelProperty(hidden = true)
     private Long userId;
 }

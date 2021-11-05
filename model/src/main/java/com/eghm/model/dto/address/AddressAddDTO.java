@@ -1,6 +1,6 @@
 package com.eghm.model.dto.address;
 
-import com.eghm.model.annotation.Label;
+import com.eghm.model.annotation.Sign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,7 +18,7 @@ public class AddressAddDTO {
      * 用户id
      */
     @ApiModelProperty(hidden = true)
-    @Label
+    @Sign
     private Long userId;
 
     /**

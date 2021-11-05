@@ -1,7 +1,10 @@
 package com.eghm.model.dto.menu;
 
+import com.eghm.model.validation.annotation.OptionInt;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,44 +17,32 @@ public class MenuAddRequest implements Serializable {
 
     private static final long serialVersionUID = 8515421119279590820L;
 
-    /**
-     * 名称
-     */
+    @ApiModelProperty(value = "菜单名称", required = true)
+    @NotNull(message = "菜单名称不能为空")
     private String title;
 
-    /**
-     * 标示符
-     */
+    @ApiModelProperty(value = "标识符", required = true)
+    @NotNull(message = "标识符不能为空")
     private String nid;
 
-    /**
-     * 菜单url
-     */
-    private String url;
+    @ApiModelProperty(value = "菜单等级 1:一级菜单 2:二级菜单 3:三级菜单(按钮菜单)", required = true)
+    @OptionInt(value = {1, 2, 3}, message = "菜单等级不合法")
+    private Byte grade;
 
-    /**
-     * 子url
-     */
-    private String subUrl;
-
-    /**
-     * 父id
-     */
+    @ApiModelProperty(value = "父菜单id", required = true)
+    @NotNull(message = "父菜单id不能为空")
     private Long pid;
 
-    /**
-     * 排序
-     */
+    @ApiModelProperty(value = "菜单url")
+    private String url;
+
+    @ApiModelProperty(value = "子菜单url(逗号分割)")
+    private String subUrl;
+
+    @ApiModelProperty(value = "排序(小-大)")
     private Integer sort;
 
-    /**
-     * 备注信息
-     */
+    @ApiModelProperty(value = "备注信息")
     private String remark;
-
-    /**
-     * 是否为主菜单
-     */
-    private Byte grade;
 
 }

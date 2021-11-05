@@ -1,6 +1,6 @@
 package com.eghm.model.dto.login;
 
-import com.eghm.model.annotation.Label;
+import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.annotation.RangeLength;
 import io.swagger.annotations.ApiModelProperty;
@@ -35,6 +35,6 @@ public class SmsLoginDTO implements Serializable {
      * ip地址
      */
     @ApiModelProperty(hidden = true)
-    @Label
+    @Sign
     private String ip;
 }

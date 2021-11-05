@@ -1,7 +1,9 @@
 package com.eghm.model.dto.image;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -14,22 +16,21 @@ public class ImageEditRequest implements Serializable {
     private static final long serialVersionUID = 4134425550056402012L;
 
     /**
-     * 图片名称
-     */
-    private String title;
-
-    /**
-     * 投标类型
-     */
-    private Byte classify;
-
-    /**
-     * 备注信息
-     */
-    private String remark;
-
-    /**
      * 主键
      */
+    @ApiModelProperty("id")
+    @NotNull(message = "id不能为空")
     private Long id;
+
+    @ApiModelProperty("图片名称")
+    @NotNull(message = "图片名称不能为空")
+    private String title;
+
+    @ApiModelProperty("图片类型")
+    @NotNull(message = "图片类型不能为空")
+    private Byte classify;
+
+    @ApiModelProperty("备注信息")
+    private String remark;
+
 }

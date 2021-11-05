@@ -39,7 +39,7 @@ public class ImageController {
     @PostMapping("/upload/image")
     @ApiOperation("图片单张上传")
     @SkipLogger
-    @ApiImplicitParam(name = "image", value = "文件流", required = true)
+    @ApiImplicitParam(name = "image", value = "文件流", paramType = "formData", dataType = "file", required = true)
     public RespBody<FilePath> image(@ApiParam(name = "image", value = "文件流") @RequestParam("image") MultipartFile image) {
         FilePath filePath = fileService.saveFile(image);
         return RespBody.success(filePath);

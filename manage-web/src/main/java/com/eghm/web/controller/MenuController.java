@@ -10,6 +10,8 @@ import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.annotation.Mark;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -60,6 +63,7 @@ public class MenuController {
      * @return list
      */
     @GetMapping("/menu/list_page")
+    @ApiOperation("菜单列表(不分页)")
     public List<SysMenu> listPage() {
         return sysMenuService.getAllList();
     }
@@ -86,7 +90,8 @@ public class MenuController {
      */
     @PostMapping("/menu/add")
     @Mark
-    public RespBody<Object> add(MenuAddRequest request) {
+    @ApiOperation("添加菜单")
+    public RespBody<Object> add(@Valid MenuAddRequest request) {
         if (request.getGrade() > SysMenu.BUTTON) {
             return RespBody.error(ErrorCode.SUB_MENU_ERROR);
         }
@@ -103,7 +108,8 @@ public class MenuController {
      */
     @PostMapping("/menu/edit")
     @Mark
-    public RespBody<Object> edit(MenuEditRequest request) {
+    @ApiOperation("修改菜单")
+    public RespBody<Object> edit(@Valid MenuEditRequest request) {
         sysMenuService.updateMenu(request);
         metadataSource.loadResource();
         return RespBody.success();
@@ -117,7 +123,9 @@ public class MenuController {
      */
     @PostMapping("/menu/delete")
     @Mark
-    public RespBody<Object> delete(Long id) {
+    @ApiOperation("删除菜单")
+    @ApiImplicitParam(name = "id", value = "id", required = true)
+    public RespBody<Object> delete(@RequestParam("id") Long id) {
         sysMenuService.deleteMenu(id);
         metadataSource.loadResource();
         return RespBody.success();
@@ -129,6 +137,7 @@ public class MenuController {
      * @return 菜单列表
      */
     @GetMapping("/operator/menu_list")
+    @ApiOperation("查询自己拥有的菜单列表")
     public List<SysMenu> operatorMenuList() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         return sysMenuService.getList(operator.getId());
