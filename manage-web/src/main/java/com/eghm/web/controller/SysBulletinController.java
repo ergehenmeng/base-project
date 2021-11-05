@@ -1,11 +1,10 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.util.StrUtil;
-import com.eghm.common.enums.ErrorCode;
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.SysBulletin;
 import com.eghm.model.dto.bulletin.BulletinAddRequest;
 import com.eghm.model.dto.bulletin.BulletinEditRequest;
+import com.eghm.model.dto.bulletin.BulletinHandleRequest;
 import com.eghm.model.dto.bulletin.BulletinQueryRequest;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
@@ -14,17 +13,23 @@ import com.eghm.service.common.SysBulletinService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
  * @date 2019/8/23 13:35
  */
 @RestController
+@Api(tags = "公告管理")
 public class SysBulletinController {
 
     private SysBulletinService sysBulletinService;
@@ -44,6 +49,7 @@ public class SysBulletinController {
     /**
      * 系统公告列表查询
      */
+    @ApiOperation("公告列表(分页)")
     @GetMapping("/bulletin/list_page")
     public Paging<SysBulletin> listPage(BulletinQueryRequest request) {
         PageInfo<SysBulletin> byPage = sysBulletinService.getByPage(request);
@@ -58,10 +64,8 @@ public class SysBulletinController {
      */
     @PostMapping("/bulletin/add")
     @Mark
-    public RespBody<Object> add(BulletinAddRequest request) {
-        if (StrUtil.isBlank(request.getOriginalContent())) {
-            return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
-        }
+    @ApiOperation("新增公告信息")
+    public RespBody<Object> add(@Valid BulletinAddRequest request) {
         sysBulletinService.addNotice(request);
         return RespBody.success();
     }
@@ -69,30 +73,25 @@ public class SysBulletinController {
     /**
      * 公告编辑页面
      */
-    @GetMapping("/bulletin/edit_page")
-    public String editPage(Model model, Long id) {
-        SysBulletin notice = sysBulletinService.getById(id);
-        model.addAttribute("notice", notice);
-        return "bulletin/edit_page";
+    @GetMapping("/bulletin/{id}")
+    @ApiImplicitParam(name = "id", value = "id", required = true)
+    @ApiOperation("公告信息查询")
+    public SysBulletin editPage(@PathVariable("id") Long id) {
+        return sysBulletinService.getById(id);
     }
 
-    /**
-     * 发布公告
-     */
-    @PostMapping("/bulletin/publish")
-    @Mark
-    public RespBody<Object> publish(Long id) {
-        sysBulletinService.publish(id);
-        return RespBody.success();
-    }
 
-    /**
-     * 取消发布的公告
-     */
-    @PostMapping("/bulletin/cancel_publish")
+    @PostMapping("/bulletin/handle")
     @Mark
-    public RespBody<Object> cancelPublish(Long id) {
-        sysBulletinService.cancelPublish(id);
+    @ApiOperation("公告操作(发布,取消发布,删除)")
+    public RespBody<Object> handle(@Valid BulletinHandleRequest request) {
+        if (request.getState() == BulletinHandleRequest.PUBLISH) {
+            sysBulletinService.publish(request.getId());
+        } else if (request.getState() == BulletinHandleRequest.CANCEL_PUBLISH) {
+            sysBulletinService.cancelPublish(request.getId());
+        } else {
+            sysBulletinService.deleteNotice(request.getId());
+        }
         return RespBody.success();
     }
 
@@ -101,33 +100,11 @@ public class SysBulletinController {
      */
     @PostMapping("/bulletin/edit")
     @Mark
-    public RespBody<Object> edit(BulletinEditRequest request) {
-        if (StrUtil.isBlank(request.getOriginalContent())) {
-            return RespBody.error(ErrorCode.TEXT_CONTENT_EMPTY);
-        }
+    @ApiOperation("编辑公告")
+    public RespBody<Object> edit(@Valid BulletinEditRequest request) {
         sysBulletinService.editNotice(request);
         return RespBody.success();
     }
 
-    /**
-     * 删除公告信息
-     */
-    @PostMapping("/bulletin/delete")
-    @Mark
-    public RespBody<Object> delete(Long id) {
-        sysBulletinService.deleteNotice(id);
-        return RespBody.success();
-    }
 
-    /**
-     * 富文本预览
-     */
-    @GetMapping("/bulletin/preview")
-    public String preview(Model model, Long id) {
-        SysBulletin notice = sysBulletinService.getById(id);
-        if (notice != null) {
-            model.addAttribute("response", notice.getContent());
-        }
-        return "query_page";
-    }
 }
