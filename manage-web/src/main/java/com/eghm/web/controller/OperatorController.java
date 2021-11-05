@@ -18,6 +18,7 @@ import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -68,7 +70,8 @@ public class OperatorController {
      */
     @PostMapping("/operator/change_password")
     @Mark
-    public RespBody<Object> changePassword(HttpSession session, PasswordEditRequest request) {
+    @ApiOperation("修改管理人员密码")
+    public RespBody<Object> changePassword(HttpSession session, @Valid PasswordEditRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = sysOperatorService.updateLoginPassword(request);
@@ -89,6 +92,7 @@ public class OperatorController {
      * @return 列表
      */
     @GetMapping("/operator/list_page")
+    @ApiOperation("管理后台用户列表")
     public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
         PageInfo<SysOperator> page = sysOperatorService.getByPage(request);
         return new Paging<>(page);
@@ -102,7 +106,8 @@ public class OperatorController {
      */
     @PostMapping("/operator/add")
     @Mark
-    public RespBody<Object> addOperator(OperatorAddRequest request) {
+    @ApiOperation("添加管理人员")
+    public RespBody<Object> addOperator(@Valid OperatorAddRequest request) {
         sysOperatorService.addOperator(request);
         return RespBody.success();
     }

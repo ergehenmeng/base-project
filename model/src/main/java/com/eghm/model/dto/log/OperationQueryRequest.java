@@ -1,8 +1,10 @@
 package com.eghm.model.dto.log;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,11 +22,15 @@ public class OperationQueryRequest extends PagingQuery implements Serializable {
     /**
      * 操作开始时间
      */
+    @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
 
     /**
      * 操作结束时间
      */
+    @ApiModelProperty("结束时间 yyyy-MM-dd HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;
 
 }

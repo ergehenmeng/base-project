@@ -1,7 +1,10 @@
 package com.eghm.model.dto.operator;
 
+import com.eghm.model.annotation.Sign;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -15,15 +18,19 @@ public class PasswordEditRequest implements Serializable {
     /**
      * 旧密码
      */
+    @ApiModelProperty("旧密码")
+    @NotNull(message = "原密码不能为空")
     private String oldPwd;
 
     /**
      * 新密码
      */
+    @NotNull(message = "新密码不能为空")
     private String newPwd;
 
     /**
      * 用户id
      */
+    @Sign
     private Long operatorId;
 }
