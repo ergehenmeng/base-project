@@ -7,10 +7,7 @@ import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.SysOperator;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.operator.OperatorAddRequest;
-import com.eghm.model.dto.operator.OperatorEditRequest;
-import com.eghm.model.dto.operator.OperatorQueryRequest;
-import com.eghm.model.dto.operator.PasswordEditRequest;
+import com.eghm.model.dto.operator.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.SysRoleService;
@@ -154,6 +151,8 @@ public class OperatorController {
      */
     @PostMapping("/operator/reset_password")
     @Mark
+    @ApiImplicitParam(name = "id", value = "id主键", required = true)
+    @ApiOperation("重置用户登录密码")
     public RespBody<Object> resetPassword(Long id) {
         sysOperatorService.resetPassword(id);
         return RespBody.success();
@@ -164,6 +163,7 @@ public class OperatorController {
      */
     @PostMapping("/lock_screen")
     @Mark
+    @ApiOperation("锁屏操作")
     public RespBody<Object> lockScreen() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
@@ -175,6 +175,8 @@ public class OperatorController {
      */
     @PostMapping("/unlock_screen")
     @Mark
+    @ApiOperation("解锁操作")
+    @ApiImplicitParam(name = "password", value = "密码", required = true)
     public RespBody<Object> unlockScreen(String password) {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         sysOperatorService.checkPassword(password, operator.getPwd());
@@ -182,33 +184,19 @@ public class OperatorController {
         return RespBody.success();
     }
 
-    /**
-     * 锁定用户
-     */
-    @PostMapping("/operator/lock_operator")
+
+    @PostMapping("/operator/handle")
     @Mark
-    public RespBody<Object> lockOperator(Long id) {
-        sysOperatorService.lockOperator(id);
+    @ApiOperation("用户操作接口")
+    public RespBody<Object> handle(@Valid OperatorHandleRequest request) {
+        if (request.getState() == 1) {
+            sysOperatorService.lockOperator(request.getId());
+        } else if (request.getState() == 2) {
+            sysOperatorService.unlockOperator(request.getId());
+        } else {
+            sysOperatorService.deleteOperator(request.getId());
+        }
         return RespBody.success();
     }
 
-    /**
-     * 解锁用户
-     */
-    @PostMapping("/operator/unlock_operator")
-    @Mark
-    public RespBody<Object> unlock(Long id) {
-        sysOperatorService.unlockOperator(id);
-        return RespBody.success();
-    }
-
-    /**
-     * 删除用户
-     */
-    @PostMapping("/operator/delete")
-    @Mark
-    public RespBody<Object> delete(Long id) {
-        sysOperatorService.deleteOperator(id);
-        return RespBody.success();
-    }
 }
