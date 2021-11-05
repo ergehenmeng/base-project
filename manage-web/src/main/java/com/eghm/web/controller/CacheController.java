@@ -6,6 +6,7 @@ import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
 import com.eghm.web.annotation.Mark;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.List;
  * @date 2019/1/14 14:12
  */
 @RestController
+@Api(tags = "缓存管理")
 public class CacheController {
 
     private SysCacheService sysCacheService;

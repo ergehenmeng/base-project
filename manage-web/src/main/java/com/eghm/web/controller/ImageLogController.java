@@ -16,6 +16,7 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ import javax.validation.Valid;
  * @date 2018/11/27 17:13
  */
 @RestController
+@Api(tags = "图片管理")
 public class ImageLogController {
 
     private ImageLogService imageLogService;

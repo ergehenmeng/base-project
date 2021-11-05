@@ -6,6 +6,7 @@ import com.eghm.model.dto.dept.DeptEditRequest;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.web.annotation.Mark;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import java.util.List;
  * @date 2019/1/17 16:27
  */
 @RestController
+@Api(tags = "部门管理")
 public class DeptController {
 
     private SysDeptService sysDeptService;

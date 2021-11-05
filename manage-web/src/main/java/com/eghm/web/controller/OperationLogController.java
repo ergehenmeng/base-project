@@ -4,6 +4,7 @@ import com.eghm.dao.model.SysOperationLog;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.log.OperationQueryRequest;
 import com.eghm.service.sys.OperationLogService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2019/1/16 10:37
  */
 @RestController
+@Api(tags = "操作日志管理")
 public class OperationLogController {
 
     private OperationLogService operationLogService;
@@ -30,6 +32,7 @@ public class OperationLogController {
      * @return 分页
      */
     @GetMapping("/operation_log/list_page")
+
     public Paging<SysOperationLog> listPage(OperationQueryRequest request) {
         return new Paging<>(operationLogService.getByPage(request));
     }

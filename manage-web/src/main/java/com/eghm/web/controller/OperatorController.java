@@ -17,6 +17,7 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -35,6 +36,7 @@ import java.util.List;
  * @date 2018/11/26 17:10
  */
 @RestController
+@Api(tags = "系统用户管理")
 public class OperatorController {
 
     private SysOperatorService sysOperatorService;

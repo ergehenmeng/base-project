@@ -10,6 +10,7 @@ import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.annotation.Mark;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import java.util.List;
  * @date 2018/1/30 09:30
  */
 @RestController
+@Api(tags = "菜单管理")
 public class MenuController {
 
     private SysMenuService sysMenuService;

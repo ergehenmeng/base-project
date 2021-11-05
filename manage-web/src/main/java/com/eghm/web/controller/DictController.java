@@ -8,6 +8,7 @@ import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.web.annotation.Mark;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
  * @date 2019/1/14 11:10
  */
 @RestController
+@Api(tags = "数据字典管理")
 public class DictController {
 
     private SysDictService sysDictService;

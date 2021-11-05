@@ -10,6 +10,7 @@ import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import javax.validation.Valid;
  * @date 2019/8/28 14:16
  */
 @RestController
+@Api(tags = "反馈管理")
 public class FeedbackController {
 
     private FeedbackService feedbackService;
