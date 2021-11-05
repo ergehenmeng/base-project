@@ -16,14 +16,14 @@ public class SmsTemplateEditRequest implements Serializable {
     /**
      * 主键
      */
-    @ApiModelProperty("id主键")
+    @ApiModelProperty(value = "id主键", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
     /**
      * 短信内容
      */
-    @ApiModelProperty("短信模板内容")
+    @ApiModelProperty(value = "短信模板内容", required = true)
     @NotNull(message = "短信内容不能为空")
     private String content;
 

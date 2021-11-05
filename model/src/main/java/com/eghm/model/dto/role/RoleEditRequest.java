@@ -19,21 +19,21 @@ public class RoleEditRequest implements Serializable {
     /**
      * 主键
      */
-    @ApiModelProperty("主键id")
+    @ApiModelProperty(value = "主键id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
     /**
      * 角色名称
      */
-    @ApiModelProperty("角色名称")
+    @ApiModelProperty(value = "角色名称", required = true)
     @NotNull(message = "角色名称不能为空")
     private String roleName;
 
     /**
      * 角色类型
      */
-    @ApiModelProperty("角色类型编码")
+    @ApiModelProperty(value = "角色类型编码", required = true)
     @NotNull(message = "角色类型不能为空")
     private String roleType;
 

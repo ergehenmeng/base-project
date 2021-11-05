@@ -18,7 +18,7 @@ public class PasswordEditRequest implements Serializable {
     /**
      * 旧密码
      */
-    @ApiModelProperty("旧密码")
+    @ApiModelProperty(value = "旧密码", required = true)
     @NotNull(message = "原密码不能为空")
     private String oldPwd;
 
@@ -26,6 +26,7 @@ public class PasswordEditRequest implements Serializable {
      * 新密码
      */
     @NotNull(message = "新密码不能为空")
+    @ApiModelProperty(value = "新密码", required = true)
     private String newPwd;
 
     /**

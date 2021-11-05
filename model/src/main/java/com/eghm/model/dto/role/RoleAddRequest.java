@@ -15,11 +15,11 @@ public class RoleAddRequest implements Serializable {
 
     private static final long serialVersionUID = 8213867116327534945L;
 
-    @ApiModelProperty("角色名称")
+    @ApiModelProperty(value = "角色名称", required = true)
     @NotNull(message = "角色名称不能为空")
     private String roleName;
 
-    @ApiModelProperty("角色类型编码")
+    @ApiModelProperty(value = "角色类型编码", required = true)
     @NotNull(message = "角色类型不能为空")
     private String roleType;
 

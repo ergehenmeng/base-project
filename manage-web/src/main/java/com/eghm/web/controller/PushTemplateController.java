@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -70,7 +71,8 @@ public class PushTemplateController {
      */
     @PostMapping("/push_template/edit")
     @Mark
-    public RespBody<Object> edit(PushTemplateEditRequest request) {
+    @ApiOperation("编辑推送模板")
+    public RespBody<Object> edit(@Valid PushTemplateEditRequest request) {
         pushTemplateService.editPushTemplate(request);
         return RespBody.success();
     }

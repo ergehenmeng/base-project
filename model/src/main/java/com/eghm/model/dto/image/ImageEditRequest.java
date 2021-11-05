@@ -18,15 +18,15 @@ public class ImageEditRequest implements Serializable {
     /**
      * 主键
      */
-    @ApiModelProperty("id")
+    @ApiModelProperty(value = "id主键", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("图片名称")
+    @ApiModelProperty(value = "图片名称", required = true)
     @NotNull(message = "图片名称不能为空")
     private String title;
 
-    @ApiModelProperty("图片类型")
+    @ApiModelProperty(value = "图片类型", required = true)
     @NotNull(message = "图片类型不能为空")
     private Byte classify;
 

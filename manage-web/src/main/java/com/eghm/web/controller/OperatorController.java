@@ -175,7 +175,7 @@ public class OperatorController {
 
     @PostMapping("/operator/handle")
     @Mark
-    @ApiOperation("用户操作接口")
+    @ApiOperation("用户操作(锁定,解锁,删除,重置密码)")
     public RespBody<Object> handle(@Valid OperatorHandleRequest request) {
         if (request.getState() == OperatorHandleRequest.LOCK) {
             sysOperatorService.lockOperator(request.getId());

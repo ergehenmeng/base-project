@@ -9,17 +9,22 @@ import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.web.annotation.Mark;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 /**
  * @author 二哥很猛
  * @date 2019/9/6 18:27
  */
 @RestController
+@Api(tags = "定时任务配置")
 public class TaskConfigController {
 
     private TaskConfigService taskConfigService;
@@ -40,27 +45,20 @@ public class TaskConfigController {
      * 分页查询定时任务列表
      */
     @GetMapping("/task/list_page")
+    @ApiOperation("定时任务列表(分页)")
     public Paging<TaskConfig> listPage(TaskQueryRequest request) {
         PageInfo<TaskConfig> byPage = taskConfigService.getByPage(request);
         return new Paging<>(byPage);
     }
 
-    /**
-     * 定时任务编辑页面
-     */
-    @GetMapping("/task/edit_page")
-    public String editPage(Model model, Long id) {
-        TaskConfig config = taskConfigService.getById(id);
-        model.addAttribute("config", config);
-        return "task/edit_page";
-    }
 
     /**
      * 定时任务编辑保存
      */
     @PostMapping("/task/edit")
     @Mark
-    public RespBody<Object> edit(TaskEditRequest request) {
+    @ApiOperation("编辑定时任务")
+    public RespBody<Object> edit(@Valid TaskEditRequest request) {
         taskConfigService.editTaskConfig(request);
         return RespBody.success();
     }
@@ -70,6 +68,7 @@ public class TaskConfigController {
      */
     @PostMapping("/task/refresh")
     @Mark
+    @ApiOperation("刷新定时任务")
     public RespBody<Object> refresh() {
         systemTaskRegistrar.loadOrRefreshTask();
         return RespBody.success();

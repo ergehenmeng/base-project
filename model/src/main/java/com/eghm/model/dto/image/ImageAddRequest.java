@@ -16,11 +16,11 @@ public class ImageAddRequest implements Serializable {
 
     private static final long serialVersionUID = 3775459871066834161L;
 
-    @ApiModelProperty("图片名称")
+    @ApiModelProperty(value = "图片名称", required = true)
     @NotNull(message = "图片名称不能为空")
     private String title;
 
-    @ApiModelProperty("图片类型")
+    @ApiModelProperty(value = "图片类型", required = true)
     @NotNull(message = "图片类型不能为空")
     private Byte classify;
 

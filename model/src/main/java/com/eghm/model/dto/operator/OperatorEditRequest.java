@@ -17,35 +17,35 @@ public class OperatorEditRequest implements Serializable {
     /**
      * 主键
      */
-    @ApiModelProperty("id主键")
+    @ApiModelProperty(value = "id主键", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
     /**
      * 名称
      */
-    @ApiModelProperty("用户名称")
+    @ApiModelProperty(value = "用户名称", required = true)
     @NotNull(message = "用户名称不能为空")
     private String operatorName;
 
     /**
      * 手机号
      */
-    @ApiModelProperty("手机号")
+    @ApiModelProperty(value = "手机号", required = true)
     @NotNull(message = "手机号不能为空")
     private String mobile;
 
     /**
      * 所属部门编号
      */
-    @ApiModelProperty("所属部门编号")
+    @ApiModelProperty(value = "所属部门编号", required = true)
     @NotNull(message = "所属部门不能为空")
     private String deptCode;
 
     /**
      * 角色列表
      */
-    @ApiModelProperty("角色编号 逗号分割")
+    @ApiModelProperty(value = "角色编号 逗号分割", required = true)
     @NotNull(message = "所属角色不能为空")
     private String roleIds;
 

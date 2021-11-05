@@ -1,6 +1,7 @@
 package com.eghm.model.dto.task;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,5 +18,6 @@ public class TaskQueryRequest extends PagingQuery {
     /**
      * 状态
      */
+    @ApiModelProperty("状态 0:未开启 1:已开启")
     private Byte state;
 }
