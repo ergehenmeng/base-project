@@ -1,24 +1,17 @@
 package com.eghm.dao.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
-import java.io.Serializable;
 
 /**
  *
  * @author 二哥很猛
  */
-@Data
-@AllArgsConstructor
-public class SysOperatorRole implements Serializable {
-    private static final long serialVersionUID = 987553406182629138L;
-    /**
-     * 主键<br>
-     * 表 : sys_operator_role<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysOperatorRole extends BaseEntity {
+
 
     /**
      * 用户id<br>

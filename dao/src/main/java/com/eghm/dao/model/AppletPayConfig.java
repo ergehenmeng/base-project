@@ -1,18 +1,16 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
 
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Date;
 
-@Data
-public class AppletPayConfig implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : applet_pay_config<br>
-     * 对应字段 : id<br>
-     */
-    private Integer id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class AppletPayConfig extends BaseEntity {
 
     /**
      * 唯一标识符<br>

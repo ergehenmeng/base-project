@@ -1,21 +1,18 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class EmailTemplate implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : email_template<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class EmailTemplate extends BaseEntity {
 
     /**
      * 模板唯一编码<br>

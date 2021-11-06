@@ -1,25 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 轮播图管理
  * @author 二哥很猛
  */
-@Data
-public class Banner implements Serializable {
-
-    private static final long serialVersionUID = 6177166783814386108L;
-    /**
-     * <br>
-     *     主键
-     * 表 : banner<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class Banner extends BaseEntity {
 
     /**
      * 标题

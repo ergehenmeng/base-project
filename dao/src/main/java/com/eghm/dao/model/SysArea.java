@@ -1,15 +1,18 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 
 /**
  * 省市县三级地址
  * @author 二哥很猛
  */
-@Data
-public class SysArea implements Serializable {
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysArea extends BaseEntity {
 
     /**
      * 省级
@@ -25,13 +28,6 @@ public class SysArea implements Serializable {
      * 县级
      */
     public static final byte CLASSIFY_COUNTY = 3;
-
-    /**
-     * 区域代码 <br>
-     * 表 : sys_area<br>
-     * 对应字段 : id <br>
-     */
-    private Integer id;
 
     /**
      * 区域名称<br>

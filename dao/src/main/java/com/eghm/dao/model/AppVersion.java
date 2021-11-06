@@ -1,23 +1,20 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
+
 import java.util.Date;
 
 /**
  * 手机版本
  * @author 二哥很猛
  */
-@Data
-public class AppVersion implements Serializable {
-
-    /**
-     * 主键<br>
-     * 表 : app_version<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class AppVersion extends BaseEntity {
 
     /**
      * 版本类型 IOS,ANDROID<br>

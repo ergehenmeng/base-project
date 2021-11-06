@@ -1,28 +1,17 @@
 package com.eghm.dao.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 系统异常记录
  * @author 二哥很猛
  */
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ExceptionLog implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : exception_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class ExceptionLog extends BaseEntity {
 
     /**
      * 访问链接<br>

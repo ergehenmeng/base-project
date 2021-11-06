@@ -1,24 +1,18 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class FeedbackLog implements Serializable {
-
-    private static final long serialVersionUID = 8825037006949192369L;
-
-    /**
-     * <br>
-     * 表 : feedback_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class FeedbackLog extends BaseEntity {
 
     /**
      * 用户ID<br>

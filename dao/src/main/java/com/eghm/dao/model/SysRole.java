@@ -1,6 +1,8 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,15 +11,10 @@ import java.util.Date;
  * 角色
  * @author 二哥很猛
  */
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class SysRole implements Serializable {
-    private static final long serialVersionUID = 584470701709277422L;
-    /**
-     * 主键<br>
-     * 表 : sys_role<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
 
     /**
      * 角色名称<br>

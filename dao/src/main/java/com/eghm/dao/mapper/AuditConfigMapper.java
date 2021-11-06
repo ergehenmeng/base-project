@@ -1,19 +1,13 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.AuditConfig;
+import com.eghm.dao.model.BaseEntity;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface AuditConfigMapper {
-
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    AuditConfig selectByPrimaryKey(Long id);
+public interface AuditConfigMapper extends BaseMapper<AuditConfig> {
 
     /**
      * 查询指定审核类型的配置列表

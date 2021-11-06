@@ -1,28 +1,18 @@
 package com.eghm.dao.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 短信发送记录表
  * @author 二哥很猛
  */
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class SmsLog implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : sms_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SmsLog extends BaseEntity {
+
 
     /**
      * 短信分类<br>

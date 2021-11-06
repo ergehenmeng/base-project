@@ -1,25 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户登陆日志
  * @author 二哥很猛
  */
-@Data
-public class LoginLog implements Serializable {
-
-    private static final long serialVersionUID = -5894491747743489142L;
-
-    /**
-     * 主键<br>
-     * 表 : login_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class LoginLog extends BaseEntity {
 
     /**
      * 用户id<br>

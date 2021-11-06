@@ -1,25 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 系统参数表
  * @author 二哥很猛
  */
-@Data
-public class SysConfig implements Serializable {
-
-    private static final long serialVersionUID = -3006821887681558075L;
-
-    /**
-     * 主键<br>
-     * 表 : sys_config<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysConfig extends BaseEntity {
 
     /**
      * 参数标示符<br>

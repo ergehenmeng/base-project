@@ -42,7 +42,9 @@ spring:
     check-template-location: true
     content-type: text/html
 ## mybatis配置
-mybatis:
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
   mapper-locations:
     - classpath*:mapper/**/*.xml
 

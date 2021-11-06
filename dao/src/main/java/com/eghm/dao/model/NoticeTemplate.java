@@ -1,21 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
 
-import java.io.Serializable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class NoticeTemplate implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : notice_template<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class NoticeTemplate extends BaseEntity {
 
     /**
      * 消息模板code<br>

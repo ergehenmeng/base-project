@@ -1,193 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.BannerMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.Banner">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="classify" jdbcType="TINYINT" property="classify" />
-    <result column="client_type" jdbcType="VARCHAR" property="clientType" />
-    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
-    <result column="turn_url" jdbcType="VARCHAR" property="turnUrl" />
-    <result column="sort" jdbcType="TINYINT" property="sort" />
-    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="click" jdbcType="BIT" property="click" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-      <result column="deleted" jdbcType="BIT" property="deleted" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id,title, classify, client_type, img_url, turn_url, sort, start_time, end_time, click, remark,add_time,update_time,deleted
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from banner
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.Banner">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="classify" jdbcType="TINYINT" property="classify"/>
+        <result column="client_type" jdbcType="VARCHAR" property="clientType"/>
+        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
+        <result column="turn_url" jdbcType="VARCHAR" property="turnUrl"/>
+        <result column="sort" jdbcType="TINYINT" property="sort"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="click" jdbcType="BIT" property="click"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id,title, classify, client_type, img_url, turn_url, sort, start_time, end_time, click,
+        remark,add_time,update_time,deleted
+    </sql>
+
 
     <select id="getBannerList" resultMap="BaseResultMap">
-       select <include refid="BaseColumnList"/>
-       from banner where
-      <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间 -->
-      (end_time &lt;= now() or end_time is null) and start_time &gt;= now()
-       and client_type = {clientType} and classify = #{classify} order by sort desc
+        select
+        <include refid="BaseColumnList"/>
+        from banner where
+        <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间 -->
+        (end_time &lt;= now() or end_time is null) and start_time &gt;= now()
+        and client_type = {clientType} and classify = #{classify} order by sort desc
     </select>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.Banner">
-    <!--
-      @create by mybatis
-    -->
-    insert into banner
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-        <if test="title != null">
-            title,
-        </if>
-      <if test="classify != null">
-        classify,
-      </if>
-      <if test="clientType != null">
-        client_type,
-      </if>
-      <if test="imgUrl != null">
-        img_url,
-      </if>
-      <if test="turnUrl != null">
-        turn_url,
-      </if>
-      <if test="sort != null">
-        sort,
-      </if>
-      <if test="startTime != null">
-        start_time,
-      </if>
-      <if test="endTime != null">
-        end_time,
-      </if>
-      <if test="click != null">
-        click,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-        <if test="addTime != null">
-            add_time,
-        </if>
-        <if test="updateTime != null">
-            update_time,
-        </if>
-        <if test="deleted != null">
-            deleted,
-        </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-        <if test="title != null">
-            #{title,jdbcType=VARCHAR},
-        </if>
-      <if test="classify != null">
-        #{classify,jdbcType=TINYINT},
-      </if>
-      <if test="clientType != null">
-        #{clientType,jdbcType=VARCHAR},
-      </if>
-      <if test="imgUrl != null">
-        #{imgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="turnUrl != null">
-        #{turnUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        #{sort,jdbcType=TINYINT},
-      </if>
-      <if test="startTime != null">
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="click != null">
-        #{click,jdbcType=BIT},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-        <if test="addTime != null">
-            #{addTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="updateTime != null">
-            #{updateTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="deleted != null">
-            #{deleted,jdbcType=BIT},
-        </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.Banner">
-    <!--
-      @create by mybatis
-    -->
-    update banner
-    <set>
-      <if test="title != null ">
-          title = #{title},
-      </if>
-      <if test="classify != null">
-          classify = #{classify,jdbcType=TINYINT},
-      </if>
-      <if test="clientType != null">
-        client_type = #{clientType,jdbcType=VARCHAR},
-      </if>
-      <if test="imgUrl != null">
-        img_url = #{imgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="turnUrl != null">
-        turn_url = #{turnUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="sort != null">
-        sort = #{sort,jdbcType=TINYINT},
-      </if>
-      <if test="startTime != null">
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="click != null">
-        click = #{click,jdbcType=BIT},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-        <if test="addTime != null">
-          add_time = #{addTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="updateTime != null">
-            update_time = #{updateTime,jdbcType=TIMESTAMP},
-        </if>
-        <if test="deleted != null">
-            deleted = #{deleted,jdbcType=BIT},
-        </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
     <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.banner.BannerQueryRequest">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from banner
         <where>
             <if test="queryName != null and queryName != ''">

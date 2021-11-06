@@ -1,9 +1,6 @@
 package com.eghm.dao.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,18 +8,10 @@ import java.util.Date;
 /**
  * @author 二哥很猛
  */
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class TaskLog implements Serializable {
-
-    /**
-     * 主键<br>
-     * 表 : task_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
 
     /**
      * 任务nid<br>

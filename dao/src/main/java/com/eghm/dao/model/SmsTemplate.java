@@ -1,21 +1,18 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class SmsTemplate implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : sms_template<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SmsTemplate extends BaseEntity {
 
     /**
      * 短信模板nid即短信类型<br>

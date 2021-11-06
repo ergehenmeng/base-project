@@ -1,21 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  */
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class TagView implements Serializable {
 
-    /**
-     * 主键<br>
-     * 表 : tag_view<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
 
     /**
      * 页面名称<br>

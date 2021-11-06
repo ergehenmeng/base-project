@@ -1,6 +1,9 @@
 package com.eghm.dao.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +11,9 @@ import java.util.Date;
 /**
  * @author 二哥很猛
  */
-@Data
+@Getter
+@Setter
+@ToString(callSuper = true)
 public class UserAddress implements Serializable {
 
     /**
@@ -20,13 +25,6 @@ public class UserAddress implements Serializable {
      * 普通地址
      */
     public static final byte STATE_COMMON = 0;
-
-    /**
-     * 主键<br>
-     * 表 : user_address<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
 
     /**
      * 用户id<br>

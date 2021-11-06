@@ -1,16 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 系统公告
  * @author 二哥很猛
  */
-@Data
-public class SysBulletin implements Serializable {
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysBulletin extends BaseEntity {
 
     private static final long serialVersionUID = -3328700458453468310L;
 
@@ -23,13 +26,6 @@ public class SysBulletin implements Serializable {
      * 已发布
      */
     public static final byte STATE_1 = 1;
-
-    /**
-     * 主键<br>
-     * 表 : sys_bulletin<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
 
     /**
      * 公告标题<br>

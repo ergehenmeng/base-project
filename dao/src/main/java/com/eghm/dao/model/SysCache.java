@@ -1,23 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 系统缓存
  * @author 二哥很猛
  */
-@Data
-public class SysCache implements Serializable {
-    private static final long serialVersionUID = 1113513661616451579L;
-    /**
-     * 主键<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysCache extends BaseEntity {
 
     /**
      * 缓存名称<br>

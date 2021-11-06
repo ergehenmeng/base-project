@@ -1,22 +1,18 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class HelpCenter implements Serializable {
-
-    /**
-     * 主键<br>
-     * 表 : help_center<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class HelpCenter extends BaseEntity {
 
     /**
      * 帮助分类取sys_dict表中help_classify字段<br>
