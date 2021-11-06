@@ -11,6 +11,9 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ExceptionLog extends BaseEntity {
 
     /**

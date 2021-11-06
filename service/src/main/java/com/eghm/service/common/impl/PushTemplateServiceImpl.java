@@ -44,12 +44,12 @@ public class PushTemplateServiceImpl implements PushTemplateService {
 
     @Override
     public PushTemplate getById(Long id) {
-        return pushTemplateMapper.selectByPrimaryKey(id);
+        return pushTemplateMapper.selectById(id);
     }
 
     @Override
     public void editPushTemplate(PushTemplateEditRequest request) {
         PushTemplate template = DataUtil.copy(request, PushTemplate.class);
-        pushTemplateMapper.updateByPrimaryKeySelective(template);
+        pushTemplateMapper.updateById(template);
     }
 }

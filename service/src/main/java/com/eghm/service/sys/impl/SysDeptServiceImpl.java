@@ -53,7 +53,7 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public SysDept getById(Long id) {
-        return sysDeptMapper.selectByPrimaryKey(id);
+        return sysDeptMapper.selectById(id);
     }
 
     @Override
@@ -71,14 +71,14 @@ public class SysDeptServiceImpl implements SysDeptService {
         department.setOperatorId(operator.getId());
         department.setOperatorName(operator.getOperatorName());
         department.setId(keyGenerator.generateKey());
-        sysDeptMapper.insertSelective(department);
+        sysDeptMapper.insert(department);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void editDepartment(DeptEditRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
-        sysDeptMapper.updateByPrimaryKeySelective(department);
+        sysDeptMapper.updateById(department);
     }
 
     /**

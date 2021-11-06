@@ -46,7 +46,7 @@ public class TaskConfigServiceImpl implements TaskConfigService {
 
     @Override
     public TaskConfig getById(Long id) {
-        return taskConfigMapper.selectByPrimaryKey(id);
+        return taskConfigMapper.selectById(id);
     }
 
     @Override
@@ -56,6 +56,6 @@ public class TaskConfigServiceImpl implements TaskConfigService {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
         }
         TaskConfig config = DataUtil.copy(request, TaskConfig.class);
-        taskConfigMapper.updateByPrimaryKeySelective(config);
+        taskConfigMapper.updateById(config);
     }
 }

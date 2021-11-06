@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.TaskConfig;
 import com.eghm.model.dto.task.TaskQueryRequest;
 
@@ -8,7 +9,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface TaskConfigMapper {
+public interface TaskConfigMapper extends BaseMapper<TaskConfig> {
 
     /**
      * 获取所有开启的定时任务

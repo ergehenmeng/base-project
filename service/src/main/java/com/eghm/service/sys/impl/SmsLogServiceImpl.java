@@ -36,7 +36,7 @@ public class SmsLogServiceImpl implements SmsLogService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addSmsLog(SmsLog smsLog) {
         smsLog.setId(keyGenerator.generateKey());
-        smsLogMapper.insertSelective(smsLog);
+        smsLogMapper.insert(smsLog);
     }
 
     @Override

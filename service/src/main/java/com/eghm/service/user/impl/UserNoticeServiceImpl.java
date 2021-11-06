@@ -96,7 +96,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
         mail.setContent(content);
         mail.setUserId(userId);
         mail.setId(keyGenerator.generateKey());
-        userNoticeMapper.insertSelective(mail);
+        userNoticeMapper.insert(mail);
         // 发送推送消息
         if (mailType.isPushNotice()) {
             this.doSendNotice(mail, mailType, sendNotice.getExtras());

@@ -62,13 +62,13 @@ public class UserAddressServiceImpl implements UserAddressService {
         }
         this.fillAreaName(address);
         address.setId(keyGenerator.generateKey());
-        userAddressMapper.insertSelective(address);
+        userAddressMapper.insert(address);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void setDefault(Long id, Long userId) {
-        UserAddress userAddress = userAddressMapper.selectByPrimaryKey(id);
+        UserAddress userAddress = userAddressMapper.selectById(id);
         if (userAddress == null || !userAddress.getUserId().equals(userId)) {
             log.warn("设置默认地址非当前用户 id:[{}], userId:[{}]", id, userId);
             throw new BusinessException(ErrorCode.USER_ADDRESS_NULL);
@@ -76,7 +76,7 @@ public class UserAddressServiceImpl implements UserAddressService {
         // 将所有先更新为普通地址,再更新当前地址未默认地址
         userAddressMapper.updateState(userId, UserAddress.STATE_COMMON);
         userAddress.setState(UserAddress.STATE_DEFAULT);
-        userAddressMapper.updateByPrimaryKeySelective(userAddress);
+        userAddressMapper.updateById(userAddress);
     }
 
     @Override

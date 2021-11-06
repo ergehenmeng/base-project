@@ -70,7 +70,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public SysMenu getMenuById(Long id) {
-        return sysMenuMapper.selectByPrimaryKey(id);
+        return sysMenuMapper.selectById(id);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         try {
             copy.setId(keyGenerator.generateKey());
-            sysMenuMapper.insertSelective(copy);
+            sysMenuMapper.insert(copy);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.MENU_NID_ERROR);
         }
@@ -97,7 +97,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         int index;
         try {
-            index = sysMenuMapper.updateByPrimaryKeySelective(copy);
+            index = sysMenuMapper.updateById(copy);
         } catch (Exception e) {
             //唯一索引会导致异常
             throw new BusinessException(ErrorCode.MENU_NID_ERROR);

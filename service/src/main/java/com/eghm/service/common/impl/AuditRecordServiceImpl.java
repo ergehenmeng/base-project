@@ -38,20 +38,20 @@ public class AuditRecordServiceImpl implements AuditRecordService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void insertSelective(AuditRecord record) {
+    public void insert(AuditRecord record) {
         record.setId(keyGenerator.generateKey());
-        auditRecordMapper.insertSelective(record);
+        auditRecordMapper.insert(record);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateSelective(AuditRecord record) {
-        auditRecordMapper.updateByPrimaryKeySelective(record);
+        auditRecordMapper.updateById(record);
     }
 
     @Override
     public AuditRecord getById(Long id) {
-        return auditRecordMapper.selectByPrimaryKey(id);
+        return auditRecordMapper.selectById(id);
     }
 
     @Override

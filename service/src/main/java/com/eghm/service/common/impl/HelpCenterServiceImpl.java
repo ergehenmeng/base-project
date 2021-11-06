@@ -44,14 +44,14 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     public void addHelpCenter(HelpAddRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
         helpCenter.setId(keyGenerator.generateKey());
-        helpCenterMapper.insertSelective(helpCenter);
+        helpCenterMapper.insert(helpCenter);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateHelpCenter(HelpEditRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
-        helpCenterMapper.updateByPrimaryKeySelective(helpCenter);
+        helpCenterMapper.updateById(helpCenter);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class HelpCenterServiceImpl implements HelpCenterService {
         HelpCenter helpCenter = new HelpCenter();
         helpCenter.setId(request.getId());
         helpCenter.setDeleted(true);
-        helpCenterMapper.updateByPrimaryKeySelective(helpCenter);
+        helpCenterMapper.updateById(helpCenter);
     }
 
     @Override

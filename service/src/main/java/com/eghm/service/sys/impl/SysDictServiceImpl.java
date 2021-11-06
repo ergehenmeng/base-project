@@ -64,14 +64,14 @@ public class SysDictServiceImpl implements SysDictService {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDict.setDeleted(false);
         sysDict.setId(keyGenerator.generateKey());
-        sysDictMapper.insertSelective(sysDict);
+        sysDictMapper.insert(sysDict);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateDict(DictEditRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
-        sysDictMapper.updateByPrimaryKeySelective(sysDict);
+        sysDictMapper.updateById(sysDict);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public SysDict getById(Long id) {
-        return sysDictMapper.selectByPrimaryKey(id);
+        return sysDictMapper.selectById(id);
     }
 
 }

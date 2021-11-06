@@ -49,9 +49,9 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void insertSelective(UserScoreLog scoreLog) {
+    public void insert(UserScoreLog scoreLog) {
         scoreLog.setId(keyGenerator.generateKey());
-        userScoreLogMapper.insertSelective(scoreLog);
+        userScoreLogMapper.insert(scoreLog);
     }
 
     @Override

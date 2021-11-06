@@ -38,9 +38,9 @@ public class SysDataDeptServiceImpl implements SysDataDeptService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void insertSelective(SysDataDept dept) {
+    public void insert(SysDataDept dept) {
         dept.setId(keyGenerator.generateKey());
-        sysDataDeptMapper.insertSelective(dept);
+        sysDataDeptMapper.insert(dept);
     }
 
     @Override

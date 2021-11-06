@@ -51,7 +51,7 @@ public class ImageLogServiceImpl implements ImageLogService {
         ImageLog imageLog = DataUtil.copy(request, ImageLog.class);
         imageLog.setDeleted(false);
         imageLog.setId(keyGenerator.generateKey());
-        imageLogMapper.insertSelective(imageLog);
+        imageLogMapper.insert(imageLog);
     }
 
     @Override
@@ -60,18 +60,18 @@ public class ImageLogServiceImpl implements ImageLogService {
         ImageLog log = new ImageLog();
         log.setId(id);
         log.setDeleted(true);
-        imageLogMapper.updateByPrimaryKeySelective(log);
+        imageLogMapper.updateById(log);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateImageLog(ImageEditRequest request) {
         ImageLog log = DataUtil.copy(request, ImageLog.class);
-        imageLogMapper.updateByPrimaryKeySelective(log);
+        imageLogMapper.updateById(log);
     }
 
     @Override
     public ImageLog getById(Long id) {
-        return imageLogMapper.selectByPrimaryKey(id);
+        return imageLogMapper.selectById(id);
     }
 }

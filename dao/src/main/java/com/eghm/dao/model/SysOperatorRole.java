@@ -10,6 +10,8 @@ import lombok.*;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class SysOperatorRole extends BaseEntity {
 
 
@@ -26,8 +28,5 @@ public class SysOperatorRole extends BaseEntity {
      * 对应字段 : role_id<br>
      */
     private Long roleId;
-
-    public SysOperatorRole() {
-    }
 
 }

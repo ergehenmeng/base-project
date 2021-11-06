@@ -47,7 +47,7 @@ public class LoginLogServiceImpl implements LoginLogService {
     public void addLoginLog(LoginRecord record) {
         LoginLog loginLog = DataUtil.copy(record, LoginLog.class);
         loginLog.setId(keyGenerator.generateKey());
-        loginLogMapper.insertSelective(loginLog);
+        loginLogMapper.insert(loginLog);
         LoginDevice device = DataUtil.copy(record, LoginDevice.class);
         loginDeviceService.insertOrUpdateSelective(device);
     }

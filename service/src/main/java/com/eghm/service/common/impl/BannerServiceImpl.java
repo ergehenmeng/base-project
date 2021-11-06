@@ -49,7 +49,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public Banner getById(Long id) {
-        return bannerMapper.selectByPrimaryKey(id);
+        return bannerMapper.selectById(id);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class BannerServiceImpl implements BannerService {
     public void addBanner(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         banner.setId(keyGenerator.generateKey());
-        bannerMapper.insertSelective(banner);
+        bannerMapper.insert(banner);
     }
 
     @Override
@@ -74,6 +74,6 @@ public class BannerServiceImpl implements BannerService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void editBanner(BannerEditRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
-        bannerMapper.updateByPrimaryKeySelective(banner);
+        bannerMapper.updateById(banner);
     }
 }
