@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class SysHoliday implements Serializable {
+public class SysHoliday extends BaseEntity {
 
 
     /**

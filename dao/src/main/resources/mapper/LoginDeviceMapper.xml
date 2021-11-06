@@ -1,118 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.LoginDeviceMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.LoginDevice">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber" />
-    <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
-    <result column="ip" jdbcType="BIGINT" property="ip" />
-    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, user_id, serial_number, device_model, login_time,ip
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from login_device
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.LoginDevice">
-    <!--
-      @create by mybatis
-    -->
-    insert into login_device
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="serialNumber != null">
-        serial_number,
-      </if>
-      <if test="deviceModel != null">
-        device_model,
-      </if>
-      <if test="loginTime != null">
-        login_time,
-      </if>
-        <if test="ip != null">
-          ip,
-        </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="serialNumber != null">
-        #{serialNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceModel != null">
-        #{deviceModel,jdbcType=VARCHAR},
-      </if>
-      <if test="loginTime != null">
-        #{loginTime,jdbcType=TIMESTAMP},
-      </if>
-        <if test="ip != null">
-          #{ip,jdbcType=BIGINT},
-        </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.LoginDevice">
-    <!--
-      @create by mybatis
-    -->
-    update login_device
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="serialNumber != null">
-        serial_number = #{serialNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceModel != null">
-        device_model = #{deviceModel,jdbcType=VARCHAR},
-      </if>
-      <if test="loginTime != null">
-        login_time = #{loginTime,jdbcType=TIMESTAMP},
-      </if>
-        <if test="ip != null">
-          ip = #{ip}
-        </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.LoginDevice">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="serial_number" jdbcType="VARCHAR" property="serialNumber"/>
+        <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
+        <result column="ip" jdbcType="BIGINT" property="ip"/>
+        <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, user_id, serial_number, device_model, login_time,ip
+    </sql>
 
-  <insert id="insertOrUpdateSelective" parameterType="com.eghm.dao.model.LoginDevice">
+    <insert id="insertOrUpdateSelective" parameterType="com.eghm.dao.model.LoginDevice">
     insert into login_device(user_id, serial_number, device_model, login_time, ip)
     values(#{userId}, #{serialNumber}, #{deviceModel}, now(), ip)
     on duplicate key update login_time = now();
   </insert>
 
-  <select id="getBySerialNumber" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList"/>
-    from login_device where user_id = #{userId} and serial_number = #{serialNumber} limit 1
-  </select>
+    <select id="getBySerialNumber" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from login_device where user_id = #{userId} and serial_number = #{serialNumber} limit 1
+    </select>
 
-  <delete id="deleteLoginDevice">
+    <delete id="deleteLoginDevice">
     delete from login_device where  user_id = #{userId} and serial_number = #{serialNumber}
   </delete>
-  <select id="getByUserId" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList" /> from login_device where user_id = #{userId}
-  </select>
+    <select id="getByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from login_device where user_id = #{userId}
+    </select>
 </mapper>

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
@@ -12,7 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class TagView implements Serializable {
+public class TagView extends BaseEntity {
 
 
     /**

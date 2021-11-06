@@ -13,8 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class UserInviteLog implements Serializable {
-
+public class UserInviteLog extends BaseEntity {
 
     /**
      * 用户id<br>

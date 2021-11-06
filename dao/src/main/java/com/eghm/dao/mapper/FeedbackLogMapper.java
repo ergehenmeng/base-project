@@ -1,33 +1,13 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.FeedbackLog;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 
 import java.util.List;
 
-public interface FeedbackLogMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(FeedbackLog record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    FeedbackLog selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(FeedbackLog record);
+public interface FeedbackLogMapper extends BaseMapper<FeedbackLog> {
 
     /**
      * 根据条件查询反馈列表

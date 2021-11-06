@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class SysRole implements Serializable {
+public class SysRole extends BaseEntity{
 
     /**
      * 角色名称<br>

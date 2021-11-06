@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class UserNotice implements Serializable {
+public class UserNotice extends BaseEntity {
 
     /**
      * 用户id<br>

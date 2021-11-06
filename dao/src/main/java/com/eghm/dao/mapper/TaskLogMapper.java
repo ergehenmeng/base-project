@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
 import org.apache.ibatis.annotations.Param;
@@ -9,28 +10,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface TaskLogMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(TaskLog record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    TaskLog selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(TaskLog record);
+public interface TaskLogMapper extends BaseMapper<TaskLog> {
 
     /**
      * 根据条件查询定时任务日志列表

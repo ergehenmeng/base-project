@@ -1,109 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.UserScoreLogMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserScoreLog">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="score" jdbcType="BIGINT" property="score" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, user_id, score, type, remark, add_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from user_score_log
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserScoreLog">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="score" jdbcType="BIGINT" property="score"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, user_id, score, type, remark, add_time
+    </sql>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.UserScoreLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into user_score_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="score != null">
-        score,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="score != null">
-        #{score,jdbcType=BIGINT},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.UserScoreLog">
-    <!--
-      @create by mybatis
-    -->
-    update user_score_log
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="score != null">
-        score = #{score,jdbcType=BIGINT},
-      </if>
-      <if test="type != null">
-        type = #{type,jdbcType=TINYINT},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.score.UserScoreQueryDTO">
-    select <include refid="BaseColumnList" />
-    from user_score_log
-    where user_id = #{userId}
-    <if test="type != null">
-      and type = #{type}
-    </if>
-  </select>
+    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.score.UserScoreQueryDTO">
+        select
+        <include refid="BaseColumnList"/>
+        from user_score_log
+        where user_id = #{userId}
+        <if test="type != null">
+            and type = #{type}
+        </if>
+    </select>
 </mapper>

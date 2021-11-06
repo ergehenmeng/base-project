@@ -1,74 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysOperatorRoleMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysOperatorRole">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="operator_id" jdbcType="BIGINT" property="operatorId" />
-    <result column="role_id" jdbcType="BIGINT" property="roleId" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, operator_id, role_id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from sys_operator_role
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysOperatorRole">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="operator_id" jdbcType="BIGINT" property="operatorId"/>
+        <result column="role_id" jdbcType="BIGINT" property="roleId"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, operator_id, role_id
+    </sql>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.SysOperatorRole">
-    <!--
-      @create by mybatis
-    -->
-    insert into sys_operator_role
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="operatorId != null">
-        operator_id,
-      </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="operatorId != null">
-        #{operatorId,jdbcType=BIGINT},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.SysOperatorRole">
-    <!--
-      @create by mybatis
-    -->
-    update sys_operator_role
-    <set>
-      <if test="operatorId != null">
-        operator_id = #{operatorId,jdbcType=BIGINT},
-      </if>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-    <select id="getByOperatorId"  resultType="java.lang.Long">
+    <select id="getByOperatorId" resultType="java.lang.Long">
         select role_id
         from sys_operator_role where operator_id = #{operatorId}
     </select>
@@ -77,7 +25,7 @@
         delete from sys_operator_role where operator_id = #{operatorId}
     </delete>
 
-    <insert id="batchInsertOperatorRole" >
+    <insert id="batchInsertOperatorRole">
         insert into sys_operator_role(operator_id,role_id) values
         <foreach collection="roleList" separator="," item="item">
             (#{operatorId},#{item})

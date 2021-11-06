@@ -1,62 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.UserInviteLogMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserInviteLog">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="invite_user_id" jdbcType="BIGINT" property="inviteUserId" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, user_id, invite_user_id, add_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from user_invite_log
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.UserInviteLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into user_invite_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="inviteUserId != null">
-        invite_user_id,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="inviteUserId != null">
-        #{inviteUserId,jdbcType=BIGINT},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserInviteLog">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="invite_user_id" jdbcType="BIGINT" property="inviteUserId"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, user_id, invite_user_id, add_time
+    </sql>
+
 </mapper>

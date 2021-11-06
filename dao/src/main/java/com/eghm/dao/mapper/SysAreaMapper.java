@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.SysArea;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,27 +9,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface SysAreaMapper {
-    /**
-     * 插入不为空的记录
-     * @param record 待插入对象
-     * @return 插入条数 1
-     */
-    int insertSelective(SysArea record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     * @param id 主键
-     * @return 一条数据
-     */
-    SysArea selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     * @param record 更新对象
-     * @return 一条
-     */
-    int updateByPrimaryKeySelective(SysArea record);
+public interface SysAreaMapper extends BaseMapper<SysArea> {
 
     /**
      * 查询所有

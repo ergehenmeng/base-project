@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
 import org.apache.ibatis.annotations.Param;
@@ -7,30 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.Date;
 import java.util.List;
 
-public interface SmsLogMapper {
-
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(SmsLog record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    SmsLog selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(SmsLog record);
-
+public interface SmsLogMapper extends BaseMapper<SmsLog> {
 
     /**
      * 统计一段时间内发送短信的次数 成功或者发送中的短信

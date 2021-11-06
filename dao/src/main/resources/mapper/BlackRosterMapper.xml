@@ -1,105 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.BlackRosterMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.BlackRoster">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="ip" jdbcType="BIGINT" property="ip" />
-    <result column="deleted" jdbcType="BIT" property="deleted" />
-    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, ip, deleted, end_time, add_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from black_roster
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.BlackRoster">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="ip" jdbcType="BIGINT" property="ip"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, ip, deleted, end_time, add_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--
+          @create by mybatis
+        -->
+        select
+        <include refid="BaseColumnList"/>
+        from black_roster
+        where id = #{id,jdbcType=BIGINT}
+    </select>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.BlackRoster">
-    <!--
-      @create by mybatis
-    -->
-    insert into black_roster
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="ip != null">
-        ip,
-      </if>
-      <if test="deleted != null">
-        deleted,
-      </if>
-      <if test="endTime != null">
-        end_time,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="ip != null">
-        #{ip,jdbcType=BIGINT},
-      </if>
-      <if test="deleted != null">
-        #{deleted,jdbcType=BIT},
-      </if>
-      <if test="endTime != null">
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.BlackRoster">
-    <!--
-      @create by mybatis
-    -->
-    update black_roster
-    <set>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=BIGINT},
-      </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=BIT},
-      </if>
-      <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
     <select id="getList" parameterType="com.eghm.model.dto.roster.BlackRosterQueryRequest" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/> from black_roster where deleted = false
+        select
+        <include refid="BaseColumnList"/>
+        from black_roster where deleted = false
         <if test="queryName != null and queryName != ''">
             and ip = #{queryName}
         </if>

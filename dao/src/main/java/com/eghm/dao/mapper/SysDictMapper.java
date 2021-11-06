@@ -1,6 +1,7 @@
 package com.eghm.dao.mapper;
 
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.dao.model.SysDict;
 
@@ -9,32 +10,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface SysDictMapper {
-
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 待插入的对象
-     * @return 添加的条数
-     */
-    int insertSelective(SysDict record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 主键
-     * @return 查询到的数据字典对象
-     */
-    SysDict selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 待更新的对象
-     * @return 更新成功的条数
-     */
-    int updateByPrimaryKeySelective(SysDict record);
+public interface SysDictMapper extends BaseMapper<SysDict> {
 
     /**
      * 根据nid查询某一类数据字典列表

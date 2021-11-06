@@ -1,69 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysHolidayMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysHoliday">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="calendar" jdbcType="DATE" property="calendar" />
-    <result column="date_month" jdbcType="CHAR" property="dateMonth" />
-    <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="weekday" jdbcType="TINYINT" property="weekday" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, calendar, date_month, type, weekday
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from sys_holiday
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.SysHoliday">
-    <!--
-      @create by mybatis
-    -->
-    insert into sys_holiday
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="calendar != null">
-        calendar,
-      </if>
-      <if test="dateMonth != null">
-        date_month,
-      </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="weekday != null">
-        weekday,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="calendar != null">
-        #{calendar,jdbcType=DATE},
-      </if>
-      <if test="dateMonth != null">
-        #{dateMonth,jdbcType=CHAR},
-      </if>
-      <if test="type != null">
-        #{type,jdbcType=TINYINT},
-      </if>
-      <if test="weekday != null">
-        #{weekday,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysHoliday">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="calendar" jdbcType="DATE" property="calendar"/>
+        <result column="date_month" jdbcType="CHAR" property="dateMonth"/>
+        <result column="type" jdbcType="TINYINT" property="type"/>
+        <result column="weekday" jdbcType="TINYINT" property="weekday"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, calendar, date_month, type, weekday
+    </sql>
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.dao.model.SysRole;
 import org.apache.ibatis.annotations.Param;
@@ -9,28 +10,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface SysRoleMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record
-     */
-    int insertSelective(SysRole record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id
-     */
-    SysRole selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record
-     */
-    int updateByPrimaryKeySelective(SysRole record);
+public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
      * 根据条件查询角色信息

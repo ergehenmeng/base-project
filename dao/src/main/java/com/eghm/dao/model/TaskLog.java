@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class TaskLog implements Serializable {
+public class TaskLog extends BaseEntity {
 
     /**
      * 任务nid<br>

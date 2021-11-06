@@ -1,6 +1,7 @@
 package com.eghm.dao.mapper;
 
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.dao.model.SysOperator;
 
@@ -9,30 +10,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface SysOperatorMapper {
-    /**
-     * 插入不为空的记录
-     *
-     * @param record
-     * @return
-     */
-    int insertSelective(SysOperator record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id
-     * @return
-     */
-    SysOperator selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record
-     * @return
-     */
-    int updateByPrimaryKeySelective(SysOperator record);
+public interface SysOperatorMapper extends BaseMapper<SysOperator> {
 
     /**
      * 根据手机号码查询管理员信息

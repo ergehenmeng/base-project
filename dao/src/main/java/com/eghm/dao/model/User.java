@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class User implements Serializable {
+public class User extends BaseEntity {
 
     /**
      * 昵称<br>

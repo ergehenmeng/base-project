@@ -14,8 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class TaskConfig implements Serializable {
-
+public class TaskConfig extends BaseEntity {
 
     /**
      * 定时任务名称<br>

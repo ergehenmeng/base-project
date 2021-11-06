@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class SysOperationLog implements Serializable {
+public class SysOperationLog extends BaseEntity {
 
     /**
      * 请求地址<br>

@@ -11,20 +11,6 @@ import java.util.List;
 public interface TaskConfigMapper {
 
     /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    TaskConfig selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(TaskConfig record);
-
-    /**
      * 获取所有开启的定时任务
      * @return 定时任务配置列表
      */

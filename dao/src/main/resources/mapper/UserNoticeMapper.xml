@@ -1,147 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.UserNoticeMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserNotice">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="classify" jdbcType="VARCHAR" property="classify" />
-    <result column="read" jdbcType="BIT" property="read" />
-    <result column="deleted" jdbcType="BIT" property="deleted" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, user_id, title, content, classify, `read`, deleted, add_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from user_notice
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.UserNotice">
-    <!--
-      @create by mybatis
-    -->
-    insert into user_notice
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="classify != null">
-        classify,
-      </if>
-      <if test="read != null">
-        read,
-      </if>
-      <if test="deleted != null">
-        deleted,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="classify != null">
-        #{classify,jdbcType=VARCHAR},
-      </if>
-      <if test="read != null">
-        #{read,jdbcType=BIT},
-      </if>
-      <if test="deleted != null">
-        #{deleted,jdbcType=BIT},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.UserNotice">
-    <!--
-      @create by mybatis
-    -->
-    update user_notice
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="classify != null">
-        classify = #{classify,jdbcType=VARCHAR},
-      </if>
-      <if test="read != null">
-        read = #{read,jdbcType=BIT},
-      </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=BIT},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserNotice">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="classify" jdbcType="VARCHAR" property="classify"/>
+        <result column="read" jdbcType="BIT" property="read"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, user_id, title, content, classify, `read`, deleted, add_time, update_time
+    </sql>
 
-  <select id="getList" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList" /> from user_notice
-    where user_id = #{userId} and deleted = false order by `read`, id desc
-  </select>
-  <update id="updateNotice" parameterType="com.eghm.dao.model.UserNotice">
-    update user_notice
-    <set>
-      <if test="deleted != null">
-        deleted = #{deleted},
-      </if>
-      <if test="read != null">
-        `read` = #{read},
-      </if>
-    </set>
-    where id = #{id} and user_id = #{userId}
-  </update>
+    <select id="getList" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from user_notice
+        where user_id = #{userId} and deleted = false order by `read`, id desc
+    </select>
+    <update id="updateNotice" parameterType="com.eghm.dao.model.UserNotice">
+        update user_notice
+        <set>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="read != null">
+                `read` = #{read},
+            </if>
+        </set>
+        where id = #{id} and user_id = #{userId}
+    </update>
 </mapper>

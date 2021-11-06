@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.SysCache;
 
 import java.util.List;
@@ -8,28 +9,7 @@ import java.util.List;
  * 仅做系统管理
  * @author 二哥很猛
  */
-public interface SysCacheMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record
-     */
-    int insertSelective(SysCache record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id
-     */
-    SysCache selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record
-     */
-    int updateByPrimaryKeySelective(SysCache record);
+public interface SysCacheMapper extends BaseMapper<SysCache> {
 
     /**
      * 根据cacheName更新缓存信息
