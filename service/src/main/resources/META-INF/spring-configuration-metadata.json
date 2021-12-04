@@ -4,6 +4,11 @@
       "name": "application",
       "type": "com.eghm.configuration.ApplicationProperties",
       "sourceType": "com.eghm.configuration.ApplicationProperties"
+    },
+    {
+      "name": "wechat",
+      "type": "com.eghm.configuration.WeChatProperties",
+      "sourceType": "com.eghm.configuration.WeChatProperties"
     }
   ],
   "properties": [
@@ -47,6 +52,54 @@
       "name": "application.base-package-wrapper",
       "defaultValue": "com.eghm.web.controller",
       "description": "响应信息包装生效路径",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.mp-app-id",
+      "description": "公众号appId",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.mp-app-secret",
+      "description": "公众号appSecret",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.mini-app-secret",
+      "description": "小程序appSecret",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.mini-app-secret",
+      "description": "小程序appSecret",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.pay-app-id",
+      "description": "微信支付所在公众号的appId",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.pay-merchant-id",
+      "description": "微信支付商户号",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.pay-merchant-key",
+      "description": "微信支付商户密钥",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.pay-notify-url",
+      "description": "微信支付异步回调地址",
       "type": "java.lang.String"
     }
   ]

@@ -109,6 +109,10 @@
         <jwt.version>3.10.3</jwt.version>
         <!--retrofit版本-->
         <retrofit.version>2.9.0</retrofit.version>
+        <!--swagger2版本-->
+        <knif4j.version>1.0.7.RELEASE</knif4j.version>
+        <!--微信三方sdk包-->
+        <wx-sdk.version>4.1.0</wx-sdk.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -278,7 +282,22 @@
             <dependency>
                 <groupId>com.gitee.sophis</groupId>
                 <artifactId>spring-boot-knif4j-starter</artifactId>
-                <version>1.0.7.RELEASE</version>
+                <version>${knif4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-miniapp</artifactId>
+                <version>${wx-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-mp</artifactId>
+                <version>${wx-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-pay</artifactId>
+                <version>${wx-sdk.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
