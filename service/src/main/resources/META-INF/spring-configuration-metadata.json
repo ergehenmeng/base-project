@@ -101,6 +101,24 @@
       "name": "wechat.pay-notify-url",
       "description": "微信支付异步回调地址",
       "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.pay-serial-no",
+      "description": "微信支付证书序列号值",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.pay-private-key-path",
+      "description": "微信支付私钥路径",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.eghm.web.configuration.WeChatProperties",
+      "name": "wechat.pay-api-v3-key",
+      "description": "微信支付异步回调地址",
+      "type": "java.lang.String"
     }
   ]
 }

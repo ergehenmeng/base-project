@@ -4,6 +4,7 @@ import cn.binarywang.wx.miniapp.api.WxMaService;
 import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
 import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import com.github.binarywang.wxpay.config.WxPayConfig;
+import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -50,8 +51,8 @@ public class WeChatConfiguration {
     public WxMaService wxMaService() {
         WxMaService service = new WxMaServiceImpl();
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
-        config.setAppid(weChatProperties.getMpAppId());
-        config.setSecret(weChatProperties.getMpAppSecret());
+        config.setAppid(weChatProperties.getMiniAppId());
+        config.setSecret(weChatProperties.getMiniAppSecret());
         service.setWxMaConfig(config);
         return service;
     }
@@ -68,6 +69,10 @@ public class WeChatConfiguration {
         config.setNotifyUrl(weChatProperties.getPayNotifyUrl());
         config.setMchId(weChatProperties.getPayMerchantId());
         config.setMchKey(weChatProperties.getPayMerchantKey());
+        config.setSignType(WxPayConstants.SignType.HMAC_SHA256);
+        config.setApiV3Key(weChatProperties.getPayApiV3Key());
+        config.setCertSerialNo(weChatProperties.getPaySerialNo());
+        config.setPrivateCertPath(weChatProperties.getPayPrivateKeyPath());
         service.setConfig(config);
         return service;
     }

@@ -51,6 +51,21 @@ public class WeChatProperties {
     private String payMerchantKey;
 
     /**
+     * apiV3 秘钥
+     */
+    private String payApiV3Key;
+
+    /**
+     * 私钥路径 支持classpath
+     */
+    private String payPrivateKeyPath;
+
+    /**
+     * apiV3证书序列号
+     */
+    private String paySerialNo;
+
+    /**
      * 微信支付异步回调地址 相对路径不会变
      */
     private String payNotifyUrl;
