@@ -53,7 +53,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
         roster.setIp(IpUtil.ipToLong(request.getIp()));
         roster.setEndTime(request.getEndTime());
         roster.setId(keyGenerator.generateKey());
-        blackRosterMapper.insertSelective(roster);
+        blackRosterMapper.insert(roster);
     }
 
     @Override

@@ -12,5 +12,5 @@ public interface UserInviteLogService {
      * 添加邀请记录
      * @param inviteLog log
      */
-    void insertSelective(UserInviteLog inviteLog);
+    void insert(UserInviteLog inviteLog);
 }

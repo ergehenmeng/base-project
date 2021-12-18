@@ -38,7 +38,7 @@ public class TaskLogServiceImpl implements TaskLogService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addTaskLog(TaskLog log) {
         log.setId(keyGenerator.generateKey());
-        taskLogMapper.insertSelective(log);
+        taskLogMapper.insert(log);
     }
 
     @Override

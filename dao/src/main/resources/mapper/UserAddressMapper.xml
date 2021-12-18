@@ -1,212 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.UserAddressMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserAddress">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="state" jdbcType="TINYINT" property="state" />
-    <result column="province_id" jdbcType="BIGINT" property="provinceId" />
-    <result column="province_name" jdbcType="VARCHAR" property="provinceName" />
-    <result column="city_id" jdbcType="BIGINT" property="cityId" />
-    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
-    <result column="county_id" jdbcType="BIGINT" property="countyId" />
-    <result column="county_name" jdbcType="VARCHAR" property="countyName" />
-    <result column="detail_address" jdbcType="VARCHAR" property="detailAddress" />
-    <result column="deleted" jdbcType="BIT" property="deleted" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, user_id, state, province_id, province_name, city_id, city_name, county_id, county_name, 
-    detail_address,deleted, add_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from user_address
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.UserAddress">
-    <!--
-      @create by mybatis
-    -->
-    insert into user_address
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="provinceId != null">
-        province_id,
-      </if>
-      <if test="provinceName != null">
-        province_name,
-      </if>
-      <if test="cityId != null">
-        city_id,
-      </if>
-      <if test="cityName != null">
-        city_name,
-      </if>
-      <if test="countyId != null">
-        county_id,
-      </if>
-      <if test="countyName != null">
-        county_name,
-      </if>
-      <if test="detailAddress != null">
-        detail_address,
-      </if>
-        <if test="deleted != null" >
-          deleted,
-        </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=TINYINT},
-      </if>
-      <if test="provinceId != null">
-        #{provinceId,jdbcType=BIGINT},
-      </if>
-      <if test="provinceName != null">
-        #{provinceName,jdbcType=VARCHAR},
-      </if>
-      <if test="cityId != null">
-        #{cityId,jdbcType=BIGINT},
-      </if>
-      <if test="cityName != null">
-        #{cityName,jdbcType=VARCHAR},
-      </if>
-      <if test="countyId != null">
-        #{countyId,jdbcType=BIGINT},
-      </if>
-      <if test="countyName != null">
-        #{countyName,jdbcType=VARCHAR},
-      </if>
-      <if test="detailAddress != null">
-        #{detailAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="deleted != null">
-        #{deleted},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.UserAddress">
-    <!--
-      @create by mybatis
-    -->
-    update user_address
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=TINYINT},
-      </if>
-      <if test="provinceId != null">
-        province_id = #{provinceId,jdbcType=BIGINT},
-      </if>
-      <if test="provinceName != null">
-        province_name = #{provinceName,jdbcType=VARCHAR},
-      </if>
-      <if test="cityId != null">
-        city_id = #{cityId,jdbcType=BIGINT},
-      </if>
-      <if test="cityName != null">
-        city_name = #{cityName,jdbcType=VARCHAR},
-      </if>
-      <if test="countyId != null">
-        county_id = #{countyId,jdbcType=BIGINT},
-      </if>
-      <if test="countyName != null">
-        county_name = #{countyName,jdbcType=VARCHAR},
-      </if>
-      <if test="detailAddress != null">
-        detail_address = #{detailAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="deleted != null">
-        deleted = #{deleted},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <select id="getByUserId" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList"/> from user_address where user_id = #{userId} and deleted = false order by state, update_time desc
-  </select>
-  <update id="updateState" >
-    update user_address set state = #{state} where user_id = #{userId}
-  </update>
-  <update id="deleteById" >
-    update user_address set deleted = true where id = #{id} and user_id = #{userId}
-  </update>
-
-  <update id="updateByUserId" parameterType="com.eghm.dao.model.UserAddress">
-    update user_address
-    <set>
-      <if test="state != null">
-        state = #{state,jdbcType=TINYINT},
-      </if>
-      <if test="provinceId != null">
-        province_id = #{provinceId,jdbcType=BIGINT},
-      </if>
-      <if test="provinceName != null">
-        province_name = #{provinceName,jdbcType=VARCHAR},
-      </if>
-      <if test="cityId != null">
-        city_id = #{cityId,jdbcType=BIGINT},
-      </if>
-      <if test="cityName != null">
-        city_name = #{cityName,jdbcType=VARCHAR},
-      </if>
-      <if test="countyId != null">
-        county_id = #{countyId,jdbcType=BIGINT},
-      </if>
-      <if test="countyName != null">
-        county_name = #{countyName,jdbcType=VARCHAR},
-      </if>
-      <if test="detailAddress != null">
-        detail_address = #{detailAddress,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id} and user_id = #{userId}
-  </update>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.UserAddress">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="province_id" jdbcType="BIGINT" property="provinceId"/>
+        <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
+        <result column="city_id" jdbcType="BIGINT" property="cityId"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="county_id" jdbcType="BIGINT" property="countyId"/>
+        <result column="county_name" jdbcType="VARCHAR" property="countyName"/>
+        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, user_id, state, province_id, province_name, city_id, city_name, county_id, county_name,
+        detail_address,deleted, add_time, update_time
+    </sql>
+    <select id="getByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from user_address where user_id = #{userId} and deleted = false order by state, update_time desc
+    </select>
+    <update id="updateState">
+        update user_address
+        set state = #{state}
+        where user_id = #{userId}
+    </update>
+    <update id="updateByUserId" parameterType="com.eghm.dao.model.UserAddress">
+        update user_address
+        <set>
+            <if test="state != null">
+                state = #{state,jdbcType=TINYINT},
+            </if>
+            <if test="provinceId != null">
+                province_id = #{provinceId,jdbcType=BIGINT},
+            </if>
+            <if test="provinceName != null">
+                province_name = #{provinceName,jdbcType=VARCHAR},
+            </if>
+            <if test="cityId != null">
+                city_id = #{cityId,jdbcType=BIGINT},
+            </if>
+            <if test="cityName != null">
+                city_name = #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="countyId != null">
+                county_id = #{countyId,jdbcType=BIGINT},
+            </if>
+            <if test="countyName != null">
+                county_name = #{countyName,jdbcType=VARCHAR},
+            </if>
+            <if test="detailAddress != null">
+                detail_address = #{detailAddress,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id} and user_id = #{userId}
+    </update>
 </mapper>

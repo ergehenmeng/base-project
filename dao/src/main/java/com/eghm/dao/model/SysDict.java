@@ -1,23 +1,18 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class SysDict implements Serializable {
-
-    private static final long serialVersionUID = 6649578566732081373L;
-    /**
-     * <br>
-     * 表 : sys_dict<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysDict extends BaseEntity {
 
     /**
      * 字典中文名称<br>
@@ -60,20 +55,6 @@ public class SysDict implements Serializable {
      * 对应字段 : locked<br>
      */
     private Boolean locked;
-
-    /**
-     * 添加时间<br>
-     * 表 : sys_dict<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 修改时间<br>
-     * 表 : sys_dict<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
 
     /**
      * 备注信息<br>

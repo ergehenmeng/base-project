@@ -63,7 +63,7 @@ public class SysConfigServiceImpl implements SysConfigService {
 
     @Override
     public SysConfig getById(Long id) {
-        return sysConfigMapper.selectByPrimaryKey(id);
+        return sysConfigMapper.selectById(id);
     }
 
 

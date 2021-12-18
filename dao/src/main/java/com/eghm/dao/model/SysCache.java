@@ -2,7 +2,6 @@ package com.eghm.dao.model;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,8 +9,8 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
-public class SysCache implements Serializable {
-    private static final long serialVersionUID = 1113513661616451579L;
+public class SysCache {
+
     /**
      * 主键<br>
      * 表 : sys_cache<br>

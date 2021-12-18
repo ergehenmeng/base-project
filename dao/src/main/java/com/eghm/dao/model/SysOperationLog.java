@@ -1,6 +1,9 @@
 package com.eghm.dao.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,14 +12,10 @@ import java.util.Date;
  * 后台系统操作日志
  * @author 二哥很猛
  */
-@Data
-public class SysOperationLog implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : sys_operation_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysOperationLog extends BaseEntity {
 
     /**
      * 请求地址<br>

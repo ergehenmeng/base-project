@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.TaskConfig;
 import com.eghm.model.dto.task.TaskQueryRequest;
 
@@ -8,21 +9,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface TaskConfigMapper {
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    TaskConfig selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(TaskConfig record);
+public interface TaskConfigMapper extends BaseMapper<TaskConfig> {
 
     /**
      * 获取所有开启的定时任务

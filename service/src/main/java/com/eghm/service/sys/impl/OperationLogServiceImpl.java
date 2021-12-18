@@ -40,7 +40,7 @@ public class OperationLogServiceImpl implements OperationLogService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void insertOperationLog(SysOperationLog log) {
         log.setId(keyGenerator.generateKey());
-        sysOperationLogMapper.insertSelective(log);
+        sysOperationLogMapper.insert(log);
     }
 
     @Override

@@ -1,9 +1,14 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/29 16:12
  */
+@AllArgsConstructor
+@Getter
 public enum PushType {
 
     /**
@@ -11,13 +16,5 @@ public enum PushType {
      */
     INNER_EMAIL("inner_email");
 
-    private String nid;
-
-    PushType(String nid) {
-        this.nid = nid;
-    }
-
-    public String getNid() {
-        return nid;
-    }
+    private final String nid;
 }

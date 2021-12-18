@@ -113,6 +113,8 @@
         <knif4j.version>1.0.7.RELEASE</knif4j.version>
         <!--微信三方sdk包-->
         <wx-sdk.version>4.1.0</wx-sdk.version>
+        <!--mybatis-plus-->
+        <mybatis-plus.version>3.4.3</mybatis-plus.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -298,6 +300,11 @@
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-pay</artifactId>
                 <version>${wx-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

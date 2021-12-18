@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.AuditConfigMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.AuditConfig">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="audit_type" jdbcType="VARCHAR" property="auditType" />
-    <result column="role_type" jdbcType="VARCHAR" property="roleType" />
-    <result column="step" jdbcType="TINYINT" property="step" />
-    <result column="rejection_policy" jdbcType="BIGINT" property="rejectionPolicy" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, audit_type, role_type, step, rejection_policy, add_time, update_time
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from audit_config
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.AuditConfig">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="audit_type" jdbcType="VARCHAR" property="auditType"/>
+        <result column="role_type" jdbcType="VARCHAR" property="roleType"/>
+        <result column="step" jdbcType="TINYINT" property="step"/>
+        <result column="rejection_policy" jdbcType="BIGINT" property="rejectionPolicy"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, audit_type, role_type, step, rejection_policy, add_time, update_time
+    </sql>
 
-  <select id="getConfig" resultMap="BaseResultMap">
-    select <include refid="BaseColumnList"/>
-    from audit_config where audit_type = #{auditType} order by step
-  </select>
+    <select id="getConfig" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from audit_config where audit_type = #{auditType} order by step
+    </select>
 </mapper>

@@ -33,6 +33,6 @@ public class ExceptionLogServiceImpl implements ExceptionLogService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void insertExceptionLog(ExceptionLog log) {
         log.setId(keyGenerator.generateKey());
-        exceptionLogMapper.insertSelective(log);
+        exceptionLogMapper.insert(log);
     }
 }

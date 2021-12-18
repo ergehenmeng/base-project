@@ -1,10 +1,15 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * 映射 email_template表的nid字段
  * @author 殿小二
  * @date 2020/8/28
  */
+@AllArgsConstructor
+@Getter
 public enum EmailType {
 
     /**
@@ -28,30 +33,10 @@ public enum EmailType {
     TASK_ALARM("task_alarm","定时任务报警", "commonEmailHandler"),
 
     ;
+    private final String value;
 
-    private String value;
+    private final String msg;
 
-
-    private String msg;
-
-    private String handler;
-
-    EmailType(String value, String msg, String handler) {
-        this.value = value;
-        this.msg = msg;
-        this.handler = handler;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public String getHandler() {
-        return handler;
-    }
+    private final String handler;
 
 }

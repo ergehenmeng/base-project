@@ -1,11 +1,14 @@
 package com.eghm.common.enums;
 
-import java.util.Arrays;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 /**
  * @author 殿小二
  * @date 2020/8/25
  */
+@AllArgsConstructor
+@Getter
 public enum AuditState {
 
     /**
@@ -24,20 +27,8 @@ public enum AuditState {
     REFUSE((byte) 2, "审核拒绝"),
     ;
 
-    private byte value;
+    private final byte value;
 
-    private String msg;
+    private final String msg;
 
-    AuditState(byte value, String msg) {
-        this.value = value;
-        this.msg = msg;
-    }
-
-    public byte getValue() {
-        return value;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 }

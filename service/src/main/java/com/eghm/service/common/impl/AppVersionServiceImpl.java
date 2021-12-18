@@ -57,7 +57,7 @@ public class AppVersionServiceImpl implements AppVersionService {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
         version.setId(keyGenerator.generateKey());
-        appVersionMapper.insertSelective(version);
+        appVersionMapper.insert(version);
     }
 
     @Override
@@ -65,19 +65,19 @@ public class AppVersionServiceImpl implements AppVersionService {
     public void editAppVersion(VersionEditRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
-        appVersionMapper.updateByPrimaryKeySelective(version);
+        appVersionMapper.updateById(version);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void putAwayVersion(Long id) {
-        AppVersion appVersion = appVersionMapper.selectByPrimaryKey(id);
+        AppVersion appVersion = appVersionMapper.selectById(id);
         AppVersion version = appVersionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
         if (version != null) {
             throw new BusinessException(ErrorCode.VERSION_REDO);
         }
         appVersion.setState((byte) 1);
-        appVersionMapper.updateByPrimaryKeySelective(appVersion);
+        appVersionMapper.updateById(appVersion);
         // 如果下载地址是在第三方服务器,则需要将最新版本推送到相关文件服务器
     }
 
@@ -87,7 +87,7 @@ public class AppVersionServiceImpl implements AppVersionService {
         AppVersion version = new AppVersion();
         version.setId(id);
         version.setState((byte) 0);
-        appVersionMapper.updateByPrimaryKeySelective(version);
+        appVersionMapper.updateById(version);
     }
 
     @Override
@@ -125,6 +125,6 @@ public class AppVersionServiceImpl implements AppVersionService {
         AppVersion version = new AppVersion();
         version.setId(id);
         version.setDeleted(true);
-        appVersionMapper.updateByPrimaryKeySelective(version);
+        appVersionMapper.updateById(version);
     }
 }

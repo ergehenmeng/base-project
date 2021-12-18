@@ -1,23 +1,17 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 图片上传记录表
  * @author 二哥很猛
  */
-@Data
-public class ImageLog implements Serializable {
-    private static final long serialVersionUID = 8270008592460523131L;
-    /**
-     * 主键<br>
-     * 表 : image_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class ImageLog extends BaseEntity {
 
     /**
      * 文件名称<br>
@@ -53,20 +47,6 @@ public class ImageLog implements Serializable {
      * 对应字段 : remark<br>
      */
     private String remark;
-
-    /**
-     * 添加时间<br>
-     * 表 : image_log<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 更新时间<br>
-     * 表 : image_log<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
 
     /**
      * 删除状态 0:未删除 1:已删除<br>

@@ -1,5 +1,8 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * 系统错误信息枚举 包含系统所以的异常信息
  * 404 500等标准错误码返回前台时,可做特殊处理(多个业务共用一个错误码)
@@ -8,6 +11,8 @@ package com.eghm.common.enums;
  * @author 二哥很猛
  * @date 2018/1/12 16:46
  */
+@AllArgsConstructor
+@Getter
 public enum ErrorCode {
 
     /**
@@ -486,28 +491,25 @@ public enum ErrorCode {
      */
     PAY_ERROR(3111, "支付响应错误"),
 
-
-    ;
     /**
-     * 构造方法
-     * @param code 错误代码
-     * @param msg 错误信息
+     * 微信公众号尚未配置
      */
-    ErrorCode(int code, String msg){
-        this.code = code;
-        this.msg = msg;
-    }
+    MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
 
-    private int code;
+    /**
+     * 微信网页授权异常
+     */
+    MP_JS_AUTH(4001, "微信网页授权异常"),
+    ;
 
-    private String msg;
+    /**
+     * 错误代码
+     */
+    private final int code;
 
-    public int getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
+    /**
+     * 错误信息
+     */
+    private final String msg;
 
 }

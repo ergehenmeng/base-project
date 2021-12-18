@@ -118,7 +118,7 @@ public abstract class BaseAuditHandler {
         nextRecord.setStep(nextConfig.getStep());
         nextRecord.setRoleType(nextConfig.getRoleType());
         nextRecord.setAuditType(nextConfig.getAuditType());
-        auditRecordService.insertSelective(nextRecord);
+        auditRecordService.insert(nextRecord);
         return nextRecord;
     }
 

@@ -31,8 +31,8 @@ public class UserInviteLogServiceImpl implements UserInviteLogService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void insertSelective(UserInviteLog inviteLog) {
+    public void insert(UserInviteLog inviteLog) {
         inviteLog.setId(keyGenerator.generateKey());
-        userInviteLogMapper.insertSelective(inviteLog);
+        userInviteLogMapper.insert(inviteLog);
     }
 }

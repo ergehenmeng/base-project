@@ -686,3 +686,8 @@ CREATE TABLE `applet_pay_config` (
      PRIMARY KEY (`id`),
      UNIQUE KEY `nid` (`nid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='小程序支付配置表';
+
+alter table user drop column open_id ;
+alter table user add column mini_open_id varchar(32) comment '小程序openId';
+alter table user add column mp_open_id varchar(32) comment '公众号openId';
+alter table user add column union_id varchar(64) comment '微信unionId';

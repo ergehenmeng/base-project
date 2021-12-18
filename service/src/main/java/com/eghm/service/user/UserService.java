@@ -166,4 +166,10 @@ public interface UserService {
      * @return user
      */
     User getByInviteCode(String inviteCode);
+
+    /**
+     * 微信网页授权登陆
+     * @param jsCode jsCode
+     */
+    void mpLogin(String jsCode);
 }

@@ -1,24 +1,11 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.TagView;
 
 import java.util.List;
 
-public interface TagViewMapper {
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    TagView selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(TagView record);
+public interface TagViewMapper extends BaseMapper<TagView> {
 
     /**
      * 获取所有的view标签信息

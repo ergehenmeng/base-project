@@ -1,103 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SmsLogMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.SmsLog">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="sms_type" jdbcType="VARCHAR" property="smsType" />
-    <result column="mobile" jdbcType="CHAR" property="mobile" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="state" jdbcType="TINYINT" property="state" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, sms_type, mobile, content, add_time, state
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from sms_log
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.SmsLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into sms_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="smsType != null">
-        sms_type,
-      </if>
-      <if test="mobile != null">
-        mobile,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="smsType != null">
-        #{smsType,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        #{mobile,jdbcType=CHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=TINYINT},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.SmsLog">
-    <!--
-      @create by mybatis
-    -->
-    update sms_log
-    <set>
-      <if test="smsType != null">
-        sms_type = #{smsType,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null">
-        mobile = #{mobile,jdbcType=CHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=TINYINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SmsLog">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="sms_type" jdbcType="VARCHAR" property="smsType"/>
+        <result column="mobile" jdbcType="CHAR" property="mobile"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, sms_type, mobile, content, add_time, state
+    </sql>
 
     <select id="countSms" resultType="int">
         select count(1) from sms_log
@@ -114,7 +34,8 @@
     </select>
 
     <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.sms.SmsLogQueryRequest">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from sms_log
         <where>
             <if test="queryName != null and queryName != ''">

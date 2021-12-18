@@ -4,8 +4,6 @@ package com.eghm.dao.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,9 +11,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class SysOperator implements Serializable {
-
-    private static final long serialVersionUID = -4647762860063174639L;
+public class SysOperator extends BaseEntity {
 
     /**
      * 正常
@@ -26,13 +22,6 @@ public class SysOperator implements Serializable {
      * 锁定
      */
     public static final byte STATE_0 = 0;
-
-    /**
-     * 主键<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
 
     /**
      * 用户姓名<br>
@@ -89,20 +78,6 @@ public class SysOperator implements Serializable {
      * 对应字段 : deleted<br>
      */
     private Boolean deleted;
-
-    /**
-     * 添加时间<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 更新时间<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
 
     /**
      * 备注信息<br>

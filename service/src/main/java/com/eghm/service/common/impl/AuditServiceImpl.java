@@ -81,7 +81,7 @@ public class AuditServiceImpl implements AuditService {
         record.setAuditType(config.getAuditType());
         record.setState(AuditState.APPLY.getValue());
         record.setAuditNo(numberService.getNumber(process.getAuditType().getPrefix()));
-        auditRecordService.insertSelective(record);
+        auditRecordService.insert(record);
     }
 
     @Override

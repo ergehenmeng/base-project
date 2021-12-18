@@ -1,137 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.TaskLogMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.TaskLog">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="nid" jdbcType="VARCHAR" property="nid" />
-    <result column="bean_name" jdbcType="VARCHAR" property="beanName" />
-    <result column="state" jdbcType="BIT" property="state" />
-    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
-    <result column="elapsed_time" jdbcType="BIGINT" property="elapsedTime" />
-    <result column="ip" jdbcType="VARCHAR" property="ip" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eghm.dao.model.TaskLog">
-    <!--
-      @create by mybatis
-    -->
-    <result column="error_msg" jdbcType="LONGVARCHAR" property="errorMsg" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, nid,bean_name, state, start_time, elapsed_time, ip
-  </sql>
-  <sql id="BlobColumnList">
-    <!--
-      @create by mybatis
-    -->
-    error_msg
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    ,
-    <include refid="BlobColumnList" />
-    from task_log
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.TaskLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into task_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="nid != null">
-        nid,
-      </if>
-        <if test="beanName != null">
-            bean_name,
-        </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="startTime != null">
-        start_time,
-      </if>
-      <if test="elapsedTime != null">
-          elapsed_time,
-      </if>
-      <if test="ip != null">
-        ip,
-      </if>
-      <if test="errorMsg != null">
-        error_msg,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="nid != null">
-        #{nid,jdbcType=VARCHAR},
-      </if>
-        <if test="beanName != null">
-            #{beanName,jdbcType=VARCHAR},
-        </if>
-      <if test="state != null">
-        #{state,jdbcType=BIT},
-      </if>
-      <if test="startTime != null">
-        #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="elapsedTime != null">
-        #{elapsedTime,jdbcType=BIGINT},
-      </if>
-      <if test="ip != null">
-        #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="errorMsg != null">
-        #{errorMsg,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.TaskLog">
-    <!--
-      @create by mybatis
-    -->
-    update task_log
-    <set>
-      <if test="nid != null">
-        nid = #{nid,jdbcType=VARCHAR},
-      </if>
-        <if test="beanName != null">
-            bean_name = #{beanName,jdbcType=VARCHAR},
-        </if>
-      <if test="state != null">
-        state = #{state,jdbcType=BIT},
-      </if>
-      <if test="startTime != null">
-        start_time = #{startTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="elapsedTime != null">
-          elapsed_time = #{elapsedTime,jdbcType=BIGINT},
-      </if>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="errorMsg != null">
-        error_msg = #{errorMsg,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.TaskLog">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="nid" jdbcType="VARCHAR" property="nid"/>
+        <result column="bean_name" jdbcType="VARCHAR" property="beanName"/>
+        <result column="state" jdbcType="BIT" property="state"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="elapsed_time" jdbcType="BIGINT" property="elapsedTime"/>
+        <result column="ip" jdbcType="VARCHAR" property="ip"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eghm.dao.model.TaskLog">
+        <!--
+          @create by mybatis
+        -->
+        <result column="error_msg" jdbcType="LONGVARCHAR" property="errorMsg"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, nid,bean_name, state, start_time, elapsed_time, ip
+    </sql>
+    <sql id="BlobColumnList">
+        <!--
+          @create by mybatis
+        -->
+        error_msg
+    </sql>
     <select id="getList" parameterType="com.eghm.model.dto.task.TaskLogQueryRequest" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from task_log
         <where>
             <if test="queryName != null and queryName != ''">
@@ -142,9 +44,9 @@
             </if>
         </where>
     </select>
-
     <select id="getErrorMsg" resultMap="ResultMapWithBLOBs">
-        select <include refid="BlobColumnList"/>
+        select
+        <include refid="BlobColumnList"/>
         from task_log where id = #{id}
     </select>
 </mapper>

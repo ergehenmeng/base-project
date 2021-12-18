@@ -10,9 +10,8 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
-public class TaskConfig implements Serializable {
+public class TaskConfig {
 
-    private static final long serialVersionUID = -413606040013257658L;
     /**
      * 主键<br>
      * 表 : job_task<br>

@@ -1,25 +1,17 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 部门信息表
  * @author 二哥很猛
  */
-@Data
-public class SysDept implements Serializable {
-
-    private static final long serialVersionUID = 3509025826333039284L;
-
-    /**
-     * 主键<br>
-     * 表 : sys_dept<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysDept extends BaseEntity {
 
     /**
      * 父级编号<br>
@@ -41,20 +33,6 @@ public class SysDept implements Serializable {
      * 对应字段 : name<br>
      */
     private String title;
-
-    /**
-     * 添加时间<br>
-     * 表 : sys_dept<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 更新时间<br>
-     * 表 : sys_dept<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
 
     /**
      * 删除状态 0:未删除 1:已删除<br>

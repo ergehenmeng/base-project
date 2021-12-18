@@ -78,14 +78,14 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     public void addNotice(BulletinAddRequest request) {
         SysBulletin notice = DataUtil.copy(request, SysBulletin.class);
         notice.setId(keyGenerator.generateKey());
-        sysBulletinMapper.insertSelective(notice);
+        sysBulletinMapper.insert(notice);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void editNotice(BulletinEditRequest request) {
         SysBulletin notice = DataUtil.copy(request, SysBulletin.class);
-        sysBulletinMapper.updateByPrimaryKeySelective(notice);
+        sysBulletinMapper.updateById(notice);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class SysBulletinServiceImpl implements SysBulletinService {
         SysBulletin notice = new SysBulletin();
         notice.setId(id);
         notice.setDeleted(true);
-        sysBulletinMapper.updateByPrimaryKeySelective(notice);
+        sysBulletinMapper.updateById(notice);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class SysBulletinServiceImpl implements SysBulletinService {
 
     @Override
     public SysBulletin getById(Long id) {
-        return sysBulletinMapper.selectByPrimaryKey(id);
+        return sysBulletinMapper.selectById(id);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class SysBulletinServiceImpl implements SysBulletinService {
         SysBulletin notice = new SysBulletin();
         notice.setState((byte) 1);
         notice.setId(id);
-        sysBulletinMapper.updateByPrimaryKeySelective(notice);
+        sysBulletinMapper.updateById(notice);
     }
 
     @Override
@@ -127,6 +127,6 @@ public class SysBulletinServiceImpl implements SysBulletinService {
         SysBulletin notice = new SysBulletin();
         notice.setState(SysBulletin.STATE_0);
         notice.setId(id);
-        sysBulletinMapper.updateByPrimaryKeySelective(notice);
+        sysBulletinMapper.updateById(notice);
     }
 }

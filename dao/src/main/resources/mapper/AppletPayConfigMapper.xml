@@ -5,157 +5,24 @@
         <!--
           @create by mybatis
         -->
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="nid" jdbcType="VARCHAR" property="nid" />
-        <result column="app_id" jdbcType="VARCHAR" property="appId" />
-        <result column="merchant_id" jdbcType="VARCHAR" property="merchantId" />
-        <result column="expire_time" jdbcType="SMALLINT" property="expireTime" />
-        <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl" />
-        <result column="order_prefix" jdbcType="CHAR" property="orderPrefix" />
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="nid" jdbcType="VARCHAR" property="nid"/>
+        <result column="app_id" jdbcType="VARCHAR" property="appId"/>
+        <result column="merchant_id" jdbcType="VARCHAR" property="merchantId"/>
+        <result column="expire_time" jdbcType="SMALLINT" property="expireTime"/>
+        <result column="notify_url" jdbcType="VARCHAR" property="notifyUrl"/>
+        <result column="order_prefix" jdbcType="CHAR" property="orderPrefix"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, nid, app_id, merchant_id, expire_time, notify_url, order_prefix, add_time, update_time
+        id
+        , nid, app_id, merchant_id, expire_time, notify_url, order_prefix, add_time, update_time
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        <!--
-          @create by mybatis
-        -->
-        select
-        <include refid="BaseColumnList" />
-        from applet_pay_config
-        where id = #{id,jdbcType=INTEGER}
-    </select>
-    <insert id="insert" parameterType="com.eghm.dao.model.AppletPayConfig">
-        <!--
-          @create by mybatis
-        -->
-        insert into applet_pay_config (id, nid, app_id,
-        merchant_id, expire_time, notify_url,
-        order_prefix, add_time, update_time
-        )
-        values (#{id,jdbcType=INTEGER}, #{nid,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR},
-        #{merchantId,jdbcType=VARCHAR}, #{expireTime,jdbcType=SMALLINT}, #{notifyUrl,jdbcType=VARCHAR},
-        #{orderPrefix,jdbcType=CHAR}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-        )
-    </insert>
-    <insert id="insertSelective" parameterType="com.eghm.dao.model.AppletPayConfig">
-        <!--
-          @create by mybatis
-        -->
-        insert into applet_pay_config
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="nid != null">
-                nid,
-            </if>
-            <if test="appId != null">
-                app_id,
-            </if>
-            <if test="merchantId != null">
-                merchant_id,
-            </if>
-            <if test="expireTime != null">
-                expire_time,
-            </if>
-            <if test="notifyUrl != null">
-                notify_url,
-            </if>
-            <if test="orderPrefix != null">
-                order_prefix,
-            </if>
-            <if test="addTime != null">
-                add_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="nid != null">
-                #{nid,jdbcType=VARCHAR},
-            </if>
-            <if test="appId != null">
-                #{appId,jdbcType=VARCHAR},
-            </if>
-            <if test="merchantId != null">
-                #{merchantId,jdbcType=VARCHAR},
-            </if>
-            <if test="expireTime != null">
-                #{expireTime,jdbcType=SMALLINT},
-            </if>
-            <if test="notifyUrl != null">
-                #{notifyUrl,jdbcType=VARCHAR},
-            </if>
-            <if test="orderPrefix != null">
-                #{orderPrefix,jdbcType=CHAR},
-            </if>
-            <if test="addTime != null">
-                #{addTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.AppletPayConfig">
-        <!--
-          @create by mybatis
-        -->
-        update applet_pay_config
-        <set>
-            <if test="nid != null">
-                nid = #{nid,jdbcType=VARCHAR},
-            </if>
-            <if test="appId != null">
-                app_id = #{appId,jdbcType=VARCHAR},
-            </if>
-            <if test="merchantId != null">
-                merchant_id = #{merchantId,jdbcType=VARCHAR},
-            </if>
-            <if test="expireTime != null">
-                expire_time = #{expireTime,jdbcType=SMALLINT},
-            </if>
-            <if test="notifyUrl != null">
-                notify_url = #{notifyUrl,jdbcType=VARCHAR},
-            </if>
-            <if test="orderPrefix != null">
-                order_prefix = #{orderPrefix,jdbcType=CHAR},
-            </if>
-            <if test="addTime != null">
-                add_time = #{addTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-        </set>
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.eghm.dao.model.AppletPayConfig">
-        <!--
-          @create by mybatis
-        -->
-        update applet_pay_config
-        set nid = #{nid,jdbcType=VARCHAR},
-        app_id = #{appId,jdbcType=VARCHAR},
-        merchant_id = #{merchantId,jdbcType=VARCHAR},
-        expire_time = #{expireTime,jdbcType=SMALLINT},
-        notify_url = #{notifyUrl,jdbcType=VARCHAR},
-        order_prefix = #{orderPrefix,jdbcType=CHAR},
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-        update_time = #{updateTime,jdbcType=TIMESTAMP}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
+
     <select id="getByNid" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/> from applet_pay_config where nid = #{nid} limit 1
+        select
+        <include refid="BaseColumnList"/>
+        from applet_pay_config where nid = #{nid} limit 1
     </select>
 </mapper>

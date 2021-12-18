@@ -53,7 +53,7 @@ public class InviteRegisterHandler implements Handler {
                 UserInviteLog inviteLog = new UserInviteLog();
                 inviteLog.setUserId(user.getId());
                 inviteLog.setInviteUserId(dataUser.getId());
-                userInviteLogService.insertSelective(inviteLog);
+                userInviteLogService.insert(inviteLog);
             } else {
                 log.warn("用户输入的邀请码无效 userId:[{}] ,inviteCode:[{}]", dataUser.getId(), register.getInviteCode());
             }

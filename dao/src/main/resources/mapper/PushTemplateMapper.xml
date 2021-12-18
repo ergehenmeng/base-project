@@ -1,71 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.PushTemplateMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.PushTemplate">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="nid" jdbcType="VARCHAR" property="nid" />
-    <result column="state" jdbcType="TINYINT" property="state" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="tag" jdbcType="VARCHAR" property="tag" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, title, nid, state,  content, update_time, tag, remark
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from push_template
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.PushTemplate">
-    <!--
-      @create by mybatis
-    -->
-    update push_template
-    <set>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="nid != null">
-        nid = #{nid,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=TINYINT},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="tag != null">
-        tag = #{tag,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.PushTemplate">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="nid" jdbcType="VARCHAR" property="nid"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="tag" jdbcType="VARCHAR" property="tag"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, title, nid, state, content, update_time, tag, remark
+    </sql>
+
     <select id="getByNid" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from push_template where nid = #{nid} and state = 1 limit 1
     </select>
 
     <select id="getList" parameterType="com.eghm.model.dto.push.PushTemplateQueryRequest" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from push_template
         <where>
             <if test="queryName != null and queryName != ''">

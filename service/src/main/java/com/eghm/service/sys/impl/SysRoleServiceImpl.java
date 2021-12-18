@@ -59,14 +59,14 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public SysRole getById(Long id) {
-        return sysRoleMapper.selectByPrimaryKey(id);
+        return sysRoleMapper.selectById(id);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateRole(RoleEditRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
-        sysRoleMapper.updateByPrimaryKeySelective(role);
+        sysRoleMapper.updateById(role);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         SysRole role = new SysRole();
         role.setDeleted(true);
         role.setId(keyGenerator.generateKey());
-        sysRoleMapper.updateByPrimaryKeySelective(role);
+        sysRoleMapper.updateById(role);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         SysRole role = DataUtil.copy(request, SysRole.class);
         role.setDeleted(false);
         role.setId(keyGenerator.generateKey());
-        sysRoleMapper.insertSelective(role);
+        sysRoleMapper.insert(role);
     }
 
     @Override

@@ -57,7 +57,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public void addFeedback(FeedbackAddDTO request) {
         FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
         feedback.setId(keyGenerator.generateKey());
-        feedbackLogMapper.insertSelective(feedback);
+        feedbackLogMapper.insert(feedback);
     }
 
     @Override
@@ -71,9 +71,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void dispose(FeedbackDisposeRequest request) {
-        FeedbackLog log = feedbackLogMapper.selectByPrimaryKey(request.getId());
+        FeedbackLog log = feedbackLogMapper.selectById(request.getId());
         log.setState((byte) 1);
-        feedbackLogMapper.updateByPrimaryKeySelective(log);
+        feedbackLogMapper.updateById(log);
         SendNotice notice = new SendNotice();
         notice.setNoticeType(NoticeType.FEEDBACK_PROCESS);
         Map<String, Object> params = new HashMap<>();

@@ -1,11 +1,16 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Arrays;
 
 /**
  * @author 殿小二
  * @date 2020/9/14
  */
+@AllArgsConstructor
+@Getter
 public enum FeedbackType {
 
     /**
@@ -29,25 +34,12 @@ public enum FeedbackType {
     OTHER((byte)4, "其他问题"),
 
     ;
-    private byte value;
+    private final byte value;
 
-    private String msg;
-
-
-    FeedbackType(byte value, String msg) {
-        this.value = value;
-        this.msg = msg;
-    }
+    private final String msg;
 
     public static FeedbackType getType(byte type) {
         return Arrays.stream(FeedbackType.values()).filter(feedbackType -> feedbackType.getValue() == type).findFirst().orElse(OTHER);
     }
 
-    public byte getValue() {
-        return value;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 }

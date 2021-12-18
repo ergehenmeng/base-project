@@ -43,7 +43,7 @@ public class RunnableTask implements Runnable {
     public void run() {
         Date now = DateUtil.getNow();
         long startTime = now.getTime();
-        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(detail.getNid()).beanName(detail.getBeanName()).ip(IpUtil.getLocalIp()).startTime(now);
+        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(detail.getNid()).beanName(detail.getBeanName()).ip(IpUtil.getLocalIp());
         try {
             // 任务幂等由业务来决定
             task.execute();

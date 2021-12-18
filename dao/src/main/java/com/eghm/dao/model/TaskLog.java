@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * @author 二哥很猛
  */
@@ -15,14 +12,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskLog implements Serializable {
-
-    /**
-     * 主键<br>
-     * 表 : task_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+public class TaskLog extends BaseEntity {
 
     /**
      * 任务nid<br>
@@ -46,13 +36,6 @@ public class TaskLog implements Serializable {
     private Boolean state;
 
     /**
-     * 开始执行时间<br>
-     * 表 : task_log<br>
-     * 对应字段 : start_time<br>
-     */
-    private Date startTime;
-
-    /**
      * 执行结束时间<br>
      * 表 : task_log<br>
      * 对应字段 : elapsed_time<br>
@@ -72,7 +55,5 @@ public class TaskLog implements Serializable {
      * 对应字段 : error_msg<br>
      */
     private String errorMsg;
-
-    private static final long serialVersionUID = 1L;
 
 }

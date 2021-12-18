@@ -1,9 +1,14 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author 殿小二
  * @date 2020/8/17
  */
+@AllArgsConstructor
+@Getter
 public enum PermissionType {
 
     /**
@@ -31,24 +36,10 @@ public enum PermissionType {
      */
     ALL((byte)5, "所有数据权限"),
 
-
     ;
 
-    PermissionType(byte value, String msg) {
-        this.value = value;
-        this.msg = msg;
-    }
+    private final byte value;
 
-    private byte value;
+    private final String msg;
 
-    private String msg;
-
-
-    public byte getValue() {
-        return value;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
 }

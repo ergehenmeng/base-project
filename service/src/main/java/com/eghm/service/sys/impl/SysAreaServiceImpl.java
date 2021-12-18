@@ -36,7 +36,7 @@ public class SysAreaServiceImpl implements SysAreaService {
             String title = sysArea.getTitle();
             String initial = StringUtil.getInitial(title);
             sysArea.setMark(initial);
-            sysAreaMapper.updateByPrimaryKeySelective(sysArea);
+            sysAreaMapper.updateById(sysArea);
         });
     }
 
@@ -50,6 +50,6 @@ public class SysAreaServiceImpl implements SysAreaService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#id", unless = "#result == null")
     public SysArea getById(Long id) {
-        return sysAreaMapper.selectByPrimaryKey(id);
+        return sysAreaMapper.selectById(id);
     }
 }

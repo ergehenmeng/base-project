@@ -1,22 +1,17 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 用户站内信
  * @author 二哥很猛
  */
-@Data
-public class UserNotice implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : user_notice<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class UserNotice extends BaseEntity {
 
     /**
      * 用户id<br>
@@ -60,19 +55,4 @@ public class UserNotice implements Serializable {
      */
     private Boolean deleted;
 
-    /**
-     * 添加时间<br>
-     * 表 : user_notice<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 更新时间<br>
-     * 表 : user_notice<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
 }

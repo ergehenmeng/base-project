@@ -1,156 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.FeedbackLogMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.FeedbackLog">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="state" jdbcType="TINYINT" property="state" />
-    <result column="classify" jdbcType="TINYINT" property="classify" />
-    <result column="version" jdbcType="VARCHAR" property="version" />
-    <result column="system_version" jdbcType="VARCHAR" property="systemVersion" />
-    <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand" />
-    <result column="device_model" jdbcType="VARCHAR" property="deviceModel" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, user_id, state,classify, version, system_version, content, add_time, update_time, device_brand,
-    device_model
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from feedback_log
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.FeedbackLog">
-    <!--
-      @create by mybatis
-    -->
-    insert into feedback_log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="state != null">
-        state,
-      </if>
-      <if test="classify != null">
-        classify,
-      </if>
-      <if test="version != null">
-        version,
-      </if>
-      <if test="systemVersion != null">
-        system_version,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="deviceBrand != null">
-        device_brand,
-      </if>
-      <if test="deviceModel != null">
-        device_model,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=TINYINT},
-      </if>
-      <if test="classify != null">
-        #{classify,jdbcType=TINYINT},
-      </if>
-      <if test="version != null">
-        #{version,jdbcType=VARCHAR},
-      </if>
-      <if test="systemVersion != null">
-        #{systemVersion,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deviceBrand != null">
-        #{deviceBrand,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceModel != null">
-        #{deviceModel,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.FeedbackLog">
-    <!--
-      @create by mybatis
-    -->
-    update feedback_log
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="state != null">
-        state = #{state,jdbcType=TINYINT},
-      </if>
-      <if test="classify != null">
-        classify = #{classify},
-      </if>
-      <if test="version != null">
-        version = #{version,jdbcType=VARCHAR},
-      </if>
-      <if test="systemVersion != null">
-        system_version = #{systemVersion,jdbcType=VARCHAR},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="deviceBrand != null">
-        device_brand = #{deviceBrand,jdbcType=VARCHAR},
-      </if>
-      <if test="deviceModel != null">
-        device_model = #{deviceModel,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.FeedbackLog">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="classify" jdbcType="TINYINT" property="classify"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="system_version" jdbcType="VARCHAR" property="systemVersion"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand"/>
+        <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, user_id, state,classify, version, system_version, content, add_time, update_time, device_brand,
+        device_model
+    </sql>
+
     <resultMap id="ListResultMap" type="com.eghm.model.vo.feedback.FeedbackVO" extends="BaseResultMap">
-        <result column="nick_name" jdbcType="CHAR" property="nickName" />
-        <result column="mobile" jdbcType="CHAR" property="mobile" />
+        <result column="nick_name" jdbcType="CHAR" property="nickName"/>
+        <result column="mobile" jdbcType="CHAR" property="mobile"/>
     </resultMap>
 
     <select id="getList" parameterType="com.eghm.model.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">

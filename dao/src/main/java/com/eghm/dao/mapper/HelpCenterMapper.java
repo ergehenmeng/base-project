@@ -1,5 +1,6 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.HelpCenter;
 import com.eghm.model.dto.help.HelpQueryRequest;
 import org.apache.ibatis.annotations.Param;
@@ -9,28 +10,7 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface HelpCenterMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(HelpCenter record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    HelpCenter selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(HelpCenter record);
+public interface HelpCenterMapper extends BaseMapper<HelpCenter> {
 
     /**
      * 根据条件查询帮助说明

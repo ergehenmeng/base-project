@@ -1,23 +1,19 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 角色
  * @author 二哥很猛
  */
-@Data
-public class SysRole implements Serializable {
-    private static final long serialVersionUID = 584470701709277422L;
-    /**
-     * 主键<br>
-     * 表 : sys_role<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysRole extends BaseEntity {
 
     /**
      * 角色名称<br>
@@ -34,20 +30,6 @@ public class SysRole implements Serializable {
     private String roleType;
 
     /**
-     * 添加时间<br>
-     * 表 : sys_role<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 更新时间<br>
-     * 表 : sys_role<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
-
-    /**
      * 删除状态:0:正常,1:已删除<br>
      * 表 : sys_role<br>
      * 对应字段 : deleted<br>
@@ -60,6 +42,5 @@ public class SysRole implements Serializable {
      * 对应字段 : remark<br>
      */
     private String remark;
-
 
 }

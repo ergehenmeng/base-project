@@ -1,146 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.AppVersionMapper">
-  <resultMap id="BaseResultMap" type="com.eghm.dao.model.AppVersion">
-    <!--
-      @create by mybatis
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="classify" jdbcType="VARCHAR" property="classify" />
-    <result column="version" jdbcType="VARCHAR" property="version" />
-    <result column="force_update" jdbcType="BIT" property="forceUpdate" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
-    <result column="version_no" jdbcType="INTEGER" property="versionNo" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="state" jdbcType="TINYINT" property="state" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="deleted" jdbcType="BIT" property="deleted" />
-  </resultMap>
-  <sql id="BaseColumnList">
-    <!--
-      @create by mybatis
-    -->
-    id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time,state
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    <!--
-      @create by mybatis
-    -->
-    select 
-    <include refid="BaseColumnList" />
-    from app_version
-    where id = #{id,jdbcType=BIGINT}
-  </select>
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.AppVersion">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="classify" jdbcType="VARCHAR" property="classify"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="force_update" jdbcType="BIT" property="forceUpdate"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="version_no" jdbcType="INTEGER" property="versionNo"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time,state
+    </sql>
 
-  <insert id="insertSelective" parameterType="com.eghm.dao.model.AppVersion">
-    <!--
-      @create by mybatis
-    -->
-    insert into app_version
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="classify != null">
-        classify,
-      </if>
-      <if test="version != null">
-        version,
-      </if>
-        <if test="versionNo != null">
-            version_no,
-        </if>
-      <if test="forceUpdate != null">
-        force_update,
-      </if>
-      <if test="url != null">
-        url,
-      </if>
-      <if test="addTime != null">
-        add_time,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="deleted != null">
-        deleted,
-      </if>
-        <if test="state != null">
-            state,
-        </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="classify != null">
-        #{classify,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null">
-        #{version,jdbcType=VARCHAR},
-      </if>
-        <if test="versionNo != null">
-            #{versionNo},
-        </if>
-      <if test="forceUpdate != null">
-        #{forceUpdate,jdbcType=BIT},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="deleted != null">
-        #{deleted,jdbcType=BIT},
-      </if>
-        <if test="state != null">
-            #{state,jdbcType=TINYINT},
-        </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eghm.dao.model.AppVersion">
-    <!--
-      @create by mybatis
-    -->
-    update app_version
-    <set>
-      <if test="classify != null">
-        classify = #{classify,jdbcType=VARCHAR},
-      </if>
-      <if test="version != null">
-        version = #{version,jdbcType=VARCHAR},
-      </if>
-        <if test="versionNo != null">
-            version_no = #{versionNo},
-        </if>
-      <if test="forceUpdate != null">
-        force_update = #{forceUpdate,jdbcType=BIT},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
-      </if>
-      <if test="addTime != null">
-        add_time = #{addTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="deleted != null">
-        deleted = #{deleted,jdbcType=BIT},
-      </if>
-        <if test="state != null">
-            state = #{state,jdbcType=TINYINT},
-        </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
     <select id="getList" parameterType="com.eghm.model.dto.version.VersionQueryRequest" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from app_version
         <where>
             <if test="queryName != null and queryName != ''">
@@ -156,17 +42,20 @@
     </select>
 
     <select id="getLatestVersion" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
-        from app_version where classify = #{classify} and deleted = false and state = 1 order by version_no desc  limit 1
+        select
+        <include refid="BaseColumnList"/>
+        from app_version where classify = #{classify} and deleted = false and state = 1 order by version_no desc limit 1
     </select>
 
     <select id="getVersion" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from app_version where classify = #{classify} and deleted = false and state = 1 and version = #{version} limit 1
     </select>
 
     <select id="getForceUpdateVersion" resultMap="BaseResultMap">
-        select <include refid="BaseColumnList"/>
+        select
+        <include refid="BaseColumnList"/>
         from app_version
         where
         classify = #{classify}
@@ -174,6 +63,6 @@
         and state = 1
         and force_update = true
         and version_no &gt; #{startVersion}
-        and version_no &lt;  #{endVersion}
+        and version_no &lt; #{endVersion}
     </select>
 </mapper>

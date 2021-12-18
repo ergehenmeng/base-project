@@ -1,32 +1,12 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.SysDataDept;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface SysDataDeptMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(SysDataDept record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    SysDataDept selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(SysDataDept record);
+public interface SysDataDeptMapper extends BaseMapper<SysDataDept> {
 
     /**
      * 获取用户所拥有的所有部门(数据权限)

@@ -1,10 +1,15 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * 审核类型
  * @author 殿小二
  * @date 2020/8/25
  */
+@AllArgsConstructor
+@Getter
 public enum AuditType {
 
     /**
@@ -15,33 +20,16 @@ public enum AuditType {
     /**
      * 显示信息
      */
-    private String msg;
+    private final String msg;
 
     /**
      * 审批单号前缀
      */
-    private String prefix;
+    private final String prefix;
 
     /**
      * 审批处理逻辑
      */
-    private String handler;
+    private final String handler;
 
-    AuditType(String msg, String prefix, String handler) {
-        this.msg = msg;
-        this.prefix = prefix;
-        this.handler = handler;
-    }
-
-    public String getPrefix() {
-        return prefix;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public String getHandler() {
-        return handler;
-    }
 }

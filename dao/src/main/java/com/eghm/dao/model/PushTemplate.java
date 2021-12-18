@@ -1,22 +1,16 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class PushTemplate implements Serializable {
-
-    /**
-     * 主键<br>
-     * 表 : push_template<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class PushTemplate extends BaseEntity {
 
     /**
      * 消息名称<br>
@@ -47,13 +41,6 @@ public class PushTemplate implements Serializable {
     private String content;
 
     /**
-     * 更新时间<br>
-     * 表 : push_template<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
-
-    /**
      * 后置处理标示符(消息推送跳转页面)<br>
      * 表 : push_template<br>
      * 对应字段 : tag<br>
@@ -66,7 +53,5 @@ public class PushTemplate implements Serializable {
      * 对应字段 : remark<br>
      */
     private String remark;
-
-    private static final long serialVersionUID = 1L;
 
 }

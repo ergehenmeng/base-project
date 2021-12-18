@@ -15,7 +15,7 @@ public interface UserScoreLogService {
      * 添加积分信息
      * @param scoreLog 积分
      */
-    void insertSelective(UserScoreLog scoreLog);
+    void insert(UserScoreLog scoreLog);
 
     /**
      * 获取每日签到积分数 (随机,且由系统参数影响)

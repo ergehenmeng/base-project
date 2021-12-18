@@ -21,7 +21,7 @@ public interface SysDataDeptService {
      * 插入用户与部门数据权限关联信息
      * @param dept operatorId + deptId
      */
-    void insertSelective(SysDataDept dept);
+    void insert(SysDataDept dept);
 
     /**
      * 删除用户对应的部门的数据权限

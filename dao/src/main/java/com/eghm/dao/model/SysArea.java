@@ -1,6 +1,9 @@
 package com.eghm.dao.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -67,7 +70,5 @@ public class SysArea implements Serializable {
      * 对应字段 : classify<br>
      */
     private Byte classify;
-
-    private static final long serialVersionUID = 1L;
 
 }

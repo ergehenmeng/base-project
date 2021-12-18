@@ -1,21 +1,16 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class UserInviteLog implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : user_invite_log<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class UserInviteLog extends BaseEntity {
 
     /**
      * 用户id<br>
@@ -30,14 +25,5 @@ public class UserInviteLog implements Serializable {
      * 对应字段 : invite_user_id<br>
      */
     private Long inviteUserId;
-
-    /**
-     * 添加时间<br>
-     * 表 : user_invite_log<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    private static final long serialVersionUID = 1L;
 
 }

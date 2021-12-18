@@ -1,22 +1,16 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class HelpCenter implements Serializable {
-
-    /**
-     * 主键<br>
-     * 表 : help_center<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class HelpCenter extends BaseEntity {
 
     /**
      * 帮助分类取sys_dict表中help_classify字段<br>
@@ -59,21 +53,5 @@ public class HelpCenter implements Serializable {
      * 对应字段 : deleted<br>
      */
     private Boolean deleted;
-
-    /**
-     * 更新时间<br>
-     * 表 : help_center<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
-
-    /**
-     * 添加时间<br>
-     * 表 : help_center<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    private static final long serialVersionUID = 1L;
 
 }

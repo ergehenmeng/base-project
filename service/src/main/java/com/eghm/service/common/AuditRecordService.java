@@ -14,7 +14,7 @@ public interface AuditRecordService {
      * 不为空插入
      * @param record  record
      */
-    void insertSelective(AuditRecord record);
+    void insert(AuditRecord record);
 
     /**
      * 不为空更新

@@ -1,18 +1,15 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
-
-@Data
-public class SysDataDept implements Serializable {
-
-    /**
-     * <br>
-     * 表 : sys_data_dept<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+@NoArgsConstructor
+public class SysDataDept extends BaseEntity {
 
     /**
      * 用户id<br>
@@ -27,11 +24,6 @@ public class SysDataDept implements Serializable {
      * 对应字段 : dept_code<br>
      */
     private String deptCode;
-
-    private static final long serialVersionUID = 1L;
-
-    public SysDataDept() {
-    }
 
     public SysDataDept(Long operatorId, String deptCode) {
         this.operatorId = operatorId;

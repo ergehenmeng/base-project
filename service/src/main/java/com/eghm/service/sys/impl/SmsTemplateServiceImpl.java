@@ -39,7 +39,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     @Override
     public SmsTemplate getById(Long id) {
-        return smsTemplateMapper.selectByPrimaryKey(id);
+        return smsTemplateMapper.selectById(id);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void updateSmsTemplate(SmsTemplateEditRequest request) {
         SmsTemplate template = DataUtil.copy(request, SmsTemplate.class);
-        smsTemplateMapper.updateByPrimaryKeySelective(template);
+        smsTemplateMapper.updateById(template);
     }
 
 

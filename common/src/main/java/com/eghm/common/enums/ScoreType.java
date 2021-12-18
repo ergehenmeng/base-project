@@ -1,9 +1,14 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author 殿小二
  * @date 2020/9/7
  */
+@AllArgsConstructor
+@Getter
 public enum ScoreType {
     /**
      * 签到积分
@@ -13,33 +18,16 @@ public enum ScoreType {
     /**
      * 类型
      */
-    private byte value;
+    private final byte value;
 
     /**
      * 说明
      */
-    private String msg;
+    private final String msg;
 
     /**
      * 符号 收入:+ 支出-
      */
-    private String symbol;
+    private final String symbol;
 
-    ScoreType(byte value, String msg, String symbol) {
-        this.value = value;
-        this.msg = msg;
-        this.symbol = symbol;
-    }
-
-    public byte getValue() {
-        return value;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
 }

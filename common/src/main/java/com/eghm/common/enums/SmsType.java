@@ -1,10 +1,15 @@
 package com.eghm.common.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * 映射 sms_template表中的nid字段
  * @author 殿小二
  * @date 2020/9/2
  */
+@AllArgsConstructor
+@Getter
 public enum SmsType {
     /**
      * 未指定短信类型,则为默认短信:default
@@ -27,21 +32,7 @@ public enum SmsType {
     CHANGE_EMAIL("change_email", "更换邮箱发送短信验证码"),
 
     ;
+    private final String value;
 
-    private String value;
-
-    private String msg;
-
-    SmsType(String value, String msg) {
-        this.value = value;
-        this.msg = msg;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
+    private final String msg;
 }

@@ -47,12 +47,11 @@ spring:
     properties:
       mail.from: 664956140@qq.com
 # mybatis配置
-mybatis:
-  mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.eghm.model;com.eghm.request
-  configuration:
-    lazy-loading-enabled: true
-    map-underscore-to-camel-case: true
+mybatis-plus:
+  mapper-locations:
+    - classpath*:mapper/**/*.xml
+  type-enums-package: com.eghm.model.enums
+  type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
 application:
   upload-dir: /data/
   ignore-url:

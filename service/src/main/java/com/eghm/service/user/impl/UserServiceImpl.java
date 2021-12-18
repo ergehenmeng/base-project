@@ -45,10 +45,12 @@ import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
+import com.eghm.service.wechat.WeChatMpService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,6 +94,8 @@ public class UserServiceImpl implements UserService {
     private HandlerChain handlerChain;
 
     private KeyGenerator keyGenerator;
+
+    private WeChatMpService weChatMpService;
 
     @Autowired
     public void setKeyGenerator(KeyGenerator keyGenerator) {
@@ -165,7 +169,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(Long userId) {
-        return userMapper.selectByPrimaryKey(userId);
+        return userMapper.selectById(userId);
     }
 
     @Override
@@ -174,7 +178,7 @@ public class UserServiceImpl implements UserService {
         User user = DataUtil.copy(register, User.class);
         this.initUser(user);
         user.setId(keyGenerator.generateKey());
-        userMapper.insertSelective(user);
+        userMapper.insert(user);
         this.doPostRegister(user, register);
         return user;
     }
@@ -188,7 +192,7 @@ public class UserServiceImpl implements UserService {
         // 获取到用户id,再次更新邀请码
         String inviteCode = StringUtil.encryptNumber(user.getId());
         user.setInviteCode(inviteCode);
-        userMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateById(user);
         // 执行注册后置链
         MessageData data = new MessageData();
         data.setUser(user);
@@ -255,7 +259,7 @@ public class UserServiceImpl implements UserService {
         // 创建token
         Token token = tokenService.createToken(user.getId(), request.getChannel());
         // 记录登陆日志信息
-        LoginRecord record = LoginRecord.builder()
+        LoginRecord loginRecord = LoginRecord.builder()
                 .ip(IpUtil.ipToLong(ip))
                 .userId(user.getId())
                 .channel(request.getChannel())
@@ -264,7 +268,7 @@ public class UserServiceImpl implements UserService {
                 .softwareVersion(request.getVersion())
                 .serialNumber(request.getSerialNumber())
                 .build();
-        taskHandler.executeLoginLog(new LoginLogTask(record, loginLogService));
+        taskHandler.executeLoginLog(new LoginLogTask(loginRecord, loginLogService));
         return LoginTokenVO.builder().token(token.getToken()).refreshToken(token.getRefreshToken()).build();
     }
 
@@ -284,7 +288,7 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setId(userId);
         user.setState(state);
-        userMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateById(user);
         if (Boolean.FALSE.equals(user.getState())){
             this.offline(user.getId());
         }
@@ -353,7 +357,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void bindEmail(BindEmailDTO request) {
-        User user = userMapper.selectByPrimaryKey(request.getUserId());
+        User user = userMapper.selectById(request.getUserId());
         if (StrUtil.isNotBlank(user.getEmail())) {
             throw new BusinessException(ErrorCode.EMAIL_REDO_BIND);
         }
@@ -361,7 +365,7 @@ public class UserServiceImpl implements UserService {
         emailCode.setEmailType(EmailType.BIND_EMAIL);
         emailService.verifyEmailCode(emailCode);
         user.setEmail(request.getEmail());
-        userMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateById(user);
     }
 
     @Override
@@ -373,7 +377,7 @@ public class UserServiceImpl implements UserService {
         user.setBirthday(IdcardUtil.getBirthByIdCard(request.getIdCard()));
         user.setIdCard(AesUtil.encrypt(request.getIdCard(), applicationProperties.getSecretKey()));
         user.setSex((byte)IdcardUtil.getGenderByIdCard(request.getIdCard()));
-        userMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateById(user);
         //TODO 实名制认证
     }
 
@@ -393,7 +397,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void sendChangeEmailSms(Long userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
+        User user = userMapper.selectById(userId);
         if (StrUtil.isBlank(user.getMobile())) {
             log.warn("未绑定手机号,无法发送邮箱验证短信 userId:[{}]", userId);
             throw new BusinessException(ErrorCode.MOBILE_NOT_BIND);
@@ -404,7 +408,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
-        User user = userMapper.selectByPrimaryKey(request.getUserId());
+        User user = userMapper.selectById(request.getUserId());
         smsService.verifySmsCode(SmsType.CHANGE_EMAIL, user.getMobile(), request.getSmsCode());
         this.checkEmail(request.getEmail());
         SendEmail email = new SendEmail();
@@ -419,15 +423,15 @@ public class UserServiceImpl implements UserService {
         VerifyEmailCode emailCode = DataUtil.copy(request, VerifyEmailCode.class);
         emailCode.setEmailType(EmailType.CHANGE_EMAIL);
         emailService.verifyEmailCode(emailCode);
-        User user = userMapper.selectByPrimaryKey(request.getUserId());
+        User user = userMapper.selectById(request.getUserId());
         user.setEmail(user.getEmail());
-        userMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateById(user);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void signIn(Long userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
+        User user = userMapper.selectById(userId);
         Date now = DateUtil.getNow();
         long day = DateUtil.diffDay(user.getAddTime(), now);
         String signKey = CacheConstant.USER_SIGN_IN + userId;
@@ -443,9 +447,9 @@ public class UserServiceImpl implements UserService {
         log.setScore(score);
         log.setUserId(userId);
         log.setType(ScoreType.SIGN_IN.getValue());
-        userScoreLogService.insertSelective(log);
+        userScoreLogService.insert(log);
         user.setScore(user.getScore() + score);
-        userMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateById(user);
     }
 
     @Override
@@ -457,7 +461,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public SignInVO getSignIn(Long userId) {
-        User user = userMapper.selectByPrimaryKey(userId);
+        User user = userMapper.selectById(userId);
         Date now = DateUtil.getNow();
         long day = DateUtil.diffDay(user.getAddTime(), now);
         String signKey = CacheConstant.USER_SIGN_IN + userId;
@@ -492,6 +496,13 @@ public class UserServiceImpl implements UserService {
     public User getByInviteCode(String inviteCode) {
         return userMapper.getByInviteCode(inviteCode);
     }
+
+    @Override
+    public void mpLogin(String jsCode) {
+        WxOAuth2UserInfo userInfo = weChatMpService.auth2(jsCode);
+        // TODO 待完成
+    }
+
 
     /**
      * 注册手机号被占用校验

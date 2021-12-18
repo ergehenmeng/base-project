@@ -1,21 +1,16 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class AuditConfig implements Serializable {
-    /**
-     * 主键<br>
-     * 表 : audit_config<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class AuditConfig extends BaseEntity {
 
     /**
      * 审核类型<br>
@@ -44,21 +39,5 @@ public class AuditConfig implements Serializable {
      * 对应字段 : rejection_policy<br>
      */
     private Byte rejectionPolicy;
-
-    /**
-     * 添加时间<br>
-     * 表 : audit_config<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 更新时间<br>
-     * 表 : audit_config<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
-
-    private static final long serialVersionUID = 1L;
 
 }

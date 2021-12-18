@@ -2,14 +2,14 @@ package com.eghm.dao.model;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * @author 二哥很猛
  */
 @Data
-public class SysHoliday implements Serializable {
+public class SysHoliday {
+
     /**
      * 主键<br>
      * 表 : sys_holiday<br>

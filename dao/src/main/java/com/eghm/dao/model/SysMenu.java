@@ -1,30 +1,23 @@
 package com.eghm.dao.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
  * @author 二哥很猛
  */
-@Data
-public class SysMenu implements Serializable {
-
-    private static final long serialVersionUID = 3059147246970916080L;
+@Getter
+@Setter
+@ToString(callSuper = true)
+public class SysMenu extends BaseEntity {
 
     /**
      * 三级菜单即为按钮菜单
      */
     public static final byte BUTTON = 3;
-
-    /**
-     * 主键<br>
-     * 表 : sys_menu<br>
-     * 对应字段 : id<br>
-     */
-    private Long id;
 
     /**
      * 菜单名称<br>
@@ -83,20 +76,6 @@ public class SysMenu implements Serializable {
     private String remark;
 
     /**
-     * 添加时间<br>
-     * 表 : sys_menu<br>
-     * 对应字段 : add_time<br>
-     */
-    private Date addTime;
-
-    /**
-     * 更新时间<br>
-     * 表 : sys_menu<br>
-     * 对应字段 : update_time<br>
-     */
-    private Date updateTime;
-
-    /**
      * 该菜单包含的子url以分号做分割<br>
      * 表 : sys_menu<br>
      *  对应字段 : sub_url<br>
@@ -107,6 +86,5 @@ public class SysMenu implements Serializable {
      * 子菜单列表
      */
     private List<SysMenu> subList;
-
 
 }

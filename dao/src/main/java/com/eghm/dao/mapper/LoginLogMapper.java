@@ -1,33 +1,13 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.LoginLog;
 import org.apache.ibatis.annotations.Param;
 
 /**
  * @author 二哥很猛
  */
-public interface LoginLogMapper {
-
-    /**
-     * 插入不为空的记录
-     *
-     * @param record 条件 
-     */
-    int insertSelective(LoginLog record);
-
-    /**
-     * 根据主键获取一条数据库记录
-     *
-     * @param id 条件 
-     */
-    LoginLog selectByPrimaryKey(Long id);
-
-    /**
-     * 根据主键来更新部分数据库记录
-     *
-     * @param record 条件 
-     */
-    int updateByPrimaryKeySelective(LoginLog record);
+public interface LoginLogMapper extends BaseMapper<LoginLog> {
 
     /**
      * 获取最近一次的登陆信息
