@@ -18,10 +18,10 @@ import org.springframework.stereotype.Service;
 @Order(10)
 @Slf4j
 @HandlerMark(HandlerEnum.REGISTER)
-public class AwardRegisterHandler implements Handler<MessageData> {
+public class AwardRegisterHandler implements Handler {
 
     @Override
-    public void doHandler(MessageData messageData, HandlerInvoker<MessageData> invoker) {
+    public void doHandler(Object messageData, HandlerInvoker invoker) {
         log.info("注册积分奖励");
         invoker.doHandler(messageData);
     }

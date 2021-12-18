@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 @Order(30)
 @Slf4j
 @HandlerMark(HandlerEnum.REGISTER)
-public class InviteRegisterHandler implements Handler<MessageData> {
+public class InviteRegisterHandler implements Handler {
 
     private UserInviteLogService userInviteLogService;
 
@@ -42,10 +42,11 @@ public class InviteRegisterHandler implements Handler<MessageData> {
     }
 
     @Override
-    public void doHandler(MessageData messageData, HandlerInvoker<MessageData> invoker) {
+    public void doHandler(Object messageData, HandlerInvoker invoker) {
+        MessageData data = (MessageData) messageData;
         log.info("注册添加邀请记录");
-        UserRegister register = messageData.getUserRegister();
-        User dataUser = messageData.getUser();
+        UserRegister register = data.getUserRegister();
+        User dataUser = data.getUser();
         if (StrUtil.isNotBlank(register.getInviteCode())) {
             User user = userService.getByInviteCode(register.getInviteCode());
             if (user != null) {

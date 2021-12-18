@@ -215,7 +215,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = RuntimeException.class)
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         User user = this.getByAccount(login.getAccount());
-        if (user == null || !encoder.matches(login.getPwd(), user.getPwd())) {
+        if (user == null || !encoder.match(login.getPwd(), user.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
         RequestMessage request = ApiHolder.get();

@@ -18,10 +18,10 @@ import org.springframework.stereotype.Service;
 @Order(20)
 @Slf4j
 @HandlerMark(HandlerEnum.REGISTER)
-public class CouponRegisterHandler implements Handler<MessageData> {
+public class CouponRegisterHandler implements Handler {
 
     @Override
-    public void doHandler(MessageData messageData, HandlerInvoker<MessageData> invoker) {
+    public void doHandler(Object messageData, HandlerInvoker invoker) {
         log.info("注册发放优惠券");
         invoker.doHandler(messageData);
     }

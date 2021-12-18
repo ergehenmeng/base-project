@@ -45,7 +45,7 @@ public class MybatisSourceTest extends BaseTest {
 
 
     @Test
-    public void test() {
+    public void execute() {
         MessageData data = new MessageData();
         data.setUser(new User());
         handlerChain.execute(data, HandlerEnum.REGISTER);

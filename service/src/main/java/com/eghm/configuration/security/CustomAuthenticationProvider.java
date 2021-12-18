@@ -41,7 +41,7 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) {
         SysOperator operator = (SysOperator) userDetails;
-        if (!encoder.matches((String) authentication.getCredentials(), operator.getPwd())) {
+        if (!encoder.match((String) authentication.getCredentials(), operator.getPwd())) {
             throw new SystemAuthenticationException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
     }

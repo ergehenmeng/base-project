@@ -20,12 +20,12 @@ import java.util.Map;
  * @date 2018/12/19 17:47
  */
 @Service("handlerChain")
-public class HandlerChain<T> implements CommandLineRunner {
+public class HandlerChain implements CommandLineRunner {
 
     /**
      * 存放bean的列表
      */
-    private final Map<HandlerEnum, List<Handler>> handlerMap = new EnumMap(HandlerEnum.class);
+    private final Map<HandlerEnum, List<Handler>> handlerMap = new EnumMap<>(HandlerEnum.class);
 
     /**
      * 执行业务逻辑
@@ -34,10 +34,10 @@ public class HandlerChain<T> implements CommandLineRunner {
      * @param markName    处理器类型
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public void execute(T messageData, HandlerEnum markName) {
+    public void execute(Object messageData, HandlerEnum markName) {
         List<Handler> handlers = handlerMap.get(markName);
         if (handlers != null) {
-            new HandlerInvoker<>(handlers).doHandler(messageData);
+            new HandlerInvoker(handlers).doHandler(messageData);
         }
     }
 
