@@ -17,7 +17,7 @@ import java.io.IOException;
  */
 public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
 
-    private FilterInvocationSecurityMetadataSource securityMetadataSource;
+    private final FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     public CustomFilterSecurityInterceptor(FilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource) {
         this.securityMetadataSource = filterInvocationSecurityMetadataSource;

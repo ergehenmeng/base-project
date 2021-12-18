@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.impl.ShadowGimpy;
 import com.google.code.kaptcha.util.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -61,8 +62,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "6");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy23456789ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "宋体");
-        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, "com.google.code.kaptcha.impl.ShadowGimpy");
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, "com.eghm.configuration.CaptchaProducer");
+        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, ShadowGimpy.class.getName());
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, CaptchaProducer.class.getName());
         Config config = new Config(properties);
         captcha.setConfig(config);
         return captcha;

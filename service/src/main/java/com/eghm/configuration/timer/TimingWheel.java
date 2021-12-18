@@ -16,27 +16,27 @@ public class TimingWheel {
     /**
      * 每一格的时间
      */
-    private long scaleMs;
+    private final long scaleMs;
 
     /**
      * 一圈的格子数 每个格子都有一个 buckets
      */
-    private int wheelSize;
+    private final int wheelSize;
 
     /**
      * 一圈的总时间 = scaleMs * wheelSize
      */
-    private long interval;
+    private final long interval;
 
     /**
      * 所有桶内任务总数
      */
-    private AtomicInteger taskCounter;
+    private final AtomicInteger taskCounter;
 
     /**
      * 任务队列
      */
-    private DelayQueue<TaskBucket> queue;
+    private final DelayQueue<TaskBucket> queue;
 
     /**
      * 开启任务时的时间
@@ -51,7 +51,7 @@ public class TimingWheel {
     /**
      * 当前桶的任务列表
      */
-    private TaskBucket[] buckets;
+    private final TaskBucket[] buckets;
 
 
     public TimingWheel(long scaleMs, int wheelSize, long startMs, AtomicInteger taskCounter, DelayQueue<TaskBucket> queue) {

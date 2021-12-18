@@ -45,7 +45,7 @@ public class SystemTaskRegistrar {
     /**
      * 计数器 用于单次任务的nid生成
      */
-    private AtomicLong counter = new AtomicLong();
+    private final AtomicLong counter = new AtomicLong();
 
     /**
      * 加载或刷新系统中配置的定时任务

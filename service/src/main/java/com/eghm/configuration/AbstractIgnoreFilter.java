@@ -20,7 +20,7 @@ public abstract class AbstractIgnoreFilter implements Filter {
     /**
      * 排除忽略的地址或者模糊匹配的url
      */
-    private List<String> exclude = Lists.newArrayListWithCapacity(4);
+    private final List<String> exclude = Lists.newArrayListWithCapacity(4);
 
     /**
      * url分隔符
@@ -28,7 +28,7 @@ public abstract class AbstractIgnoreFilter implements Filter {
     private static final String DELIMITERS = ";";
 
 
-    private AntPathMatcher matcher = new AntPathMatcher();
+    private final AntPathMatcher matcher = new AntPathMatcher();
 
 
     @Override

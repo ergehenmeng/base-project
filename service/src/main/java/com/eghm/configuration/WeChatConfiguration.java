@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(WeChatProperties.class)
 public class WeChatConfiguration {
 
-    private WeChatProperties weChatProperties;
+    private final WeChatProperties weChatProperties;
 
     public WeChatConfiguration(WeChatProperties weChatProperties) {
         this.weChatProperties = weChatProperties;

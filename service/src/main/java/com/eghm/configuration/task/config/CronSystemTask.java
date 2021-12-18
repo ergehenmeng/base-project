@@ -11,7 +11,7 @@ public class CronSystemTask extends CronTask {
     /**
      * 任务的唯一nid用于打印日志等
      */
-    private String nid;
+    private final String nid;
 
     CronSystemTask(CronDetail config) {
         super(new RunnableTask(config), config.getCronExpression());

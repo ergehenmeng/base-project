@@ -18,17 +18,17 @@ public class TaskBucket implements Delayed {
     /**
      * 任务数统计,所有桶公用
      */
-    private AtomicInteger taskCounter;
+    private final AtomicInteger taskCounter;
 
     /**
      * 根任务,默认为空,不进行任务处理
      */
-    private Entry root;
+    private final Entry root;
 
     /**
      * 该TaskBucket的过期时间,内部所有任务的过期时间是一样的
      */
-    private AtomicLong expiration;
+    private final AtomicLong expiration;
 
     /**
      * 当前桶中的任务数

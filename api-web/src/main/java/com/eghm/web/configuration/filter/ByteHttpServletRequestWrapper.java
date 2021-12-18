@@ -18,7 +18,7 @@ import java.io.*;
 @Slf4j
 public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-    private byte[] requestByte;
+    private final byte[] requestByte;
 
     ByteHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);

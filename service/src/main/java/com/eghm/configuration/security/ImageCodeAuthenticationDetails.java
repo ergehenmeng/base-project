@@ -18,12 +18,12 @@ class ImageCodeAuthenticationDetails extends WebAuthenticationDetails {
     /**
      * 前台传递过来的图形验证码
      */
-    private String imageCode;
+    private final String imageCode;
 
     /**
      * session中存放的图形验证码
      */
-    private String sessionImageCode;
+    private final String sessionImageCode;
 
     ImageCodeAuthenticationDetails(HttpServletRequest request) {
         super(request);

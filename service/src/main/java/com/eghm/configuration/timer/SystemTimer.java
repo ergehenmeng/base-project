@@ -29,7 +29,7 @@ public class SystemTimer {
     /**
      * 最底层时间轮对象
      */
-    private TimingWheel rootWheel;
+    private final TimingWheel rootWheel;
 
     /**
      * 关闭处理
@@ -64,11 +64,11 @@ public class SystemTimer {
     /**
      * 该队列间接关联时间轮的所有任务,即:每个刻度的所有任务,同时也包含所有时间轮的任务
      */
-    private DelayQueue<TaskBucket> queue = new DelayQueue<>();
+    private final DelayQueue<TaskBucket> queue = new DelayQueue<>();
 
-    private AtomicInteger taskCounter = new AtomicInteger(0);
+    private final AtomicInteger taskCounter = new AtomicInteger(0);
 
-    private AtomicInteger threadCounter = new AtomicInteger(1);
+    private final AtomicInteger threadCounter = new AtomicInteger(1);
 
     /**
      * 启动时间轮

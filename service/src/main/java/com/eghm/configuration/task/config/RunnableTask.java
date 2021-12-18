@@ -31,7 +31,7 @@ public class RunnableTask implements Runnable {
     /**
      * 执行任务时说明信息
      */
-    private TaskDetail detail;
+    private final TaskDetail detail;
 
     RunnableTask(TaskDetail detail) {
         this.detail = detail;

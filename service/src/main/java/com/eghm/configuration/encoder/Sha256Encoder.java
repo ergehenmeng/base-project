@@ -15,7 +15,7 @@ public class Sha256Encoder implements Encoder {
     }
 
     @Override
-    public boolean matches(String rawPassword, String encodedPassword) {
+    public boolean match(String rawPassword, String encodedPassword) {
         return Sha256Util.sha256Hmac(rawPassword).equals(encodedPassword);
     }
 

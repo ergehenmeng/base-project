@@ -18,7 +18,7 @@ public class SecurityOperator extends SysOperator implements UserDetails {
 
     private static final long serialVersionUID = -7835234722564262280L;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Collection<? extends GrantedAuthority> authorities;
 
 
     SecurityOperator(SysOperator operator, Collection<GrantedAuthority> authorityList) {

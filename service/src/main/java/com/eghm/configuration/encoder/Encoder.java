@@ -22,5 +22,5 @@ public interface Encoder {
      * @param encodedPassword 加密后的密码
      * @return true 匹配 false 不匹配
      */
-    boolean matches(String rawPassword, String encodedPassword);
+    boolean match(String rawPassword, String encodedPassword);
 }

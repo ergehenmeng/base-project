@@ -33,7 +33,7 @@ public class BcEncoder implements Encoder {
      * @return true 匹配 false 不匹配
      */
     @Override
-    public boolean matches(String rawPassword, String encodedPassword) {
+    public boolean match(String rawPassword, String encodedPassword) {
 
         if (encodedPassword == null || encodedPassword.length() == 0) {
             return false;
