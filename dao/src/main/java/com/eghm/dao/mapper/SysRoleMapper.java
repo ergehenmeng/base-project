@@ -1,7 +1,6 @@
 package com.eghm.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.dao.model.SysRole;
 import org.apache.ibatis.annotations.Param;
 
@@ -11,13 +10,6 @@ import java.util.List;
  * @author 二哥很猛
  */
 public interface SysRoleMapper extends BaseMapper<SysRole> {
-
-    /**
-     * 根据条件查询角色信息
-     * @param request 请求参数
-     * @return 角色信息列表
-     */
-    List<SysRole> getList(RoleQueryRequest request);
 
     /**
      * 查询用户所拥有的角色列表

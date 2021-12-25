@@ -1,9 +1,9 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.TaskConfig;
 import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ public interface TaskConfigService {
      * @param request 查询条件
      * @return 列表
      */
-    PageInfo<TaskConfig> getByPage(TaskQueryRequest request);
+    Page<TaskConfig> getByPage(TaskQueryRequest request);
 
     /**
      * 主键查询

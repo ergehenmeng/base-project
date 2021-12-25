@@ -1,5 +1,9 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.SmsTemplateMapper;
 import com.eghm.dao.model.SmsTemplate;
@@ -7,14 +11,10 @@ import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -44,10 +44,10 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<SmsTemplate> list = smsTemplateMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
+        LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsTemplate::getNid, request.getQueryName());
+        return smsTemplateMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

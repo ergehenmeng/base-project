@@ -19,10 +19,4 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
      */
     SysDept getMaxCodeChild(@Param("code") String code);
 
-    /**
-     * 获取所有的部门
-     *
-     * @return 部门列表
-     */
-    List<SysDept> getList();
 }

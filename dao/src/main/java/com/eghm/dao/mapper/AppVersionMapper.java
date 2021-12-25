@@ -13,13 +13,6 @@ import java.util.List;
 public interface AppVersionMapper extends BaseMapper<AppVersion> {
 
     /**
-     * 根据条件查询app管理列表
-     * @param request 查询条件
-     * @return 列表
-     */
-    List<AppVersion> getList(VersionQueryRequest request);
-
-    /**
      * 获取最新已上架的版本信息
      * @param classify App类型 ANDROID IOS
      * @return 版本信息

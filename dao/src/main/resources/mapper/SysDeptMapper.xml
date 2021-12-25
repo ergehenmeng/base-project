@@ -28,10 +28,4 @@
         from sys_dept where parent_code = #{code} order by code desc limit 1
     </select>
 
-    <select id="getList" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_dept where deleted = false
-    </select>
-
 </mapper>

@@ -31,15 +31,4 @@
         from sys_operator where deleted = false and mobile = #{mobile}
     </select>
 
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.operator.OperatorQueryRequest">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_operator where deleted = false
-        <if test="queryName != null and queryName != ''">
-            and (operator_name like concat('%',#{queryName},'%') or mobile like concat('%',#{queryName},'%'))
-        </if>
-        <if test="state != null">
-            state = #{state}
-        </if>
-    </select>
 </mapper>

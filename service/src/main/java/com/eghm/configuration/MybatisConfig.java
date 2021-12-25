@@ -1,0 +1,29 @@
+package com.eghm.configuration;
+
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * @author wyb
+ * @date 2021/12/25 13:44
+ */
+@Configuration
+public class MybatisConfig {
+
+
+    /**
+     * mybatisPlus分页
+     */
+    @Bean
+    public MybatisPlusInterceptor interceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
+        innerInterceptor.setMaxLimit(20L);
+        interceptor.addInnerInterceptor(innerInterceptor);
+        return interceptor;
+    }
+
+}

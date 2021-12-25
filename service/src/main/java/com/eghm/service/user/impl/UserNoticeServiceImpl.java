@@ -1,6 +1,9 @@
 package com.eghm.service.user.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.NoticeType;
 import com.eghm.common.exception.BusinessException;
@@ -14,14 +17,11 @@ import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.PushNotice;
 import com.eghm.model.dto.ext.SendNotice;
 import com.eghm.model.vo.user.UserNoticeVO;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.service.common.PushService;
 import com.eghm.service.user.UserNoticeService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,13 +47,6 @@ public class UserNoticeServiceImpl implements UserNoticeService {
     private UserService userService;
 
     private PushService pushService;
-
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
 
     @Autowired(required = false)
     public void setPushService(PushService pushService) {
@@ -95,7 +88,6 @@ public class UserNoticeServiceImpl implements UserNoticeService {
         mail.setTitle(template.getTitle());
         mail.setContent(content);
         mail.setUserId(userId);
-        mail.setId(keyGenerator.generateKey());
         userNoticeMapper.insert(mail);
         // 发送推送消息
         if (mailType.isPushNotice()) {
@@ -131,9 +123,12 @@ public class UserNoticeServiceImpl implements UserNoticeService {
 
     @Override
     public Paging<UserNoticeVO> getByPage(PagingQuery query, Long userId) {
-        PageMethod.startPage(query.getPage(), query.getPageSize());
-        List<UserNotice> noticeList = userNoticeMapper.getList(userId);
-        return DataUtil.convert(new PageInfo<>(noticeList), userNotice -> DataUtil.copy(userNotice, UserNoticeVO.class));
+        LambdaQueryWrapper<UserNotice> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(UserNotice::getDeleted, false);
+        wrapper.eq(UserNotice::getUserId, userId);
+        wrapper.orderByDesc(UserNotice::getRead, UserNotice::getId);
+        Page<UserNotice> page = userNoticeMapper.selectPage(query.createPage(), wrapper);
+        return DataUtil.convert(page, userNotice -> DataUtil.copy(userNotice, UserNoticeVO.class));
     }
 
     @Override

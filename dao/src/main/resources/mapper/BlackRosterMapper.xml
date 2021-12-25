@@ -19,14 +19,6 @@
         id, ip, deleted, end_time, add_time, update_time
     </sql>
 
-    <select id="getList" parameterType="com.eghm.model.dto.roster.BlackRosterQueryRequest" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from black_roster where deleted = false
-        <if test="queryName != null and queryName != ''">
-            and ip = #{queryName}
-        </if>
-    </select>
     <select id="getAvailableList" resultMap="BaseResultMap">
         select id, ip, end_time
         from black_roster

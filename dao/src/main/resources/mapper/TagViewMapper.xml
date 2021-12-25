@@ -17,9 +17,4 @@
         -->
         id, title, tag, url, remark
     </sql>
-    <select id="getList" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from tag_view
-    </select>
 </mapper>

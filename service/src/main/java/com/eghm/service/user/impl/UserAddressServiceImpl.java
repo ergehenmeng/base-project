@@ -1,7 +1,6 @@
 package com.eghm.service.user.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
@@ -13,7 +12,6 @@ import com.eghm.dao.model.UserAddress;
 import com.eghm.model.dto.address.AddressAddDTO;
 import com.eghm.model.dto.address.AddressEditDTO;
 import com.eghm.model.vo.user.AddressVO;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.user.UserAddressService;
 import com.eghm.utils.DataUtil;
@@ -36,13 +34,6 @@ public class UserAddressServiceImpl implements UserAddressService {
 
     private SysAreaService sysAreaService;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setSysAreaService(SysAreaService sysAreaService) {
         this.sysAreaService = sysAreaService;
@@ -64,7 +55,6 @@ public class UserAddressServiceImpl implements UserAddressService {
             address.setState(UserAddress.STATE_COMMON);
         }
         this.fillAreaName(address);
-        address.setId(keyGenerator.generateKey());
         userAddressMapper.insert(address);
     }
 

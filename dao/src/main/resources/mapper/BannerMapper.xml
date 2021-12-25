@@ -27,7 +27,6 @@
         id,title, classify, client_type, img_url, turn_url, sort, start_time, end_time, click,
         remark,add_time,update_time,deleted
     </sql>
-
     <select id="getBannerList" resultMap="BaseResultMap">
         select
         <include refid="BaseColumnList"/>
@@ -35,25 +34,5 @@
         <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间 -->
         (end_time &lt;= now() or end_time is null) and start_time &gt;= now()
         and client_type = {clientType} and classify = #{classify} order by sort desc
-    </select>
-
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.banner.BannerQueryRequest">
-        select
-        <include refid="BaseColumnList"/>
-        from banner
-        <where>
-            <if test="queryName != null and queryName != ''">
-                and title like concat('%',#{queryName},'%')
-            </if>
-            <if test="classify != null">
-                and classify = #{classify}
-            </if>
-            <if test="clientType != null and clientType != ''">
-                and client_type = #{clientType}
-            </if>
-            <if test="middleTime != null">
-                and start_time &gt;= #{middleTime} and end_time &lt;= #{middleTime}
-            </if>
-        </where>
     </select>
 </mapper>

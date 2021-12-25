@@ -1,17 +1,17 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.mapper.SysOperatorRoleMapper;
 import com.eghm.dao.mapper.SysRoleMapper;
 import com.eghm.dao.model.SysRole;
 import com.eghm.model.dto.role.RoleAddRequest;
 import com.eghm.model.dto.role.RoleEditRequest;
 import com.eghm.model.dto.role.RoleQueryRequest;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,13 +32,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     private SysOperatorRoleMapper sysOperatorRoleMapper;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setSysRoleMapper(SysRoleMapper sysRoleMapper) {
         this.sysRoleMapper = sysRoleMapper;
@@ -51,10 +44,11 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
-    public PageInfo<SysRole> getByPage(RoleQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<SysRole> list = sysRoleMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<SysRole> getByPage(RoleQueryRequest request) {
+        LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysRole::getDeleted, false);
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
+        return sysRoleMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
@@ -74,7 +68,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void deleteRole(Long id) {
         SysRole role = new SysRole();
         role.setDeleted(true);
-        role.setId(keyGenerator.generateKey());
         sysRoleMapper.updateById(role);
     }
 
@@ -82,15 +75,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addRole(RoleAddRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
-        role.setDeleted(false);
-        role.setId(keyGenerator.generateKey());
         sysRoleMapper.insert(role);
     }
 
     @Override
     public List<SysRole> getList() {
-        RoleQueryRequest request = new RoleQueryRequest();
-        return sysRoleMapper.getList(request);
+        return sysRoleMapper.selectList(null);
     }
 
     @Override

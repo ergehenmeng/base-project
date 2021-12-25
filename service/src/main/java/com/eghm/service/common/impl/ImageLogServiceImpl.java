@@ -1,20 +1,19 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.mapper.ImageLogMapper;
 import com.eghm.dao.model.ImageLog;
 import com.eghm.model.dto.image.ImageAddRequest;
 import com.eghm.model.dto.image.ImageEditRequest;
 import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.service.common.ImageLogService;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -25,13 +24,6 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     private ImageLogMapper imageLogMapper;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setImageLogMapper(ImageLogMapper imageLogMapper) {
         this.imageLogMapper = imageLogMapper;
@@ -39,10 +31,15 @@ public class ImageLogServiceImpl implements ImageLogService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<ImageLog> getByPage(ImageQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<ImageLog> list = imageLogMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<ImageLog> getByPage(ImageQueryRequest request) {
+        LambdaQueryWrapper<ImageLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ImageLog::getDeleted, false);
+        wrapper.eq(request.getClassify() != null, ImageLog::getClassify, request.getClassify());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(ImageLog::getTitle, request.getQueryName()).or()
+                        .like(ImageLog::getRemark, request.getQueryName()));
+        wrapper.orderByDesc(ImageLog::getId);
+        return imageLogMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
@@ -50,7 +47,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     public void addImageLog(ImageAddRequest request) {
         ImageLog imageLog = DataUtil.copy(request, ImageLog.class);
         imageLog.setDeleted(false);
-        imageLog.setId(keyGenerator.generateKey());
         imageLogMapper.insert(imageLog);
     }
 

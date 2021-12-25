@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SysRole;
 import com.eghm.model.dto.ext.CheckBox;
 import com.eghm.model.dto.ext.Paging;
@@ -10,7 +11,6 @@ import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -49,7 +49,7 @@ public class RoleController {
     @GetMapping("/role/list_page")
     @ApiOperation("角色列表(分页)")
     public Paging<SysRole> listPage(RoleQueryRequest request) {
-        PageInfo<SysRole> page = sysRoleService.getByPage(request);
+        Page<SysRole> page = sysRoleService.getByPage(request);
         return new Paging<>(page);
     }
 

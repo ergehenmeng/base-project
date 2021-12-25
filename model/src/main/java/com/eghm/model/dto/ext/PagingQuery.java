@@ -1,5 +1,6 @@
 package com.eghm.model.dto.ext;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -37,5 +38,14 @@ public class PagingQuery implements Serializable{
     @ApiModelProperty(hidden = true)
     private String queryName;
 
+
+    /**
+     * 创建分页对象
+     * @param <T> 查询对象
+     * @return 分页对象
+     */
+    public <T> Page<T> createPage() {
+        return new Page<>(page, pageSize);
+    }
 
 }

@@ -30,7 +30,7 @@
         <result column="mobile" jdbcType="CHAR" property="mobile"/>
     </resultMap>
 
-    <select id="getList" parameterType="com.eghm.model.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
+    <select id="getByPage" parameterType="com.eghm.model.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
         select
         t.id,
         t.user_id,

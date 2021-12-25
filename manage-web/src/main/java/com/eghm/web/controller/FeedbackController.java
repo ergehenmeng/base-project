@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.model.dto.ext.Paging;
@@ -9,7 +10,6 @@ import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +39,7 @@ public class FeedbackController {
      */
     @GetMapping("/feedback/list_page")
     public Paging<FeedbackVO> listPage(FeedbackQueryRequest request) {
-        PageInfo<FeedbackVO> byPage = feedbackService.getByPage(request);
+        Page<FeedbackVO> byPage = feedbackService.getByPage(request);
         return new Paging<>(byPage);
     }
 

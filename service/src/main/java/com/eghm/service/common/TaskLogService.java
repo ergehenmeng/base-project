@@ -1,8 +1,8 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
-import com.github.pagehelper.PageInfo;
 
 /**
  * @author 二哥很猛
@@ -21,7 +21,7 @@ public interface TaskLogService {
      * @param request 查询条件
      * @return 列表
      */
-    PageInfo<TaskLog> getByPage(TaskLogQueryRequest request);
+    Page<TaskLog> getByPage(TaskLogQueryRequest request);
 
     /**
      * 定时任务错误信息详情

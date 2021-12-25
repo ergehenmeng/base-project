@@ -34,7 +34,7 @@
     <resultMap id="ExtBaseResultMap" type="com.eghm.dao.model.SysOperationLog" extends="BaseResultMap">
         <result column="operator_name" jdbcType="VARCHAR" property="operatorName"/>
     </resultMap>
-    <select id="getList" parameterType="com.eghm.model.dto.log.OperationQueryRequest" resultMap="ExtBaseResultMap">
+    <select id="getByPage" parameterType="com.eghm.model.dto.log.OperationQueryRequest" resultMap="ExtBaseResultMap">
         select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,r.operator_name
         from sys_operation_log t inner join sys_operator r on t.operator_id = r.id
         <where>
@@ -52,7 +52,7 @@
         </where>
         order by id desc
     </select>
-    <select id="getResponseById">
+    <select id="getResponseById" resultType="string">
         select
         <include refid="BlobColumnList"/>
         from sys_operation_log where id = #{id}

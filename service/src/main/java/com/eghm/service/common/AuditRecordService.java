@@ -1,8 +1,8 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.AuditRecord;
 import com.eghm.model.dto.audit.AuditQueryRequest;
-import com.github.pagehelper.PageInfo;
 
 /**
  * @author 殿小二
@@ -12,15 +12,15 @@ public interface AuditRecordService {
 
     /**
      * 不为空插入
-     * @param record  record
+     * @param auditRecord  record
      */
-    void insert(AuditRecord record);
+    void insert(AuditRecord auditRecord);
 
     /**
      * 不为空更新
-     * @param record record
+     * @param auditRecord record
      */
-    void updateSelective(AuditRecord record);
+    void updateById(AuditRecord auditRecord);
 
     /**
      * 主键查询
@@ -34,5 +34,5 @@ public interface AuditRecordService {
      * @param request 查询条件
      * @return 审核记录
      */
-    PageInfo<AuditRecord> getByPage(AuditQueryRequest request);
+    Page<AuditRecord> getByPage(AuditQueryRequest request);
 }

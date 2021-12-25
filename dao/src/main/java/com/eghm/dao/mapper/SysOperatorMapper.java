@@ -19,10 +19,4 @@ public interface SysOperatorMapper extends BaseMapper<SysOperator> {
      */
     SysOperator getByMobile(String mobile);
 
-    /**
-     * 根据条件查询系统人员信息
-     * @param request 查询条件
-     * @return 列表
-     */
-    List<SysOperator> getList(OperatorQueryRequest request);
 }

@@ -20,11 +20,4 @@ public interface BannerMapper extends BaseMapper<Banner> {
      */
     List<Banner> getBannerList(@Param("classify") Byte classify, @Param("clientType") String clientType);
 
-    /**
-     * 根据条件查询轮播图信息
-     * @param request 查询条件
-     * @return 列表
-     */
-    List<Banner> getList(BannerQueryRequest request);
-
 }

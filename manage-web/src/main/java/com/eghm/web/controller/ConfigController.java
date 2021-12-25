@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
@@ -11,7 +12,6 @@ import com.eghm.service.cache.ProxyService;
 import com.eghm.service.sys.SysConfigService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +76,10 @@ public class ConfigController {
     @GetMapping("config/list_page")
     @ApiOperation("系统参数列表")
     public Paging<SysConfig> listPage(ConfigQueryRequest request) {
-        PageInfo<SysConfig> listByPage = sysConfigService.getByPage(request);
+        Page<SysConfig> listByPage = sysConfigService.getByPage(request);
+        ProxyService finalProxy = this.proxyService;
         return DataUtil.convert(listByPage, sysConfig -> {
-            proxyService.getDictValue(DictConstant.CONFIG_CLASSIFY, sysConfig.getClassify());
+            finalProxy.getDictValue(DictConstant.CONFIG_CLASSIFY, sysConfig.getClassify());
             return sysConfig;
         });
     }

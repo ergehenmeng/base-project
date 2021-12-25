@@ -1,15 +1,14 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.TaskLogService;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +34,7 @@ public class TaskLogController {
     @GetMapping("/task_log/list_page")
     @ApiOperation("日志列表(分页)")
     public Paging<TaskLog> listPage(TaskLogQueryRequest request) {
-        PageInfo<TaskLog> byPage = taskLogService.getByPage(request);
+        Page<TaskLog> byPage = taskLogService.getByPage(request);
         return new Paging<>(byPage);
     }
 

@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.PushTemplate;
 import com.eghm.dao.model.TagView;
 import com.eghm.model.dto.ext.Paging;
@@ -9,10 +10,8 @@ import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.service.common.TagViewService;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apiguardian.api.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,7 +49,7 @@ public class PushTemplateController {
     @GetMapping("/push_template/list_page")
     @ApiOperation("消息模板列表")
     public Paging<PushTemplate> listPage(PushTemplateQueryRequest request) {
-        PageInfo<PushTemplate> byPage = pushTemplateService.getByPage(request);
+        Page<PushTemplate> byPage = pushTemplateService.getByPage(request);
         return new Paging<>(byPage);
     }
 

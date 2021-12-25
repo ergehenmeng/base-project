@@ -19,15 +19,6 @@
         -->
         id, role_name, role_type, add_time, update_time, deleted, remark
     </sql>
-    <select id="getList" parameterType="com.eghm.model.dto.role.RoleQueryRequest" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_role where deleted = false
-        <if test="queryName != null and queryName != ''">
-            and role_name like concat('%',#{queryName},'%')
-        </if>
-    </select>
-
     <select id="getRoleList" resultMap="BaseResultMap">
         select t.id, t.role_name, t.role_type, t.remark
         from sys_role t

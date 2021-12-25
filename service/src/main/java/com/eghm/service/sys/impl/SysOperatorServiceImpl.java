@@ -3,6 +3,9 @@ package com.eghm.service.sys.impl;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.PermissionType;
 import com.eghm.common.exception.BusinessException;
@@ -16,12 +19,9 @@ import com.eghm.model.dto.operator.OperatorAddRequest;
 import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.model.dto.operator.PasswordEditRequest;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,13 +43,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     private SysOperatorRoleMapper sysOperatorRoleMapper;
 
     private SysDataDeptService sysDataDeptService;
-
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
 
     @Autowired
     public void setSysOperatorMapper(SysOperatorMapper sysOperatorMapper) {
@@ -96,10 +89,14 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
-    public PageInfo<SysOperator> getByPage(OperatorQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<SysOperator> list = sysOperatorMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<SysOperator> getByPage(OperatorQueryRequest request) {
+        LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysOperator::getDeleted, false);
+        wrapper.eq(request.getState() != null, SysOperator::getState, request.getState());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(SysOperator::getOperatorName, request.getQueryName()).or().
+                        like(SysOperator::getMobile, request.getQueryName()));
+        return sysOperatorMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
@@ -111,7 +108,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         String initPassword = this.initPassword(request.getMobile());
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
-        operator.setId(keyGenerator.generateKey());
         sysOperatorMapper.insert(operator);
         if (StrUtil.isNotBlank(request.getRoleIds())) {
             List<String> roleStringList = StrUtil.split(request.getRoleIds(), ',');

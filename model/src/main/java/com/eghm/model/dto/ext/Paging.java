@@ -1,6 +1,6 @@
 package com.eghm.model.dto.ext;
 
-import com.github.pagehelper.PageInfo;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,7 +21,7 @@ public class Paging<T> {
      * 总条数
      */
     @ApiModelProperty("总条数")
-    private Integer total;
+    private Long total;
 
     /**
      * 数据集
@@ -33,28 +33,28 @@ public class Paging<T> {
      * 当前页数
      */
     @ApiModelProperty("第几页")
-    private Integer page;
+    private Long page;
 
     /**
      * 页容量
      */
     @ApiModelProperty("页容量")
-    private Integer pageSize;
+    private Long pageSize;
 
-    public Paging(Integer total,List<T> rows){
+    public Paging(Long total,List<T> rows){
         this.total = total;
         this.rows = rows;
     }
 
     /**
      * 后台列表使用
-     * @param info pageHelper对象
+     * @param info page对象
      */
-    public Paging(PageInfo<T> info){
-        this.total = (int)info.getTotal();
-        this.rows = info.getList();
-        this.page = info.getPageNum();
-        this.pageSize = info.getPageSize();
+    public Paging(Page<T> info){
+        this.total = info.getTotal();
+        this.rows = info.getRecords();
+        this.page = info.getCurrent();
+        this.pageSize = info.getSize();
     }
 
     public Paging(){

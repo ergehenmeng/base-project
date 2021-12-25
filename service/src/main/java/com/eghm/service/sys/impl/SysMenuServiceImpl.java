@@ -6,7 +6,6 @@ import com.eghm.dao.mapper.SysMenuMapper;
 import com.eghm.dao.model.SysMenu;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +27,6 @@ import java.util.List;
 public class SysMenuServiceImpl implements SysMenuService {
 
     private SysMenuMapper sysMenuMapper;
-
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
 
     @Autowired
     public void setSysMenuMapper(SysMenuMapper sysMenuMapper) {
@@ -83,7 +75,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     public void addMenu(MenuAddRequest request) {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         try {
-            copy.setId(keyGenerator.generateKey());
             sysMenuMapper.insert(copy);
         } catch (Exception e) {
             throw new BusinessException(ErrorCode.MENU_NID_ERROR);

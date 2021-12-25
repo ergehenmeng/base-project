@@ -1,10 +1,10 @@
 package com.eghm.service.sys;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
 import com.eghm.model.dto.config.ConfigQueryRequest;
-import com.eghm.dao.model.SysConfig;
-import com.github.pagehelper.PageInfo;
 
 
 /**
@@ -24,7 +24,7 @@ public interface SysConfigService {
      * @param request 查询条件
      * @return 分页结果集
      */
-    PageInfo<SysConfig> getByPage(ConfigQueryRequest request);
+    Page<SysConfig> getByPage(ConfigQueryRequest request);
 
     /**
      * 根据nid获取系统配置信息

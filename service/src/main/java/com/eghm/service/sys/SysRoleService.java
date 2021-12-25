@@ -1,10 +1,10 @@
 package com.eghm.service.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dao.model.SysRole;
 import com.eghm.model.dto.role.RoleAddRequest;
 import com.eghm.model.dto.role.RoleEditRequest;
 import com.eghm.model.dto.role.RoleQueryRequest;
-import com.eghm.dao.model.SysRole;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ public interface SysRoleService {
      * @param request 前台查询条件
      * @return 列表
      */
-    PageInfo<SysRole> getByPage(RoleQueryRequest request);
+    Page<SysRole> getByPage(RoleQueryRequest request);
 
     /**
      * 根据主键查询角色信息

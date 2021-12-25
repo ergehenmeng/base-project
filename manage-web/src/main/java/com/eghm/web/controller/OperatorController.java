@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
@@ -12,7 +13,6 @@ import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -93,7 +93,7 @@ public class OperatorController {
     @GetMapping("/operator/list_page")
     @ApiOperation("管理后台用户列表")
     public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
-        PageInfo<SysOperator> page = sysOperatorService.getByPage(request);
+        Page<SysOperator> page = sysOperatorService.getByPage(request);
         return new Paging<>(page);
     }
 

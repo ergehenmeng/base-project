@@ -1,11 +1,11 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.AppVersion;
 import com.eghm.model.dto.version.VersionAddRequest;
 import com.eghm.model.dto.version.VersionEditRequest;
 import com.eghm.model.dto.version.VersionQueryRequest;
 import com.eghm.model.vo.version.AppVersionVO;
-import com.github.pagehelper.PageInfo;
 
 /**
  * @author 二哥很猛
@@ -18,7 +18,7 @@ public interface AppVersionService {
      * @param request 查询条件
      * @return 管理列表
      */
-    PageInfo<AppVersion> getByPage(VersionQueryRequest request);
+    Page<AppVersion> getByPage(VersionQueryRequest request);
 
     /**
      * 添加app版本管理信息

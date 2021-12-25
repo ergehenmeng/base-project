@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.task.config.SystemTaskRegistrar;
 import com.eghm.dao.model.TaskConfig;
 import com.eghm.model.dto.ext.Paging;
@@ -8,11 +9,9 @@ import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +46,7 @@ public class TaskConfigController {
     @GetMapping("/task/list_page")
     @ApiOperation("定时任务列表(分页)")
     public Paging<TaskConfig> listPage(TaskQueryRequest request) {
-        PageInfo<TaskConfig> byPage = taskConfigService.getByPage(request);
+        Page<TaskConfig> byPage = taskConfigService.getByPage(request);
         return new Paging<>(byPage);
     }
 

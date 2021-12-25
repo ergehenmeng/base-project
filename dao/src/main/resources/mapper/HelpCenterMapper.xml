@@ -22,12 +22,6 @@
         id, classify, state, ask, answer, sort, deleted, update_time, add_time
     </sql>
 
-    <select id="getList" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from help_center where deleted = false
-    </select>
-
     <select id="getListSorted" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
         select classify, ask, answer from help_center where deleted = false and state = true and classify = #{classify}
         <if test="queryName != null and queryName != ''">

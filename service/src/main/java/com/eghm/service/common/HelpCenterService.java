@@ -1,12 +1,12 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.HelpCenter;
 import com.eghm.model.dto.help.HelpAddRequest;
 import com.eghm.model.dto.help.HelpEditRequest;
 import com.eghm.model.dto.help.HelpQueryDTO;
 import com.eghm.model.dto.help.HelpQueryRequest;
 import com.eghm.model.vo.help.HelpCenterVO;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public interface HelpCenterService {
      * @param request 前台参数
      * @return 分页列表
      */
-    PageInfo<HelpCenter> getByPage(HelpQueryRequest request);
+    Page<HelpCenter> getByPage(HelpQueryRequest request);
 
     /**
      * 按分类查询帮助信息

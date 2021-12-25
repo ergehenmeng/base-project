@@ -18,13 +18,4 @@
         -->
         id, user_id, score, type, remark, add_time
     </sql>
-    <select id="getList" resultMap="BaseResultMap" parameterType="com.eghm.model.dto.score.UserScoreQueryDTO">
-        select
-        <include refid="BaseColumnList"/>
-        from user_score_log
-        where user_id = #{userId}
-        <if test="type != null">
-            and type = #{type}
-        </if>
-    </select>
 </mapper>

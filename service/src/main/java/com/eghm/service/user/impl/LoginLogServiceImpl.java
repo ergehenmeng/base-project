@@ -25,13 +25,6 @@ public class LoginLogServiceImpl implements LoginLogService {
 
     private LoginDeviceService loginDeviceService;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setLoginDeviceService(LoginDeviceService loginDeviceService) {
         this.loginDeviceService = loginDeviceService;
@@ -44,11 +37,10 @@ public class LoginLogServiceImpl implements LoginLogService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void addLoginLog(LoginRecord record) {
-        LoginLog loginLog = DataUtil.copy(record, LoginLog.class);
-        loginLog.setId(keyGenerator.generateKey());
+    public void addLoginLog(LoginRecord loginRecord) {
+        LoginLog loginLog = DataUtil.copy(loginRecord, LoginLog.class);
         loginLogMapper.insert(loginLog);
-        LoginDevice device = DataUtil.copy(record, LoginDevice.class);
+        LoginDevice device = DataUtil.copy(loginRecord, LoginDevice.class);
         loginDeviceService.insertOrUpdateSelective(device);
     }
 

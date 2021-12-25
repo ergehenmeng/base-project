@@ -21,12 +21,6 @@
         -->
         id, user_id, title, content, classify, `read`, deleted, add_time, update_time
     </sql>
-    <select id="getList" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from user_notice
-        where user_id = #{userId} and deleted = false order by `read`, id desc
-    </select>
     <update id="updateNotice" parameterType="com.eghm.dao.model.UserNotice">
         update user_notice
         <set>

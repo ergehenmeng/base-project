@@ -24,23 +24,6 @@
         id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time,state
     </sql>
 
-    <select id="getList" parameterType="com.eghm.model.dto.version.VersionQueryRequest" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from app_version
-        <where>
-            <if test="queryName != null and queryName != ''">
-                and version like concat('%',#{queryName},'%')
-            </if>
-            <if test="state != null">
-                and state = #{state}
-            </if>
-            <if test="classify != null and classify != ''">
-                and classify = #{classify}
-            </if>
-        </where>
-    </select>
-
     <select id="getLatestVersion" resultMap="BaseResultMap">
         select
         <include refid="BaseColumnList"/>

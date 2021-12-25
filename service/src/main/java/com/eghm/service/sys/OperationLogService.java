@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
-import com.eghm.model.dto.log.OperationQueryRequest;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SysOperationLog;
-import com.github.pagehelper.PageInfo;
+import com.eghm.model.dto.log.OperationQueryRequest;
 
 /**
  * @author 二哥很猛
@@ -21,7 +21,7 @@ public interface OperationLogService {
      * @param request 查询条件
      * @return 分页列表
      */
-    PageInfo<SysOperationLog> getByPage(OperationQueryRequest request);
+    Page<SysOperationLog> getByPage(OperationQueryRequest request);
 
     /**
      * 根据主键查询响应信息

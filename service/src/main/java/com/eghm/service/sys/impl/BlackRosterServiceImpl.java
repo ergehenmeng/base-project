@@ -1,15 +1,16 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.BlackRosterMapper;
 import com.eghm.dao.model.BlackRoster;
 import com.eghm.model.dto.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.roster.BlackRosterQueryRequest;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.utils.IpUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,13 +27,6 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     private BlackRosterMapper blackRosterMapper;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setBlackRosterMapper(BlackRosterMapper blackRosterMapper) {
         this.blackRosterMapper = blackRosterMapper;
@@ -40,10 +34,11 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<BlackRoster> getByPage(BlackRosterQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<BlackRoster> list = blackRosterMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<BlackRoster> getByPage(BlackRosterQueryRequest request) {
+        LambdaQueryWrapper<BlackRoster> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(BlackRoster::getDeleted, false);
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), BlackRoster::getIp, request.getQueryName());
+        return blackRosterMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
@@ -52,7 +47,6 @@ public class BlackRosterServiceImpl implements BlackRosterService {
         BlackRoster roster = new BlackRoster();
         roster.setIp(IpUtil.ipToLong(request.getIp()));
         roster.setEndTime(request.getEndTime());
-        roster.setId(keyGenerator.generateKey());
         blackRosterMapper.insert(roster);
     }
 

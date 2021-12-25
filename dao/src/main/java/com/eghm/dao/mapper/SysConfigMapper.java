@@ -13,13 +13,6 @@ import java.util.List;
 public interface SysConfigMapper extends BaseMapper<SysConfig> {
 
     /**
-     * 根据条件查询系统参数列表:参数类型,锁定状态,nid,备注信息
-     * @param request 查询条件
-     * @return
-     */
-    List<SysConfig> getList(ConfigQueryRequest request);
-
-    /**
      * 根据nid获取系统参数
      * @param nid
      * @return

@@ -12,12 +12,6 @@ import java.util.List;
 public interface SysAreaMapper extends BaseMapper<SysArea> {
 
     /**
-     * 查询所有
-     * @return 列表
-     */
-    List<SysArea> getList();
-
-    /**
      * 根据pid查询地址列表
      * @param pid pid
      * @return list

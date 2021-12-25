@@ -30,11 +30,4 @@ public class ConfigQueryRequest extends PagingQuery implements Serializable {
     @ApiModelProperty("是否禁止编辑 true:禁止编辑 false:可以编辑")
     private Boolean locked;
 
-    /**
-     * 备注信息
-     */
-    @ApiModelProperty("备注信息")
-    private String remark;
-
-
 }

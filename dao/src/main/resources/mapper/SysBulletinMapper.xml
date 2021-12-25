@@ -31,18 +31,6 @@
         -->
         content
     </sql>
-    <select id="getList" parameterType="com.eghm.model.dto.bulletin.BulletinQueryRequest"
-            resultMap="ResultMapWithBLOBs">
-        select id, title, classify, deleted, add_time, update_time, state from sys_bulletin
-        where deleted = false
-        <if test="queryName != null and queryName != ''">
-            and title like concat('%',#{queryName},'%')
-        </if>
-        <if test="classify != null">
-            and classify = #{classify}
-        </if>
-        order by update_time desc
-    </select>
 
     <select id="getTopList" resultMap="BaseResultMap">
         select id, title

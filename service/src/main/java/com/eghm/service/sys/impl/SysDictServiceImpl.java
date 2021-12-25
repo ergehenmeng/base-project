@@ -1,6 +1,10 @@
 package com.eghm.service.sys.impl;
 
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
@@ -9,11 +13,8 @@ import com.eghm.dao.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -32,13 +33,6 @@ public class SysDictServiceImpl implements SysDictService {
 
     private SysDictMapper sysDictMapper;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setSysDictMapper(SysDictMapper sysDictMapper) {
         this.sysDictMapper = sysDictMapper;
@@ -52,10 +46,14 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
-    public PageInfo<SysDict> getByPage(DictQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<SysDict> list = sysDictMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<SysDict> getByPage(DictQueryRequest request) {
+        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getLocked() != null, SysDict::getLocked, request.getLocked());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(SysDict::getTitle, request.getQueryName()).or()
+                        .like(SysDict::getNid, request.getQueryName()));
+        wrapper.orderByDesc(SysDict::getId);
+        return sysDictMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
@@ -63,7 +61,6 @@ public class SysDictServiceImpl implements SysDictService {
     public void addDict(DictAddRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDict.setDeleted(false);
-        sysDict.setId(keyGenerator.generateKey());
         sysDictMapper.insert(sysDict);
     }
 

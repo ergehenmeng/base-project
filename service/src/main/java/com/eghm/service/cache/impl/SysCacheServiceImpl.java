@@ -46,7 +46,7 @@ public class SysCacheServiceImpl implements SysCacheService {
 
     @Override
     public List<SysCache> getList() {
-        return sysCacheMapper.getList();
+        return sysCacheMapper.selectList(null);
     }
 
     /**

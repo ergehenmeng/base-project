@@ -1,10 +1,10 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.dto.feedback.FeedbackAddDTO;
 import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
-import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.model.dto.feedback.FeedbackQueryRequest;
-import com.github.pagehelper.PageInfo;
+import com.eghm.model.vo.feedback.FeedbackVO;
 
 /**
  * @author 二哥很猛
@@ -23,7 +23,7 @@ public interface FeedbackService {
      * @param request 查询条件
      * @return 反馈信息 包含用户基本信息
      */
-    PageInfo<FeedbackVO> getByPage(FeedbackQueryRequest request);
+    Page<FeedbackVO> getByPage(FeedbackQueryRequest request);
 
     /**
      * 反馈信息处理

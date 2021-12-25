@@ -1,11 +1,11 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.Channel;
 import com.eghm.dao.model.Banner;
 import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public interface BannerService {
      * @param request 查询条件
      * @return 列表
      */
-    PageInfo<Banner> getByPage(BannerQueryRequest request);
+    Page<Banner> getByPage(BannerQueryRequest request);
 
     /**
      * 新增轮播图信息

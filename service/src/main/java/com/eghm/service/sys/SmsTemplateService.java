@@ -1,9 +1,9 @@
 package com.eghm.service.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SmsTemplate;
 import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
-import com.github.pagehelper.PageInfo;
 
 /**
  * @author 二哥很猛
@@ -30,7 +30,7 @@ public interface SmsTemplateService {
      * @param request 查询条件
      * @return 列表
      */
-    PageInfo<SmsTemplate> getByPage(SmsTemplateQueryRequest request);
+    Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request);
 
     /**
      * 更新短信模板

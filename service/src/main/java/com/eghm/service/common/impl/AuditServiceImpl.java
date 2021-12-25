@@ -1,6 +1,7 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.AuditState;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
@@ -17,7 +18,6 @@ import com.eghm.service.common.AuditService;
 import com.eghm.service.common.NumberService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.SpringContextUtil;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,17 +71,17 @@ public class AuditServiceImpl implements AuditService {
             throw new BusinessException(ErrorCode.AUDIT_CONFIG_ERROR);
         }
         AuditConfig config = configList.get(0);
-        AuditRecord record = new AuditRecord();
-        record.setTitle(process.getTitle());
-        record.setApplyId(process.getApplyId());
-        record.setApplyOperatorId(process.getApplyOperatorId());
-        record.setApplyOperatorName(process.getApplyOperatorName());
-        record.setStep(config.getStep());
-        record.setRoleType(config.getRoleType());
-        record.setAuditType(config.getAuditType());
-        record.setState(AuditState.APPLY.getValue());
-        record.setAuditNo(numberService.getNumber(process.getAuditType().getPrefix()));
-        auditRecordService.insert(record);
+        AuditRecord auditRecord = new AuditRecord();
+        auditRecord.setTitle(process.getTitle());
+        auditRecord.setApplyId(process.getApplyId());
+        auditRecord.setApplyOperatorId(process.getApplyOperatorId());
+        auditRecord.setApplyOperatorName(process.getApplyOperatorName());
+        auditRecord.setStep(config.getStep());
+        auditRecord.setRoleType(config.getRoleType());
+        auditRecord.setAuditType(config.getAuditType());
+        auditRecord.setState(AuditState.APPLY.getValue());
+        auditRecord.setAuditNo(numberService.getNumber(process.getAuditType().getPrefix()));
+        auditRecordService.insert(auditRecord);
     }
 
     @Override
@@ -93,7 +93,7 @@ public class AuditServiceImpl implements AuditService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<AuditRecord> getByPage(AuditQueryRequest request) {
+    public Page<AuditRecord> getByPage(AuditQueryRequest request) {
         List<SysRole> userRoleList = sysRoleService.getRoleList(request.getOperatorId());
         List<String> roleList = userRoleList.stream().map(SysRole::getRoleType).collect(Collectors.toList());
         request.setRoleList(roleList);

@@ -1,5 +1,9 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.PushTemplateMapper;
 import com.eghm.dao.model.PushTemplate;
@@ -7,13 +11,9 @@ import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -30,10 +30,14 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     }
 
     @Override
-    public PageInfo<PushTemplate> getByPage(PushTemplateQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<PushTemplate> list = pushTemplateMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<PushTemplate> getByPage(PushTemplateQueryRequest request) {
+        LambdaQueryWrapper<PushTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getState() != null, PushTemplate::getState, request.getState());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(PushTemplate::getTitle, request.getQueryName()).or()
+                        .like(PushTemplate::getNid, request.getQueryName()).or()
+                        .like(PushTemplate::getTag, request.getQueryName()));
+        return pushTemplateMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

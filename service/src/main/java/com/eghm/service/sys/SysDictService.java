@@ -1,10 +1,10 @@
 package com.eghm.service.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dao.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;
-import com.eghm.dao.model.SysDict;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public interface SysDictService {
      * @param request 前台cax条件
      * @return 分页列表
      */
-    PageInfo<SysDict> getByPage(DictQueryRequest request);
+    Page<SysDict> getByPage(DictQueryRequest request);
 
     /**
      * 添加数据字典

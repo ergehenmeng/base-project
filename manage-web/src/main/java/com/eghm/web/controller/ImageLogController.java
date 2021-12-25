@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.ImageLog;
@@ -15,7 +16,6 @@ import com.eghm.service.common.ImageLogService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -82,10 +82,11 @@ public class ImageLogController {
     @GetMapping("/image/list_page")
     @ApiOperation("图片列表(分页)")
     public Paging<ImageLog> listPage(ImageQueryRequest request) {
-        PageInfo<ImageLog> page = imageLogService.getByPage(request);
+        Page<ImageLog> page = imageLogService.getByPage(request);
+        ProxyService finalProxy = this.proxyService;
         return DataUtil.convert(page, imageLog -> {
             //将数据字典类型转换实际类型
-            String dictValue = proxyService.getDictValue(DictConstant.IMAGE_CLASSIFY, imageLog.getClassify());
+            String dictValue = finalProxy.getDictValue(DictConstant.IMAGE_CLASSIFY, imageLog.getClassify());
             imageLog.setClassifyName(dictValue);
             return imageLog;
         });

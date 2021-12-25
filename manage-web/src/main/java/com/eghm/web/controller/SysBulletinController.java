@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.SysBulletin;
 import com.eghm.model.dto.bulletin.BulletinAddRequest;
@@ -12,7 +13,6 @@ import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.SysBulletinService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -52,7 +52,7 @@ public class SysBulletinController {
     @ApiOperation("公告列表(分页)")
     @GetMapping("/bulletin/list_page")
     public Paging<SysBulletin> listPage(BulletinQueryRequest request) {
-        PageInfo<SysBulletin> byPage = sysBulletinService.getByPage(request);
+        Page<SysBulletin> byPage = sysBulletinService.getByPage(request);
         return DataUtil.convert(byPage, notice -> {
             notice.setClassifyName(proxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
             return notice;

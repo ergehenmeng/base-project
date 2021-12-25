@@ -1,11 +1,11 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dao.model.SysBulletin;
 import com.eghm.model.dto.bulletin.BulletinAddRequest;
 import com.eghm.model.dto.bulletin.BulletinEditRequest;
 import com.eghm.model.dto.bulletin.BulletinQueryRequest;
-import com.eghm.dao.model.SysBulletin;
 import com.eghm.model.vo.bulletin.TopBulletinVO;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public interface SysBulletinService {
      * @param request 查询条件
      * @return 结果集
      */
-    PageInfo<SysBulletin> getByPage(BulletinQueryRequest request);
+    Page<SysBulletin> getByPage(BulletinQueryRequest request);
 
     /**
      * 主键查询公告信息

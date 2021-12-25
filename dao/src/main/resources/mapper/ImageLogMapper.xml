@@ -22,19 +22,4 @@
         id, title, classify, path, size, remark, add_time, update_time,deleted
     </sql>
 
-
-    <select id="getList" parameterType="com.eghm.model.dto.image.ImageQueryRequest" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from image_log
-        where deleted = false
-        <if test="queryName != null and queryName != ''">
-            and (title like concat('%',#{queryName},'%') or remark like concat('%',#{queryName},'%'))
-        </if>
-        <if test="classify != null">
-            and classify = #{classify}
-        </if>
-        order by add_time desc
-    </select>
-
 </mapper>

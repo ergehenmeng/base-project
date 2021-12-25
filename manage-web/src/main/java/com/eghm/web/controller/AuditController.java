@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.AuditRecord;
@@ -11,7 +12,6 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.AuditService;
 import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +43,7 @@ public class AuditController {
     @ApiOperation("审批管理列表")
     public Paging<AuditRecord> listPage(AuditQueryRequest request) {
         request.setOperatorId(SecurityOperatorHolder.getOperatorId());
-        PageInfo<AuditRecord> byPage = auditService.getByPage(request);
+        Page<AuditRecord> byPage = auditService.getByPage(request);
         return new Paging<>(byPage);
     }
 

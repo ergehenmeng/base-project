@@ -13,13 +13,6 @@ import java.util.List;
 public interface TaskLogMapper extends BaseMapper<TaskLog> {
 
     /**
-     * 根据条件查询定时任务日志列表
-     * @param request 查询条件
-     * @return 列表
-     */
-    List<TaskLog> getList(TaskLogQueryRequest request);
-
-    /**
      * 定时任务错误信息详情
      * @param id 主键
      * @return errorMsg字段有值

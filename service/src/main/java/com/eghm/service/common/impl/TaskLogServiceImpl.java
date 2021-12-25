@@ -1,17 +1,16 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.mapper.TaskLogMapper;
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.TaskLogService;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -22,13 +21,6 @@ public class TaskLogServiceImpl implements TaskLogService {
 
     private TaskLogMapper taskLogMapper;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setTaskLogMapper(TaskLogMapper taskLogMapper) {
         this.taskLogMapper = taskLogMapper;
@@ -37,16 +29,19 @@ public class TaskLogServiceImpl implements TaskLogService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void addTaskLog(TaskLog log) {
-        log.setId(keyGenerator.generateKey());
         taskLogMapper.insert(log);
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
-    public PageInfo<TaskLog> getByPage(TaskLogQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<TaskLog> list = taskLogMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<TaskLog> getByPage(TaskLogQueryRequest request) {
+        LambdaQueryWrapper<TaskLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getState() != null, TaskLog::getState, request.getState());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(TaskLog::getNid, request.getQueryName()).or()
+                        .like(TaskLog::getBeanName, request.getQueryName()).or()
+                        .like(TaskLog::getIp, request.getQueryName()));
+        return taskLogMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

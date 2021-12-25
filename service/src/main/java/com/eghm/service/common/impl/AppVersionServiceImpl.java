@@ -1,21 +1,23 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.VersionUtil;
 import com.eghm.dao.mapper.AppVersionMapper;
 import com.eghm.dao.model.AppVersion;
+import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.version.VersionAddRequest;
 import com.eghm.model.dto.version.VersionEditRequest;
 import com.eghm.model.dto.version.VersionQueryRequest;
-import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
+import com.eghm.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,13 +33,6 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     private AppVersionMapper appVersionMapper;
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
-
     @Autowired
     public void setAppVersionMapper(AppVersionMapper appVersionMapper) {
         this.appVersionMapper = appVersionMapper;
@@ -45,10 +40,12 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<AppVersion> getByPage(VersionQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<AppVersion> list = appVersionMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<AppVersion> getByPage(VersionQueryRequest request) {
+        LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AppVersion::getVersion, request.getQueryName());
+        wrapper.eq(request.getState() != null, AppVersion::getState, request.getState());
+        wrapper.eq(StrUtil.isNotBlank(request.getClassify()), AppVersion::getClassify, request.getClassify());
+        return appVersionMapper.selectPage(PageUtil.createPage(request), wrapper);
     }
 
     @Override
@@ -56,7 +53,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     public void addAppVersion(VersionAddRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
-        version.setId(keyGenerator.generateKey());
         appVersionMapper.insert(version);
     }
 

@@ -1,5 +1,9 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.TaskConfigMapper;
@@ -8,8 +12,6 @@ import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
@@ -38,10 +40,15 @@ public class TaskConfigServiceImpl implements TaskConfigService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<TaskConfig> getByPage(TaskQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<TaskConfig> list = taskConfigMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<TaskConfig> getByPage(TaskQueryRequest request) {
+        LambdaQueryWrapper<TaskConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getState() != null, TaskConfig::getState, request.getState());
+
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(TaskConfig::getTitle, request.getQueryName()).or()
+                        .like(TaskConfig::getNid, request.getQueryName()).or()
+                        .like(TaskConfig::getBeanName, request.getQueryName()));
+        return taskConfigMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.AuditRecord;
 import com.eghm.model.dto.audit.AuditProcess;
 import com.eghm.model.dto.audit.AuditQueryRequest;
 import com.eghm.model.dto.audit.BeginProcess;
-import com.github.pagehelper.PageInfo;
 
 /**
  * 审核相关的所有逻辑
@@ -30,5 +30,5 @@ public interface AuditService {
      * @param request 前台请求参数
      * @return 审核列表
      */
-    PageInfo<AuditRecord> getByPage(AuditQueryRequest request);
+    Page<AuditRecord> getByPage(AuditQueryRequest request);
 }

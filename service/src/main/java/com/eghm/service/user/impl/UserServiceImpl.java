@@ -37,7 +37,6 @@ import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.LoginLogTask;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -93,13 +92,11 @@ public class UserServiceImpl implements UserService {
 
     private HandlerChain handlerChain;
 
-    private KeyGenerator keyGenerator;
-
     private WeChatMpService weChatMpService;
 
     @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
+    public void setWeChatMpService(WeChatMpService weChatMpService) {
+        this.weChatMpService = weChatMpService;
     }
 
     @Autowired
@@ -177,7 +174,6 @@ public class UserServiceImpl implements UserService {
     public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
         this.initUser(user);
-        user.setId(keyGenerator.generateKey());
         userMapper.insert(user);
         this.doPostRegister(user, register);
         return user;

@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.AppVersion;
@@ -13,10 +14,8 @@ import com.eghm.service.common.AppVersionService;
 import com.eghm.service.common.FileService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.web.annotation.Mark;
-import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -63,7 +62,7 @@ public class AppVersionController {
     @GetMapping("/version/list_page")
     @ApiOperation("查询版本列表")
     public Paging<AppVersion> listPage(VersionQueryRequest request) {
-        PageInfo<AppVersion> byPage = appVersionService.getByPage(request);
+        Page<AppVersion> byPage = appVersionService.getByPage(request);
         return new Paging<>(byPage);
     }
 

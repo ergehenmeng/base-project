@@ -1,10 +1,10 @@
 package com.eghm.service.common;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dao.model.ImageLog;
 import com.eghm.model.dto.image.ImageAddRequest;
 import com.eghm.model.dto.image.ImageEditRequest;
 import com.eghm.model.dto.image.ImageQueryRequest;
-import com.eghm.dao.model.ImageLog;
-import com.github.pagehelper.PageInfo;
 
 /**
  * @author 二哥很猛
@@ -17,7 +17,7 @@ public interface ImageLogService {
      * @param request 查询条件
      * @return 结果
      */
-    PageInfo<ImageLog> getByPage(ImageQueryRequest request);
+    Page<ImageLog> getByPage(ImageQueryRequest request);
 
     /**
      * 添加图片记录

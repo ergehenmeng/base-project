@@ -1,5 +1,8 @@
 package com.eghm.service.common.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
@@ -10,12 +13,9 @@ import com.eghm.model.dto.bulletin.BulletinEditRequest;
 import com.eghm.model.dto.bulletin.BulletinQueryRequest;
 import com.eghm.model.vo.bulletin.TopBulletinVO;
 import com.eghm.service.cache.ProxyService;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.SysBulletinService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -36,13 +36,6 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     private SysConfigApi sysConfigApi;
 
     private ProxyService proxyService;
-
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
 
     @Autowired
     public void setProxyService(ProxyService proxyService) {
@@ -65,10 +58,11 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     public List<TopBulletinVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysBulletin> noticeList = sysBulletinMapper.getTopList(noticeLimit);
+        ProxyService finalProxy = this.proxyService;
         return DataUtil.convert(noticeList, notice -> {
             TopBulletinVO vo = DataUtil.copy(notice, TopBulletinVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
-            vo.setTitle(proxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());
+            vo.setTitle(finalProxy.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());
             return vo;
         });
     }
@@ -77,7 +71,6 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addNotice(BulletinAddRequest request) {
         SysBulletin notice = DataUtil.copy(request, SysBulletin.class);
-        notice.setId(keyGenerator.generateKey());
         sysBulletinMapper.insert(notice);
     }
 
@@ -99,10 +92,12 @@ public class SysBulletinServiceImpl implements SysBulletinService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<SysBulletin> getByPage(BulletinQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<SysBulletin> list = sysBulletinMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<SysBulletin> getByPage(BulletinQueryRequest request) {
+        LambdaQueryWrapper<SysBulletin> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysBulletin::getDeleted, false);
+        wrapper.eq(request.getClassify() != null, SysBulletin::getClassify, request.getClassify());
+        wrapper.orderByDesc(SysBulletin::getUpdateTime, SysBulletin::getId);
+        return sysBulletinMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

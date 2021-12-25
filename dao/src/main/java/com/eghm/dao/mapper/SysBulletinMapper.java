@@ -13,13 +13,6 @@ import java.util.List;
 public interface SysBulletinMapper extends BaseMapper<SysBulletin> {
 
     /**
-     * 根据条件查询
-     * @param request 查询条件
-     * @return 结果列表
-     */
-    List<SysBulletin> getList(BulletinQueryRequest request);
-
-    /**
      * 获取前多少条公告信息
      * @param noticeLimit 几条公告
      * @return 公告列表

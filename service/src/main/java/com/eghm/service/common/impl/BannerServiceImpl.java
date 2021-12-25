@@ -1,5 +1,9 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.Channel;
 import com.eghm.dao.mapper.BannerMapper;
@@ -8,10 +12,7 @@ import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.service.common.BannerService;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.utils.DataUtil;
-import com.github.pagehelper.PageInfo;
-import com.github.pagehelper.page.PageMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -28,13 +29,6 @@ import java.util.List;
 public class BannerServiceImpl implements BannerService {
 
     private BannerMapper bannerMapper;
-
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
 
     @Autowired
     public void setBannerMapper(BannerMapper bannerMapper) {
@@ -54,10 +48,14 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
-    public PageInfo<Banner> getByPage(BannerQueryRequest request) {
-        PageMethod.startPage(request.getPage(), request.getPageSize());
-        List<Banner> list = bannerMapper.getList(request);
-        return new PageInfo<>(list);
+    public Page<Banner> getByPage(BannerQueryRequest request) {
+        LambdaQueryWrapper<Banner> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getClassify() != null, Banner::getClassify, request.getClassify());
+        wrapper.eq(StrUtil.isNotBlank(request.getClientType()), Banner::getClientType, request.getClientType());
+        wrapper.and(request.getMiddleTime() != null, queryWrapper ->
+                queryWrapper.ge(Banner::getStartTime, request.getMiddleTime()).le(Banner::getEndTime, request.getMiddleTime()));
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Banner::getTitle, request.getQueryName());
+        return bannerMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
@@ -65,7 +63,6 @@ public class BannerServiceImpl implements BannerService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addBanner(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
-        banner.setId(keyGenerator.generateKey());
         bannerMapper.insert(banner);
     }
 

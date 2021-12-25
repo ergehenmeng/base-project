@@ -1,7 +1,7 @@
 package com.eghm.utils;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.dto.ext.Paging;
-import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -27,15 +27,15 @@ public class DataUtil {
     /**
      * 分页数据格式转换
      *
-     * @param pageInfo pageHelper对象
+     * @param page page对象
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S, T> Paging<T> convert(PageInfo<S> pageInfo, Function<S, T> transfer) {
+    public static <S, T> Paging<T> convert(Page<S> page, Function<S, T> transfer) {
 
         Paging<T> paging = new Paging<>();
 
-        List<S> list = pageInfo.getList();
+        List<S> list = page.getRecords();
 
         List<T> formatList = Lists.newArrayList();
         list.forEach(s -> {
@@ -44,9 +44,9 @@ public class DataUtil {
         });
 
         paging.setRows(formatList);
-        paging.setTotal((int)pageInfo.getTotal());
-        paging.setPage(pageInfo.getPageNum());
-        paging.setPageSize(pageInfo.getPageSize());
+        paging.setTotal(page.getTotal());
+        paging.setPage(page.getCurrent());
+        paging.setPageSize(page.getSize());
 
         return paging;
     }

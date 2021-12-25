@@ -103,7 +103,7 @@ public abstract class BaseAuditHandler {
         record.setAuditOperatorId(process.getAuditOperatorId());
         record.setAuditOperatorName(process.getAuditOperatorName());
         record.setOpinion(process.getOpinion());
-        auditRecordService.updateSelective(record);
+        auditRecordService.updateById(record);
     }
 
     /**

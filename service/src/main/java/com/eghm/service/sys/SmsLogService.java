@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
-import com.github.pagehelper.PageInfo;
 
 import java.util.Date;
 
@@ -33,5 +33,5 @@ public interface SmsLogService {
      * @param request 查询条件
      * @return 列表
      */
-    PageInfo<SmsLog> getByPage(SmsLogQueryRequest request);
+    Page<SmsLog> getByPage(SmsLogQueryRequest request);
 }

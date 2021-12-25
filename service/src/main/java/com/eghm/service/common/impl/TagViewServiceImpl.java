@@ -24,6 +24,6 @@ public class TagViewServiceImpl implements TagViewService {
 
     @Override
     public List<TagView> getList() {
-        return tagViewMapper.getList();
+        return tagViewMapper.selectList(null);
     }
 }

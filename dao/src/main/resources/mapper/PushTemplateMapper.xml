@@ -27,17 +27,4 @@
         from push_template where nid = #{nid} and state = 1 limit 1
     </select>
 
-    <select id="getList" parameterType="com.eghm.model.dto.push.PushTemplateQueryRequest" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from push_template
-        <where>
-            <if test="queryName != null and queryName != ''">
-                and (title like concat('%',#{queryName},'%') or nid = #{queryName} or tag = #{queryName})
-            </if>
-            <if test="state != null">
-                and state = #{state}
-            </if>
-        </where>
-    </select>
 </mapper>

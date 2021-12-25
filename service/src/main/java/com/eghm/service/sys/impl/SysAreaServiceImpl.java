@@ -31,7 +31,7 @@ public class SysAreaServiceImpl implements SysAreaService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void calcInitial() {
-        List<SysArea> list = sysAreaMapper.getList();
+        List<SysArea> list = sysAreaMapper.selectList(null);
         list.forEach(sysArea -> {
             String title = sysArea.getTitle();
             String initial = StringUtil.getInitial(title);

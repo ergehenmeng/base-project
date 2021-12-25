@@ -18,11 +18,6 @@
         -->
         id, title, pid, zip_code, mark,classify
     </sql>
-    <select id="getList" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_area
-    </select>
     <select id="getByPid" resultMap="BaseResultMap">
         select
         <include refid="BaseColumnList"/>

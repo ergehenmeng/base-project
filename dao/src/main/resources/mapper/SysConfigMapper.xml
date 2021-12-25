@@ -38,21 +38,4 @@
           and nid = #{nid}
     </update>
 
-    <select id="getList" parameterType="com.eghm.model.dto.config.ConfigEditRequest" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_config
-        <where>
-            <if test="queryName != null and queryName != ''">
-                and (title like concat('%',#{queryName},'%') or nid like concat('%',#{queryName},'%') or remark like
-                concat('%',#{queryName},'%') )
-            </if>
-            <if test="classify != null">
-                and classify = #{classify}
-            </if>
-            <if test="locked != null">
-                and locked = #{locked}
-            </if>
-        </where>
-    </select>
 </mapper>

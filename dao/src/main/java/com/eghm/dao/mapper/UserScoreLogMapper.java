@@ -10,11 +10,4 @@ import java.util.List;
  * @author 二哥很猛
  */
 public interface UserScoreLogMapper extends BaseMapper<UserScoreLog> {
-
-    /**
-     * 条件查询积分列表
-     * @param request 查询条件
-     * @return 列表
-     */
-    List<UserScoreLog> getList(UserScoreQueryDTO request);
 }
