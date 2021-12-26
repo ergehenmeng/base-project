@@ -29,7 +29,7 @@ public class SwaggerConfiguration {
         ApiInfo sysApiInfo = new ApiInfoBuilder()
                 .title("管理后台API接口")
                 .description("针对管理后台开发基础接口文档")
-                .termsOfServiceUrl("http://www.group.com/")
+                .termsOfServiceUrl("http://www.eghm.top/")
                 .contact(contact)
                 .version("v0.78")
                 .build();
