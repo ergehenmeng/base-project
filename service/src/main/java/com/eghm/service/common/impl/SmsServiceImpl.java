@@ -1,5 +1,6 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.util.IdUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.SmsType;
@@ -36,6 +37,10 @@ public class SmsServiceImpl implements SmsService {
     private SmsTemplateService smsTemplateService;
 
     private SysConfigApi sysConfigApi;
+
+    private static final String SMS_PREFIX = "sms:";
+
+    private static final String VERIFY_PREFIX = "verify:";
 
     @Autowired
     public void setCacheService(CacheService cacheService) {
@@ -89,11 +94,11 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public String getSmsCode(SmsType smsType, String mobile) {
-        return cacheService.getValue(smsType + mobile);
+        return cacheService.getValue(SMS_PREFIX + smsType + mobile);
     }
 
     @Override
-    public void verifySmsCode(SmsType smsType, String mobile, String smsCode) {
+    public String verifySmsCode(SmsType smsType, String mobile, String smsCode) {
         String originalSmsCode = this.getSmsCode(smsType, mobile);
         if (originalSmsCode == null) {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
@@ -101,6 +106,20 @@ public class SmsServiceImpl implements SmsService {
         if (!originalSmsCode.equalsIgnoreCase(smsCode)) {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_ERROR);
         }
+        this.cleanSmsCode(smsType, mobile);
+        String uuid = IdUtil.fastUUID();
+        cacheService.setValue(VERIFY_PREFIX + uuid, true, 300000);
+        return uuid;
+    }
+
+    @Override
+    public boolean verifyRequestId(String requestId) {
+        String key = VERIFY_PREFIX + requestId;
+        boolean exist = cacheService.exist(key);
+        if (exist) {
+            cacheService.delete(key);
+        }
+        return exist;
     }
 
     @Override
@@ -119,6 +138,15 @@ public class SmsServiceImpl implements SmsService {
     @Override
     public void sendSms(List<String> mobileList, String content) {
         mobileList.forEach(mobile -> this.sendSms(mobile, content));
+    }
+
+    /**
+     * 删除短信验证码
+     * @param smsType 短信类型
+     * @param mobile 手机号码
+     */
+    private void cleanSmsCode(SmsType smsType, String mobile) {
+        cacheService.getValue(SMS_PREFIX + smsType + mobile);
     }
 
     /**
@@ -142,7 +170,7 @@ public class SmsServiceImpl implements SmsService {
      * @param smsCode 短信验证码
      */
     private void saveSmsCode(String smsType, String mobile, String smsCode) {
-        cacheService.setValue(smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600_000));
+        cacheService.setValue(SMS_PREFIX + smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600_000));
     }
 
     /**

@@ -491,6 +491,12 @@ public enum ErrorCode {
      */
     PAY_ERROR(3111, "支付响应错误"),
 
+
+    /**
+     * 微信网页授权异常
+     */
+    REQUEST_ID_EXPIRE(3115, "requestId已过期"),
+
     /**
      * 微信公众号尚未配置
      */
@@ -500,6 +506,9 @@ public enum ErrorCode {
      * 微信网页授权异常
      */
     MP_JS_AUTH(4001, "微信网页授权异常"),
+
+
+
     ;
 
     /**

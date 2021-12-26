@@ -70,6 +70,12 @@ public interface UserService {
     void sendLoginSms(String mobile);
 
     /**
+     * 忘记密码发送验证码
+     * @param mobile 手机号码
+     */
+    void sendForgetSms(String mobile);
+
+    /**
      * 根据账号查询用户信息(如果不存在,则抛异常)
      * @param account 手机号或邮箱
      * @return 用户信息
@@ -172,4 +178,11 @@ public interface UserService {
      * @param jsCode jsCode
      */
     void mpLogin(String jsCode);
+
+    /**
+     * 设置新密码
+     * @param userId userId
+     * @param password 新密码
+     */
+    void setPassword(Long userId, String password);
 }

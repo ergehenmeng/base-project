@@ -1,11 +1,12 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.login.AccountLoginDTO;
-import com.eghm.model.dto.login.LoginSendSmsDTO;
-import com.eghm.model.dto.login.SmsLoginDTO;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.SmsType;
+import com.eghm.model.dto.login.*;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.login.LoginTokenVO;
+import com.eghm.service.common.SmsService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.IpUtil;
 import com.eghm.web.annotation.SkipAccess;
@@ -32,19 +33,27 @@ public class LoginController {
 
     private UserService userService;
 
+    private SmsService smsService;
+
     @Autowired
     @SkipLogger
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
+    @Autowired
+    @SkipLogger
+    public void setSmsService(SmsService smsService) {
+        this.smsService = smsService;
+    }
+
     /**
      * 发送登陆验证码(1)
      */
-    @ApiOperation("发送登陆验证码")
+    @ApiOperation("发送登陆验证码⑴")
     @PostMapping("/login/send_sms")
     @SkipAccess
-    public RespBody<Object> sendSms(@RequestBody @Valid LoginSendSmsDTO request) {
+    public RespBody<Object> loginSendSms(@RequestBody @Valid SendSmsDTO request) {
         userService.sendLoginSms(request.getMobile());
         return RespBody.success();
     }
@@ -52,7 +61,7 @@ public class LoginController {
     /**
      * 短信验证码登陆(2)
      */
-    @ApiOperation("短信验证码登陆")
+    @ApiOperation("短信验证码登陆⑵")
     @PostMapping("/login/mobile")
     @SkipAccess
     public RespBody<LoginTokenVO> mobile(@RequestBody @Valid SmsLoginDTO login, HttpServletRequest request) {
@@ -63,12 +72,51 @@ public class LoginController {
     /**
      * 邮箱或手机号密码登陆
      */
-    @ApiOperation("手机或邮箱密码登陆")
+    @ApiOperation("手机或邮箱密码登陆⑶")
     @PostMapping("/login/account")
     @SkipAccess
     public RespBody<LoginTokenVO> account(@RequestBody @Valid AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         login.setSerialNumber(ApiHolder.get().getSerialNumber());
         return RespBody.success(userService.accountLogin(login));
+    }
+
+
+    /**
+     * 忘记密码发送验证码①
+     */
+    @ApiOperation("忘记密码发送验证码①")
+    @PostMapping("/forget/send_sms")
+    @SkipAccess
+    public RespBody<Object> forgetSendSms(@RequestBody @Valid SendSmsDTO request) {
+        userService.sendForgetSms(request.getMobile());
+        return RespBody.success();
+    }
+
+    /**
+     * 忘记密码验证短信验证码②
+     */
+    @ApiOperation("忘记密码验证短信验证码②")
+    @PostMapping("/forget/verify")
+    @SkipAccess
+    public RespBody<String> verify(@RequestBody @Valid VerifySmsDTO request) {
+        String requestId = smsService.verifySmsCode(SmsType.FORGET, request.getMobile(), request.getSmsCode());
+        return RespBody.success(requestId);
+    }
+
+    /**
+     * 忘记密码设置新密码③
+     */
+    @ApiOperation("忘记密码设置新密码③")
+    @PostMapping("/forget/set_password")
+    @SkipAccess
+    public RespBody<Object> verify(@RequestBody @Valid SetPasswordDTO request) {
+        Long userId = ApiHolder.getUserId();
+        boolean flag = smsService.verifyRequestId(request.getRequestId());
+        if (!flag) {
+            return RespBody.error(ErrorCode.REQUEST_ID_EXPIRE);
+        }
+        userService.setPassword(userId, request.getPassword());
+        return RespBody.success();
     }
 }

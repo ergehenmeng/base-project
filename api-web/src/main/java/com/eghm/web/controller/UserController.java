@@ -1,22 +1,21 @@
 package com.eghm.web.controller;
 
+import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.user.BindEmailDTO;
 import com.eghm.model.dto.user.ChangeEmailDTO;
 import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.user.SignInVO;
 import com.eghm.service.user.UserService;
 import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 /**
  * 用户相关信息
@@ -46,7 +45,7 @@ public class UserController {
      */
     @PostMapping("/user/send_bind_email_code")
     @ApiOperation("绑定邮箱发送验证码请求")
-    public RespBody<Object> sendBindEmail(@RequestBody @Valid SendEmailAuthCodeDTO request) {
+    public RespBody<Object> sendBindEmail(@RequestBody @Validated SendEmailAuthCodeDTO request) {
         userService.sendBindEmail(request.getEmail(), ApiHolder.getUserId());
         return RespBody.success();
     }
@@ -56,7 +55,7 @@ public class UserController {
      */
     @PostMapping("/user/bind_email")
     @ApiOperation("首次绑定邮箱")
-    public RespBody<Object> bindEmail(@RequestBody @Valid BindEmailDTO request) {
+    public RespBody<Object> bindEmail(@RequestBody @Validated BindEmailDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userService.bindEmail(request);
         return RespBody.success();
@@ -77,7 +76,7 @@ public class UserController {
      */
     @PostMapping("/user/send_change_email_code")
     @ApiOperation("发送换绑邮箱的邮箱验证码")
-    public RespBody<Object> sendChangeEmailCode(@RequestBody @Valid SendEmailAuthCodeDTO request) {
+    public RespBody<Object> sendChangeEmailCode(@RequestBody @Validated SendEmailAuthCodeDTO request) {
         userService.sendChangeEmailCode(request);
         return RespBody.success();
     }
@@ -87,7 +86,7 @@ public class UserController {
      */
     @PostMapping("/user/bind_change_email")
     @ApiOperation("绑定新邮箱账号")
-    public RespBody<Object> bindChangeEmail(@RequestBody @Valid ChangeEmailDTO request) {
+    public RespBody<Object> bindChangeEmail(@RequestBody @Validated ChangeEmailDTO request) {
         userService.changeEmail(request);
         return RespBody.success();
     }

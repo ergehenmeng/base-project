@@ -298,6 +298,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void sendForgetSms(String mobile) {
+        User user = this.getByAccountRequired(mobile);
+        smsService.sendSmsCode(SmsType.FORGET, user.getMobile());
+    }
+
+    @Override
     public User getByAccountRequired(String account) {
         User user = this.getByAccount(account);
         if (user == null) {
@@ -499,6 +505,13 @@ public class UserServiceImpl implements UserService {
         // TODO 待完成
     }
 
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void setPassword(Long userId, String password) {
+        User user = userMapper.selectById(userId);
+        user.setPwd(encoder.encode(password));
+        userMapper.updateById(user);
+    }
 
     /**
      * 注册手机号被占用校验

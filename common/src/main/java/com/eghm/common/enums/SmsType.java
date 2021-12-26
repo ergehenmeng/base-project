@@ -22,6 +22,11 @@ public enum SmsType {
     LOGIN("login", "登陆发送短信"),
 
     /**
+     * 忘记登陆密码
+     */
+    FORGET("login", "忘记密码发送短信"),
+
+    /**
      * 注册发送短信
      */
     REGISTER("register", "注册发送短信"),
