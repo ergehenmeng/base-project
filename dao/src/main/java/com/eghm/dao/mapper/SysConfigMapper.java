@@ -3,9 +3,6 @@ package com.eghm.dao.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
-import com.eghm.model.dto.config.ConfigQueryRequest;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛
