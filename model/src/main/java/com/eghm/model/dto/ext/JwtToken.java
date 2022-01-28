@@ -1,6 +1,5 @@
 package com.eghm.model.dto.ext;
 
-import com.eghm.common.enums.Channel;
 import lombok.Data;
 
 import java.util.List;
@@ -18,9 +17,9 @@ public class JwtToken {
     private Long id;
 
     /**
-     * 登陆渠道
+     * 昵称
      */
-    private Channel channel;
+    private String userName;
 
     /**
      * 权限标示符

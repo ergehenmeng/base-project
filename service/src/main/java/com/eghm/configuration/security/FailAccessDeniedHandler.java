@@ -19,7 +19,7 @@ import java.io.IOException;
  * @date 2019/7/10 14:33
  */
 @Slf4j
-public class FailureAccessDeniedHandler implements AccessDeniedHandler {
+public class FailAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException {

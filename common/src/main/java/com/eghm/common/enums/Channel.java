@@ -37,10 +37,6 @@ public enum Channel {
      */
     ALIPAY,
 
-    /**
-     * 管理后台
-     */
-    MANAGE,
     ;
 
 

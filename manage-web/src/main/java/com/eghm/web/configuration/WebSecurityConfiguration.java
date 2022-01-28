@@ -2,7 +2,6 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.ApiProperties;
 import com.eghm.configuration.data.permission.DataScopeAspect;
-import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
@@ -10,14 +9,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -36,8 +31,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private WebMvcProperties webMvcProperties;
 
-	private Encoder encoder;
-
     private JwtFilter jwtFilter;
 
     @Autowired
@@ -55,25 +48,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		this.webMvcProperties = webMvcProperties;
 	}
 
-	@Autowired
-	public void setEncoder(Encoder encoder) {
-		this.encoder = encoder;
-	}
-
-	/**
-	 * 此处通过Bean方式声明,因为manage与api共同依赖了service包
-	 */
-	@Bean("userDetailsService")
-	public UserDetailsService detailsService() {
-		return new OperatorDetailsServiceImpl();
-	}
-
-	@Override
-	protected UserDetailsService userDetailsService() {
-		return detailsService();
-	}
-
-
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
@@ -90,65 +64,21 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+
 		http.authorizeRequests()
 				.antMatchers(applicationProperties.getIgnoreUrl()).permitAll()
 				.antMatchers(applicationProperties.getLoginIgnoreUrl()).fullyAuthenticated()
 				.anyRequest().authenticated();
-		// 权限拦截
-		http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-				.exceptionHandling()
-				// 默认访问拒绝由AccessDeniedHandlerImpl(重定向)处理.手动实现返回前台为json
-				.accessDeniedHandler(accessDeniedHandler());
+		// 认证拦截及权限拦截
+		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class);
 
+        http.exceptionHandling()
+                // 认证失败
+                .authenticationEntryPoint(new AuthenticationFailHandler())
+				// 权限不足
+				.accessDeniedHandler(new FailAccessDeniedHandler());
 	}
-
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) {
-		auth.authenticationProvider(authenticationProvider());
-	}
-
-	/**
-	 * 登陆校验器
-	 *
-	 * @return bean
-	 */
-	private AuthenticationProvider authenticationProvider() {
-		CustomAuthenticationProvider provider = new CustomAuthenticationProvider();
-		//屏蔽原始错误异常
-		provider.setHideUserNotFoundExceptions(false);
-		provider.setUserDetailsService(userDetailsService());
-		provider.setEncoder(encoder);
-		return provider;
-	}
-
-	/**
-	 * 登陆成功后置处理
-	 *
-	 * @return bean
-	 */
-	private LoginSuccessHandler loginSuccessHandler() {
-		return new LoginSuccessHandler();
-	}
-
-	/**
-	 * 退出登陆
-	 *
-	 * @return bean
-	 */
-	private LogoutSuccessHandler logoutSuccessHandler() {
-		return new LogoutSuccessHandler();
-	}
-
-	/**
-	 * 登陆失败后置处理
-	 *
-	 * @return bean
-	 */
-	private LoginFailureHandler loginFailureHandler() {
-		return new LoginFailureHandler();
-	}
-
 
 	/**
 	 * 权限管理过滤器,
@@ -185,25 +115,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Bean
 	public DataScopeAspect dataScopeAspect() {
 		return new DataScopeAspect();
-	}
-
-	/**
-	 * 附加信息管理
-	 *
-	 * @return bean
-	 */
-	private CustomAuthenticationDetailsSource detailsSource() {
-		return new CustomAuthenticationDetailsSource();
-	}
-
-
-	/**
-	 * 权限不足
-	 *
-	 * @return bean
-	 */
-	private AccessDeniedHandler accessDeniedHandler() {
-		return new FailureAccessDeniedHandler();
 	}
 
 }

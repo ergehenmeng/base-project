@@ -1,6 +1,5 @@
 package com.eghm.web.configuration.interceptor;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
@@ -55,10 +54,7 @@ public class JwtTokenInterceptor implements InterceptorAdapter {
         }
         Optional<JwtToken> jwtToken = jwtTokenService.parseToken(token);
         JwtToken jwt = jwtToken.orElseThrow(() -> new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT));
-        // 用户用其他客户端的token登陆
-        if (!jwt.getChannel().name().equals(message.getChannel())) {
-            throw new ParameterException(ErrorCode.REQUEST_INTERFACE_ERROR);
-        }
+
         message.setUserId(jwt.getId());
         // 无法从token总解析出userId,但该接口确实需要登陆
         if (exception && message.getUserId() == null) {

@@ -5,10 +5,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.eghm.common.enums.Channel;
 import com.eghm.configuration.ManageProperties;
+import com.eghm.dao.model.SysOperator;
 import com.eghm.model.dto.ext.JwtToken;
 import com.eghm.service.common.JwtTokenService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +33,13 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     @Override
-    public String createRefreshToken(Long userId, String channel) {
-        return this.doCreateJwt(userId, channel, manageProperties.getJwt().getRefreshExpire(), null);
+    public String createRefreshToken(SysOperator operator) {
+        return this.doCreateJwt(operator, manageProperties.getJwt().getRefreshExpire(), null);
     }
 
     @Override
-    public String createToken(Long userId, String channel, List<String> authList) {
-        return this.doCreateJwt(userId, channel, manageProperties.getJwt().getExpire(), authList);
+    public String createToken(SysOperator operator, List<String> authList) {
+        return this.doCreateJwt(operator, manageProperties.getJwt().getExpire(), authList);
     }
 
     @Override
@@ -50,7 +49,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
             DecodedJWT verify = verifier.verify(token);
             JwtToken jwtToken = new JwtToken();
             jwtToken.setId(verify.getClaim("id").asLong());
-            jwtToken.setChannel(Channel.valueOf(verify.getClaim("channel").asString()));
+            jwtToken.setUserName(verify.getClaim("userName").asString());
             jwtToken.setAuthList(verify.getClaim("auth").asList(String.class));
             return Optional.of(jwtToken);
         } catch (Exception e) {
@@ -61,14 +60,15 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     /**
      * 根据用户id及渠道创建token
-     * @param userId 用户id
-     * @param channel 渠道
+     * @param operator  用户信息
      * @param expireSeconds 过期时间
+     * @param authList 权限信息
+     * @return jwtToken
      */
-    private String doCreateJwt(Long userId, String channel, int expireSeconds, List<String> authList) {
+    private String doCreateJwt(SysOperator operator, int expireSeconds, List<String> authList) {
         JWTCreator.Builder builder = JWT.create();
-        return builder.withClaim("id", userId)
-                .withClaim("channel", channel)
+        return builder.withClaim("id", operator.getId())
+                .withClaim("userName", operator.getOperatorName())
                 .withClaim("r", System.currentTimeMillis())
                 .withClaim("auth", authList)
                 .withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), expireSeconds))

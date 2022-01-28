@@ -1,5 +1,6 @@
 package com.eghm.service.common;
 
+import com.eghm.dao.model.SysOperator;
 import com.eghm.model.dto.ext.JwtToken;
 
 import java.util.List;
@@ -12,21 +13,19 @@ import java.util.Optional;
 public interface JwtTokenService {
 
     /**
-     * 创建token
-     * @param userId 用户id
-     * @param channel 登陆渠道
+     * 根据用户信息创建jwt token
+     * @param operator 用户信息
      * @return token
      */
-    String createRefreshToken(Long userId, String channel);
+    String createRefreshToken(SysOperator operator);
 
     /**
-     * 创建token 包含权限
-     * @param userId 用户id
-     * @param channel 登陆渠道
+     * 根据用户信息创建 jwt refresh Token
+     * @param operator 用户信息
      * @param authList 权限列表
      * @return token
      */
-    String createToken(Long userId, String channel, List<String> authList);
+    String createToken(SysOperator operator, List<String> authList);
 
     /**
      * 解析token

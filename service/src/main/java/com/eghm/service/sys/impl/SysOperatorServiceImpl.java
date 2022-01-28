@@ -6,13 +6,10 @@ import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.Channel;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.PermissionType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
-import com.eghm.configuration.security.SecurityOperator;
-import com.eghm.configuration.security.SystemAuthenticationException;
 import com.eghm.dao.mapper.SysOperatorMapper;
 import com.eghm.dao.mapper.SysOperatorRoleMapper;
 import com.eghm.dao.model.SysDataDept;
@@ -29,10 +26,6 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -226,8 +219,8 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         // 根据用户名和权限创建jwtToken
         List<String> authorities = sysMenuService.getAuthByOperatorId(operator.getId());
         LoginResponse response = new LoginResponse();
-        response.setToken(jwtTokenService.createToken(operator.getId(), Channel.MANAGE.name(), authorities));
-        response.setRefreshToken(jwtTokenService.createRefreshToken(operator.getId(), Channel.MANAGE.name()));
+        response.setToken(jwtTokenService.createToken(operator, authorities));
+        response.setRefreshToken(jwtTokenService.createRefreshToken(operator));
         response.setAuthorityList(authorities);
         return response;
     }
