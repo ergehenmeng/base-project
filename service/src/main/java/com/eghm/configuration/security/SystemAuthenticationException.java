@@ -15,7 +15,7 @@ public class SystemAuthenticationException extends AuthenticationException {
 
     private final int code;
 
-    SystemAuthenticationException(ErrorCode codeEnum) {
+    public SystemAuthenticationException(ErrorCode codeEnum) {
         super(codeEnum.getMsg());
         this.code = codeEnum.getCode();
     }

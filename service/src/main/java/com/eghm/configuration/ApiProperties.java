@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -8,11 +9,12 @@ import org.springframework.stereotype.Component;
  * @author 二哥很猛
  * @date 2018/7/2 14:05
  */
-@ConfigurationProperties(prefix = ApplicationProperties.PREFIX)
+@ConfigurationProperties(prefix = ApiProperties.PREFIX)
 @Component
-public class ApplicationProperties {
+@Data
+public class ApiProperties {
 
-    static final String PREFIX = "application";
+    static final String PREFIX = "api";
 
     /**
      * 系统版本号

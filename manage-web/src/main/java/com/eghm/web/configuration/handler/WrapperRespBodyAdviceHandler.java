@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.configuration.ApiProperties;
 import com.eghm.configuration.annotation.SkipWrapper;
 import com.eghm.model.dto.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 public class WrapperRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
     
     @Autowired
-    private ApplicationProperties applicationProperties;
+    private ApiProperties applicationProperties;
     
     @Override
     public boolean supports(@NotNull MethodParameter returnType, @NotNull Class<? extends HttpMessageConverter<?>> converterType) {

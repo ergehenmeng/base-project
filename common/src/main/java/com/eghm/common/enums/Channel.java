@@ -35,7 +35,13 @@ public enum Channel {
     /**
      * 支付宝小程序
      */
-    ALIPAY;
+    ALIPAY,
+
+    /**
+     * 管理后台
+     */
+    MANAGE,
+    ;
 
 
 }

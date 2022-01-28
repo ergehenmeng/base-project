@@ -18,6 +18,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -115,6 +116,12 @@ public class SysMenuServiceImpl implements SysMenuService {
             }
         }
         return authorities;
+    }
+
+    @Override
+    public List<String> getAuthByOperatorId(Long operator) {
+        List<SysMenu> menuList = sysMenuMapper.getList(operator);
+        return menuList.stream().map(SysMenu::getNid).collect(Collectors.toList());
     }
 
     /**

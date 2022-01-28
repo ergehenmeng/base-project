@@ -6,10 +6,13 @@ import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.Channel;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.PermissionType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.security.SecurityOperator;
+import com.eghm.configuration.security.SystemAuthenticationException;
 import com.eghm.dao.mapper.SysOperatorMapper;
 import com.eghm.dao.mapper.SysOperatorRoleMapper;
 import com.eghm.dao.model.SysDataDept;
@@ -19,10 +22,17 @@ import com.eghm.model.dto.operator.OperatorAddRequest;
 import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.model.dto.operator.PasswordEditRequest;
+import com.eghm.model.vo.login.LoginResponse;
+import com.eghm.service.common.JwtTokenService;
 import com.eghm.service.sys.SysDataDeptService;
+import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +53,20 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     private SysOperatorRoleMapper sysOperatorRoleMapper;
 
     private SysDataDeptService sysDataDeptService;
+
+    private SysMenuService sysMenuService;
+
+    private JwtTokenService jwtTokenService;
+
+    @Autowired
+    public void setJwtTokenService(JwtTokenService jwtTokenService) {
+        this.jwtTokenService = jwtTokenService;
+    }
+
+    @Autowired
+    public void setSysMenuService(SysMenuService sysMenuService) {
+        this.sysMenuService = sysMenuService;
+    }
 
     @Autowired
     public void setSysOperatorMapper(SysOperatorMapper sysOperatorMapper) {
@@ -184,5 +208,27 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         operator.setId(id);
         operator.setState(SysOperator.STATE_1);
         sysOperatorMapper.updateById(operator);
+    }
+
+    @Override
+    public LoginResponse login(String userName, String password) {
+        SysOperator operator = sysOperatorMapper.getByMobile(userName);
+        if (operator == null) {
+            throw new BusinessException(ErrorCode.OPERATOR_NOT_FOUND);
+        }
+        if (operator.getState() == 0) {
+            throw new BusinessException(ErrorCode.OPERATOR_LOCKED_ERROR);
+        }
+        boolean match = encoder.match(password, operator.getPwd());
+        if (!match) {
+            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+        }
+        // 根据用户名和权限创建jwtToken
+        List<String> authorities = sysMenuService.getAuthByOperatorId(operator.getId());
+        LoginResponse response = new LoginResponse();
+        response.setToken(jwtTokenService.createToken(operator.getId(), Channel.MANAGE.name(), authorities));
+        response.setRefreshToken(jwtTokenService.createRefreshToken(operator.getId(), Channel.MANAGE.name()));
+        response.setAuthorityList(authorities);
+        return response;
     }
 }

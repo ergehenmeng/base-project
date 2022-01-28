@@ -6,6 +6,7 @@ import com.eghm.model.dto.operator.OperatorAddRequest;
 import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.model.dto.operator.PasswordEditRequest;
+import com.eghm.model.vo.login.LoginResponse;
 
 /**
  * @author 二哥很猛
@@ -91,5 +92,14 @@ public interface SysOperatorService {
      * @param id id
      */
     void unlockOperator(Long id);
+
+    /**
+     * 系统用户登陆平台
+     * @param userName 账号
+     * @param password 密码
+     * @return token及权限
+     */
+    LoginResponse login(String userName , String password);
+
 }
 

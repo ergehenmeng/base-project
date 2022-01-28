@@ -12,7 +12,7 @@ import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.RegExpUtil;
 import com.eghm.common.utils.StringUtil;
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.configuration.ApiProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserMapper;
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     private EmailService emailService;
 
-    private ApplicationProperties applicationProperties;
+    private ApiProperties applicationProperties;
 
     private CacheService cacheService;
 
@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+    public void setApplicationProperties(ApiProperties applicationProperties) {
         this.applicationProperties = applicationProperties;
     }
 

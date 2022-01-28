@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 /**
  * jwtToken拦截器 默认不注册
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020/8/28
  */
 @Slf4j
+@Deprecated
 public class JwtTokenInterceptor implements InterceptorAdapter {
 
     private JwtTokenService jwtTokenService;
@@ -51,12 +53,13 @@ public class JwtTokenInterceptor implements InterceptorAdapter {
         if (token == null) {
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_NULL);
         }
-        JwtToken jwtToken = this.getJwtToken(token);
+        Optional<JwtToken> jwtToken = jwtTokenService.parseToken(token);
+        JwtToken jwt = jwtToken.orElseThrow(() -> new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT));
         // 用户用其他客户端的token登陆
-        if (!jwtToken.getChannel().name().equals(message.getChannel())) {
+        if (!jwt.getChannel().name().equals(message.getChannel())) {
             throw new ParameterException(ErrorCode.REQUEST_INTERFACE_ERROR);
         }
-        message.setUserId(jwtToken.getUserId());
+        message.setUserId(jwt.getId());
         // 无法从token总解析出userId,但该接口确实需要登陆
         if (exception && message.getUserId() == null) {
             log.warn("令牌解析为空,token:[{}]", token);
@@ -64,12 +67,4 @@ public class JwtTokenInterceptor implements InterceptorAdapter {
         }
     }
 
-    private JwtToken getJwtToken(String token) {
-        try {
-            return jwtTokenService.verifyToken(token);
-        } catch (JWTVerificationException e) {
-            log.error("用户登陆token验证失败 token:[{}]", token, e);
-            throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
-        }
-    }
 }

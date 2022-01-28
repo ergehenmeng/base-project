@@ -1,6 +1,6 @@
 package com.eghm.web.configuration;
 
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.configuration.ApiProperties;
 import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.security.*;
@@ -9,14 +9,17 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * spring security权限配置
@@ -26,18 +29,25 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
  */
 
 @Configuration
-@EnableConfigurationProperties({WebMvcProperties.class, ApplicationProperties.class})
+@EnableConfigurationProperties({WebMvcProperties.class, ApiProperties.class})
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	private ApplicationProperties applicationProperties;
+	private ApiProperties applicationProperties;
 
 	private WebMvcProperties webMvcProperties;
 
 	private Encoder encoder;
 
-	@Autowired
-	public void setApplicationProperties(ApplicationProperties applicationProperties) {
-		this.applicationProperties = applicationProperties;
+    private JwtFilter jwtFilter;
+
+    @Autowired
+    public void setJwtFilter(JwtFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
+
+    @Autowired
+	public void setApplicationProperties(ApiProperties apiProperties) {
+		this.applicationProperties = apiProperties;
 	}
 
 	@Autowired
@@ -63,7 +73,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return detailsService();
 	}
 
-	@Override
+
+    @Override
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManager();
+    }
+
+    @Override
 	public void configure(WebSecurity web) {
 		web.ignoring().antMatchers(webMvcProperties.getStaticPathPattern());
 	}
@@ -71,42 +87,20 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// Iframe同一域名内可以访问
-		http.headers().frameOptions().sameOrigin();
+
+        http.csrf().disable();
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
 		http.authorizeRequests()
 				.antMatchers(applicationProperties.getIgnoreUrl()).permitAll()
 				.antMatchers(applicationProperties.getLoginIgnoreUrl()).fullyAuthenticated()
-				.anyRequest().authenticated()
-				.and()
-				.formLogin()
-				// 默认登陆地址
-				.loginPage("/")
-				// 登陆请求时请求的地址
-				.loginProcessingUrl("/login")
-				.usernameParameter("mobile")
-				.passwordParameter("password")
-				// 登陆时用户输入的信息解析
-				.authenticationDetailsSource(detailsSource())
-				// 登陆成功或失败的处理逻辑
-				.successHandler(loginSuccessHandler())
-				.failureHandler(loginFailureHandler())
-				.and()
-				.logout()
-				// 退出登陆的逻辑
-				.logoutSuccessHandler(logoutSuccessHandler())
-				.permitAll()
-				.invalidateHttpSession(true);
-		http.sessionManagement()
-				.invalidSessionUrl("/")
-				// 同一个账号只能一个人登陆
-				.maximumSessions(1);
+				.anyRequest().authenticated();
 		// 权限拦截
 		http.addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class)
-				.csrf()
-				.disable()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 				.exceptionHandling()
 				// 默认访问拒绝由AccessDeniedHandlerImpl(重定向)处理.手动实现返回前台为json
 				.accessDeniedHandler(accessDeniedHandler());
+
 	}
 
 	@Override

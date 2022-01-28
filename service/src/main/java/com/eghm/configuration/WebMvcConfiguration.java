@@ -28,10 +28,10 @@ import java.util.Properties;
  * @author 二哥很猛
  * @date 2018/9/13 11:19
  */
-@EnableConfigurationProperties({ApplicationProperties.class})
+@EnableConfigurationProperties({ApiProperties.class})
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    private ApplicationProperties applicationProperties;
+    private ApiProperties applicationProperties;
 
     private ObjectMapper objectMapper;
 
@@ -41,7 +41,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     @Autowired
-    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+    public void setApplicationProperties(ApiProperties applicationProperties) {
         this.applicationProperties = applicationProperties;
     }
 

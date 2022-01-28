@@ -71,4 +71,11 @@ public interface SysMenuService {
      * @return 列表
      */
     List<GrantedAuthority> getAuthorityByOperatorId(Long operator);
+
+    /**
+     * 查询用户的菜单权限
+     * @param operator 用户id
+     * @return 菜单标示符
+     */
+    List<String> getAuthByOperatorId(Long operator);
 }

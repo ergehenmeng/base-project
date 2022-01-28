@@ -3,7 +3,7 @@ package com.eghm.service.common.impl;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.configuration.ApiProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.model.dto.ext.FilePath;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
  * 返回给调用方的文件地址=公共路径+文件分类路径+日期+文件名+后缀<br>
  * <h4>说明</h4>
- * 根路径由{@link ApplicationProperties#getUploadDir()}决定<br>
+ * 根路径由{@link ApiProperties#getUploadDir()}决定<br>
  * 公共路径默认/upload/ 方便nginx或服务做静态资源拦截映射<br>
  * 日期默认yyyyMMdd<br>
  *
@@ -36,12 +36,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FileServiceImpl implements FileService {
 
-    private ApplicationProperties applicationProperties;
+    private ApiProperties applicationProperties;
 
     private SysConfigApi sysConfigApi;
 
     @Autowired
-    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+    public void setApplicationProperties(ApiProperties applicationProperties) {
         this.applicationProperties = applicationProperties;
     }
 

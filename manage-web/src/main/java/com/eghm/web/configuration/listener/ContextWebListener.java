@@ -1,6 +1,6 @@
 package com.eghm.web.configuration.listener;
 
-import com.eghm.configuration.ApplicationProperties;
+import com.eghm.configuration.ApiProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletContext;
@@ -17,10 +17,10 @@ import javax.servlet.annotation.WebListener;
 @WebListener
 public class ContextWebListener implements ServletContextListener {
 
-    private ApplicationProperties applicationProperties;
+    private ApiProperties applicationProperties;
 
     @Autowired
-    public void setApplicationProperties(ApplicationProperties applicationProperties) {
+    public void setApplicationProperties(ApiProperties applicationProperties) {
         this.applicationProperties = applicationProperties;
     }
 

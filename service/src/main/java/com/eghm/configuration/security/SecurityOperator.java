@@ -1,7 +1,7 @@
 package com.eghm.configuration.security;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.eghm.dao.model.SysOperator;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,8 +21,8 @@ public class SecurityOperator extends SysOperator implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
 
 
-    SecurityOperator(SysOperator operator, Collection<GrantedAuthority> authorityList) {
-        BeanUtils.copyProperties(operator, this);
+    public SecurityOperator(SysOperator operator, Collection<GrantedAuthority> authorityList) {
+        BeanUtil.copyProperties(operator, this);
         this.authorities = authorityList;
     }
 

@@ -45,7 +45,7 @@ public class SysOperator extends BaseEntity {
     private Byte state;
 
     /**
-     * 登陆密码MD5<br>
+     * 登陆密码<br>
      * 表 : sys_operator<br>
      * 对应字段 : pwd<br>
      */
