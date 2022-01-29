@@ -20,15 +20,15 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
  */
 @Configuration
 @EnableSwagger2
-public class SwaggerConfiguration {
+public class SwaggerConfig {
 
 
     @Bean
     public Docket docket() {
         Contact contact = new Contact("二哥很猛", "https://github.com/ergehenmeng/", "664956140@qq.com");
         ApiInfo sysApiInfo = new ApiInfoBuilder()
-                .title("移动端API接口")
-                .description("针对移动端开发基础接口文档")
+                .title("管理后台API接口")
+                .description("针对管理后台开发基础接口文档")
                 .termsOfServiceUrl("http://www.eghm.top/")
                 .contact(contact)
                 .version("v0.78")
@@ -36,7 +36,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(sysApiInfo)
                 .consumes(Sets.newHashSet("application/json"))
-                .groupName("移动端API接口")
+                .groupName("管理后台API接口")
                 .select()
                 .apis(basePackage("com.eghm.web.controller"))
                 .paths(PathSelectors.any())

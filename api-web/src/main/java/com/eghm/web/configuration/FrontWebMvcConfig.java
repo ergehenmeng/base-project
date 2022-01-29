@@ -1,6 +1,6 @@
 package com.eghm.web.configuration;
 
-import com.eghm.configuration.WebMvcConfiguration;
+import com.eghm.configuration.WebMvcConfig;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
@@ -11,14 +11,12 @@ import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBea
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
-import java.util.List;
 
 /**
  * mvc全局配置,继承WebMvcConfigurerAdapter无需@EnableWebMvc
@@ -27,7 +25,7 @@ import java.util.List;
  * @date 2018/1/18 18:35
  */
 @Configuration
-public class FrontWebMvcConfiguration extends WebMvcConfiguration {
+public class FrontWebMvcConfig extends WebMvcConfig {
 
     /**
      * 过滤器不拦截的地址

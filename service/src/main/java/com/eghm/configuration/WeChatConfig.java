@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableConfigurationProperties(SystemProperties.class)
 @AllArgsConstructor
-public class WeChatConfiguration {
+public class WeChatConfig {
 
     private SystemProperties systemProperties;
 

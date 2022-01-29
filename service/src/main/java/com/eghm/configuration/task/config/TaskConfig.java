@@ -13,7 +13,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
  */
 @Configuration
 @EnableScheduling
-public class TaskConfiguration {
+public class TaskConfig {
 
     /**
      * 创建定时任务线程池

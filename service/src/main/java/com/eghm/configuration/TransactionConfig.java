@@ -20,7 +20,7 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  */
 @Configuration
 @AutoConfigureAfter(value = {ProxyTransactionManagementConfiguration.class, TransactionAutoConfiguration.class})
-public class TransactionConfiguration {
+public class TransactionConfig {
 
     private static final String METHOD_EXPRESSION = "execution (* com.eghm.service..*.*(..))";
 

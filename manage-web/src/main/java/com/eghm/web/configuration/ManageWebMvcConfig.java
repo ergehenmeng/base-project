@@ -1,6 +1,6 @@
 package com.eghm.web.configuration;
 
-import com.eghm.configuration.WebMvcConfiguration;
+import com.eghm.configuration.WebMvcConfig;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/1/18 18:35
  */
 @Configuration
-public class ManageWebMvcConfiguration extends WebMvcConfiguration {
+public class ManageWebMvcConfig extends WebMvcConfig {
 
 }

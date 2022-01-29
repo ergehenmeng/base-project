@@ -30,7 +30,7 @@ import java.time.Duration;
 @Configuration
 @EnableCaching
 @PropertySource("classpath:redis.properties")
-public class RedisConfiguration {
+public class RedisConfig {
 
     /**
      * 长过期时间 默认30分钟

@@ -29,7 +29,7 @@ import java.util.Properties;
  * @date 2018/9/13 11:19
  */
 @EnableConfigurationProperties({SystemProperties.class})
-public class WebMvcConfiguration implements WebMvcConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer {
 
     private ObjectMapper objectMapper;
 
