@@ -3,14 +3,13 @@ package com.eghm.web.configuration;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.configuration.security.*;
+import com.eghm.service.common.JwtTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
@@ -30,20 +29,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private SystemProperties systemProperties;
 
-	private WebMvcProperties webMvcProperties;
-
-    private JwtFilter jwtFilter;
-
-    @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
-        return super.authenticationManager();
-    }
-
-    @Override
-	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers(webMvcProperties.getStaticPathPattern());
-	}
-
+    private JwtTokenService jwtTokenService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -58,7 +44,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(manageProperties.getSecurity().getIgnoreAuth()).fullyAuthenticated()
 				.anyRequest().authenticated();
 		// 认证拦截及权限拦截
-		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+		http.addFilterBefore(new JwtFilter(jwtTokenService, systemProperties), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(filterSecurityInterceptor(), FilterSecurityInterceptor.class);
 
         http.exceptionHandling()

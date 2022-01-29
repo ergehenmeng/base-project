@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
  * @author wyb
  * @date 2022/1/28 19:07
  */
-@Component
 @AllArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
