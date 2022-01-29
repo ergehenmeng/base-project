@@ -113,6 +113,8 @@
         <wx-sdk.version>4.1.0</wx-sdk.version>
         <!--mybatis-plus-->
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <!--totp-->
+        <totp.version>1.4.0</totp.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -297,6 +299,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.warrenstrange</groupId>
+                <artifactId>googleauth</artifactId>
+                <version>${totp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

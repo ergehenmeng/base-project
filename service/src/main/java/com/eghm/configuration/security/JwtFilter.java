@@ -1,11 +1,11 @@
 package com.eghm.configuration.security;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.configuration.ManageProperties;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.model.dto.ext.JwtToken;
 import com.eghm.service.common.JwtTokenService;
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -27,24 +27,16 @@ import java.util.stream.Collectors;
  * @date 2022/1/28 19:07
  */
 @Component
+@AllArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
     private JwtTokenService jwtTokenService;
 
-    private ManageProperties manageProperties;
-
-    @Autowired
-    public void setJwtTokenService(JwtTokenService jwtTokenService) {
-        this.jwtTokenService = jwtTokenService;
-    }
-
-    @Autowired
-    public void setManageProperties(ManageProperties manageProperties) {
-        this.manageProperties = manageProperties;
-    }
+    private SystemProperties systemProperties;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+        SystemProperties.ManageProperties manageProperties = systemProperties.getManage();
         String header = request.getHeader(manageProperties.getJwt().getHeader());
         // 判断请求头中是否有token,如果有将用户的id及权限设置进去
         if (header != null && header.startsWith(manageProperties.getJwt().getPrefix())) {

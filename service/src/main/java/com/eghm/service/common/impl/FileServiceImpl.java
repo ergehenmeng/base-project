@@ -3,7 +3,7 @@ package com.eghm.service.common.impl;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.configuration.ApiProperties;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.model.dto.ext.FilePath;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  * 保存文件路径格式=根路径+公共路径+文件分类路径+日期+文件名+后缀<br>
  * 返回给调用方的文件地址=公共路径+文件分类路径+日期+文件名+后缀<br>
  * <h4>说明</h4>
- * 根路径由{@link ApiProperties#getUploadDir()}决定<br>
+ * 根路径由{@link SystemProperties#getUploadDir()}决定<br>
  * 公共路径默认/upload/ 方便nginx或服务做静态资源拦截映射<br>
  * 日期默认yyyyMMdd<br>
  *
@@ -36,13 +36,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FileServiceImpl implements FileService {
 
-    private ApiProperties applicationProperties;
+    private SystemProperties systemProperties;
 
     private SysConfigApi sysConfigApi;
 
     @Autowired
-    public void setApplicationProperties(ApiProperties applicationProperties) {
-        this.applicationProperties = applicationProperties;
+    public void setSystemProperties(SystemProperties systemProperties) {
+        this.systemProperties = systemProperties;
     }
 
     @Autowired
@@ -170,7 +170,7 @@ public class FileServiceImpl implements FileService {
             originalFileName = "default.png";
         }
         // fileName:3e1be532-4862-49f4-b053-2a2e594ba187.png
-        String fileName = UUID.randomUUID().toString() + originalFileName.substring(originalFileName.lastIndexOf("."));
+        String fileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
         return SystemConstant.DEFAULT_PATTERN + folderName + File.separator + DateUtil.formatShortLimit(DateUtil.getNow()) + File.separator + fileName;
     }
 
@@ -181,7 +181,7 @@ public class FileServiceImpl implements FileService {
      * @return D:/file/data/
      */
     private String getFullPath(String filePath) {
-        return applicationProperties.getUploadDir() + filePath;
+        return systemProperties.getUploadDir() + filePath;
     }
 
     private long getSingleMaxSize() {

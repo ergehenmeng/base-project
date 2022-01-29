@@ -1,0 +1,180 @@
+package com.eghm.configuration;
+
+import lombok.Data;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+/**
+ * @author wyb
+ * @date 2022/1/29 16:25
+ */
+@ConfigurationProperties(prefix = SystemProperties.PREFIX)
+@Data
+@Component
+public class SystemProperties {
+
+    static final String PREFIX = "system";
+
+    /**
+     * 移动端 特有配置
+     */
+    private final ApiProperties api = new ApiProperties();
+
+    /**
+     * 管理后台 特有配置
+     */
+    private final ManageProperties manage = new ManageProperties();
+
+    /**
+     * 自动针对@ResponseBody进行包装
+     */
+    private String basePackage;
+
+    /**
+     * 上传文件的路径
+     */
+    private String uploadDir;
+
+    /**
+     * 微信配置
+     */
+    private WeChatProperties wechat = new WeChatProperties();
+
+    /**
+     * 是否开启定时任务
+     */
+    private Boolean jobEnable = true;
+
+    @Data
+    public static class ManageProperties {
+
+        /**
+         * token相关配置
+         */
+        private Jwt jwt = new Jwt();
+
+        /**
+         * 权限
+         */
+        private Security security = new Security();
+
+        @Data
+        public static class Security {
+
+            /**
+             * 不进行认证和校验和权限校验的链接
+             */
+            private String[] ignore = new String[]{};
+
+            /**
+             * 进行认证但不进行权限校验的链接
+             */
+            private String[] ignoreAuth = new String[]{};
+        }
+
+        @Data
+        public static class Jwt {
+
+            /**
+             * 在请求头中key
+             */
+            private String header = "Authorization";
+
+            /**
+             * token前缀
+             */
+            private String prefix = "Bearer ";
+
+            /**
+             * token默认过期时间 默认两个小时过期
+             */
+            private Integer expire = 3600 * 2;
+
+            /**
+             * 刷新token的过期时间 默认7天过期
+             */
+            private Integer refreshExpire = 3600 * 24 * 7;
+
+            /**
+             * token加密秘钥
+             */
+            private String secretKey;
+        }
+    }
+
+    @Data
+    public static class ApiProperties {
+
+        /**
+         * 系统版本号
+         */
+        private String version;
+
+        /**
+         * 加密秘钥,用于数据库字段加密
+         */
+        private String secretKey = "Mfw7MfWbaTxiT7X3aKqItx94oMqRs60FiKXe65QN3cUTbwJ2V2ux6ilf361yEU==";
+
+    }
+
+
+    @Data
+    public static class WeChatProperties {
+
+        /**
+         * 公众号appId
+         */
+        private String mpAppId;
+
+        /**
+         * 公众号appSecret
+         */
+        private String mpAppSecret;
+
+        /**
+         * 小程序appId
+         */
+        private String miniAppId;
+
+        /**
+         * 小程序appId
+         */
+        private String miniAppSecret;
+
+        /**
+         * 微信支付所在公众号的appId
+         */
+        private String payAppId;
+
+        /**
+         * 微信支付商户号
+         */
+        private String payMerchantId;
+
+        /**
+         * 微信支付商户密钥
+         */
+        private String payMerchantKey;
+
+        /**
+         * apiV3 秘钥
+         */
+        private String payApiV3Key;
+
+        /**
+         * 私钥路径 支持classpath
+         */
+        private String payPrivateKeyPath;
+
+        /**
+         * apiV3证书序列号
+         */
+        private String paySerialNo;
+
+        /**
+         * 微信支付异步回调地址 相对路径不会变
+         */
+        private String payNotifyUrl;
+
+    }
+}

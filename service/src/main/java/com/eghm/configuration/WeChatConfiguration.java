@@ -7,6 +7,7 @@ import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceImpl;
+import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpMapConfigImpl;
@@ -20,21 +21,19 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/12/4 下午3:19
  */
 @Configuration
-@EnableConfigurationProperties(WeChatProperties.class)
+@EnableConfigurationProperties(SystemProperties.class)
+@AllArgsConstructor
 public class WeChatConfiguration {
 
-    private final WeChatProperties weChatProperties;
-
-    public WeChatConfiguration(WeChatProperties weChatProperties) {
-        this.weChatProperties = weChatProperties;
-    }
+    private SystemProperties systemProperties;
 
     /**
      * 微信公众号
      */
     @Bean
-    @ConditionalOnProperty(prefix = "wechat", name = "mp-app-id")
+    @ConditionalOnProperty(prefix = "system.wechat", name = "mp-app-id")
     public WxMpService wxMpService() {
+        SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
         WxMpService service = new WxMpServiceImpl();
         WxMpMapConfigImpl config = new WxMpMapConfigImpl();
         config.setAppId(weChatProperties.getMpAppId());
@@ -47,10 +46,11 @@ public class WeChatConfiguration {
      * 微信小程序
      */
     @Bean
-    @ConditionalOnProperty(prefix = "wechat", name = "mini-app-id")
+    @ConditionalOnProperty(prefix = "system.wechat", name = "mini-app-id")
     public WxMaService wxMaService() {
         WxMaService service = new WxMaServiceImpl();
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
+        SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
         config.setAppid(weChatProperties.getMiniAppId());
         config.setSecret(weChatProperties.getMiniAppSecret());
         service.setWxMaConfig(config);
@@ -61,10 +61,11 @@ public class WeChatConfiguration {
      * 微信支付
      */
     @Bean
-    @ConditionalOnProperty(prefix = "wechat", name = "pay-app-id")
+    @ConditionalOnProperty(prefix = "system.wechat", name = "pay-app-id")
     public WxPayService wxPayService() {
         WxPayService service = new WxPayServiceImpl();
         WxPayConfig config = new WxPayConfig();
+        SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
         config.setAppId(weChatProperties.getPayAppId());
         config.setNotifyUrl(weChatProperties.getPayNotifyUrl());
         config.setMchId(weChatProperties.getPayMerchantId());

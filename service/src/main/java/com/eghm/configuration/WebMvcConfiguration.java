@@ -28,12 +28,12 @@ import java.util.Properties;
  * @author 二哥很猛
  * @date 2018/9/13 11:19
  */
-@EnableConfigurationProperties({ApiProperties.class})
+@EnableConfigurationProperties({SystemProperties.class})
 public class WebMvcConfiguration implements WebMvcConfigurer {
 
-    private ApiProperties applicationProperties;
-
     private ObjectMapper objectMapper;
+
+    private SystemProperties systemProperties;
 
     @Autowired
     public void setObjectMapper(ObjectMapper objectMapper) {
@@ -41,8 +41,8 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     }
 
     @Autowired
-    public void setApplicationProperties(ApiProperties applicationProperties) {
-        this.applicationProperties = applicationProperties;
+    public void setSystemProperties(SystemProperties systemProperties) {
+        this.systemProperties = systemProperties;
     }
 
     /**
@@ -71,7 +71,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + applicationProperties.getUploadDir() + SystemConstant.DEFAULT_PATTERN);
+        registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + systemProperties.getUploadDir() + SystemConstant.DEFAULT_PATTERN);
     }
 
     /**

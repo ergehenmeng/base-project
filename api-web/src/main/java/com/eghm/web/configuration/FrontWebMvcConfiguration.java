@@ -45,7 +45,6 @@ public class FrontWebMvcConfiguration extends WebMvcConfiguration {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        super.addResourceHandlers(registry);
         registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/swagger/dist/");
     }
 

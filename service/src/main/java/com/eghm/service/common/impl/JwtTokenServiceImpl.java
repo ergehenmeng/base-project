@@ -6,12 +6,12 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.eghm.configuration.ManageProperties;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.dao.model.SysOperator;
 import com.eghm.model.dto.ext.JwtToken;
 import com.eghm.service.common.JwtTokenService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,23 +23,20 @@ import java.util.Optional;
  */
 @Service("jwtTokenService")
 @Slf4j
+@AllArgsConstructor
 public class JwtTokenServiceImpl implements JwtTokenService {
 
-    private ManageProperties manageProperties;
+    private SystemProperties systemProperties;
 
-    @Autowired
-    public void setManageProperties(ManageProperties manageProperties) {
-        this.manageProperties = manageProperties;
-    }
 
     @Override
     public String createRefreshToken(SysOperator operator) {
-        return this.doCreateJwt(operator, manageProperties.getJwt().getRefreshExpire(), null);
+        return this.doCreateJwt(operator, systemProperties.getManage().getJwt().getRefreshExpire(), null);
     }
 
     @Override
     public String createToken(SysOperator operator, List<String> authList) {
-        return this.doCreateJwt(operator, manageProperties.getJwt().getExpire(), authList);
+        return this.doCreateJwt(operator, systemProperties.getManage().getJwt().getExpire(), authList);
     }
 
     @Override
@@ -80,6 +77,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      * @return secretKey
      */
     private Algorithm getAlgorithm() {
-        return Algorithm.HMAC512(manageProperties.getJwt().getSecretKey());
+        return Algorithm.HMAC512(systemProperties.getManage().getJwt().getSecretKey());
     }
 }

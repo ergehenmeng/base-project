@@ -140,4 +140,8 @@ public class CacheConstant {
      */
     public static final String APPLET_PAY_CONFIG = "applet_pay_config";
 
+    /**
+     * 图片验证码
+     */
+    public static final String IMAGE_CAPTCHA = "image_captcha:";
 }

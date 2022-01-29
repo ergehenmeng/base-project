@@ -1,9 +1,9 @@
 package com.eghm.web.configuration;
 
-import com.eghm.configuration.ApiProperties;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.configuration.security.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,29 +24,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 
 @Configuration
-@EnableConfigurationProperties({WebMvcProperties.class, ApiProperties.class})
+@EnableConfigurationProperties({WebMvcProperties.class, SystemProperties.class})
+@AllArgsConstructor
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	private ApiProperties applicationProperties;
+	private SystemProperties systemProperties;
 
 	private WebMvcProperties webMvcProperties;
 
     private JwtFilter jwtFilter;
-
-    @Autowired
-    public void setJwtFilter(JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
-
-    @Autowired
-	public void setApplicationProperties(ApiProperties apiProperties) {
-		this.applicationProperties = apiProperties;
-	}
-
-	@Autowired
-	public void setWebMvcProperties(WebMvcProperties webMvcProperties) {
-		this.webMvcProperties = webMvcProperties;
-	}
 
     @Override
     protected AuthenticationManager authenticationManager() throws Exception {
@@ -65,9 +51,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
 
-		http.authorizeRequests()
-				.antMatchers(applicationProperties.getIgnoreUrl()).permitAll()
-				.antMatchers(applicationProperties.getLoginIgnoreUrl()).fullyAuthenticated()
+        SystemProperties.ManageProperties manageProperties = systemProperties.getManage();
+
+        http.authorizeRequests()
+				.antMatchers(manageProperties.getSecurity().getIgnore()).permitAll()
+				.antMatchers(manageProperties.getSecurity().getIgnoreAuth()).fullyAuthenticated()
 				.anyRequest().authenticated();
 		// 认证拦截及权限拦截
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

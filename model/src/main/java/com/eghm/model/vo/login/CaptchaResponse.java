@@ -10,9 +10,6 @@ import lombok.Data;
 @Data
 public class CaptchaResponse {
 
-    @ApiModelProperty("图片key")
-    private String key;
-
     @ApiModelProperty("图片信息 base64格式")
     private String base64;
 }

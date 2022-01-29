@@ -1,11 +1,14 @@
 package com.eghm.web.controller;
 
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.login.LoginRequest;
 import com.eghm.model.vo.login.LoginResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
+import com.eghm.utils.IpUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -13,12 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author wyb
  * @date 2022/1/28 17:01
  */
 @RestController
 @RequestMapping("/manage")
+@Api(tags = "登陆")
 public class ManageLoginController {
 
     private CacheService cacheService;
@@ -37,8 +43,9 @@ public class ManageLoginController {
 
     @PostMapping("/login")
     @ApiOperation("管理后台登陆")
-    public RespBody<LoginResponse> login(@Validated LoginRequest request) {
-        if (!this.verifyCode(request.getKey(), request.getVerifyCode())) {
+    public RespBody<LoginResponse> login(HttpServletRequest servletRequest, @Validated LoginRequest request) {
+        String key = IpUtil.getIpAddress(servletRequest);
+        if (!this.verifyCode(key, request.getVerifyCode())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }
         LoginResponse response = sysOperatorService.login(request.getUserName(), request.getPwd());
@@ -46,7 +53,7 @@ public class ManageLoginController {
     }
 
     private boolean verifyCode(String key, String code) {
-        String value = cacheService.getValue(key);
+        String value = cacheService.getValue(CacheConstant.IMAGE_CAPTCHA + key);
         return value != null && value.equalsIgnoreCase(code);
     }
 }

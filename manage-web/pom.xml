@@ -74,6 +74,10 @@
             <groupId>com.gitee.sophis</groupId>
             <artifactId>spring-boot-knif4j-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.warrenstrange</groupId>
+            <artifactId>googleauth</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

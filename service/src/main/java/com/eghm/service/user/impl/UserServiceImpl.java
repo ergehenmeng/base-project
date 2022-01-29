@@ -12,7 +12,7 @@ import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.RegExpUtil;
 import com.eghm.common.utils.StringUtil;
-import com.eghm.configuration.ApiProperties;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserMapper;
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     private EmailService emailService;
 
-    private ApiProperties applicationProperties;
+    private SystemProperties systemProperties;
 
     private CacheService cacheService;
 
@@ -120,8 +120,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public void setApplicationProperties(ApiProperties applicationProperties) {
-        this.applicationProperties = applicationProperties;
+    public void setSystemProperties(SystemProperties systemProperties) {
+        this.systemProperties = systemProperties;
     }
 
     @Autowired
@@ -377,7 +377,7 @@ public class UserServiceImpl implements UserService {
         user.setId(request.getUserId());
         user.setRealName(request.getRealName());
         user.setBirthday(IdcardUtil.getBirthByIdCard(request.getIdCard()));
-        user.setIdCard(AesUtil.encrypt(request.getIdCard(), applicationProperties.getSecretKey()));
+        user.setIdCard(AesUtil.encrypt(request.getIdCard(), systemProperties.getApi().getSecretKey()));
         user.setSex((byte)IdcardUtil.getGenderByIdCard(request.getIdCard()));
         userMapper.updateById(user);
         //TODO 实名制认证

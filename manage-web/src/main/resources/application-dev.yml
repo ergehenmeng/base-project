@@ -20,22 +20,21 @@ spring:
     timeout: 30s
     database: 8
 
-## 自定义系统配置
-application:
-  ## 未登陆时,不需要拦截的url AntPathRequestMatcher匹配规则
-  ignore-url:
-    - /
-    - /index
-    - /captcha
-    - /**/captcha
-    - /doc.html
-    - /v2/api-docs
-    - /swagger-resources/**
-  ## 项目版本号
-  version: 0.6.1
-  ## 登陆后不需要拦截的url AntPathRequestMatcher匹配规则
-  login-ignore-url:
-    - /main
-    - /portal
-    - /upload
+system:
+  upload-dir: D://file
+  base-package: com.eghm.web.controller
+  job-enable: true
+  manage:
+    security:
+      ignore:
+        - /captcha
+        - /**/captcha
+        - /doc.html
+        - /v2/api-docs
+        - /swagger-resources/**
+      ignore-auth:
+        # 占坑而已
+        - /homeResource
+    jwt:
+      secret-key: xC&ln9Q5pNn11RXUr7s#Owzm4nK16wGB3PTnM6OI@b51Q9NUrQTrTIQU6r&UTT9O
 
