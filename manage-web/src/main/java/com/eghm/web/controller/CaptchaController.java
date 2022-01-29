@@ -1,24 +1,17 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.codec.Base64;
 import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.lang.UUID;
-import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.login.CaptchaResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.utils.IpUtil;
-import com.eghm.utils.WebUtil;
 import com.google.code.kaptcha.Producer;
-import com.warrenstrange.googleauth.GoogleAuthenticator;
-import com.warrenstrange.googleauth.GoogleAuthenticatorConfig;
-import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,4 +52,10 @@ public class CaptchaController {
         response.setBase64(base64);
         return RespBody.success(response);
     }
+    @GetMapping("/homeResource")
+    @ApiOperation("登陆后权限设置 用于验证框架权限问题")
+    public RespBody<Object> homeResource() {
+        return RespBody.success();
+    }
+
 }
