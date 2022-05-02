@@ -1,6 +1,8 @@
 package com.eghm.web.configuration;
 
+import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -12,4 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ManageWebMvcConfig extends WebMvcConfig {
 
+    public ManageWebMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties) {
+        super(objectMapper, systemProperties);
+    }
 }

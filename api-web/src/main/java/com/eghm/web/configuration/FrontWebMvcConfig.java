@@ -1,5 +1,6 @@
 package com.eghm.web.configuration;
 
+import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
@@ -8,6 +9,7 @@ import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitFrequencyLimitInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -32,6 +34,10 @@ public class FrontWebMvcConfig extends WebMvcConfig {
      * 过滤器不拦截的地址
      */
     private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/error", "/resource/**", "/favicon.ico"};
+
+    public FrontWebMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties) {
+        super(objectMapper, systemProperties);
+    }
 
 
     @Override

@@ -11,6 +11,7 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.impl.ShadowGimpy;
 import com.google.code.kaptcha.util.Config;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,21 +30,12 @@ import java.util.Properties;
  * @date 2018/9/13 11:19
  */
 @EnableConfigurationProperties({SystemProperties.class})
+@AllArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-    private SystemProperties systemProperties;
-
-    @Autowired
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
-
-    @Autowired
-    public void setSystemProperties(SystemProperties systemProperties) {
-        this.systemProperties = systemProperties;
-    }
+    private final SystemProperties systemProperties;
 
     /**
      * 图形验证码

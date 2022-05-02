@@ -6,8 +6,8 @@ import com.eghm.constants.SystemConstant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,16 +21,12 @@ import java.util.Map;
  */
 @Slf4j
 @Service("freemarkerTemplate")
+@AllArgsConstructor
 public class FreemarkerTemplate implements TemplateEngine {
 
-    private Configuration configuration;
+    private final Configuration configuration;
 
     private static final String DEFAULT_TITLE = "freemarker_title";
-
-    @Autowired
-    public void setConfiguration(Configuration configuration) {
-        this.configuration = configuration;
-    }
 
     @Override
     public String render(String content, Map<String, Object> param) {

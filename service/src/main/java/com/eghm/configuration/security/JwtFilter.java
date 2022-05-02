@@ -6,6 +6,7 @@ import com.eghm.model.dto.ext.JwtToken;
 import com.eghm.service.common.JwtTokenService;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,12 +30,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private JwtTokenService jwtTokenService;
+    private final JwtTokenService jwtTokenService;
 
-    private SystemProperties systemProperties;
+    private final SystemProperties systemProperties;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain chain) throws ServletException, IOException {
         SystemProperties.ManageProperties manageProperties = systemProperties.getManage();
         String header = request.getHeader(manageProperties.getJwt().getHeader());
         // 判断请求头中是否有token,如果有将用户的id及权限设置进去
