@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class AbstractAsyncTask<T extends AsyncKey, B> extends AbstractTask<T, B> {
 
-    public AbstractAsyncTask(T data, B bean) {
+    protected AbstractAsyncTask(T data, B bean) {
         super(data, bean);
     }
 

@@ -17,8 +17,8 @@ import com.eghm.service.pay.request.PrepayRequest;
 import com.eghm.service.pay.response.ErrorResponse;
 import com.eghm.service.pay.response.OrderResponse;
 import com.eghm.service.pay.response.PrepayResponse;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,28 +30,14 @@ import java.time.format.DateTimeFormatter;
  */
 @Service("payService")
 @Slf4j
+@AllArgsConstructor
 public class PayServiceImpl implements PayService {
 
-    private AppletPayConfigService appletPayConfigService;
+    private final AppletPayConfigService appletPayConfigService;
 
-    private NumberService numberService;
+    private final NumberService numberService;
 
-    private JsonService jsonService;
-
-    @Autowired
-    public void setAppletPayConfigService(AppletPayConfigService appletPayConfigService) {
-        this.appletPayConfigService = appletPayConfigService;
-    }
-
-    @Autowired
-    public void setNumberService(NumberService numberService) {
-        this.numberService = numberService;
-    }
-
-    @Autowired
-    public void setJsonService(JsonService jsonService) {
-        this.jsonService = jsonService;
-    }
+    private final JsonService jsonService;
 
     @Override
     public PrepayResponse createPrepay(PrepayDTO dto) {

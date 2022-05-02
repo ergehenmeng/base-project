@@ -13,7 +13,7 @@ import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.service.common.BannerService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -26,14 +26,10 @@ import java.util.List;
  * @date 2018/10/17 9:50
  */
 @Service("bannerService")
+@AllArgsConstructor
 public class BannerServiceImpl implements BannerService {
 
-    private BannerMapper bannerMapper;
-
-    @Autowired
-    public void setBannerMapper(BannerMapper bannerMapper) {
-        this.bannerMapper = bannerMapper;
-    }
+    private final BannerMapper bannerMapper;
 
     @Override
     @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")

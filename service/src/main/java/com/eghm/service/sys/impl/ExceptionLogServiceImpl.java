@@ -3,7 +3,7 @@ package com.eghm.service.sys.impl;
 import com.eghm.dao.mapper.ExceptionLogMapper;
 import com.eghm.dao.model.ExceptionLog;
 import com.eghm.service.sys.ExceptionLogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,14 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2019/12/6 16:38
  */
 @Service("exceptionLogService")
+@AllArgsConstructor
 public class ExceptionLogServiceImpl implements ExceptionLogService {
 
-    private ExceptionLogMapper exceptionLogMapper;
-
-    @Autowired
-    public void setExceptionLogMapper(ExceptionLogMapper exceptionLogMapper) {
-        this.exceptionLogMapper = exceptionLogMapper;
-    }
+    private final ExceptionLogMapper exceptionLogMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

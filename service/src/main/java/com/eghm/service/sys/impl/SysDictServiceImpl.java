@@ -15,7 +15,7 @@ import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +29,10 @@ import java.util.List;
  * @date 2018/1/12 14:31
  */
 @Service("sysDictService")
+@AllArgsConstructor
 public class SysDictServiceImpl implements SysDictService {
 
-    private SysDictMapper sysDictMapper;
-
-    @Autowired
-    public void setSysDictMapper(SysDictMapper sysDictMapper) {
-        this.sysDictMapper = sysDictMapper;
-    }
+    private final SysDictMapper sysDictMapper;
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")

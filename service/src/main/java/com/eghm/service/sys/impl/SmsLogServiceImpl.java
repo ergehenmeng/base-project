@@ -8,7 +8,7 @@ import com.eghm.dao.mapper.SmsLogMapper;
 import com.eghm.dao.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
 import com.eghm.service.sys.SmsLogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,14 +20,10 @@ import java.util.Date;
  * @date 2019/8/16 18:47
  */
 @Service("smsLogService")
+@AllArgsConstructor
 public class SmsLogServiceImpl implements SmsLogService {
 
-    private SmsLogMapper smsLogMapper;
-
-    @Autowired
-    public void setSmsLogMapper(SmsLogMapper smsLogMapper) {
-        this.smsLogMapper = smsLogMapper;
-    }
+    private final SmsLogMapper smsLogMapper;
 
     @Override
     @Async

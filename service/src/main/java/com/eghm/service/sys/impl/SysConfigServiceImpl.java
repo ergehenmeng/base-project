@@ -13,7 +13,7 @@ import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
 import com.eghm.model.dto.config.ConfigQueryRequest;
 import com.eghm.service.sys.SysConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,14 +25,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/1/12 09:46
  */
 @Service("sysConfigService")
+@AllArgsConstructor
 public class SysConfigServiceImpl implements SysConfigService {
 
-    private SysConfigMapper sysConfigMapper;
-
-    @Autowired
-    public void setSysConfigMapper(SysConfigMapper sysConfigMapper) {
-        this.sysConfigMapper = sysConfigMapper;
-    }
+    private final SysConfigMapper sysConfigMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

@@ -6,7 +6,7 @@ import com.eghm.configuration.task.config.TaskDetail;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.TaskAlarmService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,14 +14,10 @@ import org.springframework.stereotype.Service;
  * @date 2020/9/18
  */
 @Service("taskAlarmService")
+@AllArgsConstructor
 public class TaskAlarmServiceImpl implements TaskAlarmService {
 
-    private EmailService emailService;
-
-    @Autowired
-    public void setEmailService(EmailService emailService) {
-        this.emailService = emailService;
-    }
+    private final EmailService emailService;
 
     @Override
     public void noticeAlarm(TaskDetail detail, String errorMsg) {

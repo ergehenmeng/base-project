@@ -14,7 +14,7 @@ import com.eghm.service.common.SmsService;
 import com.eghm.service.sys.SmsLogService;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.service.sys.impl.SysConfigApi;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,46 +26,22 @@ import java.util.List;
  * @date 2019/8/16 18:46
  */
 @Service("smsService")
+@AllArgsConstructor
 public class SmsServiceImpl implements SmsService {
 
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
-    private SendSmsService sendSmsService;
+    private final SendSmsService sendSmsService;
 
-    private SmsLogService smsLogService;
+    private final SmsLogService smsLogService;
 
-    private SmsTemplateService smsTemplateService;
+    private final SmsTemplateService smsTemplateService;
 
-    private SysConfigApi sysConfigApi;
+    private final SysConfigApi sysConfigApi;
 
     private static final String SMS_PREFIX = "sms:";
 
     private static final String VERIFY_PREFIX = "verify:";
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-
-    @Autowired
-    public void setSendSmsService(SendSmsService sendSmsService) {
-        this.sendSmsService = sendSmsService;
-    }
-
-    @Autowired
-    public void setSmsLogService(SmsLogService smsLogService) {
-        this.smsLogService = smsLogService;
-    }
-
-    @Autowired
-    public void setSmsTemplateService(SmsTemplateService smsTemplateService) {
-        this.smsTemplateService = smsTemplateService;
-    }
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)

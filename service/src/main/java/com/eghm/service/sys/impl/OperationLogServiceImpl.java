@@ -5,7 +5,7 @@ import com.eghm.dao.mapper.SysOperationLogMapper;
 import com.eghm.dao.model.SysOperationLog;
 import com.eghm.model.dto.log.OperationQueryRequest;
 import com.eghm.service.sys.OperationLogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2019/1/15 17:55
  */
 @Service("operationLogService")
+@AllArgsConstructor
 public class OperationLogServiceImpl implements OperationLogService {
 
-    private SysOperationLogMapper sysOperationLogMapper;
-
-    @Autowired
-    public void setSysOperationLogMapper(SysOperationLogMapper sysOperationLogMapper) {
-        this.sysOperationLogMapper = sysOperationLogMapper;
-    }
+    private final SysOperationLogMapper sysOperationLogMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

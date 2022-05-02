@@ -11,7 +11,7 @@ import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2019/8/21 10:35
  */
 @Service("smsTemplateService")
+@AllArgsConstructor
 public class SmsTemplateServiceImpl implements SmsTemplateService {
 
-    private SmsTemplateMapper smsTemplateMapper;
-
-    @Autowired
-    public void setSmsTemplateMapper(SmsTemplateMapper smsTemplateMapper) {
-        this.smsTemplateMapper = smsTemplateMapper;
-    }
+    private final SmsTemplateMapper smsTemplateMapper;
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")

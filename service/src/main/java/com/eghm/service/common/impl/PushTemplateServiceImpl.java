@@ -11,7 +11,7 @@ import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +20,10 @@ import org.springframework.stereotype.Service;
  * @date 2019/8/29 10:45
  */
 @Service("pushTemplateService")
+@AllArgsConstructor
 public class PushTemplateServiceImpl implements PushTemplateService {
 
-    private PushTemplateMapper pushTemplateMapper;
-
-    @Autowired
-    public void setPushTemplateMapper(PushTemplateMapper pushTemplateMapper) {
-        this.pushTemplateMapper = pushTemplateMapper;
-    }
+    private final PushTemplateMapper pushTemplateMapper;
 
     @Override
     public Page<PushTemplate> getByPage(PushTemplateQueryRequest request) {

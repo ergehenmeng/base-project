@@ -8,7 +8,7 @@ import com.eghm.service.cache.ProxyService;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.IpUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -24,21 +24,12 @@ import java.util.List;
  * @date 2018/10/11 13:47
  */
 @Service("proxyService")
+@AllArgsConstructor
 public class ProxyServiceImpl implements ProxyService {
 
-    private SysDictService sysDictService;
+    private final SysDictService sysDictService;
 
-    private BlackRosterService blackRosterService;
-
-    @Autowired
-    public void setSysDictService(SysDictService sysDictService) {
-        this.sysDictService = sysDictService;
-    }
-
-    @Autowired
-    public void setBlackRosterService(BlackRosterService blackRosterService) {
-        this.blackRosterService = blackRosterService;
-    }
+    private final BlackRosterService blackRosterService;
 
     @Override
     public String getDictValue(String nid, Byte hiddenValue) {

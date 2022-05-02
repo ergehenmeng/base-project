@@ -9,8 +9,8 @@ import com.eghm.constants.SystemConstant;
 import com.eghm.model.dto.ext.FilePath;
 import com.eghm.service.common.FileService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,21 +34,12 @@ import java.util.stream.Collectors;
  */
 @Service("fileService")
 @Slf4j
+@AllArgsConstructor
 public class FileServiceImpl implements FileService {
 
-    private SystemProperties systemProperties;
+    private final SystemProperties systemProperties;
 
-    private SysConfigApi sysConfigApi;
-
-    @Autowired
-    public void setSystemProperties(SystemProperties systemProperties) {
-        this.systemProperties = systemProperties;
-    }
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public FilePath saveFile(@NotNull MultipartFile file) {

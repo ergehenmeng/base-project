@@ -2,7 +2,7 @@ package com.eghm.service.common.impl;
 
 import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.common.NumberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,14 +15,10 @@ import java.time.format.DateTimeFormatter;
  * @date 2018/1/18 14:17
  */
 @Service("numberService")
+@AllArgsConstructor
 public class NumberServiceImpl implements NumberService {
 
-    private KeyGenerator keyGenerator;
-
-    @Autowired
-    public void setKeyGenerator(KeyGenerator keyGenerator) {
-        this.keyGenerator = keyGenerator;
-    }
+    private final KeyGenerator keyGenerator;
 
     @Override
     public String getNumber(String prefix) {

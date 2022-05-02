@@ -4,9 +4,9 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.SysConfigService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,21 +19,12 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service("sysConfigApi")
+@AllArgsConstructor
 public class SysConfigApi {
 
-    private SysConfigService sysConfigService;
+    private final SysConfigService sysConfigService;
 
-    private JsonService jsonService;
-
-    @Autowired
-    public void setSysConfigService(SysConfigService sysConfigService) {
-        this.sysConfigService = sysConfigService;
-    }
-
-    @Autowired
-    public void setJsonService(JsonService jsonService) {
-        this.jsonService = jsonService;
-    }
+    private final JsonService jsonService;
 
     /**
      * 根据nid获取系统参数配置信息的值

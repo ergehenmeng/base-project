@@ -9,8 +9,7 @@ import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,28 +17,14 @@ import org.springframework.stereotype.Service;
  * @date 2018/8/14 17:36
  */
 @Service("tokenService")
+@AllArgsConstructor
 public class TokenServiceImpl implements TokenService {
 
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
-    private SysConfigApi sysConfigApi;
+    private final SysConfigApi sysConfigApi;
 
-    private JsonService jsonService;
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
-
-    @Autowired
-    public void setJsonService(JsonService jsonService) {
-        this.jsonService = jsonService;
-    }
+    private final JsonService jsonService;
 
     @Override
     public Token createToken(Long userId, String channel) {

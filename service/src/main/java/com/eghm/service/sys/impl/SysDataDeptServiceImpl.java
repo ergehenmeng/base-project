@@ -3,7 +3,7 @@ package com.eghm.service.sys.impl;
 import com.eghm.dao.mapper.SysDataDeptMapper;
 import com.eghm.dao.model.SysDataDept;
 import com.eghm.service.sys.SysDataDeptService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,14 +14,10 @@ import java.util.List;
  * @date 2020/8/17
  */
 @Service("sysDataDeptService")
+@AllArgsConstructor
 public class SysDataDeptServiceImpl implements SysDataDeptService {
 
-    private SysDataDeptMapper sysDataDeptMapper;
-
-    @Autowired
-    public void setSysDataDeptMapper(SysDataDeptMapper sysDataDeptMapper) {
-        this.sysDataDeptMapper = sysDataDeptMapper;
-    }
+    private final SysDataDeptMapper sysDataDeptMapper;
 
     @Override
     public List<String> getDeptList(Long operatorId) {

@@ -28,7 +28,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     private SystemProperties systemProperties;
 
-
     @Override
     public String createRefreshToken(SysOperator operator) {
         return this.doCreateJwt(operator, systemProperties.getManage().getJwt().getRefreshExpire(), null);

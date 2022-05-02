@@ -8,7 +8,7 @@ import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,10 @@ import java.util.stream.Collectors;
  * @date 2018/1/26 16:15
  */
 @Service("sysMenuService")
+@AllArgsConstructor
 public class SysMenuServiceImpl implements SysMenuService {
 
-    private SysMenuMapper sysMenuMapper;
-
-    @Autowired
-    public void setSysMenuMapper(SysMenuMapper sysMenuMapper) {
-        this.sysMenuMapper = sysMenuMapper;
-    }
+    private final SysMenuMapper sysMenuMapper;
 
     private final Comparator<SysMenu> comparator = Comparator.comparing(SysMenu::getSort);
 

@@ -11,7 +11,7 @@ import com.eghm.model.dto.image.ImageEditRequest;
 import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.service.common.ImageLogService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2018/11/27 17:11
  */
 @Service("imageLogService")
+@AllArgsConstructor
 public class ImageLogServiceImpl implements ImageLogService {
 
-    private ImageLogMapper imageLogMapper;
-
-    @Autowired
-    public void setImageLogMapper(ImageLogMapper imageLogMapper) {
-        this.imageLogMapper = imageLogMapper;
-    }
+    private final ImageLogMapper imageLogMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
@@ -38,7 +34,7 @@ public class ImageLogServiceImpl implements ImageLogService {
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(ImageLog::getTitle, request.getQueryName()).or()
                         .like(ImageLog::getRemark, request.getQueryName()));
-        wrapper.orderByDesc(ImageLog::getId);
+        wrapper.last(" order by id desc ");
         return imageLogMapper.selectPage(request.createPage(), wrapper);
     }
 

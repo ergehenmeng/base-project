@@ -7,8 +7,8 @@ import com.eghm.service.common.JsonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,14 +17,10 @@ import org.springframework.stereotype.Service;
  */
 @Service("jsonService")
 @Slf4j
+@AllArgsConstructor
 public class JsonServiceImpl implements JsonService {
 
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    private final ObjectMapper objectMapper;
 
     @Override
     public String toJson(Object o) {

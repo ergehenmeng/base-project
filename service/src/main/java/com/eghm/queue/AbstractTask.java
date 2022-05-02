@@ -13,14 +13,14 @@ public abstract class AbstractTask<T, B> implements Runnable {
     /**
      * 待处理的业务数据
      */
-    private T data;
+    private final T data;
 
     /**
      * 业务处理的Bean
      */
-    private B bean;
+    private final B bean;
 
-    public AbstractTask(T data, B bean) {
+    protected AbstractTask(T data, B bean) {
         this.data = data;
         this.bean = bean;
     }

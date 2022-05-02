@@ -11,7 +11,7 @@ import com.eghm.model.dto.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.roster.BlackRosterQueryRequest;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.utils.IpUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +23,10 @@ import java.util.List;
  * @date 2019/9/9 13:45
  */
 @Service("blackRosterService")
+@AllArgsConstructor
 public class BlackRosterServiceImpl implements BlackRosterService {
 
-    private BlackRosterMapper blackRosterMapper;
-
-    @Autowired
-    public void setBlackRosterMapper(BlackRosterMapper blackRosterMapper) {
-        this.blackRosterMapper = blackRosterMapper;
-    }
+    private final BlackRosterMapper blackRosterMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)

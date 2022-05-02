@@ -16,7 +16,7 @@ import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.SysBulletinService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -29,28 +29,14 @@ import java.util.List;
  * @date 2019/8/22 11:41
  */
 @Service("sysBulletinService")
+@AllArgsConstructor
 public class SysBulletinServiceImpl implements SysBulletinService {
 
-    private SysBulletinMapper sysBulletinMapper;
+    private final SysBulletinMapper sysBulletinMapper;
 
-    private SysConfigApi sysConfigApi;
+    private final SysConfigApi sysConfigApi;
 
-    private ProxyService proxyService;
-
-    @Autowired
-    public void setProxyService(ProxyService proxyService) {
-        this.proxyService = proxyService;
-    }
-
-    @Autowired
-    public void setSysBulletinMapper(SysBulletinMapper sysBulletinMapper) {
-        this.sysBulletinMapper = sysBulletinMapper;
-    }
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
+    private final ProxyService proxyService;
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_BULLETIN, cacheManager = "smallCacheManager", unless = "#result.size() == 0")

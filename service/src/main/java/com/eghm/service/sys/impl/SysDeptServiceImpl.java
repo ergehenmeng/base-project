@@ -12,8 +12,8 @@ import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,9 +26,10 @@ import java.util.List;
  */
 @Service("sysDeptService")
 @Slf4j
+@AllArgsConstructor
 public class SysDeptServiceImpl implements SysDeptService {
 
-    private SysDeptMapper sysDeptMapper;
+    private final SysDeptMapper sysDeptMapper;
 
     /**
      * 部门步长 即:一个部门对多有900个直属部门 100~999
@@ -40,10 +41,6 @@ public class SysDeptServiceImpl implements SysDeptService {
      */
     private static final String ROOT = "0";
 
-    @Autowired
-    public void setSysDeptMapper(SysDeptMapper sysDeptMapper) {
-        this.sysDeptMapper = sysDeptMapper;
-    }
 
     @Override
     public SysDept getById(Long id) {

@@ -14,7 +14,7 @@ import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.service.user.UserNoticeService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,21 +26,12 @@ import java.util.Map;
  * @date 2019/8/28 10:46
  */
 @Service("feedbackService")
+@AllArgsConstructor
 public class FeedbackServiceImpl implements FeedbackService {
 
-    private FeedbackLogMapper feedbackLogMapper;
+    private final FeedbackLogMapper feedbackLogMapper;
 
-    private UserNoticeService userNoticeService;
-
-    @Autowired
-    public void setUserNoticeService(UserNoticeService userNoticeService) {
-        this.userNoticeService = userNoticeService;
-    }
-
-    @Autowired
-    public void setFeedbackLogMapper(FeedbackLogMapper feedbackLogMapper) {
-        this.feedbackLogMapper = feedbackLogMapper;
-    }
+    private final UserNoticeService userNoticeService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

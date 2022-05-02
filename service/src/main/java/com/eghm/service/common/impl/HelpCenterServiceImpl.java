@@ -12,6 +12,7 @@ import com.eghm.model.dto.help.HelpQueryRequest;
 import com.eghm.model.vo.help.HelpCenterVO;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,14 +24,10 @@ import java.util.List;
  * @date 2018/11/20 20:20
  */
 @Service("helpCenterService")
+@AllArgsConstructor
 public class HelpCenterServiceImpl implements HelpCenterService {
 
-    private HelpCenterMapper helpCenterMapper;
-
-    @Autowired
-    public void setHelpCenterMapper(HelpCenterMapper helpCenterMapper) {
-        this.helpCenterMapper = helpCenterMapper;
-    }
+    private final HelpCenterMapper helpCenterMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

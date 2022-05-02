@@ -7,7 +7,7 @@ import com.eghm.dao.model.SysArea;
 import com.eghm.model.vo.sys.SysAreaVO;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +19,10 @@ import java.util.List;
  * @date 2019/2/13 10:25
  */
 @Service("sysAreaService")
+@AllArgsConstructor
 public class SysAreaServiceImpl implements SysAreaService {
 
-    private SysAreaMapper sysAreaMapper;
-
-    @Autowired
-    public void setSysAreaMapper(SysAreaMapper sysAreaMapper) {
-        this.sysAreaMapper = sysAreaMapper;
-    }
+    private final SysAreaMapper sysAreaMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

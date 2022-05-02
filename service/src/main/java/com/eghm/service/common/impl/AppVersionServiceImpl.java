@@ -18,7 +18,7 @@ import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.PageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,14 +29,10 @@ import java.util.List;
  * @date 2019/8/22 14:38
  */
 @Service("versionService")
+@AllArgsConstructor
 public class AppVersionServiceImpl implements AppVersionService {
 
-    private AppVersionMapper appVersionMapper;
-
-    @Autowired
-    public void setAppVersionMapper(AppVersionMapper appVersionMapper) {
-        this.appVersionMapper = appVersionMapper;
-    }
+    private final AppVersionMapper appVersionMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, readOnly = true)

@@ -12,8 +12,8 @@ import com.eghm.model.dto.role.RoleEditRequest;
 import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,21 +26,12 @@ import java.util.stream.Stream;
  * @date 2018/11/26 15:33
  */
 @Service("sysRoleService")
+@AllArgsConstructor
 public class SysRoleServiceImpl implements SysRoleService {
 
-    private SysRoleMapper sysRoleMapper;
+    private final SysRoleMapper sysRoleMapper;
 
-    private SysOperatorRoleMapper sysOperatorRoleMapper;
-
-    @Autowired
-    public void setSysRoleMapper(SysRoleMapper sysRoleMapper) {
-        this.sysRoleMapper = sysRoleMapper;
-    }
-
-    @Autowired
-    public void setSysOperatorRoleMapper(SysOperatorRoleMapper sysOperatorRoleMapper) {
-        this.sysOperatorRoleMapper = sysOperatorRoleMapper;
-    }
+    private final SysOperatorRoleMapper sysOperatorRoleMapper;
 
     @Override
     @Transactional(readOnly = true, rollbackFor = RuntimeException.class)

@@ -37,11 +37,11 @@ public class CacheServiceImpl implements CacheService {
 
     private StringRedisTemplate redisTemplate;
 
-    private ValueOperations<String, String> opsForValue;
+    private final ValueOperations<String, String> opsForValue;
 
-    private ListOperations<String, String> opsForList;
+    private final ListOperations<String, String> opsForList;
 
-    private HashOperations<String, String, String> opsForHash;
+    private final HashOperations<String, String, String> opsForHash;
 
     private SysConfigApi sysConfigApi;
 
@@ -77,12 +77,15 @@ public class CacheServiceImpl implements CacheService {
      */
     private static final int BITMAP = 64;
 
-    public CacheServiceImpl(StringRedisTemplate stringRedisTemplate) {
-        this.redisTemplate = stringRedisTemplate;
-        this.opsForValue = stringRedisTemplate.opsForValue();
-        this.opsForList = stringRedisTemplate.opsForList();
-        this.opsForHash = stringRedisTemplate.opsForHash();
+    public CacheServiceImpl(StringRedisTemplate redisTemplate, SysConfigApi sysConfigApi, JsonService jsonService) {
+        this.redisTemplate = redisTemplate;
+        this.sysConfigApi = sysConfigApi;
+        this.jsonService = jsonService;
+        this.opsForValue = redisTemplate.opsForValue();
+        this.opsForList = redisTemplate.opsForList();
+        this.opsForHash = redisTemplate.opsForHash();
     }
+
 
     @Override
     public void setValue(String key, Object value) {

@@ -24,7 +24,6 @@ import com.eghm.service.common.PushService;
 import com.eghm.service.common.PushTemplateService;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.util.Map;
@@ -43,27 +42,18 @@ public class PushServiceImpl implements PushService {
      */
     private static final String VIEW_TAG = "&viewTag";
 
-    private PushTemplateService pushTemplateService;
+    private final PushTemplateService pushTemplateService;
 
-    private PushProperties pushProperties;
+    private final PushProperties pushProperties;
 
     private JPushClient pushClient;
 
-    private TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
 
-    @Autowired
-    public void setTemplateEngine(TemplateEngine templateEngine) {
-        this.templateEngine = templateEngine;
-    }
-
-    @Autowired
-    public void setPushTemplateService(PushTemplateService pushTemplateService) {
+    public PushServiceImpl(PushTemplateService pushTemplateService, PushProperties pushProperties, TemplateEngine templateEngine) {
         this.pushTemplateService = pushTemplateService;
-    }
-
-    @Autowired
-    public void setPushProperties(PushProperties pushProperties) {
         this.pushProperties = pushProperties;
+        this.templateEngine = templateEngine;
     }
 
     @PostConstruct

@@ -6,8 +6,8 @@ import com.eghm.dao.mapper.SysCacheMapper;
 import com.eghm.dao.model.SysCache;
 import com.eghm.service.cache.ClearCacheService;
 import com.eghm.service.cache.SysCacheService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,21 +19,12 @@ import java.util.List;
  */
 @Service("sysCacheService")
 @Slf4j
+@AllArgsConstructor
 public class SysCacheServiceImpl implements SysCacheService {
 
-    private SysCacheMapper sysCacheMapper;
+    private final SysCacheMapper sysCacheMapper;
 
-    private ClearCacheService clearCacheService;
-
-    @Autowired
-    public void setSysCacheMapper(SysCacheMapper sysCacheMapper) {
-        this.sysCacheMapper = sysCacheMapper;
-    }
-
-    @Autowired
-    public void setClearCacheService(ClearCacheService clearCacheService) {
-        this.clearCacheService = clearCacheService;
-    }
+    private final ClearCacheService clearCacheService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

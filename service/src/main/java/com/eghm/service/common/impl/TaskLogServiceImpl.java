@@ -8,7 +8,7 @@ import com.eghm.dao.mapper.TaskLogMapper;
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.TaskLogService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
  * @date 2019/9/11 11:18
  */
 @Service("taskLogService")
+@AllArgsConstructor
 public class TaskLogServiceImpl implements TaskLogService {
 
-    private TaskLogMapper taskLogMapper;
-
-    @Autowired
-    public void setTaskLogMapper(TaskLogMapper taskLogMapper) {
-        this.taskLogMapper = taskLogMapper;
-    }
+    private final TaskLogMapper taskLogMapper;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

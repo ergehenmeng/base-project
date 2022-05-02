@@ -25,7 +25,7 @@ import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,49 +37,20 @@ import java.util.stream.Collectors;
  * @date 2018/11/26 10:24
  */
 @Service("sysOperatorService")
+@AllArgsConstructor
 public class SysOperatorServiceImpl implements SysOperatorService {
 
-    private SysOperatorMapper sysOperatorMapper;
+    private final SysOperatorMapper sysOperatorMapper;
 
-    private Encoder encoder;
+    private final Encoder encoder;
 
-    private SysOperatorRoleMapper sysOperatorRoleMapper;
+    private final SysOperatorRoleMapper sysOperatorRoleMapper;
 
-    private SysDataDeptService sysDataDeptService;
+    private final SysDataDeptService sysDataDeptService;
 
-    private SysMenuService sysMenuService;
+    private final SysMenuService sysMenuService;
 
-    private JwtTokenService jwtTokenService;
-
-    @Autowired
-    public void setJwtTokenService(JwtTokenService jwtTokenService) {
-        this.jwtTokenService = jwtTokenService;
-    }
-
-    @Autowired
-    public void setSysMenuService(SysMenuService sysMenuService) {
-        this.sysMenuService = sysMenuService;
-    }
-
-    @Autowired
-    public void setSysOperatorMapper(SysOperatorMapper sysOperatorMapper) {
-        this.sysOperatorMapper = sysOperatorMapper;
-    }
-
-    @Autowired
-    public void setEncoder(Encoder encoder) {
-        this.encoder = encoder;
-    }
-
-    @Autowired
-    public void setSysOperatorRoleMapper(SysOperatorRoleMapper sysOperatorRoleMapper) {
-        this.sysOperatorRoleMapper = sysOperatorRoleMapper;
-    }
-
-    @Autowired
-    public void setSysDataDeptService(SysDataDeptService sysDataDeptService) {
-        this.sysDataDeptService = sysDataDeptService;
-    }
+    private final JwtTokenService jwtTokenService;
 
     @Override
     public SysOperator getByMobile(String mobile) {

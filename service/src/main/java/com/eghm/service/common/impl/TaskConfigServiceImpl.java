@@ -12,7 +12,7 @@ import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.utils.DataUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,14 +24,10 @@ import java.util.List;
  * @date 2019/9/6 15:19
  */
 @Service("taskConfigService")
+@AllArgsConstructor
 public class TaskConfigServiceImpl implements TaskConfigService {
 
-    private TaskConfigMapper taskConfigMapper;
-
-    @Autowired
-    public void setTaskConfigMapper(TaskConfigMapper taskConfigMapper) {
-        this.taskConfigMapper = taskConfigMapper;
-    }
+    private final TaskConfigMapper taskConfigMapper;
 
     @Override
     public List<TaskConfig> getAvailableList() {
