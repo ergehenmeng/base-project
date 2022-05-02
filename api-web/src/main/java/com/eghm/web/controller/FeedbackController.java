@@ -1,14 +1,13 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.feedback.FeedbackAddDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.feedback.FeedbackAddDTO;
 import com.eghm.service.common.FeedbackService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,15 +20,10 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "问题反馈")
+@AllArgsConstructor
 public class FeedbackController{
 
-    private FeedbackService feedbackService;
-
-    @Autowired
-    @SkipLogger
-    public void setFeedbackService(FeedbackService feedbackService) {
-        this.feedbackService = feedbackService;
-    }
+    private final FeedbackService feedbackService;
 
     /**
      * 移动端保存反馈信息

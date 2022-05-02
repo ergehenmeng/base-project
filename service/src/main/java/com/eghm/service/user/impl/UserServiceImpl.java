@@ -2,13 +2,13 @@ package com.eghm.service.user.impl;
 
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ScoreType;
 import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.common.utils.AesUtil;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.RegExpUtil;
 import com.eghm.common.utils.StringUtil;
@@ -54,6 +54,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -377,7 +378,7 @@ public class UserServiceImpl implements UserService {
         user.setId(request.getUserId());
         user.setRealName(request.getRealName());
         user.setBirthday(IdcardUtil.getBirthByIdCard(request.getIdCard()));
-        user.setIdCard(AesUtil.encrypt(request.getIdCard(), systemProperties.getApi().getSecretKey()));
+        user.setIdCard(SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8)).encryptHex(request.getIdCard()));
         user.setSex((byte)IdcardUtil.getGenderByIdCard(request.getIdCard()));
         userMapper.updateById(user);
         //TODO 实名制认证

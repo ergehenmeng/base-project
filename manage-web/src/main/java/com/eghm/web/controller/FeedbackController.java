@@ -11,7 +11,7 @@ import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,14 +25,10 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "反馈管理")
+@AllArgsConstructor
 public class FeedbackController {
 
-    private FeedbackService feedbackService;
-
-    @Autowired
-    public void setFeedbackService(FeedbackService feedbackService) {
-        this.feedbackService = feedbackService;
-    }
+    private final FeedbackService feedbackService;
 
     /**
      * 分页查询反馈列表

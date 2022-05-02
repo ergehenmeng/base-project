@@ -1,17 +1,16 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.register.RegisterSendSmsDTO;
-import com.eghm.model.dto.register.RegisterUserDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.register.RegisterSendSmsDTO;
+import com.eghm.model.dto.register.RegisterUserDTO;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.IpUtil;
 import com.eghm.web.annotation.SkipAccess;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,15 +26,10 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "注册")
+@AllArgsConstructor
 public class RegisterController {
 
-    private UserService userService;
-
-    @Autowired
-    @SkipLogger
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     /**
      * 注册发送短信验证码❶

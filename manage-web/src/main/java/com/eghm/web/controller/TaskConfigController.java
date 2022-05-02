@@ -11,7 +11,7 @@ import com.eghm.service.common.TaskConfigService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,21 +24,12 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "定时任务配置")
+@AllArgsConstructor
 public class TaskConfigController {
 
-    private TaskConfigService taskConfigService;
+    private final TaskConfigService taskConfigService;
 
-    private SystemTaskRegistrar systemTaskRegistrar;
-
-    @Autowired
-    public void setTaskConfigService(TaskConfigService taskConfigService) {
-        this.taskConfigService = taskConfigService;
-    }
-
-    @Autowired
-    public void setSystemTaskRegistrar(SystemTaskRegistrar systemTaskRegistrar) {
-        this.systemTaskRegistrar = systemTaskRegistrar;
-    }
+    private final SystemTaskRegistrar systemTaskRegistrar;
 
     /**
      * 分页查询定时任务列表

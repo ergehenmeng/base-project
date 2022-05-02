@@ -4,6 +4,7 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.configuration.security.*;
 import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.sys.SysMenuService;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -27,9 +28,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private SystemProperties systemProperties;
+	private final SystemProperties systemProperties;
 
-    private JwtTokenService jwtTokenService;
+    private final JwtTokenService jwtTokenService;
+
+    private final SysMenuService sysMenuService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -80,7 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Bean
 	public CustomFilterInvocationSecurityMetadataSource metadataSource() {
-		return new CustomFilterInvocationSecurityMetadataSource();
+		return new CustomFilterInvocationSecurityMetadataSource(sysMenuService);
 	}
 
 	/**

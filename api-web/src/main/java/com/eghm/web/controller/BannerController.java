@@ -8,12 +8,10 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.banner.BannerVO;
 import com.eghm.service.common.BannerService;
 import com.eghm.utils.DataUtil;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,15 +24,10 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "轮播图")
+@AllArgsConstructor
 public class BannerController {
 
-    private BannerService bannerService;
-
-    @Autowired
-    @SkipLogger
-    public void setBannerService(BannerService bannerService) {
-        this.bannerService = bannerService;
-    }
+    private final BannerService bannerService;
 
     /**
      * 按类型查询的轮播图列表

@@ -1,16 +1,14 @@
 package com.eghm.web.controller;
 
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.ErrorCode;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.login.LoginRequest;
 import com.eghm.model.vo.login.LoginResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
-import com.eghm.utils.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,29 +23,20 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/manage")
 @Api(tags = "登陆")
+@AllArgsConstructor
 public class ManageLoginController {
 
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
-    private SysOperatorService sysOperatorService;
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-
-    @Autowired
-    public void setSysOperatorService(SysOperatorService sysOperatorService) {
-        this.sysOperatorService = sysOperatorService;
-    }
+    private final SysOperatorService sysOperatorService;
 
     @PostMapping("/login")
     @ApiOperation("管理后台登陆")
     public RespBody<LoginResponse> login(HttpServletRequest servletRequest, @Validated LoginRequest request) {
-        String key = IpUtil.getIpAddress(servletRequest);
-        if (!this.verifyCode(key, request.getVerifyCode())) {
-            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
-        }
+//        String key = IpUtil.getIpAddress(servletRequest);
+//        if (!this.verifyCode(key, request.getVerifyCode())) {
+//            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
+//        }
         LoginResponse response = sysOperatorService.login(request.getUserName(), request.getPwd());
         return RespBody.success(response);
     }
@@ -56,4 +45,5 @@ public class ManageLoginController {
         String value = cacheService.getValue(CacheConstant.IMAGE_CAPTCHA + key);
         return value != null && value.equalsIgnoreCase(code);
     }
+
 }

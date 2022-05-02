@@ -16,7 +16,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,14 +31,10 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "角色管理")
+@AllArgsConstructor
 public class RoleController {
 
-    private SysRoleService sysRoleService;
-
-    @Autowired
-    public void setSysRoleService(SysRoleService sysRoleService) {
-        this.sysRoleService = sysRoleService;
-    }
+    private final SysRoleService sysRoleService;
 
     /**
      * 根据条件分页查询角色列表

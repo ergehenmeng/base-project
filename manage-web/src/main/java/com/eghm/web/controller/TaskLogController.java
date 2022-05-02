@@ -8,7 +8,7 @@ import com.eghm.service.common.TaskLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,14 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api(tags = "定时任务日志")
+@AllArgsConstructor
 public class TaskLogController {
 
-    private TaskLogService taskLogService;
-
-    @Autowired
-    public void setTaskLogService(TaskLogService taskLogService) {
-        this.taskLogService = taskLogService;
-    }
+    private final TaskLogService taskLogService;
 
     /**
      * 分页查询定时任务列表

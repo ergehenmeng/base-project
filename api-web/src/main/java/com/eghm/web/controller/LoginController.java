@@ -2,18 +2,17 @@ package com.eghm.web.controller;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.SmsType;
-import com.eghm.model.dto.login.*;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.login.*;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.IpUtil;
 import com.eghm.web.annotation.SkipAccess;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,23 +28,12 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "登陆、密码功能")
+@AllArgsConstructor
 public class LoginController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private SmsService smsService;
-
-    @Autowired
-    @SkipLogger
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
-    @SkipLogger
-    public void setSmsService(SmsService smsService) {
-        this.smsService = smsService;
-    }
+    private final SmsService smsService;
 
     /**
      * 发送登陆验证码(1)

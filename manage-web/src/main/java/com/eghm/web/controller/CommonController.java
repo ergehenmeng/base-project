@@ -7,6 +7,7 @@ import com.eghm.dao.model.SysOperator;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,28 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2018/1/8 14:41
  */
 @RestController
+@AllArgsConstructor
 public class CommonController {
 
-    private SysMenuService sysMenuService;
+    private final SysMenuService sysMenuService;
 
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
-    private SysDataDeptService sysDataDeptService;
-
-    @Autowired
-    public void setSysMenuService(SysMenuService sysMenuService) {
-        this.sysMenuService = sysMenuService;
-    }
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-
-    @Autowired
-    public void setSysDataDeptService(SysDataDeptService sysDataDeptService) {
-        this.sysDataDeptService = sysDataDeptService;
-    }
+    private final SysDataDeptService sysDataDeptService;
 
     /**
      * 未登录的首页

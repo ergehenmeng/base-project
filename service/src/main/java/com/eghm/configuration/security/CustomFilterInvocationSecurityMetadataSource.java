@@ -5,6 +5,7 @@ import com.eghm.dao.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
@@ -26,16 +27,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author 二哥很猛
  * @date 2018/1/25 11:01
  */
+@AllArgsConstructor
 public class CustomFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private final Map<String, Collection<ConfigAttribute>> map = new ConcurrentHashMap<>(256);
 
-    private SysMenuService sysMenuService;
-
-    @Autowired
-    public void setSysMenuService(SysMenuService sysMenuService) {
-        this.sysMenuService = sysMenuService;
-    }
+    private final SysMenuService sysMenuService;
 
     /**
      * 重新加载所有菜单权限

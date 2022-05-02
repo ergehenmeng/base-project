@@ -7,7 +7,7 @@ import com.eghm.model.dto.sms.SmsLogQueryRequest;
 import com.eghm.service.sys.SmsLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,14 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api(tags = "短信日志管理")
+@AllArgsConstructor
 public class SmsLogController {
 
-    private SmsLogService smsLogService;
-
-    @Autowired
-    public void setSmsLogService(SmsLogService smsLogService) {
-        this.smsLogService = smsLogService;
-    }
+    private final SmsLogService smsLogService;
 
     /**
      * 分页查询短信记录列表

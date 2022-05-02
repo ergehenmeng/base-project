@@ -7,10 +7,9 @@ import com.eghm.model.dto.user.ChangeEmailDTO;
 import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
 import com.eghm.model.vo.user.SignInVO;
 import com.eghm.service.user.UserService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,15 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api(tags = "用户相关接口")
+@AllArgsConstructor
 public class UserController {
 
-    private UserService userService;
-
-    @Autowired
-    @SkipLogger
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @PostMapping("/user/setup_password")
     @ApiOperation("设置新密码")

@@ -1,6 +1,7 @@
 package com.eghm.web.configuration;
 
 import com.eghm.configuration.WebMvcConfig;
+import com.eghm.service.cache.ProxyService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
@@ -87,8 +88,8 @@ public class FrontWebMvcConfig extends WebMvcConfig {
      * ip黑名单
      */
     @Bean("ipBlackListFilter")
-    public Filter ipFilter() {
-        return new IpBlackListFilter();
+    public Filter ipFilter(ProxyService proxyService) {
+        return new IpBlackListFilter(proxyService);
     }
 
     @Bean

@@ -8,7 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,15 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @Api(tags = "图片上传")
+@AllArgsConstructor
 public class ImageController {
 
-    private FileService fileService;
-
-    @Autowired
-    @SkipLogger
-    public void setFileService(FileService fileService) {
-        this.fileService = fileService;
-    }
+    private final FileService fileService;
 
     /**
      * 文件上传

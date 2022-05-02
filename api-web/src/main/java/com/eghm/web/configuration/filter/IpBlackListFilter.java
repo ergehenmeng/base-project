@@ -5,7 +5,7 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -16,14 +16,10 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2019/11/21 13:55
  */
+@AllArgsConstructor
 public class IpBlackListFilter implements Filter {
 
-    private ProxyService proxyService;
-
-    @Autowired
-    public void setProxyService(ProxyService proxyService) {
-        this.proxyService = proxyService;
-    }
+    private final ProxyService proxyService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

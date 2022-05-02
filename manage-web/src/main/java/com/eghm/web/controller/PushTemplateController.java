@@ -12,6 +12,7 @@ import com.eghm.service.common.TagViewService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,21 +28,12 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "消息模板管理")
+@AllArgsConstructor
 public class PushTemplateController {
 
-    private PushTemplateService pushTemplateService;
+    private final PushTemplateService pushTemplateService;
 
-    private TagViewService tagViewService;
-
-    @Autowired
-    public void setPushTemplateService(PushTemplateService pushTemplateService) {
-        this.pushTemplateService = pushTemplateService;
-    }
-
-    @Autowired
-    public void setTagViewService(TagViewService tagViewService) {
-        this.tagViewService = tagViewService;
-    }
+    private final TagViewService tagViewService;
 
     /**
      * 分页查询推送消息模板信息

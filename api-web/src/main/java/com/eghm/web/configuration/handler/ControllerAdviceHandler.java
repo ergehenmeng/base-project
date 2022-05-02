@@ -8,9 +8,9 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.ExceptionLogTask;
 import com.eghm.service.sys.ExceptionLogService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,21 +24,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @ControllerAdvice
 @Slf4j
+@AllArgsConstructor
 public class ControllerAdviceHandler {
 
-    private ExceptionLogService exceptionLogService;
+    private final ExceptionLogService exceptionLogService;
 
-    private TaskHandler taskHandler;
-
-    @Autowired
-    public void setExceptionLogService(ExceptionLogService exceptionLogService) {
-        this.exceptionLogService = exceptionLogService;
-    }
-
-    @Autowired
-    public void setTaskHandler(TaskHandler taskHandler) {
-        this.taskHandler = taskHandler;
-    }
+    private final TaskHandler taskHandler;
 
     /**
      * 业务异常统一拦截

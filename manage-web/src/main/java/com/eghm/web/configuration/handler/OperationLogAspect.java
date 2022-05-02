@@ -12,11 +12,11 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import com.eghm.web.annotation.Mark;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -33,35 +33,16 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 @Aspect
 @Slf4j(topic = "request_response")
+@AllArgsConstructor
 public class OperationLogAspect {
 
-    private SysConfigApi sysConfigApi;
+    private final SysConfigApi sysConfigApi;
 
-    private OperationLogService operationLogService;
+    private final OperationLogService operationLogService;
 
-    private JsonService jsonService;
+    private final JsonService jsonService;
 
-    private TaskHandler taskHandler;
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
-
-    @Autowired
-    public void setOperationLogService(OperationLogService operationLogService) {
-        this.operationLogService = operationLogService;
-    }
-
-    @Autowired
-    public void setJsonService(JsonService jsonService) {
-        this.jsonService = jsonService;
-    }
-
-    @Autowired
-    public void setTaskHandler(TaskHandler taskHandler) {
-        this.taskHandler = taskHandler;
-    }
+    private final TaskHandler taskHandler;
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加

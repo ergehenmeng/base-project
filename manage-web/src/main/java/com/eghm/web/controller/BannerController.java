@@ -16,7 +16,7 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,28 +32,14 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "banner管理")
+@AllArgsConstructor
 public class BannerController {
 
-    private BannerService bannerService;
+    private final BannerService bannerService;
 
-    private FileService fileService;
+    private final FileService fileService;
 
-    private ProxyService proxyService;
-
-    @Autowired
-    public void setBannerService(BannerService bannerService) {
-        this.bannerService = bannerService;
-    }
-
-    @Autowired
-    public void setFileService(FileService fileService) {
-        this.fileService = fileService;
-    }
-
-    @Autowired
-    public void setProxyService(ProxyService proxyService) {
-        this.proxyService = proxyService;
-    }
+    private final ProxyService proxyService;
 
     /**
      * 分页查询轮播图配置信息

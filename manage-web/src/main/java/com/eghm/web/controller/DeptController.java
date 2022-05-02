@@ -8,7 +8,7 @@ import com.eghm.service.sys.SysDeptService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,14 +23,10 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "部门管理")
+@AllArgsConstructor
 public class DeptController {
 
-    private SysDeptService sysDeptService;
-
-    @Autowired
-    public void setSysDeptService(SysDeptService sysDeptService) {
-        this.sysDeptService = sysDeptService;
-    }
+    private final SysDeptService sysDeptService;
 
     /**
      * 查询所有部门列表

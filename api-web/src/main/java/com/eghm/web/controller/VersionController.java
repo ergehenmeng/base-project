@@ -3,10 +3,9 @@ package com.eghm.web.controller;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,15 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api(tags = "更新版本")
+@AllArgsConstructor
 public class VersionController {
 
-    private AppVersionService appVersionService;
-
-    @Autowired
-    @SkipLogger
-    public void setAppVersionService(AppVersionService appVersionService) {
-        this.appVersionService = appVersionService;
-    }
+    private final AppVersionService appVersionService;
 
     /**
      * 获取可以下载的最新版本

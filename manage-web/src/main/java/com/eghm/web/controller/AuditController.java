@@ -14,7 +14,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,14 +27,10 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "审批管理")
+@AllArgsConstructor
 public class AuditController {
 
-    private AuditService auditService;
-
-    @Autowired
-    public void setAuditService(AuditService auditService) {
-        this.auditService = auditService;
-    }
+    private final AuditService auditService;
 
     /**
      * 分页查询审批列表

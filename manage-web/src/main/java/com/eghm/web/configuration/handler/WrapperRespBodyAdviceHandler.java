@@ -11,11 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import javax.annotation.Nullable;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -26,10 +26,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class WrapperRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
     
-    private SystemProperties systemProperties;
+    private final SystemProperties systemProperties;
 
     @Override
-    public boolean supports(@NotNull MethodParameter returnType, @NotNull Class<? extends HttpMessageConverter<?>> converterType) {
+    public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
         // 只针对部分controller且没有标示SkipWrapper的返回值进行包装
         return systemProperties.getBasePackage() != null
                 && returnType.getDeclaringClass().getPackage().getName().startsWith(systemProperties.getBasePackage())

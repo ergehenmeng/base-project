@@ -7,10 +7,9 @@ import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.user.AddressVO;
 import com.eghm.service.user.UserAddressService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,15 +23,10 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "用户地址")
+@AllArgsConstructor
 public class AddressController {
 
-    private UserAddressService userAddressService;
-
-    @Autowired
-    @SkipLogger
-    public void setUserAddressService(UserAddressService userAddressService) {
-        this.userAddressService = userAddressService;
-    }
+    private final UserAddressService userAddressService;
 
     /**
      * 添加用户收货地址

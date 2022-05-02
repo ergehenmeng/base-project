@@ -19,7 +19,7 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,35 +35,16 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "图片管理")
+@AllArgsConstructor
 public class ImageLogController {
 
-    private ImageLogService imageLogService;
+    private final ImageLogService imageLogService;
 
-    private ProxyService proxyService;
+    private final ProxyService proxyService;
 
-    private FileService fileService;
+    private final FileService fileService;
 
-    private SysConfigApi sysConfigApi;
-
-    @Autowired
-    public void setImageLogService(ImageLogService imageLogService) {
-        this.imageLogService = imageLogService;
-    }
-
-    @Autowired
-    public void setProxyService(ProxyService proxyService) {
-        this.proxyService = proxyService;
-    }
-
-    @Autowired
-    public void setFileService(FileService fileService) {
-        this.fileService = fileService;
-    }
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
+    private final SysConfigApi sysConfigApi;
 
     /**
      * 图片列表页面

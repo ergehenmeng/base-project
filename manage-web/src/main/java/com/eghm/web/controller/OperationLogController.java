@@ -7,8 +7,7 @@ import com.eghm.service.sys.OperationLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,14 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Api(tags = "操作日志管理")
+@AllArgsConstructor
 public class OperationLogController {
 
-    private OperationLogService operationLogService;
-
-    @Autowired
-    public void setOperationLogService(OperationLogService operationLogService) {
-        this.operationLogService = operationLogService;
-    }
+    private final OperationLogService operationLogService;
 
     /**
      * 操作日期查询请求

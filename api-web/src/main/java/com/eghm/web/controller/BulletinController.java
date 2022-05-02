@@ -3,12 +3,10 @@ package com.eghm.web.controller;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.bulletin.TopBulletinVO;
 import com.eghm.service.common.SysBulletinService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,15 +17,10 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "系统公告")
+@AllArgsConstructor
 public class BulletinController {
 
-    private SysBulletinService sysBulletinService;
-
-    @Autowired
-    @SkipLogger
-    public void setSysBulletinService(SysBulletinService sysBulletinService) {
-        this.sysBulletinService = sysBulletinService;
-    }
+    private final SysBulletinService sysBulletinService;
 
     /**
      * 获取首页公告列表

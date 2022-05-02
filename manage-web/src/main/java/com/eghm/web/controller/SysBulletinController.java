@@ -16,7 +16,7 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,21 +30,12 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "公告管理")
+@AllArgsConstructor
 public class SysBulletinController {
 
-    private SysBulletinService sysBulletinService;
+    private final SysBulletinService sysBulletinService;
 
-    private ProxyService proxyService;
-
-    @Autowired
-    public void setSysBulletinService(SysBulletinService sysBulletinService) {
-        this.sysBulletinService = sysBulletinService;
-    }
-
-    @Autowired
-    public void setProxyService(ProxyService proxyService) {
-        this.proxyService = proxyService;
-    }
+    private final ProxyService proxyService;
 
     /**
      * 系统公告列表查询

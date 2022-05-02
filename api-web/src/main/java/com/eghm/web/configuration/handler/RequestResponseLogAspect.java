@@ -5,11 +5,11 @@ import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.service.common.JsonService;
 import com.eghm.utils.IpUtil;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -24,14 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j(topic = "request_response")
 @Aspect
 @Component
+@AllArgsConstructor
 public class RequestResponseLogAspect {
 
-    private JsonService jsonService;
-
-    @Autowired
-    public void setJsonService(JsonService jsonService) {
-        this.jsonService = jsonService;
-    }
+    private final JsonService jsonService;
 
     /**
      * 操作日志,采用默认jackson进行序列化

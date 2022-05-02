@@ -8,10 +8,9 @@ import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.user.UserNoticeVO;
 import com.eghm.service.user.UserNoticeService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,15 +23,10 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "站内信")
+@AllArgsConstructor
 public class UserNoticeController {
 
-    private UserNoticeService userNoticeService;
-
-    @Autowired
-    @SkipLogger
-    public void setUserNoticeService(UserNoticeService userNoticeService) {
-        this.userNoticeService = userNoticeService;
-    }
+    private final UserNoticeService userNoticeService;
 
     /**
      * 分页查询用户站内信通知信息

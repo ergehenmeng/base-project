@@ -13,7 +13,7 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,21 +29,12 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "菜单管理")
+@AllArgsConstructor
 public class MenuController {
 
-    private SysMenuService sysMenuService;
+    private final SysMenuService sysMenuService;
 
-    private CustomFilterInvocationSecurityMetadataSource metadataSource;
-
-    @Autowired
-    public void setSysMenuService(SysMenuService sysMenuService) {
-        this.sysMenuService = sysMenuService;
-    }
-
-    @Autowired
-    public void setMetadataSource(CustomFilterInvocationSecurityMetadataSource metadataSource) {
-        this.metadataSource = metadataSource;
-    }
+    private final CustomFilterInvocationSecurityMetadataSource metadataSource;
 
     /**
      * 菜单编辑页面

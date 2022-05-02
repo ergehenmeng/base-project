@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 @AllArgsConstructor
 public class WrapperRespBodyAdviceHandler implements ResponseBodyAdvice<Object> {
 
-    private SystemProperties systemProperties;
+    private final SystemProperties systemProperties;
 
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {

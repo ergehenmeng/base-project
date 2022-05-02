@@ -17,7 +17,7 @@ import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -38,28 +38,14 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "系统用户管理")
+@AllArgsConstructor
 public class OperatorController {
 
-    private SysOperatorService sysOperatorService;
+    private final SysOperatorService sysOperatorService;
 
-    private SysRoleService sysRoleService;
+    private final SysRoleService sysRoleService;
 
-    private CacheService cacheService;
-
-    @Autowired
-    public void setSysRoleService(SysRoleService sysRoleService) {
-        this.sysRoleService = sysRoleService;
-    }
-
-    @Autowired
-    public void setSysOperatorService(SysOperatorService sysOperatorService) {
-        this.sysOperatorService = sysOperatorService;
-    }
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
+    private final CacheService cacheService;
 
     /**
      * 修改密码

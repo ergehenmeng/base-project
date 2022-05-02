@@ -30,9 +30,9 @@ import java.awt.image.BufferedImage;
 @AllArgsConstructor
 public class CaptchaController {
 
-    private Producer producer;
+    private final Producer producer;
 
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
     /**
      * 默认的图片验证码
@@ -45,7 +45,7 @@ public class CaptchaController {
         String key = UUID.randomUUID().toString();
         log.info("图形验证码[{}]:[{}]", key, value);
         String ipAddress = IpUtil.getIpAddress(request);
-        cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, value, 600000L);
+        cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, value, 60000L);
         BufferedImage bi = producer.createImage(value);
         String base64 = ImgUtil.toBase64(bi, "png");
         CaptchaResponse response = new CaptchaResponse();
@@ -54,7 +54,7 @@ public class CaptchaController {
     }
     @GetMapping("/homeResource")
     @ApiOperation("登陆后权限设置 用于验证框架权限问题")
-    public RespBody<Object> homeResource() {
+    public RespBody<Void> homeResource() {
         return RespBody.success();
     }
 

@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +28,10 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "数据字典管理")
+@AllArgsConstructor
 public class DictController {
 
-    private SysDictService sysDictService;
-
-    @Autowired
-    public void setSysDictService(SysDictService sysDictService) {
-        this.sysDictService = sysDictService;
-    }
+    private final SysDictService sysDictService;
 
     /**
      * 分页查询数据字典列表

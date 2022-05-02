@@ -1,14 +1,13 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.login.DeviceUnbindDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.login.DeviceUnbindDTO;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.user.LoginDeviceService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,15 +22,10 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "登陆设备")
+@AllArgsConstructor
 public class DeviceController {
 
-    private LoginDeviceService loginDeviceService;
-
-    @Autowired
-    @SkipLogger
-    public void setLoginDeviceService(LoginDeviceService loginDeviceService) {
-        this.loginDeviceService = loginDeviceService;
-    }
+    private final LoginDeviceService loginDeviceService;
 
     /**
      * 用户登陆的设备列表
