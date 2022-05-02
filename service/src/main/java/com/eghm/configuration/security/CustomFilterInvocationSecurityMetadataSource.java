@@ -6,7 +6,6 @@ import com.eghm.service.sys.SysMenuService;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -42,7 +41,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         map.clear();
         List<SysMenu> list = sysMenuService.getAllList();
         for (SysMenu menu : list) {
-            if (StrUtil.isNotBlank(menu.getUrl())) {
+            if (StrUtil.isNotBlank(menu.getPath())) {
                 List<String> subUrl = this.getTotalUrl(menu);
                 List<ConfigAttribute> attributes = SecurityConfig.createList(menu.getNid());
                 // 将该权限所涉及到所有访问链接均放入,防止操作人员知道连接,但没有权限,却能访问的问题
@@ -60,9 +59,9 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
      * @return 列表
      */
     private List<String> getTotalUrl(SysMenu menu) {
-        List<String> stringList = Lists.newArrayList(menu.getUrl());
-        if (StrUtil.isNotBlank(menu.getSubUrl())) {
-            Iterable<String> split = Splitter.on(";").split(menu.getSubUrl());
+        List<String> stringList = Lists.newArrayList(menu.getPath());
+        if (StrUtil.isNotBlank(menu.getSubPath())) {
+            Iterable<String> split = Splitter.on(";").split(menu.getSubPath());
             split.forEach(stringList::add);
         }
         return stringList;

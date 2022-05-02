@@ -418,22 +418,22 @@ CREATE TABLE `sys_holiday` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(20) NOT NULL COMMENT '菜单名称',
-  `nid` varchar(50) NOT NULL COMMENT '菜单标示符 唯一',
-  `pid` bigint(20) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
-  `url` varchar(200) DEFAULT NULL COMMENT '菜单地址',
-  `sub_url` varchar(500) DEFAULT NULL COMMENT '权限拦截路径',
-  `grade` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)',
-  `sort` int(10) DEFAULT '0' COMMENT '排序规则 小的排在前面',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
-  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
-  KEY `pid_index` (`pid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1080 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
+                            `id` varchar(20) NOT NULL COMMENT '主键',
+                            `title` varchar(20) NOT NULL COMMENT '菜单名称',
+                            `nid` varchar(50) NOT NULL COMMENT '菜单标示符 唯一',
+                            `pid` varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+                            `path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路由或提交的地址',
+                            `sub_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '子路径(用于权限拦截)',
+                            `grade` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)',
+                            `sort` int(10) DEFAULT '0' COMMENT '排序规则 小的排在前面',
+                            `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
+                            `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
+                            `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+                            `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                            PRIMARY KEY (`id`) USING BTREE,
+                            UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
+                            KEY `pid_index` (`pid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Table structure for sys_operation_log
@@ -510,14 +510,14 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色Id',
-  `menu_id` bigint(20) unsigned NOT NULL COMMENT '菜单Id',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `role_id_index` (`role_id`) USING BTREE,
-  KEY `menu_id_index` (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=975 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
+                                 `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+                                 `role_id` bigint(20) unsigned NOT NULL COMMENT '角色Id',
+                                 `menu_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '菜单Id',
+                                 `add_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
+                                 PRIMARY KEY (`id`) USING BTREE,
+                                 KEY `role_id_index` (`role_id`) USING BTREE,
+                                 KEY `menu_id_index` (`menu_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=995 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Table structure for tag_view

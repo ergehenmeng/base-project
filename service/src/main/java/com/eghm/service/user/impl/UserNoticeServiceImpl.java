@@ -126,7 +126,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
         LambdaQueryWrapper<UserNotice> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(UserNotice::getDeleted, false);
         wrapper.eq(UserNotice::getUserId, userId);
-        wrapper.orderByDesc(UserNotice::getRead, UserNotice::getId);
+        wrapper.last(" order by read desc, id desc ");
         Page<UserNotice> page = userNoticeMapper.selectPage(query.createPage(), wrapper);
         return DataUtil.convert(page, userNotice -> DataUtil.copy(userNotice, UserNoticeVO.class));
     }

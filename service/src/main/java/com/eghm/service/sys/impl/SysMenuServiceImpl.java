@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.SysMenuMapper;
@@ -38,7 +39,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         List<SysMenu> parentList = new ArrayList<>();
 
         for (SysMenu parent : list) {
-            if (parent.getPid() == 0) {
+            if (CommonConstant.ROOT.equals(parent.getPid())) {
                 setChild(parent, list);
                 parentList.add(parent);
             }
@@ -133,7 +134,7 @@ public class SysMenuServiceImpl implements SysMenuService {
                 setChild(child, list);
             }
             childList.sort(comparator);
-            parent.setSubList(childList);
+            parent.setChildren(childList);
         }
     }
 
@@ -144,7 +145,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param list 所有菜单列表
      * @return 子菜单列表
      */
-    private List<SysMenu> getChild(Long id, List<SysMenu> list) {
+    private List<SysMenu> getChild(String id, List<SysMenu> list) {
         List<SysMenu> childList = new ArrayList<>();
         for (SysMenu menu : list) {
             if (menu.getPid().equals(id)) {

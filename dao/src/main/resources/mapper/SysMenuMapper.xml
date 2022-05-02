@@ -5,12 +5,12 @@
         <!--
           @create by mybatis
         -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
+        <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="nid" jdbcType="VARCHAR" property="nid"/>
-        <result column="pid" jdbcType="BIGINT" property="pid"/>
-        <result column="url" jdbcType="VARCHAR" property="url"/>
-        <result column="sub_url" jdbcType="VARCHAR" property="subUrl"/>
+        <result column="pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="sub_path" jdbcType="VARCHAR" property="subPath"/>
         <result column="grade" jdbcType="TINYINT" property="grade"/>
         <result column="sort" jdbcType="BIGINT" property="sort"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
@@ -22,7 +22,7 @@
         <!--
           @create by mybatis
         -->
-        t.id, t.title, t.nid, t.pid, t.url,t.sub_url, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
+        t.id, t.title, t.nid, t.pid, t.path,t.sub_path, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
     </sql>
     <select id="getAllList" resultMap="BaseResultMap">
         SELECT

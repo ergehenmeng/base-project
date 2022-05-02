@@ -44,5 +44,5 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @param pid pid
      * @return 菜单 默认只查一条
      */
-    SysMenu getByNid(@Param("nid") String nid, @Param("pid") Long pid);
+    SysMenu getByNid(@Param("nid") String nid, @Param("pid") String pid);
 }

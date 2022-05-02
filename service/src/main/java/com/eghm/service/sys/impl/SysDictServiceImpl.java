@@ -48,7 +48,7 @@ public class SysDictServiceImpl implements SysDictService {
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(SysDict::getTitle, request.getQueryName()).or()
                         .like(SysDict::getNid, request.getQueryName()));
-        wrapper.orderByDesc(SysDict::getId);
+        wrapper.last("order by id desc ");
         return sysDictMapper.selectPage(request.createPage(), wrapper);
     }
 

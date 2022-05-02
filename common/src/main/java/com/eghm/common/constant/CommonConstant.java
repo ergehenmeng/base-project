@@ -13,6 +13,11 @@ public class CommonConstant {
     }
 
     /**
+     * 根节点
+     */
+    public static final String ROOT = "0";
+
+    /**
      * 系统默认字符集
      */
     public static final Charset CHARSET = StandardCharsets.UTF_8;

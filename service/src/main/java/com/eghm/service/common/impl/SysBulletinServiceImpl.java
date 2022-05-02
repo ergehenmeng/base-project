@@ -82,7 +82,7 @@ public class SysBulletinServiceImpl implements SysBulletinService {
         LambdaQueryWrapper<SysBulletin> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysBulletin::getDeleted, false);
         wrapper.eq(request.getClassify() != null, SysBulletin::getClassify, request.getClassify());
-        wrapper.orderByDesc(SysBulletin::getUpdateTime, SysBulletin::getId);
+        wrapper.last("order by update_time desc, id desc ");
         return sysBulletinMapper.selectPage(request.createPage(), wrapper);
     }
 
