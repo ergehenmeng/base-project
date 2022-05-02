@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,18 +12,10 @@ import lombok.ToString;
 @NoArgsConstructor
 public class SysDataDept extends BaseEntity {
 
-    /**
-     * 用户id<br>
-     * 表 : sys_data_dept<br>
-     * 对应字段 : operator_id<br>
-     */
+    @ApiModelProperty("用户id")
     private Long operatorId;
 
-    /**
-     * 部门id<br>
-     * 表 : sys_data_dept<br>
-     * 对应字段 : dept_code<br>
-     */
+    @ApiModelProperty("部门id")
     private String deptCode;
 
     public SysDataDept(Long operatorId, String deptCode) {

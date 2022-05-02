@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
@@ -12,18 +13,10 @@ import lombok.*;
 @AllArgsConstructor
 public class SysOperatorRole extends BaseEntity {
 
-    /**
-     * 用户id<br>
-     * 表 : sys_operator_role<br>
-     * 对应字段 : operator_id<br>
-     */
+    @ApiModelProperty("用户id")
     private Long operatorId;
 
-    /**
-     * 角色id<br>
-     * 表 : sys_operator_role<br>
-     * 对应字段 : role_id<br>
-     */
+    @ApiModelProperty("角色id")
     private Long roleId;
 
 }

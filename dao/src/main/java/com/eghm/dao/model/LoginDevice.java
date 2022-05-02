@@ -1,5 +1,8 @@
 package com.eghm.dao.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,39 +17,20 @@ import java.util.Date;
 @ToString(callSuper = true)
 public class LoginDevice extends BaseEntity {
 
-    /**
-     * 用户id<br>
-     * 表 : login_device<br>
-     * 对应字段 : user_id<br>
-     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    @ApiModelProperty("用户id")
     private Long userId;
 
-    /**
-     * 设备唯一序列号<br>
-     * 表 : login_device<br>
-     * 对应字段 : serial_number<br>
-     */
+    @ApiModelProperty("设备唯一序列号")
     private String serialNumber;
 
-    /**
-     * 设备型号<br>
-     * 表 : login_device<br>
-     * 对应字段 : device_model<br>
-     */
+    @ApiModelProperty("设备型号")
     private String deviceModel;
 
-    /**
-     * 登陆ip<br>
-     * 表 : login_device<br>
-     * 对应字段 : ip<br>
-     */
+    @ApiModelProperty("登陆ip")
     private Long ip;
 
-    /**
-     * 最近一次登陆的时间<br>
-     * 表 : login_device<br>
-     * 对应字段 : login_time<br>
-     */
+    @ApiModelProperty("最近一次登陆的时间")
     private Date loginTime;
 
 }

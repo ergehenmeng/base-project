@@ -1,5 +1,8 @@
 package com.eghm.dao.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,39 +13,20 @@ import java.io.Serializable;
 @Data
 public class TagView implements Serializable {
 
-    /**
-     * 主键<br>
-     * 表 : tag_view<br>
-     * 对应字段 : id<br>
-     */
+    @ApiModelProperty("主键")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    /**
-     * 页面名称<br>
-     * 表 : tag_view<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("页面名称")
     private String title;
 
-    /**
-     * view唯一标示符<br>
-     * 表 : tag_view<br>
-     * 对应字段 : tag<br>
-     */
+    @ApiModelProperty("view唯一标示符")
     private String tag;
 
-    /**
-     * view页面涉及到的接口,分号分割<br>
-     * 表 : tag_view<br>
-     * 对应字段 : url<br>
-     */
+    @ApiModelProperty("view页面涉及到的接口,分号分割")
     private String url;
 
-    /**
-     * 备注信息<br>
-     * 表 : tag_view<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 
 }

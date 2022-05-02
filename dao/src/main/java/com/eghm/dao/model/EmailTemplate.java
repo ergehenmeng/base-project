@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,32 +13,16 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class EmailTemplate extends BaseEntity {
 
-    /**
-     * 模板唯一编码<br>
-     * 表 : email_template<br>
-     * 对应字段 : nid<br>
-     */
+    @ApiModelProperty("模板唯一编码")
     private String nid;
 
-    /**
-     * 模板标题<br>
-     * 表 : email_template<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("模板标题")
     private String title;
 
-    /**
-     * 模板内容<br>
-     * 表 : email_template<br>
-     * 对应字段 : content<br>
-     */
+    @ApiModelProperty("模板内容")
     private String content;
 
-    /**
-     * 备注信息<br>
-     * 表 : email_template<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 
 }

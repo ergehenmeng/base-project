@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,24 +13,12 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class SmsTemplate extends BaseEntity {
 
-    /**
-     * 短信模板nid即短信类型<br>
-     * 表 : sms_template<br>
-     * 对应字段 : nid<br>
-     */
+    @ApiModelProperty("短信模板nid即短信类型")
     private String nid;
 
-    /**
-     * 短信内容<br>
-     * 表 : sms_template<br>
-     * 对应字段 : content<br>
-     */
+    @ApiModelProperty("短信内容")
     private String content;
 
-    /**
-     * 备注信息<br>
-     * 表 : sms_template<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 }

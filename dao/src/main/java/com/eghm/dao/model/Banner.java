@@ -46,7 +46,4 @@ public class Banner extends BaseEntity {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    @ApiModelProperty("删除状态 0:未删除 1已删除")
-    private Boolean deleted;
-
 }

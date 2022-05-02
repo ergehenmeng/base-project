@@ -7,7 +7,6 @@ import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.BannerService;
 import com.eghm.service.common.FileService;
 import com.eghm.web.annotation.Mark;
@@ -36,8 +35,6 @@ public class BannerController {
     private final BannerService bannerService;
 
     private final FileService fileService;
-
-    private final ProxyService proxyService;
 
     /**
      * 分页查询轮播图配置信息

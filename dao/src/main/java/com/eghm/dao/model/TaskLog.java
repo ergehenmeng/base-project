@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
@@ -12,46 +13,22 @@ import lombok.*;
 @AllArgsConstructor
 public class TaskLog extends BaseEntity {
 
-    /**
-     * 任务nid<br>
-     * 表 : task_log<br>
-     * 对应字段 : nid<br>
-     */
+    @ApiModelProperty("任务nid")
     private String nid;
 
-    /**
-     * 定时任务bean名称<br>
-     * 表 : task_log<br>
-     * 对应字段 : bean_name<br>
-     */
+    @ApiModelProperty("定时任务bean名称")
     private String beanName;
 
-    /**
-     * 执行结果 0:失败 1:成功<br>
-     * 表 : task_log<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("执行结果 0:失败 1:成功")
     private Boolean state;
 
-    /**
-     * 执行结束时间<br>
-     * 表 : task_log<br>
-     * 对应字段 : elapsed_time<br>
-     */
+    @ApiModelProperty("执行结束时间")
     private Long elapsedTime;
 
-    /**
-     * 执行任务的机器ip<br>
-     * 表 : task_log<br>
-     * 对应字段 : ip<br>
-     */
+    @ApiModelProperty("执行任务的机器ip")
     private String ip;
 
-    /**
-     * 执行错误时的信息<br>
-     * 表 : task_log<br>
-     * 对应字段 : error_msg<br>
-     */
+    @ApiModelProperty("执行错误时的信息")
     private String errorMsg;
 
 }

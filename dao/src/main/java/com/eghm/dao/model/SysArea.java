@@ -1,9 +1,7 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -29,46 +27,22 @@ public class SysArea implements Serializable {
      */
     public static final byte CLASSIFY_COUNTY = 3;
 
-    /**
-     * 区域代码 <br>
-     * 表 : sys_area<br>
-     * 对应字段 : id <br>
-     */
+    @ApiModelProperty("区域代码")
     private Integer id;
 
-    /**
-     * 区域名称<br>
-     * 表 : sys_area<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("区域名称")
     private String title;
 
-    /**
-     * 父级区域代码<br>
-     * 表 : sys_area<br>
-     * 对应字段 : pid<br>
-     */
+    @ApiModelProperty("父级区域代码")
     private Integer pid;
 
-    /**
-     * 邮编<br>
-     * 表 : sys_area<br>
-     * 对应字段 : zip_code<br>
-     */
+    @ApiModelProperty("邮编")
     private String zipCode;
 
-    /**
-     * 标示符-首字母<br>
-     * 表 : sys_area<br>
-     * 对应字段 : mark<br>
-     */
+    @ApiModelProperty("标示符-首字母")
     private String mark;
 
-    /**
-     * 分类 省份1级 市2级 县3级<br>
-     * 表 : sys_area<br>
-     * 对应字段 : classify<br>
-     */
+    @ApiModelProperty("分类 省份1级 市2级 县3级")
     private Byte classify;
 
 }

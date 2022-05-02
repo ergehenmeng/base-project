@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -23,43 +24,16 @@ public class SysBulletin extends BaseEntity {
      */
     public static final byte STATE_1 = 1;
 
-    /**
-     * 公告标题<br>
-     * 表 : sys_bulletin<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("公告标题")
     private String title;
 
-    /**
-     * 公告类型(数据字典表sys_bulletin_type)<br>
-     * 表 : sys_bulletin<br>
-     * 对应字段 : classify<br>
-     */
+    @ApiModelProperty("公告类型(数据字典表sys_bulletin_type)")
     private Byte classify;
 
-    /**
-     * 删除状态 0:正常 1:删除<br>
-     * 表 : sys_bulletin<br>
-     * 对应字段 : deleted<br>
-     */
-    private Boolean deleted;
-
-    /**
-     * 公告内容(富文本)<br>
-     * 表 : sys_bulletin<br>
-     * 对应字段 : content<br>
-     */
+    @ApiModelProperty("公告内容(富文本)")
     private String content;
 
-    /**
-     * 是否发布 0:未发布 1:已发布<br>
-     * 表 : sys_bulletin<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("是否发布 0:未发布 1:已发布")
     private Byte state;
 
-    /**
-     * 数据字典解析字段
-     */
-    private String classifyName;
 }

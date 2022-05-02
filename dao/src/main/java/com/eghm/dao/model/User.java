@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,102 +14,46 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class User extends BaseEntity {
 
-    /**
-     * 昵称<br>
-     * 表 : user<br>
-     * 对应字段 : nick_name<br>
-     */
+    @ApiModelProperty("昵称")
     private String nickName;
 
-    /**
-     * 手机号码<br>
-     * 表 : user<br>
-     * 对应字段 : mobile<br>
-     */
+    @ApiModelProperty("手机号码")
     private String mobile;
 
-    /**
-     * 电子邮箱<br>
-     * 表 : user<br>
-     * 对应字段 : email<br>
-     */
+    @ApiModelProperty("电子邮箱")
     private String email;
 
-    /**
-     * 登陆密码<br>
-     * 表 : user<br>
-     * 对应字段 : pwd<br>
-     */
+    @ApiModelProperty("登陆密码")
     private String pwd;
 
-    /**
-     * 状态 0:注销 1正常 <br>
-     * 表 : user<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("状态 0:注销 1正常")
     private Boolean state;
 
-    /**
-     * 总积分数 <br>
-     * 表 : user<br>
-     * 对应字段 : score<br>
-     */
+    @ApiModelProperty("总积分数")
     private Integer score;
 
-    /**
-     * 邀请码 <br>
-     * 表 : user<br>
-     * 对应字段 : invite_code<br>
-     */
+    @ApiModelProperty("邀请码")
     private String inviteCode;
 
-    /**
-     * 真实姓名<br>
-     * 表 : user<br>
-     * 对应字段 : real_name<br>
-     */
+    @ApiModelProperty("真实姓名")
     private String realName;
 
-    /**
-     * 身份证号码,前6位加密<br>
-     * 表 : user<br>
-     * 对应字段 : id_card<br>
-     */
+    @ApiModelProperty("身份证号码,前6位加密")
     private String idCard;
 
-    /**
-     * 生日yyyyMMdd<br>
-     * 表 : user<br>
-     * 对应字段 : birthday<br>
-     */
+    @ApiModelProperty("生日yyyyMMdd")
     private String birthday;
 
-    /**
-     * 性别 性别 0:未知 1:男 2:女 <br>
-     * 表 : user<br>
-     * 对应字段 : sex<br>
-     */
+    @ApiModelProperty("性别 性别 0:未知 1:男 2:女 ")
     private Byte sex;
 
-    /**
-     * 注册渠道 pc,android,ios,h5,other<br>
-     * 表 : user<br>
-     * 对应字段 : channel<br>
-     */
+    @ApiModelProperty("注册渠道 pc,android,ios,h5,other")
     private Byte channel;
 
-    /**
-     * 头像地址<br>
-     * 表 : user_ext<br>
-     * 对应字段 : avatar<br>
-     */
+    @ApiModelProperty("头像")
     private String avatar;
 
-    /**
-     * 注册地址<br>
-     * 表 : user<br>
-     * 对应字段 : register_ip<br>
-     */
+    @ApiModelProperty("注册地址")
     private Long registerIp;
 
 }

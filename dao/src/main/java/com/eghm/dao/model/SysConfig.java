@@ -1,5 +1,7 @@
 package com.eghm.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,71 +13,33 @@ import java.util.Date;
 @Data
 public class SysConfig {
 
-    /**
-     * 主键<br>
-     * 表 : sys_config<br>
-     * 对应字段 : id<br>
-     */
+    @ApiModelProperty("主键")
     private Long id;
 
-    /**
-     * 参数标示符<br>
-     * 表 : sys_config<br>
-     * 对应字段 : nid<br>
-     */
+    @ApiModelProperty("参数标示符")
     private String nid;
 
-    /**
-     * 参数名称<br>
-     * 表 : sys_config<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("参数名称")
     private String title;
 
-    /**
-     * 参数值<br>
-     * 表 : sys_config<br>
-     * 对应字段 : content<br>
-     */
+    @ApiModelProperty("参数值")
     private String content;
 
-    /**
-     * 备注信息<br>
-     * 表 : sys_config<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 
-    /**
-     * 参数类型,见sys_dict表nid=config_classify<br>
-     * 表 : sys_config<br>
-     * 对应字段 : classify<br>
-     */
+    @ApiModelProperty("参数类型,见sys_dict表nid=config_classify")
     private Byte classify;
 
-    /**
-     * 锁定状态(禁止编辑) 0:未锁定,1:锁定<br>
-     * 表 : sys_config<br>
-     * 对应字段 : locked<br>
-     */
+    @ApiModelProperty("锁定状态(禁止编辑) 0:未锁定,1:锁定")
     private Boolean locked;
 
-    /**
-     * 添加时间<br>
-     * 表 : sys_config<br>
-     * 对应字段 : add_time<br>
-     */
+    @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
 
-    /**
-     * 更新时间<br>
-     * 表 : sys_config<br>
-     * 对应字段 : update_time<br>
-     */
+    @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    /**
-     * 参数类型 数据字典名称
-     */
-    private String classifyName;
 }

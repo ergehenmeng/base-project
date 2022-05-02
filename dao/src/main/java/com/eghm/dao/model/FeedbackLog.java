@@ -1,5 +1,8 @@
 package com.eghm.dao.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,60 +15,29 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class FeedbackLog extends BaseEntity {
 
-    /**
-     * 用户ID<br>
-     * 表 : feedback_log<br>
-     * 对应字段 : user_id<br>
-     */
+    @ApiModelProperty("用户ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
-    /**
-     * 状态: 0:待解决 1:已解决<br>
-     * 表 : feedback_log<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("状态: 0:待解决 1:已解决")
     private Byte state;
 
-    /**
-     * 状态: 反馈类型分类<br>
-     * 表 : feedback_log<br>
-     * 对应字段 : classify<br>
-     */
+    @ApiModelProperty("状态: 反馈类型分类")
     private Byte classify;
 
-    /**
-     * 软件版本<br>
-     * 表 : feedback_log<br>
-     * 对应字段 : version<br>
-     */
+    @ApiModelProperty("软件版本")
     private String version;
 
-    /**
-     * 系统版本<br>
-     * 表 : feedback_log<br>
-     * 对应字段 : system_version<br>
-     */
+    @ApiModelProperty("系统版本")
     private String systemVersion;
 
-    /**
-     * 反馈内容<br>
-     * 表 : feedback_log<br>
-     * 对应字段 : content<br>
-     */
+    @ApiModelProperty("反馈内容")
     private String content;
 
-    /**
-     * 设备类型<br>
-     * 表 : feedback_log<br>
-     * 对应字段 : device_brand<br>
-     */
+    @ApiModelProperty("设备类型")
     private String deviceBrand;
 
-    /**
-     * <br>
-     * 表 : feedback_log<br>
-     * 对应字段 : device_model<br>
-     */
+    @ApiModelProperty("设备型号")
     private String deviceModel;
 
 }

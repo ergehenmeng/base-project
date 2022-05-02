@@ -1,37 +1,41 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+
+import java.util.Date;
 
 /**
  * 系统异常记录
  * @author 二哥很猛
  */
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Builder
-public class ExceptionLog extends BaseEntity {
+public class ExceptionLog {
 
-    /**
-     * 访问链接<br>
-     * 表 : exception_log<br>
-     * 对应字段 : url<br>
-     */
+    @TableId(type = IdType.ASSIGN_ID)
+    @ApiModelProperty("id主键")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
+    @ApiModelProperty("访问链接")
     private String url;
 
-    /**
-     * 请求参数(json)<br>
-     * 表 : exception_log<br>
-     * 对应字段 : request_param<br>
-     */
+    @ApiModelProperty("请求参数(json)")
     private String requestParam;
 
-    /**
-     * 错误日志<br>
-     * 表 : exception_log<br>
-     * 对应字段 : error_msg<br>
-     */
+    @ApiModelProperty("错误日志")
     private String errorMsg;
+
+    @ApiModelProperty("添加日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date addTime;
 
 }

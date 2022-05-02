@@ -1,8 +1,8 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,68 +12,31 @@ import java.util.Date;
 @Data
 public class TaskConfig {
 
-    /**
-     * 主键<br>
-     * 表 : job_task<br>
-     * 对应字段 : id<br>
-     */
+    @ApiModelProperty("主键")
     private Long id;
 
-    /**
-     * 定时任务名称<br>
-     * 表 : job_task<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("定时任务名称")
     private String title;
 
-    /**
-     * 定时任务nid<br>
-     * 表 : job_task<br>
-     * 对应字段 : nid<br>
-     */
+    @ApiModelProperty("定时任务nid")
     private String nid;
 
-    /**
-     * 类的bean名称<br>
-     * 表 : job_task<br>
-     * 对应字段 : bean_name<br>
-     */
+    @ApiModelProperty("类的bean名称")
     private String beanName;
 
-    /**
-     * cron表达式<br>
-     * 表 : job_task<br>
-     * 对应字段 : cron_expression<br>
-     */
+    @ApiModelProperty("cron表达式")
     private String cronExpression;
 
-    /**
-     * 状态 0:关闭 1:开启<br>
-     * 表 : job_task<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("状态 0:关闭 1:开启")
     private Byte state;
 
-    /**
-     * 报警邮箱地址<br>
-     * 表 : job_task<br>
-     * 对应字段 : alarm_email<br>
-     */
+    @ApiModelProperty("报警邮箱地址")
     private String alarmEmail;
 
-    /**
-     * 更新时间<br>
-     * 表 : job_task<br>
-     * 对应字段 : update_time<br>
-     */
+    @ApiModelProperty("更新时间")
     private Date updateTime;
 
-    /**
-     * 备注信息<br>
-     * 表 : job_task<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
-
 
 }

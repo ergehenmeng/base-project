@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,50 +14,19 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class ImageLog extends BaseEntity {
 
-    /**
-     * 文件名称<br>
-     * 表 : image_log<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("文件名称")
     private String title;
 
-    /**
-     * 图片分类 数据字典image_log_type<br>
-     * 表 : image_log<br>
-     * 对应字段 : classify<br>
-     */
+    @ApiModelProperty("图片分类 数据字典image_log_type")
     private Byte classify;
 
-    /**
-     * 文件存放地址<br>
-     * 表 : image_log<br>
-     * 对应字段 : path<br>
-     */
+    @ApiModelProperty("文件存放地址")
     private String path;
 
-    /**
-     * 文件大小<br>
-     * 表 : image_log<br>
-     * 对应字段 : size<br>
-     */
+    @ApiModelProperty("文件大小")
     private Long size;
 
-    /**
-     * 备注信息<br>
-     * 表 : image_log<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 
-    /**
-     * 删除状态 0:未删除 1:已删除<br>
-     * 表 : image_log<br>
-     * 对应字段 : deleted<br>
-     */
-    private Boolean deleted;
-
-    /**
-     * 类型名称 通过数据字典转换
-     */
-    private String classifyName;
 }

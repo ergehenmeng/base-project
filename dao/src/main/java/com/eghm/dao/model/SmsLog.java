@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
@@ -13,32 +14,16 @@ import lombok.*;
 @NoArgsConstructor
 public class SmsLog extends BaseEntity {
 
-    /**
-     * 短信分类<br>
-     * 表 : sms_log<br>
-     * 对应字段 : sms_type<br>
-     */
+    @ApiModelProperty("短信分类")
     private String smsType;
 
-    /**
-     * 手机号<br>
-     * 表 : sms_log<br>
-     * 对应字段 : mobile<br>
-     */
+    @ApiModelProperty("手机号")
     private String mobile;
 
-    /**
-     * 短信内容<br>
-     * 表 : sms_log<br>
-     * 对应字段 : content<br>
-     */
+    @ApiModelProperty("短信内容")
     private String content;
 
-    /**
-     * 发送状态 0:失败 1:已发送<br>
-     * 表 : sms_log<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("发送状态 0:失败 1:已发送")
     private Byte state;
 
 }

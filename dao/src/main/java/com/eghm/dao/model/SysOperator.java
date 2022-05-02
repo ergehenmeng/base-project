@@ -1,6 +1,8 @@
 
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,81 +25,39 @@ public class SysOperator extends BaseEntity {
      */
     public static final byte STATE_0 = 0;
 
-    /**
-     * 用户姓名<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : operator_name<br>
-     */
+    @ApiModelProperty("用户姓名")
     private String operatorName;
 
-    /**
-     * 手机号码(登陆账户)<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : mobile<br>
-     */
+    @ApiModelProperty("手机号码(登陆账户)")
     private String mobile;
 
-    /**
-     * 用户状态:0:锁定,1:正常<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("用户状态:0:锁定,1:正常")
     private Byte state;
 
-    /**
-     * 登陆密码<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : pwd<br>
-     */
+    @ApiModelProperty("登陆密码")
     private String pwd;
 
-    /**
-     * 初始密码<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : init_pwd<br>
-     */
+    @ApiModelProperty("初始密码")
     private String initPwd;
 
-    /**
-     * <br>
-     * 表 : sys_operator<br>
-     * 对应字段 : dept_code<br>
-     */
+    @ApiModelProperty("部门编号")
     private String deptCode;
 
-    /**
-     * <br>
-     * 表 : sys_operator<br>
-     * 对应字段 : permission_type<br>
-     */
+    @ApiModelProperty("权限类型")
     private Byte permissionType;
 
-    /**
-     * 删除状态 0:正常,1:已删除<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : deleted<br>
-     */
-    private Boolean deleted;
-
-    /**
-     * 备注信息<br>
-     * 表 : sys_operator<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 
-    /**
-     * 用户的左侧菜单权限
-     */
+    @TableField(exist = false)
+    @ApiModelProperty("用户的左侧菜单权限")
     private List<SysMenu> leftMenu;
 
-    /**
-     * 用户的按钮权限
-     */
+    @TableField(exist = false)
+    @ApiModelProperty("用户的按钮权限")
     private List<SysMenu> buttonMenu;
 
-    /**
-     * 用户的部门数据权限
-     */
+    @TableField(exist = false)
+    @ApiModelProperty("用户的部门数据权限")
     private List<String> deptList;
 }

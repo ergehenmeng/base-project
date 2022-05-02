@@ -35,8 +35,6 @@ public class SysBulletinController {
 
     private final SysBulletinService sysBulletinService;
 
-    private final ProxyService proxyService;
-
     /**
      * 系统公告列表查询
      */
@@ -44,10 +42,7 @@ public class SysBulletinController {
     @GetMapping("/bulletin/list_page")
     public Paging<SysBulletin> listPage(BulletinQueryRequest request) {
         Page<SysBulletin> byPage = sysBulletinService.getByPage(request);
-        return DataUtil.convert(byPage, notice -> {
-            notice.setClassifyName(proxyService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
-            return notice;
-        });
+        return new Paging<>(byPage);
     }
 
     /**

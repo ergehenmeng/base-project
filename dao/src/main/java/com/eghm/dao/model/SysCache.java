@@ -1,5 +1,7 @@
 package com.eghm.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,52 +13,25 @@ import java.util.Date;
 @Data
 public class SysCache {
 
-    /**
-     * 主键<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : id<br>
-     */
+    @ApiModelProperty("主键")
     private Long id;
 
-    /**
-     * 缓存名称<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("缓存名称")
     private String title;
 
-    /**
-     * 缓存名称 必须与CacheConstant中保持一致<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : cache_name<br>
-     */
+    @ApiModelProperty("缓存名称 必须与CacheConstant中保持一致")
     private String cacheName;
 
-    /**
-     * 缓存更新状态 0:未更新 1:更新成功 2:更新失败<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("缓存更新状态 0:未更新 1:更新成功 2:更新失败")
     private Byte state;
 
-    /**
-     * 更新时间<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : update_time<br>
-     */
+    @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    /**
-     * 备注说明<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注说明")
     private String remark;
 
-    /**
-     * 是否锁定 0:否 1:锁定(锁定状态刷新缓存无效)<br>
-     * 表 : sys_cache<br>
-     * 对应字段 : locked<br>
-     */
+    @ApiModelProperty("是否锁定 0:否 1:锁定(锁定状态刷新缓存无效)")
     private Boolean locked;
 }

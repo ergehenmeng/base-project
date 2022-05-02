@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,39 +11,19 @@ import java.util.Date;
 @Data
 public class SysHoliday {
 
-    /**
-     * 主键<br>
-     * 表 : sys_holiday<br>
-     * 对应字段 : id<br>
-     */
+    @ApiModelProperty("主键")
     private Long id;
 
-    /**
-     * 日期<br>
-     * 表 : sys_holiday<br>
-     * 对应字段 : calendar<br>
-     */
+    @ApiModelProperty("日期")
     private Date calendar;
 
-    /**
-     * 月份 yyyy-MM<br>
-     * 表 : sys_holiday<br>
-     * 对应字段 : date_month<br>
-     */
+    @ApiModelProperty("月份 yyyy-MM")
     private String dateMonth;
 
-    /**
-     * 类型 1:工作日 2:休息日<br>
-     * 表 : sys_holiday<br>
-     * 对应字段 : type<br>
-     */
+    @ApiModelProperty("类型 1:工作日 2:休息日")
     private Byte type;
 
-    /**
-     * 星期几<br>
-     * 表 : sys_holiday<br>
-     * 对应字段 : weekday<br>
-     */
+    @ApiModelProperty("星期几")
     private Byte weekday;
 
 }

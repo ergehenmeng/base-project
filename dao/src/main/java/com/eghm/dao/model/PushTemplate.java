@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -12,46 +13,22 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class PushTemplate extends BaseEntity {
 
-    /**
-     * 消息名称<br>
-     * 表 : push_template<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("消息名称")
     private String title;
 
-    /**
-     * 消息nid<br>
-     * 表 : push_template<br>
-     * 对应字段 : nid<br>
-     */
+    @ApiModelProperty("消息nid")
     private String nid;
 
-    /**
-     * 状态 0:关闭 1:开启<br>
-     * 表 : push_template<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("状态 0:关闭 1:开启")
     private Byte state;
 
-    /**
-     * 消息内容<br>
-     * 表 : push_template<br>
-     * 对应字段 : content<br>
-     */
+    @ApiModelProperty("消息内容")
     private String content;
 
-    /**
-     * 后置处理标示符(消息推送跳转页面)<br>
-     * 表 : push_template<br>
-     * 对应字段 : tag<br>
-     */
+    @ApiModelProperty("后置处理标示符(消息推送跳转页面)")
     private String tag;
 
-    /**
-     * 备注信息<br>
-     * 表 : push_template<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 
 }

@@ -1,5 +1,8 @@
 package com.eghm.dao.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,60 +16,26 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class LoginLog extends BaseEntity {
 
-    /**
-     * 用户id<br>
-     * 表 : login_log<br>
-     * 对应字段 : user_id<br>
-     */
+    @JsonSerialize(using = ToStringSerializer.class)
+    @ApiModelProperty("用户id")
     private Long userId;
 
-    /**
-     * 登陆渠道<br>
-     * 表 : login_log<br>
-     * 对应字段 : channel<br>
-     */
+    @ApiModelProperty("登陆渠道")
     private String channel;
 
-    /**
-     * 登陆ip<br>
-     * 表 : login_log<br>
-     * 对应字段 : ip<br>
-     */
+    @ApiModelProperty("登陆ip")
     private Long ip;
 
-    /**
-     * 设备厂商<br>
-     * 表 : login_log<br>
-     * 对应字段 : device_brand<br>
-     */
+    @ApiModelProperty("设备厂商")
     private String deviceBrand;
 
-    /**
-     * 设备型号<br>
-     * 表 : login_log<br>
-     * 对应字段 : device_model<br>
-     */
+    @ApiModelProperty("设备型号")
     private String deviceModel;
 
-    /**
-     * 软件版本<br>
-     * 表 : login_log<br>
-     * 对应字段 : software_version<br>
-     */
+    @ApiModelProperty("软件版本")
     private String softwareVersion;
 
-    /**
-     * 设备唯一编号<br>
-     * 表 : login_log<br>
-     * 对应字段 : software_version<br>
-     */
+    @ApiModelProperty("设备唯一编号")
     private String serialNumber;
-
-    /**
-     * 删除状态 0:未删除 1:已删除<br>
-     * 表 : login_log<br>
-     * 对应字段 : deleted<br>
-     */
-    private Boolean deleted;
 
 }
