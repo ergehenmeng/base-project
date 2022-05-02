@@ -1,5 +1,6 @@
 package com.eghm.web.configuration.handler;
 
+import cn.hutool.core.net.NetUtil;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.constants.ConfigConstant;
@@ -70,7 +71,7 @@ public class OperationLogAspect {
 
         sy.setOperatorId(operator.getId());
         sy.setOperatorName(operator.getOperatorName());
-        sy.setIp(IpUtil.ipToLong(IpUtil.getIpAddress(request)));
+        sy.setIp(NetUtil.ipv4ToLong(IpUtil.getIpAddress(request)));
 
         if (mark.request()) {
             Object[] args = joinPoint.getArgs();

@@ -1,5 +1,6 @@
 package com.eghm.service.user.impl;
 
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -46,7 +47,6 @@ import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.service.wechat.WeChatMpService;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.IpUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
@@ -257,7 +257,7 @@ public class UserServiceImpl implements UserService {
         Token token = tokenService.createToken(user.getId(), request.getChannel());
         // 记录登陆日志信息
         LoginRecord loginRecord = LoginRecord.builder()
-                .ip(IpUtil.ipToLong(ip))
+                .ip(NetUtil.ipv4ToLong(ip))
                 .userId(user.getId())
                 .channel(request.getChannel())
                 .deviceBrand(request.getDeviceBrand())

@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -10,7 +11,6 @@ import com.eghm.dao.model.BlackRoster;
 import com.eghm.model.dto.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.roster.BlackRosterQueryRequest;
 import com.eghm.service.sys.BlackRosterService;
-import com.eghm.utils.IpUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -41,7 +41,8 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     @Transactional(rollbackFor = RuntimeException.class)
     public void addBlackRoster(BlackRosterAddRequest request) {
         BlackRoster roster = new BlackRoster();
-        roster.setIp(IpUtil.ipToLong(request.getIp()));
+        roster.setIp(request.getIp());
+        roster.setLongIp(NetUtil.ipv4ToLong(request.getIp()));
         roster.setEndTime(request.getEndTime());
         blackRosterMapper.insert(roster);
     }

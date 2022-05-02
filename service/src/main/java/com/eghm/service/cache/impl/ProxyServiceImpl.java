@@ -1,13 +1,13 @@
 package com.eghm.service.cache.impl;
 
 
+import cn.hutool.core.net.NetUtil;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.model.BlackRoster;
 import com.eghm.dao.model.SysDict;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.service.sys.SysDictService;
-import com.eghm.utils.IpUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -48,7 +48,7 @@ public class ProxyServiceImpl implements ProxyService {
         List<BlackRoster> availableList = blackRosterService.getAvailableList();
         if (!CollectionUtils.isEmpty(availableList)) {
             Date now = DateUtil.getNow();
-            return availableList.stream().anyMatch(blackRoster -> IpUtil.ipToLong(ip) == blackRoster.getIp() && (blackRoster.getEndTime() == null || now.before(blackRoster.getEndTime())));
+            return availableList.stream().anyMatch(blackRoster -> NetUtil.ipv4ToLong(ip) == blackRoster.getLongIp() && (blackRoster.getEndTime() == null || now.before(blackRoster.getEndTime())));
         }
         return false;
     }

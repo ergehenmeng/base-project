@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,60 +14,28 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class AppVersion extends BaseEntity {
 
-    /**
-     * 版本类型 IOS,ANDROID<br>
-     * 表 : app_version<br>
-     * 对应字段 : classify<br>
-     */
+    @ApiModelProperty("版本类型 IOS,ANDROID")
     private String classify;
 
-    /**
-     * 版本号:1.2.8<br>
-     * 表 : app_version<br>
-     * 对应字段 : version<br>
-     */
+    @ApiModelProperty("版本号:1.2.8 最大:xx.xx.xx")
     private String version;
 
-    /**
-     * 版本号:10208<br>
-     * 表 : app_version<br>
-     * 对应字段 : version_no<br>
-     */
+    @ApiModelProperty("版本号:10208")
     private Integer versionNo;
 
-    /**
-     * 该版本是否强制更新版本 0:否 1:是<br>
-     * 表 : app_version<br>
-     * 对应字段 : force_update<br>
-     */
+    @ApiModelProperty("该版本是否强制更新版本 0:否 1:是")
     private Boolean forceUpdate;
 
-    /**
-     * 下载地址,android为实际下载地址,ios是跳转到app_store<br>
-     * 表 : app_version<br>
-     * 对应字段 : url<br>
-     */
+    @ApiModelProperty("下载地址,android为实际下载地址,ios是跳转到app_store")
     private String url;
 
-    /**
-     * 备注信息:版本更新的东西或解决的问题<br>
-     * 表 : app_version<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息:版本更新的东西或解决的问题")
     private String remark;
 
-    /**
-     * 删除状态 0:未删除 1:已删除<br>
-     * 表 : app_version<br>
-     * 对应字段 : deleted<br>
-     */
+    @ApiModelProperty("删除状态 0:未删除 1:已删除")
     private Boolean deleted;
 
-    /**
-     * 上架状态 0:待上架 1:已上架<br>
-     * 表 : app_version<br>
-     * 对应字段 : state<br>
-     */
+    @ApiModelProperty("上架状态 0:待上架 1:已上架")
     private Byte state;
 
 }

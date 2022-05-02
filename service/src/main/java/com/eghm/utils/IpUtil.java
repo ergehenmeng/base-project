@@ -1,5 +1,6 @@
 package com.eghm.utils;
 
+import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;

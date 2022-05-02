@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,85 +16,37 @@ import java.util.Date;
 @ToString(callSuper = true)
 public class Banner extends BaseEntity {
 
-    /**
-     * 标题
-     * 表 : banner<br>
-     * 对应字段 : title<br>
-     */
+    @ApiModelProperty("标题")
     private String title;
 
-    /**
-     * 轮播图类型:由sys_dict的banner_type维护(不同模块的轮播均在该表中维护)<br>
-     * 表 : banner<br>
-     * 对应字段 : classify<br>
-     */
+    @ApiModelProperty("轮播图类型:由sys_dict的banner_type维护(不同模块的轮播均在该表中维护)")
     private Byte classify;
 
-    /**
-     * 客户端类型 PC IOS,ANDROID,H5<br>
-     * 表 : banner<br>
-     * 对应字段 : client_type<br>
-     */
+    @ApiModelProperty("客户端类型: PC,IOS,ANDROID,H5,WECHAT_MINI")
     private String clientType;
 
-    /**
-     * 轮播图片地址<br>
-     * 表 : banner<br>
-     * 对应字段 : img_url<br>
-     */
+    @ApiModelProperty("轮播图片地址")
     private String imgUrl;
 
-    /**
-     * 轮播图点击后跳转的URL<br>
-     * 表 : banner<br>
-     * 对应字段 : turn_url<br>
-     */
-    private String turnUrl;
+    @ApiModelProperty("轮播图点击后跳转的URL")
+    private String jumpUrl;
 
-    /**
-     * 轮播图顺序(大<->小) 最大的在最前面<br>
-     * 表 : banner<br>
-     * 对应字段 : index<br>
-     */
+    @ApiModelProperty("轮播图顺序(大<->小) 最大的在最前面")
     private Byte sort;
 
-    /**
-     * 开始展示时间(可在指定时间后开始展示)<br>
-     * 表 : banner<br>
-     * 对应字段 : start_time<br>
-     */
+    @ApiModelProperty("开始展示时间(可在指定时间后开始展示)")
     private Date startTime;
 
-    /**
-     * 取消展示的时间(只在某个时间段展示)<br>
-     * 表 : banner<br>
-     * 对应字段 : end_time<br>
-     */
+    @ApiModelProperty("取消展示的时间(只在某个时间段展示)")
     private Date endTime;
 
-    /**
-     * 是否可点击 0:否 1:可以<br>
-     * 表 : banner<br>
-     * 对应字段 : click<br>
-     */
+    @ApiModelProperty("是否可点击 0:否 1:可以")
     private Boolean click;
 
-    /**
-     * 备注信息<br>
-     * 表 : banner<br>
-     * 对应字段 : remark<br>
-     */
+    @ApiModelProperty("备注信息")
     private String remark;
 
-    /**
-     * 删除状态 0:未删除 1已删除<br>
-     * 表 : banner<br>
-     * 对应字段 : deleted<br>
-     */
+    @ApiModelProperty("删除状态 0:未删除 1已删除")
     private Boolean deleted;
 
-    /**
-     * 数据字典解析字段
-     */
-    private String classifyName;
 }

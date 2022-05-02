@@ -84,7 +84,7 @@ CREATE TABLE `banner` (
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
   `client_type` varchar(20) DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
   `img_url` varchar(200) NOT NULL COMMENT '轮播图片地址',
-  `turn_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
+  `jump_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
   `sort` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(大<->小) 最大的在最前面',
   `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
   `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',

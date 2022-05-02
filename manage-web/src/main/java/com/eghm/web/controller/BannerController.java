@@ -1,7 +1,6 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.Banner;
 import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
@@ -11,7 +10,6 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.BannerService;
 import com.eghm.service.common.FileService;
-import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -48,11 +46,7 @@ public class BannerController {
     @ApiOperation("轮播图列表")
     public Paging<Banner> listPage(BannerQueryRequest request) {
         Page<Banner> byPage = bannerService.getByPage(request);
-        return DataUtil.convert(byPage, banner -> {
-            String dictValue = proxyService.getDictValue(DictConstant.BANNER_CLASSIFY, banner.getClassify());
-            banner.setClassifyName(dictValue);
-            return banner;
-        });
+        return new Paging<>(byPage);
     }
 
     /**

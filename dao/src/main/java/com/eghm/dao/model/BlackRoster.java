@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,25 +15,13 @@ import java.util.Date;
 @ToString(callSuper = true)
 public class BlackRoster extends BaseEntity {
 
-    /**
-     * 访问ip<br>
-     * 表 : black_roster<br>
-     * 对应字段 : ip<br>
-     */
-    private Long ip;
+    @ApiModelProperty("访问ip")
+    private String ip;
 
-    /**
-     * 是否删除 0:未删除 1:已删除<br>
-     * 表 : black_roster<br>
-     * 对应字段 : deleted<br>
-     */
-    private Boolean deleted;
+    @ApiModelProperty(value = "数字ip", hidden = true)
+    private Long longIp;
 
-    /**
-     * 黑名单截止时间<br>
-     * 表 : black_roster<br>
-     * 对应字段 : end_time<br>
-     */
+    @ApiModelProperty("黑名单截止时间")
     private Date endTime;
 
 }
