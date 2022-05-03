@@ -986,8 +986,8 @@ INSERT INTO `sys_area` VALUES ('321324', '泗洪县', '321300', '223900', 'S', '
 INSERT INTO `sys_area` VALUES ('330000', '浙江', '0', null, 'Z', '1');
 INSERT INTO `sys_area` VALUES ('330100', '杭州市', '330000', null, 'H', '2');
 INSERT INTO `sys_area` VALUES ('330102', '上城区', '330100', '310000', 'S', '3');
-INSERT INTO `sys_area` VALUES ('330103', '下城区', '330100', '310006', 'X', '3');
-INSERT INTO `sys_area` VALUES ('330104', '江干区', '330100', '310000', 'J', '3');
+-- INSERT INTO `sys_area` VALUES ('330103', '下城区', '330100', '310006', 'X', '3');
+-- INSERT INTO `sys_area` VALUES ('330104', '江干区', '330100', '310000', 'J', '3');
 INSERT INTO `sys_area` VALUES ('330105', '拱墅区', '330100', '310011', 'G', '3');
 INSERT INTO `sys_area` VALUES ('330106', '西湖区', '330100', '310000', 'X', '3');
 INSERT INTO `sys_area` VALUES ('330108', '滨江区', '330100', '310000', 'B', '3');
@@ -995,6 +995,9 @@ INSERT INTO `sys_area` VALUES ('330109', '萧山区', '330100', '311200', 'X', '
 INSERT INTO `sys_area` VALUES ('330110', '余杭区', '330100', '311100', 'Y', '3');
 INSERT INTO `sys_area` VALUES ('330122', '桐庐县', '330100', '311500', 'T', '3');
 INSERT INTO `sys_area` VALUES ('330127', '淳安县', '330100', '311700', 'C', '3');
+INSERT INTO `sys_area` VALUES ('330113', '临平区', '330100', '311100', 'L', '3');
+INSERT INTO `sys_area` VALUES ('330114', '钱塘区', '330100', '311100', 'Q', '3');
+
 INSERT INTO `sys_area` VALUES ('330182', '建德市', '330100', '311600', 'J', '3');
 INSERT INTO `sys_area` VALUES ('330183', '富阳区', '330100', '311400', 'F', '3');
 INSERT INTO `sys_area` VALUES ('330185', '临安市', '330100', '311300', 'L', '3');
