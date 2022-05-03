@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration;
@@ -25,6 +26,7 @@ public class TransactionConfig {
     private static final String METHOD_EXPRESSION = "execution (* com.eghm.service..*.*(..))";
 
     @Bean
+    @Primary
     public TransactionInterceptor txAdvice(PlatformTransactionManager transactionManager) {
         DefaultTransactionAttribute required = new DefaultTransactionAttribute();
         required.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
