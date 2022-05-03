@@ -10,7 +10,7 @@
         <result column="classify" jdbcType="TINYINT" property="classify"/>
         <result column="client_type" jdbcType="VARCHAR" property="clientType"/>
         <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
-        <result column="turn_url" jdbcType="VARCHAR" property="turnUrl"/>
+        <result column="jump_url" jdbcType="VARCHAR" property="jumpUrl"/>
         <result column="sort" jdbcType="TINYINT" property="sort"/>
         <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
         <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
@@ -24,7 +24,7 @@
         <!--
           @create by mybatis
         -->
-        id,title, classify, client_type, img_url, turn_url, sort, start_time, end_time, click,
+        id,title, classify, client_type, img_url, jump_url, sort, start_time, end_time, click,
         remark,add_time,update_time,deleted
     </sql>
     <select id="getBannerList" resultMap="BaseResultMap">

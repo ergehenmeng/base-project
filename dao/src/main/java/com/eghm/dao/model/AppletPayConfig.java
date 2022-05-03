@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,46 +10,22 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class AppletPayConfig extends BaseEntity {
 
-    /**
-     * 唯一标识符<br>
-     * 表 : applet_pay_config<br>
-     * 对应字段 : nid<br>
-     */
+    @ApiModelProperty("唯一标识符")
     private String nid;
 
-    /**
-     * 微信小程序支付appId<br>
-     * 表 : applet_pay_config<br>
-     * 对应字段 : app_id<br>
-     */
+    @ApiModelProperty("微信小程序支付appId")
     private String appId;
 
-    /**
-     * 商户号<br>
-     * 表 : applet_pay_config<br>
-     * 对应字段 : merchant_id<br>
-     */
+    @ApiModelProperty("商户号")
     private String merchantId;
 
-    /**
-     * 订单过期时间 单位:秒<br>
-     * 表 : applet_pay_config<br>
-     * 对应字段 : expire_time<br>
-     */
+    @ApiModelProperty("订单过期时间 单位:秒")
     private Integer expireTime;
 
-    /**
-     * 订单异步通知地址<br>
-     * 表 : applet_pay_config<br>
-     * 对应字段 : notify_url<br>
-     */
+    @ApiModelProperty("订单异步通知地址")
     private String notifyUrl;
 
-    /**
-     * 订单号前缀(限英文)<br>
-     * 表 : applet_pay_config<br>
-     * 对应字段 : order_prefix<br>
-     */
+    @ApiModelProperty("订单号前缀(限英文)")
     private String orderPrefix;
 
 }

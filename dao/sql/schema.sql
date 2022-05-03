@@ -306,10 +306,11 @@ CREATE TABLE `sys_area` (
 -- Table structure for sys_bulletin
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_bulletin`;
-CREATE TABLE `sys_bulletin` (
+DROP TABLE IF EXISTS `sys_notice`;
+CREATE TABLE `sys_notice` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(100) NOT NULL COMMENT '公告标题',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表bulletin_classify)',
+  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表sys_notice_type)',
   `content` text COMMENT '公告内容(富文本)',
   `state` tinyint(1) unsigned DEFAULT '0' COMMENT '是否发布 0:未发布 1:已发布',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',

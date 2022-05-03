@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysCacheMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysCache">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="cache_name" jdbcType="VARCHAR" property="cacheName"/>
-        <result column="state" jdbcType="TINYINT" property="state"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, title, cache_name, state, update_time, remark
-    </sql>
     <update id="updateCache" parameterType="com.eghm.dao.model.SysCache">
         update sys_cache
         set state       = #{state},
