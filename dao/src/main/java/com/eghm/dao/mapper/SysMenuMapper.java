@@ -45,4 +45,11 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
      * @return 菜单 默认只查一条
      */
     SysMenu getByNid(@Param("nid") String nid, @Param("pid") String pid);
+
+    /**
+     * 查询某个菜单下的最大子菜单id
+     * @param pid pid
+     * @return 最大子菜单id
+     */
+    String getMaxId(@Param("pid") String pid);
 }

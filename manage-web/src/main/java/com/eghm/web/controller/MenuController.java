@@ -84,7 +84,7 @@ public class MenuController {
     @PostMapping("/menu/add")
     @Mark
     @ApiOperation("添加菜单")
-    public RespBody<Object> add(@Valid MenuAddRequest request) {
+    public synchronized RespBody<Object> add(@Valid MenuAddRequest request) {
         if (request.getGrade() > SysMenu.BUTTON) {
             return RespBody.error(ErrorCode.SUB_MENU_ERROR);
         }

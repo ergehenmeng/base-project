@@ -31,13 +31,13 @@ public class MenuAddRequest implements Serializable {
 
     @ApiModelProperty(value = "父菜单id", required = true)
     @NotNull(message = "父菜单id不能为空")
-    private Long pid;
+    private String pid;
 
     @ApiModelProperty(value = "菜单url")
-    private String url;
+    private String path;
 
     @ApiModelProperty(value = "子菜单url(逗号分割)")
-    private String subUrl;
+    private String subPath;
 
     @ApiModelProperty(value = "排序(小-大)")
     private Integer sort;

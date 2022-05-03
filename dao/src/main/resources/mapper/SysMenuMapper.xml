@@ -63,4 +63,7 @@
         from sys_menu where nid = #{nid} and pid = #{pid} and deleted = false limit 1
     </select>
 
+    <select id="getMaxId" resultType="string">
+        select id from sys_menu where pid = #{pid} and deleted = false order by id desc limit 1
+    </select>
 </mapper>
