@@ -1,17 +1,20 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
+import com.eghm.dao.model.SysMenu;
 import com.eghm.dao.model.SysOperator;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.operator.*;
+import com.eghm.model.vo.operator.OperatorResponse;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.SysRoleService;
+import com.eghm.utils.DataUtil;
 import com.eghm.web.annotation.Mark;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
@@ -22,11 +25,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -39,6 +38,7 @@ import java.util.List;
 @RestController
 @Api(tags = "系统用户管理")
 @AllArgsConstructor
+@RequestMapping("/operator")
 public class OperatorController {
 
     private final SysOperatorService sysOperatorService;
@@ -47,16 +47,18 @@ public class OperatorController {
 
     private final CacheService cacheService;
 
+    private final SysMenuService sysMenuService;
+
     /**
      * 修改密码
      *
      * @param request 请求参数
      * @return 成功状态
      */
-    @PostMapping("/operator/change_password")
+    @PostMapping("/changePwd")
     @Mark
     @ApiOperation("修改管理人员密码")
-    public RespBody<Object> changePassword(HttpSession session, @Valid PasswordEditRequest request) {
+    public RespBody<Void> changePwd(HttpSession session, @Valid PasswordEditRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = sysOperatorService.updateLoginPassword(request);
@@ -76,7 +78,7 @@ public class OperatorController {
      * @param request 查询条件
      * @return 列表
      */
-    @GetMapping("/operator/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
     public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
         Page<SysOperator> page = sysOperatorService.getByPage(request);
@@ -89,10 +91,10 @@ public class OperatorController {
      *
      * @return 成功
      */
-    @PostMapping("/operator/add")
+    @PostMapping("/add")
     @Mark
     @ApiOperation("添加管理人员")
-    public RespBody<Object> addOperator(@Valid OperatorAddRequest request) {
+    public RespBody<Void> addOperator(@Valid OperatorAddRequest request) {
         sysOperatorService.addOperator(request);
         return RespBody.success();
     }
@@ -103,18 +105,15 @@ public class OperatorController {
      * @param id 管理人员id
      * @return 页面
      */
-    @GetMapping("/operator/{id}")
+    @GetMapping("/select")
     @ApiOperation("查询系统用户信息")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
-    public String editOperatorPage(Model model, @PathVariable("id") Long id) {
+    public RespBody<OperatorResponse> select(@RequestParam("id") Long id) {
         SysOperator operator = sysOperatorService.getById(id);
-        model.addAttribute("operator", operator);
+        OperatorResponse response = DataUtil.copy(operator, OperatorResponse.class);
         List<Long> roleList = sysRoleService.getByOperatorId(id);
-        if (CollUtil.isNotEmpty(roleList)) {
-            String roleIds = Joiner.on(",").join(roleList);
-            model.addAttribute("roleIds", roleIds);
-        }
-        return "operator/edit_page";
+        response.setRoleIds(Joiner.on(",").join(roleList));
+        return RespBody.success(response);
     }
 
     /**
@@ -123,10 +122,10 @@ public class OperatorController {
      * @param request 前台参数
      * @return 成功
      */
-    @PostMapping("/operator/edit")
+    @PostMapping("/edit")
     @Mark
     @ApiOperation("系统用户信息")
-    public RespBody<Object> editOperator(@Valid OperatorEditRequest request) {
+    public RespBody<Void> editOperator(@Valid OperatorEditRequest request) {
         sysOperatorService.updateOperator(request);
         return RespBody.success();
     }
@@ -135,10 +134,10 @@ public class OperatorController {
     /**
      * 锁屏操作
      */
-    @PostMapping("/lock_screen")
+    @PostMapping("/lockScreen")
     @Mark
     @ApiOperation("锁屏操作")
-    public RespBody<Object> lockScreen() {
+    public RespBody<Void> lockScreen() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
         return RespBody.success();
@@ -147,11 +146,11 @@ public class OperatorController {
     /**
      * 解锁
      */
-    @PostMapping("/unlock_screen")
+    @PostMapping("/unlockScreen")
     @Mark
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
-    public RespBody<Object> unlockScreen(String password) {
+    public RespBody<Void> unlockScreen(String password) {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         sysOperatorService.checkPassword(password, operator.getPwd());
         cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
@@ -159,10 +158,10 @@ public class OperatorController {
     }
 
 
-    @PostMapping("/operator/handle")
+    @PostMapping("/handle")
     @Mark
     @ApiOperation("用户操作(锁定,解锁,删除,重置密码)")
-    public RespBody<Object> handle(@Valid OperatorHandleRequest request) {
+    public RespBody<Void> handle(@Valid OperatorHandleRequest request) {
         if (request.getState() == OperatorHandleRequest.LOCK) {
             sysOperatorService.lockOperator(request.getId());
         } else if (request.getState() == OperatorHandleRequest.UNLOCK) {
@@ -175,4 +174,15 @@ public class OperatorController {
         return RespBody.success();
     }
 
+    /**
+     * 查询管理人员自己所拥有的菜单
+     *
+     * @return 菜单列表
+     */
+    @GetMapping("/menuList")
+    @ApiOperation("查询自己拥有的菜单列表")
+    public List<SysMenu> operatorMenuList() {
+        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
+        return sysMenuService.getList(operator.getId());
+    }
 }

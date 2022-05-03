@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "短信模板管理")
 @AllArgsConstructor
+@RequestMapping("/smsTemplate")
 public class SmsTemplateController {
 
     private final SmsTemplateService smsTemplateService;
@@ -33,7 +35,7 @@ public class SmsTemplateController {
     /**
      * 短信模板分页列表
      */
-    @GetMapping("/sms_template/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("短信模板列表(分页)")
     public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request) {
         Page<SmsTemplate> byPage = smsTemplateService.getByPage(request);
@@ -43,10 +45,10 @@ public class SmsTemplateController {
     /**
      * 短信模板编辑保存
      */
-    @PostMapping("/sms_template/edit")
+    @PostMapping("/edit")
     @Mark
     @ApiOperation("编辑短信模板")
-    public RespBody<Object> edit(@Valid SmsTemplateEditRequest request) {
+    public RespBody<Void> edit(@Valid SmsTemplateEditRequest request) {
         smsTemplateService.updateSmsTemplate(request);
         return RespBody.success();
     }

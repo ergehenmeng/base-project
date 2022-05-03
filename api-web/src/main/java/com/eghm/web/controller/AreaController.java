@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "省份区域")
 @AllArgsConstructor
+@RequestMapping("/area")
 public class AreaController {
 
     private final SysAreaService sysAreaService;
@@ -29,7 +31,7 @@ public class AreaController {
      * 获取省市区列表
      */
     @ApiOperation("获取省市区列表")
-    @GetMapping("/area/list")
+    @GetMapping("/list")
     public RespBody<List<SysAreaVO>> list(@RequestBody @Valid AreaQueryDTO request) {
         List<SysAreaVO> voList = sysAreaService.getByPid(request.getPid());
         return RespBody.success(voList);

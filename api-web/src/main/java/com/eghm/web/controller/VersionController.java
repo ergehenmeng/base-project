@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "更新版本")
 @AllArgsConstructor
+@RequestMapping("/version")
 public class VersionController {
 
     private final AppVersionService appVersionService;
@@ -23,9 +25,9 @@ public class VersionController {
     /**
      * 获取可以下载的最新版本
      */
-    @GetMapping("/version/latest_version")
+    @GetMapping("/latest")
     @ApiOperation("获取最新的版本")
-    public RespBody<AppVersionVO> getLatestVersion() {
+    public RespBody<AppVersionVO> latest() {
         AppVersionVO latestVersion = appVersionService.getLatestVersion();
         return RespBody.success(latestVersion);
     }

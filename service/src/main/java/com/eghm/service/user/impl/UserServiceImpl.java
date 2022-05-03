@@ -10,6 +10,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ScoreType;
 import com.eghm.common.enums.SmsType;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.common.exception.DataException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.RegExpUtil;
 import com.eghm.common.utils.StringUtil;
@@ -151,9 +152,7 @@ public class UserServiceImpl implements UserService {
         LoginDevice loginLog = loginDeviceService.getBySerialNumber(user.getId(), request.getSerialNumber());
         if (loginLog == null && StrUtil.isNotBlank(user.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
-            BusinessException exception = new BusinessException(ErrorCode.NEW_DEVICE_LOGIN);
-            exception.setData(user.getMobile());
-            throw exception;
+            throw new DataException(ErrorCode.NEW_DEVICE_LOGIN, user.getMobile());
         }
         return this.doLogin(user, login.getIp());
     }

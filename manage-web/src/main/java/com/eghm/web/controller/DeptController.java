@@ -9,9 +9,9 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -24,6 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "部门管理")
 @AllArgsConstructor
+@RequestMapping("/dept")
 public class DeptController {
 
     private final SysDeptService sysDeptService;
@@ -33,29 +34,19 @@ public class DeptController {
      *
      * @return list
      */
-    @GetMapping("/dept/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("部门列表(不分页)")
     public List<SysDept> listPage() {
         return sysDeptService.getDepartment();
     }
 
-
-    /**
-     * 添加部门页面
-     */
-    @GetMapping("/dept/add_page")
-    public String addPage(Model model, String code) {
-        model.addAttribute("code", code);
-        return "dept/add_page";
-    }
-
     /**
      * 添加部门节点信息
      */
-    @PostMapping("/dept/add")
+    @PostMapping("/add")
     @Mark
     @ApiOperation("添加部门")
-    public RespBody<Object> add(@Valid DeptAddRequest request) {
+    public RespBody<Void> add(@Valid DeptAddRequest request) {
         sysDeptService.addDepartment(request);
         return RespBody.success();
     }
@@ -63,10 +54,10 @@ public class DeptController {
     /**
      * 编辑部门节点信息
      */
-    @PostMapping("/dept/edit")
+    @PostMapping("/edit")
     @Mark
     @ApiOperation("编辑部门")
-    public RespBody<Object> edit(@Valid DeptEditRequest request) {
+    public RespBody<Void> edit(@Valid DeptEditRequest request) {
         sysDeptService.editDepartment(request);
         return RespBody.success();
     }

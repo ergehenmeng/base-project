@@ -31,7 +31,7 @@ public class AddressController {
      */
     @PostMapping("/save")
     @ApiOperation("添加地址")
-    public RespBody<Object> save(@RequestBody @Valid AddressAddDTO request) {
+    public RespBody<Void> save(@RequestBody @Valid AddressAddDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userAddressService.addUserAddress(request);
         return RespBody.success();
@@ -42,7 +42,7 @@ public class AddressController {
      */
     @PostMapping("/default")
     @ApiOperation("设置默认地址")
-    public RespBody<Object> setDefault(@RequestBody @Valid IdDTO request) {
+    public RespBody<Void> setDefault(@RequestBody @Valid IdDTO request) {
         userAddressService.setDefault(request.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }
@@ -62,7 +62,7 @@ public class AddressController {
      */
     @PostMapping("/delete")
     @ApiOperation("设置默认地址")
-    public RespBody<Object> delete(@RequestBody @Valid IdDTO request) {
+    public RespBody<Void> delete(@RequestBody @Valid IdDTO request) {
         userAddressService.deleteAddress(request.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }
@@ -72,7 +72,7 @@ public class AddressController {
      */
     @PostMapping("/update")
     @ApiOperation("编辑地址")
-    public RespBody<Object> update(@RequestBody @Valid AddressEditDTO request) {
+    public RespBody<Void> update(@RequestBody @Valid AddressEditDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userAddressService.updateAddress(request);
         return RespBody.success();

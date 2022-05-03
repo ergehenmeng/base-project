@@ -34,7 +34,7 @@ public class SysNoticeController {
      * 系统公告列表查询
      */
     @ApiOperation("公告列表(分页)")
-    @GetMapping("/list_page")
+    @GetMapping("/listPage")
     public Paging<SysNotice> listPage(NoticeQueryRequest request) {
         Page<SysNotice> byPage = sysNoticeService.getByPage(request);
         return new Paging<>(byPage);
@@ -46,7 +46,7 @@ public class SysNoticeController {
     @PostMapping("/add")
     @Mark
     @ApiOperation("新增公告信息")
-    public RespBody<Object> add(@Valid NoticeAddRequest request) {
+    public RespBody<Void> add(@Valid NoticeAddRequest request) {
         sysNoticeService.addNotice(request);
         return RespBody.success();
     }
@@ -54,10 +54,10 @@ public class SysNoticeController {
     /**
      * 公告编辑页面
      */
-    @GetMapping("/{id}")
+    @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id", required = true)
     @ApiOperation("公告信息查询")
-    public SysNotice editPage(@PathVariable("id") Long id) {
+    public SysNotice select(@RequestParam("id") Long id) {
         return sysNoticeService.getById(id);
     }
 
@@ -65,7 +65,7 @@ public class SysNoticeController {
     @PostMapping("/handle")
     @Mark
     @ApiOperation("公告操作(发布,取消发布,删除)")
-    public RespBody<Object> handle(@Valid NoticeHandleRequest request) {
+    public RespBody<Void> handle(@Valid NoticeHandleRequest request) {
         if (request.getState() == NoticeHandleRequest.PUBLISH) {
             sysNoticeService.publish(request.getId());
         } else if (request.getState() == NoticeHandleRequest.CANCEL_PUBLISH) {
@@ -82,7 +82,7 @@ public class SysNoticeController {
     @PostMapping("/edit")
     @Mark
     @ApiOperation("编辑公告")
-    public RespBody<Object> edit(@Valid NoticeEditRequest request) {
+    public RespBody<Void> edit(@Valid NoticeEditRequest request) {
         sysNoticeService.editNotice(request);
         return RespBody.success();
     }

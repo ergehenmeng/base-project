@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "注册")
 @AllArgsConstructor
+@RequestMapping("/register")
 public class RegisterController {
 
     private final UserService userService;
@@ -34,10 +36,10 @@ public class RegisterController {
     /**
      * 注册发送短信验证码❶
      */
-    @PostMapping("/register/send_sms")
+    @PostMapping("/sendSms")
     @ApiOperation("注册发送验证码")
     @SkipAccess
-    public RespBody<Object> sendSms(@RequestBody @Valid RegisterSendSmsDTO request) {
+    public RespBody<Void> sendSms(@RequestBody @Valid RegisterSendSmsDTO request) {
         userService.registerSendSms(request.getMobile());
         return RespBody.success();
     }
@@ -45,7 +47,7 @@ public class RegisterController {
     /**
      * 短信验证码校验及注册❷
      */
-    @PostMapping("/register/user")
+    @PostMapping("/user")
     @ApiOperation("短信注册用户")
     @SkipAccess
     public RespBody<LoginTokenVO> user(@RequestBody @Valid RegisterUserDTO request, HttpServletRequest servletRequest) {

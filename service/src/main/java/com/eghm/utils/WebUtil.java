@@ -32,7 +32,7 @@ public class WebUtil {
      * @param object   json内容
      * @throws IOException 水电费
      */
-    public static void printJson(HttpServletResponse response, RespBody<Object> object) throws IOException {
+    public static void printJson(HttpServletResponse response, RespBody<Void> object) throws IOException {
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter writer = response.getWriter()) {
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);

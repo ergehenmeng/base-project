@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @Api(tags = "系统公告")
 @AllArgsConstructor
+@RequestMapping("/notice")
 public class NoticeController {
 
     private final SysNoticeService sysNoticeService;
@@ -25,7 +27,7 @@ public class NoticeController {
     /**
      * 获取首页公告列表
      */
-    @GetMapping("/notice/list")
+    @GetMapping("/list")
     @ApiOperation("获取首页公告列表")
     public RespBody<List<TopNoticeVO>> list() {
         List<TopNoticeVO> list = sysNoticeService.getList();

@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "短信日志管理")
 @AllArgsConstructor
+@RequestMapping("/smsLog")
 public class SmsLogController {
 
     private final SmsLogService smsLogService;
@@ -27,7 +29,7 @@ public class SmsLogController {
     /**
      * 分页查询短信记录列表
      */
-    @GetMapping("/sms_log/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("短信记录列表(分页)")
     public Paging<SmsLog> listPage(SmsLogQueryRequest request) {
         Page<SmsLog> byPage = smsLogService.getByPage(request);

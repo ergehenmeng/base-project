@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "帮助中心")
 @AllArgsConstructor
+@RequestMapping("/help")
 public class HelpCenterController {
 
     private final HelpCenterService helpCenterService;
@@ -28,9 +30,9 @@ public class HelpCenterController {
     /**
      * 查询帮助信息
      */
-    @GetMapping("/help_center/list")
+    @GetMapping("/list")
     @ApiOperation("帮助列表信息")
-    public RespBody<Object> list(@RequestBody @Valid HelpQueryDTO dto) {
+    public RespBody<List<HelpCenterVO>> list(@RequestBody @Valid HelpQueryDTO dto) {
         List<HelpCenterVO> voList = helpCenterService.list(dto);
         return RespBody.success(voList);
     }

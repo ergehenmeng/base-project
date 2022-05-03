@@ -10,15 +10,9 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,6 +23,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "数据字典管理")
 @AllArgsConstructor
+@RequestMapping("/dict")
 public class DictController {
 
     private final SysDictService sysDictService;
@@ -39,23 +34,10 @@ public class DictController {
      * @param request 前台参数
      * @return 分页列表
      */
-    @GetMapping("/dict/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("数据字典列表(分页)")
     public Paging<SysDict> listPage(DictQueryRequest request) {
         return new Paging<>(sysDictService.getByPage(request));
-    }
-
-    /**
-     * 编辑数据字典页面
-     *
-     * @param id id
-     * @return 页面地址
-     */
-    @GetMapping("/dict/edit_page")
-    public String editPage(Model model, Long id) {
-        SysDict dict = sysDictService.getById(id);
-        model.addAttribute("dict", dict);
-        return "dict/edit_page";
     }
 
     /**
@@ -64,10 +46,10 @@ public class DictController {
      * @param request 前台参数
      * @return 成功响应
      */
-    @PostMapping("/dict/add")
+    @PostMapping("/add")
     @Mark
     @ApiOperation("数据字典列表(分页)")
-    public RespBody<Object> add(@Valid DictAddRequest request) {
+    public RespBody<Void> add(@Valid DictAddRequest request) {
         sysDictService.addDict(request);
         return RespBody.success();
     }
@@ -78,10 +60,10 @@ public class DictController {
      * @param request 前台参数
      * @return 结果
      */
-    @PostMapping("/dict/edit")
+    @PostMapping("/edit")
     @Mark
     @ApiOperation("编辑数据字典")
-    public RespBody<Object> edit(@Valid DictEditRequest request) {
+    public RespBody<Void> edit(@Valid DictEditRequest request) {
         sysDictService.updateDict(request);
         return RespBody.success();
     }
@@ -93,11 +75,11 @@ public class DictController {
      * @param id 主键
      * @return 成功响应
      */
-    @PostMapping("/dict/delete")
+    @PostMapping("/delete")
     @Mark
     @ApiOperation("删除数据字典")
     @ApiImplicitParam(name = "id", value = "id", required = true)
-    public RespBody<Object> delete(@RequestParam("id") Long id) {
+    public RespBody<Void> delete(@RequestParam("id") Long id) {
         sysDictService.deleteDict(id);
         return RespBody.success();
     }

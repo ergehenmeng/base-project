@@ -15,10 +15,10 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -29,32 +29,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "系统参数管理")
 @AllArgsConstructor
+@RequestMapping("/config")
 public class ConfigController {
 
     private final SysConfigService sysConfigService;
 
     private final ProxyService proxyService;
 
-    @PostMapping("/config/edit")
+    @PostMapping("/edit")
     @Mark
     @ApiOperation("编辑系统参数")
-    public RespBody<Object> edit(ConfigEditRequest request) {
+    public RespBody<Void> edit(ConfigEditRequest request) {
         sysConfigService.updateConfig(request);
         return RespBody.success();
-    }
-
-    /**
-     * 参数编辑页面
-     *
-     * @param model 存放参数对象
-     * @param id    主键
-     * @return 页面
-     */
-    @GetMapping("/config/edit_page")
-    public String editPage(Model model, Long id) {
-        SysConfig config = sysConfigService.getById(id);
-        model.addAttribute("config", config);
-        return "config/edit_page";
     }
 
     /**
@@ -63,7 +50,7 @@ public class ConfigController {
      * @param request 查询
      * @return 分页列表
      */
-    @GetMapping("config/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("系统参数列表")
     public Paging<SysConfig> listPage(ConfigQueryRequest request) {
         Page<SysConfig> listByPage = sysConfigService.getByPage(request);

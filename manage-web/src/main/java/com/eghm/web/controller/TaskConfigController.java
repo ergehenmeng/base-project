@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "定时任务配置")
 @AllArgsConstructor
+@RequestMapping("/task")
 public class TaskConfigController {
 
     private final TaskConfigService taskConfigService;
@@ -34,7 +36,7 @@ public class TaskConfigController {
     /**
      * 分页查询定时任务列表
      */
-    @GetMapping("/task/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("定时任务列表(分页)")
     public Paging<TaskConfig> listPage(TaskQueryRequest request) {
         Page<TaskConfig> byPage = taskConfigService.getByPage(request);
@@ -45,10 +47,10 @@ public class TaskConfigController {
     /**
      * 定时任务编辑保存
      */
-    @PostMapping("/task/edit")
+    @PostMapping("/edit")
     @Mark
     @ApiOperation("编辑定时任务")
-    public RespBody<Object> edit(@Valid TaskEditRequest request) {
+    public RespBody<Void> edit(@Valid TaskEditRequest request) {
         taskConfigService.editTaskConfig(request);
         return RespBody.success();
     }
@@ -56,10 +58,10 @@ public class TaskConfigController {
     /**
      * 刷新定时任务配置信息
      */
-    @PostMapping("/task/refresh")
+    @PostMapping("/refresh")
     @Mark
     @ApiOperation("刷新定时任务")
-    public RespBody<Object> refresh() {
+    public RespBody<Void> refresh() {
         systemTaskRegistrar.loadOrRefreshTask();
         return RespBody.success();
     }

@@ -39,9 +39,9 @@ public class LoginController {
      * 发送登陆验证码(1)
      */
     @ApiOperation("发送登陆验证码⑴")
-    @PostMapping("/login/send_sms")
+    @PostMapping("/login/sendSms")
     @SkipAccess
-    public RespBody<Object> loginSendSms(@RequestBody @Valid SendSmsDTO request) {
+    public RespBody<Void> loginSendSms(@RequestBody @Valid SendSmsDTO request) {
         userService.sendLoginSms(request.getMobile());
         return RespBody.success();
     }
@@ -74,9 +74,9 @@ public class LoginController {
      * 忘记密码发送验证码①
      */
     @ApiOperation("忘记密码发送验证码①")
-    @PostMapping("/forget/send_sms")
+    @PostMapping("/forget/sendSms")
     @SkipAccess
-    public RespBody<Object> forgetSendSms(@RequestBody @Valid SendSmsDTO request) {
+    public RespBody<Void> forgetSendSms(@RequestBody @Valid SendSmsDTO request) {
         userService.sendForgetSms(request.getMobile());
         return RespBody.success();
     }
@@ -96,9 +96,9 @@ public class LoginController {
      * 忘记密码设置新密码③
      */
     @ApiOperation("忘记密码设置新密码③")
-    @PostMapping("/forget/set_password")
+    @PostMapping("/forget/setPwd")
     @SkipAccess
-    public RespBody<Object> verify(@RequestBody @Valid SetPasswordDTO request) {
+    public RespBody<Void> setPwd(@RequestBody @Valid SetPasswordDTO request) {
         Long userId = ApiHolder.getUserId();
         boolean flag = smsService.verifyRequestId(request.getRequestId());
         if (!flag) {

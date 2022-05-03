@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "用户积分")
 @AllArgsConstructor
+@RequestMapping("/score")
 public class ScoreController {
 
     private final UserScoreLogService userScoreLogService;
@@ -29,7 +31,7 @@ public class ScoreController {
     /**
      * 分页查询用户积分列表
      */
-    @GetMapping("/score/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("用户积分列表")
     public RespBody<Paging<UserScoreVO>> listPage(@RequestBody @Valid UserScoreQueryDTO request) {
         request.setUserId(ApiHolder.getUserId());

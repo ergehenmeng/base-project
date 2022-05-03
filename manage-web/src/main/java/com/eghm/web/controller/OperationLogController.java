@@ -9,7 +9,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "操作日志管理")
 @AllArgsConstructor
+@RequestMapping("/log")
 public class OperationLogController {
 
     private final OperationLogService operationLogService;
@@ -29,7 +31,7 @@ public class OperationLogController {
      * @param request 查询条件
      * @return 分页
      */
-    @GetMapping("/operation_log/list_page")
+    @GetMapping("/listPage")
     @ApiOperation("日志列表")
     public Paging<SysOperationLog> listPage(OperationQueryRequest request) {
         return new Paging<>(operationLogService.getByPage(request));
@@ -41,9 +43,9 @@ public class OperationLogController {
      * @param id di
      * @return 结果页面
      */
-    @GetMapping("/operation_log/{id}")
+    @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
-    public String queryPage(@PathVariable("id") Long id) {
+    public String select(@RequestParam("id") Long id) {
         return operationLogService.getResponseById(id);
     }
 }

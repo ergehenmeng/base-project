@@ -2,6 +2,7 @@ package com.eghm.web.configuration.handler;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.common.exception.DataException;
 import com.eghm.dao.model.ExceptionLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
@@ -32,6 +33,21 @@ public class ControllerAdviceHandler {
     private final TaskHandler taskHandler;
 
     /**
+     * 特殊业务异常统一拦截
+     *
+     * @param e 异常
+     * @return 返回标准对象
+     */
+    @ExceptionHandler(DataException.class)
+    @ResponseBody
+    public RespBody<Object> dataException(HttpServletRequest request, DataException e) {
+        log.warn("特殊业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
+        RespBody<Object> body = RespBody.error(e.getCode(), e.getMessage());
+        body.setData(e.getData());
+        return body;
+    }
+
+    /**
      * 业务异常统一拦截
      *
      * @param e 异常
@@ -39,11 +55,9 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public RespBody<Object> businessException(HttpServletRequest request, BusinessException e) {
+    public RespBody<Void> businessException(HttpServletRequest request, BusinessException e) {
         log.warn("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
-        RespBody<Object> error = RespBody.error(e.getCode(), e.getMessage());
-        error.setData(e.getData());
-        return error;
+        return RespBody.error(e.getCode(), e.getMessage());
     }
 
     /**
@@ -54,7 +68,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public RespBody<Object> exception(HttpServletRequest request, Exception e) {
+    public RespBody<Void> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(ApiHolder.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
         taskHandler.executeExceptionLog(new ExceptionLogTask(exceptionLog, exceptionLogService));
@@ -69,7 +83,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseBody
-    public RespBody<Object> noHandlerFoundException(HttpServletRequest request) {
+    public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
         log.warn("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
     }

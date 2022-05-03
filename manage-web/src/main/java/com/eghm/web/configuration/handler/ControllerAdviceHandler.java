@@ -35,7 +35,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseBody
-    public RespBody<Object> businessException(HttpServletRequest request, BusinessException e) {
+    public RespBody<Void> businessException(HttpServletRequest request, BusinessException e) {
         log.warn("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return RespBody.error(e.getCode(), e.getMessage());
     }
@@ -48,7 +48,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public RespBody<Object> exception(HttpServletRequest request, Exception e) {
+    public RespBody<Void> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }

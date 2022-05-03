@@ -12,10 +12,7 @@ import com.eghm.service.common.FeedbackService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,6 +23,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "反馈管理")
 @AllArgsConstructor
+@RequestMapping("/feedback")
 public class FeedbackController {
 
     private final FeedbackService feedbackService;
@@ -33,7 +31,7 @@ public class FeedbackController {
     /**
      * 分页查询反馈列表
      */
-    @GetMapping("/feedback/list_page")
+    @GetMapping("/listPage")
     public Paging<FeedbackVO> listPage(FeedbackQueryRequest request) {
         Page<FeedbackVO> byPage = feedbackService.getByPage(request);
         return new Paging<>(byPage);
@@ -42,10 +40,10 @@ public class FeedbackController {
     /**
      * 反馈处理
      */
-    @PostMapping("/feedback/dispose")
+    @PostMapping("/dispose")
     @ResponseBody
     @Mark
-    public RespBody<Object> dispose(@Valid FeedbackDisposeRequest request) {
+    public RespBody<Void> dispose(@Valid FeedbackDisposeRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());
         request.setOperatorName(operator.getOperatorName());

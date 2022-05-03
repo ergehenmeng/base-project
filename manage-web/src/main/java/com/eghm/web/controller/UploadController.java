@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Api(tags = "文件上传")
 @AllArgsConstructor
+@RequestMapping("/file")
 public class UploadController {
 
     private final FileService fileService;
@@ -27,11 +29,11 @@ public class UploadController {
     /**
      * 文件上传
      */
-    @PostMapping("/upload/image")
-    @ApiImplicitParam(name = "image", value = "image", paramType = "formData", dataType = "file", required = true)
-    @ApiOperation("图片上传")
-    public RespBody<Object> image(@RequestParam("image") MultipartFile image) {
-        FilePath filePath = fileService.saveFile(image);
+    @PostMapping("/upload")
+    @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
+    @ApiOperation("单文件上传")
+    public RespBody<FilePath> file(@RequestParam("file") MultipartFile file) {
+        FilePath filePath = fileService.saveFile(file);
         return RespBody.success(filePath);
     }
 }

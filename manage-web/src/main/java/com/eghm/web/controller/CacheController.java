@@ -10,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +23,7 @@ import java.util.List;
 @RestController
 @Api(tags = "缓存管理")
 @AllArgsConstructor
+@RequestMapping("/cache")
 public class CacheController {
 
     private final SysCacheService sysCacheService;
@@ -35,7 +33,7 @@ public class CacheController {
      *
      * @return 缓存列表
      */
-    @GetMapping("/cache/list")
+    @GetMapping("/list")
     @ApiOperation("缓存列表(不分页)")
     public Paging<SysCache> list() {
         return new Paging<>(sysCacheService.getList());
@@ -51,7 +49,7 @@ public class CacheController {
     @Mark
     @ApiOperation("清除缓存")
     @ApiImplicitParam(name = "cacheName", value = "缓存名称,逗号分割", required = true)
-    public RespBody<Object> clear(@RequestParam("cacheName") String cacheName) {
+    public RespBody<Void> clear(@RequestParam("cacheName") String cacheName) {
         List<String> cacheList = StrUtil.split(cacheName, ',');
         sysCacheService.clearCache(cacheList);
         return RespBody.success();

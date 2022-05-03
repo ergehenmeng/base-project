@@ -3,6 +3,8 @@ package com.eghm.web.configuration;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.service.cache.ProxyService;
+import com.eghm.service.common.TokenService;
+import com.eghm.service.user.LoginLogService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
@@ -14,6 +16,7 @@ import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBea
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -35,13 +38,19 @@ public class FrontWebMvcConfig extends WebMvcConfig {
      */
     private static final String[] FILTER_EXCLUDE_URL = {"/swagger/**", "/swagger-resources/**", "/v2/api-docs", "/error", "/resource/**", "/favicon.ico"};
 
-    public FrontWebMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties) {
+    private final TokenService tokenService;
+
+    private final LoginLogService loginLogService;
+
+    public FrontWebMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginLogService loginLogService) {
         super(objectMapper, systemProperties);
+        this.tokenService = tokenService;
+        this.loginLogService = loginLogService;
     }
 
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    public void addInterceptors(@NonNull InterceptorRegistry registry) {
 //        registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 6);
 //        registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 10);
 //        registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 15);
@@ -60,7 +69,7 @@ public class FrontWebMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor tokenInterceptor() {
-        return new TokenInterceptor();
+        return new TokenInterceptor(tokenService, loginLogService);
     }
 
     /**

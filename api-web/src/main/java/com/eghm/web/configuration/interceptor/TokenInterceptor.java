@@ -2,6 +2,7 @@ package com.eghm.web.configuration.interceptor;
 
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.DataException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
@@ -10,8 +11,10 @@ import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.web.annotation.SkipAccess;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,28 +30,18 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2018/1/23 12:02
  */
 @Slf4j
+@AllArgsConstructor
 public class TokenInterceptor implements InterceptorAdapter {
 
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
-    private LoginLogService loginLogService;
-
-    @Autowired
-    public void setLoginLogService(LoginLogService loginLogService) {
-        this.loginLogService = loginLogService;
-    }
-
-    @Autowired
-    public void setTokenService(TokenService tokenService) {
-        this.tokenService = tokenService;
-    }
+    private final LoginLogService loginLogService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         if (!supportHandler(handler)) {
             return true;
         }
-
         boolean skipAccess = this.skipAccess(handler);
         RequestMessage message = ApiHolder.get();
         this.tryLoginVerify(request.getHeader(AppHeader.TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
@@ -109,11 +102,9 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @param userId userId
      * @return exception
      */
-    private ParameterException createOfflineException(Long userId) {
-        ParameterException exception = new ParameterException(ErrorCode.KICK_OFF_LINE);
+    private DataException createOfflineException(Long userId) {
         LoginDeviceVO vo = loginLogService.getLastLogin(userId);
-        exception.setData(vo);
-        return exception;
+        return new DataException(ErrorCode.KICK_OFF_LINE, vo);
     }
 
 
