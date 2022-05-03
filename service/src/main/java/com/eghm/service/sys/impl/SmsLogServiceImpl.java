@@ -11,7 +11,6 @@ import com.eghm.service.sys.SmsLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -27,7 +26,6 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     @Override
     @Async
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addSmsLog(SmsLog smsLog) {
         smsLogMapper.insert(smsLog);
     }
@@ -38,7 +36,6 @@ public class SmsLogServiceImpl implements SmsLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<SmsLog> getByPage(SmsLogQueryRequest request) {
         LambdaQueryWrapper<SmsLog> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsLog::getMobile, request.getQueryName());

@@ -15,10 +15,9 @@ import com.eghm.model.vo.user.AddressVO;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.user.UserAddressService;
 import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,24 +27,14 @@ import java.util.List;
  */
 @Service("userAddressService")
 @Slf4j
+@AllArgsConstructor
 public class UserAddressServiceImpl implements UserAddressService {
 
-    private UserAddressMapper userAddressMapper;
+    private final UserAddressMapper userAddressMapper;
 
-    private SysAreaService sysAreaService;
-
-    @Autowired
-    public void setSysAreaService(SysAreaService sysAreaService) {
-        this.sysAreaService = sysAreaService;
-    }
-
-    @Autowired
-    public void setUserAddressMapper(UserAddressMapper userAddressMapper) {
-        this.userAddressMapper = userAddressMapper;
-    }
+    private final SysAreaService sysAreaService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addUserAddress(AddressAddDTO dto) {
         List<UserAddress> addressList = userAddressMapper.getByUserId(dto.getUserId());
         UserAddress address = DataUtil.copy(dto, UserAddress.class);
@@ -59,7 +48,6 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void setDefault(Long id, Long userId) {
         UserAddress userAddress = userAddressMapper.selectById(id);
         if (userAddress == null || !userAddress.getUserId().equals(userId)) {
@@ -73,7 +61,6 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteAddress(Long id, Long userId) {
         LambdaUpdateWrapper<UserAddress> wrapper = Wrappers.lambdaUpdate();
         wrapper.set(UserAddress::getDeleted, true);
@@ -83,7 +70,6 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateAddress(AddressEditDTO dto) {
         // 表示当前地址为默认地址,需要将其他设置为非默认地址
         if (Boolean.TRUE.equals(dto.getState())) {

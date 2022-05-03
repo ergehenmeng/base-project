@@ -15,7 +15,6 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -55,7 +54,6 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addDepartment(DeptAddRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
@@ -67,7 +65,6 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void editDepartment(DeptEditRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         sysDeptMapper.updateById(department);

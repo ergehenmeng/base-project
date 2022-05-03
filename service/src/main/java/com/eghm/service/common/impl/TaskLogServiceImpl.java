@@ -10,7 +10,6 @@ import com.eghm.model.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.TaskLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
@@ -23,13 +22,11 @@ public class TaskLogServiceImpl implements TaskLogService {
     private final TaskLogMapper taskLogMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addTaskLog(TaskLog log) {
         taskLogMapper.insert(log);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class,readOnly = true)
     public Page<TaskLog> getByPage(TaskLogQueryRequest request) {
         LambdaQueryWrapper<TaskLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, TaskLog::getState, request.getState());

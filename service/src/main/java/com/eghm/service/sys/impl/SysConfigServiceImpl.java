@@ -16,7 +16,6 @@ import com.eghm.service.sys.SysConfigService;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 系统参数配置服务类,系统参数无权限删除
@@ -31,7 +30,6 @@ public class SysConfigServiceImpl implements SysConfigService {
     private final SysConfigMapper sysConfigMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateConfig(ConfigEditRequest request) {
         int i = sysConfigMapper.updateConfig(request);
         if (i != 1) {
@@ -40,7 +38,6 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public Page<SysConfig> getByPage(ConfigQueryRequest request) {
         LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getClassify() != null, SysConfig::getClassify, request.getClassify());

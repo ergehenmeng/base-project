@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.mapper.SysOperatorRoleMapper;
 import com.eghm.dao.mapper.SysRoleMapper;
+import com.eghm.dao.model.SysOperatorRole;
 import com.eghm.dao.model.SysRole;
 import com.eghm.model.dto.role.RoleAddRequest;
 import com.eghm.model.dto.role.RoleEditRequest;
@@ -15,7 +16,6 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +34,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     private final SysOperatorRoleMapper sysOperatorRoleMapper;
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public Page<SysRole> getByPage(RoleQueryRequest request) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysRole::getDeleted, false);
@@ -48,14 +47,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateRole(RoleEditRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.updateById(role);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteRole(Long id) {
         SysRole role = new SysRole();
         role.setDeleted(true);
@@ -63,7 +60,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addRole(RoleAddRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.insert(role);
@@ -85,12 +81,21 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void authMenu(Long roleId, String menuIds) {
         sysRoleMapper.deleteRoleMenu(roleId);
         if (StringUtils.isNotEmpty(menuIds)) {
             List<Long> menuIdList = Stream.of(StrUtil.split(menuIds, ",")).mapToLong(Long::parseLong).boxed().collect(Collectors.toList());
             sysRoleMapper.batchInsertRoleMenu(roleId, menuIdList);
+        }
+    }
+
+    @Override
+    public void authRole(Long operatorId, String roleIds) {
+        sysOperatorRoleMapper.deleteByOperatorId(operatorId);
+        if (StrUtil.isNotBlank(roleIds)) {
+            List<String> roleStringList = StrUtil.split(roleIds, ',');
+            //循环插入角色关联信息
+            roleStringList.forEach(s -> sysOperatorRoleMapper.insert(new SysOperatorRole(operatorId, Long.parseLong(s))));
         }
     }
 

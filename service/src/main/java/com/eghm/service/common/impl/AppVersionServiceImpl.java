@@ -20,7 +20,6 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.PageUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,7 +34,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     private final AppVersionMapper appVersionMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<AppVersion> getByPage(VersionQueryRequest request) {
         LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AppVersion::getVersion, request.getQueryName());
@@ -45,7 +43,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addAppVersion(VersionAddRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
@@ -53,7 +50,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void editAppVersion(VersionEditRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
@@ -61,7 +57,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void putAwayVersion(Long id) {
         AppVersion appVersion = appVersionMapper.selectById(id);
         AppVersion version = appVersionMapper.getVersion(appVersion.getClassify(), appVersion.getVersion());
@@ -74,7 +69,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void soldOutVersion(Long id) {
         AppVersion version = new AppVersion();
         version.setId(id);
@@ -83,7 +77,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public AppVersionVO getLatestVersion() {
         String channel = ApiHolder.getChannel();
         AppVersion latestVersion = appVersionMapper.getLatestVersion(channel);
@@ -112,7 +105,6 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteVersion(Long id) {
         AppVersion version = new AppVersion();
         version.setId(id);

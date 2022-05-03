@@ -13,7 +13,6 @@ import com.eghm.service.common.ImageLogService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
@@ -26,7 +25,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     private final ImageLogMapper imageLogMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<ImageLog> getByPage(ImageQueryRequest request) {
         LambdaQueryWrapper<ImageLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ImageLog::getDeleted, false);
@@ -39,7 +37,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addImageLog(ImageAddRequest request) {
         ImageLog imageLog = DataUtil.copy(request, ImageLog.class);
         imageLog.setDeleted(false);
@@ -47,7 +44,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteImageLog(Long id) {
         ImageLog log = new ImageLog();
         log.setId(id);
@@ -56,7 +52,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateImageLog(ImageEditRequest request) {
         ImageLog log = DataUtil.copy(request, ImageLog.class);
         imageLogMapper.updateById(log);

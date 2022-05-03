@@ -25,11 +25,4 @@ public interface SysOperatorRoleMapper extends BaseMapper<SysOperatorRole> {
      */
     int deleteByOperatorId(@Param("operatorId") Long operatorId);
 
-    /**
-     * 批量添加用户角色关系信息
-     * @param operatorId 用户id
-     * @param roleList 角色列表
-     * @return 条数
-     */
-    int batchInsertOperatorRole(@Param("operatorId") Long operatorId, @Param("roleList") List<Long> roleList);
 }

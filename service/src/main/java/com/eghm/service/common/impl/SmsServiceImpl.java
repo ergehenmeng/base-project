@@ -44,7 +44,6 @@ public class SmsServiceImpl implements SmsService {
     private static final String VERIFY_PREFIX = "verify:";
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public void sendSmsCode(SmsType smsType, String mobile) {
         this.smsLimitCheck(smsType.getValue(), mobile);
         String template = smsTemplateService.getTemplate(smsType.getValue());

@@ -6,13 +6,11 @@ import com.eghm.dao.model.LoginDevice;
 import com.eghm.dao.model.LoginLog;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.model.vo.user.LoginDeviceVO;
-import com.eghm.service.common.KeyGenerator;
 import com.eghm.service.user.LoginDeviceService;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
@@ -36,7 +34,6 @@ public class LoginLogServiceImpl implements LoginLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addLoginLog(LoginRecord loginRecord) {
         LoginLog loginLog = DataUtil.copy(loginRecord, LoginLog.class);
         loginLogMapper.insert(loginLog);
@@ -57,7 +54,6 @@ public class LoginLogServiceImpl implements LoginLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteLoginLog(Long userId, String serialNumber) {
         loginLogMapper.deleteLoginLog(userId, serialNumber);
     }

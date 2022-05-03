@@ -25,7 +25,6 @@ import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -74,7 +73,6 @@ public class UserNoticeServiceImpl implements UserNoticeService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void sendNotice(Long userId, SendNotice sendNotice) {
         NoticeType mailType = sendNotice.getNoticeType();
         NoticeTemplate template = noticeTemplateService.getTemplate(mailType.getValue());
@@ -116,7 +114,6 @@ public class UserNoticeServiceImpl implements UserNoticeService {
 
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void sendNotice(List<Long> userIdList, SendNotice sendNotice) {
         userIdList.forEach(userId -> this.sendNotice(userId, sendNotice));
     }

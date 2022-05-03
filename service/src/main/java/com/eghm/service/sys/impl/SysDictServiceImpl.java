@@ -18,7 +18,6 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,7 +40,6 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public Page<SysDict> getByPage(DictQueryRequest request) {
         LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getLocked() != null, SysDict::getLocked, request.getLocked());
@@ -53,7 +51,6 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addDict(DictAddRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDict.setDeleted(false);
@@ -61,14 +58,12 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateDict(DictEditRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDictMapper.updateById(sysDict);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteDict(Long id) {
         SysDict dict = new SysDict();
         dict.setDeleted(true);

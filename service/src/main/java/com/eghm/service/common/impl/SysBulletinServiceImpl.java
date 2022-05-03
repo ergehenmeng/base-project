@@ -20,7 +20,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,7 +39,6 @@ public class SysBulletinServiceImpl implements SysBulletinService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_BULLETIN, cacheManager = "smallCacheManager", unless = "#result.size() == 0")
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<TopBulletinVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysBulletin> noticeList = sysBulletinMapper.getTopList(noticeLimit);
@@ -54,21 +52,18 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addNotice(BulletinAddRequest request) {
         SysBulletin notice = DataUtil.copy(request, SysBulletin.class);
         sysBulletinMapper.insert(notice);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void editNotice(BulletinEditRequest request) {
         SysBulletin notice = DataUtil.copy(request, SysBulletin.class);
         sysBulletinMapper.updateById(notice);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteNotice(Long id) {
         SysBulletin notice = new SysBulletin();
         notice.setId(id);
@@ -77,7 +72,6 @@ public class SysBulletinServiceImpl implements SysBulletinService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<SysBulletin> getByPage(BulletinQueryRequest request) {
         LambdaQueryWrapper<SysBulletin> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysBulletin::getDeleted, false);
@@ -93,7 +87,6 @@ public class SysBulletinServiceImpl implements SysBulletinService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYS_BULLETIN, beforeInvocation = true)
-    @Transactional(rollbackFor = RuntimeException.class)
     public void publish(Long id) {
         SysBulletin notice = new SysBulletin();
         notice.setState((byte) 1);
@@ -103,7 +96,6 @@ public class SysBulletinServiceImpl implements SysBulletinService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.SYS_BULLETIN, beforeInvocation = true)
-    @Transactional(rollbackFor = RuntimeException.class)
     public void cancelPublish(Long id) {
         SysBulletin notice = new SysBulletin();
         notice.setState(SysBulletin.STATE_0);

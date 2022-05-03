@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,7 +42,6 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<Banner> getByPage(BannerQueryRequest request) {
         LambdaQueryWrapper<Banner> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getClassify() != null, Banner::getClassify, request.getClassify());
@@ -56,7 +54,6 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addBanner(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.insert(banner);
@@ -64,7 +61,6 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
-    @Transactional(rollbackFor = RuntimeException.class)
     public void editBanner(BannerEditRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.updateById(banner);

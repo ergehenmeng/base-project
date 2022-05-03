@@ -16,7 +16,6 @@ import com.eghm.service.user.UserNoticeService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,20 +33,17 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final UserNoticeService userNoticeService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addFeedback(FeedbackAddDTO request) {
         FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
         feedbackLogMapper.insert(feedback);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<FeedbackVO> getByPage(FeedbackQueryRequest request) {
         return feedbackLogMapper.getByPage(request.createPage(), request);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void dispose(FeedbackDisposeRequest request) {
         FeedbackLog log = feedbackLogMapper.selectById(request.getId());
         log.setState((byte) 1);

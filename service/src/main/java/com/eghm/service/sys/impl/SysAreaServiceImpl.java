@@ -10,7 +10,6 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,7 +24,6 @@ public class SysAreaServiceImpl implements SysAreaService {
     private final SysAreaMapper sysAreaMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void calcInitial() {
         List<SysArea> list = sysAreaMapper.selectList(null);
         list.forEach(sysArea -> {

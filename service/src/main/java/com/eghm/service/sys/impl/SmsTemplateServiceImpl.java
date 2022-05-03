@@ -14,7 +14,6 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
@@ -39,7 +38,6 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
         LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsTemplate::getNid, request.getQueryName());
@@ -47,11 +45,8 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateSmsTemplate(SmsTemplateEditRequest request) {
         SmsTemplate template = DataUtil.copy(request, SmsTemplate.class);
         smsTemplateMapper.updateById(template);
     }
-
-
 }

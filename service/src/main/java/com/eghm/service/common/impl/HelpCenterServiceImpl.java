@@ -13,9 +13,7 @@ import com.eghm.model.vo.help.HelpCenterVO;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,21 +28,18 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     private final HelpCenterMapper helpCenterMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addHelpCenter(HelpAddRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
         helpCenterMapper.insert(helpCenter);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateHelpCenter(HelpEditRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
         helpCenterMapper.updateById(helpCenter);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void deleteHelpCenter(HelpEditRequest request) {
         HelpCenter helpCenter = new HelpCenter();
         helpCenter.setId(request.getId());
@@ -53,7 +48,6 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<HelpCenter> getByPage(HelpQueryRequest request) {
         LambdaQueryWrapper<HelpCenter> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(HelpCenter::getDeleted, false);
@@ -61,7 +55,6 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public List<HelpCenterVO> list(HelpQueryDTO dto) {
         List<HelpCenter> list = helpCenterMapper.getListSorted(dto.getClassify(), dto.getQueryName());
         return DataUtil.convert(list, helpCenter -> DataUtil.copy(helpCenter, HelpCenterVO.class));

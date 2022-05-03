@@ -3,8 +3,8 @@ package com.eghm.service.common.impl;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.handler.email.AuthCodeEmailHandler;
 import com.eghm.handler.email.BaseEmailHandler;
-import com.eghm.handler.email.service.BindEmailEmailHandler;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.ext.VerifyEmailCode;
 import com.eghm.service.cache.CacheService;
@@ -16,7 +16,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.internet.MimeMessage;
 
@@ -63,7 +62,6 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     @Async
     public void sendEmail(SendEmail email) {
         BaseEmailHandler handler = SpringContextUtil.getBean(email.getType().getHandler(), BaseEmailHandler.class);
@@ -73,11 +71,11 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void verifyEmailCode(VerifyEmailCode emailCode) {
         String hashKey = emailCode.getEmailType().getValue() + "::" + emailCode.getUserId();
-        String email = cacheService.getHashValue(hashKey, BindEmailEmailHandler.EMAIL);
+        String email = cacheService.getHashValue(hashKey, AuthCodeEmailHandler.EMAIL);
         if (email == null || !email.equals(emailCode.getEmail())) {
             throw new BusinessException(ErrorCode.EMAIL_ADDRESS_ERROR);
         }
-        String authCode = cacheService.getHashValue(hashKey, BindEmailEmailHandler.AUTH_CODE);
+        String authCode = cacheService.getHashValue(hashKey, AuthCodeEmailHandler.AUTH_CODE);
         if (authCode == null || !authCode.equals(emailCode.getAuthCode())) {
             throw new BusinessException(ErrorCode.EMAIL_CODE_ERROR);
         }

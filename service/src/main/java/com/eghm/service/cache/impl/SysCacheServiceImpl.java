@@ -9,7 +9,6 @@ import com.eghm.service.cache.SysCacheService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class SysCacheServiceImpl implements SysCacheService {
     private final ClearCacheService clearCacheService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void clearCache(List<String> cacheNames) {
         for (String cacheName : cacheNames) {
             boolean cache = this.clearCache(cacheName);

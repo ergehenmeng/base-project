@@ -67,11 +67,18 @@ public interface SysRoleService {
     List<Long> getRoleMenu(Long roleId);
 
     /**
-     * 角色菜单权限保存
+     * 角色菜单关联关系保存
      * @param roleId 角色id
      * @param menuIds 菜单ids
      */
     void authMenu(Long roleId, String menuIds);
+
+    /**
+     * 给用户进行角色授权绑定
+     * @param operatorId 用户id
+     * @param roleIds 角色id 逗号分隔
+     */
+    void authRole(Long operatorId, String roleIds);
 
     /**
      * 获取用户角色列表

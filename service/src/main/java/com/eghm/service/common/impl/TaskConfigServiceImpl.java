@@ -35,7 +35,6 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<TaskConfig> getByPage(TaskQueryRequest request) {
         LambdaQueryWrapper<TaskConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, TaskConfig::getState, request.getState());
@@ -53,7 +52,6 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void editTaskConfig(TaskEditRequest request) {
         if (!CronSequenceGenerator.isValidExpression(request.getCronExpression())) {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);

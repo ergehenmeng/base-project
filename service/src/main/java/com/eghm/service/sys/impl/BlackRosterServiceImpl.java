@@ -14,7 +14,6 @@ import com.eghm.service.sys.BlackRosterService;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,7 +28,6 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     private final BlackRosterMapper blackRosterMapper;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Page<BlackRoster> getByPage(BlackRosterQueryRequest request) {
         LambdaQueryWrapper<BlackRoster> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(BlackRoster::getDeleted, false);
@@ -38,7 +36,6 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addBlackRoster(BlackRosterAddRequest request) {
         BlackRoster roster = new BlackRoster();
         roster.setIp(request.getIp());

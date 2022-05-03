@@ -17,9 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,16 +43,10 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> getMenuList(Long operatorId) {
         List<SysMenu> list = sysMenuMapper.getMenuList(operatorId);
-        List<SysMenu> parentList = new ArrayList<>();
-
-        for (SysMenu parent : list) {
-            if (CommonConstant.ROOT.equals(parent.getPid())) {
-                setChild(parent, list);
-                parentList.add(parent);
-            }
-        }
-        parentList.sort(comparator);
-        return parentList;
+        return list.stream()
+                .filter(parent -> CommonConstant.ROOT.equals(parent.getPid()))
+                .peek(parent -> setChild(parent, list))
+                .sorted(comparator).collect(Collectors.toList());
     }
 
     @Override
@@ -99,14 +91,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<GrantedAuthority> getAuthorityByOperatorId(Long operator) {
         List<SysMenu> list = sysMenuMapper.getList(operator);
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(list)) {
-            for (SysMenu menu : list) {
-                GrantedAuthority authority = new SimpleGrantedAuthority(menu.getNid());
-                authorities.add(authority);
-            }
-        }
-        return authorities;
+        return list.stream().map(item -> new SimpleGrantedAuthority(item.getNid())).collect(Collectors.toList());
     }
 
     @Override
@@ -146,35 +131,16 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     /**
      * 设置子菜单列表
-     *
+     * 注意:此方法有一定性能问题, 菜单被匹配后并未从list移除,会导致更多迭代次数
      * @param parent 当前菜单
      * @param list   所有用户可操作的菜单
      */
     private void setChild(SysMenu parent, List<SysMenu> list) {
-        List<SysMenu> childList = getChild(parent.getId(), list);
-        if (!childList.isEmpty()) {
-            for (SysMenu child : childList) {
-                setChild(child, list);
-            }
-            childList.sort(comparator);
-            parent.setChildren(childList);
-        }
+        List<SysMenu> childList = list.stream()
+                .filter(item -> parent.getId().equals(item.getPid()))
+                .peek(item -> setChild(item, list))
+                .sorted(comparator).collect(Collectors.toList());
+        parent.setChildren(childList);
     }
 
-    /**
-     * 根据ID查看是否存在子元素
-     *
-     * @param id   相当于子元素的pid
-     * @param list 所有菜单列表
-     * @return 子菜单列表
-     */
-    private List<SysMenu> getChild(String id, List<SysMenu> list) {
-        List<SysMenu> childList = new ArrayList<>();
-        for (SysMenu menu : list) {
-            if (menu.getPid().equals(id)) {
-                childList.add(menu);
-            }
-        }
-        return childList;
-    }
 }

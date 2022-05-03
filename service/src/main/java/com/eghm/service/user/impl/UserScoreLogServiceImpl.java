@@ -13,33 +13,23 @@ import com.eghm.model.vo.score.UserScoreVO;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 殿小二
  * @date 2020/9/5
  */
 @Service("userScoreLogService")
+@AllArgsConstructor
 public class UserScoreLogServiceImpl implements UserScoreLogService {
 
-    private UserScoreLogMapper userScoreLogMapper;
+    private final UserScoreLogMapper userScoreLogMapper;
 
-    private SysConfigApi sysConfigApi;
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
-
-    @Autowired
-    public void setUserScoreLogMapper(UserScoreLogMapper userScoreLogMapper) {
-        this.userScoreLogMapper = userScoreLogMapper;
-    }
+    private final SysConfigApi sysConfigApi;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void insert(UserScoreLog scoreLog) {
         userScoreLogMapper.insert(scoreLog);
     }
@@ -50,7 +40,6 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public Paging<UserScoreVO> getByPage(UserScoreQueryDTO request) {
         LambdaQueryWrapper<UserScoreLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(UserScoreLog::getUserId, request.getUserId());

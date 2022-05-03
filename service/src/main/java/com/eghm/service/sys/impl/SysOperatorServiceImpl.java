@@ -11,10 +11,8 @@ import com.eghm.common.enums.PermissionType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dao.mapper.SysOperatorMapper;
-import com.eghm.dao.mapper.SysOperatorRoleMapper;
 import com.eghm.dao.model.SysDataDept;
 import com.eghm.dao.model.SysOperator;
-import com.eghm.dao.model.SysOperatorRole;
 import com.eghm.model.dto.operator.OperatorAddRequest;
 import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
@@ -24,13 +22,12 @@ import com.eghm.service.common.JwtTokenService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorService;
+import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -44,7 +41,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     private final Encoder encoder;
 
-    private final SysOperatorRoleMapper sysOperatorRoleMapper;
+    private final SysRoleService sysRoleService;
 
     private final SysDataDeptService sysDataDeptService;
 
@@ -76,7 +73,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    @Transactional(readOnly = true, rollbackFor = RuntimeException.class)
     public Page<SysOperator> getByPage(OperatorQueryRequest request) {
         LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysOperator::getDeleted, false);
@@ -88,7 +84,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void addOperator(OperatorAddRequest request) {
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         operator.setDeleted(false);
@@ -97,11 +92,8 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
         sysOperatorMapper.insert(operator);
-        if (StrUtil.isNotBlank(request.getRoleIds())) {
-            List<String> roleStringList = StrUtil.split(request.getRoleIds(), ',');
-            //循环插入角色关联信息
-            roleStringList.forEach(s -> sysOperatorRoleMapper.insert(new SysOperatorRole(operator.getId(), Long.parseLong(s))));
-        }
+        // 角色权限
+        sysRoleService.authRole(operator.getId(), request.getRoleIds());
         // 数据权限
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
@@ -122,16 +114,10 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateOperator(OperatorEditRequest request) {
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         sysOperatorMapper.updateById(operator);
-        sysOperatorRoleMapper.deleteByOperatorId(request.getId());
-        if (StrUtil.isNotBlank(request.getRoleIds())) {
-            List<String> stringList = StrUtil.split(request.getRoleIds(), ',');
-            List<Long> roleList = stringList.stream().map(Long::parseLong).collect(Collectors.toList());
-            sysOperatorRoleMapper.batchInsertOperatorRole(request.getId(), roleList);
-        }
+
         // 数据权限
         if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
             sysDataDeptService.deleteByOperatorId(operator.getId());
@@ -141,7 +127,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void resetPassword(Long id) {
         SysOperator operator = this.getById(id);
         String password = this.initPassword(operator.getMobile());

@@ -48,11 +48,10 @@ import com.eghm.service.user.UserService;
 import com.eghm.service.wechat.WeChatMpService;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -65,6 +64,7 @@ import java.util.List;
  */
 @Service("userService")
 @Slf4j
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private SysConfigApi sysConfigApi;
@@ -95,83 +95,12 @@ public class UserServiceImpl implements UserService {
 
     private WeChatMpService weChatMpService;
 
-    @Autowired
-    public void setWeChatMpService(WeChatMpService weChatMpService) {
-        this.weChatMpService = weChatMpService;
-    }
-
-    @Autowired
-    public void setHandlerChain(HandlerChain handlerChain) {
-        this.handlerChain = handlerChain;
-    }
-
-    @Autowired
-    public void setUserScoreLogService(UserScoreLogService userScoreLogService) {
-        this.userScoreLogService = userScoreLogService;
-    }
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-
-    @Autowired
-    public void setLoginLogService(LoginLogService loginLogService) {
-        this.loginLogService = loginLogService;
-    }
-
-    @Autowired
-    public void setSystemProperties(SystemProperties systemProperties) {
-        this.systemProperties = systemProperties;
-    }
-
-    @Autowired
-    public void setEmailService(EmailService emailService) {
-        this.emailService = emailService;
-    }
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
-
-    @Autowired
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
-
-    @Autowired
-    public void setEncoder(Encoder encoder) {
-        this.encoder = encoder;
-    }
-
-    @Autowired
-    public void setTokenService(TokenService tokenService) {
-        this.tokenService = tokenService;
-    }
-
-    @Autowired
-    public void setSmsService(SmsService smsService) {
-        this.smsService = smsService;
-    }
-
-    @Autowired
-    public void setLoginDeviceService(LoginDeviceService loginDeviceService) {
-        this.loginDeviceService = loginDeviceService;
-    }
-
-    @Autowired
-    public void setTaskHandler(TaskHandler taskHandler) {
-        this.taskHandler = taskHandler;
-    }
-
     @Override
     public User getById(Long userId) {
         return userMapper.selectById(userId);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
         this.initUser(user);
@@ -213,7 +142,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         User user = this.getByAccount(login.getAccount());
         if (user == null || !encoder.match(login.getPwd(), user.getPwd())) {
@@ -232,7 +160,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         User user = this.getByAccountRequired(login.getMobile());
         smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());
@@ -280,7 +207,6 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateState(Long userId, Boolean state) {
         User user = new User();
         user.setId(userId);
@@ -292,7 +218,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void sendLoginSms(String mobile) {
         User user = this.getByAccountRequired(mobile);
         smsService.sendSmsCode(SmsType.LOGIN, user.getMobile());
@@ -314,14 +239,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void registerSendSms(String mobile) {
         this.registerRedoVerify(mobile);
         smsService.sendSmsCode(SmsType.REGISTER, mobile);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public LoginTokenVO registerByMobile(RegisterUserDTO request) {
         this.registerRedoVerify(request.getMobile());
         smsService.verifySmsCode(SmsType.REGISTER, request.getMobile(), request.getSmsCode());
@@ -348,7 +271,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void sendBindEmail(String email, Long userId) {
         this.checkEmail(email);
         SendEmail sendEmail = new SendEmail();
@@ -358,7 +280,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void bindEmail(BindEmailDTO request) {
         User user = userMapper.selectById(request.getUserId());
         if (StrUtil.isNotBlank(user.getEmail())) {
@@ -372,7 +293,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void realNameAuth(UserAuthDTO request) {
         User user = new User();
         user.setId(request.getUserId());
@@ -398,7 +318,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void sendChangeEmailSms(Long userId) {
         User user = userMapper.selectById(userId);
         if (StrUtil.isBlank(user.getMobile())) {
@@ -409,7 +328,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, readOnly = true)
     public void sendChangeEmailCode(SendEmailAuthCodeDTO request) {
         User user = userMapper.selectById(request.getUserId());
         smsService.verifySmsCode(SmsType.CHANGE_EMAIL, user.getMobile(), request.getSmsCode());
@@ -421,7 +339,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void changeEmail(ChangeEmailDTO request) {
         VerifyEmailCode emailCode = DataUtil.copy(request, VerifyEmailCode.class);
         emailCode.setEmailType(EmailType.CHANGE_EMAIL);
@@ -432,7 +349,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void signIn(Long userId) {
         User user = userMapper.selectById(userId);
         Date now = DateUtil.getNow();
@@ -507,7 +423,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
     public void setPassword(Long userId, String password) {
         User user = userMapper.selectById(userId);
         user.setPwd(encoder.encode(password));
