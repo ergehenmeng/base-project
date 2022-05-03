@@ -35,7 +35,7 @@ public class AuthenticationFailHandler implements AuthenticationEntryPoint {
             WebUtil.printJson(response, returnJson);
             return;
         }
-        log.error("授权校验异常", cause);
+        log.error("授权校验异常 [{}]", request.getRequestURI(), cause);
         RespBody<Void> returnJson = RespBody.error(ErrorCode.SESSION_TIMEOUT);
         WebUtil.printJson(response, returnJson);
     }

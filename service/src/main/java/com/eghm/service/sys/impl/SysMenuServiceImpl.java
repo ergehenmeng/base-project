@@ -14,8 +14,6 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -86,12 +84,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public void deleteMenu(Long id) {
         sysMenuMapper.deleteById(id);
-    }
-
-    @Override
-    public List<GrantedAuthority> getAuthorityByOperatorId(Long operator) {
-        List<SysMenu> list = sysMenuMapper.getList(operator);
-        return list.stream().map(item -> new SimpleGrantedAuthority(item.getNid())).collect(Collectors.toList());
     }
 
     @Override
