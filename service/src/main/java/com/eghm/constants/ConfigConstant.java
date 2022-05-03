@@ -118,4 +118,9 @@ public class ConfigConstant {
      * 提交频率限制
      */
     public static final String SUBMIT_FREQUENCY_LIMIT = "submit_frequency_limit";
+
+    /**
+     * 收货地址最大数
+     */
+    public static final String USER_ADDRESS_MAX = "user_address_max";
 }

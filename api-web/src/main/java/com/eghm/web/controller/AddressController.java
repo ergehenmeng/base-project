@@ -10,10 +10,7 @@ import com.eghm.service.user.UserAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,6 +21,7 @@ import java.util.List;
 @RestController
 @Api(tags = "用户地址")
 @AllArgsConstructor
+@RequestMapping("/address")
 public class AddressController {
 
     private final UserAddressService userAddressService;
@@ -31,7 +29,7 @@ public class AddressController {
     /**
      * 添加用户收货地址
      */
-    @PostMapping("/address/save")
+    @PostMapping("/save")
     @ApiOperation("添加地址")
     public RespBody<Object> save(@RequestBody @Valid AddressAddDTO request) {
         request.setUserId(ApiHolder.getUserId());
@@ -42,7 +40,7 @@ public class AddressController {
     /**
      * 设置默认收货地址
      */
-    @PostMapping("/address/set_default")
+    @PostMapping("/default")
     @ApiOperation("设置默认地址")
     public RespBody<Object> setDefault(@RequestBody @Valid IdDTO request) {
         userAddressService.setDefault(request.getId(), ApiHolder.getUserId());
@@ -52,7 +50,7 @@ public class AddressController {
     /**
      * 用户地址列表
      */
-    @GetMapping("/address/list")
+    @GetMapping("/list")
     @ApiOperation("用户地址列表")
     public RespBody<List<AddressVO>> list() {
         List<AddressVO> voList = userAddressService.getByUserId(ApiHolder.getUserId());
@@ -62,7 +60,7 @@ public class AddressController {
     /**
      * 设置默认收货地址
      */
-    @PostMapping("/address/delete")
+    @PostMapping("/delete")
     @ApiOperation("设置默认地址")
     public RespBody<Object> delete(@RequestBody @Valid IdDTO request) {
         userAddressService.deleteAddress(request.getId(), ApiHolder.getUserId());
@@ -72,7 +70,7 @@ public class AddressController {
     /**
      * 编辑地址
      */
-    @PostMapping("/address/update")
+    @PostMapping("/update")
     @ApiOperation("编辑地址")
     public RespBody<Object> update(@RequestBody @Valid AddressEditDTO request) {
         request.setUserId(ApiHolder.getUserId());

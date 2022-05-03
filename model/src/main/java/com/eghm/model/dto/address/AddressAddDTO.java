@@ -14,37 +14,25 @@ import javax.validation.constraints.NotNull;
 @Data
 public class AddressAddDTO {
 
-    /**
-     * 用户id
-     */
     @ApiModelProperty(hidden = true)
     @Sign
     private Long userId;
 
-    /**
-     * 省份id
-     */
+    @ApiModelProperty("是否为默认地址 0:非默认 1:默认")
+    private Byte state;
+
     @ApiModelProperty(value = "省份id",required = true)
     @NotNull(message = "省份不能为空")
     private Long provinceId;
 
-    /**
-     * 城市id
-     */
     @ApiModelProperty(value = "城市id",required = true)
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
-    /**
-     * 县区id
-     */
     @ApiModelProperty(value = "县区id",required = true)
     @NotNull(message = "县区不能为空")
     private Long countyId;
 
-    /**
-     * 详细地址
-     */
     @ApiModelProperty(value = "详细地址",required = true)
     @NotEmpty(message = "详细地址不能为空")
     private String detailAddress;

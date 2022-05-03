@@ -498,6 +498,12 @@ public enum ErrorCode {
     REQUEST_ID_EXPIRE(3115, "requestId已过期"),
 
     /**
+     * 收货地址太多啦
+     */
+    ADDRESS_MAX(3118, "收货地址太多啦~"),
+
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
@@ -506,6 +512,7 @@ public enum ErrorCode {
      * 微信网页授权异常
      */
     MP_JS_AUTH(4001, "微信网页授权异常"),
+
 
 
 

@@ -1,11 +1,12 @@
 package com.eghm.service.user.impl;
 
-import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserAddressMapper;
 import com.eghm.dao.model.SysArea;
 import com.eghm.dao.model.UserAddress;
@@ -13,6 +14,7 @@ import com.eghm.model.dto.address.AddressAddDTO;
 import com.eghm.model.dto.address.AddressEditDTO;
 import com.eghm.model.vo.user.AddressVO;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.UserAddressService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -34,15 +36,12 @@ public class UserAddressServiceImpl implements UserAddressService {
 
     private final SysAreaService sysAreaService;
 
+    private final SysConfigApi sysConfigApi;
+
     @Override
     public void addUserAddress(AddressAddDTO dto) {
-        List<UserAddress> addressList = userAddressMapper.getByUserId(dto.getUserId());
+        this.checkMaxAddress(dto.getUserId());
         UserAddress address = DataUtil.copy(dto, UserAddress.class);
-        if (CollUtil.isEmpty(addressList)) {
-            address.setState(UserAddress.STATE_DEFAULT);
-        } else {
-            address.setState(UserAddress.STATE_COMMON);
-        }
         this.fillAreaName(address);
         userAddressMapper.insert(address);
     }
@@ -83,6 +82,21 @@ public class UserAddressServiceImpl implements UserAddressService {
     public List<AddressVO> getByUserId(Long userId) {
         List<UserAddress> addressList = userAddressMapper.getByUserId(userId);
         return DataUtil.convert(addressList, address -> DataUtil.copy(address, AddressVO.class));
+    }
+
+    /**
+     * 校验用户录入的最大收货地址数
+     * @param userId 用户id
+     */
+    private void checkMaxAddress(Long userId) {
+        LambdaQueryWrapper<UserAddress> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(UserAddress::getUserId, userId);
+        Integer count = userAddressMapper.selectCount(wrapper);
+        int max = sysConfigApi.getInt(ConfigConstant.USER_ADDRESS_MAX);
+        if (count >= max) {
+            log.error("收货地址添加数量上限 [{}] [{}] [{}]", userId, max, count);
+            throw new BusinessException(ErrorCode.ADDRESS_MAX);
+        }
     }
 
     /**
