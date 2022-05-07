@@ -16,9 +16,12 @@ public class User extends BaseEntity {
 
     @ApiModelProperty("昵称")
     private String nickName;
-
+    
     @ApiModelProperty("手机号码")
     private String mobile;
+
+    @ApiModelProperty("微信openId")
+    private String openId;
 
     @ApiModelProperty("电子邮箱")
     private String email;
