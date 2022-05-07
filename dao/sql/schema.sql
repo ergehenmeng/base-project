@@ -40,14 +40,14 @@ CREATE TABLE `app_version` (
 DROP TABLE IF EXISTS `audit_config`;
 CREATE TABLE `audit_config` (
   `id` bigint(20) NOT NULL COMMENT '主键',
-  `audit_type` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核类型',
-  `role_type` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '角色类型',
+  `audit_type` varchar(20)  DEFAULT NULL COMMENT '审核类型',
+  `role_type` varchar(30)  DEFAULT NULL COMMENT '角色类型',
   `step` tinyint(2) DEFAULT '1' COMMENT '审批时的步骤(1,2,3)',
   `rejection_policy` bigint(1) unsigned DEFAULT '1' COMMENT '拒绝策略 1:结束流程 2:退回上一步 3:退回第一步(不开启)',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='审核流程配置表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='审核流程配置表';
 
 -- ----------------------------
 -- Table structure for audit_record
@@ -55,24 +55,24 @@ CREATE TABLE `audit_config` (
 DROP TABLE IF EXISTS `audit_record`;
 CREATE TABLE `audit_record` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `audit_no` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审批单号(在整个审批流程中不变)',
+  `audit_no` varchar(64)  DEFAULT NULL COMMENT '审批单号(在整个审批流程中不变)',
   `state` tinyint(1) DEFAULT NULL COMMENT '审核状态 0:待审核 1:审批通过 2:审批拒绝',
-  `opinion` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审批意见',
-  `title` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核信息标题',
+  `opinion` varchar(255)  DEFAULT NULL COMMENT '审批意见',
+  `title` varchar(200)  DEFAULT NULL COMMENT '审核信息标题',
   `apply_id` bigint(20) DEFAULT NULL COMMENT '审批单关联的id',
   `apply_operator_id` bigint(20) DEFAULT NULL COMMENT '该审批的发起人id',
-  `apply_operator_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '申请人姓名',
-  `role_type` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核人角色类型',
-  `audit_type` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核类型',
+  `apply_operator_name` varchar(30)  DEFAULT NULL COMMENT '申请人姓名',
+  `role_type` varchar(30)  DEFAULT NULL COMMENT '审核人角色类型',
+  `audit_type` varchar(20)  DEFAULT NULL COMMENT '审核类型',
   `step` tinyint(2) DEFAULT NULL COMMENT '当前审核的步骤',
   `audit_operator_id` bigint(20) DEFAULT NULL COMMENT '审核人id',
-  `audit_operator_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '审核人姓名',
+  `audit_operator_name` varchar(30)  DEFAULT NULL COMMENT '审核人姓名',
   `audit_time` datetime DEFAULT NULL COMMENT '审核时间',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `idx_operator_id_state` (`audit_operator_id`,`state`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='审核记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='审核记录表';
 
 -- ----------------------------
 -- Table structure for banner
@@ -84,7 +84,7 @@ CREATE TABLE `banner` (
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
   `client_type` varchar(20) DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
   `img_url` varchar(200) NOT NULL COMMENT '轮播图片地址',
-  `jump_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
+  `turn_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
   `sort` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(大<->小) 最大的在最前面',
   `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
   `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
@@ -117,14 +117,14 @@ CREATE TABLE `black_roster` (
 DROP TABLE IF EXISTS `email_template`;
 CREATE TABLE `email_template` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `nid` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板唯一编码',
-  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板标题',
-  `content` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容',
+  `nid` varchar(30)  DEFAULT NULL COMMENT '模板唯一编码',
+  `title` varchar(50)  DEFAULT NULL COMMENT '模板标题',
+  `content` varchar(1000)  DEFAULT NULL COMMENT '模板内容',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `remark` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `remark` varchar(200)  DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`),
   KEY `idx_nid` (`nid`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='邮件模板';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4  COMMENT='邮件模板';
 
 -- ----------------------------
 -- Table structure for exception_log
@@ -204,12 +204,12 @@ DROP TABLE IF EXISTS `login_device`;
 CREATE TABLE `login_device` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
-  `serial_number` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备唯一序列号',
-  `device_model` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '设备型号',
+  `serial_number` varchar(128)  DEFAULT NULL COMMENT '设备唯一序列号',
+  `device_model` varchar(50)  DEFAULT NULL COMMENT '设备型号',
   `login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_unique_complex` (`user_id`,`serial_number`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='登陆设备管理表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='登陆设备管理表';
 
 -- ----------------------------
 -- Table structure for login_log
@@ -236,12 +236,12 @@ CREATE TABLE `login_log` (
 DROP TABLE IF EXISTS `notice_template`;
 CREATE TABLE `notice_template` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `code` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息模板code',
-  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息标题',
-  `content` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '模板内容消息',
+  `code` varchar(30)  DEFAULT NULL COMMENT '消息模板code',
+  `title` varchar(50)  DEFAULT NULL COMMENT '消息标题',
+  `content` varchar(500)  DEFAULT NULL COMMENT '模板内容消息',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='站内信消息模板';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4  COMMENT='站内信消息模板';
 
 -- ----------------------------
 -- Table structure for push_template
@@ -306,11 +306,10 @@ CREATE TABLE `sys_area` (
 -- Table structure for sys_bulletin
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_bulletin`;
-DROP TABLE IF EXISTS `sys_notice`;
-CREATE TABLE `sys_notice` (
+CREATE TABLE `sys_bulletin` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `title` varchar(100) NOT NULL COMMENT '公告标题',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表sys_notice_type)',
+  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表bulletin_classify)',
   `content` text COMMENT '公告内容(富文本)',
   `state` tinyint(1) unsigned DEFAULT '0' COMMENT '是否发布 0:未发布 1:已发布',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',
@@ -359,10 +358,10 @@ DROP TABLE IF EXISTS `sys_data_dept`;
 CREATE TABLE `sys_data_dept` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `operator_id` bigint(20) DEFAULT NULL COMMENT '用户id',
-  `dept_code` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '部门编号',
+  `dept_code` varchar(20)  DEFAULT NULL COMMENT '部门编号',
   PRIMARY KEY (`id`),
   KEY `idx_operator_id` (`operator_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户与部门数据权限关联表(自定义数据权限)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='用户与部门数据权限关联表(自定义数据权限)';
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -419,22 +418,22 @@ CREATE TABLE `sys_holiday` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-                            `id` varchar(20) NOT NULL COMMENT '主键',
-                            `title` varchar(20) NOT NULL COMMENT '菜单名称',
-                            `nid` varchar(50) NOT NULL COMMENT '菜单标示符 唯一',
-                            `pid` varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
-                            `path` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '路由或提交的地址',
-                            `sub_path` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '子路径(用于权限拦截)',
-                            `grade` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)',
-                            `sort` int(10) DEFAULT '0' COMMENT '排序规则 小的排在前面',
-                            `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
-                            `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
-                            `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-                            `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-                            PRIMARY KEY (`id`) USING BTREE,
-                            UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
-                            KEY `pid_index` (`pid`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='系统菜单表';
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` varchar(20) NOT NULL COMMENT '菜单名称',
+  `nid` varchar(50) NOT NULL COMMENT '菜单标示符 唯一',
+  `pid` bigint(20) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+  `url` varchar(200) DEFAULT NULL COMMENT '菜单地址',
+  `sub_url` varchar(500) DEFAULT NULL COMMENT '权限拦截路径',
+  `grade` tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)',
+  `sort` int(10) DEFAULT '0' COMMENT '排序规则 小的排在前面',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
+  `remark` varchar(200) DEFAULT NULL COMMENT '备注信息',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `nid_unique_index` (`nid`,`deleted`) USING BTREE,
+  KEY `pid_index` (`pid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1080 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Table structure for sys_operation_log
@@ -511,14 +510,14 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-                                 `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-                                 `role_id` bigint(20) unsigned NOT NULL COMMENT '角色Id',
-                                 `menu_id` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '菜单Id',
-                                 `add_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
-                                 PRIMARY KEY (`id`) USING BTREE,
-                                 KEY `role_id_index` (`role_id`) USING BTREE,
-                                 KEY `menu_id_index` (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=995 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色与菜单关系表';
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_id` bigint(20) unsigned NOT NULL COMMENT '角色Id',
+  `menu_id` bigint(20) unsigned NOT NULL COMMENT '菜单Id',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '添加时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `role_id_index` (`role_id`) USING BTREE,
+  KEY `menu_id_index` (`menu_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=975 DEFAULT CHARSET=utf8mb4 COMMENT='角色与菜单关系表';
 
 -- ----------------------------
 -- Table structure for tag_view
@@ -604,18 +603,18 @@ CREATE TABLE `user_address` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
   `state` tinyint(1) DEFAULT '0' COMMENT '状态 0: 普通地址  1:默认地址',
   `province_id` bigint(20) DEFAULT NULL COMMENT '省份id',
-  `province_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '省份名称',
+  `province_name` varchar(50)  DEFAULT NULL COMMENT '省份名称',
   `city_id` bigint(20) DEFAULT NULL COMMENT '城市id',
-  `city_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '城市名称',
+  `city_name` varchar(50)  DEFAULT NULL COMMENT '城市名称',
   `county_id` bigint(20) DEFAULT NULL COMMENT '县区id',
-  `county_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '县区id',
-  `detail_address` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '详细地址',
+  `county_name` varchar(50)  DEFAULT NULL COMMENT '县区id',
+  `detail_address` varchar(255)  DEFAULT NULL COMMENT '详细地址',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户地址表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='用户地址表';
 
 -- ----------------------------
 -- Table structure for user_invite_log
@@ -628,7 +627,7 @@ CREATE TABLE `user_invite_log` (
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户邀请记录表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='用户邀请记录表';
 
 -- ----------------------------
 -- Table structure for user_notice
@@ -637,16 +636,16 @@ DROP TABLE IF EXISTS `user_notice`;
 CREATE TABLE `user_notice` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
-  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息标题',
-  `content` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '站内信内容',
-  `classify` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '站内信分类',
+  `title` varchar(50)  DEFAULT NULL COMMENT '消息标题',
+  `content` varchar(500)  DEFAULT NULL COMMENT '站内信内容',
+  `classify` varchar(30)  DEFAULT NULL COMMENT '站内信分类',
   `read` bit(1) DEFAULT b'0' COMMENT '状态 0:未读 1:已读',
   `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `idx_user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户站内信';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='用户站内信';
 
 -- ----------------------------
 -- Table structure for user_score_log
@@ -657,38 +656,33 @@ CREATE TABLE `user_score_log` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
   `score` int(10) DEFAULT '0' COMMENT '本次收入或支出的积分数',
   `type` tinyint(2) DEFAULT NULL COMMENT '积分收入或支出分类',
-  `remark` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '备注信息',
+  `remark` varchar(200)  DEFAULT NULL COMMENT '备注信息',
   `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='用户积分日志表(不清零)';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='用户积分日志表(不清零)';
 
 DROP TABLE IF EXISTS `pay_bank`;
 CREATE TABLE `pay_bank` (
     `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `bank_type` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行类型',
-    `bank_name` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '银行名称',
+    `bank_type` varchar(20)  DEFAULT NULL COMMENT '银行类型',
+    `bank_name` varchar(100)  DEFAULT NULL COMMENT '银行名称',
     `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='微信支付银行卡类型表';
+) ENGINE=InnoDB AUTO_INCREMENT=253 DEFAULT CHARSET=utf8mb4  COMMENT='微信支付银行卡类型表';
 
 
 DROP TABLE IF EXISTS `applet_pay_config`;
 CREATE TABLE `applet_pay_config` (
      `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
-     `nid` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '唯一标识符',
-     `app_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '微信小程序支付appId',
-     `merchant_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '商户号',
+     `nid` varchar(20) CHARACTER SET utf8mb4  DEFAULT NULL COMMENT '唯一标识符',
+     `app_id` varchar(128) CHARACTER SET utf8mb4  DEFAULT NULL COMMENT '微信小程序支付appId',
+     `merchant_id` varchar(128) CHARACTER SET utf8mb4  DEFAULT NULL COMMENT '商户号',
      `expire_time` smallint(6) DEFAULT NULL COMMENT '订单过期时间 单位:秒',
-     `notify_url` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '订单支付异步通知地址',
-     `order_prefix` char(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '订单号前缀(限英文)',
+     `notify_url` varchar(512) CHARACTER SET utf8mb4  DEFAULT NULL COMMENT '订单支付异步通知地址',
+     `order_prefix` char(4) CHARACTER SET utf8mb4  DEFAULT NULL COMMENT '订单号前缀(限英文)',
      `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
      `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
      PRIMARY KEY (`id`),
      UNIQUE KEY `nid` (`nid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='小程序支付配置表';
-
-alter table user drop column open_id ;
-alter table user add column mini_open_id varchar(32) comment '小程序openId';
-alter table user add column mp_open_id varchar(32) comment '公众号openId';
-alter table user add column union_id varchar(64) comment '微信unionId';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='小程序支付配置表';
