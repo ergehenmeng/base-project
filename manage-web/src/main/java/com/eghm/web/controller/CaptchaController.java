@@ -1,10 +1,8 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.lang.UUID;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.login.CaptchaResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.utils.IpUtil;
 import com.google.code.kaptcha.Producer;
@@ -15,8 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * 图形验证码controller
@@ -40,18 +42,22 @@ public class CaptchaController {
      */
     @GetMapping("/captcha")
     @ApiOperation("获取图形验证码")
-    public RespBody<CaptchaResponse> captcha(HttpServletRequest request) {
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String value = producer.createText();
         String key = UUID.randomUUID().toString();
         log.info("图形验证码[{}]:[{}]", key, value);
         String ipAddress = IpUtil.getIpAddress(request);
         cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, value, 60000L);
         BufferedImage bi = producer.createImage(value);
-        String base64 = ImgUtil.toBase64(bi, "png");
-        CaptchaResponse response = new CaptchaResponse();
-        response.setBase64(base64);
-        return RespBody.success(response);
+        response.setDateHeader("Expires", 0);
+        response.setHeader("Pragma", "no-cache");
+        response.setContentType("image/jpeg");
+        ServletOutputStream out = response.getOutputStream();
+        ImageIO.write(bi, "jpg", out);
+        out.flush();
+        out.close();
     }
+
     @GetMapping("/homeResource")
     @ApiOperation("登陆后权限设置 用于验证框架权限问题")
     public RespBody<Void> homeResource() {

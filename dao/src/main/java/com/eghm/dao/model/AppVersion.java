@@ -32,7 +32,4 @@ public class AppVersion extends BaseEntity {
     @ApiModelProperty("备注信息:版本更新的东西或解决的问题")
     private String remark;
 
-    @ApiModelProperty("上架状态 0:待上架 1:已上架")
-    private Byte state;
-
 }

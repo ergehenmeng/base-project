@@ -336,9 +336,9 @@ public enum ErrorCode {
     MOBILE_DAY_LIMIT(3025,"当天内短信发送上限"),
 
     /**
-     * 该版本已上架
+     * 版本号重复
      */
-    VERSION_REDO(3025,"该版本已上架"),
+    VERSION_REDO(3025,"版本号重复"),
 
     /**
      * 该手机号已注册
@@ -491,7 +491,6 @@ public enum ErrorCode {
      */
     PAY_ERROR(3111, "支付响应错误"),
 
-
     /**
      * 微信网页授权异常
      */
@@ -502,6 +501,15 @@ public enum ErrorCode {
      */
     ADDRESS_MAX(3118, "收货地址太多啦~"),
 
+    /**
+     * 版本号格式错误
+     */
+    VERSION_ERROR(3120, "版本号格式错误"),
+
+    /**
+     * 使用中的版本无法删除
+     */
+    CURRENT_VERSION_DELETE(3121, "使用中的版本无法删除"),
 
     /**
      * 微信公众号尚未配置

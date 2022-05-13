@@ -1,10 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CommonConstant;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.AppVersion;
-import com.eghm.model.dto.ext.FilePath;
 import com.eghm.model.dto.ext.Paging;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.version.VersionAddRequest;
@@ -18,10 +15,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -55,14 +50,8 @@ public class AppVersionController {
      */
     @PostMapping("/add")
     @Mark
-    @ApiImplicitParam(name = "file", value = "上传的文件", paramType = "formData", dataType = "file", required = true)
     @ApiOperation("新增版本信息")
-    public RespBody<Void> add(@Valid VersionAddRequest request, @RequestParam("file") MultipartFile file) {
-        if (file != null && !file.isEmpty()) {
-            long maxSize = sysConfigApi.getLong(ConfigConstant.ANDROID_MAX_SIZE);
-            FilePath filePath = fileService.saveFile(file, CommonConstant.VERSION, maxSize);
-            request.setUrl(filePath.getPath());
-        }
+    public RespBody<Void> add(@Validated VersionAddRequest request) {
         appVersionService.addAppVersion(request);
         return RespBody.success();
     }
@@ -73,7 +62,7 @@ public class AppVersionController {
     @PostMapping("/edit")
     @Mark
     @ApiOperation("编辑版本信息")
-    public RespBody<Void> edit(@Valid VersionEditRequest request) {
+    public RespBody<Void> edit(@Validated VersionEditRequest request) {
         appVersionService.editAppVersion(request);
         return RespBody.success();
     }

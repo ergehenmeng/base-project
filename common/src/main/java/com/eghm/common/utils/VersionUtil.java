@@ -1,5 +1,7 @@
 package com.eghm.common.utils;
 
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -48,12 +50,15 @@ public class VersionUtil {
         StringBuilder builder = new StringBuilder();
         try {
             for (String v : split) {
+                if (v.length() > 2) {
+                    throw new RuntimeException("版本长度不合法");
+                }
                 builder.append(String.format("%02d", Integer.parseInt(v)));
             }
             return Integer.parseInt(builder.toString());
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             log.error("版本号格式化异常 [{}]", version, e);
-            throw new RuntimeException("版本号解析失败");
+            throw new BusinessException(ErrorCode.VERSION_ERROR);
         }
     }
 

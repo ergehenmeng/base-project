@@ -13,7 +13,6 @@
         <result column="version_no" jdbcType="INTEGER" property="versionNo"/>
         <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="state" jdbcType="TINYINT" property="state"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
     </resultMap>
@@ -21,19 +20,19 @@
         <!--
           @create by mybatis
         -->
-        id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time,state
+        id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time
     </sql>
 
     <select id="getLatestVersion" resultMap="BaseResultMap">
         select
         <include refid="BaseColumnList"/>
-        from app_version where classify = #{classify} and deleted = false and state = 1 order by version_no desc limit 1
+        from app_version where classify = #{classify} and deleted = false order by version_no desc limit 1
     </select>
 
     <select id="getVersion" resultMap="BaseResultMap">
         select
         <include refid="BaseColumnList"/>
-        from app_version where classify = #{classify} and deleted = false and state = 1 and version = #{version} limit 1
+        from app_version where classify = #{classify} and deleted = false and version = #{version} limit 1
     </select>
 
     <select id="getForceUpdateVersion" resultMap="BaseResultMap">
@@ -43,7 +42,6 @@
         where
         classify = #{classify}
         and deleted = false
-        and state = 1
         and force_update = true
         and version_no &gt; #{startVersion}
         and version_no &lt; #{endVersion}

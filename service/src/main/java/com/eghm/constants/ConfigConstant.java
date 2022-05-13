@@ -123,4 +123,14 @@ public class ConfigConstant {
      * 收货地址最大数
      */
     public static final String USER_ADDRESS_MAX = "user_address_max";
+
+    /**
+     * ios最新版本号
+     */
+    public static final String IOS_LATEST_VERSION = "ios_latest_version";
+
+    /**
+     * android最新版本号
+     */
+    public static final String ANDROID_LATEST_VERSION = "android_latest_version";
 }
