@@ -31,7 +31,7 @@ CREATE TABLE `scenic_ticket`
     `sale_price`        int(10) DEFAULT '0' COMMENT '销售价',
     `cost_price`        int(10) DEFAULT '0' COMMENT '成本价',
     `advance_day`       tinyint(2) unsigned DEFAULT NULL COMMENT '提前多少天购票',
-    `biggest_purchase`  tinyint(2) DEFAULT '1' COMMENT '单次最大购买数量',
+    `quota`             tinyint(2) DEFAULT '1' COMMENT '单次最大购买数量',
     `start_date`        date         DEFAULT NULL COMMENT '开始预订时间',
     `end_date`          date         DEFAULT NULL COMMENT '截止预订时间',
     `stock`             int(10) DEFAULT '0' COMMENT '剩余库存',
@@ -39,7 +39,7 @@ CREATE TABLE `scenic_ticket`
     `total_num`         int(10) DEFAULT '0' COMMENT '总销量=实际销量+虚拟销量',
     `introduce`         longtext COMMENT '景区介绍',
     `valid_days`        smallint(3) DEFAULT NULL COMMENT '有效期购买之日起',
-    `effective_date`    date         DEFAULT NULL COMMENT '生效日期(包含)',
+    `effect_date`       date         DEFAULT NULL COMMENT '生效日期(包含)',
     `expire_date`       date         DEFAULT NULL COMMENT '失效日期(包含)',
     `use_scope`         smallint(3) DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
     `verification_type` tinyint(2) DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
@@ -137,4 +137,54 @@ CREATE TABLE `homestay_room_config`
     `update_time`      datetime DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='房间价格配置表';
+
+alter table homestay
+    add column merchant_id bigint(20) comment '所属商户' AFTER title;
+
+CREATE TABLE `restaurant`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `title`       varchar(50)    DEFAULT NULL COMMENT '商家名称',
+    `merchant_id` bigint(20) DEFAULT NULL COMMENT '所属商户',
+    `state`       tinyint(1) DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
+    `cover_url`   varchar(1000)  DEFAULT NULL COMMENT '商家封面',
+    `open_time`   varchar(100)   DEFAULT NULL COMMENT '营业时间',
+    `province_id` bigint(20) DEFAULT NULL COMMENT '省份',
+    `city_id`     bigint(20) DEFAULT NULL COMMENT '城市id',
+    `county_id`   bigint(20) DEFAULT NULL COMMENT '县区id',
+    `longitude`   decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`    decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `phone`       varchar(20)    DEFAULT NULL COMMENT '商家热线',
+    `introduce`   longtext COMMENT '商家介绍',
+    `add_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='餐饮商家信息表';
+
+CREATE TABLE `restaurant_voucher`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `restaurant_id`  bigint(20) DEFAULT NULL COMMENT '餐饮商家id',
+    `title`          varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '商品名称',
+    `cover_url`      varchar(100)                           DEFAULT NULL COMMENT '封面图片',
+    `line_price`     int(10) DEFAULT NULL COMMENT '划线价',
+    `sale_price`     int(10) DEFAULT NULL COMMENT '销售价',
+    `stock`          int(10) DEFAULT NULL COMMENT '剩余库存',
+    `sale_num`       int(10) DEFAULT '0' COMMENT '销售数量',
+    `total_num`      int(10) DEFAULT '0' COMMENT '总销量=虚拟销量+真实销量',
+    `describe`       varchar(200)                           DEFAULT NULL COMMENT '购买说明',
+    `quota`          int(10) DEFAULT '1' COMMENT '限购数量',
+    `valid_days`     smallint(3) DEFAULT NULL COMMENT '有效期购买之日起',
+    `effect_date`    date                                   DEFAULT NULL COMMENT '生效开始时间(包含)',
+    `expire_date`    date                                   DEFAULT NULL COMMENT '失效日期',
+    `effect_time`    varchar(10)                            DEFAULT NULL COMMENT '使用开始时间',
+    `expire_time`    varchar(10)                            DEFAULT NULL COMMENT '使用截止时间',
+    `support_refund` bit(1)                                 DEFAULT b'1' COMMENT '是否支持退款 0:不支持 1:支持',
+    `introduce`      longtext COMMENT '详细介绍',
+    `add_time`       datetime                               DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`    datetime                               DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)                                 DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='餐饮代金券';
 
