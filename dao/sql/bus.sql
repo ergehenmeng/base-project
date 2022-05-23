@@ -188,3 +188,89 @@ CREATE TABLE `restaurant_voucher`
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='餐饮代金券';
 
+CREATE TABLE `specialty_store`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `state`          tinyint(1) DEFAULT NULL COMMENT '状态 0:未商家 1:已上架',
+    `merchant_id`    bigint(20) DEFAULT NULL COMMENT '所属商户id',
+    `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '封面图',
+    `open_time`      varchar(100)   DEFAULT NULL COMMENT '营业时间',
+    `province_id`    bigint(20) DEFAULT NULL COMMENT '省id',
+    `city_id`        bigint(20) DEFAULT NULL COMMENT '城市id',
+    `county_id`      bigint(20) DEFAULT NULL COMMENT '县区id',
+    `detail_address` varchar(200)   DEFAULT NULL COMMENT '详细地址',
+    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `telephone`      varchar(20)    DEFAULT NULL COMMENT '商家电话',
+    `introduce`      longtext COMMENT '商家介绍',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='特产店信息表';
+
+CREATE TABLE `specialty_product`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `store_id`        bigint(20) DEFAULT NULL COMMENT '所属特产店',
+    `state`           tinyint(1) DEFAULT NULL COMMENT '商品状态 0:待下架 1:已上架',
+    `title`           varchar(50)   DEFAULT NULL COMMENT '商品名称',
+    `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
+    `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
+    `quota`           smallint(3) DEFAULT '1' COMMENT '限购数量',
+    `delivery_method` tinyint(1) DEFAULT NULL COMMENT '交付方式 1:门店自提 2:快递包邮',
+    `support_refund`  bit(1)        DEFAULT b'0' COMMENT '是否支持退款 true:支持 false:不支持',
+    `min_price`       int(10) DEFAULT NULL COMMENT '最低价格',
+    `max_price`       int(10) DEFAULT NULL COMMENT '最高价格',
+    `sale_num`        int(10) DEFAULT '0' COMMENT '销售数量(所有规格销售总量)',
+    `total_num`       int(10) DEFAULT '0' COMMENT '总销售量=实际销售+虚拟销量',
+    `introduce`       longtext COMMENT '商品介绍信息',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='特产商品信息';
+
+CREATE TABLE `specialty_product_sku`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `product_id`  bigint(20) DEFAULT NULL COMMENT '特产商品id',
+    `title`       varchar(20) DEFAULT NULL COMMENT '规格名称',
+    `line_price`  int(10) DEFAULT NULL COMMENT '划线价',
+    `cost_price`  int(10) DEFAULT '0' COMMENT '成本价',
+    `sale_price`  int(10) DEFAULT '0' COMMENT '销售价',
+    `stock`       smallint(4) DEFAULT NULL COMMENT '库存',
+    `sale_num`    int(10) DEFAULT '0' COMMENT '销售量',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='特产商品规格表';
+
+CREATE TABLE `line_product`
+(
+    `id`                bigint(20) NOT NULL COMMENT '主键',
+    `travel_agency_id`  varchar(255)  DEFAULT NULL COMMENT '所属旅行社id',
+    `title`             varchar(50)   DEFAULT NULL COMMENT '线路名称',
+    `start_province_id` bigint(20) DEFAULT NULL COMMENT '出发省份id',
+    `start_city_id`     bigint(20) DEFAULT NULL COMMENT '出发城市id',
+    `cover_url`         varchar(1000) DEFAULT NULL COMMENT '封面图片',
+    `sale_num`          int(10) DEFAULT '0' COMMENT '销售量',
+    `total_num`         int(10) DEFAULT '0' COMMENT '总销量=实际销售+虚拟销量',
+    `duration`          tinyint(2) DEFAULT NULL COMMENT '几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游',
+    `advance_day`       tinyint(2) DEFAULT NULL COMMENT '提前天数',
+    `support_refund`    bit(1)        DEFAULT NULL COMMENT '是否支持退款 0:不支持 1:支持',
+    `introduce`         longtext COMMENT '商品介绍',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='线路商品信息表';
+
+CREATE TABLE `line_product_config`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `line_product_id` bigint(20) DEFAULT NULL COMMENT '线路商品id',
+    `config_date`     date     DEFAULT NULL COMMENT '配置日期',
+    `stock`           smallint(4) DEFAULT '0' COMMENT '总库存',
+    `sale_price`      int(10) DEFAULT '0' COMMENT '销售价格',
+    `sale_num`        int(10) DEFAULT '0' COMMENT '销售数量',
+    `create_time`     datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='线路商品配置表';
+
