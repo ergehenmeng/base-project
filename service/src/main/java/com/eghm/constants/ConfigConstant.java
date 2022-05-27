@@ -133,4 +133,9 @@ public class ConfigConstant {
      * android最新版本号
      */
     public static final String ANDROID_LATEST_VERSION = "android_latest_version";
+    
+    /**
+     * 商户默认密码
+     */
+    public static final String MERCHANT_PWD = "merchant_pwd";
 }

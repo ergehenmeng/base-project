@@ -13,6 +13,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.EnableAsync;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * 前后端分离
  *
@@ -36,5 +40,17 @@ public class ApiApplication implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         SpringContextUtil.setApplicationContext(event.getApplicationContext());
+    }
+    
+    
+    public static void readBody(InputStream stream, int length) throws IOException {
+        if (stream.skip(2) > 0) {
+            ByteArrayOutputStream inputStream = new ByteArrayOutputStream();
+            byte[] bytes = new byte[length];
+            int read;
+            while ((read = stream.read(bytes)) != -1) {
+            
+            }
+        }
     }
 }
