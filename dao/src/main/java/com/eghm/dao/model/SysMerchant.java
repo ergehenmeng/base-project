@@ -26,7 +26,7 @@ public class SysMerchant extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @ApiModelProperty(value = "商家名称")
-    private String title;
+    private String merchantName;
 
     @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路")
     private Integer type;

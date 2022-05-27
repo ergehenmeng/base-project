@@ -1,8 +1,13 @@
 package com.eghm.model.enums;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.eghm.common.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
+
+import static com.eghm.common.enums.ErrorCode.ENUMS_FORMAT;
 
 /**
  * @author 殿小二
@@ -41,5 +46,9 @@ public enum MerchantState implements IEnum<Integer> {
     @Override
     public Integer getValue() {
         return value;
+    }
+    
+    public static MerchantState of(Integer value) {
+        return Arrays.stream(MerchantState.values()).filter(merchantState -> merchantState.getValue().equals(value)).findFirst().orElseThrow(() -> new BusinessException(ENUMS_FORMAT));
     }
 }

@@ -23,7 +23,7 @@ public class MerchantEditRequest {
     @ApiModelProperty(value = "商家名称",required = true)
     @NotBlank(message = "商家名称不能为空")
     @RangeLength(min = 2, max = 20, message = "商家名称长度2~20位")
-    private String title;
+    private String merchantName;
     
     @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路", required = true)
     @NotNull(message = "请选择商家类型")

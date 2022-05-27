@@ -510,6 +510,11 @@ public enum ErrorCode {
      * 使用中的版本无法删除
      */
     CURRENT_VERSION_DELETE(3121, "使用中的版本无法删除"),
+    
+    /**
+     * 枚举格式化失败
+     */
+    ENUMS_FORMAT(3123, "枚举格式化失败"),
 
     /**
      * 微信公众号尚未配置
