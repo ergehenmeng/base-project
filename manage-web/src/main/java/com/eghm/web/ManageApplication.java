@@ -44,7 +44,7 @@ public class ManageApplication implements ApplicationListener<ContextRefreshedEv
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
         log.info("\n-------------------------------------------------\n\t" +
-                "Swagger文档: http://localhost:{}/doc.html\n" +
+                "Swagger文档:  http://localhost:{}/doc.html\n" +
                 "-------------------------------------------------", context.getEnvironment().getProperty("server.port"));
     }
 
