@@ -102,7 +102,10 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
+        <dependency>
+            <artifactId>spring-rabbit</artifactId>
+            <groupId>org.springframework.amqp</groupId>
+        </dependency>
     </dependencies>
 
 </project>

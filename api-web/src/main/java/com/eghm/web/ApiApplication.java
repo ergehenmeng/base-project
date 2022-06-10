@@ -1,8 +1,14 @@
 package com.eghm.web;
 
+import com.eghm.service.mq.RabbitService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,10 +18,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * 前后端分离
@@ -28,6 +37,7 @@ import java.io.InputStream;
 @EnableAspectJAutoProxy
 @MapperScan("com.eghm.dao.mapper")
 @Slf4j
+@RestController
 public class ApiApplication implements ApplicationListener<ContextRefreshedEvent> {
 
     public static void main(String[] args) {
@@ -41,16 +51,22 @@ public class ApiApplication implements ApplicationListener<ContextRefreshedEvent
     public void onApplicationEvent(ContextRefreshedEvent event) {
         SpringContextUtil.setApplicationContext(event.getApplicationContext());
     }
-    
-    
-    public static void readBody(InputStream stream, int length) throws IOException {
-        if (stream.skip(2) > 0) {
-            ByteArrayOutputStream inputStream = new ByteArrayOutputStream();
-            byte[] bytes = new byte[length];
-            int read;
-            while ((read = stream.read(bytes)) != -1) {
-            
-            }
-        }
+
+    @Autowired
+    private RabbitService rabbitService;
+
+    @GetMapping("/sendDelay")
+    public String sendDelay(String msg) {
+        log.info("开始发送延迟: [{}]", msg);
+        rabbitService.sendDelay(msg, "exchange_order_delay", 5);
+        return "success";
     }
+
+    @GetMapping("/send")
+    public String send(String msg) {
+        log.info("开始发送: [{}]", msg);
+        rabbitService.send(msg, "exchange_dead_letter");
+        return "success";
+    }
+
 }
