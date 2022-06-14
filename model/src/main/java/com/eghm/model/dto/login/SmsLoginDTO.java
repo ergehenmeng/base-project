@@ -2,10 +2,10 @@ package com.eghm.model.dto.login;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
-import com.eghm.model.validation.annotation.RangeLength;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -20,7 +20,7 @@ public class SmsLoginDTO implements Serializable {
     /**
      * 短信验证码
      */
-    @RangeLength(min = 4,max = 6,message = "短信验证码格式错误")
+    @Size(min = 4,max = 6,message = "短信验证码格式错误")
     @ApiModelProperty(value = "短信验证码4-6位",required = true)
     private String smsCode;
 

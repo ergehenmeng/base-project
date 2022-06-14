@@ -274,3 +274,9 @@ CREATE TABLE `line_product_config`
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='线路商品配置表';
 
+alter table scenic add column tag varchar(300) comment '景区标签,逗号分隔' after open_time;
+alter table scenic add column merchant_id bigint(20) comment '景区所属商家(为空则表示系统自营)' after tag;
+alter table scenic add column state tinyint(2) default 0 comment '景区状态 0:待上架 1:已上架' AFTER merchant_id;
+alter table scenic add column sort smallint(3) default 999 comment '景区排序(小<->大)' AFTER state;
+
+

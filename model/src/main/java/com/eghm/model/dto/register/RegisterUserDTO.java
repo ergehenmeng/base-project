@@ -2,10 +2,10 @@ package com.eghm.model.dto.register;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
-import com.eghm.model.validation.annotation.RangeLength;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
@@ -28,14 +28,13 @@ public class RegisterUserDTO implements Serializable {
     /**
      * 短信验证码
      */
-    @RangeLength(required = false,min = 4,max = 6,message = "验证码格式错误")
+    @Size(min = 4,max = 6,message = "验证码格式错误")
     @ApiModelProperty(value = "短信验证码",required = true)
     private String smsCode;
 
     /**
      * 注册邀请码
      */
-    @RangeLength(required = false,min = 6,max = 6,message = "邀请码格式错误")
     @ApiModelProperty(value = "注册邀请码(非必填)")
     private String inviteCode;
 

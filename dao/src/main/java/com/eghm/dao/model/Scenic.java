@@ -1,16 +1,13 @@
 package com.eghm.dao.model;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -32,10 +29,22 @@ public class Scenic extends BaseEntity implements Serializable {
     private String scenicName;
 
     @ApiModelProperty(value = "景区等级 5: 5A 4: 4A 3:3A 2:2A 1:A 0:其他")
-    private Boolean level;
+    private Integer level;
 
     @ApiModelProperty(value = "景区营业时间")
     private String openTime;
+
+    @ApiModelProperty("景区标签")
+    private String tag;
+
+    @ApiModelProperty("景区所属商户id")
+    private Long merchantId;
+
+    @ApiModelProperty(value = "景区状态 0:待上架 1:已上架")
+    private Integer state;
+
+    @ApiModelProperty(value = "景区排序(小<->大)")
+    private Integer sort;
 
     @ApiModelProperty(value = "省份id")
     private Long provinceId;
