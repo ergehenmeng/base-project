@@ -49,15 +49,11 @@ spring:
       mail.from: ergehenmeng@qq.com
   ## mq配置
   rabbitmq:
-    host: devk8s.lishicloud.com
-    port: 32024
     listener:
       simple:
         prefetch: 1
         acknowledge-mode: auto
         max-concurrency: 10
-    username: lishi
-    password: lishi@123456
 
 # mybatis配置
 mybatis-plus:
