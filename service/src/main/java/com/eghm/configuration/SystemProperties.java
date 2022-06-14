@@ -45,6 +45,30 @@ public class SystemProperties {
      */
     private Boolean jobEnable = true;
 
+    /**
+     * redis配置
+     */
+    private Redis redis = new Redis();
+
+    @Data
+    public static class Redis {
+
+        /**
+         * 长过期时间 默认30分钟
+         */
+        private Integer longExpire = 1800;
+
+        /**
+         * 短过期时间 默认10分钟
+         */
+        private Integer shortExpire = 600;
+
+        /**
+         * 超短过期时间 默认1分钟
+         */
+        private Integer smallExpire = 60;
+    }
+
     @Data
     public static class ManageProperties {
 

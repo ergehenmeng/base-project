@@ -11,15 +11,15 @@ public interface SysConfigMapper extends BaseMapper<SysConfig> {
 
     /**
      * 根据nid获取系统参数
-     * @param nid
-     * @return
+     * @param nid nid
+     * @return 配置信息
      */
     SysConfig getByNid(String nid);
 
     /**
      * 更新系统参数
      * @param request 待更新参数
-     * @return
+     * @return 1
      */
     int updateConfig(ConfigEditRequest request);
 }

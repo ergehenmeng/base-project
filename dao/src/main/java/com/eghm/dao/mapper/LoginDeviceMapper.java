@@ -13,7 +13,7 @@ public interface LoginDeviceMapper extends BaseMapper<LoginDevice> {
     /**
      * 添加或更新登陆设备信息(仅仅为了精简代码)
      */
-    int insertOrUpdateSelective(LoginDevice record);
+    int insertOrUpdateSelective(LoginDevice device);
 
     /**
      * 查找指定设备是否有登陆日志

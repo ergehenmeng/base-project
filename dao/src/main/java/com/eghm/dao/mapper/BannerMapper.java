@@ -2,7 +2,6 @@ package com.eghm.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.Banner;
-import com.eghm.model.dto.banner.BannerQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

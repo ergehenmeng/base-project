@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.SysDept;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 /**
  * @author 二哥很猛
  */

@@ -2,7 +2,6 @@ package com.eghm.dao.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.dao.model.SysDict;
 
 import java.util.List;

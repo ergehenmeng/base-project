@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -29,26 +29,11 @@ import java.time.Duration;
  */
 @Configuration
 @EnableCaching
-@PropertySource("classpath:redis.properties")
+@EnableConfigurationProperties(SystemProperties.class)
+@AllArgsConstructor
 public class RedisConfig {
 
-    /**
-     * 长过期时间 默认30分钟
-     */
-    @Value("${long-expire:3600}")
-    private int longExpire;
-
-    /**
-     * 短过期时间 默认10分钟
-     */
-    @Value("${short-expire:600}")
-    private int shortExpire;
-
-    /**
-     * 超短时间过期 1分钟
-     */
-    @Value("${small-expire:60}")
-    private int smallExpire;
+    private final SystemProperties systemProperties;
 
     /**
      * 默认缓存管理期 默认30分钟过期
@@ -57,7 +42,7 @@ public class RedisConfig {
      */
     @Bean("longCacheManager")
     public CacheManager longCacheManager(RedisConnectionFactory connectionFactory) {
-        return this.getCacheManager(connectionFactory, longExpire);
+        return this.getCacheManager(connectionFactory, systemProperties.getRedis().getLongExpire());
     }
 
     /**
@@ -110,7 +95,7 @@ public class RedisConfig {
      */
     @Bean("shortCacheManager")
     public CacheManager smallCacheManager(RedisConnectionFactory connectionFactory) {
-        return this.getCacheManager(connectionFactory, smallExpire);
+        return this.getCacheManager(connectionFactory, systemProperties.getRedis().getShortExpire());
     }
 
     /**
@@ -120,6 +105,6 @@ public class RedisConfig {
      */
     @Bean("smallCacheManager")
     public CacheManager shortCacheManager(RedisConnectionFactory connectionFactory) {
-        return this.getCacheManager(connectionFactory, shortExpire);
+        return this.getCacheManager(connectionFactory, systemProperties.getRedis().getSmallExpire());
     }
 }

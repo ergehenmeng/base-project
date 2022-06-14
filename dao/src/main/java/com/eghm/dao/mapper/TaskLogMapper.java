@@ -2,10 +2,7 @@ package com.eghm.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.TaskLog;
-import com.eghm.model.dto.task.TaskLogQueryRequest;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛

@@ -12,12 +12,6 @@ import java.util.List;
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     /**
-     * 查询所有可用的菜单
-     * @return 所有菜单
-     */
-    List<SysMenu> getAllList();
-
-    /**
      * 获取某用户的导航菜单
      * @param operatorId 用户id
      * @return 用户所有可查看菜单列表

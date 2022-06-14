@@ -64,7 +64,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<SysMenu> getAllList() {
-        return sysMenuMapper.getAllList();
+        return sysMenuMapper.selectList(null);
     }
 
     @Override

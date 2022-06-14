@@ -29,7 +29,7 @@ public interface UserAddressMapper extends BaseMapper<UserAddress> {
     /**
      * 主键+userId更新地址
      * @param address address
-     * @return
+     * @return 1
      */
     int updateByUserId(UserAddress address);
 }

@@ -24,11 +24,6 @@
         -->
         t.id, t.title, t.nid, t.pid, t.path,t.sub_path, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
     </sql>
-    <select id="getAllList" resultMap="BaseResultMap">
-        SELECT
-        <include refid="BaseColumnList"/>
-        from sys_menu t where t.deleted = false order by t.pid ,t.sort
-    </select>
 
     <select id="getMenuList" resultMap="BaseResultMap">
         SELECT
