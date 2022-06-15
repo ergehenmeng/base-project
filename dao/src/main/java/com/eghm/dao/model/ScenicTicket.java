@@ -94,11 +94,6 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
 
-    @ApiModelProperty(value = "景区最低票价")
-    private Integer minPrice;
-
     @ApiModelProperty(value = "景区状态 0:待上架 1:已上架")
     private Boolean state;
-
-
 }

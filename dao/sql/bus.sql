@@ -279,4 +279,4 @@ alter table scenic add column merchant_id bigint(20) comment '景区所属商家
 alter table scenic add column state tinyint(2) default 0 comment '景区状态 0:待上架 1:已上架' AFTER merchant_id;
 alter table scenic add column sort smallint(3) default 999 comment '景区排序(小<->大)' AFTER state;
 
-
+alter table scenic_ticket drop column min_price;

@@ -516,6 +516,12 @@ public enum ErrorCode {
      */
     ENUMS_FORMAT(3123, "枚举格式化失败"),
 
+
+    /**
+     * 非int或long格式无法转换
+     */
+    CONVERT_ERROR(3128, "非int或long格式无法转换"),
+
     /**
      * 微信公众号尚未配置
      */
