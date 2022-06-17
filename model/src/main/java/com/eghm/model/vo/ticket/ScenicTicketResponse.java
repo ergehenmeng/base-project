@@ -1,32 +1,30 @@
-package com.eghm.dao.model;
+package com.eghm.model.vo.ticket;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
- * <p>
- * 景区门票信息表
- * </p>
  *
  * @author 二哥很猛
  * @since 2022-05-27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("scenic_ticket")
-@ApiModel(value="ScenicTicket对象", description="景区门票信息表")
-public class ScenicTicket extends BaseEntity implements Serializable {
+public class ScenicTicketResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("门票id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
     @ApiModelProperty(value = "门票所属景区")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long scenicId;
 
     @ApiModelProperty(value = "门票名称")

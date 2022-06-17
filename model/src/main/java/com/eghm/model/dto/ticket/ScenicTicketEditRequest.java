@@ -16,9 +16,13 @@ import java.time.LocalDate;
  * @author wyb 2022/6/15 21:13
  */
 @Data
-public class ScenicTicketAddRequest {
+public class ScenicTicketEditRequest {
 
-    @ApiModelProperty(value = "门票所属景区")
+    @ApiModelProperty(value = "景区id", required = true)
+    @NotNull(message = "景区id不能为空")
+    private Long id;
+
+    @ApiModelProperty(value = "门票所属景区", required = true)
     @NotNull(message = "请选择景区")
     private Long scenicId;
 
