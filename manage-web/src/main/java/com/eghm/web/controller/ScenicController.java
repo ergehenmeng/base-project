@@ -1,11 +1,17 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.Scenic;
+import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.scenic.ScenicAddRequest;
+import com.eghm.model.dto.scenic.ScenicEditRequest;
+import com.eghm.model.dto.scenic.ScenicQueryRequest;
 import com.eghm.service.business.ScenicService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wyb 2022/6/17 19:06
@@ -17,5 +23,34 @@ import org.springframework.web.bind.annotation.RestController;
 public class ScenicController {
 
     private final ScenicService scenicService;
+
+    @ApiOperation("查询景区列表")
+    @GetMapping("/listPage")
+    public RespBody<Page<Scenic>> getByPage(ScenicQueryRequest request) {
+        Page<Scenic> scenicPage = scenicService.getByPage(request);
+        return RespBody.success(scenicPage);
+    }
+
+    @ApiOperation("创建景区")
+    @PostMapping("/create")
+    public RespBody<Void> create(@Validated @RequestBody ScenicAddRequest request) {
+        scenicService.createScenic(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/update")
+    @ApiOperation("更新景区")
+    public RespBody<Void> update(@Validated @RequestBody ScenicEditRequest request) {
+        scenicService.updateScenic(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/select")
+    @ApiOperation("更新景区")
+    public RespBody<Void> select(@Validated @RequestBody ScenicEditRequest request) {
+        scenicService.updateScenic(request);
+        return RespBody.success();
+    }
+
 
 }
