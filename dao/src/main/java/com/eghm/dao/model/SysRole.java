@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.RoleType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ public class SysRole extends BaseEntity {
     private String roleName;
 
     @ApiModelProperty("角色类型")
-    private String roleType;
+    private RoleType roleType;
 
     @ApiModelProperty("删除状态:0:正常,1:已删除")
     private Boolean deleted;

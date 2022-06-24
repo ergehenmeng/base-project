@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.MerchantRoleMap;
+import com.eghm.common.enums.ref.MerchantState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
@@ -14,8 +16,8 @@ import com.eghm.dao.model.SysMerchant;
 import com.eghm.model.dto.merchant.MerchantAddRequest;
 import com.eghm.model.dto.merchant.MerchantEditRequest;
 import com.eghm.model.dto.merchant.MerchantQueryRequest;
-import com.eghm.model.enums.MerchantState;
 import com.eghm.service.business.SysMerchantService;
+import com.eghm.service.sys.SysMerchantRoleService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.PageUtil;
@@ -37,7 +39,9 @@ public class SysMerchantServiceImpl implements SysMerchantService {
     private final SysConfigApi sysConfigApi;
     
     private final Encoder encoder;
-    
+
+    private final SysMerchantRoleService sysMerchantRoleService;
+
     @Override
     public Page<SysMerchant> getByPage(MerchantQueryRequest request) {
         LambdaQueryWrapper<SysMerchant> wrapper = Wrappers.lambdaQuery();
@@ -51,22 +55,21 @@ public class SysMerchantServiceImpl implements SysMerchantService {
     public void create(MerchantAddRequest request) {
         this.checkUserNameRedo(request.getUserName());
         this.checkMobileRedo(request.getMobile());
-
         SysMerchant merchant = DataUtil.copy(request, SysMerchant.class);
+
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         merchant.setPwd(encoder.encode(pwd));
         merchant.setInitPwd(true);
         merchant.setState(MerchantState.NORMAL);
         sysMerchantMapper.insert(merchant);
-    
-        // TODO 根据商户类型进行授权
+        sysMerchantRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
     }
     
     @Override
     public void update(MerchantEditRequest request) {
         SysMerchant merchant = DataUtil.copy(request, SysMerchant.class);
         sysMerchantMapper.updateById(merchant);
-        // TODO 更新角色权限信息
+        sysMerchantRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
     }
     
     @Override
@@ -124,4 +127,5 @@ public class SysMerchantServiceImpl implements SysMerchantService {
             throw new BusinessException(ErrorCode.MERCHANT_REDO);
         }
     }
+
 }

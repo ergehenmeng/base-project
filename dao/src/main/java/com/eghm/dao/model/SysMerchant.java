@@ -1,7 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.model.enums.MerchantState;
+import com.eghm.common.enums.ref.MerchantState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

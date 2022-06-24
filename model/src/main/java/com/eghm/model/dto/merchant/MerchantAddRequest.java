@@ -17,7 +17,7 @@ public class MerchantAddRequest {
     @Size(min = 2, max = 20, message = "商家名称长度2~20位")
     private String merchantName;
     
-    @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路", required = true)
+    @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路, 多选时数字相加", required = true)
     @NotNull(message = "请选择商家类型")
     @Min(value = 1, message = "商家类型错误")
     @Max(value = 31, message = "商家类型错误")

@@ -532,6 +532,12 @@ public enum ErrorCode {
      */
     MERCHANT_MOBILE_REDO(3130, "商户手机号被占用"),
 
+    /**
+     * 商户角色未配置
+     */
+    MERCHANT_ROLE_NULL(3132, "商户角色未配置"),
+
+
 
 
     /**

@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.dao.model.SysOperatorRole;
+import com.eghm.dao.model.SysMerchantRole;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,20 +9,13 @@ import java.util.List;
 /**
  * @author 二哥很猛
  */
-public interface SysMerchantRoleMapper extends BaseMapper<SysOperatorRole> {
+public interface SysMerchantRoleMapper extends BaseMapper<SysMerchantRole> {
 
     /**
-     * 根据用户id查询角色id列表
-     * @param operatorId 角色id
-     * @return 角色id列表
-     */
-    List<Long> getByOperatorId(@Param("operatorId") Long operatorId);
-
-    /**
-     * 删除用户所有的角色
-     * @param operatorId 管理人员id
+     * 删除商户所有的角色
+     * @param merchantId 商户ID
      * @return 影响条数
      */
-    int deleteByOperatorId(@Param("operatorId") Long operatorId);
+    int deleteByMerchantId(@Param("merchantId") Long merchantId);
 
 }

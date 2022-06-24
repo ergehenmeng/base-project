@@ -1,4 +1,4 @@
-package com.eghm.model.enums;
+package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.eghm.common.exception.BusinessException;
