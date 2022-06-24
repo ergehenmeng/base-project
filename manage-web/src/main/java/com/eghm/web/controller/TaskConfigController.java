@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.task.config.SystemTaskRegistrar;
 import com.eghm.dao.model.TaskConfig;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
@@ -38,9 +38,9 @@ public class TaskConfigController {
      */
     @GetMapping("/listPage")
     @ApiOperation("定时任务列表(分页)")
-    public Paging<TaskConfig> listPage(TaskQueryRequest request) {
+    public RespBody<PageData<TaskConfig>> listPage(TaskQueryRequest request) {
         Page<TaskConfig> byPage = taskConfigService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
 

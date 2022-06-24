@@ -2,7 +2,7 @@ package com.eghm.service.user;
 
 import com.eghm.dao.model.UserScoreLog;
 import com.eghm.model.dto.score.UserScoreQueryDTO;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.vo.score.UserScoreVO;
 
 /**
@@ -28,5 +28,5 @@ public interface UserScoreLogService {
      * @param request 查询条件
      * @return 积分列表
      */
-    Paging<UserScoreVO> getByPage(UserScoreQueryDTO request);
+    PageData<UserScoreVO> getByPage(UserScoreQueryDTO request);
 }

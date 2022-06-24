@@ -7,14 +7,13 @@ import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.UserScoreLogMapper;
 import com.eghm.dao.model.UserScoreLog;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.score.UserScoreQueryDTO;
 import com.eghm.model.vo.score.UserScoreVO;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -40,7 +39,7 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
     }
 
     @Override
-    public Paging<UserScoreVO> getByPage(UserScoreQueryDTO request) {
+    public PageData<UserScoreVO> getByPage(UserScoreQueryDTO request) {
         LambdaQueryWrapper<UserScoreLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(UserScoreLog::getUserId, request.getUserId());
         wrapper.eq(request.getType() != null, UserScoreLog::getType, request.getType());

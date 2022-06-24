@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.dao.model.SysCache;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
 import com.eghm.web.annotation.Mark;
@@ -35,8 +35,9 @@ public class CacheController {
      */
     @GetMapping("/list")
     @ApiOperation("缓存列表(不分页)")
-    public Paging<SysCache> list() {
-        return new Paging<>(sysCacheService.getList());
+    public RespBody<PageData<SysCache>> list() {
+        List<SysCache> list = sysCacheService.getList();
+        return RespBody.success(PageData.toList(list));
     }
 
     /**

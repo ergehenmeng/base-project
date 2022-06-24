@@ -6,7 +6,7 @@ import com.eghm.constants.DictConstant;
 import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
 import com.eghm.model.dto.config.ConfigQueryRequest;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.sys.SysConfigService;
@@ -15,7 +15,6 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,13 +51,13 @@ public class ConfigController {
      */
     @GetMapping("/listPage")
     @ApiOperation("系统参数列表")
-    public Paging<SysConfig> listPage(ConfigQueryRequest request) {
+    public RespBody<PageData<Object>> listPage(ConfigQueryRequest request) {
         Page<SysConfig> listByPage = sysConfigService.getByPage(request);
         ProxyService finalProxy = this.proxyService;
-        return DataUtil.convert(listByPage, sysConfig -> {
+        return RespBody.success(DataUtil.convert(listByPage, sysConfig -> {
             finalProxy.getDictValue(DictConstant.CONFIG_CLASSIFY, sysConfig.getClassify());
             return sysConfig;
-        });
+        }));
     }
 
 }

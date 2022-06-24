@@ -1,7 +1,7 @@
 package com.eghm.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -31,9 +31,9 @@ public class DataUtil {
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S, T> Paging<T> convert(Page<S> page, Function<S, T> transfer) {
+    public static <S, T> PageData<T> convert(Page<S> page, Function<S, T> transfer) {
 
-        Paging<T> paging = new Paging<>();
+        PageData<T> paging = new PageData<>();
 
         List<S> list = page.getRecords();
 

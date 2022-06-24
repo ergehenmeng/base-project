@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.AppVersion;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.version.VersionAddRequest;
 import com.eghm.model.dto.version.VersionEditRequest;
@@ -33,9 +33,9 @@ public class AppVersionController {
      */
     @GetMapping("/listPage")
     @ApiOperation("查询版本列表")
-    public Paging<AppVersion> listPage(VersionQueryRequest request) {
+    public RespBody<PageData<AppVersion>> listPage(VersionQueryRequest request) {
         Page<AppVersion> byPage = appVersionService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     /**

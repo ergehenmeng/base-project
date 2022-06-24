@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.model.dto.feedback.FeedbackQueryRequest;
@@ -32,9 +32,9 @@ public class FeedbackController {
      * 分页查询反馈列表
      */
     @GetMapping("/listPage")
-    public Paging<FeedbackVO> listPage(FeedbackQueryRequest request) {
+    public RespBody<PageData<FeedbackVO>> listPage(FeedbackQueryRequest request) {
         Page<FeedbackVO> byPage = feedbackService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     /**

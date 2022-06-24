@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.ImageLog;
 import com.eghm.model.dto.ext.FilePath;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.image.ImageAddRequest;
 import com.eghm.model.dto.image.ImageEditRequest;
@@ -41,9 +41,9 @@ public class ImageLogController {
      */
     @GetMapping("/listPage")
     @ApiOperation("图片列表(分页)")
-    public Paging<ImageLog> listPage(ImageQueryRequest request) {
+    public RespBody<PageData<ImageLog>> listPage(ImageQueryRequest request) {
         Page<ImageLog> page = imageLogService.getByPage(request);
-        return new Paging<>(page);
+        return RespBody.success(PageData.toPage(page));
     }
 
     /**

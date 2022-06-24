@@ -1,7 +1,9 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SysOperationLog;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.log.OperationQueryRequest;
 import com.eghm.service.sys.OperationLogService;
 import io.swagger.annotations.Api;
@@ -33,8 +35,9 @@ public class OperationLogController {
      */
     @GetMapping("/listPage")
     @ApiOperation("日志列表")
-    public Paging<SysOperationLog> listPage(OperationQueryRequest request) {
-        return new Paging<>(operationLogService.getByPage(request));
+    public RespBody<PageData<SysOperationLog>> listPage(OperationQueryRequest request) {
+        Page<SysOperationLog> byPage = operationLogService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     /**

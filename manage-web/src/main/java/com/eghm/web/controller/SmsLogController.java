@@ -2,7 +2,8 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SmsLog;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
 import com.eghm.service.sys.SmsLogService;
 import io.swagger.annotations.Api;
@@ -31,9 +32,9 @@ public class SmsLogController {
      */
     @GetMapping("/listPage")
     @ApiOperation("短信记录列表(分页)")
-    public Paging<SmsLog> listPage(SmsLogQueryRequest request) {
+    public RespBody<PageData<SmsLog>> listPage(SmsLogQueryRequest request) {
         Page<SmsLog> byPage = smsLogService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
 }

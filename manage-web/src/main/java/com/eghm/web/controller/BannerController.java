@@ -5,7 +5,7 @@ import com.eghm.dao.model.Banner;
 import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.BannerService;
 import com.eghm.service.common.FileService;
@@ -14,7 +14,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,9 +38,9 @@ public class BannerController {
      */
     @GetMapping("/listPage")
     @ApiOperation("轮播图列表")
-    public Paging<Banner> listPage(BannerQueryRequest request) {
+    public RespBody<PageData<Banner>> listPage(BannerQueryRequest request) {
         Page<Banner> byPage = bannerService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     /**

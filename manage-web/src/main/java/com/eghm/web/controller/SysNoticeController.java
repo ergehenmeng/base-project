@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SysNotice;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
@@ -35,9 +35,9 @@ public class SysNoticeController {
      */
     @ApiOperation("公告列表(分页)")
     @GetMapping("/listPage")
-    public Paging<SysNotice> listPage(NoticeQueryRequest request) {
+    public RespBody<PageData<SysNotice>> listPage(NoticeQueryRequest request) {
         Page<SysNotice> byPage = sysNoticeService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     /**
@@ -57,8 +57,9 @@ public class SysNoticeController {
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id", required = true)
     @ApiOperation("公告信息查询")
-    public SysNotice select(@RequestParam("id") Long id) {
-        return sysNoticeService.getById(id);
+    public RespBody<SysNotice> select(@RequestParam("id") Long id) {
+        SysNotice notice = sysNoticeService.getById(id);
+        return RespBody.success(notice);
     }
 
 

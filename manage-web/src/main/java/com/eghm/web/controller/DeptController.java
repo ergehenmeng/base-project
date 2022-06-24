@@ -36,8 +36,9 @@ public class DeptController {
      */
     @GetMapping("/listPage")
     @ApiOperation("部门列表(不分页)")
-    public List<SysDept> listPage() {
-        return sysDeptService.getDepartment();
+    public RespBody<List<SysDept>> listPage() {
+        List<SysDept> department = sysDeptService.getDepartment();
+        return RespBody.success(department);
     }
 
     /**

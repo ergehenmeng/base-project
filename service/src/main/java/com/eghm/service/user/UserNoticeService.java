@@ -1,6 +1,6 @@
 package com.eghm.service.user;
 
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.SendNotice;
 import com.eghm.model.vo.user.UserNoticeVO;
@@ -33,7 +33,7 @@ public interface UserNoticeService {
      * @param userId 用户id
      * @return 列表
      */
-    Paging<UserNoticeVO> getByPage(PagingQuery query, Long userId);
+    PageData<UserNoticeVO> getByPage(PagingQuery query, Long userId);
 
     /**
      * 删除消息通知

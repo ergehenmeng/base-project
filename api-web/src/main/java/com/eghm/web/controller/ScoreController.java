@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.score.UserScoreQueryDTO;
 import com.eghm.model.vo.score.UserScoreVO;
@@ -33,9 +33,9 @@ public class ScoreController {
      */
     @GetMapping("/listPage")
     @ApiOperation("用户积分列表")
-    public RespBody<Paging<UserScoreVO>> listPage(@RequestBody @Valid UserScoreQueryDTO request) {
+    public RespBody<PageData<UserScoreVO>> listPage(@RequestBody @Valid UserScoreQueryDTO request) {
         request.setUserId(ApiHolder.getUserId());
-        Paging<UserScoreVO> page = userScoreLogService.getByPage(request);
+        PageData<UserScoreVO> page = userScoreLogService.getByPage(request);
         return RespBody.success(page);
     }
 }

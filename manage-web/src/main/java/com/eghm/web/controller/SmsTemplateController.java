@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SmsTemplate;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
@@ -37,9 +37,9 @@ public class SmsTemplateController {
      */
     @GetMapping("/listPage")
     @ApiOperation("短信模板列表(分页)")
-    public Paging<SmsTemplate> listPage(SmsTemplateQueryRequest request) {
+    public RespBody<PageData<SmsTemplate>> listPage(SmsTemplateQueryRequest request) {
         Page<SmsTemplate> byPage = smsTemplateService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     /**

@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.PushTemplate;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
@@ -35,9 +35,9 @@ public class PushTemplateController {
      */
     @GetMapping("/listPage")
     @ApiOperation("消息模板列表")
-    public Paging<PushTemplate> listPage(PushTemplateQueryRequest request) {
+    public RespBody<PageData<PushTemplate>> listPage(PushTemplateQueryRequest request) {
         Page<PushTemplate> byPage = pushTemplateService.getByPage(request);
-        return new Paging<>(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     /**

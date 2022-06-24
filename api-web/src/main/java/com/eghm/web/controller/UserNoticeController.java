@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.user.UserNoticeVO;
@@ -31,8 +31,8 @@ public class UserNoticeController {
      */
     @GetMapping("/listPage")
     @ApiOperation("分页查询站内信列表")
-    public RespBody<Paging<UserNoticeVO>> listPage(@RequestBody @Valid PagingQuery query) {
-        Paging<UserNoticeVO> paging = userNoticeService.getByPage(query, ApiHolder.getUserId());
+    public RespBody<PageData<UserNoticeVO>> listPage(@RequestBody @Valid PagingQuery query) {
+        PageData<UserNoticeVO> paging = userNoticeService.getByPage(query, ApiHolder.getUserId());
         return RespBody.success(paging);
     }
 

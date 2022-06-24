@@ -6,7 +6,7 @@ import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.SysMenu;
 import com.eghm.dao.model.SysOperator;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.operator.*;
 import com.eghm.model.vo.operator.OperatorResponse;
@@ -80,9 +80,9 @@ public class OperatorController {
      */
     @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
-    public Paging<SysOperator> operatorListPage(OperatorQueryRequest request) {
+    public RespBody<PageData<SysOperator>> operatorListPage(OperatorQueryRequest request) {
         Page<SysOperator> page = sysOperatorService.getByPage(request);
-        return new Paging<>(page);
+        return RespBody.success(PageData.toPage(page));
     }
 
 
@@ -181,8 +181,9 @@ public class OperatorController {
      */
     @GetMapping("/menuList")
     @ApiOperation("查询自己拥有的菜单列表")
-    public List<SysMenu> operatorMenuList() {
+    public RespBody<List<SysMenu>> operatorMenuList() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
-        return sysMenuService.getList(operator.getId());
+        List<SysMenu> menuList = sysMenuService.getList(operator.getId());
+        return RespBody.success(menuList);
     }
 }

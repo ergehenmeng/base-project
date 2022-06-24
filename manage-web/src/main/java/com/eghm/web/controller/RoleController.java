@@ -3,7 +3,7 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SysRole;
 import com.eghm.model.dto.ext.CheckBox;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.role.RoleAddRequest;
 import com.eghm.model.dto.role.RoleEditRequest;
@@ -41,9 +41,9 @@ public class RoleController {
      */
     @GetMapping("/listPage")
     @ApiOperation("角色列表(分页)")
-    public Paging<SysRole> listPage(RoleQueryRequest request) {
+    public RespBody<PageData<SysRole>> listPage(RoleQueryRequest request) {
         Page<SysRole> page = sysRoleService.getByPage(request);
-        return new Paging<>(page);
+        return RespBody.success(PageData.toPage(page));
     }
 
     /**
@@ -53,10 +53,10 @@ public class RoleController {
      */
     @PostMapping("/list")
     @ApiOperation("角色列表(不分页)")
-    public List<CheckBox> list() {
+    public RespBody<List<CheckBox>> list() {
         List<SysRole> list = sysRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return DataUtil.convert(list, sysRole -> CheckBox.builder().hide(sysRole.getId()).show(sysRole.getRoleName()).build());
+        return RespBody.success(DataUtil.convert(list, sysRole -> CheckBox.builder().hide(sysRole.getId()).show(sysRole.getRoleName()).build()));
     }
 
     /**

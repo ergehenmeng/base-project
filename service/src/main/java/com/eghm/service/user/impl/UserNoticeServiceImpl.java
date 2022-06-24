@@ -12,7 +12,7 @@ import com.eghm.dao.mapper.UserNoticeMapper;
 import com.eghm.dao.model.NoticeTemplate;
 import com.eghm.dao.model.User;
 import com.eghm.dao.model.UserNotice;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.PagingQuery;
 import com.eghm.model.dto.ext.PushNotice;
 import com.eghm.model.dto.ext.SendNotice;
@@ -119,7 +119,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
     }
 
     @Override
-    public Paging<UserNoticeVO> getByPage(PagingQuery query, Long userId) {
+    public PageData<UserNoticeVO> getByPage(PagingQuery query, Long userId) {
         LambdaQueryWrapper<UserNotice> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(UserNotice::getDeleted, false);
         wrapper.eq(UserNotice::getUserId, userId);

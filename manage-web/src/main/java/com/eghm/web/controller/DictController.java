@@ -4,7 +4,7 @@ import com.eghm.dao.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;
-import com.eghm.model.dto.ext.Paging;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.web.annotation.Mark;
@@ -36,8 +36,8 @@ public class DictController {
      */
     @GetMapping("/listPage")
     @ApiOperation("数据字典列表(分页)")
-    public Paging<SysDict> listPage(DictQueryRequest request) {
-        return new Paging<>(sysDictService.getByPage(request));
+    public RespBody<PageData<SysDict>> listPage(DictQueryRequest request) {
+        return RespBody.success(PageData.toPage(sysDictService.getByPage(request)));
     }
 
     /**
