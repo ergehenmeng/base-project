@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@TableName("sys_dict")
 public class SysDict extends BaseEntity {
 
     @ApiModelProperty("字典中文名称")

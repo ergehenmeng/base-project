@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@TableName("banner")
 public class Banner extends BaseEntity {
 
     @ApiModelProperty("标题")

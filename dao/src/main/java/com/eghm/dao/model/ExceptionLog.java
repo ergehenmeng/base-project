@@ -2,6 +2,7 @@ package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -18,6 +19,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Data
 @Builder
+@TableName("exception_log")
 public class ExceptionLog {
 
     @TableId(type = IdType.ASSIGN_ID)

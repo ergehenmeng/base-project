@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
+@TableName("tag_config")
 public class TaskConfig {
 
     @ApiModelProperty("主键")

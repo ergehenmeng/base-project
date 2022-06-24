@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@TableName("push_template")
 public class PushTemplate extends BaseEntity {
 
     @ApiModelProperty("消息名称")

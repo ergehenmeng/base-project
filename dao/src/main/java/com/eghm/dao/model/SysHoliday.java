@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
+@TableName("sys_holiday")
 public class SysHoliday {
 
     @ApiModelProperty("主键")

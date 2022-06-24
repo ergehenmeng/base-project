@@ -2,6 +2,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@TableName("sys_operator")
 public class SysOperator extends BaseEntity {
 
     /**

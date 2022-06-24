@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@TableName("image_log")
 public class ImageLog extends BaseEntity {
 
     @ApiModelProperty("文件名称")

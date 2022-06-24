@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  * @author 二哥很猛
  */
 @Data
+@TableName("tag_view")
 public class TagView implements Serializable {
 
     @ApiModelProperty("主键")

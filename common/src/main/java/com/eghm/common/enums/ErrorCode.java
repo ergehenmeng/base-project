@@ -523,6 +523,18 @@ public enum ErrorCode {
     CONVERT_ERROR(3128, "非int或long格式无法转换"),
 
     /**
+     * 商户账户名被占用
+     */
+    MERCHANT_REDO(3129, "商户账户名被占用"),
+
+    /**
+     * 商户手机号被占用
+     */
+    MERCHANT_MOBILE_REDO(3130, "商户手机号被占用"),
+
+
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
@@ -531,6 +543,9 @@ public enum ErrorCode {
      * 微信网页授权异常
      */
     MP_JS_AUTH(4001, "微信网页授权异常"),
+
+
+
 
 
 

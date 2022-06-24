@@ -1,5 +1,6 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,6 +12,7 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
+@TableName("sys_config")
 public class SysConfig {
 
     @ApiModelProperty("主键")

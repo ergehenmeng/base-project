@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -17,6 +18,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
+@TableName("sys_operation_log")
 public class SysOperationLog extends BaseEntity {
 
     @ApiModelProperty("请求地址")

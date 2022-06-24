@@ -32,10 +32,10 @@ public class SysMerchant extends BaseEntity implements Serializable {
     private Integer type;
 
     @ApiModelProperty(value = "联系人姓名")
-    private String contactName;
+    private String nickName;
 
     @ApiModelProperty(value = "联系人电话")
-    private String contactPhone;
+    private String mobile;
 
     @ApiModelProperty(value = "账号名称")
     private String userName;
