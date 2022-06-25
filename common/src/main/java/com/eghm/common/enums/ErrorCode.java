@@ -537,7 +537,10 @@ public enum ErrorCode {
      */
     MERCHANT_ROLE_NULL(3132, "商户角色未配置"),
 
-
+    /**
+     * 民宿名称被占用
+     */
+    HOMESTAY_TITLE_REDO(3134, "民宿名称被占用"),
 
 
     /**

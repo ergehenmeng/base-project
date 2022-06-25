@@ -2,6 +2,8 @@ package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Getter;
@@ -25,6 +27,7 @@ public class SysOperationLog extends BaseEntity {
     private String url;
 
     @ApiModelProperty("操作人")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long operatorId;
 
     @ApiModelProperty("请求参数")
@@ -34,9 +37,11 @@ public class SysOperationLog extends BaseEntity {
     private Date addTime;
 
     @ApiModelProperty("访问ip")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long ip;
 
     @ApiModelProperty("业务耗时")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long businessTime;
 
     @ApiModelProperty("响应参数")

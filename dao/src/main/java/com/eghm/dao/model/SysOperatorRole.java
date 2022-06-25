@@ -23,9 +23,11 @@ public class SysOperatorRole {
     private Long id;
 
     @ApiModelProperty("用户id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long operatorId;
 
     @ApiModelProperty("角色id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long roleId;
 
     public SysOperatorRole(Long operatorId, Long roleId) {

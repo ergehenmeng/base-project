@@ -70,9 +70,9 @@ CREATE TABLE `sys_merchant`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商家信息表';
 
 
-alter table scenic_ticket
+alter table scenic
     add column min_price int(10) default 0 comment '景区最低票价';
-alter table scenic_ticket
+alter table scenic
     add column max_price int(10) default 0 comment '景区最高票价';
 alter table scenic_ticket
     add column state tinyint(1) default 0 comment '景区状态 0:待上架 1:已上架';
@@ -283,3 +283,13 @@ alter table scenic_ticket drop column min_price;
 
 alter table sys_merchant change contact_name  nick_name varchar(20) comment '联系人姓名';
 alter table sys_merchant change contact_phone mobile varchar(20) comment '联系人电话';
+
+CREATE TABLE `sys_merchant_role` (
+`id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+`merchant_id` bigint(20) DEFAULT NULL COMMENT '商户ID',
+`role_id` bigint(20) DEFAULT NULL COMMENT '角色ID',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商户与角色关联表';
+
+alter table homestay_room_config add column deleted bit(1) default 0 comment '删除状态 0:未删除 1:已删除';
+alter table homestay add column tags varchar(200) comment '标签';

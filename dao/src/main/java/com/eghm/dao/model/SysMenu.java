@@ -3,6 +3,8 @@ package com.eghm.dao.model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -22,7 +24,8 @@ public class SysMenu {
     public static final byte BUTTON = 3;
 
     @ApiModelProperty("id主键")
-    private String id;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
     @ApiModelProperty("菜单名称")
     private String title;
@@ -31,7 +34,8 @@ public class SysMenu {
     private String nid;
 
     @ApiModelProperty("父节点ID,一级菜单默认为0")
-    private String pid;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long pid;
 
     @ApiModelProperty("菜单地址")
     private String path;

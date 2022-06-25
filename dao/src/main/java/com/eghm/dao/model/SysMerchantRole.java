@@ -24,9 +24,11 @@ public class SysMerchantRole {
     private Long id;
 
     @ApiModelProperty("商户ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long merchantId;
 
     @ApiModelProperty("角色id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long roleId;
 
     public SysMerchantRole(Long merchantId, Long roleId) {

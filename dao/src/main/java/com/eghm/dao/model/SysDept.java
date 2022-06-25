@@ -1,6 +1,8 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +34,7 @@ public class SysDept extends BaseEntity {
     private String operatorName;
 
     @ApiModelProperty("操作人id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long operatorId;
 
 }

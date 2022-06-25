@@ -1,6 +1,8 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -25,6 +27,7 @@ public class TaskLog extends BaseEntity {
     private Boolean state;
 
     @ApiModelProperty("执行结束时间")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long elapsedTime;
 
     @ApiModelProperty("执行任务的机器ip")

@@ -100,7 +100,7 @@
         <!--连接池-->
         <pool.version>2.7.0</pool.version>
         <!--工具类-->
-        <hutool.verison>5.2.3</hutool.verison>
+        <hutool.verison>5.8.3</hutool.verison>
         <!--mybatis Ognl表达式支持-->
         <ognl.version>3.2.10</ognl.version>
         <!--jwt版本依赖-->

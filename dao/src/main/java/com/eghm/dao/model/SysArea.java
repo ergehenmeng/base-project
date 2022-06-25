@@ -30,13 +30,13 @@ public class SysArea implements Serializable {
     public static final byte CLASSIFY_COUNTY = 3;
 
     @ApiModelProperty("区域代码")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty("区域名称")
     private String title;
 
     @ApiModelProperty("父级区域代码")
-    private Integer pid;
+    private Long pid;
 
     @ApiModelProperty("邮编")
     private String zipCode;

@@ -1,6 +1,8 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,7 +30,7 @@ public class Scenic extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "景区名称")
     private String scenicName;
 
-    @ApiModelProperty(value = "景区等级 5: 5A 4: 4A 3:3A 2:2A 1:A 0:其他")
+    @ApiModelProperty(value = "景区等级 5: 5A 4: 4A 3: 3A 0:其他")
     private Integer level;
 
     @ApiModelProperty(value = "景区营业时间")
@@ -41,18 +43,21 @@ public class Scenic extends BaseEntity implements Serializable {
     private Long merchantId;
 
     @ApiModelProperty(value = "景区状态 0:待上架 1:已上架")
-    private Integer state;
+    private Byte state;
 
     @ApiModelProperty(value = "景区排序(小<->大)")
     private Integer sort;
 
     @ApiModelProperty(value = "省份id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long provinceId;
 
     @ApiModelProperty(value = "城市id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
@@ -73,4 +78,9 @@ public class Scenic extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "景区详细介绍信息")
     private String introduce;
 
+    @ApiModelProperty(value = "最低票价")
+    private Integer minPrice;
+
+    @ApiModelProperty("最高票价")
+    private Integer maxPrice;
 }
