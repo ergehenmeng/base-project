@@ -1,5 +1,7 @@
 package com.eghm.service.sys.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dao.mapper.SysDataDeptMapper;
 import com.eghm.dao.model.SysDataDept;
 import com.eghm.service.sys.SysDataDeptService;
@@ -30,6 +32,8 @@ public class SysDataDeptServiceImpl implements SysDataDeptService {
 
     @Override
     public void deleteByOperatorId(Long operatorId) {
-        sysDataDeptMapper.deleteByOperatorId(operatorId);
+        LambdaUpdateWrapper<SysDataDept> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysDataDept::getOperatorId, operatorId);
+        sysDataDeptMapper.delete(wrapper);
     }
 }

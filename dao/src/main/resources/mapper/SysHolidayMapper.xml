@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysHolidayMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysHoliday">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="calendar" jdbcType="DATE" property="calendar"/>
-        <result column="date_month" jdbcType="CHAR" property="dateMonth"/>
-        <result column="type" jdbcType="TINYINT" property="type"/>
-        <result column="weekday" jdbcType="TINYINT" property="weekday"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, calendar, date_month, type, weekday
-    </sql>
 </mapper>

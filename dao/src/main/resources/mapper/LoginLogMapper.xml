@@ -16,22 +16,11 @@
         <result column="serial_number" jdbcType="VARCHAR" property="serialNumber"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
     </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, user_id, channel, ip, add_time, device_brand, device_model, software_version, serial_number,deleted
-    </sql>
 
     <select id="getLastLogin" resultMap="BaseResultMap">
         select
-        <include refid="BaseColumnList"/>
+        id, user_id, channel, ip, add_time, device_brand, device_model, software_version, serial_number
         from login_log where user_id = #{userId} order by id desc limit 1
     </select>
-    <update id="deleteLoginLog">
-        update login_log
-        set deleted = true
-        where user_id = #{userId}
-          and serial_number = #{serialNumber}
-    </update>
+
 </mapper>

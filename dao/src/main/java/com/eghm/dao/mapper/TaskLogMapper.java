@@ -14,5 +14,5 @@ public interface TaskLogMapper extends BaseMapper<TaskLog> {
      * @param id 主键
      * @return errorMsg字段有值
      */
-    TaskLog getErrorMsg(@Param("id") Long id);
+    String getErrorMsg(@Param("id") Long id);
 }

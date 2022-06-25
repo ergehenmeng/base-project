@@ -4,12 +4,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.LoginDevice;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 /**
  * @author 二哥很猛
  */
 public interface LoginDeviceMapper extends BaseMapper<LoginDevice> {
+
     /**
      * 添加或更新登陆设备信息(仅仅为了精简代码)
      */
@@ -31,10 +30,4 @@ public interface LoginDeviceMapper extends BaseMapper<LoginDevice> {
      */
     int deleteLoginDevice(@Param("userId")Long userId, @Param("serialNumber") String serialNumber);
 
-    /**
-     * 用户登陆设备列表
-     * @param userId userId
-     * @return 列表
-     */
-    List<LoginDevice> getByUserId(@Param("userId") Long userId);
 }

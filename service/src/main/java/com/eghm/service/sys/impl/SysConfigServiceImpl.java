@@ -49,11 +49,10 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_CONFIG, key = "#p0", unless = "#result == null")
     public String getByNid(String nid) {
-        SysConfig config = sysConfigMapper.getByNid(nid);
-        if (config != null) {
-            return config.getContent();
-        }
-        return null;
+        LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysConfig::getNid, nid);
+        SysConfig config = sysConfigMapper.selectOne(wrapper);
+        return config != null ? config.getContent() : null;
     }
 
     @Override

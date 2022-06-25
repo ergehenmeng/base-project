@@ -1,5 +1,7 @@
 package com.eghm.service.pay.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.AppletPayConfigMapper;
 import com.eghm.dao.model.AppletPayConfig;
@@ -21,6 +23,9 @@ public class AppletPayConfigServiceImpl implements AppletPayConfigService {
     @Override
     @Cacheable(cacheNames = CacheConstant.APPLET_PAY_CONFIG, cacheManager = "longCacheManager", key = "#type.code")
     public AppletPayConfig getByNid(MerchantType type) {
-        return appletPayConfigMapper.getByNid(type.getCode());
+        LambdaQueryWrapper<AppletPayConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(AppletPayConfig::getNid, type.getCode());
+        wrapper.last(" limit 1 ");
+        return appletPayConfigMapper.selectOne(wrapper);
     }
 }

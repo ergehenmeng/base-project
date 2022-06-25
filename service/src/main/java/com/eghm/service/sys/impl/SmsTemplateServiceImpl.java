@@ -28,8 +28,11 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")
     public String getTemplate(String nid) {
-        SmsTemplate smsTemplate = smsTemplateMapper.getByNid(nid);
-        return smsTemplate.getContent();
+        LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SmsTemplate::getNid, nid);
+        wrapper.last(" limit 1 ");
+        SmsTemplate template = smsTemplateMapper.selectOne(wrapper);
+        return template != null ? template.getContent() : null;
     }
 
     @Override

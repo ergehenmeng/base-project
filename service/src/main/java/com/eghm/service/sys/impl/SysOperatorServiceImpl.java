@@ -51,7 +51,9 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     public SysOperator getByMobile(String mobile) {
-        return sysOperatorMapper.getByMobile(mobile);
+        LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysOperator::getMobile, mobile);
+        return sysOperatorMapper.selectOne(wrapper);
     }
 
     @Override
@@ -84,6 +86,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     public void create(OperatorAddRequest request) {
+        // TODO 账号是否被占用, 手机号是否被占用
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         operator.setState(SysOperator.STATE_1);
         String initPassword = this.initPassword(request.getMobile());
@@ -156,7 +159,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     public LoginResponse login(String userName, String password) {
-        SysOperator operator = sysOperatorMapper.getByMobile(userName);
+        SysOperator operator = this.getByMobile(userName);
         if (operator == null) {
             throw new BusinessException(ErrorCode.OPERATOR_NOT_FOUND);
         }

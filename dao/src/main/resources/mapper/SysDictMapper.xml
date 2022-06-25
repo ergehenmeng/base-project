@@ -1,31 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysDictMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysDict">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="nid" jdbcType="VARCHAR" property="nid"/>
-        <result column="hidden_value" jdbcType="TINYINT" property="hiddenValue"/>
-        <result column="show_value" jdbcType="VARCHAR" property="showValue"/>
-        <result column="deleted" jdbcType="BIT" property="deleted"/>
-        <result column="locked" jdbcType="BIT" property="locked"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, title, nid, hidden_value, show_value, deleted, locked, add_time, update_time,remark
-    </sql>
-    <select id="getDictByNid" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_dict where deleted = false and nid = #{nid}
-    </select>
-
 </mapper>

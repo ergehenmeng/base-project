@@ -37,7 +37,9 @@ public class SysDictServiceImpl implements SysDictService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")
     public List<SysDict> getDictByNid(String nid) {
-        return sysDictMapper.getDictByNid(nid);
+        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDict::getNid, nid);
+        return sysDictMapper.selectList(wrapper);
     }
 
     @Override

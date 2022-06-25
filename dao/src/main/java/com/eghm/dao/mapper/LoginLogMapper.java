@@ -16,11 +16,4 @@ public interface LoginLogMapper extends BaseMapper<LoginLog> {
      */
     LoginLog getLastLogin(@Param("userId")Long userId);
 
-    /**
-     * 逻辑删除用户登陆日志信息
-     * @param userId 用户id
-     * @param serialNumber 设备号
-     * @return 批量删除
-     */
-    int deleteLoginLog(@Param("userId") Long userId, @Param("serialNumber") String serialNumber);
 }

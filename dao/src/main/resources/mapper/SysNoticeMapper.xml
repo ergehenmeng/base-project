@@ -13,25 +13,6 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="state" jdbcType="TINYINT" property="state"/>
     </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eghm.dao.model.SysNotice">
-        <!--
-          @create by mybatis
-        -->
-        <result column="content" jdbcType="LONGVARCHAR" property="content"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, title, classify, deleted, add_time, update_time,state
-    </sql>
-    <sql id="BlobColumnList">
-        <!--
-          @create by mybatis
-        -->
-        content
-    </sql>
-
     <select id="getTopList" resultMap="BaseResultMap">
         select id, title
         from sys_notice

@@ -52,12 +52,6 @@
         where o.operator_id = #{operatorId} and t.deleted = false
     </select>
 
-    <select id="getByNid" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_menu where nid = #{nid} and pid = #{pid} and deleted = false limit 1
-    </select>
-
     <select id="getMaxId" resultType="string">
         select id from sys_menu where pid = #{pid} and deleted = false order by id desc limit 1
     </select>

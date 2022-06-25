@@ -38,7 +38,7 @@ public class TaskLogController {
     @ApiOperation("错误日志查询")
     @ApiImplicitParam(name = "id", value = "id",  required = true)
     public RespBody<String> select(@RequestParam("id") Long id) {
-        String errorMsg = taskLogService.getErrorMsg(id).getErrorMsg();
+        String errorMsg = taskLogService.getErrorMsg(id);
         return RespBody.success(errorMsg);
     }
 }

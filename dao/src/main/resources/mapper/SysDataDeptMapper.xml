@@ -1,30 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysDataDeptMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysDataDept">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="operator_id" jdbcType="BIGINT" property="operatorId"/>
-        <result column="dept_code" jdbcType="BIGINT" property="deptCode"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, operator_id, dept_code
-    </sql>
     <select id="getDeptList" resultType="string">
         select dept_code
         from sys_data_dept
         where operator_id = #{operatorId}
     </select>
-
-    <delete id="deleteByOperatorId">
-        delete
-        from sys_data_dept
-        where operator_id = #{operatorId}
-    </delete>
-
 </mapper>

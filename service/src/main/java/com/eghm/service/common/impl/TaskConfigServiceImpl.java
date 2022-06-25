@@ -31,7 +31,9 @@ public class TaskConfigServiceImpl implements TaskConfigService {
 
     @Override
     public List<TaskConfig> getAvailableList() {
-        return taskConfigMapper.getAvailableList();
+        LambdaQueryWrapper<TaskConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(TaskConfig::getState, 1);
+        return taskConfigMapper.selectList(wrapper);
     }
 
     @Override

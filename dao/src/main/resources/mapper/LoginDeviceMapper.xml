@@ -12,22 +12,16 @@
         <result column="ip" jdbcType="BIGINT" property="ip"/>
         <result column="login_time" jdbcType="TIMESTAMP" property="loginTime"/>
     </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, user_id, serial_number, device_model, login_time,ip
-    </sql>
 
     <insert id="insertOrUpdateSelective" parameterType="com.eghm.dao.model.LoginDevice">
         insert into login_device(user_id, serial_number, device_model, login_time, ip)
         values (#{userId}, #{serialNumber}, #{deviceModel}, now(), ip) on duplicate key
-        update login_time = now();
+        update login_time = now()
     </insert>
 
     <select id="getBySerialNumber" resultMap="BaseResultMap">
         select
-        <include refid="BaseColumnList"/>
+        id, user_id, serial_number, device_model, login_time,ip
         from login_device where user_id = #{userId} and serial_number = #{serialNumber} limit 1
     </select>
 
@@ -37,9 +31,5 @@
         where user_id = #{userId}
           and serial_number = #{serialNumber}
     </delete>
-    <select id="getByUserId" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from login_device where user_id = #{userId}
-    </select>
+
 </mapper>

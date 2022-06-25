@@ -1,5 +1,7 @@
 package com.eghm.service.sys.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.utils.StringUtil;
 import com.eghm.dao.mapper.SysAreaMapper;
@@ -37,8 +39,10 @@ public class SysAreaServiceImpl implements SysAreaService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid" ,cacheManager = "longCacheManager", sync = true)
     public List<SysAreaVO> getByPid(Long pid) {
-        List<SysArea> addressList = sysAreaMapper.getByPid(pid);
-        return DataUtil.convert(addressList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
+        LambdaQueryWrapper<SysArea> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysArea::getPid, pid);
+        List<SysArea> selectList = sysAreaMapper.selectList(wrapper);
+        return DataUtil.convert(selectList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
     }
 
     @Override

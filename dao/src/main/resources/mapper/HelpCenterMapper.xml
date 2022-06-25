@@ -15,12 +15,6 @@
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
     </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, classify, state, ask, answer, sort, deleted, update_time, add_time
-    </sql>
 
     <select id="getListSorted" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
         select classify, ask, answer from help_center where deleted = false and state = true and classify = #{classify}

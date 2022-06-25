@@ -75,13 +75,13 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 下一个编号
      */
     private String getNextCode(String code) {
-        SysDept child = sysDeptMapper.getMaxCodeChild(code);
-        if (child == null) {
+        String maxCode = sysDeptMapper.getMaxCodeChild(code);
+        if (maxCode == null) {
             return ROOT.equals(code) ? STEP :  code + STEP;
         }
         // 不校验子部门上限,傻子才会有900个部门
         try {
-            return String.valueOf(Long.parseLong(child.getCode()) + 1);
+            return String.valueOf(Long.parseLong(maxCode) + 1);
         } catch (NumberFormatException e) {
             log.warn("部门编号生成失败 code:[{}]", code);
             throw new BusinessException(ErrorCode.DEPARTMENT_DEPTH_ERROR);

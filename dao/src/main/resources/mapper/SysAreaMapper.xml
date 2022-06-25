@@ -1,26 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysAreaMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysArea">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="pid" jdbcType="CHAR" property="pid"/>
-        <result column="zip_code" jdbcType="CHAR" property="zipCode"/>
-        <result column="mark" jdbcType="CHAR" property="mark"/>
-        <result column="classify" jdbcType="CHAR" property="classify"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, title, pid, zip_code, mark,classify
-    </sql>
-    <select id="getByPid" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from sys_area where pid = #{pid}
-    </select>
+
 </mapper>

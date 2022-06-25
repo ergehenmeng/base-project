@@ -1,5 +1,7 @@
 package com.eghm.service.common.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.EmailType;
 import com.eghm.dao.mapper.EmailTemplateMapper;
@@ -22,6 +24,9 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
     @Override
     @Cacheable(cacheNames = CacheConstant.EMAIL_TEMPLATE, key = "#code.name()", cacheManager = "longCacheManager", unless = "#result == null")
     public EmailTemplate getByNid(EmailType code) {
-        return emailTemplateMapper.getByNid(code.name());
+        LambdaQueryWrapper<EmailTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(EmailTemplate::getNid, code.name());
+        wrapper.last(" limit 1 ");
+        return emailTemplateMapper.selectOne(wrapper);
     }
 }

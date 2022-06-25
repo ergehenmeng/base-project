@@ -38,7 +38,7 @@ public class TaskLogServiceImpl implements TaskLogService {
     }
 
     @Override
-    public TaskLog getErrorMsg(Long id) {
+    public String getErrorMsg(Long id) {
         return taskLogMapper.getErrorMsg(id);
     }
 }

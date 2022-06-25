@@ -1,27 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.BlackRosterMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.BlackRoster">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="ip" jdbcType="BIGINT" property="ip"/>
-        <result column="deleted" jdbcType="BIT" property="deleted"/>
-        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, ip, deleted, end_time, add_time, update_time
-    </sql>
-
-    <select id="getAvailableList" resultMap="BaseResultMap">
-        select id, ip, end_time
-        from black_roster
-        where deleted = false
-    </select>
 </mapper>

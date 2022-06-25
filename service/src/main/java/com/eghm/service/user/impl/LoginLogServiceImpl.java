@@ -1,5 +1,7 @@
 package com.eghm.service.user.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.mapper.LoginLogMapper;
 import com.eghm.dao.model.LoginDevice;
@@ -55,6 +57,9 @@ public class LoginLogServiceImpl implements LoginLogService {
 
     @Override
     public void deleteLoginLog(Long userId, String serialNumber) {
-        loginLogMapper.deleteLoginLog(userId, serialNumber);
+        LambdaUpdateWrapper<LoginLog> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LoginLog::getUserId, userId);
+        wrapper.eq(LoginLog::getSerialNumber, serialNumber);
+        loginLogMapper.delete(wrapper);
     }
 }

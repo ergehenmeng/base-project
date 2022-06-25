@@ -1,5 +1,7 @@
 package com.eghm.service.common.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.NoticeTemplateMapper;
 import com.eghm.dao.model.NoticeTemplate;
@@ -21,6 +23,9 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
     @Override
     @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", cacheManager = "cacheManager", unless = "#result == null")
     public NoticeTemplate getTemplate(String code) {
-        return noticeTemplateMapper.getTemplate(code);
+        LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(NoticeTemplate::getCode, code);
+        wrapper.last(" limit 1 ");
+        return noticeTemplateMapper.selectOne(wrapper);
     }
 }

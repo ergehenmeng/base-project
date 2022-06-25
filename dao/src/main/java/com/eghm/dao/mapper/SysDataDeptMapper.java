@@ -15,9 +15,4 @@ public interface SysDataDeptMapper extends BaseMapper<SysDataDept> {
      */
     List<String> getDeptList(@Param("operatorId") Long operatorId);
 
-    /**
-     * 删除用户对应的部门的数据权限
-     * @param operatorId 用户id
-     */
-    void deleteByOperatorId(@Param("operatorId") Long operatorId);
 }

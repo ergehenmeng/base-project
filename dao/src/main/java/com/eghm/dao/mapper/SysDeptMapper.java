@@ -15,6 +15,6 @@ public interface SysDeptMapper extends BaseMapper<SysDept> {
      * @param code 部门编号
      * @return 子部门列表
      */
-    SysDept getMaxCodeChild(@Param("code") String code);
+    String getMaxCodeChild(@Param("code") String code);
 
 }

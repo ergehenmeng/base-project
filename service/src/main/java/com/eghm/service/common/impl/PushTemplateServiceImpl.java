@@ -39,7 +39,11 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     @Override
     @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE, key = "#p0", unless = "#result == null")
     public PushTemplate getTemplate(String nid) {
-        return pushTemplateMapper.getByNid(nid);
+        LambdaQueryWrapper<PushTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(PushTemplate::getNid, nid);
+        wrapper.eq(PushTemplate::getState, 1);
+        wrapper.last(" limit 1 ");
+        return pushTemplateMapper.selectOne(wrapper);
     }
 
     @Override

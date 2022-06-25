@@ -1,26 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.NoticeTemplateMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.NoticeTemplate">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="code" jdbcType="VARCHAR" property="code"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="content" jdbcType="VARCHAR" property="content"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, code, title, content, update_time
-    </sql>
 
-    <select id="getTemplate" resultMap="BaseResultMap">
-        select
-        <include refid="BaseColumnList"/>
-        from notice_template where code = #{code} limit 1
-    </select>
 </mapper>

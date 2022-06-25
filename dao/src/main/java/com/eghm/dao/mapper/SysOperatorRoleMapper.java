@@ -2,6 +2,7 @@ package com.eghm.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dao.model.SysOperatorRole;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public interface SysOperatorRoleMapper extends BaseMapper<SysOperatorRole> {
     /**
      * 删除用户所有的角色
      * @param operatorId 管理人员id
-     * @return 影响条数
      */
-    int deleteByOperatorId(@Param("operatorId") Long operatorId);
+    @Delete("delete from sys_operator_role where operator_id = #{operatorId} ")
+    void deleteByOperatorId(@Param("operatorId") Long operatorId);
 
 }

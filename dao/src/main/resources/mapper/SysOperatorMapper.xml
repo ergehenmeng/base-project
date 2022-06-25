@@ -1,34 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.SysOperatorMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysOperator">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="operator_name" jdbcType="CHAR" property="operatorName"/>
-        <result column="mobile" jdbcType="CHAR" property="mobile"/>
-        <result column="state" jdbcType="TINYINT" property="state"/>
-        <result column="pwd" jdbcType="VARCHAR" property="pwd"/>
-        <result column="init_pwd" jdbcType="VARCHAR" property="initPwd"/>
-        <result column="dept_code" jdbcType="VARCHAR" property="deptCode"/>
-        <result column="permission_type" jdbcType="VARCHAR" property="permissionType"/>
-        <result column="deleted" jdbcType="BIT" property="deleted"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
-    </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, operator_name, mobile, state, pwd, init_pwd, dept_code,permission_type, deleted,
-        add_time, update_time, remark
-    </sql>
-    <select id="getByMobile" resultMap="BaseResultMap">
-        SELECT
-        <include refid="BaseColumnList"/>
-        from sys_operator where deleted = false and mobile = #{mobile}
-    </select>
-
 </mapper>

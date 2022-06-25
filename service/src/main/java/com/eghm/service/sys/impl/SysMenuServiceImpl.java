@@ -42,7 +42,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<SysMenu> getMenuList(Long operatorId) {
         List<SysMenu> list = sysMenuMapper.getMenuList(operatorId);
         return list.stream()
-                .filter(parent -> CommonConstant.ROOT.equals(parent.getPid()))
+                .filter(parent -> CommonConstant.ROOT == parent.getPid())
                 .peek(parent -> setChild(parent, list))
                 .sorted(comparator).collect(Collectors.toList());
     }

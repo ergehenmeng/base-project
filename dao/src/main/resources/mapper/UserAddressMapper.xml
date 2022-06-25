@@ -19,23 +19,19 @@
         <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
-    <sql id="BaseColumnList">
-        <!--
-          @create by mybatis
-        -->
-        id, user_id, state, province_id, province_name, city_id, city_name, county_id, county_name,
-        detail_address,deleted, add_time, update_time
-    </sql>
+
     <select id="getByUserId" resultMap="BaseResultMap">
         select
-        <include refid="BaseColumnList"/>
+        id, user_id, state, province_id, province_name, city_id, city_name, county_id, county_name, detail_address
         from user_address where user_id = #{userId} and deleted = false order by state, update_time desc
     </select>
+
     <update id="updateState">
         update user_address
         set state = #{state}
         where user_id = #{userId}
     </update>
+
     <update id="updateByUserId" parameterType="com.eghm.dao.model.UserAddress">
         update user_address
         <set>
@@ -66,4 +62,5 @@
         </set>
         where id = #{id} and user_id = #{userId}
     </update>
+
 </mapper>

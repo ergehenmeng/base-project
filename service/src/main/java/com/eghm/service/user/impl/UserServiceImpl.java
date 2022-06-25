@@ -4,6 +4,8 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
@@ -199,9 +201,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByAccount(String account) {
         if (RegExpUtil.mobile(account)) {
-            return userMapper.getByMobile(account);
+            return this.getByMobile(account);
         }
-        return userMapper.getByEmail(account);
+        return this.getByEmail(account);
     }
 
 
@@ -309,11 +311,29 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void checkEmail(String email) {
-        User user = userMapper.getByEmail(email);
-        if (user == null) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(User::getEmail, email);
+        Integer count = userMapper.selectCount(wrapper);
+        if (count > 0) {
             log.warn("邮箱号已被占用 email:[{}]", email);
             throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
         }
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(User::getEmail, email);
+        wrapper.last(" limit 1 ");
+        return userMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public User getByMobile(String mobile) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(User::getMobile, mobile);
+        wrapper.last(" limit 1 ");
+        return userMapper.selectOne(wrapper);
     }
 
     @Override
@@ -412,7 +432,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByInviteCode(String inviteCode) {
-        return userMapper.getByInviteCode(inviteCode);
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(User::getInviteCode, inviteCode);
+        wrapper.last(" limit 1 ");
+        return userMapper.selectOne(wrapper);
     }
 
     @Override
@@ -434,8 +457,11 @@ public class UserServiceImpl implements UserService {
      * @param mobile 手机号
      */
     private void registerRedoVerify(String mobile) {
-        User user = userMapper.getByMobile(mobile);
-        if (user == null) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(User::getMobile, mobile);
+        Integer count = userMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("手机号被占用,无法注册用户 [{}]", mobile);
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
         }
     }

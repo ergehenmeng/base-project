@@ -1,5 +1,7 @@
 package com.eghm.service.user.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.mapper.LoginDeviceMapper;
 import com.eghm.dao.model.LoginDevice;
@@ -51,7 +53,11 @@ public class LoginDeviceServiceImpl implements LoginDeviceService {
 
     @Override
     public List<LoginDeviceVO> getByUserId(Long userId) {
-        List<LoginDevice> deviceList = loginDeviceMapper.getByUserId(userId);
+        LambdaQueryWrapper<LoginDevice> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(LoginDevice::getUserId, userId);
+        wrapper.last(" order by id desc ");
+        List<LoginDevice> deviceList = loginDeviceMapper.selectList(wrapper);
+
         return DataUtil.convert(deviceList, device -> {
             LoginDeviceVO vo = DataUtil.copy(device, LoginDeviceVO.class, "loginTime");
             vo.setLoginTime(DateUtil.formatSimple(device.getLoginTime()));

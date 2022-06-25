@@ -84,7 +84,7 @@ CREATE TABLE `banner` (
   `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图类型:由system_dict的banner_classify维护(不同模块的轮播均在该表中维护)',
   `client_type` varchar(20) DEFAULT 'PC' COMMENT '客户端类型 PC ANDROID IOS H5',
   `img_url` varchar(200) NOT NULL COMMENT '轮播图片地址',
-  `turn_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
+  `jump_url` varchar(200) DEFAULT NULL COMMENT '轮播图点击后跳转的URL',
   `sort` tinyint(2) unsigned DEFAULT NULL COMMENT '轮播图顺序(大<->小) 最大的在最前面',
   `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '开始展示时间(可在指定时间后开始展示)',
   `end_time` datetime DEFAULT NULL COMMENT '取消展示的时间(只在某个时间段展示)',
@@ -204,6 +204,7 @@ DROP TABLE IF EXISTS `login_device`;
 CREATE TABLE `login_device` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `ip` bigint(20) DEFAULT NULL COMMENT '登录ip',
   `serial_number` varchar(128)  DEFAULT NULL COMMENT '设备唯一序列号',
   `device_model` varchar(50)  DEFAULT NULL COMMENT '设备型号',
   `login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
@@ -686,3 +687,18 @@ CREATE TABLE `applet_pay_config` (
      PRIMARY KEY (`id`),
      UNIQUE KEY `nid` (`nid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4  COMMENT='小程序支付配置表';
+
+
+CREATE TABLE `sys_notice` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `title` varchar(30) DEFAULT NULL COMMENT '公告标题',
+  `classify` tinyint(2) DEFAULT NULL COMMENT '公告分类',
+  `content` text COMMENT '公告内容',
+  `state` bit(1) DEFAULT b'0' COMMENT '是否发布 0:未发布 1:已发布',
+  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统公告';
+
+alter table user add column invite_code varchar(20)  comment '邀请码';

@@ -33,14 +33,6 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<SysMenu> getList(@Param("operatorId")Long operatorId);
 
     /**
-     * 根据nid与pid查询菜单
-     * @param nid nid
-     * @param pid pid
-     * @return 菜单 默认只查一条
-     */
-    SysMenu getByNid(@Param("nid") String nid, @Param("pid") String pid);
-
-    /**
      * 查询某个菜单下的最大子菜单id
      * @param pid pid
      * @return 最大子菜单id

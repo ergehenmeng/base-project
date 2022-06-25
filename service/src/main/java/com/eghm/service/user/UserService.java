@@ -129,6 +129,20 @@ public interface UserService {
     void checkEmail(String email);
 
     /**
+     * 根据邮箱查询用户信息
+     * @param email 邮箱
+     * @return 用户信息
+     */
+    User getByEmail(String email);
+
+    /**
+     * 根据手机号码查询用户
+     * @param mobile 手机号
+     * @return 用户信息
+     */
+    User getByMobile(String mobile);
+
+    /**
      * 更新邮箱发送短信验证码
      * @param userId userId
      */
