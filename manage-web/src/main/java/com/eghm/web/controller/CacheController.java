@@ -6,7 +6,6 @@ import com.eghm.model.dto.cache.ClearCacheRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +37,6 @@ public class CacheController {
     }
 
     @PostMapping("/cache/clear")
-    @Mark
     @ApiOperation("清除缓存")
     @ApiImplicitParam(name = "cacheName", value = "缓存名称,逗号分割", required = true)
     public RespBody<Void> clear(@Validated @RequestBody ClearCacheRequest request) {

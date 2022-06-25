@@ -8,7 +8,6 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.service.sys.SysMenuService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -39,7 +38,6 @@ public class MenuController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("添加菜单")
     public synchronized RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
         if (request.getGrade() > SysMenu.BUTTON) {
@@ -51,7 +49,6 @@ public class MenuController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("修改菜单")
     public RespBody<Void> update(@Validated @RequestBody MenuEditRequest request) {
         sysMenuService.update(request);
@@ -60,7 +57,6 @@ public class MenuController {
     }
 
     @PostMapping("/delete")
-    @Mark
     @ApiOperation("删除菜单")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysMenuService.delete(dto.getId());

@@ -9,7 +9,6 @@ import com.eghm.model.dto.notice.NoticeEditRequest;
 import com.eghm.model.dto.notice.NoticeHandleRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;
 import com.eghm.service.common.SysNoticeService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +39,6 @@ public class SysNoticeController {
      * 新增公告信息
      */
     @PostMapping("/create")
-    @Mark
     @ApiOperation("新增公告信息")
     public RespBody<Void> create(@Validated @RequestBody NoticeAddRequest request) {
         sysNoticeService.create(request);
@@ -60,7 +58,6 @@ public class SysNoticeController {
 
 
     @PostMapping("/handle")
-    @Mark
     @ApiOperation("公告操作(发布,取消发布,删除)")
     public RespBody<Void> handle(@Validated @RequestBody NoticeHandleRequest request) {
         if (request.getState() == NoticeHandleRequest.PUBLISH) {
@@ -77,7 +74,6 @@ public class SysNoticeController {
      * 编辑公告信息
      */
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑公告")
     public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
         sysNoticeService.update(request);

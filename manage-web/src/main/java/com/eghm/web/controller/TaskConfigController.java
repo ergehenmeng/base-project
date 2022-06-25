@@ -8,7 +8,6 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.service.common.TaskConfigService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -37,7 +36,6 @@ public class TaskConfigController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑定时任务")
     public RespBody<Void> update(@Validated @RequestBody TaskEditRequest request) {
         taskConfigService.update(request);
@@ -45,7 +43,6 @@ public class TaskConfigController {
     }
 
     @PostMapping("/refresh")
-    @Mark
     @ApiOperation("刷新定时任务")
     public RespBody<Void> refresh() {
         systemTaskRegistrar.loadOrRefreshTask();

@@ -1,9 +1,9 @@
 package com.eghm.web.controller;
 
+import com.eghm.configuration.annotation.SkipLogger;
 import com.eghm.model.dto.ext.FilePath;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.FileService;
-import com.eghm.web.annotation.SkipLogger;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

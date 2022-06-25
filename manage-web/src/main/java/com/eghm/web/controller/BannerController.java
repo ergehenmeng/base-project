@@ -8,7 +8,6 @@ import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.BannerService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,7 +34,6 @@ public class BannerController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("添加轮播图")
     public RespBody<Void> create(@Validated @RequestBody BannerAddRequest request) {
         bannerService.create(request);
@@ -43,7 +41,6 @@ public class BannerController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("修改轮播图")
     public RespBody<Void> update(@Validated @RequestBody BannerEditRequest request) {
         bannerService.update(request);

@@ -5,7 +5,6 @@ import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,6 @@ public class DeptController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("添加部门")
     public RespBody<Void> create(@Validated @RequestBody DeptAddRequest request) {
         sysDeptService.create(request);
@@ -42,7 +40,6 @@ public class DeptController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑部门")
     public RespBody<Void> update(@Validated @RequestBody DeptEditRequest request) {
         sysDeptService.update(request);

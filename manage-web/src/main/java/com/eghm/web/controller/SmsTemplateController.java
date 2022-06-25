@@ -7,7 +7,6 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
 import com.eghm.service.sys.SmsTemplateService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -37,7 +36,6 @@ public class SmsTemplateController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑短信模板")
     public RespBody<Void> update(@Valid @RequestBody SmsTemplateEditRequest request) {
         smsTemplateService.update(request);

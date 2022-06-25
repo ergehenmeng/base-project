@@ -9,7 +9,6 @@ import com.eghm.model.dto.image.ImageAddRequest;
 import com.eghm.model.dto.image.ImageEditRequest;
 import com.eghm.model.dto.image.ImageQueryRequest;
 import com.eghm.service.common.ImageLogService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -36,7 +35,6 @@ public class ImageLogController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("添加图片")
     public RespBody<Void> create(@Validated @RequestBody ImageAddRequest request) {
         imageLogService.create(request);
@@ -44,7 +42,6 @@ public class ImageLogController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("添加图片")
     public RespBody<Void> update(@Validated @RequestBody ImageEditRequest request) {
         imageLogService.update(request);
@@ -52,7 +49,6 @@ public class ImageLogController {
     }
 
     @PostMapping("/delete")
-    @Mark
     @ApiOperation("删除图片")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         imageLogService.delete(dto.getId());

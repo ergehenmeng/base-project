@@ -11,7 +11,6 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.ProxyService;
 import com.eghm.service.sys.SysConfigService;
 import com.eghm.utils.DataUtil;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,6 @@ public class ConfigController {
     private final ProxyService proxyService;
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("更新系统参数")
     public RespBody<Void> update(@Validated @RequestBody ConfigEditRequest request) {
         sysConfigService.update(request);

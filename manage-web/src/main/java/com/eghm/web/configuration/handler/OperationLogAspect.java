@@ -12,7 +12,7 @@ import com.eghm.service.sys.OperationLogService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
-import com.eghm.web.annotation.Mark;
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -41,21 +41,22 @@ public class OperationLogAspect {
 
     private final OperationLogService operationLogService;
 
-    private final JsonService jsonService;
+    private final Gson gson = new Gson();
 
     private final TaskHandler taskHandler;
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
      * {@link com.google.gson.annotations.Expose} serialize = false
+     * 此处用gson进行序列化的原因是因为post请求采用 RequestBody, Spring内部采用jackson解析,
+     * 如果要要忽略某几个字段的话使用jackson的注解, 字段映射为空,业务上无法进行处理
      *
      * @param joinPoint 切入点
-     * @param mark      操作日志标示注解
      * @return aop方法调用结果对象
      * @throws Throwable 异常
      */
-    @Around("@annotation(mark) && within(com.eghm.web.controller..*)")
-    public Object around(ProceedingJoinPoint joinPoint, Mark mark) throws Throwable {
+    @Around("@annotation(org.springframework.web.bind.annotation.PostMapping) && (!@annotation(com.eghm.configuration.annotation.SkipLogger)) && within(com.eghm.web.controller..*)")
+    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
         if (requestAttributes == null) {
@@ -73,18 +74,17 @@ public class OperationLogAspect {
         sy.setOperatorName(operator.getOperatorName());
         sy.setIp(NetUtil.ipv4ToLong(IpUtil.getIpAddress(request)));
 
-        if (mark.request()) {
-            Object[] args = joinPoint.getArgs();
-            if (args != null && args.length > 0) {
-                sy.setRequest(formatRequest(args));
-            }
+        Object[] args = joinPoint.getArgs();
+        if (args != null && args.length > 0) {
+            sy.setRequest(formatRequest(args));
         }
+
         sy.setUrl(request.getRequestURI());
         Object proceed = joinPoint.proceed();
         long end = System.currentTimeMillis();
         sy.setBusinessTime(end - System.currentTimeMillis());
-        if (mark.response() && proceed != null) {
-            sy.setResponse(jsonService.toJson(proceed));
+        if (proceed != null) {
+            sy.setResponse(gson.toJson(proceed));
         }
         boolean logSwitch = sysConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if (logSwitch) {
@@ -112,7 +112,7 @@ public class OperationLogAspect {
             if (WebUtil.isAutoInject(object.getClass())) {
                 continue;
             }
-            builder.append(jsonService.toJson(object));
+            builder.append(gson.toJson(object));
         }
         return builder.toString();
     }

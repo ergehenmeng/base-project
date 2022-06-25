@@ -7,7 +7,6 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,6 @@ public class PushTemplateController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑推送模板")
     public RespBody<Void> update(@Validated @RequestBody PushTemplateEditRequest request) {
         pushTemplateService.update(request);

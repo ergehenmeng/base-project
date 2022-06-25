@@ -1,6 +1,5 @@
-package com.eghm.web.annotation;
+package com.eghm.configuration.annotation;
 
-import com.eghm.web.configuration.handler.RequestResponseLogAspect;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -12,7 +11,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * api项目默认记录所有请求日志,如需不添加日志记录,则添加该注解
  *
- * @see RequestResponseLogAspect aop请求日志记录
  * @author 二哥很猛
  */
 @Documented

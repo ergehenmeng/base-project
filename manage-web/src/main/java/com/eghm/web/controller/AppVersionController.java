@@ -9,7 +9,6 @@ import com.eghm.model.dto.version.VersionAddRequest;
 import com.eghm.model.dto.version.VersionEditRequest;
 import com.eghm.model.dto.version.VersionQueryRequest;
 import com.eghm.service.common.AppVersionService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +36,6 @@ public class AppVersionController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("新增版本信息")
     public RespBody<Void> create(@Validated @RequestBody VersionAddRequest request) {
         appVersionService.create(request);
@@ -45,7 +43,6 @@ public class AppVersionController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑版本信息")
     public RespBody<Void> update(@Validated @RequestBody VersionEditRequest request) {
         appVersionService.update(request);
@@ -53,7 +50,6 @@ public class AppVersionController {
     }
 
     @PostMapping("/delete")
-    @Mark
     @ApiOperation("删除版本信息")
     @ApiImplicitParam(name = "id", value = "id", required = true)
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {

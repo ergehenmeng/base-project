@@ -8,7 +8,6 @@ import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,6 @@ public class DictController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("数据字典列表(分页)")
     public RespBody<Void> create(@Validated @RequestBody DictAddRequest request) {
         sysDictService.create(request);
@@ -42,7 +40,6 @@ public class DictController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑数据字典")
     public RespBody<Void> update(@Validated @RequestBody DictEditRequest request) {
         sysDictService.update(request);
@@ -50,7 +47,6 @@ public class DictController {
     }
 
     @PostMapping("/delete")
-    @Mark
     @ApiOperation("删除数据字典")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysDictService.delete(dto.getId());

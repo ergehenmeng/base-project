@@ -12,7 +12,6 @@ import com.eghm.model.dto.role.RoleEditRequest;
 import com.eghm.model.dto.role.RoleQueryRequest;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -50,7 +49,6 @@ public class RoleController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("编辑角色")
     public RespBody<Void> update(@Validated @RequestBody RoleEditRequest request) {
         sysRoleService.update(request);
@@ -58,7 +56,6 @@ public class RoleController {
     }
 
     @PostMapping("/delete")
-    @Mark
     @ApiOperation("编辑角色")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
@@ -67,7 +64,6 @@ public class RoleController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("添加角色")
     public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
         sysRoleService.create(request);
@@ -75,7 +71,6 @@ public class RoleController {
     }
 
     @PostMapping("/auth")
-    @Mark
     @ApiOperation("角色菜单授权")
     public RespBody<Void> authRole(@Validated @RequestBody RoleAuthRequest request) {
         sysRoleService.authMenu(request.getRoleId(), request.getMenuIds());

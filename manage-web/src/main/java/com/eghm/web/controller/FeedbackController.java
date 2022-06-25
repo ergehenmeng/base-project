@@ -9,7 +9,6 @@ import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
-import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -38,7 +37,6 @@ public class FeedbackController {
 
     @PostMapping("/dispose")
     @ResponseBody
-    @Mark
     public RespBody<Void> dispose(@Validated @RequestBody FeedbackDisposeRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());

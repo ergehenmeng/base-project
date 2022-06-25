@@ -15,7 +15,6 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
-import com.eghm.web.annotation.Mark;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -50,7 +49,6 @@ public class OperatorController {
     private final SysMenuService sysMenuService;
 
     @PostMapping("/changePwd")
-    @Mark
     @ApiOperation("修改管理人员密码")
     public RespBody<Void> changePwd(HttpSession session, @Validated @RequestBody PasswordEditRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
@@ -74,7 +72,6 @@ public class OperatorController {
     }
 
     @PostMapping("/create")
-    @Mark
     @ApiOperation("添加管理人员")
     public RespBody<Void> create(@Validated @RequestBody OperatorAddRequest request) {
         sysOperatorService.create(request);
@@ -93,7 +90,6 @@ public class OperatorController {
     }
 
     @PostMapping("/update")
-    @Mark
     @ApiOperation("系统用户信息")
     public RespBody<Void> update(@Validated @RequestBody OperatorEditRequest request) {
         sysOperatorService.update(request);
@@ -101,7 +97,6 @@ public class OperatorController {
     }
 
     @PostMapping("/lockScreen")
-    @Mark
     @ApiOperation("锁屏操作")
     public RespBody<Void> lockScreen() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
@@ -110,7 +105,6 @@ public class OperatorController {
     }
 
     @PostMapping("/unlockScreen")
-    @Mark
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
     public RespBody<Void> unlockScreen(String password) {
@@ -122,7 +116,6 @@ public class OperatorController {
 
 
     @PostMapping("/handle")
-    @Mark
     @ApiOperation("用户操作(锁定,解锁,删除,重置密码)")
     public RespBody<Void> handle(@Validated @RequestBody OperatorHandleRequest request) {
         if (request.getState() == OperatorHandleRequest.LOCK) {
