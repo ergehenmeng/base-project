@@ -46,7 +46,7 @@ public interface SysOperatorService {
      * 添加管理人员 初始密码默认手机号后6位
      * @param request 前台参数
      */
-    void addOperator(OperatorAddRequest request);
+    void create(OperatorAddRequest request);
 
     /**
      * 根据手机号生成初始化密码,手机号后六位
@@ -66,7 +66,7 @@ public interface SysOperatorService {
      * 更新用户信息
      * @param request 请求参数
      */
-    void updateOperator(OperatorEditRequest request);
+    void update(OperatorEditRequest request);
 
     /**
      * 重置用户登录密码 默认手机号后六位
@@ -79,7 +79,7 @@ public interface SysOperatorService {
      * 删除用户
      * @param id operatorId
      */
-    void deleteOperator(Long id);
+    void delete(Long id);
 
     /**
      * 锁定用户

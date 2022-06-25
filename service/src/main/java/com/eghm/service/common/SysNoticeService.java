@@ -26,19 +26,19 @@ public interface SysNoticeService {
      * 添加公告
      * @param request 前台参数
      */
-    void addNotice(NoticeAddRequest request);
+    void create(NoticeAddRequest request);
 
     /**
      * 更新公告
      * @param request 前台参数
      */
-    void editNotice(NoticeEditRequest request);
+    void update(NoticeEditRequest request);
 
     /**
      * 删除公告
      * @param id 公告id
      */
-    void deleteNotice(Long id);
+    void delete(Long id);
 
     /**
      * 分页查询公告信息

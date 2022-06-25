@@ -20,19 +20,19 @@ public interface HelpCenterService {
      * 添加帮助说明
      * @param request 前台参数
      */
-    void addHelpCenter(HelpAddRequest request);
+    void create(HelpAddRequest request);
 
     /**
      * 更新帮助说明
      * @param request 前台参数
      */
-    void updateHelpCenter(HelpEditRequest request);
+    void update(HelpEditRequest request);
 
     /**
      * 删除帮助说明
-     * @param request 前台参数 id
+     * @param id id
      */
-    void deleteHelpCenter(HelpEditRequest request);
+    void delete(Long id);
 
     /**
      * 分页获取帮助说明

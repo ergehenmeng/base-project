@@ -75,7 +75,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     @Override
     public Page<SysOperator> getByPage(OperatorQueryRequest request) {
         LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysOperator::getDeleted, false);
         wrapper.eq(request.getState() != null, SysOperator::getState, request.getState());
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(SysOperator::getOperatorName, request.getQueryName()).or().
@@ -84,9 +83,8 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    public void addOperator(OperatorAddRequest request) {
+    public void create(OperatorAddRequest request) {
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
-        operator.setDeleted(false);
         operator.setState(SysOperator.STATE_1);
         String initPassword = this.initPassword(request.getMobile());
         operator.setPwd(initPassword);
@@ -114,7 +112,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    public void updateOperator(OperatorEditRequest request) {
+    public void update(OperatorEditRequest request) {
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         sysOperatorMapper.updateById(operator);
 
@@ -136,11 +134,8 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    public void deleteOperator(Long id) {
-        SysOperator operator = new SysOperator();
-        operator.setId(id);
-        operator.setDeleted(true);
-        sysOperatorMapper.updateById(operator);
+    public void delete(Long id) {
+        sysOperatorMapper.deleteById(id);
     }
 
     @Override

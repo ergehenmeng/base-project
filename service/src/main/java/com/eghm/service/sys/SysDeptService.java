@@ -29,12 +29,12 @@ public interface SysDeptService {
      * 添加部门
      * @param request 前台参数
      */
-    void addDepartment(DeptAddRequest request);
+    void create(DeptAddRequest request);
 
     /**
      * 编辑部门节点信息
      * @param request 前天参数
      */
-    void editDepartment(DeptEditRequest request);
+    void update(DeptEditRequest request);
 }
 

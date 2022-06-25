@@ -52,29 +52,25 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public void addNotice(NoticeAddRequest request) {
+    public void create(NoticeAddRequest request) {
         SysNotice notice = DataUtil.copy(request, SysNotice.class);
         sysNoticeMapper.insert(notice);
     }
 
     @Override
-    public void editNotice(NoticeEditRequest request) {
+    public void update(NoticeEditRequest request) {
         SysNotice notice = DataUtil.copy(request, SysNotice.class);
         sysNoticeMapper.updateById(notice);
     }
 
     @Override
-    public void deleteNotice(Long id) {
-        SysNotice notice = new SysNotice();
-        notice.setId(id);
-        notice.setDeleted(true);
-        sysNoticeMapper.updateById(notice);
+    public void delete(Long id) {
+        sysNoticeMapper.deleteById(id);
     }
 
     @Override
     public Page<SysNotice> getByPage(NoticeQueryRequest request) {
         LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysNotice::getDeleted, false);
         wrapper.eq(request.getClassify() != null, SysNotice::getClassify, request.getClassify());
         wrapper.last("order by update_time desc, id desc ");
         return sysNoticeMapper.selectPage(request.createPage(), wrapper);

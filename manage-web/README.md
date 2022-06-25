@@ -1,5 +1,5 @@
 ### 开发说明
-* 页面跳转采用get请求,ajax请求采用post
+* 所有后端接口一律采用 `@GetMapping` 或 `@PostMapping` 
 * `@Mark`注解在Controller类方法上,记录日志专用
 
 

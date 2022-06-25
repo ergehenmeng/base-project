@@ -6,13 +6,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.SysConfigMapper;
 import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
 import com.eghm.model.dto.config.ConfigQueryRequest;
 import com.eghm.service.sys.SysConfigService;
+import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -30,11 +29,9 @@ public class SysConfigServiceImpl implements SysConfigService {
     private final SysConfigMapper sysConfigMapper;
 
     @Override
-    public void updateConfig(ConfigEditRequest request) {
-        int i = sysConfigMapper.updateConfig(request);
-        if (i != 1) {
-            throw new BusinessException(ErrorCode.UPDATE_CONFIG_ERROR);
-        }
+    public void update(ConfigEditRequest request) {
+        SysConfig config = DataUtil.copy(request, SysConfig.class);
+        sysConfigMapper.updateById(config);
     }
 
     @Override

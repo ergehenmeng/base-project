@@ -26,10 +26,4 @@ public class HelpQueryRequest extends PagingQuery implements Serializable {
      */
     private Byte state;
 
-
-    /**
-     * 问题
-     */
-    private String ask;
-
 }

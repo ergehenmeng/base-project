@@ -30,7 +30,6 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     @Override
     public Page<BlackRoster> getByPage(BlackRosterQueryRequest request) {
         LambdaQueryWrapper<BlackRoster> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(BlackRoster::getDeleted, false);
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), BlackRoster::getIp, request.getQueryName());
         return blackRosterMapper.selectPage(request.createPage(), wrapper);
     }

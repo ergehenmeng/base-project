@@ -17,7 +17,7 @@ public interface SysConfigService {
      * 更新系统参数
      * @param request 待更新的参数对象
      */
-    void updateConfig(ConfigEditRequest request);
+    void update(ConfigEditRequest request);
 
     /**
      * 分页查询系统配置信息

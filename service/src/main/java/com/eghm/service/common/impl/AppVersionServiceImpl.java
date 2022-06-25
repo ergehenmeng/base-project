@@ -21,7 +21,6 @@ import com.eghm.service.common.AppVersionService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.PageUtil;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -50,7 +49,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    public void addAppVersion(VersionAddRequest request) {
+    public void create(VersionAddRequest request) {
         this.redoVersion(request.getVersion());
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         version.setVersionNo(VersionUtil.parseInt(request.getVersion()));
@@ -58,7 +57,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    public void editAppVersion(VersionEditRequest request) {
+    public void update(VersionEditRequest request) {
         AppVersion version = DataUtil.copy(request, AppVersion.class);
         appVersionMapper.updateById(version);
     }
@@ -96,7 +95,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     }
 
     @Override
-    public void deleteVersion(Long id) {
+    public void delete(Long id) {
         AppVersion appVersion = appVersionMapper.selectById(id);
         if (appVersion == null) {
             log.info("该版本可能已被删除 [{}]", id);

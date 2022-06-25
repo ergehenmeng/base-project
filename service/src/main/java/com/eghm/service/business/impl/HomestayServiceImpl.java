@@ -1,13 +1,17 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.HomestayMapper;
 import com.eghm.dao.model.Homestay;
 import com.eghm.model.dto.homestay.HomestayAddRequest;
 import com.eghm.model.dto.homestay.HomestayEditRequest;
+import com.eghm.model.dto.homestay.HomestayQueryRequest;
 import com.eghm.service.business.HomestayService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -25,6 +29,14 @@ public class HomestayServiceImpl implements HomestayService {
     private final HomestayMapper homestayMapper;
 
     @Override
+    public Page<Homestay> getByPage(HomestayQueryRequest request) {
+        LambdaQueryWrapper<Homestay> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getState() != null, Homestay::getState, request.getState());
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Homestay::getTitle, request.getQueryName());
+        return homestayMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
     public void create(HomestayAddRequest request) {
         this.checkTitleRedo(request.getTitle(), null);
         // TODO 商家id补充
@@ -35,6 +47,15 @@ public class HomestayServiceImpl implements HomestayService {
     @Override
     public void update(HomestayEditRequest request) {
         this.checkTitleRedo(request.getTitle(), request.getId());
+    }
+
+    @Override
+    public void updateState(Long id, Integer state) {
+        // TODO 增加约束条件来保证更新的记录就是当前用户
+        LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Homestay::getId, id);
+        wrapper.set(Homestay::getState, state);
+        homestayMapper.update(null, wrapper);
     }
 
     /**

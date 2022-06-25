@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author 二哥很猛
@@ -36,7 +35,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public Page<SysRole> getByPage(RoleQueryRequest request) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysRole::getDeleted, false);
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
         return sysRoleMapper.selectPage(request.createPage(), wrapper);
     }
@@ -47,20 +45,18 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public void updateRole(RoleEditRequest request) {
+    public void update(RoleEditRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.updateById(role);
     }
 
     @Override
-    public void deleteRole(Long id) {
-        SysRole role = new SysRole();
-        role.setDeleted(true);
-        sysRoleMapper.updateById(role);
+    public void delete(Long id) {
+        sysRoleMapper.deleteById(id);
     }
 
     @Override
-    public void addRole(RoleAddRequest request) {
+    public void create(RoleAddRequest request) {
         SysRole role = DataUtil.copy(request, SysRole.class);
         sysRoleMapper.insert(role);
     }
@@ -84,7 +80,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     public void authMenu(Long roleId, String menuIds) {
         sysRoleMapper.deleteRoleMenu(roleId);
         if (StringUtils.isNotEmpty(menuIds)) {
-            List<Long> menuIdList = Stream.of(StrUtil.split(menuIds, ",")).mapToLong(Long::parseLong).boxed().collect(Collectors.toList());
+            List<Long> menuIdList = StrUtil.split(menuIds, ",").stream().mapToLong(Long::parseLong)
+                    .boxed().collect(Collectors.toList());
             sysRoleMapper.batchInsertRoleMenu(roleId, menuIdList);
         }
     }

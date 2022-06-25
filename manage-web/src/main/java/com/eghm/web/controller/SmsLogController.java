@@ -27,9 +27,6 @@ public class SmsLogController {
 
     private final SmsLogService smsLogService;
 
-    /**
-     * 分页查询短信记录列表
-     */
     @GetMapping("/listPage")
     @ApiOperation("短信记录列表(分页)")
     public RespBody<PageData<SmsLog>> listPage(SmsLogQueryRequest request) {

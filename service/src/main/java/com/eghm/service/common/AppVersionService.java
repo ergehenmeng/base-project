@@ -24,13 +24,13 @@ public interface AppVersionService {
      * 添加app版本管理信息
      * @param request 前台参数
      */
-    void addAppVersion(VersionAddRequest request);
+    void create(VersionAddRequest request);
 
     /**
      * 编辑保存app版本管理信息
      * @param request 前台参数
      */
-    void editAppVersion(VersionEditRequest request);
+    void update(VersionEditRequest request);
 
     /**
      * 1.获取系统配置的最新版本
@@ -46,5 +46,5 @@ public interface AppVersionService {
      * 删除版本信息
      * @param id 主键
      */
-    void deleteVersion(Long id);
+    void delete(Long id);
 }

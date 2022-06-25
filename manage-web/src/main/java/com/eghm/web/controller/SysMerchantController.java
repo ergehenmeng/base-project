@@ -26,7 +26,6 @@ public class SysMerchantController {
 
     private final SysMerchantService sysMerchantService;
 
-
     @GetMapping("/listPage")
     @ApiOperation("商户列表")
     public RespBody<PageData<SysMerchant>> listPage(MerchantQueryRequest request) {

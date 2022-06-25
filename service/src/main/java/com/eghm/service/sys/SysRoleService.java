@@ -32,19 +32,19 @@ public interface SysRoleService {
      * 更新角色信息
      * @param request 前台参数
      */
-    void updateRole(RoleEditRequest request);
+    void update(RoleEditRequest request);
 
     /**
      * 删除角色信息
      * @param id 主键
      */
-    void deleteRole(Long id);
+    void delete(Long id);
 
     /**
      * 添加角色信息
      * @param request 前台参数
      */
-    void addRole(RoleAddRequest request);
+    void create(RoleAddRequest request);
 
     /**
      * 获取所有可用的用户角色

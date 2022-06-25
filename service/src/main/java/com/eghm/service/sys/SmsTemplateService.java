@@ -36,5 +36,5 @@ public interface SmsTemplateService {
      * 更新短信模板
      * @param request 前台参数
      */
-    void updateSmsTemplate(SmsTemplateEditRequest request);
+    void update(SmsTemplateEditRequest request);
 }

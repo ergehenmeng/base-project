@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.AppVersion;
+import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.version.VersionAddRequest;
@@ -28,9 +29,6 @@ public class AppVersionController {
 
     private final AppVersionService appVersionService;
 
-    /**
-     * app版本管理列表
-     */
     @GetMapping("/listPage")
     @ApiOperation("查询版本列表")
     public RespBody<PageData<AppVersion>> listPage(VersionQueryRequest request) {
@@ -38,37 +36,28 @@ public class AppVersionController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    /**
-     * 添加app版本信息
-     */
-    @PostMapping("/add")
+    @PostMapping("/create")
     @Mark
     @ApiOperation("新增版本信息")
-    public RespBody<Void> add(@Validated VersionAddRequest request) {
-        appVersionService.addAppVersion(request);
+    public RespBody<Void> create(@Validated @RequestBody VersionAddRequest request) {
+        appVersionService.create(request);
         return RespBody.success();
     }
 
-    /**
-     * 编辑保存app版本信息
-     */
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
     @ApiOperation("编辑版本信息")
-    public RespBody<Void> edit(@Validated VersionEditRequest request) {
-        appVersionService.editAppVersion(request);
+    public RespBody<Void> update(@Validated @RequestBody VersionEditRequest request) {
+        appVersionService.update(request);
         return RespBody.success();
     }
 
-    /**
-     * 删除版本信息
-     */
     @PostMapping("/delete")
     @Mark
     @ApiOperation("删除版本信息")
     @ApiImplicitParam(name = "id", value = "id", required = true)
-    public RespBody<Void> delete(@RequestParam("id") Long id) {
-        appVersionService.deleteVersion(id);
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        appVersionService.delete(dto.getId());
         return RespBody.success();
     }
 }

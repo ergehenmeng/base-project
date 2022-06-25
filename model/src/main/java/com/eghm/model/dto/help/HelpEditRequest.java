@@ -1,7 +1,11 @@
 package com.eghm.model.dto.help;
 
+import com.eghm.model.validation.annotation.OptionByte;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -13,35 +17,24 @@ public class HelpEditRequest implements Serializable {
 
     private static final long serialVersionUID = 3415746590445570716L;
 
-    /**
-     * 主键
-     */
+    @ApiModelProperty(value = "id", required = true)
+    @NotNull(message = "id不能为空")
     private Long id;
 
-    /**
-     * 帮助说明类型
-     */
+    @ApiModelProperty(value = "帮助说明分类", required = true)
+    @NotNull(message = "请选择分类")
     private Byte classify;
 
-    /**
-     * 是否显示 0:不显示 1:显示
-     */
+    @ApiModelProperty(value = "是否显示 0:不显示 1:显示", required = true)
+    @OptionByte(value = {0, 1}, message = "显示状态不合法")
     private Byte state;
 
-
-    /**
-     * 问题
-     */
+    @ApiModelProperty(value = "问", required = true)
+    @NotBlank(message = "\"问\"不能为空")
     private String ask;
 
-    /**
-     * 答案
-     */
+    @ApiModelProperty(value = "答", required = true)
+    @NotBlank(message = "\"答\"不能为空")
     private String answer;
 
-
-    /**
-     * 排序
-     */
-    private int sort;
 }

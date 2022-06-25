@@ -27,7 +27,6 @@ public class ImageLogServiceImpl implements ImageLogService {
     @Override
     public Page<ImageLog> getByPage(ImageQueryRequest request) {
         LambdaQueryWrapper<ImageLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ImageLog::getDeleted, false);
         wrapper.eq(request.getClassify() != null, ImageLog::getClassify, request.getClassify());
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(ImageLog::getTitle, request.getQueryName()).or()
@@ -37,22 +36,18 @@ public class ImageLogServiceImpl implements ImageLogService {
     }
 
     @Override
-    public void addImageLog(ImageAddRequest request) {
+    public void create(ImageAddRequest request) {
         ImageLog imageLog = DataUtil.copy(request, ImageLog.class);
-        imageLog.setDeleted(false);
         imageLogMapper.insert(imageLog);
     }
 
     @Override
-    public void deleteImageLog(Long id) {
-        ImageLog log = new ImageLog();
-        log.setId(id);
-        log.setDeleted(true);
-        imageLogMapper.updateById(log);
+    public void delete(Long id) {
+        imageLogMapper.deleteById(id);
     }
 
     @Override
-    public void updateImageLog(ImageEditRequest request) {
+    public void update(ImageEditRequest request) {
         ImageLog log = DataUtil.copy(request, ImageLog.class);
         imageLogMapper.updateById(log);
     }

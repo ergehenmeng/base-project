@@ -62,10 +62,9 @@ public class UserAddressServiceImpl implements UserAddressService {
     @Override
     public void deleteAddress(Long id, Long userId) {
         LambdaUpdateWrapper<UserAddress> wrapper = Wrappers.lambdaUpdate();
-        wrapper.set(UserAddress::getDeleted, true);
         wrapper.eq(UserAddress::getId, id);
         wrapper.eq(UserAddress::getUserId, userId);
-        userAddressMapper.update(null, wrapper);
+        userAddressMapper.delete(wrapper);
     }
 
     @Override

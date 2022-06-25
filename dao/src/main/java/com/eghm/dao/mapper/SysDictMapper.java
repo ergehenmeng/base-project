@@ -18,10 +18,4 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
      */
     List<SysDict> getDictByNid(String nid);
 
-    /**
-     * 根据主键选择更新数据字典信息
-     * @param dict 前台参数
-     * @return 影响条数
-     */
-    int updateByIdSelective(SysDict dict);
 }

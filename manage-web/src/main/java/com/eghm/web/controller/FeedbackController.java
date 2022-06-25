@@ -12,9 +12,8 @@ import com.eghm.service.common.FeedbackService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -37,13 +36,10 @@ public class FeedbackController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    /**
-     * 反馈处理
-     */
     @PostMapping("/dispose")
     @ResponseBody
     @Mark
-    public RespBody<Void> dispose(@Valid FeedbackDisposeRequest request) {
+    public RespBody<Void> dispose(@Validated @RequestBody FeedbackDisposeRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());
         request.setOperatorName(operator.getOperatorName());

@@ -11,12 +11,8 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
@@ -30,9 +26,6 @@ public class PushTemplateController {
 
     private final PushTemplateService pushTemplateService;
 
-    /**
-     * 分页查询推送消息模板信息
-     */
     @GetMapping("/listPage")
     @ApiOperation("消息模板列表")
     public RespBody<PageData<PushTemplate>> listPage(PushTemplateQueryRequest request) {
@@ -40,14 +33,11 @@ public class PushTemplateController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    /**
-     * 推送模板编辑保存
-     */
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
     @ApiOperation("编辑推送模板")
-    public RespBody<Void> edit(@Valid PushTemplateEditRequest request) {
-        pushTemplateService.editPushTemplate(request);
+    public RespBody<Void> update(@Validated @RequestBody PushTemplateEditRequest request) {
+        pushTemplateService.update(request);
         return RespBody.success();
     }
 

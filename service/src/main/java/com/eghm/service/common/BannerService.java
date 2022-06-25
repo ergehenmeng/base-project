@@ -41,12 +41,12 @@ public interface BannerService {
      * 新增轮播图信息
      * @param request 前台参数
      */
-    void addBanner(BannerAddRequest request);
+    void create(BannerAddRequest request);
 
     /**
      * 编辑保存轮播图信息
      * @param request 前台参数
      */
-    void editBanner(BannerEditRequest request);
+    void update(BannerEditRequest request);
 }
 

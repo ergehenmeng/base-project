@@ -37,5 +37,5 @@ public interface TaskConfigService {
      * 编辑保存任务配置信息
      * @param request 配置信息
      */
-    void editTaskConfig(TaskEditRequest request);
+    void update(TaskEditRequest request);
 }

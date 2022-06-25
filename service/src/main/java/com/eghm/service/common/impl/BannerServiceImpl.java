@@ -54,14 +54,14 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
-    public void addBanner(BannerAddRequest request) {
+    public void create(BannerAddRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.insert(banner);
     }
 
     @Override
     @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
-    public void editBanner(BannerEditRequest request) {
+    public void update(BannerEditRequest request) {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.updateById(banner);
     }

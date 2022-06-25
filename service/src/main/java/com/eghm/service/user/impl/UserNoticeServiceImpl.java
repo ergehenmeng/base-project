@@ -2,6 +2,7 @@ package com.eghm.service.user.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
@@ -121,7 +122,6 @@ public class UserNoticeServiceImpl implements UserNoticeService {
     @Override
     public PageData<UserNoticeVO> getByPage(PagingQuery query, Long userId) {
         LambdaQueryWrapper<UserNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(UserNotice::getDeleted, false);
         wrapper.eq(UserNotice::getUserId, userId);
         wrapper.last(" order by read desc, id desc ");
         Page<UserNotice> page = userNoticeMapper.selectPage(query.createPage(), wrapper);
@@ -130,11 +130,10 @@ public class UserNoticeServiceImpl implements UserNoticeService {
 
     @Override
     public void deleteNotice(Long id, Long userId) {
-        UserNotice notice = new UserNotice();
-        notice.setId(id);
-        notice.setUserId(userId);
-        notice.setDeleted(true);
-        userNoticeMapper.updateNotice(notice);
+        LambdaUpdateWrapper<UserNotice> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(UserNotice::getId, id);
+        wrapper.set(UserNotice::getUserId, userId);
+        userNoticeMapper.delete(wrapper);
     }
 
     @Override
@@ -143,6 +142,6 @@ public class UserNoticeServiceImpl implements UserNoticeService {
         notice.setId(id);
         notice.setUserId(userId);
         notice.setRead(true);
-        userNoticeMapper.updateNotice(notice);
+        userNoticeMapper.updateById(notice);
     }
 }

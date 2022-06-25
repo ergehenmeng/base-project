@@ -3,6 +3,7 @@ package com.eghm.service.sys.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
@@ -51,24 +52,23 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    public void addDict(DictAddRequest request) {
+    public void create(DictAddRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
-        sysDict.setDeleted(false);
         sysDictMapper.insert(sysDict);
     }
 
     @Override
-    public void updateDict(DictEditRequest request) {
+    public void update(DictEditRequest request) {
         SysDict sysDict = DataUtil.copy(request, SysDict.class);
         sysDictMapper.updateById(sysDict);
     }
 
     @Override
-    public void deleteDict(Long id) {
-        SysDict dict = new SysDict();
-        dict.setDeleted(true);
-        dict.setId(id);
-        int i = sysDictMapper.updateByIdSelective(dict);
+    public void delete(Long id) {
+        LambdaUpdateWrapper<SysDict> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysDict::getId, id);
+        wrapper.eq(SysDict::getLocked, false);
+        int i = sysDictMapper.delete(wrapper);
         if (i != 1) {
             throw new BusinessException(ErrorCode.DICT_LOCKED_ERROR);
         }

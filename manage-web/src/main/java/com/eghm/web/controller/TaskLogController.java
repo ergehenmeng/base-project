@@ -27,9 +27,6 @@ public class TaskLogController {
 
     private final TaskLogService taskLogService;
 
-    /**
-     * 分页查询定时任务列表
-     */
     @GetMapping("/listPage")
     @ApiOperation("日志列表(分页)")
     public RespBody<PageData<TaskLog>> listPage(TaskLogQueryRequest request) {
@@ -37,9 +34,6 @@ public class TaskLogController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    /**
-     * 错误信息
-     */
     @GetMapping("/select")
     @ApiOperation("错误日志查询")
     @ApiImplicitParam(name = "id", value = "id",  required = true)

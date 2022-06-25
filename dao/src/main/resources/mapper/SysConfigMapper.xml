@@ -27,15 +27,4 @@
         from sys_config WHERE nid = #{nid} limit 1
     </select>
 
-    <update id="updateConfig" parameterType="com.eghm.model.dto.config.ConfigEditRequest">
-        update sys_config
-        SET title    = #{title},
-            classify = #{classify},
-            content  = #{content},
-            remark   = #{remark},
-            locked   = #{locked}
-        where locked = false
-          and nid = #{nid}
-    </update>
-
 </mapper>

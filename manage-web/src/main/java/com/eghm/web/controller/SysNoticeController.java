@@ -14,9 +14,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -30,9 +29,6 @@ public class SysNoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    /**
-     * 系统公告列表查询
-     */
     @ApiOperation("公告列表(分页)")
     @GetMapping("/listPage")
     public RespBody<PageData<SysNotice>> listPage(NoticeQueryRequest request) {
@@ -43,11 +39,11 @@ public class SysNoticeController {
     /**
      * 新增公告信息
      */
-    @PostMapping("/add")
+    @PostMapping("/create")
     @Mark
     @ApiOperation("新增公告信息")
-    public RespBody<Void> add(@Valid NoticeAddRequest request) {
-        sysNoticeService.addNotice(request);
+    public RespBody<Void> create(@Validated @RequestBody NoticeAddRequest request) {
+        sysNoticeService.create(request);
         return RespBody.success();
     }
 
@@ -66,13 +62,13 @@ public class SysNoticeController {
     @PostMapping("/handle")
     @Mark
     @ApiOperation("公告操作(发布,取消发布,删除)")
-    public RespBody<Void> handle(@Valid NoticeHandleRequest request) {
+    public RespBody<Void> handle(@Validated @RequestBody NoticeHandleRequest request) {
         if (request.getState() == NoticeHandleRequest.PUBLISH) {
             sysNoticeService.publish(request.getId());
         } else if (request.getState() == NoticeHandleRequest.CANCEL_PUBLISH) {
             sysNoticeService.cancelPublish(request.getId());
         } else {
-            sysNoticeService.deleteNotice(request.getId());
+            sysNoticeService.delete(request.getId());
         }
         return RespBody.success();
     }
@@ -80,11 +76,11 @@ public class SysNoticeController {
     /**
      * 编辑公告信息
      */
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
     @ApiOperation("编辑公告")
-    public RespBody<Void> edit(@Valid NoticeEditRequest request) {
-        sysNoticeService.editNotice(request);
+    public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
+        sysNoticeService.update(request);
         return RespBody.success();
     }
 

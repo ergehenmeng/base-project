@@ -25,10 +25,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -49,21 +49,15 @@ public class OperatorController {
 
     private final SysMenuService sysMenuService;
 
-    /**
-     * 修改密码
-     *
-     * @param request 请求参数
-     * @return 成功状态
-     */
     @PostMapping("/changePwd")
     @Mark
     @ApiOperation("修改管理人员密码")
-    public RespBody<Void> changePwd(HttpSession session, @Valid PasswordEditRequest request) {
+    public RespBody<Void> changePwd(HttpSession session, @Validated @RequestBody PasswordEditRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());
         String newPassword = sysOperatorService.updateLoginPassword(request);
         operator.setPwd(newPassword);
-        //更新用户权限
+        // 更新用户权限
         SecurityContext context = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
         Authentication authentication = context.getAuthentication();
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(operator, authentication, operator.getAuthorities());
@@ -72,12 +66,6 @@ public class OperatorController {
         return RespBody.success();
     }
 
-    /**
-     * 分页查询系统操作人员列表
-     *
-     * @param request 查询条件
-     * @return 列表
-     */
     @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
     public RespBody<PageData<SysOperator>> operatorListPage(OperatorQueryRequest request) {
@@ -85,26 +73,14 @@ public class OperatorController {
         return RespBody.success(PageData.toPage(page));
     }
 
-
-    /**
-     * 添加管理人员
-     *
-     * @return 成功
-     */
-    @PostMapping("/add")
+    @PostMapping("/create")
     @Mark
     @ApiOperation("添加管理人员")
-    public RespBody<Void> addOperator(@Valid OperatorAddRequest request) {
-        sysOperatorService.addOperator(request);
+    public RespBody<Void> create(@Validated @RequestBody OperatorAddRequest request) {
+        sysOperatorService.create(request);
         return RespBody.success();
     }
 
-    /**
-     * 管理人员编辑页面
-     *
-     * @param id 管理人员id
-     * @return 页面
-     */
     @GetMapping("/select")
     @ApiOperation("查询系统用户信息")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
@@ -116,24 +92,14 @@ public class OperatorController {
         return RespBody.success(response);
     }
 
-    /**
-     * 更新管理人员信息
-     *
-     * @param request 前台参数
-     * @return 成功
-     */
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
     @ApiOperation("系统用户信息")
-    public RespBody<Void> editOperator(@Valid OperatorEditRequest request) {
-        sysOperatorService.updateOperator(request);
+    public RespBody<Void> update(@Validated @RequestBody OperatorEditRequest request) {
+        sysOperatorService.update(request);
         return RespBody.success();
     }
 
-
-    /**
-     * 锁屏操作
-     */
     @PostMapping("/lockScreen")
     @Mark
     @ApiOperation("锁屏操作")
@@ -143,9 +109,6 @@ public class OperatorController {
         return RespBody.success();
     }
 
-    /**
-     * 解锁
-     */
     @PostMapping("/unlockScreen")
     @Mark
     @ApiOperation("解锁操作")
@@ -161,24 +124,19 @@ public class OperatorController {
     @PostMapping("/handle")
     @Mark
     @ApiOperation("用户操作(锁定,解锁,删除,重置密码)")
-    public RespBody<Void> handle(@Valid OperatorHandleRequest request) {
+    public RespBody<Void> handle(@Validated @RequestBody OperatorHandleRequest request) {
         if (request.getState() == OperatorHandleRequest.LOCK) {
             sysOperatorService.lockOperator(request.getId());
         } else if (request.getState() == OperatorHandleRequest.UNLOCK) {
             sysOperatorService.unlockOperator(request.getId());
         } else if (request.getState() == OperatorHandleRequest.DELETE){
-            sysOperatorService.deleteOperator(request.getId());
+            sysOperatorService.delete(request.getId());
         } else {
             sysOperatorService.resetPassword(request.getId());
         }
         return RespBody.success();
     }
 
-    /**
-     * 查询管理人员自己所拥有的菜单
-     *
-     * @return 菜单列表
-     */
     @GetMapping("/menuList")
     @ApiOperation("查询自己拥有的菜单列表")
     public RespBody<List<SysMenu>> operatorMenuList() {

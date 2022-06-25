@@ -39,7 +39,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     @PostConstruct
     public void loadResource() {
         map.clear();
-        List<SysMenu> list = sysMenuService.getAllList();
+        List<SysMenu> list = sysMenuService.getList();
         for (SysMenu menu : list) {
             if (StrUtil.isNotBlank(menu.getPath())) {
                 List<String> subUrl = this.getTotalUrl(menu);

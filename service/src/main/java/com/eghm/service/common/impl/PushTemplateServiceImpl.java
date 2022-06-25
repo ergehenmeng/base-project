@@ -48,7 +48,7 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     }
 
     @Override
-    public void editPushTemplate(PushTemplateEditRequest request) {
+    public void update(PushTemplateEditRequest request) {
         PushTemplate template = DataUtil.copy(request, PushTemplate.class);
         pushTemplateMapper.updateById(template);
     }

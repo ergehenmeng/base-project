@@ -27,37 +27,5 @@
         <include refid="BaseColumnList"/>
         from sys_dict where deleted = false and nid = #{nid}
     </select>
-    <update id="updateByIdSelective" parameterType="com.eghm.dao.model.SysDict">
-        <!--
-          @create by mybatis
-        -->
-        update sys_dict
-        <set>
-            <if test="title != null">
-                title = #{title,jdbcType=VARCHAR},
-            </if>
-            <if test="nid != null">
-                nid = #{nid,jdbcType=VARCHAR},
-            </if>
-            <if test="hiddenValue != null">
-                hidden_value = #{hiddenValue,jdbcType=TINYINT},
-            </if>
-            <if test="showValue != null">
-                show_value = #{showValue,jdbcType=VARCHAR},
-            </if>
-            <if test="deleted != null">
-                deleted = #{deleted,jdbcType=BIT},
-            </if>
-            <if test="locked != null">
-                locked = #{locked,jdbcType=BIT},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="remark != null">
-                remark = #{remark,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{id,jdbcType=BIGINT} and locked = false
-    </update>
+
 </mapper>

@@ -8,16 +8,12 @@ import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.BannerService;
-import com.eghm.service.common.FileService;
 import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -31,11 +27,6 @@ public class BannerController {
 
     private final BannerService bannerService;
 
-    private final FileService fileService;
-
-    /**
-     * 分页查询轮播图配置信息
-     */
     @GetMapping("/listPage")
     @ApiOperation("轮播图列表")
     public RespBody<PageData<Banner>> listPage(BannerQueryRequest request) {
@@ -43,31 +34,19 @@ public class BannerController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    /**
-     * 新增轮播图信息
-     */
-    @PostMapping("/add")
+    @PostMapping("/create")
     @Mark
     @ApiOperation("添加轮播图")
-    @ApiImplicitParam(name = "imgFile", dataType = "file", paramType = "formData", value = "图片", required = true)
-    public RespBody<Void> add(@Valid BannerAddRequest request, @RequestParam("imgFile") MultipartFile imgFile) {
-        request.setImgUrl(fileService.saveFile(imgFile).getPath());
-        bannerService.addBanner(request);
+    public RespBody<Void> create(@Validated @RequestBody BannerAddRequest request) {
+        bannerService.create(request);
         return RespBody.success();
     }
 
-    /**
-     * 编辑轮播图信息
-     */
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
     @ApiOperation("修改轮播图")
-    @ApiImplicitParam(name = "imgFile", dataType = "file", paramType = "formData", value = "图片")
-    public RespBody<Void> edit(@Valid BannerEditRequest request, @RequestParam(value = "imgFile", required = false) MultipartFile imgFile) {
-        if (imgFile != null) {
-            request.setImgUrl(fileService.saveFile(imgFile).getPath());
-        }
-        bannerService.editBanner(request);
+    public RespBody<Void> update(@Validated @RequestBody BannerEditRequest request) {
+        bannerService.update(request);
         return RespBody.success();
     }
 

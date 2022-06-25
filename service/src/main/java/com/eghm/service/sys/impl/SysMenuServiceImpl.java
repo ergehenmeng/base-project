@@ -63,12 +63,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<SysMenu> getAllList() {
+    public List<SysMenu> getList() {
         return sysMenuMapper.selectList(null);
     }
 
     @Override
-    public void addMenu(MenuAddRequest request) {
+    public void create(MenuAddRequest request) {
         this.checkNidRedo(request.getNid());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setId(this.generateNextId(request.getPid()));
@@ -76,13 +76,13 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public void updateMenu(MenuEditRequest request) {
+    public void update(MenuEditRequest request) {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         sysMenuMapper.updateById(copy);
     }
 
     @Override
-    public void deleteMenu(Long id) {
+    public void delete(Long id) {
         sysMenuMapper.deleteById(id);
     }
 
@@ -97,14 +97,14 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param pid pid,不能为零
      * @return 最大id
      */
-    private String generateNextId(String pid) {
+    private Long generateNextId(String pid) {
         String maxId = sysMenuMapper.getMaxId(pid);
         // 空表示当前菜单没有子菜单,直接生成第一个子菜单
         if (StrUtil.isBlank(maxId)) {
-            return pid + STEP;
+            return Long.parseLong(pid + STEP);
         }
         // 最大子菜单+1即可
-        return String.valueOf(Long.parseLong(maxId) + 1);
+        return Long.parseLong(maxId) + 1;
     }
 
     /**

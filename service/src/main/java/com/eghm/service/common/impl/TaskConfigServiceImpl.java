@@ -52,7 +52,7 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     }
 
     @Override
-    public void editTaskConfig(TaskEditRequest request) {
+    public void update(TaskEditRequest request) {
         if (!CronSequenceGenerator.isValidExpression(request.getCronExpression())) {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
         }

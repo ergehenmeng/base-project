@@ -23,19 +23,19 @@ public interface ImageLogService {
      * 添加图片记录
      * @param request 前台参数
      */
-    void addImageLog(ImageAddRequest request);
+    void create(ImageAddRequest request);
 
     /**
      * 删除图片记录信息
      * @param id id
      */
-    void deleteImageLog(Long id);
+    void delete(Long id);
 
     /**
      * 更新图片信息
      * @param request 前台参数
      */
-    void updateImageLog(ImageEditRequest request);
+    void update(ImageEditRequest request);
 
     /**
      * 根据主键查询

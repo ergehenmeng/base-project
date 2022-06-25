@@ -9,12 +9,9 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -29,11 +26,6 @@ public class DeptController {
 
     private final SysDeptService sysDeptService;
 
-    /**
-     * 查询所有部门列表
-     *
-     * @return list
-     */
     @GetMapping("/listPage")
     @ApiOperation("部门列表(不分页)")
     public RespBody<List<SysDept>> listPage() {
@@ -41,25 +33,19 @@ public class DeptController {
         return RespBody.success(department);
     }
 
-    /**
-     * 添加部门节点信息
-     */
-    @PostMapping("/add")
+    @PostMapping("/create")
     @Mark
     @ApiOperation("添加部门")
-    public RespBody<Void> add(@Valid DeptAddRequest request) {
-        sysDeptService.addDepartment(request);
+    public RespBody<Void> create(@Validated @RequestBody DeptAddRequest request) {
+        sysDeptService.create(request);
         return RespBody.success();
     }
 
-    /**
-     * 编辑部门节点信息
-     */
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
     @ApiOperation("编辑部门")
-    public RespBody<Void> edit(@Valid DeptEditRequest request) {
-        sysDeptService.editDepartment(request);
+    public RespBody<Void> update(@Validated @RequestBody DeptEditRequest request) {
+        sysDeptService.update(request);
         return RespBody.success();
     }
 

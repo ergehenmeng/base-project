@@ -48,13 +48,11 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public List<SysDept> getDepartment() {
-        LambdaQueryWrapper<SysDept> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDept::getDeleted, false);
-        return sysDeptMapper.selectList(wrapper);
+        return sysDeptMapper.selectList(null);
     }
 
     @Override
-    public void addDepartment(DeptAddRequest request) {
+    public void create(DeptAddRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
@@ -65,7 +63,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     }
 
     @Override
-    public void editDepartment(DeptEditRequest request) {
+    public void update(DeptEditRequest request) {
         SysDept department = DataUtil.copy(request, SysDept.class);
         sysDeptMapper.updateById(department);
     }

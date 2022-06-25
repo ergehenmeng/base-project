@@ -12,12 +12,8 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
@@ -33,9 +29,6 @@ public class TaskConfigController {
 
     private final SystemTaskRegistrar systemTaskRegistrar;
 
-    /**
-     * 分页查询定时任务列表
-     */
     @GetMapping("/listPage")
     @ApiOperation("定时任务列表(分页)")
     public RespBody<PageData<TaskConfig>> listPage(TaskQueryRequest request) {
@@ -43,21 +36,14 @@ public class TaskConfigController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-
-    /**
-     * 定时任务编辑保存
-     */
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
     @ApiOperation("编辑定时任务")
-    public RespBody<Void> edit(@Valid TaskEditRequest request) {
-        taskConfigService.editTaskConfig(request);
+    public RespBody<Void> update(@Validated @RequestBody TaskEditRequest request) {
+        taskConfigService.update(request);
         return RespBody.success();
     }
 
-    /**
-     * 刷新定时任务配置信息
-     */
     @PostMapping("/refresh")
     @Mark
     @ApiOperation("刷新定时任务")

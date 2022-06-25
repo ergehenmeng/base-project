@@ -32,5 +32,5 @@ public interface PushTemplateService {
      * 编辑保存推送模板
      * @param request 前台参数
      */
-    void editPushTemplate(PushTemplateEditRequest request);
+    void update(PushTemplateEditRequest request);
 }

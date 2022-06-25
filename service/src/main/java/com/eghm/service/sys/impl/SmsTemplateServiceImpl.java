@@ -45,7 +45,7 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     }
 
     @Override
-    public void updateSmsTemplate(SmsTemplateEditRequest request) {
+    public void update(SmsTemplateEditRequest request) {
         SmsTemplate template = DataUtil.copy(request, SmsTemplate.class);
         smsTemplateMapper.updateById(template);
     }

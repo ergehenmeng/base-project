@@ -45,25 +45,25 @@ public interface SysMenuService {
      * 获取所有可用的菜单
      * @return 菜单列表
      */
-    List<SysMenu> getAllList();
+    List<SysMenu> getList();
 
     /**
      * 添加菜单
      * @param request 要添加的菜单信息
      */
-    void addMenu(MenuAddRequest request);
+    void create(MenuAddRequest request);
 
     /**
      * 更新菜单信息
      * @param request 要更新的菜单信息
      */
-    void updateMenu(MenuEditRequest request);
+    void update(MenuEditRequest request);
 
     /**
      * 根据主键删除菜单
      * @param id 主键
      */
-    void deleteMenu(Long id);
+    void delete(Long id);
 
     /**
      * 查询用户的菜单权限

@@ -15,10 +15,8 @@ import com.eghm.web.annotation.Mark;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -35,20 +33,14 @@ public class ConfigController {
 
     private final ProxyService proxyService;
 
-    @PostMapping("/edit")
+    @PostMapping("/update")
     @Mark
-    @ApiOperation("编辑系统参数")
-    public RespBody<Void> edit(ConfigEditRequest request) {
-        sysConfigService.updateConfig(request);
+    @ApiOperation("更新系统参数")
+    public RespBody<Void> update(@Validated @RequestBody ConfigEditRequest request) {
+        sysConfigService.update(request);
         return RespBody.success();
     }
 
-    /**
-     * 分页获取系统参数配置
-     *
-     * @param request 查询
-     * @return 分页列表
-     */
     @GetMapping("/listPage")
     @ApiOperation("系统参数列表")
     public RespBody<PageData<Object>> listPage(ConfigQueryRequest request) {

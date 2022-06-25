@@ -33,20 +33,19 @@ public interface SysDictService {
      * 添加数据字典
      * @param request 前台参数
      */
-    void addDict(DictAddRequest request);
-
+    void create(DictAddRequest request);
 
     /**
      * 编辑数据字典
      * @param request 前台参数
      */
-    void updateDict(DictEditRequest request);
+    void update(DictEditRequest request);
 
     /**
      * 删除数据字典
      * @param id 主键
      */
-    void deleteDict(Long id);
+    void delete(Long id);
 
     /**
      * 根据主键查询

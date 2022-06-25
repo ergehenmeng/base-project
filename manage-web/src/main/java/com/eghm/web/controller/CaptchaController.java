@@ -36,10 +36,7 @@ public class CaptchaController {
 
     private final CacheService cacheService;
 
-    /**
-     * 默认的图片验证码
-     * 采用ip方式作为key
-     */
+
     @GetMapping("/captcha")
     @ApiOperation("获取图形验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {

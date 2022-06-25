@@ -27,12 +27,6 @@ public class OperationLogController {
 
     private final OperationLogService operationLogService;
 
-    /**
-     * 操作日期查询请求
-     *
-     * @param request 查询条件
-     * @return 分页
-     */
     @GetMapping("/listPage")
     @ApiOperation("日志列表")
     public RespBody<PageData<SysOperationLog>> listPage(OperationQueryRequest request) {
@@ -40,12 +34,6 @@ public class OperationLogController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    /**
-     * 响应结果信息
-     *
-     * @param id di
-     * @return 结果页面
-     */
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
     public String select(@RequestParam("id") Long id) {
