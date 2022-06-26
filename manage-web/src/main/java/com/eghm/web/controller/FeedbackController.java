@@ -30,9 +30,9 @@ public class FeedbackController {
      * 分页查询反馈列表
      */
     @GetMapping("/listPage")
-    public RespBody<PageData<FeedbackVO>> listPage(FeedbackQueryRequest request) {
+    public PageData<FeedbackVO> listPage(FeedbackQueryRequest request) {
         Page<FeedbackVO> byPage = feedbackService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return PageData.toPage(byPage);
     }
 
     @PostMapping("/dispose")

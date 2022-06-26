@@ -41,13 +41,13 @@ public class ConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("系统参数列表")
-    public RespBody<PageData<Object>> listPage(ConfigQueryRequest request) {
+    public PageData<SysConfig> listPage(ConfigQueryRequest request) {
         Page<SysConfig> listByPage = sysConfigService.getByPage(request);
         ProxyService finalProxy = this.proxyService;
-        return RespBody.success(DataUtil.convert(listByPage, sysConfig -> {
+        return DataUtil.convert(listByPage, sysConfig -> {
             finalProxy.getDictValue(DictConstant.CONFIG_CLASSIFY, sysConfig.getClassify());
             return sysConfig;
-        }));
+        });
     }
 
 }

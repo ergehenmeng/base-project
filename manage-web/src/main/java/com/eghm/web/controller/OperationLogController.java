@@ -29,9 +29,9 @@ public class OperationLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("日志列表")
-    public RespBody<PageData<SysOperationLog>> listPage(OperationQueryRequest request) {
+    public PageData<SysOperationLog> listPage(OperationQueryRequest request) {
         Page<SysOperationLog> byPage = operationLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return PageData.toPage(byPage);
     }
 
     @GetMapping("/select")

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.IdStateDTO;
+import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.ticket.ScenicTicketAddRequest;
 import com.eghm.model.dto.ticket.ScenicTicketEditRequest;
@@ -29,9 +30,9 @@ public class ScenicTickController {
 
     @GetMapping("/getByPage")
     @ApiOperation("门票列表")
-    public RespBody<Page<ScenicTicketResponse>> getByPage(ScenicTicketQueryRequest request) {
+    public PageData<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request) {
         Page<ScenicTicketResponse> responsePage = scenicTicketService.getByPage(request);
-        return RespBody.success(responsePage);
+        return PageData.toPage(responsePage);
     }
 
     @PostMapping("/create")
@@ -50,9 +51,8 @@ public class ScenicTickController {
 
     @PostMapping("/select")
     @ApiOperation("查询门票")
-    public RespBody<ScenicTicket> select(@RequestBody @Validated IdDTO dto) {
-        ScenicTicket select = scenicTicketService.selectById(dto.getId());
-        return RespBody.success(select);
+    public ScenicTicket select(@RequestBody @Validated IdDTO dto) {
+        return scenicTicketService.selectById(dto.getId());
     }
 
     @PostMapping("/updateState")

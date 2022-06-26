@@ -3,7 +3,6 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.TaskLog;
 import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.TaskLogService;
 import io.swagger.annotations.Api;
@@ -29,16 +28,15 @@ public class TaskLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("日志列表(分页)")
-    public RespBody<PageData<TaskLog>> listPage(TaskLogQueryRequest request) {
+    public PageData<TaskLog> listPage(TaskLogQueryRequest request) {
         Page<TaskLog> byPage = taskLogService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return PageData.toPage(byPage);
     }
 
     @GetMapping("/select")
     @ApiOperation("错误日志查询")
     @ApiImplicitParam(name = "id", value = "id",  required = true)
-    public RespBody<String> select(@RequestParam("id") Long id) {
-        String errorMsg = taskLogService.getErrorMsg(id);
-        return RespBody.success(errorMsg);
+    public String select(@RequestParam("id") Long id) {
+        return taskLogService.getErrorMsg(id);
     }
 }

@@ -55,7 +55,7 @@ public class FileServiceImpl implements FileService {
     public FilePath saveFile(@NotNull MultipartFile file, String folder, long maxSize) {
         this.checkSize(file, maxSize);
         String path = this.doSaveFile(file, folder);
-        return FilePath.builder().path(path).address(this.getFileAddress()).build();
+        return FilePath.builder().path(path).address(this.getFileAddress()).size(file.getSize()).build();
     }
 
     @Override
@@ -76,9 +76,9 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FilePath saveFiles(@NotNull List<MultipartFile> files, String folder, long maxSize) {
-        this.checkSize(files, maxSize);
+        long size = this.checkSize(files, maxSize);
         List<String> paths = files.stream().map(file -> this.doSaveFile(file, folder)).collect(Collectors.toList());
-        return FilePath.builder().address(this.getFileAddress()).paths(paths).build();
+        return FilePath.builder().address(this.getFileAddress()).size(size).paths(paths).build();
     }
 
     @Override
@@ -104,13 +104,15 @@ public class FileServiceImpl implements FileService {
      *
      * @param files   文件
      * @param maxSize 最大上传大小
+     * @return 文件总大小
      */
-    private void checkSize(List<MultipartFile> files, long maxSize) {
+    private long checkSize(List<MultipartFile> files, long maxSize) {
         long sum = files.stream().mapToLong(MultipartFile::getSize).sum();
         if (maxSize < sum) {
             log.warn("上传文件过大:[{}]", sum);
             throw new BusinessException(ErrorCode.UPLOAD_TOO_BIG.getCode(), "文件最大:" + maxSize / 1024 + "M");
         }
+        return sum;
     }
 
     /**

@@ -35,17 +35,17 @@ public class RoleController {
 
     @GetMapping("/listPage")
     @ApiOperation("角色列表(分页)")
-    public RespBody<PageData<SysRole>> listPage(RoleQueryRequest request) {
+    public PageData<SysRole> listPage(RoleQueryRequest request) {
         Page<SysRole> page = sysRoleService.getByPage(request);
-        return RespBody.success(PageData.toPage(page));
+        return PageData.toPage(page);
     }
 
     @PostMapping("/list")
     @ApiOperation("角色列表(不分页)")
-    public RespBody<List<CheckBox>> list() {
+    public List<CheckBox> list() {
         List<SysRole> list = sysRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为ReturnJson对象
-        return RespBody.success(DataUtil.convert(list, sysRole -> CheckBox.builder().hide(sysRole.getId()).show(sysRole.getRoleName()).build()));
+        return DataUtil.convert(list, sysRole -> CheckBox.builder().hide(sysRole.getId()).show(sysRole.getRoleName()).build());
     }
 
     @PostMapping("/update")

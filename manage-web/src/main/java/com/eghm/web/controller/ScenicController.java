@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.Scenic;
+import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.scenic.ScenicAddRequest;
@@ -27,9 +28,9 @@ public class ScenicController {
 
     @ApiOperation("查询景区列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<Scenic>> getByPage(ScenicQueryRequest request) {
+    public PageData<Scenic> getByPage(ScenicQueryRequest request) {
         Page<Scenic> scenicPage = scenicService.getByPage(request);
-        return RespBody.success(PageData.toPage(scenicPage));
+        return PageData.toPage(scenicPage);
     }
 
     @ApiOperation("创建景区")
@@ -48,9 +49,8 @@ public class ScenicController {
 
     @PostMapping("/select")
     @ApiOperation("更新景区")
-    public RespBody<Void> select(@Validated @RequestBody ScenicEditRequest request) {
-        scenicService.updateScenic(request);
-        return RespBody.success();
+    public Scenic select(@Validated @RequestBody IdDTO request) {
+        return scenicService.selectById(request.getId());
     }
 
 

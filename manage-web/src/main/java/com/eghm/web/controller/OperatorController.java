@@ -66,9 +66,9 @@ public class OperatorController {
 
     @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
-    public RespBody<PageData<SysOperator>> operatorListPage(OperatorQueryRequest request) {
+    public PageData<SysOperator> operatorListPage(OperatorQueryRequest request) {
         Page<SysOperator> page = sysOperatorService.getByPage(request);
-        return RespBody.success(PageData.toPage(page));
+        return PageData.toPage(page);
     }
 
     @PostMapping("/create")
@@ -81,12 +81,12 @@ public class OperatorController {
     @GetMapping("/select")
     @ApiOperation("查询系统用户信息")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
-    public RespBody<OperatorResponse> select(@RequestParam("id") Long id) {
+    public OperatorResponse select(@RequestParam("id") Long id) {
         SysOperator operator = sysOperatorService.getById(id);
         OperatorResponse response = DataUtil.copy(operator, OperatorResponse.class);
         List<Long> roleList = sysRoleService.getByOperatorId(id);
         response.setRoleIds(Joiner.on(",").join(roleList));
-        return RespBody.success(response);
+        return response;
     }
 
     @PostMapping("/update")
@@ -132,9 +132,8 @@ public class OperatorController {
 
     @GetMapping("/menuList")
     @ApiOperation("查询自己拥有的菜单列表")
-    public RespBody<List<SysMenu>> operatorMenuList() {
+    public List<SysMenu> operatorMenuList() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
-        List<SysMenu> menuList = sysMenuService.getList(operator.getId());
-        return RespBody.success(menuList);
+        return sysMenuService.getList(operator.getId());
     }
 }

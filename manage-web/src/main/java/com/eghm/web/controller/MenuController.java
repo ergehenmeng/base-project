@@ -32,9 +32,8 @@ public class MenuController {
 
     @GetMapping("/listPage")
     @ApiOperation("菜单列表(不分页)")
-    public RespBody<List<SysMenu>> listPage() {
-        List<SysMenu> menuList = sysMenuService.getList();
-        return RespBody.success(menuList);
+    public List<SysMenu> listPage() {
+        return sysMenuService.getList();
     }
 
     @PostMapping("/create")

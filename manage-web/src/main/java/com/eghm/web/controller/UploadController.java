@@ -32,8 +32,7 @@ public class UploadController {
     @PostMapping("/upload")
     @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
     @ApiOperation("单文件上传")
-    public RespBody<FilePath> file(@RequestParam("file") MultipartFile file) {
-        FilePath filePath = fileService.saveFile(file);
-        return RespBody.success(filePath);
+    public FilePath file(@RequestParam("file") MultipartFile file) {
+        return fileService.saveFile(file);
     }
 }

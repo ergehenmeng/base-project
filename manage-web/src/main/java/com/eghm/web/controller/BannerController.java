@@ -28,9 +28,9 @@ public class BannerController {
 
     @GetMapping("/listPage")
     @ApiOperation("轮播图列表")
-    public RespBody<PageData<Banner>> listPage(BannerQueryRequest request) {
+    public PageData<Banner> listPage(BannerQueryRequest request) {
         Page<Banner> byPage = bannerService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return PageData.toPage(byPage);
     }
 
     @PostMapping("/create")

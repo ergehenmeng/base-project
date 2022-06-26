@@ -30,9 +30,9 @@ public class TaskConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("定时任务列表(分页)")
-    public RespBody<PageData<TaskConfig>> listPage(TaskQueryRequest request) {
+    public PageData<TaskConfig> listPage(TaskQueryRequest request) {
         Page<TaskConfig> byPage = taskConfigService.getByPage(request);
-        return RespBody.success(PageData.toPage(byPage));
+        return PageData.toPage(byPage);
     }
 
     @PostMapping("/update")

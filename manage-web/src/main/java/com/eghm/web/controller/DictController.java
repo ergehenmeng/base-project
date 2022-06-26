@@ -28,8 +28,8 @@ public class DictController {
 
     @GetMapping("/listPage")
     @ApiOperation("数据字典列表(分页)")
-    public RespBody<PageData<SysDict>> listPage(DictQueryRequest request) {
-        return RespBody.success(PageData.toPage(sysDictService.getByPage(request)));
+    public PageData<SysDict> listPage(DictQueryRequest request) {
+        return PageData.toPage(sysDictService.getByPage(request));
     }
 
     @PostMapping("/create")
