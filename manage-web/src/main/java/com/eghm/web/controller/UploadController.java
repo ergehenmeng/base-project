@@ -2,7 +2,6 @@ package com.eghm.web.controller;
 
 
 import com.eghm.model.dto.ext.FilePath;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
