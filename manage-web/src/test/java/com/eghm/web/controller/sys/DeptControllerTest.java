@@ -19,12 +19,8 @@ public class DeptControllerTest extends BaseTest {
     request.setParentCode("100");
     request.setTitle("我是一级部门第二");
     request.setRemark("我是个备注");
-    sysDeptService.addDepartment(request);
+    sysDeptService.create(request);
   }
 
-  @Test
-  @WithUserDetails(value = "13000000000", userDetailsServiceBeanName = "userDetailsService")
-  public void test() {
-    super.get("/test");
-  }
+
 }
