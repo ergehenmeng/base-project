@@ -304,22 +304,6 @@ CREATE TABLE `sys_area` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='省市县代码表';
 
 -- ----------------------------
--- Table structure for sys_bulletin
--- ----------------------------
-DROP TABLE IF EXISTS `sys_bulletin`;
-CREATE TABLE `sys_bulletin` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `title` varchar(100) NOT NULL COMMENT '公告标题',
-  `classify` tinyint(2) unsigned DEFAULT NULL COMMENT '公告类型(数据字典表bulletin_classify)',
-  `content` text COMMENT '公告内容(富文本)',
-  `state` tinyint(1) unsigned DEFAULT '0' COMMENT '是否发布 0:未发布 1:已发布',
-  `deleted` bit(1) DEFAULT b'0' COMMENT '删除状态 0:正常 1:删除',
-  `add_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统公告信息表';
-
--- ----------------------------
 -- Table structure for sys_cache
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_cache`;
