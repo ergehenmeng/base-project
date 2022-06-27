@@ -13,7 +13,7 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
-@TableName("tag_config")
+@TableName("task_config")
 public class TaskConfig {
 
     @ApiModelProperty("主键")
