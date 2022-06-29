@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.dto.ext.PagingQuery;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2021/12/25 13:57
  */
 public class PageUtil {

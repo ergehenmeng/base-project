@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 /**
- * @author wyb 2022/6/25 16:19
+ * @author 二哥很猛 2022/6/25 16:19
  */
 @Data
 public class ClearCacheRequest {

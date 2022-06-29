@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * @author wyb 2022/6/15 21:11
+ * @author 二哥很猛 2022/6/15 21:11
  */
 @Service("scenicTicketService")
 @AllArgsConstructor

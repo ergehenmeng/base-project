@@ -16,7 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author wyb 2022/6/17 19:06
+ * @author 二哥很猛 2022/6/17 19:06
  */
 @RestController
 @Api(tags = "景区")

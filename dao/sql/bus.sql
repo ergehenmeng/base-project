@@ -291,3 +291,5 @@ PRIMARY KEY (`id`)
 
 alter table homestay_room_config add column deleted bit(1) default 0 comment '删除状态 0:未删除 1:已删除';
 alter table homestay add column tags varchar(200) comment '标签';
+
+alter table homestay_room add column title varchar(50) comment '房型名称' after id ;

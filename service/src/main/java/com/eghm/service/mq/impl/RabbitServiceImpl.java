@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author wyb 2022/6/10 15:55
+ * @author 二哥很猛 2022/6/10 15:55
  */
 @Service("rabbitService")
 @Slf4j

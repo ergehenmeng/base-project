@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 /**
- * @author wyb 2022/6/15 21:13
+ * @author 二哥很猛 2022/6/15 21:13
  */
 @Data
 public class ScenicTicketEditRequest {

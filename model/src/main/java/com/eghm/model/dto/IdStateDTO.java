@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author wyb 2022/6/17 19:03
+ * @author 二哥很猛 2022/6/17 19:03
  */
 @Data
 public class IdStateDTO {

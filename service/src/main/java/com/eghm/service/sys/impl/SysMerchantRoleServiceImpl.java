@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author wyb 2022/6/24 18:25
+ * @author 二哥很猛 2022/6/24 18:25
  */
 @Service("sysMerchantRoleService")
 @AllArgsConstructor

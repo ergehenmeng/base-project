@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * mq配置
  *
- * @author wyb 2022/6/10 11:21
+ * @author 二哥很猛 2022/6/10 11:21
  */
 @Configuration
 public class RabbitMQConfig {

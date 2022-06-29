@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- * @author wyb 2022/6/25 14:11
+ * @author 二哥很猛 2022/6/25 14:11
  */
 @Service("homestayRoomConfigService")
 @AllArgsConstructor

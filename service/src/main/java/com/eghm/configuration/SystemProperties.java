@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/1/29 16:25
  */
 @ConfigurationProperties(prefix = SystemProperties.PREFIX)

@@ -5,7 +5,7 @@ import cn.hutool.core.math.Money;
 import java.text.DecimalFormat;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/6/12 19:03
  */
 public class DecimalUtil {

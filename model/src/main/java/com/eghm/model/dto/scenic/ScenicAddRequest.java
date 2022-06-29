@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/6/14 22:24
  */
 @Data

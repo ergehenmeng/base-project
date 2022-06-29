@@ -8,7 +8,7 @@ import com.eghm.model.dto.ticket.ScenicTicketQueryRequest;
 import com.eghm.model.vo.ticket.ScenicTicketResponse;
 
 /**
- * @author wyb 2022/6/15 21:11
+ * @author 二哥很猛 2022/6/15 21:11
  */
 public interface ScenicTicketService {
 

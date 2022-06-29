@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 /**
- * @author wyb 2022/6/25 14:31
+ * @author 二哥很猛 2022/6/25 14:31
  */
 @Data
 public class HomestayEditRequest {

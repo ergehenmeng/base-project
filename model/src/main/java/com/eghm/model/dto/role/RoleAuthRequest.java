@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author wyb 2022/6/25 16:30
+ * @author 二哥很猛 2022/6/25 16:30
  */
 @Data
 public class RoleAuthRequest {

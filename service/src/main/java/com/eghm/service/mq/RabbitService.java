@@ -1,7 +1,7 @@
 package com.eghm.service.mq;
 
 /**
- * @author wyb 2022/6/10 15:55
+ * @author 二哥很猛 2022/6/10 15:55
  */
 public interface RabbitService {
 

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/3/30 18:17
  */
 public class CentToYuanEncoder extends StdSerializer<Object> {

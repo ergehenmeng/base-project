@@ -7,7 +7,7 @@ import com.eghm.model.dto.scenic.ScenicEditRequest;
 import com.eghm.model.dto.scenic.ScenicQueryRequest;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/6/14 22:22
  */
 public interface ScenicService {

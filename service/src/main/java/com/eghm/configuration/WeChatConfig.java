@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2021/12/4 下午3:19
  */
 @Configuration

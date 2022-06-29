@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/3/30 18:44
  */
 public class YuanToCentDecoder extends StdScalarDeserializer<Integer> {
