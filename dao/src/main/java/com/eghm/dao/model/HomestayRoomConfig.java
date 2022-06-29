@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
+import com.eghm.common.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -36,13 +37,18 @@ public class HomestayRoomConfig extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long homestayRoomId;
 
+    @ApiModelProperty("状态 0:不可用 1:可用")
+    private Integer state;
+
     @ApiModelProperty(value = "日期")
     private LocalDate configDate;
 
     @ApiModelProperty(value = "划线机")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "剩余库存")

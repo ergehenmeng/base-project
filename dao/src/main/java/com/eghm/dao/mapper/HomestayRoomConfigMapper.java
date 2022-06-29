@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface HomestayRoomConfigMapper extends BaseMapper<HomestayRoomConfig> {
 
+    /**
+     * 新增或更新房态信息
+     * @param config 房态信息
+     * @return 条数
+     */
+    int insertOrUpdate(HomestayRoomConfig config);
 }

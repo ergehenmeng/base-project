@@ -58,7 +58,7 @@ public class HomestayRoomController {
     @PostMapping("/updateState")
     @ApiOperation("更新上下架状态")
     public RespBody<Void> updateState(@Validated @RequestBody IdStateDTO dto) {
-
+        homestayRoomService.updateState(dto.getId(), dto.getState());
         return RespBody.success();
     }
 

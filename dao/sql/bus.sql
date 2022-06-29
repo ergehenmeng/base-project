@@ -132,9 +132,9 @@ CREATE TABLE `homestay_room_config`
     `line_price`       int(10) DEFAULT NULL COMMENT '划线机',
     `sale_price`       int(10) DEFAULT NULL COMMENT '销售价',
     `stock`            smallint(4) DEFAULT NULL COMMENT '剩余库存',
-    `sale_num`         smallint(4) DEFAULT NULL COMMENT '已预订数量',
+    `sale_num`         smallint(4) DEFAULT 0 COMMENT '已预订数量',
     `add_time`         datetime DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `update_time`      datetime DEFAULT NULL COMMENT '更新时间',
+    `update_time`      datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='房间价格配置表';
 
