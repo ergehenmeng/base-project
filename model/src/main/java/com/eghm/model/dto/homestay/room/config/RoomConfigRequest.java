@@ -36,7 +36,7 @@ public class RoomConfigRequest {
     @NotEmpty(message = "请选择周期")
     public List<Integer> week;
 
-    @ApiModelProperty("状态 0:是否可")
+    @ApiModelProperty("状态 0:不可用 1:可用")
     private Integer state;
 
     @ApiModelProperty("库存不能为空")
