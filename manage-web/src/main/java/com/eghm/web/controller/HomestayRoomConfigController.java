@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.dto.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.homestay.room.config.RoomConfigRequest;
 import com.eghm.model.vo.homestay.room.RoomConfigResponse;
@@ -8,10 +9,8 @@ import com.eghm.service.business.HomestayRoomConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -38,5 +37,13 @@ public class HomestayRoomConfigController {
     public List<RoomConfigResponse> getList(RoomConfigQueryRequest request) {
         return homestayRoomConfigService.getList(request);
     }
+
+    @PostMapping("/update")
+    @ApiOperation("更新房态")
+    public RespBody<Void> update(@Validated @RequestBody RoomConfigEditRequest request) {
+        homestayRoomConfigService.update(request);
+        return RespBody.success();
+    }
+
 
 }

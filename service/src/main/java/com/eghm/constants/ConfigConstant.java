@@ -138,4 +138,9 @@ public class ConfigConstant {
      * 商户默认密码
      */
     public static final String MERCHANT_PWD = "merchant_pwd";
+
+    /**
+     * 房态单次设置日期最大间隔
+     */
+    public static final String ROOM_CONFIG_MAX_DAY = "room_config_max_day";
 }

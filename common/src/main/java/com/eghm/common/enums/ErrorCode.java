@@ -542,6 +542,10 @@ public enum ErrorCode {
      */
     HOMESTAY_TITLE_REDO(3134, "民宿名称被占用"),
 
+    /**
+     * 时间跨度不能超过{}天
+     */
+    ROOM_MAX_DAY(3136, "时间跨度不能超过%s天"),
 
     /**
      * 微信公众号尚未配置

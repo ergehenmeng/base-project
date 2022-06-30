@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.model.dto.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.homestay.room.config.RoomConfigRequest;
 import com.eghm.model.vo.homestay.room.RoomConfigResponse;
@@ -23,4 +24,10 @@ public interface HomestayRoomConfigService {
      * @return 房型信息
      */
     List<RoomConfigResponse> getList(RoomConfigQueryRequest request);
+
+    /**
+     * 更新某一天的房态信息
+     * @param request 新房态信息
+     */
+    void update(RoomConfigEditRequest request);
 }
