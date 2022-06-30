@@ -35,6 +35,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void create(RestaurantAddRequest request) {
+        // TODO商家id
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         restaurantMapper.insert(restaurant);
     }

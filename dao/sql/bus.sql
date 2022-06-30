@@ -293,3 +293,4 @@ alter table homestay_room_config add column deleted bit(1) default 0 comment '�
 alter table homestay add column tags varchar(200) comment '标签';
 
 alter table homestay_room add column title varchar(50) comment '房型名称' after id ;
+alter table restaurant_voucher add column state tinyint(1) default 0 comment '状态 0:未上架 1:已上架' after title;
