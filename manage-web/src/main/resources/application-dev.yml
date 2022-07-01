@@ -29,20 +29,8 @@ spring:
 
 system:
   upload-dir: D://file
-  base-package: com.eghm.web.controller
   job-enable: true
   manage:
-    security:
-      ignore:
-        - /captcha
-        - /**/captcha
-        - /doc.html
-        - /webjars/**
-        - /v2/api-docs
-        - /swagger-resources/**
-      ignore-auth:
-        # 占坑而已
-        - /homeResource
     jwt:
       secret-key: xC&ln9Q5pNn11RXUr7s#Owzm4nK16wGB3PTnM6OI@b51Q9NUrQTrTIQU6r&UTT9O
 

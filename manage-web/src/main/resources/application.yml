@@ -46,3 +46,16 @@ mybatis-plus:
   type-enums-package: com.eghm.model.enums
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
 
+system:
+  base-package: com.eghm.web.controller
+  manage:
+    security:
+      ignore:
+        - /captcha
+        - /**/captcha
+        - /doc.html
+        - /webjars/**
+        - /v2/api-docs
+        - /swagger-resources/**
+        - /manage/login
+        - /favicon.ico
