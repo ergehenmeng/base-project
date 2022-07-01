@@ -255,7 +255,7 @@ CREATE TABLE `specialty_product_sku`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='特产商品规格表';
 
-CREATE TABLE `specialty_store`
+CREATE TABLE `specialty_shop`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
     `state`          tinyint(1)     DEFAULT NULL COMMENT '状态 0:未商家 1:已上架',
