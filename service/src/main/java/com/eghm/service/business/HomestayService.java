@@ -2,9 +2,9 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.Homestay;
-import com.eghm.model.dto.homestay.HomestayAddRequest;
-import com.eghm.model.dto.homestay.HomestayEditRequest;
-import com.eghm.model.dto.homestay.HomestayQueryRequest;
+import com.eghm.model.dto.business.homestay.HomestayAddRequest;
+import com.eghm.model.dto.business.homestay.HomestayEditRequest;
+import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
 
 /**
  * @author 二哥很猛 2022/6/25 14:08

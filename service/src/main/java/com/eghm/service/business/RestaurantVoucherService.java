@@ -2,9 +2,9 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.RestaurantVoucher;
-import com.eghm.model.dto.restaurant.voucher.RestaurantVoucherAddRequest;
-import com.eghm.model.dto.restaurant.voucher.RestaurantVoucherEditRequest;
-import com.eghm.model.dto.restaurant.voucher.RestaurantVoucherQueryRequest;
+import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
+import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
+import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
 
 /**
  * @author wyb

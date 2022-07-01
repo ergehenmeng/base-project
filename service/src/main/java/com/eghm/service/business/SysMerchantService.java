@@ -2,9 +2,9 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.SysMerchant;
-import com.eghm.model.dto.merchant.MerchantAddRequest;
-import com.eghm.model.dto.merchant.MerchantEditRequest;
-import com.eghm.model.dto.merchant.MerchantQueryRequest;
+import com.eghm.model.dto.business.merchant.MerchantAddRequest;
+import com.eghm.model.dto.business.merchant.MerchantEditRequest;
+import com.eghm.model.dto.business.merchant.MerchantQueryRequest;
 
 /**
  * @author 殿小二

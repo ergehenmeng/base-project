@@ -2,9 +2,9 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.Restaurant;
-import com.eghm.model.dto.restaurant.RestaurantAddRequest;
-import com.eghm.model.dto.restaurant.RestaurantEditRequest;
-import com.eghm.model.dto.restaurant.RestaurantQueryRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
 
 /**
  * @author 二哥很猛

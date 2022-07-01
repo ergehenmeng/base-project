@@ -2,9 +2,9 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.Scenic;
-import com.eghm.model.dto.scenic.ScenicAddRequest;
-import com.eghm.model.dto.scenic.ScenicEditRequest;
-import com.eghm.model.dto.scenic.ScenicQueryRequest;
+import com.eghm.model.dto.business.scenic.ScenicAddRequest;
+import com.eghm.model.dto.business.scenic.ScenicEditRequest;
+import com.eghm.model.dto.business.scenic.ScenicQueryRequest;
 
 /**
  * @author 二哥很猛

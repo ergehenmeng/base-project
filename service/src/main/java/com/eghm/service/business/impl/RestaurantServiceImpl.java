@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.mapper.RestaurantMapper;
 import com.eghm.dao.model.Restaurant;
-import com.eghm.model.dto.restaurant.RestaurantAddRequest;
-import com.eghm.model.dto.restaurant.RestaurantEditRequest;
-import com.eghm.model.dto.restaurant.RestaurantQueryRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -35,7 +35,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void create(RestaurantAddRequest request) {
-        // TODO商家id
+        // TODO 商家id
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         restaurantMapper.insert(restaurant);
     }

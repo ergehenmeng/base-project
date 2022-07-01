@@ -3,8 +3,8 @@ package com.eghm.dao.mapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.ScenicTicket;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.dto.ticket.ScenicTicketQueryRequest;
-import com.eghm.model.vo.ticket.ScenicTicketResponse;
+import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
+import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
 
 /**
  * <p>

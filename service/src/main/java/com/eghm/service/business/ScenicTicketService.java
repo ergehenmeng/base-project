@@ -2,10 +2,10 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.ScenicTicket;
-import com.eghm.model.dto.ticket.ScenicTicketAddRequest;
-import com.eghm.model.dto.ticket.ScenicTicketEditRequest;
-import com.eghm.model.dto.ticket.ScenicTicketQueryRequest;
-import com.eghm.model.vo.ticket.ScenicTicketResponse;
+import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
+import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
+import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
+import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
 
 /**
  * @author 二哥很猛 2022/6/15 21:11

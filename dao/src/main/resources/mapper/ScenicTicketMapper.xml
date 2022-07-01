@@ -2,4 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.ScenicTicketMapper">
 
+    <select id="getByPage" parameterType="com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest" resultType="com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse">
+        
+    </select>
+
 </mapper>
