@@ -1,0 +1,34 @@
+package com.eghm.service.business.impl;
+
+import com.eghm.dao.mapper.SpecialtyShopMapper;
+import com.eghm.dao.model.SpecialtyShop;
+import com.eghm.model.dto.business.specialty.SpecialtyShopAddRequest;
+import com.eghm.model.dto.business.specialty.SpecialtyShopEditRequest;
+import com.eghm.service.business.SpecialtyShopService;
+import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+/**
+ * @author 二哥很猛
+ * @date 2022/7/1
+ */
+@Service("specialtyShopService")
+@AllArgsConstructor
+public class SpecialtyShopServiceImpl implements SpecialtyShopService {
+
+    private final SpecialtyShopMapper specialtyShopMapper;
+
+    @Override
+    public void create(SpecialtyShopAddRequest request) {
+        // TODO 商户id增加
+        SpecialtyShop shop = DataUtil.copy(request, SpecialtyShop.class);
+        specialtyShopMapper.insert(shop);
+    }
+
+    @Override
+    public void update(SpecialtyShopEditRequest request) {
+        SpecialtyShop shop = DataUtil.copy(request, SpecialtyShop.class);
+        specialtyShopMapper.updateById(shop);
+    }
+}
