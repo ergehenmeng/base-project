@@ -30,6 +30,9 @@ public class ScenicTicketResponse implements Serializable {
     @ApiModelProperty(value = "门票名称")
     private String title;
 
+    @ApiModelProperty("景区名称")
+    private String scenicName;
+
     @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")
     private Integer category;
 
@@ -62,11 +65,8 @@ public class ScenicTicketResponse implements Serializable {
     @ApiModelProperty(value = "剩余库存")
     private Integer stock;
 
-    @ApiModelProperty(value = "真实销售数量")
-    private Integer saleNum;
-
-    @ApiModelProperty(value = "总销量=实际销量+虚拟销量")
-    private Integer totalNum;
+    @ApiModelProperty(value = "虚拟数量")
+    private Integer virtualNum;
 
     @ApiModelProperty(value = "景区介绍")
     private String introduce;

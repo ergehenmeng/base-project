@@ -15,7 +15,10 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class ScenicTicketQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("门票所属商户")
+    @ApiModelProperty("景区id")
+    private Long scenicId;
+
+    @ApiModelProperty("商户id")
     private Long merchantId;
 
     @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")
