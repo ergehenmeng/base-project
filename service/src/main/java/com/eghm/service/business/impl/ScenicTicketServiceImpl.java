@@ -3,7 +3,10 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.ScenicTicketMapper;
+import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
@@ -46,10 +49,18 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public void updateState(Long id, Integer state) {
+    public void updateState(Long id, State state) {
         LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ScenicTicket::getId, id);
         wrapper.set(ScenicTicket::getState, state);
+        scenicTicketMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAuditState(Long id, AuditState state) {
+        LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ScenicTicket::getId, id);
+        wrapper.set(ScenicTicket::getAuditState, state);
         scenicTicketMapper.update(null, wrapper);
     }
 }

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -37,8 +39,11 @@ public class HomestayRoom extends BaseEntity implements Serializable {
     @ApiModelProperty("房型名称")
     private String title;
 
-    @ApiModelProperty(value = "房型上架状态 0:待上架 1:已上架")
-    private Integer state;
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    private State state;
+
+    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
+    private AuditState auditState;
 
     @ApiModelProperty(value = "几室")
     private Integer room;

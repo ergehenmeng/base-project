@@ -1,6 +1,12 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.SpecialtyShopMapper;
+import com.eghm.dao.model.HomestayRoom;
+import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.SpecialtyShop;
 import com.eghm.model.dto.business.specialty.SpecialtyShopAddRequest;
 import com.eghm.model.dto.business.specialty.SpecialtyShopEditRequest;
@@ -30,5 +36,21 @@ public class SpecialtyShopServiceImpl implements SpecialtyShopService {
     public void update(SpecialtyShopEditRequest request) {
         SpecialtyShop shop = DataUtil.copy(request, SpecialtyShop.class);
         specialtyShopMapper.updateById(shop);
+    }
+
+    @Override
+    public void updateState(Long id, State state) {
+        LambdaUpdateWrapper<SpecialtyShop> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SpecialtyShop::getId, id);
+        wrapper.set(SpecialtyShop::getState, state);
+        specialtyShopMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAuditState(Long id, AuditState state) {
+        LambdaUpdateWrapper<SpecialtyShop> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SpecialtyShop::getId, id);
+        wrapper.set(SpecialtyShop::getAuditState, state);
+        specialtyShopMapper.update(null, wrapper);
     }
 }

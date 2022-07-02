@@ -2,9 +2,13 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.ScenicMapper;
+import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.Scenic;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
 import com.eghm.model.dto.business.scenic.ScenicEditRequest;
@@ -59,4 +63,19 @@ public class ScenicServiceImpl implements ScenicService {
         return scenicMapper.selectById(id);
     }
 
+    @Override
+    public void updateState(Long id, State state) {
+        LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Scenic::getId, id);
+        wrapper.set(Scenic::getState, state);
+        scenicMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAuditState(Long id, AuditState state) {
+        LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Scenic::getId, id);
+        wrapper.set(Scenic::getAuditState, state);
+        scenicMapper.update(null, wrapper);
+    }
 }

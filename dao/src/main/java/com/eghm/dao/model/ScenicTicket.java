@@ -1,6 +1,8 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -34,6 +36,12 @@ public class ScenicTicket extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "门票名称")
     private String title;
+
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    private State state;
+
+    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
+    private AuditState auditState;
 
     @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")
     private Integer category;
@@ -99,6 +107,4 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
 
-    @ApiModelProperty(value = "景区状态 0:待上架 1:已上架")
-    private Integer state;
 }

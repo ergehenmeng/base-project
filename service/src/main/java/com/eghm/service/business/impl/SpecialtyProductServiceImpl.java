@@ -1,6 +1,11 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.SpecialtyProductMapper;
+import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.SpecialtyProduct;
 import com.eghm.model.dto.business.specialty.product.SpecialtyProductAddRequest;
 import com.eghm.model.dto.business.specialty.product.SpecialtyProductEditRequest;
@@ -30,5 +35,21 @@ public class SpecialtyProductServiceImpl implements SpecialtyProductService {
     public void update(SpecialtyProductEditRequest request) {
         SpecialtyProduct product = DataUtil.copy(request, SpecialtyProduct.class);
         specialtyProductMapper.updateById(product);
+    }
+
+    @Override
+    public void updateState(Long id, State state) {
+        LambdaUpdateWrapper<SpecialtyProduct> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SpecialtyProduct::getId, id);
+        wrapper.set(SpecialtyProduct::getState, state);
+        specialtyProductMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAuditState(Long id, AuditState state) {
+        LambdaUpdateWrapper<SpecialtyProduct> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SpecialtyProduct::getId, id);
+        wrapper.set(SpecialtyProduct::getAuditState, state);
+        specialtyProductMapper.update(null, wrapper);
     }
 }

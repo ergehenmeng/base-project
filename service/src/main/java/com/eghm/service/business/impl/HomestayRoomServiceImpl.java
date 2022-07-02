@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.HomestayRoomMapper;
 import com.eghm.dao.model.HomestayRoom;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomAddRequest;
@@ -50,10 +52,18 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     }
 
     @Override
-    public void updateState(Long id, Integer state) {
+    public void updateState(Long id, State state) {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getId, id);
         wrapper.set(HomestayRoom::getState, state);
+        homestayRoomMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAuditState(Long id, AuditState state) {
+        LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(HomestayRoom::getId, id);
+        wrapper.set(HomestayRoom::getAuditState, state);
         homestayRoomMapper.update(null, wrapper);
     }
 }

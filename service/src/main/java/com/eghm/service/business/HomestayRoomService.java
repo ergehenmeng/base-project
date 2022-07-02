@@ -1,6 +1,8 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.model.HomestayRoom;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomEditRequest;
@@ -38,9 +40,16 @@ public interface HomestayRoomService {
     HomestayRoom selectById(Long id);
 
     /**
-     * 更新房型
+     * 更新房型上下架状态
      * @param id 房型id
-     * @param state 新状态 0:下架 1:上架
+     * @param state 新状态
      */
-    void updateState(Long id, Integer state);
+    void updateState(Long id, State state);
+
+    /**
+     * 更新审核状态
+     * @param id 房型id
+     * @param state 新状态
+     */
+    void updateAuditState(Long id, AuditState state);
 }

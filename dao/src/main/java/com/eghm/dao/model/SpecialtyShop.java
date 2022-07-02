@@ -6,6 +6,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,21 +27,20 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("specialty_shop")
 @ApiModel(value="SpecialtyShop对象", description="特产店信息表")
-public class SpecialtyShop implements Serializable {
+public class SpecialtyShop extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    private State state;
 
-    @ApiModelProperty(value = "状态 0:未商家 1:已上架")
-    private Boolean state;
+    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
+    private AuditState auditState;
 
     @ApiModelProperty(value = "所属商户id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long merchantId;
 
     @ApiModelProperty(value = "封面图")
@@ -46,12 +50,15 @@ public class SpecialtyShop implements Serializable {
     private String openTime;
 
     @ApiModelProperty(value = "省id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long provinceId;
 
     @ApiModelProperty(value = "城市id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
@@ -68,15 +75,5 @@ public class SpecialtyShop implements Serializable {
 
     @ApiModelProperty(value = "商家介绍")
     private String introduce;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "删除状态 0:未删除 1:已删除")
-    private Boolean deleted;
-
 
 }

@@ -6,9 +6,12 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.HomestayMapper;
 import com.eghm.dao.model.Homestay;
+import com.eghm.dao.model.HomestayRoom;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
@@ -50,11 +53,18 @@ public class HomestayServiceImpl implements HomestayService {
     }
 
     @Override
-    public void updateState(Long id, Integer state) {
-        // TODO 增加约束条件来保证更新的记录就是当前用户
+    public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Homestay::getId, id);
         wrapper.set(Homestay::getState, state);
+        homestayMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateAuditState(Long id, AuditState state) {
+        LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Homestay::getId, id);
+        wrapper.set(Homestay::getAuditState, state);
         homestayMapper.update(null, wrapper);
     }
 

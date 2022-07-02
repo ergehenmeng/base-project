@@ -1,6 +1,8 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.model.Scenic;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
 import com.eghm.model.dto.business.scenic.ScenicEditRequest;
@@ -45,4 +47,18 @@ public interface ScenicService {
      * @return 景区信息
      */
     Scenic selectById(Long id);
+
+    /**
+     * 更新上下架状态
+     * @param id id
+     * @param state 状态
+     */
+    void updateState(Long id, State state);
+
+    /**
+     * 更新审核状态
+     * @param id 房型id
+     * @param state 新状态
+     */
+    void updateAuditState(Long id, AuditState state);
 }

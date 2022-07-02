@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -36,13 +38,17 @@ public class Homestay extends BaseEntity implements Serializable {
     private String title;
 
     @ApiModelProperty(value = "民宿所属商家")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long merchantId;
 
     @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他")
     private Integer level;
 
-    @ApiModelProperty(value = "状态 0:待上架  1:已上架")
-    private Integer state;
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    private State state;
+
+    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
+    private AuditState auditState;
 
     @ApiModelProperty(value = "省份")
     @JsonSerialize(using = ToStringSerializer.class)

@@ -1,13 +1,15 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.dao.model.Scenic;
 import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
 import com.eghm.model.dto.business.scenic.ScenicEditRequest;
 import com.eghm.model.dto.business.scenic.ScenicQueryRequest;
+import com.eghm.model.dto.ext.PageData;
+import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.business.ScenicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -53,5 +55,31 @@ public class ScenicController {
         return scenicService.selectById(request.getId());
     }
 
+    @PostMapping("/shelves")
+    @ApiOperation("上架")
+    public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
+        scenicService.updateState(dto.getId(), State.SHELVE);
+        return RespBody.success();
+    }
 
+    @PostMapping("/unShelves")
+    @ApiOperation("下架")
+    public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
+        scenicService.updateState(dto.getId(), State.UN_SHELVE);
+        return RespBody.success();
+    }
+
+    @PostMapping("/platformAudit")
+    @ApiOperation("平台上架审核")
+    public RespBody<Void> updateState(@RequestBody @Validated IdDTO dto) {
+        scenicService.updateAuditState(dto.getId(), AuditState.SHELVE);
+        return RespBody.success();
+    }
+
+    @PostMapping("/platformUnShelves")
+    @ApiOperation("平台下架")
+    public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
+        scenicService.updateAuditState(dto.getId(), AuditState.UN_SHELVE);
+        return RespBody.success();
+    }
 }

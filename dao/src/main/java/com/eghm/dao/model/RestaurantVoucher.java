@@ -1,6 +1,10 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.State;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,10 +30,14 @@ public class RestaurantVoucher extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "餐饮商家id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long restaurantId;
 
-    @ApiModelProperty("状态 0:未上架 1:已上架")
-    private Integer state;
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    private State state;
+
+    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
+    private AuditState auditState;
 
     @ApiModelProperty(value = "商品名称")
     private String title;
