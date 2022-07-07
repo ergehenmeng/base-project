@@ -38,7 +38,7 @@ public class RoomConfigRequest {
 
     @ApiModelProperty("状态 0:不可用 1:可用")
     @NotNull(message = "是否可定不能为空")
-    private Integer state;
+    private Boolean state;
 
     @ApiModelProperty("库存不能为空")
     @Max(value = 9999, message = "最大库存9999")

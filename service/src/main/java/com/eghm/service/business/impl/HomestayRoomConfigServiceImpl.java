@@ -12,6 +12,7 @@ import com.eghm.model.dto.business.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigResponse;
+import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
@@ -20,7 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +81,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
         List<HomestayRoomConfig> configList = homestayRoomConfigMapper.selectList(wrapper);
 
-        int ofMonth = request.getMonth().getDayOfMonth();
+        int ofMonth = request.getMonth().lengthOfMonth();
         List<RoomConfigResponse> responseList = new ArrayList<>(45);
         for (int i = 0; i < ofMonth; i++) {
             LocalDate localDate = request.getMonth().plusMonths(i);
@@ -101,4 +104,35 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         HomestayRoomConfig config = DataUtil.copy(request, HomestayRoomConfig.class);
         homestayRoomConfigMapper.updateById(config);
     }
+
+    @Override
+    public List<RoomConfigVO> getList(Long roomId) {
+        LocalDate now = LocalDate.now();
+        int monthDay = now.lengthOfMonth();
+        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
+        wrapper.ge(HomestayRoomConfig::getConfigDate, now);
+        wrapper.le(HomestayRoomConfig::getConfigDate, now.withDayOfMonth(monthDay));
+        List<HomestayRoomConfig> configList = homestayRoomConfigMapper.selectList(wrapper);
+        int nowDay = now.getDayOfMonth();
+        int surplus = monthDay - nowDay;
+        List<RoomConfigVO> voList = new ArrayList<>(45);
+
+        for (int i = 0; i <= surplus ; i++) {
+            LocalDate localDate = now.plusDays(i);
+            Optional<HomestayRoomConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();
+            // 当天已经设置过金额
+            if (optional.isPresent()) {
+                RoomConfigVO vo = DataUtil.copy(optional.get(), RoomConfigVO.class);
+                // 库存小于0或者不可预定都不可预定
+                vo.setState(vo.getState() && vo.getStock() > 0);
+                voList.add(vo);
+            } else {
+                // 当天没有设置过
+                voList.add(new RoomConfigVO(false));
+            }
+        }
+        return voList;
+    }
+
 }

@@ -37,8 +37,8 @@ public class HomestayRoomConfig extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long homestayRoomId;
 
-    @ApiModelProperty("状态 0:不可用 1:可用")
-    private Integer state;
+    @ApiModelProperty("状态 false:不可预定 true:可预定")
+    private Boolean state;
 
     @ApiModelProperty(value = "日期")
     private LocalDate configDate;
