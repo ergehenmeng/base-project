@@ -40,7 +40,8 @@ public class RoomConfigVO {
     @ApiModelProperty("库存数")
     private Integer stock;
 
-    public RoomConfigVO(Boolean state) {
+    public RoomConfigVO(Boolean state, LocalDate configDate) {
         this.state = state;
+        this.configDate = configDate;
     }
 }

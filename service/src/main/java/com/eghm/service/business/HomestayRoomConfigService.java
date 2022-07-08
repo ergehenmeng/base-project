@@ -6,6 +6,7 @@ import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigResponse;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -33,9 +34,10 @@ public interface HomestayRoomConfigService {
     void update(RoomConfigEditRequest request);
 
     /**
-     * 查询某个房型当月的价格信息, 统计当前到月底的房态价格
+     * 查询某个房型当月的价格信息
+     * @param month  月份
      * @param roomId 房型id
      * @return 价格列表
      */
-    List<RoomConfigVO> getList(Long roomId);
+    List<RoomConfigVO> getList(LocalDate month, Long roomId);
 }

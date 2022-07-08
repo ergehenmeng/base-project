@@ -151,6 +151,16 @@ public class DateUtil {
     }
 
     /**
+     * 月的第一天
+     * @param month 月份 yyyy-MM
+     * @return 该月的第一天
+     */
+    public static LocalDate parseFirstDayOfMonth(String month) {
+        return LocalDate.parse(month + "-01", DateTimeFormatter.ISO_DATE);
+    }
+
+
+    /**
      * 根据给定的字符串格式来格式化日期
      *
      * @param date    日期

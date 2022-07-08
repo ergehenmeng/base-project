@@ -43,7 +43,8 @@ public class RoomConfigResponse {
     @ApiModelProperty("库存数")
     private Integer stock;
 
-    public RoomConfigResponse(Boolean hasSet) {
+    public RoomConfigResponse(Boolean hasSet, LocalDate configDate) {
         this.hasSet = hasSet;
+        this.configDate = configDate;
     }
 }

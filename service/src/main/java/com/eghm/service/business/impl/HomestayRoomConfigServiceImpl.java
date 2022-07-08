@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.HomestayRoomConfigMapper;
 import com.eghm.dao.model.HomestayRoomConfig;
@@ -21,9 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,18 +72,14 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     @Override
     public List<RoomConfigResponse> getList(RoomConfigQueryRequest request) {
-        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, request.getRoomId());
-        LocalDate endDate = request.getMonth().plusMonths(1);
-        wrapper.ge(HomestayRoomConfig::getConfigDate, request.getMonth());
-        wrapper.lt(HomestayRoomConfig::getConfigDate, endDate);
+        LocalDate month = DateUtil.parseFirstDayOfMonth(request.getMonth());
 
-        List<HomestayRoomConfig> configList = homestayRoomConfigMapper.selectList(wrapper);
-
-        int ofMonth = request.getMonth().lengthOfMonth();
+        List<HomestayRoomConfig> configList = this.getMonthConfig(month, request.getRoomId());
+        int ofMonth = month.lengthOfMonth();
         List<RoomConfigResponse> responseList = new ArrayList<>(45);
+        // 月初到月末进行拼装
         for (int i = 0; i < ofMonth; i++) {
-            LocalDate localDate = request.getMonth().plusMonths(i);
+            LocalDate localDate = month.plusDays(i);
             Optional<HomestayRoomConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();
             // 当天已经设置过金额
             if (optional.isPresent()) {
@@ -93,7 +88,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
                 responseList.add(response);
             } else {
                 // 当天没有设置过
-                responseList.add(new RoomConfigResponse(false));
+                responseList.add(new RoomConfigResponse(false, localDate));
             }
         }
         return responseList;
@@ -106,33 +101,43 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     }
 
     @Override
-    public List<RoomConfigVO> getList(Long roomId) {
-        LocalDate now = LocalDate.now();
-        int monthDay = now.lengthOfMonth();
-        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
-        wrapper.ge(HomestayRoomConfig::getConfigDate, now);
-        wrapper.le(HomestayRoomConfig::getConfigDate, now.withDayOfMonth(monthDay));
-        List<HomestayRoomConfig> configList = homestayRoomConfigMapper.selectList(wrapper);
-        int nowDay = now.getDayOfMonth();
-        int surplus = monthDay - nowDay;
+    public List<RoomConfigVO> getList(LocalDate month, Long roomId) {
+        List<HomestayRoomConfig> configList = this.getMonthConfig(month, roomId);
+        int monthDay = month.lengthOfMonth();
         List<RoomConfigVO> voList = new ArrayList<>(45);
-
-        for (int i = 0; i <= surplus ; i++) {
-            LocalDate localDate = now.plusDays(i);
+        // 月初到月末进行拼装
+        for (int i = 0; i < monthDay; i++) {
+            LocalDate localDate = month.plusDays(i);
             Optional<HomestayRoomConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();
-            // 当天已经设置过金额
             if (optional.isPresent()) {
                 RoomConfigVO vo = DataUtil.copy(optional.get(), RoomConfigVO.class);
-                // 库存小于0或者不可预定都不可预定
                 vo.setState(vo.getState() && vo.getStock() > 0);
                 voList.add(vo);
             } else {
-                // 当天没有设置过
-                voList.add(new RoomConfigVO(false));
+                voList.add(new RoomConfigVO(false, localDate));
             }
         }
         return voList;
     }
+
+    /**
+     * 获取房态月配置信息
+     * @param month 月份
+     * @param roomId 房型
+     * @return 房态
+     */
+    private List<HomestayRoomConfig> getMonthConfig(LocalDate month, Long roomId) {
+        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
+        LocalDate endDate = month.plusMonths(1);
+        wrapper.ge(HomestayRoomConfig::getConfigDate, month);
+        wrapper.lt(HomestayRoomConfig::getConfigDate, endDate);
+        return homestayRoomConfigMapper.selectList(wrapper);
+    }
+
+
+
+
+
 
 }
