@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.SpecialtyProductMapper;
-import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.SpecialtyProduct;
 import com.eghm.model.dto.business.specialty.product.SpecialtyProductAddRequest;
 import com.eghm.model.dto.business.specialty.product.SpecialtyProductEditRequest;

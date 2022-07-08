@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.ScenicMapper;
-import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.Scenic;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
 import com.eghm.model.dto.business.scenic.ScenicEditRequest;

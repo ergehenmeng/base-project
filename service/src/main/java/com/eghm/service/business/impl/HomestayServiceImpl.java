@@ -11,7 +11,6 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.HomestayMapper;
 import com.eghm.dao.model.Homestay;
-import com.eghm.dao.model.HomestayRoom;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;

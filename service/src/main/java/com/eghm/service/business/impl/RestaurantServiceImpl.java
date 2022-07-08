@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.RestaurantMapper;
-import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.Restaurant;
 import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;

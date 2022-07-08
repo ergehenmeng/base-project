@@ -73,7 +73,6 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     @Override
     public List<RoomConfigResponse> getList(RoomConfigQueryRequest request) {
         LocalDate month = DateUtil.parseFirstDayOfMonth(request.getMonth());
-
         List<HomestayRoomConfig> configList = this.getMonthConfig(month, request.getRoomId());
         int ofMonth = month.lengthOfMonth();
         List<RoomConfigResponse> responseList = new ArrayList<>(45);
@@ -134,10 +133,5 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         wrapper.lt(HomestayRoomConfig::getConfigDate, endDate);
         return homestayRoomConfigMapper.selectList(wrapper);
     }
-
-
-
-
-
 
 }

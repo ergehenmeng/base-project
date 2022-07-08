@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.ScenicTicketMapper;
-import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;

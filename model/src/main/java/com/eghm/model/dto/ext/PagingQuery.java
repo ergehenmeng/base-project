@@ -48,4 +48,24 @@ public class PagingQuery implements Serializable{
         return new Page<>(page, pageSize);
     }
 
+    /**
+     * 创建分页对象
+     * @param count 是否统计总条数
+     * @return 分页对象
+     * @param <T> 查询对象
+     */
+    public <T> Page<T> createPage(boolean count) {
+        return new Page<>(page, pageSize, count);
+    }
+
+    /**
+     * 创建分页对象
+     * @return 分页对象
+     * @param size 页容量, 小于零表示不进行分页
+     * @param <T> 查询对象
+     */
+    public <T> Page<T> createPage(int size) {
+        return new Page<>(page, size);
+    }
+
 }
