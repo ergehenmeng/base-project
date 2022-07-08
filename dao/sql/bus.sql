@@ -34,7 +34,7 @@ CREATE TABLE `homestay_room`
     `title`           varchar(50)   DEFAULT NULL COMMENT '房型名称',
     `homestay_id`     bigint(20)    DEFAULT NULL COMMENT '民宿id',
     `state`           tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `audit_state`     tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `room`            tinyint(1)    DEFAULT '1' COMMENT '几室',
     `hall`            tinyint(1)    DEFAULT '0' COMMENT '几厅',
     `kitchen`         tinyint(1)    DEFAULT '0' COMMENT '几厨',
@@ -76,8 +76,8 @@ CREATE TABLE `line_product`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
     `travel_agency_id`  varchar(255)  DEFAULT NULL COMMENT '所属旅行社id',
-    `state`           tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
+    `audit_state`       tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `title`             varchar(50)   DEFAULT NULL COMMENT '线路名称',
     `start_province_id` bigint(20)    DEFAULT NULL COMMENT '出发省份id',
     `start_city_id`     bigint(20)    DEFAULT NULL COMMENT '出发城市id',
@@ -114,7 +114,7 @@ CREATE TABLE `restaurant`
     `title`       varchar(50)    DEFAULT NULL COMMENT '商家名称',
     `merchant_id` bigint(20)     DEFAULT NULL COMMENT '所属商户',
     `state`       tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `audit_state` tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `cover_url`   varchar(1000)  DEFAULT NULL COMMENT '商家封面',
     `open_time`   varchar(100)   DEFAULT NULL COMMENT '营业时间',
     `province_id` bigint(20)     DEFAULT NULL COMMENT '省份',
@@ -137,7 +137,7 @@ CREATE TABLE `restaurant_voucher`
     `restaurant_id`  bigint(20)   DEFAULT NULL COMMENT '餐饮商家id',
     `title`          varchar(50)  DEFAULT NULL COMMENT '商品名称',
     `state`          tinyint(1)   DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `audit_state`    tinyint(1)   DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `cover_url`      varchar(100) DEFAULT NULL COMMENT '封面图片',
     `line_price`     int(10)      DEFAULT NULL COMMENT '划线价',
     `sale_price`     int(10)      DEFAULT NULL COMMENT '销售价',
@@ -196,7 +196,7 @@ CREATE TABLE `scenic_ticket`
     `scenic_id`         bigint(20)          DEFAULT NULL COMMENT '门票所属景区',
     `title`             varchar(50)         DEFAULT NULL COMMENT '门票名称',
     `state`             tinyint(1)          DEFAULT '0' COMMENT '景区状态 0:待上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `audit_state`       tinyint(1)          DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `category`          tinyint(2)          DEFAULT NULL COMMENT '门票种类 1: 成人票 2: 老人票 3:儿童票',
     `cover_url`         varchar(500)        DEFAULT NULL COMMENT '门票封面图',
     `line_price`        int(10)             DEFAULT '0' COMMENT '划线价',
@@ -229,7 +229,7 @@ CREATE TABLE `specialty_product`
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属特产店',
     `state`           tinyint(1)    DEFAULT NULL COMMENT '商品状态 0:待上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `audit_state`     tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `title`           varchar(50)   DEFAULT NULL COMMENT '商品名称',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
@@ -314,3 +314,26 @@ CREATE TABLE `sys_merchant_role`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户与角色关联表';
+
+
+CREATE TABLE `coupon`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `title`          varchar(30)  DEFAULT NULL COMMENT '优惠券名称',
+    `stock`          smallint(4)  DEFAULT '1' COMMENT '库存(发放数量)',
+    `max_limit`      smallint(2)  DEFAULT '1' COMMENT '单人领取限制',
+    `mode`           tinyint(1)   DEFAULT '1' COMMENT '领取方式 1:页面领取 2: 手动发放',
+    `face_value`     smallint(6)  DEFAULT '0' COMMENT '面值 单位:分',
+    `use_threshold`  smallint(6)  DEFAULT NULL COMMENT '使用门槛 0:不限制 大于0表示限制启用金额 单位:分',
+    `start_time`     datetime     DEFAULT NULL COMMENT '发放开始时间',
+    `end_time`       datetime     DEFAULT NULL COMMENT '发放截止时间',
+    `use_start_time` datetime     DEFAULT NULL COMMENT '可以使用的开始时间',
+    `use_end_time`   datetime     DEFAULT NULL COMMENT '可以使用的截止时间',
+    `valid_day`      tinyint(2)   DEFAULT '0' COMMENT '有效天数 0:按开始及截止时间为准 大于0即领取之日后几天',
+    `instruction`    varchar(200) DEFAULT NULL COMMENT '使用说明',
+    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券表';
