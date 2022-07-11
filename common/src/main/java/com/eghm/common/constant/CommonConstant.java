@@ -23,19 +23,9 @@ public class CommonConstant {
     public static final Charset CHARSET = StandardCharsets.UTF_8;
 
     /**
-     * 图形验证码 key
-     */
-    public static final String IMG_AUTH_CODE = "img_auth_code";
-
-    /**
      * 未知ip地址
      */
     public static final String UNKNOWN = "unknown";
-
-    /**
-     * app版本上传目录文件夹名称
-     */
-    public static final String VERSION = "version";
 
     /**
      * url分隔符
@@ -46,4 +36,14 @@ public class CommonConstant {
      * 分页最大值 只适用于移动端
      */
     public static final int MAX_PAGE_SIZE = 20;
+
+    /**
+     * geo排序默认10条
+     */
+    public static final int GET_LIMIT = 10;
+
+    /**
+     * 分隔符
+     */
+    public static final String SPLIT = ";";
 }

@@ -143,4 +143,9 @@ public class ConfigConstant {
      * 房态单次设置日期最大间隔
      */
     public static final String ROOM_CONFIG_MAX_DAY = "room_config_max_day";
+
+    /**
+     * 是否包含景区距离字段
+     */
+    public static final String SCENIC_CONTAIN_DISTANCE = "scenic_contain_distance";
 }

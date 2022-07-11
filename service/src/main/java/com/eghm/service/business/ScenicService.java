@@ -6,7 +6,11 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.dao.model.Scenic;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
 import com.eghm.model.dto.business.scenic.ScenicEditRequest;
+import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.model.dto.business.scenic.ScenicQueryRequest;
+import com.eghm.model.vo.scenic.ScenicListVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -61,4 +65,12 @@ public interface ScenicService {
      * @param state 新状态
      */
     void updateAuditState(Long id, AuditState state);
+
+    /**
+     * 景区列表查询
+     * @param dto 查询条件
+     * @return 列表 不含分页信息
+     */
+    List<ScenicListVO> getByPage(ScenicQueryDTO dto);
+
 }

@@ -16,7 +16,6 @@ import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.text.MessageFormat;
 import java.util.List;

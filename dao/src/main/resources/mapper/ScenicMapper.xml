@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.ScenicMapper">
 
+    <select id="getByPage" resultType="com.eghm.model.vo.scenic.ScenicListVO" parameterType="com.eghm.model.dto.business.scenic.ScenicQueryDTO">
+        select
+        id,
+        scenic_name as scenicName,
+        cover_url as coverUrl,
+        longitude,
+        latitude,
+        `level`,
+        min_price as minPrice
+        from scenic where deleted = false and state = 2
+        <if test="queryName != null and queryName != '' ">
+            and scenic_name like concat('%', #{queryName} ,'%')
+        </if>
+        order by sort
+    </select>
+
 </mapper>
