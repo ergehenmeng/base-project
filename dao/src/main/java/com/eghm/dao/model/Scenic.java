@@ -38,6 +38,9 @@ public class Scenic extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "景区营业时间")
     private String openTime;
 
+    @ApiModelProperty("景区电话")
+    private String phone;
+
     @ApiModelProperty("景区标签")
     private String tag;
 

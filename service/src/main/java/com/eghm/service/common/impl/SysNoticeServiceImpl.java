@@ -3,7 +3,6 @@ package com.eghm.service.common.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CacheConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.dao.mapper.SysNoticeMapper;
@@ -12,13 +11,12 @@ import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;
 import com.eghm.model.vo.notice.TopNoticeVO;
-import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.SysNoticeService;
+import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,16 +31,17 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 
     private final SysNoticeMapper sysNoticeMapper;
 
+    private final CacheProxyService cacheProxyService;
+
+    private final SysDictService sysDictService;
+
     private final SysConfigApi sysConfigApi;
 
-    private final ProxyService proxyService;
-
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, cacheManager = "smallCacheManager", unless = "#result.size() == 0")
     public List<TopNoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
-        List<SysNotice> noticeList = sysNoticeMapper.getTopList(noticeLimit);
-        ProxyService finalProxy = this.proxyService;
+        List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
+        SysDictService finalProxy = this.sysDictService;
         return DataUtil.convert(noticeList, notice -> {
             TopNoticeVO vo = DataUtil.copy(notice, TopNoticeVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
@@ -82,20 +81,12 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
     public void publish(Long id) {
-        SysNotice notice = new SysNotice();
-        notice.setState((byte) 1);
-        notice.setId(id);
-        sysNoticeMapper.updateById(notice);
+        cacheProxyService.publishNotice(id);
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
     public void cancelPublish(Long id) {
-        SysNotice notice = new SysNotice();
-        notice.setState(SysNotice.STATE_0);
-        notice.setId(id);
-        sysNoticeMapper.updateById(notice);
+        cacheProxyService.cancelPublishNotice(id);
     }
 }

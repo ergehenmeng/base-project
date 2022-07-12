@@ -1,22 +1,20 @@
 package com.eghm.model.vo.scenic;
 
-import com.eghm.common.convertor.CentToYuanEncoder;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2022/7/11
+ * @date 2022/7/12
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class ScenicListVO {
+public class ScenicVO {
 
     @ApiModelProperty("景区ID")
     @JsonSerialize(using = ToStringSerializer.class)
@@ -31,22 +29,33 @@ public class ScenicListVO {
     @ApiModelProperty("景区等级 5: 5A 4: 4A 3:3A 0:其他")
     private Integer level;
 
+    @ApiModelProperty("景区电话")
+    private String phone;
+
+    @ApiModelProperty(value = "景区营业时间")
+    private String openTime;
+
+    @ApiModelProperty("景区标签")
+    private String tag;
+
     @ApiModelProperty("景区信息描述")
     private String describe;
-
-    @ApiModelProperty("最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer minPrice;
 
     @ApiModelProperty("距离 单位:km")
     private BigDecimal distance;
 
+    @ApiModelProperty(value = "详细地址(含省市县)")
+    private String detailAddress;
+
     @ApiModelProperty(value = "经度", hidden = true)
-    @JsonIgnore
     private BigDecimal longitude;
 
     @ApiModelProperty(value = "纬度", hidden = true)
-    @JsonIgnore
     private BigDecimal latitude;
 
+    @ApiModelProperty(value = "景区详细介绍信息")
+    private String introduce;
+
+    @ApiModelProperty("景区门票列表")
+    private List<TicketBaseVO> ticketList;
 }

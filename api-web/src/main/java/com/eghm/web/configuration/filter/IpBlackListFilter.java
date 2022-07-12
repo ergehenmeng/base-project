@@ -2,7 +2,7 @@ package com.eghm.web.configuration.filter;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.service.cache.ProxyService;
+import com.eghm.service.sys.BlackRosterService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
@@ -19,14 +19,14 @@ import java.io.IOException;
 @AllArgsConstructor
 public class IpBlackListFilter implements Filter {
 
-    private final ProxyService proxyService;
+    private final BlackRosterService blackRosterService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         String ipAddress = IpUtil.getIpAddress(servletRequest);
-        if (proxyService.isInterceptIp(ipAddress)) {
+        if (blackRosterService.isInterceptIp(ipAddress)) {
             WebUtil.printJson(servletResponse, RespBody.error(ErrorCode.SYSTEM_AUTH));
         } else {
             chain.doFilter(request, response);

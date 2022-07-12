@@ -2,8 +2,8 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
-import com.eghm.service.cache.ProxyService;
 import com.eghm.service.common.TokenService;
+import com.eghm.service.sys.BlackRosterService;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
@@ -64,8 +64,6 @@ public class FrontWebMvcConfig extends WebMvcConfig {
 
     /**
      * 登陆校验拦截器
-     *
-     * @return com.eghm.interceptor
      */
     @Bean
     public HandlerInterceptor tokenInterceptor() {
@@ -91,7 +89,6 @@ public class FrontWebMvcConfig extends WebMvcConfig {
     /**
      * 请求基础信息收集拦截器
      *
-     * @return com.eghm.interceptor
      */
     @Bean
     public HandlerInterceptor messageInterceptor() {
@@ -103,8 +100,8 @@ public class FrontWebMvcConfig extends WebMvcConfig {
      * ip黑名单
      */
     @Bean("ipBlackListFilter")
-    public Filter ipFilter(ProxyService proxyService) {
-        return new IpBlackListFilter(proxyService);
+    public Filter ipFilter(BlackRosterService blackRosterService) {
+        return new IpBlackListFilter(blackRosterService);
     }
 
     @Bean

@@ -8,8 +8,10 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.ScenicMapper;
 import com.eghm.dao.model.Scenic;
@@ -18,11 +20,13 @@ import com.eghm.model.dto.business.scenic.ScenicEditRequest;
 import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.model.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.model.vo.scenic.ScenicListVO;
+import com.eghm.model.vo.scenic.ScenicVO;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.sys.GeoService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -35,6 +39,7 @@ import java.util.List;
  */
 @Service("scenicService")
 @AllArgsConstructor
+@Slf4j
 public class ScenicServiceImpl implements ScenicService {
 
     private final ScenicMapper scenicMapper;
@@ -114,5 +119,21 @@ public class ScenicServiceImpl implements ScenicService {
             vo.setDistance(flag ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))): null);
         }
         return voList;
+    }
+
+    @Override
+    public ScenicVO detailById(Long id, Double longitude, Double latitude) {
+        Scenic scenic = scenicMapper.selectById(id);
+        if (scenic == null || scenic.getAuditState() != AuditState.SHELVE) {
+            log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
+            throw new BusinessException(ErrorCode.SCENIC_DOWN);
+        }
+        ScenicVO vo = DataUtil.copy(scenic, ScenicVO.class);
+        // 用户未开启定位, 不查询距离
+        if (longitude != null && latitude != null) {
+            double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(id), longitude, latitude);
+            vo.setDistance(BigDecimal.valueOf(distance));
+        }
+        return vo;
     }
 }

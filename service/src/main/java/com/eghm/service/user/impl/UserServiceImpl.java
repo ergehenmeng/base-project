@@ -7,6 +7,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CacheConstant;
+import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.EmailType;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ScoreType;
@@ -324,7 +325,7 @@ public class UserServiceImpl implements UserService {
     public User getByEmail(String email) {
         LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(User::getEmail, email);
-        wrapper.last(" limit 1 ");
+        wrapper.last(CommonConstant.LIMIT_ONE);
         return userMapper.selectOne(wrapper);
     }
 
@@ -332,7 +333,7 @@ public class UserServiceImpl implements UserService {
     public User getByMobile(String mobile) {
         LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(User::getMobile, mobile);
-        wrapper.last(" limit 1 ");
+        wrapper.last(CommonConstant.LIMIT_ONE);
         return userMapper.selectOne(wrapper);
     }
 
@@ -434,7 +435,7 @@ public class UserServiceImpl implements UserService {
     public User getByInviteCode(String inviteCode) {
         LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(User::getInviteCode, inviteCode);
-        wrapper.last(" limit 1 ");
+        wrapper.last(CommonConstant.LIMIT_ONE);
         return userMapper.selectOne(wrapper);
     }
 

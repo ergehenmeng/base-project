@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.SysDictMapper;
@@ -14,10 +13,10 @@ import com.eghm.dao.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;
+import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,12 +33,11 @@ public class SysDictServiceImpl implements SysDictService {
 
     private final SysDictMapper sysDictMapper;
 
+    private final CacheProxyService cacheProxyService;
+
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")
     public List<SysDict> getDictByNid(String nid) {
-        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDict::getNid, nid);
-        return sysDictMapper.selectList(wrapper);
+        return cacheProxyService.getDictByNid(nid);
     }
 
     @Override
@@ -81,4 +79,14 @@ public class SysDictServiceImpl implements SysDictService {
         return sysDictMapper.selectById(id);
     }
 
+    @Override
+    public String getDictValue(String nid, Byte hiddenValue) {
+        List<SysDict> dictList = cacheProxyService.getDictByNid(nid);
+        for (SysDict dict : dictList) {
+            if (dict.getHiddenValue().equals(hiddenValue)) {
+                return dict.getShowValue();
+            }
+        }
+        return null;
+    }
 }

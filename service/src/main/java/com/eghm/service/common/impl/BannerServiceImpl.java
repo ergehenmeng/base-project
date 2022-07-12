@@ -4,7 +4,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.Channel;
 import com.eghm.dao.mapper.BannerMapper;
 import com.eghm.dao.model.Banner;
@@ -12,10 +11,8 @@ import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;
 import com.eghm.service.common.BannerService;
-import com.eghm.utils.DataUtil;
+import com.eghm.service.cache.CacheProxyService;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +27,9 @@ public class BannerServiceImpl implements BannerService {
 
     private final BannerMapper bannerMapper;
 
+    private final CacheProxyService cacheProxyService;
+
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")
     public List<Banner> getBanner(Channel channel, Byte classify) {
         return bannerMapper.getBannerList(classify, channel.name());
     }
@@ -53,16 +51,12 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
     public void create(BannerAddRequest request) {
-        Banner banner = DataUtil.copy(request, Banner.class);
-        bannerMapper.insert(banner);
+        cacheProxyService.createBanner(request);
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
     public void update(BannerEditRequest request) {
-        Banner banner = DataUtil.copy(request, Banner.class);
-        bannerMapper.updateById(banner);
+        cacheProxyService.updateBanner(request);
     }
 }

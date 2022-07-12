@@ -45,5 +45,10 @@ public class CommonConstant {
     /**
      * 分隔符
      */
-    public static final String SPLIT = ";";
+    public static final String SPLIT = ",";
+
+    /**
+     * idea强迫症
+     */
+    public static final String LIMIT_ONE = " limit 1 ";
 }

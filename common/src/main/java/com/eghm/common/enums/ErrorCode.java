@@ -548,6 +548,11 @@ public enum ErrorCode {
     ROOM_MAX_DAY(3136, "时间跨度不能超过%s天"),
 
     /**
+     * 该景区已下架
+     */
+    SCENIC_DOWN(3137, "该景区已下架"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

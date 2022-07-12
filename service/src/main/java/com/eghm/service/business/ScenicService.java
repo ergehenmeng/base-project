@@ -9,6 +9,7 @@ import com.eghm.model.dto.business.scenic.ScenicEditRequest;
 import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.model.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.model.vo.scenic.ScenicListVO;
+import com.eghm.model.vo.scenic.ScenicVO;
 
 import java.util.List;
 
@@ -72,5 +73,14 @@ public interface ScenicService {
      * @return 列表 不含分页信息
      */
     List<ScenicListVO> getByPage(ScenicQueryDTO dto);
+
+    /**
+     * 查询景区详细信息 含门票
+     * @param id 景区id
+     * @param longitude 经度
+     * @param latitude 维度
+     * @return 景区详细
+     */
+    ScenicVO detailById(Long id, Double longitude, Double latitude);
 
 }

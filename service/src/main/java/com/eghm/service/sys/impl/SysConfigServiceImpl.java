@@ -5,15 +5,14 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.SysConfigMapper;
 import com.eghm.dao.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
 import com.eghm.model.dto.config.ConfigQueryRequest;
+import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysConfigService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,6 +26,8 @@ import org.springframework.stereotype.Service;
 public class SysConfigServiceImpl implements SysConfigService {
 
     private final SysConfigMapper sysConfigMapper;
+
+    private final CacheProxyService cacheProxyService;
 
     @Override
     public void update(ConfigEditRequest request) {
@@ -47,12 +48,8 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_CONFIG, key = "#p0", unless = "#result == null")
     public String getByNid(String nid) {
-        LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysConfig::getNid, nid);
-        SysConfig config = sysConfigMapper.selectOne(wrapper);
-        return config != null ? config.getContent() : null;
+        return cacheProxyService.getConfigByNid(nid);
     }
 
     @Override

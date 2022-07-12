@@ -31,4 +31,12 @@ public interface BlackRosterService {
      * @return 列表 ip与结束时间
      */
     List<BlackRoster> getAvailableList();
+
+    /**
+     * 是否是需要拦截的ip
+     *
+     * @param ip ip地址
+     * @return true:黑名单 false:白名单
+     */
+    boolean isInterceptIp(String ip);
 }

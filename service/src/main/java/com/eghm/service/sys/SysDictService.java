@@ -53,4 +53,13 @@ public interface SysDictService {
      * @return 数据字典
      */
     SysDict getById(Long id);
+
+    /**
+     * 根据nid与隐藏值获取显示信息 数据字典格式化数据
+     *
+     * @param nid         nid
+     * @param hiddenValue 隐藏值
+     * @return 显示值
+     */
+    String getDictValue(String nid, Byte hiddenValue);
 }

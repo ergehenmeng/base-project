@@ -4,15 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.PushTemplateMapper;
 import com.eghm.dao.model.PushTemplate;
 import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
+import com.eghm.service.cache.CacheProxyService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,6 +23,8 @@ import org.springframework.stereotype.Service;
 public class PushTemplateServiceImpl implements PushTemplateService {
 
     private final PushTemplateMapper pushTemplateMapper;
+    
+    private final CacheProxyService cacheProxyService;
 
     @Override
     public Page<PushTemplate> getByPage(PushTemplateQueryRequest request) {
@@ -37,13 +38,8 @@ public class PushTemplateServiceImpl implements PushTemplateService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.PUSH_TEMPLATE, key = "#p0", unless = "#result == null")
     public PushTemplate getTemplate(String nid) {
-        LambdaQueryWrapper<PushTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(PushTemplate::getNid, nid);
-        wrapper.eq(PushTemplate::getState, 1);
-        wrapper.last(" limit 1 ");
-        return pushTemplateMapper.selectOne(wrapper);
+        return cacheProxyService.getPushTemplate(nid);
     }
 
     @Override

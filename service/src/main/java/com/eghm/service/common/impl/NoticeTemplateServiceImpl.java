@@ -1,13 +1,9 @@
 package com.eghm.service.common.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.dao.mapper.NoticeTemplateMapper;
 import com.eghm.dao.model.NoticeTemplate;
 import com.eghm.service.common.NoticeTemplateService;
+import com.eghm.service.cache.CacheProxyService;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,14 +14,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class NoticeTemplateServiceImpl implements NoticeTemplateService {
 
-    private final NoticeTemplateMapper noticeTemplateMapper;
+    private final CacheProxyService cacheProxyService;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", cacheManager = "cacheManager", unless = "#result == null")
     public NoticeTemplate getTemplate(String code) {
-        LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(NoticeTemplate::getCode, code);
-        wrapper.last(" limit 1 ");
-        return noticeTemplateMapper.selectOne(wrapper);
+        return cacheProxyService.getNoticeTemplate(code);
     }
 }

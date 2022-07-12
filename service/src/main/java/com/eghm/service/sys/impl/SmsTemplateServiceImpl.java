@@ -4,15 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CacheConstant;
 import com.eghm.dao.mapper.SmsTemplateMapper;
 import com.eghm.dao.model.SmsTemplate;
 import com.eghm.model.dto.sms.SmsTemplateEditRequest;
 import com.eghm.model.dto.sms.SmsTemplateQueryRequest;
+import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -25,14 +24,11 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
 
     private final SmsTemplateMapper smsTemplateMapper;
 
+    private final CacheProxyService cacheProxyService;
+
     @Override
-    @Cacheable(cacheNames = CacheConstant.SMS_TEMPLATE, key = "#p0", unless = "#result == null")
     public String getTemplate(String nid) {
-        LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SmsTemplate::getNid, nid);
-        wrapper.last(" limit 1 ");
-        SmsTemplate template = smsTemplateMapper.selectOne(wrapper);
-        return template != null ? template.getContent() : null;
+        return cacheProxyService.getSmsTemplate(nid);
     }
 
     @Override
