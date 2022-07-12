@@ -315,8 +315,7 @@ CREATE TABLE `sys_merchant_role`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商户与角色关联表';
 
-
-CREATE TABLE `coupon`
+CREATE TABLE `coupon_config`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
     `title`          varchar(30)  DEFAULT NULL COMMENT '优惠券名称',
@@ -337,3 +336,32 @@ CREATE TABLE `coupon`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券表';
+
+CREATE TABLE `order_ticket`
+(
+    `id`                bigint(20) NOT NULL COMMENT '主键',
+    `title`             varchar(50)  DEFAULT NULL COMMENT '门票名称',
+    `price`             int(10)      DEFAULT NULL COMMENT '门票单价',
+    `support_refund`    bit(1)       DEFAULT b'0' COMMENT '是否支持退款 0:不支持 1:支持',
+    `num`               tinyint(2)   DEFAULT '1' COMMENT '购买数量',
+    `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单号',
+    `effective_date`    datetime     DEFAULT NULL COMMENT '生效日期(包含)',
+    `expire_date`       datetime     DEFAULT NULL COMMENT '失效日期(包含)',
+    `use_scope`         smallint(3)  DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
+    `verification_type` tinyint(2)   DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
+    `real_buy`          bit(1)       DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
+    `introduce`         longtext COMMENT '门票介绍',
+    `user_id`           bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `ticket_id`         bigint(20)   DEFAULT NULL COMMENT '门票id',
+    `state`             tinyint(2)   DEFAULT '0' COMMENT '订单状态 0:待支付 1:支付成功 2:支付处理中',
+    `mobile`            varchar(11)  DEFAULT NULL COMMENT '联系人手机号',
+    `discount_amount`   int(10)      DEFAULT '0' COMMENT '优惠金额',
+    `pay_amount`        int(10)      DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',
+    `coupon_id`         bigint(20)   DEFAULT NULL COMMENT '优惠券id',
+    `add_time`          datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`       datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`           varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
+
