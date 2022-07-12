@@ -21,8 +21,11 @@ import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.model.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.model.vo.scenic.ScenicListVO;
 import com.eghm.model.vo.scenic.ScenicVO;
+import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
 import com.eghm.service.business.ScenicService;
+import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.sys.GeoService;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -47,6 +50,10 @@ public class ScenicServiceImpl implements ScenicService {
     private final SysConfigApi sysConfigApi;
 
     private final GeoService geoService;
+
+    private final SysAreaService sysAreaService;
+
+    private final ScenicTicketService scenicTicketService;
 
     @Override
     public Page<Scenic> getByPage(ScenicQueryRequest request) {
@@ -134,6 +141,10 @@ public class ScenicServiceImpl implements ScenicService {
             double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(id), longitude, latitude);
             vo.setDistance(BigDecimal.valueOf(distance));
         }
+        vo.setDetailAddress(sysAreaService.parseArea(scenic.getProvinceId(), scenic.getCityId(), scenic.getCountyId()) + scenic.getDetailAddress());
+
+        List<TicketBaseVO> ticketList = scenicTicketService.getTicketList(id);
+        vo.setTicketList(ticketList);
         return vo;
     }
 }

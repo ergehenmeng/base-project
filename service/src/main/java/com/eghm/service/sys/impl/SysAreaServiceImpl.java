@@ -46,4 +46,27 @@ public class SysAreaServiceImpl implements SysAreaService {
     public SysArea getById(Long id) {
         return cacheProxyService.getAreaById(id);
     }
+
+    @Override
+    public String parseArea(Long provinceId, Long cityId, Long countyId) {
+        SysArea sysArea = cacheProxyService.getAreaById(provinceId);
+        if (sysArea == null) {
+            return this.parseArea(cityId, countyId);
+        }
+        return sysArea.getTitle() + this.parseArea(cityId, countyId);
+    }
+
+    @Override
+    public String parseArea(Long cityId, Long countyId) {
+        String address = "";
+        SysArea sysArea = cacheProxyService.getAreaById(cityId);
+        if (sysArea != null) {
+            address += sysArea.getTitle();
+        }
+        sysArea = cacheProxyService.getAreaById(cityId);
+        if (sysArea != null) {
+            address += sysArea.getTitle();
+        }
+        return address;
+    }
 }

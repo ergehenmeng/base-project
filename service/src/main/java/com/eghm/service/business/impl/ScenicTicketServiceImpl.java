@@ -11,10 +11,13 @@ import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/15 21:11
@@ -61,5 +64,10 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         wrapper.eq(ScenicTicket::getId, id);
         wrapper.set(ScenicTicket::getAuditState, state);
         scenicTicketMapper.update(null, wrapper);
+    }
+
+    @Override
+    public List<TicketBaseVO> getTicketList(Long scenicId) {
+        return scenicTicketMapper.getTicketList(scenicId);
     }
 }

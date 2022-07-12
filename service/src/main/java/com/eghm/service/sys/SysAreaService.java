@@ -29,5 +29,22 @@ public interface SysAreaService {
      * @return 地区
      */
     SysArea getById(Long id);
+
+    /**
+     * 根据省市县id进行拼接
+     * @param provinceId 省份id
+     * @param cityId 城市id
+     * @param countyId 县区id
+     * @return 浙江省杭州市西湖区
+     */
+    String parseArea(Long provinceId, Long cityId, Long countyId);
+
+    /**
+     * 根据省市县id进行拼接
+     * @param cityId 城市id
+     * @param countyId 县区id
+     * @return 杭州市西湖区
+     */
+    String parseArea(Long cityId, Long countyId);
 }
 

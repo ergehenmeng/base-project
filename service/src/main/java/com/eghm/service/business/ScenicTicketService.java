@@ -8,6 +8,9 @@ import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/15 21:11
@@ -53,4 +56,12 @@ public interface ScenicTicketService {
      * @param state 新状态
      */
     void updateAuditState(Long id, AuditState state);
+
+    /**
+     * 查询景区下的在售门票的基本信息
+     * 售罄,删除,未上架,已过销售期的门票都不显示
+     * @param scenicId 景区id
+     * @return 门票
+     */
+    List<TicketBaseVO> getTicketList(Long scenicId);
 }

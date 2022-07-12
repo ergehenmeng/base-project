@@ -5,6 +5,10 @@ import com.eghm.dao.model.ScenicTicket;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,4 +27,11 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @return 列表
      */
     Page<ScenicTicketResponse> getByPage(Page<ScenicTicketResponse> page, ScenicTicketQueryRequest request);
+
+    /**
+     * 景区下在售门票信息
+     * @param scenicId 景区id
+     * @return 门票信息
+     */
+    List<TicketBaseVO> getTicketList(@Param("scenicId") Long scenicId);
 }

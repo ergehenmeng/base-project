@@ -48,4 +48,14 @@
         </if>
     </select>
 
+    <select id="getTicketList" resultType="com.eghm.model.vo.scenic.ticket.TicketBaseVO">
+        select
+        id,
+        title,
+        line_price as linePrice,
+        sale_price as salePrice
+        from scenic_ticket where deleted = false and audit_state = 2 and stock > 0 and end_date &gt; now()
+        and scenic_id = #{scenicId} order by id desc
+    </select>
+
 </mapper>
