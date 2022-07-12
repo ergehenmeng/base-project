@@ -10,5 +10,5 @@
 * spring security
 * mybatis
 * freemarker
-* nginx(推荐)
+* nginx
 

@@ -1,7 +1,7 @@
 ### 开发说明
-* 所有后端接口一律采用 `@GetMapping` 或 `@PostMapping` 
-* `@Mark`注解在Controller类方法上,记录日志专用
-
+* 所有后端接口一律强制采用 `@GetMapping` 或 `@PostMapping` 
+* 默认 `POST` 请求会记录操作日志, 如果不需要记录则在`PostMapping`同方法上添加 `SkipLogger` 注解
+* `GET` 默认采用表单或链接直接携带参数方式, `POST` 使用json方式进行请求 
 
 ### 定时任务相关
 * 开启定时任务添加`@EnableTask`注解即可
@@ -12,16 +12,8 @@
     * 定时任务配置更新后需要*手动刷新配置*才能重新生效
     * 只执行一次的定时任务可通过 `TaskConfiguration.addTask()` 实现
     * demo例子`TestJobService` `OnceJobService`
-### 权限说明
 
-* 按钮权限,添加@auth标签 nid为system_menu表中定义的按钮唯一标示符
-```ftl
 
-<@auth nid='menuManageAdd'>
-    str += '<a href="javascript:void(0);" onclick="$.fn.treeGridOptions.editFun('+row.id+',addTitle,winWidth,winHeight,addUrl);"> 添加</a>';
-</@auth>
-
-``` 
 ### 其他说明
 * 刷新缓存由缓存管理模块统一管理,后台需要开发其他缓存刷新功能,则在`ClearCacheService`,`SystemCacheService`中按指定格式修改
 * 异步任务可采用原生`@Async` + `AsyncConfigurer`实现异步+额外记录,也可自定义实现`AbstractTask`或`AbstractAsyncTask`类(增加额外一些日志记录等),统一定义在`TaskHandler`类型调用, `AbstractAsyncTask`接口主要用于获取异步执行的结果,参数类必须实现`AsyncKey`,在自身实现逻辑中可通过`cacheService#cacheAsyncResponse`来缓存结果
