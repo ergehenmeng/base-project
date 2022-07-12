@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -50,12 +51,15 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     private String coverUrl;
 
     @ApiModelProperty(value = "划线价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "成本价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer costPrice;
 
     @ApiModelProperty(value = "提前多少天购票")
