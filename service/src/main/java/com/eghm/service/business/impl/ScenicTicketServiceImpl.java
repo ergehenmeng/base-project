@@ -3,8 +3,10 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.ScenicTicketMapper;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
@@ -12,6 +14,7 @@ import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
+import com.eghm.model.vo.scenic.ticket.TicketVO;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -69,5 +72,14 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public List<TicketBaseVO> getTicketList(Long scenicId) {
         return scenicTicketMapper.getTicketList(scenicId);
+    }
+
+    @Override
+    public TicketVO detailById(Long id) {
+        ScenicTicket ticket = scenicTicketMapper.selectById(id);
+        if (ticket == null || ticket.getAuditState() != AuditState.SHELVE) {
+            throw new BusinessException(ErrorCode.TICKET_DOWN);
+        }
+        return DataUtil.copy(ticket, TicketVO.class);
     }
 }

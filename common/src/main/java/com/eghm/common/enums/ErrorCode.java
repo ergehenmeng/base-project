@@ -553,6 +553,11 @@ public enum ErrorCode {
     SCENIC_DOWN(3137, "该景区已下架"),
 
     /**
+     * 该门票已下架
+     */
+    TICKET_DOWN(3138, "该门票已下架"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

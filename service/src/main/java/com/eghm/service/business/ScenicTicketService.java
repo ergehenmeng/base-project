@@ -9,6 +9,7 @@ import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
+import com.eghm.model.vo.scenic.ticket.TicketVO;
 
 import java.util.List;
 
@@ -64,4 +65,11 @@ public interface ScenicTicketService {
      * @return 门票
      */
     List<TicketBaseVO> getTicketList(Long scenicId);
+
+    /**
+     * 查询门票详细信息
+     * @param id id
+     * @return 详细信息
+     */
+    TicketVO detailById(Long id);
 }

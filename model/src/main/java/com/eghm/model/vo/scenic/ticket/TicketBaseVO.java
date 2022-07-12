@@ -1,5 +1,6 @@
 package com.eghm.model.vo.scenic.ticket;
 
+import com.eghm.common.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,8 +22,13 @@ public class TicketBaseVO {
     private String title;
 
     @ApiModelProperty(value = "划线价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
+
+    @ApiModelProperty(value = "剩余库存")
+    private Integer stock;
 }
