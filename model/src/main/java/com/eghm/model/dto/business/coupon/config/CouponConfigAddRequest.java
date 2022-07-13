@@ -1,6 +1,7 @@
 package com.eghm.model.dto.business.coupon.config;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
+import com.eghm.model.dto.business.coupon.product.CouponProductRequest;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -10,6 +11,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -59,4 +61,7 @@ public class CouponConfigAddRequest {
 
     @ApiModelProperty(value = "使用说明")
     private String instruction;
+
+    @ApiModelProperty("关联的商品列表")
+    private List<CouponProductRequest> productList;
 }
