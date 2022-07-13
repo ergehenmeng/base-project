@@ -4,6 +4,7 @@ import com.eghm.model.validation.annotation.OptionInt;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.stream.IntStream;
 
 /**
  * @author 二哥很猛
@@ -29,11 +30,11 @@ public class OptionIntDefine implements ConstraintValidator<OptionInt, Integer> 
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
-        if(!required && value == null){
+        if (!required && value == null) {
             return true;
         }
-        for (int v : values){
-            if(v == value){
+        for (int v : values) {
+            if (v == value) {
                 return true;
             }
         }

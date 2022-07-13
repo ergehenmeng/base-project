@@ -29,11 +29,11 @@ public class OptionStringDefine implements ConstraintValidator<OptionString, Str
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if(!required && value == null){
+        if (!required && value == null) {
             return true;
         }
-        for (String v : values){
-            if(v.equals(value)){
+        for (String v : values) {
+            if (v.equals(value)) {
                 return true;
             }
         }

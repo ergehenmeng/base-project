@@ -11,7 +11,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author 二哥很猛
  * @date 2018/8/14 16:07
  */
-public class ChannelTypeDefine implements ConstraintValidator<ChannelType,String> {
+public class ChannelTypeDefine implements ConstraintValidator<ChannelType, String> {
 
     private boolean required;
 
@@ -26,11 +26,11 @@ public class ChannelTypeDefine implements ConstraintValidator<ChannelType,String
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if(!required && StrUtil.isBlank(value)){
+        if (!required && StrUtil.isBlank(value)) {
             return true;
         }
-        for (Channel channel : channels){
-            if(channel.name().equals(value)){
+        for (Channel channel : channels) {
+            if (channel.name().equals(value)) {
                 return true;
             }
         }

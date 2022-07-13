@@ -1,27 +1,26 @@
 package com.eghm.model.validation;
 
-import com.eghm.model.validation.annotation.RangeDouble;
+import com.eghm.model.validation.annotation.RangeInt;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * 校验规则定义
- *
  * @author 二哥很猛
  * @date 2018/8/14 11:04
  */
-public class RangeDoubleDefine implements ConstraintValidator<RangeDouble, Double> {
+public class RangeIntDefine implements ConstraintValidator<RangeInt, Integer> {
 
     /**
      * 最小值
      */
-    private double min;
+    private int min;
 
     /**
      * 最大值
      */
-    private double max;
+    private int max;
 
     /**
      * 是否必填
@@ -29,14 +28,14 @@ public class RangeDoubleDefine implements ConstraintValidator<RangeDouble, Doubl
     private boolean required;
 
     @Override
-    public void initialize(RangeDouble constraintAnnotation) {
+    public void initialize(RangeInt constraintAnnotation) {
         this.min = constraintAnnotation.min();
         this.max = constraintAnnotation.max();
         this.required = constraintAnnotation.required();
     }
 
     @Override
-    public boolean isValid(Double value, ConstraintValidatorContext context) {
-        return (!required && value == null) || (value != null && value >= min && value <= max);
+    public boolean isValid(Integer value, ConstraintValidatorContext context) {
+        return (!required && value == null ) || (value != null && value >= min && value <= max);
     }
 }

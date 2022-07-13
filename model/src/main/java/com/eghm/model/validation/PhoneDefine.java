@@ -3,9 +3,7 @@ package com.eghm.model.validation;
 
 import cn.hutool.core.util.PhoneUtil;
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.utils.RegExpUtil;
 import com.eghm.model.validation.annotation.Phone;
-import com.eghm.model.validation.annotation.RangeDouble;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

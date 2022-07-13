@@ -12,7 +12,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author 二哥很猛
  * @date 2018/8/14 11:43
  */
-public class MobileDefine implements ConstraintValidator<Mobile,String> {
+public class MobileDefine implements ConstraintValidator<Mobile, String> {
 
     /**
      * 是否必填

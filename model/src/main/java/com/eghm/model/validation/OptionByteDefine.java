@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author 二哥很猛
  * @date 2019/8/20 10:32
  */
-public class OptionByteDefine implements ConstraintValidator<OptionByte,Byte> {
+public class OptionByteDefine implements ConstraintValidator<OptionByte, Byte> {
 
     /**
      * 取值列表
@@ -30,11 +30,11 @@ public class OptionByteDefine implements ConstraintValidator<OptionByte,Byte> {
 
     @Override
     public boolean isValid(Byte value, ConstraintValidatorContext context) {
-        if(!required && value == null){
+        if (!required && value == null) {
             return true;
         }
-        for (byte v : values){
-            if(v == value){
+        for (byte v : values) {
+            if (v == value) {
                 return true;
             }
         }
