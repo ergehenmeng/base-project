@@ -375,3 +375,19 @@ CREATE TABLE `coupon_product`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券商品关联表';
+
+CREATE TABLE `user_coupon`
+(
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `coupon_config_id` bigint(20) DEFAULT NULL COMMENT '优惠券配置id',
+    `user_id`          bigint(20) DEFAULT NULL COMMENT '用户id',
+    `state`            tinyint(1) DEFAULT '0' COMMENT '使用状态 0:未使用 1:已使用 2:已过期',
+    `receive_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '领取时间',
+    `use_time`         datetime   DEFAULT NULL COMMENT '使用时间',
+    `add_time`         datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`      datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`          bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='用户优惠券表';
+

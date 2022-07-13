@@ -558,6 +558,16 @@ public enum ErrorCode {
     TICKET_DOWN(3138, "该门票已下架"),
 
     /**
+     * 优惠券抢完啦
+     */
+    COUPON_EMPTY(3139, "优惠券抢完啦~"),
+
+    /**
+     * 优惠券不在领取时间
+     */
+    COUPON_INVALID_TIME(3140, "优惠券不在领取时间内"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

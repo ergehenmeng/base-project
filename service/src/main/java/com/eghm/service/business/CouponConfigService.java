@@ -37,4 +37,11 @@ public interface CouponConfigService {
      * @param state 新状态 0:禁用 1:启用
      */
     void updateState(Long id, Integer state);
+
+    /**
+     * 主键查询
+     * @param id id
+     * @return 优惠券
+     */
+    CouponConfig selectById(Long id);
 }

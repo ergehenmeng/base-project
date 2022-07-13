@@ -69,4 +69,9 @@ public class CouponConfigServiceImpl implements CouponConfigService {
         wrapper.set(CouponConfig::getState, state);
         couponConfigMapper.update(null, wrapper);
     }
+
+    @Override
+    public CouponConfig selectById(Long id) {
+        return couponConfigMapper.selectById(id);
+    }
 }
