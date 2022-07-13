@@ -28,6 +28,9 @@ public class CouponConfig extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "优惠券名称")
     private String title;
 
+    @ApiModelProperty("状态 0:未启用 1:已启用 ")
+    private Integer state;
+
     @ApiModelProperty(value = "库存(发放数量)")
     private Integer stock;
 
