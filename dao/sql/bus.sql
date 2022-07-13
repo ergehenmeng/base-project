@@ -365,3 +365,13 @@ CREATE TABLE `order_ticket`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
 
+CREATE TABLE `coupon_product`
+(
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `coupon_config_id` bigint(20)  DEFAULT NULL COMMENT '优惠券配置id',
+    `product_type`     varchar(20) DEFAULT NULL COMMENT '商品类型',
+    `product_id`       bigint(20)  DEFAULT NULL COMMENT '商品id',
+    `add_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券商品关联表';
