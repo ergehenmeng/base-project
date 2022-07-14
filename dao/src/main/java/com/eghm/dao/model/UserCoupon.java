@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.CouponState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,7 +35,7 @@ public class UserCoupon extends BaseEntity implements Serializable {
     private Long userId;
 
     @ApiModelProperty(value = "使用状态 0:未使用 1:已使用 2:已过期")
-    private Integer state;
+    private CouponState state;
 
     @ApiModelProperty(value = "领取时间")
     private LocalDateTime receiveTime;

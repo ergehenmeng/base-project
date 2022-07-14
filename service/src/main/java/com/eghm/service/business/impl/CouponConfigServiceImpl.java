@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.CouponConfigMapper;
 import com.eghm.dao.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
@@ -73,5 +75,14 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     @Override
     public CouponConfig selectById(Long id) {
         return couponConfigMapper.selectById(id);
+    }
+
+    @Override
+    public void updateStock(Long id, int num) {
+        int stock = couponConfigMapper.updateStock(id, num);
+        if (stock != 1) {
+            log.error("优惠券库存更新异常 [{}] [{}]", id, num);
+            throw new BusinessException(ErrorCode.COUPON_EMPTY);
+        }
     }
 }

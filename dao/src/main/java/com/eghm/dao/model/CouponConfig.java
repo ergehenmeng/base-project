@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.CouponMode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class CouponConfig extends BaseEntity implements Serializable {
     private Integer maxLimit;
 
     @ApiModelProperty(value = "领取方式 1:页面领取 2: 手动发放")
-    private Integer mode;
+    private CouponMode mode;
 
     @ApiModelProperty(value = "面值 单位:分")
     private Integer faceValue;

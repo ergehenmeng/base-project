@@ -44,4 +44,11 @@ public interface CouponConfigService {
      * @return 优惠券
      */
     CouponConfig selectById(Long id);
+
+    /**
+     * 更新优惠券库存及领取数量
+     * @param id 优惠券id
+     * @param num 数量 负数表示增加库存 正数减少库存
+     */
+    void updateStock(Long id, int num);
 }

@@ -2,6 +2,7 @@ package com.eghm.dao.mapper;
 
 import com.eghm.dao.model.CouponConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface CouponConfigMapper extends BaseMapper<CouponConfig> {
 
+    /**
+     * 更新优惠券库存及领取数量
+     * @param id 优惠券id
+     * @param num 数量 负数表示增加库存 正数减少库存
+     */
+    int updateStock(@Param("id") Long id, @Param("num") int num);
 }

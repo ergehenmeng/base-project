@@ -568,6 +568,16 @@ public enum ErrorCode {
     COUPON_INVALID_TIME(3140, "优惠券不在领取时间内"),
 
     /**
+     * 优惠券领取上限啦
+     */
+    COUPON_MAX(3141, "优惠券领取上限啦~"),
+
+    /**
+     * 优惠券不支持页面领取
+     */
+    COUPON_MODE_ERROR(3142, "优惠券不支持页面领取"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
