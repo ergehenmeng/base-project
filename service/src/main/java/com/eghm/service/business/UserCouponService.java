@@ -1,6 +1,11 @@
 package com.eghm.service.business;
 
 import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
+import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
+import com.eghm.model.vo.coupon.UserCouponBaseVO;
+import com.eghm.model.vo.coupon.UserCouponVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -21,4 +26,20 @@ public interface UserCouponService {
      * @return 个数
      */
     int receiveCount(Long couponId, Long userId);
+
+    /**
+     * 用户优惠券列表
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<UserCouponVO> userCouponPage(UserCouponQueryPageDTO dto);
+
+    /**
+     * 选择产品可以使用的优惠券
+     * @param userId 用户id
+     * @param productId 产品id
+     * @return 优惠券列表
+     */
+    List<UserCouponBaseVO> selectCoupon(Long userId, Long productId);
+
 }

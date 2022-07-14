@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.UserCouponMapper">
 
+    <select id="userCouponPage" resultType="com.eghm.model.vo.coupon.UserCouponVO" parameterType="com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO">
+        select
+        t.id,
+        t.state,
+        r.title,
+        r.face_value as amount,
+        r.use_threshold as useThreshold,
+        r.use_start_time as useStartTime,
+        r.use_end_time as useEndTime,
+        r.instruction
+        from user_coupon t
+        left join coupon_config r on t.coupon_config_id = r.id
+        where t.deleted = false and t.user_id = #{userId}
+        <if test="state != null" >
+            and t.state = #{state}
+        </if>
+        order by t.id desc
+    </select>
 </mapper>
