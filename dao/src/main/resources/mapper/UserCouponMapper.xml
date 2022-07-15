@@ -20,4 +20,19 @@
         </if>
         order by t.id desc
     </select>
+
+    <select id="selectCoupon" resultType="com.eghm.model.vo.coupon.UserCouponBaseVO">
+        select
+        t.id,
+        r.title,
+        r.face_value as amount,
+        r.use_threshold as useThreshold
+        from user_coupon t
+        left join coupon_config r on r.id = t.coupon_config_id
+        inner join coupon_product s on t.coupon_config_id = s.coupon_config_id
+        where
+        t.deleted = false and t.state = 0 and t.user_id = #{userId} and s.product_id = #{productId}
+        and r.use_start_time &lt;= now() and r.use_end_time &lt;= now()
+    </select>
+
 </mapper>

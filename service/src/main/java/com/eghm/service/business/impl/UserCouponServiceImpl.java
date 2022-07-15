@@ -67,8 +67,8 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
-    public List<UserCouponBaseVO> selectCoupon(Long userId, Long productId) {
-        return null;
+    public List<UserCouponBaseVO> selectCoupon(Long userId, Long productId, Integer amount) {
+        return userCouponMapper.selectCoupon(userId, productId);
     }
 
     /**
