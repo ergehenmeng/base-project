@@ -38,9 +38,8 @@ public interface UserCouponService {
      * 选择产品可以使用的优惠券
      * @param userId 用户id
      * @param productId 产品id
-     * @param amount 商品金额
      * @return 优惠券列表
      */
-    List<UserCouponBaseVO> selectCoupon(Long userId, Long productId, Integer amount);
+    List<UserCouponBaseVO> selectCoupon(Long userId, Long productId);
 
 }
