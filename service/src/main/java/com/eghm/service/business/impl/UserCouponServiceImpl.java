@@ -10,6 +10,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.UserCouponMapper;
 import com.eghm.dao.model.CouponConfig;
 import com.eghm.dao.model.UserCoupon;
+import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
 import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
 import com.eghm.model.vo.coupon.UserCouponBaseVO;
@@ -40,7 +41,7 @@ public class UserCouponServiceImpl implements UserCouponService {
     public void receiveCoupon(ReceiveCouponDTO dto) {
         CouponConfig config = couponConfigService.selectById(dto.getCouponConfigId());
 
-        this.checkCoupon(config, dto.getUserId());
+        this.checkCoupon(config, dto);
 
         UserCoupon coupon = new UserCoupon();
         coupon.setUserId(dto.getUserId());
@@ -49,6 +50,11 @@ public class UserCouponServiceImpl implements UserCouponService {
         coupon.setReceiveTime(LocalDateTime.now());
         userCouponMapper.insert(coupon);
         couponConfigService.updateStock(dto.getCouponConfigId(), 1);
+    }
+
+    @Override
+    public void grantCoupon(GrantCouponDTO dto) {
+
     }
 
     @Override
@@ -74,17 +80,17 @@ public class UserCouponServiceImpl implements UserCouponService {
     /**
      * 校验优惠券等信息
      * @param config 优惠券配置信息
-     * @param userId 用户id
+     * @param dto  领取信息
      */
-    private void checkCoupon(CouponConfig config, Long userId) {
+    private void checkCoupon(CouponConfig config, ReceiveCouponDTO dto) {
 
-        if (config == null || config.getState() != 1 || config.getStock() <= 0) {
+        if (config == null || config.getState() != 1 || (config.getStock() - dto.getNum()) <= 0) {
             log.error("领取优惠券失败, 优惠券可能库存不足 [{}]", config != null ? config.getStock() : -1);
             throw new BusinessException(ErrorCode.COUPON_EMPTY);
         }
 
-        if (config.getMode() != CouponMode.PAGE_RECEIVE) {
-            log.error("优惠券不支持页面领取 [{}]", config.getId());
+        if (config.getMode() != dto.getMode()) {
+            log.error("优惠券领取方式不匹配 [{}] [{}]", config.getId(), dto.getMode());
             throw new BusinessException(ErrorCode.COUPON_MODE_ERROR);
         }
 
@@ -94,9 +100,9 @@ public class UserCouponServiceImpl implements UserCouponService {
             throw new BusinessException(ErrorCode.COUPON_INVALID_TIME);
         }
 
-        int count = this.receiveCount(config.getId(), userId);
+        int count = this.receiveCount(config.getId(), dto.getUserId());
         if (count >= config.getMaxLimit()) {
-            log.error("优惠券领取已达上限 [{}] [{}] [{}]", userId, config.getId(), count);
+            log.error("优惠券领取已达上限 [{}] [{}] [{}]", dto.getUserId(), config.getId(), count);
             throw new BusinessException(ErrorCode.COUPON_MAX);
         }
     }

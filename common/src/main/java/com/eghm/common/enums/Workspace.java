@@ -28,7 +28,7 @@ public enum Workspace {
     IP {
         @Override
         public long getId() {
-            return workId;
+            return WORK_ID;
         }
     };
 
@@ -44,7 +44,7 @@ public enum Workspace {
      * ,列如机器的IP为192.168.1.108,二进制表示:11000000 10101000 00000001 01101100
      * ,截取最后10位 01 01101100,转为十进制364,设置workerId为364.
      */
-    private static long workId;
+    private static final long WORK_ID;
 
     static {
         InetAddress address;
@@ -54,7 +54,7 @@ public enum Workspace {
             throw new ParameterException(ErrorCode.UN_KNOW_HOST_ADDRESS);
         }
         byte[] ipAddressByteArray = address.getAddress();
-        workId = (((ipAddressByteArray[ipAddressByteArray.length - 2] & 0B11) << Byte.SIZE) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 0xFF));
+        WORK_ID = (((ipAddressByteArray[ipAddressByteArray.length - 2] & 0B11) << Byte.SIZE) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 0xFF));
     }
 
     /**

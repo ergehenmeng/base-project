@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
 import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
 import com.eghm.model.vo.coupon.UserCouponBaseVO;
@@ -15,9 +16,15 @@ public interface UserCouponService {
 
     /**
      * 普通用户领取优惠券
-     * @param dto 优惠券新
+     * @param dto 优惠券
      */
     void receiveCoupon(ReceiveCouponDTO dto);
+
+    /**
+     * 系统发放优惠券
+     * @param dto 优惠券信息
+     */
+    void grantCoupon(GrantCouponDTO dto);
 
     /**
      * 统计某个优惠券用户领了多少个

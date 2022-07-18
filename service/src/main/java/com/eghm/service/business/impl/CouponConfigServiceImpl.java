@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.CouponMode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.CouponConfigMapper;
 import com.eghm.dao.model.CouponConfig;
@@ -17,6 +18,7 @@ import com.eghm.service.business.CouponProductService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.functors.ConstantFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -45,6 +47,8 @@ public class CouponConfigServiceImpl implements CouponConfigService {
             queryWrapper.le(CouponConfig::getEndTime, now);
         });
         wrapper.lt(request.getState() == 2, CouponConfig::getEndTime, LocalDateTime.now());
+        wrapper.gt(Boolean.TRUE.equals(request.getInStock()), CouponConfig::getStock, 0);
+        wrapper.eq(request.getMode() != null, CouponConfig::getMode, CouponMode.valueOf(request.getMode()));
 
         wrapper.last(" order by state desc, id desc ");
         return couponConfigMapper.selectPage(request.createPage(), wrapper);

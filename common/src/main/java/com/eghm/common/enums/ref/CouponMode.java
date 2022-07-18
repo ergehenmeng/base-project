@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 /**
  * 优惠券领取方式
  * @author 二哥很猛
@@ -36,5 +38,9 @@ public enum CouponMode implements IEnum<Integer>  {
     @Override
     public Integer getValue() {
         return value;
+    }
+
+    public static CouponMode valueOf(int value) {
+        return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(PAGE_RECEIVE);
     }
 }

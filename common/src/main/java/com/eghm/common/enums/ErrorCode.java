@@ -573,9 +573,9 @@ public enum ErrorCode {
     COUPON_MAX(3141, "优惠券领取上限啦~"),
 
     /**
-     * 优惠券不支持页面领取
+     * 优惠券领取方式不匹配
      */
-    COUPON_MODE_ERROR(3142, "优惠券不支持页面领取"),
+    COUPON_MODE_ERROR(3142, "优惠券领取方式不匹配"),
 
     /**
      * 微信公众号尚未配置
