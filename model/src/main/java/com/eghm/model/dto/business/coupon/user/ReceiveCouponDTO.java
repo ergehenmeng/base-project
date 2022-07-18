@@ -23,9 +23,11 @@ public class ReceiveCouponDTO {
     private Long userId;
 
     @ApiModelProperty(value = "领取数量", hidden = true)
+    @Sign
     private Integer num;
 
     @ApiModelProperty(value = "领取方式", hidden = true)
+    @Sign
     private CouponMode mode;
 
 
