@@ -391,3 +391,20 @@ CREATE TABLE `user_coupon`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户优惠券表';
 
+CREATE TABLE `activity`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `title`       varchar(20)  DEFAULT NULL COMMENT '活动名称',
+    `now_date`    date         DEFAULT NULL COMMENT '日期',
+    `start_time`  char(5)      DEFAULT NULL COMMENT '开始时间HH:mm',
+    `end_time`    char(5)      DEFAULT NULL COMMENT '结束时间HH:mm',
+    `address`     varchar(100) DEFAULT NULL COMMENT '活动地点',
+    `cover_url`   varchar(500) DEFAULT NULL COMMENT '活动封面图片',
+    `introduce`   longtext COMMENT '活动详细介绍',
+    `add_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='活动信息表';
+
