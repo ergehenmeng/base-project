@@ -39,22 +39,21 @@ public class UserCouponServiceImpl implements UserCouponService {
 
     @Override
     public void receiveCoupon(ReceiveCouponDTO dto) {
-        CouponConfig config = couponConfigService.selectById(dto.getCouponConfigId());
-
-        this.checkCoupon(config, dto);
-
-        UserCoupon coupon = new UserCoupon();
-        coupon.setUserId(dto.getUserId());
-        coupon.setCouponConfigId(dto.getCouponConfigId());
-        coupon.setState(CouponState.UNUSED);
-        coupon.setReceiveTime(LocalDateTime.now());
-        userCouponMapper.insert(coupon);
-        couponConfigService.updateStock(dto.getCouponConfigId(), 1);
+        dto.setMode(CouponMode.PAGE_RECEIVE);
+        dto.setNum(1);
+        this.doGrantCoupon(dto);
     }
 
     @Override
     public void grantCoupon(GrantCouponDTO dto) {
-
+        ReceiveCouponDTO coupon = new ReceiveCouponDTO();
+        coupon.setUserId(dto.getUserId());
+        coupon.setMode(CouponMode.GRANT);
+        for (GrantCouponDTO.GrantConfig config : dto.getConfigList()) {
+            config.setCouponConfigId(config.getCouponConfigId());
+            coupon.setNum(config.getNum());
+            this.doGrantCoupon(coupon);
+        }
     }
 
     @Override
@@ -75,6 +74,22 @@ public class UserCouponServiceImpl implements UserCouponService {
     @Override
     public List<UserCouponBaseVO> selectCoupon(Long userId, Long productId) {
         return userCouponMapper.selectCoupon(userId, productId);
+    }
+
+    /**
+     * 发放优惠券给用户
+     * @param dto 发放信息
+     */
+    private void doGrantCoupon(ReceiveCouponDTO dto) {
+        CouponConfig config = couponConfigService.selectById(dto.getCouponConfigId());
+        this.checkCoupon(config, dto);
+        UserCoupon coupon = new UserCoupon();
+        coupon.setUserId(dto.getUserId());
+        coupon.setCouponConfigId(dto.getCouponConfigId());
+        coupon.setState(CouponState.UNUSED);
+        coupon.setReceiveTime(LocalDateTime.now());
+        userCouponMapper.insert(coupon);
+        couponConfigService.updateStock(dto.getCouponConfigId(), 1);
     }
 
     /**

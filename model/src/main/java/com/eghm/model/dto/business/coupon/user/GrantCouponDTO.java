@@ -35,7 +35,7 @@ public class GrantCouponDTO {
 
         @ApiModelProperty("发放数量")
         @RangeInt(min = 1, max = 99, message = "发放数量1~99")
-        private Long num;
+        private Integer num;
 
     }
 }
