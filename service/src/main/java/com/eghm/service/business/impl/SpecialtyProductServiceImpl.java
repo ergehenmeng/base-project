@@ -28,12 +28,14 @@ public class SpecialtyProductServiceImpl implements SpecialtyProductService {
         // TODO 商户id
         SpecialtyProduct product = DataUtil.copy(request, SpecialtyProduct.class);
         specialtyProductMapper.insert(product);
+        // TODO SKU新增
     }
 
     @Override
     public void update(SpecialtyProductEditRequest request) {
         SpecialtyProduct product = DataUtil.copy(request, SpecialtyProduct.class);
         specialtyProductMapper.updateById(product);
+        // TODO SKU更新
     }
 
     @Override
