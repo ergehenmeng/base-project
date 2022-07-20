@@ -13,7 +13,9 @@ import com.eghm.dao.model.UserCoupon;
 import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
 import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
+import com.eghm.model.dto.business.coupon.user.UserCouponQueryRequest;
 import com.eghm.model.vo.coupon.UserCouponBaseVO;
+import com.eghm.model.vo.coupon.UserCouponResponse;
 import com.eghm.model.vo.coupon.UserCouponVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.UserCouponService;
@@ -36,6 +38,11 @@ public class UserCouponServiceImpl implements UserCouponService {
     private final UserCouponMapper userCouponMapper;
 
     private final CouponConfigService couponConfigService;
+
+    @Override
+    public Page<UserCouponResponse> getByPage(UserCouponQueryRequest request) {
+        return userCouponMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public void receiveCoupon(ReceiveCouponDTO dto) {

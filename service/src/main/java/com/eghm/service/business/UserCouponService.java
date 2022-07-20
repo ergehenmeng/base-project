@@ -1,9 +1,12 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
 import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
+import com.eghm.model.dto.business.coupon.user.UserCouponQueryRequest;
 import com.eghm.model.vo.coupon.UserCouponBaseVO;
+import com.eghm.model.vo.coupon.UserCouponResponse;
 import com.eghm.model.vo.coupon.UserCouponVO;
 
 import java.util.List;
@@ -13,6 +16,13 @@ import java.util.List;
  * @date 2022/7/13
  */
 public interface UserCouponService {
+
+    /**
+     * 分页查询用户优惠券信息, 包含用户信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<UserCouponResponse> getByPage(UserCouponQueryRequest request);
 
     /**
      * 普通用户领取优惠券
