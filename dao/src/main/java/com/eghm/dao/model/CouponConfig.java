@@ -38,6 +38,9 @@ public class CouponConfig extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "已领取数量")
     private Integer receiveNum;
 
+    @ApiModelProperty(value = "已使用数量")
+    private Integer useNum;
+
     @ApiModelProperty(value = "单人领取限制")
     private Integer maxLimit;
 
