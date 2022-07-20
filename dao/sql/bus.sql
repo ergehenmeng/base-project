@@ -321,6 +321,8 @@ CREATE TABLE `coupon_config`
     `title`          varchar(30)  DEFAULT NULL COMMENT '优惠券名称',
     `stock`          smallint(4)  DEFAULT '1' COMMENT '库存(发放数量)',
     `max_limit`      smallint(2)  DEFAULT '1' COMMENT '单人领取限制',
+    `receive_num`    int(10)      DEFAULT '0' COMMENT '已领取数量',
+    `use_num`        int(10)      DEFAULT '0' COMMENT '已使用数量',
     `mode`           tinyint(1)   DEFAULT '1' COMMENT '领取方式 1:页面领取 2: 手动发放',
     `face_value`     smallint(6)  DEFAULT '0' COMMENT '面值 单位:分',
     `use_threshold`  smallint(6)  DEFAULT NULL COMMENT '使用门槛 0:不限制 大于0表示限制启用金额 单位:分',
