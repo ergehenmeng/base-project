@@ -9,7 +9,6 @@ import lombok.Getter;
  * 1000+ 数据异常
  * 2000+ 业务异常
  * @author 二哥很猛
- * @date 2018/1/12 16:46
  */
 @AllArgsConstructor
 @Getter
@@ -576,6 +575,26 @@ public enum ErrorCode {
      * 优惠券领取方式不匹配
      */
     COUPON_MODE_ERROR(3142, "优惠券领取方式不匹配"),
+
+    /**
+     * 优惠券不存在
+     */
+    COUPON_NOT_FOUND(3143, "优惠券不存在"),
+
+    /**
+     * 优惠券不合法
+     */
+    COUPON_ILLEGAL(3144, "优惠券不合法"),
+
+    /**
+     * 优惠券不在有效期
+     */
+    COUPON_USE_ERROR(3146, "优惠券不在有效期"),
+
+    /**
+     * 优惠券不满足使用条件
+     */
+    COUPON_USE_THRESHOLD(3147, "不满足优惠券使用条件"),
 
     /**
      * 微信公众号尚未配置

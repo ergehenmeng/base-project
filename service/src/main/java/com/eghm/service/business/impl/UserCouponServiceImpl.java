@@ -83,6 +83,36 @@ public class UserCouponServiceImpl implements UserCouponService {
         return userCouponMapper.selectCoupon(userId, productId);
     }
 
+    @Override
+    public Integer getCouponAmount(Long userId, Long couponId, Integer amount) {
+        UserCoupon coupon = userCouponMapper.selectById(couponId);
+        if (coupon == null) {
+            log.error("优惠券不存在 [{}]", couponId);
+            throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
+        }
+        if (!coupon.getUserId().equals(userId)) {
+            log.error("优惠券不属于该用户所有 [{}] [{}]", userId, couponId);
+            throw new BusinessException(ErrorCode.COUPON_ILLEGAL);
+        }
+
+        if (coupon.getState() != CouponState.UNUSED) {
+            log.error("优惠券状态非法 [{}] [{}]", coupon.getState(), couponId);
+            throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
+        }
+        CouponConfig config = couponConfigService.selectById(coupon.getCouponConfigId());
+        LocalDateTime now = LocalDateTime.now();
+        if (config.getUseStartTime().isAfter(now) || config.getUseEndTime().isBefore(now)) {
+            log.error("优惠券不在有效期 [{}] [{}] [{}]", couponId, config.getStartTime(), config.getUseEndTime());
+            throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
+        }
+        if (config.getFaceValue() > amount) {
+            log.error("优惠券不满足使用条件 [{}] [{}]", couponId, amount);
+            throw new BusinessException(ErrorCode.COUPON_USE_THRESHOLD);
+        }
+
+        return config.getFaceValue();
+    }
+
     /**
      * 发放优惠券给用户
      * @param dto 发放信息

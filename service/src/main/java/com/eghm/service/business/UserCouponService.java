@@ -37,7 +37,7 @@ public interface UserCouponService {
     void grantCoupon(GrantCouponDTO dto);
 
     /**
-     * 统计某个优惠券用户领了多少个
+     * 统计某个优惠券用户已领数量
      * @param couponId 优惠券id
      * @param userId 用户id
      * @return 个数
@@ -59,4 +59,12 @@ public interface UserCouponService {
      */
     List<UserCouponBaseVO> selectCoupon(Long userId, Long productId);
 
+    /**
+     * 获取优惠券优惠的金额(校验优惠券是否符合使用条件)
+     * @param userId 用户id
+     * @param couponId 用户优惠券id
+     * @param amount 预支付金额 单位:分
+     * @return 优惠金额 单位:分
+     */
+    Integer getCouponAmount(Long userId, Long couponId, Integer amount);
 }
