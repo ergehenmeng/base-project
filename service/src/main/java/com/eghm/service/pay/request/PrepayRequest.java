@@ -9,7 +9,7 @@ import lombok.*;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class PrepayRequest extends BaseRequest {
 
     @JsonProperty("appid")

@@ -26,7 +26,7 @@ public class WeChatController {
 
     @PostMapping("/mp/login")
     @ApiOperation("微信授权登陆(自动注册)")
-    private void login(@Valid @RequestBody MpLoginDTO dto) {
+    public void login(@Valid @RequestBody MpLoginDTO dto) {
 
     }
 

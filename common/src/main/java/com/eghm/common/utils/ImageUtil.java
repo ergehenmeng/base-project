@@ -142,6 +142,6 @@ public class ImageUtil {
         list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
         list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
         list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        System.out.println(Base64.encode(merge(list)));
+        log.info(Base64.encode(merge(list)));
     }
 }

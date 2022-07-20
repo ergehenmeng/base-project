@@ -10,8 +10,8 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.service.sys.impl.SysConfigApi;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,14 +23,10 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020/7/23
  */
 @Slf4j
+@AllArgsConstructor
 public class SignatureInterceptor implements InterceptorAdapter {
 
-    private SysConfigApi sysConfigApi;
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

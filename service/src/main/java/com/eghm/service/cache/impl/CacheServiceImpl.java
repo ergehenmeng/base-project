@@ -176,7 +176,7 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public boolean exist(String key) {
         Boolean hasKey = redisTemplate.hasKey(key);
-        return hasKey != null && hasKey;
+        return Boolean.TRUE.equals(hasKey);
     }
 
     @Override

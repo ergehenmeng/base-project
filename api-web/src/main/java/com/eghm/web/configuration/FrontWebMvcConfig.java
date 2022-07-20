@@ -2,8 +2,10 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.BlackRosterService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
@@ -74,8 +76,8 @@ public class FrontWebMvcConfig extends WebMvcConfig {
      * 提交间隔限制
      */
     @Bean
-    public HandlerInterceptor submitFrequencyLimitInterceptor() {
-        return new SubmitFrequencyLimitInterceptor();
+    public HandlerInterceptor submitFrequencyLimitInterceptor(SysConfigApi sysConfigApi, CacheService cacheService) {
+        return new SubmitFrequencyLimitInterceptor(sysConfigApi, cacheService);
     }
 
     /**

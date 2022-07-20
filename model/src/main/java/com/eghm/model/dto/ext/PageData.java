@@ -72,7 +72,4 @@ public class PageData<T> {
         return pageData;
     }
 
-    public PageData(){
-    }
-
 }

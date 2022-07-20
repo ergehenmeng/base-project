@@ -28,7 +28,4 @@ public class OperationLogTask extends AbstractTask<SysOperationLog, OperationLog
         log.error("操作日志写入异常 data:[{}]", getData(), e);
     }
 
-    @Override
-    protected void doFinally() {
-    }
 }

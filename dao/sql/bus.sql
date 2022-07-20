@@ -258,6 +258,7 @@ CREATE TABLE `specialty_product_sku`
     `sale_price`  int(10)     DEFAULT '0' COMMENT '销售价',
     `stock`       smallint(4) DEFAULT NULL COMMENT '库存',
     `sale_num`    int(10)     DEFAULT '0' COMMENT '销售量',
+    `cover_url`   varchar(200) COMMENT '封面图',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

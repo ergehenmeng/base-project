@@ -1,6 +1,5 @@
 package com.eghm.utils;
 
-import cn.hutool.core.net.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.constant.CommonConstant;
 import lombok.extern.slf4j.Slf4j;
@@ -91,7 +90,4 @@ public class IpUtil {
         return (ip >> 24) + "." + ((ip & 0xff0000) >> 16) + "." + ((ip & 0xff00) >> 8) + "." + (ip & 0xff);
     }
 
-    public static void main(String[] args) {
-        System.out.println(longToIp(1438636391L));
-    }
 }

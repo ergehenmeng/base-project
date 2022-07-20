@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfigu
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
@@ -27,7 +27,7 @@ public class TransactionConfig {
 
     @Bean
     @Primary
-    public TransactionInterceptor txAdvice(PlatformTransactionManager transactionManager) {
+    public TransactionInterceptor txAdvice(TransactionManager transactionManager) {
         DefaultTransactionAttribute required = new DefaultTransactionAttribute();
         required.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
         DefaultTransactionAttribute readOnly = new DefaultTransactionAttribute();

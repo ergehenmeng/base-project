@@ -7,6 +7,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +17,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author 殿小二
  * @date 2020/12/15
  */
+@AllArgsConstructor
 public class SubmitFrequencyLimitInterceptor implements InterceptorAdapter{
 
-    @Autowired
-    private SysConfigApi sysConfigApi;
+    private final SysConfigApi sysConfigApi;
 
-    @Autowired
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

@@ -1,12 +1,10 @@
 package com.eghm.dao.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dao.model.Scenic;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.model.vo.scenic.ScenicListVO;
-
-import java.util.List;
 
 /**
  * <p>

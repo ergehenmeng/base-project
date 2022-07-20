@@ -51,7 +51,7 @@ public class VersionUtil {
         try {
             for (String v : split) {
                 if (v.length() > 2) {
-                    throw new RuntimeException("版本长度不合法");
+                    throw new Exception("版本长度不合法");
                 }
                 builder.append(String.format("%02d", Integer.parseInt(v)));
             }

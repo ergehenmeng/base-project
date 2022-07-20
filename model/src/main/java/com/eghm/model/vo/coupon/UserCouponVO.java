@@ -1,7 +1,6 @@
 package com.eghm.model.vo.coupon;
 
 import com.eghm.common.convertor.CentToYuanEncoder;
-import com.eghm.common.enums.ref.CouponState;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
