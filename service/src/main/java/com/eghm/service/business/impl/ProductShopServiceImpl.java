@@ -23,6 +23,7 @@ public class ProductShopServiceImpl implements ProductShopService {
 
     private final ProductShopMapper productShopMapper;
 
+
     @Override
     public void create(ProductShopAddRequest request) {
         // TODO 商户id增加

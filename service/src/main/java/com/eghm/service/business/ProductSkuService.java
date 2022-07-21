@@ -19,6 +19,9 @@ public interface ProductSkuService {
 
     /**
      * 更新sku信息
+     * 1: 删除旧sku
+     * 2: 更新带id的sku
+     * 3: 新增不带id的sku
      * @param productId 商品id
      * @param skuList sku信息
      */

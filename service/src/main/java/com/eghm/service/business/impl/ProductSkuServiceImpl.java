@@ -1,6 +1,8 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dao.mapper.ProductSkuMapper;
 import com.eghm.dao.model.ProductSku;
@@ -11,6 +13,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 二哥很猛
@@ -33,8 +37,18 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 
     @Override
     public void update(Long productId, List<ProductSkuRequest> skuList) {
-        LambdaQueryWrapper<ProductSku> wrapper = Wrappers.lambdaQuery();
-
-
+        // 删除
+        LambdaUpdateWrapper<ProductSku> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ProductSku::getProductId, productId);
+        productSkuMapper.delete(wrapper);
+        // 更新
+        List<ProductSkuRequest> updateList = skuList.stream().filter(sku -> sku.getId() != null).collect(Collectors.toList());
+        for (ProductSkuRequest request : updateList) {
+            ProductSku sku = DataUtil.copy(request, ProductSku.class);
+            productSkuMapper.updateById(sku);
+        }
+        // 新增
+        List<ProductSkuRequest> createList = skuList.stream().filter(sku -> sku.getId() == null).collect(Collectors.toList());
+        this.create(productId, createList);
     }
 }

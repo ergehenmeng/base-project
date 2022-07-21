@@ -9,6 +9,7 @@ import com.eghm.dao.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.service.business.ProductService;
+import com.eghm.service.business.ProductSkuService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,19 +24,21 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductMapper productMapper;
 
+    private final ProductSkuService productSkuService;
+
     @Override
     public void create(ProductAddRequest request) {
         // TODO 商户id
         Product product = DataUtil.copy(request, Product.class);
         productMapper.insert(product);
-        // TODO SKU新增
+        productSkuService.create(product.getId(), request.getSkuList());
     }
 
     @Override
     public void update(ProductEditRequest request) {
         Product product = DataUtil.copy(request, Product.class);
         productMapper.updateById(product);
-        // TODO SKU更新
+        productSkuService.update(product.getId(), request.getSkuList());
     }
 
     @Override
