@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.CouponMode;
 import com.eghm.common.enums.ref.CouponState;
+import com.eghm.common.enums.ref.CouponType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.UserCouponMapper;
 import com.eghm.dao.model.CouponConfig;
@@ -84,7 +85,7 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
-    public Integer getCouponAmount(Long userId, Long couponId, Integer amount) {
+    public Integer getCouponAmountWithVerify(Long userId, Long couponId, Integer amount) {
         UserCoupon coupon = userCouponMapper.selectById(couponId);
         if (coupon == null) {
             log.error("优惠券不存在 [{}]", couponId);
@@ -105,12 +106,16 @@ public class UserCouponServiceImpl implements UserCouponService {
             log.error("优惠券不在有效期 [{}] [{}] [{}]", couponId, config.getStartTime(), config.getUseEndTime());
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
-        if (config.getFaceValue() > amount) {
-            log.error("优惠券不满足使用条件 [{}] [{}]", couponId, amount);
-            throw new BusinessException(ErrorCode.COUPON_USE_THRESHOLD);
-        }
 
-        return config.getFaceValue();
+        if (config.getCouponType() == CouponType.DEDUCTION) {
+            if (config.getDeductionValue() > amount) {
+                log.error("优惠券不满足使用条件 [{}] [{}]", couponId, amount);
+                throw new BusinessException(ErrorCode.COUPON_USE_THRESHOLD);
+            }
+            return config.getDeductionValue();
+        }
+        // 百分比折扣
+        return amount * config.getDiscountValue() / 100;
     }
 
     /**

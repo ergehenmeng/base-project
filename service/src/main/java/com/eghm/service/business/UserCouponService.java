@@ -66,5 +66,5 @@ public interface UserCouponService {
      * @param amount 预支付金额 单位:分
      * @return 优惠金额 单位:分
      */
-    Integer getCouponAmount(Long userId, Long couponId, Integer amount);
+    Integer getCouponAmountWithVerify(Long userId, Long couponId, Integer amount);
 }

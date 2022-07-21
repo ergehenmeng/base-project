@@ -1,6 +1,7 @@
 package com.eghm.model.dto.business.coupon.config;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
+import com.eghm.common.enums.ref.CouponType;
 import com.eghm.model.dto.business.coupon.product.CouponProductRequest;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
@@ -36,9 +37,15 @@ public class CouponConfigAddRequest {
     @OptionInt(value = {1, 2}, message = "领取方式非法")
     private Integer mode;
 
-    @ApiModelProperty(value = "面值 单位:分")
+    @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
+    private CouponType couponType;
+
     @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer faceValue;
+    @ApiModelProperty(value = "折扣比例 1-100")
+    private Integer discountValue;
+
+    @ApiModelProperty(value = "抵扣金额 单位:分")
+    private Integer deductionValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
     private Integer useThreshold;

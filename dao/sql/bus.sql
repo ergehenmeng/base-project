@@ -318,27 +318,31 @@ CREATE TABLE `sys_merchant_role`
 
 CREATE TABLE `coupon_config`
 (
-    `id`             bigint(20) NOT NULL COMMENT '主键',
-    `title`          varchar(30)  DEFAULT NULL COMMENT '优惠券名称',
-    `stock`          smallint(4)  DEFAULT '1' COMMENT '库存(发放数量)',
-    `max_limit`      smallint(2)  DEFAULT '1' COMMENT '单人领取限制',
-    `receive_num`    int(10)      DEFAULT '0' COMMENT '已领取数量',
-    `use_num`        int(10)      DEFAULT '0' COMMENT '已使用数量',
-    `mode`           tinyint(1)   DEFAULT '1' COMMENT '领取方式 1:页面领取 2: 手动发放',
-    `face_value`     smallint(6)  DEFAULT '0' COMMENT '面值 单位:分',
-    `use_threshold`  smallint(6)  DEFAULT NULL COMMENT '使用门槛 0:不限制 大于0表示限制启用金额 单位:分',
-    `start_time`     datetime     DEFAULT NULL COMMENT '发放开始时间',
-    `end_time`       datetime     DEFAULT NULL COMMENT '发放截止时间',
-    `use_start_time` datetime     DEFAULT NULL COMMENT '可以使用的开始时间',
-    `use_end_time`   datetime     DEFAULT NULL COMMENT '可以使用的截止时间',
-    `valid_day`      tinyint(2)   DEFAULT '0' COMMENT '有效天数 0:按开始及截止时间为准 大于0即领取之日后几天',
-    `instruction`    varchar(200) DEFAULT NULL COMMENT '使用说明',
-    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`        bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `title`           varchar(30)  DEFAULT NULL COMMENT '优惠券名称',
+    `state`           tinyint(1)   DEFAULT '0' COMMENT '状态 0:未启用 1:启用',
+    `stock`           smallint(4)  DEFAULT '1' COMMENT '库存',
+    `receive_num`     smallint(6)  DEFAULT '0' COMMENT '已领取数量',
+    `use_num`         smallint(6)  DEFAULT '0' COMMENT '已使用数量',
+    `max_limit`       smallint(2)  DEFAULT '1' COMMENT '单人领取限制',
+    `mode`            tinyint(1)   DEFAULT '1' COMMENT '领取方式 1:页面领取 2: 手动发放',
+    `coupon_type`     tinyint(1)   DEFAULT '1' COMMENT '优惠券类型 1: 抵扣券 2: 折扣券',
+    `discount_value`  smallint(3) COMMENT '折扣比例 0-100',
+    `deduction_value` smallint(6) COMMENT '抵扣金额 单位:分',
+    `use_threshold`   smallint(6)  DEFAULT '0' COMMENT '使用门槛 0:不限制 大于0表示限制启用金额 单位:分',
+    `start_time`      datetime     DEFAULT NULL COMMENT '发放开始时间',
+    `end_time`        datetime     DEFAULT NULL COMMENT '发放截止时间',
+    `use_start_time`  datetime     DEFAULT NULL COMMENT '可以使用的开始时间',
+    `use_end_time`    datetime     DEFAULT NULL COMMENT '可以使用的截止时间',
+    `instruction`     varchar(200) DEFAULT NULL COMMENT '使用说明',
+    `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券配置表';
+
+
 
 CREATE TABLE `order_ticket`
 (

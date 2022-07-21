@@ -2,6 +2,7 @@ package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.enums.ref.CouponMode;
+import com.eghm.common.enums.ref.CouponType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -47,8 +48,14 @@ public class CouponConfig extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "领取方式 1:页面领取 2: 手动发放")
     private CouponMode mode;
 
-    @ApiModelProperty(value = "面值 单位:分")
-    private Integer faceValue;
+    @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
+    private CouponType couponType;
+
+    @ApiModelProperty(value = "折扣比例 1-100")
+    private Integer discountValue;
+
+    @ApiModelProperty(value = "抵扣金额 单位:分")
+    private Integer deductionValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
     private Integer useThreshold;

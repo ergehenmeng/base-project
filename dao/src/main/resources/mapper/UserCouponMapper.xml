@@ -30,7 +30,9 @@
         t.id,
         t.state,
         r.title,
-        r.face_value as amount,
+        r.coupon_type as couponType,
+        r.deduction_value as deductionValue,
+        r.discount_value as discountValue,
         r.use_threshold as useThreshold,
         r.use_start_time as useStartTime,
         r.use_end_time as useEndTime,
@@ -48,7 +50,9 @@
         select
         t.id,
         r.title,
-        r.face_value as amount,
+        r.coupon_type as couponType,
+        r.deduction_value as deductionValue,
+        r.discount_value as discountValue,
         r.use_threshold as useThreshold
         from user_coupon t
         left join coupon_config r on r.id = t.coupon_config_id

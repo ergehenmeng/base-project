@@ -1,6 +1,7 @@
 package com.eghm.model.vo.coupon;
 
 import com.eghm.common.convertor.CentToYuanEncoder;
+import com.eghm.common.enums.ref.CouponType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,9 +22,15 @@ public class UserCouponBaseVO {
     @ApiModelProperty("优惠券名称")
     private String title;
 
-    @ApiModelProperty("金额")
+    @ApiModelProperty("优惠券类型 1:抵扣券 2:折扣券")
+    private CouponType couponType;
+
+    @ApiModelProperty("抵扣金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer amount;
+    private Integer deductionValue;
+
+    @ApiModelProperty(value = "折扣比例 1-100")
+    private Integer discountValue;
 
     @ApiModelProperty("使用门槛, 0:表示不限制")
     @JsonSerialize(using = CentToYuanEncoder.class)
