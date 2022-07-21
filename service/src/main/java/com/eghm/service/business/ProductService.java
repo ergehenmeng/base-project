@@ -2,26 +2,26 @@ package com.eghm.service.business;
 
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
-import com.eghm.model.dto.business.specialty.SpecialtyShopAddRequest;
-import com.eghm.model.dto.business.specialty.SpecialtyShopEditRequest;
+import com.eghm.model.dto.business.product.ProductAddRequest;
+import com.eghm.model.dto.business.product.ProductEditRequest;
 
 /**
- * @author 二哥很猛
- * @date 2022/7/1
+ * @author wyb
+ * @date 2022/7/1 18:18
  */
-public interface SpecialtyShopService {
+public interface ProductService {
 
     /**
-     * 创建特产店铺
-     * @param request 店铺信息
+     * 增加商品信息
+     * @param request 商品信息
      */
-    void create(SpecialtyShopAddRequest request);
+    void create(ProductAddRequest request);
 
     /**
-     * 更新特产店铺
-     * @param request 店铺信息
+     * 更新商品信息
+     * @param request 特产商品
      */
-    void update(SpecialtyShopEditRequest request);
+    void update(ProductEditRequest request);
 
     /**
      * 更新上下架状态

@@ -1,6 +1,6 @@
-package com.eghm.model.dto.business.specialty.product;
+package com.eghm.model.dto.business.product;
 
-import com.eghm.model.dto.business.specialty.product.sku.ProductSkuRequest;
+import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 import com.eghm.model.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,7 +16,11 @@ import java.util.List;
  * @date 2022/7/1
  */
 @Data
-public class SpecialtyProductAddRequest {
+public class ProductEditRequest {
+
+    @ApiModelProperty("id")
+    @NotNull(message = "id不能为空")
+    private Long id;
 
     @ApiModelProperty(value = "商品名称")
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")

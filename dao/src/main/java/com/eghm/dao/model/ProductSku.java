@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 特产商品规格表
+ * 商品规格表
  * </p>
  *
  * @author 二哥很猛
@@ -20,13 +20,13 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("specialty_product_sku")
-@ApiModel(value="SpecialtyProductSku对象", description="特产商品规格表")
-public class SpecialtyProductSku extends BaseEntity implements Serializable {
+@TableName("product_sku")
+@ApiModel(value="ProductSku对象", description="商品规格表")
+public class ProductSku extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "特产商品id")
+    @ApiModelProperty(value = "商品id")
     private Long productId;
 
     @ApiModelProperty(value = "规格名称")

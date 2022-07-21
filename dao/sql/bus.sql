@@ -224,10 +224,10 @@ CREATE TABLE `scenic_ticket`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='景区门票信息表';
 
-CREATE TABLE `specialty_product`
+CREATE TABLE `product`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
-    `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属特产店',
+    `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属店铺',
     `state`           tinyint(1)    DEFAULT NULL COMMENT '商品状态 0:待上架 1:已上架',
     `audit_state`     tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `title`           varchar(50)   DEFAULT NULL COMMENT '商品名称',
@@ -246,9 +246,9 @@ CREATE TABLE `specialty_product`
     `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='特产商品信息';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='商品信息';
 
-CREATE TABLE `specialty_product_sku`
+CREATE TABLE `product_sku`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `product_id`  bigint(20)  DEFAULT NULL COMMENT '特产商品id',
@@ -266,7 +266,7 @@ CREATE TABLE `specialty_product_sku`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='特产商品规格表';
 
-CREATE TABLE `specialty_shop`
+CREATE TABLE `product_shop`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
     `state`          tinyint(1)     DEFAULT NULL COMMENT '状态 0:未上架 1:已上架',
@@ -287,7 +287,7 @@ CREATE TABLE `specialty_shop`
     `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='特产店信息表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='店铺信息表';
 
 CREATE TABLE `sys_merchant`
 (

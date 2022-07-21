@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.specialty.product.sku;
+package com.eghm.model.dto.business.product.sku;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -16,6 +16,9 @@ import javax.validation.constraints.Size;
 
 @Data
 public class ProductSkuRequest {
+
+    @ApiModelProperty("skuId(编辑保存时有效)")
+    private Long id;
 
     @ApiModelProperty(value = "规格名称")
     @Size(min = 1, max = 20, message = "规格名称长度1~20位")

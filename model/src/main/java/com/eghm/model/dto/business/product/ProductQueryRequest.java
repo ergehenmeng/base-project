@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.specialty.product;
+package com.eghm.model.dto.business.product;
 
 import com.eghm.model.dto.ext.PagingQuery;
 import lombok.Data;
@@ -10,5 +10,5 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SpecialtyProductQueryRequest extends PagingQuery {
+public class ProductQueryRequest extends PagingQuery {
 }
