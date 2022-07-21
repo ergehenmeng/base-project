@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.utils.HttpClientUtil;
+import cn.hutool.http.HttpUtil;
 import com.eghm.web.BaseTest;
 import org.junit.Test;
 
@@ -16,6 +16,6 @@ public class LoginControllerTest extends BaseTest {
 
     @Test
     public void test2(){
-        System.out.println(HttpClientUtil.get("https://www.baidu.com/"));
+        System.out.println(HttpUtil.get("https://www.baidu.com/"));
     }
 }

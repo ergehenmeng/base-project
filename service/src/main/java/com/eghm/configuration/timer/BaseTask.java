@@ -21,18 +21,18 @@ public abstract class BaseTask implements Runnable {
     /**
      * 延迟多长时间执行 毫秒值
      */
-    private long delayMs;
+    private final long delayMs;
 
     /**
      * 构造方法
      *
      * @param delayMs 延迟多长时间执行,例如 4000 表示4秒后执行
      */
-    public BaseTask(long delayMs) {
+    protected BaseTask(long delayMs) {
         this.delayMs = delayMs;
     }
 
-    public BaseTask(Duration duration) {
+    protected BaseTask(Duration duration) {
         this(duration.toMillis());
     }
 

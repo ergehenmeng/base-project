@@ -1,7 +1,7 @@
 package com.eghm.configuration.encoder;
 
 
-import com.eghm.common.utils.Sha256Util;
+import cn.hutool.crypto.SecureUtil;
 
 /**
  * @author 二哥很猛
@@ -11,12 +11,12 @@ public class Sha256Encoder implements Encoder {
 
     @Override
     public String encode(String rawPassword) {
-        return Sha256Util.sha256Hmac(rawPassword);
+        return SecureUtil.hmacSha256().digestHex(rawPassword);
     }
 
     @Override
     public boolean match(String rawPassword, String encodedPassword) {
-        return Sha256Util.sha256Hmac(rawPassword).equals(encodedPassword);
+        return SecureUtil.hmacSha256().digestHex(rawPassword).equals(encodedPassword);
     }
 
 }

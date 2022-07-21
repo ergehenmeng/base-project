@@ -103,6 +103,7 @@ public class BaseEmailHandler {
      * @param result 发送结果状态 true:发送成功 false:发送失败
      */
     protected void finallyProcess(SendEmail email, EmailTemplate template, boolean result) {
+        log.info("邮件发送成功 [{}] [{}] [{}]", email.getEmail(), template.getNid(), result);
     }
 
 }
