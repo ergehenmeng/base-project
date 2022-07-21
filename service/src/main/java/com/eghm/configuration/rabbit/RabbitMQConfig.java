@@ -120,4 +120,32 @@ public class RabbitMQConfig {
     public Binding orderCompleteBinding() {
         return BindingBuilder.bind(orderCompleteQueue()).to(orderCompleteExchange()).with(RabbitQueue.ORDER_PAY_EXPIRE.getRoutingKey()).noargs();
     }
+
+
+    /**
+     * 优惠券领取创建交换机
+     */
+    @Bean("couponReceiveExchange")
+    public Exchange couponReceiveExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.COUPON_RECEIVE.getExchange()).durable(true).build();
+    }
+
+    /**
+     * 优惠券领取创建处理队列
+     */
+    @Bean("couponReceiveQueue")
+    public Queue couponReceiveQueue() {
+        return QueueBuilder.durable(RabbitQueue.COUPON_RECEIVE.getQueue()).build();
+    }
+
+
+    /**
+     * 优惠券领取交换机与队列绑定
+     */
+    @Bean
+    public Binding couponReceiveBinding() {
+        return BindingBuilder.bind(couponReceiveQueue()).to(couponReceiveExchange()).with(RabbitQueue.COUPON_RECEIVE.getRoutingKey()).noargs();
+    }
+
+
 }

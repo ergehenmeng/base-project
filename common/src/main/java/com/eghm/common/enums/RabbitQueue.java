@@ -27,6 +27,11 @@ public enum RabbitQueue {
     ORDER_CREATE("order_create_exchange", "order_create_queue", ""),
 
     /**
+     * 优惠券领取
+     */
+    COUPON_RECEIVE("coupon_receive_exchange", "coupon_receive_queue", ""),
+
+    /**
      * 死信队列
      */
     DEAD_LETTER("dead_letter_exchange", "dead_letter_queue", ""),
