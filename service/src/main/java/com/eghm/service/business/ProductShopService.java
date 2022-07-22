@@ -1,15 +1,25 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.dao.model.ProductShop;
 import com.eghm.model.dto.business.product.shop.ProductShopAddRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopEditRequest;
+import com.eghm.model.dto.business.product.shop.ProductShopQueryRequest;
 
 /**
  * @author 二哥很猛
  * @date 2022/7/1
  */
 public interface ProductShopService {
+
+    /**
+     * 分页查询商铺信息
+     * @param request 查询条案件
+     * @return 列表
+     */
+    Page<ProductShop> getByPage(ProductShopQueryRequest request);
 
     /**
      * 创建特产店铺

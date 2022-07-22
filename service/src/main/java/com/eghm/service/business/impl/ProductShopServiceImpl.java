@@ -2,12 +2,14 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.ProductShopMapper;
 import com.eghm.dao.model.ProductShop;
 import com.eghm.model.dto.business.product.shop.ProductShopAddRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopEditRequest;
+import com.eghm.model.dto.business.product.shop.ProductShopQueryRequest;
 import com.eghm.service.business.ProductShopService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -23,6 +25,11 @@ public class ProductShopServiceImpl implements ProductShopService {
 
     private final ProductShopMapper productShopMapper;
 
+
+    @Override
+    public Page<ProductShop> getByPage(ProductShopQueryRequest request) {
+        return null;
+    }
 
     @Override
     public void create(ProductShopAddRequest request) {
