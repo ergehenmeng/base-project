@@ -14,6 +14,7 @@ import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigResponse;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
@@ -37,17 +38,15 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     private final HomestayRoomConfigMapper homestayRoomConfigMapper;
 
-    private final SysConfigApi sysConfigApi;
+    private final CommonService commonService;
 
 
     @Override
     public void setup(RoomConfigRequest request) {
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getStartDate());
-        long apiLong = sysConfigApi.getLong(ConfigConstant.ROOM_CONFIG_MAX_DAY);
-        if (between > apiLong) {
-            log.error("设置时间间隔超过[{}]天", apiLong);
-            throw new BusinessException(ErrorCode.ROOM_MAX_DAY.getCode(), String.format(ErrorCode.ROOM_MAX_DAY.getMsg(), apiLong));
-        }
+
+        commonService.checkMaxDay(ConfigConstant.ROOM_CONFIG_MAX_DAY, between);
+
         HomestayRoomConfig config;
         List<Integer> week = request.getWeek();
         for (int i = 0; i <= between; i++) {
