@@ -1,6 +1,7 @@
 package com.eghm.service.pay.dto;
 
 import com.eghm.service.pay.enums.MerchantType;
+import com.eghm.service.pay.enums.TradeType;
 import lombok.Data;
 
 /**
@@ -9,6 +10,11 @@ import lombok.Data;
  */
 @Data
 public class PrepayDTO {
+
+    /**
+     * 支付方式
+     */
+    private TradeType tradeType;
 
     /**
      * 订单描述信息

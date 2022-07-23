@@ -18,46 +18,41 @@ import java.util.stream.Stream;
 public enum TradeType {
 
     /**
-     * 公众号支付
+     * APP
      */
-    JS_API("JSAPI", "公众号支付"),
+    WECHAT_APP("APP", "微信app支付"),
 
     /**
-     * 扫码支付
+     * JSAPI支付 与小程序是通用的
      */
-    NATIVE("NATIVE", "扫码支付"),
+    WECHAT_JSAPI("JSAPI", "JSAPI支付"),
 
     /**
-     * APP支付
+     * 微信小程序 与JSAPI是通用的
      */
-    APP("APP", "APP支付"),
+    WECHAT_MINI("JSAPI", "微信小程序支付"),
 
     /**
-     * 付款码支付
+     * 微信扫描支付
      */
-    QR_PAY("MICROPAY", "付款码支付"),
+    WECHAT_NATIVE("NATIVE", "微信扫描支付"),
 
     /**
-     * H5支付
+     * H5支付 (微信外H5拉起支付)
      */
-    H5("MWEB", "H5支付"),
-
-    /**
-     * 刷脸支付
-     */
-    FACE_PAY("FACEPAY", "刷脸支付"),
+    WECHAT_H5("H5", "H5支付"),
 
     ;
 
     /**
      * 支付方式
      */
-    private String code;
+    private final String code;
 
     /**
      * 名字
      */
-    private String name;
+    private final String name;
 
     @JsonCreator
     public static TradeType forType(String tradeType) {

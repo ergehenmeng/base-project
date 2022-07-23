@@ -12,11 +12,14 @@ import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.constant.PayConstant;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.enums.MerchantType;
+import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.request.BaseRequest;
 import com.eghm.service.pay.request.PrepayRequest;
 import com.eghm.service.pay.response.ErrorResponse;
 import com.eghm.service.pay.response.OrderResponse;
 import com.eghm.service.pay.response.PrepayResponse;
+import com.github.binarywang.wxpay.bean.result.enums.TradeTypeEnum;
+import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,14 +27,16 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * @author 二哥很猛
  */
-@Service("payService")
+@Service
 @Slf4j
 @AllArgsConstructor
-public class PayServiceImpl implements PayService {
+public class WechatPayServiceImpl implements PayService {
 
     private final AppletPayConfigService appletPayConfigService;
 
@@ -39,8 +44,18 @@ public class PayServiceImpl implements PayService {
 
     private final JsonService jsonService;
 
+    private final WxPayService wxPayService;
+
+    @Override
+    public boolean supported(TradeType tradeType) {
+        return transferType(tradeType) != null;
+    }
+
     @Override
     public PrepayResponse createPrepay(PrepayDTO dto) {
+
+        // TODO 待完成
+
         AppletPayConfig config = this.getConfig(dto.getMerchantType());
         PrepayRequest request = this.createPrepayRequest(dto, config);
         PrepayResponse response = this.doPost(request, PayConstant.PREPAY_URL, PrepayResponse.class);
@@ -52,6 +67,16 @@ public class PayServiceImpl implements PayService {
     public OrderResponse queryOrder(String orderNo, MerchantType merchantType) {
         AppletPayConfig config = this.getConfig(merchantType);
         return this.doGet(String.format(PayConstant.QUERY_ORDER_URL, orderNo, config.getMerchantId()), OrderResponse.class);
+    }
+
+    /**
+     * 转换交易方式
+     * @param tradeType 原交易方式
+     * @return 新交易方式
+     */
+    private static TradeTypeEnum transferType(TradeType tradeType) {
+        Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getName())).findFirst();
+        return optional.orElse(null);
     }
 
 
