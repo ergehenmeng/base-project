@@ -1,4 +1,4 @@
-package com.eghm.service.sys;
+package com.eghm.service.business;
 
 import com.eghm.common.enums.ref.RoleType;
 

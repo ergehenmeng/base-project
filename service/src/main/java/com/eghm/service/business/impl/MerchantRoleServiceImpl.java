@@ -1,4 +1,4 @@
-package com.eghm.service.sys.impl;
+package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -10,7 +10,7 @@ import com.eghm.dao.mapper.MerchantRoleMapper;
 import com.eghm.dao.mapper.SysRoleMapper;
 import com.eghm.dao.model.MerchantRole;
 import com.eghm.dao.model.SysRole;
-import com.eghm.service.sys.MerchantRoleService;
+import com.eghm.service.business.MerchantRoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -17,7 +17,7 @@ import com.eghm.model.dto.business.merchant.MerchantAddRequest;
 import com.eghm.model.dto.business.merchant.MerchantEditRequest;
 import com.eghm.model.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.service.business.MerchantService;
-import com.eghm.service.sys.MerchantRoleService;
+import com.eghm.service.business.MerchantRoleService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.PageUtil;
