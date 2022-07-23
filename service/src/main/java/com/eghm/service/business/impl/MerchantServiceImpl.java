@@ -11,13 +11,13 @@ import com.eghm.common.enums.ref.MerchantState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.mapper.SysMerchantMapper;
-import com.eghm.dao.model.SysMerchant;
+import com.eghm.dao.mapper.MerchantMapper;
+import com.eghm.dao.model.Merchant;
 import com.eghm.model.dto.business.merchant.MerchantAddRequest;
 import com.eghm.model.dto.business.merchant.MerchantEditRequest;
 import com.eghm.model.dto.business.merchant.MerchantQueryRequest;
-import com.eghm.service.business.SysMerchantService;
-import com.eghm.service.sys.SysMerchantRoleService;
+import com.eghm.service.business.MerchantService;
+import com.eghm.service.sys.MerchantRoleService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.PageUtil;
@@ -29,75 +29,75 @@ import org.springframework.stereotype.Service;
  * @author 殿小二
  * @date 2022/5/27
  */
-@Service("sysMerchantService")
+@Service("merchantService")
 @AllArgsConstructor
 @Slf4j
-public class SysMerchantServiceImpl implements SysMerchantService {
+public class MerchantServiceImpl implements MerchantService {
     
-    private final SysMerchantMapper sysMerchantMapper;
+    private final MerchantMapper merchantMapper;
     
     private final SysConfigApi sysConfigApi;
     
     private final Encoder encoder;
 
-    private final SysMerchantRoleService sysMerchantRoleService;
+    private final MerchantRoleService merchantRoleService;
 
     @Override
-    public Page<SysMerchant> getByPage(MerchantQueryRequest request) {
-        LambdaQueryWrapper<SysMerchant> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysMerchant::getMerchantName, request.getQueryName());
-        wrapper.eq(request.getType() != null, SysMerchant::getType, request.getType());
-        wrapper.eq(request.getState() != null, SysMerchant::getState, MerchantState.of(request.getState()));
-        return sysMerchantMapper.selectPage(PageUtil.createPage(request), wrapper);
+    public Page<Merchant> getByPage(MerchantQueryRequest request) {
+        LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Merchant::getMerchantName, request.getQueryName());
+        wrapper.eq(request.getType() != null, Merchant::getType, request.getType());
+        wrapper.eq(request.getState() != null, Merchant::getState, MerchantState.of(request.getState()));
+        return merchantMapper.selectPage(PageUtil.createPage(request), wrapper);
     }
     
     @Override
     public void create(MerchantAddRequest request) {
         this.checkUserNameRedo(request.getUserName());
         this.checkMobileRedo(request.getMobile());
-        SysMerchant merchant = DataUtil.copy(request, SysMerchant.class);
+        Merchant merchant = DataUtil.copy(request, Merchant.class);
 
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         merchant.setPwd(encoder.encode(pwd));
         merchant.setInitPwd(true);
         merchant.setState(MerchantState.NORMAL);
-        sysMerchantMapper.insert(merchant);
-        sysMerchantRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
+        merchantMapper.insert(merchant);
+        merchantRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
     }
     
     @Override
     public void update(MerchantEditRequest request) {
-        SysMerchant merchant = DataUtil.copy(request, SysMerchant.class);
-        sysMerchantMapper.updateById(merchant);
-        sysMerchantRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
+        Merchant merchant = DataUtil.copy(request, Merchant.class);
+        merchantMapper.updateById(merchant);
+        merchantRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
     }
     
     @Override
     public void lock(Long id) {
-        LambdaUpdateWrapper<SysMerchant> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(SysMerchant::getId, id);
-        wrapper.eq(SysMerchant::getState, MerchantState.NORMAL);
-        wrapper.set(SysMerchant::getState, MerchantState.LOCK);
-        sysMerchantMapper.update(null, wrapper);
+        LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Merchant::getId, id);
+        wrapper.eq(Merchant::getState, MerchantState.NORMAL);
+        wrapper.set(Merchant::getState, MerchantState.LOCK);
+        merchantMapper.update(null, wrapper);
     }
     
     @Override
     public void unlock(Long id) {
-        LambdaUpdateWrapper<SysMerchant> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(SysMerchant::getId, id);
-        wrapper.eq(SysMerchant::getState, MerchantState.LOCK);
-        wrapper.set(SysMerchant::getState, MerchantState.NORMAL);
-        sysMerchantMapper.update(null, wrapper);
+        LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Merchant::getId, id);
+        wrapper.eq(Merchant::getState, MerchantState.LOCK);
+        wrapper.set(Merchant::getState, MerchantState.NORMAL);
+        merchantMapper.update(null, wrapper);
     }
     
     @Override
     public void resetPwd(Long id) {
-        SysMerchant merchant = new SysMerchant();
+        Merchant merchant = new Merchant();
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         merchant.setPwd(encoder.encode(pwd));
         merchant.setInitPwd(true);
         merchant.setId(id);
-        sysMerchantMapper.updateById(merchant);
+        merchantMapper.updateById(merchant);
     }
 
     /**
@@ -105,9 +105,9 @@ public class SysMerchantServiceImpl implements SysMerchantService {
      * @param mobile 用户名
      */
     private void checkMobileRedo(String mobile) {
-        LambdaQueryWrapper<SysMerchant> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysMerchant::getMobile, mobile);
-        Integer count = sysMerchantMapper.selectCount(wrapper);
+        LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Merchant::getMobile, mobile);
+        Integer count = merchantMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("商户手机号被占用 [{}]", mobile);
             throw new BusinessException(ErrorCode.MERCHANT_MOBILE_REDO);
@@ -119,9 +119,9 @@ public class SysMerchantServiceImpl implements SysMerchantService {
      * @param userName 用户名
      */
     private void checkUserNameRedo(String userName) {
-        LambdaQueryWrapper<SysMerchant> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysMerchant::getUserName, userName);
-        Integer count = sysMerchantMapper.selectCount(wrapper);
+        LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Merchant::getUserName, userName);
+        Integer count = merchantMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("商户名被占用 [{}]", userName);
             throw new BusinessException(ErrorCode.MERCHANT_REDO);

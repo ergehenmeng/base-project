@@ -15,8 +15,8 @@ import lombok.Data;
  */
 @Data
 @AllArgsConstructor
-@TableName("sys_merchant_role")
-public class SysMerchantRole {
+@TableName("merchant_role")
+public class MerchantRole {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
@@ -31,7 +31,7 @@ public class SysMerchantRole {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long roleId;
 
-    public SysMerchantRole(Long merchantId, Long roleId) {
+    public MerchantRole(Long merchantId, Long roleId) {
         this.merchantId = merchantId;
         this.roleId = roleId;
     }

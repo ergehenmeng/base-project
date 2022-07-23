@@ -19,9 +19,9 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_merchant")
-@ApiModel(value="SysMerchant对象", description="商家信息表")
-public class SysMerchant extends BaseEntity implements Serializable {
+@TableName("merchant")
+@ApiModel(value="Merchant对象", description="商家信息表")
+public class Merchant extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     

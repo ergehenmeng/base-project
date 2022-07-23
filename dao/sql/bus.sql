@@ -289,7 +289,7 @@ CREATE TABLE `product_shop`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='店铺信息表';
 
-CREATE TABLE `sys_merchant`
+CREATE TABLE `merchant`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`       varchar(30)  DEFAULT NULL COMMENT '商家名称',
@@ -307,7 +307,7 @@ CREATE TABLE `sys_merchant`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
 
-CREATE TABLE `sys_merchant_role`
+CREATE TABLE `merchant_role`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `merchant_id` bigint(20) DEFAULT NULL COMMENT '商户ID',

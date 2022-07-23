@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper;
 
-import com.eghm.dao.model.SysMerchant;
+import com.eghm.dao.model.Merchant;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 二哥很猛
  * @since 2022-05-27
  */
-public interface SysMerchantMapper extends BaseMapper<SysMerchant> {
+public interface MerchantMapper extends BaseMapper<Merchant> {
 
 }
