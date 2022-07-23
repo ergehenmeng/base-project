@@ -9,7 +9,7 @@ import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
 
 /**
- * @author 二哥很猛 2022/6/25 14:08
+ * @author 二哥很猛 2022/6/25
  */
 public interface HomestayService {
 

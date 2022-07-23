@@ -10,7 +10,7 @@ import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherQueryRequ
 
 /**
  * @author wyb
- * @date 2022/6/30 22:01
+ * @date 2022/6/30
  */
 public interface RestaurantVoucherService {
 

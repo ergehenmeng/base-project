@@ -14,7 +14,7 @@ import com.eghm.model.vo.scenic.ticket.TicketVO;
 import java.util.List;
 
 /**
- * @author 二哥很猛 2022/6/15 21:11
+ * @author 二哥很猛 2022/6/15
  */
 public interface ScenicTicketService {
 

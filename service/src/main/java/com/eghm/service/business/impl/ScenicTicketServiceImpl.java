@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author 二哥很猛 2022/6/15 21:11
+ * @author 二哥很猛 2022/6/15
  */
 @Service("scenicTicketService")
 @AllArgsConstructor

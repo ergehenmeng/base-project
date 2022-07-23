@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author wyb
- * @date 2022/6/30 22:01
+ * @date 2022/6/30
  */
 @Service("restaurantVoucherService")
 @AllArgsConstructor

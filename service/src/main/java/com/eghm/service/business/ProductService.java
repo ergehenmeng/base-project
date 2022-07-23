@@ -10,7 +10,7 @@ import com.eghm.model.dto.business.product.ProductQueryRequest;
 
 /**
  * @author wyb
- * @date 2022/7/1 18:18
+ * @date 2022/7/1
  */
 public interface ProductService {
 

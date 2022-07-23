@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
- * @author 二哥很猛 2022/6/25 14:09
+ * @author 二哥很猛 2022/6/25
  */
 @Service("homestayService")
 @AllArgsConstructor

@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * @author 二哥很猛 2022/6/25 14:11
+ * @author 二哥很猛 2022/6/25
  */
 public interface HomestayRoomConfigService {
 
