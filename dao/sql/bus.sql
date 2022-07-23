@@ -269,8 +269,8 @@ CREATE TABLE `product_sku`
 CREATE TABLE `product_shop`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
-    `state`          tinyint(1)     DEFAULT NULL COMMENT '状态 0:未上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:待审核 2:已上架',
+    `title`          varchar(50)    DEFAULT NULL COMMENT '店铺名称',
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户id',
     `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '封面图',
     `open_time`      varchar(100)   DEFAULT NULL COMMENT '营业时间',
