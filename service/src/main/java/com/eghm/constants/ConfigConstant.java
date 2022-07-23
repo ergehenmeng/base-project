@@ -153,4 +153,9 @@ public class ConfigConstant {
      * 是否包含景区距离字段
      */
     public static final String SCENIC_CONTAIN_DISTANCE = "scenic_contain_distance";
+
+    /**
+     * 购物车数量最大值
+     */
+    public static final String SHOPPING_CAR_MAX = "shopping_car_max";
 }

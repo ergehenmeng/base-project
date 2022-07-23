@@ -41,6 +41,13 @@ public interface ProductService {
     Product selectById(Long id);
 
     /**
+     * 主键查询商品信息
+     * @param id id
+     * @return 商品信息
+     */
+    Product selectByIdRequired(Long id);
+
+    /**
      * 更新上下架状态
      * @param id id
      * @param state 状态

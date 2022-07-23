@@ -1,5 +1,7 @@
 package com.eghm.service.business;
 
+import com.eghm.dao.model.Product;
+import com.eghm.dao.model.ProductSku;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 
 import java.util.List;
@@ -27,4 +29,17 @@ public interface ProductSkuService {
      */
     void update(Long productId, List<ProductSkuRequest> skuList);
 
+    /**
+     * 主键查询商品规格信息
+     * @param skuId id
+     * @return 规格信息
+     */
+    ProductSku selectById(Long skuId);
+
+    /**
+     * 主键查询商品规格信息(不存在则异常)
+     * @param skuId id
+     * @return 规格信息
+     */
+    ProductSku selectByIdRequired(Long skuId);
 }

@@ -2,12 +2,15 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.ProductSkuMapper;
 import com.eghm.dao.model.ProductSku;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 import com.eghm.service.business.ProductSkuService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +22,7 @@ import java.util.stream.Collectors;
  */
 @Service("productSkuService")
 @AllArgsConstructor
+@Slf4j
 public class ProductSkuServiceImpl implements ProductSkuService {
 
     private final ProductSkuMapper productSkuMapper;
@@ -47,5 +51,20 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         // 新增
         List<ProductSkuRequest> createList = skuList.stream().filter(sku -> sku.getId() == null).collect(Collectors.toList());
         this.create(productId, createList);
+    }
+
+    @Override
+    public ProductSku selectById(Long skuId) {
+        return productSkuMapper.selectById(skuId);
+    }
+
+    @Override
+    public ProductSku selectByIdRequired(Long skuId) {
+        ProductSku sku = productSkuMapper.selectById(skuId);
+        if (sku == null) {
+            log.error("商品规格已删除 [{}]", skuId);
+            throw new BusinessException(ErrorCode.SKU_DOWN);
+        }
+        return sku;
     }
 }

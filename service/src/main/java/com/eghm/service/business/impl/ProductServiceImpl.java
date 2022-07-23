@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.ProductMapper;
 import com.eghm.dao.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
@@ -16,7 +17,10 @@ import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductSkuService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
 
 /**
  * @author 二哥很猛
@@ -24,6 +28,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("productService")
 @AllArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ProductMapper productMapper;
@@ -59,6 +64,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product selectById(Long id) {
         return productMapper.selectById(id);
+    }
+
+    @Override
+    public Product selectByIdRequired(Long id) {
+        Product product = productMapper.selectById(id);
+        if (product == null) {
+            log.error("该商品已删除 [{}]", id);
+            throw new BusinessException(PRODUCT_DOWN);
+        }
+        return product;
     }
 
     @Override

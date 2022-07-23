@@ -227,10 +227,11 @@ CREATE TABLE `scenic_ticket`
 CREATE TABLE `product`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
-    `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属店铺',
-    `state`           tinyint(1)    DEFAULT NULL COMMENT '商品状态 0:待上架 1:已上架',
-    `audit_state`     tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
-    `title`           varchar(50)   DEFAULT NULL COMMENT '商品名称',
+    `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属特产店',
+    `state`           tinyint(1)    DEFAULT '0' COMMENT '商品状态 0:待上架 1:待审核 2:已上架',
+    `audit_state`     tinyint(1)    DEFAULT NULL COMMENT '平台状态 0:初始 1:待审核 2:已上架',
+    `title`           varchar(30)   DEFAULT NULL COMMENT '商品名称',
+    `describe`        varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
     `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
@@ -248,10 +249,11 @@ CREATE TABLE `product`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品信息';
 
+
 CREATE TABLE `product_sku`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `product_id`  bigint(20)  DEFAULT NULL COMMENT '特产商品id',
+    `product_id`  bigint(20)  DEFAULT NULL COMMENT '商品id',
     `title`       varchar(20) DEFAULT NULL COMMENT '规格名称',
     `line_price`  int(10)     DEFAULT NULL COMMENT '划线价',
     `cost_price`  int(10)     DEFAULT '0' COMMENT '成本价',
@@ -264,7 +266,7 @@ CREATE TABLE `product_sku`
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='特产商品规格表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格表';
 
 CREATE TABLE `product_shop`
 (

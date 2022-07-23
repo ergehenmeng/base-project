@@ -21,7 +21,7 @@ public class ProductShopEditRequest {
     private Long id;
 
     @ApiModelProperty("店铺名称")
-    @Size(min = 2, max = 20, message = "店铺名称2~20字符")
+    @Size(min = 2, max = 20, message = "店铺名称2~20位")
     private String title;
 
     @ApiModelProperty(value = "店铺logo")

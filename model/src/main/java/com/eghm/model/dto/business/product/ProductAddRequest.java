@@ -22,6 +22,10 @@ public class ProductAddRequest {
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")
     private String title;
 
+    @ApiModelProperty(value = "商品描述信息")
+    @Size(min = 5, max = 40, message = "商品描述信息长度5~40字符")
+    private String describe;
+
     @ApiModelProperty(value = "封面图")
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;

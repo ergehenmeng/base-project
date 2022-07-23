@@ -155,6 +155,11 @@ public enum ErrorCode {
     READ_PARAM_ERROR(1019,"读取参数异常"),
 
     /**
+     * 非法操作 操作了不属于自己的数据
+     */
+    ILLEGAL_OPERATION(1020,"非法操作"),
+
+    /**
      * 参数解析异常
      */
     PARAM_VERIFY_ERROR(2000,"参数校验失败"),
@@ -354,7 +359,6 @@ public enum ErrorCode {
      */
     SUB_MENU_ERROR(3027,"按钮菜单无法添加子菜单"),
 
-
     /**
      * 内容不能为空
      */
@@ -515,7 +519,6 @@ public enum ErrorCode {
      */
     ENUMS_FORMAT(3123, "枚举格式化失败"),
 
-
     /**
      * 非int或long格式无法转换
      */
@@ -595,6 +598,41 @@ public enum ErrorCode {
      * 优惠券不满足使用条件
      */
     COUPON_USE_THRESHOLD(3147, "不满足优惠券使用条件"),
+
+    /**
+     * 购物车数量不能超过%s个
+     */
+    SHOPPING_CAR_MAX(3148, "购物车数量不能超过%s个"),
+
+    /**
+     * 该商品已下架
+     */
+    PRODUCT_DOWN(3149, "该商品已下架"),
+
+    /**
+     * 该商品规格已下架
+     */
+    SKU_DOWN(3150, "该商品规格已下架"),
+
+    /**
+     * 商品规格不匹配
+     */
+    PRODUCT_SKU_MATCH(3151, "商品规格不匹配"),
+
+    /**
+     * 该商品库存不足
+     */
+    SKU_STOCK(3152, "该商品库存不足"),
+
+    /**
+     * 超出商品限购数量
+     */
+    PRODUCT_QUOTA(3153, "超出商品限购数量"),
+
+    /**
+     * 购物车商品信息不存在
+     */
+    CAR_PRODUCT_EMPTY(3154, "购物车商品信息不存在"),
 
     /**
      * 微信公众号尚未配置
