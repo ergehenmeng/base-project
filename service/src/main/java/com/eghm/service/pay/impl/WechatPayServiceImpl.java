@@ -18,7 +18,10 @@ import com.eghm.service.pay.request.PrepayRequest;
 import com.eghm.service.pay.response.ErrorResponse;
 import com.eghm.service.pay.response.OrderResponse;
 import com.eghm.service.pay.response.PrepayResponse;
+import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderV3Request;
+import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderV3Result;
 import com.github.binarywang.wxpay.bean.result.enums.TradeTypeEnum;
+import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,13 +56,27 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public PrepayResponse createPrepay(PrepayDTO dto) {
+        TradeTypeEnum transferType = transferType(dto.getTradeType());
+        WxPayUnifiedOrderV3Request request = new WxPayUnifiedOrderV3Request();
+        WxPayUnifiedOrderV3Request.Amount amount = new WxPayUnifiedOrderV3Request.Amount();
+        amount.setTotal(dto.getAmount());
+        request.setAmount(amount);
+        request.setAttach(dto.getAttach());
+        request.setDescription(dto.getDescription());
+        request.setNotifyUrl(dto.getNotifyUrl());
+        request.setOutTradeNo(dto.getOutTradeNo());
+        WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
+        payer.setOpenid(dto.getOpenId());
+        request.setPayer(payer);
+        WxPayUnifiedOrderV3Result result;
+        try {
+            result = wxPayService.unifiedOrderV3(transferType, request);
+        } catch (WxPayException e) {
+            log.error("微信支付下单失败 [{}]", dto, e);
+            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
+        }
+        PrepayResponse response = new PrepayResponse();
 
-        // TODO 待完成
-
-        AppletPayConfig config = this.getConfig(dto.getMerchantType());
-        PrepayRequest request = this.createPrepayRequest(dto, config);
-        PrepayResponse response = this.doPost(request, PayConstant.PREPAY_URL, PrepayResponse.class);
-        response.setOrderNo(request.getOrderNo());
         return response;
     }
 

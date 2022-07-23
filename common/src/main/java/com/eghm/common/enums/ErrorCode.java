@@ -495,6 +495,11 @@ public enum ErrorCode {
     PAY_ERROR(3111, "支付响应错误"),
 
     /**
+     * 支付下单失败
+     */
+    PAY_ORDER_ERROR(3112, "支付下单失败"),
+
+    /**
      * 微信网页授权异常
      */
     REQUEST_ID_EXPIRE(3115, "requestId已过期"),
