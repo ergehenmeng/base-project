@@ -1,5 +1,7 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -25,10 +27,13 @@ public class ProductShopServiceImpl implements ProductShopService {
 
     private final ProductShopMapper productShopMapper;
 
-
     @Override
     public Page<ProductShop> getByPage(ProductShopQueryRequest request) {
-        return null;
+        LambdaQueryWrapper<ProductShop> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), ProductShop::getTitle, request.getQueryName());
+        wrapper.eq(request.getState() != null, ProductShop::getState , request.getState());
+        wrapper.eq(request.getAuditState() != null, ProductShop::getAuditState, request.getAuditState());
+        return productShopMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
@@ -42,6 +47,11 @@ public class ProductShopServiceImpl implements ProductShopService {
     public void update(ProductShopEditRequest request) {
         ProductShop shop = DataUtil.copy(request, ProductShop.class);
         productShopMapper.updateById(shop);
+    }
+
+    @Override
+    public ProductShop selectById(Long id) {
+        return productShopMapper.selectById(id);
     }
 
     @Override

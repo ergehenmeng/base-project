@@ -3,14 +3,14 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
-import com.eghm.dao.model.ProductShop;
+import com.eghm.dao.model.Product;
 import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.product.shop.ProductShopAddRequest;
-import com.eghm.model.dto.business.product.shop.ProductShopEditRequest;
-import com.eghm.model.dto.business.product.shop.ProductShopQueryRequest;
+import com.eghm.model.dto.business.product.ProductAddRequest;
+import com.eghm.model.dto.business.product.ProductEditRequest;
+import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.service.business.ProductShopService;
+import com.eghm.service.business.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -20,70 +20,70 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
- * @date 2022/7/22
+ * @date 2022/7/23
  */
-@RestController
-@Api(tags = "店铺管理")
-@AllArgsConstructor
-@RequestMapping("/product/shop")
-public class ProductShopController {
 
-    private final ProductShopService productShopService;
+@RestController
+@Api(tags = "商品管理")
+@AllArgsConstructor
+@RequestMapping("/product")
+public class ProductController {
+
+    private final ProductService productService;
 
     @GetMapping("/listPage")
     @ApiOperation("店铺列表")
-    public PageData<ProductShop> listPage(ProductShopQueryRequest request) {
-        Page<ProductShop> byPage = productShopService.getByPage(request);
+    public PageData<Product> listPage(ProductQueryRequest request) {
+        Page<Product> byPage = productService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
     @GetMapping("/create")
     @ApiOperation("新增店铺")
-    public RespBody<Void> create(ProductShopAddRequest request) {
-        productShopService.create(request);
+    public RespBody<Void> create(ProductAddRequest request) {
+        productService.create(request);
         return RespBody.success();
     }
 
     @GetMapping("/update")
     @ApiOperation("更新店铺")
-    public RespBody<Void> update(ProductShopEditRequest request) {
-        productShopService.update(request);
+    public RespBody<Void> update(ProductEditRequest request) {
+        productService.update(request);
         return RespBody.success();
     }
 
     @GetMapping("/select")
-    @ApiOperation("查询店铺")
-    @ApiImplicitParam(name = "id", value = "店铺id", required = true)
-    public ProductShop select(@RequestParam("id") Long id) {
-        return productShopService.selectById(id);
+    @ApiOperation("查询商品")
+    @ApiImplicitParam(name = "id", value = "商品id", required = true)
+    public Product select(@RequestParam("id") Long id) {
+        return productService.selectById(id);
     }
 
     @PostMapping("/shelves")
     @ApiOperation("上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
-        productShopService.updateState(dto.getId(), State.SHELVE);
+        productService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping("/unShelves")
     @ApiOperation("下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
-        productShopService.updateState(dto.getId(), State.UN_SHELVE);
+        productService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
 
     @PostMapping("/platformAudit")
     @ApiOperation("平台上架审核")
     public RespBody<Void> updateState(@RequestBody @Validated IdDTO dto) {
-        productShopService.updateAuditState(dto.getId(), AuditState.SHELVE);
+        productService.updateAuditState(dto.getId(), AuditState.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping("/platformUnShelves")
     @ApiOperation("平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
-        productShopService.updateAuditState(dto.getId(), AuditState.UN_SHELVE);
+        productService.updateAuditState(dto.getId(), AuditState.UN_SHELVE);
         return RespBody.success();
     }
-
 }

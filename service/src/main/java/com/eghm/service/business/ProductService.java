@@ -1,15 +1,25 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.dao.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
+import com.eghm.model.dto.business.product.ProductQueryRequest;
 
 /**
  * @author wyb
  * @date 2022/7/1 18:18
  */
 public interface ProductService {
+
+    /**
+     * 分页查询商品信息
+     * @param request 分页信息及查询条件
+     * @return 商品列表
+     */
+    Page<Product> getByPage(ProductQueryRequest request);
 
     /**
      * 增加商品信息
@@ -22,6 +32,13 @@ public interface ProductService {
      * @param request 特产商品
      */
     void update(ProductEditRequest request);
+
+    /**
+     * 主键查询商品信息
+     * @param id id
+     * @return 商品信息
+     */
+    Product selectById(Long id);
 
     /**
      * 更新上下架状态

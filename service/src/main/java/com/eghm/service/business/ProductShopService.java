@@ -34,6 +34,13 @@ public interface ProductShopService {
     void update(ProductShopEditRequest request);
 
     /**
+     * 主键查询
+     * @param id id
+     * @return 店铺信息
+     */
+    ProductShop selectById(Long id);
+
+    /**
      * 更新上下架状态
      * @param id id
      * @param state 状态

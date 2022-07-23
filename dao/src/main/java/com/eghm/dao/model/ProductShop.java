@@ -29,6 +29,9 @@ public class ProductShop extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("店铺名称")
+    private String title;
+
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
 
@@ -39,8 +42,8 @@ public class ProductShop extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long merchantId;
 
-    @ApiModelProperty(value = "封面图")
-    private String coverUrl;
+    @ApiModelProperty(value = "店铺logo")
+    private String logoUrl;
 
     @ApiModelProperty(value = "营业时间")
     private String openTime;

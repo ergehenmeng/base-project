@@ -51,7 +51,7 @@ public class Product extends BaseEntity implements Serializable {
     private Integer quota;
 
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
-    private Boolean deliveryMethod;
+    private Integer deliveryMethod;
 
     @ApiModelProperty(value = "是否支持退款 true:支持 false:不支持")
     private Boolean supportRefund;

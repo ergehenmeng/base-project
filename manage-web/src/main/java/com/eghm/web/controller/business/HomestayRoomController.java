@@ -52,11 +52,10 @@ public class HomestayRoomController {
 
     @GetMapping("/select")
     @ApiOperation("查询房型")
-    @ApiImplicitParam(name = "id", value = "房型信息", required = true)
+    @ApiImplicitParam(name = "id", value = "店铺id", required = true)
     public HomestayRoom select(@RequestParam("id") Long id) {
         return homestayRoomService.selectById(id);
     }
-
 
     @PostMapping("/shelves")
     @ApiOperation("上架")
