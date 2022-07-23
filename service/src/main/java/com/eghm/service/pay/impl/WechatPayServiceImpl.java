@@ -1,34 +1,26 @@
 package com.eghm.service.pay.impl;
 
-import cn.hutool.http.HttpResponse;
-import cn.hutool.http.HttpUtil;
+import cn.hutool.core.date.DateUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.AppletPayConfig;
-import com.eghm.service.common.JsonService;
-import com.eghm.service.common.NumberService;
-import com.eghm.service.pay.AppletPayConfigService;
 import com.eghm.service.pay.PayService;
-import com.eghm.service.pay.constant.PayConstant;
 import com.eghm.service.pay.dto.PrepayDTO;
-import com.eghm.service.pay.enums.MerchantType;
+import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.request.BaseRequest;
-import com.eghm.service.pay.request.PrepayRequest;
-import com.eghm.service.pay.response.ErrorResponse;
 import com.eghm.service.pay.response.OrderResponse;
 import com.eghm.service.pay.response.PrepayResponse;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderV3Request;
+import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryV3Result;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderV3Result;
 import com.github.binarywang.wxpay.bean.result.enums.TradeTypeEnum;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
+import com.github.binarywang.wxpay.v3.util.SignUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
@@ -40,12 +32,6 @@ import java.util.Optional;
 @Slf4j
 @AllArgsConstructor
 public class WechatPayServiceImpl implements PayService {
-
-    private final AppletPayConfigService appletPayConfigService;
-
-    private final NumberService numberService;
-
-    private final JsonService jsonService;
 
     private final WxPayService wxPayService;
 
@@ -75,15 +61,55 @@ public class WechatPayServiceImpl implements PayService {
             log.error("微信支付下单失败 [{}]", dto, e);
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
-        PrepayResponse response = new PrepayResponse();
 
-        return response;
+        String timestamp = String.valueOf(DateUtil.currentSeconds());
+        String nonceStr = SignUtils.genRandomStr();
+        PrepayResponse response = new PrepayResponse();
+        switch (dto.getTradeType()) {
+            case WECHAT_MINI:
+            case WECHAT_JSAPI:
+                response.setTimeStamp(timestamp);
+                response.setPackageValue("prepay_id=" + result.getPrepayId());
+                response.setNonceStr(nonceStr);
+                response.setSignType("RSA");
+                response.setPaySign(SignUtils.sign(String.format("%s\n%s\n%s\n%s\n", wxPayService.getConfig().getAppId(), timestamp, nonceStr, response.getPackageValue()), wxPayService.getConfig().getPrivateKey()));
+                return response;
+            case WECHAT_H5:
+                response.setH5Url(result.getH5Url());
+                return response;
+            case WECHAT_NATIVE:
+                response.setQrCodeUrl(result.getCodeUrl());
+                return response;
+            case WECHAT_APP:
+                response.setPrepayId(result.getPrepayId());
+                response.setPartnerId(wxPayService.getConfig().getMchId());
+                response.setTimeStamp(timestamp);
+                response.setNonceStr(nonceStr);
+                response.setPackageValue("Sign=WXPay");
+                return response;
+            default:
+                throw new BusinessException(ErrorCode.UNKNOWN_PAY_TYPE);
+        }
     }
 
     @Override
-    public OrderResponse queryOrder(String orderNo, MerchantType merchantType) {
-        AppletPayConfig config = this.getConfig(merchantType);
-        return this.doGet(String.format(PayConstant.QUERY_ORDER_URL, orderNo, config.getMerchantId()), OrderResponse.class);
+    public OrderResponse queryOrder(String outTradeNo) {
+        WxPayOrderQueryV3Result result;
+        try {
+            result = wxPayService.queryOrderV3(null, outTradeNo);
+        } catch (WxPayException e) {
+            log.error("微信订单查询失败 [{}]", outTradeNo, e);
+            throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
+        }
+        OrderResponse response = new OrderResponse();
+        response.setAmount(result.getAmount().getPayerTotal());
+        response.setAttach(result.getAttach());
+        response.setSuccessTime(LocalDateTime.parse(result.getSuccessTime(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        response.setTradeType(TradeType.forType(result.getTradeType()));
+        response.setTradeState(TradeState.forState(result.getTradeState()));
+        response.setPayId(result.getPayer().getOpenid());
+        response.setTransactionId(result.getTransactionId());
+        return response;
     }
 
     /**
@@ -95,60 +121,5 @@ public class WechatPayServiceImpl implements PayService {
         Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getName())).findFirst();
         return optional.orElse(null);
     }
-
-
-    private <T> T doGet(String url, Class<T> cls) {
-        log.info("get请求参数 [{}]", url);
-        String response = HttpUtil.get(url);
-        return this.parseResponse(response, cls);
-    }
-
-
-    private <T> T doPost(BaseRequest dto, String url, Class<T> cls) {
-        String request = jsonService.toJson(dto);
-        log.info("post请求参数 [{}] [{}]", url, dto);
-        HttpResponse response = HttpUtil.createPost(url).body(request).execute();
-        return this.parseResponse(response.body(), cls);
-    }
-
-    /**
-     * 创建预支付请求信息
-     * @param dto 支付信息
-     * @param config 支付配置信息
-     * @return request
-     */
-    private PrepayRequest createPrepayRequest(PrepayDTO dto, AppletPayConfig config) {
-        PrepayRequest request = new PrepayRequest();
-        request.setAppId(config.getAppId());
-        request.setMerchantId(config.getMerchantId());
-        request.setAmount(dto.getAmount());
-        request.setOpenId(dto.getOpenId());
-        request.setAttach(dto.getAttach());
-        request.setDescription(dto.getDescription());
-        request.setNotifyUrl(config.getNotifyUrl());
-        request.setOrderNo(numberService.getNumber(config.getOrderPrefix()));
-        request.setExpireTime(LocalDateTime.now().plusSeconds(config.getExpireTime()).withNano(0).atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
-        return request;
-    }
-
-
-    private <T> T parseResponse(String response, Class<T> cls) {
-        ErrorResponse errorResponse = jsonService.fromJson(response, ErrorResponse.class);
-        if (errorResponse.getCode() != null) {
-            log.error("接口响应状态失败 [{}]", response);
-            throw new BusinessException(ErrorCode.PAY_ERROR.getCode(), errorResponse.getMessage());
-        }
-        return jsonService.fromJson(response, cls);
-    }
-
-    private AppletPayConfig getConfig(MerchantType merchantType) {
-        AppletPayConfig config = appletPayConfigService.getByNid(merchantType);
-        if (config == null) {
-            log.error("未配置小程序商户信息 [{}]", merchantType.getCode());
-            throw new BusinessException(ErrorCode.PAY_CONFIG_ERROR);
-        }
-        return config;
-    }
-
 
 }

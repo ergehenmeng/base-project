@@ -29,9 +29,8 @@ public interface PayService {
 
     /**
      * 查询订单信息
-     * @param orderNo 订单号
-     * @param merchantType 商户信息
+     * @param outTradeNo 商户订单号
      * @return 订单信息
      */
-    OrderResponse queryOrder(String orderNo, MerchantType merchantType);
+    OrderResponse queryOrder(String outTradeNo);
 }

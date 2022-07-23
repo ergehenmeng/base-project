@@ -6,6 +6,7 @@ import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.response.OrderResponse;
 import com.eghm.service.pay.response.PrepayResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,11 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     @Override
     public PrepayResponse createPrepay(PrepayDTO dto) {
         return getPayService(dto.getTradeType()).createPrepay(dto);
+    }
+
+    @Override
+    public OrderResponse queryOrder(TradeType tradeType, String outTradeNo) {
+        return getPayService(tradeType).queryOrder(outTradeNo);
     }
 
     /**

@@ -490,6 +490,11 @@ public enum ErrorCode {
     UNKNOWN_PAY_TYPE(3093, "未知支付方式"),
 
     /**
+     * 订单查询失败
+     */
+    ORDER_QUERY_ERROR(3094, "订单查询失败"),
+
+    /**
      * 支付响应错误
      */
     PAY_ERROR(3111, "支付响应错误"),
