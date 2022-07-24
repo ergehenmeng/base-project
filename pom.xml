@@ -111,6 +111,8 @@
         <knif4j.version>1.0.7.RELEASE</knif4j.version>
         <!--微信三方sdk包-->
         <wx-sdk.version>4.3.6.B</wx-sdk.version>
+        <!--支付宝sdk-->
+        <ali-sdk.version>2.2.0</ali-sdk.version>
         <!--mybatis-plus-->
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <!--totp-->
@@ -295,6 +297,11 @@
                 <groupId>com.github.binarywang</groupId>
                 <artifactId>weixin-java-pay</artifactId>
                 <version>${wx-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-easysdk</artifactId>
+                <version>${ali-sdk.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
