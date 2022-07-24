@@ -1,4 +1,4 @@
-package com.eghm.service.pay.response;
+package com.eghm.service.pay.vo;
 
 
 import com.eghm.service.pay.enums.TradeState;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderResponse {
+public class OrderVO {
 
     @ApiModelProperty("支付id: 微信openId")
     private String payId;

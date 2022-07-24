@@ -1,10 +1,14 @@
 package com.eghm.service.pay;
 
 import com.eghm.service.pay.dto.PrepayDTO;
-import com.eghm.service.pay.enums.MerchantType;
+import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.response.OrderResponse;
-import com.eghm.service.pay.response.PrepayResponse;
+import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.service.pay.vo.RefundVO;
+import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
+import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 
 /**
  * @author 二哥很猛
@@ -25,12 +29,48 @@ public interface PayService {
      * @param dto 预支付信息
      * @return prepay_id
      */
-    PrepayResponse createPrepay(PrepayDTO dto);
+    PrepayVO createPrepay(PrepayDTO dto);
 
     /**
      * 查询订单信息
      * @param outTradeNo 商户订单号
      * @return 订单信息
      */
-    OrderResponse queryOrder(String outTradeNo);
+    OrderVO queryOrder(String outTradeNo);
+
+    /**
+     * 关闭订单号
+     * @param outTradeNo 商户订单号
+     */
+    void closeOrder(String outTradeNo);
+
+    /**
+     * 申请退款
+     * @param dto 退款信息
+     * @return 退款相应信息
+     */
+    RefundVO applyRefund(RefundDTO dto);
+
+    /**
+     * 查询退款单号
+     * @param outTradeNo 退款流水号
+     * @return 退款信息
+     */
+    RefundVO queryRefund(String outTradeNo);
+
+    /**
+     * 解析支付异步通知
+     * @param notifyData 响应信息
+     * @param header 头信息(用于校验)
+     * @return 解析后的支付信息
+     */
+    WxPayOrderNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header);
+
+    /**
+     * 解析退款异步通知
+     * @param notifyData 响应信息
+     * @param header 头信息(用于校验)
+     * @return 解析后的退款信息
+     */
+    WxPayRefundNotifyV3Result parseRefundNotify(String notifyData, SignatureHeader header);
 }

@@ -3,21 +3,26 @@ package com.eghm.web.configuration.handler;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
+import com.eghm.common.exception.WeChatPayException;
 import com.eghm.dao.model.ExceptionLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.ExceptionLogTask;
 import com.eghm.service.sys.ExceptionLogService;
+import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -86,6 +91,21 @@ public class ControllerAdviceHandler {
     public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
         log.warn("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
+    }
+
+    /**
+     * 微信异步通知异常
+     *
+     * @return 404
+     */
+    @ExceptionHandler(WeChatPayException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> weChatPayException() {
+        Map<String, String> map = Maps.newLinkedHashMapWithExpectedSize(2);
+        map.put("code", "FAIL");
+        map.put("message", "失败");
+        return map;
     }
 
 }

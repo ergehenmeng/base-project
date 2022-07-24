@@ -1,4 +1,4 @@
-package com.eghm.service.pay.response;
+package com.eghm.service.pay.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PrepayResponse {
+public class PrepayVO {
 
     @ApiModelProperty("支付package")
     private String packageValue;

@@ -110,7 +110,7 @@
         <!--swagger2版本-->
         <knif4j.version>1.0.7.RELEASE</knif4j.version>
         <!--微信三方sdk包-->
-        <wx-sdk.version>4.1.0</wx-sdk.version>
+        <wx-sdk.version>4.3.6.B</wx-sdk.version>
         <!--mybatis-plus-->
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <!--totp-->

@@ -1,5 +1,6 @@
 package com.eghm.common.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
@@ -524,6 +525,18 @@ public class DateUtil {
         calendar.set(Calendar.MINUTE, 59);
         calendar.set(Calendar.SECOND, 59);
         return calendar.getTime();
+    }
+
+    /**
+     * 解析iso格式的日期
+     * @param dateTime yyyy-MM-dd'T'HH:mm:ss+08:00
+     * @return 日期
+     */
+    public static LocalDateTime parseIso(String dateTime) {
+        if (StrUtil.isBlank(dateTime)) {
+            return null;
+        }
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.eghm.service.pay.response;
+package com.eghm.service.pay.vo;
 
 import lombok.Data;
 

@@ -1,16 +1,27 @@
 package com.eghm.service.pay.impl;
 
-import cn.hutool.core.date.DateUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.common.exception.WeChatPayException;
+import com.eghm.common.utils.DateUtil;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.dto.RefundDTO;
+import com.eghm.service.pay.enums.RefundChannel;
+import com.eghm.service.pay.enums.RefundState;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.response.OrderResponse;
-import com.eghm.service.pay.response.PrepayResponse;
+import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.service.pay.vo.RefundVO;
+import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
+import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
+import com.github.binarywang.wxpay.bean.request.WxPayRefundV3Request;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderV3Request;
 import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryV3Result;
+import com.github.binarywang.wxpay.bean.result.WxPayRefundQueryV3Result;
+import com.github.binarywang.wxpay.bean.result.WxPayRefundV3Result;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderV3Result;
 import com.github.binarywang.wxpay.bean.result.enums.TradeTypeEnum;
 import com.github.binarywang.wxpay.exception.WxPayException;
@@ -20,8 +31,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -41,7 +50,7 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
-    public PrepayResponse createPrepay(PrepayDTO dto) {
+    public PrepayVO createPrepay(PrepayDTO dto) {
         TradeTypeEnum transferType = transferType(dto.getTradeType());
         WxPayUnifiedOrderV3Request request = new WxPayUnifiedOrderV3Request();
         WxPayUnifiedOrderV3Request.Amount amount = new WxPayUnifiedOrderV3Request.Amount();
@@ -62,9 +71,9 @@ public class WechatPayServiceImpl implements PayService {
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
 
-        String timestamp = String.valueOf(DateUtil.currentSeconds());
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         String nonceStr = SignUtils.genRandomStr();
-        PrepayResponse response = new PrepayResponse();
+        PrepayVO response = new PrepayVO();
         switch (dto.getTradeType()) {
             case WECHAT_MINI:
             case WECHAT_JSAPI:
@@ -93,7 +102,7 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
-    public OrderResponse queryOrder(String outTradeNo) {
+    public OrderVO queryOrder(String outTradeNo) {
         WxPayOrderQueryV3Result result;
         try {
             result = wxPayService.queryOrderV3(null, outTradeNo);
@@ -101,15 +110,103 @@ public class WechatPayServiceImpl implements PayService {
             log.error("微信订单查询失败 [{}]", outTradeNo, e);
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
-        OrderResponse response = new OrderResponse();
+        OrderVO response = new OrderVO();
         response.setAmount(result.getAmount().getPayerTotal());
         response.setAttach(result.getAttach());
-        response.setSuccessTime(LocalDateTime.parse(result.getSuccessTime(), DateTimeFormatter.ISO_OFFSET_DATE_TIME));
+        response.setSuccessTime(DateUtil.parseIso(result.getSuccessTime()));
         response.setTradeType(TradeType.forType(result.getTradeType()));
         response.setTradeState(TradeState.forState(result.getTradeState()));
         response.setPayId(result.getPayer().getOpenid());
         response.setTransactionId(result.getTransactionId());
         return response;
+    }
+
+    @Override
+    public void closeOrder(String outTradeNo) {
+        try {
+            wxPayService.closeOrderV3(outTradeNo);
+        } catch (WxPayException e) {
+            log.error("微信订单关闭异常 [{}]", outTradeNo, e);
+            throw new BusinessException(ErrorCode.ORDER_CLOSE);
+        }
+    }
+
+    @Override
+    public RefundVO applyRefund(RefundDTO dto) {
+
+        WxPayRefundV3Request request = new WxPayRefundV3Request();
+        WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
+        amount.setRefund(dto.getAmount());
+        amount.setTotal(dto.getTotal());
+        request.setAmount(amount);
+        request.setNotifyUrl(dto.getNotifyUrl());
+        request.setOutTradeNo(dto.getOutTradeNo());
+        request.setReason(dto.getReason());
+        WxPayRefundV3Result result;
+        try {
+            result = wxPayService.refundV3(request);
+        } catch (WxPayException e) {
+            log.error("微信退款申请失败 [{}]", dto.getOutRefundNo(), e);
+            throw new BusinessException(ErrorCode.REFUND_APPLY);
+        }
+        return this.getRefundVO(result.getRefundId(), result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
+    }
+
+    @Override
+    public RefundVO queryRefund(String outTradeNo) {
+        WxPayRefundQueryV3Result result;
+        try {
+            result = wxPayService.refundQueryV3(outTradeNo);
+        } catch (WxPayException e) {
+            log.error("微信退款订单信息查询失败 [{}]", outTradeNo, e);
+            throw new BusinessException(ErrorCode.REFUND_QUERY);
+        }
+        return this.getRefundVO(result.getRefundId(), result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
+    }
+
+    @Override
+    public WxPayOrderNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
+        log.info("微信支付异步通知源数据 [{}] [{}]", notifyData, header);
+        try {
+            return wxPayService.parseOrderNotifyV3Result(notifyData, header);
+        } catch (WxPayException e) {
+            log.error("微信支付响应信息解析失败 [{}] [{}]", notifyData, header, e);
+            throw new WeChatPayException(ErrorCode.NOTIFY_PAY_PARSE);
+        }
+    }
+
+    @Override
+    public WxPayRefundNotifyV3Result parseRefundNotify(String notifyData, SignatureHeader header) {
+        log.info("微信退款异步通知源数据 [{}] [{}]", notifyData, header);
+        try {
+            return wxPayService.parseRefundNotifyV3Result(notifyData, header);
+        } catch (WxPayException e) {
+            log.error("微信退款响应信息解析失败 [{}] [{}]", notifyData, header, e);
+            throw new WeChatPayException(ErrorCode.NOTIFY_REFUND_PARSE);
+        }
+    }
+
+    /**
+     * 退款信息组装
+     * @param refundId 退款流水
+     * @param payerRefund 退款金额
+     * @param status 退款状态
+     * @param channel 退款渠道
+     * @param userReceivedAccount 退款返回账号
+     * @param successTime 退款成功时间
+     * @param createTime 退款受理时间
+     * @return vo
+     */
+    private RefundVO getRefundVO(String refundId, Integer payerRefund, String status, String channel, String userReceivedAccount, String successTime, String createTime) {
+        RefundVO vo = new RefundVO();
+        vo.setRefundId(refundId);
+        vo.setAmount(payerRefund);
+        vo.setState(RefundState.valueOf(status));
+        vo.setChannel(RefundChannel.valueOf(channel));
+        vo.setChannelAccount(userReceivedAccount);
+        vo.setSuccessTime(DateUtil.parseIso(successTime));
+        vo.setCreateTime(DateUtil.parseIso(createTime));
+        return vo;
     }
 
     /**

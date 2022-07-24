@@ -5,9 +5,11 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.response.OrderResponse;
-import com.eghm.service.pay.response.PrepayResponse;
+import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,13 +28,28 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     private final List<PayService> serviceList;
 
     @Override
-    public PrepayResponse createPrepay(PrepayDTO dto) {
+    public PrepayVO createPrepay(PrepayDTO dto) {
         return getPayService(dto.getTradeType()).createPrepay(dto);
     }
 
     @Override
-    public OrderResponse queryOrder(TradeType tradeType, String outTradeNo) {
+    public OrderVO queryOrder(TradeType tradeType, String outTradeNo) {
         return getPayService(tradeType).queryOrder(outTradeNo);
+    }
+
+    @Override
+    public void closeOrder(TradeType tradeType, String outTradeNo) {
+        getPayService(tradeType).closeOrder(outTradeNo);
+    }
+
+    @Override
+    public RefundVO applyRefund(RefundDTO dto) {
+        return getPayService(dto.getTradeType()).applyRefund(dto);
+    }
+
+    @Override
+    public RefundVO queryRefund(TradeType tradeType, String outTradeNo) {
+        return getPayService(tradeType).queryRefund(outTradeNo);
     }
 
     /**

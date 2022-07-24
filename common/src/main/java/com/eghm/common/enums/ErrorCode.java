@@ -495,6 +495,11 @@ public enum ErrorCode {
     ORDER_QUERY_ERROR(3094, "订单查询失败"),
 
     /**
+     * 订单关闭失败
+     */
+    ORDER_CLOSE(3095, "订单关闭失败"),
+
+    /**
      * 支付响应错误
      */
     PAY_ERROR(3111, "支付响应错误"),
@@ -505,9 +510,29 @@ public enum ErrorCode {
     PAY_ORDER_ERROR(3112, "支付下单失败"),
 
     /**
+     * 退款申请失败
+     */
+    REFUND_APPLY(3112, "退款申请失败"),
+
+    /**
+     * 退款订单查询失败
+     */
+    REFUND_QUERY(3113, "退款订单查询失败"),
+
+    /**
+     * 支付异步通知解析失败
+     */
+    NOTIFY_PAY_PARSE(3114, "支付异步通知解析失败"),
+
+    /**
+     * 退款异步通知解析失败
+     */
+    NOTIFY_REFUND_PARSE(3115, "退款异步通知解析失败"),
+
+    /**
      * 微信网页授权异常
      */
-    REQUEST_ID_EXPIRE(3115, "requestId已过期"),
+    REQUEST_ID_EXPIRE(3117, "requestId已过期"),
 
     /**
      * 收货地址太多啦

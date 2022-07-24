@@ -1,9 +1,11 @@
 package com.eghm.service.pay;
 
 import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.response.OrderResponse;
-import com.eghm.service.pay.response.PrepayResponse;
+import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.service.pay.vo.RefundVO;
 
 /**
  * @author 二哥很猛
@@ -15,7 +17,7 @@ public interface AggregatePayService {
      * @param dto 预支付信息
      * @return prepay_id
      */
-    PrepayResponse createPrepay(PrepayDTO dto);
+    PrepayVO createPrepay(PrepayDTO dto);
 
     /**
      * 查询订单信息
@@ -23,5 +25,26 @@ public interface AggregatePayService {
      * @param outTradeNo 商户订单号
      * @return 订单信息
      */
-    OrderResponse queryOrder(TradeType tradeType, String outTradeNo);
+    OrderVO queryOrder(TradeType tradeType, String outTradeNo);
+
+    /**
+     * 关闭订单号
+     * @param tradeType 交易类型
+     * @param outTradeNo 商户订单号
+     */
+    void closeOrder(TradeType tradeType, String outTradeNo);
+
+    /**
+     * 申请退款
+     * @param dto 退款信息
+     * @return 退款相应信息
+     */
+    RefundVO applyRefund(RefundDTO dto);
+
+    /**
+     * 查询退款单号
+     * @param tradeType 交易类型
+     * @param outTradeNo 退款流水号
+     */
+    RefundVO queryRefund(TradeType tradeType, String outTradeNo);
 }
