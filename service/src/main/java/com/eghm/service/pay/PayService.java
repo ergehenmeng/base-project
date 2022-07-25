@@ -10,6 +10,8 @@ import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 
+import java.util.Map;
+
 /**
  * @author 二哥很猛
  */
@@ -56,7 +58,7 @@ public interface PayService {
      * @param outTradeNo 退款流水号
      * @return 退款信息
      */
-    RefundVO queryRefund(String outTradeNo);
+    RefundVO queryRefund(String outTradeNo, String outRefundNo);
 
     /**
      * 解析支付异步通知
@@ -73,4 +75,11 @@ public interface PayService {
      * @return 解析后的退款信息
      */
     WxPayRefundNotifyV3Result parseRefundNotify(String notifyData, SignatureHeader header);
+
+    /**
+     * 校验异步通知
+     * @param param 参数
+     * @return true: 成功 false:失败
+     */
+    boolean verifyNotify(Map<String, String> param);
 }

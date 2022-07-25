@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class WeChatConfig {
 
-    private SystemProperties systemProperties;
+    private final SystemProperties systemProperties;
 
     /**
      * 微信公众号
@@ -67,7 +67,6 @@ public class WeChatConfig {
         WxPayConfig config = new WxPayConfig();
         SystemProperties.WeChatProperties weChatProperties = systemProperties.getWechat();
         config.setAppId(weChatProperties.getPayAppId());
-        config.setNotifyUrl(weChatProperties.getPayNotifyUrl());
         config.setMchId(weChatProperties.getPayMerchantId());
         config.setMchKey(weChatProperties.getPayMerchantKey());
         config.setSignType(WxPayConstants.SignType.HMAC_SHA256);

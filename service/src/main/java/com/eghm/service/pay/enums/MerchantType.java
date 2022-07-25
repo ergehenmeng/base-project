@@ -18,11 +18,11 @@ public enum MerchantType {
     /**
      * 商户唯一code
      */
-    private String code;
+    private final String code;
 
     /**
      * 商户名称
      */
-    private String title;
+    private final String title;
 
 }

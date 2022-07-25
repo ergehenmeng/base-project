@@ -44,7 +44,9 @@ public interface AggregatePayService {
     /**
      * 查询退款单号
      * @param tradeType 交易类型
-     * @param outTradeNo 退款流水号
+     * @param outTradeNo 交易流水号 (支付宝必填)
+     * @param outRefundNo 退款流水号
+     * @return 退款信息
      */
-    RefundVO queryRefund(TradeType tradeType, String outTradeNo);
+    RefundVO queryRefund(TradeType tradeType, String outTradeNo, String outRefundNo);
 }

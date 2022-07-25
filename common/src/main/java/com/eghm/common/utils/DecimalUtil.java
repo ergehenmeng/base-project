@@ -23,6 +23,18 @@ public class DecimalUtil {
         return (int)new Money(yuan).getCent();
     }
 
+
+    /**
+     * 金额元转换为分
+     *
+     * @param yuan 金额，单位元
+     * @return 金额，单位分
+     * @since 5.7.11
+     */
+    public static int yuanToCent(String yuan) {
+        return (int)new Money(yuan).getCent();
+    }
+
     /**
      * 金额分转换为元
      *

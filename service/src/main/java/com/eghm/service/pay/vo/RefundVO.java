@@ -14,9 +14,6 @@ import java.time.LocalDateTime;
 @Data
 public class RefundVO {
 
-    @ApiModelProperty("退款流水号(第三方)")
-    private String refundId;
-
     @ApiModelProperty("退款渠道")
     private RefundChannel channel;
 
@@ -26,8 +23,11 @@ public class RefundVO {
     @ApiModelProperty("退款状态")
     private RefundState state;
 
-    @ApiModelProperty("退款金额")
+    @ApiModelProperty("本次退款金额")
     private Integer amount;
+
+    @ApiModelProperty("累计退款成功金额(支付宝专用)")
+    private Integer totalAmount;
 
     @ApiModelProperty("退款成功时间")
     private LocalDateTime successTime;

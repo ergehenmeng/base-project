@@ -29,5 +29,11 @@ public enum RefundState {
     /**
      * 退款异常
      */
-    ABNORMAL;
+    ABNORMAL,
+
+    /**
+     * 退款成功
+     */
+    REFUND_SUCCESS,
+    ;
 }

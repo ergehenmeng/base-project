@@ -42,6 +42,11 @@ public enum TradeType {
      */
     WECHAT_H5("H5", "H5支付"),
 
+    /**
+     * ALI_PAY
+     */
+    ALI_PAY("ALI_PAY", "支付宝支付"),
+
     ;
 
     /**

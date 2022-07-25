@@ -530,6 +530,11 @@ public enum ErrorCode {
     NOTIFY_REFUND_PARSE(3115, "退款异步通知解析失败"),
 
     /**
+     * 接口不支持该方法调用
+     */
+    NOT_SUPPORTED(3116, "接口不支持该方法调用"),
+
+    /**
      * 微信网页授权异常
      */
     REQUEST_ID_EXPIRE(3117, "requestId已过期"),

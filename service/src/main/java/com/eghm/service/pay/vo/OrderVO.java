@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class OrderVO {
 
     @ApiModelProperty("支付id: 微信openId")
-    private String payId;
+    private String payerId;
 
     @ApiModelProperty("交易状态")
     private TradeState tradeState;

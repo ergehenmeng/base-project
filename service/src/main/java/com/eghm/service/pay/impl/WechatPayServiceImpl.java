@@ -32,12 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Optional;
 
 /**
  * @author 二哥很猛
  */
-@Service
+@Service("wechatPayService")
 @Slf4j
 @AllArgsConstructor
 public class WechatPayServiceImpl implements PayService {
@@ -61,7 +62,7 @@ public class WechatPayServiceImpl implements PayService {
         request.setNotifyUrl(dto.getNotifyUrl());
         request.setOutTradeNo(dto.getOutTradeNo());
         WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
-        payer.setOpenid(dto.getOpenId());
+        payer.setOpenid(dto.getBuyerId());
         request.setPayer(payer);
         WxPayUnifiedOrderV3Result result;
         try {
@@ -116,7 +117,7 @@ public class WechatPayServiceImpl implements PayService {
         response.setSuccessTime(DateUtil.parseIso(result.getSuccessTime()));
         response.setTradeType(TradeType.forType(result.getTradeType()));
         response.setTradeState(TradeState.forState(result.getTradeState()));
-        response.setPayId(result.getPayer().getOpenid());
+        response.setPayerId(result.getPayer().getOpenid());
         response.setTransactionId(result.getTransactionId());
         return response;
     }
@@ -149,19 +150,19 @@ public class WechatPayServiceImpl implements PayService {
             log.error("微信退款申请失败 [{}]", dto.getOutRefundNo(), e);
             throw new BusinessException(ErrorCode.REFUND_APPLY);
         }
-        return this.getRefundVO(result.getRefundId(), result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
+        return this.getRefundVO(result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
     }
 
     @Override
-    public RefundVO queryRefund(String outTradeNo) {
+    public RefundVO queryRefund(String outTradeNo, String outRefundNo) {
         WxPayRefundQueryV3Result result;
         try {
-            result = wxPayService.refundQueryV3(outTradeNo);
+            result = wxPayService.refundQueryV3(outRefundNo);
         } catch (WxPayException e) {
-            log.error("微信退款订单信息查询失败 [{}]", outTradeNo, e);
+            log.error("微信退款订单信息查询失败 [{}]", outRefundNo, e);
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
-        return this.getRefundVO(result.getRefundId(), result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
+        return this.getRefundVO(result.getAmount().getPayerRefund(), result.getStatus(), result.getChannel(), result.getUserReceivedAccount(), result.getSuccessTime(), result.getCreateTime());
     }
 
     @Override
@@ -186,9 +187,14 @@ public class WechatPayServiceImpl implements PayService {
         }
     }
 
+    @Override
+    public boolean verifyNotify(Map<String, String> param) {
+        log.error("微信不支持该接口 [{}]", param);
+        return false;
+    }
+
     /**
      * 退款信息组装
-     * @param refundId 退款流水
      * @param payerRefund 退款金额
      * @param status 退款状态
      * @param channel 退款渠道
@@ -197,9 +203,8 @@ public class WechatPayServiceImpl implements PayService {
      * @param createTime 退款受理时间
      * @return vo
      */
-    private RefundVO getRefundVO(String refundId, Integer payerRefund, String status, String channel, String userReceivedAccount, String successTime, String createTime) {
+    private RefundVO getRefundVO(Integer payerRefund, String status, String channel, String userReceivedAccount, String successTime, String createTime) {
         RefundVO vo = new RefundVO();
-        vo.setRefundId(refundId);
         vo.setAmount(payerRefund);
         vo.setState(RefundState.valueOf(status));
         vo.setChannel(RefundChannel.valueOf(channel));

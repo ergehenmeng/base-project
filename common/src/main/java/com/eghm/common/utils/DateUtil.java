@@ -313,6 +313,15 @@ public class DateUtil {
     }
 
     /**
+     * yyyy-MM-dd HH:mm:ss 转LocalDateTime
+     * @param text yyyy-MM-dd HH:mm:ss
+     * @return LocalDateTime
+     */
+    public static LocalDateTime parseLocalDateTime(String text) {
+        return LocalDateTime.parse(text, LONG_FORMAT);
+    }
+
+    /**
      * Date 转 LocalDate
      *
      * @param date 日期类型

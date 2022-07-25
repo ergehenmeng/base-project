@@ -41,6 +41,11 @@ public class SystemProperties {
     private WeChatProperties wechat = new WeChatProperties();
 
     /**
+     * 支付宝配置
+     */
+    private AliPayProperties aliPay = new AliPayProperties();
+
+    /**
      * 是否开启定时任务
      */
     private Boolean jobEnable = true;
@@ -141,6 +146,49 @@ public class SystemProperties {
 
     }
 
+    @Data
+    public static class AliPayProperties {
+
+        /**
+         * 支付协议 默认https
+         */
+        private String protocol = "https";
+
+        /**
+         * 支付请求地址
+         */
+        private String host = "openapi.alipay.com";
+
+        /**
+         * 签名方式
+         */
+        private String signType = "RSA2";
+
+        /**
+         * 支付appId
+         */
+        private String appId;
+
+        /**
+         * 私钥
+         */
+        private String privateKey;
+
+        /**
+         * 公钥 (非正式模式)
+         */
+        private String publicKey;
+
+        /**
+         * 异步通知地址
+         */
+        private String notifyUrl;
+
+        /**
+         * AES密钥（可选）
+         */
+        private String encryptKey;
+    }
 
     @Data
     public static class WeChatProperties {
@@ -194,11 +242,6 @@ public class SystemProperties {
          * apiV3证书序列号
          */
         private String paySerialNo;
-
-        /**
-         * 微信支付异步回调地址 相对路径不会变
-         */
-        private String payNotifyUrl;
 
     }
 }

@@ -48,8 +48,8 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     }
 
     @Override
-    public RefundVO queryRefund(TradeType tradeType, String outTradeNo) {
-        return getPayService(tradeType).queryRefund(outTradeNo);
+    public RefundVO queryRefund(TradeType tradeType, String outTradeNo, String outRefundNo) {
+        return getPayService(tradeType).queryRefund(outTradeNo, outRefundNo);
     }
 
     /**

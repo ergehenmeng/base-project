@@ -1,55 +1,176 @@
 package com.eghm.service.pay.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.alipay.easysdk.factory.Factory;
+import com.alipay.easysdk.payment.common.models.*;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
+import com.eghm.common.utils.DateUtil;
+import com.eghm.common.utils.DecimalUtil;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
+import com.eghm.service.pay.enums.RefundChannel;
+import com.eghm.service.pay.enums.RefundState;
+import com.eghm.service.pay.enums.TradeState;
+import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
+import com.google.common.collect.Lists;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * @author 二哥很猛
  * @date 2022/7/24
  */
 @Service("aliPayService")
+@AllArgsConstructor
+@Slf4j
 public class AliPayServiceImpl implements PayService {
+
+    /**
+     * 退款成功
+     */
+    private static final String REFUND_SUCCESS = "REFUND_SUCCESS";
 
     @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
-        return null;
+        AlipayTradeCreateResponse response;
+        try {
+            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(dto.getNotifyUrl())
+                    .create(dto.getDescription(), dto.getOutTradeNo(), DecimalUtil.centToYuan(dto.getAmount()), dto.getBuyerId());
+        } catch (Exception e) {
+            log.error("支付宝创建支付订单失败 [{}]", dto, e);
+            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
+        }
+        if (StrUtil.isNotBlank(response.getSubCode())) {
+            log.error("支付宝下单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
+            throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
+        }
+        PrepayVO vo = new PrepayVO();
+        vo.setTradeNo(response.tradeNo);
+        return vo;
     }
 
     @Override
     public OrderVO queryOrder(String outTradeNo) {
-        return null;
+        AlipayTradeQueryResponse response;
+        try {
+            response = Factory.Payment.Common().query(outTradeNo);
+        } catch (Exception e) {
+            log.error("支付宝查询支付订单失败 [{}]", outTradeNo, e);
+            throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
+        }
+        if (StrUtil.isNotBlank(response.getSubCode())) {
+            log.error("支付宝支付订单查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
+            throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
+        }
+
+        OrderVO vo = new OrderVO();
+        vo.setAttach(response.getBody());
+        vo.setPayerId(response.getBuyerUserId());
+        vo.setAmount(DecimalUtil.yuanToCent(response.getTotalAmount()));
+        vo.setTransactionId(response.getTradeNo());
+        vo.setSuccessTime(DateUtil.parseLocalDateTime(response.getSendPayDate()));
+        vo.setTradeState(TradeState.forState(response.getTradeStatus()));
+        vo.setTradeType(TradeType.ALI_PAY);
+        return vo;
     }
 
     @Override
     public void closeOrder(String outTradeNo) {
-
+        AlipayTradeCloseResponse response;
+        try {
+            response = Factory.Payment.Common().close(outTradeNo);
+        } catch (Exception e) {
+            log.error("支付宝关闭支付订单失败 [{}]", outTradeNo, e);
+            throw new BusinessException(ErrorCode.ORDER_CLOSE);
+        }
+        if (StrUtil.isNotBlank(response.getSubCode())) {
+            log.error("支付宝关闭订单响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
+            throw new BusinessException(ErrorCode.ORDER_CLOSE);
+        }
     }
 
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
-        return null;
+        AlipayTradeRefundResponse response;
+        try {
+            response = Factory.Payment.Common()
+                    .asyncNotify(dto.getNotifyUrl())
+                    .optional("out_request_no", dto.getOutRefundNo())
+                    .optional("refund_reason", dto.getReason())
+                    .refund(dto.getOutTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
+        } catch (Exception e) {
+            log.error("支付宝退款申请发起失败 [{}]", dto, e);
+            throw new BusinessException(ErrorCode.REFUND_APPLY);
+        }
+        if (StrUtil.isNotBlank(response.getSubCode())) {
+            log.error("支付宝退款申请响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
+            throw new BusinessException(ErrorCode.REFUND_APPLY);
+        }
+        RefundVO vo = new RefundVO();
+        vo.setChannel(RefundChannel.ORIGINAL);
+        vo.setState(RefundState.PROCESSING);
+        vo.setChannelAccount(response.getBuyerUserId());
+        vo.setTotalAmount(DecimalUtil.yuanToCent(response.getRefundFee()));
+        return vo;
     }
 
     @Override
-    public RefundVO queryRefund(String outTradeNo) {
-        return null;
+    public RefundVO queryRefund(String outTradeNo, String outRefundNo) {
+        AlipayTradeFastpayRefundQueryResponse response;
+        try {
+            response = Factory.Payment.Common().optional("query_options", Lists.newArrayList("gmt_refund_pay", "refund_detail_item_list")).queryRefund(outTradeNo, outRefundNo);
+        } catch (Exception e) {
+            log.error("支付宝退款状态查询失败 [{}] [{}]", outTradeNo, outRefundNo, e);
+            throw new BusinessException(ErrorCode.REFUND_APPLY);
+        }
+        if (StrUtil.isNotBlank(response.getSubCode())) {
+            log.error("支付宝退款状态查询响应信息异常 [{}] [{}] [{}]", response.getSubCode(), response.getMsg(), response.getSubMsg());
+            throw new BusinessException(ErrorCode.REFUND_APPLY);
+        }
+        RefundVO vo = new RefundVO();
+        vo.setSuccessTime(DateUtil.parseLocalDateTime(response.getGmtRefundPay()));
+        vo.setAmount(DecimalUtil.yuanToCent(response.getSendBackFee()));
+        vo.setChannel(RefundChannel.ORIGINAL);
+
+        if (REFUND_SUCCESS.equals(response.getRefundStatus())) {
+            vo.setState(RefundState.SUCCESS);
+        } else {
+            log.warn("退款订单状态非成功 [{}] [{}] [{}]", outTradeNo, outRefundNo, response.getRefundStatus());
+            vo.setState(RefundState.ABNORMAL);
+        }
+        return vo;
     }
 
     @Override
     public WxPayOrderNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
-        return null;
+        log.error("支付宝不支持该方法调用 [{}] [{}]", notifyData, header);
+        throw new BusinessException(ErrorCode.NOT_SUPPORTED);
     }
 
     @Override
     public WxPayRefundNotifyV3Result parseRefundNotify(String notifyData, SignatureHeader header) {
-        return null;
+        log.error("支付宝不支持该方法调用 [{}] [{}]", notifyData, header);
+        throw new BusinessException(ErrorCode.NOT_SUPPORTED);
+    }
+
+    @Override
+    public boolean verifyNotify(Map<String, String> param) {
+        try {
+            return Factory.Payment.Common().verifyNotify(param);
+        } catch (Exception e) {
+            log.error("支付宝退款状态查询失败 [{}]", param, e);
+            return false;
+        }
     }
 }

@@ -37,9 +37,12 @@ public class PrepayVO {
     @ApiModelProperty("扫码支付url")
     private String qrCodeUrl;
 
-    @ApiModelProperty("预支付id app支付专用")
+    @ApiModelProperty("预支付id 微信app支付专用")
     private String prepayId;
 
-    @ApiModelProperty("partnerId app支付专用")
+    @ApiModelProperty("partnerId 微信app支付专用")
     private String partnerId;
+
+    @ApiModelProperty("支付宝交易单号")
+    private String tradeNo;
 }

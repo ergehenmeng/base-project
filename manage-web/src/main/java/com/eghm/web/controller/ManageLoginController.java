@@ -52,8 +52,13 @@ public class ManageLoginController {
      * @return true:通过
      */
     private boolean verifyCode(String key, String code) {
-        String value = cacheService.getValue(CacheConstant.IMAGE_CAPTCHA + key);
-        return value != null && value.equalsIgnoreCase(code);
+        String redisKey = CacheConstant.IMAGE_CAPTCHA + key;
+        String value = cacheService.getValue(redisKey);
+        if (value == null) {
+            return false;
+        }
+        cacheService.delete(redisKey);
+        return value.equalsIgnoreCase(code);
     }
 
 }

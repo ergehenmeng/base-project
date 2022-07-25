@@ -112,7 +112,7 @@
         <!--微信三方sdk包-->
         <wx-sdk.version>4.3.6.B</wx-sdk.version>
         <!--支付宝sdk-->
-        <ali-sdk.version>2.2.0</ali-sdk.version>
+        <ali-sdk.version>2.2.2</ali-sdk.version>
         <!--mybatis-plus-->
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
         <!--totp-->
