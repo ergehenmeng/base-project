@@ -160,13 +160,13 @@ public class AliPayServiceImpl implements PayService {
 
     @Override
     public WxPayOrderNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
-        log.error("支付宝不支持该方法调用 [{}] [{}]", notifyData, header);
+        log.error("支付宝支付不支持该方法调用 [{}] [{}]", notifyData, header);
         throw new BusinessException(ErrorCode.NOT_SUPPORTED);
     }
 
     @Override
     public WxPayRefundNotifyV3Result parseRefundNotify(String notifyData, SignatureHeader header) {
-        log.error("支付宝不支持该方法调用 [{}] [{}]", notifyData, header);
+        log.error("支付宝退款不支持该方法调用 [{}] [{}]", notifyData, header);
         throw new BusinessException(ErrorCode.NOT_SUPPORTED);
     }
 

@@ -1,13 +1,13 @@
 package com.eghm.common.constant;
 
 /**
- * 微信请求头信息
+ *
  * @author 二哥很猛
  * @date 2018/8/14 16:57
  */
-public class WeChatHeader {
+public class WeChatConstant {
 
-    private WeChatHeader() {
+    private WeChatConstant() {
     }
 
     /**
