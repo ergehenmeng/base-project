@@ -2,7 +2,9 @@ package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,11 +23,15 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("order_ticket")
-@ApiModel(value="OrderTicket对象", description="门票订单表")
-public class OrderTicket extends BaseEntity implements Serializable {
+@TableName("ticket_order")
+@ApiModel(value="TicketOrder对象", description="门票订单表")
+public class TicketOrder extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty("门票所属景区(冗余字段)")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long scenicId;
 
     @ApiModelProperty(value = "门票名称")
     private String title;
@@ -43,9 +49,11 @@ public class OrderTicket extends BaseEntity implements Serializable {
     private String orderNo;
 
     @ApiModelProperty(value = "生效日期(包含)")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime effectiveDate;
 
     @ApiModelProperty(value = "失效日期(包含)")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime expireDate;
 
     @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
@@ -61,9 +69,11 @@ public class OrderTicket extends BaseEntity implements Serializable {
     private String introduce;
 
     @ApiModelProperty(value = "用户id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
     @ApiModelProperty(value = "门票id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long ticketId;
 
     @ApiModelProperty(value = "订单状态 0:待支付 1:支付成功 2:支付处理中")
@@ -81,6 +91,7 @@ public class OrderTicket extends BaseEntity implements Serializable {
     private Integer discountAmount;
 
     @ApiModelProperty(value = "优惠券id")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long couponId;
 
 }

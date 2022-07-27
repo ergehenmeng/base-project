@@ -345,11 +345,11 @@ CREATE TABLE `coupon_config`
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券配置表';
 
 
-
-CREATE TABLE `order_ticket`
+CREATE TABLE `ticket_order`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
     `title`             varchar(50)  DEFAULT NULL COMMENT '门票名称',
+    `scenic_id`         bigint(20)   DEFAULT NULL COMMENT '门票所属景区(冗余字段)',
     `price`             int(10)      DEFAULT NULL COMMENT '门票单价',
     `support_refund`    bit(1)       DEFAULT b'0' COMMENT '是否支持退款 0:不支持 1:支持',
     `num`               tinyint(2)   DEFAULT '1' COMMENT '购买数量',

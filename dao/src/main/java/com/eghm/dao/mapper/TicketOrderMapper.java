@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper;
 
-import com.eghm.dao.model.OrderTicket;
+import com.eghm.dao.model.TicketOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 二哥很猛
  * @since 2022-07-12
  */
-public interface OrderTicketMapper extends BaseMapper<OrderTicket> {
+public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
 
 }
