@@ -7,6 +7,7 @@ import com.eghm.model.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class CreateTicketOrderDTO {
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;
 
-    @RangeInt(min = 1, max = 9, message = "门票购买数量1~9张")
+    @Min(value = 1, message = "购买数量不能小于1张")
     private Integer num;
 
     @ApiModelProperty("优惠券id")

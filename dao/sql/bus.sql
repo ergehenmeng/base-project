@@ -433,3 +433,18 @@ CREATE TABLE `pay_notify_log`
     UNIQUE KEY `notify_id_unique` (`trade_type`, `notify_id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付异步通知记录表';
+
+CREATE TABLE `order_visitor`
+(
+    `id`           bigint(20) NOT NULL COMMENT '主键',
+    `product_type` varchar(30) DEFAULT NULL COMMENT '商品类型',
+    `order_id`     bigint(20)  DEFAULT NULL COMMENT '订单id',
+    `user_name`    varchar(20) DEFAULT NULL COMMENT '游客姓名',
+    `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
+    `add_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单游客信息表';
+

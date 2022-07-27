@@ -53,7 +53,7 @@ public class ScenicTickController {
     @PostMapping("/select")
     @ApiOperation("查询门票")
     public ScenicTicket select(@RequestBody @Validated IdDTO dto) {
-        return scenicTicketService.selectById(dto.getId());
+        return scenicTicketService.selectByIdRequired(dto.getId());
     }
 
     @PostMapping("/shelves")

@@ -34,4 +34,11 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @return 门票信息
      */
     List<TicketBaseVO> getTicketList(@Param("scenicId") Long scenicId);
+
+    /**
+     * 更新库存
+     * @param id 优惠券id
+     * @param num 数量 负数表示增加库存 正数减少库存
+     */
+    int updateStock(@Param("id") Long id, @Param("num") int num);
 }

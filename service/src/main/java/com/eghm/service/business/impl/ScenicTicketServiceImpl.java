@@ -18,6 +18,7 @@ import com.eghm.model.vo.scenic.ticket.TicketVO;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 @Service("scenicTicketService")
 @AllArgsConstructor
+@Slf4j
 public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     private final ScenicTicketMapper scenicTicketMapper;
@@ -49,8 +51,23 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public ScenicTicket selectById(Long id) {
-        return scenicTicketMapper.selectById(id);
+    public ScenicTicket selectByIdRequired(Long id) {
+        ScenicTicket ticket = scenicTicketMapper.selectById(id);
+        if (ticket == null) {
+            log.error("门票信息未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.TICKET_DOWN);
+        }
+        return ticket;
+    }
+
+    @Override
+    public ScenicTicket selectByIdShelve(Long id) {
+        ScenicTicket ticket = this.selectByIdRequired(id);
+        if (ticket.getAuditState() != AuditState.SHELVE) {
+            log.info("景区门票已下架 [{}]", id);
+            throw new BusinessException(ErrorCode.TICKET_DOWN);
+        }
+        return ticket;
     }
 
     @Override
@@ -76,10 +93,12 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public TicketVO detailById(Long id) {
-        ScenicTicket ticket = scenicTicketMapper.selectById(id);
-        if (ticket == null || ticket.getAuditState() != AuditState.SHELVE) {
-            throw new BusinessException(ErrorCode.TICKET_DOWN);
-        }
+        ScenicTicket ticket = this.selectByIdShelve(id);
         return DataUtil.copy(ticket, TicketVO.class);
+    }
+
+    @Override
+    public void updateStock(Long id, Integer num) {
+        scenicTicketMapper.updateStock(id, num);
     }
 }

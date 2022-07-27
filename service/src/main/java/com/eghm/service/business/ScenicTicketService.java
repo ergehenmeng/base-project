@@ -38,11 +38,18 @@ public interface ScenicTicketService {
     void updateTicket(ScenicTicketEditRequest request);
 
     /**
-     * 主键查询
-     * @param id id
-     * @return 景区信息
+     * 查询门票
+     * @param id 主键
+     * @return 景区门票信息 为空时则会报错
      */
-    ScenicTicket selectById(Long id);
+    ScenicTicket selectByIdRequired(Long id);
+
+    /**
+     * 查询上架的门票
+     * @param id 主键
+     * @return 景区门票信息 为空或没有上架时都会报错
+     */
+    ScenicTicket selectByIdShelve(Long id);
 
     /**
      * 更新上下架状态
@@ -72,4 +79,11 @@ public interface ScenicTicketService {
      * @return 详细信息
      */
     TicketVO detailById(Long id);
+
+    /**
+     * 更新门票库存信息
+     * @param id id
+     * @param num 更新数量 正数:减库存 负数:加库存
+     */
+    void updateStock(Long id, Integer num);
 }
