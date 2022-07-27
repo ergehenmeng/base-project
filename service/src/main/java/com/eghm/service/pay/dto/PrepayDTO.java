@@ -11,11 +11,6 @@ import lombok.Data;
 public class PrepayDTO {
 
     /**
-     * 异步通知地址
-     */
-    private String notifyUrl;
-
-    /**
      * 交易订单号
      */
     private String outTradeNo;

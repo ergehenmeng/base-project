@@ -1,6 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.AiliPayException;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
 import com.eghm.common.exception.WeChatPayException;
@@ -101,11 +102,22 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(WeChatPayException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> weChatPayException() {
+    public Map<String, String> weChatPayException(HttpServletRequest request, WeChatPayException e) {
+        log.error("微信异步通知异常 [{}]", request.getRequestURI());
         Map<String, String> map = Maps.newLinkedHashMapWithExpectedSize(2);
         map.put("code", "FAIL");
-        map.put("message", "失败");
+        map.put("message", e.getMessage());
         return map;
+    }
+
+    /**
+     * 支付宝异步通知
+     */
+    @ExceptionHandler(AiliPayException.class)
+    @ResponseBody
+    public String aliPayException(HttpServletRequest request) {
+        log.error("支付宝异步通知异常 [{}]", request.getRequestURI());
+        return "FAIL";
     }
 
 }

@@ -4,6 +4,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.WeChatPayException;
 import com.eghm.common.utils.DateUtil;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -45,6 +46,8 @@ public class WechatPayServiceImpl implements PayService {
 
     private final WxPayService wxPayService;
 
+    private final SystemProperties systemProperties;
+
     @Override
     public boolean supported(TradeType tradeType) {
         return transferType(tradeType) != null;
@@ -59,7 +62,8 @@ public class WechatPayServiceImpl implements PayService {
         request.setAmount(amount);
         request.setAttach(dto.getAttach());
         request.setDescription(dto.getDescription());
-        request.setNotifyUrl(dto.getNotifyUrl());
+        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
+        request.setNotifyUrl(wechat.getNotifyHost() + wechat.getPayNotifyUrl());
         request.setOutTradeNo(dto.getOutTradeNo());
         WxPayUnifiedOrderV3Request.Payer payer = new WxPayUnifiedOrderV3Request.Payer();
         payer.setOpenid(dto.getBuyerId());
@@ -134,13 +138,13 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
-
+        SystemProperties.WeChatProperties wechat = systemProperties.getWechat();
         WxPayRefundV3Request request = new WxPayRefundV3Request();
         WxPayRefundV3Request.Amount amount = new WxPayRefundV3Request.Amount();
         amount.setRefund(dto.getAmount());
         amount.setTotal(dto.getTotal());
         request.setAmount(amount);
-        request.setNotifyUrl(dto.getNotifyUrl());
+        request.setNotifyUrl(wechat.getNotifyHost() + wechat.getRefundNotifyUrl());
         request.setOutTradeNo(dto.getOutTradeNo());
         request.setReason(dto.getReason());
         WxPayRefundV3Result result;
@@ -188,9 +192,9 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
-    public boolean verifyNotify(Map<String, String> param) {
+    public void verifyNotify(Map<String, String> param) {
         log.error("微信不支持该接口 [{}]", param);
-        return false;
+        throw new BusinessException(ErrorCode.NOT_SUPPORTED);
     }
 
     /**

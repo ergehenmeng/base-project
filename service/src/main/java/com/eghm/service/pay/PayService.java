@@ -79,7 +79,6 @@ public interface PayService {
     /**
      * 校验异步通知
      * @param param 参数
-     * @return true: 成功 false:失败
      */
-    boolean verifyNotify(Map<String, String> param);
+    void verifyNotify(Map<String, String> param);
 }

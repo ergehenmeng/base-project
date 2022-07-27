@@ -22,9 +22,9 @@ public class AliPayConfig {
     public Config config() {
         SystemProperties.AliPayProperties properties = systemProperties.getAliPay();
         Config config = new Config();
-        config.protocol = properties.getProtocol();
-        config.gatewayHost = properties.getHost();
-        config.signType = properties.getSignType();
+        config.protocol = "https";
+        config.gatewayHost = "openapi.alipay.com";
+        config.signType = "RSA2";
         config.appId = properties.getAppId();
         config.merchantPrivateKey = properties.getPrivateKey();
         config.alipayPublicKey = properties.getPublicKey();

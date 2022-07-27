@@ -150,21 +150,6 @@ public class SystemProperties {
     public static class AliPayProperties {
 
         /**
-         * 支付协议 默认https
-         */
-        private String protocol = "https";
-
-        /**
-         * 支付请求地址
-         */
-        private String host = "openapi.alipay.com";
-
-        /**
-         * 签名方式
-         */
-        private String signType = "RSA2";
-
-        /**
          * 支付appId
          */
         private String appId;
@@ -180,9 +165,19 @@ public class SystemProperties {
         private String publicKey;
 
         /**
-         * 异步通知地址
+         * 异步通知域名
          */
-        private String notifyUrl;
+        private String notifyHost;
+
+        /**
+         * 支付异步通知地址
+         */
+        private String payNotifyUrl;
+
+        /**
+         * 退款异步通知地址
+         */
+        private String refundNotifyUrl;
 
         /**
          * AES密钥（可选）
@@ -243,5 +238,19 @@ public class SystemProperties {
          */
         private String paySerialNo;
 
+        /**
+         * 异步通知域名
+         */
+        private String notifyHost;
+
+        /**
+         * 支付异步通知地址
+         */
+        private String payNotifyUrl;
+
+        /**
+         * 退款异步通知地址
+         */
+        private String refundNotifyUrl;
     }
 }

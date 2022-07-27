@@ -61,7 +61,12 @@ mybatis-plus:
     - classpath*:mapper/**/*.xml
   type-enums-package: com.eghm.model.enums
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
-application:
-  upload-dir: /data/
-  ignore-url:
-    - /doc.html
+system:
+  ali-pay:
+    notify-host: https://localhost:8080
+    pay-notify-url: /notify/ali/pay
+    refund-notify-url: /notify/ali/refund
+  wechat:
+    notify-host: https://localhost:8080
+    pay-notify-url: /notify/weChat/pay
+    refund-notify-url: /notify/weChat/refund

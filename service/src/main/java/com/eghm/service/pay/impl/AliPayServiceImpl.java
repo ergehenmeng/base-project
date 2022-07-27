@@ -4,9 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.common.models.*;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.AiliPayException;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.common.utils.DecimalUtil;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -41,11 +43,14 @@ public class AliPayServiceImpl implements PayService {
      */
     private static final String REFUND_SUCCESS = "REFUND_SUCCESS";
 
+    private final SystemProperties systemProperties;
+
     @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
         AlipayTradeCreateResponse response;
         try {
-            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(dto.getNotifyUrl())
+            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
+            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + aliPay.getPayNotifyUrl())
                     .create(dto.getDescription(), dto.getOutTradeNo(), DecimalUtil.centToYuan(dto.getAmount()), dto.getBuyerId());
         } catch (Exception e) {
             log.error("支付宝创建支付订单失败 [{}]", dto, e);
@@ -104,8 +109,9 @@ public class AliPayServiceImpl implements PayService {
     public RefundVO applyRefund(RefundDTO dto) {
         AlipayTradeRefundResponse response;
         try {
+            SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
             response = Factory.Payment.Common()
-                    .asyncNotify(dto.getNotifyUrl())
+                    .asyncNotify(aliPay.getNotifyHost() + aliPay.getRefundNotifyUrl())
                     .optional("out_request_no", dto.getOutRefundNo())
                     .optional("refund_reason", dto.getReason())
                     .refund(dto.getOutTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));
@@ -165,12 +171,16 @@ public class AliPayServiceImpl implements PayService {
     }
 
     @Override
-    public boolean verifyNotify(Map<String, String> param) {
+    public void verifyNotify(Map<String, String> param) {
+        boolean flag = false;
         try {
-            return Factory.Payment.Common().verifyNotify(param);
+            log.info("支付宝验签原参数 [{}]", param);
+            flag = Factory.Payment.Common().verifyNotify(param);
         } catch (Exception e) {
             log.error("支付宝退款状态查询失败 [{}]", param, e);
-            return false;
+        }
+        if (!flag) {
+            throw new AiliPayException(ErrorCode.NOTIFY_SIGN_ERROR);
         }
     }
 }

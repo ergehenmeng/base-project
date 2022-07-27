@@ -27,6 +27,9 @@ public class PayNotifyLog extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")
     private String tradeType;
 
+    @ApiModelProperty("异步通知唯一id")
+    private String notifyId;
+
     @ApiModelProperty(value = "通知类型 PAY: 支付异步通知 REFUND:退款异步通知")
     private String notifyType;
 

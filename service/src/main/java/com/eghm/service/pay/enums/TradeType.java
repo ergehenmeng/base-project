@@ -43,9 +43,15 @@ public enum TradeType {
     WECHAT_H5("H5", "H5支付"),
 
     /**
-     * ALI_PAY
+     * 支付宝支付
      */
     ALI_PAY("ALI_PAY", "支付宝支付"),
+
+
+    /**
+     * 微信支付 (该枚举不参与业务,仅仅作为异步通知日志中的交易类型)
+     */
+    WECHAT("WECHAT", "微信支付"),
 
     ;
 

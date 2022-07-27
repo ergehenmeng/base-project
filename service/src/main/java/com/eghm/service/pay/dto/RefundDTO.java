@@ -17,9 +17,6 @@ public class RefundDTO {
     @ApiModelProperty(value = "退款流水号(商户生成)", required = true)
     private String outRefundNo;
 
-    @ApiModelProperty(value = "退款异步通知地址", required = true)
-    private String notifyUrl;
-
     @ApiModelProperty("退款金额")
     private Integer amount;
 
