@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.eghm.common.constant.WeChatHeader;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.NotifyType;
@@ -84,10 +85,10 @@ public class PayNotifyController {
      */
     private SignatureHeader parseHeader(HttpHeaders headers) {
         SignatureHeader header = new SignatureHeader();
-        header.setSignature(headers.getFirst("Wechatpay-Signature"));
-        header.setTimeStamp(headers.getFirst("Wechatpay-Timestamp"));
-        header.setSerial(headers.getFirst("Wechatpay-Serial"));
-        header.setNonce(headers.getFirst("Wechatpay-Nonce"));
+        header.setSignature(headers.getFirst(WeChatHeader.SIGNATURE));
+        header.setTimeStamp(headers.getFirst(WeChatHeader.TIMESTAMP));
+        header.setSerial(headers.getFirst(WeChatHeader.SERIAL));
+        header.setNonce(headers.getFirst(WeChatHeader.NONCE));
         return header;
     }
 
