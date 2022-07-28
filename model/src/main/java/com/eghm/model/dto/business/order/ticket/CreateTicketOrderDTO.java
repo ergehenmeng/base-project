@@ -3,7 +3,6 @@ package com.eghm.model.dto.business.order.ticket;
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.dto.business.order.VisitorVO;
 import com.eghm.model.validation.annotation.Mobile;
-import com.eghm.model.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

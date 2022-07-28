@@ -20,6 +20,7 @@ import com.eghm.model.vo.coupon.UserCouponBaseVO;
 import com.eghm.model.vo.coupon.UserCouponResponse;
 import com.eghm.model.vo.coupon.UserCouponVO;
 import com.eghm.service.business.CouponConfigService;
+import com.eghm.service.business.CouponProductService;
 import com.eghm.service.business.UserCouponService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,8 @@ public class UserCouponServiceImpl implements UserCouponService {
     private final UserCouponMapper userCouponMapper;
 
     private final CouponConfigService couponConfigService;
+
+    private final CouponProductService couponProductService;
 
     @Override
     public Page<UserCouponResponse> getByPage(UserCouponQueryRequest request) {
@@ -86,7 +89,7 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
-    public Integer getCouponAmountWithVerify(Long userId, Long couponId, Integer amount) {
+    public Integer getCouponAmountWithVerify(Long userId, Long couponId, Long productId, Integer amount) {
         UserCoupon coupon = userCouponMapper.selectById(couponId);
         if (coupon == null) {
             log.error("优惠券不存在 [{}]", couponId);
@@ -100,6 +103,12 @@ public class UserCouponServiceImpl implements UserCouponService {
         if (coupon.getState() != CouponState.UNUSED) {
             log.error("优惠券状态非法 [{}] [{}]", coupon.getState(), couponId);
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
+        }
+
+        boolean match = couponProductService.match(coupon.getCouponConfigId(), productId);
+        if (!match) {
+            log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productId);
+            throw new BusinessException(ErrorCode.COUPON_MATCH);
         }
         CouponConfig config = couponConfigService.selectById(coupon.getCouponConfigId());
         LocalDateTime now = LocalDateTime.now();

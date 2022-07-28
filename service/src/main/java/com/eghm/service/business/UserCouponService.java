@@ -1,7 +1,6 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.CouponState;
 import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
 import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
@@ -64,10 +63,11 @@ public interface UserCouponService {
      * 获取优惠券优惠的金额(校验优惠券是否符合使用条件)
      * @param userId 用户id
      * @param couponId 用户优惠券id
+     * @param productId 商品id 门票,房型,餐饮券等...
      * @param amount 预支付金额 单位:分
      * @return 优惠金额 单位:分
      */
-    Integer getCouponAmountWithVerify(Long userId, Long couponId, Integer amount);
+    Integer getCouponAmountWithVerify(Long userId, Long couponId, Long productId, Integer amount);
 
     /**
      * 使用优惠券(更新优惠券状态为已使用)

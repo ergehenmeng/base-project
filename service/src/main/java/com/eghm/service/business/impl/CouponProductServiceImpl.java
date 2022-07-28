@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dao.mapper.CouponProductMapper;
@@ -36,5 +37,14 @@ public class CouponProductServiceImpl implements CouponProductService {
         wrapper.eq(CouponProduct::getCouponConfigId, couponConfigId);
         couponProductMapper.delete(wrapper);
         this.insert(couponConfigId, productList);
+    }
+
+    @Override
+    public boolean match(Long couponConfigId, Long productId) {
+        LambdaQueryWrapper<CouponProduct> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(CouponProduct::getProductId, productId);
+        wrapper.eq(CouponProduct::getCouponConfigId, couponConfigId);
+        Integer count = couponProductMapper.selectCount(wrapper);
+        return count > 0;
     }
 }

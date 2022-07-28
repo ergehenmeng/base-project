@@ -23,4 +23,12 @@ public interface CouponProductService {
      * @param productList 产品id
      */
     void insertWithDelete(Long couponConfigId, List<CouponProductRequest> productList);
+
+    /**
+     * 判断优惠券是否匹配该商品
+     * @param couponConfigId 优惠券配置id
+     * @param productId 商品id
+     * @return true:匹配 false:不匹配
+     */
+    boolean match(Long couponConfigId, Long productId);
 }

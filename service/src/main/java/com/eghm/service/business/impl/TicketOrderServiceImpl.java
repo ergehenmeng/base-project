@@ -53,7 +53,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         order.setPayAmount(dto.getNum() * ticket.getSalePrice());
 
         if (dto.getCouponId() != null) {
-            Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), order.getPayAmount());
+            Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), dto.getTicketId(), order.getPayAmount());
             order.setPayAmount(order.getPayAmount() - couponAmount);
             order.setCouponId(dto.getCouponId());
             userCouponService.useCoupon(dto.getCouponId());
