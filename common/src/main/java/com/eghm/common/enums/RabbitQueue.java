@@ -1,5 +1,6 @@
 package com.eghm.common.enums;
 
+import com.eghm.common.constant.QueueConstant;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,27 +15,27 @@ public enum RabbitQueue {
     /**
      * 订单未支付时取消队列 延迟队列
      */
-    ORDER_PAY_EXPIRE("order_pay_expire_exchange", "order_pay_expire_queue", ""),
+    ORDER_PAY_EXPIRE("order_pay_expire_exchange", QueueConstant.ORDER_PAY_EXPIRE_QUEUE, ""),
 
     /**
      * 订单发货后自动完成 延迟队列
      */
-    ORDER_COMPLETE("order_complete_exchange", "order_complete_queue", ""),
+    ORDER_COMPLETE("order_complete_exchange", QueueConstant.ORDER_COMPLETE_QUEUE, ""),
 
     /**
      * 创建订单队列
      */
-    ORDER_CREATE("order_create_exchange", "order_create_queue", ""),
+    ORDER_CREATE("order_create_exchange", QueueConstant.ORDER_CREATE_QUEUE, ""),
 
     /**
      * 优惠券领取
      */
-    COUPON_RECEIVE("coupon_receive_exchange", "coupon_receive_queue", ""),
+    COUPON_RECEIVE("coupon_receive_exchange", QueueConstant.COUPON_RECEIVE_QUEUE, ""),
 
     /**
      * 死信队列
      */
-    DEAD_LETTER("dead_letter_exchange", "dead_letter_queue", ""),
+    DEAD_LETTER("dead_letter_exchange", QueueConstant.DEAD_LETTER_QUEUE, ""),
 
     ;
 

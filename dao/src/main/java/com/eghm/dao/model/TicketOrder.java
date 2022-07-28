@@ -2,6 +2,9 @@ package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.convertor.CentToYuanEncoder;
+import com.eghm.common.enums.ref.CloseType;
+import com.eghm.common.enums.ref.OrderState;
+import com.eghm.common.enums.ref.RefundState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -76,8 +79,14 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long ticketId;
 
-    @ApiModelProperty(value = "订单状态 0:待支付 1:支付成功 2:支付处理中")
-    private Integer state;
+    @ApiModelProperty(value = "订单状态 0:待支付 1:支付处理中 2:支付成功,待使用 3:已使用,待评价 4:已完成 5:已关闭")
+    private OrderState state;
+
+    @ApiModelProperty("退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功")
+    private RefundState refundState;
+
+    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
+    private CloseType closeType;
 
     @ApiModelProperty(value = "联系人手机号")
     private String mobile;

@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.dao.model.TicketOrder;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 
 /**
@@ -20,4 +21,10 @@ public interface TicketOrderService {
      */
     void create(CreateTicketOrderDTO dto);
 
+    /**
+     * 根据订单编号查询订单订单信息
+     * @param orderNo 订单编号
+     * @return 门票订单信息
+     */
+    TicketOrder selectByOrderNo(String orderNo);
 }

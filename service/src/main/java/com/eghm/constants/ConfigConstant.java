@@ -158,4 +158,9 @@ public class ConfigConstant {
      * 购物车数量最大值
      */
     public static final String SHOPPING_CAR_MAX = "shopping_car_max";
+
+    /**
+     * 订单过期时间
+     */
+    public static final String ORDER_EXPIRE_TIME = "order_expire_time";
 }

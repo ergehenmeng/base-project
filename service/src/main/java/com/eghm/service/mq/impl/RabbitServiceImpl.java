@@ -28,7 +28,7 @@ public class RabbitServiceImpl implements RabbitService {
 
     @Override
     public void sendDelay(Object msg, String routeKey, String exchange, int delay) {
-        amqpTemplate.convertAndSend(exchange, null, msg, message -> {
+        amqpTemplate.convertAndSend(exchange, routeKey, msg, message -> {
             MessageProperties properties = message.getMessageProperties();
             properties.setDelay(delay * 1000);
             return message;

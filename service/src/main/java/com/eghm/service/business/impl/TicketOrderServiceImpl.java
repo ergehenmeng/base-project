@@ -1,18 +1,19 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.CloseType;
+import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.TicketOrderMapper;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
-import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.ScenicTicketService;
-import com.eghm.service.business.TicketOrderService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.*;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Service;
 @Service("ticketOrderService")
 @AllArgsConstructor
 @Slf4j
-public class TicketOrderServiceImpl implements TicketOrderService {
+public class TicketOrderServiceImpl implements TicketOrderService, OrderService {
 
     private final TicketOrderMapper ticketOrderMapper;
 
@@ -34,6 +35,8 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     private final UserCouponService userCouponService;
 
     private final OrderVisitorService orderVisitorService;
+
+    private final OrderMQService orderHandlerService;
 
     @Override
     public void create(CreateTicketOrderDTO dto) {
@@ -51,12 +54,19 @@ public class TicketOrderServiceImpl implements TicketOrderService {
             Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), order.getPayAmount());
             order.setPayAmount(order.getPayAmount() - couponAmount);
             order.setCouponId(dto.getCouponId());
+            userCouponService.useCoupon(dto.getCouponId());
         }
-
         ticketOrderMapper.insert(order);
         orderVisitorService.addVisitor(ProductType.TICKET, order.getId(), dto.getVisitorList());
         scenicTicketService.updateStock(ticket.getId(), dto.getNum());
-        // 订单过期MQ
+        orderHandlerService.sendOrderExpireMessage(order.getOrderNo());
+    }
+
+    @Override
+    public TicketOrder selectByOrderNo(String orderNo) {
+        LambdaQueryWrapper<TicketOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(TicketOrder::getOrderNo, orderNo);
+        return ticketOrderMapper.selectOne(wrapper);
     }
 
     /**
@@ -78,5 +88,21 @@ public class TicketOrderServiceImpl implements TicketOrderService {
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
+    }
+
+    @Override
+    public void orderExpireHandler(String orderNo) {
+        TicketOrder ticketOrder = this.selectByOrderNo(orderNo);
+        if (ticketOrder == null) {
+            log.error("门票订单已被删除 [{}]", orderNo);
+            return;
+        }
+        if (ticketOrder.getState() != OrderState.UN_PAY) {
+            log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, ticketOrder.getState());
+            return;
+        }
+        ticketOrder.setState(OrderState.CLOSE);
+        ticketOrder.setCloseType(CloseType.EXPIRE);
+
     }
 }

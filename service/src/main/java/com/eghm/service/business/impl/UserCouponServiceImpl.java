@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
@@ -116,6 +117,27 @@ public class UserCouponServiceImpl implements UserCouponService {
         }
         // 百分比折扣
         return amount * config.getDiscountValue() / 100;
+    }
+
+    @Override
+    public void useCoupon(Long id) {
+        LambdaUpdateWrapper<UserCoupon> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(UserCoupon::getId, id);
+        wrapper.set(UserCoupon::getState, CouponState.USED);
+        userCouponMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void releaseCoupon(Long id) {
+        UserCoupon coupon = userCouponMapper.selectById(id);
+        if (coupon.getState() != CouponState.UNUSED) {
+            log.warn("该优惠券未使用,不需要释放 [{}]", id);
+            return;
+        }
+        // TODO 待完成
+
+        CouponConfig config = couponConfigService.selectById(coupon.getCouponConfigId());
+
     }
 
     /**
