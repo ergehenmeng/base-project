@@ -1,5 +1,7 @@
 package com.eghm.dao.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.enums.ref.CouponState;
 import io.swagger.annotations.ApiModel;
@@ -41,6 +43,7 @@ public class UserCoupon extends BaseEntity implements Serializable {
     private LocalDateTime receiveTime;
 
     @ApiModelProperty(value = "使用时间")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private LocalDateTime useTime;
 
 }

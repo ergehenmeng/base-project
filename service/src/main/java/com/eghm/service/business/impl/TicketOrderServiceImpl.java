@@ -19,6 +19,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author 二哥很猛
  * @date 2022/7/12
@@ -92,17 +94,20 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
 
     @Override
     public void orderExpireHandler(String orderNo) {
-        TicketOrder ticketOrder = this.selectByOrderNo(orderNo);
-        if (ticketOrder == null) {
+        TicketOrder order = this.selectByOrderNo(orderNo);
+        if (order == null) {
             log.error("门票订单已被删除 [{}]", orderNo);
             return;
         }
-        if (ticketOrder.getState() != OrderState.UN_PAY) {
-            log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, ticketOrder.getState());
+        if (order.getState() != OrderState.UN_PAY) {
+            log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, order.getState());
             return;
         }
-        ticketOrder.setState(OrderState.CLOSE);
-        ticketOrder.setCloseType(CloseType.EXPIRE);
-
+        order.setState(OrderState.CLOSE);
+        order.setCloseType(CloseType.EXPIRE);
+        order.setCloseTime(LocalDateTime.now());
+        ticketOrderMapper.updateById(order);
+        userCouponService.releaseCoupon(order.getCouponId());
+        scenicTicketService.updateStock(order.getTicketId(), -order.getNum());
     }
 }

@@ -9,6 +9,9 @@ public interface OrderService {
 
     /**
      * 订单过期处理(超时未支付)
+     * 1.增库存
+     * 2.释放优惠券(如果有的话)
+     * 3.更新订单状态
      * @param orderNo 订单编号
      */
     void orderExpireHandler(String orderNo);

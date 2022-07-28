@@ -217,7 +217,11 @@ CREATE TABLE `scenic_ticket`
     `verification_type` tinyint(2)          DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
     `support_refund`    bit(1)              DEFAULT b'1' COMMENT '是否支持退款 1:支持 0:不支持',
     `real_buy`          bit(1)              DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
-    `add_time`          datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `close_time`        datetime            DEFAULT NULL COMMENT '订单关闭时间',
+    `pay_time`          datetime            DEFAULT NULL COMMENT '订单支付时间',
+    `complete_time`     datetime            DEFAULT NULL COMMENT '订单完成时间',
+    `use_time`          datetime            DEFAULT NULL COMMENT '门票使用时间',
+    `add_time`          datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',
     `update_time`       datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           bit(1)              DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)

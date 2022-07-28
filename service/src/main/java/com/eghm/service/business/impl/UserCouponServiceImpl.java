@@ -124,20 +124,31 @@ public class UserCouponServiceImpl implements UserCouponService {
         LambdaUpdateWrapper<UserCoupon> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(UserCoupon::getId, id);
         wrapper.set(UserCoupon::getState, CouponState.USED);
+        wrapper.set(UserCoupon::getUseTime, LocalDateTime.now());
         userCouponMapper.update(null, wrapper);
     }
 
     @Override
     public void releaseCoupon(Long id) {
+        if (id == null) {
+            log.info("该笔订单没有使用优惠券");
+            return;
+        }
         UserCoupon coupon = userCouponMapper.selectById(id);
-        if (coupon.getState() != CouponState.UNUSED) {
+        if (coupon.getState() != CouponState.USED) {
             log.warn("该优惠券未使用,不需要释放 [{}]", id);
             return;
         }
-        // TODO 待完成
-
         CouponConfig config = couponConfigService.selectById(coupon.getCouponConfigId());
-
+        LocalDateTime now = LocalDateTime.now();
+        // 优惠券在有效期则改为未使用,否则改为已过期
+        if (config.getUseStartTime().isBefore(now) && config.getUseEndTime().isAfter(now)) {
+            coupon.setState(CouponState.UNUSED);
+        } else {
+            coupon.setState(CouponState.EXPIRE);
+        }
+        coupon.setUseTime(null);
+        userCouponMapper.updateById(coupon);
     }
 
     /**

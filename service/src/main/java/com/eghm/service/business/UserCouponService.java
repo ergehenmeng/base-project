@@ -76,7 +76,8 @@ public interface UserCouponService {
     void useCoupon(Long id);
 
     /**
-     * 释放优惠券
+     * 释放优惠券 <br>
+     * 不在有效期则更新为已过期,否则更新为未使用
      * @param id id
      */
     void releaseCoupon(Long id);
