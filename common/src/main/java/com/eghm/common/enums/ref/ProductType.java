@@ -34,8 +34,14 @@ public enum ProductType implements IEnum<String> {
 
     ;
 
+    /**
+     * 值
+     */
     private final String value;
 
+    /**
+     * 名称
+     */
     private final String name;
 
     /**

@@ -700,6 +700,11 @@ public enum ErrorCode {
     TICKET_QUOTA(3156, "单次购买上限为%s张"),
 
     /**
+     * 订单类型不匹配
+     */
+    ORDER_TYPE_MATCH(3157, "订单类型不匹配"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
