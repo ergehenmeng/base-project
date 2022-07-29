@@ -187,10 +187,6 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     @Override
     public void orderPay(String orderNo) {
         TicketOrder order = this.selectByOrderNo(orderNo);
-        if (order == null) {
-            log.error("门票订单已被删除 [{}]", orderNo);
-            return;
-        }
         if (order.getState() != OrderState.PROGRESS) {
             log.error("订单状态已更改,无须更新支付状态 [{}] [{}]", orderNo, order.getState());
             return;
