@@ -23,9 +23,24 @@ public enum RabbitQueue {
     ORDER_COMPLETE("order_complete_exchange", QueueConstant.ORDER_COMPLETE_QUEUE, ""),
 
     /**
-     * 创建订单队列
+     * 门票订单队列
      */
-    ORDER_CREATE("order_create_exchange", QueueConstant.ORDER_CREATE_QUEUE, ""),
+    TICKET_ORDER("ticket_order_exchange", QueueConstant.TICKET_ORDER_QUEUE, ""),
+
+    /**
+     * 餐饮订单队列
+     */
+    VOUCHER_ORDER("voucher_order_exchange", QueueConstant.VOUCHER_ORDER_QUEUE, ""),
+
+    /**
+     * 民宿订单队列
+     */
+    HOMESTAY_ORDER("homestay_order_exchange", QueueConstant.HOMESTAY_ORDER_QUEUE, ""),
+
+    /**
+     * 商品订单队列
+     */
+    PRODUCT_ORDER("product_order_exchange", QueueConstant.PRODUCT_ORDER_QUEUE, ""),
 
     /**
      * 优惠券领取

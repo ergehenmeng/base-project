@@ -28,9 +28,9 @@ public enum ProductType implements IEnum<String> {
     HOMESTAY("homestay", "民宿", "MS"),
 
     /**
-     * 特产
+     * 商品(文创/特产)
      */
-    SPECIALTY("specialty", "特产", "TC"),
+    PRODUCT("product", "商品", "SP"),
 
     ;
 

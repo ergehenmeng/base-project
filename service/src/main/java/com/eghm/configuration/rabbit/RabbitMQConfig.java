@@ -58,7 +58,6 @@ public class RabbitMQConfig {
         return QueueBuilder.durable(RabbitQueue.ORDER_PAY_EXPIRE.getQueue()).build();
     }
 
-
     /**
      * 交换机与队列绑定
      */
@@ -66,33 +65,6 @@ public class RabbitMQConfig {
     public Binding orderPayExpireBinding() {
         return BindingBuilder.bind(orderPayExpireQueue()).to(orderPayExpireExchange()).with(RabbitQueue.ORDER_PAY_EXPIRE.getRoutingKey()).noargs();
     }
-
-
-    /**
-     * 订单创建交换机
-     */
-    @Bean("orderCreateExchange")
-    public Exchange orderCreateExchange() {
-        return ExchangeBuilder.topicExchange(RabbitQueue.ORDER_CREATE.getExchange()).durable(true).build();
-    }
-
-    /**
-     * 订单创建处理队列
-     */
-    @Bean("orderCreateQueue")
-    public Queue orderCreateQueue() {
-        return QueueBuilder.durable(RabbitQueue.ORDER_CREATE.getQueue()).build();
-    }
-
-
-    /**
-     * 交换机与队列绑定
-     */
-    @Bean
-    public Binding orderCreateBinding() {
-        return BindingBuilder.bind(orderCreateQueue()).to(orderCreateExchange()).with(RabbitQueue.ORDER_CREATE.getRoutingKey()).noargs();
-    }
-
 
     /**
      * 订单完成交换机
@@ -112,7 +84,6 @@ public class RabbitMQConfig {
         return QueueBuilder.durable(RabbitQueue.ORDER_COMPLETE.getQueue()).build();
     }
 
-
     /**
      * 交换机与队列绑定
      */
@@ -120,7 +91,6 @@ public class RabbitMQConfig {
     public Binding orderCompleteBinding() {
         return BindingBuilder.bind(orderCompleteQueue()).to(orderCompleteExchange()).with(RabbitQueue.ORDER_PAY_EXPIRE.getRoutingKey()).noargs();
     }
-
 
     /**
      * 优惠券领取创建交换机
@@ -138,7 +108,6 @@ public class RabbitMQConfig {
         return QueueBuilder.durable(RabbitQueue.COUPON_RECEIVE.getQueue()).build();
     }
 
-
     /**
      * 优惠券领取交换机与队列绑定
      */
@@ -147,5 +116,99 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(couponReceiveQueue()).to(couponReceiveExchange()).with(RabbitQueue.COUPON_RECEIVE.getRoutingKey()).noargs();
     }
 
+    /**
+     * 门票交换机
+     */
+    @Bean("ticketOrderExchange")
+    public Exchange ticketOrderExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.TICKET_ORDER.getExchange()).durable(true).build();
+    }
 
+    /**
+     * 门票处理队列
+     */
+    @Bean("ticketOrderQueue")
+    public Queue ticketOrderQueue() {
+        return QueueBuilder.durable(RabbitQueue.TICKET_ORDER.getQueue()).build();
+    }
+
+    /**
+     * 门票交换机与队列绑定
+     */
+    @Bean
+    public Binding ticketOrderBinding() {
+        return BindingBuilder.bind(ticketOrderQueue()).to(ticketOrderExchange()).with(RabbitQueue.TICKET_ORDER.getRoutingKey()).noargs();
+    }
+
+    /**
+     * 餐饮交换机
+     */
+    @Bean("voucherOrderExchange")
+    public Exchange voucherOrderExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.VOUCHER_ORDER.getExchange()).durable(true).build();
+    }
+
+    /**
+     * 餐饮处理队列
+     */
+    @Bean("voucherOrderQueue")
+    public Queue voucherOrderQueue() {
+        return QueueBuilder.durable(RabbitQueue.VOUCHER_ORDER.getQueue()).build();
+    }
+
+    /**
+     * 餐饮交换机与队列绑定
+     */
+    @Bean
+    public Binding voucherOrderBinding() {
+        return BindingBuilder.bind(voucherOrderQueue()).to(voucherOrderExchange()).with(RabbitQueue.VOUCHER_ORDER.getRoutingKey()).noargs();
+    }
+
+    /**
+     * 民宿交换机
+     */
+    @Bean("homestayOrderExchange")
+    public Exchange homestayOrderExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.HOMESTAY_ORDER.getExchange()).durable(true).build();
+    }
+
+    /**
+     * 民宿处理队列
+     */
+    @Bean("homestayOrderQueue")
+    public Queue homestayOrderQueue() {
+        return QueueBuilder.durable(RabbitQueue.HOMESTAY_ORDER.getQueue()).build();
+    }
+
+    /**
+     * 民宿交换机与队列绑定
+     */
+    @Bean
+    public Binding homestayOrderBinding() {
+        return BindingBuilder.bind(homestayOrderQueue()).to(homestayOrderExchange()).with(RabbitQueue.HOMESTAY_ORDER.getRoutingKey()).noargs();
+    }
+
+    /**
+     * 商品交换机
+     */
+    @Bean("productOrderExchange")
+    public Exchange productOrderExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.PRODUCT_ORDER.getExchange()).durable(true).build();
+    }
+
+    /**
+     * 商品处理队列
+     */
+    @Bean("productOrderQueue")
+    public Queue productOrderQueue() {
+        return QueueBuilder.durable(RabbitQueue.PRODUCT_ORDER.getQueue()).build();
+    }
+
+    /**
+     * 商品交换机与队列绑定
+     */
+    @Bean
+    public Binding productOrderBinding() {
+        return BindingBuilder.bind(productOrderQueue()).to(productOrderExchange()).with(RabbitQueue.PRODUCT_ORDER.getRoutingKey()).noargs();
+    }
 }

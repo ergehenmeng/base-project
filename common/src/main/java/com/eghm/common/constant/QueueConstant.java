@@ -20,9 +20,24 @@ public class QueueConstant {
     public static final String ORDER_COMPLETE_QUEUE = "order_complete_queue";
 
     /**
-     * 创建订单队列
+     * 门票订单队列
      */
-    public static final String ORDER_CREATE_QUEUE = "order_create_queue";
+    public static final String TICKET_ORDER_QUEUE = "ticket_order_queue";
+
+    /**
+     * 餐饮订单队列
+     */
+    public static final String VOUCHER_ORDER_QUEUE = "voucher_order_queue";
+
+    /**
+     * 民宿订单队列
+     */
+    public static final String HOMESTAY_ORDER_QUEUE = "voucher_order_queue";
+
+    /**
+     * 商品订单队列
+     */
+    public static final String PRODUCT_ORDER_QUEUE = "product_order_queue";
 
     /**
      * 优惠券领取

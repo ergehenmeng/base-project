@@ -30,6 +30,8 @@ import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.v3.util.SignUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -41,12 +43,16 @@ import java.util.Optional;
  */
 @Service("wechatPayService")
 @Slf4j
-@AllArgsConstructor
 public class WechatPayServiceImpl implements PayService {
 
     private final WxPayService wxPayService;
 
     private final SystemProperties systemProperties;
+
+    public WechatPayServiceImpl(@Autowired(required = false) WxPayService wxPayService, SystemProperties systemProperties) {
+        this.wxPayService = wxPayService;
+        this.systemProperties = systemProperties;
+    }
 
     @Override
     public boolean supported(TradeType tradeType) {
