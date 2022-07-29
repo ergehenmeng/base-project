@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.common.constant.WeChatConstant;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.NotifyType;
@@ -37,6 +38,8 @@ public class PayNotifyController {
 
     private final PayNotifyLogService payNotifyLogService;
 
+    private final CommonService commonService;
+
     private static final String ALI_SUCCESS = "success";
 
     @PostMapping("${system.ali-pay.pay-notify-url:/notify/ali/pay}")
@@ -45,7 +48,8 @@ public class PayNotifyController {
         Map<String, String> stringMap = parseRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, NotifyType.PAY);
-        // TODO 业务
+        String orderNo = stringMap.get("body");
+        commonService.getOrderService(orderNo).orderPay(orderNo);
         return ALI_SUCCESS;
     }
 

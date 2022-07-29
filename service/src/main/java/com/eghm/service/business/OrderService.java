@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
+import org.springframework.scheduling.annotation.Async;
 
 /**
  * 订单相关公共接口
@@ -53,4 +54,20 @@ public interface OrderService {
      * @param userId  用户id
      */
     void orderDelete(Long orderId, Long userId);
+
+    /**
+     * 订单成功或失败的异步处理
+     * 根据第三方返回的订单状态来更新本地订单支付状态
+     * @param orderNo 订单编号
+     */
+    @Async
+    void orderPay(String orderNo);
+
+    /**
+     * 退款成功货失败的异步处理
+     * @param outTradeNo 支付交易流水号
+     * @param outRefundNo 退款交易流水号
+     */
+    @Async
+    void orderRefund(String outTradeNo, String outRefundNo);
 }

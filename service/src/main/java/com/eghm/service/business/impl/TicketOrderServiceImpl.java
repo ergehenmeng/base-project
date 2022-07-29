@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
@@ -18,7 +19,9 @@ import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 import com.eghm.service.business.*;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -94,6 +97,24 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     }
 
     @Override
+    public boolean checkOrderPayState(TicketOrder order) {
+        if (StrUtil.isBlank(order.getOutTradeNo())) {
+            log.info("订单未生成支付流水号 [{}]", order.getId());
+            return false;
+        }
+        PayType payType = order.getPayType();
+        // 订单支付方式和支付方式需要做一层转换
+        TradeType tradeType = TradeType.valueOf(payType.name());
+        OrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
+        return vo.getTradeState() == TradeState.SUCCESS
+                || vo.getTradeState() == TradeState.REFUND
+                || vo.getTradeState() == TradeState.PAYING
+                || vo.getTradeState() == TradeState.ACCEPT
+                || vo.getTradeState() == TradeState.TRADE_SUCCESS
+                || vo.getTradeState() == TradeState.TRADE_FINISHED;
+    }
+
+    @Override
     public PrepayVO prepay(Long orderId, String buyerId, TradeType tradeType) {
         TicketOrder order = this.getUnPayById(orderId);
         String outTradeNo = IdWorker.getIdStr();
@@ -108,6 +129,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         PrepayVO vo = aggregatePayService.createPrepay(dto);
         // 支付方式先占坑
         order.setPayType(PayType.valueOf(tradeType.name()));
+        order.setOutTradeNo(outTradeNo);
         ticketOrderMapper.updateById(order);
         return vo;
     }
@@ -123,12 +145,22 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
             log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, order.getState());
             return;
         }
+        boolean state = this.checkOrderPayState(order);
+        if (state) {
+            log.error("订单已支付,无法取消订单 [{}]", orderNo);
+            return;
+        }
         this.doCloseOrder(order, CloseType.EXPIRE);
     }
 
     @Override
     public void orderClose(Long orderId) {
         TicketOrder order = this.getUnPayById(orderId);
+        boolean state = this.checkOrderPayState(order);
+        if (state) {
+            log.error("订单已支付,无法直接关闭 [{}]", orderId);
+            throw new BusinessException(ErrorCode.ORDER_PAID_CANCEL);
+        }
         this.doCloseOrder(order, CloseType.CANCEL);
     }
 
@@ -150,6 +182,32 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         wrapper.eq(TicketOrder::getState, OrderState.CLOSE);
         wrapper.eq(TicketOrder::getUserId, userId);
         ticketOrderMapper.delete(wrapper);
+    }
+
+    @Override
+    public void orderPay(String orderNo) {
+        TicketOrder order = this.selectByOrderNo(orderNo);
+        if (order == null) {
+            log.error("门票订单已被删除 [{}]", orderNo);
+            return;
+        }
+        if (order.getState() != OrderState.PROGRESS) {
+            log.error("订单状态已更改,无须更新支付状态 [{}] [{}]", orderNo, order.getState());
+            return;
+        }
+        TradeType tradeType = TradeType.valueOf(order.getPayType().name());
+        OrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
+        if (vo.getTradeState() == TradeState.SUCCESS || vo.getTradeState() == TradeState.TRADE_SUCCESS) {
+            order.setState(OrderState.UN_USED);
+            ticketOrderMapper.updateById(order);
+        } else {
+            log.error("异步通知查询订单状态非支付成功 [{}] [{}] [{}]", order.getId(), order.getOutTradeNo(), vo.getTradeState());
+        }
+    }
+
+    @Override
+    public void orderRefund(String outTradeNo, String outRefundNo) {
+        // TODO 支付回调待完成
     }
 
     /**

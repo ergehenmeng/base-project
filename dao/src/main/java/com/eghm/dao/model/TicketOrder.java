@@ -107,6 +107,9 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long couponId;
 
+    @ApiModelProperty("支付订单流水号")
+    private String outTradeNo;
+
     @ApiModelProperty("订单支付时间")
     private LocalDateTime payTime;
 

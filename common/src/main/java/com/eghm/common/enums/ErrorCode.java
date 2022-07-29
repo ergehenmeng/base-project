@@ -715,6 +715,11 @@ public enum ErrorCode {
     ORDER_PAID(3159, "订单状态已变更"),
 
     /**
+     * 订单已支付,无法取消
+     */
+    ORDER_PAID_CANCEL(3160, "订单已支付,无法取消"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

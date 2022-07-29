@@ -35,4 +35,11 @@ public interface TicketOrderService {
      * @return 订单信息
      */
     TicketOrder getUnPayById(Long id);
+
+    /**
+     * 门票订单是否已支付
+     * @param order 订单信息
+     * @return true: 支付处理或已支付 false: 未支付
+     */
+    boolean checkOrderPayState(TicketOrder order);
 }

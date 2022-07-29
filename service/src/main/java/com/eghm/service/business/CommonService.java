@@ -12,4 +12,11 @@ public interface CommonService {
      * @param maxValue 日期间隔值
      */
     void checkMaxDay(String configNid, long maxValue);
+
+    /**
+     * 根据订单编号查询订单处理类
+     * @param orderNo 订单编号 以ProductType中的prefix开头的订单
+     * @return 订单处理类
+     */
+    OrderService getOrderService(String orderNo);
 }
