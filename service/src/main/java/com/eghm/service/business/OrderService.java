@@ -14,5 +14,14 @@ public interface OrderService {
      * 3.更新订单状态
      * @param orderNo 订单编号
      */
-    void orderExpireHandler(String orderNo);
+    void orderExpire(String orderNo);
+
+    /**
+     * 订单关闭
+     * 1.增库存
+     * 2.释放优惠券(如果有的话)
+     * 3.更新订单状态
+     * @param orderId 订单id
+     */
+    void orderClose(Long orderId);
 }

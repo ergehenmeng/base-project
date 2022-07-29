@@ -29,7 +29,7 @@ public class RabbitListenerService {
      */
     @RabbitListener(queues = QueueConstant.ORDER_PAY_EXPIRE_QUEUE)
     public void orderExpire(String orderNo) {
-        this.getOrderService(orderNo).orderExpireHandler(orderNo);
+        this.getOrderService(orderNo).orderExpire(orderNo);
     }
 
 

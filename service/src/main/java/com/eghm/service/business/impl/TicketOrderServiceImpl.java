@@ -93,7 +93,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     }
 
     @Override
-    public void orderExpireHandler(String orderNo) {
+    public void orderExpire(String orderNo) {
         TicketOrder order = this.selectByOrderNo(orderNo);
         if (order == null) {
             log.error("门票订单已被删除 [{}]", orderNo);
@@ -103,8 +103,34 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
             log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, order.getState());
             return;
         }
+        this.doCloseOrder(order, CloseType.EXPIRE);
+    }
+
+    @Override
+    public void orderClose(Long orderId) {
+        TicketOrder order = ticketOrderMapper.selectById(orderId);
+        if (order == null) {
+            log.error("门票订单已被删除 [{}]", orderId);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        if (order.getState() != OrderState.UN_PAY) {
+            log.error("门票订单状态不是待支付, 无法取消 [{}] [{}]", orderId, order.getState());
+            throw new BusinessException(ErrorCode.ORDER_PAID);
+        }
+        this.doCloseOrder(order, CloseType.CANCEL);
+    }
+
+    /**
+     * 订单关闭
+     * 1.增库存
+     * 2.释放优惠券(如果有的话)
+     * 3.更新订单状态
+     * @param order 订单信息
+     * @param closeType 关闭方式
+     */
+    private void doCloseOrder(TicketOrder order, CloseType closeType) {
         order.setState(OrderState.CLOSE);
-        order.setCloseType(CloseType.EXPIRE);
+        order.setCloseType(closeType);
         order.setCloseTime(LocalDateTime.now());
         ticketOrderMapper.updateById(order);
         userCouponService.releaseCoupon(order.getCouponId());
