@@ -27,4 +27,12 @@ public interface TicketOrderService {
      * @return 门票订单信息
      */
     TicketOrder selectByOrderNo(String orderNo);
+
+    /**
+     * 根据主键查询订单信息,
+     * 如果订单已删除或者未支付则抛异常
+     * @param id id
+     * @return 订单信息
+     */
+    TicketOrder getUnPayById(Long id);
 }

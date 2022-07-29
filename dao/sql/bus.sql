@@ -367,6 +367,7 @@ CREATE TABLE `ticket_order`
     `user_id`           bigint(20)   DEFAULT NULL COMMENT '用户id',
     `ticket_id`         bigint(20)   DEFAULT NULL COMMENT '门票id',
     `state`             tinyint(2)   DEFAULT '0' COMMENT '订单状态 0:待支付 1:支付成功 2:支付处理中',
+    `pay_type`        varchar(30)  DEFAULT NULL COMMENT '支付方式',
     `mobile`            varchar(11)  DEFAULT NULL COMMENT '联系人手机号',
     `discount_amount`   int(10)      DEFAULT '0' COMMENT '优惠金额',
     `pay_amount`        int(10)      DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',

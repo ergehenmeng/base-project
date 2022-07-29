@@ -2,11 +2,13 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
+import com.eghm.common.enums.ref.PayType;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.TicketOrderMapper;
@@ -14,6 +16,10 @@ import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 import com.eghm.service.business.*;
+import com.eghm.service.pay.AggregatePayService;
+import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +45,8 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     private final OrderVisitorService orderVisitorService;
 
     private final OrderMQService orderHandlerService;
+
+    private final AggregatePayService aggregatePayService;
 
     @Override
     public void create(CreateTicketOrderDTO dto) {
@@ -71,6 +79,79 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         return ticketOrderMapper.selectOne(wrapper);
     }
 
+    @Override
+    public TicketOrder getUnPayById(Long id) {
+        TicketOrder order = ticketOrderMapper.selectById(id);
+        if (order == null) {
+            log.error("门票订单已被删除 [{}]", id);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        if (order.getState() != OrderState.UN_PAY) {
+            log.error("门票订单状态不是待支付 [{}] [{}]", id, order.getState());
+            throw new BusinessException(ErrorCode.ORDER_PAID);
+        }
+        return order;
+    }
+
+    @Override
+    public PrepayVO prepay(Long orderId, String buyerId, TradeType tradeType) {
+        TicketOrder order = this.getUnPayById(orderId);
+        String outTradeNo = IdWorker.getIdStr();
+
+        PrepayDTO dto = new PrepayDTO();
+        dto.setAttach(order.getOrderNo());
+        dto.setDescription(order.getTitle());
+        dto.setTradeType(tradeType);
+        dto.setAmount(order.getPayAmount());
+        dto.setOutTradeNo(outTradeNo);
+        dto.setBuyerId(buyerId);
+        PrepayVO vo = aggregatePayService.createPrepay(dto);
+        // 支付方式先占坑
+        order.setPayType(PayType.valueOf(tradeType.name()));
+        ticketOrderMapper.updateById(order);
+        return vo;
+    }
+
+    @Override
+    public void orderExpire(String orderNo) {
+        TicketOrder order = this.selectByOrderNo(orderNo);
+        if (order == null) {
+            log.error("门票订单已被删除 [{}]", orderNo);
+            return;
+        }
+        if (order.getState() != OrderState.UN_PAY) {
+            log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, order.getState());
+            return;
+        }
+        this.doCloseOrder(order, CloseType.EXPIRE);
+    }
+
+    @Override
+    public void orderClose(Long orderId) {
+        TicketOrder order = this.getUnPayById(orderId);
+        this.doCloseOrder(order, CloseType.CANCEL);
+    }
+
+    @Override
+    public void orderPaying(Long orderId, Long userId) {
+        LambdaUpdateWrapper<TicketOrder> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(TicketOrder::getState, OrderState.PROGRESS);
+        wrapper.set(TicketOrder::getPayTime, LocalDateTime.now());
+        wrapper.eq(TicketOrder::getId, orderId);
+        wrapper.eq(TicketOrder::getState, OrderState.UN_PAY);
+        wrapper.eq(TicketOrder::getUserId, userId);
+        ticketOrderMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void orderDelete(Long orderId, Long userId) {
+        LambdaUpdateWrapper<TicketOrder> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(TicketOrder::getId, orderId);
+        wrapper.eq(TicketOrder::getState, OrderState.CLOSE);
+        wrapper.eq(TicketOrder::getUserId, userId);
+        ticketOrderMapper.delete(wrapper);
+    }
+
     /**
      * 校验门票是否符合购买条件
      * @param ticket 门票信息
@@ -90,34 +171,6 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
-    }
-
-    @Override
-    public void orderExpire(String orderNo) {
-        TicketOrder order = this.selectByOrderNo(orderNo);
-        if (order == null) {
-            log.error("门票订单已被删除 [{}]", orderNo);
-            return;
-        }
-        if (order.getState() != OrderState.UN_PAY) {
-            log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, order.getState());
-            return;
-        }
-        this.doCloseOrder(order, CloseType.EXPIRE);
-    }
-
-    @Override
-    public void orderClose(Long orderId) {
-        TicketOrder order = ticketOrderMapper.selectById(orderId);
-        if (order == null) {
-            log.error("门票订单已被删除 [{}]", orderId);
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
-        if (order.getState() != OrderState.UN_PAY) {
-            log.error("门票订单状态不是待支付, 无法取消 [{}] [{}]", orderId, order.getState());
-            throw new BusinessException(ErrorCode.ORDER_PAID);
-        }
-        this.doCloseOrder(order, CloseType.CANCEL);
     }
 
     /**

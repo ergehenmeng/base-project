@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
+import com.eghm.common.enums.ref.PayType;
 import com.eghm.common.enums.ref.RefundState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -87,6 +88,9 @@ public class TicketOrder extends BaseEntity implements Serializable {
 
     @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
     private CloseType closeType;
+
+    @ApiModelProperty("支付方式")
+    private PayType payType;
 
     @ApiModelProperty(value = "联系人手机号")
     private String mobile;
