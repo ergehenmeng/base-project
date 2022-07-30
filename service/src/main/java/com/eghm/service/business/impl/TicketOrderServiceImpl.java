@@ -15,6 +15,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.TicketOrderMapper;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
+import com.eghm.model.dto.business.order.ticket.ApplyTicketRefundDTO;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 import com.eghm.service.business.*;
 import com.eghm.service.pay.AggregatePayService;
@@ -97,21 +98,28 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     }
 
     @Override
-    public boolean checkOrderPayState(TicketOrder order) {
+    public TradeState getOrderPayState(TicketOrder order) {
         if (StrUtil.isBlank(order.getOutTradeNo())) {
             log.info("订单未生成支付流水号 [{}]", order.getId());
-            return false;
+            return TradeState.NOT_PAY;
         }
         PayType payType = order.getPayType();
         // 订单支付方式和支付方式需要做一层转换
         TradeType tradeType = TradeType.valueOf(payType.name());
         OrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
-        return vo.getTradeState() == TradeState.SUCCESS
-                || vo.getTradeState() == TradeState.REFUND
-                || vo.getTradeState() == TradeState.PAYING
-                || vo.getTradeState() == TradeState.ACCEPT
-                || vo.getTradeState() == TradeState.TRADE_SUCCESS
-                || vo.getTradeState() == TradeState.TRADE_FINISHED;
+        return vo.getTradeState();
+    }
+
+    @Override
+    public void applyRefund(ApplyTicketRefundDTO dto) {
+        TicketOrder order = ticketOrderMapper.selectById(dto.getId());
+        if (!dto.getUserId().equals(order.getUserId())) {
+            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", dto.getId(), order.getUserId(), dto.getUserId());
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
+        // TODO 是否支持退款判断
+        // 是否走退款审批判断(未设置)
+        // 发起退款申请
     }
 
     @Override
@@ -145,20 +153,15 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
             log.error("门票订单状态不是待支付, 无需处理 [{}] [{}]", orderNo, order.getState());
             return;
         }
-        boolean state = this.checkOrderPayState(order);
-        if (state) {
-            log.error("订单已支付,无法取消订单 [{}]", orderNo);
-            return;
-        }
         this.doCloseOrder(order, CloseType.EXPIRE);
     }
 
     @Override
-    public void orderClose(Long orderId) {
+    public void orderCancel(Long orderId) {
         TicketOrder order = this.getUnPayById(orderId);
-        boolean state = this.checkOrderPayState(order);
-        if (state) {
-            log.error("订单已支付,无法直接关闭 [{}]", orderId);
+        TradeState state = this.getOrderPayState(order);
+        if (state != TradeState.NOT_PAY && state != TradeState.WAIT_BUYER_PAY) {
+            log.error("订单已支付,无法直接关闭 [{}] [{}]", orderId, state);
             throw new BusinessException(ErrorCode.ORDER_PAID_CANCEL);
         }
         this.doCloseOrder(order, CloseType.CANCEL);

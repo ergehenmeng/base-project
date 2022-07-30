@@ -1,7 +1,9 @@
 package com.eghm.service.business;
 
 import com.eghm.dao.model.TicketOrder;
+import com.eghm.model.dto.business.order.ticket.ApplyTicketRefundDTO;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
+import com.eghm.service.pay.enums.TradeState;
 
 /**
  * @author 二哥很猛
@@ -41,5 +43,11 @@ public interface TicketOrderService {
      * @param order 订单信息
      * @return true: 支付处理或已支付 false: 未支付
      */
-    boolean checkOrderPayState(TicketOrder order);
+    TradeState getOrderPayState(TicketOrder order);
+
+    /**
+     * 门票退款申请
+     * @param dto 退款信息
+     */
+    void applyRefund(ApplyTicketRefundDTO dto);
 }

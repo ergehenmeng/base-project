@@ -30,13 +30,13 @@ public interface OrderService {
     void orderExpire(String orderNo);
 
     /**
-     * 订单关闭
+     * 取消订单
      * 1.增库存
      * 2.释放优惠券(如果有的话)
      * 3.更新订单状态
      * @param orderId 订单id
      */
-    void orderClose(Long orderId);
+    void orderCancel(Long orderId);
 
     /**
      * 更新订单为处理中, 该接口为补充接口
