@@ -47,13 +47,13 @@ public class OrderRefundLog extends BaseEntity implements Serializable {
     private String reason;
 
     @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款")
-    private Boolean applyType;
+    private Integer applyType;
 
     @ApiModelProperty(value = "退款状态 0:退款中 1:退款成功 2:退款失败")
-    private Boolean state;
+    private Integer state;
 
     @ApiModelProperty(value = "审核状态 0:待审核 1:审核通过 2:审核拒绝")
-    private Boolean auditState;
+    private Integer auditState;
 
     @ApiModelProperty(value = "退款审核时间")
     private LocalDateTime auditTime;

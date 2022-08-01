@@ -112,11 +112,21 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
 
     @Override
     public void applyRefund(ApplyTicketRefundDTO dto) {
-        TicketOrder order = ticketOrderMapper.selectById(dto.getId());
+        TicketOrder order = ticketOrderMapper.selectById(dto.getOrderId());
         if (!dto.getUserId().equals(order.getUserId())) {
-            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", dto.getId(), order.getUserId(), dto.getUserId());
+            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", dto.getOrderId(), order.getUserId(), dto.getUserId());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
         }
+        if (Boolean.FALSE.equals(order.getSupportRefund())) {
+            log.error("该门票不支持退款 [{}]", dto.getOrderId());
+            throw new BusinessException(ErrorCode.TICKET_REFUND_SUPPORTED);
+        }
+
+
+
+
+
+
         // TODO 是否支持退款判断
         // 是否走退款审批判断(未设置)
         // 发起退款申请

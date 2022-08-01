@@ -720,6 +720,11 @@ public enum ErrorCode {
     ORDER_PAID_CANCEL(3160, "订单已支付,无法取消"),
 
     /**
+     * 该门票不支持退款
+     */
+    TICKET_REFUND_SUPPORTED(3160, "该门票不支持退款"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

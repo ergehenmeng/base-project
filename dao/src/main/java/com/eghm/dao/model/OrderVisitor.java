@@ -33,6 +33,9 @@ public class OrderVisitor extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "订单id")
     private Long orderId;
 
+    @ApiModelProperty("是否被锁定 0:正常 1:锁定")
+    private Boolean locked;
+
     @ApiModelProperty(value = "游客姓名")
     private String userName;
 

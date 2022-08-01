@@ -446,6 +446,7 @@ CREATE TABLE `order_visitor`
     `order_id`     bigint(20)  DEFAULT NULL COMMENT '订单id',
     `user_name`    varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
+    `locked`       bit(1)      DEFAULT b'0' COMMENT '是否被锁定 0:正常 1:锁定',
     `add_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

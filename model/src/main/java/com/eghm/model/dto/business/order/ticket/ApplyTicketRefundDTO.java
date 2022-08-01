@@ -15,7 +15,7 @@ import java.util.List;
 public class ApplyTicketRefundDTO {
 
     @ApiModelProperty("订单id")
-    private Long id;
+    private Long orderId;
 
     @ApiModelProperty("退款数量")
     private Integer num;
