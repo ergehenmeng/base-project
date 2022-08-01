@@ -367,7 +367,7 @@ CREATE TABLE `ticket_order`
     `user_id`           bigint(20)   DEFAULT NULL COMMENT '用户id',
     `ticket_id`         bigint(20)   DEFAULT NULL COMMENT '门票id',
     `state`             tinyint(2)   DEFAULT '0' COMMENT '订单状态 0:待支付 1:支付成功 2:支付处理中',
-    `pay_type`        varchar(30)  DEFAULT NULL COMMENT '支付方式',
+    `pay_type`          varchar(30)  DEFAULT NULL COMMENT '支付方式',
     `mobile`            varchar(11)  DEFAULT NULL COMMENT '联系人手机号',
     `discount_amount`   int(10)      DEFAULT '0' COMMENT '优惠金额',
     `pay_amount`        int(10)      DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',
@@ -453,3 +453,26 @@ CREATE TABLE `order_visitor`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单游客信息表';
 
+CREATE TABLE `order_refund_log`
+(
+    `id`                bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `order_id`          bigint(20)   DEFAULT NULL COMMENT '订单id',
+    `user_id`           bigint(20)   DEFAULT NULL COMMENT '退款人id',
+    `out_refund_no`     varchar(50)  DEFAULT NULL COMMENT '退款流水号',
+    `num`               smallint(2)  DEFAULT '1' COMMENT '退款数量',
+    `amount`            int(10)      DEFAULT '0' COMMENT '申请退款金额',
+    `reason`            varchar(200) DEFAULT NULL COMMENT '退款原因',
+    `apply_type`        tinyint(1)   DEFAULT '1' COMMENT '申请方式 1:仅退款 2:退货退款',
+    `state`             tinyint(1)   DEFAULT '0' COMMENT '退款状态 0:退款中 1:退款成功 2:退款失败',
+    `audit_state`       tinyint(1)   DEFAULT '0' COMMENT '审核状态 0:待审核 1:审核通过 2:审核拒绝',
+    `audit_time`        datetime     DEFAULT NULL COMMENT '退款审核时间',
+    `audit_remark`      varchar(255) DEFAULT NULL COMMENT '审批意见或建议',
+    `apply_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '退款申请时间',
+    `logistics_company` varchar(50)  DEFAULT NULL COMMENT '物流公司(退货退款)',
+    `logistics_no`      varchar(30)  DEFAULT NULL COMMENT '物流单号(退货退款)',
+    `create_time`       datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`       datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`           bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单退款记录表';
