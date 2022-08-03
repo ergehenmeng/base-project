@@ -130,6 +130,10 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
 
     @Override
     public void auditRefund(AuditTicketRefundRequest request) {
+        TicketOrder order = ticketOrderMapper.selectById(request.getOrderId());
+
+
+
 
     }
 

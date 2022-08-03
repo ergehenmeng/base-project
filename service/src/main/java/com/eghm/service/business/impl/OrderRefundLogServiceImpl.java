@@ -22,4 +22,14 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     public void insert(OrderRefundLog log) {
         orderRefundLogMapper.insert(log);
     }
+
+    @Override
+    public OrderRefundLog selectById(Long id) {
+        return orderRefundLogMapper.selectById(id);
+    }
+
+    @Override
+    public int updateById(OrderRefundLog log) {
+        return orderRefundLogMapper.updateById(log);
+    }
 }
