@@ -1,6 +1,8 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.dao.mapper.OrderVisitorMapper;
 import com.eghm.dao.model.OrderVisitor;
@@ -36,5 +38,18 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
             visitor.setProductType(productType);
             orderVisitorMapper.insert(visitor);
         }
+    }
+
+    @Override
+    public void lockVisitor(ProductType productType, Long orderId, List<Long> visitorList) {
+        if (CollUtil.isEmpty(visitorList)) {
+            return;
+        }
+        LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(OrderVisitor::getOrderId, orderId);
+        wrapper.eq(OrderVisitor::getProductType, productType);
+        wrapper.in(OrderVisitor::getId, visitorList);
+        wrapper.set(OrderVisitor::getLocked, true);
+        orderVisitorMapper.update(null, wrapper);
     }
 }

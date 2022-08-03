@@ -725,6 +725,21 @@ public enum ErrorCode {
     TICKET_REFUND_SUPPORTED(3160, "该门票不支持退款"),
 
     /**
+     * 该门票订单状态不支持退款
+     */
+    TICKET_STATE_REFUND(3161, "该门票订单状态不支持退款"),
+
+    /**
+     * 订单退款状态不合法
+     */
+    TICKET_REFUND_INVALID(3162, "订单退款状态不合法"),
+
+    /**
+     * 退款人数和数量不一致
+     */
+    TICKET_REFUND_VISITOR(3163, "退款人数和数量不一致"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

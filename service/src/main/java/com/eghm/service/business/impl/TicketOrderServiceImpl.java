@@ -7,15 +7,14 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.ref.CloseType;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.PayType;
-import com.eghm.common.enums.ref.ProductType;
+import com.eghm.common.enums.ref.*;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.TicketOrderMapper;
+import com.eghm.dao.model.OrderRefundLog;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
 import com.eghm.model.dto.business.order.ticket.ApplyTicketRefundDTO;
+import com.eghm.model.dto.business.order.ticket.AuditTicketRefundRequest;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 import com.eghm.service.business.*;
 import com.eghm.service.pay.AggregatePayService;
@@ -51,6 +50,8 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     private final OrderMQService orderHandlerService;
 
     private final AggregatePayService aggregatePayService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     @Override
     public void create(CreateTicketOrderDTO dto) {
@@ -113,23 +114,23 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     @Override
     public void applyRefund(ApplyTicketRefundDTO dto) {
         TicketOrder order = ticketOrderMapper.selectById(dto.getOrderId());
-        if (!dto.getUserId().equals(order.getUserId())) {
-            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", dto.getOrderId(), order.getUserId(), dto.getUserId());
-            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
-        }
-        if (Boolean.FALSE.equals(order.getSupportRefund())) {
-            log.error("该门票不支持退款 [{}]", dto.getOrderId());
-            throw new BusinessException(ErrorCode.TICKET_REFUND_SUPPORTED);
-        }
 
+        this.checkRefundApply(dto, order);
 
-
-
-
-
-        // TODO 是否支持退款判断
         // 是否走退款审批判断(未设置)
-        // 发起退款申请
+        OrderRefundLog log = DataUtil.copy(dto, OrderRefundLog.class);
+        log.setApplyTime(LocalDateTime.now());
+        orderRefundLogService.insert(log);
+
+        order.setRefundState(RefundState.APPLY);
+        ticketOrderMapper.updateById(order);
+
+        orderVisitorService.lockVisitor(ProductType.TICKET, dto.getOrderId(), dto.getVisitorIds());
+    }
+
+    @Override
+    public void auditRefund(AuditTicketRefundRequest request) {
+
     }
 
     @Override
@@ -217,6 +218,35 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     @Override
     public void orderRefund(String outTradeNo, String outRefundNo) {
         // TODO 支付回调待完成
+    }
+
+    /**
+     * 校验退款申请
+     * @param dto 退款信息
+     * @param order 订单信息
+     */
+    private void checkRefundApply(ApplyTicketRefundDTO dto, TicketOrder order) {
+        if (!dto.getUserId().equals(order.getUserId())) {
+            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", dto.getOrderId(), order.getUserId(), dto.getUserId());
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
+        if (Boolean.FALSE.equals(order.getSupportRefund())) {
+            log.error("该门票不支持退款 [{}]", dto.getOrderId());
+            throw new BusinessException(ErrorCode.TICKET_REFUND_SUPPORTED);
+        }
+        if (order.getState() != OrderState.UN_USED) {
+            log.error("门票订单状态不是待使用,无法退款 [{}] [{}]", dto.getOrderId(), order.getState());
+            throw new BusinessException(ErrorCode.TICKET_STATE_REFUND);
+        }
+        if (order.getRefundState() != null && order.getRefundState() != RefundState.REFUSE) {
+            log.error("门票订单退款状态非法 [{}] [{}]", dto.getOrderId(), order.getRefundState());
+            throw new BusinessException(ErrorCode.TICKET_REFUND_INVALID);
+        }
+        // 实名制
+        if (Boolean.TRUE.equals(order.getRealBuy()) && dto.getNum() != dto.getVisitorIds().size()) {
+            log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", dto.getOrderId(), dto.getNum(), dto.getVisitorIds().size());
+            throw new BusinessException(ErrorCode.TICKET_REFUND_VISITOR);
+        }
     }
 
     /**

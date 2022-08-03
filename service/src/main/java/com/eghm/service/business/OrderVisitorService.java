@@ -18,4 +18,12 @@ public interface OrderVisitorService {
      * @param voList 游客信息
      */
     void addVisitor(ProductType productType, Long orderId, List<VisitorVO> voList);
+
+    /**
+     * 锁定游客信息,防止在退款中进行核销
+     * @param productType 商品类型
+     * @param orderId 订单 id
+     * @param visitorList 游客id列表
+     */
+    void lockVisitor(ProductType productType, Long orderId, List<Long> visitorList);
 }

@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import com.eghm.dao.mapper.OrderRefundLogMapper;
+import com.eghm.dao.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,4 +18,8 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
 
     private final OrderRefundLogMapper orderRefundLogMapper;
 
+    @Override
+    public void insert(OrderRefundLog log) {
+        orderRefundLogMapper.insert(log);
+    }
 }

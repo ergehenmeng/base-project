@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dao.model.TicketOrder;
 import com.eghm.model.dto.business.order.ticket.ApplyTicketRefundDTO;
+import com.eghm.model.dto.business.order.ticket.AuditTicketRefundRequest;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 import com.eghm.service.pay.enums.TradeState;
 
@@ -50,4 +51,10 @@ public interface TicketOrderService {
      * @param dto 退款信息
      */
     void applyRefund(ApplyTicketRefundDTO dto);
+
+    /**
+     * 退款审核
+     * @param request 审核信息
+     */
+    void auditRefund(AuditTicketRefundRequest request);
 }
