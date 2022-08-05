@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
@@ -99,10 +99,10 @@ public class ScenicServiceImpl implements ScenicService {
     }
 
     @Override
-    public void updateAuditState(Long id, AuditState state) {
+    public void updateAuditState(Long id, PlatformState state) {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
-        wrapper.set(Scenic::getAuditState, state);
+        wrapper.set(Scenic::getPlatformState, state);
         scenicMapper.update(null, wrapper);
     }
 
@@ -131,7 +131,7 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public ScenicVO detailById(Long id, Double longitude, Double latitude) {
         Scenic scenic = scenicMapper.selectById(id);
-        if (scenic == null || scenic.getAuditState() != AuditState.SHELVE) {
+        if (scenic == null || scenic.getPlatformState() != PlatformState.SHELVE) {
             log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
             throw new BusinessException(ErrorCode.SCENIC_DOWN);
         }

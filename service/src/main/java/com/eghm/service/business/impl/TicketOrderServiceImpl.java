@@ -19,6 +19,7 @@ import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 import com.eghm.service.business.*;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.dto.PrepayDTO;
+import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
@@ -29,6 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
+import static com.eghm.common.enums.ErrorCode.TICKET_REFUND_APPLY;
+import static com.eghm.common.enums.ErrorCode.TOTAL_REFUND_MAX;
 
 /**
  * @author 二哥很猛
@@ -71,6 +75,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
             order.setCouponId(dto.getCouponId());
             userCouponService.useCoupon(dto.getCouponId());
         }
+        // TODO 订单总金额为零时 要做特殊处理
         ticketOrderMapper.insert(order);
         orderVisitorService.addVisitor(ProductType.TICKET, order.getId(), dto.getVisitorList());
         scenicTicketService.updateStock(ticket.getId(), dto.getNum());
@@ -120,6 +125,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         // 是否走退款审批判断(未设置)
         OrderRefundLog log = DataUtil.copy(dto, OrderRefundLog.class);
         log.setApplyTime(LocalDateTime.now());
+        log.setAuditState(AuditState.APPLY);
         orderRefundLogService.insert(log);
 
         order.setRefundState(RefundState.APPLY);
@@ -131,10 +137,39 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     @Override
     public void auditRefund(AuditTicketRefundRequest request) {
         TicketOrder order = ticketOrderMapper.selectById(request.getOrderId());
-
-
-
-
+        if (order.getRefundState() == null) {
+            log.error("该笔订单未发起退款,无法进行审核操作 [{}] [{}]", request.getOrderId(), order.getState());
+            throw new BusinessException(ErrorCode.NO_REFUND_STATE);
+        }
+        if (order.getRefundState() != RefundState.APPLY) {
+            log.error("门票退款状态已审核 无须重复操作 [{}] [{}]", order.getId(), order.getRefundState());
+            throw new BusinessException(TICKET_REFUND_APPLY);
+        }
+        OrderRefundLog refundLog = orderRefundLogService.selectByIdRequired(request.getRefundId());
+        if (refundLog.getAuditState() != AuditState.APPLY) {
+            log.error("退款记录状态已更新 [{}] [{}] ", refundLog.getId(), refundLog.getAuditState());
+            throw new BusinessException(TICKET_REFUND_APPLY);
+        }
+        int totalRefundAmount = orderRefundLogService.getTotalRefundAmount(request.getOrderId());
+        if ((totalRefundAmount + request.getRefundAmount()) > order.getPayAmount()) {
+            log.error("门票累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}]", order.getPayAmount(), totalRefundAmount, request.getRefundAmount());
+            throw new BusinessException(TOTAL_REFUND_MAX);
+        }
+        refundLog.setAuditRemark(request.getAuditRemark());
+        refundLog.setAuditTime(LocalDateTime.now());
+        if (request.getState().intValue() == AuditState.REFUSE.getValue()) {
+            order.setRefundState(RefundState.REFUSE);
+            refundLog.setAuditState(AuditState.REFUSE);
+        } else {
+            order.setRefundState(RefundState.PROGRESS);
+            refundLog.setAuditState(AuditState.PASS);
+            refundLog.setState(0);
+            refundLog.setRefundAmount(request.getRefundAmount());
+            refundLog.setOutRefundNo(IdWorker.getIdStr());
+            this.doRefund(refundLog, order);
+        }
+        ticketOrderMapper.updateById(order);
+        orderRefundLogService.updateById(refundLog);
     }
 
     @Override
@@ -224,6 +259,22 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         // TODO 支付回调待完成
     }
 
+
+    /**
+     * 发起退款操作
+     * @param log 退款记录
+     * @param order 门票订单
+     */
+    private void doRefund(OrderRefundLog log, TicketOrder order) {
+        RefundDTO dto = new RefundDTO();
+        dto.setOutRefundNo(log.getOutRefundNo());
+        dto.setOutTradeNo(order.getOutTradeNo());
+        dto.setReason(log.getReason());
+        dto.setAmount(log.getRefundAmount());
+        dto.setTradeType(TradeType.valueOf(order.getPayType().name()));
+        aggregatePayService.applyRefund(dto);
+    }
+
     /**
      * 校验退款申请
      * @param dto 退款信息
@@ -273,6 +324,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
     }
+
 
     /**
      * 订单关闭

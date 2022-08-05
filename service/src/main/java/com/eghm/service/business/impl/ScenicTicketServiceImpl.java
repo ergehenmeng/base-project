@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.ScenicTicketMapper;
@@ -63,7 +63,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public ScenicTicket selectByIdShelve(Long id) {
         ScenicTicket ticket = this.selectByIdRequired(id);
-        if (ticket.getAuditState() != AuditState.SHELVE) {
+        if (ticket.getPlatformState() != PlatformState.SHELVE) {
             log.info("景区门票已下架 [{}]", id);
             throw new BusinessException(ErrorCode.TICKET_DOWN);
         }
@@ -79,10 +79,10 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public void updateAuditState(Long id, AuditState state) {
+    public void updateAuditState(Long id, PlatformState state) {
         LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ScenicTicket::getId, id);
-        wrapper.set(ScenicTicket::getAuditState, state);
+        wrapper.set(ScenicTicket::getPlatformState, state);
         scenicTicketMapper.update(null, wrapper);
     }
 

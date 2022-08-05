@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.mapper.RestaurantMapper;
 import com.eghm.dao.model.Restaurant;
@@ -57,10 +57,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void updateAuditState(Long id, AuditState state) {
+    public void updateAuditState(Long id, PlatformState state) {
         LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Restaurant::getId, id);
-        wrapper.set(Restaurant::getAuditState, state);
+        wrapper.set(Restaurant::getPlatformState, state);
         restaurantMapper.update(null, wrapper);
     }
 }

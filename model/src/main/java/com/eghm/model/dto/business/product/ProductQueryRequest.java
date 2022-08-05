@@ -1,6 +1,6 @@
 package com.eghm.model.dto.business.product;
 
-import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.model.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +20,7 @@ public class ProductQueryRequest extends PagingQuery {
     private State state;
 
     @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private AuditState auditState;
+    private PlatformState platformState;
 
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
     private Integer deliveryMethod;

@@ -1,7 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.model.Homestay;
 import com.eghm.model.dto.IdDTO;
@@ -66,14 +66,14 @@ public class HomestayController {
     @PostMapping("/platformAudit")
     @ApiOperation("平台上架审核")
     public RespBody<Void> updateState(@RequestBody @Validated IdDTO dto) {
-        homestayService.updateAuditState(dto.getId(), AuditState.SHELVE);
+        homestayService.updateAuditState(dto.getId(), PlatformState.SHELVE);
         return RespBody.success();
     }
 
     @PostMapping("/platformUnShelves")
     @ApiOperation("平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
-        homestayService.updateAuditState(dto.getId(), AuditState.UN_SHELVE);
+        homestayService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
         return RespBody.success();
     }
 

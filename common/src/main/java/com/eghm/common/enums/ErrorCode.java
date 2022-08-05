@@ -740,6 +740,26 @@ public enum ErrorCode {
     TICKET_REFUND_VISITOR(3163, "退款人数和数量不一致"),
 
     /**
+     * 退款申请已审核
+     */
+    TICKET_REFUND_APPLY(3165, "退款申请已审核"),
+
+    /**
+     * 订单不在退款中
+     */
+    NO_REFUND_STATE(3166, "订单不在退款中"),
+
+    /**
+     * 退款记录未查询到
+     */
+    REFUND_NOT_FOUND(3167, "退款记录未查询到"),
+
+    /**
+     * 累计退款金额大于实付金额
+     */
+    TOTAL_REFUND_MAX(3168, "累计退款金额大于实付金额"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

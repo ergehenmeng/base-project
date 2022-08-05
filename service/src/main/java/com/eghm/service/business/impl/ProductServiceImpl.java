@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.ProductMapper;
@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Product::getTitle, request.getQueryName());
         wrapper.eq(request.getDeliveryMethod() != null, Product::getDeliveryMethod, request.getDeliveryMethod());
         wrapper.eq(request.getState() != null, Product::getState, request.getState());
-        wrapper.eq(request.getAuditState() != null, Product::getAuditState, request.getAuditState());
+        wrapper.eq(request.getPlatformState() != null, Product::getPlatformState, request.getPlatformState());
         return productMapper.selectPage(request.createPage(), wrapper);
     }
 
@@ -85,10 +85,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateAuditState(Long id, AuditState state) {
+    public void updateAuditState(Long id, PlatformState state) {
         LambdaUpdateWrapper<Product> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Product::getId, id);
-        wrapper.set(Product::getAuditState, state);
+        wrapper.set(Product::getPlatformState, state);
         productMapper.update(null, wrapper);
     }
 }

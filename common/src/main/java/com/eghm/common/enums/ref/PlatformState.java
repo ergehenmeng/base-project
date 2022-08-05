@@ -6,28 +6,28 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 审核状态
+ * 平台上下架状态
  * @author 二哥很猛
  * @date 2022/7/2
  */
 @Getter
 @AllArgsConstructor
-public enum AuditState implements IEnum<Integer> {
+public enum PlatformState implements IEnum<Integer> {
 
     /**
      * 默认
      */
-    APPLY(0, "待审核"),
+    DEFAULT(0, "初始"),
 
     /**
-     * 审核通过
+     * 未上架
      */
-    PASS(1, "审核通过"),
+    UN_SHELVE(1, "未上架"),
 
     /**
-     * 审核拒绝
+     * 已上架
      */
-    REFUSE(2, "审核拒绝"),
+    SHELVE(2, "已上架"),
 
 
     ;

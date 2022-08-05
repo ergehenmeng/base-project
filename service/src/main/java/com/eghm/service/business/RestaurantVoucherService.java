@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.dao.model.RestaurantVoucher;
 import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
@@ -45,5 +45,5 @@ public interface RestaurantVoucherService {
      * @param id 房型id
      * @param state 新状态
      */
-    void updateAuditState(Long id, AuditState state);
+    void updateAuditState(Long id, PlatformState state);
 }

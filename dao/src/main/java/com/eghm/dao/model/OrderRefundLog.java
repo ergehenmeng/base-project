@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.AuditState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -53,7 +54,7 @@ public class OrderRefundLog extends BaseEntity implements Serializable {
     private Integer state;
 
     @ApiModelProperty(value = "审核状态 0:待审核 1:审核通过 2:审核拒绝")
-    private Integer auditState;
+    private AuditState auditState;
 
     @ApiModelProperty(value = "退款审核时间")
     private LocalDateTime auditTime;
