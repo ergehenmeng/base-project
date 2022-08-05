@@ -41,4 +41,11 @@ public interface OrderRefundLogService {
      * @return 退款金额
      */
     int getTotalRefundAmount(Long orderId);
+
+    /**
+     * 根据退款流水或查询退款记录
+     * @param outRefundNo 退款流水或
+     * @return 退款信息 可能为空
+     */
+    OrderRefundLog selectByOutRefundNo(String outRefundNo);
 }

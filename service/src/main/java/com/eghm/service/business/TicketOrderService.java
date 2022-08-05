@@ -32,6 +32,13 @@ public interface TicketOrderService {
     TicketOrder selectByOrderNo(String orderNo);
 
     /**
+     * 根据交易流水号查询门票订单
+     * @param outTradeNo 交易流水号
+     * @return 订单信息
+     */
+    TicketOrder selectByOutTradeNo(String outTradeNo);
+
+    /**
      * 根据主键查询订单信息,
      * 如果订单已删除或者未支付则抛异常
      * @param id id

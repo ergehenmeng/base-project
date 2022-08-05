@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.*;
 import com.eghm.common.exception.BusinessException;
@@ -24,6 +25,7 @@ import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.service.pay.vo.RefundVO;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,7 @@ import java.time.LocalDateTime;
 
 import static com.eghm.common.enums.ErrorCode.TICKET_REFUND_APPLY;
 import static com.eghm.common.enums.ErrorCode.TOTAL_REFUND_MAX;
+import static com.eghm.service.pay.enums.RefundState.*;
 
 /**
  * @author 二哥很猛
@@ -86,6 +89,15 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     public TicketOrder selectByOrderNo(String orderNo) {
         LambdaQueryWrapper<TicketOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(TicketOrder::getOrderNo, orderNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return ticketOrderMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public TicketOrder selectByOutTradeNo(String outTradeNo) {
+        LambdaQueryWrapper<TicketOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(TicketOrder::getOutTradeNo, outTradeNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
         return ticketOrderMapper.selectOne(wrapper);
     }
 
@@ -256,7 +268,32 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
 
     @Override
     public void orderRefund(String outTradeNo, String outRefundNo) {
-        // TODO 支付回调待完成
+        TicketOrder ticketOrder = this.selectByOutTradeNo(outTradeNo);
+        if (ticketOrder == null) {
+            log.error("根据支付流水号未查询到门票订单,不做退款处理 [{}] [{}]", outTradeNo, outRefundNo);
+            return;
+        }
+        OrderRefundLog refundLog = orderRefundLogService.selectByOutRefundNo(outRefundNo);
+        if (refundLog == null) {
+            log.error("根据退款流水号未查询到退款记录,不做退款处理 [{}] [{}]", outTradeNo, outRefundNo);
+            return;
+        }
+
+        TradeType tradeType = TradeType.valueOf(ticketOrder.getPayType().name());
+        RefundVO refund = aggregatePayService.queryRefund(tradeType, outTradeNo, outRefundNo);
+        com.eghm.service.pay.enums.RefundState state = refund.getState();
+
+        if (state == REFUND_SUCCESS || state == SUCCESS) {
+            // TODO 金额全部退款才能修改为已关闭
+            ticketOrder.setState(OrderState.CLOSE);
+            ticketOrder.setRefundState(RefundState.SUCCESS);
+            refundLog.setState(1);
+        } else if (state == ABNORMAL || state == CLOSED) {
+            ticketOrder.setRefundState(RefundState.FAIL);
+            refundLog.setState(2);
+        }
+        orderRefundLogService.updateById(refundLog);
+        ticketOrderMapper.updateById(ticketOrder);
     }
 
 

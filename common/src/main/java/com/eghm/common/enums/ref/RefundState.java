@@ -33,6 +33,11 @@ public enum RefundState implements IEnum<Integer> {
      */
     SUCCESS(4, "退款成功"),
 
+    /**
+     * 退款失败
+     */
+    FAIL(5, "退款失败"),
+
     ;
     /**
      * 状态

@@ -1,5 +1,8 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.OrderRefundLogMapper;
@@ -47,6 +50,14 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
 
     @Override
     public int getTotalRefundAmount(Long orderId) {
-        return 0;
+        return orderRefundLogMapper.getTotalRefundAmount(orderId);
+    }
+
+    @Override
+    public OrderRefundLog selectByOutRefundNo(String outRefundNo) {
+        LambdaQueryWrapper<OrderRefundLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(OrderRefundLog::getOutRefundNo, outRefundNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return orderRefundLogMapper.selectOne(wrapper);
     }
 }
