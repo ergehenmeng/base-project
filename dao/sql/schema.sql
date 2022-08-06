@@ -619,17 +619,22 @@ DROP TABLE IF EXISTS `task_log`;
 CREATE TABLE `task_log`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`          varchar(50) DEFAULT NULL COMMENT '任务nid',
-    `bean_name`    varchar(50) DEFAULT NULL COMMENT '定时任务bean名称',
-    `state`        bit(1)      DEFAULT b'1' COMMENT '执行结果 0:失败 1:成功',
-    `start_time`   datetime    DEFAULT NULL COMMENT '开始执行时间',
-    `elapsed_time` bigint(20)  DEFAULT '0' COMMENT '总耗时',
-    `error_msg`    text COMMENT '执行错误时的信息',
-    `ip`           varchar(50) DEFAULT NULL COMMENT '执行任务的机器ip',
+    `nid`          varchar(50)  DEFAULT NULL COMMENT '任务nid',
+    `bean_name`    varchar(100) DEFAULT NULL COMMENT '定时任务bean名称',
+    `method_name`  varchar(100) DEFAULT NULL COMMENT '方法名',
+    `args`         varchar(300) DEFAULT NULL COMMENT '方法入参',
+    `state`        bit(1)       DEFAULT b'1' COMMENT '执行结果 0:失败 1:成功',
+    `start_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '开始执行时间',
+    `elapsed_time` bigint(20)   DEFAULT '0' COMMENT '总耗时',
+    `error_msg`    longtext COMMENT '执行错误时的信息',
+    `ip`           varchar(50)  DEFAULT NULL COMMENT '执行任务的机器ip',
     PRIMARY KEY (`id`),
     KEY `nid_index` (`nid`) USING BTREE
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 1555921139815723011
   DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务执行日志';
+
+
 
 -- ----------------------------
 -- Table structure for user

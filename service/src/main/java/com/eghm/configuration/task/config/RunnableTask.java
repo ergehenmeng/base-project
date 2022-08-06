@@ -44,12 +44,11 @@ public class RunnableTask implements Runnable {
         this.evaluateBean(detail.getBeanName(), detail.getMethodName());
     }
 
-
     @Override
     public void run() {
         Date now = DateUtil.getNow();
         long startTime = now.getTime();
-        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(detail.getNid()).beanName(detail.getBeanName()).ip(IpUtil.getLocalIp());
+        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(detail.getNid()).beanName(detail.getBeanName()).methodName(detail.getMethodName()).args(detail.getArgs()).ip(IpUtil.getLocalIp());
         try {
             // 任务幂等由业务来决定
             method.invoke(bean, detail.getArgs());
@@ -57,7 +56,7 @@ public class RunnableTask implements Runnable {
             // 异常时记录日志并发送邮件
             log.error("定时任务执行异常 nid:[{}] bean:[{}]", detail.getNid(), detail.getBeanName(), e);
             builder.state(false);
-            String errorMsg = ExceptionUtils.getMessage(e);
+            String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
             this.sendExceptionEmail(errorMsg);
         } finally {

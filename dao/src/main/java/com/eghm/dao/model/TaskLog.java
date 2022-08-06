@@ -23,6 +23,12 @@ public class TaskLog extends BaseEntity {
     @ApiModelProperty("定时任务bean名称")
     private String beanName;
 
+    @ApiModelProperty("方法名称")
+    private String methodName;
+
+    @ApiModelProperty("方法入参")
+    private String args;
+
     @ApiModelProperty("执行结果 0:失败 1:成功")
     private Boolean state;
 
