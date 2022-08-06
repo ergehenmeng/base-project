@@ -85,6 +85,8 @@
         <appender-ref ref="info_rolling_file"/>
     </logger>
 
+
+
     <logger name="request_response" level="debug">
         <appender-ref ref="param_rolling_file"/>
     </logger>
@@ -103,5 +105,6 @@
     <logger name="jdbc.sqltiming" level="error"/>
     <logger name="jdbc.connection" level="error"/>
     <logger name="org.springframework" level="warn"/>
+    <logger name="springfox.documentation" level="warn"/>
 
 </configuration>

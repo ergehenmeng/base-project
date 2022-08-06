@@ -59,7 +59,7 @@ spring:
 mybatis-plus:
   mapper-locations:
     - classpath*:mapper/**/*.xml
-  type-enums-package: com.eghm.model.enums
+  type-enums-package: com.eghm.common.enums.ref
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
 system:
   ali-pay:

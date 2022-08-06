@@ -85,6 +85,6 @@
     <logger name="org.springframework" level="info"/>
     <logger name="freemarker" level="error"/>
     <logger name="org.apache" level="error" />
-
+    <logger name="springfox.documentation" level="warn"/>
 
 </configuration>

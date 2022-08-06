@@ -760,6 +760,11 @@ public enum ErrorCode {
     TOTAL_REFUND_MAX(3168, "累计退款金额大于实付金额"),
 
     /**
+     * 订单联系人状态不符合退款要求
+     */
+    VISITOR_STATE_ERROR(3169, "订单联系人状态不符合退款要求"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

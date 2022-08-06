@@ -65,6 +65,9 @@ public interface OrderService {
 
     /**
      * 退款成功货失败的异步处理
+     * 1. 查询第三方退款状态
+     * 2. 更新本地订单及退款记录
+     * 3. 假如退款失败,则由定时任务继续执行退款操作,但是对退款用户来说,他看到一直是退款中
      * @param outTradeNo 支付交易流水号
      * @param outRefundNo 退款交易流水号
      */

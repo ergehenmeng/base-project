@@ -36,11 +36,11 @@ public interface OrderRefundLogService {
     int updateById(OrderRefundLog log);
 
     /**
-     * 统计订单总退款金额 包含退款处理中的
+     * 统计订单总退款商品数量 包含退款处理中的
      * @param orderId 订单id
-     * @return 退款金额
+     * @return 数量
      */
-    int getTotalRefundAmount(Long orderId);
+    int getTotalRefundNum(Long orderId);
 
     /**
      * 根据退款流水或查询退款记录

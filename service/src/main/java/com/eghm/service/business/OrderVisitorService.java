@@ -23,7 +23,16 @@ public interface OrderVisitorService {
      * 锁定游客信息,防止在退款中进行核销
      * @param productType 商品类型
      * @param orderId 订单 id
+     * @param refundId 退款id
      * @param visitorList 游客id列表
      */
-    void lockVisitor(ProductType productType, Long orderId, List<Long> visitorList);
+    void lockVisitor(ProductType productType, Long orderId, Long refundId, List<Long> visitorList);
+
+    /**
+     * 解锁游客信息,退款拒绝使其可以继续使用
+     * @param orderId 订单 id
+     * @param refundId 退款id
+     */
+    void unlockVisitor(Long orderId, Long refundId);
+
 }

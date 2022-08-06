@@ -60,6 +60,8 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
 
     private final OrderRefundLogService orderRefundLogService;
 
+    private final VerifyLogService verifyLogService;
+
     @Override
     public void create(CreateTicketOrderDTO dto) {
         ScenicTicket ticket = scenicTicketService.selectByIdShelve(dto.getTicketId());
@@ -143,7 +145,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         order.setRefundState(RefundState.APPLY);
         ticketOrderMapper.updateById(order);
 
-        orderVisitorService.lockVisitor(ProductType.TICKET, dto.getOrderId(), dto.getVisitorIds());
+        orderVisitorService.lockVisitor(ProductType.TICKET, dto.getOrderId(), log.getId(), dto.getVisitorIds());
     }
 
     @Override
@@ -162,9 +164,9 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
             log.error("退款记录状态已更新 [{}] [{}] ", refundLog.getId(), refundLog.getAuditState());
             throw new BusinessException(TICKET_REFUND_APPLY);
         }
-        int totalRefundAmount = orderRefundLogService.getTotalRefundAmount(request.getOrderId());
-        if ((totalRefundAmount + request.getRefundAmount()) > order.getPayAmount()) {
-            log.error("门票累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}]", order.getPayAmount(), totalRefundAmount, request.getRefundAmount());
+        int refundNum = orderRefundLogService.getTotalRefundNum(request.getOrderId());
+        if ((refundNum + refundLog.getNum()) > order.getNum()) {
+            log.error("门票累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}]", order.getNum(), refundNum, refundLog.getNum());
             throw new BusinessException(TOTAL_REFUND_MAX);
         }
         refundLog.setAuditRemark(request.getAuditRemark());
@@ -172,6 +174,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         if (request.getState().intValue() == AuditState.REFUSE.getValue()) {
             order.setRefundState(RefundState.REFUSE);
             refundLog.setAuditState(AuditState.REFUSE);
+            orderVisitorService.unlockVisitor(request.getOrderId(), refundLog.getId());
         } else {
             order.setRefundState(RefundState.PROGRESS);
             refundLog.setAuditState(AuditState.PASS);
@@ -282,10 +285,8 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         TradeType tradeType = TradeType.valueOf(ticketOrder.getPayType().name());
         RefundVO refund = aggregatePayService.queryRefund(tradeType, outTradeNo, outRefundNo);
         com.eghm.service.pay.enums.RefundState state = refund.getState();
-
         if (state == REFUND_SUCCESS || state == SUCCESS) {
-            // TODO 金额全部退款才能修改为已关闭
-            ticketOrder.setState(OrderState.CLOSE);
+            this.setOrderState(ticketOrder);
             ticketOrder.setRefundState(RefundState.SUCCESS);
             refundLog.setState(1);
         } else if (state == ABNORMAL || state == CLOSED) {
@@ -296,6 +297,27 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         ticketOrderMapper.updateById(ticketOrder);
     }
 
+    /**
+     * 根据退款记录及核销记录计算订单的最终状态
+     * @param order 订单信息
+     */
+    private void setOrderState(TicketOrder order) {
+        int refundNum = orderRefundLogService.getTotalRefundNum(order.getId());
+        // 所有门票都已退款
+        if (refundNum >= order.getNum()) {
+            order.setState(OrderState.CLOSE);
+        } else {
+            // 已核销+退款数量大于总付款数量,订单可以直接完成
+            int verifiedNum = verifyLogService.getVerifiedNum(order.getId());
+            if ((verifiedNum + refundNum) >= order.getNum()) {
+                // TODO 后期添加7天自动确认完成
+                order.setState(OrderState.USED);
+            } else {
+                log.info("核销数量+退款数量小于付款数量,可能还有部分订单待核销 [{}] [{}] [{}] [{}] [{}]",
+                        order.getId(), order.getState(), order.getNum(), verifiedNum, refundNum);
+            }
+        }
+    }
 
     /**
      * 发起退款操作

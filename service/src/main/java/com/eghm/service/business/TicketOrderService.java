@@ -55,12 +55,21 @@ public interface TicketOrderService {
 
     /**
      * 门票退款申请
+     * 1. 校验订单状态是否符合退款要求
+     * 2. 增加退款申请记录
+     * 3. 如果存在实名制用户,则锁定用户防止用户在退款中继续核销
      * @param dto 退款信息
      */
     void applyRefund(ApplyTicketRefundDTO dto);
 
     /**
      * 退款审核
+     * 1. 审核状态校验
+     * 2. 退款拒接,则解锁锁定的用户信息
+     * 3. 退款通过,则发起退款申请
+     * 4. 更新订单为退款中
+     * 5. 更新退款记录为退款中
+     * 6. 根据异步回调信息进行最终状态的更新
      * @param request 审核信息
      */
     void auditRefund(AuditTicketRefundRequest request);

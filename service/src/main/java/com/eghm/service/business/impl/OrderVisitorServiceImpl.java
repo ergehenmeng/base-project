@@ -3,7 +3,9 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.OrderVisitorMapper;
 import com.eghm.dao.model.OrderVisitor;
 import com.eghm.model.dto.business.order.VisitorVO;
@@ -36,20 +38,40 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
             OrderVisitor visitor = DataUtil.copy(vo, OrderVisitor.class);
             visitor.setOrderId(orderId);
             visitor.setProductType(productType);
+            visitor.setState(0);
             orderVisitorMapper.insert(visitor);
         }
     }
 
     @Override
-    public void lockVisitor(ProductType productType, Long orderId, List<Long> visitorList) {
+    public void lockVisitor(ProductType productType, Long orderId, Long refundId, List<Long> visitorList) {
         if (CollUtil.isEmpty(visitorList)) {
+            log.info("退款锁定用户为空,可能是非实名制用户 [{}] [{}] [{}]", orderId, refundId, productType);
             return;
         }
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderId, orderId);
         wrapper.eq(OrderVisitor::getProductType, productType);
         wrapper.in(OrderVisitor::getId, visitorList);
-        wrapper.set(OrderVisitor::getLocked, true);
+        wrapper.eq(OrderVisitor::getState, 0);
+        wrapper.set(OrderVisitor::getState, 2);
+        wrapper.set(OrderVisitor::getCollectId, refundId);
+        int update = orderVisitorMapper.update(null, wrapper);
+        // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的
+        // 除非用户自己选择游客信息存在已核销的用户
+        if (visitorList.size() != update) {
+            log.error("退款人可能存在部分被核销的订单信息 [{}] [{}] [{}] [{}]", orderId, refundId, visitorList, update);
+            throw new BusinessException(ErrorCode.VISITOR_STATE_ERROR);
+        }
+    }
+
+    @Override
+    public void unlockVisitor(Long orderId, Long refundId) {
+        LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(OrderVisitor::getOrderId, orderId);
+        wrapper.eq(OrderVisitor::getCollectId, refundId);
+        wrapper.eq(OrderVisitor::getState, 2);
+        wrapper.set(OrderVisitor::getState, 0);
         orderVisitorMapper.update(null, wrapper);
     }
 }

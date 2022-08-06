@@ -446,7 +446,8 @@ CREATE TABLE `order_visitor`
     `order_id`     bigint(20)  DEFAULT NULL COMMENT '订单id',
     `user_name`    varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
-    `locked`       bit(1)      DEFAULT b'0' COMMENT '是否被锁定 0:正常 1:锁定',
+    `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 待使用 1:已使用 2:已退款',
+    `collect_id`    bigint(20)  DEFAULT NULL COMMENT '关联id(退款记录id或核销记录id)',
     `add_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
@@ -477,3 +478,16 @@ CREATE TABLE `order_refund_log`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单退款记录表';
+
+CREATE TABLE `verify_log`
+(
+    `id`       bigint(20)   DEFAULT NULL COMMENT '主键',
+    `order_id` bigint(20)   DEFAULT NULL COMMENT '订单id',
+    `user_id`  bigint(20)   DEFAULT NULL COMMENT '核销人id',
+    `num`      tinyint(2)   DEFAULT '1' COMMENT '核销数量',
+    `remark`   varchar(100) DEFAULT NULL COMMENT '核销备注',
+    `add_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '核销时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单核销记录表';
+
+

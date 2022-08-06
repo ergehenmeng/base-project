@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,6 +51,7 @@ public class SystemTaskRegistrar {
     /**
      * 加载或刷新系统中配置的定时任务
      */
+    @PostConstruct
     public synchronized void loadOrRefreshTask() {
         log.info("定时任务配置信息开始加载...");
         List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();

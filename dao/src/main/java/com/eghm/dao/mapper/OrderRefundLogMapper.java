@@ -15,9 +15,9 @@ import org.apache.ibatis.annotations.Param;
 public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
 
     /**
-     * 统计订单总退款金额 包含退款成功和退款中
+     * 统计订单总退款数量 包含退款成功和退款中
      * @param orderId 订单id
-     * @return 退款金额
+     * @return 数量
      */
-    int getTotalRefundAmount(@Param("orderId") Long orderId);
+    int getTotalRefundNum(@Param("orderId") Long orderId);
 }
