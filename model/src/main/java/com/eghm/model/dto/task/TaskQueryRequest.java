@@ -15,9 +15,6 @@ public class TaskQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -7264160100372337195L;
 
-    /**
-     * 状态
-     */
-    @ApiModelProperty("状态 0:未开启 1:已开启")
-    private Byte state;
+    @ApiModelProperty("状态 false:未开启 true:已开启")
+    private Boolean state;
 }

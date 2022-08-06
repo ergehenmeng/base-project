@@ -9,6 +9,7 @@ import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import java.lang.reflect.Method;
 import java.util.Date;
 
 /**
@@ -21,7 +22,12 @@ public class RunnableTask implements Runnable {
     /**
      * 具体业务实现
      */
-    private Task task;
+    private Object bean;
+
+    /**
+     * 方法名
+     */
+    private Method method;
 
     /**
      * 日志记录
@@ -35,7 +41,7 @@ public class RunnableTask implements Runnable {
 
     RunnableTask(TaskDetail detail) {
         this.detail = detail;
-        initBeans();
+        this.evaluateBean(detail.getBeanName(), detail.getMethodName());
     }
 
 
@@ -46,8 +52,8 @@ public class RunnableTask implements Runnable {
         TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(detail.getNid()).beanName(detail.getBeanName()).ip(IpUtil.getLocalIp());
         try {
             // 任务幂等由业务来决定
-            task.execute();
-        } catch (RuntimeException e) {
+            method.invoke(bean, detail.getArgs());
+        } catch (Exception e) {
             // 异常时记录日志并发送邮件
             log.error("定时任务执行异常 nid:[{}] bean:[{}]", detail.getNid(), detail.getBeanName(), e);
             builder.state(false);
@@ -80,9 +86,16 @@ public class RunnableTask implements Runnable {
     }
 
     /**
-     * 从Spring容器中获取Bean
+     * 初始化bean与方法信息
+     * @param beanName bean名称
+     * @param methodName 方法名
      */
-    private void initBeans() {
-        task = (Task) SpringContextUtil.getBean(detail.getBeanName());
+    private void evaluateBean(String beanName, String methodName) {
+        try {
+            this.bean = SpringContextUtil.getBean(beanName);
+            this.method = bean.getClass().getMethod(methodName, String.class);
+        } catch (Exception e) {
+            log.error("系统中不存在指定的类或无参的该方法 [{}] [{}]", beanName, methodName, e);
+        }
     }
 }

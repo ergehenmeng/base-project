@@ -21,6 +21,16 @@ public class TaskDetail {
     private String beanName;
 
     /**
+     * 方法名
+     */
+    private String methodName;
+
+    /**
+     * 入参
+     */
+    private String args;
+
+    /**
      * 报警邮箱
      */
     private String alarmEmail;

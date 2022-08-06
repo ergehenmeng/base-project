@@ -34,8 +34,8 @@ public class TaskEditRequest implements Serializable {
      * 开启获取关闭
      */
     @ApiModelProperty(value = "状态 0:未开启 1:已开启", required = true)
-    @OptionByte(value = {0, 1}, message = "状态非法")
-    private Byte state;
+    @NotNull(message = "任务状态不能为空")
+    private Boolean state;
 
     /**
      * 备注信息

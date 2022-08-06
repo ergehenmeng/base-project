@@ -5,15 +5,16 @@ import com.eghm.configuration.annotation.EnableTask;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.BeansException;
 import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.context.ApplicationListener;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -29,7 +30,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @MapperScan(basePackages = "com.eghm.dao.mapper")
 @EnableTask
 @Slf4j
-public class ManageApplication implements ApplicationListener<ContextRefreshedEvent> {
+public class ManageApplication implements ApplicationContextAware {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
@@ -39,8 +40,7 @@ public class ManageApplication implements ApplicationListener<ContextRefreshedEv
     }
 
     @Override
-    public void onApplicationEvent(@NonNull ContextRefreshedEvent event) {
-        SpringContextUtil.setApplicationContext(event.getApplicationContext());
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
+        SpringContextUtil.setApplicationContext(applicationContext);
     }
-
 }

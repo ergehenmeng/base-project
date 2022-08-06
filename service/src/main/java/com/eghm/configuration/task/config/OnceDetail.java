@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class OnceDetail extends TaskDetail{
+public class OnceDetail extends TaskDetail {
 
     /**
      * 任务执行的时间 (未来的某个时间)

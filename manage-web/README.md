@@ -6,12 +6,12 @@
 ### 定时任务相关
 * 开启定时任务添加`@EnableTask`注解即可
     * 支持数据库配置cron定时,spring原生注解定时,单次执行的定时
-    * 在`job_task`表中`bean`字段为要执行定时任务的bean的名称 `cron_expression`为cron表达式
+    * 在 `job_task` 表中 `bean_name` 字段为要执行定时任务的bean的名称 `cron_expression` 为cron表达式 `bean_method` 为方法名 `args` 方法入参
     * 如需简单定时任务可使用`@Scheduled`
-    * 非原生定时需要bean实现`com.eghm.configuration.task.Task`接口
-    * 定时任务配置更新后需要*手动刷新配置*才能重新生效
+    * 定时任务配置更新后需要 *手动刷新配置* 才能重新生效
     * 只执行一次的定时任务可通过 `TaskConfiguration.addTask()` 实现
     * demo例子`TestJobService` `OnceJobService`
+    * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是`public`, 强烈建议方法上添加 `@ScheduledTask` 注解作为定时任务标注一下
 
 
 ### 其他说明
