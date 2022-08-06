@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import com.eghm.service.common.TaskConfigService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -33,7 +34,7 @@ public class TaskConfig {
      * 自定义定时任务bean
      */
     @Bean
-    public SystemTaskRegistrar systemTaskRegistrar(){
-        return new SystemTaskRegistrar();
+    public SystemTaskRegistrar systemTaskRegistrar(TaskConfigService taskConfigService){
+        return new SystemTaskRegistrar(taskConfigService, taskScheduler());
     }
 }

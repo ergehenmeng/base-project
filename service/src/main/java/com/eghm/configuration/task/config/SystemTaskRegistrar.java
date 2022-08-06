@@ -6,8 +6,8 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.TaskConfig;
 import com.eghm.service.common.TaskConfigService;
 import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 
@@ -25,13 +25,12 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author 二哥很猛
  */
 @Slf4j
+@AllArgsConstructor
 public class SystemTaskRegistrar {
 
-    @Autowired
-    private TaskConfigService taskConfigService;
+    private final TaskConfigService taskConfigService;
 
-    @Autowired
-    private TaskScheduler taskScheduler;
+    private final TaskScheduler taskScheduler;
 
     /**
      * 周期定时任务
