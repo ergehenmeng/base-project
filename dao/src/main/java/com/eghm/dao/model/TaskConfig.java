@@ -23,9 +23,6 @@ public class TaskConfig {
     @ApiModelProperty("定时任务名称")
     private String title;
 
-    @ApiModelProperty("定时任务nid")
-    private String nid;
-
     @ApiModelProperty("类的bean名称")
     private String beanName;
 

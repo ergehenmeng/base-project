@@ -594,20 +594,19 @@ CREATE TABLE `tag_view`
 CREATE TABLE `task_config`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`           varchar(50)  DEFAULT NULL COMMENT '定时任务名称',
-    `nid`             varchar(20)  DEFAULT NULL COMMENT '定时任务nid',
-    `bean_name`       varchar(200) DEFAULT NULL COMMENT 'bean名称 必须实现Task接口',
-    `method_name`     varchar(100) DEFAULT NULL COMMENT '方法名(同一个类中不能有重载方法)',
-    `args`            varchar(300) DEFAULT NULL COMMENT '定时任务参数',
-    `cron_expression` varchar(50)  DEFAULT NULL COMMENT 'cron表达式',
-    `alarm_email`     varchar(30)  DEFAULT NULL COMMENT '错误报警邮箱',
-    `state`           bit(1)       DEFAULT b'0' COMMENT '状态 0:关闭 1:开启',
-    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`          varchar(255) DEFAULT NULL COMMENT '备注信息',
+    `title`           varchar(50)         DEFAULT NULL COMMENT '定时任务名称',
+    `bean_name`       varchar(200)        DEFAULT NULL COMMENT 'bean名称 必须实现Task接口',
+    `method_name`     varchar(50)         DEFAULT NULL COMMENT '方法名',
+    `args`            varchar(300)        DEFAULT NULL COMMENT '方法入参',
+    `cron_expression` varchar(50)         DEFAULT NULL COMMENT 'cron表达式',
+    `alarm_email`     varchar(30)         DEFAULT NULL COMMENT '错误报警邮箱',
+    `state`           tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:关闭 1:开启',
+    `update_time`     datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `remark`          varchar(255)        DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `nid_unique_index` (`nid`) USING BTREE COMMENT 'nid必须唯一'
+    UNIQUE KEY `unique_index` (`bean_name`, `method_name`) USING BTREE COMMENT 'nid必须唯一'
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
+  AUTO_INCREMENT = 4
   DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务配置表';
 
 
@@ -615,23 +614,19 @@ CREATE TABLE `task_config`
 -- ----------------------------
 -- Table structure for task_log
 -- ----------------------------
-DROP TABLE IF EXISTS `task_log`;
 CREATE TABLE `task_log`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`          varchar(50)  DEFAULT NULL COMMENT '任务nid',
-    `bean_name`    varchar(100) DEFAULT NULL COMMENT '定时任务bean名称',
-    `method_name`  varchar(100) DEFAULT NULL COMMENT '方法名',
-    `args`         varchar(300) DEFAULT NULL COMMENT '方法入参',
+    `bean_name`    varchar(50)  DEFAULT NULL COMMENT '定时任务bean名称',
+    `method_name`  varchar(30)  DEFAULT NULL COMMENT '方法名',
+    `args`         varchar(300) DEFAULT NULL COMMENT '方法参数',
     `state`        bit(1)       DEFAULT b'1' COMMENT '执行结果 0:失败 1:成功',
-    `start_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '开始执行时间',
+    `start_time`   datetime     DEFAULT NULL COMMENT '开始执行时间',
     `elapsed_time` bigint(20)   DEFAULT '0' COMMENT '总耗时',
-    `error_msg`    longtext COMMENT '执行错误时的信息',
+    `error_msg`    text COMMENT '执行错误时的信息',
     `ip`           varchar(50)  DEFAULT NULL COMMENT '执行任务的机器ip',
-    PRIMARY KEY (`id`),
-    KEY `nid_index` (`nid`) USING BTREE
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 1555921139815723011
   DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务执行日志';
 
 

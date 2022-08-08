@@ -148,7 +148,7 @@ public class SystemTaskRegistrar {
      * @param task 任务配置信息
      */
     public void addTask(OnceDetail task) {
-        String nid = task.getNid() + "-" + counter.getAndIncrement();
+        String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
         ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), task.getExecuteTime());
         scheduledFutures.put(nid, schedule);
     }

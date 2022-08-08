@@ -17,9 +17,6 @@ import lombok.*;
 @TableName("task_log")
 public class TaskLog extends BaseEntity {
 
-    @ApiModelProperty("任务nid")
-    private String nid;
-
     @ApiModelProperty("定时任务bean名称")
     private String beanName;
 

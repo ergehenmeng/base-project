@@ -1,6 +1,9 @@
 package com.eghm.service.business;
 
 import com.eghm.dao.model.OrderRefundLog;
+import com.eghm.model.dto.ext.OrderRefund;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -48,4 +51,10 @@ public interface OrderRefundLogService {
      * @return 退款信息 可能为空
      */
     OrderRefundLog selectByOutRefundNo(String outRefundNo);
+
+    /**
+     * 查询门票所有退款处理中的信息
+     * @return 退款信息
+     */
+    List<OrderRefund> getTicketRefunding();
 }

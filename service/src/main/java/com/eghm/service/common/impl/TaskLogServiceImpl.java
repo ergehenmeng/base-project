@@ -31,7 +31,7 @@ public class TaskLogServiceImpl implements TaskLogService {
         LambdaQueryWrapper<TaskLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, TaskLog::getState, request.getState());
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
-                queryWrapper.like(TaskLog::getNid, request.getQueryName()).or()
+                queryWrapper.like(TaskLog::getMethodName, request.getQueryName()).or()
                         .like(TaskLog::getBeanName, request.getQueryName()).or()
                         .like(TaskLog::getIp, request.getQueryName()));
         return taskLogMapper.selectPage(request.createPage(), wrapper);

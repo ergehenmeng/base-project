@@ -7,10 +7,13 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.OrderRefundLogMapper;
 import com.eghm.dao.model.OrderRefundLog;
+import com.eghm.model.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -59,5 +62,10 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
         wrapper.eq(OrderRefundLog::getOutRefundNo, outRefundNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return orderRefundLogMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public List<OrderRefund> getTicketRefunding() {
+        return orderRefundLogMapper.getTicketRefunding();
     }
 }

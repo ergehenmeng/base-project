@@ -48,13 +48,13 @@ public class RunnableTask implements Runnable {
     public void run() {
         Date now = DateUtil.getNow();
         long startTime = now.getTime();
-        TaskLog.TaskLogBuilder builder = TaskLog.builder().nid(detail.getNid()).beanName(detail.getBeanName()).methodName(detail.getMethodName()).args(detail.getArgs()).ip(IpUtil.getLocalIp());
+        TaskLog.TaskLogBuilder builder = TaskLog.builder().beanName(detail.getBeanName()).methodName(detail.getMethodName()).args(detail.getArgs()).ip(IpUtil.getLocalIp());
         try {
             // 任务幂等由业务来决定
             method.invoke(bean, detail.getArgs());
         } catch (Exception e) {
             // 异常时记录日志并发送邮件
-            log.error("定时任务执行异常 nid:[{}] bean:[{}]", detail.getNid(), detail.getBeanName(), e);
+            log.error("定时任务执行异常 bean:[{}] method: [{}]", detail.getBeanName(), detail.getMethodName(), e);
             builder.state(false);
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);

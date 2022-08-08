@@ -9,13 +9,13 @@ import org.springframework.scheduling.config.CronTask;
 public class CronSystemTask extends CronTask {
 
     /**
-     * 任务的唯一nid用于打印日志等
+     * 任务的唯一id用于打印日志等
      */
     private final String nid;
 
     CronSystemTask(CronDetail config) {
         super(new RunnableTask(config), config.getCronExpression());
-        this.nid = config.getNid();
+        this.nid = config.getBeanName() + "-" + config.getMethodName();
     }
 
     public String getNid() {

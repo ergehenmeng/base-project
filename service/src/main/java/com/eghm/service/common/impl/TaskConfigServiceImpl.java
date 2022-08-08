@@ -39,10 +39,9 @@ public class TaskConfigServiceImpl implements TaskConfigService {
     public Page<TaskConfig> getByPage(TaskQueryRequest request) {
         LambdaQueryWrapper<TaskConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, TaskConfig::getState, request.getState());
-
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(TaskConfig::getTitle, request.getQueryName()).or()
-                        .like(TaskConfig::getNid, request.getQueryName()).or()
+                        .like(TaskConfig::getMethodName, request.getQueryName()).or()
                         .like(TaskConfig::getBeanName, request.getQueryName()));
         return taskConfigMapper.selectPage(request.createPage(), wrapper);
     }

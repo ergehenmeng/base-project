@@ -2,7 +2,10 @@ package com.eghm.dao.mapper;
 
 import com.eghm.dao.model.OrderRefundLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.dto.ext.OrderRefund;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -20,4 +23,10 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
      * @return 数量
      */
     int getTotalRefundNum(@Param("orderId") Long orderId);
+
+    /**
+     * 查询门票退款处理中的订单流水号及退款流水号
+     * @return 流水号信息
+     */
+    List<OrderRefund> getTicketRefunding();
 }

@@ -30,8 +30,11 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.eghm.common.enums.ErrorCode.TICKET_REFUND_APPLY;
 import static com.eghm.common.enums.ErrorCode.TOTAL_REFUND_MAX;
@@ -253,6 +256,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void orderPay(String orderNo) {
         TicketOrder order = this.selectByOrderNo(orderNo);
         if (order.getState() != OrderState.PROGRESS) {
@@ -270,6 +274,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void orderRefund(String outTradeNo, String outRefundNo) {
         TicketOrder ticketOrder = this.selectByOutTradeNo(outTradeNo);
         if (ticketOrder == null) {
@@ -295,6 +300,11 @@ public class TicketOrderServiceImpl implements TicketOrderService, OrderService 
         }
         orderRefundLogService.updateById(refundLog);
         ticketOrderMapper.updateById(ticketOrder);
+    }
+
+    @Override
+    public List<String> getPayingList() {
+        return ticketOrderMapper.getPayingList();
     }
 
     /**

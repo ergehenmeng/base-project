@@ -4,6 +4,8 @@ import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
 import org.springframework.scheduling.annotation.Async;
 
+import java.util.List;
+
 /**
  * 订单相关公共接口
  * @author 二哥很猛
@@ -73,4 +75,10 @@ public interface OrderService {
      */
     @Async
     void orderRefund(String outTradeNo, String outRefundNo);
+
+    /**
+     * 查询支付处理中的订单列表
+     * @return 订单号
+     */
+    List<String> getPayingList();
 }

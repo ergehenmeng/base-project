@@ -11,11 +11,6 @@ import lombok.Data;
 public class TaskDetail {
 
     /**
-     * 任务标示符
-     */
-    private String nid;
-
-    /**
      * 执行任务的bean的名称 必须实现Task接口
      */
     private String beanName;
