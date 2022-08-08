@@ -27,7 +27,9 @@ public class TaskAlarmServiceImpl implements TaskAlarmService {
             sendEmail.setType(EmailType.TASK_ALARM);
             sendEmail.setEmail(detail.getAlarmEmail());
             sendEmail.put("errorMsg", errorMsg);
-            sendEmail.put("nid", detail.getNid());
+            sendEmail.put("beanName", detail.getBeanName());
+            sendEmail.put("methodName", detail.getMethodName());
+            sendEmail.put("args", detail.getArgs());
             emailService.sendEmail(sendEmail);
         }
     }
