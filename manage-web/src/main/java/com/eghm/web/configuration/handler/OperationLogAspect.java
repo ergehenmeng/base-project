@@ -80,9 +80,9 @@ public class OperationLogAspect {
         }
 
         sy.setUrl(request.getRequestURI());
+        long start = System.currentTimeMillis();
         Object proceed = joinPoint.proceed();
-        long end = System.currentTimeMillis();
-        sy.setBusinessTime(end - System.currentTimeMillis());
+        sy.setBusinessTime(System.currentTimeMillis() - start);
         if (proceed != null) {
             sy.setResponse(gson.toJson(proceed));
         }
