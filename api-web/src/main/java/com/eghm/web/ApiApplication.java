@@ -1,13 +1,9 @@
 package com.eghm.web;
 
-import com.eghm.service.mq.RabbitService;
+import com.eghm.service.mq.RabbitMessageService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageBuilder;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
@@ -20,11 +16,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 /**
  * 前后端分离
@@ -53,7 +44,7 @@ public class ApiApplication implements ApplicationListener<ContextRefreshedEvent
     }
 
     @Autowired
-    private RabbitService rabbitService;
+    private RabbitMessageService rabbitService;
 
     @GetMapping("/sendDelay")
     public String sendDelay(String msg) {

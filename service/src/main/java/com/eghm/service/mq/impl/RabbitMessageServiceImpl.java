@@ -1,6 +1,6 @@
 package com.eghm.service.mq.impl;
 
-import com.eghm.service.mq.RabbitService;
+import com.eghm.service.mq.RabbitMessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.MessageProperties;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 /**
  * @author 二哥很猛 2022/6/10 15:55
  */
-@Service("rabbitService")
+@Service("rabbitMessageService")
 @Slf4j
-public class RabbitServiceImpl implements RabbitService {
+public class RabbitMessageServiceImpl implements RabbitMessageService {
 
     private AmqpTemplate amqpTemplate;
 
@@ -23,7 +23,7 @@ public class RabbitServiceImpl implements RabbitService {
 
     @Override
     public void sendDelay(Object msg, String exchange, int delay) {
-        this.sendDelay(msg, null, exchange, delay);
+        this.sendDelay(msg, "", exchange, delay);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class RabbitServiceImpl implements RabbitService {
 
     @Override
     public void send(Object msg, String exchange) {
-        this.send(msg, null, exchange);
+        this.send(msg, "", exchange);
     }
 
 

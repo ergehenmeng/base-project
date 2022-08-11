@@ -49,6 +49,11 @@ public class QueueConstant {
      */
     public static final String DEAD_LETTER_QUEUE = "dead_letter_queue";
 
+    /**
+     * 管理后台日志队列
+     */
+    public static final String MANAGE_LOG_QUEUE = "manage_log_queue";
+
 
 
 }

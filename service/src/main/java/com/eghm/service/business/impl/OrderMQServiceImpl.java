@@ -3,7 +3,7 @@ package com.eghm.service.business.impl;
 import com.eghm.common.enums.RabbitQueue;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.service.business.OrderMQService;
-import com.eghm.service.mq.RabbitService;
+import com.eghm.service.mq.RabbitMessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class OrderMQServiceImpl implements OrderMQService {
 
-    private final RabbitService rabbitService;
+    private final RabbitMessageService rabbitService;
 
     private final SysConfigApi sysConfigApi;
 

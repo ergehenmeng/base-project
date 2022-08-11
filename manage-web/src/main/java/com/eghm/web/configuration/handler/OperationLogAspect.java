@@ -1,12 +1,13 @@
 package com.eghm.web.configuration.handler;
 
 import cn.hutool.core.net.NetUtil;
+import com.eghm.common.enums.RabbitQueue;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.model.SysOperationLog;
-import com.eghm.queue.TaskHandler;
 import com.eghm.queue.task.OperationLogTask;
+import com.eghm.service.mq.RabbitMessageService;
 import com.eghm.service.sys.OperationLogService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
@@ -38,11 +39,9 @@ public class OperationLogAspect {
 
     private final SysConfigApi sysConfigApi;
 
-    private final OperationLogService operationLogService;
-
     private final Gson gson = new Gson();
 
-    private final TaskHandler taskHandler;
+    private final RabbitMessageService rabbitMessageService;
 
     /**
      * 操作日志,如果仅仅想请求或者响应某些参数不想入库可以在响应字段上添加
@@ -87,7 +86,7 @@ public class OperationLogAspect {
         }
         boolean logSwitch = sysConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if (logSwitch) {
-            taskHandler.executeOperateLog(new OperationLogTask(sy, operationLogService));
+            rabbitMessageService.send(sy, RabbitQueue.MANAGE_LOG.getExchange());
         } else {
             log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getOperatorId(), sy.getBusinessTime());
         }

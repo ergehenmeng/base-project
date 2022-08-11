@@ -3,7 +3,7 @@ package com.eghm.service.mq;
 /**
  * @author 二哥很猛 2022/6/10 15:55
  */
-public interface RabbitService {
+public interface RabbitMessageService {
 
     /**
      * 发送延迟消息
