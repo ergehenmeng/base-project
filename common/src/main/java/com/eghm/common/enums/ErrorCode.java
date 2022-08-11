@@ -50,6 +50,11 @@ public enum ErrorCode {
     SPRING_ON_LOADING(505,"Spring上下文尚未完全启动"),
 
     /**
+     * 该访问地址不支持%s请求
+     */
+    METHOD_NOT_SUPPOERTED(505,"该访问地址不支持%s请求"),
+
+    /**
      * 数据转换异常
      */
     JSON_FORMAT_ERROR(1000,"数据转换异常"),
