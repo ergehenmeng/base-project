@@ -54,6 +54,9 @@ public class QueueConstant {
      */
     public static final String MANAGE_LOG_QUEUE = "manage_log_queue";
 
-
+    /**
+     * 移动端登陆日志队列
+     */
+    public static final String LOGIN_LOG_QUEUE = "login_log_queue";
 
 }

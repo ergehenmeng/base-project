@@ -57,6 +57,11 @@ public enum RabbitQueue {
      */
     MANAGE_LOG("manage_log_exchange", QueueConstant.MANAGE_LOG_QUEUE, ""),
 
+    /**
+     * 管理后台日志队列
+     */
+    LOGIN_LOG("login_log_exchange", QueueConstant.LOGIN_LOG_QUEUE, ""),
+
     ;
 
     /**
