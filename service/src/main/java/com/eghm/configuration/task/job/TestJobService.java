@@ -2,8 +2,8 @@ package com.eghm.configuration.task.job;
 
 import com.eghm.common.utils.DateUtil;
 import com.eghm.configuration.annotation.ScheduledTask;
-import com.eghm.configuration.task.config.OnceDetail;
-import com.eghm.configuration.task.config.SystemTaskRegistrar;
+import com.eghm.configuration.task.config.OnceTask;
+import com.eghm.configuration.task.config.SysTaskRegistrar;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,23 +17,23 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class TestJobService {
 
-    private SystemTaskRegistrar systemTaskRegistrar;
+    private SysTaskRegistrar sysTaskRegistrar;
 
     @Autowired(required = false)
-    public void setSystemTaskRegistrar(SystemTaskRegistrar systemTaskRegistrar) {
-        this.systemTaskRegistrar = systemTaskRegistrar;
+    public void setSysTaskRegistrar(SysTaskRegistrar sysTaskRegistrar) {
+        this.sysTaskRegistrar = sysTaskRegistrar;
     }
+
 
     @ScheduledTask
     public void execute(String args) {
         log.error("我是个数据库配置的Job, 我的作用是触发一次性任务 [{}] [{}]", args, DateUtil.formatLong(DateUtil.getNow()));
-        OnceDetail onceDetail = new OnceDetail();
+        OnceTask onceDetail = new OnceTask();
         onceDetail.setBeanName("onceJobService");
-        onceDetail.setNid("onceJobService");
         onceDetail.setMethodName("execute");
         onceDetail.setArgs("一次性任务入参");
         onceDetail.setExecuteTime(DateUtil.addSeconds(DateUtil.getNow(),10));
-        systemTaskRegistrar.addTask(onceDetail);
+        sysTaskRegistrar.addTask(onceDetail);
     }
 
     @Scheduled(cron = "0 0 0-5 * * ?")

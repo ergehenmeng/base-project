@@ -14,8 +14,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("task_log")
-public class TaskLog extends BaseEntity {
+@TableName("sys_task_log")
+public class SysTaskLog extends BaseEntity {
 
     @ApiModelProperty("定时任务bean名称")
     private String beanName;

@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.configuration.task.config.TaskDetail;
+import com.eghm.configuration.task.config.Task;
 
 /**
  * @author 殿小二
@@ -10,8 +10,8 @@ public interface TaskAlarmService {
 
     /**
      * 报警通知
-     * @param detail 任务配置信息
+     * @param task 任务配置信息
      * @param errorMsg 错误信息
      */
-    void noticeAlarm(TaskDetail detail, String errorMsg);
+    void noticeAlarm(Task task, String errorMsg);
 }

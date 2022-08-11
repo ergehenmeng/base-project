@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2020/9/18
  */
 @Data
-public class TaskDetail {
+public abstract class Task {
 
     /**
      * 执行任务的bean的名称 必须实现Task接口
@@ -29,4 +29,5 @@ public class TaskDetail {
      * 报警邮箱
      */
     private String alarmEmail;
+
 }

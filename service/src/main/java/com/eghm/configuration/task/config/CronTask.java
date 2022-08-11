@@ -4,20 +4,18 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * @author 二哥很猛
- * @date 2020/1/6 18:36
+ * @date 2020/1/6 18:43
  */
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-public class OnceDetail extends TaskDetail {
+public class CronTask extends Task {
 
     /**
-     * 任务执行的时间 (未来的某个时间)
+     * 任务cron表达式
      */
-    private Date executeTime;
+    private String cronExpression;
 
 }

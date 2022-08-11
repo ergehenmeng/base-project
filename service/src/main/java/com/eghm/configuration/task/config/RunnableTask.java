@@ -1,13 +1,15 @@
 package com.eghm.configuration.task.config;
 
+import cn.hutool.core.util.ReflectUtil;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.model.TaskLog;
+import com.eghm.dao.model.SysTaskLog;
+import com.eghm.service.common.SysTaskLogService;
 import com.eghm.service.common.TaskAlarmService;
-import com.eghm.service.common.TaskLogService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -32,29 +34,29 @@ public class RunnableTask implements Runnable {
     /**
      * 日志记录
      */
-    private TaskLogService taskLogService;
+    private SysTaskLogService sysTaskLogService;
 
     /**
      * 执行任务时说明信息
      */
-    private final TaskDetail detail;
+    private final Task task;
 
-    RunnableTask(TaskDetail detail) {
-        this.detail = detail;
-        this.evaluateBean(detail.getBeanName(), detail.getMethodName());
+    RunnableTask(Task task) {
+        this.task = task;
+        this.evaluateBean(task.getBeanName(), task.getMethodName());
     }
 
     @Override
     public void run() {
         Date now = DateUtil.getNow();
         long startTime = now.getTime();
-        TaskLog.TaskLogBuilder builder = TaskLog.builder().beanName(detail.getBeanName()).methodName(detail.getMethodName()).args(detail.getArgs()).ip(IpUtil.getLocalIp());
+        SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
         try {
             // 任务幂等由业务来决定
-            method.invoke(bean, detail.getArgs());
+            ReflectUtil.invoke(bean, method, task.getArgs());
         } catch (Exception e) {
             // 异常时记录日志并发送邮件
-            log.error("定时任务执行异常 bean:[{}] method: [{}]", detail.getBeanName(), detail.getMethodName(), e);
+            log.error("定时任务执行异常 bean:[{}] method: [{}]", task.getBeanName(), task.getMethodName(), e);
             builder.state(false);
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
@@ -67,12 +69,12 @@ public class RunnableTask implements Runnable {
         }
     }
 
-    private TaskLogService taskLogService() {
-        if (taskLogService != null) {
-            return taskLogService;
+    private SysTaskLogService taskLogService() {
+        if (sysTaskLogService != null) {
+            return sysTaskLogService;
         }
-        this.taskLogService = (TaskLogService) SpringContextUtil.getBean("taskLogService");
-        return taskLogService;
+        this.sysTaskLogService = (SysTaskLogService) SpringContextUtil.getBean("sysTaskLogService");
+        return sysTaskLogService;
     }
 
     /**
@@ -81,7 +83,7 @@ public class RunnableTask implements Runnable {
      */
     private void sendExceptionEmail(String errorMsg) {
         TaskAlarmService taskAlarmService = (TaskAlarmService) SpringContextUtil.getBean("taskAlarmService");
-        taskAlarmService.noticeAlarm(detail, errorMsg);
+        taskAlarmService.noticeAlarm(task, errorMsg);
     }
 
     /**
@@ -92,9 +94,9 @@ public class RunnableTask implements Runnable {
     private void evaluateBean(String beanName, String methodName) {
         try {
             this.bean = SpringContextUtil.getBean(beanName);
-            this.method = bean.getClass().getMethod(methodName, String.class);
+            this.method = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass().getMethod(methodName, String.class) : bean.getClass().getMethod(methodName, String.class);
         } catch (Exception e) {
-            log.error("系统中不存在指定的类或无参的该方法 [{}] [{}]", beanName, methodName, e);
+            log.error("系统中不存在指定的类或该方法 [{}] [{}]", beanName, methodName, e);
         }
     }
 }

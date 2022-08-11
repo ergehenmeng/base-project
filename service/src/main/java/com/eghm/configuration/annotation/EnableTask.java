@@ -1,6 +1,6 @@
 package com.eghm.configuration.annotation;
 
-import com.eghm.configuration.task.config.TaskConfiguration;
+import com.eghm.configuration.task.config.TaskConfig;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -12,7 +12,7 @@ import java.lang.annotation.*;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(TaskConfiguration.class)
+@Import(TaskConfig.class)
 @Documented
 public @interface EnableTask {
 }

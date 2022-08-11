@@ -3,8 +3,8 @@ package com.eghm.configuration.task.config;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.TaskConfig;
-import com.eghm.service.common.TaskConfigService;
+import com.eghm.dao.model.SysTask;
+import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,16 +26,16 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @Slf4j
 @AllArgsConstructor
-public class SystemTaskRegistrar {
+public class SysTaskRegistrar {
 
-    private final TaskConfigService taskConfigService;
+    private final SysTaskService taskConfigService;
 
     private final TaskScheduler taskScheduler;
 
     /**
      * 周期定时任务
      */
-    private final Map<String, CronSystemTask> cronTaskMap = new ConcurrentHashMap<>(32);
+    private final Map<String, SysCronTask> cronTaskMap = new ConcurrentHashMap<>(32);
 
     /**
      * 任务执行句柄
@@ -53,10 +53,10 @@ public class SystemTaskRegistrar {
     @PostConstruct
     public synchronized void loadOrRefreshTask() {
         log.info("定时任务配置信息开始加载...");
-        List<TaskConfig> taskConfigs = taskConfigService.getAvailableList();
-        List<CronSystemTask> taskList = new ArrayList<>();
-        for (TaskConfig taskConfig : taskConfigs) {
-            CronSystemTask triggerTask = new CronSystemTask(DataUtil.copy(taskConfig, CronDetail.class));
+        List<SysTask> taskConfigs = taskConfigService.getAvailableList();
+        List<SysCronTask> taskList = new ArrayList<>();
+        for (SysTask taskConfig : taskConfigs) {
+            SysCronTask triggerTask = new SysCronTask(DataUtil.copy(taskConfig, CronTask.class));
             taskList.add(triggerTask);
         }
         this.doRefreshTask(taskList);
@@ -68,7 +68,7 @@ public class SystemTaskRegistrar {
      *
      * @param taskList 新的定时任务配置列表
      */
-    private void doRefreshTask(List<CronSystemTask> taskList) {
+    private void doRefreshTask(List<SysCronTask> taskList) {
         // cron校验
         this.verifyCronExpression(taskList);
         // 移除不需要运行的任务
@@ -82,8 +82,8 @@ public class SystemTaskRegistrar {
      *
      * @param taskList 待添加的定时任务列表
      */
-    private void addCronTask(List<CronSystemTask> taskList) {
-        for (CronSystemTask task : taskList) {
+    private void addCronTask(List<SysCronTask> taskList) {
+        for (SysCronTask task : taskList) {
             this.addCronTask(task);
         }
     }
@@ -93,7 +93,7 @@ public class SystemTaskRegistrar {
      *
      * @param task 待添加的定时任务
      */
-    private void addCronTask(CronSystemTask task) {
+    private void addCronTask(SysCronTask task) {
         if (cronTaskMap.containsKey(task.getNid()) && cronTaskMap.get(task.getNid()).getExpression().equals(task.getExpression())) {
             log.info("定时任务配置信息未发生变化 nid:[{}]", task.getNid());
             return;
@@ -112,15 +112,15 @@ public class SystemTaskRegistrar {
      * 1.如果旧定时任务与新的要执行的定时任务一样,则不移除.在添加定时任务时再判断(减少过多的停止任务的操作)
      *
      * @param taskList 指定的任务列表
-     * @see SystemTaskRegistrar#addTask(OnceDetail)
+     * @see SysTaskRegistrar#addTask(OnceTask)
      */
-    private void removeCronTask(List<CronSystemTask> taskList) {
+    private void removeCronTask(List<SysCronTask> taskList) {
         boolean isEmpty = taskList.isEmpty();
         Iterator<Map.Entry<String, ScheduledFuture<?>>> iterator = scheduledFutures.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, ScheduledFuture<?>> entry = iterator.next();
             // 将所有不在指定任务列表的中已经在运行的任务全部取消
-            boolean shouldCancel = (isEmpty || taskList.stream().map(CronSystemTask::getNid).noneMatch(s -> s.equals(entry.getKey())));
+            boolean shouldCancel = (isEmpty || taskList.stream().map(SysCronTask::getNid).noneMatch(s -> s.equals(entry.getKey())));
             if (shouldCancel) {
                 entry.getValue().cancel(false);
                 iterator.remove();
@@ -133,8 +133,8 @@ public class SystemTaskRegistrar {
      *
      * @param taskList cron任务列表
      */
-    private void verifyCronExpression(List<CronSystemTask> taskList) {
-        for (CronSystemTask task : taskList) {
+    private void verifyCronExpression(List<SysCronTask> taskList) {
+        for (SysCronTask task : taskList) {
             if (StrUtil.isBlank(task.getExpression()) || !CronSequenceGenerator.isValidExpression(task.getExpression())) {
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
@@ -147,7 +147,7 @@ public class SystemTaskRegistrar {
      *
      * @param task 任务配置信息
      */
-    public void addTask(OnceDetail task) {
+    public void addTask(OnceTask task) {
         String nid = task.getBeanName() + "-" + task.getMethodName() + "-" + counter.getAndIncrement();
         ScheduledFuture<?> schedule = taskScheduler.schedule(new RunnableTask(task), task.getExecuteTime());
         scheduledFutures.put(nid, schedule);

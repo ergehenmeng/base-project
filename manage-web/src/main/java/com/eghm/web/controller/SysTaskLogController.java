@@ -1,10 +1,10 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.TaskLog;
+import com.eghm.dao.model.SysTaskLog;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
-import com.eghm.service.common.TaskLogService;
+import com.eghm.service.common.SysTaskLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -21,15 +21,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "定时任务日志")
 @AllArgsConstructor
-@RequestMapping("/taskLog")
-public class TaskLogController {
+@RequestMapping("/task/log")
+public class SysTaskLogController {
 
-    private final TaskLogService taskLogService;
+    private final SysTaskLogService sysTaskLogService;
 
     @GetMapping("/listPage")
     @ApiOperation("日志列表(分页)")
-    public PageData<TaskLog> listPage(TaskLogQueryRequest request) {
-        Page<TaskLog> byPage = taskLogService.getByPage(request);
+    public PageData<SysTaskLog> listPage(TaskLogQueryRequest request) {
+        Page<SysTaskLog> byPage = sysTaskLogService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
@@ -37,6 +37,6 @@ public class TaskLogController {
     @ApiOperation("错误日志查询")
     @ApiImplicitParam(name = "id", value = "id",  required = true)
     public String select(@RequestParam("id") Long id) {
-        return taskLogService.getErrorMsg(id);
+        return sysTaskLogService.getErrorMsg(id);
     }
 }

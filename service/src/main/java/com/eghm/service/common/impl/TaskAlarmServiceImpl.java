@@ -2,7 +2,7 @@ package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.EmailType;
-import com.eghm.configuration.task.config.TaskDetail;
+import com.eghm.configuration.task.config.Task;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.TaskAlarmService;
@@ -20,16 +20,16 @@ public class TaskAlarmServiceImpl implements TaskAlarmService {
     private final EmailService emailService;
 
     @Override
-    public void noticeAlarm(TaskDetail detail, String errorMsg) {
+    public void noticeAlarm(Task task, String errorMsg) {
         // 发送报警邮件通知
-        if (StrUtil.isNotBlank(detail.getAlarmEmail())) {
+        if (StrUtil.isNotBlank(task.getAlarmEmail())) {
             SendEmail sendEmail = new SendEmail();
             sendEmail.setType(EmailType.TASK_ALARM);
-            sendEmail.setEmail(detail.getAlarmEmail());
+            sendEmail.setEmail(task.getAlarmEmail());
             sendEmail.put("errorMsg", errorMsg);
-            sendEmail.put("beanName", detail.getBeanName());
-            sendEmail.put("methodName", detail.getMethodName());
-            sendEmail.put("args", detail.getArgs());
+            sendEmail.put("beanName", task.getBeanName());
+            sendEmail.put("methodName", task.getMethodName());
+            sendEmail.put("args", task.getArgs());
             emailService.sendEmail(sendEmail);
         }
     }

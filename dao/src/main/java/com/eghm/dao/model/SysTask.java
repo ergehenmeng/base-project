@@ -13,8 +13,8 @@ import java.util.Date;
  * @author 二哥很猛
  */
 @Data
-@TableName("task_config")
-public class TaskConfig {
+@TableName("sys_task")
+public class SysTask {
 
     @ApiModelProperty("主键")
     @JsonSerialize(using = ToStringSerializer.class)

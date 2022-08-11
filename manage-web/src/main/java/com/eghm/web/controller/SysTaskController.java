@@ -1,13 +1,13 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.task.config.SystemTaskRegistrar;
-import com.eghm.dao.model.TaskConfig;
+import com.eghm.configuration.task.config.SysTaskRegistrar;
+import com.eghm.dao.model.SysTask;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
-import com.eghm.service.common.TaskConfigService;
+import com.eghm.service.common.SysTaskService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -22,30 +22,30 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "定时任务配置")
 @AllArgsConstructor
 @RequestMapping("/task")
-public class TaskConfigController {
+public class SysTaskController {
 
-    private final TaskConfigService taskConfigService;
+    private final SysTaskService sysTaskService;
 
-    private final SystemTaskRegistrar systemTaskRegistrar;
+    private final SysTaskRegistrar sysTaskRegistrar;
 
     @GetMapping("/listPage")
     @ApiOperation("定时任务列表(分页)")
-    public PageData<TaskConfig> listPage(TaskQueryRequest request) {
-        Page<TaskConfig> byPage = taskConfigService.getByPage(request);
+    public PageData<SysTask> listPage(TaskQueryRequest request) {
+        Page<SysTask> byPage = sysTaskService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
     @PostMapping("/update")
     @ApiOperation("编辑定时任务")
     public RespBody<Void> update(@Validated @RequestBody TaskEditRequest request) {
-        taskConfigService.update(request);
+        sysTaskService.update(request);
         return RespBody.success();
     }
 
     @PostMapping("/refresh")
     @ApiOperation("刷新定时任务")
     public RespBody<Void> refresh() {
-        systemTaskRegistrar.loadOrRefreshTask();
+        sysTaskRegistrar.loadOrRefreshTask();
         return RespBody.success();
     }
 }
