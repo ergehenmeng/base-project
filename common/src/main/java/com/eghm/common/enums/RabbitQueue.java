@@ -52,7 +52,9 @@ public enum RabbitQueue {
      */
     DEAD_LETTER("dead_letter_exchange", QueueConstant.DEAD_LETTER_QUEUE, ""),
 
-
+    /**
+     * 管理后台日志队列
+     */
     MANAGE_LOG("manage_log_exchange", QueueConstant.MANAGE_LOG_QUEUE, ""),
 
     ;
