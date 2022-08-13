@@ -32,6 +32,13 @@ public class RabbitListenerHandler {
         processMessageAck(orderNo, message, channel, s -> commonService.getOrderService(s).orderExpire(s));
     }
 
+    /**
+     * 异常日志
+     */
+    @RabbitListener(queues = QueueConstant.WEBAPP_LOG_QUEUE)
+    public void exceptionLog(String errorMsg, Message message, Channel channel) throws IOException {
+        processMessageAck(errorMsg, message, channel, System.out::println);
+    }
 
     /**
      * 处理MQ中消息,并手动确认
@@ -51,5 +58,4 @@ public class RabbitListenerHandler {
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
     }
-
 }

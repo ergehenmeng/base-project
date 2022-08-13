@@ -65,7 +65,7 @@ public enum RabbitQueue {
     /**
      * 移动端异常日志
      */
-    EXCEPTION_LOG("exception_log_exchange", QueueConstant.EXCEPTION_LOG_QUEUE, ""),
+    WEBAPP_LOG("webapp_log_exchange", QueueConstant.WEBAPP_LOG_QUEUE, ""),
 
     ;
 

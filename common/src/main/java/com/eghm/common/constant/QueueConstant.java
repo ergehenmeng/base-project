@@ -62,5 +62,5 @@ public class QueueConstant {
     /**
      * 移动端登陆日志队列
      */
-    public static final String EXCEPTION_LOG_QUEUE = "exception_log_queue";
+    public static final String WEBAPP_LOG_QUEUE = "webapp_log_queue";
 }

@@ -6,8 +6,9 @@ import com.eghm.common.exception.AiliPayException;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
 import com.eghm.common.exception.WeChatPayException;
-import com.eghm.dao.model.ExceptionLog;
+import com.eghm.dao.model.WebappLog;
 import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.mq.service.MessageService;
 import com.google.common.collect.Maps;
@@ -17,7 +18,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -42,7 +42,6 @@ public class ControllerAdviceHandler {
      * @return 返回标准对象
      */
     @ExceptionHandler(DataException.class)
-    @ResponseBody
     public RespBody<Object> dataException(HttpServletRequest request, DataException e) {
         log.warn("特殊业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         RespBody<Object> body = RespBody.error(e.getCode(), e.getMessage());
@@ -57,7 +56,6 @@ public class ControllerAdviceHandler {
      * @return 返回标准对象
      */
     @ExceptionHandler(BusinessException.class)
-    @ResponseBody
     public RespBody<Void> businessException(HttpServletRequest request, BusinessException e) {
         log.warn("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return RespBody.error(e.getCode(), e.getMessage());
@@ -70,11 +68,21 @@ public class ControllerAdviceHandler {
      * @return 返回标准对象
      */
     @ExceptionHandler(Exception.class)
-    @ResponseBody
     public RespBody<Void> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
-        ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(ApiHolder.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
-        rabbitMessageService.send(exceptionLog, RabbitQueue.EXCEPTION_LOG.getExchange());
+        RequestMessage message = ApiHolder.get();
+        WebappLog exceptionLog = WebappLog.builder()
+                .userId(ApiHolder.tryGetUserId())
+                .version(message.getVersion())
+                .osVersion(message.getOsVersion())
+                .deviceBrand(message.getDeviceBrand())
+                .deviceModel(message.getDeviceModel())
+                .channel(message.getChannel())
+                .serialNumber(message.getSerialNumber())
+                .url(request.getRequestURI())
+                .requestParam(ApiHolder.getRequestBody())
+                .errorMsg(ExceptionUtils.getStackTrace(e)).build();
+        rabbitMessageService.send(exceptionLog, RabbitQueue.WEBAPP_LOG.getExchange());
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 
@@ -85,7 +93,6 @@ public class ControllerAdviceHandler {
      * @return 404
      */
     @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseBody
     public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
         log.warn("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
@@ -97,7 +104,6 @@ public class ControllerAdviceHandler {
      * @return 404
      */
     @ExceptionHandler(WeChatPayException.class)
-    @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> weChatPayException(HttpServletRequest request, WeChatPayException e) {
         log.error("微信异步通知异常 [{}]", request.getRequestURI());
@@ -111,7 +117,6 @@ public class ControllerAdviceHandler {
      * 支付宝异步通知
      */
     @ExceptionHandler(AiliPayException.class)
-    @ResponseBody
     public String aliPayException(HttpServletRequest request) {
         log.error("支付宝异步通知异常 [{}]", request.getRequestURI());
         return "FAIL";

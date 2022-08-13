@@ -266,7 +266,7 @@ public class RabbitMQConfig {
      */
     @Bean("exceptionLogExchange")
     public Exchange exceptionLogExchange() {
-        return ExchangeBuilder.topicExchange(RabbitQueue.EXCEPTION_LOG.getExchange()).durable(true).build();
+        return ExchangeBuilder.topicExchange(RabbitQueue.WEBAPP_LOG.getExchange()).durable(true).build();
     }
 
     /**
@@ -274,7 +274,7 @@ public class RabbitMQConfig {
      */
     @Bean("exceptionLogQueue")
     public Queue exceptionLogQueue() {
-        return QueueBuilder.durable(RabbitQueue.EXCEPTION_LOG.getQueue()).build();
+        return QueueBuilder.durable(RabbitQueue.WEBAPP_LOG.getQueue()).build();
     }
 
     /**
@@ -282,6 +282,6 @@ public class RabbitMQConfig {
      */
     @Bean
     public Binding exceptionLogBinding() {
-        return BindingBuilder.bind(exceptionLogQueue()).to(exceptionLogExchange()).with(RabbitQueue.EXCEPTION_LOG.getRoutingKey()).noargs();
+        return BindingBuilder.bind(exceptionLogQueue()).to(exceptionLogExchange()).with(RabbitQueue.WEBAPP_LOG.getRoutingKey()).noargs();
     }
 }
