@@ -36,7 +36,7 @@ public class LoginLogServiceImpl implements LoginLogService {
     }
 
     @Override
-    public void addLoginLog(LoginRecord loginRecord) {
+    public void insertLoginLog(LoginRecord loginRecord) {
         LoginLog loginLog = DataUtil.copy(loginRecord, LoginLog.class);
         loginLogMapper.insert(loginLog);
         LoginDevice device = DataUtil.copy(loginRecord, LoginDevice.class);

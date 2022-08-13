@@ -57,7 +57,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.LOGIN_LOG_QUEUE)
     public void loginLog(LoginRecord loginRecord, Message message, Channel channel) throws IOException {
-        processMessageAck(loginRecord, message, channel, loginLogService::addLoginLog);
+        processMessageAck(loginRecord, message, channel, loginLogService::insertLoginLog);
     }
 
     /**

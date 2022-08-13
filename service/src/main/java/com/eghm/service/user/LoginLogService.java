@@ -13,7 +13,7 @@ public interface LoginLogService {
      * 添加登陆日志
      * @param loginRecord 登陆日志
      */
-    void addLoginLog(LoginRecord loginRecord);
+    void insertLoginLog(LoginRecord loginRecord);
 
     /**
      * 获取用户最近一次登陆的信息, 如果用户首次登陆系统时结果为空
