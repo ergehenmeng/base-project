@@ -33,7 +33,7 @@ import javax.servlet.Filter;
  * @date 2018/1/18 18:35
  */
 @Configuration
-public class FrontWebMvcConfig extends WebMvcConfig {
+public class WebappMvcConfig extends WebMvcConfig {
 
     /**
      * 过滤器不拦截的地址
@@ -44,7 +44,7 @@ public class FrontWebMvcConfig extends WebMvcConfig {
 
     private final LoginLogService loginLogService;
 
-    public FrontWebMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginLogService loginLogService) {
+    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginLogService loginLogService) {
         super(objectMapper, systemProperties);
         this.tokenService = tokenService;
         this.loginLogService = loginLogService;

@@ -12,9 +12,9 @@ import org.springframework.context.annotation.Configuration;
  * @date 2018/1/18 18:35
  */
 @Configuration
-public class ManageWebMvcConfig extends WebMvcConfig {
+public class ManageMvcConfig extends WebMvcConfig {
 
-    public ManageWebMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties) {
+    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties) {
         super(objectMapper, systemProperties);
     }
 }
