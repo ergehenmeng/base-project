@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Api(tags = "图片上传")
 @AllArgsConstructor
-@RequestMapping("/image")
+@RequestMapping("/webapp/image")
 public class ImageController {
 
     private final FileService fileService;

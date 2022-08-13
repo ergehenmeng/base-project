@@ -13,10 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -30,6 +27,7 @@ import java.util.Map;
 @Api(tags = "支付回调管理")
 @AllArgsConstructor
 @Slf4j
+@RequestMapping("/webapp")
 public class PayNotifyController {
 
     private final PayService aliPayService;

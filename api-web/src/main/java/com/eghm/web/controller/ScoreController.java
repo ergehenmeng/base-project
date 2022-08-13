@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "用户积分")
 @AllArgsConstructor
-@RequestMapping("/score")
+@RequestMapping("/webapp/user/score")
 public class ScoreController {
 
     private final UserScoreLogService userScoreLogService;

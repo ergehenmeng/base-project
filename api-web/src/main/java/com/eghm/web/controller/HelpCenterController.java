@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "帮助中心")
 @AllArgsConstructor
-@RequestMapping("/help")
+@RequestMapping("/webapp/help")
 public class HelpCenterController {
 
     private final HelpCenterService helpCenterService;

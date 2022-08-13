@@ -22,7 +22,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "问题反馈")
 @AllArgsConstructor
-@RequestMapping("/feedback")
+@RequestMapping("/webapp/feedback")
 public class FeedbackController{
 
     private final FeedbackService feedbackService;

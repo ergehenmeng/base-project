@@ -28,7 +28,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "注册")
 @AllArgsConstructor
-@RequestMapping("/register")
+@RequestMapping("/webapp/register")
 public class RegisterController {
 
     private final UserService userService;

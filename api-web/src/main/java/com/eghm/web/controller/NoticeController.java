@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @Api(tags = "系统公告")
 @AllArgsConstructor
-@RequestMapping("/notice")
+@RequestMapping("/webapp/notice")
 public class NoticeController {
 
     private final SysNoticeService sysNoticeService;

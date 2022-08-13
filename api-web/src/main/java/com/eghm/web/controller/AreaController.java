@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "省份区域")
 @AllArgsConstructor
-@RequestMapping("/area")
+@RequestMapping("/webapp/area")
 public class AreaController {
 
     private final SysAreaService sysAreaService;

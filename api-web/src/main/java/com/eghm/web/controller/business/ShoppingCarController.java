@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @Api(tags = "购物车")
 @AllArgsConstructor
-@RequestMapping("/shopping/car")
+@RequestMapping("/webapp/shopping/car")
 public class ShoppingCarController {
 
     private final ShoppingCarService shoppingCarService;

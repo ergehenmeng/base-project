@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @Api(tags = "用户地址")
 @AllArgsConstructor
-@RequestMapping("/address")
+@RequestMapping("/webapp/user/address")
 public class AddressController {
 
     private final UserAddressService userAddressService;

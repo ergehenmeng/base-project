@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "更新版本")
 @AllArgsConstructor
-@RequestMapping("/version")
+@RequestMapping("/webapp/version")
 public class VersionController {
 
     private final AppVersionService appVersionService;

@@ -18,7 +18,7 @@ import javax.validation.Valid;
  */
 @RestController
 @Api(tags = "微信授权")
-@RequestMapping("/wechat")
+@RequestMapping("/webapp/wechat")
 @AllArgsConstructor
 public class WeChatController {
 

@@ -26,7 +26,7 @@ import java.util.List;
 @RestController
 @Api(tags = "轮播图")
 @AllArgsConstructor
-@RequestMapping("/banner")
+@RequestMapping("/webapp/banner")
 public class BannerController {
 
     private final BannerService bannerService;

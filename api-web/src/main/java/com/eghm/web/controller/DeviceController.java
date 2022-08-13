@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @Api(tags = "登陆设备")
 @AllArgsConstructor
-@RequestMapping("/device")
+@RequestMapping("/webapp/user/device")
 public class DeviceController {
 
     private final LoginDeviceService loginDeviceService;

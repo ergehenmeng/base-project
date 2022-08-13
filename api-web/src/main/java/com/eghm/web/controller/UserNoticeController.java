@@ -21,7 +21,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "站内信")
 @AllArgsConstructor
-@RequestMapping("/notice")
+@RequestMapping("/webapp/user/notice")
 public class UserNoticeController {
 
     private final UserNoticeService userNoticeService;
