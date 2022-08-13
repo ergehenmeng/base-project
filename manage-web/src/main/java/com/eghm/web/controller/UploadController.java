@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @Api(tags = "文件上传")
 @AllArgsConstructor
-@RequestMapping("/file")
+@RequestMapping("/manage/file")
 public class UploadController {
 
     private final FileService fileService;

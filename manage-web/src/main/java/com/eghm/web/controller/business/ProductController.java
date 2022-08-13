@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "商品管理")
 @AllArgsConstructor
-@RequestMapping("/product")
+@RequestMapping("/manage/product")
 public class ProductController {
 
     private final ProductService productService;

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "优惠券配置")
 @AllArgsConstructor
-@RequestMapping("/coupon/config")
+@RequestMapping("/manage/coupon/config")
 public class CouponConfigController {
 
     private final CouponConfigService couponConfigService;

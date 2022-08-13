@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @Api(tags = "房态设置")
 @AllArgsConstructor
-@RequestMapping("/homestay/room/config")
+@RequestMapping("/manage/homestay/room/config")
 public class HomestayRoomConfigController {
 
     private final HomestayRoomConfigService homestayRoomConfigService;

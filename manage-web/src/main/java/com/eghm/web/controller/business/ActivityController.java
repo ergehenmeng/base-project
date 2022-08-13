@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "活动管理")
 @AllArgsConstructor
-@RequestMapping("/activity")
+@RequestMapping("/manage/activity")
 public class ActivityController {
 
     private final ActivityService activityService;

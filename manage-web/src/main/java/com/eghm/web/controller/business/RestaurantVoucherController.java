@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "餐饮券")
 @AllArgsConstructor
-@RequestMapping("/restaurant/voucher")
+@RequestMapping("/manage/restaurant/voucher")
 public class RestaurantVoucherController {
 
     private final RestaurantVoucherService restaurantVoucherService;

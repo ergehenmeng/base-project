@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "定时任务日志")
 @AllArgsConstructor
-@RequestMapping("/task/log")
+@RequestMapping("/manage/task/log")
 public class SysTaskLogController {
 
     private final SysTaskLogService sysTaskLogService;

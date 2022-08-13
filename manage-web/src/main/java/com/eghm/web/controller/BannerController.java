@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "banner管理")
 @AllArgsConstructor
-@RequestMapping("/banner")
+@RequestMapping("/manage/banner")
 public class BannerController {
 
     private final BannerService bannerService;

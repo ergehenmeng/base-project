@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "景区")
 @AllArgsConstructor
-@RequestMapping("/scenic")
+@RequestMapping("/manage/scenic")
 public class ScenicController {
 
     private final ScenicService scenicService;

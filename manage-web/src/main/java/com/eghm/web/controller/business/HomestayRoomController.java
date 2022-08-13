@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "民宿房型")
 @AllArgsConstructor
-@RequestMapping("/homestay/room")
+@RequestMapping("/manage/homestay/room")
 public class HomestayRoomController {
 
     private final HomestayRoomService homestayRoomService;

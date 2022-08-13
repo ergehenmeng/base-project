@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @Api(tags = "菜单管理")
 @AllArgsConstructor
-@RequestMapping("/menu")
+@RequestMapping("/manage/menu")
 public class MenuController {
 
     private final SysMenuService sysMenuService;

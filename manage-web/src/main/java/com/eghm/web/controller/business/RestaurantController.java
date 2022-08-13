@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "餐饮商家")
 @AllArgsConstructor
-@RequestMapping("/restaurant/")
+@RequestMapping("/manage/restaurant")
 public class RestaurantController {
 
     private final RestaurantService restaurantService;

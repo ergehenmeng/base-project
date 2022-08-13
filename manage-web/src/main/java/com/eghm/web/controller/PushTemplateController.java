@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "消息模板管理")
 @AllArgsConstructor
-@RequestMapping("/push")
+@RequestMapping("/manage/push")
 public class PushTemplateController {
 
     private final PushTemplateService pushTemplateService;

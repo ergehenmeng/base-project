@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "反馈管理")
 @AllArgsConstructor
-@RequestMapping("/feedback")
+@RequestMapping("/manage/feedback")
 public class FeedbackController {
 
     private final FeedbackService feedbackService;

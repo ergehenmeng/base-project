@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "公告管理")
 @AllArgsConstructor
-@RequestMapping("/notice")
+@RequestMapping("/manage/notice")
 public class SysNoticeController {
 
     private final SysNoticeService sysNoticeService;

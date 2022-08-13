@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "操作日志管理")
 @AllArgsConstructor
-@RequestMapping("/log")
+@RequestMapping("/manage/log")
 public class ManageLogController {
 
     private final ManageLogService manageLogService;

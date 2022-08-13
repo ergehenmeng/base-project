@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "系统参数管理")
 @AllArgsConstructor
-@RequestMapping("/config")
+@RequestMapping("/manage/config")
 public class ConfigController {
 
     private final SysConfigService sysConfigService;

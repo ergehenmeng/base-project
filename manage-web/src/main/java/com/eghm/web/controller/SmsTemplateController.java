@@ -23,7 +23,7 @@ import javax.validation.Valid;
 @RestController
 @Api(tags = "短信模板管理")
 @AllArgsConstructor
-@RequestMapping("/smsTemplate")
+@RequestMapping("/manage/sms/template")
 public class SmsTemplateController {
 
     private final SmsTemplateService smsTemplateService;

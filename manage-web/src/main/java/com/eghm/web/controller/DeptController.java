@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @Api(tags = "部门管理")
 @AllArgsConstructor
-@RequestMapping("/dept")
+@RequestMapping("/manage/dept")
 public class DeptController {
 
     private final SysDeptService sysDeptService;

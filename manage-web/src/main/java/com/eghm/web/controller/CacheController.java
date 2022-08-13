@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @Api(tags = "缓存管理")
 @AllArgsConstructor
-@RequestMapping("/cache")
+@RequestMapping("/manage/cache")
 public class CacheController {
 
     private final SysCacheService sysCacheService;

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "短信日志管理")
 @AllArgsConstructor
-@RequestMapping("/smsLog")
+@RequestMapping("/manage/sms/log")
 public class SmsLogController {
 
     private final SmsLogService smsLogService;

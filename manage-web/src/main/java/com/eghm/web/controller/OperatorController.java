@@ -37,7 +37,7 @@ import java.util.List;
 @RestController
 @Api(tags = "系统用户管理")
 @AllArgsConstructor
-@RequestMapping("/operator")
+@RequestMapping("/manage/operator")
 public class OperatorController {
 
     private final SysOperatorService sysOperatorService;

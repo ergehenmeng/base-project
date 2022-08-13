@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "定时任务配置")
 @AllArgsConstructor
-@RequestMapping("/task")
+@RequestMapping("/manage/task")
 public class SysTaskController {
 
     private final SysTaskService sysTaskService;

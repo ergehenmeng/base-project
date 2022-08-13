@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
@@ -30,6 +31,7 @@ import java.io.IOException;
 @Slf4j
 @Api(tags = "图形验证码")
 @AllArgsConstructor
+@RequestMapping("/manage")
 public class CaptchaController {
 
     private final Producer producer;
