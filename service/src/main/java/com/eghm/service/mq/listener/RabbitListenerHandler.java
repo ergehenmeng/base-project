@@ -1,7 +1,13 @@
 package com.eghm.service.mq.listener;
 
 import com.eghm.common.constant.QueueConstant;
+import com.eghm.dao.model.SysOperationLog;
+import com.eghm.dao.model.WebappLog;
+import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.sys.OperationLogService;
+import com.eghm.service.sys.WebappLogService;
+import com.eghm.service.user.LoginLogService;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +29,12 @@ public class RabbitListenerHandler {
 
     private final CommonService commonService;
 
+    private final WebappLogService webappLogService;
+
+    private final LoginLogService loginLogService;
+
+    private final OperationLogService operationLogService;
+
     /**
      * 消息队列订单过期处理
      * @param orderNo 订单编号
@@ -33,11 +45,27 @@ public class RabbitListenerHandler {
     }
 
     /**
-     * 异常日志
+     * 移动端异常日志
      */
     @RabbitListener(queues = QueueConstant.WEBAPP_LOG_QUEUE)
-    public void exceptionLog(String errorMsg, Message message, Channel channel) throws IOException {
-        processMessageAck(errorMsg, message, channel, System.out::println);
+    public void webappLog(WebappLog webappLog, Message message, Channel channel) throws IOException {
+        processMessageAck(webappLog, message, channel, webappLogService::insertWebappLog);
+    }
+
+    /**
+     * 移动端登陆日志
+     */
+    @RabbitListener(queues = QueueConstant.LOGIN_LOG_QUEUE)
+    public void loginLog(LoginRecord loginRecord, Message message, Channel channel) throws IOException {
+        processMessageAck(loginRecord, message, channel, loginLogService::addLoginLog);
+    }
+
+    /**
+     * 管理后台操作日志
+     */
+    @RabbitListener(queues = QueueConstant.MANAGE_OP_LOG_QUEUE)
+    public void manageOpLog(SysOperationLog log, Message message, Channel channel) throws IOException {
+        processMessageAck(log, message, channel, operationLogService::insertOperationLog);
     }
 
     /**
