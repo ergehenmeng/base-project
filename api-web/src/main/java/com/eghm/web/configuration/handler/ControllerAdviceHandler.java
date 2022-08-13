@@ -1,6 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.RabbitQueue;
 import com.eghm.common.exception.AiliPayException;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
@@ -8,9 +9,7 @@ import com.eghm.common.exception.WeChatPayException;
 import com.eghm.dao.model.ExceptionLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.queue.TaskHandler;
-import com.eghm.queue.task.ExceptionLogTask;
-import com.eghm.service.sys.ExceptionLogService;
+import com.eghm.service.mq.service.MessageService;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,9 +33,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class ControllerAdviceHandler {
 
-    private final ExceptionLogService exceptionLogService;
-
-    private final TaskHandler taskHandler;
+    private final MessageService rabbitMessageService;
 
     /**
      * 特殊业务异常统一拦截
@@ -77,7 +74,7 @@ public class ControllerAdviceHandler {
     public RespBody<Void> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         ExceptionLog exceptionLog = ExceptionLog.builder().url(request.getRequestURI()).requestParam(ApiHolder.getRequestBody()).errorMsg(ExceptionUtils.getStackTrace(e)).build();
-        taskHandler.executeExceptionLog(new ExceptionLogTask(exceptionLog, exceptionLogService));
+        rabbitMessageService.send(exceptionLog, RabbitQueue.EXCEPTION_LOG.getExchange());
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

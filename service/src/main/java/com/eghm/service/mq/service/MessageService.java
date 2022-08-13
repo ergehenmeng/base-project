@@ -1,9 +1,9 @@
-package com.eghm.service.mq;
+package com.eghm.service.mq.service;
 
 /**
  * @author 二哥很猛 2022/6/10 15:55
  */
-public interface RabbitMessageService {
+public interface MessageService {
 
     /**
      * 发送延迟消息

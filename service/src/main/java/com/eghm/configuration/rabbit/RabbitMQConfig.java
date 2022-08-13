@@ -211,4 +211,77 @@ public class RabbitMQConfig {
     public Binding productOrderBinding() {
         return BindingBuilder.bind(productOrderQueue()).to(productOrderExchange()).with(RabbitQueue.PRODUCT_ORDER.getRoutingKey()).noargs();
     }
+
+    /**
+     * 管理后台操作日志交换机
+     */
+    @Bean("manageOpLogExchange")
+    public Exchange manageOpLogExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.MANAGE_OP_LOG.getExchange()).durable(true).build();
+    }
+
+    /**
+     * 管理后台操作日志处理队列
+     */
+    @Bean("manageOpLogQueue")
+    public Queue manageOpLogQueue() {
+        return QueueBuilder.durable(RabbitQueue.MANAGE_OP_LOG.getQueue()).build();
+    }
+
+    /**
+     * 交换机与队列绑定
+     */
+    @Bean
+    public Binding manageLogBinding() {
+        return BindingBuilder.bind(manageOpLogQueue()).to(manageOpLogExchange()).with(RabbitQueue.MANAGE_OP_LOG.getRoutingKey()).noargs();
+    }
+
+
+    /**
+     * 移动端用户登录日志交换机
+     */
+    @Bean("loginLogExchange")
+    public Exchange loginLogExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.LOGIN_LOG.getExchange()).durable(true).build();
+    }
+
+    /**
+     * 移动端用户登录日志处理队列
+     */
+    @Bean("loginLogQueue")
+    public Queue loginLogQueue() {
+        return QueueBuilder.durable(RabbitQueue.LOGIN_LOG.getQueue()).build();
+    }
+
+    /**
+     * 交换机与队列绑定
+     */
+    @Bean
+    public Binding loginLogBinding() {
+        return BindingBuilder.bind(loginLogQueue()).to(loginLogExchange()).with(RabbitQueue.LOGIN_LOG.getRoutingKey()).noargs();
+    }
+
+    /**
+     * 异常日志交换机
+     */
+    @Bean("exceptionLogExchange")
+    public Exchange exceptionLogExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.EXCEPTION_LOG.getExchange()).durable(true).build();
+    }
+
+    /**
+     * 异常日志处理队列
+     */
+    @Bean("exceptionLogQueue")
+    public Queue exceptionLogQueue() {
+        return QueueBuilder.durable(RabbitQueue.EXCEPTION_LOG.getQueue()).build();
+    }
+
+    /**
+     * 交换机与队列绑定
+     */
+    @Bean
+    public Binding exceptionLogBinding() {
+        return BindingBuilder.bind(exceptionLogQueue()).to(exceptionLogExchange()).with(RabbitQueue.EXCEPTION_LOG.getRoutingKey()).noargs();
+    }
 }

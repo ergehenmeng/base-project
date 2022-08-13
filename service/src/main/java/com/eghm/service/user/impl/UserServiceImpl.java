@@ -8,10 +8,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
-import com.eghm.common.enums.EmailType;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.ScoreType;
-import com.eghm.common.enums.SmsType;
+import com.eghm.common.enums.*;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
 import com.eghm.common.utils.DateUtil;
@@ -38,15 +35,13 @@ import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
 import com.eghm.model.dto.user.UserAuthDTO;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.model.vo.user.SignInVO;
-import com.eghm.queue.TaskHandler;
-import com.eghm.queue.task.LoginLogTask;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.LoginDeviceService;
-import com.eghm.service.user.LoginLogService;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.service.wechat.WeChatMpService;
@@ -71,33 +66,31 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private SysConfigApi sysConfigApi;
+    private final SysConfigApi sysConfigApi;
 
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
 
-    private Encoder encoder;
+    private final Encoder encoder;
 
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
-    private SmsService smsService;
+    private final SmsService smsService;
 
-    private LoginDeviceService loginDeviceService;
+    private final LoginDeviceService loginDeviceService;
 
-    private LoginLogService loginLogService;
+    private final EmailService emailService;
 
-    private TaskHandler taskHandler;
+    private final SystemProperties systemProperties;
 
-    private EmailService emailService;
+    private final CacheService cacheService;
 
-    private SystemProperties systemProperties;
+    private final UserScoreLogService userScoreLogService;
 
-    private CacheService cacheService;
+    private final HandlerChain handlerChain;
 
-    private UserScoreLogService userScoreLogService;
+    private final WeChatMpService weChatMpService;
 
-    private HandlerChain handlerChain;
-
-    private WeChatMpService weChatMpService;
+    private final MessageService rabbitMessageService;
 
     @Override
     public User getById(Long userId) {
@@ -194,7 +187,7 @@ public class UserServiceImpl implements UserService {
                 .softwareVersion(request.getVersion())
                 .serialNumber(request.getSerialNumber())
                 .build();
-        taskHandler.executeLoginLog(new LoginLogTask(loginRecord, loginLogService));
+        rabbitMessageService.send(loginRecord, RabbitQueue.LOGIN_LOG.getExchange());
         return LoginTokenVO.builder().token(token.getToken()).refreshToken(token.getRefreshToken()).build();
     }
 

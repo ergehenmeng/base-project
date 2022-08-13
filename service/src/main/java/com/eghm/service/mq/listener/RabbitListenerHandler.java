@@ -1,4 +1,4 @@
-package com.eghm.service.business.impl;
+package com.eghm.service.mq.listener;
 
 import com.eghm.common.constant.QueueConstant;
 import com.eghm.service.business.CommonService;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 @AllArgsConstructor
 @Slf4j
-public class RabbitListenerService {
+public class RabbitListenerHandler {
 
     private final CommonService commonService;
 

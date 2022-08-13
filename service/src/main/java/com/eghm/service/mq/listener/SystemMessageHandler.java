@@ -1,4 +1,4 @@
-package com.eghm.configuration;
+package com.eghm.service.mq.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

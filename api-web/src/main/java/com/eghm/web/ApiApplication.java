@@ -1,6 +1,6 @@
 package com.eghm.web;
 
-import com.eghm.service.mq.RabbitMessageService;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -44,19 +44,19 @@ public class ApiApplication implements ApplicationListener<ContextRefreshedEvent
     }
 
     @Autowired
-    private RabbitMessageService rabbitService;
+    private MessageService rabbitMessageService;
 
     @GetMapping("/sendDelay")
     public String sendDelay(String msg) {
         log.info("开始发送延迟: [{}]", msg);
-        rabbitService.sendDelay(msg, "exchange_order_delay", 5);
+        rabbitMessageService.sendDelay(msg, "exchange_order_delay", 5);
         return "success";
     }
 
     @GetMapping("/send")
     public String send(String msg) {
         log.info("开始发送: [{}]", msg);
-        rabbitService.send(msg, "exchange_dead_letter");
+        rabbitMessageService.send(msg, "exchange_dead_letter");
         return "success";
     }
 

@@ -53,14 +53,19 @@ public enum RabbitQueue {
     DEAD_LETTER("dead_letter_exchange", QueueConstant.DEAD_LETTER_QUEUE, ""),
 
     /**
-     * 管理后台日志队列
+     * 管理后台操作日志队列
      */
-    MANAGE_LOG("manage_log_exchange", QueueConstant.MANAGE_LOG_QUEUE, ""),
+    MANAGE_OP_LOG("manage_op_log_exchange", QueueConstant.MANAGE_OP_LOG_QUEUE, ""),
 
     /**
-     * 管理后台日志队列
+     * 移动端用户登录日志队列
      */
     LOGIN_LOG("login_log_exchange", QueueConstant.LOGIN_LOG_QUEUE, ""),
+
+    /**
+     * 移动端异常日志
+     */
+    EXCEPTION_LOG("exception_log_exchange", QueueConstant.EXCEPTION_LOG_QUEUE, ""),
 
     ;
 

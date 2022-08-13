@@ -50,13 +50,17 @@ public class QueueConstant {
     public static final String DEAD_LETTER_QUEUE = "dead_letter_queue";
 
     /**
-     * 管理后台日志队列
+     * 管理后台操作日志队列
      */
-    public static final String MANAGE_LOG_QUEUE = "manage_log_queue";
+    public static final String MANAGE_OP_LOG_QUEUE = "manage_op_log_queue";
 
     /**
      * 移动端登陆日志队列
      */
     public static final String LOGIN_LOG_QUEUE = "login_log_queue";
 
+    /**
+     * 移动端登陆日志队列
+     */
+    public static final String EXCEPTION_LOG_QUEUE = "exception_log_queue";
 }

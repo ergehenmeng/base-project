@@ -1,6 +1,6 @@
-package com.eghm.service.mq.impl;
+package com.eghm.service.mq.service.impl;
 
-import com.eghm.service.mq.RabbitMessageService;
+import com.eghm.service.mq.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.MessageProperties;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("rabbitMessageService")
 @Slf4j
-public class RabbitMessageServiceImpl implements RabbitMessageService {
+public class RabbitMessageServiceImpl implements MessageService {
 
     private AmqpTemplate amqpTemplate;
 
