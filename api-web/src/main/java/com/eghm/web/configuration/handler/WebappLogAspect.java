@@ -5,7 +5,6 @@ import com.eghm.common.enums.RabbitQueue;
 import com.eghm.dao.model.WebappLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
-import com.eghm.service.common.JsonService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
@@ -30,8 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 @AllArgsConstructor
 public class WebappLogAspect {
-
-    private final JsonService jsonService;
 
     private final MessageService rabbitMessageService;
 
@@ -58,6 +55,7 @@ public class WebappLogAspect {
             WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
             webappLog.setIp(ip);
             webappLog.setUrl(uri);
+            webappLog.setRequestParam(message.getRequestBody());
             webappLog.setElapsedTime(System.currentTimeMillis() - start);
             rabbitMessageService.send(webappLog, RabbitQueue.WEBAPP_LOG.getExchange());
             return proceed;
@@ -68,16 +66,4 @@ public class WebappLogAspect {
         }
     }
 
-    /**
-     * RequestMapping方法返回值格式化输出
-     *
-     * @param proceed 结果值
-     * @return 格式化输出
-     */
-    private Object jsonFormat(Object proceed) {
-        if (proceed == null || proceed instanceof String) {
-            return proceed;
-        }
-        return jsonService.toJson(proceed);
-    }
 }
