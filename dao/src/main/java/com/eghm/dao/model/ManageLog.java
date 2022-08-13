@@ -1,7 +1,9 @@
 package com.eghm.dao.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,6 +23,11 @@ import java.util.Date;
 @TableName("manage_log")
 public class ManageLog extends BaseEntity {
 
+    @TableId(type = IdType.AUTO)
+    @ApiModelProperty("id主键")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
     @ApiModelProperty("请求地址")
     private String url;
 
@@ -32,11 +39,12 @@ public class ManageLog extends BaseEntity {
     private String request;
 
     @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
 
     @ApiModelProperty("访问ip")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long ip;
+    private String ip;
 
     @ApiModelProperty("业务耗时")
     @JsonSerialize(using = ToStringSerializer.class)
@@ -45,7 +53,4 @@ public class ManageLog extends BaseEntity {
     @ApiModelProperty("响应参数")
     private String response;
 
-    @TableField(exist = false)
-    @ApiModelProperty("操作人姓名 关联查询")
-    private String operatorName;
 }

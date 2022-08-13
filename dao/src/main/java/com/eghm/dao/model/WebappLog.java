@@ -25,7 +25,7 @@ import java.util.Date;
 @TableName("webapp_log")
 public class WebappLog {
 
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty("id主键")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;

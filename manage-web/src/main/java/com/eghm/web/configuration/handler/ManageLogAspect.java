@@ -67,8 +67,7 @@ public class ManageLogAspect {
         ManageLog sy = new ManageLog();
 
         sy.setOperatorId(operator.getId());
-        sy.setOperatorName(operator.getOperatorName());
-        sy.setIp(NetUtil.ipv4ToLong(IpUtil.getIpAddress(request)));
+        sy.setIp(IpUtil.getIpAddress(request));
 
         Object[] args = joinPoint.getArgs();
         if (args != null && args.length > 0) {

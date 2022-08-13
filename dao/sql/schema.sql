@@ -145,20 +145,20 @@ CREATE TABLE `email_template`
 DROP TABLE IF EXISTS `webapp_log`;
 CREATE TABLE `webapp_log`
 (
-    `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`        bigint(20)    DEFAULT NULL COMMENT '用户id',
-    `url`            varchar(50)   DEFAULT NULL COMMENT '访问链接',
-    `request_params` varchar(1000) DEFAULT NULL COMMENT '请求参数(json)',
-    `error_msg`      text COMMENT '错误日志',
-    `version`        varchar(20)   DEFAULT NULL COMMENT '版本号',
-    `channel`        varchar(20)   DEFAULT NULL COMMENT '客户端类型 ANDROID,IOS,PC,H5',
-    `os_version`     varchar(20)   DEFAULT NULL COMMENT '客户端平台版本号 ios: 10.4.1,android:8.1.0',
-    `device_brand`   varchar(50)   DEFAULT NULL COMMENT '设备厂商',
-    `device_model`   varchar(50)   DEFAULT NULL COMMENT '设备型号',
-    `serial_number`  varchar(50)   DEFAULT NULL COMMENT '设备唯一编号',
-    `ip`             varchar(40)   DEFAULT NULL COMMENT '访问ip',
-    `elapsed_time`   bigint(20)    DEFAULT NULL COMMENT '耗时',
-    `add_time`       datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `user_id`       bigint(20)    DEFAULT NULL COMMENT '用户id',
+    `url`           varchar(50)   DEFAULT NULL COMMENT '访问链接',
+    `request_param` varchar(2000) DEFAULT NULL COMMENT '请求参数(json)',
+    `error_msg`     text COMMENT '错误日志',
+    `version`       varchar(20)   DEFAULT NULL COMMENT '版本号',
+    `channel`       varchar(20)   DEFAULT NULL COMMENT '客户端类型 ANDROID,IOS,PC,H5',
+    `os_version`    varchar(20)   DEFAULT NULL COMMENT '客户端平台版本号 ios: 10.4.1,android:8.1.0',
+    `device_brand`  varchar(50)   DEFAULT NULL COMMENT '设备厂商',
+    `device_model`  varchar(50)   DEFAULT NULL COMMENT '设备型号',
+    `serial_number` varchar(50)   DEFAULT NULL COMMENT '设备唯一编号',
+    `ip`            varchar(40)   DEFAULT NULL COMMENT '访问ip',
+    `elapsed_time`  bigint(20)    DEFAULT NULL COMMENT '耗时',
+    `add_time`      datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     PRIMARY KEY (`id`),
     KEY `url_index` (`url`)
 ) ENGINE = InnoDB
@@ -497,7 +497,7 @@ CREATE TABLE `manage_log`
     `request`       varchar(1000)       DEFAULT NULL COMMENT '请求参数',
     `response`      text COMMENT '响应参数',
     `add_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `ip`            bigint(20)          DEFAULT NULL COMMENT '访问ip',
+    `ip`            varchar(20)         DEFAULT NULL COMMENT '访问ip',
     `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
