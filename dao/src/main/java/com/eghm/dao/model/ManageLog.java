@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 后台系统操作日志
@@ -40,7 +40,7 @@ public class ManageLog extends BaseEntity {
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date addTime;
+    private LocalDateTime addTime;
 
     @ApiModelProperty("访问ip")
     @JsonSerialize(using = ToStringSerializer.class)

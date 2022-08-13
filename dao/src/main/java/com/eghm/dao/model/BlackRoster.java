@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -24,6 +24,6 @@ public class BlackRoster extends BaseEntity {
     private Long longIp;
 
     @ApiModelProperty("黑名单截止时间")
-    private Date endTime;
+    private LocalDateTime endTime;
 
 }

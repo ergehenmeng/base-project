@@ -12,7 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 系统异常记录
@@ -68,6 +68,6 @@ public class WebappLog {
 
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date addTime;
+    private LocalDateTime addTime;
 
 }

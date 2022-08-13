@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -33,6 +33,6 @@ public class LoginDevice extends BaseEntity {
     private Long ip;
 
     @ApiModelProperty("最近一次登陆的时间")
-    private Date loginTime;
+    private LocalDateTime loginTime;
 
 }

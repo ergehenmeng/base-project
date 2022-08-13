@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -57,11 +57,11 @@ public class SysMenu {
 
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date addTime;
+    private LocalDateTime addTime;
 
     @ApiModelProperty("更新日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     @TableField(exist = false)
     @ApiModelProperty("子订单")

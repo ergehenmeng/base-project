@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 轮播图管理
@@ -37,10 +37,10 @@ public class Banner extends BaseEntity {
     private Byte sort;
 
     @ApiModelProperty("开始展示时间(可在指定时间后开始展示)")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     @ApiModelProperty("取消展示的时间(只在某个时间段展示)")
-    private Date endTime;
+    private LocalDateTime endTime;
 
     @ApiModelProperty("是否可点击 0:否 1:可以")
     private Boolean click;

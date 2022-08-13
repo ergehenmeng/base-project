@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
@@ -20,7 +20,7 @@ public class SysHoliday {
     private Long id;
 
     @ApiModelProperty("日期")
-    private Date calendar;
+    private LocalDate calendar;
 
     @ApiModelProperty("月份 yyyy-MM")
     private String dateMonth;

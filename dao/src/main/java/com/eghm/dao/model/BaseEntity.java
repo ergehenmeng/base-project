@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -27,11 +27,11 @@ public abstract class BaseEntity {
 
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date addTime;
+    private LocalDateTime addTime;
 
     @ApiModelProperty("更新日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     @TableLogic(delval = "1")
     @ApiModelProperty("是否已删除 0:未删除 1:已删除")
