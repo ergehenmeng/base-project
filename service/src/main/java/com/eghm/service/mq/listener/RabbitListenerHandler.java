@@ -1,11 +1,11 @@
 package com.eghm.service.mq.listener;
 
 import com.eghm.common.constant.QueueConstant;
-import com.eghm.dao.model.SysOperationLog;
+import com.eghm.dao.model.ManageLog;
 import com.eghm.dao.model.WebappLog;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.sys.OperationLogService;
+import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.service.user.LoginLogService;
 import com.rabbitmq.client.Channel;
@@ -33,7 +33,7 @@ public class RabbitListenerHandler {
 
     private final LoginLogService loginLogService;
 
-    private final OperationLogService operationLogService;
+    private final ManageLogService manageLogService;
 
     /**
      * 消息队列订单过期处理
@@ -64,8 +64,8 @@ public class RabbitListenerHandler {
      * 管理后台操作日志
      */
     @RabbitListener(queues = QueueConstant.MANAGE_OP_LOG_QUEUE)
-    public void manageOpLog(SysOperationLog log, Message message, Channel channel) throws IOException {
-        processMessageAck(log, message, channel, operationLogService::insertOperationLog);
+    public void manageOpLog(ManageLog log, Message message, Channel channel) throws IOException {
+        processMessageAck(log, message, channel, manageLogService::insertManageLog);
     }
 
     /**

@@ -51,6 +51,12 @@ public class WebappLog {
     @ApiModelProperty("设备唯一编号")
     private String serialNumber;
 
+    @ApiModelProperty("访问ip")
+    private String ip;
+
+    @ApiModelProperty("访问耗时")
+    private Long elapsedTime;
+
     @ApiModelProperty("访问链接")
     private String url;
 

@@ -18,8 +18,8 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString(callSuper = true)
-@TableName("sys_operation_log")
-public class SysOperationLog extends BaseEntity {
+@TableName("manage_log")
+public class ManageLog extends BaseEntity {
 
     @ApiModelProperty("请求地址")
     private String url;

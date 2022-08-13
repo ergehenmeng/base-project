@@ -1,10 +1,10 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SysOperationLog;
+import com.eghm.dao.model.ManageLog;
 import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.log.OperationQueryRequest;
-import com.eghm.service.sys.OperationLogService;
+import com.eghm.model.dto.log.ManageQueryRequest;
+import com.eghm.service.sys.ManageLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -22,20 +22,20 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "操作日志管理")
 @AllArgsConstructor
 @RequestMapping("/log")
-public class OperationLogController {
+public class ManageLogController {
 
-    private final OperationLogService operationLogService;
+    private final ManageLogService manageLogService;
 
     @GetMapping("/listPage")
     @ApiOperation("日志列表")
-    public PageData<SysOperationLog> listPage(OperationQueryRequest request) {
-        Page<SysOperationLog> byPage = operationLogService.getByPage(request);
+    public PageData<ManageLog> listPage(ManageQueryRequest request) {
+        Page<ManageLog> byPage = manageLogService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
     public String select(@RequestParam("id") Long id) {
-        return operationLogService.getResponseById(id);
+        return manageLogService.getResponseById(id);
     }
 }

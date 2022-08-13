@@ -156,11 +156,13 @@ CREATE TABLE `webapp_log`
     `device_brand`   varchar(50)   DEFAULT NULL COMMENT '设备厂商',
     `device_model`   varchar(50)   DEFAULT NULL COMMENT '设备型号',
     `serial_number`  varchar(50)   DEFAULT NULL COMMENT '设备唯一编号',
+    `ip`             varchar(40)   DEFAULT NULL COMMENT '访问ip',
+    `elapsed_time`   bigint(20)    DEFAULT NULL COMMENT '耗时',
     `add_time`       datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     PRIMARY KEY (`id`),
     KEY `url_index` (`url`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统异常记录表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='移动端操作记录';
 
 -- ----------------------------
 -- Table structure for feedback_log
@@ -485,8 +487,8 @@ CREATE TABLE `sys_menu`
 -- ----------------------------
 -- Table structure for sys_operation_log
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_operation_log`;
-CREATE TABLE `sys_operation_log`
+DROP TABLE IF EXISTS `manage_log`;
+CREATE TABLE `manage_log`
 (
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `url`           varchar(200)        DEFAULT NULL COMMENT '请求地址',
@@ -497,7 +499,6 @@ CREATE TABLE `sys_operation_log`
     `add_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `ip`            bigint(20)          DEFAULT NULL COMMENT '访问ip',
     `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
-    `classify`      tinyint(1) unsigned DEFAULT NULL COMMENT '操作日志分类,参考:MethodType',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='后台操作记录';

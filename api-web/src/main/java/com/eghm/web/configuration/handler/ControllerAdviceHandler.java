@@ -11,6 +11,8 @@ import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.mq.service.MessageService;
+import com.eghm.utils.DataUtil;
+import com.eghm.utils.IpUtil;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,18 +73,13 @@ public class ControllerAdviceHandler {
     public RespBody<Void> exception(HttpServletRequest request, Exception e) {
         log.error("系统异常 url:[{}]", request.getRequestURI(), e);
         RequestMessage message = ApiHolder.get();
-        WebappLog exceptionLog = WebappLog.builder()
-                .userId(ApiHolder.tryGetUserId())
-                .version(message.getVersion())
-                .osVersion(message.getOsVersion())
-                .deviceBrand(message.getDeviceBrand())
-                .deviceModel(message.getDeviceModel())
-                .channel(message.getChannel())
-                .serialNumber(message.getSerialNumber())
-                .url(request.getRequestURI())
-                .requestParam(ApiHolder.getRequestBody())
-                .errorMsg(ExceptionUtils.getStackTrace(e)).build();
-        rabbitMessageService.send(exceptionLog, RabbitQueue.WEBAPP_LOG.getExchange());
+        WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
+        webappLog.setUrl(request.getRequestURI());
+        webappLog.setIp(IpUtil.getIpAddress(request));
+        webappLog.setUserId(ApiHolder.tryGetUserId());
+        webappLog.setRequestParam(ApiHolder.getRequestBody());
+        webappLog.setErrorMsg(ExceptionUtils.getStackTrace(e));
+        rabbitMessageService.send(webappLog, RabbitQueue.WEBAPP_LOG.getExchange());
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

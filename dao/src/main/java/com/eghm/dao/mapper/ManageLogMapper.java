@@ -2,14 +2,14 @@ package com.eghm.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SysOperationLog;
-import com.eghm.model.dto.log.OperationQueryRequest;
+import com.eghm.dao.model.ManageLog;
+import com.eghm.model.dto.log.ManageQueryRequest;
 import org.apache.ibatis.annotations.Param;
 
 /**
  * @author 二哥很猛
  */
-public interface SysOperationLogMapper extends BaseMapper<SysOperationLog> {
+public interface ManageLogMapper extends BaseMapper<ManageLog> {
 
     /**
      * 根据条件查询操作日志
@@ -17,7 +17,7 @@ public interface SysOperationLogMapper extends BaseMapper<SysOperationLog> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<SysOperationLog> getByPage(Page<SysOperationLog> page, OperationQueryRequest request);
+    Page<ManageLog> getByPage(Page<ManageLog> page, ManageQueryRequest request);
 
     /**
      * 根据id查询响应信息

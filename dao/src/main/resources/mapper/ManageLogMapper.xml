@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.dao.mapper.SysOperationLogMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.dao.model.SysOperationLog">
+<mapper namespace="com.eghm.dao.mapper.ManageLogMapper">
+    <resultMap id="BaseResultMap" type="com.eghm.dao.model.ManageLog">
         <!--
           @create by mybatis
         -->
@@ -14,11 +14,11 @@
         <result column="business_time" jdbcType="BIGINT" property="businessTime"/>
     </resultMap>
 
-    <resultMap id="ExtBaseResultMap" type="com.eghm.dao.model.SysOperationLog" extends="BaseResultMap">
+    <resultMap id="ExtBaseResultMap" type="com.eghm.dao.model.ManageLog" extends="BaseResultMap">
         <result column="operator_name" jdbcType="VARCHAR" property="operatorName"/>
     </resultMap>
 
-    <select id="getByPage" parameterType="com.eghm.model.dto.log.OperationQueryRequest" resultMap="ExtBaseResultMap">
+    <select id="getByPage" parameterType="com.eghm.model.dto.log.ManageQueryRequest" resultMap="ExtBaseResultMap">
         select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,r.operator_name
         from sys_operation_log t inner join sys_operator r on t.operator_id = r.id
         <where>

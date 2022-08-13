@@ -1,9 +1,13 @@
 package com.eghm.web.configuration.handler;
 
 
+import com.eghm.common.enums.RabbitQueue;
+import com.eghm.dao.model.WebappLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.mq.service.MessageService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +29,11 @@ import javax.servlet.http.HttpServletRequest;
 @Aspect
 @Component
 @AllArgsConstructor
-public class RequestResponseLogAspect {
+public class WebappLogAspect {
 
     private final JsonService jsonService;
+
+    private final MessageService rabbitMessageService;
 
     /**
      * 操作日志,采用默认jackson进行序列化
@@ -49,11 +55,11 @@ public class RequestResponseLogAspect {
         try {
             long start = System.currentTimeMillis();
             Object proceed = joinPoint.proceed();
-            long end = System.currentTimeMillis();
-            if (log.isDebugEnabled()) {
-                log.debug("请求地址:[{}],请求ip:[{}],操作id:[{}],请求参数:[{}],响应参数:[{}],耗时:[{}ms],软件版本:[{}],客户端:[{}],系统版本:[{}],设备厂商:[{}],设备型号:[{}]",
-                        uri, ip,message.getUserId(), message.getRequestBody(), this.jsonFormat(proceed) , end-start, message.getVersion(), message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
-            }
+            WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
+            webappLog.setIp(ip);
+            webappLog.setUrl(uri);
+            webappLog.setElapsedTime(System.currentTimeMillis() - start);
+            rabbitMessageService.send(webappLog, RabbitQueue.WEBAPP_LOG.getExchange());
             return proceed;
         } catch (Throwable e) {
             log.warn("请求地址:[{}],请求ip:[{}],操作id:[{}],请求参数:[{}],响应参数:[{}],耗时:[{}ms],软件版本:[{}],客户端:[{}],系统版本:[{}],设备厂商:[{}],设备型号:[{}]",

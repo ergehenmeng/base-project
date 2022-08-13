@@ -5,7 +5,7 @@ import com.eghm.common.enums.RabbitQueue;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.model.SysOperationLog;
+import com.eghm.dao.model.ManageLog;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
 @Aspect
 @Slf4j(topic = "request_response")
 @AllArgsConstructor
-public class OperationLogAspect {
+public class ManageLogAspect {
 
     private final SysConfigApi sysConfigApi;
 
@@ -64,7 +64,7 @@ public class OperationLogAspect {
             log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();
         }
-        SysOperationLog sy = new SysOperationLog();
+        ManageLog sy = new ManageLog();
 
         sy.setOperatorId(operator.getId());
         sy.setOperatorName(operator.getOperatorName());
