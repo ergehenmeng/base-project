@@ -15,9 +15,6 @@ public class MenuEditRequest implements Serializable {
 
     private static final long serialVersionUID = 6714241304584747778L;
 
-    /**
-     * 主键
-     */
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id名称不能为空")
     private String id;

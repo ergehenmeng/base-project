@@ -16,15 +16,9 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class UserScoreQueryDTO extends PagingQuery {
 
-    /**
-     * 积分类型
-     */
     @ApiModelProperty("积分类型")
     private Byte type;
 
-    /**
-     * 用户id
-     */
     @Sign
     @ApiModelProperty(hidden = true)
     private Long userId;

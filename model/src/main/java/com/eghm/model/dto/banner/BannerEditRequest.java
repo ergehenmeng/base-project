@@ -18,9 +18,6 @@ public class BannerEditRequest implements Serializable {
 
     private static final long serialVersionUID = -6001565267553951736L;
 
-    /**
-     * 主键
-     */
     @ApiModelProperty(value = "id不能为空", required = true)
     @NotNull(message = "id不能为空")
     private Long id;

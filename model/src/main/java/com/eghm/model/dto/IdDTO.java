@@ -14,9 +14,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class IdDTO {
 
-    /**
-     * id
-     */
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;

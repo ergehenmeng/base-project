@@ -17,15 +17,9 @@ public class FeedbackQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = 1054408796616316094L;
 
-    /**
-     * 分类
-     */
     @ApiModelProperty("分类信息(数据字典)")
     private Byte classify;
 
-    /**
-     * 状态 0:待解决 1:已解决
-     */
     @ApiModelProperty("状态 0:待解决 1:已解决")
     private Byte state;
 

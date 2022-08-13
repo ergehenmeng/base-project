@@ -12,9 +12,6 @@ import javax.validation.constraints.NotNull;
 @Data
 public class AreaQueryDTO {
 
-    /**
-     * 区域代码父节点id
-     */
     @ApiModelProperty(value = "区域代码父节点id,0:表示查询一级节点",required = true)
     @NotNull(message = "节点id不能为空")
     private Long pid;

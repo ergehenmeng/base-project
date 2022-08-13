@@ -15,9 +15,6 @@ public class TaskLogQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -420375186002438142L;
 
-    /**
-     * 状态 true执行成功 false执行失败
-     */
     @ApiModelProperty("状态: true:执行成功 false:执行失败")
     private Boolean state;
 

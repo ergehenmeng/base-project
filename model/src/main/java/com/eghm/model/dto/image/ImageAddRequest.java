@@ -27,15 +27,11 @@ public class ImageAddRequest implements Serializable {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    /**
-     * 图片大小
-     */
     @Sign
+    @ApiModelProperty("图片大小")
     private Long size;
 
-    /**
-     * 地址
-     */
     @Sign
+    @ApiModelProperty("地址")
     private String path;
 }

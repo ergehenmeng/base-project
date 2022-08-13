@@ -15,15 +15,9 @@ public class VersionQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = 3227181256921372184L;
 
-    /**
-     * 上架状态
-     */
     @ApiModelProperty(required = true, value = "上架状态 0:待上架 1:已上架")
     private Byte state;
 
-    /**
-     * 版本类型 ANDROID IOS
-     */
     @ApiModelProperty(required = true, value = "版本类型: ANDROID, IOS")
     private String classify;
 

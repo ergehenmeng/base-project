@@ -13,23 +13,14 @@ import java.io.Serializable;
 @Data
 public class SmsTemplateEditRequest implements Serializable {
 
-    /**
-     * 主键
-     */
     @ApiModelProperty(value = "id主键", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    /**
-     * 短信内容
-     */
     @ApiModelProperty(value = "短信模板内容", required = true)
     @NotNull(message = "短信内容不能为空")
     private String content;
 
-    /**
-     * 备注信息
-     */
     @ApiModelProperty("备注信息")
     private String remark;
 }

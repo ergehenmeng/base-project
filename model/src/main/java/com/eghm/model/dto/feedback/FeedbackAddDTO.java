@@ -18,50 +18,29 @@ public class FeedbackAddDTO implements Serializable {
 
     private static final long serialVersionUID = -1472450823258477249L;
 
-    /**
-     * 反馈分类
-     */
     @ApiModelProperty(value = "反馈内容分类",required = true)
     private Byte classify;
 
-    /**
-     * 反馈内容
-     */
     @ApiModelProperty(value = "反馈内容",required = true)
     private String content;
 
-    /**
-     * 用户id
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "用户id", hidden = true)
     @Sign
     private Long userId;
 
-    /**
-     * 设备品牌
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "设备品牌", hidden = true)
     @Sign
     private String deviceBrand;
 
-    /**
-     * 设备型号
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "设备型号", hidden = true)
     @Sign
     private String deviceModel;
 
-    /**
-     * 软件版本
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "软件版本", hidden = true)
     @Sign
     private String version;
 
-    /**
-     * 系统版本
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "系统版本", hidden = true)
     @Sign
     private String systemVersion;
 

@@ -10,9 +10,6 @@ import lombok.Data;
 @Data
 public class BannerQueryDTO {
 
-    /**
-     * 轮播图分类类型 sys_dict表中 banner_classify指定
-     */
-    @ApiModelProperty(value = "轮播图类型", required = true)
+    @ApiModelProperty(value = "轮播图类型(banner_classify指定)", required = true)
     private Byte classify;
 }

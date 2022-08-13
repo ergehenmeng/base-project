@@ -1,6 +1,7 @@
 package com.eghm.model.dto.help;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,14 +17,10 @@ public class HelpQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = -3466349098042737884L;
 
-    /**
-     * 帮助说明类型
-     */
+    @ApiModelProperty("帮助说明类型")
     private Byte classify;
 
-    /**
-     * 是否显示 0:不显示 1:显示
-     */
+    @ApiModelProperty("是否显示 0:不显示 1:显示")
     private Byte state;
 
 }

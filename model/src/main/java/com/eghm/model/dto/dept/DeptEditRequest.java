@@ -19,24 +19,14 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true)
 public class DeptEditRequest extends ActionRecord {
 
-    /**
-     * 主键
-     */
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-
-    /**
-     * 部门名称
-     */
     @ApiModelProperty(value = "部门名称", required = true)
     @NotNull(message = "部门名称不能为空")
     private String title;
 
-    /**
-     * 备注信息
-     */
     @ApiModelProperty("备注信息")
     private String remark;
 }

@@ -18,38 +18,22 @@ public class RegisterUserDTO implements Serializable {
 
     private static final long serialVersionUID = 2984281019794650407L;
 
-    /**
-     * 手机号
-     */
     @Mobile
     @ApiModelProperty(value = "手机号码",required = true)
     private String mobile;
 
-    /**
-     * 短信验证码
-     */
     @Size(min = 4,max = 6,message = "验证码格式错误")
     @ApiModelProperty(value = "短信验证码",required = true)
     private String smsCode;
 
-    /**
-     * 注册邀请码
-     */
     @ApiModelProperty(value = "注册邀请码(非必填)")
     private String inviteCode;
 
-    /**
-     * 注册渠道
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "注册渠道", hidden = true)
     @Sign
     private String channel;
 
-
-    /**
-     * 注册ip
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "注册ip", hidden = true)
     @Sign
     private String ip;
 }

@@ -19,21 +19,12 @@ public class BannerQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = -7234026470157744373L;
 
-    /**
-     * 轮播图类型
-     */
     @ApiModelProperty("轮播图类型")
     private Byte classify;
 
-    /**
-     * 客户端类型
-     */
     @ApiModelProperty("客户端类型 ANDROID IOS")
     private String clientType;
 
-    /**
-     * 播放时间
-     */
     @ApiModelProperty("播放时间(在该时间段播放)")
     private Date middleTime;
 }

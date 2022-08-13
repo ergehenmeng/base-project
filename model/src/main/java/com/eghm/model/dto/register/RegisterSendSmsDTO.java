@@ -15,9 +15,6 @@ public class RegisterSendSmsDTO implements Serializable {
 
     private static final long serialVersionUID = -8494768267600018260L;
 
-    /**
-     * 手机号码
-     */
     @Mobile
     @ApiModelProperty(required = true,value = "手机号码")
     private String mobile;

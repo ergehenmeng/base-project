@@ -13,22 +13,13 @@ import javax.validation.constraints.Email;
 @Data
 public class SendEmailAuthCodeDTO {
 
-    /**
-     * 邮箱
-     */
     @ApiModelProperty(value = "手机号或邮箱",required = true)
     @Email(message = "邮箱格式错误")
     private String email;
 
-    /**
-     * 短信验证码
-     */
     @ApiModelProperty(value = "短信验证码")
     private String smsCode;
 
-    /**
-     * 用户id
-     */
     @Sign
     @ApiModelProperty(hidden = true)
     private Long userId;

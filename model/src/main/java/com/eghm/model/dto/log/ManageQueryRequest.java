@@ -19,16 +19,10 @@ public class ManageQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 7717698795068820383L;
 
-    /**
-     * 操作开始时间
-     */
     @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date startTime;
 
-    /**
-     * 操作结束时间
-     */
     @ApiModelProperty("结束时间 yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date endTime;

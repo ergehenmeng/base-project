@@ -21,24 +21,14 @@ public class DeptAddRequest extends ActionRecord {
 
     private static final long serialVersionUID = -4129318805129787627L;
 
-    /**
-     * 父编码
-     */
     @ApiModelProperty(value = "父节点code", required = true)
     @NotNull(message = "父节点code不能为空")
     private String parentCode;
 
-
-    /**
-     * 部门名称
-     */
     @ApiModelProperty(value = "部门名称", required = true)
     @NotNull(message = "部门名称不能为空")
     private String title;
 
-    /**
-     * 备注信息
-     */
     @ApiModelProperty("备注信息")
     private String remark;
 

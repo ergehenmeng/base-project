@@ -17,9 +17,6 @@ public class DictQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = -5550485924850455994L;
 
-    /**
-     * 是否锁定
-     */
     @ApiModelProperty("是否锁定 true:锁定 false:未锁定")
     private Boolean locked;
 }

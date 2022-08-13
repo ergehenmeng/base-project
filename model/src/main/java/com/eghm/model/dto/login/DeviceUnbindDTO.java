@@ -12,9 +12,6 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class DeviceUnbindDTO {
 
-    /**
-     * 设备唯一序列号
-     */
     @NotEmpty(message = "设备序列号不能为空")
     @ApiModelProperty(required = true, value = "设备唯一序列号")
     private String serialNumber;

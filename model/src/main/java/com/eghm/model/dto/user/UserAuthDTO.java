@@ -18,23 +18,14 @@ public class UserAuthDTO implements Serializable {
 
     private static final long serialVersionUID = 7766577359309504055L;
 
-    /**
-     * 用户id
-     */
     @Sign
     @ApiModelProperty(hidden = true)
     private Long userId;
 
-    /**
-     * 姓名
-     */
     @ApiModelProperty("姓名")
     @NotEmpty(message = "姓名不能为空")
     private String realName;
 
-    /**
-     * 身份证号
-     */
     @ApiModelProperty("身份证号码")
     @IdCard
     private String idCard;

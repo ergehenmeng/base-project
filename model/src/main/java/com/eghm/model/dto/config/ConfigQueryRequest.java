@@ -18,15 +18,9 @@ public class ConfigQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = -2384592001035426711L;
 
-    /**
-     * 参数配置类型
-     */
     @ApiModelProperty("系统参数类型")
     private Integer classify;
 
-    /**
-     * 是否锁定(禁止编辑)
-     */
     @ApiModelProperty("是否禁止编辑 true:禁止编辑 false:可以编辑")
     private Boolean locked;
 

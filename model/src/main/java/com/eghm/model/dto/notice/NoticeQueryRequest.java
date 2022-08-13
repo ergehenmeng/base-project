@@ -1,6 +1,7 @@
 package com.eghm.model.dto.notice;
 
 import com.eghm.model.dto.ext.PagingQuery;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,10 +17,7 @@ public class NoticeQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = -6968777991245814063L;
 
-
-    /**
-     * 公告类型
-     */
+    @ApiModelProperty("公告类型")
     private Byte classify;
 
 }

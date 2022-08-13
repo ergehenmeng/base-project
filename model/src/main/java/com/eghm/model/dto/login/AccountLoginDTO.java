@@ -17,31 +17,19 @@ public class AccountLoginDTO implements Serializable {
 
     private static final long serialVersionUID = 2897260194026380794L;
 
-    /**
-     * 登陆账号 手机号或邮箱
-     */
     @NotEmpty(message = "登陆账号不能为空")
     @ApiModelProperty(value = "手机号或邮箱",required = true)
     private String account;
 
-    /**
-     * 密码
-     */
     @Size(min = 32,max = 32,message = "密码格式错误")
     @ApiModelProperty(value = "密码,MD5小写加密过",required = true)
     private String pwd;
 
-    /**
-     * 登陆ip
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "ip", hidden = true)
     @Sign
     private String ip;
 
-    /**
-     * 设备唯一编号
-     */
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "设备唯一编号", hidden = true)
     @Sign
     private String serialNumber;
 }

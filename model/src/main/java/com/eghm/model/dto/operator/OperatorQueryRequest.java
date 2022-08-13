@@ -18,9 +18,6 @@ public class OperatorQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 6710255160163962722L;
 
-    /**
-     * 状态 0:锁定 1:正常
-     */
     @ApiModelProperty("锁定状态 0: 锁定 1:正常")
     @OptionByte(value = {0, 1}, required = false)
     private Byte state;
