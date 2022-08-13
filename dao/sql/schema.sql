@@ -501,7 +501,7 @@ CREATE TABLE `manage_log`
     `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='后台操作记录';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='管理后台操作记录';
 
 -- ----------------------------
 -- Table structure for sys_operator
