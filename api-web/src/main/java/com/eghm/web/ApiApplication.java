@@ -1,10 +1,8 @@
 package com.eghm.web;
 
-import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,7 +12,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -41,23 +38,6 @@ public class ApiApplication implements ApplicationListener<ContextRefreshedEvent
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         SpringContextUtil.setApplicationContext(event.getApplicationContext());
-    }
-
-    @Autowired
-    private MessageService rabbitMessageService;
-
-    @GetMapping("/sendDelay")
-    public String sendDelay(String msg) {
-        log.info("开始发送延迟: [{}]", msg);
-        rabbitMessageService.sendDelay(msg, "exchange_order_delay", 5);
-        return "success";
-    }
-
-    @GetMapping("/send")
-    public String send(String msg) {
-        log.info("开始发送: [{}]", msg);
-        rabbitMessageService.send(msg, "exchange_dead_letter");
-        return "success";
     }
 
 }
