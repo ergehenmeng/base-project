@@ -1,6 +1,5 @@
 package com.eghm.configuration.task.job;
 
-import com.eghm.configuration.annotation.ScheduledTask;
 import com.eghm.model.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
@@ -23,7 +22,6 @@ public class TaskService {
 
     private final OrderRefundLogService orderRefundLogService;
 
-    @ScheduledTask
     public void ticketPaying(String param) {
         log.info("门票支付定时任务开始执行 [{}]", param);
         List<String> payingList = ticketOrderService.getPayingList();
@@ -33,7 +31,6 @@ public class TaskService {
         log.info("门票支付定时任务执行完毕 [{}]", param);
     }
 
-    @ScheduledTask
     public void ticketRefunding(String param) {
         List<OrderRefund> refundList = orderRefundLogService.getTicketRefunding();
         for (OrderRefund refund : refundList) {
