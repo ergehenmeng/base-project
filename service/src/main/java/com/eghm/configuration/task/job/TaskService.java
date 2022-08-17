@@ -18,15 +18,15 @@ import java.util.List;
 @Slf4j
 public class TaskService {
 
-    private final PayOrderService ticketPayOrderService;
+    private final PayOrderService ticketOrderService;
 
     private final OrderRefundLogService orderRefundLogService;
 
     public void ticketPaying(String param) {
         log.info("门票支付定时任务开始执行 [{}]", param);
-        List<String> payingList = ticketPayOrderService.getPayingList();
+        List<String> payingList = ticketOrderService.getPayingList();
         for (String orderNo : payingList) {
-            ticketPayOrderService.orderPay(orderNo);
+            ticketOrderService.orderPay(orderNo);
         }
         log.info("门票支付定时任务执行完毕 [{}]", param);
     }
@@ -34,7 +34,7 @@ public class TaskService {
     public void ticketRefunding(String param) {
         List<OrderRefund> refundList = orderRefundLogService.getTicketRefunding();
         for (OrderRefund refund : refundList) {
-            ticketPayOrderService.orderRefund(refund.getOutTradeNo(), refund.getOutRefundNo());
+            ticketOrderService.orderRefund(refund.getOutTradeNo(), refund.getOutRefundNo());
         }
     }
 

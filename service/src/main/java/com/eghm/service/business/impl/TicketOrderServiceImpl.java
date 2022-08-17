@@ -44,10 +44,10 @@ import static com.eghm.service.pay.enums.RefundState.*;
  * @author 二哥很猛
  * @date 2022/7/12
  */
-@Service("ticketPayOrderService")
+@Service("ticketOrderService")
 @AllArgsConstructor
 @Slf4j
-public class TicketPayOrderServiceImpl implements TicketOrderService, PayOrderService {
+public class TicketOrderServiceImpl implements TicketOrderService, PayOrderService {
 
     private final TicketOrderMapper ticketOrderMapper;
 

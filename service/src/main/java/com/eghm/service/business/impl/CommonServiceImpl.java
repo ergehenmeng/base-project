@@ -35,15 +35,14 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public PayOrderService getOrderService(String orderNo) {
-        String orderType = Arrays.stream(ProductType.values())
+        String beanName = Arrays.stream(ProductType.values())
                 .filter(productType -> orderNo.startsWith(productType.getPrefix()))
-                .map(ProductType::getValue)
+                .map(ProductType::getBeanName)
                 .findFirst()
                 .orElseThrow(() -> {
                     log.error("该订单类型不匹配 [{}]", orderNo);
                     return new BusinessException(ErrorCode.ORDER_TYPE_MATCH);
                 });
-        String beanName = orderType + PayOrderService.class.getSimpleName();
         return SpringContextUtil.getBean(beanName, PayOrderService.class);
     }
 }
