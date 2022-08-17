@@ -376,6 +376,7 @@ CREATE TABLE `ticket_order`
     `pay_amount`        int(10)      DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',
     `coupon_id`         bigint(20)   DEFAULT NULL COMMENT '优惠券id',
     `add_time`          datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `add_time`          datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`       datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -547,12 +548,17 @@ CREATE TABLE `order`
     `discount_amount` int(10)      DEFAULT '0' COMMENT '优惠金额',
     `pay_amount`      int(10)      DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',
     `coupon_id`       bigint(20)   DEFAULT NULL COMMENT '优惠券id',
+    `pay_time`        datetime     DEFAULT NULL COMMENT '订单支付时间',
+    `complete_time`   datetime     DEFAULT NULL COMMENT '订单完成时间',
+    `close_time`      datetime     DEFAULT NULL COMMENT '订单关闭时间',
     `add_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='主订单表(备用)';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单表';
+
+
 
 
 
