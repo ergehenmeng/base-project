@@ -493,4 +493,68 @@ CREATE TABLE `verify_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单核销记录表';
 
+CREATE TABLE `homestay_order`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `user_id`         bigint(20)    DEFAULT NULL COMMENT '用户id',
+    `homestay_id`     bigint(20)    DEFAULT NULL COMMENT '酒店id(冗余字段)',
+    `room_id`         bigint(20)    DEFAULT NULL COMMENT '房型id',
+    `title`           varchar(50)   DEFAULT NULL COMMENT '房型名称',
+    `price`           int(10)       DEFAULT NULL COMMENT '单价',
+    `num`             smallint(3)   DEFAULT '1' COMMENT '数量',
+    `pay_type`        varchar(30)   DEFAULT NULL COMMENT '支付方式',
+    `out_trade_no`    varchar(30)   DEFAULT NULL COMMENT '支付流水号',
+    `order_no`        varchar(30)   DEFAULT NULL COMMENT '订单号',
+    `start_date`      date          DEFAULT NULL COMMENT '开始时间(含)',
+    `end_date`        date          DEFAULT NULL COMMENT '结束时间(含)',
+    `room`            tinyint(1)    DEFAULT '1' COMMENT '几室',
+    `hall`            tinyint(1)    DEFAULT '0' COMMENT '几厅',
+    `kitchen`         tinyint(1)    DEFAULT '0' COMMENT '几厨',
+    `washroom`        tinyint(1)    DEFAULT '1' COMMENT '卫生间数',
+    `dimension`       smallint(3)   DEFAULT NULL COMMENT '面积',
+    `resident`        tinyint(2)    DEFAULT '2' COMMENT '居住人数',
+    `bed`             tinyint(1)    DEFAULT '1' COMMENT '床数',
+    `room_type`       tinyint(1)    DEFAULT NULL COMMENT '房型类型 1:整租 2:单间 3:合租',
+    `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图片',
+    `introduce`       longtext COMMENT '详细介绍',
+    `support_refund`  bit(1)        DEFAULT b'0' COMMENT '是否支持退款 0:不支持 1:支持',
+    `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述',
+    `state`           tinyint(2)    DEFAULT '0' COMMENT '订单状态 0:待支付 1:支付处理中 2:支付成功,待使用 3:已使用,待评价 4:已完成 5:已关闭',
+    `refund_state`    tinyint(1)    DEFAULT NULL COMMENT '退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功',
+    `close_type`      tinyint(1)    DEFAULT NULL COMMENT '关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成',
+    `mobile`          varchar(11)   DEFAULT NULL COMMENT '联系人手机号',
+    `discount_amount` int(10)       DEFAULT '0' COMMENT '优惠金额',
+    `pay_amount`      int(10)       DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',
+    `coupon_id`       bigint(20)    DEFAULT NULL COMMENT '优惠券id',
+    `add_time`        datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         varchar(255)  DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='民宿订单表';
+
+CREATE TABLE `order`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `title`           varchar(50)  DEFAULT NULL COMMENT '商品名称',
+    `price`           int(10)      DEFAULT NULL COMMENT '单价',
+    `num`             smallint(3)  DEFAULT '1' COMMENT '数量',
+    `product_type`    varchar(30)  DEFAULT NULL COMMENT '商品类型',
+    `support_refund`  bit(1)       DEFAULT b'0' COMMENT '是否支持退款 0:不支持 1:支持',
+    `state`           tinyint(2)   DEFAULT '0' COMMENT '订单状态 0:待支付 1:支付处理中 2:支付成功,待使用 3:已使用,待评价 4:已完成 5:已关闭',
+    `refund_state`    tinyint(1)   DEFAULT NULL COMMENT '退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功',
+    `close_type`      tinyint(1)   DEFAULT NULL COMMENT '关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成',
+    `discount_amount` int(10)      DEFAULT '0' COMMENT '优惠金额',
+    `pay_amount`      int(10)      DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',
+    `coupon_id`       bigint(20)   DEFAULT NULL COMMENT '优惠券id',
+    `add_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='主订单表(备用)';
+
+
+
+
 

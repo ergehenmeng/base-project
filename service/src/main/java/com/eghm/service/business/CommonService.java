@@ -18,5 +18,5 @@ public interface CommonService {
      * @param orderNo 订单编号 以ProductType中的prefix开头的订单
      * @return 订单处理类
      */
-    OrderService getOrderService(String orderNo);
+    PayOrderService getOrderService(String orderNo);
 }

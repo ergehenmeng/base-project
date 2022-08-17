@@ -11,7 +11,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/7/28
  */
-public interface OrderService {
+public interface PayOrderService {
 
     /**
      * 创建预支付订单
