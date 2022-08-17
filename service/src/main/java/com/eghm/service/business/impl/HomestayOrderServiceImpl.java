@@ -2,6 +2,7 @@ package com.eghm.service.business.impl;
 
 import com.eghm.dao.mapper.HomestayOrderMapper;
 import com.eghm.service.business.HomestayOrderService;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.PayOrderService;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
@@ -22,8 +23,12 @@ public class HomestayOrderServiceImpl implements HomestayOrderService, PayOrderS
 
     private final HomestayOrderMapper homestayOrderMapper;
 
+    private final OrderService orderService;
+
     @Override
     public PrepayVO prepay(Long orderId, String buyerId, TradeType tradeType) {
+
+
         return null;
     }
 

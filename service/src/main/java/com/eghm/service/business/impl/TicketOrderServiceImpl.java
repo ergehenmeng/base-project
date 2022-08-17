@@ -11,6 +11,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.*;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.TicketOrderMapper;
+import com.eghm.dao.model.Order;
 import com.eghm.dao.model.OrderRefundLog;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
@@ -65,16 +66,18 @@ public class TicketOrderServiceImpl implements TicketOrderService, PayOrderServi
 
     private final VerifyLogService verifyLogService;
 
+    private final OrderService orderService;
+
     @Override
     public void create(CreateTicketOrderDTO dto) {
         ScenicTicket ticket = scenicTicketService.selectByIdShelve(dto.getTicketId());
         this.checkTicket(ticket, dto);
 
-        TicketOrder order = DataUtil.copy(ticket, TicketOrder.class);
-        order.setOrderNo(ProductType.TICKET.getPrefix() + IdWorker.getIdStr());
-        order.setMobile(dto.getMobile());
-        order.setTicketId(dto.getTicketId());
-        order.setUserId(dto.getUserId());
+        Order order = DataUtil.copy(dto, Order.class);
+        order.setTitle(ticket.getTitle());
+        order.setPrice(ticket.getSalePrice());
+        order.setProductType(ProductType.TICKET);
+        order.setSupportRefund(ticket.getSupportRefund());
         order.setPayAmount(dto.getNum() * ticket.getSalePrice());
 
         if (dto.getCouponId() != null) {
@@ -83,11 +86,21 @@ public class TicketOrderServiceImpl implements TicketOrderService, PayOrderServi
             order.setCouponId(dto.getCouponId());
             userCouponService.useCoupon(dto.getCouponId());
         }
-        // TODO 订单总金额为零时 要做特殊处理
-        ticketOrderMapper.insert(order);
-        orderVisitorService.addVisitor(ProductType.TICKET, order.getId(), dto.getVisitorList());
+        // 添加主订单
+        orderService.insert(order);
+        // 添加门票订单 TODO 订单总金额为零时 要做特殊处理
+        TicketOrder ticketOrder = DataUtil.copy(ticket, TicketOrder.class);
+        ticketOrder.setOrderNo(ProductType.TICKET.getPrefix() + IdWorker.getIdStr());
+        ticketOrder.setMobile(dto.getMobile());
+        ticketOrder.setTicketId(dto.getTicketId());
+        ticketOrder.setOrderId(order.getId());
+        ticketOrderMapper.insert(ticketOrder);
+        // 门票订单关联购票人信息
+        orderVisitorService.addVisitor(ProductType.TICKET, ticketOrder.getId(), dto.getVisitorList());
+        // 库存更新
         scenicTicketService.updateStock(ticket.getId(), dto.getNum());
-        orderHandlerService.sendOrderExpireMessage(order.getOrderNo());
+        // 30分钟过期开启mq
+        orderHandlerService.sendOrderExpireMessage(ticketOrder.getOrderNo());
     }
 
     @Override

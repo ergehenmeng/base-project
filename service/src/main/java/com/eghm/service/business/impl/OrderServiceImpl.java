@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import com.eghm.dao.mapper.OrderMapper;
+import com.eghm.dao.model.Order;
 import com.eghm.service.business.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,4 +18,8 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper orderMapper;
 
+    @Override
+    public void insert(Order order) {
+        orderMapper.insert(order);
+    }
 }

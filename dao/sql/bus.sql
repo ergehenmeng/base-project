@@ -498,6 +498,7 @@ CREATE TABLE `homestay_order`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `user_id`         bigint(20)    DEFAULT NULL COMMENT '用户id',
+    `order_id`        bigint(20)    DEFAULT NULL COMMENT '订单id',
     `homestay_id`     bigint(20)    DEFAULT NULL COMMENT '酒店id(冗余字段)',
     `room_id`         bigint(20)    DEFAULT NULL COMMENT '房型id',
     `title`           varchar(50)   DEFAULT NULL COMMENT '房型名称',
@@ -538,6 +539,7 @@ CREATE TABLE `order`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `title`           varchar(50)  DEFAULT NULL COMMENT '商品名称',
+    `user_id`         bigint(20)   DEFAULT NULL COMMENT '用户id',
     `price`           int(10)      DEFAULT NULL COMMENT '单价',
     `num`             smallint(3)  DEFAULT '1' COMMENT '数量',
     `product_type`    varchar(30)  DEFAULT NULL COMMENT '商品类型',

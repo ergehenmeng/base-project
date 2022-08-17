@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.ProductType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,6 +30,9 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商品名称")
     private String title;
 
+    @ApiModelProperty("用户id")
+    private Long userId;
+
     @ApiModelProperty(value = "单价")
     private Integer price;
 
@@ -36,7 +40,7 @@ public class Order extends BaseEntity implements Serializable {
     private Integer num;
 
     @ApiModelProperty(value = "商品类型")
-    private String productType;
+    private ProductType productType;
 
     @ApiModelProperty(value = "是否支持退款 0:不支持 1:支持")
     private Boolean supportRefund;
