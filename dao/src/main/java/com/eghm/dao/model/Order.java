@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -49,10 +50,10 @@ public class Order extends BaseEntity implements Serializable {
     private Integer state;
 
     @ApiModelProperty(value = "退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功")
-    private Boolean refundState;
+    private Integer refundState;
 
     @ApiModelProperty(value = "关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
-    private Boolean closeType;
+    private Integer closeType;
 
     @ApiModelProperty(value = "优惠金额")
     private Integer discountAmount;
@@ -62,4 +63,13 @@ public class Order extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "优惠券id")
     private Long couponId;
+
+    @ApiModelProperty("支付时间")
+    private LocalDateTime payTime;
+
+    @ApiModelProperty("完成时间")
+    private LocalDateTime completeTime;
+
+    @ApiModelProperty("订单关闭时间")
+    private LocalDateTime closeTime;
 }
