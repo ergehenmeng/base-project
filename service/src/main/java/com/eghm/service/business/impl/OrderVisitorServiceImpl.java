@@ -29,14 +29,14 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     private final OrderVisitorMapper orderVisitorMapper;
 
     @Override
-    public void addVisitor(ProductType productType, Long orderId, List<VisitorVO> voList) {
+    public void addVisitor(ProductType productType, String orderNo, List<VisitorVO> voList) {
         if (CollUtil.isEmpty(voList)) {
-            log.info("该订单没有游客信息 [{}] [{}]", orderId, productType);
+            log.info("该订单没有游客信息 [{}] [{}]", orderNo, productType);
             return;
         }
         for (VisitorVO vo : voList) {
             OrderVisitor visitor = DataUtil.copy(vo, OrderVisitor.class);
-            visitor.setOrderId(orderId);
+            visitor.setOrderNo(orderNo);
             visitor.setProductType(productType);
             visitor.setState(0);
             orderVisitorMapper.insert(visitor);
@@ -44,13 +44,13 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public void lockVisitor(ProductType productType, Long orderId, Long refundId, List<Long> visitorList) {
+    public void lockVisitor(ProductType productType, String orderNo, Long refundId, List<Long> visitorList) {
         if (CollUtil.isEmpty(visitorList)) {
-            log.info("退款锁定用户为空,可能是非实名制用户 [{}] [{}] [{}]", orderId, refundId, productType);
+            log.info("退款锁定用户为空,可能是非实名制用户 [{}] [{}] [{}]", orderNo, refundId, productType);
             return;
         }
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(OrderVisitor::getOrderId, orderId);
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);
         wrapper.in(OrderVisitor::getId, visitorList);
         wrapper.eq(OrderVisitor::getState, 0);
@@ -60,15 +60,15 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的
         // 除非用户自己选择游客信息存在已核销的用户
         if (visitorList.size() != update) {
-            log.error("退款人可能存在部分被核销的订单信息 [{}] [{}] [{}] [{}]", orderId, refundId, visitorList, update);
+            log.error("退款人可能存在部分被核销的订单信息 [{}] [{}] [{}] [{}]", orderNo, refundId, visitorList, update);
             throw new BusinessException(ErrorCode.VISITOR_STATE_ERROR);
         }
     }
 
     @Override
-    public void unlockVisitor(Long orderId, Long refundId) {
+    public void unlockVisitor(String orderNo, Long refundId) {
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(OrderVisitor::getOrderId, orderId);
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getCollectId, refundId);
         wrapper.eq(OrderVisitor::getState, 2);
         wrapper.set(OrderVisitor::getState, 0);

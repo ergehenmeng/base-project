@@ -52,8 +52,8 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
-    public int getTotalRefundNum(Long orderId) {
-        return orderRefundLogMapper.getTotalRefundNum(orderId);
+    public int getTotalRefundNum(String orderNo) {
+        return orderRefundLogMapper.getTotalRefundNum(orderNo);
     }
 
     @Override

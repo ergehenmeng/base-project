@@ -1,14 +1,12 @@
 package com.eghm.model.dto.business.order.ticket;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
-import com.eghm.common.enums.ref.AuditState;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,9 +18,9 @@ import javax.validation.constraints.Size;
 @Data
 public class AuditTicketRefundRequest {
 
-    @ApiModelProperty("订单id")
-    @NotNull(message = "订单id不能为空")
-    private Long orderId;
+    @ApiModelProperty("订单编号")
+    @NotNull(message = "订单编号不能为空")
+    private String orderNo;
 
     @ApiModelProperty("退款记录id")
     @NotNull(message = "退款id不能为空")

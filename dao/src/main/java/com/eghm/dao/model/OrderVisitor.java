@@ -30,8 +30,8 @@ public class OrderVisitor extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商品类型")
     private ProductType productType;
 
-    @ApiModelProperty(value = "订单id")
-    private Long orderId;
+    @ApiModelProperty(value = "订单编号")
+    private String orderNo;
 
     @ApiModelProperty("状态 0: 待使用 1:已使用 2:已退款")
     private Integer state;

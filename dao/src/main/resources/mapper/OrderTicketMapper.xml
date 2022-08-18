@@ -2,7 +2,4 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.TicketOrderMapper">
 
-    <select id="getPayingList" resultType="string">
-        select order_no from order_ticket where deleted = false and state = 1
-    </select>
 </mapper>

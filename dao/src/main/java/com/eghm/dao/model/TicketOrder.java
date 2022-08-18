@@ -1,11 +1,6 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.common.convertor.CentToYuanEncoder;
-import com.eghm.common.enums.ref.CloseType;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.PayType;
-import com.eghm.common.enums.ref.RefundState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -37,21 +32,6 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long scenicId;
 
-    @ApiModelProperty("订单id")
-    private Long orderId;
-
-    @ApiModelProperty(value = "门票名称")
-    private String title;
-
-    @ApiModelProperty(value = "门票单价")
-    private Integer price;
-
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:支持")
-    private Boolean supportRefund;
-
-    @ApiModelProperty(value = "购买数量")
-    private Integer num;
-
     @ApiModelProperty(value = "订单号")
     private String orderNo;
 
@@ -75,52 +55,12 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "门票介绍")
     private String introduce;
 
-    @ApiModelProperty(value = "用户id")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long userId;
-
     @ApiModelProperty(value = "门票id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long ticketId;
 
-    @ApiModelProperty(value = "订单状态 0:待支付 1:支付处理中 2:支付成功,待使用 3:已使用,待评价 4:已完成 5:已关闭")
-    private OrderState state;
-
-    @ApiModelProperty("退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功 5: 退款失败(该状态和退款中在C端用户看来都是退款中)")
-    private RefundState refundState;
-
-    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
-    private CloseType closeType;
-
-    @ApiModelProperty("支付方式")
-    private PayType payType;
-
     @ApiModelProperty(value = "联系人手机号")
     private String mobile;
-
-    @ApiModelProperty("付款金额=单价*数量-优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer payAmount;
-
-    @ApiModelProperty(value = "优惠金额")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer discountAmount;
-
-    @ApiModelProperty(value = "优惠券id")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long couponId;
-
-    @ApiModelProperty("支付订单流水号")
-    private String outTradeNo;
-
-    @ApiModelProperty("订单支付时间")
-    private LocalDateTime payTime;
-
-    @ApiModelProperty("订单关闭时间")
-    private LocalDateTime closeTime;
-
-    @ApiModelProperty("订单完成时间")
-    private LocalDateTime completeTime;
 
     @ApiModelProperty("门票使用时间")
     private LocalDateTime useTime;

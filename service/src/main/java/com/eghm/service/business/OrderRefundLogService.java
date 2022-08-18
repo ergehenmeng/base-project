@@ -40,10 +40,10 @@ public interface OrderRefundLogService {
 
     /**
      * 统计订单总退款商品数量 包含退款处理中的
-     * @param orderId 订单id
+     * @param orderNo 订单编号
      * @return 数量
      */
-    int getTotalRefundNum(Long orderId);
+    int getTotalRefundNum(String orderNo);
 
     /**
      * 根据退款流水或查询退款记录

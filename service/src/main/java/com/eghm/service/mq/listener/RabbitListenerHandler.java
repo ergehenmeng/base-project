@@ -5,6 +5,8 @@ import com.eghm.dao.model.ManageLog;
 import com.eghm.dao.model.WebappLog;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.TicketOrderService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.service.user.LoginLogService;
@@ -27,7 +29,9 @@ import java.util.function.Consumer;
 @Slf4j
 public class RabbitListenerHandler {
 
-    private final CommonService commonService;
+    private final OrderService orderService;
+
+    private final TicketOrderService ticketOrderService;
 
     private final WebappLogService webappLogService;
 
@@ -41,7 +45,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ORDER_PAY_EXPIRE_QUEUE)
     public void orderExpire(String orderNo, Message message, Channel channel) throws IOException {
-        processMessageAck(orderNo, message, channel, s -> commonService.getOrderService(s).orderExpire(s));
+        processMessageAck(orderNo, message, channel, ticketOrderService::orderExpire);
     }
 
     /**

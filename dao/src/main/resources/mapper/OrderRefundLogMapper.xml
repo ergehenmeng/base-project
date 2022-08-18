@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.dao.mapper.OrderRefundLogMapper">
 
     <select id="getTotalRefundNum" resultType="int">
-        select ifnull(sum(num), 0) from order_refund_log where deleted = false and order_id = #{orderId} and state in (0, 1)
+        select ifnull(sum(num), 0) from order_refund_log where deleted = false and order_no = #{orderNo} and state in (0, 1)
     </select>
     
     <select id="getTicketRefunding" resultType="com.eghm.model.dto.ext.OrderRefund">
@@ -12,7 +12,7 @@
              r.out_trade_no as outTradeNo
         from
         order_refund_log t
-        inner join ticket_order r on t.order_id = r.id
+        inner join ticket_order r on t.order_no = r.order_no
         where t.deleted = false and t.state = 0
     </select>
 </mapper>

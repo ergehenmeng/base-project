@@ -15,11 +15,11 @@ import java.util.List;
  */
 
 @Data
-public class ApplyTicketRefundDTO {
+public class ApplyRefundDTO {
 
-    @ApiModelProperty(value = "订单id", required = true)
-    @NotNull(message = "订单id不能为空")
-    private Long orderId;
+    @ApiModelProperty(value = "订单编号", required = true)
+    @NotNull(message = "订单编号不能为空")
+    private String orderNo;
 
     @ApiModelProperty(value = "退款数量", required = true)
     @RangeInt(min = 1, max = 99, message = "退款数量应为1~99")
