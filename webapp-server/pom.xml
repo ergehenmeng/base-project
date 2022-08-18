@@ -8,9 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>api-web</artifactId>
+    <artifactId>webapp-server</artifactId>
     <packaging>jar</packaging>
-    <name>api-web</name>
+    <name>webapp-server</name>
 
     <dependencies>
 

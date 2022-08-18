@@ -53,6 +53,8 @@ import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -364,8 +366,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signIn(Long userId) {
         User user = userMapper.selectById(userId);
-        Date now = DateUtil.getNow();
-        long day = DateUtil.diffDay(user.getAddTime(), now);
+        long day = ChronoUnit.DAYS.between(user.getAddTime(), LocalDateTime.now());
         String signKey = CacheConstant.USER_SIGN_IN + userId;
         Boolean signIn = cacheService.getBitmap(signKey, day);
         if (Boolean.TRUE.equals(signIn)) {
@@ -386,8 +387,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean isSignInToday(User user) {
-        Date now = DateUtil.getNow();
-        long day = DateUtil.diffDay(user.getAddTime(), now);
+        long day = ChronoUnit.DAYS.between(user.getAddTime(), LocalDateTime.now());
         return cacheService.getBitmap(CacheConstant.USER_SIGN_IN + user.getId(), day);
     }
 
@@ -395,7 +395,7 @@ public class UserServiceImpl implements UserService {
     public SignInVO getSignIn(Long userId) {
         User user = userMapper.selectById(userId);
         Date now = DateUtil.getNow();
-        long day = DateUtil.diffDay(user.getAddTime(), now);
+        long day = ChronoUnit.DAYS.between(user.getAddTime(), LocalDateTime.now());
         String signKey = CacheConstant.USER_SIGN_IN + userId;
         // 今日是否签到
         boolean todaySignIn = cacheService.getBitmap(signKey, day);

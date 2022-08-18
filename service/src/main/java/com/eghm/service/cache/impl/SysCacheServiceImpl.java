@@ -1,7 +1,6 @@
 package com.eghm.service.cache.impl;
 
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.mapper.SysCacheMapper;
 import com.eghm.dao.model.SysCache;
 import com.eghm.service.cache.ClearCacheService;
@@ -10,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -86,7 +86,7 @@ public class SysCacheServiceImpl implements SysCacheService {
     private void updateCacheState(String cacheName, boolean state) {
         SysCache cache = new SysCache();
         cache.setCacheName(cacheName);
-        cache.setUpdateTime(DateUtil.getNow());
+        cache.setUpdateTime(LocalDateTime.now());
         if (state) {
             cache.setState((byte) 1);
         } else {

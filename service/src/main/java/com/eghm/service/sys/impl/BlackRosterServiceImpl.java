@@ -5,18 +5,17 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.utils.DateUtil;
 import com.eghm.dao.mapper.BlackRosterMapper;
 import com.eghm.dao.model.BlackRoster;
 import com.eghm.model.dto.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.roster.BlackRosterQueryRequest;
-import com.eghm.service.sys.BlackRosterService;
 import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.sys.BlackRosterService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -56,8 +55,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     public boolean isInterceptIp(String ip) {
         List<BlackRoster> availableList = cacheProxyService.getBlackRosterList();
         if (!CollectionUtils.isEmpty(availableList)) {
-            Date now = DateUtil.getNow();
-            return availableList.stream().anyMatch(blackRoster -> NetUtil.ipv4ToLong(ip) == blackRoster.getLongIp() && (blackRoster.getEndTime() == null || now.before(blackRoster.getEndTime())));
+            return availableList.stream().anyMatch(blackRoster -> NetUtil.ipv4ToLong(ip) == blackRoster.getLongIp() && (blackRoster.getEndTime() == null || LocalDateTime.now().isBefore(blackRoster.getEndTime())));
         }
         return false;
     }

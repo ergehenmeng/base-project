@@ -15,8 +15,8 @@
         <module>common</module>
         <module>dao</module>
         <module>service</module>
-        <module>api-web</module>
-        <module>manage-web</module>
+        <module>webapp-server</module>
+        <module>manage-server</module>
     </modules>
 
     <parent>
@@ -150,12 +150,12 @@
             </dependency>
             <dependency>
                 <groupId>com.eghm</groupId>
-                <artifactId>api-web</artifactId>
+                <artifactId>webapp-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.eghm</groupId>
-                <artifactId>manage-web</artifactId>
+                <artifactId>manage-server</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
