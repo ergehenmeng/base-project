@@ -95,9 +95,9 @@ public class ScenicTicketEditRequest {
     @OptionInt(value = {1, 2}, message = "核销方式格式错误")
     private Integer verificationType;
 
-    @ApiModelProperty(value = "是否支持退款 1:支持 0:不支持")
-    @OptionInt(value = {0, 1}, message = "是否支持退款不能为空")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @NotNull(message = "退款方式不能为空")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     @OptionInt(value = {0, 1}, message = "是否实名购票不能为空")

@@ -725,19 +725,19 @@ public enum ErrorCode {
     ORDER_PAID_CANCEL(3160, "订单已支付,无法取消"),
 
     /**
-     * 该门票不支持退款
+     * 该商品不支持退款
      */
-    TICKET_REFUND_SUPPORTED(3160, "该门票不支持退款"),
+    REFUND_NOT_SUPPORTED(3160, "该商品不支持退款"),
 
     /**
-     * 该门票订单状态不支持退款
+     * 该订单状态不支持退款
      */
-    TICKET_STATE_REFUND(3161, "该门票订单状态不支持退款"),
+    STATE_NOT_REFUND(3161, "该订单状态不支持退款"),
 
     /**
      * 订单退款状态不合法
      */
-    TICKET_REFUND_INVALID(3162, "订单退款状态不合法"),
+    REFUND_STATE_INVALID(3162, "订单退款状态不合法"),
 
     /**
      * 退款人数和数量不一致

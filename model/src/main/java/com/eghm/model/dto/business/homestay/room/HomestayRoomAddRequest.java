@@ -62,9 +62,9 @@ public class HomestayRoomAddRequest {
     @NotBlank(message = "详细介绍不能为空")
     private String introduce;
 
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:支持")
-    @NotBlank(message = "请勾选是否支持退款")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @NotNull(message = "退款方式不能为空")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "退款描述")
     private String refundDescribe;

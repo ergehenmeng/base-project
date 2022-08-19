@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 @Service("ticketOrderService")
 @AllArgsConstructor
 @Slf4j
-public class TicketOrderServiceImpl implements TicketOrderService, PayOrderService {
+public class TicketOrderServiceImpl implements TicketOrderService {
 
     private final TicketOrderMapper ticketOrderMapper;
 
@@ -53,7 +53,7 @@ public class TicketOrderServiceImpl implements TicketOrderService, PayOrderServi
         order.setOrderNo(orderNo);
         order.setPrice(ticket.getSalePrice());
         order.setProductType(ProductType.TICKET);
-        order.setSupportRefund(ticket.getSupportRefund());
+        order.setRefundType(ticket.getSupportRefund());
         order.setPayAmount(dto.getNum() * ticket.getSalePrice());
 
         if (dto.getCouponId() != null) {

@@ -42,9 +42,9 @@ public class ProductAddRequest {
     @NotNull(message = "交付方式不能为空")
     private Integer deliveryMethod;
 
-    @ApiModelProperty(value = "是否支持退款 true:支持 false:不支持")
-    @NotNull(message = "是否支持退款不能为空")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @NotNull(message = "退款方式不能为空")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "虚拟销量")
     @NotNull(message = "虚拟销量不能为空")

@@ -46,8 +46,8 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商品类型")
     private ProductType productType;
 
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:支持")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    private RefundType refundType;
 
     @ApiModelProperty("支付流水号")
     private String outTradeNo;

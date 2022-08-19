@@ -56,8 +56,8 @@ public class Product extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
     private Integer deliveryMethod;
 
-    @ApiModelProperty(value = "是否支持退款 true:支持 false:不支持")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "最低价格")
     private Integer minPrice;

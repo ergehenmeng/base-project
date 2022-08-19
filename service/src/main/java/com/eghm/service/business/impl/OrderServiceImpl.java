@@ -12,8 +12,6 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.OrderMapper;
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.OrderRefundLog;
-import com.eghm.dao.model.TicketOrder;
-import com.eghm.model.dto.business.order.ticket.ApplyRefundDTO;
 import com.eghm.model.dto.business.order.ticket.AuditTicketRefundRequest;
 import com.eghm.service.business.*;
 import com.eghm.service.pay.AggregatePayService;
@@ -24,7 +22,6 @@ import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
-import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -258,10 +255,21 @@ public class OrderServiceImpl implements OrderService {
             refundLog.setState(0);
             refundLog.setRefundAmount(request.getRefundAmount());
             refundLog.setOutRefundNo(IdWorker.getIdStr());
-            this.doRefund(refundLog, order);
+            this.startRefund(refundLog, order);
         }
         orderMapper.updateById(order);
         orderRefundLogService.updateById(refundLog);
+    }
+
+    @Override
+    public void startRefund(OrderRefundLog log, Order order) {
+        RefundDTO dto = new RefundDTO();
+        dto.setOutRefundNo(log.getOutRefundNo());
+        dto.setOutTradeNo(order.getOutTradeNo());
+        dto.setReason(log.getReason());
+        dto.setAmount(log.getRefundAmount());
+        dto.setTradeType(TradeType.valueOf(order.getPayType().name()));
+        aggregatePayService.applyRefund(dto);
     }
 
     @Override
@@ -275,22 +283,6 @@ public class OrderServiceImpl implements OrderService {
         this.doCloseOrder(order, CloseType.CANCEL);
     }
 
-    @Override
-    public void refundApply(ApplyRefundDTO dto) {
-        TicketOrder ticketOrder = this.selectByOrderNo(dto.getOrderNo());
-        Order order = this.getByOrderNo(dto.getOrderNo());
-        this.checkRefundApply(dto, ticketOrder, order);
-
-        // 是否走退款审批判断(未设置)
-        OrderRefundLog log = DataUtil.copy(dto, OrderRefundLog.class);
-        log.setApplyTime(LocalDateTime.now());
-        log.setAuditState(AuditState.APPLY);
-        orderRefundLogService.insert(log);
-        order.setRefundState(RefundState.APPLY);
-        orderService.updateById(order);
-        orderVisitorService.lockVisitor(ProductType.TICKET, dto.getOrderNo(), log.getId(), dto.getVisitorIds());
-    }
-
     /**
      * 关闭订单
      * @param order 订单新
@@ -302,21 +294,6 @@ public class OrderServiceImpl implements OrderService {
         order.setCloseTime(LocalDateTime.now());
         orderMapper.updateById(order);
         userCouponService.releaseCoupon(order.getCouponId());
-    }
-
-    /**
-     * 发起退款操作
-     * @param log 退款记录
-     * @param order 订单
-     */
-    private void doRefund(OrderRefundLog log, Order order) {
-        RefundDTO dto = new RefundDTO();
-        dto.setOutRefundNo(log.getOutRefundNo());
-        dto.setOutTradeNo(order.getOutTradeNo());
-        dto.setReason(log.getReason());
-        dto.setAmount(log.getRefundAmount());
-        dto.setTradeType(TradeType.valueOf(order.getPayType().name()));
-        aggregatePayService.applyRefund(dto);
     }
 
     /**

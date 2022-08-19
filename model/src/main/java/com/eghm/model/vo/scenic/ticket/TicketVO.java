@@ -71,8 +71,8 @@ public class TicketVO {
     @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
     private Integer useScope;
 
-    @ApiModelProperty(value = "是否支持退款 1:支持 0:不支持")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;

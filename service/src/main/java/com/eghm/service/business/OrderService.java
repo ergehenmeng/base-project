@@ -2,7 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.common.enums.ref.CloseType;
 import com.eghm.dao.model.Order;
-import com.eghm.model.dto.business.order.ticket.ApplyRefundDTO;
+import com.eghm.dao.model.OrderRefundLog;
 import com.eghm.model.dto.business.order.ticket.AuditTicketRefundRequest;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
@@ -135,6 +135,13 @@ public interface OrderService {
     void auditRefund(AuditTicketRefundRequest request);
 
     /**
+     * 发起退款操作
+     * @param log 退款记录
+     * @param order 订单
+     */
+    void startRefund(OrderRefundLog log, Order order);
+
+    /**
      * 取消订单
      * 1.增库存
      * 2.释放优惠券(如果有的话)
@@ -143,12 +150,4 @@ public interface OrderService {
      */
     void orderCancel(Long orderId);
 
-    /**
-     * 门票退款申请
-     * 1. 校验订单状态是否符合退款要求
-     * 2. 增加退款申请记录
-     * 3. 如果存在实名制用户,则锁定用户防止用户在退款中继续核销
-     * @param dto 退款信息
-     */
-    void refundApply(ApplyRefundDTO dto,);
 }

@@ -73,9 +73,9 @@ public class RestaurantVoucherEditRequest {
     @NotBlank(message = "结束使用时间不能为空")
     private String expireTime;
 
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:支持")
-    @NotNull(message = "退订规则不能为空")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @NotNull(message = "退款方式不能为空")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "详细介绍")
     @NotBlank(message = "退订规则不能为空")

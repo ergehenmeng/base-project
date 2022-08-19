@@ -3,6 +3,7 @@ package com.eghm.dao.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.PlatformState;
+import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -105,8 +106,8 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)")
     private Integer verificationType;
 
-    @ApiModelProperty(value = "是否支持退款 1:支持 0:不支持")
-    private Boolean supportRefund;
+    @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;

@@ -81,8 +81,8 @@ public class RestaurantVoucher extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "使用截止时间")
     private String expireTime;
 
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:支持")
-    private Boolean supportRefund;
+   @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    private RefundType refundType;
 
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
