@@ -2,6 +2,7 @@ package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.enums.ref.PlatformState;
+import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.order.ticket;
+package com.eghm.model.dto.business.order;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.OptionInt;

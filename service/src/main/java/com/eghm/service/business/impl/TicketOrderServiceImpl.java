@@ -6,13 +6,12 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.ref.*;
+import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.TicketOrderMapper;
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
-import com.eghm.model.dto.business.order.ticket.ApplyRefundDTO;
 import com.eghm.model.dto.business.order.ticket.CreateTicketOrderDTO;
 import com.eghm.service.business.*;
 import com.eghm.utils.DataUtil;
@@ -39,8 +38,6 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 
     private final OrderMQService orderHandlerService;
 
-    private final OrderRefundLogService orderRefundLogService;
-
     private final OrderService orderService;
 
     @Override
@@ -53,7 +50,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         order.setOrderNo(orderNo);
         order.setPrice(ticket.getSalePrice());
         order.setProductType(ProductType.TICKET);
-        order.setRefundType(ticket.getSupportRefund());
+        order.setRefundType(ticket.getRefundType());
         order.setPayAmount(dto.getNum() * ticket.getSalePrice());
 
         if (dto.getCouponId() != null) {
@@ -84,45 +81,6 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         wrapper.eq(TicketOrder::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return ticketOrderMapper.selectOne(wrapper);
-    }
-
-    @Override
-    public void orderExpire(String orderNo) {
-        // 主订单关闭
-        Order order = orderService.closeOrder(orderNo, CloseType.EXPIRE);
-        TicketOrder ticketOrder = this.selectByOrderNo(orderNo);
-        // 更新库存
-        scenicTicketService.updateStock(ticketOrder.getTicketId(), -order.getNum());
-    }
-
-    /**
-     * 校验退款申请
-     * @param dto 退款信息
-     * @param ticketOrder 门票
-     * @param order 订单信息
-     */
-    private void checkRefundApply(ApplyRefundDTO dto, TicketOrder ticketOrder, Order order) {
-        if (!dto.getUserId().equals(order.getUserId())) {
-            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", dto.getOrderNo(), order.getUserId(), dto.getUserId());
-            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
-        }
-        if (Boolean.FALSE.equals(order.getSupportRefund())) {
-            log.error("该门票不支持退款 [{}]", dto.getOrderNo());
-            throw new BusinessException(ErrorCode.TICKET_REFUND_SUPPORTED);
-        }
-        if (order.getState() != OrderState.UN_USED) {
-            log.error("门票订单状态不是待使用,无法退款 [{}] [{}]", dto.getOrderNo(), order.getState());
-            throw new BusinessException(ErrorCode.TICKET_STATE_REFUND);
-        }
-        if (order.getRefundState() != null && order.getRefundState() != RefundState.REFUSE) {
-            log.error("门票订单退款状态非法 [{}] [{}]", dto.getOrderNo(), order.getRefundState());
-            throw new BusinessException(ErrorCode.TICKET_REFUND_INVALID);
-        }
-        // 实名制
-        if (Boolean.TRUE.equals(ticketOrder.getRealBuy()) && dto.getNum() != dto.getVisitorIds().size()) {
-            log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", dto.getOrderNo(), dto.getNum(), dto.getVisitorIds().size());
-            throw new BusinessException(ErrorCode.TICKET_REFUND_VISITOR);
-        }
     }
 
     /**

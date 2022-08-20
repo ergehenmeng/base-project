@@ -12,8 +12,11 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.impl.ShadowGimpy;
 import com.google.code.kaptcha.util.Config;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -30,7 +33,8 @@ import java.util.Properties;
  */
 @EnableConfigurationProperties({SystemProperties.class})
 @AllArgsConstructor
-public class WebMvcConfig implements WebMvcConfigurer {
+@Slf4j
+public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     private final ObjectMapper objectMapper;
 
@@ -63,6 +67,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resource/**").addResourceLocations("file:///" + systemProperties.getUploadDir() + SystemConstant.DEFAULT_PATTERN);
+    }
+
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return (ex, method, params) -> log.error("@Async接口调用异常: [{}] [{}]", method.getName(), params, ex);
     }
 
     /**

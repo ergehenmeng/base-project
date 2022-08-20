@@ -1,6 +1,7 @@
 package com.eghm.model.dto.business.scenic.ticket;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
+import com.eghm.common.enums.ref.RefundType;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

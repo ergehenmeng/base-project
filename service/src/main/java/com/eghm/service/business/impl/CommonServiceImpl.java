@@ -4,7 +4,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.PayOrderService;
+import com.eghm.service.business.handler.PayNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
@@ -34,15 +34,26 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public PayOrderService getOrderService(String orderNo) {
+    public PayNotifyHandler getPayHandler(String orderNo) {
+        return getHandlerBean(orderNo, PayNotifyHandler.class);
+    }
+
+    /**
+     * 根据订单前缀查询处理的bean
+     * @param orderNo 订单编号
+     * @param cls 处理类
+     * @param <T> Type
+     * @return bean
+     */
+    private static <T> T getHandlerBean(String orderNo, Class<T> cls) {
         String beanName = Arrays.stream(ProductType.values())
                 .filter(productType -> orderNo.startsWith(productType.getPrefix()))
-                .map(ProductType::getBeanName)
+                .map(ProductType::getPayNotifyBean)
                 .findFirst()
                 .orElseThrow(() -> {
                     log.error("该订单类型不匹配 [{}]", orderNo);
                     return new BusinessException(ErrorCode.ORDER_TYPE_MATCH);
                 });
-        return SpringContextUtil.getBean(beanName, PayOrderService.class);
+        return SpringContextUtil.getBean(beanName, cls);
     }
 }

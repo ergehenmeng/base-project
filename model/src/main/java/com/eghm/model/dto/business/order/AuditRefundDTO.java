@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.order.ticket;
+package com.eghm.model.dto.business.order;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
 import com.eghm.model.validation.annotation.OptionInt;
@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  */
 
 @Data
-public class AuditTicketRefundRequest {
+public class AuditRefundDTO {
 
     @ApiModelProperty("订单编号")
     @NotNull(message = "订单编号不能为空")

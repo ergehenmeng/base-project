@@ -24,9 +24,9 @@ public enum CloseType implements IEnum<Integer> {
     CANCEL(2, "用户取消"),
 
     /**
-     * 退款拒绝
+     * 退款成功
      */
-    REFUSE(3, "退款拒绝"),
+    REFUND(3, "退款成功"),
 
     ;
     /**

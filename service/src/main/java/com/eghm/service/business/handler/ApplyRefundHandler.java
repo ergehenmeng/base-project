@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler;
 
-import com.eghm.model.dto.business.order.ticket.ApplyRefundDTO;
+import com.eghm.model.dto.business.order.ApplyRefundDTO;
 
 /**
  * @author 二哥很猛

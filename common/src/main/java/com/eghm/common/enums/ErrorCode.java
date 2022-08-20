@@ -747,7 +747,7 @@ public enum ErrorCode {
     /**
      * 退款申请已审核
      */
-    TICKET_REFUND_APPLY(3165, "退款申请已审核"),
+    REFUND_AUDITED(3165, "退款申请已审核"),
 
     /**
      * 订单不在退款中
@@ -768,6 +768,11 @@ public enum ErrorCode {
      * 订单联系人状态不符合退款要求
      */
     VISITOR_STATE_ERROR(3169, "订单联系人状态不符合退款要求"),
+
+    /**
+     * 订单状态不匹配
+     */
+    ORDER_STATE_MATCH(3170, "订单状态不匹配"),
 
     /**
      * 微信公众号尚未配置

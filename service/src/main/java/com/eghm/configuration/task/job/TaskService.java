@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.job;
 
+import com.eghm.dao.model.Order;
 import com.eghm.model.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
@@ -23,26 +24,24 @@ public class TaskService {
     private final OrderRefundLogService orderRefundLogService;
 
     /**
-     * 门票支付定时
-     * @param param
+     * 定时任务处理: 支付中的订单
      */
-    public void ticketPaying(String param) {
+    public void payProcess(String param) {
         log.info("门票支付定时任务开始执行 [{}]", param);
-        List<String> payingList = orderService.getPayingList();
-        for (String orderNo : payingList) {
-            orderService.orderPayNotify(orderNo);
+        List<Order> processList = orderService.getProcessList();
+        for (Order orderNo : processList) {
+
         }
         log.info("门票支付定时任务执行完毕 [{}]", param);
     }
 
     /**
      * 门票退款定时任务
-     * @param param
      */
     public void ticketRefunding(String param) {
         List<OrderRefund> refundList = orderRefundLogService.getTicketRefunding();
         for (OrderRefund refund : refundList) {
-            orderService.orderRefundNotify(refund.getOutTradeNo(), refund.getOutRefundNo());
+
         }
     }
 

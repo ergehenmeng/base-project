@@ -1,6 +1,7 @@
 package com.eghm.model.dto.business.restaurant.voucher;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
+import com.eghm.common.enums.ref.RefundType;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

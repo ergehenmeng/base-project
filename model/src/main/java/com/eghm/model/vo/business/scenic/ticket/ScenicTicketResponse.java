@@ -1,5 +1,6 @@
 package com.eghm.model.vo.business.scenic.ticket;
 
+import com.eghm.common.enums.ref.RefundType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

@@ -1,6 +1,7 @@
 package com.eghm.model.vo.scenic.ticket;
 
 import com.eghm.common.convertor.CentToYuanEncoder;
+import com.eghm.common.enums.ref.RefundType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

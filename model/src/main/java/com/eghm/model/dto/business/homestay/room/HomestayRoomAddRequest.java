@@ -1,5 +1,6 @@
 package com.eghm.model.dto.business.homestay.room;
 
+import com.eghm.common.enums.ref.RefundType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

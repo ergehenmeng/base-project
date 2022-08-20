@@ -1,5 +1,6 @@
 package com.eghm.model.dto.business.product;
 
+import com.eghm.common.enums.ref.RefundType;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 import com.eghm.model.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;

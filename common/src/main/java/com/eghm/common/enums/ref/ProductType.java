@@ -15,22 +15,22 @@ public enum ProductType implements IEnum<String> {
     /**
      * 景区门票
      */
-    TICKET("ticket", "门票", "MP", "ticketOrderService"),
+    TICKET("ticket", "门票", "MP", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
 
     /**
      * 餐饮券
      */
-    VOUCHER("voucher", "餐饮券", "CY", "voucherOrderService"),
+    VOUCHER("voucher", "餐饮券", "CY", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
 
     /**
      * 民宿
      */
-    HOMESTAY("homestay", "民宿", "MS", "homestayOrderService"),
+    HOMESTAY("homestay", "民宿", "MS", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
 
     /**
      * 商品(文创/特产)
      */
-    PRODUCT("product", "商品", "SP", "productOrderService"),
+    PRODUCT("product", "商品", "SP", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
 
     ;
 
@@ -50,9 +50,29 @@ public enum ProductType implements IEnum<String> {
     private final String  prefix;
 
     /**
-     * bean名称
+     * 申请退款bean
      */
-    private final String beanName;
+    private final String applyRefundBean;
+
+    /**
+     * 审核退款bean
+     */
+    private final String auditRefundBean;
+
+    /**
+     * 订单取消bean
+     */
+    private final String orderCancelBean;
+
+    /**
+     * 订单支付异步处理bean
+     */
+    private final String payNotifyBean;
+
+    /**
+     * 退款异步处理bean
+     */
+    private final String refundNotifyBean;
 
     @Override
     public String getValue() {
