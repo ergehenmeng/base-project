@@ -101,9 +101,4 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     public void updateStock(Long id, Integer num) {
         scenicTicketMapper.updateStock(id, num);
     }
-
-    @Override
-    public void updateStock(String orderNo, Integer num) {
-
-    }
 }

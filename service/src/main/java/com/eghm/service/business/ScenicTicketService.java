@@ -87,11 +87,4 @@ public interface ScenicTicketService {
      * @param num 更新数量 正数:减库存 负数:加库存
      */
     void updateStock(Long id, Integer num);
-
-    /**
-     * 更新门票库存信息
-     * @param orderNo 订单编号
-     * @param num 更新数量 正数:减库存 负数:加库存
-     */
-    void updateStock(String orderNo, Integer num);
 }
