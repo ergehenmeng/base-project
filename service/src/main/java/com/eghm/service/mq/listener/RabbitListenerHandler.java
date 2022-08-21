@@ -29,7 +29,7 @@ import java.util.function.Consumer;
 @Slf4j
 public class RabbitListenerHandler {
 
-    private final OrderService orderService;
+    private final CommonService commonService;
 
     private final TicketOrderService ticketOrderService;
 
@@ -45,7 +45,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ORDER_PAY_EXPIRE_QUEUE)
     public void orderExpire(String orderNo, Message message, Channel channel) throws IOException {
-        processMessageAck(orderNo, message, channel, ticketOrderService::orderExpire);
+        processMessageAck(orderNo, message, channel, commonService.getExpireHandler(orderNo)::process);
     }
 
     /**

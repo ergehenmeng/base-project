@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.service.business.handler.OrderExpireHandler;
 import com.eghm.service.business.handler.PayNotifyHandler;
 
 /**
@@ -23,4 +24,11 @@ public interface CommonService {
      * @return 订单处理类
      */
     PayNotifyHandler getPayHandler(String orderNo);
+
+    /**
+     * 订单过期处理类
+     * @param orderNo 订单编号
+     * @return handler
+     */
+    OrderExpireHandler getExpireHandler(String orderNo);
 }

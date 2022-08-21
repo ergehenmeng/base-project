@@ -4,6 +4,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.handler.OrderExpireHandler;
 import com.eghm.service.business.handler.PayNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
@@ -36,6 +37,11 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public PayNotifyHandler getPayHandler(String orderNo) {
         return getHandlerBean(orderNo, PayNotifyHandler.class);
+    }
+
+    @Override
+    public OrderExpireHandler getExpireHandler(String orderNo) {
+        return getHandlerBean(orderNo, OrderExpireHandler.class);
     }
 
     /**
