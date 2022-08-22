@@ -74,7 +74,7 @@ public class HomestayRoom extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
 
-   @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
 
     @ApiModelProperty(value = "退款描述")

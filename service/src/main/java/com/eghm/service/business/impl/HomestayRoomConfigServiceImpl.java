@@ -115,6 +115,15 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         return voList;
     }
 
+    @Override
+    public List<HomestayRoomConfig> getList(Long roomId, LocalDate startDate, LocalDate endDate) {
+        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
+        wrapper.ge(HomestayRoomConfig::getConfigDate, startDate);
+        wrapper.le(HomestayRoomConfig::getConfigDate, endDate);
+        return homestayRoomConfigMapper.selectList(wrapper);
+    }
+
     /**
      * 获取房态月配置信息
      * @param month 月份

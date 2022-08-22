@@ -5,7 +5,6 @@ import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.Order;
-import com.eghm.dao.model.TicketOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.OrderExpireHandler;

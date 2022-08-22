@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.HomestayRoomMapper;
 import com.eghm.dao.model.HomestayRoom;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomAddRequest;
@@ -15,6 +17,7 @@ import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("homestayRoomService")
 @AllArgsConstructor
+@Slf4j
 public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     private final HomestayRoomMapper homestayRoomMapper;
@@ -49,6 +53,26 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     @Override
     public HomestayRoom selectById(Long id) {
         return homestayRoomMapper.selectById(id);
+    }
+
+    @Override
+    public HomestayRoom selectByIdRequired(Long id) {
+        HomestayRoom room = homestayRoomMapper.selectById(id);
+        if (room == null) {
+            log.info("房型信息查询为空 [{}]", id);
+            throw new BusinessException(ErrorCode.HOMESTAY_ROOM_NULL);
+        }
+        return room;
+    }
+
+    @Override
+    public HomestayRoom selectByIdShelve(Long id) {
+        HomestayRoom room = this.selectByIdRequired(id);
+        if (room.getPlatformState() != PlatformState.SHELVE) {
+            log.info("房型系统未上架 [{}]", id);
+            throw new BusinessException(ErrorCode.HOMESTAY_ROOM_NULL);
+        }
+        return room;
     }
 
     @Override

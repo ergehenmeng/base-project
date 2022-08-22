@@ -2,11 +2,14 @@ package com.eghm.model.dto.business.order;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
+import com.eghm.model.validation.group.HomestayOrderCreateGroup;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -17,7 +20,7 @@ import java.util.List;
 public class OrderCreateDTO {
 
     /**
-     * 商品id,例如门票id,餐饮券id等
+     * 商品id,例如门票id,餐饮券id,房型id
      */
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
@@ -40,4 +43,13 @@ public class OrderCreateDTO {
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long userId;
 
+    @ApiModelProperty("开始日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "开始日期不能为空", groups = {HomestayOrderCreateGroup.class})
+    private LocalDate startDate;
+
+    @ApiModelProperty("截止日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "截止日期不能为空", groups = {HomestayOrderCreateGroup.class})
+    private LocalDate endDate;
 }

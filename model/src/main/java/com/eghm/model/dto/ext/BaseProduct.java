@@ -22,6 +22,9 @@ public class BaseProduct {
     @ApiModelProperty("商品退款方式")
     private RefundType refundType;
 
+    @ApiModelProperty("退款描述信息")
+    private String refundDescribe;
+
     @ApiModelProperty("商品类型")
     private ProductType productType;
 

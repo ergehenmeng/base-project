@@ -1,8 +1,8 @@
 package com.eghm.service.business.impl;
 
 import com.eghm.dao.mapper.HomestayOrderMapper;
+import com.eghm.dao.model.HomestayOrder;
 import com.eghm.service.business.HomestayOrderService;
-import com.eghm.service.business.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,8 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
 
     private final HomestayOrderMapper homestayOrderMapper;
 
-    private final OrderService orderService;
-
+    @Override
+    public void insert(HomestayOrder order) {
+        homestayOrderMapper.insert(order);
+    }
 }

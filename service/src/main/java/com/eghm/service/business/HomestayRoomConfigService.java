@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.dao.model.HomestayRoomConfig;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;
@@ -40,4 +41,13 @@ public interface HomestayRoomConfigService {
      * @return 价格列表
      */
     List<RoomConfigVO> getList(LocalDate month, Long roomId);
+
+    /**
+     * 查询指定房型的房态信息
+     * @param roomId 房型id
+     * @param startDate 开始时间(含)
+     * @param endDate 结束时间(含)
+     * @return 房态列表
+     */
+    List<HomestayRoomConfig> getList(Long roomId, LocalDate startDate, LocalDate endDate);
 }

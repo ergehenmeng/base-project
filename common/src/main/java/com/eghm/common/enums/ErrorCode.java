@@ -775,6 +775,21 @@ public enum ErrorCode {
     ORDER_STATE_MATCH(3170, "订单状态不匹配"),
 
     /**
+     * 该房型已下架
+     */
+    HOMESTAY_ROOM_NULL(3173, "该房型已下架"),
+
+    /**
+     * 该时间段不合法
+     */
+    HOMESTAY_CONFIG_NULL(3175, "该时间段不合法"),
+
+    /**
+     * 房间已预订满
+     */
+    HOMESTAY_STOCK(3176, "房间已预订满"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

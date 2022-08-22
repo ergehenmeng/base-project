@@ -40,6 +40,20 @@ public interface HomestayRoomService {
     HomestayRoom selectById(Long id);
 
     /**
+     * 主键查询房型(为空报错)
+     * @param id id
+     * @return 房型信息
+     */
+    HomestayRoom selectByIdRequired(Long id);
+
+    /**
+     * 主键查询房型(房型没有上架则报错)
+     * @param id id
+     * @return 房型信息
+     */
+    HomestayRoom selectByIdShelve(Long id);
+
+    /**
      * 更新房型上下架状态
      * @param id 房型id
      * @param state 新状态
