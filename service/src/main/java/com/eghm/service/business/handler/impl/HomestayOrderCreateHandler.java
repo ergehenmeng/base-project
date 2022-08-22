@@ -1,9 +1,9 @@
 package com.eghm.service.business.handler.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.dao.model.HomestayOrder;
 import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.HomestayRoomConfig;
 import com.eghm.dao.model.Order;
@@ -11,10 +11,10 @@ import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.dto.HomestayOrderDTO;
+import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -32,19 +32,23 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
-    private final HomestayService homestayService;
-
-    public HomestayOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, HomestayService homestayService) {
+    public HomestayOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService) {
         super(orderService, userCouponService, orderVisitorService, orderMQService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
         this.homestayRoomConfigService = homestayRoomConfigService;
-        this.homestayService = homestayService;
     }
 
     @Override
     protected void next(OrderCreateDTO dto, HomestayOrderDTO product, Order order) {
-
+        homestayRoomConfigService.updateStock(dto.getProductId(), dto.getStartDate(), dto.getEndDate(), dto.getNum());
+        HomestayOrder homestayOrder = DataUtil.copy(product.getHomestayRoom(), HomestayOrder.class);
+        homestayOrder.setOrderNo(order.getOrderNo());
+        homestayOrder.setMobile(dto.getMobile());
+        homestayOrder.setStartDate(dto.getStartDate());
+        homestayOrder.setEndDate(dto.getEndDate());
+        homestayOrder.setRoomId(dto.getProductId());
+        homestayOrderService.insert(homestayOrder);
     }
 
     @Override
@@ -59,6 +63,8 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected BaseProduct getBaseProduct(OrderCreateDTO dto, HomestayOrderDTO product) {
+        // 民宿订单下单时数量默认为1
+        dto.setNum(1);
         BaseProduct baseProduct = new BaseProduct();
         HomestayRoom room = product.getHomestayRoom();
         baseProduct.setProductType(ProductType.HOMESTAY);
@@ -66,8 +72,9 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         baseProduct.setHotSell(false);
         baseProduct.setSupportedCoupon(true);
         baseProduct.setTitle(room.getTitle());
-        // TODO price
-        dto.setNum(1);
+        // 将每天的价格相加=总单价
+        int salePrice = product.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();
+        baseProduct.setSalePrice(salePrice);
         return baseProduct;
     }
 
@@ -84,9 +91,5 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
             log.error("房间库存不足 [{}] [{}] [{}]", dto.getProductId(), dto.getStartDate(), dto.getEndDate());
             throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
         }
-
     }
-
-
-
 }

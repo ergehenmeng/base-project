@@ -50,4 +50,13 @@ public interface HomestayRoomConfigService {
      * @return 房态列表
      */
     List<HomestayRoomConfig> getList(Long roomId, LocalDate startDate, LocalDate endDate);
+
+    /**
+     * 更新库存信息
+     * @param roomId 房型id
+     * @param startDate 开始时间 包含
+     * @param endDate 截止时间 包含
+     * @param num 正数-库存,负数加库存
+     */
+    void updateStock(Long roomId, LocalDate startDate, LocalDate endDate, Integer num);
 }

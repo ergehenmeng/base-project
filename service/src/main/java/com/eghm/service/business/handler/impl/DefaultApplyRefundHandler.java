@@ -16,7 +16,10 @@ import com.eghm.service.business.handler.ApplyRefundHandler;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -38,6 +41,8 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
+    @Async
     public void process(ApplyRefundDTO dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         this.before(dto, order);

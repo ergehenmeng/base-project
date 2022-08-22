@@ -216,6 +216,7 @@ CREATE TABLE `scenic_ticket`
     `use_scope`         smallint(3)         DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
     `verification_type` tinyint(2)          DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
     `support_refund`    bit(1)              DEFAULT b'1' COMMENT '是否支持退款 1:支持 0:不支持',
+    `refund_describe`   varchar(200)        DEFAULT NULL COMMENT '退款描述',
     `real_buy`          bit(1)              DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
     `close_time`        datetime            DEFAULT NULL COMMENT '订单关闭时间',
     `pay_time`          datetime            DEFAULT NULL COMMENT '订单支付时间',

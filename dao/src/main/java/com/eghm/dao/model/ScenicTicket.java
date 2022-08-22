@@ -109,7 +109,9 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
     private RefundType refundType;
 
+    @ApiModelProperty("退款描述信息")
+    private String refundDescribe;
+
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
-
 }

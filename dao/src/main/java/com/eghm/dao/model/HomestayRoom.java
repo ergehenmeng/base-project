@@ -79,6 +79,4 @@ public class HomestayRoom extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "退款描述")
     private String refundDescribe;
-
-
 }

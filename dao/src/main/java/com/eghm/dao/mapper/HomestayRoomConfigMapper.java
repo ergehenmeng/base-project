@@ -2,6 +2,9 @@ package com.eghm.dao.mapper;
 
 import com.eghm.dao.model.HomestayRoomConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -19,4 +22,13 @@ public interface HomestayRoomConfigMapper extends BaseMapper<HomestayRoomConfig>
      * @return 条数
      */
     int insertOrUpdate(HomestayRoomConfig config);
+
+    /**
+     * 更新指定时间段内房态的库存信息
+     * @param roomId 房型id
+     * @param startDate 开始时间 包含
+     * @param endDate 截止时间 包含
+     * @param num 正数-库存,负数加库存
+     */
+    int updateStock(@Param("roomId") Long roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("num") Integer num);
 }

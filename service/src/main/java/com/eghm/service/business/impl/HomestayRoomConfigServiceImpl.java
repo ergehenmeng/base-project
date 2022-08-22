@@ -3,6 +3,8 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.HomestayRoomConfigMapper;
@@ -36,7 +38,6 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     private final HomestayRoomConfigMapper homestayRoomConfigMapper;
 
     private final CommonService commonService;
-
 
     @Override
     public void setup(RoomConfigRequest request) {
@@ -122,6 +123,16 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         wrapper.ge(HomestayRoomConfig::getConfigDate, startDate);
         wrapper.le(HomestayRoomConfig::getConfigDate, endDate);
         return homestayRoomConfigMapper.selectList(wrapper);
+    }
+
+    @Override
+    public void updateStock(Long roomId, LocalDate startDate, LocalDate endDate, Integer num) {
+        int stock = homestayRoomConfigMapper.updateStock(roomId, startDate, endDate, num);
+        long size = ChronoUnit.DAYS.between(startDate, endDate);
+        if (stock < size) {
+            log.error("更新房态库存时,存在库存不足 [{}] [{}] [{}]", roomId, stock, size);
+            throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
+        }
     }
 
     /**

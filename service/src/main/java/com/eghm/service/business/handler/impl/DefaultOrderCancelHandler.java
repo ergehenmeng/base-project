@@ -11,7 +11,10 @@ import com.eghm.service.business.handler.OrderCancelHandler;
 import com.eghm.service.pay.enums.TradeState;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +32,8 @@ public class DefaultOrderCancelHandler implements OrderCancelHandler {
     private final UserCouponService userCouponService;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
+    @Async
     public void process(String orderNo) {
         Order order = orderService.getByOrderNo(orderNo);
         this.before(order);

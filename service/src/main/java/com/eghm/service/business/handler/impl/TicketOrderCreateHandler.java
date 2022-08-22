@@ -42,7 +42,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
         // 门票默认可以使用优惠券
         copy.setSupportedCoupon(true);
         copy.setHotSell(false);
-        copy.setRefundDescribe("");
         return copy;
     }
 
