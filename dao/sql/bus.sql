@@ -537,7 +537,29 @@ CREATE TABLE `order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单表';
 
-
+CREATE TABLE `restaurant_order`
+(
+    `id`            bigint(20) NOT NULL COMMENT '主键',
+    `restaurant_id` bigint(20)   DEFAULT NULL COMMENT '餐饮商家id(冗余)',
+    `voucher_id`    bigint(20)   DEFAULT NULL COMMENT '餐饮券id',
+    `order_no`      varchar(30)  DEFAULT NULL COMMENT '订单编号',
+    `cover_url`     varchar(100) DEFAULT NULL COMMENT '封面图片',
+    `line_price`    int(10)      DEFAULT NULL COMMENT '划线价',
+    `sale_price`    int(10)      DEFAULT NULL COMMENT '销售价',
+    `describe`      varchar(200) DEFAULT NULL COMMENT '购买说明',
+    `quota`         int(10)      DEFAULT '1' COMMENT '限购数量',
+    `valid_days`    smallint(3)  DEFAULT NULL COMMENT '有效期购买之日起',
+    `effect_date`   date         DEFAULT NULL COMMENT '生效时间(包含)',
+    `expire_date`   date         DEFAULT NULL COMMENT '失效日期(包含)',
+    `effect_time`   varchar(10)  DEFAULT NULL COMMENT '使用开始时间',
+    `expire_time`   varchar(10)  DEFAULT NULL COMMENT '使用截止时间',
+    `introduce`     longtext COMMENT '详细介绍',
+    `add_time`      datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮券订单表';
 
 
 
