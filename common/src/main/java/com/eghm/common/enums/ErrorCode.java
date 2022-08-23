@@ -742,7 +742,7 @@ public enum ErrorCode {
     /**
      * 退款人数和数量不一致
      */
-    TICKET_REFUND_VISITOR(3163, "退款人数和数量不一致"),
+    REFUND_VISITOR(3163, "退款人数和数量不一致"),
 
     /**
      * 退款申请已审核
