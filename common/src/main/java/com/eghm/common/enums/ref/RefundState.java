@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 订单退款状态
+ * 订单退款状态(本地订单的退款状态)
  * @author 二哥很猛
  * @date 2022/7/28
  */

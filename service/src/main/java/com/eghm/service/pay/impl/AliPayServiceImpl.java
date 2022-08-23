@@ -13,7 +13,7 @@ import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.RefundChannel;
-import com.eghm.service.pay.enums.RefundState;
+import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
@@ -125,7 +125,7 @@ public class AliPayServiceImpl implements PayService {
         }
         RefundVO vo = new RefundVO();
         vo.setChannel(RefundChannel.ORIGINAL);
-        vo.setState(RefundState.PROCESSING);
+        vo.setState(RefundStatus.PROCESSING);
         vo.setChannelAccount(response.getBuyerUserId());
         vo.setTotalAmount(DecimalUtil.yuanToCent(response.getRefundFee()));
         return vo;
@@ -150,10 +150,10 @@ public class AliPayServiceImpl implements PayService {
         vo.setChannel(RefundChannel.ORIGINAL);
 
         if (REFUND_SUCCESS.equals(response.getRefundStatus())) {
-            vo.setState(RefundState.SUCCESS);
+            vo.setState(RefundStatus.SUCCESS);
         } else {
             log.warn("退款订单状态非成功 [{}] [{}] [{}]", outTradeNo, outRefundNo, response.getRefundStatus());
-            vo.setState(RefundState.ABNORMAL);
+            vo.setState(RefundStatus.ABNORMAL);
         }
         return vo;
     }

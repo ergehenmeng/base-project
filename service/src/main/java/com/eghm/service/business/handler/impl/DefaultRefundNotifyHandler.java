@@ -12,6 +12,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.RefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
+import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.eghm.service.pay.enums.RefundState.*;
+import static com.eghm.service.pay.enums.RefundStatus.*;
 
 /**
  * @author 二哥很猛
@@ -49,9 +50,9 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
 
         this.before(dto, order, refundLog);
 
-        com.eghm.service.pay.enums.RefundState refundState = this.doProcess(dto, order, refundLog);
+        RefundStatus refundStatus = this.doProcess(dto, order, refundLog);
 
-        this.after(dto, order, refundLog, refundState);
+        this.after(dto, order, refundLog, refundStatus);
     }
 
     /**
@@ -80,12 +81,12 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
      * @param refundLog 退款记录
      * @return true: 退款成功 false:不成功
      */
-    private com.eghm.service.pay.enums.RefundState doProcess(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog) {
+    private RefundStatus doProcess(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog) {
 
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
         RefundVO refund = aggregatePayService.queryRefund(tradeType, dto.getOutTradeNo(), dto.getOutRefundNo());
 
-        com.eghm.service.pay.enums.RefundState state = refund.getState();
+        RefundStatus state = refund.getState();
         if (state == REFUND_SUCCESS || state == SUCCESS) {
             this.refundSuccessOrderState(order);
             order.setRefundState(RefundState.SUCCESS);
@@ -126,9 +127,9 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
      * @param dto 流水号
      * @param order 订单信息
      * @param refundLog 退款记录
-     * @param refundState 退款状态
+     * @param refundStatus 退款状态
      */
-    protected void after(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog, com.eghm.service.pay.enums.RefundState refundState) {
-        log.info("退款处理结果 [{}] [{}]", order.getOrderNo(), refundState);
+    protected void after(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
+        log.info("退款处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
     }
 }

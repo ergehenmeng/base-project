@@ -9,7 +9,7 @@ import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.RefundChannel;
-import com.eghm.service.pay.enums.RefundState;
+import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
@@ -214,7 +214,7 @@ public class WechatPayServiceImpl implements PayService {
     private RefundVO getRefundVO(Integer payerRefund, String status, String channel, String userReceivedAccount, String successTime, String createTime) {
         RefundVO vo = new RefundVO();
         vo.setAmount(payerRefund);
-        vo.setState(RefundState.valueOf(status));
+        vo.setState(RefundStatus.valueOf(status));
         vo.setChannel(RefundChannel.valueOf(channel));
         vo.setChannelAccount(userReceivedAccount);
         vo.setSuccessTime(DateUtil.parseIso(successTime));

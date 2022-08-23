@@ -1,7 +1,7 @@
 package com.eghm.service.pay.vo;
 
 import com.eghm.service.pay.enums.RefundChannel;
-import com.eghm.service.pay.enums.RefundState;
+import com.eghm.service.pay.enums.RefundStatus;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class RefundVO {
     private String channelAccount;
 
     @ApiModelProperty("退款状态")
-    private RefundState state;
+    private RefundStatus state;
 
     @ApiModelProperty("本次退款金额")
     private Integer amount;

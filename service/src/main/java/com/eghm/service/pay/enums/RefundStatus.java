@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 支付退款状态
+ * 支付退款状态(第三方支付的退款状态)
  * @author 二哥很猛
  * @date 2022/7/24
  */
 @Getter
 @AllArgsConstructor
-public enum RefundState {
+public enum RefundStatus {
 
     /**
      * 退款成功
