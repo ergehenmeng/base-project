@@ -4,11 +4,13 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.Order;
+import com.eghm.dao.model.RestaurantOrder;
 import com.eghm.dao.model.RestaurantVoucher;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
+import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +34,9 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected void next(OrderCreateDTO dto, RestaurantVoucher product, Order order) {
-        restaurantVoucherService.selectById(dto.getProductId());
+        RestaurantOrder restaurantOrder = DataUtil.copy(product, RestaurantOrder.class);
+        restaurantOrder.setOrderNo(order.getOrderNo());
+        restaurantOrderService.insert(restaurantOrder);
     }
 
     @Override
