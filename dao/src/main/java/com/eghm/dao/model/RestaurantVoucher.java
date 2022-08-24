@@ -64,26 +64,29 @@ public class RestaurantVoucher extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "购买说明")
     private String describe;
 
-    @ApiModelProperty(value = "限购数量")
+    @ApiModelProperty(value = "单次限购数量")
     private Integer quota;
 
-    @ApiModelProperty(value = "有效期购买之日起")
+    @ApiModelProperty(value = "有效期购买之日起(与开始日期和截止日期互斥)")
     private Integer validDays;
 
-    @ApiModelProperty(value = "生效开始时间(包含)")
+    @ApiModelProperty(value = "使用开始日期(包含) yyyy-MM-dd")
     private LocalDate effectDate;
 
-    @ApiModelProperty(value = "失效日期")
+    @ApiModelProperty(value = "使用截止日期(包含) yyyy-MM-dd")
     private LocalDate expireDate;
 
-    @ApiModelProperty(value = "使用开始时间")
+    @ApiModelProperty(value = "使用开始时间 HH:mm")
     private String effectTime;
 
-    @ApiModelProperty(value = "使用截止时间")
+    @ApiModelProperty(value = "使用截止时间 HH:mm")
     private String expireTime;
 
-   @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
+
+    @ApiModelProperty("退款描述信息")
+    private String refundDescribe;
 
     @ApiModelProperty(value = "详细介绍")
     private String introduce;

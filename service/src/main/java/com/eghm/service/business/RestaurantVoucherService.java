@@ -46,4 +46,25 @@ public interface RestaurantVoucherService {
      * @param state 新状态
      */
     void updateAuditState(Long id, PlatformState state);
+
+    /**
+     * 主键查询餐饮券
+     * @param id id
+     * @return 餐饮券
+     */
+    RestaurantVoucher selectById(Long id);
+
+    /**
+     * 主键查询餐饮券,不存在抛异常
+     * @param id id
+     * @return 餐饮券
+     */
+    RestaurantVoucher selectByIdRequired(Long id);
+
+    /**
+     * 主键查询餐饮券,不是上架中的抛异常
+     * @param id id
+     * @return 餐饮券
+     */
+    RestaurantVoucher selectByIdShelve(Long id);
 }

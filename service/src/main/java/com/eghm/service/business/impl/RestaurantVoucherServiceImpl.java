@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.RestaurantVoucherMapper;
 import com.eghm.dao.model.RestaurantVoucher;
 import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
@@ -15,6 +17,7 @@ import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherQueryRequ
 import com.eghm.service.business.RestaurantVoucherService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("restaurantVoucherService")
 @AllArgsConstructor
+@Slf4j
 public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
 
     private final RestaurantVoucherMapper restaurantVoucherMapper;
@@ -66,5 +70,30 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
         wrapper.eq(RestaurantVoucher::getId, id);
         wrapper.set(RestaurantVoucher::getPlatformState, state);
         restaurantVoucherMapper.update(null, wrapper);
+    }
+
+    @Override
+    public RestaurantVoucher selectById(Long id) {
+        return restaurantVoucherMapper.selectById(id);
+    }
+
+    @Override
+    public RestaurantVoucher selectByIdRequired(Long id) {
+        RestaurantVoucher voucher = this.selectById(id);
+        if (voucher == null) {
+            log.error("餐饮券信息不存在 [{}]", id);
+            throw new BusinessException(ErrorCode.VOUCHER_DOWN);
+        }
+        return voucher;
+    }
+
+    @Override
+    public RestaurantVoucher selectByIdShelve(Long id) {
+        RestaurantVoucher voucher = this.selectByIdRequired(id);
+        if (voucher.getPlatformState() != PlatformState.SHELVE) {
+            log.error("餐饮券未上架 [{}] [{}]", id, voucher.getPlatformState());
+            throw new BusinessException(ErrorCode.VOUCHER_DOWN);
+        }
+        return voucher;
     }
 }

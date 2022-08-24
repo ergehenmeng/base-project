@@ -790,6 +790,21 @@ public enum ErrorCode {
     HOMESTAY_STOCK(3176, "房间已预订满"),
 
     /**
+     * 该餐饮券已下架
+     */
+    VOUCHER_DOWN(3178, "该餐饮券已下架"),
+
+    /**
+     * 餐饮券库存不足
+     */
+    VOUCHER_STOCK(3179, "餐饮券库存不足"),
+
+    /**
+     * 餐饮单次购买上限为%s张
+     */
+    VOUCHER_QUOTA(3180, "单次购买上限为%s张"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
