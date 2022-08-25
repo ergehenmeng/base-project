@@ -38,7 +38,7 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
     /**
      * 更新库存
      * @param id 优惠券id
-     * @param num 数量 负数表示增加库存 正数减少库存
+     * @param num 数量 负数-库存 正数+库存
      */
     int updateStock(@Param("id") Long id, @Param("num") int num);
 }

@@ -96,4 +96,13 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
         }
         return voucher;
     }
+
+    @Override
+    public void updateStock(Long id, Integer num) {
+        int stock = restaurantVoucherMapper.updateStock(id, num);
+        if (stock != 1) {
+            log.error("餐饮券更新库存失败 [{}] [{}] [{}]", id, num, stock);
+            throw new BusinessException(ErrorCode.VOUCHER_STOCK);
+        }
+    }
 }

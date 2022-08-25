@@ -31,6 +31,6 @@ public class TicketOrderExpireHandler extends DefaultOrderExpireHandler {
     @Override
     protected void after(Order order) {
         TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(order.getOrderNo());
-        scenicTicketService.updateStock(ticketOrder.getTicketId(), -order.getNum());
+        scenicTicketService.updateStock(ticketOrder.getTicketId(), order.getNum());
     }
 }

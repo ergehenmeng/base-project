@@ -99,6 +99,10 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public void updateStock(Long id, Integer num) {
-        scenicTicketMapper.updateStock(id, num);
+        int stock = scenicTicketMapper.updateStock(id, num);
+        if (stock != 1) {
+            log.error("更新门票库存失败 [{}] [{}] [{}]", id, num, stock);
+            throw new BusinessException(ErrorCode.TICKET_STOCK);
+        }
     }
 }

@@ -72,7 +72,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
         ticketOrder.setTicketId(dto.getProductId());
         orderService.insert(ticketOrder);
 
-        scenicTicketService.updateStock(dto.getProductId(), dto.getNum());
+        scenicTicketService.updateStock(dto.getProductId(), -dto.getNum());
     }
 
 }

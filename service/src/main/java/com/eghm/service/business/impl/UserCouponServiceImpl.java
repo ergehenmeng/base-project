@@ -173,7 +173,7 @@ public class UserCouponServiceImpl implements UserCouponService {
         coupon.setState(CouponState.UNUSED);
         coupon.setReceiveTime(LocalDateTime.now());
         userCouponMapper.insert(coupon);
-        couponConfigService.updateStock(dto.getCouponConfigId(), 1);
+        couponConfigService.updateStock(dto.getCouponConfigId(), -1);
     }
 
     /**

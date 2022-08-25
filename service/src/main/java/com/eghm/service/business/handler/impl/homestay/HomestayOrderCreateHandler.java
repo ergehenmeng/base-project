@@ -42,7 +42,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected void next(OrderCreateDTO dto, HomestayOrderDTO product, Order order) {
-        homestayRoomConfigService.updateStock(dto.getProductId(), dto.getStartDate(), dto.getEndDate(), dto.getNum());
+        homestayRoomConfigService.updateStock(dto.getProductId(), dto.getStartDate(), dto.getEndDate(), -dto.getNum());
         HomestayOrder homestayOrder = DataUtil.copy(product.getHomestayRoom(), HomestayOrder.class);
         homestayOrder.setOrderNo(order.getOrderNo());
         homestayOrder.setMobile(dto.getMobile());

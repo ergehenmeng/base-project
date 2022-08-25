@@ -67,4 +67,11 @@ public interface RestaurantVoucherService {
      * @return 餐饮券
      */
     RestaurantVoucher selectByIdShelve(Long id);
+
+    /**
+     * 更新库存信息
+     * @param id id
+     * @param num 负数-库存 正式+库存
+     */
+    void updateStock(Long id, Integer num);
 }

@@ -31,6 +31,6 @@ public class HomestayOrderExpireHandler extends DefaultOrderExpireHandler {
     @Override
     protected void after(Order order) {
         HomestayOrder ticketOrder = homestayOrderService.selectByOrderNo(order.getOrderNo());
-        homestayRoomConfigService.updateStock(ticketOrder.getRoomId(), ticketOrder.getStartDate(), ticketOrder.getEndDate(), -order.getNum());
+        homestayRoomConfigService.updateStock(ticketOrder.getRoomId(), ticketOrder.getStartDate(), ticketOrder.getEndDate(), order.getNum());
     }
 }
