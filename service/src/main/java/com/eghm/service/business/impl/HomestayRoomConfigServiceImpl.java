@@ -122,6 +122,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
         wrapper.ge(HomestayRoomConfig::getConfigDate, startDate);
         wrapper.le(HomestayRoomConfig::getConfigDate, endDate);
+        wrapper.last(" order by config_date asc ");
         return homestayRoomConfigMapper.selectList(wrapper);
     }
 

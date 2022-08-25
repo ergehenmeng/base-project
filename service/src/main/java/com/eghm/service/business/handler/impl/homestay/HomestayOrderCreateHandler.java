@@ -33,11 +33,14 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
-    public HomestayOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService) {
+    private final RoomConfigSnapshotService roomConfigSnapshotService;
+
+    public HomestayOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, RoomConfigSnapshotService roomConfigSnapshotService) {
         super(orderService, userCouponService, orderVisitorService, orderMQService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
         this.homestayRoomConfigService = homestayRoomConfigService;
+        this.roomConfigSnapshotService = roomConfigSnapshotService;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         homestayOrder.setEndDate(dto.getEndDate());
         homestayOrder.setRoomId(dto.getProductId());
         homestayOrderService.insert(homestayOrder);
+        roomConfigSnapshotService.orderSnapshot(order.getOrderNo(), product.getConfigList());
     }
 
     @Override

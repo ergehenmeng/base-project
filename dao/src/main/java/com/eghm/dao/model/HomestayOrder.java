@@ -36,10 +36,10 @@ public class HomestayOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "房型id")
     private Long roomId;
 
-    @ApiModelProperty(value = "开始时间(含)")
+    @ApiModelProperty(value = "入住开始时间(含)")
     private LocalDate startDate;
 
-    @ApiModelProperty(value = "结束时间(含)")
+    @ApiModelProperty(value = "入住结束时间(含)")
     private LocalDate endDate;
 
     @ApiModelProperty(value = "几室")
