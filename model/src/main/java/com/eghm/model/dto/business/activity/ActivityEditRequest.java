@@ -18,7 +18,7 @@ public class ActivityEditRequest {
     private Long id;
 
     @ApiModelProperty(value = "活动名称")
-    @Size(min = 2, max = 20, message = "活动名称2~20位")
+    @Size(min = 2, max = 20, message = "活动名称长度2~20位")
     private String title;
 
     @ApiModelProperty(value = "开始时间HH:mm")

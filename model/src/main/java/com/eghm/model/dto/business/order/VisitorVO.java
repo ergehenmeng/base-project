@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 public class VisitorVO {
 
     @ApiModelProperty("用户姓名")
-    @Size(min = 2, max = 10, message = "游客姓名2~10字符")
+    @Size(min = 2, max = 10, message = "游客姓名长度2~10字符")
     private String userName;
 
     @ApiModelProperty("身份证")

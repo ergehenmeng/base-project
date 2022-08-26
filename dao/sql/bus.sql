@@ -72,13 +72,12 @@ CREATE TABLE `homestay_room_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='房间价格配置表';
 
-CREATE TABLE `line_product`
+CREATE TABLE `line`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
-    `travel_agency_id`  varchar(255)  DEFAULT NULL COMMENT '所属旅行社id',
-    `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
-    `audit_state`       tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `travel_agency_id`  bigint(20)  DEFAULT NULL COMMENT '所属旅行社id',
     `title`             varchar(50)   DEFAULT NULL COMMENT '线路名称',
+    `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:待审核 2:已上架',
     `start_province_id` bigint(20)    DEFAULT NULL COMMENT '出发省份id',
     `start_city_id`     bigint(20)    DEFAULT NULL COMMENT '出发城市id',
     `cover_url`         varchar(1000) DEFAULT NULL COMMENT '封面图片',
@@ -86,7 +85,8 @@ CREATE TABLE `line_product`
     `total_num`         int(10)       DEFAULT '0' COMMENT '总销量=实际销售+虚拟销量',
     `duration`          tinyint(2)    DEFAULT NULL COMMENT '几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游',
     `advance_day`       tinyint(2)    DEFAULT NULL COMMENT '提前天数',
-    `support_refund`    bit(1)        DEFAULT NULL COMMENT '是否支持退款 0:不支持 1:支持',
+    `support_refund`    tinyint(1)    DEFAULT NULL COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_describe`   varchar(200)  DEFAULT NULL COMMENT '退款描述',
     `introduce`         longtext COMMENT '商品介绍',
     `add_time`          datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `create_time`       datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -95,19 +95,40 @@ CREATE TABLE `line_product`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路商品信息表';
 
-CREATE TABLE `line_product_config`
+CREATE TABLE `line_config`
 (
-    `id`              bigint(20) NOT NULL COMMENT '主键',
-    `line_product_id` bigint(20)  DEFAULT NULL COMMENT '线路商品id',
-    `config_date`     date        DEFAULT NULL COMMENT '配置日期',
-    `stock`           smallint(4) DEFAULT '0' COMMENT '总库存',
-    `sale_price`      int(10)     DEFAULT '0' COMMENT '销售价格',
-    `sale_num`        int(10)     DEFAULT '0' COMMENT '销售数量',
-    `create_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`     datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `line_id`     bigint(20)  DEFAULT NULL COMMENT '线路商品id',
+    `config_date` date        DEFAULT NULL COMMENT '配置日期',
+    `stock`       smallint(4) DEFAULT '0' COMMENT '总库存',
+    `sale_price`  int(10)     DEFAULT '0' COMMENT '销售价格',
+    `sale_num`    int(10)     DEFAULT '0' COMMENT '销售数量',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路商品配置表';
+
+CREATE TABLE `line_day_config`
+(
+    `id`           bigint(20) NOT NULL COMMENT '主键',
+    `line_id`      bigint(20)  DEFAULT NULL COMMENT '线路商品id',
+    `route_index`  tinyint(2)  DEFAULT '1' COMMENT '行程排序(第几天)',
+    `start_point`  varchar(30) DEFAULT NULL COMMENT '出发地点',
+    `end_point`    varchar(30) DEFAULT NULL COMMENT '结束地点',
+    `traffic_type` tinyint(1)  DEFAULT NULL COMMENT '交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他',
+    `repast`       tinyint(2)  DEFAULT '0' COMMENT '包含就餐 1:早餐 2:午餐 4:晚餐',
+    `describe`     longtext COMMENT '详细描述信息',
+    `add_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='线路日配置信息';
+
+
+
 CREATE TABLE `restaurant`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
@@ -576,6 +597,7 @@ CREATE TABLE `homestay_order_snapshot`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='房态快照表';
+
 
 
 
