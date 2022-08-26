@@ -1,9 +1,9 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.dao.mapper.RoomConfigSnapshotMapper;
+import com.eghm.dao.mapper.HomestayOrderSnapshotMapper;
 import com.eghm.dao.model.HomestayRoomConfig;
-import com.eghm.dao.model.RoomConfigSnapshot;
-import com.eghm.service.business.RoomConfigSnapshotService;
+import com.eghm.dao.model.HomestayOrderSnapshot;
+import com.eghm.service.business.HomestayOrderSnapshotService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,19 +15,19 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/8/25
  */
-@Service("roomConfigSnapshotService")
+@Service("homestayOrderSnapshotService")
 @Slf4j
 @AllArgsConstructor
-public class RoomConfigSnapshotServiceImpl implements RoomConfigSnapshotService {
+public class HomestayOrderSnapshotServiceImpl implements HomestayOrderSnapshotService {
 
-    private final RoomConfigSnapshotMapper roomConfigSnapshotMapper;
+    private final HomestayOrderSnapshotMapper homestayOrderSnapshotMapper;
 
     @Override
     public void orderSnapshot(String orderNo, List<HomestayRoomConfig> configList) {
         for (HomestayRoomConfig config : configList) {
-            RoomConfigSnapshot snapshot = DataUtil.copy(config, RoomConfigSnapshot.class);
+            HomestayOrderSnapshot snapshot = DataUtil.copy(config, HomestayOrderSnapshot.class);
             snapshot.setOrderNo(orderNo);
-            roomConfigSnapshotMapper.insert(snapshot);
+            homestayOrderSnapshotMapper.insert(snapshot);
         }
     }
 }

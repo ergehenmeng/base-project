@@ -1,6 +1,6 @@
 package com.eghm.dao.mapper;
 
-import com.eghm.dao.model.RoomConfigSnapshot;
+import com.eghm.dao.model.HomestayOrderSnapshot;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 二哥很猛
  * @since 2022-08-25
  */
-public interface RoomConfigSnapshotMapper extends BaseMapper<RoomConfigSnapshot> {
+public interface HomestayOrderSnapshotMapper extends BaseMapper<HomestayOrderSnapshot> {
 
 }

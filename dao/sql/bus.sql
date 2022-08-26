@@ -562,7 +562,20 @@ CREATE TABLE `restaurant_order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮券订单表';
 
-
+CREATE TABLE `homestay_order_snapshot`
+(
+    `id`               bigint(20) NOT NULL COMMENT '主键',
+    `homestay_room_id` bigint(20)  DEFAULT NULL COMMENT '房型id',
+    `order_no`         varchar(30) DEFAULT NULL COMMENT '订单编号',
+    `sale_price`       int(10)     DEFAULT '0' COMMENT '销售价',
+    `line_price`       int(10)     DEFAULT '0' COMMENT '划线价',
+    `config_date`      date        DEFAULT NULL COMMENT '日期',
+    `add_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`      datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`          bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='房态快照表';
 
 
 

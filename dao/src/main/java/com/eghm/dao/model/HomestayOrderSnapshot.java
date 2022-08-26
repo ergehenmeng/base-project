@@ -21,9 +21,9 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("room_config_snapshot")
-@ApiModel(value="RoomConfigSnapshot对象", description="房态快照表")
-public class RoomConfigSnapshot extends BaseEntity implements Serializable {
+@TableName("homestay_order_snapshot")
+@ApiModel(value="HomestayOrderSnapshot对象", description="房态快照表")
+public class HomestayOrderSnapshot extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "房型id")
     private Long homestayRoomId;

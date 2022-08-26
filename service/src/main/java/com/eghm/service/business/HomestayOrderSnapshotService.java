@@ -8,7 +8,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/8/25
  */
-public interface RoomConfigSnapshotService {
+public interface HomestayOrderSnapshotService {
 
     /**
      * 保存订单快照
