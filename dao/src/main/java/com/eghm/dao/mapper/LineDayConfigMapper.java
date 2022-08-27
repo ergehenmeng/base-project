@@ -13,4 +13,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LineDayConfigMapper extends BaseMapper<LineDayConfig> {
 
+    /**
+     * 新增或编辑线路日配置信息
+     * @param config 配置信息
+     */
+    int insertOrUpdate(LineDayConfig config);
 }

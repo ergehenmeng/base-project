@@ -805,6 +805,11 @@ public enum ErrorCode {
     VOUCHER_QUOTA(3180, "单次购买上限为%s张"),
 
     /**
+     * 线路名称重复
+     */
+    LINE_TITLE_REDO(3181, "线路名称重复"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

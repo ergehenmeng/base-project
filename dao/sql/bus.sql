@@ -75,7 +75,7 @@ CREATE TABLE `homestay_room_config`
 CREATE TABLE `line`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
-    `travel_agency_id`  bigint(20)  DEFAULT NULL COMMENT '所属旅行社id',
+    `travel_agency_id`  bigint(20)    DEFAULT NULL COMMENT '所属旅行社id',
     `title`             varchar(50)   DEFAULT NULL COMMENT '线路名称',
     `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:待审核 2:已上架',
     `start_province_id` bigint(20)    DEFAULT NULL COMMENT '出发省份id',
@@ -122,12 +122,11 @@ CREATE TABLE `line_day_config`
     `describe`     longtext COMMENT '详细描述信息',
     `add_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `line_index` (`line_id`, `route_index`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='线路日配置信息';
-
-
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci COMMENT ='线路日配置信息';
 
 CREATE TABLE `restaurant`
 (
