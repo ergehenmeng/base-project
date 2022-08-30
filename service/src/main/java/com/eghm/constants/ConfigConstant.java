@@ -145,6 +145,11 @@ public class ConfigConstant {
     public static final String ROOM_CONFIG_MAX_DAY = "room_config_max_day";
 
     /**
+     * 线路单次设置日期最大间隔
+     */
+    public static final String LINE_CONFIG_MAX_DAY = "line_config_max_day";
+
+    /**
      * 活动日期最大间隔
      */
     public static final String ACTIVITY_CONFIG_MAX_DAY = "activity_config_max_day";

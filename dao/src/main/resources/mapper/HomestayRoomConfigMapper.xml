@@ -3,8 +3,8 @@
 <mapper namespace="com.eghm.dao.mapper.HomestayRoomConfigMapper">
 
     <insert id="insertOrUpdate" parameterType="com.eghm.dao.model.HomestayRoomConfig">
-        insert into homestay_room_config values
-        (#{id}, #{state}, #{homestayRoomId}, #{configDate}, #{linePrice}, #{salePrice}, #{stock}, null, null, null, null)
+        insert into homestay_room_config (id, homestay_room_id, config_date, state, line_price, sale_price, stock) values
+        (#{id}, #{homestayRoomId}, #{configDate}, #{state},  #{linePrice}, #{salePrice}, #{stock})
         on duplicate key update state = #{state}, line_price = #{linePrice}, sale_price = #{salePrice}, stock = #{stock}
     </insert>
 
@@ -13,7 +13,6 @@
         where
           homestay_room_id = #{roomId}
           and stock + #{num} &gt;= 0
-          and deleted = false
           and config_date &gt;= #{startDate}
           and config_date &lt;= #{endDate}
     </update>

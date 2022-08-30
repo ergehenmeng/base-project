@@ -1,7 +1,7 @@
 package com.eghm.dao.mapper;
 
-import com.eghm.dao.model.LineConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.dao.model.LineConfig;
 
 /**
  * <p>
@@ -13,4 +13,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LineConfigMapper extends BaseMapper<LineConfig> {
 
+    /**
+     * 新增或更新线路日态信息
+     * @param config 线路日态
+     * @return 条数
+     */
+    int insertOrUpdate(LineConfig config);
 }

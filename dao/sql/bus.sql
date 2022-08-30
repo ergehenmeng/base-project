@@ -58,7 +58,7 @@ CREATE TABLE `homestay_room`
 CREATE TABLE `homestay_room_config`
 (
     `id`               bigint(20) NOT NULL COMMENT '主键',
-    `state`            tinyint(1)  DEFAULT '1' COMMENT '状态 0:可用 1:不可用',
+    `state`            bit(1)      DEFAULT b'1' COMMENT '状态 false:不可预定 true:可预定',
     `homestay_room_id` bigint(20)  DEFAULT NULL COMMENT '房型id',
     `config_date`      date        DEFAULT NULL COMMENT '日期',
     `line_price`       int(10)     DEFAULT NULL COMMENT '划线机',
@@ -67,8 +67,8 @@ CREATE TABLE `homestay_room_config`
     `sale_num`         smallint(4) DEFAULT '0' COMMENT '已预订数量',
     `add_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`      datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`          bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `date_index` (`homestay_room_id`, `config_date`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='房间价格配置表';
 
@@ -100,13 +100,15 @@ CREATE TABLE `line_config`
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `line_id`     bigint(20)  DEFAULT NULL COMMENT '线路商品id',
     `config_date` date        DEFAULT NULL COMMENT '配置日期',
+    `state`       bit(1)      DEFAULT b'0' COMMENT '状态 false:不可预定 true:可预定',
     `stock`       smallint(4) DEFAULT '0' COMMENT '总库存',
+    `line_price`  int(10)     DEFAULT '0' COMMENT '划线价',
     `sale_price`  int(10)     DEFAULT '0' COMMENT '销售价格',
     `sale_num`    int(10)     DEFAULT '0' COMMENT '销售数量',
     `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `date_index` (`line_id`, `config_date`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路商品配置表';
 
