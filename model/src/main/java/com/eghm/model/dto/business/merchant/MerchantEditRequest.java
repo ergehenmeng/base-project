@@ -1,9 +1,12 @@
 package com.eghm.model.dto.business.merchant;
 
+import com.eghm.model.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author 殿小二
@@ -23,8 +26,7 @@ public class MerchantEditRequest {
     
     @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路 多选时数字相加", required = true)
     @NotNull(message = "请选择商家类型")
-    @Min(value = 1, message = "商家类型错误")
-    @Max(value = 31, message = "商家类型错误")
+    @RangeInt(min = 1, max = 31, message = "商家类型错误")
     private Integer type;
     
     @ApiModelProperty(value = "联系人姓名", required = true)

@@ -1,13 +1,12 @@
 package com.eghm.model.dto.business.line.config;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
+import com.eghm.model.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -43,8 +42,7 @@ public class LineConfigRequest {
     private Boolean state;
 
     @ApiModelProperty("库存不能为空")
-    @Max(value = 9999, message = "最大库存9999")
-    @Min(value = 0, message = "库存不能小于0")
+    @RangeInt(max = 9999, message = "最大库存9999")
     private Integer stock;
 
     @ApiModelProperty("划线价")
