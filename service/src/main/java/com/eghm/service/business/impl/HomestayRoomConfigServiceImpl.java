@@ -71,23 +71,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     public List<RoomConfigResponse> getList(RoomConfigQueryRequest request) {
         LocalDate month = DateUtil.parseFirstDayOfMonth(request.getMonth());
         List<HomestayRoomConfig> configList = this.getMonthConfig(month, request.getRoomId());
-        int ofMonth = month.lengthOfMonth();
-        List<RoomConfigResponse> responseList = new ArrayList<>(45);
-        // 月初到月末进行拼装
-        for (int i = 0; i < ofMonth; i++) {
-            LocalDate localDate = month.plusDays(i);
-            Optional<HomestayRoomConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();
-            // 当天已经设置过金额
-            if (optional.isPresent()) {
-                RoomConfigResponse response = DataUtil.copy(optional.get(), RoomConfigResponse.class);
-                response.setHasSet(true);
-                responseList.add(response);
-            } else {
-                // 当天没有设置过
-                responseList.add(new RoomConfigResponse(false, localDate));
-            }
-        }
-        return responseList;
+        return DataUtil.paddingMonth(configList, (lineConfig, localDate) -> lineConfig.getConfigDate().equals(localDate), RoomConfigResponse::new, month);
     }
 
     @Override

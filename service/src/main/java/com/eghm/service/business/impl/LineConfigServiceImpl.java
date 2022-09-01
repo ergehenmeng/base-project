@@ -19,9 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author 二哥很猛
@@ -58,23 +56,7 @@ public class LineConfigServiceImpl implements LineConfigService {
     public List<LineConfigResponse> getList(LineConfigQueryRequest request) {
         LocalDate month = DateUtil.parseFirstDayOfMonth(request.getMonth());
         List<LineConfig> configList = this.getMonthConfig(month, request.getLineId());
-        int ofMonth = month.lengthOfMonth();
-        List<LineConfigResponse> responseList = new ArrayList<>(45);
-        // 月初到月末进行拼装
-        for (int i = 0; i < ofMonth; i++) {
-            LocalDate localDate = month.plusDays(i);
-            Optional<LineConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();
-            // 当天已经设置过金额
-            if (optional.isPresent()) {
-                LineConfigResponse response = DataUtil.copy(optional.get(), LineConfigResponse.class);
-                response.setHasSet(true);
-                responseList.add(response);
-            } else {
-                // 当天没有设置过
-                responseList.add(new LineConfigResponse(false, localDate));
-            }
-        }
-        return responseList;
+        return DataUtil.paddingMonth(configList, (lineConfig, localDate) -> lineConfig.getConfigDate().equals(localDate), LineConfigResponse::new, month);
     }
 
     /**
