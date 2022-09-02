@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
+import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.Line;
 import com.eghm.model.dto.business.line.LineAddRequest;
 import com.eghm.model.dto.business.line.LineEditRequest;
@@ -46,4 +47,25 @@ public interface LineService {
      * @param state 新状态
      */
     void updateAuditState(Long id, PlatformState state);
+
+    /**
+     * 主键查询线路信息, 为空则抛异常
+     * @param id id
+     * @return 线路
+     */
+    Line selectByIdRequired(Long id);
+
+    /**
+     * 主键查询线路(没有上架则报错)
+     * @param id id
+     * @return 线路信息
+     */
+    Line selectByIdShelve(Long id);
+
+    /**
+     * 主键查询
+     * @param id id
+     * @return 线路
+     */
+    Line selectById(Long id);
 }

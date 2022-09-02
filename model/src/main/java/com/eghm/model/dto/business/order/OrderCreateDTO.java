@@ -3,12 +3,15 @@ package com.eghm.model.dto.business.order;
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.group.HomestayOrderCreateGroup;
+import com.eghm.model.validation.group.LineOrderCreateGroup;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -52,4 +55,13 @@ public class OrderCreateDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空", groups = {HomestayOrderCreateGroup.class})
     private LocalDate endDate;
+
+    @ApiModelProperty("联系人姓名")
+    @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符", groups = LineOrderCreateGroup.class)
+    private String nickName;
+
+    @ApiModelProperty("出行日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "出行日期不能为空", groups = {LineOrderCreateGroup.class})
+    private LocalDate configDate;
 }

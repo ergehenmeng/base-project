@@ -1,9 +1,11 @@
 package com.eghm.service.business;
 
+import com.eghm.dao.model.LineConfig;
 import com.eghm.model.dto.business.line.config.LineConfigQueryRequest;
 import com.eghm.model.dto.business.line.config.LineConfigRequest;
 import com.eghm.model.vo.business.line.config.LineConfigResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -24,4 +26,12 @@ public interface LineConfigService {
      * @return 列表
      */
     List<LineConfigResponse> getList(LineConfigQueryRequest request);
+
+    /**
+     * 查询某一天线路的价格
+     * @param lineId 线路id
+     * @param localDate 日期
+     * @return 价格配置
+     */
+    LineConfig getConfig(Long lineId, LocalDate localDate);
 }

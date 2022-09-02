@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.dao.model.LineDayConfig;
 import com.eghm.model.dto.business.line.LineDayConfigRequest;
 
 import java.util.List;
@@ -16,4 +17,11 @@ public interface LineDayConfigService {
      * @param configList 配置信息
      */
     void insertOrUpdate(Long lineId, List<LineDayConfigRequest> configList);
+
+    /**
+     * 查询线路的每日行程配置信息
+     * @param lineId 线路id
+     * @return 行程配置
+     */
+    List<LineDayConfig> getByLineId(Long lineId);
 }

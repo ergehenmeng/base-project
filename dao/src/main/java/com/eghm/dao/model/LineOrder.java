@@ -29,7 +29,7 @@ public class LineOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "线路id")
@@ -37,6 +37,12 @@ public class LineOrder implements Serializable {
 
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
+
+    @ApiModelProperty("昵称")
+    private String nickName;
+
+    @ApiModelProperty("联系电话")
+    private String mobile;
 
     @ApiModelProperty(value = "所属旅行社id")
     private Long travelAgencyId;
@@ -55,9 +61,6 @@ public class LineOrder implements Serializable {
 
     @ApiModelProperty(value = "提前天数")
     private Integer advanceDay;
-
-    @ApiModelProperty("销售价")
-    private Integer salePrice;
 
     @ApiModelProperty("划线价")
     private Integer linePrice;

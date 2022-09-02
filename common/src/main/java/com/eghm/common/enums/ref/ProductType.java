@@ -32,6 +32,10 @@ public enum ProductType implements IEnum<String> {
      */
     PRODUCT("product", "商品", "SP", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
 
+    /**
+     * 线路
+     */
+    LINE("line", "线路", "SL", "", "", "", "", "")
     ;
 
     /**

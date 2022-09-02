@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
     public Product selectByIdRequired(Long id) {
         Product product = productMapper.selectById(id);
         if (product == null) {
-            log.error("该商品已删除 [{}]", id);
+            log.error("该普通商品已删除 [{}]", id);
             throw new BusinessException(PRODUCT_DOWN);
         }
         return product;

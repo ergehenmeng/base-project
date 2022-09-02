@@ -810,6 +810,11 @@ public enum ErrorCode {
     LINE_TITLE_REDO(3181, "线路名称重复"),
 
     /**
+     * 该线路商品已下架
+     */
+    LINE_DOWN(3182, "该线路商品已下架"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

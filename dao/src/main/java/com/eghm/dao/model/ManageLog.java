@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @TableName("manage_log")
 public class ManageLog extends BaseEntity {
 
-    @TableId(type = IdType.AUTO)
+    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;

@@ -37,6 +37,14 @@ public class LineDayConfigServiceImpl implements LineDayConfigService {
         }
     }
 
+    @Override
+    public List<LineDayConfig> getByLineId(Long lineId) {
+        LambdaUpdateWrapper<LineDayConfig> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LineDayConfig::getLineId, lineId);
+        wrapper.last(" order by route_index asc ");
+        return lineDayConfigMapper.selectList(wrapper);
+    }
+
     /**
      * 删除多余的配置信息
      * @param lineId 线路id

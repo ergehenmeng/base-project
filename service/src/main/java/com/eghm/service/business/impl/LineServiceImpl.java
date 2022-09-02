@@ -22,6 +22,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import static com.eghm.common.enums.ErrorCode.LINE_DOWN;
+import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
+
 /**
  * @author 二哥很猛
  * @date 2022/8/26
@@ -78,6 +81,31 @@ public class LineServiceImpl implements LineService {
         wrapper.eq(Line::getId, id);
         wrapper.set(Line::getPlatformState, state);
         lineMapper.update(null, wrapper);
+    }
+
+    @Override
+    public Line selectByIdRequired(Long id) {
+        Line select = this.selectById(id);
+        if (select == null) {
+            log.error("该线路商品不存在 [{}]", id);
+            throw new BusinessException(LINE_DOWN);
+        }
+        return select;
+    }
+
+    @Override
+    public Line selectByIdShelve(Long id) {
+        Line line = this.selectByIdRequired(id);
+        if (line == null) {
+            log.error("该线路商品已下架 [{}]", id);
+            throw new BusinessException(LINE_DOWN);
+        }
+        return line;
+    }
+
+    @Override
+    public Line selectById(Long id) {
+        return lineMapper.selectById(id);
     }
 
     /**
