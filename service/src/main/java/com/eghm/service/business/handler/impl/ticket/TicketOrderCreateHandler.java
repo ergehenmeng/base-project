@@ -65,14 +65,12 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected void next(OrderCreateDTO dto, ScenicTicket product, Order order) {
-
+        scenicTicketService.updateStock(dto.getProductId(), -dto.getNum());
         TicketOrder ticketOrder = DataUtil.copy(product, TicketOrder.class);
         ticketOrder.setOrderNo(order.getOrderNo());
         ticketOrder.setMobile(dto.getMobile());
         ticketOrder.setTicketId(dto.getProductId());
         orderService.insert(ticketOrder);
-
-        scenicTicketService.updateStock(dto.getProductId(), -dto.getNum());
     }
 
 }

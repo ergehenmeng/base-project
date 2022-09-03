@@ -34,11 +34,11 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected void next(OrderCreateDTO dto, RestaurantVoucher product, Order order) {
+        restaurantVoucherService.updateStock(product.getId(), -dto.getNum());
         RestaurantOrder restaurantOrder = DataUtil.copy(product, RestaurantOrder.class);
         restaurantOrder.setOrderNo(order.getOrderNo());
         restaurantOrder.setVoucherId(product.getId());
         restaurantOrderService.insert(restaurantOrder);
-        restaurantVoucherService.updateStock(product.getId(), -dto.getNum());
     }
 
     @Override

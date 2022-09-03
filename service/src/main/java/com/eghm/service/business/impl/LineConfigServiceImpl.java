@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CommonConstant;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dao.mapper.LineConfigMapper;
@@ -69,7 +71,16 @@ public class LineConfigServiceImpl implements LineConfigService {
         wrapper.last(CommonConstant.LIMIT_ONE);
         return lineConfigMapper.selectOne(wrapper);
     }
-
+    
+    @Override
+    public void updateStock(Long id, Integer num) {
+        int stock = lineConfigMapper.updateStock(id, num);
+        if (stock != 1) {
+            log.error("更新线路库存失败 [{}] [{}] [{}]", id, num, stock);
+            throw new BusinessException(ErrorCode.LINE_STOCK);
+        }
+    }
+    
     /**
      * 获取某一月配置信息
      * @param month 月份

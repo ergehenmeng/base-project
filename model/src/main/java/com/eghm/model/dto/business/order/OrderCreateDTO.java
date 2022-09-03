@@ -2,14 +2,13 @@ package com.eghm.model.dto.business.order;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
+import com.eghm.model.validation.annotation.RangeInt;
 import com.eghm.model.validation.group.HomestayOrderCreateGroup;
 import com.eghm.model.validation.group.LineOrderCreateGroup;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -33,7 +32,7 @@ public class OrderCreateDTO {
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;
 
-    @Min(value = 1, message = "购买数量不能小于1张")
+    @RangeInt(min = 1, max = 99, message = "购买数量应为1~99")
     private Integer num;
 
     @ApiModelProperty("优惠券id")

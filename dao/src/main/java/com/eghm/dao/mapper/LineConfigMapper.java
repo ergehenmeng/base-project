@@ -19,4 +19,12 @@ public interface LineConfigMapper extends BaseMapper<LineConfig> {
      * @return 条数
      */
     int insertOrUpdate(LineConfig config);
+    
+    /**
+     * 更新库存信息
+     * @param id id
+     * @param num 正数+库存 负数-库存
+     * @return 1
+     */
+    int updateStock(Long id, Integer num);
 }

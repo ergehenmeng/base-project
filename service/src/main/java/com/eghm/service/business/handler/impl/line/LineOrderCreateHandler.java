@@ -1,11 +1,21 @@
 package com.eghm.service.business.handler.impl.line;
 
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.LineOrder;
 import com.eghm.dao.model.Order;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
-import com.eghm.service.business.*;
+import com.eghm.service.business.LineConfigService;
+import com.eghm.service.business.LineDayConfigService;
+import com.eghm.service.business.LineDaySnapshotService;
+import com.eghm.service.business.LineOrderService;
+import com.eghm.service.business.LineService;
+import com.eghm.service.business.OrderMQService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.dto.LineOrderDTO;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
@@ -41,6 +51,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void next(OrderCreateDTO dto, LineOrderDTO product, Order order) {
+        lineConfigService.updateStock(product.getConfig().getId(), -dto.getNum());
         LineOrder lineOrder = DataUtil.copy(product.getLine(), LineOrder.class);
         lineOrder.setOrderNo(order.getOrderNo());
         lineOrder.setLinePrice(product.getConfig().getLinePrice());
@@ -48,6 +59,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineOrder.setNickName(dto.getNickName());
         lineOrderService.insert(lineOrder);
         lineDaySnapshotService.insert(dto.getProductId(), order.getOrderNo(), product.getDayList());
+        
     }
 
     @Override
@@ -74,6 +86,9 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void before(OrderCreateDTO dto, LineOrderDTO product) {
-        // TODO 校验
+        if (product.getConfig().getStock() - dto.getNum() < 0) {
+            log.error("线路库存不足 [{}] [{}] [{}]", product.getConfig().getId(), product.getConfig().getStock(), dto.getNum());
+            throw new BusinessException(ErrorCode.LINE_STOCK);
+        }
     }
 }

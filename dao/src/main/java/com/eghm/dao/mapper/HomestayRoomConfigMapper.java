@@ -29,6 +29,7 @@ public interface HomestayRoomConfigMapper extends BaseMapper<HomestayRoomConfig>
      * @param startDate 开始时间 包含
      * @param endDate 截止时间 包含
      * @param num 正数+库存,负数-库存
+     * @return 1
      */
     int updateStock(@Param("roomId") Long roomId, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("num") Integer num);
 }

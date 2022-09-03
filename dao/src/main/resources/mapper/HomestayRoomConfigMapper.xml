@@ -15,5 +15,6 @@
           and stock + #{num} &gt;= 0
           and config_date &gt;= #{startDate}
           and config_date &lt;= #{endDate}
+          and state = true
     </update>
 </mapper>

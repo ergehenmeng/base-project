@@ -34,4 +34,11 @@ public interface LineConfigService {
      * @return 价格配置
      */
     LineConfig getConfig(Long lineId, LocalDate localDate);
+    
+    /**
+     * 更新库存信息
+     * @param id id
+     * @param num 正数+库存 负数-库存
+     */
+    void updateStock(Long id, Integer num);
 }

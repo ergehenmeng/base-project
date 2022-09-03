@@ -4,6 +4,6 @@
 
     <update id="updateStock" >
         update coupon_config set stock = stock + #{num}, receive_num = receive_num - #{num}
-        where id = #{id} and stock + #{num} &gt;= 0 and deleted = false
+        where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and state = true
     </update>
 </mapper>
