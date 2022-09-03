@@ -601,6 +601,7 @@ CREATE TABLE `line_order`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
     `line_id`           bigint(20)    DEFAULT NULL COMMENT '线路id',
+    `line_config_id`    bigint(20)    DEFAULT NULL COMMENT '线路配置id',
     `order_no`          varchar(30)   DEFAULT NULL COMMENT '订单编号',
     `nick_name`         varchar(20)   DEFAULT NULL COMMENT '昵称',
     `mobile`            varchar(20)   DEFAULT NULL COMMENT '联系电话',

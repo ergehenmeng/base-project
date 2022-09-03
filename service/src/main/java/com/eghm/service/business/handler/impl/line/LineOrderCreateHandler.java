@@ -54,6 +54,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineConfigService.updateStock(product.getConfig().getId(), -dto.getNum());
         LineOrder lineOrder = DataUtil.copy(product.getLine(), LineOrder.class);
         lineOrder.setOrderNo(order.getOrderNo());
+        lineOrder.setLineConfigId(product.getConfig().getId());
         lineOrder.setLinePrice(product.getConfig().getLinePrice());
         lineOrder.setMobile(dto.getMobile());
         lineOrder.setNickName(dto.getNickName());

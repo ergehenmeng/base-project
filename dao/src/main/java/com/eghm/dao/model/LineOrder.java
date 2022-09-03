@@ -1,15 +1,15 @@
 package com.eghm.dao.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -34,6 +34,9 @@ public class LineOrder implements Serializable {
 
     @ApiModelProperty(value = "线路id")
     private Long lineId;
+    
+    @ApiModelProperty("线路配置id(冗余字段)")
+    private Long lineConfigId;
 
     @ApiModelProperty(value = "订单编号")
     private String orderNo;

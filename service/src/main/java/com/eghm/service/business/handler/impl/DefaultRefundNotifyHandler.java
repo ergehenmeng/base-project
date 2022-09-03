@@ -74,7 +74,7 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
     /**
      * 退款处理
      * 1.查询在支付平台的订单退款状态
-     * 2.根据结果状态 更新订单及退款记录
+     * 2.根据结果状态 更新订单状态,退款状态及退款记录状态
      *
      * @param dto 流水号
      * @param order 订单信息
@@ -123,7 +123,7 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
     }
 
     /**
-     * 退款回调后置处理, 例如退款后, 订单变更为已使用需要7天后自动收货等
+     * 退款回调后置处理, 例如退款后, 例如库存退还
      * @param dto 流水号
      * @param order 订单信息
      * @param refundLog 退款记录
