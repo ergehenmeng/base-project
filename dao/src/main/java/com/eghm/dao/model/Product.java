@@ -1,6 +1,7 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.enums.ref.State;
@@ -54,11 +55,14 @@ public class Product extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
 
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
-    private Integer deliveryMethod;
+    @ApiModelProperty(value = "交付方式 0:无须发货 1:门店自提 2:快递包邮")
+    private DeliveryType deliveryType;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
+    
+    @ApiModelProperty("退款描述信息")
+    private String refundDescribe;
 
     @ApiModelProperty(value = "最低价格")
     private Integer minPrice;

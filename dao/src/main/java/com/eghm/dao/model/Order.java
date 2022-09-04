@@ -45,12 +45,18 @@ public class Order extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "商品类型")
     private ProductType productType;
+    
+    @ApiModelProperty("是否为多订单,普通商品且购物车购买才可能是多订单,即一个订单对应多商品")
+    private Boolean multiple;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
 
     @ApiModelProperty("退款描述信息")
     private String refundDescribe;
+    
+    @ApiModelProperty("配送方式")
+    private DeliveryType deliveryType;
 
     @ApiModelProperty("支付流水号")
     private String outTradeNo;

@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.impl.homestay;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.HomestayOrder;
@@ -73,8 +74,11 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         BaseProduct baseProduct = new BaseProduct();
         HomestayRoom room = product.getHomestayRoom();
         baseProduct.setProductType(ProductType.HOMESTAY);
+        baseProduct.setDeliveryType(DeliveryType.NO_SHIPMENT);
         baseProduct.setRefundType(room.getRefundType());
         baseProduct.setHotSell(false);
+        baseProduct.setMultiple(false);
+        baseProduct.setMultiple(false);
         baseProduct.setSupportedCoupon(true);
         baseProduct.setTitle(room.getTitle());
         // 将每天的价格相加=总单价

@@ -31,6 +31,10 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @ApiModelProperty("门票所属景区(冗余字段)")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long scenicId;
+    
+    @ApiModelProperty(value = "门票id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long ticketId;
 
     @ApiModelProperty(value = "订单号")
     private String orderNo;
@@ -54,10 +58,6 @@ public class TicketOrder extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "门票介绍")
     private String introduce;
-
-    @ApiModelProperty(value = "门票id")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long ticketId;
 
     @ApiModelProperty(value = "联系人手机号")
     private String mobile;

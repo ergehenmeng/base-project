@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.impl.line;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.LineOrder;
@@ -82,6 +83,8 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         baseProduct.setRefundDescribe(product.getLine().getRefundDescribe());
         baseProduct.setSalePrice(product.getConfig().getSalePrice());
         baseProduct.setSupportedCoupon(true);
+        baseProduct.setMultiple(false);
+        baseProduct.setDeliveryType(DeliveryType.NO_SHIPMENT);
         return baseProduct;
     }
 

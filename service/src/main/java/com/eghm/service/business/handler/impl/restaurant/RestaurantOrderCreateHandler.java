@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.impl.restaurant;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.Order;
@@ -8,7 +9,12 @@ import com.eghm.dao.model.RestaurantOrder;
 import com.eghm.dao.model.RestaurantVoucher;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
-import com.eghm.service.business.*;
+import com.eghm.service.business.OrderMQService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.service.business.RestaurantVoucherService;
+import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -52,10 +58,12 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         baseProduct.setProductType(ProductType.VOUCHER);
         baseProduct.setTitle(product.getTitle());
         baseProduct.setHotSell(false);
+        baseProduct.setMultiple(false);
         baseProduct.setSupportedCoupon(true);
         baseProduct.setRefundType(product.getRefundType());
         baseProduct.setSalePrice(product.getSalePrice());
         baseProduct.setRefundDescribe(product.getRefundDescribe());
+        baseProduct.setDeliveryType(DeliveryType.NO_SHIPMENT);
         return baseProduct;
     }
 

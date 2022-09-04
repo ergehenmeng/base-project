@@ -2,13 +2,19 @@ package com.eghm.service.business.handler.impl.ticket;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
-import com.eghm.service.business.*;
+import com.eghm.service.business.OrderMQService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.ScenicTicketService;
+import com.eghm.service.business.TicketOrderService;
+import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -39,11 +45,13 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected BaseProduct getBaseProduct(OrderCreateDTO dto, ScenicTicket product) {
-        BaseProduct copy = DataUtil.copy(product, BaseProduct.class);
+        BaseProduct baseProduct = DataUtil.copy(product, BaseProduct.class);
         // 门票默认可以使用优惠券
-        copy.setSupportedCoupon(true);
-        copy.setHotSell(false);
-        return copy;
+        baseProduct.setSupportedCoupon(true);
+        baseProduct.setDeliveryType(DeliveryType.NO_SHIPMENT);
+        baseProduct.setHotSell(false);
+        baseProduct.setMultiple(false);
+        return baseProduct;
     }
 
     @Override
