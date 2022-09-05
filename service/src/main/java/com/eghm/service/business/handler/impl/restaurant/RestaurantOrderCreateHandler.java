@@ -7,14 +7,10 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.RestaurantOrder;
 import com.eghm.dao.model.RestaurantVoucher;
+import com.eghm.model.dto.business.order.BaseProductDTO;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
-import com.eghm.service.business.OrderMQService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.RestaurantOrderService;
-import com.eghm.service.business.RestaurantVoucherService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +36,8 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected void next(OrderCreateDTO dto, RestaurantVoucher product, Order order) {
-        restaurantVoucherService.updateStock(product.getId(), -dto.getNum());
+        BaseProductDTO base = dto.getProductList().get(0);
+        restaurantVoucherService.updateStock(product.getId(), -base.getNum());
         RestaurantOrder restaurantOrder = DataUtil.copy(product, RestaurantOrder.class);
         restaurantOrder.setOrderNo(order.getOrderNo());
         restaurantOrder.setVoucherId(product.getId());
@@ -49,7 +46,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected RestaurantVoucher getProduct(OrderCreateDTO dto) {
-        return restaurantVoucherService.selectByIdShelve(dto.getProductId());
+        return restaurantVoucherService.selectByIdShelve(dto.getProductList().get(0).getProductId());
     }
 
     @Override
@@ -69,12 +66,13 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected void before(OrderCreateDTO dto, RestaurantVoucher product) {
-        if (product.getStock() - dto.getNum() < 0) {
-            log.error("餐饮券库存不足 [{}] [{}] [{}]", product.getId(), product.getStock(), dto.getNum());
+        Integer num = dto.getProductList().get(0).getNum();
+        if (product.getStock() - num < 0) {
+            log.error("餐饮券库存不足 [{}] [{}] [{}]", product.getId(), product.getStock(), num);
             throw new BusinessException(ErrorCode.VOUCHER_STOCK);
         }
-        if (product.getQuota() < dto.getNum()) {
-            log.error("超出餐椅券单次购买上限 [{}] [{}] [{}]", product.getId(), product.getQuota(), dto.getNum());
+        if (product.getQuota() < num) {
+            log.error("超出餐椅券单次购买上限 [{}] [{}] [{}]", product.getId(), product.getQuota(), num);
             throw new BusinessException(ErrorCode.VOUCHER_QUOTA.getCode(), String.format(ErrorCode.VOUCHER_QUOTA.getMsg(), product.getQuota()));
         }
     }

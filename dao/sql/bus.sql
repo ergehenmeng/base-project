@@ -655,7 +655,7 @@ CREATE TABLE `product_order`
     `cost_price`      int(10)       DEFAULT '0' COMMENT '成本价',
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
     `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
-    `delivery_method` tinyint(1)    DEFAULT NULL COMMENT '交付方式 1:门店自提 2:快递包邮',
+    `delivery_method` tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无需发货 1:门店自提 2:快递包邮',
     `introduce`       longtext COMMENT '商品介绍信息',
     `add_time`        datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

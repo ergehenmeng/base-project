@@ -8,15 +8,7 @@ import com.eghm.dao.model.LineOrder;
 import com.eghm.dao.model.Order;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
-import com.eghm.service.business.LineConfigService;
-import com.eghm.service.business.LineDayConfigService;
-import com.eghm.service.business.LineDaySnapshotService;
-import com.eghm.service.business.LineOrderService;
-import com.eghm.service.business.LineService;
-import com.eghm.service.business.OrderMQService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.dto.LineOrderDTO;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
@@ -52,7 +44,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void next(OrderCreateDTO dto, LineOrderDTO product, Order order) {
-        lineConfigService.updateStock(product.getConfig().getId(), -dto.getNum());
+        lineConfigService.updateStock(product.getConfig().getId(), -order.getNum());
         LineOrder lineOrder = DataUtil.copy(product.getLine(), LineOrder.class);
         lineOrder.setOrderNo(order.getOrderNo());
         lineOrder.setLineConfigId(product.getConfig().getId());
@@ -60,16 +52,17 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineOrder.setMobile(dto.getMobile());
         lineOrder.setNickName(dto.getNickName());
         lineOrderService.insert(lineOrder);
-        lineDaySnapshotService.insert(dto.getProductId(), order.getOrderNo(), product.getDayList());
+        lineDaySnapshotService.insert(product.getLine().getId(), order.getOrderNo(), product.getDayList());
         
     }
 
     @Override
     protected LineOrderDTO getProduct(OrderCreateDTO dto) {
         LineOrderDTO orderDTO = new LineOrderDTO();
-        orderDTO.setLine(lineService.selectByIdShelve(dto.getProductId()));
-        orderDTO.setConfig(lineConfigService.getConfig(dto.getProductId(), dto.getConfigDate()));
-        orderDTO.setDayList(lineDayConfigService.getByLineId(dto.getProductId()));
+        Long productId = dto.getProductList().get(0).getProductId();
+        orderDTO.setLine(lineService.selectByIdShelve(productId));
+        orderDTO.setConfig(lineConfigService.getConfig(productId, dto.getConfigDate()));
+        orderDTO.setDayList(lineDayConfigService.getByLineId(productId));
         return orderDTO;
     }
 
@@ -90,8 +83,9 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void before(OrderCreateDTO dto, LineOrderDTO product) {
-        if (product.getConfig().getStock() - dto.getNum() < 0) {
-            log.error("线路库存不足 [{}] [{}] [{}]", product.getConfig().getId(), product.getConfig().getStock(), dto.getNum());
+        Integer num = dto.getProductList().get(0).getNum();
+        if (product.getConfig().getStock() - num < 0) {
+            log.error("线路库存不足 [{}] [{}] [{}]", product.getConfig().getId(), product.getConfig().getStock(), num);
             throw new BusinessException(ErrorCode.LINE_STOCK);
         }
     }

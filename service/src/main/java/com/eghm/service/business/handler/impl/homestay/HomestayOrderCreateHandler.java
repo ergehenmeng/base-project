@@ -8,6 +8,7 @@ import com.eghm.dao.model.HomestayOrder;
 import com.eghm.dao.model.HomestayRoom;
 import com.eghm.dao.model.HomestayRoomConfig;
 import com.eghm.dao.model.Order;
+import com.eghm.model.dto.business.order.BaseProductDTO;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
@@ -46,21 +47,23 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected void next(OrderCreateDTO dto, HomestayOrderDTO product, Order order) {
-        homestayRoomConfigService.updateStock(dto.getProductId(), dto.getStartDate(), dto.getEndDate(), -dto.getNum());
+        BaseProductDTO base = dto.getProductList().get(0);
+        homestayRoomConfigService.updateStock(base.getProductId(), dto.getStartDate(), dto.getEndDate(), -base.getNum());
         HomestayOrder homestayOrder = DataUtil.copy(product.getHomestayRoom(), HomestayOrder.class);
         homestayOrder.setOrderNo(order.getOrderNo());
         homestayOrder.setMobile(dto.getMobile());
         homestayOrder.setStartDate(dto.getStartDate());
         homestayOrder.setEndDate(dto.getEndDate());
-        homestayOrder.setRoomId(dto.getProductId());
+        homestayOrder.setRoomId(base.getProductId());
         homestayOrderService.insert(homestayOrder);
         homestayOrderSnapshotService.orderSnapshot(order.getOrderNo(), product.getConfigList());
     }
 
     @Override
     protected HomestayOrderDTO getProduct(OrderCreateDTO dto) {
-        HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(dto.getProductId());
-        List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(dto.getProductId(), dto.getStartDate(), dto.getEndDate());
+        BaseProductDTO base = dto.getProductList().get(0);
+        HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(base.getProductId());
+        List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(base.getProductId(), dto.getStartDate(), dto.getEndDate());
         HomestayOrderDTO product = new HomestayOrderDTO();
         product.setHomestayRoom(homestayRoom);
         product.setConfigList(configList);
@@ -70,7 +73,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     @Override
     protected BaseProduct getBaseProduct(OrderCreateDTO dto, HomestayOrderDTO product) {
         // 民宿订单下单时数量默认为1
-        dto.setNum(1);
+
         BaseProduct baseProduct = new BaseProduct();
         HomestayRoom room = product.getHomestayRoom();
         baseProduct.setProductType(ProductType.HOMESTAY);
@@ -81,6 +84,8 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         baseProduct.setMultiple(false);
         baseProduct.setSupportedCoupon(true);
         baseProduct.setTitle(room.getTitle());
+        baseProduct.setNum(dto.getProductList().get(0).getNum());
+
         // 将每天的价格相加=总单价
         int salePrice = product.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();
         baseProduct.setSalePrice(salePrice);
@@ -92,12 +97,12 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         List<HomestayRoomConfig> configList = product.getConfigList();
         long size = ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate());
         if (configList.size() < size) {
-            log.error("该时间段房房态不满足下单数量 [{}] [{}] [{}] [{}]", dto.getProductId(), dto.getStartDate(), dto.getEndDate(), size);
+            log.error("该时间段房房态不满足下单数量 [{}] [{}] [{}] [{}]", dto.getProductList(), dto.getStartDate(), dto.getEndDate(), size);
             throw new BusinessException(ErrorCode.HOMESTAY_CONFIG_NULL);
         }
         boolean match = configList.stream().anyMatch(config -> Boolean.FALSE.equals(config.getState()) || config.getStock() <= 0);
         if (match) {
-            log.error("房间库存不足 [{}] [{}] [{}]", dto.getProductId(), dto.getStartDate(), dto.getEndDate());
+            log.error("房间库存不足 [{}] [{}] [{}]", dto.getProductList(), dto.getStartDate(), dto.getEndDate());
             throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
         }
     }

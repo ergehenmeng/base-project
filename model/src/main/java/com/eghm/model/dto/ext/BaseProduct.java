@@ -20,6 +20,9 @@ public class BaseProduct {
     @ApiModelProperty("商品销售价格")
     private Integer salePrice;
 
+    @ApiModelProperty("数量")
+    private Integer num;
+
     @ApiModelProperty("商品退款方式")
     private RefundType refundType;
     

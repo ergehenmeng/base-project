@@ -1,8 +1,8 @@
 package com.eghm.service.business.handler.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.enums.ref.ProductType;
 import com.eghm.dao.model.Order;
+import com.eghm.model.dto.business.order.BaseProductDTO;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.OrderMQService;
@@ -16,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.beans.Transient;
 
 /**
  * @author 二哥很猛
@@ -78,7 +76,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param product 商品信息
      * @return 主订单信息
      */
-    private Order doProcess(OrderCreateDTO dto, T product) {
+    protected Order doProcess(OrderCreateDTO dto, T product) {
         BaseProduct base = this.getBaseProduct(dto, product);
         if (Boolean.TRUE.equals(base.getHotSell())) {
             // 走MQ形式
@@ -86,24 +84,35 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
         }
 
         String orderNo = base.getProductType().getPrefix() + IdWorker.getIdStr();
-        Order order = DataUtil.copy(dto, Order.class);
-        order.setTitle(base.getTitle());
+        Order order = DataUtil.copy(base, Order.class);
+        order.setUserId(dto.getUserId());
         order.setOrderNo(orderNo);
         order.setPrice(base.getSalePrice());
-        order.setProductType(ProductType.TICKET);
-        order.setRefundType(base.getRefundType());
-        order.setPayAmount(dto.getNum() * base.getSalePrice());
+        order.setPayAmount(order.getNum() * base.getSalePrice());
 
+        this.setDiscount(base, dto, order);
+
+        orderService.insert(order);
+        // 订单关联购买人信息
+        orderVisitorService.addVisitor(base.getProductType(), orderNo, dto.getVisitorList());
+        return order;
+    }
+
+
+    /**
+     * 设置优惠券信息
+     * @param base 商品基本信息
+     * @param dto 下单信息
+     * @param order 订单信息
+     */
+    protected void setDiscount(BaseProduct base, OrderCreateDTO dto, Order order) {
         if (Boolean.TRUE.equals(base.getSupportedCoupon()) && dto.getCouponId() != null) {
-            Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), dto.getProductId(), order.getPayAmount());
+            BaseProductDTO productDTO = dto.getProductList().get(0);
+            Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), productDTO.getProductId(), order.getPayAmount());
             order.setPayAmount(order.getPayAmount() - couponAmount);
             order.setCouponId(dto.getCouponId());
             userCouponService.useCoupon(dto.getCouponId());
         }
-        orderService.insert(order);
-        // 门票订单关联购票人信息
-        orderVisitorService.addVisitor(base.getProductType(), orderNo, dto.getVisitorList());
-        return order;
     }
 
     /**

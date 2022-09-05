@@ -7,14 +7,10 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.ScenicTicket;
 import com.eghm.dao.model.TicketOrder;
+import com.eghm.model.dto.business.order.BaseProductDTO;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
-import com.eghm.service.business.OrderMQService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.ScenicTicketService;
-import com.eghm.service.business.TicketOrderService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +36,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected ScenicTicket getProduct(OrderCreateDTO dto) {
-        return scenicTicketService.selectByIdShelve(dto.getProductId());
+        return scenicTicketService.selectByIdShelve(dto.getProductList().get(0).getProductId());
     }
 
     @Override
@@ -56,16 +52,17 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected void before(OrderCreateDTO dto, ScenicTicket ticket) {
-        if (ticket.getStock() - dto.getNum() < 0) {
-            log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), dto.getNum());
+        Integer num = dto.getProductList().get(0).getNum();
+        if (ticket.getStock() - num < 0) {
+            log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
             throw new BusinessException(ErrorCode.TICKET_STOCK);
         }
-        if (ticket.getQuota() < dto.getNum()) {
-            log.error("超出门票单次购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), dto.getNum());
+        if (ticket.getQuota() < num) {
+            log.error("超出门票单次购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
             throw new BusinessException(ErrorCode.TICKET_QUOTA.getCode(), String.format(ErrorCode.TICKET_QUOTA.getMsg(), ticket.getQuota()));
         }
         // 待补充用户信息
-        if (Boolean.TRUE.equals(ticket.getRealBuy()) && (CollUtil.isEmpty(dto.getVisitorList()) || dto.getVisitorList().size() != dto.getNum())) {
+        if (Boolean.TRUE.equals(ticket.getRealBuy()) && (CollUtil.isEmpty(dto.getVisitorList()) || dto.getVisitorList().size() != num)) {
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
@@ -73,11 +70,12 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected void next(OrderCreateDTO dto, ScenicTicket product, Order order) {
-        scenicTicketService.updateStock(dto.getProductId(), -dto.getNum());
+        BaseProductDTO base = dto.getProductList().get(0);
+        scenicTicketService.updateStock(base.getProductId(), -order.getNum());
         TicketOrder ticketOrder = DataUtil.copy(product, TicketOrder.class);
         ticketOrder.setOrderNo(order.getOrderNo());
         ticketOrder.setMobile(dto.getMobile());
-        ticketOrder.setTicketId(dto.getProductId());
+        ticketOrder.setTicketId(base.getProductId());
         orderService.insert(ticketOrder);
     }
 
