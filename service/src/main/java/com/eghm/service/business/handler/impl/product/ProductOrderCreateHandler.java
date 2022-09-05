@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.impl.product;
 
 import com.eghm.dao.model.Order;
+import com.eghm.model.dto.business.order.BaseProductDTO;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
@@ -8,6 +9,9 @@ import com.eghm.service.business.handler.dto.ProductOrderDTO;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -42,7 +46,12 @@ public class ProductOrderCreateHandler extends AbstractOrderCreateHandler<Produc
 
     @Override
     protected ProductOrderDTO getProduct(OrderCreateDTO dto) {
-        return null;
+        ProductOrderDTO product = new ProductOrderDTO();
+        Set<Long> productIds = dto.getProductList().stream().map(BaseProductDTO::getProductId).collect(Collectors.toSet());
+        product.setProductList(productService.getByIds(productIds));
+        Set<Long> skuIds = dto.getProductList().stream().map(BaseProductDTO::getSkuId).collect(Collectors.toSet());
+        product.setSkuList(productSkuService.getByIds(skuIds));
+        return product;
     }
 
     @Override

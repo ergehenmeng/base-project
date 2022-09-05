@@ -1,6 +1,7 @@
 package com.eghm.model.dto.business.order;
 
 import com.eghm.model.validation.annotation.RangeInt;
+import com.eghm.model.validation.group.ProductOrderCreateGroup;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -23,4 +24,7 @@ public class BaseProductDTO {
     @RangeInt(min = 1, max = 99, message = "购买数量应为1~99")
     private Integer num;
 
+    @ApiModelProperty("商品sku,普通商品时该字段不能为空")
+    @NotNull(groups = ProductOrderCreateGroup.class, message = "规格信息不能为空")
+    private Long skuId;
 }

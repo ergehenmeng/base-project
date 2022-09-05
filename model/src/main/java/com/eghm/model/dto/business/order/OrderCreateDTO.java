@@ -59,4 +59,12 @@ public class OrderCreateDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "出行日期不能为空", groups = {LineOrderCreateGroup.class})
     private LocalDate configDate;
+
+    /**
+     * 获取下单的第一个产品信息, 针对绝多数品类,只支持单商品下单, 只有普通商品支持多品类或多店铺同时下单
+     * @return 商品信息
+     */
+    public BaseProductDTO getFirstProduct(){
+        return productList.get(0);
+    }
 }

@@ -47,7 +47,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected void next(OrderCreateDTO dto, HomestayOrderDTO product, Order order) {
-        BaseProductDTO base = dto.getProductList().get(0);
+        BaseProductDTO base = dto.getFirstProduct();
         homestayRoomConfigService.updateStock(base.getProductId(), dto.getStartDate(), dto.getEndDate(), -base.getNum());
         HomestayOrder homestayOrder = DataUtil.copy(product.getHomestayRoom(), HomestayOrder.class);
         homestayOrder.setOrderNo(order.getOrderNo());
@@ -61,7 +61,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected HomestayOrderDTO getProduct(OrderCreateDTO dto) {
-        BaseProductDTO base = dto.getProductList().get(0);
+        BaseProductDTO base = dto.getFirstProduct();
         HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(base.getProductId());
         List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(base.getProductId(), dto.getStartDate(), dto.getEndDate());
         HomestayOrderDTO product = new HomestayOrderDTO();
@@ -72,8 +72,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected BaseProduct getBaseProduct(OrderCreateDTO dto, HomestayOrderDTO product) {
-        // 民宿订单下单时数量默认为1
-
         BaseProduct baseProduct = new BaseProduct();
         HomestayRoom room = product.getHomestayRoom();
         baseProduct.setProductType(ProductType.HOMESTAY);
@@ -84,7 +82,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         baseProduct.setMultiple(false);
         baseProduct.setSupportedCoupon(true);
         baseProduct.setTitle(room.getTitle());
-        baseProduct.setNum(dto.getProductList().get(0).getNum());
+        baseProduct.setNum(dto.getFirstProduct().getNum());
 
         // 将每天的价格相加=总单价
         int salePrice = product.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();
@@ -97,12 +95,12 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         List<HomestayRoomConfig> configList = product.getConfigList();
         long size = ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate());
         if (configList.size() < size) {
-            log.error("该时间段房房态不满足下单数量 [{}] [{}] [{}] [{}]", dto.getProductList(), dto.getStartDate(), dto.getEndDate(), size);
+            log.error("该时间段房房态不满足下单数量 [{}] [{}] [{}] [{}]", dto.getFirstProduct(), dto.getStartDate(), dto.getEndDate(), size);
             throw new BusinessException(ErrorCode.HOMESTAY_CONFIG_NULL);
         }
         boolean match = configList.stream().anyMatch(config -> Boolean.FALSE.equals(config.getState()) || config.getStock() <= 0);
         if (match) {
-            log.error("房间库存不足 [{}] [{}] [{}]", dto.getProductList(), dto.getStartDate(), dto.getEndDate());
+            log.error("房间库存不足 [{}] [{}] [{}]", dto.getFirstProduct(), dto.getStartDate(), dto.getEndDate());
             throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
         }
     }

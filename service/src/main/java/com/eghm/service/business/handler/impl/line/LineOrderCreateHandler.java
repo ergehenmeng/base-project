@@ -59,7 +59,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     @Override
     protected LineOrderDTO getProduct(OrderCreateDTO dto) {
         LineOrderDTO orderDTO = new LineOrderDTO();
-        Long productId = dto.getProductList().get(0).getProductId();
+        Long productId = dto.getFirstProduct().getProductId();
         orderDTO.setLine(lineService.selectByIdShelve(productId));
         orderDTO.setConfig(lineConfigService.getConfig(productId, dto.getConfigDate()));
         orderDTO.setDayList(lineDayConfigService.getByLineId(productId));
@@ -83,7 +83,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void before(OrderCreateDTO dto, LineOrderDTO product) {
-        Integer num = dto.getProductList().get(0).getNum();
+        Integer num = dto.getFirstProduct().getNum();
         if (product.getConfig().getStock() - num < 0) {
             log.error("线路库存不足 [{}] [{}] [{}]", product.getConfig().getId(), product.getConfig().getStock(), num);
             throw new BusinessException(ErrorCode.LINE_STOCK);

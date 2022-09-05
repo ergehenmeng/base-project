@@ -8,6 +8,10 @@ import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * @author wyb
  * @date 2022/7/1
@@ -60,4 +64,11 @@ public interface ProductService {
      * @param state 新状态
      */
     void updateAuditState(Long id, PlatformState state);
+
+    /**
+     * 根据id查询商品
+     * @param ids 商品id
+     * @return 商品信息 key为商品id
+     */
+    Map<Long, Product> getByIds(Set<Long> ids);
 }

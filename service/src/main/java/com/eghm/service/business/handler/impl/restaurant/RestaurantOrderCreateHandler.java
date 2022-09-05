@@ -36,7 +36,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected void next(OrderCreateDTO dto, RestaurantVoucher product, Order order) {
-        BaseProductDTO base = dto.getProductList().get(0);
+        BaseProductDTO base = dto.getFirstProduct();
         restaurantVoucherService.updateStock(product.getId(), -base.getNum());
         RestaurantOrder restaurantOrder = DataUtil.copy(product, RestaurantOrder.class);
         restaurantOrder.setOrderNo(order.getOrderNo());
@@ -46,7 +46,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected RestaurantVoucher getProduct(OrderCreateDTO dto) {
-        return restaurantVoucherService.selectByIdShelve(dto.getProductList().get(0).getProductId());
+        return restaurantVoucherService.selectByIdShelve(dto.getFirstProduct().getProductId());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected void before(OrderCreateDTO dto, RestaurantVoucher product) {
-        Integer num = dto.getProductList().get(0).getNum();
+        Integer num = dto.getFirstProduct().getNum();
         if (product.getStock() - num < 0) {
             log.error("餐饮券库存不足 [{}] [{}] [{}]", product.getId(), product.getStock(), num);
             throw new BusinessException(ErrorCode.VOUCHER_STOCK);

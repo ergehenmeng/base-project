@@ -14,7 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.eghm.common.enums.ErrorCode.SKU_DOWN;
 
 /**
  * @author 二哥很猛
@@ -66,5 +71,17 @@ public class ProductSkuServiceImpl implements ProductSkuService {
             throw new BusinessException(ErrorCode.SKU_DOWN);
         }
         return sku;
+    }
+
+    @Override
+    public Map<Long, ProductSku> getByIds(Set<Long> ids) {
+        LambdaUpdateWrapper<ProductSku> wrapper = Wrappers.lambdaUpdate();
+        wrapper.in(ProductSku::getId, ids);
+        List<ProductSku> skuList = productSkuMapper.selectList(wrapper);
+        if (skuList.size() != ids.size()) {
+            log.info("存在已下架的商品规格 {}", ids);
+            throw new BusinessException(SKU_DOWN);
+        }
+        return skuList.stream().collect(Collectors.toMap(ProductSku::getId, Function.identity()));
     }
 }

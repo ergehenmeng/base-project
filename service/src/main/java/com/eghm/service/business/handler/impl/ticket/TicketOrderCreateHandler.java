@@ -36,7 +36,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected ScenicTicket getProduct(OrderCreateDTO dto) {
-        return scenicTicketService.selectByIdShelve(dto.getProductList().get(0).getProductId());
+        return scenicTicketService.selectByIdShelve(dto.getFirstProduct().getProductId());
     }
 
     @Override
@@ -52,7 +52,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected void before(OrderCreateDTO dto, ScenicTicket ticket) {
-        Integer num = dto.getProductList().get(0).getNum();
+        Integer num = dto.getFirstProduct().getNum();
         if (ticket.getStock() - num < 0) {
             log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
             throw new BusinessException(ErrorCode.TICKET_STOCK);
@@ -70,7 +70,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
 
     @Override
     protected void next(OrderCreateDTO dto, ScenicTicket product, Order order) {
-        BaseProductDTO base = dto.getProductList().get(0);
+        BaseProductDTO base = dto.getFirstProduct();
         scenicTicketService.updateStock(base.getProductId(), -order.getNum());
         TicketOrder ticketOrder = DataUtil.copy(product, TicketOrder.class);
         ticketOrder.setOrderNo(order.getOrderNo());

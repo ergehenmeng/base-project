@@ -5,6 +5,8 @@ import com.eghm.dao.model.ProductSku;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author 二哥很猛
@@ -42,4 +44,11 @@ public interface ProductSkuService {
      * @return 规格信息
      */
     ProductSku selectByIdRequired(Long skuId);
+
+    /**
+     * 根据id查询sku信息
+     * @param ids  ids 多个id
+     * @return 列表
+     */
+    Map<Long, ProductSku> getByIds(Set<Long> ids);
 }

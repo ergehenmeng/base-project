@@ -4,6 +4,8 @@ import com.eghm.dao.model.Product;
 import com.eghm.dao.model.ProductSku;
 import lombok.Data;
 
+import java.util.Map;
+
 /**
  * @author 二哥很猛
  * @date 2022/9/5
@@ -14,10 +16,10 @@ public class ProductOrderDTO {
     /**
      * 商品信息
      */
-    private Product product;
+    private Map<Long, Product> productList;
 
     /**
      * 商品sku信息
      */
-    private ProductSku productSku;
+    private Map<Long, ProductSku> skuList;
 }

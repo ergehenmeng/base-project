@@ -20,6 +20,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
 
 /**
@@ -90,5 +96,18 @@ public class ProductServiceImpl implements ProductService {
         wrapper.eq(Product::getId, id);
         wrapper.set(Product::getPlatformState, state);
         productMapper.update(null, wrapper);
+    }
+
+    @Override
+    public Map<Long, Product> getByIds(Set<Long> ids) {
+        LambdaUpdateWrapper<Product> wrapper = Wrappers.lambdaUpdate();
+        wrapper.in(Product::getId, ids);
+        wrapper.eq(Product::getPlatformState, PlatformState.SHELVE);
+        List<Product> productList = productMapper.selectList(wrapper);
+        if (productList.size() != ids.size()) {
+            log.info("存在已下架的商品 {}", ids);
+            throw new BusinessException(PRODUCT_DOWN);
+        }
+        return productList.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
     }
 }

@@ -107,7 +107,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      */
     protected void setDiscount(BaseProduct base, OrderCreateDTO dto, Order order) {
         if (Boolean.TRUE.equals(base.getSupportedCoupon()) && dto.getCouponId() != null) {
-            BaseProductDTO productDTO = dto.getProductList().get(0);
+            BaseProductDTO productDTO = dto.getFirstProduct();
             Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), productDTO.getProductId(), order.getPayAmount());
             order.setPayAmount(order.getPayAmount() - couponAmount);
             order.setCouponId(dto.getCouponId());
