@@ -39,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> getByPage(ProductQueryRequest request) {
         LambdaQueryWrapper<Product> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Product::getTitle, request.getQueryName());
-        wrapper.eq(request.getDeliveryMethod() != null, Product::getDeliveryMethod, request.getDeliveryMethod());
+        wrapper.eq(request.getDeliveryType() != null, Product::getDeliveryType, request.getDeliveryType());
         wrapper.eq(request.getState() != null, Product::getState, request.getState());
         wrapper.eq(request.getPlatformState() != null, Product::getPlatformState, request.getPlatformState());
         return productMapper.selectPage(request.createPage(), wrapper);

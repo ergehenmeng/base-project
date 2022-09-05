@@ -1,5 +1,6 @@
 package com.eghm.model.dto.business.product;
 
+import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.model.dto.ext.PagingQuery;
@@ -23,6 +24,6 @@ public class ProductQueryRequest extends PagingQuery {
     private PlatformState platformState;
 
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
-    private Integer deliveryMethod;
+    private DeliveryType deliveryType;
 
 }
