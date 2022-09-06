@@ -37,6 +37,9 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty("用户id")
     private Long userId;
 
+    @ApiModelProperty("商品所属店铺")
+    private Long storeId;
+
     @ApiModelProperty(value = "单价")
     private Integer price;
 

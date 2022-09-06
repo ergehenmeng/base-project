@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.dao.mapper.ProductSkuMapper">
 
+    <update id="updateStock" >
+        update product_sku set stock = stock + #{num}, sale_num = sale_num - #{num}
+        where id = #{skuId} and deleted = false and stock + #{num} &gt;= 0
+    </update>
+
 </mapper>

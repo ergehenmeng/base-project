@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.eghm.common.enums.ref.OrderState;
 import com.eghm.dao.model.Order;
 import com.eghm.model.dto.business.order.BaseProductDTO;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
@@ -85,6 +86,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
 
         String orderNo = base.getProductType().getPrefix() + IdWorker.getIdStr();
         Order order = DataUtil.copy(base, Order.class);
+        order.setState(OrderState.UN_PAY);
         order.setUserId(dto.getUserId());
         order.setOrderNo(orderNo);
         order.setPrice(base.getSalePrice());
@@ -136,4 +138,20 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param product 商品信息
      */
     protected abstract void before(OrderCreateDTO dto, T product);
+
+    public OrderService getOrderService() {
+        return orderService;
+    }
+
+    public UserCouponService getUserCouponService() {
+        return userCouponService;
+    }
+
+    public OrderVisitorService getOrderVisitorService() {
+        return orderVisitorService;
+    }
+
+    public OrderMQService getOrderMQService() {
+        return orderMQService;
+    }
 }

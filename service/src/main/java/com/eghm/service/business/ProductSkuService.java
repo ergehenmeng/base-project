@@ -1,6 +1,5 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.Product;
 import com.eghm.dao.model.ProductSku;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 
@@ -51,4 +50,11 @@ public interface ProductSkuService {
      * @return 列表
      */
     Map<Long, ProductSku> getByIds(Set<Long> ids);
+
+    /**
+     * 更新sku库存
+     * @param skuId skuId
+     * @param num 正数+库存 负数-库存
+     */
+    void updateStock(Long skuId, Integer num);
 }

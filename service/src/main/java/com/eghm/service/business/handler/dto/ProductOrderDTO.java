@@ -1,10 +1,9 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.dao.model.Product;
-import com.eghm.dao.model.ProductSku;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -14,12 +13,49 @@ import java.util.Map;
 public class ProductOrderDTO {
 
     /**
-     * 商品信息
+     * 下单信息
      */
-    private Map<Long, Product> productList;
+    private List<OrderPackage> packageList;
 
     /**
-     * 商品sku信息
+     * 优惠券id
      */
-    private Map<Long, ProductSku> skuList;
+    @ApiModelProperty("优惠券id")
+    private Long couponId;
+
+    /**
+     * 昵称
+     */
+    @ApiModelProperty("昵称")
+    private String nickName;
+
+    /**
+     * 联系电话
+     */
+    @ApiModelProperty("联系电话")
+    private String mobile;
+
+    /**
+     * 省份id
+     */
+    @ApiModelProperty("省份id")
+    private Long provinceId;
+
+    /**
+     * 城市id
+     */
+    @ApiModelProperty("城市id")
+    private Long cityId;
+
+    /**
+     * 县区id
+     */
+    @ApiModelProperty("县区id")
+    private Long countyId;
+
+    /**
+     * 详细地址
+     */
+    @ApiModelProperty("详细地址")
+    private String detailAddress;
 }

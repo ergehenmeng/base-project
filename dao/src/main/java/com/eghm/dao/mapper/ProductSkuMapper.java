@@ -2,6 +2,7 @@ package com.eghm.dao.mapper;
 
 import com.eghm.dao.model.ProductSku;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ProductSkuMapper extends BaseMapper<ProductSku> {
 
+    /**
+     * 更新库存信息
+     * @param skuId 库存id
+     * @param num 数量
+     * @return 1
+     */
+    int updateStock(@Param("skuId") Long skuId, @Param("num") Integer num);
 }

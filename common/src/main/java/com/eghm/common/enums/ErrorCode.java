@@ -820,6 +820,11 @@ public enum ErrorCode {
     LINE_STOCK(3185, "线路库存不足"),
 
     /**
+     * 商品不支持
+     */
+    PRODUCT_NOT_SUPPORT(3185, "商品不支持"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

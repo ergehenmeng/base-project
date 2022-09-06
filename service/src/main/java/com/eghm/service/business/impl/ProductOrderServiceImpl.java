@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dao.mapper.ProductOrderMapper;
 import com.eghm.dao.model.ProductOrder;
+import com.eghm.dao.model.ProductSku;
 import com.eghm.service.business.ProductOrderService;
+import com.eghm.service.business.handler.dto.OrderPackage;
+import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,5 +35,21 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         LambdaQueryWrapper<ProductOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ProductOrder::getOrderNo, orderNo);
         return productOrderMapper.selectList(wrapper);
+    }
+
+    @Override
+    public void insert(String orderNo, List<OrderPackage> packageList) {
+        for (OrderPackage aPackage : packageList) {
+            ProductOrder order = DataUtil.copy(aPackage.getProduct(), ProductOrder.class);
+            order.setOrderNo(orderNo);
+            order.setProductId(aPackage.getProductId());
+            ProductSku sku = aPackage.getSku();
+            order.setSkuTitle(sku.getTitle());
+            order.setSkuId(sku.getId());
+            order.setSkuCoverUrl(sku.getCoverUrl());
+            order.setLinePrice(sku.getLinePrice());
+            order.setCostPrice(sku.getCostPrice());
+            productOrderMapper.insert(order);
+        }
     }
 }

@@ -84,4 +84,9 @@ public class ProductSkuServiceImpl implements ProductSkuService {
         }
         return skuList.stream().collect(Collectors.toMap(ProductSku::getId, Function.identity()));
     }
+
+    @Override
+    public void updateStock(Long skuId, Integer num) {
+        productSkuMapper.updateStock(skuId, num);
+    }
 }
