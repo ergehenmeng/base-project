@@ -6,7 +6,6 @@ import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.dao.model.SysOperator;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysDataDeptService;
-import com.eghm.service.sys.SysMenuService;
 import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("/manage")
 public class CommonController {
-
-    private final SysMenuService sysMenuService;
 
     private final CacheService cacheService;
 
@@ -49,14 +46,7 @@ public class CommonController {
     @GetMapping("/main")
     public String home(Model model) {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
-        //导航菜单
-        if (operator.getLeftMenu() == null) {
-            operator.setLeftMenu(sysMenuService.getMenuList(operator.getId()));
-        }
-        //按钮菜单
-        if (operator.getButtonMenu() == null) {
-            operator.setButtonMenu(sysMenuService.getButtonList(operator.getId()));
-        }
+
         // 数据权限
         if (operator.getDeptList() == null) {
             operator.setDeptList(sysDataDeptService.getDeptList(operator.getId()));

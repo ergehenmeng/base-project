@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ref.RoleType;
 import com.eghm.dao.mapper.SysOperatorRoleMapper;
 import com.eghm.dao.mapper.SysRoleMapper;
 import com.eghm.dao.model.SysOperatorRole;
@@ -99,5 +100,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<SysRole> getRoleList(Long operatorId) {
         return sysRoleMapper.getRoleList(operatorId);
+    }
+
+    @Override
+    public boolean isAdminRole(Long operatorId) {
+        return sysRoleMapper.countByRoleType(operatorId, RoleType.ADMINISTRATOR.getValue()) > 0;
     }
 }

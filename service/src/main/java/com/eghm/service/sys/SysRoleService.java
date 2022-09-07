@@ -86,5 +86,12 @@ public interface SysRoleService {
      * @return 角色列表
      */
     List<SysRole> getRoleList(Long operatorId);
+
+    /**
+     * 判断用户是否有超管角色
+     * @param operatorId 用户ID
+     * @return true:有管理员角色 false:没有
+     */
+    boolean isAdminRole(Long operatorId);
 }
 

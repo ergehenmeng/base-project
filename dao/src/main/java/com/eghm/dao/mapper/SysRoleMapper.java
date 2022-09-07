@@ -1,6 +1,7 @@
 package com.eghm.dao.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.common.enums.ref.RoleType;
 import com.eghm.dao.model.SysRole;
 import org.apache.ibatis.annotations.Param;
 
@@ -39,4 +40,12 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @return 查询条数
      */
     int batchInsertRoleMenu(@Param("roleId") Long roleId, @Param("menuIdList") List<Long> menuIdList);
+
+    /**
+     * 统计用户是否拥有指定角色类型
+     * @param operatorId 用户ID
+     * @param roleType 角色类型
+     * @return >0 表示有
+     */
+    int countByRoleType(@Param("operatorId") Long operatorId, @Param("roleType") String roleType);
 }

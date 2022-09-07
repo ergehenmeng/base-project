@@ -18,6 +18,7 @@ import com.eghm.model.dto.operator.OperatorEditRequest;
 import com.eghm.model.dto.operator.OperatorQueryRequest;
 import com.eghm.model.dto.operator.PasswordEditRequest;
 import com.eghm.model.vo.login.LoginResponse;
+import com.eghm.model.vo.menu.MenuResponse;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
@@ -170,12 +171,23 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         if (!match) {
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
+        boolean adminRole = sysRoleService.isAdminRole(operator.getId());
+        List<String> buttonList;
+        // 如果用户拥有超管角色,则默认查询全部菜单等信息
+        List<MenuResponse> leftMenu;
+        if (adminRole) {
+            leftMenu = sysMenuService.getLeftMenuList();
+            buttonList = sysMenuService.getAuth();
+        } else {
+            buttonList = sysMenuService.getAuth(operator.getId());
+            leftMenu = sysMenuService.getLeftMenuList(operator.getId());
+        }
         // 根据用户名和权限创建jwtToken
-        List<String> authorities = sysMenuService.getAuthByOperatorId(operator.getId());
         LoginResponse response = new LoginResponse();
-        response.setToken(jwtTokenService.createToken(operator, authorities));
+        response.setToken(jwtTokenService.createToken(operator, buttonList));
         response.setRefreshToken(jwtTokenService.createRefreshToken(operator));
-        response.setAuthorityList(authorities);
+        response.setButtonList(buttonList);
+        response.setLeftMenuList(leftMenu);
         return response;
     }
 }

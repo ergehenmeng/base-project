@@ -10,6 +10,7 @@ import com.eghm.dao.mapper.SysMenuMapper;
 import com.eghm.dao.model.SysMenu;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
+import com.eghm.model.vo.menu.MenuResponse;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -31,7 +32,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     private final SysMenuMapper sysMenuMapper;
 
-    private final Comparator<SysMenu> comparator = Comparator.comparing(SysMenu::getSort);
+    private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
     /**
      * 步长默认3位数即 1~999: 同级别最多有999个菜单
@@ -39,27 +40,20 @@ public class SysMenuServiceImpl implements SysMenuService {
     private static final String STEP = "001";
 
     @Override
-    public List<SysMenu> getMenuList(Long operatorId) {
-        List<SysMenu> list = sysMenuMapper.getMenuList(operatorId);
-        return list.stream()
-                .filter(parent -> CommonConstant.ROOT == parent.getPid())
-                .peek(parent -> setChild(parent, list))
-                .sorted(comparator).collect(Collectors.toList());
+    public List<MenuResponse> getLeftMenuList(Long operatorId) {
+        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(operatorId);
+        return this.treeBin(list);
     }
 
     @Override
-    public List<SysMenu> getButtonList(Long operatorId) {
-        return sysMenuMapper.getButtonList(operatorId);
+    public List<MenuResponse> getLeftMenuList() {
+        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(null);
+        return this.treeBin(list);
     }
 
     @Override
     public List<SysMenu> getList(Long operatorId) {
         return sysMenuMapper.getList(operatorId);
-    }
-
-    @Override
-    public SysMenu getMenuById(Long id) {
-        return sysMenuMapper.selectById(id);
     }
 
     @Override
@@ -87,9 +81,13 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<String> getAuthByOperatorId(Long operator) {
-        List<SysMenu> menuList = sysMenuMapper.getList(operator);
-        return menuList.stream().map(SysMenu::getNid).collect(Collectors.toList());
+    public List<String> getAuth(Long operator) {
+        return sysMenuMapper.getButtonList(operator);
+    }
+
+    @Override
+    public List<String> getAuth() {
+        return sysMenuMapper.getButtonList(null);
     }
 
     /**
@@ -127,12 +125,24 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param parent 当前菜单
      * @param list   所有用户可操作的菜单
      */
-    private void setChild(SysMenu parent, List<SysMenu> list) {
-        List<SysMenu> childList = list.stream()
+    private void setChild(MenuResponse parent, List<MenuResponse> list) {
+        List<MenuResponse> childList = list.stream()
                 .filter(item -> parent.getId().equals(item.getPid()))
                 .peek(item -> setChild(item, list))
                 .sorted(comparator).collect(Collectors.toList());
         parent.setChildren(childList);
+    }
+
+    /**
+     * 将菜单列表树化
+     * @param menuList 菜单列表
+     * @return 菜单列表 树状结构
+     */
+    private List<MenuResponse> treeBin(List<MenuResponse> menuList) {
+        return menuList.stream()
+                .filter(parent -> CommonConstant.ROOT == parent.getPid())
+                .peek(parent -> setChild(parent, menuList))
+                .sorted(comparator).collect(Collectors.toList());
     }
 
 }

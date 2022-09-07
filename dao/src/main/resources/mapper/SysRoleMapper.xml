@@ -40,4 +40,11 @@
         </foreach>
     </insert>
 
+    <select id="countByRoleType" resultType="int">
+        select count(t.id)
+        from sys_role t
+        left join sys_operator_role r on t.id = r.role_id
+        where r.operator_id = #{operatorId}
+          and t.deleted = false and t.role_type = #{roleType}
+    </select>
 </mapper>

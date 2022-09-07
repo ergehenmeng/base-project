@@ -3,6 +3,7 @@ package com.eghm.service.sys;
 import com.eghm.dao.model.SysMenu;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
+import com.eghm.model.vo.menu.MenuResponse;
 
 import java.util.List;
 
@@ -17,14 +18,13 @@ public interface SysMenuService {
      * @param operatorId 用户id
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<SysMenu> getMenuList(Long operatorId);
+    List<MenuResponse> getLeftMenuList(Long operatorId);
 
     /**
-     * 获取用户按钮菜单列表
-     * @param operatorId 用户id
-     * @return 菜单列表
+     * 获取所有导航菜单列表,不包含按钮菜单
+     * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<SysMenu> getButtonList(Long operatorId);
+    List<MenuResponse> getLeftMenuList();
 
     /**
      * 获取用户按钮,导航菜单列表
@@ -32,13 +32,6 @@ public interface SysMenuService {
      * @return 菜单列表
      */
     List<SysMenu> getList(Long operatorId);
-
-    /**
-     * 根据主键查询菜单
-     * @param id 主键
-     * @return 单个菜单
-     */
-    SysMenu getMenuById(Long id);
 
     /**
      * 获取所有可用的菜单
@@ -65,9 +58,15 @@ public interface SysMenuService {
     void delete(Long id);
 
     /**
-     * 查询用户的菜单权限
+     * 查询用户的菜单权限标识符
      * @param operator 用户id
      * @return 菜单标示符
      */
-    List<String> getAuthByOperatorId(Long operator);
+    List<String> getAuth(Long operator);
+
+    /**
+     * 查询所有菜单权限
+     * @return 菜单标识符
+     */
+    List<String> getAuth();
 }

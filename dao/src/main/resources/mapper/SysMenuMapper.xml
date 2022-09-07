@@ -25,22 +25,28 @@
         t.id, t.title, t.nid, t.pid, t.path,t.sub_path, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
     </sql>
 
-    <select id="getMenuList" resultMap="BaseResultMap">
+    <select id="getLeftMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
         SELECT
-        <include refid="BaseColumnList"/>
+        t.id, t.title, t.nid, t.pid, t.path, t.sort
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where o.operator_id = #{operatorId} and t.deleted = false and t.grade &lt;&gt; 3
+        where t.deleted = false and t.grade &lt;&gt; 3
+        <if test="operatorId != null">
+            and o.operator_id = #{operatorId}
+        </if>
     </select>
 
-    <select id="getButtonList" resultMap="BaseResultMap">
+    <select id="getButtonList" resultType="string">
         SELECT
-        <include refid="BaseColumnList"/>
+        t.nid
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where o.operator_id = #{operatorId} and t.deleted = false and t.grade = 3
+        where t.deleted = false and t.grade = 3
+        <if test="operatorId != null" >
+            and o.operator_id = #{operatorId}
+        </if>
     </select>
 
     <select id="getList" resultMap="BaseResultMap">
