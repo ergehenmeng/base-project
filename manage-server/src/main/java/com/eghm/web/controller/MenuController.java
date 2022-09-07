@@ -1,9 +1,9 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.enums.ErrorCode;
 import com.eghm.configuration.security.CustomFilterInvocationSecurityMetadataSource;
 import com.eghm.dao.model.SysMenu;
 import com.eghm.model.dto.IdDTO;
+import com.eghm.model.dto.IdStateDTO;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
@@ -39,9 +39,6 @@ public class MenuController {
     @PostMapping("/create")
     @ApiOperation("添加菜单")
     public synchronized RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
-        if (request.getGrade() > SysMenu.BUTTON) {
-            return RespBody.error(ErrorCode.SUB_MENU_ERROR);
-        }
         sysMenuService.create(request);
         metadataSource.loadResource();
         return RespBody.success();
@@ -51,6 +48,14 @@ public class MenuController {
     @ApiOperation("修改菜单")
     public RespBody<Void> update(@Validated @RequestBody MenuEditRequest request) {
         sysMenuService.update(request);
+        metadataSource.loadResource();
+        return RespBody.success();
+    }
+
+    @PostMapping("/updateState")
+    @ApiOperation("更新菜单状态")
+    public RespBody<Void> updateState(@Validated @RequestBody IdStateDTO dto) {
+        sysMenuService.updateState(dto.getId(), dto.getState());
         metadataSource.loadResource();
         return RespBody.success();
     }

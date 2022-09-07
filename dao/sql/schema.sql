@@ -272,10 +272,10 @@ DROP TABLE IF EXISTS `notice_template`;
 CREATE TABLE `notice_template`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `code`        varchar(30)  DEFAULT NULL COMMENT '消息模板code',
-    `title`       varchar(50)  DEFAULT NULL COMMENT '消息标题',
-    `content`     varchar(500) DEFAULT NULL COMMENT '模板内容消息',
-    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `code`        varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '消息模板code',
+    `title`       varchar(50)                                           DEFAULT NULL COMMENT '消息标题',
+    `content`     varchar(500)                                          DEFAULT NULL COMMENT '模板内容消息',
+    `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 2
@@ -409,15 +409,15 @@ DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept`
 (
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`         varchar(50)         DEFAULT NULL COMMENT '部门名称',
-    `code`          varchar(128)        DEFAULT NULL COMMENT '部门编号',
-    `parent_code`   varchar(128)        DEFAULT '0' COMMENT '父级编号',
-    `add_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `update_time`   datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`       bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `remark`        varchar(200)        DEFAULT NULL COMMENT '备注信息',
-    `operator_id`   bigint(20) unsigned DEFAULT NULL COMMENT '操作人id',
-    `operator_name` varchar(20)         DEFAULT NULL COMMENT '操作人姓名',
+    `title`         varchar(50)                                            DEFAULT NULL COMMENT '部门名称',
+    `code`          varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '部门编号',
+    `parent_code`   varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '0' COMMENT '父级编号',
+    `add_time`      datetime                                               DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`   datetime                                               DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)                                                 DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `remark`        varchar(200)                                           DEFAULT NULL COMMENT '备注信息',
+    `operator_id`   bigint(20) unsigned                                    DEFAULT NULL COMMENT '操作人id',
+    `operator_name` varchar(20)                                            DEFAULT NULL COMMENT '操作人姓名',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `code_index` (`code`) USING BTREE
 ) ENGINE = InnoDB
@@ -465,20 +465,19 @@ CREATE TABLE `sys_holiday`
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`       varchar(20)         NOT NULL COMMENT '菜单名称',
-    `nid`         varchar(50)         NOT NULL COMMENT '菜单标示符 唯一',
-    `pid`         bigint(20) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
-    `url`         varchar(200)        DEFAULT NULL COMMENT '菜单地址',
-    `sub_url`     varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
-    `grade`       tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)',
+    `id`          bigint(20) unsigned                                   NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title`       varchar(20)                                           NOT NULL COMMENT '菜单名称',
+    `code`        varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '菜单标示符(自动生成)',
+    `pid`         bigint(20) unsigned                                   NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+    `path`        varchar(200)        DEFAULT NULL COMMENT '菜单地址',
+    `sub_path`    varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
+    `grade`       tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1: 3:三级菜单(按钮)',
     `sort`        int(10)             DEFAULT '0' COMMENT '排序规则 小的排在前面',
-    `deleted`     bit(1)              DEFAULT b'0' COMMENT '状态:0:正常,1:已删除',
+    `state`       bit(1)              DEFAULT b'1' COMMENT '状态: 1:启用 0:禁用',
     `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
     `add_time`    datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    UNIQUE KEY `nid_unique_index` (`nid`, `deleted`) USING BTREE,
     KEY `pid_index` (`pid`) USING BTREE
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1080
@@ -512,15 +511,15 @@ CREATE TABLE `sys_operator`
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `operator_name`   varchar(20)         NOT NULL COMMENT '用户名称',
     `mobile`          char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
-    `state`           tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
-    `pwd`             varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',
-    `init_pwd`        varchar(256)        DEFAULT NULL COMMENT '初始密码',
-    `dept_code`       varchar(20)         DEFAULT NULL COMMENT '所属部门编号',
-    `permission_type` tinyint(1)          DEFAULT '1' COMMENT '数据权限类型 1:自己的权限 2:自己部门权限 3:自己部门及子部门 4: 自定义权限 5 全部',
-    `deleted`         bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
-    `add_time`        datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `update_time`     datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`          varchar(200)        DEFAULT NULL COMMENT '备注信息',
+    `state`           tinyint(1) unsigned                                   DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
+    `pwd`             varchar(256)                                          DEFAULT NULL COMMENT '登陆密码MD5',
+    `init_pwd`        varchar(256)                                          DEFAULT NULL COMMENT '初始密码',
+    `dept_code`       varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '所属部门编号',
+    `permission_type` tinyint(1)                                            DEFAULT '1' COMMENT '数据权限类型 1:自己的权限 2:自己部门权限 3:自己部门及子部门 4: 自定义权限 5 全部',
+    `deleted`         bit(1)                                                DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+    `add_time`        datetime                                              DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`     datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `remark`          varchar(200)                                          DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `name_index` (`operator_name`) USING BTREE,
     KEY `mobile_index` (`mobile`) USING BTREE,
@@ -599,7 +598,7 @@ CREATE TABLE `tag_view`
 -- ----------------------------
 -- Table structure for task_config
 -- ----------------------------
-CREATE TABLE `task_config`
+CREATE TABLE `sys_task`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `title`           varchar(50)         DEFAULT NULL COMMENT '定时任务名称',
@@ -646,21 +645,22 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `mobile`      char(11)            DEFAULT NULL COMMENT '手机号码',
-    `open_id`     varchar(64)         DEFAULT NULL COMMENT '微信小程序openId',
-    `nick_name`   varchar(20)         DEFAULT '' COMMENT '昵称',
-    `email`       varchar(50)         DEFAULT NULL COMMENT '电子邮箱',
-    `pwd`         varchar(256)        DEFAULT NULL COMMENT '登陆密码',
-    `state`       bit(1)              DEFAULT b'1' COMMENT '状态 0:冻结 1:正常 ',
-    `real_name`   varchar(20)         DEFAULT NULL COMMENT '真实姓名',
-    `id_card`     varchar(256)        DEFAULT NULL COMMENT '身份证号码',
-    `birthday`    char(8)             DEFAULT NULL COMMENT '生日 yyyyMMdd',
-    `sex`         tinyint(1)          DEFAULT '2' COMMENT '性别 0:女性 1:男 2:未知',
-    `channel`     tinyint(1) unsigned DEFAULT '0' COMMENT '注册渠道',
-    `register_ip` bigint(20)          DEFAULT NULL COMMENT '注册地址',
-    `add_time`    datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
-    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `avatar`      varchar(200)        DEFAULT NULL COMMENT '头像路径',
+    `mobile`      char(11)                                              DEFAULT NULL COMMENT '手机号码',
+    `open_id`     varchar(64)                                           DEFAULT NULL COMMENT '微信小程序openId',
+    `nick_name`   varchar(20)                                           DEFAULT '' COMMENT '昵称',
+    `email`       varchar(50)                                           DEFAULT NULL COMMENT '电子邮箱',
+    `pwd`         varchar(256)                                          DEFAULT NULL COMMENT '登陆密码',
+    `state`       bit(1)                                                DEFAULT b'1' COMMENT '状态 0:冻结 1:正常 ',
+    `real_name`   varchar(20)                                           DEFAULT NULL COMMENT '真实姓名',
+    `id_card`     varchar(256)                                          DEFAULT NULL COMMENT '身份证号码',
+    `birthday`    char(8)                                               DEFAULT NULL COMMENT '生日 yyyyMMdd',
+    `invite_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '邀请码',
+    `sex`         tinyint(1)                                            DEFAULT '2' COMMENT '性别 0:女性 1:男 2:未知',
+    `channel`     tinyint(1) unsigned                                   DEFAULT '0' COMMENT '注册渠道',
+    `register_ip` bigint(20)                                            DEFAULT NULL COMMENT '注册地址',
+    `add_time`    datetime                                              DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
+    `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `avatar`      varchar(200)                                          DEFAULT NULL COMMENT '头像路径',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `mobile_index` (`mobile`) USING BTREE,
     KEY `email_index` (`email`) USING BTREE,
@@ -789,6 +789,3 @@ CREATE TABLE `sys_notice`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统公告';
-
-alter table user
-    add column invite_code varchar(20) comment '邀请码';

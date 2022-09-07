@@ -1,6 +1,5 @@
 package com.eghm.dao.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -9,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -17,11 +15,6 @@ import java.util.List;
 @Data
 @TableName("sys_menu")
 public class SysMenu {
-
-    /**
-     * 三级菜单即为按钮菜单
-     */
-    public static final byte BUTTON = 3;
 
     @ApiModelProperty("id主键")
     @JsonSerialize(using = ToStringSerializer.class)
@@ -31,7 +24,7 @@ public class SysMenu {
     private String title;
 
     @ApiModelProperty("菜单标示符 唯一")
-    private String nid;
+    private String code;
 
     @ApiModelProperty("父节点ID,一级菜单默认为0")
     @JsonSerialize(using = ToStringSerializer.class)
@@ -40,14 +33,14 @@ public class SysMenu {
     @ApiModelProperty("菜单地址")
     private String path;
 
-    @ApiModelProperty("菜单级别 1:一级菜单(导航) 2:二级菜单(导航) 3:三级菜单(按钮)")
-    private Byte grade;
+    @ApiModelProperty("菜单级别 1:导航菜单 2:按钮菜单")
+    private Integer grade;
 
     @ApiModelProperty("排序规则 小的排在前面")
     private Integer sort;
 
-    @ApiModelProperty("状态:0:正常,1:已删除")
-    private Boolean deleted;
+    @ApiModelProperty("状态:1:正常,0:禁用")
+    private Boolean state;
 
     @ApiModelProperty("备注信息")
     private String remark;
@@ -62,9 +55,5 @@ public class SysMenu {
     @ApiModelProperty("更新日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
-
-    @TableField(exist = false)
-    @ApiModelProperty("子订单")
-    private List<SysMenu> children;
 
 }

@@ -290,9 +290,9 @@ public enum ErrorCode {
     DICT_LOCKED_ERROR(3014,"该数据字典已锁定"),
 
     /**
-     * 菜单标示符被占用
+     * 同级菜单最多90个
      */
-    MENU_NID_ERROR(3015,"菜单标示符被占用"),
+    MENU_MAX_ERROR(3015,"同级菜单最多90个"),
 
     /**
      * 用户已在其他设备上登陆

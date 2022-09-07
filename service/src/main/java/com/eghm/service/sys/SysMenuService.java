@@ -58,6 +58,13 @@ public interface SysMenuService {
     void delete(Long id);
 
     /**
+     * 更新菜单状态
+     * @param id id
+     * @param state 0:禁用 1:启用
+     */
+    void updateState(Long id, Integer state);
+
+    /**
      * 查询用户的菜单权限标识符
      * @param operator 用户id
      * @return 菜单标示符

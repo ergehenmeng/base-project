@@ -21,13 +21,9 @@ public class MenuAddRequest implements Serializable {
     @NotNull(message = "菜单名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "标识符", required = true)
-    @NotNull(message = "标识符不能为空")
-    private String nid;
-
-    @ApiModelProperty(value = "菜单等级 1:一级菜单 2:二级菜单 3:三级菜单(按钮菜单)", required = true)
-    @OptionInt(value = {1, 2, 3}, message = "菜单等级不合法")
-    private Byte grade;
+    @ApiModelProperty(value = "菜单等级 1:导航菜单 2:按钮菜单", required = true)
+    @OptionInt(value = {1, 2}, message = "菜单等级不合法")
+    private Integer grade;
 
     @ApiModelProperty(value = "父菜单id", required = true)
     @NotNull(message = "父菜单id不能为空")

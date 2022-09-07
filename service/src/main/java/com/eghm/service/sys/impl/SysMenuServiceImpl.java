@@ -1,11 +1,12 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.common.utils.StringUtil;
 import com.eghm.dao.mapper.SysMenuMapper;
 import com.eghm.dao.model.SysMenu;
 import com.eghm.model.dto.menu.MenuAddRequest;
@@ -35,9 +36,15 @@ public class SysMenuServiceImpl implements SysMenuService {
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
     /**
-     * 步长默认3位数即 1~999: 同级别最多有999个菜单
+     * 步长默认2位数即 10~99
      */
-    private static final String STEP = "001";
+    private static final String STEP = "10";
+
+    /**
+     * 同级别最多有90个菜单
+     */
+    private static final int MAX = 90;
+
 
     @Override
     public List<MenuResponse> getLeftMenuList(Long operatorId) {
@@ -63,21 +70,30 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void create(MenuAddRequest request) {
-        this.checkNidRedo(request.getNid());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setId(this.generateNextId(request.getPid()));
+        copy.setCode(StringUtil.encryptNumber(copy.getId()));
         sysMenuMapper.insert(copy);
     }
 
     @Override
     public void update(MenuEditRequest request) {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
+        copy.setCode(StringUtil.encryptNumber(copy.getId()));
         sysMenuMapper.updateById(copy);
     }
 
     @Override
     public void delete(Long id) {
         sysMenuMapper.deleteById(id);
+    }
+
+    @Override
+    public void updateState(Long id, Integer state) {
+        LambdaUpdateWrapper<SysMenu> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysMenu::getId, id);
+        wrapper.set(SysMenu::getState, state);
+        sysMenuMapper.update(null, wrapper);
     }
 
     @Override
@@ -101,23 +117,16 @@ public class SysMenuServiceImpl implements SysMenuService {
         if (StrUtil.isBlank(maxId)) {
             return Long.parseLong(pid + STEP);
         }
+        // 如果最后三位是99这表示,已经最大了,再+1会进位,因此不能超过99
+        String lastMember = maxId.substring(maxId.length() - 2);
+        if (Integer.parseInt(lastMember) >= MAX) {
+            log.error("统计菜单不能超过90 [{}] [{}]", pid, maxId);
+            throw new BusinessException(ErrorCode.MENU_MAX_ERROR);
+        }
         // 最大子菜单+1即可
         return Long.parseLong(maxId) + 1;
     }
 
-    /**
-     * 校验nid是否唯一
-     * @param nid nid
-     */
-    private void checkNidRedo(String nid) {
-        LambdaQueryWrapper<SysMenu> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysMenu::getNid, nid);
-        Integer count = sysMenuMapper.selectCount(wrapper);
-        if (count > 0) {
-            log.error("菜单标示符被占用 [{}]", nid);
-            throw new BusinessException(ErrorCode.MENU_NID_ERROR);
-        }
-    }
 
     /**
      * 设置子菜单列表

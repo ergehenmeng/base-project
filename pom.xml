@@ -37,6 +37,8 @@
         <kaptcha.version>2.3.2</kaptcha.version>
         <!--sql日志打印版本-->
         <log4jdbc.version>1.2</log4jdbc.version>
+        <!--sql日志打印-->
+        <p6spy.version>3.8.6</p6spy.version>
         <!--guava工具类版本-->
         <guava.version>27.0.1-jre</guava.version>
         <!--apache工具类版本-->
@@ -175,6 +177,11 @@
                 <groupId>com.googlecode.log4jdbc</groupId>
                 <artifactId>log4jdbc</artifactId>
                 <version>${log4jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>p6spy</groupId>
+                <artifactId>p6spy</artifactId>
+                <version>${p6spy.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.guava</groupId>

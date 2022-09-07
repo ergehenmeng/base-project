@@ -43,7 +43,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
         for (SysMenu menu : list) {
             if (StrUtil.isNotBlank(menu.getPath())) {
                 List<String> subUrl = this.getTotalUrl(menu);
-                List<ConfigAttribute> attributes = SecurityConfig.createList(menu.getNid());
+                List<ConfigAttribute> attributes = SecurityConfig.createList(menu.getCode());
                 // 将该权限所涉及到所有访问链接均放入,防止操作人员知道连接,但没有权限,却能访问的问题
                 for (String url : subUrl) {
                     map.put(url, attributes);

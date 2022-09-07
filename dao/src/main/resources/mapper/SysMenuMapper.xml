@@ -7,13 +7,13 @@
         -->
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="nid" jdbcType="VARCHAR" property="nid"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
         <result column="pid" jdbcType="VARCHAR" property="pid"/>
         <result column="path" jdbcType="VARCHAR" property="path"/>
         <result column="sub_path" jdbcType="VARCHAR" property="subPath"/>
         <result column="grade" jdbcType="TINYINT" property="grade"/>
         <result column="sort" jdbcType="BIGINT" property="sort"/>
-        <result column="deleted" jdbcType="BIT" property="deleted"/>
+        <result column="state" jdbcType="BIT" property="state"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
@@ -22,7 +22,7 @@
         <!--
           @create by mybatis
         -->
-        t.id, t.title, t.nid, t.pid, t.path,t.sub_path, t.grade, t.sort, t.deleted, t.remark, t.add_time, t.update_time
+        t.id, t.title, t.code, t.pid, t.path,t.sub_path, t.grade, t.sort, t.state, t.remark, t.add_time, t.update_time
     </sql>
 
     <select id="getLeftMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
@@ -31,7 +31,7 @@
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where t.deleted = false and t.grade &lt;&gt; 3
+        where t.state = true and t.grade = 1
         <if test="operatorId != null">
             and o.operator_id = #{operatorId}
         </if>
@@ -39,11 +39,11 @@
 
     <select id="getButtonList" resultType="string">
         SELECT
-        t.nid
+        t.code
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where t.deleted = false and t.grade = 3
+        where t.state = true and t.grade = 2
         <if test="operatorId != null" >
             and o.operator_id = #{operatorId}
         </if>
@@ -55,10 +55,10 @@
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where o.operator_id = #{operatorId} and t.deleted = false
+        where o.operator_id = #{operatorId} and t.state = true
     </select>
 
     <select id="getMaxId" resultType="string">
-        select id from sys_menu where pid = #{pid} and deleted = false order by id desc limit 1
+        select id from sys_menu where pid = #{pid} and state = true order by id desc limit 1
     </select>
 </mapper>

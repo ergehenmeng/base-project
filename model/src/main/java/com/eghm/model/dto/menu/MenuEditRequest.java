@@ -23,8 +23,8 @@ public class MenuEditRequest implements Serializable {
     @NotNull(message = "菜单名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "菜单等级 1:一级菜单 2:二级菜单 3:三级菜单(按钮菜单)", required = true)
-    @OptionInt(value = {1, 2, 3}, message = "菜单等级不合法")
+    @ApiModelProperty(value = "菜单等级 1:导航菜单 2:按钮菜单", required = true)
+    @OptionInt(value = {1, 2}, message = "菜单等级不合法")
     private Byte grade;
 
     @ApiModelProperty(value = "菜单url")
