@@ -20,6 +20,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.common.enums.ErrorCode.SKU_DOWN;
+import static com.eghm.common.enums.ErrorCode.SKU_STOCK;
 
 /**
  * @author 二哥很猛
@@ -87,6 +88,15 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 
     @Override
     public void updateStock(Long skuId, Integer num) {
-        productSkuMapper.updateStock(skuId, num);
+        int stock = productSkuMapper.updateStock(skuId, num);
+        if (stock != 1) {
+            log.error("商品更新库存失败 [{}] [{}] [{}]", skuId, num, stock);
+            throw new BusinessException(SKU_STOCK);
+        }
+    }
+
+    @Override
+    public void updateStock(Map<Long, Integer> map) {
+
     }
 }

@@ -48,18 +48,14 @@ public class VersionUtil {
     public static int parseInt(String version) {
         String[] split = replace(version).split("\\.");
         StringBuilder builder = new StringBuilder();
-        try {
-            for (String v : split) {
-                if (v.length() > 2) {
-                    throw new Exception("版本长度不合法");
-                }
-                builder.append(String.format("%02d", Integer.parseInt(v)));
+        for (String v : split) {
+            if (v.length() > 2) {
+                log.info("版本号解析错误 [{}]", version);
+                throw new BusinessException(ErrorCode.VERSION_ERROR);
             }
-            return Integer.parseInt(builder.toString());
-        } catch (Exception e) {
-            log.error("版本号格式化异常 [{}]", version, e);
-            throw new BusinessException(ErrorCode.VERSION_ERROR);
+            builder.append(String.format("%02d", Integer.parseInt(v)));
         }
+        return Integer.parseInt(builder.toString());
     }
 
 }

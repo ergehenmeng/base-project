@@ -57,4 +57,10 @@ public interface ProductSkuService {
      * @param num 正数+库存 负数-库存
      */
     void updateStock(Long skuId, Integer num);
+
+    /**
+     * 批量修改sku的库存
+     * @param map key=skuId, value=num (正数+库存 负数-库存)
+     */
+    void updateStock(Map<Long, Integer> map);
 }
