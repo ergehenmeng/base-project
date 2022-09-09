@@ -13,7 +13,10 @@ import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +39,8 @@ public class ProductPayNotifyHandler implements PayNotifyHandler {
     private final ProductService productService;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
+    @Async
     public void process(String orderNo, String outTradeNo) {
         List<Order> orderList = orderService.selectByOutTradeNoList(outTradeNo);
         this.before(orderList);
