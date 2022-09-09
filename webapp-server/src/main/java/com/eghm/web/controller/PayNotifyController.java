@@ -47,7 +47,8 @@ public class PayNotifyController {
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, NotifyType.PAY);
         String orderNo = stringMap.get("body");
-        commonService.getPayHandler(orderNo).process(orderNo);
+        String outTradeNo = stringMap.get("out_trade_no");
+        commonService.getPayHandler(orderNo).process(orderNo, outTradeNo);
         return ALI_SUCCESS;
     }
 

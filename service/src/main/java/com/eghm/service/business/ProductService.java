@@ -71,4 +71,16 @@ public interface ProductService {
      * @return 商品信息 key为商品id
      */
     Map<Long, Product> getByIds(Set<Long> ids);
+
+    /**
+     * 更新销售量
+     * @param productNumMap 商品及销售数量
+     */
+    void updateSaleNum(Map<Long, Integer> productNumMap);
+
+    /**
+     * 根据订单编号更新订单号下的所有商品销售量
+     * @param orderNoList 订单号
+     */
+    void updateSaleNum(List<String> orderNoList);
 }

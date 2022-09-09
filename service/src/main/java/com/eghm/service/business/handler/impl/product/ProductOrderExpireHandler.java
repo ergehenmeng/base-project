@@ -1,36 +1,39 @@
 package com.eghm.service.business.handler.impl.product;
 
 import com.eghm.dao.model.Order;
-import com.eghm.dao.model.RestaurantOrder;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.RestaurantOrderService;
-import com.eghm.service.business.RestaurantVoucherService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.dao.model.ProductOrder;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.impl.DefaultOrderExpireHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 /**
+ * 普通订单30分钟过期未支付
  * @author 二哥很猛
  * @date 2022/8/25
  */
-@Service("restaurantOrderExpireHandler")
+@Service("productOrderExpireHandler")
 @Slf4j
 public class ProductOrderExpireHandler extends DefaultOrderExpireHandler {
 
-    private final RestaurantOrderService restaurantOrderService;
+    private final ProductSkuService productSkuService;
 
-    private final RestaurantVoucherService restaurantVoucherService;
+    private final ProductOrderService productOrderService;
 
-    public ProductOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService) {
+    public ProductOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService, ProductSkuService productSkuService, ProductOrderService productOrderService) {
         super(orderService, userCouponService);
-        this.restaurantOrderService = restaurantOrderService;
-        this.restaurantVoucherService = restaurantVoucherService;
+        this.productSkuService = productSkuService;
+        this.productOrderService = productOrderService;
     }
 
     @Override
     protected void after(Order order) {
-        RestaurantOrder restaurantOrder = restaurantOrderService.selectByOrderNo(order.getOrderNo());
-        restaurantVoucherService.updateStock(restaurantOrder.getVoucherId(), order.getNum());
+        List<ProductOrder> orderList = productOrderService.selectByOrderNo(order.getOrderNo());
+        Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ProductOrder::getSkuId, ProductOrder::getNum));
+        productSkuService.updateStock(skuNumMap);
     }
 }

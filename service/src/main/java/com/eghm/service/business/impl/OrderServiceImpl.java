@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -21,6 +22,7 @@ import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -72,6 +74,13 @@ public class OrderServiceImpl implements OrderService {
         wrapper.eq(Order::getOutTradeNo, outTradeNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return orderMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public List<Order> selectByOutTradeNoList(String outTradeNo) {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Order::getOutTradeNo, outTradeNo);
+        return orderMapper.selectList(wrapper);
     }
 
     @Override
@@ -162,4 +171,25 @@ public class OrderServiceImpl implements OrderService {
         dto.setTradeType(TradeType.valueOf(order.getPayType().name()));
         aggregatePayService.applyRefund(dto);
     }
+
+    @Override
+    public void updateState(List<String> orderNoList, OrderState newState, OrderState... oldState) {
+        if (CollUtil.isEmpty(orderNoList)) {
+            log.error("订单号为空, 无法更新订单状态 [{}]", newState);
+        }
+        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
+        wrapper.in(Order::getOrderNo, orderNoList);
+        wrapper.eq(oldState.length > 0, Order::getState, oldState);
+        wrapper.set(Order::getState, newState);
+        int update = orderMapper.update(null, wrapper);
+        if (update != orderNoList.size()) {
+            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNoList, newState, oldState);
+        }
+    }
+
+    @Override
+    public void updateState(String orderNo, OrderState newState, OrderState... oldState) {
+        this.updateState(Lists.newArrayList(orderNo), newState, oldState);
+    }
+
 }

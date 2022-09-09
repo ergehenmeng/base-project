@@ -57,6 +57,10 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
         address.setUserId(dto.getUserId());
 
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
+            Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
+            // 更新库存信息
+            productSkuService.updateStock(skuNumMap);
+
             String orderNo = ProductType.PRODUCT.getPrefix() + IdWorker.getIdStr();
             address.setOrderNo(orderNo);
             address.setId(null);
@@ -72,8 +76,12 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
             orderService.insert(order);
             // 添加配送地址
             shippingAddressService.insert(address);
-            // 添加子订单
+            // 添加商品订单
             productOrderService.insert(orderNo, entry.getValue());
+
+            Map<Long, Integer> productNumMap = entry.getValue().stream().collect(Collectors.groupingBy(OrderPackage::getProductId, Collectors.summingInt(OrderPackage::getNum)));
+            // 更新商品销售量,TODO 在此处不太合适,应该在支付成功后更新
+            productService.updateSaleNum(productNumMap);
             // 添加优惠券
         }
     }

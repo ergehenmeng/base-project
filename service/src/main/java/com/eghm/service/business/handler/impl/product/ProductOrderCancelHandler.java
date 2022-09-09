@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -31,5 +33,7 @@ public class ProductOrderCancelHandler extends DefaultOrderCancelHandler {
     @Override
     protected void after(Order order) {
         List<ProductOrder> orderList = productOrderService.selectByOrderNo(order.getOrderNo());
+        Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ProductOrder::getSkuId, ProductOrder::getNum));
+        productSkuService.updateStock(skuNumMap);
     }
 }

@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.common.enums.ref.OrderState;
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.OrderRefundLog;
 import com.eghm.service.pay.enums.TradeState;
@@ -30,11 +31,18 @@ public interface OrderService {
     void insert(Order order);
 
     /**
-     * 根据交易流水号查询订单
+     * 根据交易流水号查询订单, 门票,餐饮,线路,民宿
      * @param outTradeNo 交易流水号
      * @return 订单信息
      */
     Order selectByOutTradeNo(String outTradeNo);
+
+    /**
+     * 根据交易流水号查询订单 针对普通商品订单可能会出现一个交易流水号对应多类商品订单
+     * @param outTradeNo 交易流水号
+     * @return 订单列表
+     */
+    List<Order> selectByOutTradeNoList(String outTradeNo);
 
     /**
      * 查询订单信息
@@ -101,4 +109,19 @@ public interface OrderService {
      */
     void startRefund(OrderRefundLog log, Order order);
 
+    /**
+     * 更新订单状态, 注意更新订单状态时,订单当前状态必须在旧状态中
+     * @param orderNoList 订单列表
+     * @param newState 新状态
+     * @param oldState 旧状态
+     */
+    void updateState(List<String> orderNoList, OrderState newState, OrderState... oldState);
+
+    /**
+     * 更新订单状态, 注意更新订单状态时,订单当前状态必须在旧状态中- 重载方法
+     * @param orderNo  订单号
+     * @param newState 新状态
+     * @param oldState 旧状态
+     */
+    void updateState(String orderNo, OrderState newState, OrderState... oldState);
 }

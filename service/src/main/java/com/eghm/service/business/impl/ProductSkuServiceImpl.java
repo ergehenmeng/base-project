@@ -97,6 +97,8 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 
     @Override
     public void updateStock(Map<Long, Integer> map) {
-
+        for (Map.Entry<Long, Integer> entry : map.entrySet()) {
+            this.updateStock(entry.getKey(), entry.getValue());
+        }
     }
 }

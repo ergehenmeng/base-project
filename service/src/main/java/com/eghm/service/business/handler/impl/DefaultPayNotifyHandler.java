@@ -33,7 +33,7 @@ public class DefaultPayNotifyHandler implements PayNotifyHandler {
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     @Async
-    public void process(String orderNo) {
+    public void process(String orderNo, String outTradeNo) {
         Order order = orderService.getByOrderNo(orderNo);
         this.before(order);
 
@@ -54,8 +54,7 @@ public class DefaultPayNotifyHandler implements PayNotifyHandler {
         OrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
         boolean payState = vo.getTradeState() == TradeState.SUCCESS || vo.getTradeState() == TradeState.TRADE_SUCCESS;
         if (payState) {
-            order.setState(OrderState.UN_USED);
-            orderService.updateById(order);
+            orderService.updateState(order.getOrderNo(), OrderState.UN_USED, OrderState.UN_PAY, OrderState.PROGRESS);
         }
         return payState;
     }

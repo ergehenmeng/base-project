@@ -110,4 +110,16 @@ public class ProductServiceImpl implements ProductService {
         }
         return productList.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
     }
+
+    @Override
+    public void updateSaleNum(Map<Long, Integer> productNumMap) {
+        for (Map.Entry<Long, Integer> entry : productNumMap.entrySet()) {
+            productMapper.updateSaleNum(entry.getKey(), entry.getValue());
+        }
+    }
+
+    @Override
+    public void updateSaleNum(List<String> orderNoList) {
+        orderNoList.forEach(productMapper::updateSaleNumByOrderNo);
+    }
 }

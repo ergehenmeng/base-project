@@ -9,6 +9,7 @@ public interface PayNotifyHandler {
     /**
      * 支付回调处理
      * @param orderNo 订单编号
+     * @param outTradeNo 交易流水号
      */
-    void process(String orderNo);
+    void process(String orderNo, String outTradeNo);
 }

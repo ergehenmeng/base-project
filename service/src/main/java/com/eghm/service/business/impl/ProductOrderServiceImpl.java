@@ -44,6 +44,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             order.setOrderNo(orderNo);
             order.setProductId(aPackage.getProductId());
             ProductSku sku = aPackage.getSku();
+            order.setNum(aPackage.getNum());
             order.setSkuTitle(sku.getTitle());
             order.setSkuId(sku.getId());
             order.setSkuCoverUrl(sku.getCoverUrl());
