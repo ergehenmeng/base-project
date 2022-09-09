@@ -1,6 +1,9 @@
 package com.eghm.dao.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.OrderState;
+import com.eghm.common.enums.ref.ProductRefundState;
+import com.eghm.common.enums.ref.RefundState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -31,6 +34,9 @@ public class ProductOrder extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "商品名称")
     private String title;
+
+    @ApiModelProperty("退款状态")
+    private ProductRefundState refundState;
 
     @ApiModelProperty("数量")
     private Integer num;

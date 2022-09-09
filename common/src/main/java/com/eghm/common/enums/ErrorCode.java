@@ -825,6 +825,11 @@ public enum ErrorCode {
     PRODUCT_NOT_SUPPORT(3185, "商品不支持"),
 
     /**
+     * 商品订单未查询到
+     */
+    PRODUCT_ORDER_NULL(3185, "商品订单未查询到"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

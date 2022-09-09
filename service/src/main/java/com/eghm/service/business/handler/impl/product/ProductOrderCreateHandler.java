@@ -79,14 +79,18 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
             // 添加商品订单
             productOrderService.insert(orderNo, entry.getValue());
 
-            Map<Long, Integer> productNumMap = entry.getValue().stream().collect(Collectors.groupingBy(OrderPackage::getProductId, Collectors.summingInt(OrderPackage::getNum)));
-            // 更新商品销售量,TODO 在此处不太合适,应该在支付成功后更新
-            productService.updateSaleNum(productNumMap);
+            // 30分钟过期定时任务
+            orderMQService.sendOrderExpireMessage(orderNo);
             // 添加优惠券
         }
     }
 
 
+    /**
+     * 组装商品下单信息
+     * @param dto 下单信息
+     * @return 商品信息及下单信息
+     */
     private ProductOrderDTO getProduct(OrderCreateDTO dto) {
         // 组装数据,减少后面遍历逻辑
         Set<Long> productIds = dto.getProductList().stream().map(BaseProductDTO::getProductId).collect(Collectors.toSet());

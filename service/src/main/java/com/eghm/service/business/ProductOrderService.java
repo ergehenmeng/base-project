@@ -29,4 +29,18 @@ public interface ProductOrderService {
      * @param packageList 商品信息
      */
     void insert(String orderNo, List<OrderPackage> packageList);
+
+    /**
+     * 查询订单信息
+     * @param id id
+     * @return 商品订单信息
+     */
+    ProductOrder selectById(Long id);
+
+    /**
+     * 查询商品订单,如果为空则抛异常
+     * @param id id
+     * @return 商品订单信息
+     */
+    ProductOrder selectByIdRequired(Long id);
 }

@@ -61,7 +61,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
      * @param order 订单信息
      * @return 退款记录
      */
-    private OrderRefundLog doProcess(ApplyRefundDTO dto, Order order) {
+    protected OrderRefundLog doProcess(ApplyRefundDTO dto, Order order) {
         OrderRefundLog refundLog = DataUtil.copy(dto, OrderRefundLog.class);
         LocalDateTime now = LocalDateTime.now();
         refundLog.setApplyTime(now);
@@ -127,5 +127,13 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
             log.error("累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, dto.getNum());
             throw new BusinessException(TOTAL_REFUND_MAX);
         }
+    }
+
+    public OrderService getOrderService() {
+        return orderService;
+    }
+
+    public OrderRefundLogService getOrderRefundLogService() {
+        return orderRefundLogService;
     }
 }

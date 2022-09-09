@@ -646,6 +646,7 @@ CREATE TABLE `product_order`
     `title`           varchar(50) comment '商品名称',
     `order_no`        varchar(30) COMMENT '订单编号',
     `num`             smallint(4) COMMENT '订单数量',
+    `refund_state`    tinyint(1)    DEFAULT '0' COMMENT '退款状态 0: 初始状态 1:已退款 2:部分退款',
     `store_id`        bigint(20)    DEFAULT NULL COMMENT '商品所属店铺',
     `describe`        varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',

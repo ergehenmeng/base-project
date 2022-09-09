@@ -2,6 +2,8 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.dao.mapper.ProductOrderMapper;
 import com.eghm.dao.model.ProductOrder;
 import com.eghm.dao.model.ProductSku;
@@ -52,5 +54,20 @@ public class ProductOrderServiceImpl implements ProductOrderService {
             order.setCostPrice(sku.getCostPrice());
             productOrderMapper.insert(order);
         }
+    }
+
+    @Override
+    public ProductOrder selectById(Long id) {
+        return productOrderMapper.selectById(id);
+    }
+
+    @Override
+    public ProductOrder selectByIdRequired(Long id) {
+        ProductOrder order = productOrderMapper.selectById(id);
+        if (order == null) {
+            log.error("商品订单信息未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.PRODUCT_ORDER_NULL);
+        }
+        return order;
     }
 }

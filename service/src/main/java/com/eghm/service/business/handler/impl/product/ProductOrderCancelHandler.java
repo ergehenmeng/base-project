@@ -2,8 +2,10 @@ package com.eghm.service.business.handler.impl.product;
 
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.ProductOrder;
-import com.eghm.dao.model.RestaurantOrder;
-import com.eghm.service.business.*;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.ProductOrderService;
+import com.eghm.service.business.ProductSkuService;
+import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.impl.DefaultOrderCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class ProductOrderCancelHandler extends DefaultOrderCancelHandler {
 
     private final ProductOrderService productOrderService;
 
-    public ProductOrderCancelHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, ProductSkuService productSkuService, RestaurantVoucherService restaurantVoucherService, ProductOrderService productOrderService) {
+    public ProductOrderCancelHandler(OrderService orderService, UserCouponService userCouponService, ProductSkuService productSkuService, ProductOrderService productOrderService) {
         super(orderService, userCouponService);
         this.productSkuService = productSkuService;
         this.productOrderService = productOrderService;

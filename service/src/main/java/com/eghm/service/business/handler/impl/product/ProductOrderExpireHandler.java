@@ -2,7 +2,10 @@ package com.eghm.service.business.handler.impl.product;
 
 import com.eghm.dao.model.Order;
 import com.eghm.dao.model.ProductOrder;
-import com.eghm.service.business.*;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.ProductOrderService;
+import com.eghm.service.business.ProductSkuService;
+import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.impl.DefaultOrderExpireHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +27,7 @@ public class ProductOrderExpireHandler extends DefaultOrderExpireHandler {
 
     private final ProductOrderService productOrderService;
 
-    public ProductOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService, ProductSkuService productSkuService, ProductOrderService productOrderService) {
+    public ProductOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, ProductSkuService productSkuService, ProductOrderService productOrderService) {
         super(orderService, userCouponService);
         this.productSkuService = productSkuService;
         this.productOrderService = productOrderService;
