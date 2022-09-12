@@ -19,10 +19,14 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
 
     /**
      * 统计订单总退款数量 包含退款成功和退款中
+     * 1.普通商品会存在一个订单号对应多个商品订单, 而每个商品订单数量会大于1
+     * 2.特殊商品一个订单号只会对应一个商品订单
+     * 因此,在统计普通商品退款数量时,需要定位某个商品退款的数量
      * @param orderNo 订单编号
+     * @param productOrderId 商品订单id
      * @return 数量
      */
-    int getTotalRefundNum(@Param("orderNo") String orderNo);
+    int getTotalRefundNum(@Param("orderNo") String orderNo, @Param("productOrderId") Long productOrderId);
 
     /**
      * 查询门票退款处理中的订单流水号及退款流水号

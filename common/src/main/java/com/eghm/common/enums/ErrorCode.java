@@ -558,7 +558,7 @@ public enum ErrorCode {
      * 使用中的版本无法删除
      */
     CURRENT_VERSION_DELETE(3121, "使用中的版本无法删除"),
-    
+
     /**
      * 枚举格式化失败
      */
@@ -813,7 +813,7 @@ public enum ErrorCode {
      * 该线路商品已下架
      */
     LINE_DOWN(3182, "该线路商品已下架"),
-    
+
     /**
      * 线路库存不足
      */
@@ -828,6 +828,21 @@ public enum ErrorCode {
      * 商品订单未查询到
      */
     PRODUCT_ORDER_NULL(3185, "商品订单未查询到"),
+
+    /**
+     * 订单信息不匹配
+     */
+    ORDER_NOT_MATCH(3186, "订单信息不匹配"),
+
+    /**
+     * 该商品已申请退款
+     */
+    ORDER_REFUND_APPLY(3187, "该商品已申请退款"),
+
+    /**
+     * 商品退款数量不匹配
+     */
+    REFUND_MUM_MATCH(3189, "商品退款数量不匹配"),
 
     /**
      * 微信公众号尚未配置

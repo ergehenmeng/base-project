@@ -43,4 +43,10 @@ public interface ProductOrderService {
      * @return 商品订单信息
      */
     ProductOrder selectByIdRequired(Long id);
+
+    /**
+     * 根据主键更新商品订单信息
+     * @param productOrder 商品订单
+     */
+    void updateById(ProductOrder productOrder);
 }

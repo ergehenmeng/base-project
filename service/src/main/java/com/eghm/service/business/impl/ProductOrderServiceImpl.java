@@ -70,4 +70,9 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         }
         return order;
     }
+
+    @Override
+    public void updateById(ProductOrder productOrder) {
+        productOrderMapper.updateById(productOrder);
+    }
 }
