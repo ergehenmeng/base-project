@@ -27,7 +27,7 @@ import java.util.Map;
  * @date 2019/11/21 15:07
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ApiApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = WebappApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BaseTest {
 
     private HttpHeaders headers = new HttpHeaders();

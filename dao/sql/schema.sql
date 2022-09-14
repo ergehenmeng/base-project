@@ -471,7 +471,7 @@ CREATE TABLE `sys_menu`
     `pid`         bigint(20) unsigned                                   NOT NULL COMMENT '父节点ID,一级菜单默认为0',
     `path`        varchar(200)        DEFAULT NULL COMMENT '菜单地址',
     `sub_path`    varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
-    `grade`       tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1: 3:三级菜单(按钮)',
+    `grade`       tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:导航菜单 2:按钮菜单',
     `sort`        int(10)             DEFAULT '0' COMMENT '排序规则 小的排在前面',
     `state`       bit(1)              DEFAULT b'1' COMMENT '状态: 1:启用 0:禁用',
     `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',

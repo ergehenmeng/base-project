@@ -27,7 +27,7 @@
 
     <select id="getLeftMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
         SELECT
-        t.id, t.title, t.nid, t.pid, t.path, t.sort
+        t.id, t.title, t.code, t.pid, t.path, t.sort
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id

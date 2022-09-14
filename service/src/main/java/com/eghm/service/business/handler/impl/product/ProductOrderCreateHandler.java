@@ -18,6 +18,7 @@ import com.eghm.service.business.handler.dto.ProductOrderDTO;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -46,7 +47,13 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
 
     private final OrderMQService orderMQService;
 
+    /**
+     * 普通订单下单处理逻辑
+     * 说明: 由于普通订单存在购物车概念,在下单时会出现多店铺+多商品同时下单支付,因此需要按店铺进行分组生成多个订单
+     * @param dto 订单信息
+     */
     @Override
+    @Async
     public void process(OrderCreateDTO dto) {
         ProductOrderDTO product = this.getProduct(dto);
         this.before(product);

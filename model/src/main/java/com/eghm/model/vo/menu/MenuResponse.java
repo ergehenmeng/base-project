@@ -24,7 +24,7 @@ public class MenuResponse {
     private String title;
 
     @ApiModelProperty("菜单标示符 唯一")
-    private String nid;
+    private String code;
 
     @ApiModelProperty("父节点ID,一级菜单默认为0")
     @JsonSerialize(using = ToStringSerializer.class)

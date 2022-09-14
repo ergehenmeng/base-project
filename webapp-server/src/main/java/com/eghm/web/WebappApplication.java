@@ -26,10 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 @MapperScan("com.eghm.dao.mapper")
 @Slf4j
 @RestController
-public class ApiApplication implements ApplicationListener<ContextRefreshedEvent> {
+public class WebappApplication implements ApplicationListener<ContextRefreshedEvent> {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = new SpringApplicationBuilder(ApiApplication.class).bannerMode(Banner.Mode.OFF).web(WebApplicationType.SERVLET).run(args);
+        ConfigurableApplicationContext context = new SpringApplicationBuilder(WebappApplication.class).bannerMode(Banner.Mode.OFF).web(WebApplicationType.SERVLET).run(args);
         log.info("\n-------------------------------------------------\n\t" +
                 "Swagger文档: http://localhost:{}/doc.html\n" +
                 "-------------------------------------------------", context.getEnvironment().getProperty("server.port"));
