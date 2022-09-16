@@ -75,4 +75,9 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     public void updateById(ProductOrder productOrder) {
         productOrderMapper.updateById(productOrder);
     }
+
+    @Override
+    public int getProductNum(String orderNo) {
+        return productOrderMapper.getProductNum(orderNo);
+    }
 }

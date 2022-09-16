@@ -18,7 +18,6 @@ import com.eghm.service.business.handler.dto.ProductOrderDTO;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -53,7 +52,6 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      * @param dto 订单信息
      */
     @Override
-    @Async
     public void process(OrderCreateDTO dto) {
         ProductOrderDTO product = this.getProduct(dto);
         this.before(product);

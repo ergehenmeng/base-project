@@ -16,10 +16,7 @@ import com.eghm.service.business.handler.ApplyRefundHandler;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -41,8 +38,6 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    @Async
     public void process(ApplyRefundDTO dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         this.before(dto, order);
@@ -122,7 +117,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
      * @param order 主订单
      */
     protected void checkRefund(ApplyRefundDTO dto, Order order) {
-        int refundNum = orderRefundLogService.getTotalRefundNum(dto.getOrderNo());
+        int refundNum = orderRefundLogService.getTotalRefundNum(dto.getOrderNo(), null);
         if ((refundNum + dto.getNum()) > order.getNum()) {
             log.error("累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, dto.getNum());
             throw new BusinessException(TOTAL_REFUND_MAX);

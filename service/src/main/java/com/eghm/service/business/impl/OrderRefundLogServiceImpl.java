@@ -51,14 +51,15 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
         return orderRefundLogMapper.updateById(log);
     }
 
-    @Override
-    public int getTotalRefundNum(String orderNo) {
-        return orderRefundLogMapper.getTotalRefundNum(orderNo, null);
-    }
 
     @Override
     public int getTotalRefundNum(String orderNo, Long productOrderId) {
-        return orderRefundLogMapper.getTotalRefundNum(orderNo, null);
+        return orderRefundLogMapper.getTotalRefundNum(orderNo, productOrderId);
+    }
+
+    @Override
+    public int getRefundSuccessNum(String orderNo, Long productOrderId) {
+        return orderRefundLogMapper.getRefundSuccessNum(orderNo, productOrderId);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     }
 
     @Override
-    public List<OrderRefund> getTicketRefunding() {
-        return orderRefundLogMapper.getTicketRefunding();
+    public List<OrderRefund> getRefundProcess() {
+        return orderRefundLogMapper.getRefundProcess();
     }
 }

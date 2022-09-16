@@ -14,10 +14,7 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.AuditRefundHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -40,8 +37,6 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    @Async
     public void process(AuditRefundDTO dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByIdRequired(dto.getRefundId());
@@ -137,10 +132,14 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
             log.error("退款记录状态已更新 [{}] [{}] ", refundLog.getId(), refundLog.getAuditState());
             throw new BusinessException(REFUND_AUDITED);
         }
-        int refundNum = orderRefundLogService.getTotalRefundNum(dto.getOrderNo());
+        int refundNum = orderRefundLogService.getRefundSuccessNum(dto.getOrderNo(), null);
         if ((refundNum + refundLog.getNum()) > order.getNum()) {
-            log.error("累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}]", order.getNum(), refundNum, refundLog.getNum());
+            log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}]", order.getNum(), refundNum, refundLog.getNum());
             throw new BusinessException(TOTAL_REFUND_MAX);
         }
+    }
+
+    public OrderRefundLogService getOrderRefundLogService() {
+        return orderRefundLogService;
     }
 }

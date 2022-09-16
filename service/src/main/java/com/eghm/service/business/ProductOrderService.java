@@ -49,4 +49,11 @@ public interface ProductOrderService {
      * @param productOrder 商品订单
      */
     void updateById(ProductOrder productOrder);
+
+    /**
+     * 获取订单下所有商品的数量
+     * @param orderNo 订单编号
+     * @return 总数量
+     */
+    int getProductNum(String orderNo);
 }

@@ -29,20 +29,16 @@ public class TaskService {
     public void payProcess(String param) {
         log.info("门票支付定时任务开始执行 [{}]", param);
         List<Order> processList = orderService.getProcessList();
-        for (Order orderNo : processList) {
-
-        }
+        // TODO 待完成
         log.info("门票支付定时任务执行完毕 [{}]", param);
     }
 
     /**
      * 门票退款定时任务
      */
-    public void ticketRefunding(String param) {
-        List<OrderRefund> refundList = orderRefundLogService.getTicketRefunding();
-        for (OrderRefund refund : refundList) {
-
-        }
+    public void refundProcess(String param) {
+        List<OrderRefund> refundList = orderRefundLogService.getRefundProcess();
+        // TODO 待完成
     }
 
 }

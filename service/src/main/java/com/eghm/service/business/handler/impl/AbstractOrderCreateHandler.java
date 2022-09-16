@@ -14,9 +14,6 @@ import com.eghm.service.business.handler.OrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author 二哥很猛
@@ -38,8 +35,6 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param dto 订单信息
      */
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    @Async
     public void process(OrderCreateDTO dto) {
         T product = this.getProduct(dto);
         this.before(dto, product);

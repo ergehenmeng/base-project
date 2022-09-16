@@ -15,4 +15,7 @@ public class OrderRefund {
 
     @ApiModelProperty("退款订单流水号")
     private String outRefundNo;
+
+    @ApiModelProperty("订单编号")
+    private String orderNo;
 }

@@ -2,6 +2,7 @@ package com.eghm.dao.mapper;
 
 import com.eghm.dao.model.ProductOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ProductOrderMapper extends BaseMapper<ProductOrder> {
 
+    /**
+     * 查询订单下所有商品的总数量
+     * @param orderNo 订单编号
+     * @return 总数量
+     */
+    int getProductNum(@Param("orderNo") String orderNo);
 }

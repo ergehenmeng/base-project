@@ -29,8 +29,16 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
     int getTotalRefundNum(@Param("orderNo") String orderNo, @Param("productOrderId") Long productOrderId);
 
     /**
-     * 查询门票退款处理中的订单流水号及退款流水号
+     * 统计退款成功的商品数量
+     * @param orderNo 订单编号
+     * @param productOrderId 商品订单id
+     * @return 数量
+     */
+    int getRefundSuccessNum(@Param("orderNo") String orderNo, @Param("productOrderId") Long productOrderId);
+
+    /**
+     * 查询款处理中的订单流水号及退款流水号
      * @return 流水号信息
      */
-    List<OrderRefund> getTicketRefunding();
+    List<OrderRefund> getRefundProcess();
 }
