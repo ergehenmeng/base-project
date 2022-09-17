@@ -25,9 +25,6 @@ public class UploadController {
 
     private final FileService fileService;
 
-    /**
-     * 文件上传
-     */
     @PostMapping("/upload")
     @ApiImplicitParam(name = "file", value = "file流", paramType = "formData", dataType = "file", required = true)
     @ApiOperation("单文件上传")

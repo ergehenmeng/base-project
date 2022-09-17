@@ -29,9 +29,9 @@ public class UserCouponController {
 
     private final CouponConfigService couponConfigService;
 
-    @PostMapping("/grantCoupon")
+    @PostMapping("/grant")
     @ApiOperation("发放优惠券")
-    public RespBody<Void> grantCoupon(@RequestBody @Validated GrantCouponDTO dto) {
+    public RespBody<Void> grant(@RequestBody @Validated GrantCouponDTO dto) {
         userCouponService.grantCoupon(dto);
         return RespBody.success();
     }

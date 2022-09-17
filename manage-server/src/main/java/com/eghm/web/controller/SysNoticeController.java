@@ -35,9 +35,6 @@ public class SysNoticeController {
         return PageData.toPage(byPage);
     }
 
-    /**
-     * 新增公告信息
-     */
     @PostMapping("/create")
     @ApiOperation("新增公告信息")
     public RespBody<Void> create(@Validated @RequestBody NoticeAddRequest request) {
@@ -45,16 +42,12 @@ public class SysNoticeController {
         return RespBody.success();
     }
 
-    /**
-     * 公告编辑页面
-     */
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id", required = true)
     @ApiOperation("公告信息查询")
     public SysNotice select(@RequestParam("id") Long id) {
         return sysNoticeService.getById(id);
     }
-
 
     @PostMapping("/handle")
     @ApiOperation("公告操作(发布,取消发布,删除)")
@@ -69,15 +62,10 @@ public class SysNoticeController {
         return RespBody.success();
     }
 
-    /**
-     * 编辑公告信息
-     */
     @PostMapping("/update")
     @ApiOperation("编辑公告")
     public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
         sysNoticeService.update(request);
         return RespBody.success();
     }
-
-
 }
