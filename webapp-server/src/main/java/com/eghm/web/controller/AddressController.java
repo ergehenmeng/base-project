@@ -10,9 +10,9 @@ import com.eghm.service.user.UserAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -26,30 +26,21 @@ public class AddressController {
 
     private final UserAddressService userAddressService;
 
-    /**
-     * 添加用户收货地址
-     */
     @PostMapping("/save")
     @ApiOperation("添加地址")
-    public RespBody<Void> save(@RequestBody @Valid AddressAddDTO request) {
+    public RespBody<Void> save(@RequestBody @Validated AddressAddDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userAddressService.addUserAddress(request);
         return RespBody.success();
     }
 
-    /**
-     * 设置默认收货地址
-     */
     @PostMapping("/default")
     @ApiOperation("设置默认地址")
-    public RespBody<Void> setDefault(@RequestBody @Valid IdDTO request) {
+    public RespBody<Void> setDefault(@RequestBody @Validated IdDTO request) {
         userAddressService.setDefault(request.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }
 
-    /**
-     * 用户地址列表
-     */
     @GetMapping("/list")
     @ApiOperation("用户地址列表")
     public RespBody<List<AddressVO>> list() {
@@ -57,22 +48,16 @@ public class AddressController {
         return RespBody.success(voList);
     }
 
-    /**
-     * 设置默认收货地址
-     */
     @PostMapping("/delete")
     @ApiOperation("设置默认地址")
-    public RespBody<Void> delete(@RequestBody @Valid IdDTO request) {
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO request) {
         userAddressService.deleteAddress(request.getId(), ApiHolder.getUserId());
         return RespBody.success();
     }
 
-    /**
-     * 编辑地址
-     */
     @PostMapping("/update")
     @ApiOperation("编辑地址")
-    public RespBody<Void> update(@RequestBody @Valid AddressEditDTO request) {
+    public RespBody<Void> update(@RequestBody @Validated AddressEditDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userAddressService.updateAddress(request);
         return RespBody.success();

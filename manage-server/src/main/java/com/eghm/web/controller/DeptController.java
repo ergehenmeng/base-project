@@ -25,10 +25,10 @@ public class DeptController {
 
     private final SysDeptService sysDeptService;
 
-    @GetMapping("/listPage")
+    @GetMapping("/list")
     @ApiOperation("部门列表(不分页)")
-    public List<SysDept> listPage() {
-        return sysDeptService.getDepartment();
+    public List<SysDept> list() {
+        return sysDeptService.getList();
     }
 
     @PostMapping("/create")

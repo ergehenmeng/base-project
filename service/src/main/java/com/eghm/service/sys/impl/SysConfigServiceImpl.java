@@ -38,7 +38,6 @@ public class SysConfigServiceImpl implements SysConfigService {
     @Override
     public Page<SysConfig> getByPage(ConfigQueryRequest request) {
         LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getClassify() != null, SysConfig::getClassify, request.getClassify());
         wrapper.eq(request.getLocked() != null, SysConfig::getLocked, request.getLocked());
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(SysConfig::getTitle, request.getQueryName()).or()

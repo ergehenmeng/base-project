@@ -173,7 +173,7 @@ CREATE TABLE `feedback_log`
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `user_id`        bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
     `classify`       tinyint(1)          DEFAULT NULL COMMENT '反馈类型分类',
-    `state`          tinyint(1) unsigned DEFAULT '0' COMMENT '状态: 0:待解决 1:已解决',
+    `state`          bit(1)              DEFAULT b'0' COMMENT '状态: 0:待解决 1:已解决',
     `version`        varchar(50)         DEFAULT NULL COMMENT '软件版本',
     `system_version` varchar(50)         DEFAULT NULL COMMENT '系统版本',
     `content`        varchar(200)        DEFAULT NULL COMMENT '反馈内容',
@@ -374,16 +374,14 @@ CREATE TABLE `sys_config`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `nid`         varchar(50)         NOT NULL COMMENT '参数标示符',
-    `title`       varchar(50)         DEFAULT NULL COMMENT '参数名称',
+    `title`       varchar(50)  DEFAULT NULL COMMENT '参数名称',
     `content`     varchar(500)        NOT NULL COMMENT '参数值',
-    `classify`    tinyint(2) unsigned DEFAULT '1' COMMENT '参数类型,见system_dict表nid=config_classify',
-    `locked`      bit(1)              DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
-    `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
-    `add_time`    datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑) 0:未锁定,1:锁定',
+    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `add_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `nid_index` (`nid`) USING BTREE,
-    KEY `type_index` (`classify`) USING BTREE
+    KEY `nid_index` (`nid`) USING BTREE
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 46
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统参数配置信息表';

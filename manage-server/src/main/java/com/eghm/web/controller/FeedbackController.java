@@ -10,6 +10,7 @@ import com.eghm.model.dto.feedback.FeedbackQueryRequest;
 import com.eghm.model.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -26,17 +27,15 @@ public class FeedbackController {
 
     private final FeedbackService feedbackService;
 
-    /**
-     * 分页查询反馈列表
-     */
     @GetMapping("/listPage")
+    @ApiOperation("分页查询反馈列表")
     public PageData<FeedbackVO> listPage(FeedbackQueryRequest request) {
         Page<FeedbackVO> byPage = feedbackService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
     @PostMapping("/dispose")
-    @ResponseBody
+    @ApiOperation("处理反馈信息")
     public RespBody<Void> dispose(@Validated @RequestBody FeedbackDisposeRequest request) {
         SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
         request.setOperatorId(operator.getId());

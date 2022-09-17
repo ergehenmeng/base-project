@@ -5,12 +5,11 @@ import com.eghm.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 /**
  * @author 二哥很猛
@@ -26,7 +25,7 @@ public class WeChatController {
 
     @PostMapping("/mp/login")
     @ApiOperation("微信授权登陆(自动注册)")
-    public void login(@Valid @RequestBody MpLoginDTO dto) {
+    public void login(@Validated @RequestBody MpLoginDTO dto) {
 
     }
 

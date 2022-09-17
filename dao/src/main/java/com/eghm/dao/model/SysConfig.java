@@ -33,9 +33,6 @@ public class SysConfig {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    @ApiModelProperty("参数类型,见sys_dict表nid=config_classify")
-    private Byte classify;
-
     @ApiModelProperty("锁定状态(禁止编辑) 0:未锁定,1:锁定")
     private Boolean locked;
 

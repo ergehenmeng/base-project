@@ -33,14 +33,14 @@ public class DictController {
     }
 
     @PostMapping("/create")
-    @ApiOperation("数据字典列表(分页)")
+    @ApiOperation("增加字典项")
     public RespBody<Void> create(@Validated @RequestBody DictAddRequest request) {
         sysDictService.create(request);
         return RespBody.success();
     }
 
     @PostMapping("/update")
-    @ApiOperation("编辑数据字典")
+    @ApiOperation("编辑字典项")
     public RespBody<Void> update(@Validated @RequestBody DictEditRequest request) {
         sysDictService.update(request);
         return RespBody.success();

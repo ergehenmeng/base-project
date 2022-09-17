@@ -38,7 +38,6 @@ public class CaptchaController {
 
     private final CacheService cacheService;
 
-
     @GetMapping("/captcha")
     @ApiOperation("获取图形验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {

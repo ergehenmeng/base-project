@@ -1,7 +1,5 @@
 package com.eghm.service.sys.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityOperator;
@@ -40,14 +38,13 @@ public class SysDeptServiceImpl implements SysDeptService {
      */
     private static final String ROOT = "0";
 
-
     @Override
     public SysDept getById(Long id) {
         return sysDeptMapper.selectById(id);
     }
 
     @Override
-    public List<SysDept> getDepartment() {
+    public List<SysDept> getList() {
         return sysDeptMapper.selectList(null);
     }
 
@@ -87,5 +84,4 @@ public class SysDeptServiceImpl implements SysDeptService {
             throw new BusinessException(ErrorCode.DEPARTMENT_DEPTH_ERROR);
         }
     }
-
 }

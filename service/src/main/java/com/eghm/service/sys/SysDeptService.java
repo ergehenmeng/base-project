@@ -23,7 +23,7 @@ public interface SysDeptService {
      * 获取所有的部门信息
      * @return 列表
      */
-    List<SysDept> getDepartment();
+    List<SysDept> getList();
 
     /**
      * 添加部门

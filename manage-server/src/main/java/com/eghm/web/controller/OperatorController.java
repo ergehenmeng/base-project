@@ -66,7 +66,7 @@ public class OperatorController {
 
     @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
-    public PageData<SysOperator> operatorListPage(OperatorQueryRequest request) {
+    public PageData<SysOperator> listPage(OperatorQueryRequest request) {
         Page<SysOperator> page = sysOperatorService.getByPage(request);
         return PageData.toPage(page);
     }
@@ -114,7 +114,6 @@ public class OperatorController {
         return RespBody.success();
     }
 
-
     @PostMapping("/handle")
     @ApiOperation("用户操作(锁定,解锁,删除,重置密码)")
     public RespBody<Void> handle(@Validated @RequestBody OperatorHandleRequest request) {
@@ -132,7 +131,7 @@ public class OperatorController {
 
     @GetMapping("/menuList")
     @ApiOperation("查询自己拥有的菜单列表")
-    public List<SysMenu> operatorMenuList() {
+    public List<SysMenu> menuList() {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
         return sysMenuService.getList(operator.getId());
     }

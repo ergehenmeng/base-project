@@ -22,7 +22,7 @@ public class FeedbackLog extends BaseEntity {
     private Long userId;
 
     @ApiModelProperty("状态: 0:待解决 1:已解决")
-    private Byte state;
+    private Boolean state;
 
     @ApiModelProperty("状态: 反馈类型分类")
     private Byte classify;

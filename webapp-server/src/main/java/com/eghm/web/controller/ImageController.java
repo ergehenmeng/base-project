@@ -30,9 +30,6 @@ public class ImageController {
 
     private final FileService fileService;
 
-    /**
-     * 文件上传
-     */
     @PostMapping("/upload")
     @ApiOperation("图片单张上传")
     @SkipLogger

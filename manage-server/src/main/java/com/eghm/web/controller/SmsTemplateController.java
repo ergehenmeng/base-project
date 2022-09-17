@@ -10,9 +10,8 @@ import com.eghm.service.sys.SmsTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * 短信模板修改
@@ -37,7 +36,7 @@ public class SmsTemplateController {
 
     @PostMapping("/update")
     @ApiOperation("编辑短信模板")
-    public RespBody<Void> update(@Valid @RequestBody SmsTemplateEditRequest request) {
+    public RespBody<Void> update(@Validated @RequestBody SmsTemplateEditRequest request) {
         smsTemplateService.update(request);
         return RespBody.success();
     }

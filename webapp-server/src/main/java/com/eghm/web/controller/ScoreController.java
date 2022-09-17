@@ -9,12 +9,11 @@ import com.eghm.service.user.UserScoreLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.Valid;
 
 /**
  * @author 殿小二
@@ -28,12 +27,9 @@ public class ScoreController {
 
     private final UserScoreLogService userScoreLogService;
 
-    /**
-     * 分页查询用户积分列表
-     */
     @GetMapping("/listPage")
     @ApiOperation("用户积分列表")
-    public RespBody<PageData<UserScoreVO>> listPage(@RequestBody @Valid UserScoreQueryDTO request) {
+    public RespBody<PageData<UserScoreVO>> listPage(@RequestBody @Validated UserScoreQueryDTO request) {
         request.setUserId(ApiHolder.getUserId());
         PageData<UserScoreVO> page = userScoreLogService.getByPage(request);
         return RespBody.success(page);

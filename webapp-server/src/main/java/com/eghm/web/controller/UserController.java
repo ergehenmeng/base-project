@@ -32,60 +32,42 @@ public class UserController {
         return RespBody.success();
     }
 
-    /**
-     * 绑定邮箱发送邮箱验证码 ❶
-     */
     @PostMapping("/sendBindEmailCode")
-    @ApiOperation("绑定邮箱发送验证码请求")
+    @ApiOperation("绑定邮箱发送验证码请求①")
     public RespBody<Void> sendBindEmail(@RequestBody @Validated SendEmailAuthCodeDTO request) {
         userService.sendBindEmail(request.getEmail(), ApiHolder.getUserId());
         return RespBody.success();
     }
 
-    /**
-     * 绑定邮箱 目前绑定邮箱不需要短信二次校验,后期可以改为先短信校验,再邮箱校验 ❷
-     */
     @PostMapping("/bindEmail")
-    @ApiOperation("首次绑定邮箱")
+    @ApiOperation("首次绑定邮箱②")
     public RespBody<Void> bindEmail(@RequestBody @Validated BindEmailDTO request) {
         request.setUserId(ApiHolder.getUserId());
         userService.bindEmail(request);
         return RespBody.success();
     }
 
-    /**
-     * 更新邮箱时,需要短信验证码,因此此时必须绑定手机号码 ①
-     */
     @PostMapping("/sendChangeEmailSms")
-    @ApiOperation("发送换绑邮箱的短信验证码")
+    @ApiOperation("发送换绑邮箱的短信验证码①")
     public RespBody<Void> sendChangeEmailSms() {
         userService.sendChangeEmailSms(ApiHolder.getUserId());
         return RespBody.success();
     }
 
-    /**
-     * 更新邮箱时,新邮箱地址需要验证码确认 ②
-     */
     @PostMapping("/sendChangeEmailCode")
-    @ApiOperation("发送换绑邮箱的邮箱验证码")
+    @ApiOperation("发送换绑邮箱的邮箱验证码②")
     public RespBody<Void> sendChangeEmailCode(@RequestBody @Validated SendEmailAuthCodeDTO request) {
         userService.sendChangeEmailCode(request);
         return RespBody.success();
     }
 
-    /**
-     * 绑定新邮箱账号 ③
-     */
     @PostMapping("/bindChangeEmail")
-    @ApiOperation("绑定新邮箱账号")
+    @ApiOperation("绑定新邮箱账号③")
     public RespBody<Void> bindChangeEmail(@RequestBody @Validated ChangeEmailDTO request) {
         userService.changeEmail(request);
         return RespBody.success();
     }
 
-    /**
-     * 用户签到
-     */
     @PostMapping("/signIn")
     @ApiOperation("用户签到")
     public RespBody<Void> signIn() {
@@ -93,9 +75,6 @@ public class UserController {
         return RespBody.success();
     }
 
-    /**
-     * 查询用户签到信息
-     */
     @GetMapping("/getSignIn")
     @ApiOperation("获取用户签到信息")
     public RespBody<SignInVO> getSignIn() {

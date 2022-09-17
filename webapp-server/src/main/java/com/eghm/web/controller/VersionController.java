@@ -22,14 +22,10 @@ public class VersionController {
 
     private final AppVersionService appVersionService;
 
-    /**
-     * 获取可以下载的最新版本
-     */
     @GetMapping("/latest")
     @ApiOperation("获取最新的版本")
     public RespBody<AppVersionVO> latest() {
         AppVersionVO latestVersion = appVersionService.getLatestVersion();
         return RespBody.success(latestVersion);
     }
-
 }

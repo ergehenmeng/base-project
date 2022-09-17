@@ -8,9 +8,9 @@ import com.eghm.service.user.LoginDeviceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -25,9 +25,6 @@ public class DeviceController {
 
     private final LoginDeviceService loginDeviceService;
 
-    /**
-     * 用户登陆的设备列表
-     */
     @ApiOperation("用户登陆过的设备列表")
     @GetMapping("/loginDevice")
     public RespBody<List<LoginDeviceVO>> loginDevice() {
@@ -35,12 +32,9 @@ public class DeviceController {
         return RespBody.success(voList);
     }
 
-    /**
-     * 解除设备绑定 (解绑后,用户必须通过手机验证码才能登陆)
-     */
     @ApiOperation("解除设备绑定")
     @PostMapping("/unbind")
-    public RespBody<Void> unbind(@RequestBody @Valid  DeviceUnbindDTO request) {
+    public RespBody<Void> unbind(@RequestBody @Validated DeviceUnbindDTO request) {
         loginDeviceService.deleteLoginDevice(ApiHolder.getUserId(), request.getSerialNumber());
         return RespBody.success();
     }

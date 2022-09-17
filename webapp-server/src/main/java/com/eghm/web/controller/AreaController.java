@@ -7,12 +7,12 @@ import com.eghm.service.sys.SysAreaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -27,12 +27,9 @@ public class AreaController {
 
     private final SysAreaService sysAreaService;
 
-    /**
-     * 获取省市区列表
-     */
     @ApiOperation("获取省市区列表")
     @GetMapping("/list")
-    public RespBody<List<SysAreaVO>> list(@RequestBody @Valid AreaQueryDTO request) {
+    public RespBody<List<SysAreaVO>> list(@RequestBody @Validated AreaQueryDTO request) {
         List<SysAreaVO> voList = sysAreaService.getByPid(request.getPid());
         return RespBody.success(voList);
     }

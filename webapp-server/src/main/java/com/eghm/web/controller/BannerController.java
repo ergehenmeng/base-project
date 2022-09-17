@@ -11,12 +11,12 @@ import com.eghm.utils.DataUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -31,15 +31,11 @@ public class BannerController {
 
     private final BannerService bannerService;
 
-    /**
-     * 按类型查询的轮播图列表
-     */
     @GetMapping("/list")
     @ApiOperation("查询可用的轮播图列表")
-    public RespBody<List<BannerVO>> list(@RequestBody @Valid BannerQueryDTO dto) {
+    public RespBody<List<BannerVO>> list(@RequestBody @Validated BannerQueryDTO dto) {
         List<Banner> bannerList = bannerService.getBanner(Channel.valueOf(ApiHolder.getChannel()), dto.getClassify());
         return RespBody.success(DataUtil.convert(bannerList, banner -> DataUtil.copy(banner, BannerVO.class)));
     }
-
 
 }

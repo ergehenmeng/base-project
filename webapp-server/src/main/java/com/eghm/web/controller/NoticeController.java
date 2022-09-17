@@ -24,9 +24,6 @@ public class NoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    /**
-     * 获取首页公告列表
-     */
     @GetMapping("/list")
     @ApiOperation("获取首页公告列表")
     public RespBody<List<TopNoticeVO>> list() {
