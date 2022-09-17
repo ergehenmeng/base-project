@@ -27,7 +27,7 @@ public class HomestayRoomConfigController {
 
     @PostMapping("/setup")
     @ApiOperation("设置房态")
-    public RespBody<Void> setup(RoomConfigRequest request) {
+    public RespBody<Void> setup(@Validated @RequestBody RoomConfigRequest request) {
         homestayRoomConfigService.setup(request);
         return RespBody.success();
     }

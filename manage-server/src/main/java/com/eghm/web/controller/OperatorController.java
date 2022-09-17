@@ -107,9 +107,9 @@ public class OperatorController {
     @PostMapping("/unlockScreen")
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
-    public RespBody<Void> unlockScreen(String password) {
+    public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
         SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
-        sysOperatorService.checkPassword(password, operator.getPwd());
+        sysOperatorService.checkPassword(request.getPwd(), operator.getPwd());
         cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
         return RespBody.success();
     }

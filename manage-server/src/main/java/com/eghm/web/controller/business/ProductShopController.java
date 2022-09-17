@@ -39,14 +39,14 @@ public class ProductShopController {
 
     @GetMapping("/create")
     @ApiOperation("新增店铺")
-    public RespBody<Void> create(ProductShopAddRequest request) {
+    public RespBody<Void> create(@Validated @RequestBody ProductShopAddRequest request) {
         productShopService.create(request);
         return RespBody.success();
     }
 
     @GetMapping("/update")
     @ApiOperation("更新店铺")
-    public RespBody<Void> update(ProductShopEditRequest request) {
+    public RespBody<Void> update(@Validated @RequestBody ProductShopEditRequest request) {
         productShopService.update(request);
         return RespBody.success();
     }
