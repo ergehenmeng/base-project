@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.impl;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
@@ -109,6 +110,7 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
         // 退款成功的+当前退款的大于总订单数,则默认关闭
         if ((refundNum + refundLog.getNum()) >= order.getNum()) {
             order.setState(OrderState.CLOSE);
+            order.setCloseType(CloseType.REFUND);
         } else {
             // 已核销+退款成功+当前退款成功的大于总付款数量,订单可以直接变成下一个状态
             int verifiedNum = verifyLogService.getVerifiedNum(order.getId());

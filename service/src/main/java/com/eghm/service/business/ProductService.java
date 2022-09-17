@@ -79,6 +79,13 @@ public interface ProductService {
     void updateSaleNum(Map<Long, Integer> productNumMap);
 
     /**
+     * 更新销售量
+     * @param id  商品id
+     * @param num 销量量-减销量 +增销量
+     */
+    void updateSaleNum(Long id, Integer num);
+
+    /**
      * 根据订单编号更新订单号下的所有商品销售量
      * @param orderNoList 订单号
      */

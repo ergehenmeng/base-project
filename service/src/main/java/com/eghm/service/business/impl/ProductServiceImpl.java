@@ -119,6 +119,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void updateSaleNum(Long id, Integer num) {
+        productMapper.updateSaleNum(id, num);
+    }
+
+    @Override
     public void updateSaleNum(List<String> orderNoList) {
         orderNoList.forEach(productMapper::updateSaleNumByOrderNo);
     }
