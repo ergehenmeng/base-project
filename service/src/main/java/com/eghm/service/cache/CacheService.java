@@ -109,7 +109,6 @@ public interface CacheService {
      */
     <T> T getValue(String key, TypeReference<T> type);
 
-
     /**
      * 获取key的过期时间
      * @param key key

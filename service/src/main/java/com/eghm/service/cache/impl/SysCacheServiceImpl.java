@@ -76,7 +76,6 @@ public class SysCacheServiceImpl implements SysCacheService {
         return false;
     }
 
-
     /**
      * 更新缓存刷新状态
      *

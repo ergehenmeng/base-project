@@ -13,7 +13,6 @@ import java.util.List;
  */
 public interface SysCacheService {
 
-
     /**
      * 根据缓存名称清除缓存
      * 具体查看 {@link CacheConstant}
