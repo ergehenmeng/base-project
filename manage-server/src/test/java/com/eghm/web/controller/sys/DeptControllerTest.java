@@ -7,6 +7,7 @@ import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.web.BaseTest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.test.context.support.WithUserDetails;
@@ -41,4 +42,10 @@ public class DeptControllerTest extends BaseTest {
             sysMenuMapper.updateById(menu);
         }
     }
+
+    @Test
+    public void test() {
+        System.out.println(sysMenuMapper.getList(1L));
+    }
+
 }

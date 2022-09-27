@@ -15,6 +15,8 @@ import java.util.List;
 /**
  * 生成数据权限拦截sql
  * 涉及数据权限的表中必须包含两个字段, 用户所属部门:dept_code, 用户ID:operator_id
+ * 在方法上添加@DataScope注解, 在sql中可以通过${dataScope}直接注入数据权限部分的sql
+ * @see DataScopeInterceptor 拦截器
  * @author 殿小二
  * @date 2020/8/14
  */

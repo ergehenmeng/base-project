@@ -3,6 +3,7 @@ package com.eghm.configuration;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.eghm.configuration.data.permission.DataScopeInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class MybatisConfig {
-
 
     /**
      * mybatisPlus分页
@@ -24,6 +24,11 @@ public class MybatisConfig {
         innerInterceptor.setMaxLimit(20L);
         interceptor.addInnerInterceptor(innerInterceptor);
         return interceptor;
+    }
+
+    @Bean
+    public DataScopeInterceptor dataScopeInterceptor() {
+        return new DataScopeInterceptor();
     }
 
 }
