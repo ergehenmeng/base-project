@@ -665,3 +665,20 @@ CREATE TABLE `product_order`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品订单表';
+
+CREATE TABLE `shopping_car`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `user_id`     bigint(20)  DEFAULT NULL COMMENT '用户id',
+    `store_id`    bigint(20)  DEFAULT NULL COMMENT '店铺id',
+    `product_id`  bigint(20)  DEFAULT NULL COMMENT '商品id',
+    `sku_id`      bigint(20)  DEFAULT NULL COMMENT '商品规格id',
+    `sale_price`  int(10)     DEFAULT NULL COMMENT '商品售价(冗余)',
+    `quantity`    smallint(3) DEFAULT '1' COMMENT '数量',
+    `add_time`    datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`),
+    KEY `user_id_index` (`user_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='购物车表';

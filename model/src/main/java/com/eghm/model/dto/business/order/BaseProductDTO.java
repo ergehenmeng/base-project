@@ -27,4 +27,5 @@ public class BaseProductDTO {
     @ApiModelProperty("商品sku,普通商品时该字段不能为空")
     @NotNull(groups = ProductOrderCreateGroup.class, message = "规格信息不能为空")
     private Long skuId;
+
 }

@@ -12,6 +12,7 @@ import com.eghm.model.ProductSku;
 import com.eghm.model.ShoppingCar;
 import com.eghm.model.dto.business.shopping.AddCarDTO;
 import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.model.vo.shopping.ShoppingCarProductVO;
 import com.eghm.model.vo.shopping.ShoppingCarVO;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductSkuService;
@@ -22,7 +23,11 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.eghm.common.enums.ErrorCode.*;
 
@@ -70,7 +75,18 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public List<ShoppingCarVO> list(Long userId) {
-        return shoppingCarMapper.list(userId);
+        List<ShoppingCarProductVO> voList = shoppingCarMapper.list(userId);
+        // 根据根据店铺进行分组
+        Map<Long, List<ShoppingCarProductVO>> listMap = voList.stream().collect(Collectors.groupingBy(ShoppingCarProductVO::getStoreId, LinkedHashMap::new, Collectors.toList()));
+        List<ShoppingCarVO> vosList = new ArrayList<>();
+        for (Map.Entry<Long, List<ShoppingCarProductVO>> entry : listMap.entrySet()) {
+            ShoppingCarVO vo = new ShoppingCarVO();
+            vo.setStoreId(entry.getKey());
+            vo.setStoreTitle(entry.getValue().get(0).getStoreTitle());
+            vo.setProductList(entry.getValue());
+            vosList.add(vo);
+        }
+        return vosList;
     }
 
     @Override
