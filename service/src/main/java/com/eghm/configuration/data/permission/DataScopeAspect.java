@@ -15,7 +15,8 @@ import java.util.List;
 /**
  * 生成数据权限拦截sql
  * 涉及数据权限的表中必须包含两个字段, 用户所属部门:dept_code, 用户ID:operator_id
- * 在方法上添加@DataScope注解, 在sql中可以通过${dataScope}直接注入数据权限部分的sql
+ * 在Mapper的方法上添加@DataScope注解
+ * 在sql中可以通过${dataScope}直接注入数据权限部分的sql
  * @see DataScopeInterceptor 拦截器
  * @author 殿小二
  * @date 2020/8/14
@@ -28,7 +29,7 @@ public class DataScopeAspect {
     /**
      * 增强逻辑
      */
-    @Around("@annotation(scope) && within(com.eghm.service..*)")
+    @Around("@annotation(scope) && this(com.baomidou.mybatisplus.core.mapper.BaseMapper)")
     public Object around(ProceedingJoinPoint joinPoint, DataScope scope) throws Throwable{
         try {
             SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
@@ -53,7 +54,7 @@ public class DataScopeAspect {
         if (operator.getPermissionType() == PermissionType.ALL.getValue()) {
             builder.append(" 1 = 1");
         }
-        String alias = StrUtil.isBlank(scope.tableAlias()) ? "" : scope.tableAlias() + ".";
+        String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias() + ".";
         // 自定义
         if (operator.getPermissionType() == PermissionType.CUSTOM.getValue()) {
             List<String> deptList = operator.getDeptList();

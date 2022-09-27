@@ -19,5 +19,5 @@ public @interface DataScope {
      * 涉及数据行的表别名
      * @return 例如: select * from data t where t.dept_code = x  则该别名为 t
      */
-    String tableAlias() default "";
+    String alias() default "";
 }
