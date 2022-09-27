@@ -2,8 +2,7 @@ package com.eghm.model.dto.business.order;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
-import com.eghm.model.validation.group.HomestayOrderCreateGroup;
-import com.eghm.model.validation.group.LineOrderCreateGroup;
+import com.eghm.model.validation.group.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,11 +19,8 @@ import java.util.List;
 @Data
 public class OrderCreateDTO {
 
-    /**
-     * 商品id,例如门票id,餐饮券id,房型id
-     */
-    @ApiModelProperty("商品信息")
-    @Size(min = 1, max = 99, message = "商品不能超过99种")
+    @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
+    @Size(min = 1, max = 99, message = "商品不能超过99种", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private List<BaseProductDTO> productList;
 
     @Sign
@@ -35,14 +31,15 @@ public class OrderCreateDTO {
     private Long couponId;
 
     @ApiModelProperty("联系人电话")
-    @Mobile(message = "联系人手机号格式错误")
+    @Mobile(message = "联系人手机号格式错误", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private String mobile;
 
     @ApiModelProperty("联系人姓名")
-    @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符", groups = LineOrderCreateGroup.class)
+    @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private String nickName;
 
     @ApiModelProperty("游客信息列表")
+    @Size(min = 1, max = 99, message = "游客人数不能超过99人", groups = {LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private List<VisitorVO> visitorList;
 
     @ApiModelProperty("开始日期")

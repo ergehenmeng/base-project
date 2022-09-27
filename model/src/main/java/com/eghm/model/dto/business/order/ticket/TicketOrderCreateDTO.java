@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2022/7/27
  */
 @Data
-public class CreateTicketOrderDTO {
+public class TicketOrderCreateDTO {
 
     @ApiModelProperty("门票id")
     @NotNull(message = "门票不能为空")
