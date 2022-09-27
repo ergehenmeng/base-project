@@ -27,6 +27,9 @@ public class ShoppingCar extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "用户id")
     private Long userId;
 
+    @ApiModelProperty("商铺id")
+    private Long storeId;
+
     @ApiModelProperty(value = "商品id")
     private Long productId;
 

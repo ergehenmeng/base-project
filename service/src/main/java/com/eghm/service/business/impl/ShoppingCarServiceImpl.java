@@ -65,6 +65,8 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
             this.checkCarMax(userId);
             shoppingCar = DataUtil.copy(dto, ShoppingCar.class);
             shoppingCar.setSalePrice(sku.getSalePrice());
+            Product product = productService.selectByIdRequired(dto.getProductId());
+            shoppingCar.setStoreId(product.getStoreId());
             shoppingCarMapper.insert(shoppingCar);
         } else {
             shoppingCar.setQuantity(num);
