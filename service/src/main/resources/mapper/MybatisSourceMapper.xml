@@ -10,7 +10,6 @@
     <result column="nid" jdbcType="VARCHAR" property="nid" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="classify" jdbcType="TINYINT" property="classify" />
     <result column="locked" jdbcType="BIT" property="locked" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -26,13 +25,12 @@
         -->
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="nid" jdbcType="VARCHAR" property="nid" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
         <result column="pid" jdbcType="BIGINT" property="pid" />
         <result column="path" jdbcType="VARCHAR" property="path" />
         <result column="sub_path" jdbcType="VARCHAR" property="subPath" />
         <result column="grade" jdbcType="TINYINT" property="grade" />
         <result column="sort" jdbcType="BIGINT" property="sort" />
-        <result column="deleted" jdbcType="BIT" property="deleted" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
         <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -42,10 +40,6 @@
         <result column="role_id" jdbcType="VARCHAR" property="roleId" />
         <association property="menuList" column="menu_id"  select="getMenuById" fetchType="lazy"/>
     </resultMap>
-
-    <select id="getMenuById" resultMap="MenuResultMap" >
-        select * from sys_menu where id = #{id}
-    </select>
 
     <select id="getByRoleId" resultMap="BaseResultMap">
         select t.role_id, t.menu_id from sys_role_menu t where t.id = #{id}

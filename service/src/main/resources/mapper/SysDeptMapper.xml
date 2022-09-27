@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.mapper.SysDeptMapper">
 
     <select id="getMaxCodeChild" resultType="string">
-        select code from sys_dept where parent_code = #{code} order by code desc limit 1
+        select `code` from sys_dept where parent_code = #{code} order by `code` desc limit 1
     </select>
 
 </mapper>

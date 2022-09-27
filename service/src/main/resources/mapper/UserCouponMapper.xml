@@ -11,7 +11,7 @@
         r.nick_name as nickName,
         r.mobile
         from user_coupon t
-        left join user r on t.user_id = r.id
+        left join `user` r on t.user_id = r.id
         where t.deleted = false
         <if test="couponConfigId != null">
             and t.coupon_config_id = #{couponConfigId}

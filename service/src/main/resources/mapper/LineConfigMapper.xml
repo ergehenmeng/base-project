@@ -10,6 +10,6 @@
     
     <update id="updateStock">
         update line_config set stock = stock + #{num}, sale_num = sale_num - #{num}
-        where id = #{id} and state = true and deleted = false and stock + #{num} &gt;= 0
+        where id = #{id} and state = true and stock + #{num} &gt;= 0
     </update>
 </mapper>

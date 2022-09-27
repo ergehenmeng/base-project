@@ -492,7 +492,7 @@ CREATE TABLE `manage_log`
     `operator_id`   bigint(20) unsigned DEFAULT NULL COMMENT '操作人',
     `operator_name` varchar(50)         DEFAULT NULL COMMENT '操作人姓名',
     `request`       varchar(1000)       DEFAULT NULL COMMENT '请求参数',
-    `response`      text COMMENT '响应参数',
+    `response`      longtext COMMENT '响应参数',
     `add_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `ip`            varchar(20)         DEFAULT NULL COMMENT '访问ip',
     `business_time` bigint(12) unsigned DEFAULT NULL COMMENT '业务耗时',

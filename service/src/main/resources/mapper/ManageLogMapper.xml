@@ -20,7 +20,7 @@
 
     <select id="getByPage" parameterType="com.eghm.model.dto.log.ManageQueryRequest" resultMap="ExtBaseResultMap">
         select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,r.operator_name
-        from sys_operation_log t inner join sys_operator r on t.operator_id = r.id
+        from manage_log t inner join sys_operator r on t.operator_id = r.id
         <where>
             <if test="queryName != null and queryName != ''">
                 and (t.url like concat('%',#{queryName},'%') or
@@ -40,7 +40,7 @@
     <select id="getResponseById" resultType="string">
         select
             response
-        from sys_operation_log where id = #{id}
+        from manage_log where id = #{id}
     </select>
 
 </mapper>

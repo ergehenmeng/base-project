@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.mapper.RestaurantVoucherMapper">
 
     <update id="updateStock">
-        update restaurant_voucher set stock = state + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
-        where id = #{id} and deleted = false and stock + #{num} > 0 and audit_state = 2
+        update restaurant_voucher set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
+        where id = #{id} and deleted = false and stock + #{num} > 0
     </update>
 </mapper>

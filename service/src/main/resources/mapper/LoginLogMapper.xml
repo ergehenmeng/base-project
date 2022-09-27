@@ -19,7 +19,7 @@
 
     <select id="getLastLogin" resultMap="BaseResultMap">
         select
-        id, user_id, channel, ip, add_time, device_brand, device_model, software_version, serial_number
+        id, user_id, `channel`, ip, add_time, device_brand, device_model, software_version, serial_number
         from login_log where user_id = #{userId} order by id desc limit 1
     </select>
 
