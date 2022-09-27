@@ -2,7 +2,7 @@ package com.eghm.service.business.handler.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ref.OrderState;
-import com.eghm.dao.model.Order;
+import com.eghm.model.Order;
 import com.eghm.model.dto.business.order.BaseProductDTO;
 import com.eghm.model.dto.business.order.OrderCreateDTO;
 import com.eghm.model.dto.ext.BaseProduct;

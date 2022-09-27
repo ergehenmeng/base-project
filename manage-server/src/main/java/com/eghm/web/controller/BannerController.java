@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.Banner;
+import com.eghm.model.Banner;
 import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.model.dto.banner.BannerQueryRequest;

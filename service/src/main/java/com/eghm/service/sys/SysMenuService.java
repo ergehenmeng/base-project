@@ -1,6 +1,6 @@
 package com.eghm.service.sys;
 
-import com.eghm.dao.model.SysMenu;
+import com.eghm.model.SysMenu;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.model.vo.menu.MenuResponse;

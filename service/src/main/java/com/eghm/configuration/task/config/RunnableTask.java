@@ -2,7 +2,7 @@ package com.eghm.configuration.task.config;
 
 import cn.hutool.core.util.ReflectUtil;
 import com.eghm.common.utils.DateUtil;
-import com.eghm.dao.model.SysTaskLog;
+import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
 import com.eghm.service.common.TaskAlarmService;
 import com.eghm.utils.IpUtil;

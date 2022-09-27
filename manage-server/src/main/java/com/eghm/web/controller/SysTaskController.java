@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.task.config.SysTaskRegistrar;
-import com.eghm.dao.model.SysTask;
+import com.eghm.model.SysTask;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.task.TaskEditRequest;

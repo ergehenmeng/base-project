@@ -1,7 +1,7 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.dao.mapper.ShippingAddressMapper;
-import com.eghm.dao.model.ShippingAddress;
+import com.eghm.mapper.ShippingAddressMapper;
+import com.eghm.model.ShippingAddress;
 import com.eghm.service.business.ShippingAddressService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

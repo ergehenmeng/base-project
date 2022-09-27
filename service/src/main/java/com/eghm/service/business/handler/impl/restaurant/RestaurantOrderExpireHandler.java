@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.impl.restaurant;
 
-import com.eghm.dao.model.Order;
-import com.eghm.dao.model.RestaurantOrder;
+import com.eghm.model.Order;
+import com.eghm.model.RestaurantOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.RestaurantOrderService;
 import com.eghm.service.business.RestaurantVoucherService;

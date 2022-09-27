@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.LineConfig;
+import com.eghm.model.LineConfig;
 import com.eghm.model.dto.business.line.config.LineConfigQueryRequest;
 import com.eghm.model.dto.business.line.config.LineConfigRequest;
 import com.eghm.model.vo.business.line.config.LineConfigResponse;

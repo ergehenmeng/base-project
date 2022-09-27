@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.BlackRoster;
+import com.eghm.model.BlackRoster;
 import com.eghm.model.dto.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.roster.BlackRosterQueryRequest;
 

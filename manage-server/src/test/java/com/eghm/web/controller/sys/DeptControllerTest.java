@@ -1,16 +1,14 @@
 package com.eghm.web.controller.sys;
 
 import com.eghm.common.utils.StringUtil;
-import com.eghm.dao.mapper.SysMenuMapper;
-import com.eghm.dao.model.SysMenu;
+import com.eghm.mapper.SysMenuMapper;
+import com.eghm.model.SysMenu;
 import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.web.BaseTest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.test.context.support.WithUserDetails;
 
 import java.util.List;
 

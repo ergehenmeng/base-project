@@ -1,11 +1,10 @@
 package com.eghm.service.mq.listener;
 
 import com.eghm.common.constant.QueueConstant;
-import com.eghm.dao.model.ManageLog;
-import com.eghm.dao.model.WebappLog;
+import com.eghm.model.ManageLog;
+import com.eghm.model.WebappLog;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.OrderService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;

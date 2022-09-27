@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.dao.mapper.WebappLogMapper;
-import com.eghm.dao.model.WebappLog;
+import com.eghm.mapper.WebappLogMapper;
+import com.eghm.model.WebappLog;
 import com.eghm.service.sys.WebappLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

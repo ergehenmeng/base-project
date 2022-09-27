@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.ShippingAddress;
+import com.eghm.model.ShippingAddress;
 
 /**
  * @author 二哥很猛

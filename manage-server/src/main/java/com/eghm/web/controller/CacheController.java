@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.dao.model.SysCache;
+import com.eghm.model.SysCache;
 import com.eghm.model.dto.cache.ClearCacheRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;

@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.HomestayOrder;
+import com.eghm.model.HomestayOrder;
 
 /**
  * @author 二哥很猛

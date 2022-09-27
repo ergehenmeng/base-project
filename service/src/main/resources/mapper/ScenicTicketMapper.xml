@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.ScenicTicketMapper">
+
+    <select id="getByPage"  parameterType="com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest" resultType="com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse">
+        select
+        t.id,
+        t.title,
+        t.scenic_id as scenicId,
+        t.state,
+        t.category,
+        t.cover_url as coverUrl,
+        t.line_price as linePrice,
+        t.sale_price as salePrice,
+        t.cost_price as costPrice,
+        t.advance_day as advanceDay,
+        t.quota,
+        t.start_date as startDate,
+        t.end_date as endDate,
+        t.stock,
+        t.total_num - t.sale_num as virtualNum,
+        t.introduce,
+        t.valid_days as validDays,
+        t.effective_date as effectDate,
+        t.expire_date as expireDate,
+        t.use_scope as useScope,
+        t.verification_type as verificationType,
+        t.support_refund as supportRefund,
+        t.real_buy as realBuy,
+        r.scenic_name as scenicName
+        from scenic_ticket t
+        left join scenic r on t.scenic_id = r.id
+        where t.deleted = false
+        <if test="merchantId != null">
+            and r.merchant_id = #{merchantId}
+        </if>
+        <if test="scenicId != null">
+            and t.scenic_id = #{scenicId}
+        </if>
+        <if test="category != null">
+            and t.category = #{category}
+        </if>
+        <if test="state != null">
+            and t.state = #{state}
+        </if>
+        <if test="queryName != null and queryName != ''">
+            and t.title like concat('%', #{queryName} ,'%')
+        </if>
+    </select>
+
+    <select id="getTicketList" resultType="com.eghm.model.vo.scenic.ticket.TicketBaseVO">
+        select
+        id,
+        title,
+        line_price as linePrice,
+        sale_price as salePrice
+        from scenic_ticket where deleted = false and audit_state = 2 and stock > 0 and end_date &gt; now()
+        and scenic_id = #{scenicId} order by id desc
+    </select>
+
+    <update id="updateStock" >
+        update scenic_ticket set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
+        where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and audit_state = 2
+    </update>
+</mapper>

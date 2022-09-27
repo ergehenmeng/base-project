@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SysTask;
+import com.eghm.model.SysTask;
 import com.eghm.model.dto.task.TaskEditRequest;
 import com.eghm.model.dto.task.TaskQueryRequest;
 

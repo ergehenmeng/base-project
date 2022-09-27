@@ -9,9 +9,8 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.mapper.LineMapper;
-import com.eghm.dao.model.Homestay;
-import com.eghm.dao.model.Line;
+import com.eghm.mapper.LineMapper;
+import com.eghm.model.Line;
 import com.eghm.model.dto.business.line.LineAddRequest;
 import com.eghm.model.dto.business.line.LineEditRequest;
 import com.eghm.model.dto.business.line.LineQueryRequest;
@@ -23,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import static com.eghm.common.enums.ErrorCode.LINE_DOWN;
-import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
 
 /**
  * @author 二哥很猛

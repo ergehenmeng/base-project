@@ -1,6 +1,6 @@
 package com.eghm.service.user;
 
-import com.eghm.dao.model.UserInviteLog;
+import com.eghm.model.UserInviteLog;
 
 /**
  * @author 殿小二

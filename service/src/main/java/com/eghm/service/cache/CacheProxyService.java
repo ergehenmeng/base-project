@@ -2,7 +2,7 @@ package com.eghm.service.cache;
 
 import com.eghm.common.enums.Channel;
 import com.eghm.common.enums.EmailType;
-import com.eghm.dao.model.*;
+import com.eghm.model.*;
 import com.eghm.model.dto.banner.BannerAddRequest;
 import com.eghm.model.dto.banner.BannerEditRequest;
 import com.eghm.service.pay.enums.MerchantType;

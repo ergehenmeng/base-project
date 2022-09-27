@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.impl.ticket;
 
-import com.eghm.dao.model.Order;
-import com.eghm.dao.model.TicketOrder;
+import com.eghm.model.Order;
+import com.eghm.model.TicketOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.business.TicketOrderService;

@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.CouponMode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.mapper.CouponConfigMapper;
-import com.eghm.dao.model.CouponConfig;
+import com.eghm.mapper.CouponConfigMapper;
+import com.eghm.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
@@ -18,7 +18,6 @@ import com.eghm.service.business.CouponProductService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.functors.ConstantFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

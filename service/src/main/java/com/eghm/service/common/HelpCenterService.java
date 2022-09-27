@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.HelpCenter;
+import com.eghm.model.HelpCenter;
 import com.eghm.model.dto.help.HelpAddRequest;
 import com.eghm.model.dto.help.HelpEditRequest;
 import com.eghm.model.dto.help.HelpQueryDTO;

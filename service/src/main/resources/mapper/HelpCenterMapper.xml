@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.HelpCenterMapper">
+    <resultMap id="BaseResultMap" type="com.eghm.model.HelpCenter">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="classify" jdbcType="TINYINT" property="classify"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="ask" jdbcType="VARCHAR" property="ask"/>
+        <result column="answer" jdbcType="VARCHAR" property="answer"/>
+        <result column="sort" jdbcType="TINYINT" property="sort"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+    </resultMap>
+
+    <select id="getListSorted" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
+        select classify, ask, answer from help_center where deleted = false and state = true and classify = #{classify}
+        <if test="queryName != null and queryName != ''">
+            and (ask like concat('%', #{queryName}, '%') or answer like concat('%', #{queryName} ,'%'))
+        </if>
+        order by sort
+    </select>
+</mapper>

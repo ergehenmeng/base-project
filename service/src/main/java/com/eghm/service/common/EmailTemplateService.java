@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.eghm.common.enums.EmailType;
-import com.eghm.dao.model.EmailTemplate;
+import com.eghm.model.EmailTemplate;
 
 /**
  * @author 殿小二

@@ -7,7 +7,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.dao.model.SysOperator;
+import com.eghm.model.SysOperator;
 import com.eghm.model.dto.ext.JwtToken;
 import com.eghm.service.common.JwtTokenService;
 import lombok.AllArgsConstructor;

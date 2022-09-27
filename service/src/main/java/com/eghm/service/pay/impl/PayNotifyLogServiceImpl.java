@@ -1,7 +1,7 @@
 package com.eghm.service.pay.impl;
 
-import com.eghm.dao.mapper.PayNotifyLogMapper;
-import com.eghm.dao.model.PayNotifyLog;
+import com.eghm.mapper.PayNotifyLogMapper;
+import com.eghm.model.PayNotifyLog;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.enums.NotifyType;
 import com.eghm.service.pay.enums.TradeType;

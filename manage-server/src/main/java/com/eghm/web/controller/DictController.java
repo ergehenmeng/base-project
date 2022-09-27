@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.dao.model.SysDict;
+import com.eghm.model.SysDict;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;

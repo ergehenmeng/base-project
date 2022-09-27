@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SmsLog;
+import com.eghm.model.SmsLog;
 import com.eghm.model.dto.sms.SmsLogQueryRequest;
 
 import java.util.Date;

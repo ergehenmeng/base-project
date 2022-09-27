@@ -1,6 +1,6 @@
 package com.eghm.service.user;
 
-import com.eghm.dao.model.User;
+import com.eghm.model.User;
 import com.eghm.model.dto.login.AccountLoginDTO;
 import com.eghm.model.dto.login.SmsLoginDTO;
 import com.eghm.model.dto.register.RegisterUserDTO;

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.ManageLogMapper">
+    <resultMap id="BaseResultMap" type="com.eghm.model.ManageLog">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="operator_id" jdbcType="BIGINT" property="operatorId"/>
+        <result column="request" jdbcType="VARCHAR" property="request"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="ip" jdbcType="BIGINT" property="ip"/>
+        <result column="business_time" jdbcType="BIGINT" property="businessTime"/>
+    </resultMap>
+
+    <resultMap id="ExtBaseResultMap" type="com.eghm.model.ManageLog" extends="BaseResultMap">
+        <result column="operator_name" jdbcType="VARCHAR" property="operatorName"/>
+    </resultMap>
+
+    <select id="getByPage" parameterType="com.eghm.model.dto.log.ManageQueryRequest" resultMap="ExtBaseResultMap">
+        select t.id, t.url, t.operator_id, t.request, t.add_time, t.ip, t.business_time,r.operator_name
+        from sys_operation_log t inner join sys_operator r on t.operator_id = r.id
+        <where>
+            <if test="queryName != null and queryName != ''">
+                and (t.url like concat('%',#{queryName},'%') or
+                r.operator_name like concat('%',#{queryName},'%') or
+                t.ip like concat('%',#{ip},'%') )
+            </if>
+            <if test="startTime != null">
+                and t.add_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null">
+                and t.add_time &lt; #{endTime}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <select id="getResponseById" resultType="string">
+        select
+            response
+        from sys_operation_log where id = #{id}
+    </select>
+
+</mapper>

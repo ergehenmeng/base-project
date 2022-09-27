@@ -1,7 +1,7 @@
 package com.eghm.service.pay;
 
 import com.eghm.service.pay.enums.MerchantType;
-import com.eghm.dao.model.AppletPayConfig;
+import com.eghm.model.AppletPayConfig;
 
 public interface AppletPayConfigService {
 

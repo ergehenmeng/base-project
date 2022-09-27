@@ -1,6 +1,6 @@
 package com.eghm.service.pay.impl;
 
-import com.eghm.dao.model.AppletPayConfig;
+import com.eghm.model.AppletPayConfig;
 import com.eghm.service.pay.AppletPayConfigService;
 import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.service.cache.CacheProxyService;

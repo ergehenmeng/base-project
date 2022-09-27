@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.configuration.security.CustomFilterInvocationSecurityMetadataSource;
-import com.eghm.dao.model.SysMenu;
+import com.eghm.model.SysMenu;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.IdStateDTO;
 import com.eghm.model.dto.ext.RespBody;

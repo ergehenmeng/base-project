@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.CouponConfig;
+import com.eghm.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;

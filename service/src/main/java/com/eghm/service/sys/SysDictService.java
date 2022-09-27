@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SysDict;
+import com.eghm.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;

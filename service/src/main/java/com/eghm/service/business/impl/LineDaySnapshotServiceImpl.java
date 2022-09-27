@@ -1,8 +1,8 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.dao.mapper.LineDaySnapshotMapper;
-import com.eghm.dao.model.LineDayConfig;
-import com.eghm.dao.model.LineDaySnapshot;
+import com.eghm.mapper.LineDaySnapshotMapper;
+import com.eghm.model.LineDayConfig;
+import com.eghm.model.LineDaySnapshot;
 import com.eghm.service.business.LineDaySnapshotService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

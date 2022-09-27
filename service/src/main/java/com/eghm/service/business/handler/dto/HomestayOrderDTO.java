@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.dao.model.HomestayRoom;
-import com.eghm.dao.model.HomestayRoomConfig;
+import com.eghm.model.HomestayRoom;
+import com.eghm.model.HomestayRoomConfig;
 import lombok.Data;
 
 import java.util.List;

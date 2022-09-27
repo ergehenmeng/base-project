@@ -2,7 +2,7 @@ package com.eghm.web.configuration.handler;
 
 
 import com.eghm.common.enums.RabbitQueue;
-import com.eghm.dao.model.WebappLog;
+import com.eghm.model.WebappLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.service.mq.service.MessageService;

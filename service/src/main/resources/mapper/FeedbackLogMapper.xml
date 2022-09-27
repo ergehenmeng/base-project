@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.FeedbackLogMapper">
+    <resultMap id="BaseResultMap" type="com.eghm.model.FeedbackLog">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="state" jdbcType="TINYINT" property="state"/>
+        <result column="classify" jdbcType="TINYINT" property="classify"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="system_version" jdbcType="VARCHAR" property="systemVersion"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand"/>
+        <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
+    </resultMap>
+
+    <resultMap id="ListResultMap" type="com.eghm.model.vo.feedback.FeedbackVO" extends="BaseResultMap">
+        <result column="nick_name" jdbcType="CHAR" property="nickName"/>
+        <result column="mobile" jdbcType="CHAR" property="mobile"/>
+    </resultMap>
+
+    <select id="getByPage" parameterType="com.eghm.model.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
+        select
+        t.id,
+        t.user_id,
+        t.state,
+        t.classify,
+        t.version,
+        t.system_version,
+        t.content,
+        t.add_time,
+        t.update_time,
+        t.device_brand,
+        t.device_model
+        r.nick_name,
+        r.mobile
+        from feedback_log t inner join user r on t.user_id = r.id
+        <where>
+            <if test="queryName != null and queryName != ''">
+                and r.mobile = #{queryName}
+            </if>
+            <if test="classify != null">
+                and t.classify = #{classify}
+            </if>
+            <if test="state != null">
+                and t.state = #{state}
+            </if>
+        </where>
+    </select>
+</mapper>

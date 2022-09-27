@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.OrderRefundLog;
+import com.eghm.model.OrderRefundLog;
 import com.eghm.model.dto.ext.OrderRefund;
 
 import java.util.List;

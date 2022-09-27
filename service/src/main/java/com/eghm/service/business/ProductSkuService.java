@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.ProductSku;
+import com.eghm.model.ProductSku;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 
 import java.util.List;

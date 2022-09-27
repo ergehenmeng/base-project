@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SysTaskLog;
+import com.eghm.model.SysTaskLog;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.SysTaskLogService;

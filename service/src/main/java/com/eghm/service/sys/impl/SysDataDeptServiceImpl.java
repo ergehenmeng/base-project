@@ -2,8 +2,8 @@ package com.eghm.service.sys.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dao.mapper.SysDataDeptMapper;
-import com.eghm.dao.model.SysDataDept;
+import com.eghm.mapper.SysDataDeptMapper;
+import com.eghm.model.SysDataDept;
 import com.eghm.service.sys.SysDataDeptService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

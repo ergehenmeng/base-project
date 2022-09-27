@@ -1,6 +1,6 @@
 package com.eghm.service.sys;
 
-import com.eghm.dao.model.SysDataDept;
+import com.eghm.model.SysDataDept;
 
 import java.util.List;
 

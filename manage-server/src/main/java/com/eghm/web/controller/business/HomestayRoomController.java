@@ -3,7 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
-import com.eghm.dao.model.HomestayRoom;
+import com.eghm.model.HomestayRoom;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomEditRequest;

@@ -2,8 +2,8 @@ package com.eghm.service.business.handler.impl.ticket;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.Order;
-import com.eghm.dao.model.TicketOrder;
+import com.eghm.model.Order;
+import com.eghm.model.TicketOrder;
 import com.eghm.model.dto.business.order.ApplyRefundDTO;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;

@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.dao.mapper.VerifyLogMapper;
+import com.eghm.mapper.VerifyLogMapper;
 import com.eghm.service.business.VerifyLogService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

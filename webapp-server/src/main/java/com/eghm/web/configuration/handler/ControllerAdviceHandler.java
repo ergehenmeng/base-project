@@ -6,7 +6,7 @@ import com.eghm.common.exception.AiliPayException;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
 import com.eghm.common.exception.WeChatPayException;
-import com.eghm.dao.model.WebappLog;
+import com.eghm.model.WebappLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.dto.ext.RespBody;

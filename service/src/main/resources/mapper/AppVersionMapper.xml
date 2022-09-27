@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.AppVersionMapper">
+    <resultMap id="BaseResultMap" type="com.eghm.model.AppVersion">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="classify" jdbcType="VARCHAR" property="classify"/>
+        <result column="version" jdbcType="VARCHAR" property="version"/>
+        <result column="force_update" jdbcType="BIT" property="forceUpdate"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="version_no" jdbcType="INTEGER" property="versionNo"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="deleted" jdbcType="BIT" property="deleted"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time
+    </sql>
+
+    <select id="getLatestVersion" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from app_version where classify = #{classify} and deleted = false order by version_no desc limit 1
+    </select>
+
+    <select id="getVersion" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from app_version where classify = #{classify} and deleted = false and version = #{version} limit 1
+    </select>
+
+    <select id="getForceUpdateVersion" resultMap="BaseResultMap">
+        select
+        <include refid="BaseColumnList"/>
+        from app_version
+        where
+        classify = #{classify}
+        and deleted = false
+        and force_update = true
+        and version_no &gt; #{startVersion}
+        and version_no &lt; #{endVersion}
+    </select>
+</mapper>

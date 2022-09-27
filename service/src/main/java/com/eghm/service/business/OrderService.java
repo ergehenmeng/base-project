@@ -1,8 +1,8 @@
 package com.eghm.service.business;
 
 import com.eghm.common.enums.ref.OrderState;
-import com.eghm.dao.model.Order;
-import com.eghm.dao.model.OrderRefundLog;
+import com.eghm.model.Order;
+import com.eghm.model.OrderRefundLog;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;

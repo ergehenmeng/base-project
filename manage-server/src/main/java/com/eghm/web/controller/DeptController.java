@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.dao.model.SysDept;
+import com.eghm.model.SysDept;
 import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
 import com.eghm.model.dto.ext.RespBody;

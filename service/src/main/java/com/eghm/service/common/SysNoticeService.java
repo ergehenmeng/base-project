@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SysNotice;
+import com.eghm.model.SysNotice;
 import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;

@@ -2,7 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.CouponMode;
-import com.eghm.dao.model.CouponConfig;
+import com.eghm.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
 import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
 import com.eghm.model.dto.ext.PageData;

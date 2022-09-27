@@ -1,6 +1,6 @@
 package com.eghm.service.sys;
 
-import com.eghm.dao.model.WebappLog;
+import com.eghm.model.WebappLog;
 
 /**
  * @author 二哥很猛

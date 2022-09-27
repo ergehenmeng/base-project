@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.SysMenuMapper">
+    <resultMap id="BaseResultMap" type="com.eghm.model.SysMenu">
+        <!--
+          @create by mybatis
+        -->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="code" jdbcType="VARCHAR" property="code"/>
+        <result column="pid" jdbcType="VARCHAR" property="pid"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="sub_path" jdbcType="VARCHAR" property="subPath"/>
+        <result column="grade" jdbcType="TINYINT" property="grade"/>
+        <result column="sort" jdbcType="BIGINT" property="sort"/>
+        <result column="state" jdbcType="BIT" property="state"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="BaseColumnList">
+        <!--
+          @create by mybatis
+        -->
+        t.id, t.title, t.code, t.pid, t.path,t.sub_path, t.grade, t.sort, t.state, t.remark, t.add_time, t.update_time
+    </sql>
+
+    <select id="getLeftMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
+        SELECT
+        t.id, t.title, t.code, t.pid, t.path, t.sort
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
+        where t.state = true and t.grade = 1
+        <if test="operatorId != null">
+            and o.operator_id = #{operatorId}
+        </if>
+    </select>
+
+    <select id="getButtonList" resultType="string">
+        SELECT
+        t.code
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
+        where t.state = true and t.grade = 2
+        <if test="operatorId != null" >
+            and o.operator_id = #{operatorId}
+        </if>
+    </select>
+
+    <select id="getList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumnList"/>
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
+        where o.operator_id = #{operatorId} and t.state = true
+    </select>
+
+    <select id="getMaxId" resultType="string">
+        select id from sys_menu where pid = #{pid} and state = true order by id desc limit 1
+    </select>
+</mapper>

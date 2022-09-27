@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.RestaurantOrder;
+import com.eghm.model.RestaurantOrder;
 
 /**
  * @author 二哥很猛

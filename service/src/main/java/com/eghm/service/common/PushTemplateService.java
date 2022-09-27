@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.PushTemplate;
+import com.eghm.model.PushTemplate;
 import com.eghm.model.dto.push.PushTemplateEditRequest;
 import com.eghm.model.dto.push.PushTemplateQueryRequest;
 

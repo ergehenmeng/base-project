@@ -1,7 +1,7 @@
 package com.eghm.service.common.impl;
 
 import com.eghm.common.enums.EmailType;
-import com.eghm.dao.model.EmailTemplate;
+import com.eghm.model.EmailTemplate;
 import com.eghm.service.common.EmailTemplateService;
 import com.eghm.service.cache.CacheProxyService;
 import lombok.AllArgsConstructor;

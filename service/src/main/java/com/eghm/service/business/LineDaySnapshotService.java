@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.LineDayConfig;
+import com.eghm.model.LineDayConfig;
 
 import java.util.List;
 

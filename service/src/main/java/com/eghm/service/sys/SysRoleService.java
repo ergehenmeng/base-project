@@ -1,7 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.SysRole;
+import com.eghm.model.SysRole;
 import com.eghm.model.dto.role.RoleAddRequest;
 import com.eghm.model.dto.role.RoleEditRequest;
 import com.eghm.model.dto.role.RoleQueryRequest;

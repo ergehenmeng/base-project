@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.CouponConfigMapper">
+
+    <update id="updateStock" >
+        update coupon_config set stock = stock + #{num}, receive_num = receive_num - #{num}
+        where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and state = true
+    </update>
+</mapper>

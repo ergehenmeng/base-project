@@ -1,7 +1,7 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.dao.mapper.TagViewMapper;
-import com.eghm.dao.model.TagView;
+import com.eghm.mapper.TagViewMapper;
+import com.eghm.model.TagView;
 import com.eghm.service.common.TagViewService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

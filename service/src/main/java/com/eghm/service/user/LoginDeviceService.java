@@ -1,6 +1,6 @@
 package com.eghm.service.user;
 
-import com.eghm.dao.model.LoginDevice;
+import com.eghm.model.LoginDevice;
 import com.eghm.model.vo.user.LoginDeviceVO;
 
 import java.util.List;

@@ -1,11 +1,10 @@
 package com.eghm.web.configuration.handler;
 
-import cn.hutool.core.net.NetUtil;
 import com.eghm.common.enums.RabbitQueue;
 import com.eghm.configuration.security.SecurityOperator;
 import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dao.model.ManageLog;
+import com.eghm.model.ManageLog;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;

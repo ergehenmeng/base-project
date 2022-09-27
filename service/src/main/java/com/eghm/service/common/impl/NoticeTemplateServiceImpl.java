@@ -1,6 +1,6 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.dao.model.NoticeTemplate;
+import com.eghm.model.NoticeTemplate;
 import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.service.cache.CacheProxyService;
 import lombok.AllArgsConstructor;

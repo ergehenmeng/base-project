@@ -1,6 +1,6 @@
 package com.eghm.service.sys;
 
-import com.eghm.dao.model.SysArea;
+import com.eghm.model.SysArea;
 import com.eghm.model.vo.sys.SysAreaVO;
 
 import java.util.List;

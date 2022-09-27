@@ -16,7 +16,7 @@ import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.eghm.configuration.PushProperties;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.dao.model.PushTemplate;
+import com.eghm.model.PushTemplate;
 import com.eghm.model.dto.ext.PushMessage;
 import com.eghm.model.dto.ext.PushNotice;
 import com.eghm.model.dto.ext.PushTemplateNotice;

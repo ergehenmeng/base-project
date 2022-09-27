@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.job;
 
-import com.eghm.dao.model.Order;
+import com.eghm.model.Order;
 import com.eghm.model.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;

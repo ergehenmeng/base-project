@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.SysOperator;
+import com.eghm.model.SysOperator;
 import com.eghm.model.dto.ext.JwtToken;
 
 import java.util.List;

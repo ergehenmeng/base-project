@@ -13,7 +13,6 @@
     <modules>
         <module>model</module>
         <module>common</module>
-        <module>dao</module>
         <module>service</module>
         <module>webapp-server</module>
         <module>manage-server</module>

@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.impl.line;
 
-import com.eghm.dao.model.LineOrder;
-import com.eghm.dao.model.Order;
+import com.eghm.model.LineOrder;
+import com.eghm.model.Order;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderService;

@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.HomestayRoomConfig;
+import com.eghm.model.HomestayRoomConfig;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;

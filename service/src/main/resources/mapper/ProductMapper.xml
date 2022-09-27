@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.ProductMapper">
+
+    <update id="updateSaleNum" >
+        update product set sale_num = sale_num + #{num}, total_num = total_num + #{num} where id = #{id}
+    </update>
+
+    <update id="updateSaleNumByOrderNo">
+        update product t, product_order r set t.sale_num = t.sale_num + r.num, t.total_num = t.total_num + r.num
+        where t.id = r.product_id and r.order_no = #{orderNo}
+    </update>
+</mapper>

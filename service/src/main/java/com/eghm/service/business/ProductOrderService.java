@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.ProductOrder;
+import com.eghm.model.ProductOrder;
 import com.eghm.service.business.handler.dto.OrderPackage;
 
 import java.util.List;

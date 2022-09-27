@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.dao.model.Product;
-import com.eghm.dao.model.ProductSku;
+import com.eghm.model.Product;
+import com.eghm.model.ProductSku;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

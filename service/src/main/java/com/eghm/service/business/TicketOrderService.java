@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.TicketOrder;
+import com.eghm.model.TicketOrder;
 
 /**
  * @author 二哥很猛

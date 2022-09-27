@@ -1,9 +1,9 @@
 package com.eghm.web.controller.sys;
 
-import com.eghm.dao.mapper.MybatisSourceMapper;
-import com.eghm.dao.model.MybatisRoleMenu;
-import com.eghm.dao.model.SysMenu;
-import com.eghm.dao.model.User;
+import com.eghm.mapper.MybatisSourceMapper;
+import com.eghm.model.MybatisRoleMenu;
+import com.eghm.model.SysMenu;
+import com.eghm.model.User;
 import com.eghm.handler.chain.HandlerChain;
 import com.eghm.handler.chain.MessageData;
 import com.eghm.handler.chain.annotation.HandlerEnum;

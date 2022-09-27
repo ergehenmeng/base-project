@@ -1,7 +1,7 @@
 package com.eghm.service.user.impl;
 
-import com.eghm.dao.mapper.UserInviteLogMapper;
-import com.eghm.dao.model.UserInviteLog;
+import com.eghm.mapper.UserInviteLogMapper;
+import com.eghm.model.UserInviteLog;
 import com.eghm.service.user.UserInviteLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

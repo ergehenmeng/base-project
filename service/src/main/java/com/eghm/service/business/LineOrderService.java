@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.LineOrder;
+import com.eghm.model.LineOrder;
 
 /**
  * @author 二哥很猛

@@ -1,8 +1,8 @@
 package com.eghm.service.business.handler.impl.line;
 
-import com.eghm.dao.model.LineOrder;
-import com.eghm.dao.model.Order;
-import com.eghm.dao.model.OrderRefundLog;
+import com.eghm.model.LineOrder;
+import com.eghm.model.Order;
+import com.eghm.model.OrderRefundLog;
 import com.eghm.model.dto.business.order.RefundNotifyDTO;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineOrderService;

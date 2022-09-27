@@ -1,7 +1,7 @@
 package com.eghm.configuration.security;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.dao.model.SysMenu;
+import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;

@@ -1,7 +1,7 @@
 package com.eghm.configuration.security;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.eghm.dao.model.SysOperator;
+import com.eghm.model.SysOperator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

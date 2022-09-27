@@ -3,7 +3,7 @@ package com.eghm.configuration.task.config;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.dao.model.SysTask;
+import com.eghm.model.SysTask;
 import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

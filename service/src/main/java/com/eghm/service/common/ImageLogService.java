@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dao.model.ImageLog;
+import com.eghm.model.ImageLog;
 import com.eghm.model.dto.image.ImageAddRequest;
 import com.eghm.model.dto.image.ImageEditRequest;
 import com.eghm.model.dto.image.ImageQueryRequest;

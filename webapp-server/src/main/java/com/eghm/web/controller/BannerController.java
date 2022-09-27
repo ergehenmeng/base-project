@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
 import com.eghm.common.enums.Channel;
-import com.eghm.dao.model.Banner;
+import com.eghm.model.Banner;
 import com.eghm.model.dto.banner.BannerQueryDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;

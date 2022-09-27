@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.SysDeptMapper">
+
+    <select id="getMaxCodeChild" resultType="string">
+        select code from sys_dept where parent_code = #{code} order by code desc limit 1
+    </select>
+
+</mapper>

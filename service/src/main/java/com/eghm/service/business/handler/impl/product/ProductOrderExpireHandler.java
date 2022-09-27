@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.impl.product;
 
-import com.eghm.dao.model.Order;
-import com.eghm.dao.model.ProductOrder;
+import com.eghm.model.Order;
+import com.eghm.model.ProductOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ProductOrderService;
 import com.eghm.service.business.ProductSkuService;

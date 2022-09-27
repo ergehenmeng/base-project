@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dao.model.HomestayRoomConfig;
+import com.eghm.model.HomestayRoomConfig;
 
 import java.util.List;
 

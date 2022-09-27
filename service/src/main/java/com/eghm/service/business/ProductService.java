@@ -3,7 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
-import com.eghm.dao.model.Product;
+import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;

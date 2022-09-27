@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dao.model.NoticeTemplate;
+import com.eghm.model.NoticeTemplate;
 
 /**
  * @author 殿小二

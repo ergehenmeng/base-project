@@ -2,7 +2,7 @@ package com.eghm.service.sys;
 
 import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
-import com.eghm.dao.model.SysDept;
+import com.eghm.model.SysDept;
 
 import java.util.List;
 
