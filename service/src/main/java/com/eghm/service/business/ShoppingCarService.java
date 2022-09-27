@@ -22,7 +22,7 @@ public interface ShoppingCarService {
      * @param userId 用户id
      * @return 商品列表
      */
-    List<ShoppingCarVO> list(Long userId);
+    List<ShoppingCarVO> getList(Long userId);
 
     /**
      * 删除购物车商品

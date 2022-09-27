@@ -22,5 +22,5 @@ public interface ShoppingCarMapper extends BaseMapper<ShoppingCar> {
      * @param userId 用户id
      * @return 商品列表
      */
-    List<ShoppingCarProductVO > list(@Param("userId") Long userId);
+    List<ShoppingCarProductVO > getList(@Param("userId") Long userId);
 }

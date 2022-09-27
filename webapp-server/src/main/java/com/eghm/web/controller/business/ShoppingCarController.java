@@ -37,7 +37,7 @@ public class ShoppingCarController {
     @GetMapping("/list")
     @ApiOperation("购物车商品列表")
     public List<ShoppingCarVO> list() {
-        return shoppingCarService.list(ApiHolder.getUserId());
+        return shoppingCarService.getList(ApiHolder.getUserId());
     }
 
     @GetMapping("/delete")

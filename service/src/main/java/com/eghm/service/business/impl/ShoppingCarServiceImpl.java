@@ -74,8 +74,8 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
     }
 
     @Override
-    public List<ShoppingCarVO> list(Long userId) {
-        List<ShoppingCarProductVO> voList = shoppingCarMapper.list(userId);
+    public List<ShoppingCarVO> getList(Long userId) {
+        List<ShoppingCarProductVO> voList = shoppingCarMapper.getList(userId);
         // 根据根据店铺进行分组
         Map<Long, List<ShoppingCarProductVO>> listMap = voList.stream().collect(Collectors.groupingBy(ShoppingCarProductVO::getStoreId, LinkedHashMap::new, Collectors.toList()));
         List<ShoppingCarVO> vosList = new ArrayList<>();
