@@ -28,8 +28,5 @@ public class SystemConstant {
      */
     public static final String DEFAULT_FOLDER = "image";
 
-    /**
-     * 默认的缓存占位符
-     */
-    public static final String CACHE_PLACE_HOLDER = "#";
+
 }

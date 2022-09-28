@@ -1,11 +1,12 @@
 package com.eghm.model.dto.business.order;
 
 import com.eghm.model.annotation.Sign;
+import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.group.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,8 +17,11 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/7/27
  */
-@Data
-public class OrderCreateDTO {
+@Getter
+@Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class OrderCreateDTO extends AsyncKey {
 
     @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
     @Size(min = 1, max = 99, message = "商品不能超过99种", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})

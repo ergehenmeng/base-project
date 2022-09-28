@@ -51,4 +51,9 @@ public class CommonConstant {
      * idea强迫症
      */
     public static final String LIMIT_ONE = " limit 1 ";
+
+    /**
+     * 异步消息在MQ中最大存放时间
+     */
+    public static final long ASYNC_MSG_EXPIRE = 60000;
 }

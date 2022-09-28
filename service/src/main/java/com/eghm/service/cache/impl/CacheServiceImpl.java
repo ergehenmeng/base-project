@@ -110,7 +110,7 @@ public class CacheServiceImpl implements CacheService {
             log.warn("获取缓存数据异常", e);
             return supplier.get();
         }
-        if (SystemConstant.CACHE_PLACE_HOLDER.equals(value)) {
+        if (CacheConstant.PLACE_HOLDER.equals(value)) {
             return null;
         }
         if (value != null) {
@@ -135,7 +135,7 @@ public class CacheServiceImpl implements CacheService {
             this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
             // 数据库也没有查询到,填充默认值
-            this.setValue(key, SystemConstant.CACHE_PLACE_HOLDER, sysConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
+            this.setValue(key, CacheConstant.PLACE_HOLDER, sysConfigApi.getLong(ConfigConstant.NULL_EXPIRE, DEFAULT_EXPIRE));
         }
         return result;
     }
@@ -148,7 +148,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 数据结果
      */
     private <T> T mutexLock(String key, Supplier<T> supplier) {
-        Boolean absent = opsForValue.setIfAbsent(CacheConstant.MUTEX_LOCK + key, SystemConstant.CACHE_PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.MILLISECONDS);
+        Boolean absent = opsForValue.setIfAbsent(CacheConstant.MUTEX_LOCK + key, CacheConstant.PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.MILLISECONDS);
         if (absent != null && absent) {
             T result = supplier.get();
             redisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
@@ -286,6 +286,12 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public String getHashValue(String key, String hKey) {
         return opsForHash.get(key, hKey);
+    }
+
+    @Override
+    public boolean hasHashKey(String key, String hKey) {
+        Boolean hasKey = opsForHash.hasKey(key, hKey);
+        return Boolean.TRUE.equals(hasKey);
     }
 
     @Override

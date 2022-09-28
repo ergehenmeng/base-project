@@ -5,13 +5,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2022/7/27
  */
 @Data
-public class VisitorVO {
+public class VisitorVO implements Serializable {
 
     @ApiModelProperty("用户姓名")
     @Size(min = 2, max = 10, message = "游客姓名长度2~10字符")

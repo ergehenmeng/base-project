@@ -182,6 +182,14 @@ public interface CacheService {
     String getHashValue(String key, String hKey);
 
     /**
+     * 获取hash中的值
+     * @param key key
+     * @param hKey hashKey
+     * @return hValue
+     */
+    boolean hasHashKey(String key, String hKey);
+
+    /**
      * 删除hash中的某个key
      * @param key 主key
      * @param hKeys hKeys

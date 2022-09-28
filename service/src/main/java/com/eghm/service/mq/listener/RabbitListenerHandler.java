@@ -1,11 +1,16 @@
 package com.eghm.service.mq.listener;
 
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.QueueConstant;
+import com.eghm.common.exception.SystemException;
 import com.eghm.model.ManageLog;
 import com.eghm.model.WebappLog;
+import com.eghm.model.dto.business.order.OrderCreateDTO;
+import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.TicketOrderService;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.service.user.LoginLogService;
@@ -18,6 +23,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.function.Consumer;
+
+import static com.eghm.common.constant.CacheConstant.ERROR_PLACE_HOLDER;
+import static com.eghm.common.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
 
 /**
  * @author 二哥很猛
@@ -37,6 +45,8 @@ public class RabbitListenerHandler {
     private final LoginLogService loginLogService;
 
     private final ManageLogService manageLogService;
+
+    private final CacheService cacheService;
 
     /**
      * 消息队列订单过期处理
@@ -69,6 +79,41 @@ public class RabbitListenerHandler {
     @RabbitListener(queues = QueueConstant.MANAGE_OP_LOG_QUEUE)
     public void manageOpLog(ManageLog log, Message message, Channel channel) throws IOException {
         processMessageAck(log, message, channel, manageLogService::insertManageLog);
+    }
+
+    /**
+     * 消息队列门票下单
+     * @param dto 订单信息
+     */
+    @RabbitListener(queues = QueueConstant.TICKET_ORDER_QUEUE)
+    public void ticketOrder(OrderCreateDTO dto, Message message, Channel channel) throws IOException {
+        this.processMessageAckAsync(dto, message, channel, order -> {
+            // TODO 下单逻辑处理
+        });
+    }
+
+    /**
+     * 处理MQ中消息,并手动确认,并将结果放入缓存方便客户端查询
+     * @param msg 消息
+     * @param message message
+     * @param channel channel
+     * @param consumer 业务
+     * @param <T> 消息类型
+     * @throws IOException e
+     */
+    public <T extends AsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+        try {
+            consumer.accept(msg);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER);
+        } catch (SystemException e) {
+            log.error("队列[{}]处理消息业务异常 [{}] [{}] [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e.getCode(), e.getMessage());
+            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), e.getMessage());
+        } catch (Exception e) {
+            log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), ERROR_PLACE_HOLDER);
+        } finally {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        }
     }
 
     /**

@@ -11,6 +11,21 @@ public class CacheConstant {
     }
 
     /**
+     * 默认的缓存占位符(处理中)
+     */
+    public static final String PLACE_HOLDER = "#";
+
+    /**
+     * 占位符(成功)
+     */
+    public static final String SUCCESS_PLACE_HOLDER = "@";
+
+    /**
+     * 占位符(系统异常)
+     */
+    public static final String ERROR_PLACE_HOLDER = "&";
+
+    /**
      * 系统参数缓存key前缀
      */
     public static final String SYS_CONFIG = "sys_config";
@@ -155,4 +170,8 @@ public class CacheConstant {
      */
     public static final String GEO_DISTANCE = "geo_distance";
 
+    /**
+     * 消息队列异步key
+     */
+    public static final String MQ_ASYNC_KEY = "mq_async_key:";
 }
