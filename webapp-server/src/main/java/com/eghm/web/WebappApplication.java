@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication(scanBasePackages = "com.eghm")
 @EnableAsync
 @EnableAspectJAutoProxy
-@MapperScan("com.eghm.dao.mapper")
+@MapperScan("com.eghm.mapper")
 @Slf4j
 @RestController
 public class WebappApplication implements ApplicationListener<ContextRefreshedEvent> {
