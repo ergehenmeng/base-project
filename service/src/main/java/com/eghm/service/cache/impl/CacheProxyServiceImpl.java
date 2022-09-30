@@ -55,7 +55,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     private final AppletPayConfigMapper appletPayConfigMapper;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER, unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER)
     public List<BlackRoster> getBlackRosterList() {
         return blackRosterMapper.selectList(null);
     }
