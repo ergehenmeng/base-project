@@ -9,7 +9,6 @@ import com.eghm.mapper.SysConfigMapper;
 import com.eghm.model.SysConfig;
 import com.eghm.model.dto.config.ConfigEditRequest;
 import com.eghm.model.dto.config.ConfigQueryRequest;
-import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysConfigService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -26,8 +25,6 @@ import org.springframework.stereotype.Service;
 public class SysConfigServiceImpl implements SysConfigService {
 
     private final SysConfigMapper sysConfigMapper;
-
-    private final CacheProxyService cacheProxyService;
 
     @Override
     public void update(ConfigEditRequest request) {
@@ -47,14 +44,8 @@ public class SysConfigServiceImpl implements SysConfigService {
     }
 
     @Override
-    public String getByNid(String nid) {
-        return cacheProxyService.getConfigByNid(nid);
-    }
-
-    @Override
     public SysConfig getById(Long id) {
         return sysConfigMapper.selectById(id);
     }
-
 
 }

@@ -5,16 +5,19 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.mapper.BlackRosterMapper;
 import com.eghm.model.BlackRoster;
 import com.eghm.model.dto.roster.BlackRosterAddRequest;
 import com.eghm.model.dto.roster.BlackRosterQueryRequest;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.BlackRosterService;
+import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,7 +31,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     private final BlackRosterMapper blackRosterMapper;
 
-    private final CacheProxyService cacheProxyService;
+    private final CacheService cacheService;
 
     @Override
     public Page<BlackRoster> getByPage(BlackRosterQueryRequest request) {
@@ -48,12 +51,17 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     public List<BlackRoster> getAvailableList() {
-        return cacheProxyService.getBlackRosterList();
+        return cacheService.getValue(CacheConstant.BLACK_ROSTER, new TypeReference<List<BlackRoster>>() {
+            @Override
+            public Type getType() {
+                return BlackRoster.class;
+            }
+        }, () -> blackRosterMapper.selectList(null));
     }
 
     @Override
     public boolean isInterceptIp(String ip) {
-        List<BlackRoster> availableList = cacheProxyService.getBlackRosterList();
+        List<BlackRoster> availableList = this.getAvailableList();
         if (!CollectionUtils.isEmpty(availableList)) {
             return availableList.stream().anyMatch(blackRoster -> NetUtil.ipv4ToLong(ip) == blackRoster.getLongIp() && (blackRoster.getEndTime() == null || LocalDateTime.now().isBefore(blackRoster.getEndTime())));
         }

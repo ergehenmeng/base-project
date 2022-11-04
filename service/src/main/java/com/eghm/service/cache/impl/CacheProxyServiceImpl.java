@@ -23,7 +23,8 @@ import java.util.List;
 import static com.eghm.common.constant.CommonConstant.LIMIT_ONE;
 
 /**
- * 缓存代理层
+ * 缓存代理层<br/>
+ *
  * @author 二哥很猛
  * @date 2022/7/12
  */
@@ -31,8 +32,6 @@ import static com.eghm.common.constant.CommonConstant.LIMIT_ONE;
 @AllArgsConstructor
 @Slf4j
 public class CacheProxyServiceImpl implements CacheProxyService {
-
-    private final BlackRosterMapper blackRosterMapper;
 
     private final SysAreaMapper sysAreaMapper;
 
@@ -53,12 +52,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     private final SysDictMapper sysDictMapper;
 
     private final AppletPayConfigMapper appletPayConfigMapper;
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.BLACK_ROSTER)
-    public List<BlackRoster> getBlackRosterList() {
-        return blackRosterMapper.selectList(null);
-    }
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid" ,cacheManager = "longCacheManager", sync = true)
@@ -172,6 +165,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         wrapper.eq(SysDict::getNid, nid);
         return sysDictMapper.selectList(wrapper);
     }
+
     @Override
     @Cacheable(cacheNames = CacheConstant.APPLET_PAY_CONFIG, cacheManager = "longCacheManager", key = "#type.code")
     public AppletPayConfig getPayByNid(MerchantType type) {

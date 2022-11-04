@@ -2,8 +2,8 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.common.JsonService;
-import com.eghm.service.sys.SysConfigService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class SysConfigApi {
 
-    private final SysConfigService sysConfigService;
+    private final CacheProxyService cacheProxyService;
 
     private final JsonService jsonService;
 
@@ -33,7 +33,7 @@ public class SysConfigApi {
      * @return 系统参数结果值string
      */
     public String getString(String nid) {
-        String content = sysConfigService.getByNid(nid);
+        String content = cacheProxyService.getConfigByNid(nid);
         if (content == null) {
             log.warn("系统参数未找到 nid:[{}]", nid);
             throw new ParameterException(ErrorCode.CONFIG_NOT_FOUND_ERROR);

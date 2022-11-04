@@ -27,13 +27,6 @@ public interface SysConfigService {
     Page<SysConfig> getByPage(ConfigQueryRequest request);
 
     /**
-     * 根据nid获取系统配置信息
-     * @param nid 唯一nid
-     * @return 参数配置独享
-     */
-    String getByNid(String nid);
-
-    /**
      * 根据主键获取系统参数
      * @param id 主键
      * @return 系统参数信息

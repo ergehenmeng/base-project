@@ -16,12 +16,6 @@ import java.util.List;
 public interface CacheProxyService {
 
     /**
-     * 黑名单列表
-     * @return 列表 ip与结束时间
-     */
-    List<BlackRoster> getBlackRosterList();
-
-    /**
      * 查询子级的地址列表
      * @param pid 当前级地址id
      * @return list
