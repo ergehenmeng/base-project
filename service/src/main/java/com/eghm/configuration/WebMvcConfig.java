@@ -38,7 +38,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     private final ObjectMapper objectMapper;
 
-    private final SystemProperties systemProperties;
+    protected final SystemProperties systemProperties;
 
     /**
      * 图形验证码

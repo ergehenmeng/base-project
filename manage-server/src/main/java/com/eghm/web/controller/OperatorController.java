@@ -2,8 +2,6 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.configuration.security.SecurityOperator;
-import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.model.SysMenu;
 import com.eghm.model.SysOperator;
 import com.eghm.model.dto.ext.PageData;

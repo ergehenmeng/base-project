@@ -3,8 +3,9 @@ package com.eghm.web.configuration.interceptor;
 import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.JwtToken;
+import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.web.annotation.SkipAccess;
@@ -52,8 +53,8 @@ public class JwtTokenInterceptor implements InterceptorAdapter {
         if (token == null) {
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_NULL);
         }
-        Optional<JwtToken> jwtToken = jwtTokenService.parseToken(token);
-        JwtToken jwt = jwtToken.orElseThrow(() -> new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT));
+        Optional<JwtOperator> jwtToken = jwtTokenService.parseToken(token);
+        JwtOperator jwt = jwtToken.orElseThrow(() -> new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT));
 
         message.setUserId(jwt.getId());
         // 无法从token总解析出userId,但该接口确实需要登陆

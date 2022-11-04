@@ -1,0 +1,52 @@
+package com.eghm.web.configuration.filter;
+
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.configuration.AbstractIgnoreFilter;
+import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.model.dto.ext.RespBody;
+import com.eghm.service.common.JwtTokenService;
+import com.eghm.utils.WebUtil;
+import lombok.AllArgsConstructor;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Optional;
+
+/**
+ * @author 二哥很猛
+ * @since 2022/11/4
+ */
+@AllArgsConstructor
+public class AuthFilter extends AbstractIgnoreFilter {
+
+    private final SystemProperties.ManageProperties manageProperties;
+
+    private final JwtTokenService jwtTokenService;
+
+    @Override
+    protected void doInternalFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest servletRequest = (HttpServletRequest) request;
+        String header = servletRequest.getHeader(manageProperties.getJwt().getHeader());
+        String prefix = manageProperties.getJwt().getPrefix();
+        if (header != null && header.startsWith(prefix)) {
+            Optional<JwtOperator> optional = jwtTokenService.parseToken(header.replace(header, prefix));
+            if (optional.isPresent()) {
+                try {
+                    SecurityHolder.setToken(optional.get());
+                    chain.doFilter(request, response);
+                } finally {
+                    SecurityHolder.remove();
+                }
+                return;
+            }
+        }
+        WebUtil.printJson((HttpServletResponse) response, RespBody.error(ErrorCode.LOGIN_EXPIRE));
+    }
+}

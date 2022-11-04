@@ -2,8 +2,18 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
+import com.eghm.configuration.data.permission.DataScopeAspect;
+import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.sys.SysMenuService;
+import com.eghm.web.configuration.filter.AuthFilter;
+import com.eghm.web.configuration.interceptor.PermInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+
+import javax.servlet.DispatcherType;
 
 /**
  * mvc配置信息
@@ -14,7 +24,49 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ManageMvcConfig extends WebMvcConfig {
 
-    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties) {
+    private final JwtTokenService jwtTokenService;
+
+    private final SysMenuService sysMenuService;
+
+    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, JwtTokenService jwtTokenService, SysMenuService sysMenuService) {
         super(objectMapper, systemProperties);
+        this.jwtTokenService = jwtTokenService;
+        this.sysMenuService = sysMenuService;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(permInterceptor()).excludePathPatterns(systemProperties.getManage().getSecurity().getIgnoreAuth());
+    }
+
+    /**
+     * 按钮权限
+     */
+    @Bean
+    public PermInterceptor permInterceptor() {
+        return new PermInterceptor(sysMenuService);
+    }
+
+    /**
+     * 数据权限,必须在manage-web中声明为bean
+     */
+    @Bean
+    public DataScopeAspect dataScopeAspect() {
+        return new DataScopeAspect();
+    }
+
+    /**
+     * 登录校验
+     */
+    @Bean("authFilter")
+    public FilterRegistrationBean<AuthFilter> authFilter() {
+        SystemProperties.ManageProperties manage = systemProperties.getManage();
+        FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
+        AuthFilter requestFilter = new AuthFilter(manage, jwtTokenService);
+        requestFilter.exclude(manage.getSecurity().getIgnore());
+        registrationBean.setFilter(requestFilter);
+        registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+        registrationBean.setOrder(Integer.MIN_VALUE + 5);
+        return registrationBean;
     }
 }

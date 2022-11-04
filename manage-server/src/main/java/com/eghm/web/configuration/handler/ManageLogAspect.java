@@ -1,8 +1,6 @@
 package com.eghm.web.configuration.handler;
 
 import com.eghm.common.enums.RabbitQueue;
-import com.eghm.configuration.security.SecurityOperator;
-import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ManageLog;
 import com.eghm.service.mq.service.MessageService;

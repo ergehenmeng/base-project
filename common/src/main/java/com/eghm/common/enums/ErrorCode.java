@@ -27,7 +27,7 @@ public enum ErrorCode {
     /**
      * 用户登陆已过期(后台系统使用)
      */
-    SESSION_TIMEOUT(402,"用户登陆已过期"),
+    LOGIN_EXPIRE(402,"用户登陆已过期"),
 
     /**
      * 木有找到请求地址
@@ -208,6 +208,11 @@ public enum ErrorCode {
      * 模板解析失败
      */
     TEMPLATE_RENDER_ERROR(2008,"模板解析失败"),
+
+    /**
+     * 手机号码被占用
+     */
+    MOBILE_REDO(2010, "手机号码被占用"),
 
     /**
      * 系统配置信息未查询到
@@ -843,6 +848,8 @@ public enum ErrorCode {
      * 商品退款数量不匹配
      */
     REFUND_MUM_MATCH(3189, "商品退款数量不匹配"),
+
+
 
     /**
      * 微信公众号尚未配置

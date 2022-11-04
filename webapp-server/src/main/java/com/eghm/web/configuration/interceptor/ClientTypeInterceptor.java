@@ -4,6 +4,7 @@ import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.Channel;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.web.annotation.ClientType;
 
 import javax.servlet.http.HttpServletRequest;

@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.PermissionType;
+import com.eghm.common.enums.DataType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.mapper.SysOperatorMapper;
@@ -26,6 +26,7 @@ import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +37,7 @@ import java.util.List;
  */
 @Service("sysOperatorService")
 @AllArgsConstructor
+@Slf4j
 public class SysOperatorServiceImpl implements SysOperatorService {
 
     private final SysOperatorMapper sysOperatorMapper;
@@ -87,7 +89,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     public void create(OperatorAddRequest request) {
-        // TODO 账号是否被占用, 手机号是否被占用
+        this.redoMobile(request.getMobile(), null);
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         operator.setState(SysOperator.STATE_1);
         String initPassword = this.initPassword(request.getMobile());
@@ -97,7 +99,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         // 角色权限
         sysRoleService.authRole(operator.getId(), request.getRoleIds());
         // 数据权限
-        if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
+        if (request.getPermissionType() == DataType.CUSTOM.getValue()) {
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
             roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(operator.getId(), s)));
         }
@@ -117,11 +119,12 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
     @Override
     public void update(OperatorEditRequest request) {
+        this.redoMobile(request.getMobile(), request.getId());
+
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         sysOperatorMapper.updateById(operator);
-
         // 数据权限
-        if (request.getPermissionType() == PermissionType.CUSTOM.getValue()) {
+        if (request.getPermissionType() == DataType.CUSTOM.getValue()) {
             sysDataDeptService.deleteByOperatorId(operator.getId());
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
             roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(operator.getId(), s)));
@@ -189,5 +192,21 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         response.setButtonList(buttonList);
         response.setLeftMenuList(leftMenu);
         return response;
+    }
+
+    /**
+     * 校验手机号是否重复
+     * @param mobile 手机号
+     * @param id id (更新时不能为空)
+     */
+    private void redoMobile(String mobile, Long id) {
+        LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysOperator::getMobile, mobile);
+        wrapper.ne(id != null, SysOperator::getId, id);
+        Integer count = sysOperatorMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.warn("手机号码被占用 [{}] [{}]", mobile, id);
+            throw new BusinessException(ErrorCode.MOBILE_REDO);
+        }
     }
 }

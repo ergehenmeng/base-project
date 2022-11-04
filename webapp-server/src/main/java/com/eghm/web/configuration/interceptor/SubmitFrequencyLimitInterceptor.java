@@ -3,12 +3,12 @@ package com.eghm.web.configuration.interceptor;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020/12/15
  */
 @AllArgsConstructor
-public class SubmitFrequencyLimitInterceptor implements InterceptorAdapter{
+public class SubmitFrequencyLimitInterceptor implements InterceptorAdapter {
 
     private final SysConfigApi sysConfigApi;
 

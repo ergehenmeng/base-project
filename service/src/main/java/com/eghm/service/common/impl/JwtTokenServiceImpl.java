@@ -8,7 +8,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.model.SysOperator;
-import com.eghm.model.dto.ext.JwtToken;
+import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.service.common.JwtTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +39,17 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     @Override
-    public Optional<JwtToken> parseToken(String token) {
+    public Optional<JwtOperator> parseToken(String token) {
         JWTVerifier verifier = JWT.require(this.getAlgorithm()).build();
         try {
             DecodedJWT verify = verifier.verify(token);
-            JwtToken jwtToken = new JwtToken();
-            jwtToken.setId(verify.getClaim("id").asLong());
-            jwtToken.setUserName(verify.getClaim("userName").asString());
-            jwtToken.setAuthList(verify.getClaim("auth").asList(String.class));
-            return Optional.of(jwtToken);
+            JwtOperator jwtOperator = new JwtOperator();
+            jwtOperator.setId(verify.getClaim("id").asLong());
+            jwtOperator.setUserName(verify.getClaim("userName").asString());
+            jwtOperator.setAuthList(verify.getClaim("auth").asList(String.class));
+            jwtOperator.setDeptCode(verify.getClaim("deptCode").asString());
+            jwtOperator.setDeptList(verify.getClaim("deptList").asList(String.class));
+            return Optional.of(jwtOperator);
         } catch (Exception e) {
             log.warn("jwt解析失败,token可能已过期 [{}]", token);
             return Optional.empty();
@@ -65,6 +67,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         JWTCreator.Builder builder = JWT.create();
         return builder.withClaim("id", operator.getId())
                 .withClaim("userName", operator.getOperatorName())
+                .withClaim("deptCode", operator.getDeptCode())
+                .withClaim("deptList", operator.getDeptList())
                 .withClaim("r", System.currentTimeMillis())
                 .withClaim("auth", authList)
                 .withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), expireSeconds))

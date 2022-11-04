@@ -6,6 +6,7 @@ import cn.hutool.crypto.digest.MD5;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;

@@ -2,8 +2,6 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.configuration.security.SecurityOperator;
-import com.eghm.configuration.security.SecurityOperatorHolder;
 import com.eghm.mapper.SysDeptMapper;
 import com.eghm.model.SysDept;
 import com.eghm.model.dto.dept.DeptAddRequest;

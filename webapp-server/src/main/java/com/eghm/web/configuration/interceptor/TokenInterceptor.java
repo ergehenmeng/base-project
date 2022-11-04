@@ -4,6 +4,7 @@ import com.eghm.common.constant.AppHeader;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.DataException;
 import com.eghm.common.exception.ParameterException;
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.dto.ext.Token;
@@ -13,7 +14,6 @@ import com.eghm.service.user.LoginLogService;
 import com.eghm.web.annotation.SkipAccess;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
