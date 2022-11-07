@@ -36,7 +36,8 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(permInterceptor()).excludePathPatterns(systemProperties.getManage().getSecurity().getIgnoreAuth());
+        SystemProperties.ManageProperties.Security security = systemProperties.getManage().getSecurity();
+        registry.addInterceptor(permInterceptor()).excludePathPatterns(security.getIgnoreAuth()).excludePathPatterns(security.getIgnore());
     }
 
     /**
