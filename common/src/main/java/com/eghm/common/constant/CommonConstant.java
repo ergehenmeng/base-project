@@ -56,4 +56,19 @@ public class CommonConstant {
      * 异步消息在MQ中最大存放时间
      */
     public static final long ASYNC_MSG_EXPIRE = 60000;
+
+    /**
+     * 生产环境
+     */
+    public static final int ENV_PROD = 1;
+
+    /**
+     * 开发环境
+     */
+    public static final int ENV_DEV = 2;
+
+    /**
+     * 测试环境
+     */
+    public static final int ENV_TEST = 3;
 }

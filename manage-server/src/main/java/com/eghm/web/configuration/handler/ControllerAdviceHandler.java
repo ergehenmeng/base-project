@@ -7,9 +7,9 @@ import com.eghm.model.dto.ext.RespBody;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -18,7 +18,7 @@ import java.util.Date;
  * @author 二哥很猛
  * @date 2018/11/29 15:03
  */
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class ControllerAdviceHandler {
 

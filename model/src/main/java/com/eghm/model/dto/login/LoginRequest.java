@@ -1,5 +1,6 @@
 package com.eghm.model.dto.login;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotNull;
  * @date 2022/1/28 17:26
  */
 @Data
+@ApiModel
 public class LoginRequest {
 
     @ApiModelProperty("用户名")

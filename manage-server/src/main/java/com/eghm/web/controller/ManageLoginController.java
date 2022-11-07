@@ -1,12 +1,15 @@
 package com.eghm.web.controller;
 
 import com.eghm.common.constant.CacheConstant;
+import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.login.LoginRequest;
 import com.eghm.model.vo.login.LoginResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,9 +36,11 @@ public class ManageLoginController {
 
     private final SysOperatorService sysOperatorService;
 
+    private final SysConfigApi sysConfigApi;
+
     @PostMapping("/login")
     @ApiOperation("管理后台登陆")
-    public RespBody<LoginResponse> login(HttpServletRequest servletRequest, @Validated @RequestBody LoginRequest request) {
+    public RespBody<LoginResponse> login(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
         String key = IpUtil.getIpAddress(servletRequest);
         if (!this.verifyCode(key, request.getVerifyCode())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
@@ -52,6 +57,11 @@ public class ManageLoginController {
      * @return true:通过
      */
     private boolean verifyCode(String key, String code) {
+        int env = sysConfigApi.getInt(ConfigConstant.ENV, CommonConstant.ENV_PROD);
+        // 开发环境默认不校验验证码
+        if (env == CommonConstant.ENV_DEV) {
+            return true;
+        }
         String redisKey = CacheConstant.IMAGE_CAPTCHA + key;
         String value = cacheService.getValue(redisKey);
         if (value == null) {
