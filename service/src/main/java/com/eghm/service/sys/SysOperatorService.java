@@ -26,7 +26,7 @@ public interface SysOperatorService {
      * @param request 前台参数
      * @return 新加密过的密码
      */
-    String updateLoginPassword(PasswordEditRequest request);
+    void updateLoginPassword(PasswordEditRequest request);
 
     /**
      * 校验密码是否正确

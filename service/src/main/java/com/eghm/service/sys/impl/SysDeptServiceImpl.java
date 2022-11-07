@@ -2,10 +2,12 @@ package com.eghm.service.sys.impl;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.SysDeptMapper;
 import com.eghm.model.SysDept;
 import com.eghm.model.dto.dept.DeptAddRequest;
 import com.eghm.model.dto.dept.DeptEditRequest;
+import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -51,7 +53,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
-        SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
+        JwtOperator operator = SecurityHolder.getOperatorRequired();
         department.setOperatorId(operator.getId());
         department.setOperatorName(operator.getOperatorName());
         sysDeptMapper.insert(department);

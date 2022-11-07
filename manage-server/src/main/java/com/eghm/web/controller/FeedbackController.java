@@ -1,6 +1,8 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
@@ -35,7 +37,7 @@ public class FeedbackController {
     @PostMapping("/dispose")
     @ApiOperation("处理反馈信息")
     public RespBody<Void> dispose(@Validated @RequestBody FeedbackDisposeRequest request) {
-        SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
+        JwtOperator operator = SecurityHolder.getOperatorRequired();
         request.setOperatorId(operator.getId());
         request.setOperatorName(operator.getOperatorName());
         feedbackService.dispose(request);

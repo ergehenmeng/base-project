@@ -7,6 +7,7 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.service.sys.SysMenuService;
+import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class MenuController {
 
     private final SysMenuService sysMenuService;
 
-    private final CustomFilterInvocationSecurityMetadataSource metadataSource;
+    private final PermInterceptor permInterceptor;
 
     @GetMapping("/listPage")
     @ApiOperation("菜单列表(不分页)")
@@ -39,7 +40,7 @@ public class MenuController {
     @ApiOperation("添加菜单")
     public synchronized RespBody<Void> create(@Validated @RequestBody MenuAddRequest request) {
         sysMenuService.create(request);
-        metadataSource.loadResource();
+        permInterceptor.refresh();
         return RespBody.success();
     }
 
@@ -47,7 +48,7 @@ public class MenuController {
     @ApiOperation("修改菜单")
     public RespBody<Void> update(@Validated @RequestBody MenuEditRequest request) {
         sysMenuService.update(request);
-        metadataSource.loadResource();
+        permInterceptor.refresh();
         return RespBody.success();
     }
 
@@ -55,7 +56,7 @@ public class MenuController {
     @ApiOperation("更新菜单状态")
     public RespBody<Void> updateState(@Validated @RequestBody IdStateDTO dto) {
         sysMenuService.updateState(dto.getId(), dto.getState());
-        metadataSource.loadResource();
+        permInterceptor.refresh();
         return RespBody.success();
     }
 
@@ -63,7 +64,7 @@ public class MenuController {
     @ApiOperation("删除菜单")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysMenuService.delete(dto.getId());
-        metadataSource.loadResource();
+        permInterceptor.refresh();
         return RespBody.success();
     }
 

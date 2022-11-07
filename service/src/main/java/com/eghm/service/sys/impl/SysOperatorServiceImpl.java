@@ -6,8 +6,8 @@ import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.DataType;
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.mapper.SysOperatorMapper;
@@ -60,13 +60,12 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     }
 
     @Override
-    public String updateLoginPassword(PasswordEditRequest request) {
+    public void updateLoginPassword(PasswordEditRequest request) {
         SysOperator operator = sysOperatorMapper.selectById(request.getOperatorId());
         this.checkPassword(request.getOldPwd(), operator.getPwd());
         String newPassword = encoder.encode(request.getNewPwd());
         operator.setPwd(newPassword);
         sysOperatorMapper.updateById(operator);
-        return newPassword;
     }
 
     @Override

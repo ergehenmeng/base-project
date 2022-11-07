@@ -45,7 +45,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
             DecodedJWT verify = verifier.verify(token);
             JwtOperator jwtOperator = new JwtOperator();
             jwtOperator.setId(verify.getClaim("id").asLong());
-            jwtOperator.setUserName(verify.getClaim("userName").asString());
+            jwtOperator.setOperatorName(verify.getClaim("operatorName").asString());
             jwtOperator.setAuthList(verify.getClaim("auth").asList(String.class));
             jwtOperator.setDeptCode(verify.getClaim("deptCode").asString());
             jwtOperator.setDeptList(verify.getClaim("deptList").asList(String.class));
@@ -66,7 +66,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private String doCreateJwt(SysOperator operator, int expireSeconds, List<String> authList) {
         JWTCreator.Builder builder = JWT.create();
         return builder.withClaim("id", operator.getId())
-                .withClaim("userName", operator.getOperatorName())
+                .withClaim("operatorName", operator.getOperatorName())
                 .withClaim("deptCode", operator.getDeptCode())
                 .withClaim("deptList", operator.getDeptList())
                 .withClaim("r", System.currentTimeMillis())

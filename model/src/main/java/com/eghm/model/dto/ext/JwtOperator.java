@@ -20,7 +20,7 @@ public class JwtOperator {
     /**
      * 昵称
      */
-    private String userName;
+    private String operatorName;
 
     /**
      * 数据权限类型

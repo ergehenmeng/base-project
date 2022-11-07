@@ -2,8 +2,10 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysMenu;
 import com.eghm.model.SysOperator;
+import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.operator.*;
@@ -18,14 +20,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -48,17 +45,9 @@ public class OperatorController {
 
     @PostMapping("/changePwd")
     @ApiOperation("修改管理人员密码")
-    public RespBody<Void> changePwd(HttpSession session, @Validated @RequestBody PasswordEditRequest request) {
-        SecurityOperator operator = SecurityOperatorHolder.getRequiredOperator();
-        request.setOperatorId(operator.getId());
-        String newPassword = sysOperatorService.updateLoginPassword(request);
-        operator.setPwd(newPassword);
-        // 更新用户权限
-        SecurityContext context = (SecurityContext) session.getAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY);
-        Authentication authentication = context.getAuthentication();
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(operator, authentication, operator.getAuthorities());
-        token.setDetails(authentication.getDetails());
-        context.setAuthentication(token);
+    public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
+        request.setOperatorId(SecurityHolder.getOperatorId());
+        sysOperatorService.updateLoginPassword(request);
         return RespBody.success();
     }
 
@@ -97,7 +86,7 @@ public class OperatorController {
     @PostMapping("/lockScreen")
     @ApiOperation("锁屏操作")
     public RespBody<Void> lockScreen() {
-        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
+        JwtOperator operator = SecurityHolder.getOperatorRequired();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
         return RespBody.success();
     }
@@ -106,8 +95,9 @@ public class OperatorController {
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
-        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
-        sysOperatorService.checkPassword(request.getPwd(), operator.getPwd());
+        JwtOperator operator = SecurityHolder.getOperatorRequired();
+        // TODO 临时密码
+        sysOperatorService.checkPassword(request.getPwd(), "");
         cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
         return RespBody.success();
     }
@@ -130,7 +120,6 @@ public class OperatorController {
     @GetMapping("/menuList")
     @ApiOperation("查询自己拥有的菜单列表")
     public List<SysMenu> menuList() {
-        SysOperator operator = SecurityOperatorHolder.getRequiredOperator();
-        return sysMenuService.getList(operator.getId());
+        return sysMenuService.getList(SecurityHolder.getOperatorId());
     }
 }

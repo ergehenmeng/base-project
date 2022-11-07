@@ -20,6 +20,10 @@ public class SecurityHolder {
         LOCAL.set(token);
     }
 
+    /**
+     * 获取当前登录用户的信息
+     * @return 用户信息, 为空则抛登录过期异常
+     */
     public static JwtOperator getOperatorRequired() {
         JwtOperator jwtOperator = LOCAL.get();
         if (jwtOperator == null) {
@@ -28,6 +32,18 @@ public class SecurityHolder {
         return jwtOperator;
     }
 
+    /**
+     * 获取当前登录用户的信息
+     * @return 用户信息 可能为空
+     */
+    public static JwtOperator getOperator() {
+        return LOCAL.get();
+    }
+
+    /**
+     * 获取当前用户id
+     * @return id
+     */
     public static Long getOperatorId() {
         return getOperatorRequired().getId();
     }
