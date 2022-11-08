@@ -2,11 +2,11 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysNotice;
+import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.notice.NoticeAddRequest;
 import com.eghm.model.dto.notice.NoticeEditRequest;
-import com.eghm.model.dto.notice.NoticeHandleRequest;
 import com.eghm.model.dto.notice.NoticeQueryRequest;
 import com.eghm.service.common.SysNoticeService;
 import io.swagger.annotations.Api;
@@ -49,16 +49,24 @@ public class SysNoticeController {
         return sysNoticeService.getById(id);
     }
 
-    @PostMapping("/handle")
-    @ApiOperation("公告操作(发布,取消发布,删除)")
-    public RespBody<Void> handle(@Validated @RequestBody NoticeHandleRequest request) {
-        if (request.getState() == NoticeHandleRequest.PUBLISH) {
-            sysNoticeService.publish(request.getId());
-        } else if (request.getState() == NoticeHandleRequest.CANCEL_PUBLISH) {
-            sysNoticeService.cancelPublish(request.getId());
-        } else {
-            sysNoticeService.delete(request.getId());
-        }
+    @PostMapping("/publish")
+    @ApiOperation("发布公告操作(,取消发布,删除)")
+    public RespBody<Void> publish(@Validated @RequestBody IdDTO request) {
+        sysNoticeService.publish(request.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/cancel")
+    @ApiOperation("取消发布")
+    public RespBody<Void> cancel(@Validated @RequestBody IdDTO request) {
+        sysNoticeService.cancelPublish(request.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
+        sysNoticeService.delete(request.getId());
         return RespBody.success();
     }
 

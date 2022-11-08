@@ -3730,7 +3730,7 @@ INSERT INTO `sys_menu` VALUES ('10111013', '删除', 'DaUt', '101110', null, '/m
 INSERT INTO `sys_menu` VALUES ('10111110', '基础', 'UvUt', '101111', null, '/manage/notice/listPage', '2', '1', b'1', '', '2019-11-25 07:51:19', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111111', '编辑', 'GvUt', '101111', null, '/manage/notice/edit', '2', '3', b'1', '', '2019-11-25 07:51:56', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111112', '发布', 'BvUt', '101111', null, '/manage/notice/publish', '2', '4', b'1', '', '2019-11-25 07:52:22', '2022-11-08 20:18:19');
-INSERT INTO `sys_menu` VALUES ('10111113', '取消', '2vUt', '101111', null, '/manage/notice/cancel_publish', '2', '5', b'1', '', '2019-11-25 07:52:53', '2022-11-08 20:18:19');
+INSERT INTO `sys_menu` VALUES ('10111113', '取消', '2vUt', '101111', null, '/manage/notice/cancel', '2', '5', b'1', '', '2019-11-25 07:52:53', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111114', '删除', 'pvUt', '101111', null, '/manage/notice/delete', '2', '6', b'1', '', '2019-11-25 07:53:31', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111115', '添加', 'bvUt', '101111', null, '/manage/notice/add', '2', '2', b'1', '', '2019-11-25 08:09:16', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111210', '基础', 'nlUt', '101112', null, '/manage/sms_log/listPage', '2', '0', b'1', null, '2022-05-02 07:50:54', '2022-11-08 20:18:19');
