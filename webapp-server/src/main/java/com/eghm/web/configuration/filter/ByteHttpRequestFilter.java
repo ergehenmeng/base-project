@@ -2,9 +2,13 @@ package com.eghm.web.configuration.filter;
 
 
 import com.eghm.configuration.AbstractIgnoreFilter;
+import org.springframework.lang.NonNull;
 
-import javax.servlet.*;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -16,9 +20,9 @@ import java.io.IOException;
 public class ByteHttpRequestFilter extends AbstractIgnoreFilter {
 
     @Override
-    protected void doInternalFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         // 需要包装字节对象方便多次读写
-        ServletRequestWrapper wrapper = new ByteHttpServletRequestWrapper((HttpServletRequest) request);
-        chain.doFilter(wrapper, response);
+        ServletRequestWrapper wrapper = new ByteHttpServletRequestWrapper(request);
+        filterChain.doFilter(wrapper, response);
     }
 }

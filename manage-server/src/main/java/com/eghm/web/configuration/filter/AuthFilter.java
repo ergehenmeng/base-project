@@ -9,11 +9,10 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,22 +30,22 @@ public class AuthFilter extends AbstractIgnoreFilter {
     private final JwtTokenService jwtTokenService;
 
     @Override
-    protected void doInternalFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest servletRequest = (HttpServletRequest) request;
-        String header = servletRequest.getHeader(manageProperties.getJwt().getHeader());
+    protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+        String header = request.getHeader(manageProperties.getJwt().getHeader());
         String prefix = manageProperties.getJwt().getPrefix();
         if (header != null && header.startsWith(prefix)) {
             Optional<JwtOperator> optional = jwtTokenService.parseToken(header.replace(header, prefix));
             if (optional.isPresent()) {
                 try {
                     SecurityHolder.setToken(optional.get());
-                    chain.doFilter(request, response);
+                    filterChain.doFilter(request, response);
                 } finally {
                     SecurityHolder.remove();
                 }
                 return;
             }
         }
-        WebUtil.printJson((HttpServletResponse) response, RespBody.error(ErrorCode.LOGIN_EXPIRE));
+        WebUtil.printJson(response, RespBody.error(ErrorCode.LOGIN_EXPIRE));
     }
+
 }
