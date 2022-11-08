@@ -5,6 +5,7 @@ import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysMenu;
 import com.eghm.model.SysOperator;
+import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
@@ -102,18 +103,31 @@ public class OperatorController {
         return RespBody.success();
     }
 
-    @PostMapping("/handle")
-    @ApiOperation("用户操作(锁定,解锁,删除,重置密码)")
-    public RespBody<Void> handle(@Validated @RequestBody OperatorHandleRequest request) {
-        if (request.getState() == OperatorHandleRequest.LOCK) {
-            sysOperatorService.lockOperator(request.getId());
-        } else if (request.getState() == OperatorHandleRequest.UNLOCK) {
-            sysOperatorService.unlockOperator(request.getId());
-        } else if (request.getState() == OperatorHandleRequest.DELETE){
-            sysOperatorService.delete(request.getId());
-        } else {
-            sysOperatorService.resetPassword(request.getId());
-        }
+    @PostMapping("/lock")
+    @ApiOperation("锁定用户")
+    public RespBody<Void> lock(@Validated @RequestBody IdDTO request) {
+        sysOperatorService.lockOperator(request.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/unlock")
+    @ApiOperation("解锁用户")
+    public RespBody<Void> unlock(@Validated @RequestBody IdDTO request) {
+        sysOperatorService.unlockOperator(request.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除用户")
+    public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
+        sysOperatorService.delete(request.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/reset")
+    @ApiOperation("重置密码")
+    public RespBody<Void> reset(@Validated @RequestBody IdDTO request) {
+        sysOperatorService.resetPassword(request.getId());
         return RespBody.success();
     }
 

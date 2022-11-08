@@ -107,7 +107,7 @@ public class SystemProperties {
             /**
              * 在请求头中key
              */
-            private String header = "Authorization";
+            private String header = "token";
 
             /**
              * token前缀

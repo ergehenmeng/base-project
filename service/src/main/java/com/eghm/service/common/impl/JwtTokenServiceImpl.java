@@ -35,7 +35,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     @Override
     public String createToken(SysOperator operator, List<String> authList) {
-        return this.doCreateJwt(operator, systemProperties.getManage().getJwt().getExpire(), authList);
+        SystemProperties.ManageProperties.Jwt jwt = systemProperties.getManage().getJwt();
+        return jwt.getPrefix() + this.doCreateJwt(operator, jwt.getExpire(), authList);
     }
 
     @Override

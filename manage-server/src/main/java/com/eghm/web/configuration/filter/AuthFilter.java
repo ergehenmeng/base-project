@@ -34,7 +34,7 @@ public class AuthFilter extends AbstractIgnoreFilter {
         String header = request.getHeader(manageProperties.getJwt().getHeader());
         String prefix = manageProperties.getJwt().getPrefix();
         if (header != null && header.startsWith(prefix)) {
-            Optional<JwtOperator> optional = jwtTokenService.parseToken(header.replace(header, prefix));
+            Optional<JwtOperator> optional = jwtTokenService.parseToken(header.replace(prefix, ""));
             if (optional.isPresent()) {
                 try {
                     SecurityHolder.setToken(optional.get());

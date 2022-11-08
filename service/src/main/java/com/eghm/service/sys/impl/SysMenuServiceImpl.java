@@ -1,6 +1,7 @@
 package com.eghm.service.sys.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.constant.CommonConstant;
@@ -66,6 +67,14 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> getList() {
         return sysMenuMapper.selectList(null);
+    }
+
+    @Override
+    public List<SysMenu> getButtonList() {
+        LambdaQueryWrapper<SysMenu> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysMenu::getState, true);
+        wrapper.eq(SysMenu::getGrade, 2);
+        return sysMenuMapper.selectList(wrapper);
     }
 
     @Override

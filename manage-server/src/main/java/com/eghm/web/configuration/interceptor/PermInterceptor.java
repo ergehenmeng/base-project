@@ -31,7 +31,7 @@ public class PermInterceptor implements InterceptorAdapter {
     /**
      * 系统所有菜单
      */
-    private static final Map<String, List<String>> PERM_MAP = new ConcurrentHashMap<>(256);
+    private static final Map<String, String> PERM_MAP = new ConcurrentHashMap<>(256);
 
     /**
      * url匹配规则
@@ -42,10 +42,14 @@ public class PermInterceptor implements InterceptorAdapter {
 
     @PostConstruct
     public void refresh() {
-        List<SysMenu> selectList = sysMenuService.getList();
+        List<SysMenu> selectList = sysMenuService.getButtonList();
         PERM_MAP.clear();
         for (SysMenu menu : selectList) {
-            PERM_MAP.put(menu.getCode(), StrUtil.splitTrim(menu.getSubPath(), ','));
+            if (StrUtil.isNotBlank(menu.getSubPath())) {
+                for (String subUrl : StrUtil.splitToArray(menu.getSubPath(), ',')) {
+                    PERM_MAP.put(subUrl, menu.getCode());
+                }
+            }
         }
     }
 
@@ -74,14 +78,7 @@ public class PermInterceptor implements InterceptorAdapter {
     private boolean match(HttpServletRequest request) {
         JwtOperator jwtOperator = SecurityHolder.getOperatorRequired();
         List<String> codeList = jwtOperator.getAuthList();
-        for (String code : codeList) {
-            List<String> urlList = PERM_MAP.get(code);
-            for (String url : urlList) {
-                if (MATCHER.match(url, request.getRequestURI())) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        String code = PERM_MAP.get(request.getRequestURI());
+        return codeList.contains(code);
     }
 }

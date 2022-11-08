@@ -34,10 +34,16 @@ public interface SysMenuService {
     List<SysMenu> getList(Long operatorId);
 
     /**
-     * 获取所有可用的菜单
+     * 获取所有可用的菜单+按钮菜单
      * @return 菜单列表
      */
     List<SysMenu> getList();
+
+    /**
+     * 获取所有可用的按钮菜单
+     * @return 按钮列表
+     */
+    List<SysMenu> getButtonList();
 
     /**
      * 添加菜单
