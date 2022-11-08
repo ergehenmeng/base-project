@@ -28,7 +28,4 @@ public class NoticeAddRequest implements Serializable {
     @NotNull(message = "公告内容不能为空")
     private String content;
 
-    @ApiModelProperty(value = "公告内容(原始内容)", required = true)
-    @NotNull(message = "公告原始内容不能为空")
-    private String originalContent;
 }

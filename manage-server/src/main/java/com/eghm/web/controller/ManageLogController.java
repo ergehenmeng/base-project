@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.model.ManageLog;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.log.ManageQueryRequest;
@@ -35,6 +36,7 @@ public class ManageLogController {
 
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
+    @SkipPerm
     public String select(@RequestParam("id") Long id) {
         return manageLogService.getResponseById(id);
     }
