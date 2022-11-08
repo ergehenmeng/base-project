@@ -1,8 +1,6 @@
 package com.eghm.web.controller;
 
-import cn.hutool.core.lang.UUID;
 import com.eghm.common.constant.CacheConstant;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.cache.CacheService;
 import com.eghm.utils.IpUtil;
 import com.google.code.kaptcha.Producer;
@@ -42,9 +40,8 @@ public class CaptchaController {
     @ApiOperation("获取图形验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String value = producer.createText();
-        String key = UUID.randomUUID().toString();
-        log.info("图形验证码[{}]:[{}]", key, value);
         String ipAddress = IpUtil.getIpAddress(request);
+        log.info("图形验证码[{}]:[{}]", ipAddress, value);
         cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, value, 60000L);
         BufferedImage bi = producer.createImage(value);
         response.setDateHeader("Expires", 0);
@@ -54,12 +51,6 @@ public class CaptchaController {
         ImageIO.write(bi, "jpg", out);
         out.flush();
         out.close();
-    }
-
-    @GetMapping("/homeResource")
-    @ApiOperation("登陆后权限设置 用于验证框架权限问题")
-    public RespBody<Void> homeResource() {
-        return RespBody.success();
     }
 
 }
