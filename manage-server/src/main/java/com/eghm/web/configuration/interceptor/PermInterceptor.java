@@ -12,7 +12,6 @@ import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
-import org.springframework.util.AntPathMatcher;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -28,15 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class PermInterceptor implements InterceptorAdapter {
 
-    /**
-     * 系统所有菜单
-     */
     private static final Map<String, String> PERM_MAP = new ConcurrentHashMap<>(256);
-
-    /**
-     * url匹配规则
-     */
-    private static final AntPathMatcher MATCHER = new AntPathMatcher();
 
     private final SysMenuService sysMenuService;
 
