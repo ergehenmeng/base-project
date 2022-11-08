@@ -3748,6 +3748,8 @@ INSERT INTO `sys_menu` VALUES ('10111610', '基础', 'ppUt', '101116', null, '/m
 INSERT INTO `sys_menu` VALUES ('10111611', '错误', 'bpUt', '101116', null, '/manage/task/log/error_msg', '2', '2', b'1', '日志错误详细信息', '2019-11-22 06:02:14', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111710', '基础', '3EUt', '101117', null, '/manage/push/listPage', '2', '1', b'1', '', '2019-11-27 06:20:12', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111711', '编辑', 'NEUt', '101117', null, '/manage/push/update', '2', '2', b'1', '', '2019-11-27 06:20:38', '2022-11-08 20:18:19');
+INSERT INTO `sys_menu` VALUES ('10111116', '查看', 'EvUt', '101111', '', '/manage/notice/select', '2', '11', b'1', '', '2022-11-08 21:45:00', '2022-11-08 21:45:00');
+
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
