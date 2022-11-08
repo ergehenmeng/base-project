@@ -55,7 +55,7 @@ public class MenuController {
     @PostMapping("/updateState")
     @ApiOperation("更新菜单状态")
     public RespBody<Void> updateState(@Validated @RequestBody IdStateDTO dto) {
-        sysMenuService.updateState(dto.getId(), dto.getState());
+        sysMenuService.updateState(String.valueOf(dto.getId()), dto.getState());
         permInterceptor.refresh();
         return RespBody.success();
     }
@@ -63,7 +63,7 @@ public class MenuController {
     @PostMapping("/delete")
     @ApiOperation("删除菜单")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
-        sysMenuService.delete(dto.getId());
+        sysMenuService.delete(String.valueOf(dto.getId()));
         permInterceptor.refresh();
         return RespBody.success();
     }

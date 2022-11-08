@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -23,7 +24,7 @@ public class FeedbackDisposeRequest extends ActionRecord {
     private Long id;
 
     @ApiModelProperty(value = "备注信息", required = true)
-    @NotNull(message = "备注信息不能为空")
+    @NotBlank(message = "备注信息不能为空")
     private String remark;
 
 }

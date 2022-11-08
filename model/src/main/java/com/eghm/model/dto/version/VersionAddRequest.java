@@ -4,6 +4,7 @@ import com.eghm.model.validation.annotation.OptionString;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -25,7 +26,7 @@ public class VersionAddRequest implements Serializable {
     private Byte state;
     
     @ApiModelProperty(required = true, value = "版本号(0.0.01~99.99.99)")
-    @NotNull(message = "版本号不能为空")
+    @NotBlank(message = "版本号不能为空")
     private String version;
     
     @ApiModelProperty(required = true, value = "是否强制更新 false:否 true:是")
@@ -33,7 +34,7 @@ public class VersionAddRequest implements Serializable {
     private Boolean forceUpdate;
     
     @ApiModelProperty(required = true, value = "下载地址,android为实际下载地址,ios是跳转到app_store")
-    @NotNull(message = "下载地址不能为空")
+    @NotBlank(message = "下载地址不能为空")
     private String url;
     
     @ApiModelProperty(required = true, value = "备注信息:版本更新的东西或解决的问题")

@@ -61,14 +61,14 @@ public interface SysMenuService {
      * 根据主键删除菜单
      * @param id 主键
      */
-    void delete(Long id);
+    void delete(String id);
 
     /**
      * 更新菜单状态
      * @param id id
      * @param state 0:禁用 1:启用
      */
-    void updateState(Long id, Integer state);
+    void updateState(String id, Integer state);
 
     /**
      * 查询用户的菜单权限标识符

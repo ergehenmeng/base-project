@@ -3,6 +3,7 @@ package com.eghm.model.dto.image;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -20,7 +21,7 @@ public class ImageEditRequest implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "图片名称", required = true)
-    @NotNull(message = "图片名称不能为空")
+    @NotBlank(message = "图片名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "图片类型", required = true)

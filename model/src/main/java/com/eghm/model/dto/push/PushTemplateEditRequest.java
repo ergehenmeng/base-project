@@ -3,6 +3,7 @@ package com.eghm.model.dto.push;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -18,11 +19,11 @@ public class PushTemplateEditRequest implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "推送标题", required = true)
-    @NotNull(message = "标题不能为空")
+    @NotBlank(message = "标题不能为空")
     private String title;
 
     @ApiModelProperty(value = "推送内容", required = true)
-    @NotNull(message = "内容不能为空")
+    @NotBlank(message = "内容不能为空")
     private String content;
 
     @ApiModelProperty(value = "推送状态 false:关闭 true:开启", required = true)

@@ -3,6 +3,7 @@ package com.eghm.model.dto.sms;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -18,7 +19,7 @@ public class SmsTemplateEditRequest implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "短信模板内容", required = true)
-    @NotNull(message = "短信内容不能为空")
+    @NotBlank(message = "短信内容不能为空")
     private String content;
 
     @ApiModelProperty("备注信息")

@@ -35,7 +35,7 @@ public class DeptControllerTest extends BaseTest {
     public void updateCode() {
         List<SysMenu> menuList = sysMenuMapper.selectList(null);
         for (SysMenu menu : menuList) {
-            menu.setCode(StringUtil.encryptNumber(menu.getId()));
+            menu.setCode(StringUtil.encryptNumber(Long.parseLong(menu.getId())));
             log.error("菜单信息 [{}] ", menu);
             sysMenuMapper.updateById(menu);
         }

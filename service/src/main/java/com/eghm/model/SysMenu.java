@@ -18,7 +18,7 @@ public class SysMenu {
 
     @ApiModelProperty("id主键")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
+    private String id;
 
     @ApiModelProperty("菜单名称")
     private String title;
@@ -28,7 +28,7 @@ public class SysMenu {
 
     @ApiModelProperty("父节点ID,一级菜单默认为0")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long pid;
+    private String pid;
 
     @ApiModelProperty("菜单地址")
     private String path;

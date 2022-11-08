@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.model.SysNotice;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.PageData;
@@ -44,13 +45,13 @@ public class SysNoticeController {
 
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id", required = true)
-    @ApiOperation("公告信息查询")
+    @ApiOperation("查看")
     public SysNotice select(@RequestParam("id") Long id) {
         return sysNoticeService.getById(id);
     }
 
     @PostMapping("/publish")
-    @ApiOperation("发布公告操作(,取消发布,删除)")
+    @ApiOperation("发布公告")
     public RespBody<Void> publish(@Validated @RequestBody IdDTO request) {
         sysNoticeService.publish(request.getId());
         return RespBody.success();

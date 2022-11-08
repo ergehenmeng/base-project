@@ -4,6 +4,7 @@ import com.eghm.model.annotation.Sign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -17,7 +18,7 @@ public class ImageAddRequest implements Serializable {
     private static final long serialVersionUID = 3775459871066834161L;
 
     @ApiModelProperty(value = "图片名称", required = true)
-    @NotNull(message = "图片名称不能为空")
+    @NotBlank(message = "图片名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "图片类型", required = true)

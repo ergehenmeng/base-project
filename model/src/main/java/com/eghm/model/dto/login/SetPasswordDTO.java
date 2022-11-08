@@ -3,6 +3,7 @@ package com.eghm.model.dto.login;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,10 +14,10 @@ import javax.validation.constraints.NotNull;
 public class SetPasswordDTO {
 
     @ApiModelProperty(value = "请求唯一ID", required = true)
-    @NotNull(message = "请求ID不能为空")
+    @NotBlank(message = "请求ID不能为空")
     private String requestId;
 
     @ApiModelProperty(value = "新密码", required = true)
-    @NotNull(message = "密码不能为空")
+    @NotBlank(message = "密码不能为空")
     private String password;
 }

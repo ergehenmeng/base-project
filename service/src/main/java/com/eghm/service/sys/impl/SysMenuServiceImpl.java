@@ -80,25 +80,25 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public void create(MenuAddRequest request) {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
-        copy.setId(this.generateNextId(request.getPid()));
-        copy.setCode(StringUtil.encryptNumber(copy.getId()));
+        copy.setId(String.valueOf(this.generateNextId(request.getPid())));
+        copy.setCode(StringUtil.encryptNumber(Long.parseLong(copy.getId())));
         sysMenuMapper.insert(copy);
     }
 
     @Override
     public void update(MenuEditRequest request) {
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
-        copy.setCode(StringUtil.encryptNumber(copy.getId()));
+        copy.setCode(StringUtil.encryptNumber(Long.parseLong(copy.getId())));
         sysMenuMapper.updateById(copy);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(String id) {
         sysMenuMapper.deleteById(id);
     }
 
     @Override
-    public void updateState(Long id, Integer state) {
+    public void updateState(String id, Integer state) {
         LambdaUpdateWrapper<SysMenu> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(SysMenu::getId, id);
         wrapper.set(SysMenu::getState, state);

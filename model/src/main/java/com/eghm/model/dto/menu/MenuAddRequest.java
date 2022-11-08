@@ -4,7 +4,7 @@ import com.eghm.model.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -18,7 +18,7 @@ public class MenuAddRequest implements Serializable {
     private static final long serialVersionUID = 8515421119279590820L;
 
     @ApiModelProperty(value = "菜单名称", required = true)
-    @NotNull(message = "菜单名称不能为空")
+    @NotBlank(message = "菜单名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "菜单等级 1:导航菜单 2:按钮菜单", required = true)
@@ -26,7 +26,7 @@ public class MenuAddRequest implements Serializable {
     private Integer grade;
 
     @ApiModelProperty(value = "父菜单id", required = true)
-    @NotNull(message = "父菜单id不能为空")
+    @NotBlank(message = "父菜单id不能为空")
     private String pid;
 
     @ApiModelProperty(value = "菜单url")
