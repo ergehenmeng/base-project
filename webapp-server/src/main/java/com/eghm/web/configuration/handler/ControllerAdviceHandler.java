@@ -71,7 +71,7 @@ public class ControllerAdviceHandler {
      */
     @ExceptionHandler(Exception.class)
     public RespBody<Void> exception(HttpServletRequest request, Exception e) {
-        log.error("系统异常 url:[{}]", request.getRequestURI(), e);
+        log.error("系统异常 [{}]", request.getRequestURI(), e);
         RequestMessage message = ApiHolder.get();
         WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
         webappLog.setUrl(request.getRequestURI());

@@ -1,9 +1,11 @@
 package com.eghm.model.vo.feedback;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -14,68 +16,44 @@ public class FeedbackVO implements Serializable {
 
     private static final long serialVersionUID = -434393367856882980L;
 
-    /**
-     * id
-     */
+    @ApiModelProperty("id")
     private Long id;
 
-    /**
-     * 用户ID
-     */
+    @ApiModelProperty("用户ID")
     private Long userId;
 
-    /**
-     * 状态: 0:待解决 1:已解决
-     */
-    private Byte state;
+    @ApiModelProperty("状态: false:待解决 true:已解决")
+    private Boolean state;
 
-    /**
-     * 状态: 反馈类型分类
-     */
+    @ApiModelProperty("状态: 反馈类型分类")
     private Byte classify;
 
-    /**
-     * 软件版本
-     */
+    @ApiModelProperty("软件版本")
     private String version;
 
-    /**
-     * 系统版本
-     */
+    @ApiModelProperty("系统版本")
     private String systemVersion;
 
-    /**
-     * 反馈内容
-     */
+    @ApiModelProperty("反馈内容")
     private String content;
 
-    /**
-     * 反馈时间
-     */
-    private Date addTime;
+    @ApiModelProperty("反馈时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime addTime;
 
-    /**
-     * 处理时间
-     */
-    private Date updateTime;
+    @ApiModelProperty("处理时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 
-    /**
-     * 设备厂商
-     */
+    @ApiModelProperty("设备厂商")
     private String deviceBrand;
 
-    /**
-     * 设备型号
-     */
+    @ApiModelProperty("设备型号")
     private String deviceModel;
 
-    /**
-     * 手机号
-     */
+    @ApiModelProperty("手机号")
     private String mobile;
 
-    /**
-     * 昵称
-     */
+    @ApiModelProperty("昵称")
     private String nickName;
 }

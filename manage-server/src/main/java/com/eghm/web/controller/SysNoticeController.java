@@ -29,7 +29,7 @@ public class SysNoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    @ApiOperation("公告列表(分页)")
+    @ApiOperation("公告列表")
     @GetMapping("/listPage")
     public PageData<SysNotice> listPage(NoticeQueryRequest request) {
         Page<SysNotice> byPage = sysNoticeService.getByPage(request);
@@ -37,7 +37,7 @@ public class SysNoticeController {
     }
 
     @PostMapping("/create")
-    @ApiOperation("新增公告信息")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody NoticeAddRequest request) {
         sysNoticeService.create(request);
         return RespBody.success();
@@ -51,7 +51,7 @@ public class SysNoticeController {
     }
 
     @PostMapping("/publish")
-    @ApiOperation("发布公告")
+    @ApiOperation("发布")
     public RespBody<Void> publish(@Validated @RequestBody IdDTO request) {
         sysNoticeService.publish(request.getId());
         return RespBody.success();
@@ -72,7 +72,7 @@ public class SysNoticeController {
     }
 
     @PostMapping("/update")
-    @ApiOperation("编辑公告")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody NoticeEditRequest request) {
         sysNoticeService.update(request);
         return RespBody.success();

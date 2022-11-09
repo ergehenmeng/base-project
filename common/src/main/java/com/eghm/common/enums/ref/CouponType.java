@@ -1,6 +1,7 @@
 package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -40,6 +41,7 @@ public enum CouponType implements IEnum<Integer>  {
         return value;
     }
 
+    @JsonCreator
     public static CouponType valueOf(int value) {
         return Arrays.stream(CouponType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(DEDUCTION);
     }

@@ -4,6 +4,7 @@ import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
@@ -49,6 +50,11 @@ public class DataScopeInterceptor implements Interceptor {
             if (!hasTypeHandler) {
                 for (String name : metaObject.getGetterNames()) {
                     paramMap.put(name, metaObject.getValue(name));
+                }
+            } else {
+                BoundSql boundSql = ms.getBoundSql(paramObject);
+                for (ParameterMapping mapping : boundSql.getParameterMappings()) {
+                    paramMap.put(mapping.getProperty(), paramObject);
                 }
             }
         }

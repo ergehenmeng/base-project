@@ -35,10 +35,10 @@
         t.add_time,
         t.update_time,
         t.device_brand,
-        t.device_model
+        t.device_model,
         r.nick_name,
         r.mobile
-        from feedback_log t inner join user r on t.user_id = r.id
+        from feedback_log t left join user r on t.user_id = r.id
         <where>
             <if test="queryName != null and queryName != ''">
                 and r.mobile = #{queryName}

@@ -28,14 +28,14 @@ public class FeedbackController {
     private final FeedbackService feedbackService;
 
     @GetMapping("/listPage")
-    @ApiOperation("分页查询反馈列表")
+    @ApiOperation("列表")
     public PageData<FeedbackVO> listPage(FeedbackQueryRequest request) {
         Page<FeedbackVO> byPage = feedbackService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
     @PostMapping("/dispose")
-    @ApiOperation("处理反馈信息")
+    @ApiOperation("回复")
     public RespBody<Void> dispose(@Validated @RequestBody FeedbackDisposeRequest request) {
         JwtOperator operator = SecurityHolder.getOperatorRequired();
         request.setOperatorId(operator.getId());

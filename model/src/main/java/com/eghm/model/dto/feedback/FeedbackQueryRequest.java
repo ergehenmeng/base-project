@@ -20,7 +20,7 @@ public class FeedbackQueryRequest extends PagingQuery {
     @ApiModelProperty("分类信息(数据字典)")
     private Byte classify;
 
-    @ApiModelProperty("状态 0:待解决 1:已解决")
-    private Byte state;
+    @ApiModelProperty("状态 false:待解决 true:已解决")
+    private Boolean state;
 
 }
