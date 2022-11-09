@@ -1,6 +1,5 @@
 package com.eghm.model.dto.notice;
 
-import com.eghm.model.validation.annotation.OptionByte;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -25,7 +24,6 @@ public class NoticeEditRequest implements Serializable {
     private String title;
 
     @ApiModelProperty(value = "公告类型(数据字典表sys_notice_type)", required = true)
-    @OptionByte(value = {1, 2, 3, 4}, message = "公告类型错误")
     private Byte classify;
 
     @ApiModelProperty(value = "公告内容(富文本)", required = true)

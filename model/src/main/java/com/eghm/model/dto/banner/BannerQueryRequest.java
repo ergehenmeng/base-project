@@ -5,8 +5,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -22,9 +23,10 @@ public class BannerQueryRequest extends PagingQuery {
     @ApiModelProperty("轮播图类型")
     private Byte classify;
 
-    @ApiModelProperty("客户端类型 ANDROID IOS")
+    @ApiModelProperty("客户端类型 PC, ANDROID, IOS, H5, WECHAT ")
     private String clientType;
 
-    @ApiModelProperty("播放时间(在该时间段播放)")
-    private Date middleTime;
+    @ApiModelProperty("播放时间(在该时间段播放) yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime middleTime;
 }

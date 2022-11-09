@@ -1,14 +1,14 @@
 package com.eghm.model.dto.banner;
 
 import com.eghm.model.validation.annotation.OptionString;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -39,19 +39,21 @@ public class BannerAddRequest implements Serializable {
     private String imgUrl;
 
     @ApiModelProperty(value = "点击后跳转的地址")
-    private String turnUrl;
+    private String jumpUrl;
 
     @ApiModelProperty(value = "排序规则 大<->小 最大的在最前面", required = true)
     @NotNull(message = "排序不能为空")
     private Byte sort;
 
     @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date startTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "开始时间不能为空")
+    private LocalDateTime startTime;
 
     @ApiModelProperty(value = "取消展示的时间(只在某个时间段展示)")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @NotNull(message = "结束时间不能为空")
+    private LocalDateTime endTime;
 
     @ApiModelProperty(value = "是否可点击 true:可以 false:不可以", required = true)
     private Boolean click;

@@ -45,7 +45,7 @@ public class BannerServiceImpl implements BannerService {
         wrapper.eq(request.getClassify() != null, Banner::getClassify, request.getClassify());
         wrapper.eq(StrUtil.isNotBlank(request.getClientType()), Banner::getClientType, request.getClientType());
         wrapper.and(request.getMiddleTime() != null, queryWrapper ->
-                queryWrapper.ge(Banner::getStartTime, request.getMiddleTime()).le(Banner::getEndTime, request.getMiddleTime()));
+                queryWrapper.le(Banner::getStartTime, request.getMiddleTime()).ge(Banner::getEndTime, request.getMiddleTime()));
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Banner::getTitle, request.getQueryName());
         return bannerMapper.selectPage(request.createPage(), wrapper);
     }
