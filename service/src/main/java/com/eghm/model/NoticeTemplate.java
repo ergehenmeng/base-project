@@ -1,10 +1,16 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.io.Serializable;
 
 /**
  * @author 二哥很猛
@@ -13,7 +19,12 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @TableName("notice_template")
-public class NoticeTemplate extends BaseEntity {
+public class NoticeTemplate implements Serializable {
+
+    @TableId(type = IdType.ASSIGN_ID)
+    @ApiModelProperty("id主键")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
     @ApiModelProperty("消息模板code")
     private String code;
