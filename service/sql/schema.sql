@@ -645,6 +645,8 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `avatar`      varchar(200)                                          DEFAULT NULL COMMENT '头像路径',
+
     `mobile`      char(11)                                              DEFAULT NULL COMMENT '手机号码',
     `open_id`     varchar(64)                                           DEFAULT NULL COMMENT '微信小程序openId',
     `nick_name`   varchar(20)                                           DEFAULT '' COMMENT '昵称',
@@ -656,11 +658,12 @@ CREATE TABLE `user`
     `birthday`    char(8)                                               DEFAULT NULL COMMENT '生日 yyyyMMdd',
     `invite_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '邀请码',
     `sex`         tinyint(1)                                            DEFAULT '2' COMMENT '性别 0:女性 1:男 2:未知',
+    `score`       int(10)                                               DEFAULT '0' COMMENT '积分',
     `channel`     tinyint(1) unsigned                                   DEFAULT '0' COMMENT '注册渠道',
     `register_ip` bigint(20)                                            DEFAULT NULL COMMENT '注册地址',
     `add_time`    datetime                                              DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
     `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `avatar`      varchar(200)                                          DEFAULT NULL COMMENT '头像路径',
+    `deleted`     bit(1)                                                DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `mobile_index` (`mobile`) USING BTREE,
     KEY `email_index` (`email`) USING BTREE,
