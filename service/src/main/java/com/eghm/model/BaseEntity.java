@@ -25,11 +25,11 @@ public abstract class BaseEntity {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @ApiModelProperty("添加日期")
+    @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime addTime;
 
-    @ApiModelProperty("更新日期")
+    @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 

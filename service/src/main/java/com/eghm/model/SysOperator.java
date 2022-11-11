@@ -3,6 +3,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,9 +38,11 @@ public class SysOperator extends BaseEntity {
     private Byte state;
 
     @ApiModelProperty("登陆密码")
+    @JsonIgnore
     private String pwd;
 
     @ApiModelProperty("初始密码")
+    @JsonIgnore
     private String initPwd;
 
     @ApiModelProperty("部门编号")

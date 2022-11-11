@@ -37,6 +37,4 @@ public class SysCache {
     @ApiModelProperty("备注说明")
     private String remark;
 
-    @ApiModelProperty("是否锁定 0:否 1:锁定(锁定状态刷新缓存无效)")
-    private Boolean locked;
 }

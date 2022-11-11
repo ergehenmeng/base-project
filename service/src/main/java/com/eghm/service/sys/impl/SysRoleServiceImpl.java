@@ -36,6 +36,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public Page<SysRole> getByPage(RoleQueryRequest request) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
+        wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
         return sysRoleMapper.selectPage(request.createPage(), wrapper);
     }
@@ -64,7 +65,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public List<SysRole> getList() {
-        return sysRoleMapper.selectList(null);
+        LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
+        wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
+        return sysRoleMapper.selectList(wrapper);
     }
 
     @Override

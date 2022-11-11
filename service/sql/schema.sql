@@ -621,7 +621,7 @@ CREATE TABLE `sys_task`
 -- ----------------------------
 -- Table structure for task_log
 -- ----------------------------
-CREATE TABLE `task_log`
+CREATE TABLE `sys_task_log`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `bean_name`    varchar(50)  DEFAULT NULL COMMENT '定时任务bean名称',
@@ -634,8 +634,8 @@ CREATE TABLE `task_log`
     `ip`           varchar(50)  DEFAULT NULL COMMENT '执行任务的机器ip',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务执行日志';
-
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci COMMENT ='定时任务执行日志';
 
 
 -- ----------------------------

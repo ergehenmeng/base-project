@@ -37,6 +37,7 @@ public class ManageLogController {
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
     @SkipPerm
+    @ApiOperation("日志详细信息")
     public String select(@RequestParam("id") Long id) {
         return manageLogService.getResponseById(id);
     }
