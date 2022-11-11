@@ -167,7 +167,7 @@ public enum ErrorCode {
     /**
      * 参数解析异常
      */
-    PARAM_VERIFY_ERROR(2000,"参数校验失败"),
+    PARAM_VERIFY_ERROR(2000,"参数校验失败,[%s]%s"),
 
     /**
      * 身份证格式错误
