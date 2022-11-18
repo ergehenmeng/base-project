@@ -849,7 +849,10 @@ public enum ErrorCode {
      */
     REFUND_MUM_MATCH(3189, "商品退款数量不匹配"),
 
-
+    /**
+     * 状态机[%s]未注册
+     */
+    STATE_MACHINE_REGISTER(3200, "状态机[%s]未注册"),
 
     /**
      * 微信公众号尚未配置
