@@ -1,13 +1,14 @@
 package com.eghm.state.machine;
 
 import cn.hutool.core.collection.CollUtil;
+import com.alibaba.cola.statemachine.Action;
+import com.alibaba.cola.statemachine.Condition;
 import com.alibaba.cola.statemachine.StateMachine;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilder;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilderFactory;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.IEvent;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.utils.SpringContextUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,11 +25,11 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @Slf4j
 @AllArgsConstructor
-public class StatMachineAccess {
+public class StateHandler {
 
     private final Map<String, StateMachine<Integer, IEvent, Context>> machineMap = new ConcurrentHashMap<>();
 
-    private final List<ActionHandler<Context>> handlerList;
+    private final List<ActionHandler<? extends Context>> handlerList;
 
     @PostConstruct
     public void init() {
@@ -45,10 +46,10 @@ public class StatMachineAccess {
             return;
         }
         StateMachineBuilder<Integer, IEvent, Context> builder = StateMachineBuilderFactory.create();
-        for (ActionHandler<Context> handler : handlerList) {
+        for (ActionHandler<? extends Context> handler : handlerList) {
             if (machineName.equals(handler.getMachineName())) {
                 for (Integer from : handler.getFromState()) {
-                    builder.externalTransition().from(from).to(handler.getToState()).on(handler.getEvent()).perform(handler);
+                    builder.externalTransition().from(from).to(handler.getToState()).on(handler.getEvent()).when((Condition<Context>) handler).perform((Action<Integer, IEvent, Context>) handler);
                 }
             }
         }

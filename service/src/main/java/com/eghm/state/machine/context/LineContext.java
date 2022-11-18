@@ -1,5 +1,6 @@
-package com.eghm.state.machine;
+package com.eghm.state.machine.context;
 
+import com.eghm.state.machine.Context;
 import lombok.Data;
 
 /**

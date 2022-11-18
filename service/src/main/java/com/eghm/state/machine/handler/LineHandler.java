@@ -1,6 +1,8 @@
-package com.eghm.state.machine;
+package com.eghm.state.machine.handler;
 
 import com.eghm.common.enums.IEvent;
+import com.eghm.state.machine.ActionHandler;
+import com.eghm.state.machine.context.LineContext;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,25 +15,25 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class LineHandler extends ActionHandler<LineContext> {
+public class LineHandler implements ActionHandler<LineContext> {
 
     @Override
-    List<Integer> getFromState() {
+    public List<Integer> getFromState() {
         return Lists.newArrayList(1);
     }
 
     @Override
-    Integer getToState() {
+    public Integer getToState() {
         return 2;
     }
 
     @Override
-    IEvent getEvent() {
+    public IEvent getEvent() {
         return IEvent.PAY;
     }
 
     @Override
-    String getMachineName() {
+    public String getMachineName() {
         return "line";
     }
 

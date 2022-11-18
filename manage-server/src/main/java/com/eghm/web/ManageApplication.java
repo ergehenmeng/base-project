@@ -43,4 +43,5 @@ public class ManageApplication implements ApplicationContextAware {
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
         SpringContextUtil.setApplicationContext(applicationContext);
     }
+
 }
