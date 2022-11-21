@@ -2,6 +2,8 @@ package com.eghm.service.business.handler.impl.ticket;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
@@ -79,4 +81,13 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
         orderService.insert(ticketOrder);
     }
 
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
+    }
 }

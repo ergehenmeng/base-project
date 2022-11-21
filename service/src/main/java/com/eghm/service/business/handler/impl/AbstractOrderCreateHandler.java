@@ -35,7 +35,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param dto 订单信息
      */
     @Override
-    public void process(OrderCreateContext dto) {
+    public void doAction(OrderCreateContext dto) {
         T product = this.getProduct(dto);
         this.before(dto, product);
         // 主订单下单

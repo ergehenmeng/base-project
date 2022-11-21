@@ -54,7 +54,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      * @param dto 订单信息
      */
     @Override
-    public void process(OrderCreateContext dto) {
+    public void doAction(OrderCreateContext dto) {
         ProductOrderDTO product = this.getProduct(dto);
         this.before(product);
         // 购物车商品可能存在多商铺同时下单,按店铺进行分组

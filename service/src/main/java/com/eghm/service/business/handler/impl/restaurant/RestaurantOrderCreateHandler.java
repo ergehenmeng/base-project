@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.impl.restaurant;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
@@ -75,5 +77,15 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
             log.error("超出餐椅券单次购买上限 [{}] [{}] [{}]", product.getId(), product.getQuota(), num);
             throw new BusinessException(ErrorCode.VOUCHER_QUOTA.getCode(), String.format(ErrorCode.VOUCHER_QUOTA.getMsg(), product.getQuota()));
         }
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
     }
 }
