@@ -4,10 +4,13 @@ import lombok.Getter;
 
 /**
  * @author 二哥很猛
- * @since 2022/11/18
+ * @since 2022/11/21
  */
 @Getter
-public enum IEvent {
+public enum StateMachineType {
 
-    PAY;
+    /**
+     * 门票
+     */
+    TICKET,
 }

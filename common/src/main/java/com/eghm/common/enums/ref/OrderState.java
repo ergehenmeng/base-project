@@ -14,6 +14,11 @@ import lombok.Getter;
 public enum OrderState implements IEnum<Integer> {
 
     /**
+     * 初始状态
+     */
+    NONE(-1, "初始状态"),
+
+    /**
      * 待支付
      */
     UN_PAY(0, "待支付"),

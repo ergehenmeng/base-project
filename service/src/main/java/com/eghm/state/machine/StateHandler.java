@@ -7,16 +7,16 @@ import com.alibaba.cola.statemachine.StateMachine;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilder;
 import com.alibaba.cola.statemachine.builder.StateMachineBuilderFactory;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.IEvent;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 二哥很猛
@@ -27,56 +27,57 @@ import java.util.concurrent.ConcurrentHashMap;
 @AllArgsConstructor
 public class StateHandler {
 
-    private final Map<String, StateMachine<Integer, IEvent, Context>> machineMap = new ConcurrentHashMap<>();
+    private final EnumMap<StateMachineType, com.alibaba.cola.statemachine.StateMachine<Integer, IEvent, Context>> machineMap = new EnumMap<>(StateMachineType.class);
 
     private final List<ActionHandler<? extends Context>> handlerList;
 
     @PostConstruct
     public void init() {
-        this.registerStateMachine("line");
+        this.registerStateMachine(StateMachineType.TICKET);
     }
 
     /**
      * 注册状态机
-     * @param machineName 状态机名称
+     * @param machineType 状态机类型
      */
-    public void registerStateMachine(String machineName) {
+    public void registerStateMachine(StateMachineType machineType) {
         if (CollUtil.isEmpty(handlerList)) {
-            log.info("未发现状态机处理类 [{}]", machineName);
+            log.info("未发现状态机处理类 [{}]", machineType);
             return;
         }
         StateMachineBuilder<Integer, IEvent, Context> builder = StateMachineBuilderFactory.create();
         for (ActionHandler<? extends Context> handler : handlerList) {
-            if (machineName.equals(handler.getMachineName())) {
-                for (Integer from : handler.getFromState()) {
-                    builder.externalTransition().from(from).to(handler.getToState()).on(handler.getEvent()).when((Condition<Context>) handler).perform((Action<Integer, IEvent, Context>) handler);
+            if (machineType == handler.getStateMachineType()) {
+                IEvent event = handler.getEvent();
+                for (Integer from : event.from()) {
+                    builder.externalTransition().from(from).to(event.to()).on(handler.getEvent()).when((Condition<Context>) handler).perform((Action<Integer, IEvent, Context>) handler);
                 }
             }
         }
-        StateMachine<Integer, IEvent, Context> machine = builder.build(machineName);
-        machineMap.put(machineName, machine);
+        StateMachine<Integer, IEvent, Context> machine = builder.build(machineType.name());
+        machineMap.put(machineType, machine);
     }
 
     /**
      * 执行流程
-     * @param machineName 状态机名称
+     * @param machineType 状态机名称
      * @param from 原状态
      * @param event 事件
      * @param context 上下文内容
      */
-    public void fireEvent(String machineName, Integer from, IEvent event, Context context) {
-        this.getStateMachine(machineName).fireEvent(from, event, context);
+    public void fireEvent(StateMachineType machineType, Integer from, IEvent event, Context context) {
+        this.getStateMachine(machineType).fireEvent(from, event, context);
     }
 
     /**
      * 获取状态机
-     * @param machineName 状态机名称
+     * @param machineType 状态机名称
      * @return 状态机
      */
-    public StateMachine<Integer, IEvent, Context> getStateMachine(String machineName) {
-        StateMachine<Integer, IEvent, Context> machine = machineMap.get(machineName);
+    public StateMachine<Integer, IEvent, Context> getStateMachine(StateMachineType machineType) {
+        com.alibaba.cola.statemachine.StateMachine<Integer, IEvent, Context> machine = machineMap.get(machineType);
         if (machine == null) {
-            throw new BusinessException(ErrorCode.STATE_MACHINE_REGISTER.getCode(), String.format(ErrorCode.STATE_MACHINE_REGISTER.getMsg(), machineName));
+            throw new BusinessException(ErrorCode.STATE_MACHINE_REGISTER.getCode(), String.format(ErrorCode.STATE_MACHINE_REGISTER.getMsg(), machineType.name()));
         }
         return machine;
     }
