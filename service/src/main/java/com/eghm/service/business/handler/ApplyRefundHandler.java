@@ -1,12 +1,12 @@
 package com.eghm.service.business.handler;
 
-import com.eghm.model.dto.business.order.ApplyRefundDTO;
+import com.eghm.service.business.handler.dto.ApplyRefundDTO;
 
 /**
  * @author 二哥很猛
  * @date 2022/8/19
  */
-public interface ApplyRefundHandler {
+public interface ApplyRefundHandler  {
 
     /**
      * 退款申请

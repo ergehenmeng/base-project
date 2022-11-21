@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.order;
+package com.eghm.service.business.handler.dto;
 
 import com.eghm.model.validation.annotation.IdCard;
 import io.swagger.annotations.ApiModelProperty;

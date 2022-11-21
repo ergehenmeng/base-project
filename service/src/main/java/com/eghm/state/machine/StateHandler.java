@@ -12,7 +12,8 @@ import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.exception.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.EnumMap;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022/11/18
  */
-@Component
+@Service("stateHandler")
 @Slf4j
 @AllArgsConstructor
 public class StateHandler {
@@ -65,6 +66,7 @@ public class StateHandler {
      * @param event 事件
      * @param context 上下文内容
      */
+    @Transactional(rollbackFor = RuntimeException.class)
     public void fireEvent(StateMachineType machineType, Integer from, IEvent event, Context context) {
         this.getStateMachine(machineType).fireEvent(from, event, context);
     }

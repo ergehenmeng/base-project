@@ -8,8 +8,8 @@ import com.eghm.model.HomestayOrder;
 import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;
 import com.eghm.model.Order;
-import com.eghm.model.dto.business.order.BaseProductDTO;
-import com.eghm.model.dto.business.order.OrderCreateDTO;
+import com.eghm.service.business.handler.dto.BaseProductDTO;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.dto.HomestayOrderDTO;
@@ -46,7 +46,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     }
 
     @Override
-    protected void next(OrderCreateDTO dto, HomestayOrderDTO product, Order order) {
+    protected void next(OrderCreateContext dto, HomestayOrderDTO product, Order order) {
         BaseProductDTO base = dto.getFirstProduct();
         homestayRoomConfigService.updateStock(base.getProductId(), dto.getStartDate(), dto.getEndDate(), -base.getNum());
         HomestayOrder homestayOrder = DataUtil.copy(product.getHomestayRoom(), HomestayOrder.class);
@@ -60,7 +60,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     }
 
     @Override
-    protected HomestayOrderDTO getProduct(OrderCreateDTO dto) {
+    protected HomestayOrderDTO getProduct(OrderCreateContext dto) {
         BaseProductDTO base = dto.getFirstProduct();
         HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(base.getProductId());
         List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(base.getProductId(), dto.getStartDate(), dto.getEndDate());
@@ -71,7 +71,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     }
 
     @Override
-    protected BaseProduct getBaseProduct(OrderCreateDTO dto, HomestayOrderDTO product) {
+    protected BaseProduct getBaseProduct(OrderCreateContext dto, HomestayOrderDTO product) {
         BaseProduct baseProduct = new BaseProduct();
         HomestayRoom room = product.getHomestayRoom();
         baseProduct.setProductType(ProductType.HOMESTAY);
@@ -91,7 +91,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     }
 
     @Override
-    protected void before(OrderCreateDTO dto, HomestayOrderDTO product) {
+    protected void before(OrderCreateContext dto, HomestayOrderDTO product) {
         List<HomestayRoomConfig> configList = product.getConfigList();
         long size = ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate());
         if (configList.size() < size) {

@@ -7,7 +7,7 @@ import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.model.dto.business.order.RefundNotifyDTO;
+import com.eghm.service.business.handler.dto.RefundNotifyDTO;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;

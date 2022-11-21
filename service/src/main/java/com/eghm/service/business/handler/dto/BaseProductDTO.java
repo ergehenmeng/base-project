@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.order;
+package com.eghm.service.business.handler.dto;
 
 import com.eghm.model.validation.annotation.RangeInt;
 import com.eghm.model.validation.group.ProductOrderCreateGroup;

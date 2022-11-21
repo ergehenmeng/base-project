@@ -7,8 +7,8 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.model.RestaurantVoucher;
-import com.eghm.model.dto.business.order.BaseProductDTO;
-import com.eghm.model.dto.business.order.OrderCreateDTO;
+import com.eghm.service.business.handler.dto.BaseProductDTO;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
@@ -35,7 +35,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected void next(OrderCreateDTO dto, RestaurantVoucher product, Order order) {
+    protected void next(OrderCreateContext dto, RestaurantVoucher product, Order order) {
         BaseProductDTO base = dto.getFirstProduct();
         restaurantVoucherService.updateStock(product.getId(), -base.getNum());
         RestaurantOrder restaurantOrder = DataUtil.copy(product, RestaurantOrder.class);
@@ -45,12 +45,12 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected RestaurantVoucher getProduct(OrderCreateDTO dto) {
+    protected RestaurantVoucher getProduct(OrderCreateContext dto) {
         return restaurantVoucherService.selectByIdShelve(dto.getFirstProduct().getProductId());
     }
 
     @Override
-    protected BaseProduct getBaseProduct(OrderCreateDTO dto, RestaurantVoucher product) {
+    protected BaseProduct getBaseProduct(OrderCreateContext dto, RestaurantVoucher product) {
         BaseProduct baseProduct = new BaseProduct();
         baseProduct.setProductType(ProductType.VOUCHER);
         baseProduct.setTitle(product.getTitle());
@@ -65,7 +65,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected void before(OrderCreateDTO dto, RestaurantVoucher product) {
+    protected void before(OrderCreateContext dto, RestaurantVoucher product) {
         Integer num = dto.getFirstProduct().getNum();
         if (product.getStock() - num < 0) {
             log.error("餐饮券库存不足 [{}] [{}] [{}]", product.getId(), product.getStock(), num);

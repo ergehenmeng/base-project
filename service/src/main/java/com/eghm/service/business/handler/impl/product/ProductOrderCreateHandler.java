@@ -2,6 +2,8 @@ package com.eghm.service.business.handler.impl.product;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.exception.BusinessException;
@@ -9,8 +11,8 @@ import com.eghm.model.Order;
 import com.eghm.model.Product;
 import com.eghm.model.ProductSku;
 import com.eghm.model.ShippingAddress;
-import com.eghm.model.dto.business.order.BaseProductDTO;
-import com.eghm.model.dto.business.order.OrderCreateDTO;
+import com.eghm.service.business.handler.dto.BaseProductDTO;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.OrderCreateHandler;
 import com.eghm.service.business.handler.dto.OrderPackage;
@@ -52,7 +54,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      * @param dto 订单信息
      */
     @Override
-    public void process(OrderCreateDTO dto) {
+    public void process(OrderCreateContext dto) {
         ProductOrderDTO product = this.getProduct(dto);
         this.before(product);
         // 购物车商品可能存在多商铺同时下单,按店铺进行分组
@@ -96,7 +98,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      * @param dto 下单信息
      * @return 商品信息及下单信息
      */
-    private ProductOrderDTO getProduct(OrderCreateDTO dto) {
+    private ProductOrderDTO getProduct(OrderCreateContext dto) {
         // 组装数据,减少后面遍历逻辑
         Set<Long> productIds = dto.getProductList().stream().map(BaseProductDTO::getProductId).collect(Collectors.toSet());
         Map<Long, Product> productMap = productService.getByIds(productIds);
@@ -173,5 +175,15 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      */
     private Integer getNum(List<OrderPackage> packageList) {
         return packageList.stream().mapToInt(OrderPackage::getNum).sum();
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
     }
 }

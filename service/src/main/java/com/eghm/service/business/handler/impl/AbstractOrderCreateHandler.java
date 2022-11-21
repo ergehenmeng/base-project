@@ -3,8 +3,8 @@ package com.eghm.service.business.handler.impl;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.model.Order;
-import com.eghm.model.dto.business.order.BaseProductDTO;
-import com.eghm.model.dto.business.order.OrderCreateDTO;
+import com.eghm.service.business.handler.dto.BaseProductDTO;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.business.OrderService;
@@ -35,7 +35,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param dto 订单信息
      */
     @Override
-    public void process(OrderCreateDTO dto) {
+    public void process(OrderCreateContext dto) {
         T product = this.getProduct(dto);
         this.before(dto, product);
         // 主订单下单
@@ -54,7 +54,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param product 商品信息
      * @param order 主订单信息
      */
-    protected void after(OrderCreateDTO dto, T product, Order order) {
+    protected void after(OrderCreateContext dto, T product, Order order) {
         orderMQService.sendOrderExpireMessage(order.getOrderNo());
     }
 
@@ -64,7 +64,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param product 商品信息
      * @param order 主订单信息
      */
-    protected abstract void next(OrderCreateDTO dto, T product, Order order);
+    protected abstract void next(OrderCreateContext dto, T product, Order order);
 
     /**
      * 下单
@@ -72,7 +72,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param product 商品信息
      * @return 主订单信息
      */
-    protected Order doProcess(OrderCreateDTO dto, T product) {
+    protected Order doProcess(OrderCreateContext dto, T product) {
         BaseProduct base = this.getBaseProduct(dto, product);
         if (Boolean.TRUE.equals(base.getHotSell())) {
             // 走MQ形式
@@ -102,7 +102,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param dto 下单信息
      * @param order 订单信息
      */
-    protected void setDiscount(BaseProduct base, OrderCreateDTO dto, Order order) {
+    protected void setDiscount(BaseProduct base, OrderCreateContext dto, Order order) {
         if (Boolean.TRUE.equals(base.getSupportedCoupon()) && dto.getCouponId() != null) {
             BaseProductDTO productDTO = dto.getFirstProduct();
             Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), productDTO.getProductId(), order.getPayAmount());
@@ -117,7 +117,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param dto 下单信息
      * @return 商品信息
      */
-    protected abstract T getProduct(OrderCreateDTO dto);
+    protected abstract T getProduct(OrderCreateContext dto);
 
     /**
      * 获取商品基础信息,即各类商品的公告信息
@@ -125,14 +125,14 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param product 商品详细信息
      * @return 基础信息
      */
-    protected abstract BaseProduct getBaseProduct(OrderCreateDTO dto, T product);
+    protected abstract BaseProduct getBaseProduct(OrderCreateContext dto, T product);
 
     /**
      * 下单前置校验
      * @param dto 下单信息
      * @param product 商品信息
      */
-    protected abstract void before(OrderCreateDTO dto, T product);
+    protected abstract void before(OrderCreateContext dto, T product);
 
     public OrderService getOrderService() {
         return orderService;

@@ -8,7 +8,7 @@ import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.OrderVisitorMapper;
 import com.eghm.model.OrderVisitor;
-import com.eghm.model.dto.business.order.VisitorVO;
+import com.eghm.service.business.handler.dto.VisitorVO;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

@@ -7,14 +7,26 @@ package com.eghm.state.machine;
 public interface Context {
 
     /**
+     * 设置原始值
+     * @param from 原始
+     */
+    void setFrom(Integer from);
+
+    /**
+     * 设置新状态
+     * @param to 新
+     */
+    void setTo(Integer to);
+
+    /**
      * 原状态
      * @return 原状态
      */
-    Integer from();
+    Integer getFrom();
 
     /**
      * 新状态
      * @return 新状态
      */
-    Integer to();
+    Integer getTo();
 }

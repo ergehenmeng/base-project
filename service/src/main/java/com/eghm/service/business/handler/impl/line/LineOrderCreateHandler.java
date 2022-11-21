@@ -6,7 +6,7 @@ import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
-import com.eghm.model.dto.business.order.OrderCreateDTO;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.dto.LineOrderDTO;
@@ -43,7 +43,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected void next(OrderCreateDTO dto, LineOrderDTO product, Order order) {
+    protected void next(OrderCreateContext dto, LineOrderDTO product, Order order) {
         lineConfigService.updateStock(product.getConfig().getId(), -order.getNum());
         LineOrder lineOrder = DataUtil.copy(product.getLine(), LineOrder.class);
         lineOrder.setOrderNo(order.getOrderNo());
@@ -57,7 +57,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected LineOrderDTO getProduct(OrderCreateDTO dto) {
+    protected LineOrderDTO getProduct(OrderCreateContext dto) {
         LineOrderDTO orderDTO = new LineOrderDTO();
         Long productId = dto.getFirstProduct().getProductId();
         orderDTO.setLine(lineService.selectByIdShelve(productId));
@@ -67,7 +67,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected BaseProduct getBaseProduct(OrderCreateDTO dto, LineOrderDTO product) {
+    protected BaseProduct getBaseProduct(OrderCreateContext dto, LineOrderDTO product) {
         BaseProduct baseProduct = new BaseProduct();
         baseProduct.setTitle(product.getLine().getTitle());
         baseProduct.setProductType(ProductType.LINE);
@@ -82,7 +82,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected void before(OrderCreateDTO dto, LineOrderDTO product) {
+    protected void before(OrderCreateContext dto, LineOrderDTO product) {
         Integer num = dto.getFirstProduct().getNum();
         if (product.getConfig().getStock() - num < 0) {
             log.error("线路库存不足 [{}] [{}] [{}]", product.getConfig().getId(), product.getConfig().getStock(), num);

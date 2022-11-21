@@ -1,9 +1,10 @@
-package com.eghm.model.dto.business.order;
+package com.eghm.service.business.handler.dto;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.group.*;
+import com.eghm.state.machine.Context;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -21,7 +22,7 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class OrderCreateDTO extends AsyncKey {
+public class OrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
     @Size(min = 1, max = 99, message = "商品不能超过99种", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
@@ -67,5 +68,25 @@ public class OrderCreateDTO extends AsyncKey {
      */
     public BaseProductDTO getFirstProduct(){
         return productList.get(0);
+    }
+
+    @Override
+    public void setFrom(Integer from) {
+
+    }
+
+    @Override
+    public void setTo(Integer to) {
+
+    }
+
+    @Override
+    public Integer getFrom() {
+        return null;
+    }
+
+    @Override
+    public Integer getTo() {
+        return null;
     }
 }

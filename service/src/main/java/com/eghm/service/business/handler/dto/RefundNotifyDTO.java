@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.order;
+package com.eghm.service.business.handler.dto;
 
 import lombok.Data;
 

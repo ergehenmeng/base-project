@@ -7,8 +7,8 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.ScenicTicket;
 import com.eghm.model.TicketOrder;
-import com.eghm.model.dto.business.order.BaseProductDTO;
-import com.eghm.model.dto.business.order.OrderCreateDTO;
+import com.eghm.service.business.handler.dto.BaseProductDTO;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
@@ -35,12 +35,12 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
     }
 
     @Override
-    protected ScenicTicket getProduct(OrderCreateDTO dto) {
+    protected ScenicTicket getProduct(OrderCreateContext dto) {
         return scenicTicketService.selectByIdShelve(dto.getFirstProduct().getProductId());
     }
 
     @Override
-    protected BaseProduct getBaseProduct(OrderCreateDTO dto, ScenicTicket product) {
+    protected BaseProduct getBaseProduct(OrderCreateContext dto, ScenicTicket product) {
         BaseProduct baseProduct = DataUtil.copy(product, BaseProduct.class);
         // 门票默认可以使用优惠券
         baseProduct.setSupportedCoupon(true);
@@ -51,7 +51,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
     }
 
     @Override
-    protected void before(OrderCreateDTO dto, ScenicTicket ticket) {
+    protected void before(OrderCreateContext dto, ScenicTicket ticket) {
         Integer num = dto.getFirstProduct().getNum();
         if (ticket.getStock() - num < 0) {
             log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
@@ -69,7 +69,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
     }
 
     @Override
-    protected void next(OrderCreateDTO dto, ScenicTicket product, Order order) {
+    protected void next(OrderCreateContext dto, ScenicTicket product, Order order) {
         BaseProductDTO base = dto.getFirstProduct();
         scenicTicketService.updateStock(base.getProductId(), -order.getNum());
         TicketOrder ticketOrder = DataUtil.copy(product, TicketOrder.class);
