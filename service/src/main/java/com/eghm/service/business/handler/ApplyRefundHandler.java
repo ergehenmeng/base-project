@@ -9,10 +9,4 @@ import com.eghm.state.machine.ActionHandler;
  */
 public interface ApplyRefundHandler extends ActionHandler<ApplyRefundContext> {
 
-    /**
-     * 退款申请
-     * @param context 退款申请参数
-     */
-    void doAction(ApplyRefundContext context);
-
 }

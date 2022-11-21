@@ -9,10 +9,4 @@ import com.eghm.state.machine.ActionHandler;
  */
 public interface AuditRefundHandler extends ActionHandler<AuditRefundContext> {
 
-    /**
-     * 退款审核处理
-     * @param context 审核参数
-     */
-    void doAction(AuditRefundContext context);
-
 }

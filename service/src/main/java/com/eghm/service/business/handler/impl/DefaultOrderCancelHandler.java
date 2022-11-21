@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.impl;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.exception.BusinessException;
@@ -8,6 +10,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.OrderCancelHandler;
+import com.eghm.service.business.handler.dto.OrderCancelContext;
 import com.eghm.service.pay.enums.TradeState;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +32,18 @@ public class DefaultOrderCancelHandler implements OrderCancelHandler {
     private final UserCouponService userCouponService;
 
     @Override
-    public void process(String orderNo) {
-        Order order = orderService.getByOrderNo(orderNo);
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
+    }
+
+    @Override
+    public void doAction(OrderCancelContext context) {
+        Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(order);
         this.doProcess(order);
         this.after(order);

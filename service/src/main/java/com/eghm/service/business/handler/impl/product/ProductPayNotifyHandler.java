@@ -1,12 +1,15 @@
 package com.eghm.service.business.handler.impl.product;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.handler.PayNotifyHandler;
+import com.eghm.service.business.handler.dto.PayNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
@@ -39,12 +42,22 @@ public class ProductPayNotifyHandler implements PayNotifyHandler {
     private final ProductService productService;
 
     @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
+    }
+
+    @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     @Async
-    public void process(String orderNo, String outTradeNo) {
-        List<Order> orderList = orderService.selectByOutTradeNoList(outTradeNo);
+    public void doAction(PayNotifyContext context) {
+        List<Order> orderList = orderService.selectByOutTradeNoList(context.getOutTradeNo());
         this.before(orderList);
-        this.doProcess(orderList, outTradeNo);
+        this.doProcess(orderList, context.getOutTradeNo());
     }
 
     /**

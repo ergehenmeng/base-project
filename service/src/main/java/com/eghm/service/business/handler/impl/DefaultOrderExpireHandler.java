@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.impl;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.exception.BusinessException;
@@ -8,6 +10,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.OrderExpireHandler;
+import com.eghm.service.business.handler.dto.OrderCancelContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -33,8 +36,8 @@ public class DefaultOrderExpireHandler implements OrderExpireHandler {
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     @Async
-    public void process(String orderNo) {
-        Order order = orderService.getByOrderNo(orderNo);
+    public void doAction(OrderCancelContext context) {
+        Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(order);
 
         this.doProcess(order);
@@ -71,4 +74,15 @@ public class DefaultOrderExpireHandler implements OrderExpireHandler {
             throw new BusinessException(ErrorCode.ORDER_STATE_MATCH);
         }
     }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
+    }
+
 }

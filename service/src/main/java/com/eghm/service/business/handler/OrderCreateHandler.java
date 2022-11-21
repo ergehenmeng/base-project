@@ -9,10 +9,4 @@ import com.eghm.state.machine.ActionHandler;
  */
 public interface OrderCreateHandler extends ActionHandler<OrderCreateContext> {
 
-    /**
-     * 创建订单处理
-     * @param context 订单信息
-     */
-    void doAction(OrderCreateContext context);
-
 }

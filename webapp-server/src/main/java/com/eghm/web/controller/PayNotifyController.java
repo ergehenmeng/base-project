@@ -2,6 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.common.constant.WeChatConstant;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.handler.dto.OrderCancelContext;
+import com.eghm.service.business.handler.dto.PayNotifyContext;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.NotifyType;
@@ -48,7 +50,11 @@ public class PayNotifyController {
         payNotifyLogService.insertAliLog(stringMap, NotifyType.PAY);
         String orderNo = stringMap.get("body");
         String outTradeNo = stringMap.get("out_trade_no");
-        commonService.getPayHandler(orderNo).process(orderNo, outTradeNo);
+        PayNotifyContext context = new PayNotifyContext();
+        context.setOrderNo(orderNo);
+        context.setOutTradeNo(outTradeNo);
+        // TODO fireEvent
+        commonService.getPayHandler(orderNo).doAction(context);
         return ALI_SUCCESS;
     }
 

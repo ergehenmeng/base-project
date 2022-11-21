@@ -1,14 +1,12 @@
 package com.eghm.service.business.handler;
 
+import com.eghm.service.business.handler.dto.OrderCancelContext;
+import com.eghm.state.machine.ActionHandler;
+
 /**
  * @author 二哥很猛
  * @date 2022/8/20
  */
-public interface OrderCancelHandler {
+public interface OrderCancelHandler extends ActionHandler<OrderCancelContext> {
 
-    /**
-     * 订单取消处理
-     * @param orderNo 订单编号
-     */
-    void process(String orderNo);
 }

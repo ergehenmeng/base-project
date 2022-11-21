@@ -5,11 +5,11 @@ import com.eghm.common.constant.QueueConstant;
 import com.eghm.common.exception.SystemException;
 import com.eghm.model.ManageLog;
 import com.eghm.model.WebappLog;
-import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.TicketOrderService;
+import com.eghm.service.business.handler.dto.OrderCancelContext;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
@@ -38,8 +38,6 @@ public class RabbitListenerHandler {
 
     private final CommonService commonService;
 
-    private final TicketOrderService ticketOrderService;
-
     private final WebappLogService webappLogService;
 
     private final LoginLogService loginLogService;
@@ -54,7 +52,10 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.ORDER_PAY_EXPIRE_QUEUE)
     public void orderExpire(String orderNo, Message message, Channel channel) throws IOException {
-        processMessageAck(orderNo, message, channel, commonService.getExpireHandler(orderNo)::process);
+        OrderCancelContext context = new OrderCancelContext();
+        context.setOrderNo(orderNo);
+        // TODO fireEvent
+        processMessageAck(context, message, channel, commonService.getExpireHandler(orderNo)::doAction);
     }
 
     /**
