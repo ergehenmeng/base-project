@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.impl.line;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
@@ -88,5 +90,15 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
             log.error("线路库存不足 [{}] [{}] [{}]", product.getConfig().getId(), product.getConfig().getStock(), num);
             throw new BusinessException(ErrorCode.LINE_STOCK);
         }
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
     }
 }

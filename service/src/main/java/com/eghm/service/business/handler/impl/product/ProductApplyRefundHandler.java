@@ -8,7 +8,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.ProductOrder;
-import com.eghm.service.business.handler.dto.ApplyRefundDTO;
+import com.eghm.service.business.handler.dto.ApplyRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -36,7 +36,7 @@ public class ProductApplyRefundHandler extends DefaultApplyRefundHandler {
     }
 
     @Override
-    protected OrderRefundLog doProcess(ApplyRefundDTO dto, Order order) {
+    protected OrderRefundLog doProcess(ApplyRefundContext dto, Order order) {
         ProductOrder productOrder = productOrderService.selectByIdRequired(dto.getProductOrderId());
         if (!productOrder.getOrderNo().equals(dto.getOrderNo())) {
             log.error("订单id与订单编号不匹配,无法申请退款 [{}] [{}]", dto.getProductOrderId(), dto.getOrderNo());
@@ -72,7 +72,7 @@ public class ProductApplyRefundHandler extends DefaultApplyRefundHandler {
     }
 
     @Override
-    protected void after(ApplyRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    protected void after(ApplyRefundContext dto, Order order, OrderRefundLog refundLog) {
         log.info("商品订单退款申请成功 [{}] [{}] [{}]", dto.getOrderNo(), dto.getProductOrderId(), refundLog.getId());
     }
 }

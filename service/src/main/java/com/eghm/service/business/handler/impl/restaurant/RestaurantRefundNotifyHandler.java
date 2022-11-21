@@ -3,7 +3,7 @@ package com.eghm.service.business.handler.impl.restaurant;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.RestaurantOrder;
-import com.eghm.service.business.handler.dto.RefundNotifyDTO;
+import com.eghm.service.business.handler.dto.RefundNotifyContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.RestaurantOrderService;
@@ -36,7 +36,7 @@ public class RestaurantRefundNotifyHandler extends DefaultRefundNotifyHandler {
     }
     
     @Override
-    protected void after(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
+    protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         super.after(dto, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {

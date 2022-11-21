@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler;
 
-import com.eghm.service.business.handler.dto.ApplyRefundDTO;
+import com.eghm.service.business.handler.dto.ApplyRefundContext;
 
 /**
  * @author 二哥很猛
@@ -12,5 +12,5 @@ public interface ApplyRefundHandler  {
      * 退款申请
      * @param dto 退款申请参数
      */
-    void process(ApplyRefundDTO dto);
+    void process(ApplyRefundContext dto);
 }

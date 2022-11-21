@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  */
 
 @Data
-public class AuditRefundDTO {
+public class AuditRefundContext {
 
     @ApiModelProperty("订单编号")
     @NotNull(message = "订单编号不能为空")

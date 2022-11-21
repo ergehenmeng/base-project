@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler;
 
-import com.eghm.service.business.handler.dto.AuditRefundDTO;
+import com.eghm.service.business.handler.dto.AuditRefundContext;
 
 /**
  * @author 二哥很猛
@@ -10,7 +10,7 @@ public interface AuditRefundHandler {
 
     /**
      * 退款审核处理
-     * @param dto 审核参数
+     * @param context 审核参数
      */
-    void process(AuditRefundDTO dto);
+    void process(AuditRefundContext context);
 }

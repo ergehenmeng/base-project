@@ -3,7 +3,7 @@ package com.eghm.service.business.handler.impl.homestay;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
-import com.eghm.service.business.handler.dto.ApplyRefundDTO;
+import com.eghm.service.business.handler.dto.ApplyRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -24,7 +24,7 @@ public class HomestayApplyRefundHandler extends DefaultApplyRefundHandler {
     }
 
     @Override
-    protected void before(ApplyRefundDTO dto, Order order) {
+    protected void before(ApplyRefundContext dto, Order order) {
         super.before(dto, order);
         if (dto.getNum() != dto.getVisitorIds().size()) {
             log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", dto.getOrderNo(), dto.getNum(), dto.getVisitorIds().size());

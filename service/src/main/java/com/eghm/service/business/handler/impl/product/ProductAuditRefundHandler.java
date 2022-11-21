@@ -4,7 +4,7 @@ import com.eghm.common.enums.ref.ProductRefundState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.ProductOrder;
-import com.eghm.service.business.handler.dto.AuditRefundDTO;
+import com.eghm.service.business.handler.dto.AuditRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -29,7 +29,7 @@ public class ProductAuditRefundHandler extends DefaultAuditRefundHandler {
     }
 
     @Override
-    protected void doRefuse(AuditRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    protected void doRefuse(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         super.doRefuse(dto, order, refundLog);
         ProductOrder productOrder = productOrderService.selectByIdRequired(refundLog.getProductOrderId());
         // 退款拒绝后,需要将商品订单的退款状态变更

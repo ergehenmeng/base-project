@@ -4,7 +4,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.TicketOrder;
-import com.eghm.service.business.handler.dto.ApplyRefundDTO;
+import com.eghm.service.business.handler.dto.ApplyRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -29,7 +29,7 @@ public class TicketApplyRefundHandler extends DefaultApplyRefundHandler {
     }
 
     @Override
-    protected void before(ApplyRefundDTO dto, Order order) {
+    protected void before(ApplyRefundContext dto, Order order) {
         super.before(dto, order);
         TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(dto.getOrderNo());
         if (Boolean.TRUE.equals(ticketOrder.getRealBuy()) && dto.getNum() != dto.getVisitorIds().size()) {

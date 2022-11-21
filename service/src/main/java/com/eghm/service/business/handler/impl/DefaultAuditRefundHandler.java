@@ -7,7 +7,7 @@ import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.AuditRefundDTO;
+import com.eghm.service.business.handler.dto.AuditRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -37,7 +37,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    public void process(AuditRefundDTO dto) {
+    public void process(AuditRefundContext dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByIdRequired(dto.getRefundId());
 
@@ -54,7 +54,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    private void doProcess(AuditRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    private void doProcess(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         refundLog.setAuditRemark(dto.getAuditRemark());
         refundLog.setAuditTime(LocalDateTime.now());
         if (dto.getState().intValue() == AuditState.PASS.getValue()) {
@@ -73,7 +73,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    protected void doPass(AuditRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    protected void doPass(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         order.setRefundState(RefundState.PROGRESS);
         refundLog.setAuditState(AuditState.PASS);
         refundLog.setState(0);
@@ -93,7 +93,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    protected void doRefuse(AuditRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    protected void doRefuse(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         order.setRefundState(RefundState.REFUSE);
         refundLog.setAuditState(AuditState.REFUSE);
         orderService.updateById(order);
@@ -107,7 +107,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    private void after(AuditRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    private void after(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         if (dto.getState().intValue() == AuditState.REFUSE.getValue()) {
             orderVisitorService.unlockVisitor(dto.getOrderNo(), refundLog.getId());
         }
@@ -119,7 +119,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    protected void before(AuditRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    protected void before(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         if (order.getRefundState() == null) {
             log.error("该笔订单未发起退款,无法进行审核操作 [{}] [{}]", dto.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.NO_REFUND_STATE);

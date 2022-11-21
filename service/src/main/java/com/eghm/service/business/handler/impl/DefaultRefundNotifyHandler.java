@@ -7,7 +7,7 @@ import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.RefundNotifyDTO;
+import com.eghm.service.business.handler.dto.RefundNotifyContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
@@ -45,7 +45,7 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     @Async
-    public void process(RefundNotifyDTO dto) {
+    public void process(RefundNotifyContext dto) {
         Order order = orderService.selectByOutTradeNo(dto.getOutTradeNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByOutRefundNo(dto.getOutRefundNo());
 
@@ -62,7 +62,7 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
      * @param order 订单信息
      * @param refundLog 退款信息
      */
-    protected void before(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog) {
+    protected void before(RefundNotifyContext dto, Order order, OrderRefundLog refundLog) {
         if (order == null) {
             log.error("根据支付流水号未查询到订单,不做退款处理 [{}]", dto);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
@@ -82,7 +82,7 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
      * @param refundLog 退款记录
      * @return true: 退款成功 false:不成功
      */
-    protected RefundStatus doProcess(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog) {
+    protected RefundStatus doProcess(RefundNotifyContext dto, Order order, OrderRefundLog refundLog) {
 
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
         RefundVO refund = aggregatePayService.queryRefund(tradeType, dto.getOutTradeNo(), dto.getOutRefundNo());
@@ -140,7 +140,7 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
      * @param refundLog 退款记录
      * @param refundStatus 退款状态
      */
-    protected void after(RefundNotifyDTO dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
+    protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         log.info("退款异步处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
     }
 

@@ -8,7 +8,7 @@ import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.ApplyRefundDTO;
+import com.eghm.service.business.handler.dto.ApplyRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
@@ -38,7 +38,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    public void process(ApplyRefundDTO dto) {
+    public void process(ApplyRefundContext dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         this.before(dto, order);
 
@@ -56,7 +56,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
      * @param order 订单信息
      * @return 退款记录
      */
-    protected OrderRefundLog doProcess(ApplyRefundDTO dto, Order order) {
+    protected OrderRefundLog doProcess(ApplyRefundContext dto, Order order) {
         OrderRefundLog refundLog = DataUtil.copy(dto, OrderRefundLog.class);
         LocalDateTime now = LocalDateTime.now();
         refundLog.setApplyTime(now);
@@ -82,7 +82,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    protected void after(ApplyRefundDTO dto, Order order, OrderRefundLog refundLog) {
+    protected void after(ApplyRefundContext dto, Order order, OrderRefundLog refundLog) {
         log.info("订单退款申请成功 [{}] [{}] [{}]", dto, order.getState(), order.getRefundState());
         orderVisitorService.lockVisitor(order.getProductType(), dto.getOrderNo(), refundLog.getId(), dto.getVisitorIds());
     }
@@ -92,7 +92,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
      * @param dto 订单申请信息
      * @param order 主订单
      */
-    protected void before(ApplyRefundDTO dto, Order order) {
+    protected void before(ApplyRefundContext dto, Order order) {
         if (!dto.getUserId().equals(order.getUserId())) {
             log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", dto.getOrderNo(), order.getUserId(), dto.getUserId());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
@@ -116,7 +116,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
      * @param dto 订单申请信息
      * @param order 主订单
      */
-    protected void checkRefund(ApplyRefundDTO dto, Order order) {
+    protected void checkRefund(ApplyRefundContext dto, Order order) {
         int refundNum = orderRefundLogService.getTotalRefundNum(dto.getOrderNo(), null);
         if ((refundNum + dto.getNum()) > order.getNum()) {
             log.error("累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, dto.getNum());

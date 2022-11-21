@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.impl.homestay;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
@@ -103,5 +105,15 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
             log.error("房间库存不足 [{}] [{}] [{}]", dto.getFirstProduct(), dto.getStartDate(), dto.getEndDate());
             throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
         }
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
     }
 }
