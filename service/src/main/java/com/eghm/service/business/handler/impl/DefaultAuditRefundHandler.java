@@ -2,16 +2,18 @@ package com.eghm.service.business.handler.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.AuditRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.AuditRefundHandler;
+import com.eghm.service.business.handler.dto.AuditRefundContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,7 +39,17 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    public void process(AuditRefundContext dto) {
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
+    }
+
+    @Override
+    public void doAction(AuditRefundContext dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByIdRequired(dto.getRefundId());
 

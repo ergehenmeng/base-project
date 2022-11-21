@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.dto;
 import com.eghm.common.convertor.YuanToCentDecoder;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
+import com.eghm.state.machine.Context;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,7 +17,7 @@ import javax.validation.constraints.Size;
  */
 
 @Data
-public class AuditRefundContext {
+public class AuditRefundContext implements Context {
 
     @ApiModelProperty("订单编号")
     @NotNull(message = "订单编号不能为空")
@@ -40,4 +41,23 @@ public class AuditRefundContext {
     @Size(min = 2, max = 100, message = "审批意见长度2~100字符")
     private String auditRemark;
 
+    @Override
+    public void setFrom(Integer from) {
+
+    }
+
+    @Override
+    public void setTo(Integer to) {
+
+    }
+
+    @Override
+    public Integer getFrom() {
+        return null;
+    }
+
+    @Override
+    public Integer getTo() {
+        return null;
+    }
 }

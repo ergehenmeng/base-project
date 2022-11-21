@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.impl;
 
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.StateMachineType;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.AuditState;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.enums.ref.RefundState;
@@ -38,7 +40,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
-    public void process(ApplyRefundContext dto) {
+    public void doAction(ApplyRefundContext dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         this.before(dto, order);
 
@@ -131,4 +133,15 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
     public OrderRefundLogService getOrderRefundLogService() {
         return orderRefundLogService;
     }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public StateMachineType getStateMachineType() {
+        return null;
+    }
+
 }

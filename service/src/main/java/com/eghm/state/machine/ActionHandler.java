@@ -27,4 +27,18 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
     default boolean isSatisfied(C context) {
         return true;
     }
+
+    @Override
+    default void execute(Integer from, Integer to, IEvent event, C context) {
+        context.setFrom(from);
+        context.setTo(to);
+        this.doAction(context);
+    }
+
+    /**
+     * 真实业务处理
+     * @param context 上下文信息
+     */
+    void doAction(C context);
+
 }

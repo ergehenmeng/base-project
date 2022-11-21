@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.dto;
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
+import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ import java.util.List;
  */
 
 @Data
-public class ApplyRefundContext {
+public class ApplyRefundContext implements Context {
 
     @ApiModelProperty(value = "订单编号", required = true)
     @NotNull(message = "订单编号不能为空")
@@ -51,4 +52,24 @@ public class ApplyRefundContext {
     @Sign
     @ApiModelProperty("用户id")
     private Long userId;
+
+    @Override
+    public void setFrom(Integer from) {
+
+    }
+
+    @Override
+    public void setTo(Integer to) {
+
+    }
+
+    @Override
+    public Integer getFrom() {
+        return null;
+    }
+
+    @Override
+    public Integer getTo() {
+        return null;
+    }
 }
