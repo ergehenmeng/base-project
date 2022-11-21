@@ -5,4 +5,16 @@ package com.eghm.state.machine;
  * @since 2022/11/18
  */
 public interface Context {
+
+    /**
+     * 原状态
+     * @return 原状态
+     */
+    Integer from();
+
+    /**
+     * 新状态
+     * @return 新状态
+     */
+    Integer to();
 }

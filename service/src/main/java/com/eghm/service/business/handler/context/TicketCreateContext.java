@@ -33,4 +33,23 @@ public class TicketCreateContext implements Context {
      */
     private Order order;
 
+    /**
+     * 原状态
+     */
+    private Integer from;
+
+    /**
+     * 新状态
+     */
+    private Integer to;
+
+    @Override
+    public Integer from() {
+        return from;
+    }
+
+    @Override
+    public Integer to() {
+        return to;
+    }
 }
