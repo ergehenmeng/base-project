@@ -3,17 +3,19 @@ package com.eghm.service.business.handler.impl;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.model.Order;
-import com.eghm.service.business.handler.dto.BaseProductDTO;
-import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.OrderCreateHandler;
+import com.eghm.service.business.handler.dto.BaseProductDTO;
+import com.eghm.service.business.handler.dto.OrderCreateContext;
+import com.eghm.state.machine.Context;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 
 /**
  * @author 二哥很猛
@@ -21,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @AllArgsConstructor
-public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandler {
+public abstract class AbstractOrderCreateHandler<C extends Context, T> implements OrderCreateHandler<C> {
 
     private final OrderService orderService;
 
@@ -35,7 +37,7 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
      * @param dto 订单信息
      */
     @Override
-    public void doAction(OrderCreateContext dto) {
+    public void doAction(C dto) {
         T product = this.getProduct(dto);
         this.before(dto, product);
         // 主订单下单
@@ -68,12 +70,12 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
 
     /**
      * 下单
-     * @param dto 订单信息
+     * @param context 订单信息
      * @param product 商品信息
      * @return 主订单信息
      */
-    protected Order doProcess(OrderCreateContext dto, T product) {
-        BaseProduct base = this.getBaseProduct(dto, product);
+    protected Order doProcess(C context, T product) {
+        BaseProduct base = this.getBaseProduct(context, product);
         if (Boolean.TRUE.equals(base.getHotSell())) {
             // 走MQ形式
             return null;
@@ -114,25 +116,25 @@ public abstract class AbstractOrderCreateHandler<T> implements OrderCreateHandle
 
     /**
      * 获取商品信息
-     * @param dto 下单信息
+     * @param context 下单信息
      * @return 商品信息
      */
-    protected abstract T getProduct(OrderCreateContext dto);
+    protected abstract T getProduct(C context);
 
     /**
-     * 获取商品基础信息,即各类商品的公告信息
+     * 获取商品基础信息,即各类商品的基础信息
      * @param dto 下单信息
      * @param product 商品详细信息
-     * @return 基础信息
+     * @return 下单所需的必要信息
      */
-    protected abstract BaseProduct getBaseProduct(OrderCreateContext dto, T product);
+    protected abstract BaseProduct getBaseProduct(C context, T product);
 
     /**
      * 下单前置校验
-     * @param dto 下单信息
+     * @param context 下单信息
      * @param product 商品信息
      */
-    protected abstract void before(OrderCreateContext dto, T product);
+    protected abstract void before(C context, T product);
 
     public OrderService getOrderService() {
         return orderService;

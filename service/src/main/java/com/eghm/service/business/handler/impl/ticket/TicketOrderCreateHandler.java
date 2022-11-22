@@ -13,6 +13,7 @@ import com.eghm.service.business.handler.dto.BaseProductDTO;
 import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
+import com.eghm.service.business.handler.dto.TicketOrderCreateContext;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("ticketOrderCreateHandler")
 @Slf4j
-public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicTicket> {
+public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketOrderCreateContext, ScenicTicket> {
 
     private final ScenicTicketService scenicTicketService;
 
@@ -37,8 +38,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
     }
 
     @Override
-    protected ScenicTicket getProduct(OrderCreateContext dto) {
-        return scenicTicketService.selectByIdShelve(dto.getFirstProduct().getProductId());
+    protected ScenicTicket getProduct(TicketOrderCreateContext context) {
+        return scenicTicketService.selectByIdShelve(context.getTicketId());
     }
 
     @Override
@@ -53,8 +54,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
     }
 
     @Override
-    protected void before(OrderCreateContext dto, ScenicTicket ticket) {
-        Integer num = dto.getFirstProduct().getNum();
+    protected void before(TicketOrderCreateContext dto, ScenicTicket ticket) {
+        Integer num = dto.getNum();
         if (ticket.getStock() - num < 0) {
             log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
             throw new BusinessException(ErrorCode.TICKET_STOCK);
@@ -80,6 +81,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<ScenicT
         ticketOrder.setTicketId(base.getProductId());
         orderService.insert(ticketOrder);
     }
+
+
 
     @Override
     public IEvent getEvent() {
