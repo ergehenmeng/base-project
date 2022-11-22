@@ -1,20 +1,17 @@
 package com.eghm.service.business.handler.impl;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.enums.ref.OrderState;
 import com.eghm.model.Order;
-import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.OrderMQService;
-import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.OrderCreateHandler;
-import com.eghm.service.business.handler.dto.BaseProductDTO;
-import com.eghm.service.business.handler.dto.OrderCreateContext;
+import com.eghm.service.business.handler.dto.VisitorVO;
 import com.eghm.state.machine.Context;
-import com.eghm.utils.DataUtil;
+import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
 
 
 /**
@@ -23,9 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @AllArgsConstructor
-public abstract class AbstractOrderCreateHandler<C extends Context, T> implements OrderCreateHandler<C> {
-
-    private final OrderService orderService;
+public abstract class AbstractOrderCreateHandler<C extends Context, P> implements OrderCreateHandler<C> {
 
     private final UserCouponService userCouponService;
 
@@ -33,85 +28,76 @@ public abstract class AbstractOrderCreateHandler<C extends Context, T> implement
 
     private final OrderMQService orderMQService;
 
-    /**
-     * @param dto 订单信息
-     */
     @Override
-    public void doAction(C dto) {
-        T product = this.getProduct(dto);
-        this.before(dto, product);
+    public void doAction(C context) {
+        P payload = this.getPayload(context);
+        this.before(context, payload);
         // 主订单下单
-        Order order = this.doProcess(dto, product);
-        if (order != null) {
-            this.next(dto, product, order);
-            this.after(dto, product, order);
-        } else {
+        Order order = this.doProcess(context, payload);
+        if (order == null) {
             log.info("该商品为热销商品,走MQ队列处理");
+            return;
         }
+        this.next(context, payload, order);
+        TransactionUtil.afterCommit(() -> this.sendMsg(context, payload, order));
     }
 
     /**
      * 订单创建后置处理,默认定时任务
-     * @param dto 下单信息
-     * @param product 商品信息
+     * @param context 下单信息
+     * @param payload 商品信息
      * @param order 主订单信息
      */
-    protected void after(OrderCreateContext dto, T product, Order order) {
+    protected void sendMsg(C context, P payload, Order order) {
         orderMQService.sendOrderExpireMessage(order.getOrderNo());
     }
 
     /**
-     * 主订单创建后分类订单创建等
-     * @param dto 下单信息
-     * @param product 商品信息
-     * @param order 主订单信息
-     */
-    protected abstract void next(OrderCreateContext dto, T product, Order order);
-
-    /**
      * 下单
      * @param context 订单信息
-     * @param product 商品信息
+     * @param payload 商品相关信息
      * @return 主订单信息
      */
-    protected Order doProcess(C context, T product) {
-        BaseProduct base = this.getBaseProduct(context, product);
-        if (Boolean.TRUE.equals(base.getHotSell())) {
-            // 走MQ形式
+    protected Order doProcess(C context, P payload) {
+        if (this.isHotSell(context, payload)) {
             return null;
         }
-
-        String orderNo = base.getProductType().getPrefix() + IdWorker.getIdStr();
-        Order order = DataUtil.copy(base, Order.class);
-        order.setState(OrderState.UN_PAY);
-        order.setUserId(dto.getUserId());
-        order.setOrderNo(orderNo);
-        order.setPrice(base.getSalePrice());
-        order.setPayAmount(order.getNum() * base.getSalePrice());
-
-        this.setDiscount(base, dto, order);
-
-        orderService.insert(order);
-        // 订单关联购买人信息
-        orderVisitorService.addVisitor(base.getProductType(), orderNo, dto.getVisitorList());
-        return order;
+        return this.createOrder(context, payload);
     }
 
 
     /**
-     * 设置优惠券信息
-     * @param base 商品基本信息
-     * @param dto 下单信息
+     * 下单时关联订单绑定游客信息
      * @param order 订单信息
+     * @param visitorList 游客信息
      */
-    protected void setDiscount(BaseProduct base, OrderCreateContext dto, Order order) {
-        if (Boolean.TRUE.equals(base.getSupportedCoupon()) && dto.getCouponId() != null) {
-            BaseProductDTO productDTO = dto.getFirstProduct();
-            Integer couponAmount = userCouponService.getCouponAmountWithVerify(dto.getUserId(), dto.getCouponId(), productDTO.getProductId(), order.getPayAmount());
-            order.setPayAmount(order.getPayAmount() - couponAmount);
-            order.setCouponId(dto.getCouponId());
-            userCouponService.useCoupon(dto.getCouponId());
-        }
+    protected void addVisitor(Order order, List<VisitorVO> visitorList) {
+        // 订单关联购买人信息
+        orderVisitorService.addVisitor(order.getProductType(), order.getOrderNo(), visitorList);
+    }
+
+    /**
+     * 是否为热销商品, 热销商品走mq下单,增加并发, 非热销商品直接下单
+     * @param context 下单信息上下文
+     * @param payload 下单关联信息
+     * @return true 热销商品 false: 不是热销商品
+     */
+    public boolean isHotSell(C context, P payload) {
+        return true;
+    }
+
+    /**
+     * 使用抵扣金额
+     * @param order 订单信息,不含优惠金额
+     * @param userId 用户id
+     * @param couponId 优惠券id
+     * @param productId 商品id
+     */
+    public void useDiscount(Order order, Long userId, Long couponId, Long productId) {
+        Integer couponAmount = userCouponService.getCouponAmountWithVerify(userId, couponId, productId, order.getPayAmount());
+        order.setPayAmount(order.getPayAmount() - couponAmount);
+        order.setCouponId(couponId);
+        userCouponService.useCoupon(couponId);
     }
 
     /**
@@ -119,26 +105,30 @@ public abstract class AbstractOrderCreateHandler<C extends Context, T> implement
      * @param context 下单信息
      * @return 商品信息
      */
-    protected abstract T getProduct(C context);
-
-    /**
-     * 获取商品基础信息,即各类商品的基础信息
-     * @param dto 下单信息
-     * @param product 商品详细信息
-     * @return 下单所需的必要信息
-     */
-    protected abstract BaseProduct getBaseProduct(C context, T product);
+    protected abstract P getPayload(C context);
 
     /**
      * 下单前置校验
      * @param context 下单信息
-     * @param product 商品信息
+     * @param payload 商品信息
      */
-    protected abstract void before(C context, T product);
+    protected abstract void before(C context, P payload);
 
-    public OrderService getOrderService() {
-        return orderService;
-    }
+    /**
+     * 创建订单
+     * @param context 下单信息
+     * @param payload 商品详细信息
+     * @return 下单所需的必要信息
+     */
+    protected abstract Order createOrder(C context, P payload);
+
+    /**
+     * 主订单创建后分类订单创建等
+     * @param context 下单信息
+     * @param payload 商品信息
+     * @param order 主订单信息
+     */
+    protected abstract void next(C context, P payload, Order order);
 
     public UserCouponService getUserCouponService() {
         return userCouponService;

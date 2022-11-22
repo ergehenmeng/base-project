@@ -1,18 +1,18 @@
 package com.eghm.service.business.handler.impl.restaurant;
 
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.DeliveryType;
+import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.model.RestaurantVoucher;
-import com.eghm.service.business.handler.dto.BaseProductDTO;
-import com.eghm.service.business.handler.dto.OrderCreateContext;
-import com.eghm.model.dto.ext.BaseProduct;
 import com.eghm.service.business.*;
+import com.eghm.service.business.handler.dto.RestaurantOrderCreateContext;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,59 +24,19 @@ import org.springframework.stereotype.Service;
  */
 @Service("restaurantOrderCreateHandler")
 @Slf4j
-public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<RestaurantVoucher> {
+public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<RestaurantOrderCreateContext, RestaurantVoucher> {
 
     private final RestaurantVoucherService restaurantVoucherService;
 
     private final RestaurantOrderService restaurantOrderService;
 
+    private final OrderService orderService;
+
     public RestaurantOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, RestaurantVoucherService restaurantVoucherService, RestaurantOrderService restaurantOrderService) {
-        super(orderService, userCouponService, orderVisitorService, orderMQService);
+        super(userCouponService, orderVisitorService, orderMQService);
         this.restaurantVoucherService = restaurantVoucherService;
         this.restaurantOrderService = restaurantOrderService;
-    }
-
-    @Override
-    protected void next(OrderCreateContext dto, RestaurantVoucher product, Order order) {
-        BaseProductDTO base = dto.getFirstProduct();
-        restaurantVoucherService.updateStock(product.getId(), -base.getNum());
-        RestaurantOrder restaurantOrder = DataUtil.copy(product, RestaurantOrder.class);
-        restaurantOrder.setOrderNo(order.getOrderNo());
-        restaurantOrder.setVoucherId(product.getId());
-        restaurantOrderService.insert(restaurantOrder);
-    }
-
-    @Override
-    protected RestaurantVoucher getProduct(OrderCreateContext dto) {
-        return restaurantVoucherService.selectByIdShelve(dto.getFirstProduct().getProductId());
-    }
-
-    @Override
-    protected BaseProduct getBaseProduct(OrderCreateContext dto, RestaurantVoucher product) {
-        BaseProduct baseProduct = new BaseProduct();
-        baseProduct.setProductType(ProductType.VOUCHER);
-        baseProduct.setTitle(product.getTitle());
-        baseProduct.setHotSell(false);
-        baseProduct.setMultiple(false);
-        baseProduct.setSupportedCoupon(true);
-        baseProduct.setRefundType(product.getRefundType());
-        baseProduct.setSalePrice(product.getSalePrice());
-        baseProduct.setRefundDescribe(product.getRefundDescribe());
-        baseProduct.setDeliveryType(DeliveryType.NO_SHIPMENT);
-        return baseProduct;
-    }
-
-    @Override
-    protected void before(OrderCreateContext dto, RestaurantVoucher product) {
-        Integer num = dto.getFirstProduct().getNum();
-        if (product.getStock() - num < 0) {
-            log.error("餐饮券库存不足 [{}] [{}] [{}]", product.getId(), product.getStock(), num);
-            throw new BusinessException(ErrorCode.VOUCHER_STOCK);
-        }
-        if (product.getQuota() < num) {
-            log.error("超出餐椅券单次购买上限 [{}] [{}] [{}]", product.getId(), product.getQuota(), num);
-            throw new BusinessException(ErrorCode.VOUCHER_QUOTA.getCode(), String.format(ErrorCode.VOUCHER_QUOTA.getMsg(), product.getQuota()));
-        }
+        this.orderService = orderService;
     }
 
     @Override
@@ -87,5 +47,54 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     @Override
     public StateMachineType getStateMachineType() {
         return null;
+    }
+
+    @Override
+    protected RestaurantVoucher getPayload(RestaurantOrderCreateContext context) {
+        return restaurantVoucherService.selectByIdShelve(context.getVoucherId());
+    }
+
+    @Override
+    protected void before(RestaurantOrderCreateContext context, RestaurantVoucher payload) {
+        Integer num = context.getNum();
+        if (payload.getStock() - num < 0) {
+            log.error("餐饮券库存不足 [{}] [{}] [{}]", payload.getId(), payload.getStock(), num);
+            throw new BusinessException(ErrorCode.VOUCHER_STOCK);
+        }
+        if (payload.getQuota() < num) {
+            log.error("超出餐椅券单次购买上限 [{}] [{}] [{}]", payload.getId(), payload.getQuota(), num);
+            throw new BusinessException(ErrorCode.VOUCHER_QUOTA.getCode(), String.format(ErrorCode.VOUCHER_QUOTA.getMsg(), payload.getQuota()));
+        }
+    }
+
+    @Override
+    protected Order createOrder(RestaurantOrderCreateContext context, RestaurantVoucher payload) {
+        String orderNo = ProductType.HOMESTAY.getPrefix() + IdWorker.getIdStr();
+        Order order = DataUtil.copy(context, Order.class);
+        order.setState(OrderState.valueOf(context.getTo()));
+        order.setUserId(context.getUserId());
+        order.setOrderNo(orderNo);
+        order.setNum(context.getNum());
+        order.setTitle(payload.getTitle());
+        order.setPrice(payload.getSalePrice());
+        order.setPayAmount(order.getNum() * order.getPrice());
+        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
+        order.setMultiple(false);
+        order.setRefundType(payload.getRefundType());
+        order.setRefundDescribe(payload.getRefundDescribe());
+        // 使用优惠券
+        this.useDiscount(order, context.getUserId(), context.getCouponId(), payload.getId());
+        orderService.insert(order);
+        return order;
+
+    }
+
+    @Override
+    protected void next(RestaurantOrderCreateContext context, RestaurantVoucher payload, Order order) {
+        restaurantVoucherService.updateStock(context.getVoucherId(), -context.getNum());
+        RestaurantOrder restaurantOrder = DataUtil.copy(payload, RestaurantOrder.class);
+        restaurantOrder.setOrderNo(order.getOrderNo());
+        restaurantOrder.setVoucherId(context.getVoucherId());
+        restaurantOrderService.insert(restaurantOrder);
     }
 }

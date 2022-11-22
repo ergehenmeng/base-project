@@ -4,13 +4,16 @@ import com.eghm.model.annotation.Sign;
 import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.annotation.RangeInt;
+import com.eghm.model.validation.group.HomestayOrderCreateGroup;
 import com.eghm.state.machine.Context;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -19,11 +22,11 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class TicketOrderCreateContext extends AsyncKey implements Context {
+public class HomestayOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
-    private Long ticketId;
+    private Long roomId;
 
     @RangeInt(min = 1, max = 9, message = "购买数量应为1~9张")
     @ApiModelProperty("门票数量")
@@ -43,6 +46,16 @@ public class TicketOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("入园信息列表")
     @Size(min = 1, max = 9, message = "入园人数不能超过9人")
     private List<VisitorVO> visitorList;
+
+    @ApiModelProperty("开始日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "开始日期不能为空")
+    private LocalDate startDate;
+
+    @ApiModelProperty("截止日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "截止日期不能为空")
+    private LocalDate endDate;
 
     @Sign
     @ApiModelProperty(hidden = true, value = "用户id")

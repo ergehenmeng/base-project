@@ -7,12 +7,12 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * 商品基本信息
+ * 下单前,订单信息
  * @author 二哥很猛
  * @date 2022/8/21
  */
 @Data
-public class BaseProduct {
+public class PreOrder {
 
     @ApiModelProperty("商品名称")
     private String title;

@@ -1,8 +1,11 @@
 package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * 订单支付状态
@@ -62,5 +65,10 @@ public enum OrderState implements IEnum<Integer> {
     @Override
     public Integer getValue() {
         return value;
+    }
+
+    @JsonCreator
+    public static OrderState valueOf(int value) {
+        return Arrays.stream(OrderState.values()).filter(state -> state.value == value).findFirst().orElse(NONE);
     }
 }

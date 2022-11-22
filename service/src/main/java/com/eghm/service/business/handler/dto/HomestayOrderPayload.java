@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2022/8/22
  */
 @Data
-public class HomestayOrderDTO {
+public class HomestayOrderPayload {
 
     /**
      * 房型信心

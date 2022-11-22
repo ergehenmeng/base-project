@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2022/9/5
  */
 @Data
-public class ProductOrderDTO {
+public class ProductOrderPayload {
 
     /**
      * 下单信息

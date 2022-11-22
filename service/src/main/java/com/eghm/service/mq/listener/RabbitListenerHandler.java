@@ -9,7 +9,7 @@ import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.dto.OrderCancelContext;
-import com.eghm.service.business.handler.dto.OrderCreateContext;
+import com.eghm.service.business.handler.dto.ProductOrderCreateContext;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
@@ -87,7 +87,7 @@ public class RabbitListenerHandler {
      * @param dto 订单信息
      */
     @RabbitListener(queues = QueueConstant.TICKET_ORDER_QUEUE)
-    public void ticketOrder(OrderCreateContext dto, Message message, Channel channel) throws IOException {
+    public void ticketOrder(ProductOrderCreateContext dto, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(dto, message, channel, order -> {
             // TODO 下单逻辑处理
         });

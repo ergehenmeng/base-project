@@ -2,7 +2,7 @@ package com.eghm.service.business.handler.context;
 
 import com.eghm.model.Order;
 import com.eghm.model.ScenicTicket;
-import com.eghm.model.dto.ext.BaseProduct;
+import com.eghm.model.dto.ext.PreOrder;
 import com.eghm.state.machine.Context;
 import lombok.Data;
 
@@ -26,7 +26,7 @@ public class TicketCreateContext implements Context {
     /**
      * 商品基本信息
      */
-    private BaseProduct baseProduct;
+    private PreOrder preOrder;
 
     /**
      * 生成的订单

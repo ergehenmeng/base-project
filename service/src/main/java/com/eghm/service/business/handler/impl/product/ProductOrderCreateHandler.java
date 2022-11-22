@@ -11,12 +11,12 @@ import com.eghm.model.Order;
 import com.eghm.model.Product;
 import com.eghm.model.ProductSku;
 import com.eghm.model.ShippingAddress;
-import com.eghm.service.business.handler.dto.BaseProductDTO;
-import com.eghm.service.business.handler.dto.OrderCreateContext;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.OrderCreateHandler;
+import com.eghm.service.business.handler.dto.BaseProductDTO;
 import com.eghm.service.business.handler.dto.OrderPackage;
-import com.eghm.service.business.handler.dto.ProductOrderDTO;
+import com.eghm.service.business.handler.dto.ProductOrderCreateContext;
+import com.eghm.service.business.handler.dto.ProductOrderPayload;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @Service("productOrderCreateHandler")
 @Slf4j
 @AllArgsConstructor
-public class ProductOrderCreateHandler implements OrderCreateHandler {
+public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrderCreateContext> {
 
     private final ProductOrderService productOrderService;
 
@@ -44,8 +44,6 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
 
     private final OrderService orderService;
 
-    private final UserCouponService userCouponService;
-
     private final OrderMQService orderMQService;
 
     /**
@@ -54,8 +52,8 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      * @param dto 订单信息
      */
     @Override
-    public void doAction(OrderCreateContext dto) {
-        ProductOrderDTO product = this.getProduct(dto);
+    public void doAction(ProductOrderCreateContext dto) {
+        ProductOrderPayload product = this.getProduct(dto);
         this.before(product);
         // 购物车商品可能存在多商铺同时下单,按店铺进行分组
         Map<Long, List<OrderPackage>> storeMap = product.getPackageList().stream().collect(Collectors.groupingBy(OrderPackage::getStoreId, Collectors.toList()));
@@ -98,7 +96,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      * @param dto 下单信息
      * @return 商品信息及下单信息
      */
-    private ProductOrderDTO getProduct(OrderCreateContext dto) {
+    private ProductOrderPayload getProduct(ProductOrderCreateContext dto) {
         // 组装数据,减少后面遍历逻辑
         Set<Long> productIds = dto.getProductList().stream().map(BaseProductDTO::getProductId).collect(Collectors.toSet());
         Map<Long, Product> productMap = productService.getByIds(productIds);
@@ -116,7 +114,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
             orderPackage.setStoreId(orderPackage.getStoreId());
             packageList.add(orderPackage);
         }
-        ProductOrderDTO orderDTO = DataUtil.copy(dto, ProductOrderDTO.class);
+        ProductOrderPayload orderDTO = DataUtil.copy(dto, ProductOrderPayload.class);
         orderDTO.setPackageList(packageList);
         return orderDTO;
     }
@@ -126,7 +124,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler {
      * 校验下单信息是否合法
      * @param product 下单信息
      */
-    private void before(ProductOrderDTO product) {
+    private void before(ProductOrderPayload product) {
         List<OrderPackage> packageList = product.getPackageList();
         for (OrderPackage aPackage : packageList) {
             if (aPackage.getProduct() == null) {
