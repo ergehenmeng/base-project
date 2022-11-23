@@ -4,7 +4,7 @@ package com.eghm.service.common.impl;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.model.dto.ext.Token;
+import com.eghm.model.dto.ext.RedisToken;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.common.TokenService;
@@ -27,22 +27,22 @@ public class TokenServiceImpl implements TokenService {
     private final JsonService jsonService;
 
     @Override
-    public Token createToken(Long userId, String channel) {
+    public RedisToken createToken(Long userId, String channel) {
         String refreshToken = StringUtil.random(32);
         String accessToken = StringUtil.random(64);
-        Token token = Token.builder().token(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
-        this.cacheToken(token);
-        return token;
+        RedisToken redisToken = RedisToken.builder().token(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
+        this.cacheToken(redisToken);
+        return redisToken;
     }
 
     @Override
-    public Token getByAccessToken(String accessToken) {
-        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessToken, Token.class);
+    public RedisToken getByAccessToken(String accessToken) {
+        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + accessToken, RedisToken.class);
     }
 
     @Override
-    public Token getByUserId(Long userId) {
-        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + userId, Token.class);
+    public RedisToken getByUserId(Long userId) {
+        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + userId, RedisToken.class);
     }
 
     @Override
@@ -51,8 +51,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public Token getByRefreshToken(String refreshToken) {
-        return cacheService.getValue(CacheConstant.REFRESH_TOKEN + refreshToken, Token.class);
+    public RedisToken getByRefreshToken(String refreshToken) {
+        return cacheService.getValue(CacheConstant.REFRESH_TOKEN + refreshToken, RedisToken.class);
     }
 
     @Override
@@ -71,24 +71,24 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void cacheToken(Token token) {
-        String tokenJson = jsonService.toJson(token);
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
+    public void cacheToken(RedisToken redisToken) {
+        String tokenJson = jsonService.toJson(redisToken);
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + redisToken.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
         // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
         // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
         // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过userId定位登陆信息,仅仅方便删除无用缓存,方便强制下线
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + token.getUserId(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
-        cacheService.setValue(CacheConstant.REFRESH_TOKEN + token.getRefreshToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + redisToken.getUserId(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        cacheService.setValue(CacheConstant.REFRESH_TOKEN + redisToken.getRefreshToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
     }
 
     @Override
-    public void cacheOfflineToken(Token token, long expire) {
-        cacheService.setValue(CacheConstant.FORCE_OFFLINE + token.getToken(), jsonService.toJson(token), expire);
+    public void cacheOfflineToken(RedisToken redisToken, long expire) {
+        cacheService.setValue(CacheConstant.FORCE_OFFLINE + redisToken.getToken(), jsonService.toJson(redisToken), expire);
     }
 
     @Override
-    public Token getOfflineToken(String accessToken) {
-        return cacheService.getValue(CacheConstant.FORCE_OFFLINE + accessToken, Token.class);
+    public RedisToken getOfflineToken(String accessToken) {
+        return cacheService.getValue(CacheConstant.FORCE_OFFLINE + accessToken, RedisToken.class);
     }
 
     @Override

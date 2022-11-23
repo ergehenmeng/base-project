@@ -16,7 +16,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Token implements Serializable {
+public class RedisToken implements Serializable {
 
     private static final long serialVersionUID = -539686478899884844L;
 

@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService {
         this.offline(user.getId());
         RequestMessage request = ApiHolder.get();
         // 创建token
-        Token token = tokenService.createToken(user.getId(), request.getChannel());
+        RedisToken redisToken = tokenService.createToken(user.getId(), request.getChannel());
         // 记录登陆日志信息
         LoginRecord loginRecord = LoginRecord.builder()
                 .ip(NetUtil.ipv4ToLong(ip))
@@ -190,7 +190,7 @@ public class UserServiceImpl implements UserService {
                 .serialNumber(request.getSerialNumber())
                 .build();
         rabbitMessageService.send(loginRecord, RabbitQueue.LOGIN_LOG.getExchange());
-        return LoginTokenVO.builder().token(token.getToken()).refreshToken(token.getRefreshToken()).build();
+        return LoginTokenVO.builder().token(redisToken.getToken()).refreshToken(redisToken.getRefreshToken()).build();
     }
 
 
@@ -253,17 +253,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void offline(Long userId){
-        Token token = tokenService.getByUserId(userId);
-        if (token == null) {
+        RedisToken redisToken = tokenService.getByUserId(userId);
+        if (redisToken == null) {
             return;
         }
         long expire = tokenService.getTokenExpire(userId);
         if (expire > 0) {
             // 缓存踢下线的信息
-            tokenService.cacheOfflineToken(token, expire);
+            tokenService.cacheOfflineToken(redisToken, expire);
         }
-        tokenService.cleanRefreshToken(token.getRefreshToken());
-        tokenService.cleanToken(token.getToken());
+        tokenService.cleanRefreshToken(redisToken.getRefreshToken());
+        tokenService.cleanToken(redisToken.getToken());
         tokenService.cleanUserId(userId);
     }
 

@@ -7,7 +7,7 @@ import com.eghm.common.exception.ParameterException;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
-import com.eghm.model.dto.ext.Token;
+import com.eghm.model.dto.ext.RedisToken;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
@@ -67,29 +67,29 @@ public class TokenInterceptor implements InterceptorAdapter {
         }
 
         // 尝试获取用户信息
-        Token token = tokenService.getByAccessToken(accessToken);
-        if (token != null) {
-            message.setUserId(token.getUserId());
+        RedisToken redisToken = tokenService.getByAccessToken(accessToken);
+        if (redisToken != null) {
+            message.setUserId(redisToken.getUserId());
         }
 
         // token获取失败,尝试从refreshToken中获取用户信息
         if (message.getUserId() == null) {
-            token = tokenService.getByRefreshToken(refreshToken);
-            if (token != null) {
+            redisToken = tokenService.getByRefreshToken(refreshToken);
+            if (redisToken != null) {
                 // 在accessToken过期时,可通过refreshToken进行刷新用户信息
-                log.info("用户token已失效, 采用refreshToken重新激活 userId:[{}]", token.getUserId());
-                tokenService.cacheToken(token);
-                message.setUserId(token.getUserId());
+                log.info("用户token已失效, 采用refreshToken重新激活 userId:[{}]", redisToken.getUserId());
+                tokenService.cacheToken(redisToken);
+                message.setUserId(redisToken.getUserId());
             }
         }
         // 接口确实需要登陆但是也确实没有获取到userId,则抛异常
         if (exception && message.getUserId() == null) {
-            Token offlineToken = tokenService.getOfflineToken(accessToken);
-            if (offlineToken != null) {
-                log.warn("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineToken.getUserId());
+            RedisToken offlineRedisToken = tokenService.getOfflineToken(accessToken);
+            if (offlineRedisToken != null) {
+                log.warn("用户其他设备登陆,accessToken:[{}],userId:[{}]", accessToken, offlineRedisToken.getUserId());
                 tokenService.cleanOfflineToken(accessToken);
                 // 异常接口捎带一些额外信息方便移动端提醒用户
-                throw this.createOfflineException(offlineToken.getUserId());
+                throw this.createOfflineException(offlineRedisToken.getUserId());
             }
             log.warn("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
