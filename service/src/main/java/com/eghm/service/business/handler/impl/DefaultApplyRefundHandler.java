@@ -19,6 +19,7 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -40,6 +41,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
     private final OrderVisitorService orderVisitorService;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(ApplyRefundContext dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         this.before(dto, order);

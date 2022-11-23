@@ -15,6 +15,7 @@ import com.eghm.service.pay.enums.TradeState;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -42,6 +43,7 @@ public class DefaultOrderCancelHandler implements OrderCancelHandler {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(OrderCancelContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(order);

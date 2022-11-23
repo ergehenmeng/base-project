@@ -13,7 +13,6 @@ import com.eghm.service.business.handler.OrderExpireHandler;
 import com.eghm.service.business.handler.dto.OrderCancelContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +34,6 @@ public class DefaultOrderExpireHandler implements OrderExpireHandler {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    @Async
     public void doAction(OrderCancelContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(order);

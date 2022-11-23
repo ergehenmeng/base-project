@@ -10,6 +10,7 @@ import com.eghm.state.machine.Context;
 import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     private final OrderMQService orderMQService;
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(C context) {
         P payload = this.getPayload(context);
         this.before(context, payload);

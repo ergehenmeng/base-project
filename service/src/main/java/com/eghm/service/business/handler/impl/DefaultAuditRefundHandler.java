@@ -17,6 +17,7 @@ import com.eghm.service.business.handler.dto.AuditRefundContext;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -49,6 +50,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(AuditRefundContext dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByIdRequired(dto.getRefundId());
