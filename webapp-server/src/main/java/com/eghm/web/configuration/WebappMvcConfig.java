@@ -5,13 +5,12 @@ import com.eghm.configuration.WebMvcConfig;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.BlackRosterService;
-import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.user.LoginLogService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
-import com.eghm.web.configuration.interceptor.SubmitFrequencyLimitInterceptor;
+import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.servlet.DelegatingFilterProxyRegistrationBean;
@@ -76,8 +75,8 @@ public class WebappMvcConfig extends WebMvcConfig {
      * 提交间隔限制
      */
     @Bean
-    public HandlerInterceptor submitFrequencyLimitInterceptor(SysConfigApi sysConfigApi, CacheService cacheService) {
-        return new SubmitFrequencyLimitInterceptor(sysConfigApi, cacheService);
+    public HandlerInterceptor submitIntervalInterceptor(CacheService cacheService) {
+        return new SubmitIntervalInterceptor(getSystemProperties(), cacheService);
     }
 
     /**

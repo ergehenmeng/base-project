@@ -3,12 +3,13 @@ package com.eghm.web.configuration.interceptor;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.configuration.SystemProperties;
+import com.eghm.web.annotation.SubmitInterval;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,14 +19,14 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2020/12/15
  */
 @AllArgsConstructor
-public class SubmitFrequencyLimitInterceptor implements InterceptorAdapter {
+public class SubmitIntervalInterceptor implements InterceptorAdapter {
 
-    private final SysConfigApi sysConfigApi;
+    private final SystemProperties systemProperties;
 
     private final CacheService cacheService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         if (!this.supportHandler(handler)) {
             return true;
         }
@@ -35,8 +36,12 @@ public class SubmitFrequencyLimitInterceptor implements InterceptorAdapter {
         if (cacheService.exist(key)) {
             throw new BusinessException(ErrorCode.SUBMIT_FREQUENTLY);
         }
-        long submitLimit = sysConfigApi.getLong(ConfigConstant.SUBMIT_FREQUENCY_LIMIT);
-        cacheService.setValue(key, true, submitLimit);
+        SubmitInterval annotation = this.getAnnotation(handler, SubmitInterval.class);
+        if (annotation != null) {
+            cacheService.setValue(key, true, annotation.value());
+        } else {
+            cacheService.setValue(key, true, systemProperties.getSubmitInterval());
+        }
         return true;
     }
 }

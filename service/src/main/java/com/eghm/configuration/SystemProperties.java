@@ -36,6 +36,11 @@ public class SystemProperties {
     private String uploadDir;
 
     /**
+     * 两次提交间隔时间,只针对post请求, 单位:毫秒
+     */
+    private Long submitInterval = 1000L;
+
+    /**
      * 微信配置
      */
     private WeChatProperties wechat = new WeChatProperties();

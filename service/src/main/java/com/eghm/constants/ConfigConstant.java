@@ -115,11 +115,6 @@ public class ConfigConstant {
     public static final String SIGN_IN_SCORE = "sign_in_score";
 
     /**
-     * 提交频率限制
-     */
-    public static final String SUBMIT_FREQUENCY_LIMIT = "submit_frequency_limit";
-
-    /**
      * 收货地址最大数
      */
     public static final String USER_ADDRESS_MAX = "user_address_max";

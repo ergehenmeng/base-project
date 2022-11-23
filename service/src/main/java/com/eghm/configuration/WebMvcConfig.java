@@ -122,4 +122,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
                 }));
     }
 
+    public SystemProperties getSystemProperties() {
+        return systemProperties;
+    }
 }
