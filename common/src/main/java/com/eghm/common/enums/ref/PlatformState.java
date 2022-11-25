@@ -28,8 +28,6 @@ public enum PlatformState implements IEnum<Integer> {
      * 已上架
      */
     SHELVE(2, "已上架"),
-
-
     ;
 
     /**

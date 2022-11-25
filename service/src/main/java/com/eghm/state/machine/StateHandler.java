@@ -34,6 +34,7 @@ public class StateHandler {
 
     @PostConstruct
     public void init() {
+
         this.registerStateMachine(StateMachineType.TICKET);
     }
 

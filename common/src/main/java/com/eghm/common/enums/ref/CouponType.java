@@ -2,6 +2,7 @@ package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -37,6 +38,7 @@ public enum CouponType implements IEnum<Integer>  {
     private final String name;
 
     @Override
+    @JsonValue
     public Integer getValue() {
         return value;
     }

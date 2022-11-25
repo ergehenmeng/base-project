@@ -2,6 +2,7 @@ package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
 import com.eghm.common.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -44,6 +45,7 @@ public enum MerchantState implements IEnum<Integer> {
     private final String name;
     
     @Override
+    @JsonValue
     public Integer getValue() {
         return value;
     }

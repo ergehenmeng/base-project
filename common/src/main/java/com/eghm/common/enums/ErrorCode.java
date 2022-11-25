@@ -167,7 +167,7 @@ public enum ErrorCode {
     /**
      * 参数解析异常
      */
-    PARAM_VERIFY_ERROR(2000,"参数校验失败,[%s]%s"),
+    PARAM_VERIFY_ERROR(2000,"[%s]%s"),
 
     /**
      * 身份证格式错误
@@ -853,6 +853,11 @@ public enum ErrorCode {
      * 状态机[%s]未注册
      */
     STATE_MACHINE_REGISTER(3200, "状态机[%s]未注册"),
+
+    /**
+     * 该景区尚未提交审核
+     */
+    SCENIC_NOT_UP(3137, "该景区尚未提交审核"),
 
     /**
      * 微信公众号尚未配置

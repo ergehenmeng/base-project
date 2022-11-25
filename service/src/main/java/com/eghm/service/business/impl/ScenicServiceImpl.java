@@ -100,6 +100,11 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void updateAuditState(Long id, PlatformState state) {
+        Scenic scenic = scenicMapper.selectById(id);
+        if (scenic.getState() != State.SHELVE) {
+            log.info("景区商户尚未提交");
+            throw new BusinessException(ErrorCode.SCENIC_NOT_UP);
+        }
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
         wrapper.set(Scenic::getPlatformState, state);

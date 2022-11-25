@@ -48,12 +48,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- 开发阶段代码自动生效 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
