@@ -195,7 +195,7 @@ CREATE TABLE `scenic`
     `tag`            varchar(300)   DEFAULT NULL COMMENT '景区标签,逗号分隔',
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '景区所属商家(为空则表示系统自营)',
     `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
-    `audit_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `platform_state`    tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `sort`           smallint(3)    DEFAULT '999' COMMENT '景区排序(小<->大)',
     `province_id`    bigint(20)     DEFAULT NULL COMMENT '省份id',
     `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
