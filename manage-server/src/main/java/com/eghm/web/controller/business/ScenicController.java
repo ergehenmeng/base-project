@@ -50,7 +50,7 @@ public class ScenicController {
     }
 
     @PostMapping("/select")
-    @ApiOperation("更新景区")
+    @ApiOperation("详情")
     public Scenic select(@Validated @RequestBody IdDTO request) {
         return scenicService.selectById(request.getId());
     }
@@ -80,6 +80,13 @@ public class ScenicController {
     @ApiOperation("平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
         scenicService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
+        return RespBody.success();
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        scenicService.selectById(dto.getId());
         return RespBody.success();
     }
 }

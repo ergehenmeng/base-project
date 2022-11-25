@@ -147,4 +147,9 @@ public class ScenicServiceImpl implements ScenicService {
         vo.setTicketList(ticketList);
         return vo;
     }
+
+    @Override
+    public void deleteById(Long id) {
+        scenicMapper.deleteById(id);
+    }
 }

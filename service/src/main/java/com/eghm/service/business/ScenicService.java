@@ -83,4 +83,9 @@ public interface ScenicService {
      */
     ScenicVO detailById(Long id, Double longitude, Double latitude);
 
+    /**
+     * 删除景区,逻辑删除
+     * @param id id
+     */
+    void deleteById(Long id);
 }
