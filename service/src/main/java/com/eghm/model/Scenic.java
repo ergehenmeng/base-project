@@ -79,7 +79,7 @@ public class Scenic extends BaseEntity implements Serializable {
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "景区描述信息")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "景区图片")
     private String coverUrl;

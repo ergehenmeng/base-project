@@ -31,15 +31,13 @@ public class ScenicAddRequest {
     @Size(max = 100, message = "营业时间长度2~100位")
     private String openTime;
 
+    @ApiModelProperty("景区电话")
+    @NotBlank(message = "景区电话不能为空")
+    @Size(min = 7, max = 20, message = "景区电话长度2~20位")
+    private String phone;
+
     @ApiModelProperty(value = "景区标签")
     private String tag;
-
-    /**
-     * 编辑时该字段不更新该字段
-     */
-    @ApiModelProperty(value = "景区所属商户id", hidden = true)
-    @Sign
-    private Long merchantId;
 
     @ApiModelProperty(value = "省份id", required = true)
     @NotNull(message = "请选择省份")
@@ -69,7 +67,7 @@ public class ScenicAddRequest {
     @ApiModelProperty(value = "景区描述信息", required = true)
     @NotBlank(message = "景区描述信息不能为空")
     @Size(max = 50, message = "景区描述信息最大50位")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "景区图片", required = true)
     @NotBlank(message = "景区图片不能为空")
@@ -79,4 +77,10 @@ public class ScenicAddRequest {
     @NotBlank(message = "景区详细介绍不能为空")
     private String introduce;
 
+    /**
+     * 编辑时该字段不更新该字段
+     */
+    @ApiModelProperty(value = "景区所属商户id", hidden = true)
+    @Sign
+    private Long merchantId;
 }

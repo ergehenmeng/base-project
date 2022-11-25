@@ -34,6 +34,11 @@ public class ScenicEditRequest {
     @Size(max = 100, message = "营业时间长度2~100位")
     private String openTime;
 
+    @ApiModelProperty("景区电话")
+    @NotBlank(message = "景区电话不能为空")
+    @Size(min = 7, max = 20, message = "景区电话长度2~20位")
+    private String phone;
+
     @ApiModelProperty("景区标签")
     private String tag;
 
@@ -65,7 +70,7 @@ public class ScenicEditRequest {
     @ApiModelProperty(value = "景区描述信息", required = true)
     @NotBlank(message = "景区描述信息不能为空")
     @Size(max = 50, message = "景区描述信息最大50位")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "景区图片", required = true)
     @NotBlank(message = "景区图片不能为空")
