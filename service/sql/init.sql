@@ -3953,3 +3953,43 @@ INSERT INTO `pay_bank` VALUES ('252', 'OTHERS', '其他(银行卡以外)', '2021
 
 
 update sys_operator set pwd = '$2a$10$WIfMgLnfKf7NERTun09ahuD0lHupFO7AZ.n8cgGZBf7zAYOo7y5Ga' where id = 1;
+
+INSERT INTO `sys_config` VALUES ('1', 'application_name', '后台系统名称', '后台管理系统', b'0', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
+INSERT INTO `sys_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', b'0', NULL, '2018-02-08 14:38:59', NULL);
+INSERT INTO `sys_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市余杭区中泰街道338号', b'0', NULL, '2018-02-08 14:40:01', NULL);
+INSERT INTO `sys_config` VALUES ('4', 'enterprise_phone', '企业电话', '0571-00000000', b'0', NULL, '2018-02-08 14:40:46', NULL);
+INSERT INTO `sys_config` VALUES ('5', 'enterprise_email', '企业邮箱', '664956140@qq.com', b'0', NULL, '2018-02-08 14:41:22', NULL);
+INSERT INTO `sys_config` VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:03', NULL);
+INSERT INTO `sys_config` VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:41', NULL);
+INSERT INTO `sys_config` VALUES ('11', 'sys_domain', '前台系统域名', 'http://www.eghm.top', b'0', '前台提供服务的域名', '2018-11-25 21:02:17', NULL);
+INSERT INTO `sys_config` VALUES ('12', 'sys_ip', '前台系统IP', 'http://127.0.0.1:8080', b'0', '前台提供服务的ip', '2018-11-25 21:03:13', NULL);
+INSERT INTO `sys_config` VALUES ('13', 'manage_domain', '后台系统域名', 'http://www.baidu.com', b'0', NULL, '2018-11-29 16:41:04', NULL);
+INSERT INTO `sys_config` VALUES ('14', 'operation_log_switch', '操作日志开关', 'false', b'0', '操作日志开关 false:不开启操作日志 true:开启操作日志', '2019-01-17 16:50:54', '2020-07-23 14:15:37');
+INSERT INTO `sys_config` VALUES ('15', 'env', '系统环境', '2', b'0', '1 生产 2 开发 3  测试', '2019-01-22 17:23:19', NULL);
+INSERT INTO `sys_config` VALUES ('16', 'timestamp_deviation', '客户端与服务端时间容错值', '60000', b'0', '单位:毫秒', '2019-07-10 16:50:31', '2020-07-23 14:06:50');
+INSERT INTO `sys_config` VALUES ('19', 'single_client_login', '是否开启单设备单点登录', 'true', b'0', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
+INSERT INTO `sys_config` VALUES ('20', 'nick_name_prefix', '默认昵称前缀', 'eghm_', b'0', '昵称为空时会自动生成以此为前缀的昵称', '2019-08-19 16:06:04', '2019-08-19 16:06:04');
+INSERT INTO `sys_config` VALUES ('21', 'sms_type_interval', '同一类型短信发送间隔', '60', b'0', '单位秒', '2019-08-20 17:18:53', '2019-08-20 17:18:53');
+INSERT INTO `sys_config` VALUES ('22', 'sms_type_hour', '同一类型短信单小时总次数', '10', b'0', '一小时同一类型最多发送次数', '2019-08-20 17:21:51', '2019-08-20 17:21:51');
+INSERT INTO `sys_config` VALUES ('23', 'sms_type_day', '同一类型短信一天总次数', '20', b'0', '一天内同一类型最多发送次数', '2019-08-20 17:23:50', '2019-08-20 17:23:50');
+INSERT INTO `sys_config` VALUES ('24', 'sms_day', '同一天同手机号最大次数', '50', b'0', '一个手机号一天内最多发送次数', '2019-08-20 17:26:02', '2019-08-20 17:26:02');
+INSERT INTO `sys_config` VALUES ('25', 'notice_limit', '公告显示多少条', '5', b'0', '首页公告轮播条数', '2019-08-22 11:53:19', '2019-08-22 11:53:19');
+INSERT INTO `sys_config` VALUES ('26', 'app_store_url', '苹果AppStore访问地址', 'https://apps.apple.com/cn/app/%E4%B8%AA%E4%BA%BA%E6%89%80%E5%BE%97%E7%A8%8E/id1436002627', b'0', NULL, '2019-08-22 15:47:19', '2019-11-15 16:44:50');
+INSERT INTO `sys_config` VALUES ('27', 'file_server_address', '文件服务器地址', 'http://127.0.0.1:8080', b'0', NULL, '2019-08-28 17:25:14', '2019-11-15 16:44:51');
+INSERT INTO `sys_config` VALUES ('32', 'single_max_file_size', '单文件最大上传限制', '5242880', b'0', '单位 byte 默认200M', '2019-11-15 16:44:28', '2020-07-23 14:46:31');
+INSERT INTO `sys_config` VALUES ('33', 'batch_max_file_size', '批量文件最大上传限制', '20971520', b'0', '单位 byte 默认500M', '2019-11-15 16:45:48', '2020-07-23 14:46:39');
+INSERT INTO `sys_config` VALUES ('35', 'signature_verification', '接口签名验证', 'false', b'0', '是否开启接口签名验证 false:关闭 true:开启', '2019-11-21 11:19:29', '2020-07-23 14:07:39');
+INSERT INTO `sys_config` VALUES ('36', 'android_max_size', '安卓软件包最大限制', '104857600', b'0', '安卓软件包大小限制 单位byte 最大100M', '2019-11-22 17:05:36', '2019-11-22 17:09:37');
+INSERT INTO `sys_config` VALUES ('37', 'analog_sms_code', '模拟短信验证码', '9527', b'0', '短信功能未开启时,所有验证码短信都以此验证码为准', '2019-11-25 11:54:05', '2019-11-25 11:54:44');
+INSERT INTO `sys_config` VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800000', b'0', '单位:豪秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-12-15 19:07:30');
+INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800000', b'0', '单位:豪秒默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
+INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30000', b'0', '单位:豪秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
+INSERT INTO `sys_config` VALUES ('42', 'jwt_secret_key', 'jwt秘钥', 'VjM0ea1vz92wQ8pohXVcKHdrnFh854IRDIaMmoERLoH4naPDeo8nXChY7gtrlAp1', b'1', '用于生成token时的秘钥', '2020-08-28 10:30:09', '2020-08-28 10:30:36');
+INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600000', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
+INSERT INTO `sys_config` VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', b'0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
+INSERT INTO `sys_config` VALUES ('45', 'submit_frequency_limit', 'post请求最小间隔时间', '500', b'0', '单位:毫秒 表示500内只允许访问一次', '2020-12-15 19:12:22', '2020-12-15 19:12:40');
+INSERT INTO `sys_config` VALUES ('46', 'room_config_max_day', '房态单次设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-06-30 11:13:32', '2022-07-23 15:07:54');
+INSERT INTO `sys_config` VALUES ('47', 'scenic_contain_distance', '景区列表是否包含距离', '1', b'0', '0:不包含 1:包含', '2022-07-11 19:54:12', '2022-07-11 19:54:29');
+INSERT INTO `sys_config` VALUES ('48', 'activity_config_max_day', '活动单次设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-07-23 15:07:10', '2022-07-23 15:07:50');
+INSERT INTO `sys_config` VALUES ('49', 'shopping_car_max', '用户购物车商品数量', '20', b'0', '默认20个,即单个用户最大添加20中商品', '2022-07-23 15:08:30', '2022-07-23 15:09:24');
+INSERT INTO `sys_config` VALUES ('50', 'order_expire_time', '订单过期时间', '1800', b'0', '默认30分钟过期', '2022-07-28 13:48:34', '2022-07-28 13:48:34');
