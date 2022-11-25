@@ -598,6 +598,7 @@ CREATE TABLE `tag_view`
 -- ----------------------------
 -- Table structure for task_config
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_task`;
 CREATE TABLE `sys_task`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -621,6 +622,7 @@ CREATE TABLE `sys_task`
 -- ----------------------------
 -- Table structure for task_log
 -- ----------------------------
+DROP TABLE IF EXISTS `sys_task_log`;
 CREATE TABLE `sys_task_log`
 (
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
@@ -634,8 +636,7 @@ CREATE TABLE `sys_task_log`
     `ip`           varchar(50)  DEFAULT NULL COMMENT '执行任务的机器ip',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-  COLLATE = utf8mb4_0900_ai_ci COMMENT ='定时任务执行日志';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='定时任务执行日志';
 
 
 -- ----------------------------
@@ -778,7 +779,7 @@ CREATE TABLE `applet_pay_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='小程序支付配置表';
 
-
+DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',

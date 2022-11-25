@@ -13,4 +13,16 @@ public enum StateMachineType {
      * 门票
      */
     TICKET,
+
+    /**
+     * 线路
+     */
+    LINE,
+
+    /**
+     * 民宿
+     */
+    HOMESTAY,
+
+
 }

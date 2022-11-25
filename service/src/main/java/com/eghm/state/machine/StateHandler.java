@@ -28,7 +28,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StateHandler {
 
-    private final EnumMap<StateMachineType, com.alibaba.cola.statemachine.StateMachine<Integer, IEvent, Context>> machineMap = new EnumMap<>(StateMachineType.class);
+    private final EnumMap<StateMachineType, StateMachine<Integer, IEvent, Context>> machineMap = new EnumMap<>(StateMachineType.class);
 
     private final List<ActionHandler<? extends Context>> handlerList;
 
