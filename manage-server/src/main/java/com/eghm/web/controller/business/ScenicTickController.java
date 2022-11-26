@@ -84,4 +84,10 @@ public class ScenicTickController {
         return RespBody.success();
     }
 
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        scenicTicketService.deleteById(dto.getId());
+        return RespBody.success();
+    }
 }

@@ -3672,7 +3672,7 @@ INSERT INTO `sys_menu` VALUES ('10111710', '基础', '3EUt', '101117', null, '/m
 INSERT INTO `sys_menu` VALUES ('10111711', '编辑', 'NEUt', '101117', null, '/manage/push/update', '2', '2', b'1', '', '2019-11-27 06:20:38', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111116', '查看', 'EvUt', '101111', '', '/manage/notice/select', '2', '11', b'1', '', '2022-11-08 21:45:00', '2022-11-08 21:45:00');
 INSERT INTO `sys_menu` VALUES ('1012', '商品管理', 'aO', '0', NULL, NULL, '1', '3', b'1', NULL, '2022-11-25 18:06:53', '2022-11-25 18:06:53');
-INSERT INTO `sys_menu` VALUES ('101210', '门票管理', 'UaU', '1012', NULL, NULL, '1', '1', b'1', NULL, '2022-11-25 18:08:40', '2022-11-25 18:17:12');
+INSERT INTO `sys_menu` VALUES ('101210', '景区管理', 'UaU', '1012', NULL, NULL, '1', '1', b'1', NULL, '2022-11-25 18:08:40', '2022-11-25 18:17:12');
 INSERT INTO `sys_menu` VALUES ('10121010', '列表', '3HBt', '101210', NULL, '/manage/scenic/listPage', '2', '1', b'1', NULL, '2022-11-25 18:10:03', '2022-11-25 18:17:10');
 INSERT INTO `sys_menu` VALUES ('10121011', '新增', 'NHBt', '101210', NULL, '/manage/scenic/create', '2', '10', b'1', NULL, '2022-11-25 18:10:40', '2022-11-25 18:17:10');
 INSERT INTO `sys_menu` VALUES ('10121012', '编辑', 'THBt', '101210', NULL, '/manage/scenic/update', '2', '20', b'1', NULL, '2022-11-25 18:11:44', '2022-11-25 18:17:10');
@@ -3682,6 +3682,17 @@ INSERT INTO `sys_menu` VALUES ('10121015', '下架', 'mHBt', '101210', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121016', '审核', 'wHBt', '101210', NULL, '/manage/scenic/platformAudit', '2', '60', b'1', NULL, '2022-11-25 18:14:44', '2022-11-25 18:17:52');
 INSERT INTO `sys_menu` VALUES ('10121017', '强制下架', 'VHBt', '101210', NULL, '/manage/scenic/platformUnShelves', '2', '70', b'1', NULL, '2022-11-25 18:15:34', '2022-11-25 18:17:53');
 INSERT INTO `sys_menu` VALUES ('10121018', '删除', 'CHBt', '101210', NULL, '/manage/scenic/delete', '2', '80', b'1', NULL, '2022-11-25 18:16:19', '2022-11-25 18:17:59');
+
+INSERT INTO `sys_menu` VALUES ('101211', '景区门票', 'GaU', '1012', NULL, NULL, '1', '10', b'1', NULL, '2022-11-26 15:53:22', '2022-11-26 15:54:04');
+INSERT INTO `sys_menu` VALUES ('10121110', '列表', '7PBt', '101211', NULL, '/manage/scenic/ticket/listPage', '2', '1', b'1', NULL, '2022-11-26 15:54:29', '2022-11-26 15:59:41');
+INSERT INTO `sys_menu` VALUES ('10121111', '新增', 'MPBt', '101211', NULL, '/manage/scenic/ticket/create', '2', '10', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:00:25');
+INSERT INTO `sys_menu` VALUES ('10121112', '编辑', 'xPBt', '101211', NULL, '/manage/scenic/ticket/update', '2', '20', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:08:26');
+INSERT INTO `sys_menu` VALUES ('10121113', '详情', 'kPBt', '101211', NULL, '/manage/scenic/ticket/select', '2', '30', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:08:28');
+INSERT INTO `sys_menu` VALUES ('10121114', '上架', 'YPBt', '101211', NULL, '/manage/scenic/ticket/shelves', '2', '40', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:11:00');
+INSERT INTO `sys_menu` VALUES ('10121115', '下架', 'ZPBt', '101211', NULL, '/manage/scenic/ticket/unShelves', '2', '50', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:10:56');
+INSERT INTO `sys_menu` VALUES ('10121116', '审核', 'RPBt', '101211', NULL, '/manage/scenic/ticket/platformAudit', '2', '60', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:10:51');
+INSERT INTO `sys_menu` VALUES ('10121117', '删除', 'SPBt', '101211', NULL, '/manage/scenic/ticket/delete', '2', '70', b'1', NULL, '2022-11-26 16:10:20', '2022-11-26 16:10:34');
+INSERT INTO `sys_menu` VALUES ('10121118', '强制下架', 'yPBt', '101211', NULL, '/manage/scenic/ticket/platformUnShelves', '2', '80', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
 
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');

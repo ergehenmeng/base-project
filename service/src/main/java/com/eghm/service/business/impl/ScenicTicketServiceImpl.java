@@ -105,4 +105,9 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
             throw new BusinessException(ErrorCode.TICKET_STOCK);
         }
     }
+
+    @Override
+    public void deleteById(Long id) {
+        scenicTicketMapper.deleteById(id);
+    }
 }

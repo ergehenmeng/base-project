@@ -1,5 +1,6 @@
 package com.eghm.model.vo.business.scenic.ticket;
 
+import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.RefundType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -41,12 +42,15 @@ public class ScenicTicketResponse implements Serializable {
     private String coverUrl;
 
     @ApiModelProperty(value = "划线价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 
     @ApiModelProperty(value = "销售价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
     @ApiModelProperty(value = "成本价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer costPrice;
 
     @ApiModelProperty(value = "提前多少天购票")
@@ -92,7 +96,7 @@ public class ScenicTicketResponse implements Serializable {
     @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
     private RefundType refundType;
 
-    @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
+    @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名")
     private Boolean realBuy;
 
     @ApiModelProperty(value = "景区状态 0:待上架 1:已上架")

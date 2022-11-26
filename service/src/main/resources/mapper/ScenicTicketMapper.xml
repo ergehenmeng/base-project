@@ -21,11 +21,11 @@
         t.total_num - t.sale_num as virtualNum,
         t.introduce,
         t.valid_days as validDays,
-        t.effective_date as effectDate,
+        t.effect_date as effectDate,
         t.expire_date as expireDate,
         t.use_scope as useScope,
         t.verification_type as verificationType,
-        t.support_refund as supportRefund,
+        t.refund_type as refundType,
         t.real_buy as realBuy,
         r.scenic_name as scenicName
         from scenic_ticket t

@@ -3,6 +3,7 @@ package com.eghm.model.dto.business.scenic.ticket;
 import com.eghm.common.convertor.YuanToCentDecoder;
 import com.eghm.common.enums.ref.RefundType;
 import com.eghm.model.validation.annotation.OptionInt;
+import com.eghm.model.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -85,7 +86,7 @@ public class ScenicTicketAddRequest {
     private LocalDate expireDate;
 
     @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
-    @OptionInt(value = {1, 2, 4, 8, 16, 32, 64}, message = "使用范围格式错误")
+    @RangeInt(min = 1, max = 63, message = "使用范围格式错误")
     private Integer useScope;
 
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)")
@@ -96,8 +97,7 @@ public class ScenicTicketAddRequest {
     @NotNull(message = "退款方式不能为空")
     private RefundType refundType;
 
-    @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
-    @OptionInt(value = {0, 1}, message = "是否实名购票不能为空")
+    @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名")
     private Boolean realBuy;
         
 }
