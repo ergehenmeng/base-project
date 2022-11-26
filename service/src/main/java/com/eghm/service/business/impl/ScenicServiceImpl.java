@@ -15,6 +15,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ScenicMapper;
 import com.eghm.model.Scenic;
+import com.eghm.model.ScenicTicket;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
 import com.eghm.model.dto.business.scenic.ScenicEditRequest;
 import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
@@ -67,6 +68,7 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void createScenic(ScenicAddRequest request) {
+        this.redoTitle(request.getScenicName(), null);
         // TODO 商户id添加
         Scenic scenic = DataUtil.copy(request, Scenic.class);
         scenicMapper.insert(scenic);
@@ -74,6 +76,7 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public void updateScenic(ScenicEditRequest request) {
+        this.redoTitle(request.getScenicName(), request.getId());
         Scenic scenic = DataUtil.copy(request, Scenic.class);
         scenicMapper.updateById(scenic);
     }
@@ -156,5 +159,20 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public void deleteById(Long id) {
         scenicMapper.deleteById(id);
+    }
+
+    /**
+     * 新增编辑时判断景区名称是否重复
+     * @param title 景区名称
+     * @param id id
+     */
+    private void redoTitle(String title, Long id) {
+        LambdaQueryWrapper<Scenic> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Scenic::getScenicName, title);
+        wrapper.ne(id != null, Scenic::getId, id);
+        Integer count = scenicMapper.selectCount(wrapper);
+        if (count > 0) {
+            throw new BusinessException(ErrorCode.SCENIC_REDO);
+        }
     }
 }

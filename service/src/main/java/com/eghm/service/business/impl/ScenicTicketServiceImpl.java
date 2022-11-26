@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,6 +9,7 @@ import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.ScenicTicketMapper;
+import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
@@ -40,12 +42,14 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public void createTicket(ScenicTicketAddRequest request) {
+        this.redoTitle(request.getTitle(), null);
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         scenicTicketMapper.insert(ticket);
     }
 
     @Override
     public void updateTicket(ScenicTicketEditRequest request) {
+        this.redoTitle(request.getTitle(), request.getId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         scenicTicketMapper.updateById(ticket);
     }
@@ -80,6 +84,11 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public void updateAuditState(Long id, PlatformState state) {
+        ScenicTicket ticket = scenicTicketMapper.selectById(id);
+        if (ticket.getState() != State.SHELVE) {
+            log.info("门票尚未提交审核 [{}]", id);
+            throw new BusinessException(ErrorCode.SCENIC_TICKET_NOT_UP);
+        }
         LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ScenicTicket::getId, id);
         wrapper.set(ScenicTicket::getPlatformState, state);
@@ -109,5 +118,20 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public void deleteById(Long id) {
         scenicTicketMapper.deleteById(id);
+    }
+
+    /**
+     * 新增编辑时判断门票名称是否重复
+     * @param title 门票
+     * @param id id
+     */
+    private void redoTitle(String title, Long id) {
+        LambdaQueryWrapper<ScenicTicket> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ScenicTicket::getTitle, title);
+        wrapper.ne(id != null, ScenicTicket::getId, id);
+        Integer count = scenicTicketMapper.selectCount(wrapper);
+        if (count > 0) {
+            throw new BusinessException(ErrorCode.SCENIC_TICKET_REDO);
+        }
     }
 }

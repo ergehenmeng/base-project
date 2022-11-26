@@ -31,20 +31,20 @@
         from scenic_ticket t
         left join scenic r on t.scenic_id = r.id
         where t.deleted = false
-        <if test="merchantId != null">
-            and r.merchant_id = #{merchantId}
+        <if test="param.merchantId != null">
+            and r.merchant_id = #{param.merchantId}
         </if>
-        <if test="scenicId != null">
-            and t.scenic_id = #{scenicId}
+        <if test="param.scenicId != null">
+            and t.scenic_id = #{param.scenicId}
         </if>
-        <if test="category != null">
-            and t.category = #{category}
+        <if test="param.category != null">
+            and t.category = #{param.category}
         </if>
-        <if test="state != null">
-            and t.state = #{state}
+        <if test="param.state != null">
+            and t.state = #{param.state}
         </if>
-        <if test="queryName != null and queryName != ''">
-            and t.title like concat('%', #{queryName} ,'%')
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.title like concat('%', #{param.queryName} ,'%')
         </if>
     </select>
 

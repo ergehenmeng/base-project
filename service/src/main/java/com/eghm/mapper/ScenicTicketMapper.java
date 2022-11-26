@@ -26,7 +26,7 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<ScenicTicketResponse> getByPage(Page<ScenicTicketResponse> page, ScenicTicketQueryRequest request);
+    Page<ScenicTicketResponse> getByPage(Page<ScenicTicketResponse> page, @Param("param") ScenicTicketQueryRequest request);
 
     /**
      * 景区下在售门票信息
