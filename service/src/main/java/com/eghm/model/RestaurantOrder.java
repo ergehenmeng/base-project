@@ -46,7 +46,7 @@ public class RestaurantOrder extends BaseEntity implements Serializable {
     private Integer salePrice;
 
     @ApiModelProperty(value = "购买说明")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "限购数量")
     private Integer quota;

@@ -1,6 +1,7 @@
 package com.eghm.model.validation.annotation;
 
 import com.eghm.model.validation.MobileDefine;
+import com.eghm.model.validation.PhoneDefine;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -18,7 +19,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @date 2018/8/14 11:39
  */
 @Documented
-@Constraint(validatedBy = MobileDefine.class)
+@Constraint(validatedBy = PhoneDefine.class)
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
 @Retention(RUNTIME)
 @ReportAsSingleViolation

@@ -67,4 +67,10 @@ public interface LineService {
      * @return 线路
      */
     Line selectById(Long id);
+
+    /**
+     * 删除线路商品
+     * @param id id
+     */
+    void deleteById(Long id);
 }

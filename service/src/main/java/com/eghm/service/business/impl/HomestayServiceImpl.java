@@ -11,6 +11,7 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.model.Homestay;
+import com.eghm.model.ScenicTicket;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
@@ -49,6 +50,8 @@ public class HomestayServiceImpl implements HomestayService {
     @Override
     public void update(HomestayEditRequest request) {
         this.checkTitleRedo(request.getTitle(), request.getId());
+        Homestay homestay = DataUtil.copy(request, Homestay.class);
+        homestayMapper.updateById(homestay);
     }
 
     @Override
@@ -61,10 +64,20 @@ public class HomestayServiceImpl implements HomestayService {
 
     @Override
     public void updateAuditState(Long id, PlatformState state) {
+        Homestay homestay = homestayMapper.selectById(id);
+        if (homestay.getState() != State.SHELVE) {
+            log.info("民宿尚未提交审核 [{}]", id);
+            throw new BusinessException(ErrorCode.HOMESTAY_NOT_UP);
+        }
         LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Homestay::getId, id);
         wrapper.set(Homestay::getPlatformState, state);
         homestayMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        homestayMapper.deleteById(id);
     }
 
     /**

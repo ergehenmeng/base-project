@@ -875,6 +875,11 @@ public enum ErrorCode {
     SCENIC_TICKET_NOT_UP(3205, "该门票尚未提交审核"),
 
     /**
+     * 该民宿尚未提交审核
+     */
+    HOMESTAY_NOT_UP(3206, "该民宿尚未提交审核"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

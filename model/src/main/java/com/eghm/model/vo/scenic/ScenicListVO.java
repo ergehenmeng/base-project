@@ -32,7 +32,7 @@ public class ScenicListVO {
     private Integer level;
 
     @ApiModelProperty("景区信息描述")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty("最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)

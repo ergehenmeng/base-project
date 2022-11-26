@@ -44,7 +44,7 @@ public class Product extends BaseEntity implements Serializable {
     private String title;
 
     @ApiModelProperty(value = "商品描述信息")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "封面图")
     private String coverUrl;

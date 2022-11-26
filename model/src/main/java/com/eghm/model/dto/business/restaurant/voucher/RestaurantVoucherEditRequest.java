@@ -51,7 +51,7 @@ public class RestaurantVoucherEditRequest {
 
     @ApiModelProperty(value = "购买说明")
     @NotNull(message = "购买说明不能为空")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "限购数量")
     @NotNull(message = "限购数量不能为空")

@@ -77,4 +77,11 @@ public class HomestayController {
         return RespBody.success();
     }
 
+    @GetMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        homestayService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
+        return RespBody.success();
+    }
+
 }

@@ -19,7 +19,7 @@ import java.math.BigDecimal;
 public class HomestayEditRequest {
 
     @ApiModelProperty("id")
-    @NotBlank(message = "id不能为空")
+    @NotNull(message = "id不能为空")
     private Long id;
 
     @ApiModelProperty(value = "民宿名称", required = true)
@@ -60,7 +60,7 @@ public class HomestayEditRequest {
     @ApiModelProperty(value = "描述信息", required = true)
     @NotBlank(message = "描述信息不能为空")
     @Size(min = 2, max = 50, message = "描述信息长度2~50位")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "封面图片,逗号分隔")
     @NotBlank(message = "封面图片不能为空")

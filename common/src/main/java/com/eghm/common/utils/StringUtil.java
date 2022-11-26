@@ -226,4 +226,11 @@ public class StringUtil {
         }
         return result;
     }
+
+    public static void main(String[] args) {
+        System.out.println(encryptNumber(101213));
+        for (int i = 10121310; i < 10121319; i++) {
+            System.out.println(encryptNumber(i) + " " + i);
+        }
+    }
 }

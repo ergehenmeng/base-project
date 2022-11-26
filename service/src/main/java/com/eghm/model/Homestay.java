@@ -69,7 +69,7 @@ public class Homestay extends BaseEntity implements Serializable {
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "描述信息")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;

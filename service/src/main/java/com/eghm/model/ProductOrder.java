@@ -46,7 +46,7 @@ public class ProductOrder extends BaseEntity implements Serializable {
     private Long storeId;
 
     @ApiModelProperty(value = "商品描述信息")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "封面图")
     private String coverUrl;

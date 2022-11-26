@@ -62,7 +62,7 @@ public class RestaurantVoucher extends BaseEntity implements Serializable {
     private Integer totalNum;
 
     @ApiModelProperty(value = "购买说明")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty(value = "单次限购数量")
     private Integer quota;

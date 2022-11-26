@@ -106,6 +106,11 @@ public class LineServiceImpl implements LineService {
         return lineMapper.selectById(id);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        lineMapper.deleteById(id);
+    }
+
     /**
      * 校验线路名称是否被占用, 同一旅行社线路不能重复
      * @param title 名称

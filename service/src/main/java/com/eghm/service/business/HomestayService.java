@@ -45,4 +45,10 @@ public interface HomestayService {
      * @param state 新状态
      */
     void updateAuditState(Long id, PlatformState state);
+
+    /**
+     * 删除民宿
+     * @param id id
+     */
+    void deleteById(Long id);
 }

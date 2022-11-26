@@ -39,7 +39,7 @@ public class ScenicVO {
     private String tag;
 
     @ApiModelProperty("景区信息描述")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty("距离 单位:km")
     private BigDecimal distance;

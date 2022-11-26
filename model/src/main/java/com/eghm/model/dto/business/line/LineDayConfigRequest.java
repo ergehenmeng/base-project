@@ -36,5 +36,5 @@ public class LineDayConfigRequest {
 
     @ApiModelProperty(value = "详细描述信息")
     @NotBlank(message = "详细信息不能为空")
-    private String describe;
+    private String depict;
 }

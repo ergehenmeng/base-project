@@ -56,7 +56,7 @@ public class LineDayConfig implements Serializable {
     private Integer repast;
 
     @ApiModelProperty(value = "详细描述信息")
-    private String describe;
+    private String depict;
 
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
