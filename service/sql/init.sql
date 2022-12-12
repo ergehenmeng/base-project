@@ -3692,7 +3692,7 @@ INSERT INTO `sys_menu` VALUES ('10121114', '上架', 'YPBt', '101211', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121115', '下架', 'ZPBt', '101211', NULL, '/manage/scenic/ticket/unShelves', '2', '50', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:10:56');
 INSERT INTO `sys_menu` VALUES ('10121116', '审核', 'RPBt', '101211', NULL, '/manage/scenic/ticket/platformAudit', '2', '60', b'1', NULL, '2022-11-26 16:00:07', '2022-11-26 16:10:51');
 INSERT INTO `sys_menu` VALUES ('10121117', '删除', 'SPBt', '101211', NULL, '/manage/scenic/ticket/delete', '2', '70', b'1', NULL, '2022-11-26 16:10:20', '2022-11-26 16:10:34');
-INSERT INTO `sys_menu` VALUES ('10121118', '强制下架', 'yPBt', '101211', NULL, '/manage/scenic/ticket/platformUnShelves', '2', '80', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_menu` VALUES ('10121118', '强制下架', 'yPBt', '101211', NULL, '/manage/scenic/ticket/platformUnShelves', '2', '80', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 
 INSERT INTO `sys_menu` VALUES ('101212', '线路管理', 'BaU', '1012', NULL, NULL, '1', '20', b'1', NULL, '2022-11-26 17:38:18', '2022-11-26 17:38:22');
 INSERT INTO `sys_menu` VALUES ('10121210', '列表', 'ahBt', '101212', NULL, '/manage/line/listPage', '2', '1', b'1', NULL, '2022-11-26 17:38:46', '2022-11-26 17:45:13');
@@ -3713,7 +3713,7 @@ INSERT INTO `sys_menu` VALUES ('10121313', '上架', 'hf2t', '101213', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121314', '下架', 'fI2t', '101213', NULL, '/manage/homestay/unShelves', '2', '50', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121315', '审核', 'II2t', '101213', NULL, '/manage/homestay/platformAudit', '2', '60', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121316', '强制下架', 'nI2t', '101213', NULL, '/manage/homestay/platformUnShelves', '2', '70', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
-INSERT INTO `sys_menu` VALUES ('10121317', '删除', '0I2t', '101213', NULL, '/manage/homestay/delete', '2', '80', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_menu` VALUES ('10121317', '删除', '0I2t', '101213', NULL, '/manage/homestay/delete', '2', '80', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
