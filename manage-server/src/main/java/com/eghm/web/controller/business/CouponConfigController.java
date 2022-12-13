@@ -7,9 +7,11 @@ import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.business.CouponConfigService;
+import com.eghm.service.business.UserCouponService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +30,8 @@ import org.springframework.web.bind.annotation.*;
 public class CouponConfigController {
 
     private final CouponConfigService couponConfigService;
+
+    private final UserCouponService userCouponService;
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
@@ -71,4 +75,10 @@ public class CouponConfigController {
         return RespBody.success();
     }
 
+    @PostMapping("/grant")
+    @ApiOperation("发放优惠券")
+    public RespBody<Void> grant(@RequestBody @Validated GrantCouponDTO dto) {
+        userCouponService.grantCoupon(dto);
+        return RespBody.success();
+    }
 }

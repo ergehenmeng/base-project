@@ -3715,6 +3715,20 @@ INSERT INTO `sys_menu` VALUES ('10121315', '审核', 'II2t', '101213', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121316', '强制下架', 'nI2t', '101213', NULL, '/manage/homestay/platformUnShelves', '2', '70', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121317', '删除', '0I2t', '101213', NULL, '/manage/homestay/delete', '2', '80', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 
+INSERT INTO `sys_menu` VALUES ('101118', '意见反馈', 'HdU', '1011', NULL, NULL, '1', '40', b'1', NULL, '2022-12-13 19:45:29', '2022-12-13 19:45:29');
+INSERT INTO `sys_menu` VALUES ('10111810', '列表', '7QUt', '101118', NULL, '/manage/feedback/listPage', '1', '10', b'1', NULL, '2022-12-13 19:46:37', '2022-12-13 19:46:42');
+INSERT INTO `sys_menu` VALUES ('10111811', '回复', 'MQUt', '101118', NULL, '/manage/feedback/dispose', '1', '20', b'1', NULL, '2022-12-13 19:47:07', '2022-12-13 19:47:07');
+
+INSERT INTO `sys_menu` VALUES ('101119', '优惠券配置', 'PdU', '1011', NULL, NULL, '1', '50', b'1', NULL, '2022-12-13 19:51:19', '2022-12-13 19:51:19');
+INSERT INTO `sys_menu` VALUES ('10111910', '列表', 'auUt', '101119', NULL, '/manage/coupon/config/listPage', '1', '10', b'1', NULL, '2022-12-13 19:51:46', '2022-12-13 19:51:53');
+INSERT INTO `sys_menu` VALUES ('10111911', '新增', 'zuUt', '101119', NULL, '/manage/coupon/config/create', '1', '20', b'1', NULL, '2022-12-13 19:52:33', '2022-12-13 19:52:33');
+INSERT INTO `sys_menu` VALUES ('10111912', '编辑', 'vuUt', '101119', NULL, '/manage/coupon/config/update', '1', '30', b'1', NULL, '2022-12-13 19:53:09', '2022-12-13 19:54:47');
+INSERT INTO `sys_menu` VALUES ('10111913', '详情', 'XuUt', '101119', NULL, '/manage/coupon/config/select', '1', '40', b'1', NULL, '2022-12-13 19:53:54', '2022-12-13 19:54:50');
+INSERT INTO `sys_menu` VALUES ('10111914', '启用', 'luUt', '101119', NULL, '/manage/coupon/config/open', '1', '50', b'1', NULL, '2022-12-13 19:54:39', '2022-12-13 19:55:17');
+INSERT INTO `sys_menu` VALUES ('10111915', '禁用', 'suUt', '101119', NULL, '/manage/coupon/config/close', '1', '60', b'1', NULL, '2022-12-13 19:55:13', '2022-12-13 19:55:20');
+INSERT INTO `sys_menu` VALUES ('10111916', '发放', 'UuUt', '101119', NULL, '/manage/coupon/config/grant', '1', '70', b'1', NULL, '2022-12-13 20:23:34', '2022-12-13 20:23:34');
+
+
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');

@@ -59,11 +59,11 @@ public class UserCouponServiceImpl implements UserCouponService {
     @Override
     public void grantCoupon(GrantCouponDTO dto) {
         ReceiveCouponDTO coupon = new ReceiveCouponDTO();
-        coupon.setUserId(dto.getUserId());
+        coupon.setCouponConfigId(dto.getCouponConfigId());
+        coupon.setNum(dto.getNum());
         coupon.setMode(CouponMode.GRANT);
-        for (GrantCouponDTO.GrantConfig config : dto.getConfigList()) {
-            config.setCouponConfigId(config.getCouponConfigId());
-            coupon.setNum(config.getNum());
+        for (Long userId : dto.getUserIdList()) {
+            coupon.setUserId(userId);
             this.doGrantCoupon(coupon);
         }
     }
