@@ -3746,6 +3746,9 @@ INSERT INTO `sys_menu` VALUES ('10112113', '锁定', 'g1Ut', '101121', '/manage/
 INSERT INTO `sys_menu` VALUES ('10112114', '重置', '11Ut', '101121', '/manage/merchant/resetPwd', NULL, '2', '50', b'1', NULL, '2022-12-14 16:17:47', '2022-12-14 16:17:47');
 INSERT INTO `sys_menu` VALUES ('10112115', '解锁', 'q1Ut', '101121', '/manage/merchant/unlock', NULL, '2', '60', b'1', NULL, '2022-12-14 16:18:35', '2022-12-14 16:18:35');
 
+INSERT INTO `sys_menu` VALUES ('101122', '店铺管理', 'f5U', '1011', NULL, NULL, '1', '80', b'1', NULL, '2022-12-14 18:45:35', '2022-12-14 18:45:35');
+INSERT INTO `sys_menu` VALUES ('10112210', '列表', 'A9Ut', '101122', '/manage/product/shop/listPage', NULL, '2', '10', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
+
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
