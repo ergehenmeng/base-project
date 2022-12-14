@@ -34,7 +34,7 @@ public class SysTaskLogController {
     }
 
     @GetMapping("/select")
-    @ApiOperation("错误日志查询")
+    @ApiOperation("日志详情")
     @ApiImplicitParam(name = "id", value = "id",  required = true)
     public String select(@RequestParam("id") Long id) {
         return sysTaskLogService.getErrorMsg(id);

@@ -32,21 +32,21 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/listPage")
-    @ApiOperation("店铺列表")
+    @ApiOperation("商品列表")
     public PageData<Product> listPage(ProductQueryRequest request) {
         Page<Product> byPage = productService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
     @GetMapping("/create")
-    @ApiOperation("新增店铺")
+    @ApiOperation("新增商品")
     public RespBody<Void> create(@Validated @RequestBody ProductAddRequest request) {
         productService.create(request);
         return RespBody.success();
     }
 
     @GetMapping("/update")
-    @ApiOperation("更新店铺")
+    @ApiOperation("更新商品")
     public RespBody<Void> update(@Validated @RequestBody ProductEditRequest request) {
         productService.update(request);
         return RespBody.success();
