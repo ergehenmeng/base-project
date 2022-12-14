@@ -55,6 +55,13 @@ public interface SysNoticeService {
     SysNotice getById(Long id);
 
     /**
+     * 主键查询公告信息
+     * @param id id
+     * @return 公告信息
+     */
+    SysNotice getByIdRequired(Long id);
+
+    /**
      * 发布公告
      * @param id id主键
      */

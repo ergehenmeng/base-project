@@ -3,6 +3,8 @@ package com.eghm.service.common.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.mapper.SysNoticeMapper;
@@ -17,6 +19,7 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +30,7 @@ import java.util.List;
  */
 @Service("sysNoticeService")
 @AllArgsConstructor
+@Slf4j
 public class SysNoticeServiceImpl implements SysNoticeService {
 
     private final SysNoticeMapper sysNoticeMapper;
@@ -78,6 +82,16 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     @Override
     public SysNotice getById(Long id) {
         return sysNoticeMapper.selectById(id);
+    }
+
+    @Override
+    public SysNotice getByIdRequired(Long id) {
+        SysNotice notice = sysNoticeMapper.selectById(id);
+        if (notice == null) {
+            log.info("公告信息未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.NOTICE_NOT_FOUND);
+        }
+        return notice;
     }
 
     @Override

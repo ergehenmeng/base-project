@@ -39,16 +39,20 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     public Page<CouponConfig> getByPage(CouponConfigQueryRequest request) {
         LambdaQueryWrapper<CouponConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), CouponConfig::getTitle, request.getQueryName());
-        wrapper.gt(request.getState() == 0, CouponConfig::getStartTime, LocalDateTime.now());
-        wrapper.and(request.getState() == 1, queryWrapper -> {
-            LocalDateTime now = LocalDateTime.now();
-            queryWrapper.ge(CouponConfig::getStartTime, now);
-            queryWrapper.le(CouponConfig::getEndTime, now);
-        });
-        wrapper.lt(request.getState() == 2, CouponConfig::getEndTime, LocalDateTime.now());
+        if (request.getState() != null) {
+            wrapper.gt( request.getState() == 0, CouponConfig::getStartTime, LocalDateTime.now());
+            wrapper.and(request.getState() == 1, queryWrapper -> {
+                LocalDateTime now = LocalDateTime.now();
+                queryWrapper.ge(CouponConfig::getStartTime, now);
+                queryWrapper.le(CouponConfig::getEndTime, now);
+            });
+            wrapper.lt(request.getState() == 2, CouponConfig::getEndTime, LocalDateTime.now());
+        }
         wrapper.gt(Boolean.TRUE.equals(request.getInStock()), CouponConfig::getStock, 0);
-        wrapper.eq(request.getMode() != null, CouponConfig::getMode, CouponMode.valueOf(request.getMode()));
-
+        // mybatisPlus value值没有懒校验模式, 需要外层判断request.getMode是否为空, 否则CouponMode.valueOf会空指针
+        if (request.getMode() != null) {
+            wrapper.eq(CouponConfig::getMode, CouponMode.valueOf(request.getMode()));
+        }
         wrapper.last(" order by state desc, id desc ");
         return couponConfigMapper.selectPage(request.createPage(), wrapper);
     }

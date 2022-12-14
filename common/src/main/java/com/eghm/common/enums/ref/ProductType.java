@@ -1,9 +1,14 @@
 package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 二哥很猛
@@ -83,5 +88,11 @@ public enum ProductType implements IEnum<String> {
     @JsonValue
     public String getValue() {
         return value;
+    }
+
+    @JsonCreator
+    public static ProductType of(String value) {
+        return Arrays.stream(ProductType.values()).filter(productType -> productType.getValue().equals(value))
+                .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_TYPE_MATCH));
     }
 }

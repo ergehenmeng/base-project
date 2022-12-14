@@ -880,6 +880,16 @@ public enum ErrorCode {
     HOMESTAY_NOT_UP(3206, "该民宿尚未提交审核"),
 
     /**
+     * 商品类型不匹配
+     */
+    PRODUCT_TYPE_MATCH(3210, "商品类型不匹配"),
+
+    /**
+     * 公告信息未查询到
+     */
+    NOTICE_NOT_FOUND(3211, "公告信息未查询到"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

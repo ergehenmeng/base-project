@@ -47,7 +47,7 @@ public class SysNoticeController {
     @ApiImplicitParam(name = "id", value = "id", required = true)
     @ApiOperation("查看")
     public SysNotice select(@RequestParam("id") Long id) {
-        return sysNoticeService.getById(id);
+        return sysNoticeService.getByIdRequired(id);
     }
 
     @PostMapping("/publish")
