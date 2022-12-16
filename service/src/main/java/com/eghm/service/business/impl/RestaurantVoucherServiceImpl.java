@@ -105,4 +105,9 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
             throw new BusinessException(ErrorCode.VOUCHER_STOCK);
         }
     }
+
+    @Override
+    public void deleteById(Long id) {
+        restaurantVoucherMapper.deleteById(id);
+    }
 }

@@ -77,4 +77,19 @@ public class RestaurantVoucherController {
         restaurantVoucherService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
         return RespBody.success();
     }
+
+    @GetMapping("/select")
+    @ApiOperation("餐饮券详情")
+    public RespBody<RestaurantVoucher> select(IdDTO dto) {
+        RestaurantVoucher voucher = restaurantVoucherService.selectByIdRequired(dto.getId());
+        return RespBody.success(voucher);
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除商品")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        restaurantVoucherService.deleteById(dto.getId());
+        return RespBody.success();
+    }
+
 }

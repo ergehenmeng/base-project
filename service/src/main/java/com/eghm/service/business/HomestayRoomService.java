@@ -66,4 +66,10 @@ public interface HomestayRoomService {
      * @param state 新状态
      */
     void updateAuditState(Long id, PlatformState state);
+
+    /**
+     * 逻辑删除
+     * @param id id
+     */
+    void deleteById(Long id);
 }

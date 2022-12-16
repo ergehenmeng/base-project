@@ -85,4 +85,10 @@ public class HomestayRoomController {
         return RespBody.success();
     }
 
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        homestayRoomService.deleteById(dto.getId());
+        return RespBody.success();
+    }
 }

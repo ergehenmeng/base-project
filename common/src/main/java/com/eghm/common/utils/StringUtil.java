@@ -228,9 +228,19 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(encryptNumber(101213));
-        for (int i = 10121310; i < 10121319; i++) {
-            System.out.println(encryptNumber(i) + " " + i);
+        int pid = 101126;
+        System.out.println(sql(pid, "", 1011, 1, 130));
+
+        int start = Integer.parseInt(pid + "10");
+        int index = 1;
+        for (int i = start; i <= start + 10; i++) {
+            System.out.println(sql(i, "替换", pid, 2, index * 10));
+            index++;
         }
+    }
+
+    public static String sql(int id, String title, int pid, int grade, int sort) {
+        String insert = "INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `grade`, `sort`) VALUES ('%s', '%s', '%s', '%s', '%d', '%d');";
+        return String.format(insert, id, title, encryptNumber(id), pid, grade, sort);
     }
 }

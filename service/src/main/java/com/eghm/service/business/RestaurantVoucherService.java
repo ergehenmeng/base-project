@@ -74,4 +74,10 @@ public interface RestaurantVoucherService {
      * @param num 负数-库存 正式+库存
      */
     void updateStock(Long id, Integer num);
+
+    /**
+     * 逻辑删除餐饮券
+     * @param id id
+     */
+    void deleteById(Long id);
 }

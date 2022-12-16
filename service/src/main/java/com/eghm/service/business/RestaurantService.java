@@ -46,4 +46,11 @@ public interface RestaurantService {
      * @param state 新状态
      */
     void updateAuditState(Long id, PlatformState state);
+
+    /**
+     * 主键查询餐饮商家
+     * @param id id
+     * @return 商家信息
+     */
+    Restaurant selectByIdRequired(Long id);
 }

@@ -3776,6 +3776,26 @@ INSERT INTO `sys_menu` VALUES ('10112413', '编辑', 'GJUt', '101124', '/manage/
 INSERT INTO `sys_menu` VALUES ('10112414', '详情', 'BJUt', '101124', '/manage/activity/select', NULL, '2', '50', b'1', NULL, '2022-12-16 15:32:38', '2022-12-16 15:32:38');
 INSERT INTO `sys_menu` VALUES ('10112415', '删除', '2JUt', '101124', '/manage/activity/delete', NULL, '2', '60', b'1', NULL, '2022-12-16 15:32:38', '2022-12-16 15:32:38');
 
+INSERT INTO `sys_menu` VALUES ('101125', '餐饮商家', '05U', '1011', NULL, NULL, '1', '120', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112510', '列表', 'fMUt', '101125', '/manage/restaurant/listPage', NULL, '2', '10', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112511', '新增', 'IMUt', '101125', '/manage/restaurant/create', NULL, '2', '20', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112512', '编辑', 'nMUt', '101125', '/manage/restaurant/update', NULL, '2', '30', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112513', '上架', '0MUt', '101125', '/manage/restaurant/shelves', NULL, '2', '40', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112514', '下架', '6MUt', '101125', '/manage/restaurant/unShelves', NULL, '2', '50', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112515', '审核', 'KMUt', '101125', '/manage/restaurant/platformAudit', NULL, '2', '60', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112516', '强制下架', '3MUt', '101125', '/manage/restaurant/platformUnShelves', NULL, '2', '70', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+INSERT INTO `sys_menu` VALUES ('10112517', '详情', 'NMUt', '101125', '/manage/restaurant/select', NULL, '2', '80', b'1', NULL, '2022-12-16 16:03:39', '2022-12-16 16:03:39');
+
+INSERT INTO `sys_menu` VALUES ('101126', '餐饮券', '65U', '1011', NULL, NULL, '1', '130', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112610', '列表', '1xUt', '101126', '/manage/restaurant/voucher/listPage', NULL, '2', '10', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112611', '新增', 'qxUt', '101126', '/manage/restaurant/voucher/create', NULL, '2', '20', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112612', '编辑', '9xUt', '101126', '/manage/restaurant/voucher/update', NULL, '2', '30', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112613', '上架', 'cxUt', '101126', '/manage/restaurant/voucher/shelves', NULL, '2', '40', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112614', '下架', 'txUt', '101126', '/manage/restaurant/voucher/unShelves', NULL, '2', '50', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112615', '审核', 'JxUt', '101126', '/manage/restaurant/voucher/platformAudit', NULL, '2', '60', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112616', '强制下架', '7xUt', '101126', '/manage/restaurant/voucher/platformUnShelves', NULL, '2', '70', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112617', '详情', 'MxUt', '101126', '/manage/restaurant/voucher/select', NULL, '2', '80', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
+INSERT INTO `sys_menu` VALUES ('10112618', '删除', 'xxUt', '101126', '/manage/restaurant/voucher/delete', NULL, '2', '90', b'1', NULL, '2022-12-16 16:07:56', '2022-12-16 16:07:56');
 
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');

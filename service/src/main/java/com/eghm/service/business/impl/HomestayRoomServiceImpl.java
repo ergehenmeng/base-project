@@ -90,4 +90,9 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         wrapper.set(HomestayRoom::getPlatformState, state);
         homestayRoomMapper.update(null, wrapper);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        homestayRoomMapper.deleteById(id);
+    }
 }
