@@ -3747,7 +3747,35 @@ INSERT INTO `sys_menu` VALUES ('10112114', '重置', '11Ut', '101121', '/manage/
 INSERT INTO `sys_menu` VALUES ('10112115', '解锁', 'q1Ut', '101121', '/manage/merchant/unlock', NULL, '2', '60', b'1', NULL, '2022-12-14 16:18:35', '2022-12-14 16:18:35');
 
 INSERT INTO `sys_menu` VALUES ('101122', '店铺管理', 'f5U', '1011', NULL, NULL, '1', '80', b'1', NULL, '2022-12-14 18:45:35', '2022-12-14 18:45:35');
-INSERT INTO `sys_menu` VALUES ('10112210', '列表', 'A9Ut', '101122', '/manage/product/shop/listPage', NULL, '2', '10', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_menu` VALUES ('10112210', '列表', 'A9Ut', '101122', '/manage/product/shop/listPage', NULL, '2', '10', b'1', NULL, '2022-12-14 19:25:22', '2022-12-14 19:25:28');
+INSERT INTO `sys_menu` VALUES ('10112211', '新增', 'm9Ut', '101122', '/manage/product/shop/create', NULL, '2', '20', b'1', NULL, '2022-12-16 11:19:46', '2022-12-16 11:19:46');
+INSERT INTO `sys_menu` VALUES ('10112212', '编辑', 'w9Ut', '101122', '/manage/product/shop/update', NULL, '2', '30', b'1', NULL, '2022-12-16 11:20:24', '2022-12-16 11:40:50');
+INSERT INTO `sys_menu` VALUES ('10112213', '上架', 'V9Ut', '101122', '/manage/product/shop/shelves', NULL, '2', '40', b'1', NULL, '2022-12-16 11:38:52', '2022-12-16 11:40:52');
+INSERT INTO `sys_menu` VALUES ('10112214', '下架', 'C9Ut', '101122', '/manage/product/shop/unShelves', NULL, '2', '50', b'1', NULL, '2022-12-16 11:39:14', '2022-12-16 11:39:21');
+INSERT INTO `sys_menu` VALUES ('10112215', '审核', '49Ut', '101122', '/manage/product/shop/platformAudit', NULL, '2', '60', b'1', NULL, '2022-12-16 11:39:59', '2022-12-16 11:40:49');
+INSERT INTO `sys_menu` VALUES ('10112216', '强制下架', 'O9Ut', '101122', '/manage/product/shop/platformUnShelves', NULL, '2', '70', b'1', NULL, '2022-12-16 11:40:45', '2022-12-16 11:40:58');
+
+INSERT INTO `sys_menu` VALUES ('101123', '民宿房型', 'I5U', '1011', NULL, NULL, '1', '100', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 15:21:20');
+INSERT INTO `sys_menu` VALUES ('10112310', '列表', 'YcUt', '101123', '/manage/homestay/room/listPage', NULL, '2', '10', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 15:22:00');
+INSERT INTO `sys_menu` VALUES ('10112311', '新增', 'ZcUt', '101123', '/manage/homestay/room/create', NULL, '2', '20', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 15:22:14');
+INSERT INTO `sys_menu` VALUES ('10112312', '编辑', 'RcUt', '101123', '/manage/homestay/room/update', NULL, '2', '30', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 15:22:25');
+INSERT INTO `sys_menu` VALUES ('10112313', '上架', 'ScUt', '101123', '/manage/homestay/room/shelves', NULL, '2', '40', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 15:22:39');
+INSERT INTO `sys_menu` VALUES ('10112314', '下架', 'ycUt', '101123', '/manage/homestay/room/unShelves', NULL, '2', '50', b'1', NULL, '2022-12-16 14:35:31', '2022-12-16 15:22:57');
+INSERT INTO `sys_menu` VALUES ('10112315', '审核', 'DcUt', '101123', '/manage/homestay/room/platformAudit', NULL, '2', '60', b'1', NULL, '2022-12-16 14:35:31', '2022-12-16 15:23:06');
+INSERT INTO `sys_menu` VALUES ('10112316', '强制下架', 'icUt', '101123', '/manage/homestay/room/platformUnShelves', NULL, '2', '70', b'1', NULL, '2022-12-16 14:35:31', '2022-12-16 15:23:19');
+INSERT INTO `sys_menu` VALUES ('10112317', '详情', '8cUt', '101123', '/manage/homestay/room/select', NULL, '2', '80', b'1', NULL, '2022-12-16 14:35:31', '2022-12-16 15:23:21');
+INSERT INTO `sys_menu` VALUES ('10112318', '房态详情', 'ocUt', '101123', '/manage/homestay/room/config/month', NULL, '2', '90', b'1', NULL, '2022-12-16 15:26:51', '2022-12-16 15:26:51');
+INSERT INTO `sys_menu` VALUES ('10112319', '设置房态', 'gcUt', '101123', '/manage/homestay/room/config/setup', NULL, '2', '100', b'1', NULL, '2022-12-16 15:26:51', '2022-12-16 15:26:51');
+INSERT INTO `sys_menu` VALUES ('10112320', '更新房态', 'HcUt', '101123', '/manage/homestay/room/config/update', NULL, '2', '110', b'1', NULL, '2022-12-16 15:26:51', '2022-12-16 15:26:51');
+
+INSERT INTO `sys_menu` VALUES ('101124', '活动管理', 'n5U', '1011', NULL, NULL, '1', '110', b'1', NULL, '2022-12-16 15:32:37', '2022-12-16 15:32:37');
+INSERT INTO `sys_menu` VALUES ('10112410', '月度活动', 'lJUt', '101124', '/manage/activity/month', NULL, '2', '10', b'1', NULL, '2022-12-16 15:32:37', '2022-12-16 15:32:37');
+INSERT INTO `sys_menu` VALUES ('10112411', '配置', 'sJUt', '101124', '/manage/activity/config', NULL, '2', '20', b'1', '配置某一时间段的活动', '2022-12-16 15:32:37', '2022-12-16 15:32:37');
+INSERT INTO `sys_menu` VALUES ('10112412', '新增', 'UJUt', '101124', '/manage/activity/create', NULL, '2', '30', b'1', NULL, '2022-12-16 15:32:37', '2022-12-16 15:32:37');
+INSERT INTO `sys_menu` VALUES ('10112413', '编辑', 'GJUt', '101124', '/manage/activity/create', NULL, '2', '40', b'1', NULL, '2022-12-16 15:32:37', '2022-12-16 15:32:37');
+INSERT INTO `sys_menu` VALUES ('10112414', '详情', 'BJUt', '101124', '/manage/activity/select', NULL, '2', '50', b'1', NULL, '2022-12-16 15:32:38', '2022-12-16 15:32:38');
+INSERT INTO `sys_menu` VALUES ('10112415', '删除', '2JUt', '101124', '/manage/activity/delete', NULL, '2', '60', b'1', NULL, '2022-12-16 15:32:38', '2022-12-16 15:32:38');
+
 
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');

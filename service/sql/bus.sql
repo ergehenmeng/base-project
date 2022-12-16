@@ -80,6 +80,7 @@ CREATE TABLE `line`
     `travel_agency_id`  bigint(20)    DEFAULT NULL COMMENT '所属旅行社id',
     `title`             varchar(50)   DEFAULT NULL COMMENT '线路名称',
     `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:待审核 2:已上架',
+    `platform_state`             tinyint(1)    DEFAULT '0' COMMENT '平台状态 0:初始 1:待审核 2:已上架',
     `start_province_id` bigint(20)    DEFAULT NULL COMMENT '出发省份id',
     `start_city_id`     bigint(20)    DEFAULT NULL COMMENT '出发城市id',
     `cover_url`         varchar(1000) DEFAULT NULL COMMENT '封面图片',
