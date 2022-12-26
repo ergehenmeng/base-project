@@ -3658,7 +3658,7 @@ INSERT INTO `sys_menu` VALUES ('10101504', '删除', 'pDXt', '101015', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10101610', '列表', 'w8Xt', '101016', NULL, '/manage/cache/list', '2', '1', b'1', '', '2019-09-12 08:58:30', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101611', '清除', 'V8Xt', '101016', NULL, '/manage/cache/clear', '2', '2', b'1', '', '2019-09-12 08:59:33', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101710', '列表', 'RoXt', '101017', NULL, '/manage/log/listPage', '2', '0', b'1', NULL, '2022-05-02 07:52:46', '2022-11-08 20:18:19');
-INSERT INTO `sys_menu` VALUES ('10101810', '列表', 'UHXt', '101018', NULL, '/manage/dept/listPage', '2', '0', b'1', NULL, '2022-05-02 07:55:27', '2022-11-08 20:18:19');
+INSERT INTO `sys_menu` VALUES ('10101810', '列表', 'UHXt', '101018', NULL, '/manage/dept/list', '2', '0', b'1', NULL, '2022-05-02 07:55:27', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101811', '添加', 'GHXt', '101018', NULL, '/manage/dept/create', '2', '0', b'1', NULL, '2022-05-02 07:56:05', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101812', '编辑', 'BHXt', '101018', NULL, '/manage/dept/update', '2', '0', b'1', NULL, '2022-05-02 07:56:32', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10111010', '列表', 'RaUt', '101110', NULL, '/manage/banner/listPage', '2', '1', b'1', '', '2019-09-12 09:03:26', '2022-11-08 20:18:19');
