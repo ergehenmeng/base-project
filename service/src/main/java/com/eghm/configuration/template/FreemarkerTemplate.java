@@ -48,7 +48,7 @@ public class FreemarkerTemplate implements TemplateEngine {
      * @throws IOException 异常
      * @throws TemplateException 异常
      */
-    private String doRender(freemarker.template.Template template, Map<String, Object> params) throws IOException, TemplateException {
+    private String doRender(Template template, Map<String, Object> params) throws IOException, TemplateException {
         try (StringWriter writer = new StringWriter()) {
             template.process(params, writer);
             return writer.toString();
