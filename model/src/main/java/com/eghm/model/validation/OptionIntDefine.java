@@ -32,6 +32,11 @@ public class OptionIntDefine implements ConstraintValidator<OptionInt, Integer> 
         if (!required && value == null) {
             return true;
         }
+
+        if (value == null) {
+            return false;
+        }
+
         for (int v : values) {
             if (v == value) {
                 return true;

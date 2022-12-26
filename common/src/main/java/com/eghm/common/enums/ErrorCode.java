@@ -895,6 +895,11 @@ public enum ErrorCode {
     RESTAURANT_NOT_FOUND(3213, "商家信息不存在"),
 
     /**
+     * 退款方式不支持
+     */
+    REFUND_TYPE_NOT_MATCH(3215, "退款方式不支持"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

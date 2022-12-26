@@ -1,9 +1,14 @@
 package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.IEnum;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 二哥很猛
@@ -38,5 +43,13 @@ public enum RefundType implements IEnum<Integer> {
     @JsonValue
     public Integer getValue() {
         return value;
+    }
+
+    @JsonCreator
+    public static RefundType of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(RefundType.values()).filter(type -> value == type.value).findFirst().orElseThrow(() -> new BusinessException(ErrorCode.REFUND_TYPE_NOT_MATCH));
     }
 }

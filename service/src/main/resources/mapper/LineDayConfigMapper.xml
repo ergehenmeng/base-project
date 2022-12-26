@@ -3,9 +3,9 @@
 <mapper namespace="com.eghm.mapper.LineDayConfigMapper">
 
     <insert id="insertOrUpdate" parameterType="com.eghm.model.LineDayConfig">
-        insert into line_day_config(id, line_id, route_index, start_point, end_point, traffic_type, repast, `describe`)
-        values (#{id}, #{lineId}, #{routeIndex}, #{startPoint}, #{endPoint}, #{trfficType}, #{repast}, #{describe}) on duplicate key
-        update start_point = #{startPoint}, end_point = #{endPoint}, traffic_type = #{trafficType}, repast = #{repast}, `describe` = #{describe}
+        insert into line_day_config(id, line_id, route_index, start_point, end_point, traffic_type, repast, `depict`)
+        values (#{id}, #{lineId}, #{routeIndex}, #{startPoint}, #{endPoint}, #{trafficType}, #{repast}, #{depict}) on duplicate key
+        update start_point = #{startPoint}, end_point = #{endPoint}, traffic_type = #{trafficType}, repast = #{repast}, `depict` = #{depict}
     </insert>
 
 </mapper>

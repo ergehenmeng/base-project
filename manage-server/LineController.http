@@ -1,0 +1,30 @@
+POST http://localhost:8080/manage/line/create
+Content-Type: application/json
+token: {{token}}
+
+{
+  "travelAgencyId": 12,
+  "title": "杭州-上海(7日游)",
+  "startProvinceId": 110000,
+  "startCityId": 110100,
+  "coverUrl": "https://localhost:8080/coverUrl.png",
+  "virtualNum": 12,
+  "duration": 1,
+  "advanceDay": 1,
+  "refundType": 1,
+  "refundDescribe": "支持审核后退款",
+  "introduce": "线路描述",
+  "configList": [{
+    "routeIndex": 1,
+    "startPoint": "杭州",
+    "endPoint": "上海",
+    "trafficType": 1,
+    "repast": 6,
+    "depict": "今日活动描述"
+  }]
+}
+
+###
+##
+GET http://localhost:8080/manage/line/listPage?page=1&pageSize=12
+token: {{token}}
