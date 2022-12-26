@@ -35,7 +35,7 @@ public class CouponConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
-    public PageData<CouponConfig> listPage(CouponConfigQueryRequest request) {
+    public PageData<CouponConfig> listPage(@Validated CouponConfigQueryRequest request) {
         Page<CouponConfig> configPage = couponConfigService.getByPage(request);
         return PageData.toPage(configPage);
     }

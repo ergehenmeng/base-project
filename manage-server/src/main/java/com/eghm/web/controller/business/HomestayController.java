@@ -80,7 +80,7 @@ public class HomestayController {
     @GetMapping("/delete")
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
-        homestayService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
+        homestayService.deleteById(dto.getId());
         return RespBody.success();
     }
 

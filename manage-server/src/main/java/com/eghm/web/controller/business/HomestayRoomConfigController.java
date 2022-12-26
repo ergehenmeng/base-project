@@ -34,7 +34,7 @@ public class HomestayRoomConfigController {
 
     @GetMapping("/month")
     @ApiOperation("房态信息(月)")
-    public List<RoomConfigResponse> getList(RoomConfigQueryRequest request) {
+    public List<RoomConfigResponse> getList(@Validated RoomConfigQueryRequest request) {
         return homestayRoomConfigService.getList(request);
     }
 
