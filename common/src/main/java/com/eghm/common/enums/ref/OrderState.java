@@ -70,7 +70,10 @@ public enum OrderState implements IEnum<Integer> {
     }
 
     @JsonCreator
-    public static OrderState valueOf(int value) {
+    public static OrderState of(Integer value) {
+        if (value == null) {
+            return null;
+        }
         return Arrays.stream(OrderState.values()).filter(state -> state.value == value).findFirst().orElse(NONE);
     }
 }

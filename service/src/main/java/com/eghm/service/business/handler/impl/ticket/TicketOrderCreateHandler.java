@@ -50,7 +50,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         String orderNo = ProductType.TICKET.getPrefix() + IdWorker.getIdStr();
         // TODO 待完善
         Order order = DataUtil.copy(context, Order.class);
-        order.setState(OrderState.valueOf(context.getTo()));
+        order.setState(OrderState.of(context.getTo()));
         order.setUserId(context.getUserId());
         order.setOrderNo(orderNo);
         order.setPrice(payload.getSalePrice());

@@ -42,7 +42,10 @@ public enum CouponMode implements IEnum<Integer>  {
         return value;
     }
 
-    public static CouponMode valueOf(int value) {
+    public static CouponMode of(Integer value) {
+        if (value == null) {
+            return null;
+        }
         return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(PAGE_RECEIVE);
     }
 }

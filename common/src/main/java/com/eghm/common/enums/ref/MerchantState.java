@@ -51,6 +51,9 @@ public enum MerchantState implements IEnum<Integer> {
     }
     
     public static MerchantState of(Integer value) {
+        if (value == null) {
+            return null;
+        }
         return Arrays.stream(MerchantState.values()).filter(merchantState -> merchantState.getValue().equals(value)).findFirst().orElseThrow(() -> new BusinessException(ENUMS_FORMAT));
     }
 }

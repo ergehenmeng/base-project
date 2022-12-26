@@ -59,7 +59,7 @@ public enum MerchantRoleMap {
      * @param merchantType 商户类型,
      * @return 角色列表
      */
-    public static List<RoleType> parseRoleType(int merchantType) {
+    public static List<RoleType> parseRoleType(Integer merchantType) {
         return Arrays.stream(MerchantRoleMap.values())
                 .filter(map -> (map.getMerchantType() & merchantType) == map.getMerchantType())
                 .map(MerchantRoleMap::getRoleType).collect(Collectors.toList());

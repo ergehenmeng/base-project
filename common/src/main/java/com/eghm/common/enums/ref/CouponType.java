@@ -44,7 +44,10 @@ public enum CouponType implements IEnum<Integer>  {
     }
 
     @JsonCreator
-    public static CouponType valueOf(int value) {
+    public static CouponType valueOf(Integer value) {
+        if (value == null) {
+            return null;
+        }
         return Arrays.stream(CouponType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(DEDUCTION);
     }
 }

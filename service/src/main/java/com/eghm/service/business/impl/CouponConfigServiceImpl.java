@@ -51,7 +51,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
         wrapper.gt(Boolean.TRUE.equals(request.getInStock()), CouponConfig::getStock, 0);
         // mybatisPlus value值没有懒校验模式, 需要外层判断request.getMode是否为空, 否则CouponMode.valueOf会空指针
         if (request.getMode() != null) {
-            wrapper.eq(CouponConfig::getMode, CouponMode.valueOf(request.getMode()));
+            wrapper.eq(CouponConfig::getMode, CouponMode.of(request.getMode()));
         }
         wrapper.last(" order by state desc, id desc ");
         return couponConfigMapper.selectPage(request.createPage(), wrapper);

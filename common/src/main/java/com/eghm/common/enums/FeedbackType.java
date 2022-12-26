@@ -38,7 +38,10 @@ public enum FeedbackType {
 
     private final String msg;
 
-    public static FeedbackType getType(byte type) {
+    public static FeedbackType getType(Byte type) {
+        if (type == null) {
+            return null;
+        }
         return Arrays.stream(FeedbackType.values()).filter(feedbackType -> feedbackType.getValue() == type).findFirst().orElse(OTHER);
     }
 
