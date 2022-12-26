@@ -1,11 +1,11 @@
-GET  http://localhost:8080/manage/line/update
+POST  http://localhost:8080/manage/line/update
 Content-Type: application/json
 token: {{token}}
 
 {
   "id": "1607290976547602434",
   "travelAgencyId": 12,
-  "title": "杭州-上海(7日游)",
+  "title": "杭州-上海(7日游)编辑",
   "startProvinceId": 110000,
   "startCityId": 110100,
   "coverUrl": "https://localhost:8080/coverUrl.png",
@@ -13,8 +13,8 @@ token: {{token}}
   "duration": 2,
   "advanceDay": 1,
   "refundType": 1,
-  "refundDescribe": "支持审核后退款",
-  "introduce": "线路描述",
+  "refundDescribe": "支持审核后退款编辑",
+  "introduce": "线路描述编辑",
   "configList": [{
     "routeIndex": 1,
     "startPoint": "杭州",
