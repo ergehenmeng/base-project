@@ -1,36 +1,23 @@
-package com.eghm.model;
+package com.eghm.model.vo.business.line;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-
-import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.RefundType;
-import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
- * <p>
- * 线路商品信息表
- * </p>
- *
  * @author 二哥很猛
- * @since 2022-08-26
+ * @since 2022/12/26
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("line")
-@ApiModel(value="Line对象", description="线路商品信息表")
-public class Line extends BaseEntity implements Serializable {
+public class LineResponse {
 
-    private static final long serialVersionUID = 1L;
+    @ApiModelProperty("id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
     @ApiModelProperty(value = "所属旅行社id")
     @JsonSerialize(using = ToStringSerializer.class)
@@ -38,12 +25,6 @@ public class Line extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "线路名称")
     private String title;
-
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
-    private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "出发省份id")
     @JsonSerialize(using = ToStringSerializer.class)
@@ -56,11 +37,8 @@ public class Line extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "销售量")
-    private Integer saleNum;
-
-    @ApiModelProperty(value = "总销量=实际销售+虚拟销量")
-    private Integer totalNum;
+    @ApiModelProperty(value = "虚拟销售量")
+    private Integer virtualNum;
 
     @ApiModelProperty(value = "几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游")
     private Integer duration;
@@ -76,4 +54,7 @@ public class Line extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "商品介绍")
     private String introduce;
+
+    @ApiModelProperty("线路每日行程")
+    private List<LineDayConfigResponse> dayList;
 }

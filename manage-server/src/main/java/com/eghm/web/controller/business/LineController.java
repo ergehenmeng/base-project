@@ -4,18 +4,25 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.model.Line;
+import com.eghm.model.LineDayConfig;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.line.LineAddRequest;
 import com.eghm.model.dto.business.line.LineEditRequest;
 import com.eghm.model.dto.business.line.LineQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.vo.business.line.LineDayConfigResponse;
+import com.eghm.model.vo.business.line.LineResponse;
+import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
+import com.eghm.utils.DataUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -28,6 +35,8 @@ import org.springframework.web.bind.annotation.*;
 public class LineController {
 
     private final LineService lineService;
+
+    private final LineDayConfigService lineDayConfigService;
 
     @ApiOperation("查询线路列表")
     @GetMapping("/listPage")
@@ -52,8 +61,14 @@ public class LineController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public Line select(@Validated IdDTO request) {
-        return lineService.selectById(request.getId());
+    public LineResponse select(@Validated IdDTO request) {
+        Line line = lineService.selectById(request.getId());
+        LineResponse response = DataUtil.copy(line, LineResponse.class);
+        List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());
+        response.setDayList(DataUtil.convert(dayList, LineDayConfigResponse.class));
+        // 虚拟销量需要计算
+        response.setVirtualNum(line.getTotalNum() - line.getSaleNum());
+        return response;
     }
 
     @PostMapping("/shelves")

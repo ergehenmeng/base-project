@@ -92,7 +92,7 @@ CREATE TABLE `line`
     `refund_describe`   varchar(200)  DEFAULT NULL COMMENT '退款描述',
     `introduce`         longtext COMMENT '商品介绍',
     `add_time`          datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
-    `create_time`       datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `update_time`       datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB

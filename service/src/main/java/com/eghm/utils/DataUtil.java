@@ -73,6 +73,20 @@ public class DataUtil {
         return resultList;
     }
 
+    /**
+     * 列表数据转换
+     *
+     * @param sourceList 原列表数据 集合
+     * @param cls       新数据
+     * @param <S>        原数据类型
+     * @param <T>        目标数据类型
+     * @return 结果数据列表
+     */
+    public static <S, T> List<T> convert(Collection<S> sourceList, Class<T> cls) {
+        return convert(sourceList, s -> DataUtil.copy(s, cls));
+    }
+
+
     public static <T> T copy(Object source, Class<T> cls, String... ignoreProperties) {
         if (source == null) {
             return null;

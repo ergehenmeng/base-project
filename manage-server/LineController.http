@@ -1,3 +1,8 @@
+GET http://localhost:8080/manage/line/select?id=1607290976547602434
+token: {{token}}
+
+###
+
 POST http://localhost:8080/manage/line/create
 Content-Type: application/json
 token: {{token}}
