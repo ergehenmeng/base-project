@@ -16,3 +16,17 @@ token: {{token}}
   "linePrice": 100,
   "salePrice": 80
 }
+
+###
+POST http://localhost:8080/manage/line/config/setDay
+Content-Type: application/json
+token: {{token}}
+
+{
+  "lineId": "1607290976547602434",
+  "configDate": "2022-12-22",
+  "state": true,
+  "stock": 20,
+  "linePrice": 88,
+  "salePrice": 68
+}
