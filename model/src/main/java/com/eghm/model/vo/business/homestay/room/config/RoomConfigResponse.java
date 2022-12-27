@@ -22,8 +22,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class RoomConfigResponse extends BaseConfigResponse {
 
-    @ApiModelProperty("是否可订 0:不可订 1:可定")
-    private Integer state;
+    @ApiModelProperty("是否可订 false:不可订 true:可定")
+    private Boolean state;
 
     @ApiModelProperty("日期")
     @JsonFormat(pattern = "yyyy-MM-dd")

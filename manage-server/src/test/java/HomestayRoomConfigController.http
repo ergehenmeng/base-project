@@ -1,0 +1,18 @@
+GET http://localhost:8080/manage/homestay/room/config/month?roomId=1607665031129849858&month=2022-12
+token: {{token}}
+###
+
+POST http://localhost:8080/manage/homestay/room/config/setup
+token: {{token}}
+Content-Type: application/json
+
+{
+  "roomIds": ["1607665031129849858"],
+  "startDate": "2022-12-01",
+  "endDate": "2022-12-21",
+  "week": [1,2,3,4,5],
+  "state": true,
+  "stock": 10,
+  "linePrice": 88,
+  "salePrice": 68
+}
