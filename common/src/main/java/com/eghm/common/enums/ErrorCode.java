@@ -900,6 +900,21 @@ public enum ErrorCode {
     REFUND_TYPE_NOT_MATCH(3215, "退款方式不支持"),
 
     /**
+     * 商户账号或密码错误
+     */
+    MERCHANT_NOT_FOUND(3216, "商户账号或密码错误"),
+
+    /**
+     * 商户账号锁定,请联系管理员解锁
+     */
+    MERCHANT_LOCKED(3218, "商户账号锁定,请联系管理员解锁"),
+
+    /**
+     * 商户账号或密码错误
+     */
+    MERCHANT_PWD_ERROR(3218, "商户账号或密码错误"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

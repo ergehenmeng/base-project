@@ -187,7 +187,6 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         // 根据用户名和权限创建jwtToken
         LoginResponse response = new LoginResponse();
         response.setToken(jwtTokenService.createToken(operator, buttonList));
-        response.setRefreshToken(jwtTokenService.createRefreshToken(operator));
         response.setButtonList(buttonList);
         response.setLeftMenuList(leftMenu);
         return response;

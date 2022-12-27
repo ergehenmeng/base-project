@@ -21,6 +21,13 @@ public interface SysMenuService {
     List<MenuResponse> getLeftMenuList(Long operatorId);
 
     /**
+     * 获取商户导航菜单列表,不包含按钮菜单
+     * @param merchantId 商户id
+     * @return 菜单列表(一级菜单 内部包含二级菜单)
+     */
+    List<MenuResponse> getMerchantLeftMenuList(Long merchantId);
+
+    /**
      * 获取所有导航菜单列表,不包含按钮菜单
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
@@ -76,6 +83,13 @@ public interface SysMenuService {
      * @return 菜单标示符
      */
     List<String> getAuth(Long operator);
+
+    /**
+     * 查询商户权限标识符
+     * @param merchantId 商户id
+     * @return 权限标示符
+     */
+    List<String> getMerchantAuth(Long merchantId);
 
     /**
      * 查询所有菜单权限

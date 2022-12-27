@@ -1,0 +1,16 @@
+GET http://localhost:8080/manage/merchant/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/merchant/create
+Content-Type: application/json
+token: {{token}}
+
+{
+  "merchantName": "酒店商户",
+  "type": 2,
+  "nickName": "三哥很猛",
+  "mobile": "13136113359",
+  "userName": "sange123"
+}

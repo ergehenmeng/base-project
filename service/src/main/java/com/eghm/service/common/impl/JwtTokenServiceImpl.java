@@ -7,8 +7,9 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.model.Merchant;
 import com.eghm.model.SysOperator;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.model.dto.ext.JwtManage;
 import com.eghm.service.common.JwtTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,28 +30,35 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private SystemProperties systemProperties;
 
     @Override
-    public String createRefreshToken(SysOperator operator) {
-        return this.doCreateJwt(operator, systemProperties.getManage().getJwt().getRefreshExpire(), null);
-    }
-
-    @Override
     public String createToken(SysOperator operator, List<String> authList) {
         SystemProperties.ManageProperties.Jwt jwt = systemProperties.getManage().getJwt();
         return jwt.getPrefix() + this.doCreateJwt(operator, jwt.getExpire(), authList);
     }
 
     @Override
-    public Optional<JwtOperator> parseToken(String token) {
+    public String createToken(Merchant merchant, List<String> authList) {
+        SystemProperties.ManageProperties.Jwt jwt = systemProperties.getManage().getJwt();
+        JWTCreator.Builder builder = JWT.create();
+        return jwt.getPrefix() + builder.withClaim("id", merchant.getId())
+                .withClaim("nickName", merchant.getNickName())
+                .withClaim("r", System.currentTimeMillis())
+                .withClaim("auth", authList)
+                .withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), jwt.getExpire()))
+                .sign(this.getAlgorithm());
+    }
+
+    @Override
+    public Optional<JwtManage> parseToken(String token) {
         JWTVerifier verifier = JWT.require(this.getAlgorithm()).build();
         try {
             DecodedJWT verify = verifier.verify(token);
-            JwtOperator jwtOperator = new JwtOperator();
-            jwtOperator.setId(verify.getClaim("id").asLong());
-            jwtOperator.setOperatorName(verify.getClaim("operatorName").asString());
-            jwtOperator.setAuthList(verify.getClaim("auth").asList(String.class));
-            jwtOperator.setDeptCode(verify.getClaim("deptCode").asString());
-            jwtOperator.setDeptList(verify.getClaim("deptList").asList(String.class));
-            return Optional.of(jwtOperator);
+            JwtManage jwtManage = new JwtManage();
+            jwtManage.setId(verify.getClaim("id").asLong());
+            jwtManage.setNickName(verify.getClaim("nickName").asString());
+            jwtManage.setAuthList(verify.getClaim("auth").asList(String.class));
+            jwtManage.setDeptCode(verify.getClaim("deptCode").asString());
+            jwtManage.setDeptList(verify.getClaim("deptList").asList(String.class));
+            return Optional.of(jwtManage);
         } catch (Exception e) {
             log.warn("jwt解析失败,token可能已过期 [{}]", token);
             return Optional.empty();
@@ -67,7 +75,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private String doCreateJwt(SysOperator operator, int expireSeconds, List<String> authList) {
         JWTCreator.Builder builder = JWT.create();
         return builder.withClaim("id", operator.getId())
-                .withClaim("operatorName", operator.getOperatorName())
+                .withClaim("nickName", operator.getOperatorName())
                 .withClaim("deptCode", operator.getDeptCode())
                 .withClaim("deptList", operator.getDeptList())
                 .withClaim("r", System.currentTimeMillis())

@@ -20,11 +20,11 @@ public class MerchantQueryRequest extends PagingQuery {
     private String merchantName;
     
     @ApiModelProperty("商户类型 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路")
-    @OptionInt(value = {1, 2, 4, 8, 16}, message = "商户类型错误")
+    @OptionInt(value = {1, 2, 4, 8, 16}, message = "商户类型错误", required = false)
     private Integer type;
     
     @ApiModelProperty("商户状态 0:锁定 1:正常 2:销户")
-    @OptionInt(value = {0, 1, 2}, message = "商户状态错误")
+    @OptionInt(value = {0, 1, 2}, message = "商户状态错误", required = false)
     private Integer state;
     
 }

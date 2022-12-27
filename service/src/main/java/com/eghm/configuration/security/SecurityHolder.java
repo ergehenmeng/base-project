@@ -2,7 +2,7 @@ package com.eghm.configuration.security;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.model.dto.ext.JwtManage;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityHolder {
 
-    private static final ThreadLocal<JwtOperator> LOCAL = ThreadLocal.withInitial(JwtOperator::new);
+    private static final ThreadLocal<JwtManage> LOCAL = ThreadLocal.withInitial(JwtManage::new);
 
-    public static void setToken(JwtOperator token) {
+    public static void setToken(JwtManage token) {
         LOCAL.set(token);
     }
 
@@ -24,19 +24,19 @@ public class SecurityHolder {
      * 获取当前登录用户的信息
      * @return 用户信息, 为空则抛登录过期异常
      */
-    public static JwtOperator getOperatorRequired() {
-        JwtOperator jwtOperator = LOCAL.get();
-        if (jwtOperator == null) {
+    public static JwtManage getManageRequired() {
+        JwtManage jwtManage = LOCAL.get();
+        if (jwtManage == null) {
             throw new BusinessException(ErrorCode.LOGIN_EXPIRE);
         }
-        return jwtOperator;
+        return jwtManage;
     }
 
     /**
      * 获取当前登录用户的信息
      * @return 用户信息 可能为空
      */
-    public static JwtOperator getOperator() {
+    public static JwtManage getManage() {
         return LOCAL.get();
     }
 
@@ -44,8 +44,8 @@ public class SecurityHolder {
      * 获取当前用户id
      * @return id
      */
-    public static Long getOperatorId() {
-        return getOperatorRequired().getId();
+    public static Long getManageId() {
+        return getManageRequired().getId();
     }
 
     public static void remove() {

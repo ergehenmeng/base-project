@@ -16,14 +16,20 @@ import com.eghm.model.Merchant;
 import com.eghm.model.dto.business.merchant.MerchantAddRequest;
 import com.eghm.model.dto.business.merchant.MerchantEditRequest;
 import com.eghm.model.dto.business.merchant.MerchantQueryRequest;
+import com.eghm.model.vo.login.LoginResponse;
+import com.eghm.model.vo.menu.MenuResponse;
 import com.eghm.service.business.MerchantService;
 import com.eghm.service.business.MerchantRoleService;
+import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.PageUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -41,6 +47,10 @@ public class MerchantServiceImpl implements MerchantService {
     private final Encoder encoder;
 
     private final MerchantRoleService merchantRoleService;
+
+    private final SysMenuService sysMenuService;
+
+    private final JwtTokenService jwtTokenService;
 
     @Override
     public Page<Merchant> getByPage(MerchantQueryRequest request) {
@@ -71,7 +81,32 @@ public class MerchantServiceImpl implements MerchantService {
         merchantMapper.updateById(merchant);
         merchantRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
     }
-    
+
+    @Override
+    public LoginResponse login(String userName, String pwd) {
+        Merchant merchant = this.selectByUserName(userName);
+        if (merchant == null) {
+            throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
+        }
+        if (merchant.getState() == MerchantState.LOGOUT) {
+            throw new BusinessException(ErrorCode.MERCHANT_PWD_ERROR);
+        }
+        if (merchant.getState() == MerchantState.LOCK) {
+            throw new BusinessException(ErrorCode.MERCHANT_LOCKED);
+        }
+        boolean match = encoder.match(pwd, merchant.getPwd());
+        if (!match) {
+            throw new BusinessException(ErrorCode.MERCHANT_PWD_ERROR);
+        }
+        List<String> buttonList = sysMenuService.getMerchantAuth(merchant.getId());
+        List<MenuResponse> menuList = sysMenuService.getMerchantLeftMenuList(merchant.getId());
+        LoginResponse response = new LoginResponse();
+        response.setButtonList(buttonList);
+        response.setLeftMenuList(menuList);
+        response.setToken(jwtTokenService.createToken(merchant, buttonList));
+        return response;
+    }
+
     @Override
     public void lock(Long id) {
         LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
@@ -98,6 +133,13 @@ public class MerchantServiceImpl implements MerchantService {
         merchant.setInitPwd(true);
         merchant.setId(id);
         merchantMapper.updateById(merchant);
+    }
+
+    @Override
+    public Merchant selectByUserName(String userName) {
+        LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Merchant::getUserName, userName);
+        return merchantMapper.selectOne(wrapper);
     }
 
     /**

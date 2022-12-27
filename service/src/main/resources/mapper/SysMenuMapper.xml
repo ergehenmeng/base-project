@@ -37,6 +37,15 @@
         </if>
     </select>
 
+    <select id="getMerchantLeftMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
+        SELECT
+        t.id, t.title, t.code, t.pid, t.path, t.sort
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN merchant_role o on s.role_id = o.role_id
+        where t.state = true and t.grade = 1 and o.merchant_id = #{merchantId}
+    </select>
+
     <select id="getButtonList" resultType="string">
         SELECT
         t.code
@@ -47,6 +56,15 @@
         <if test="operatorId != null" >
             and o.operator_id = #{operatorId}
         </if>
+    </select>
+
+    <select id="getMerchantButtonList" resultType="string">
+        SELECT
+            t.code
+        from sys_menu t
+                 LEFT JOIN sys_role_menu s on t.id = s.menu_id
+                 LEFT JOIN merchant_role o on s.role_id = o.role_id
+        where t.state = true and t.grade = 2 and o.merchant_id = #{merchantId}
     </select>
 
     <select id="getList" resultMap="BaseResultMap">

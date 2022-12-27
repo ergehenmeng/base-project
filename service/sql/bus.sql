@@ -326,7 +326,7 @@ DROP TABLE IF EXISTS `merchant`;
 CREATE TABLE `merchant`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`       varchar(30)  DEFAULT NULL COMMENT '商家名称',
+    `merchant_name`       varchar(30)  DEFAULT NULL COMMENT '商家名称',
     `type`        smallint(4)  DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
     `nick_name`   varchar(20)  DEFAULT NULL COMMENT '联系人姓名',
     `mobile`      varchar(20)  DEFAULT NULL COMMENT '联系人电话',

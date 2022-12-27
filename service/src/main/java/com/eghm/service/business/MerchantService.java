@@ -5,6 +5,7 @@ import com.eghm.model.Merchant;
 import com.eghm.model.dto.business.merchant.MerchantAddRequest;
 import com.eghm.model.dto.business.merchant.MerchantEditRequest;
 import com.eghm.model.dto.business.merchant.MerchantQueryRequest;
+import com.eghm.model.vo.login.LoginResponse;
 
 /**
  * @author 殿小二
@@ -30,6 +31,14 @@ public interface MerchantService {
      * @param request 账户信息
      */
     void update(MerchantEditRequest request);
+
+    /**
+     * 商户用户登录系统
+     * @param userName 用户名称
+     * @param pwd 密码
+     * @return 登录成功的信息
+     */
+    LoginResponse login(String userName, String pwd);
     
     /**
      * 账号锁定
@@ -48,4 +57,11 @@ public interface MerchantService {
      * @param id id
      */
     void resetPwd(Long id);
+
+    /**
+     * 根据账号查询商户信息
+     * @param userName 账号名称
+     * @return 商户信息
+     */
+    Merchant selectByUserName(String userName);
 }

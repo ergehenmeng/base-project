@@ -5,7 +5,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.DataType;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.model.dto.ext.JwtManage;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -32,7 +32,7 @@ public class DataScopeAspect {
     @Around("@annotation(scope) && this(com.baomidou.mybatisplus.core.mapper.BaseMapper)")
     public Object around(ProceedingJoinPoint joinPoint, DataScope scope) throws Throwable{
         try {
-            JwtOperator operator = SecurityHolder.getOperatorRequired();
+            JwtManage operator = SecurityHolder.getManageRequired();
             String sql = this.createPermissionSql(operator, scope);
             DATA_SCOPE_PARAM.set(sql);
             return joinPoint.proceed();
@@ -47,7 +47,7 @@ public class DataScopeAspect {
      * @param scope 注解标示
      * @return sql 例如 t.dept_id = 123123
      */
-    private String createPermissionSql(JwtOperator operator, DataScope scope) {
+    private String createPermissionSql(JwtManage operator, DataScope scope) {
         StringBuilder builder = new StringBuilder();
         builder.append(" ( ");
         // 全部

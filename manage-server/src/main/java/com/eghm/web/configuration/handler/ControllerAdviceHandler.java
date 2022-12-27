@@ -2,6 +2,7 @@ package com.eghm.web.configuration.handler;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.common.exception.ParameterException;
 import com.eghm.configuration.DatePropertyEditor;
 import com.eghm.model.dto.ext.RespBody;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
@@ -69,6 +70,18 @@ public class ControllerAdviceHandler {
     public RespBody<Void> exception(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
         log.error("系统异常, 接口[{}]不支持[{}]请求方式", request.getRequestURI(), e.getMethod());
         return RespBody.error(ErrorCode.METHOD_NOT_SUPPOERTED.getCode(), String.format(ErrorCode.METHOD_NOT_SUPPOERTED.getMsg(), e.getMethod()));
+    }
+
+    /**
+     * 业务异常统一拦截
+     *
+     * @param e 异常
+     * @return 返回标准对象
+     */
+    @ExceptionHandler(ParameterException.class)
+    public RespBody<Void> parameterException(HttpServletRequest request, ParameterException e) {
+        log.warn("参数异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
+        return RespBody.error(e.getCode(), e.getMessage());
     }
 
     /**

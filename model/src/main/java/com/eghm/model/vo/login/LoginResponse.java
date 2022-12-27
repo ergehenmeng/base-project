@@ -16,9 +16,6 @@ public class LoginResponse {
     @ApiModelProperty("token")
     private String token;
 
-    @ApiModelProperty("refreshToken")
-    private String refreshToken;
-
     @ApiModelProperty("按钮权限列表")
     private List<String> buttonList;
 

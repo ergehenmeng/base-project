@@ -6,7 +6,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysMenu;
 import com.eghm.model.SysOperator;
 import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.model.dto.ext.JwtManage;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.operator.*;
@@ -47,7 +47,7 @@ public class OperatorController {
     @PostMapping("/changePwd")
     @ApiOperation("修改管理人员密码")
     public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
-        request.setOperatorId(SecurityHolder.getOperatorId());
+        request.setOperatorId(SecurityHolder.getManageId());
         sysOperatorService.updateLoginPassword(request);
         return RespBody.success();
     }
@@ -87,7 +87,7 @@ public class OperatorController {
     @PostMapping("/lockScreen")
     @ApiOperation("锁屏操作")
     public RespBody<Void> lockScreen() {
-        JwtOperator operator = SecurityHolder.getOperatorRequired();
+        JwtManage operator = SecurityHolder.getManageRequired();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + operator.getId(), true);
         return RespBody.success();
     }
@@ -96,7 +96,7 @@ public class OperatorController {
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
-        JwtOperator operator = SecurityHolder.getOperatorRequired();
+        JwtManage operator = SecurityHolder.getManageRequired();
         // TODO 临时密码
         sysOperatorService.checkPassword(request.getPwd(), "");
         cacheService.delete(CacheConstant.LOCK_SCREEN + operator.getId());
@@ -134,6 +134,6 @@ public class OperatorController {
     @GetMapping("/menuList")
     @ApiOperation("查询自己拥有的菜单列表")
     public List<SysMenu> menuList() {
-        return sysMenuService.getList(SecurityHolder.getOperatorId());
+        return sysMenuService.getList(SecurityHolder.getManageId());
     }
 }
