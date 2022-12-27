@@ -42,6 +42,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
+        wrapper.last(" order by id desc ");
         return sysRoleMapper.selectPage(request.createPage(), wrapper);
     }
 

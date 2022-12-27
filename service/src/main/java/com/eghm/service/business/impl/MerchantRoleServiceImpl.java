@@ -36,7 +36,7 @@ public class MerchantRoleServiceImpl implements MerchantRoleService {
 
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.select(SysRole::getId);
-        wrapper.eq(SysRole::getRoleType, roleList);
+        wrapper.in(SysRole::getRoleType, roleList);
         List<SysRole> selectList = sysRoleMapper.selectList(wrapper);
         for (SysRole sysRole : selectList) {
             merchantRoleMapper.insert(new MerchantRole(merchantId, sysRole.getId()));
