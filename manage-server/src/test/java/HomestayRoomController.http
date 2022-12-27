@@ -22,3 +22,35 @@ Content-Type: application/json
   "refundType": 1,
   "refundDescribe": "退款描述信息"
 }
+
+###
+POST http://localhost:8080/manage/homestay/room/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1607665031129849858",
+  "homestayId": "1607659894533513218",
+  "title": "商务大套房",
+  "room": 1,
+  "hall": 1,
+  "kitchen": 1,
+  "washroom": 1,
+  "dimension": 43,
+  "resident": 4,
+  "bed": 2,
+  "roomType": 1,
+  "coverUrl": "https://localhost:8080/coverUrl.png",
+  "introduce": "详细介绍编辑",
+  "refundType": 1,
+  "refundDescribe": "退款描述信息编辑"
+}
+
+###
+POST http://localhost:8080/manage/homestay/room/shelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1607665031129849858"
+}
