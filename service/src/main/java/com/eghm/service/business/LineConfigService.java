@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.LineConfig;
+import com.eghm.model.dto.business.line.config.LineConfigOneRequest;
 import com.eghm.model.dto.business.line.config.LineConfigQueryRequest;
 import com.eghm.model.dto.business.line.config.LineConfigRequest;
 import com.eghm.model.vo.business.line.config.LineConfigResponse;
@@ -21,11 +22,17 @@ public interface LineConfigService {
     void setup(LineConfigRequest request);
 
     /**
+     * 设置某一天的线路价格
+     * @param request 价格信息
+     */
+    void setDay(LineConfigOneRequest request);
+
+    /**
      * 获取线路价格配置信息
      * @param request 月份
      * @return 列表
      */
-    List<LineConfigResponse> getList(LineConfigQueryRequest request);
+    List<LineConfigResponse> getMonthList(LineConfigQueryRequest request);
 
     /**
      * 查询某一天线路的价格

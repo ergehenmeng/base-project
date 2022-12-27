@@ -62,7 +62,7 @@ public class LineController {
     @GetMapping("/select")
     @ApiOperation("详情")
     public LineResponse select(@Validated IdDTO request) {
-        Line line = lineService.selectById(request.getId());
+        Line line = lineService.selectByIdRequired(request.getId());
         LineResponse response = DataUtil.copy(line, LineResponse.class);
         List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());
         response.setDayList(DataUtil.convert(dayList, LineDayConfigResponse.class));

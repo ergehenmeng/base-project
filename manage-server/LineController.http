@@ -1,3 +1,48 @@
+POST http://localhost:8080/manage/line/delete
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607290976547602434"
+}
+
+###
+POST http://localhost:8080/manage/line/platformUnShelves
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607290976547602434"
+}
+
+###
+POST http://localhost:8080/manage/line/platformAudit
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607290976547602434"
+}
+
+###
+POST http://localhost:8080/manage/line/unShelves
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607290976547602434"
+}
+
+###
+POST http://localhost:8080/manage/line/shelves
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607290976547602434"
+}
+
+###
 POST  http://localhost:8080/manage/line/update
 Content-Type: application/json
 token: {{token}}

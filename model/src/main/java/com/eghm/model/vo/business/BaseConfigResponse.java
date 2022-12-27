@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Data
 public class BaseConfigResponse {
 
-    @ApiModelProperty("某一天的房态id")
+    @ApiModelProperty("id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 

@@ -10,6 +10,7 @@ import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.LineConfigMapper;
 import com.eghm.model.LineConfig;
+import com.eghm.model.dto.business.line.config.LineConfigOneRequest;
 import com.eghm.model.dto.business.line.config.LineConfigQueryRequest;
 import com.eghm.model.dto.business.line.config.LineConfigRequest;
 import com.eghm.model.vo.business.line.config.LineConfigResponse;
@@ -56,7 +57,22 @@ public class LineConfigServiceImpl implements LineConfigService {
     }
 
     @Override
-    public List<LineConfigResponse> getList(LineConfigQueryRequest request) {
+    public void setDay(LineConfigOneRequest request) {
+        LineConfig config = this.getConfig(request.getLineId(), request.getConfigDate());
+        if (config == null) {
+            config = DataUtil.copy(request, LineConfig.class);
+            lineConfigMapper.insert(config);
+        } else {
+            config.setLinePrice(request.getLinePrice());
+            config.setSalePrice(request.getSalePrice());
+            config.setStock(request.getStock());
+            config.setState(request.getState());
+            lineConfigMapper.updateById(config);
+        }
+    }
+
+    @Override
+    public List<LineConfigResponse> getMonthList(LineConfigQueryRequest request) {
         LocalDate month = DateUtil.parseFirstDayOfMonth(request.getMonth());
         List<LineConfig> configList = this.getMonthConfig(month, request.getLineId());
         return DataUtil.paddingMonth(configList, (lineConfig, localDate) -> lineConfig.getConfigDate().equals(localDate), LineConfigResponse::new, month);

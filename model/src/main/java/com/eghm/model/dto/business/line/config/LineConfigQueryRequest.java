@@ -3,6 +3,7 @@ package com.eghm.model.dto.business.line.config;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class LineConfigQueryRequest {
 
     @ApiModelProperty("月份 yyyy-MM")
-    @NotNull(message = "月份不能为空")
+    @NotBlank(message = "月份不能为空")
     private String month;
 
     @ApiModelProperty("线路id")
