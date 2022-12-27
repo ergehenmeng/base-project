@@ -56,7 +56,7 @@ public class HomestayAddRequest {
     @ApiModelProperty(value = "描述信息", required = true)
     @NotBlank(message = "描述信息不能为空")
     @Size(min = 2, max = 50, message = "描述信息长度2~50位")
-    private String depict;
+    private String intro;
 
     @ApiModelProperty(value = "封面图片,逗号分隔")
     @NotBlank(message = "封面图片不能为空")

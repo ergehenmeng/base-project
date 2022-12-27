@@ -1,0 +1,24 @@
+GET http://localhost:8080/manage/homestay/room/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+POST http://localhost:8080/manage/homestay/room/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "homestayId": "1607659894533513218",
+  "title": "商务套房",
+  "room": 1,
+  "hall": 1,
+  "kitchen": 1,
+  "washroom": 1,
+  "dimension": 43,
+  "resident": 4,
+  "bed": 2,
+  "roomType": 1,
+  "coverUrl": "https://localhost:8080/coverUrl.png",
+  "introduce": "详细介绍",
+  "refundType": 1,
+  "refundDescribe": "退款描述信息"
+}
