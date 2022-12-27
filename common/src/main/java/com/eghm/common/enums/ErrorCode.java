@@ -215,6 +215,16 @@ public enum ErrorCode {
     MOBILE_REDO(2010, "手机号码被占用"),
 
     /**
+     * 系统默认角色,禁止删除
+     */
+    ROLE_FORBID_DELETE(2013, "系统默认角色,禁止删除"),
+
+    /**
+     * 角色名称重复
+     */
+    ROLE_NAME_REDO(2015, "角色名称重复"),
+
+    /**
      * 系统配置信息未查询到
      */
     CONFIG_NOT_FOUND_ERROR(3000,"系统配置信息未查询到"),

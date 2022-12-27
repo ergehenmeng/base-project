@@ -64,7 +64,6 @@ public class ManageLoginController {
         return RespBody.success(response);
     }
 
-
     /**
      * 校验验证码
      *

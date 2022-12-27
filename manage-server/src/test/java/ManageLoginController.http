@@ -1,0 +1,8 @@
+POST localhost:8080/manage/merchant/login
+Content-Type: application/json
+
+{
+  "userName": "sange123",
+  "pwd": "eghm123456",
+  "verifyCode": "123"
+}

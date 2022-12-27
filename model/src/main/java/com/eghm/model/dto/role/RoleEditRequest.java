@@ -25,10 +25,6 @@ public class RoleEditRequest implements Serializable {
     @NotBlank(message = "角色名称不能为空")
     private String roleName;
 
-    @ApiModelProperty(value = "角色类型编码", required = true)
-    @NotBlank(message = "角色类型不能为空")
-    private String roleType;
-
     @ApiModelProperty("备注信息")
     private String remark;
 
