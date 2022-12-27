@@ -11,7 +11,7 @@
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="locked" jdbcType="BIT" property="locked" />
-    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
 
@@ -32,7 +32,7 @@
         <result column="grade" jdbcType="TINYINT" property="grade" />
         <result column="sort" jdbcType="BIGINT" property="sort" />
         <result column="remark" jdbcType="VARCHAR" property="remark" />
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     </resultMap>
 
@@ -54,7 +54,7 @@
         </discriminator>
     </resultMap>
     <resultMap id="ChildResultMap" type="com.eghm.model.MybatisChild" >
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     </resultMap>
     <resultMap id="Child2ResultMap" type="com.eghm.model.MybatisChild2" >
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />

@@ -50,5 +50,5 @@ public class UserNoticeVO {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "通知时间yyyy-MM-dd HH:mm:ss", required = true)
-    private Date addTime;
+    private Date createTime;
 }

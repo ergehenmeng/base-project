@@ -11,7 +11,7 @@
         <result column="force_update" jdbcType="BIT" property="forceUpdate"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="version_no" jdbcType="INTEGER" property="versionNo"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
@@ -20,7 +20,7 @@
         <!--
           @create by mybatis
         -->
-        id, classify, version,version_no, force_update, url, add_time, remark, deleted,update_time
+        id, classify, version,version_no, force_update, url, create_time, remark, deleted,update_time
     </sql>
 
     <select id="getLatestVersion" resultMap="BaseResultMap">

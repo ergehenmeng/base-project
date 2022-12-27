@@ -9,7 +9,7 @@
         <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="channel" jdbcType="VARCHAR" property="channel"/>
         <result column="ip" jdbcType="BIGINT" property="ip"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand"/>
         <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
         <result column="software_version" jdbcType="VARCHAR" property="softwareVersion"/>
@@ -19,7 +19,7 @@
 
     <select id="getLastLogin" resultMap="BaseResultMap">
         select
-        id, user_id, `channel`, ip, add_time, device_brand, device_model, software_version, serial_number
+        id, user_id, `channel`, ip, create_time, device_brand, device_model, software_version, serial_number
         from login_log where user_id = #{userId} order by id desc limit 1
     </select>
 

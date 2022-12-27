@@ -16,7 +16,7 @@
         <result column="county_name" jdbcType="VARCHAR" property="countyName"/>
         <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
 

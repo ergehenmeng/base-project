@@ -68,6 +68,6 @@ public class WebappLog {
 
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
 }

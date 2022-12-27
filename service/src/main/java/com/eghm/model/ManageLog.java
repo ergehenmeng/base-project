@@ -40,7 +40,7 @@ public class ManageLog extends BaseEntity {
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty("访问ip")
     @JsonSerialize(using = ToStringSerializer.class)

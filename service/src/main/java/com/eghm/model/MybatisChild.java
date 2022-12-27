@@ -13,5 +13,5 @@ import java.util.Date;
 @Setter
 public class MybatisChild extends MybatisSuper {
 
-    private Date addTime;
+    private Date createTime;
 }

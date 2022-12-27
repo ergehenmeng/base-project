@@ -31,7 +31,7 @@ public class SmsLog implements Serializable {
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty("短信分类")
     private String smsType;

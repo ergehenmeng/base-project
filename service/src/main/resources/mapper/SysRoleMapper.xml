@@ -8,7 +8,7 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
         <result column="role_type" jdbcType="VARCHAR" property="roleType"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>

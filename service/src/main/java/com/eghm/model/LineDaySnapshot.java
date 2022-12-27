@@ -57,6 +57,6 @@ public class LineDaySnapshot implements Serializable {
     private String depict;
 
     @ApiModelProperty(value = "添加时间")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
 }

@@ -12,7 +12,7 @@
         <result column="version" jdbcType="VARCHAR" property="version"/>
         <result column="system_version" jdbcType="VARCHAR" property="systemVersion"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand"/>
         <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
@@ -32,7 +32,7 @@
         t.version,
         t.system_version,
         t.content,
-        t.add_time,
+        t.create_time,
         t.update_time,
         t.device_brand,
         t.device_model,

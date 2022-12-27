@@ -51,7 +51,7 @@ public class VerifyLog implements Serializable {
 
     @ApiModelProperty(value = "核销时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
 
 }

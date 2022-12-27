@@ -15,14 +15,14 @@
         <result column="sort" jdbcType="BIGINT" property="sort"/>
         <result column="state" jdbcType="BIT" property="state"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="BaseColumnList">
         <!--
           @create by mybatis
         -->
-        t.id, t.title, t.code, t.pid, t.path,t.sub_path, t.grade, t.sort, t.state, t.remark, t.add_time, t.update_time
+        t.id, t.title, t.code, t.pid, t.path,t.sub_path, t.grade, t.sort, t.state, t.remark, t.create_time, t.update_time
     </sql>
 
     <select id="getLeftMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">

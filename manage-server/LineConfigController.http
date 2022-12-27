@@ -1,0 +1,2 @@
+GET http://localhost:8080/manage/line/config/month?lineId=1607290976547602434&month=2022-12
+token: {{token}}

@@ -46,7 +46,7 @@ public class CouponProduct implements Serializable {
     private Long productId;
 
     @ApiModelProperty(value = "添加时间")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
     public CouponProduct(Long couponConfigId, ProductType productType, Long productId) {
         this.couponConfigId = couponConfigId;

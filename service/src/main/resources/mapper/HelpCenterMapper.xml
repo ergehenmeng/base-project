@@ -13,7 +13,7 @@
         <result column="sort" jdbcType="TINYINT" property="sort"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
 
     <select id="getListSorted" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">

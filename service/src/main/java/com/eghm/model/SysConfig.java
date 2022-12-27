@@ -38,7 +38,7 @@ public class SysConfig {
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

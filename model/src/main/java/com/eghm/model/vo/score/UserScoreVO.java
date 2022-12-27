@@ -32,5 +32,5 @@ public class UserScoreVO {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("积分发放或消费时间")
-    private Date addTime;
+    private Date createTime;
 }

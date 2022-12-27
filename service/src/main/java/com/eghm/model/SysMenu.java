@@ -50,7 +50,7 @@ public class SysMenu {
 
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty("更新日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

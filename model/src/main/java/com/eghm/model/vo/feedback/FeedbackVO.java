@@ -39,7 +39,7 @@ public class FeedbackVO implements Serializable {
 
     @ApiModelProperty("反馈时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime addTime;
+    private LocalDateTime createTime;
 
     @ApiModelProperty("处理时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

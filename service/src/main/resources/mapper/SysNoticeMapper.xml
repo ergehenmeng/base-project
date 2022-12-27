@@ -9,7 +9,7 @@
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="classify" jdbcType="TINYINT" property="classify"/>
         <result column="deleted" jdbcType="BIT" property="deleted"/>
-        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="state" jdbcType="TINYINT" property="state"/>
     </resultMap>

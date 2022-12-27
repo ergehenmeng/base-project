@@ -3576,24 +3576,24 @@ INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `r
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'mail_template', '1', '2020-01-11 14:39:28', 'freemaker模板缓存');
 
 
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', b'0', b'1', '2018-11-27 17:14:49', NULL, NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('2', '图片分类', 'image_classify', '2', 'app首页', b'0', b'1', '2018-11-27 17:15:33', NULL, NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', b'0', b'1', '2018-11-27 17:15:55', NULL, NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', b'0', b'1', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', b'0', b'1', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('6', '轮播图类型', 'banner_classify', '1', '首页轮播', b'0', b'0', '2019-08-23 16:09:53', '2019-08-30 11:46:03', NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('8', '公告分类', 'notice_classify', '1', '科普', b'0', b'0', '2019-11-25 16:13:43', '2019-11-27 11:39:52', NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `add_time`, `update_time`, `remark`) VALUES ('9', '公告分类', 'notice_classify', '2', '通知', b'0', b'0', '2019-11-25 16:14:10', '2019-11-27 11:39:54', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', b'0', b'1', '2018-11-27 17:14:49', NULL, NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('2', '图片分类', 'image_classify', '2', 'app首页', b'0', b'1', '2018-11-27 17:15:33', NULL, NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', b'0', b'1', '2018-11-27 17:15:55', NULL, NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', b'0', b'1', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', b'0', b'1', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('6', '轮播图类型', 'banner_classify', '1', '首页轮播', b'0', b'0', '2019-08-23 16:09:53', '2019-08-30 11:46:03', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('8', '公告分类', 'notice_classify', '1', '科普', b'0', b'0', '2019-11-25 16:13:43', '2019-11-27 11:39:52', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('9', '公告分类', 'notice_classify', '2', '通知', b'0', b'0', '2019-11-25 16:14:10', '2019-11-27 11:39:54', NULL);
 
-INSERT INTO `sys_operator` (`id`, `operator_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `deleted`, `add_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$ztSM0sQT.mqMOZBXxjYCK.IOHiKtCvUdKei/drs0qmm081omlcvC6', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy', '0', b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
+INSERT INTO `sys_operator` (`id`, `operator_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$ztSM0sQT.mqMOZBXxjYCK.IOHiKtCvUdKei/drs0qmm081omlcvC6', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy', '0', b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
 INSERT INTO `sys_operator_role` (`id`, `operator_id`, `role_id`) VALUES ('5', '1', '1');
 
-INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `add_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '');
+INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '');
 
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `update_time`, `remark`) VALUES ('2', '门票支付处理中的订单处理', 'taskService', 'ticketPaying', NULL, '0 0/30 * * * ?', '664956140@qq.com', '0', '2022-08-08 19:51:42', NULL);
 
-INSERT INTO `user` (`id`, `mobile`, `open_id`, `nick_name`, `email`, `pwd`, `state`, `channel`, `register_ip`, `add_time`, `update_time`, `avatar`) VALUES ('1', '13136113636', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', '0', '0', '2019-10-25 15:59:22', '2019-10-25 16:01:16', NULL);
+INSERT INTO `user` (`id`, `mobile`, `open_id`, `nick_name`, `email`, `pwd`, `state`, `channel`, `register_ip`, `create_time`, `update_time`, `avatar`) VALUES ('1', '13136113636', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', '0', '0', '2019-10-25 15:59:22', '2019-10-25 16:01:16', NULL);
 
 
 INSERT INTO `sys_menu` VALUES ('1010', '系统管理', 'dO', '0', NULL, NULL, '1', '1', b'1', '', '2018-01-24 08:13:54', '2022-11-08 20:19:07');
