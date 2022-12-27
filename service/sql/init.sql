@@ -3777,6 +3777,11 @@ INSERT INTO `sys_menu` VALUES ('10121215', '下架', 'shBt', '101212', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121216', '审核', 'UhBt', '101212', NULL, '/manage/line/platformAudit', '2', '60', b'1', NULL, '2022-11-26 17:38:46', '2022-11-26 17:45:13');
 INSERT INTO `sys_menu` VALUES ('10121217', '强制下架', 'GhBt', '101212', NULL, '/manage/line/platformUnShelves', '2', '70', b'1', NULL, '2022-11-26 17:38:46', '2022-11-26 17:45:13');
 INSERT INTO `sys_menu` VALUES ('10121218', '删除', 'BhBt', '101212', NULL, '/manage/line/delete', '2', '80', b'1', NULL, '2022-11-26 17:38:46', '2022-11-26 17:45:13');
+INSERT INTO `sys_menu` VALUES ('10121219', '价格详情', '2hBt', '101212', NULL, '/manage/line/config/month', '2', '100', b'1', NULL, '2022-12-27 11:26:16', '2022-12-27 11:28:13');
+INSERT INTO `sys_menu` VALUES ('10121220', '价格设置(月)', 'phBt', '101212', NULL, '/manage/line/config/setup', '2', '110', b'1', NULL, '2022-12-27 11:26:16', '2022-12-27 11:28:21');
+INSERT INTO `sys_menu` VALUES ('10121221', '价格设置(天)', 'bhBt', '101212', NULL, '/manage/line/config/setDay', '2', '120', b'1', NULL, '2022-12-27 11:26:16', '2022-12-27 11:28:26');
+
+
 INSERT INTO `sys_menu` VALUES ('10121310', '列表', 'Hf2t', '101213', NULL, '/manage/homestay/listPage', '2', '1', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121311', '新增', 'Pf2t', '101213', NULL, '/manage/homestay/create', '2', '10', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121312', '编辑', 'Ff2t', '101213', NULL, '/manage/homestay/update', '2', '20', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
