@@ -127,7 +127,7 @@ public class DataUtil {
                 BeanUtil.copyProperties(optional.get(), response);
                 response.setHasSet(true);
             } else {
-                response.setHasSet(true);
+                response.setHasSet(false);
                 response.setConfigDate(localDate);
             }
             responseList.add(response);

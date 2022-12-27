@@ -366,7 +366,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signIn(Long userId) {
         User user = userMapper.selectById(userId);
-        long day = ChronoUnit.DAYS.between(user.getAddTime(), LocalDateTime.now());
+        long day = ChronoUnit.DAYS.between(user.getCreateTime(), LocalDateTime.now());
         String signKey = CacheConstant.USER_SIGN_IN + userId;
         Boolean signIn = cacheService.getBitmap(signKey, day);
         if (Boolean.TRUE.equals(signIn)) {
@@ -387,7 +387,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean isSignInToday(User user) {
-        long day = ChronoUnit.DAYS.between(user.getAddTime(), LocalDateTime.now());
+        long day = ChronoUnit.DAYS.between(user.getCreateTime(), LocalDateTime.now());
         return cacheService.getBitmap(CacheConstant.USER_SIGN_IN + user.getId(), day);
     }
 
@@ -395,7 +395,7 @@ public class UserServiceImpl implements UserService {
     public SignInVO getSignIn(Long userId) {
         User user = userMapper.selectById(userId);
         Date now = DateUtil.getNow();
-        long day = ChronoUnit.DAYS.between(user.getAddTime(), LocalDateTime.now());
+        long day = ChronoUnit.DAYS.between(user.getCreateTime(), LocalDateTime.now());
         String signKey = CacheConstant.USER_SIGN_IN + userId;
         // 今日是否签到
         boolean todaySignIn = cacheService.getBitmap(signKey, day);

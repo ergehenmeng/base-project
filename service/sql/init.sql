@@ -4096,8 +4096,9 @@ INSERT INTO `sys_config` VALUES ('42', 'jwt_secret_key', 'jwt秘钥', 'VjM0ea1vz
 INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600000', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
 INSERT INTO `sys_config` VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', b'0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
 INSERT INTO `sys_config` VALUES ('45', 'submit_frequency_limit', 'post请求最小间隔时间', '500', b'0', '单位:毫秒 表示500内只允许访问一次', '2020-12-15 19:12:22', '2020-12-15 19:12:40');
-INSERT INTO `sys_config` VALUES ('46', 'room_config_max_day', '房态单次设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-06-30 11:13:32', '2022-07-23 15:07:54');
+INSERT INTO `sys_config` VALUES ('46', 'room_config_max_day', '房间价格批量设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-06-30 11:13:32', '2022-07-23 15:07:54');
 INSERT INTO `sys_config` VALUES ('47', 'scenic_contain_distance', '景区列表是否包含距离', '1', b'0', '0:不包含 1:包含', '2022-07-11 19:54:12', '2022-07-11 19:54:29');
 INSERT INTO `sys_config` VALUES ('48', 'activity_config_max_day', '活动单次设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-07-23 15:07:10', '2022-07-23 15:07:50');
 INSERT INTO `sys_config` VALUES ('49', 'shopping_car_max', '用户购物车商品数量', '20', b'0', '默认20个,即单个用户最大添加20中商品', '2022-07-23 15:08:30', '2022-07-23 15:09:24');
 INSERT INTO `sys_config` VALUES ('50', 'order_expire_time', '订单过期时间', '1800', b'0', '默认30分钟过期', '2022-07-28 13:48:34', '2022-07-28 13:48:34');
+INSERT INTO `sys_config` VALUES ('51', 'line_config_max_day', '线路价格批量设置最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-12-27 13:13:18', '2022-12-27 13:13:52');

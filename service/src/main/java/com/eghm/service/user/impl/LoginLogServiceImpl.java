@@ -50,7 +50,7 @@ public class LoginLogServiceImpl implements LoginLogService {
             return null;
         }
         LoginDeviceVO vo = new LoginDeviceVO();
-        vo.setLoginTime(DateUtil.formatSimple(lastLogin.getAddTime()));
+        vo.setLoginTime(DateUtil.formatSimple(lastLogin.getCreateTime()));
         vo.setDeviceModel(lastLogin.getDeviceModel());
         return vo;
     }

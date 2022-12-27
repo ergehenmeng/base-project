@@ -40,7 +40,7 @@ public class LineConfigServiceImpl implements LineConfigService {
 
     @Override
     public void setup(LineConfigRequest request) {
-        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getStartDate());
+        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
         commonService.checkMaxDay(ConfigConstant.LINE_CONFIG_MAX_DAY, between);
 
         List<Integer> week = request.getWeek();

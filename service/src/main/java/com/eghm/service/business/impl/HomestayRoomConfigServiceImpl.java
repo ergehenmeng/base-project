@@ -41,7 +41,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     @Override
     public void setup(RoomConfigRequest request) {
-        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getStartDate());
+        long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
 
         commonService.checkMaxDay(ConfigConstant.ROOM_CONFIG_MAX_DAY, between);
 

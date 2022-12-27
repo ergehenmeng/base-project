@@ -1,2 +1,18 @@
 GET http://localhost:8080/manage/line/config/month?lineId=1607290976547602434&month=2022-12
 token: {{token}}
+
+###
+POST http://localhost:8080/manage/line/config/setup
+Content-Type: application/json
+token: {{token}}
+
+{
+  "lineId": "1607290976547602434",
+  "startDate": "2022-12-01",
+  "endDate": "2022-12-10",
+  "week": [1,2,3,4,5],
+  "state": true,
+  "stock": 10,
+  "linePrice": 100,
+  "salePrice": 80
+}

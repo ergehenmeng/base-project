@@ -41,8 +41,8 @@ public class SmsLogServiceImpl implements SmsLogService {
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsLog::getMobile, request.getQueryName());
         wrapper.eq(request.getSmsType() != null, SmsLog::getSmsType, request.getSmsType());
         wrapper.eq(request.getState() != null, SmsLog::getState, request.getState());
-        wrapper.ge(request.getStartTime() != null, SmsLog::getAddTime, request.getStartTime());
-        wrapper.lt(request.getEndTime() != null, SmsLog::getAddTime, request.getEndTime());
+        wrapper.ge(request.getStartTime() != null, SmsLog::getCreateTime, request.getStartTime());
+        wrapper.lt(request.getEndTime() != null, SmsLog::getCreateTime, request.getEndTime());
         return smsLogMapper.selectPage(request.createPage(), wrapper);
     }
 
