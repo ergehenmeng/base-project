@@ -10,6 +10,7 @@ import com.eghm.model.dto.business.homestay.room.HomestayRoomEditRequest;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.vo.business.homestay.room.HomestayRoomResponse;
 import com.eghm.service.business.HomestayRoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -31,8 +32,8 @@ public class HomestayRoomController {
 
     @GetMapping("/listPage")
     @ApiOperation("房型列表")
-    public PageData<HomestayRoom> listPage(HomestayRoomQueryRequest request) {
-        Page<HomestayRoom> roomPage = homestayRoomService.getByPage(request);
+    public PageData<HomestayRoomResponse> listPage(HomestayRoomQueryRequest request) {
+        Page<HomestayRoomResponse> roomPage = homestayRoomService.getByPage(request);
         return PageData.toPage(roomPage);
     }
 

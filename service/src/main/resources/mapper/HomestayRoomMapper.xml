@@ -2,4 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.HomestayRoomMapper">
 
+    <select id="listPage" parameterType="com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest" resultType="com.eghm.model.vo.business.homestay.room.HomestayRoomResponse">
+        select
+        t.id,
+        t.title,
+        r.title as homestayTitle,
+        t.state,
+        t.platform_state as platformState,
+        t.room,
+        t.hall,
+        t.kitchen,
+        t.washroom,
+        t.dimension,
+        t.resident,
+        t.bed,
+        t.room_type as roomType,
+        t.refund_type as refundType
+        from homestay_room t
+        left join homestay r on t.homestay_id = r.id
+        where t.deleted = false and r.deleted = false
+        <if test="request.queryName != null and request.queryName != ''">
+            and t.title like concat('%', #{request.queryName} ,'%')
+        </if>
+        <if test="request.state != null">
+            and t.state = #{request.state}
+        </if>
+        <if test="request.refundType != null">
+            and t.refund_type = #{request.refundType}
+        </if>
+    </select>
 </mapper>
