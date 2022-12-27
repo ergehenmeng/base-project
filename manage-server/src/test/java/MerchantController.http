@@ -14,3 +14,37 @@ token: {{token}}
   "mobile": "13136113359",
   "userName": "sange123"
 }
+
+###
+
+POST http://localhost:8080/manage/merchant/update
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607653979663085569",
+  "merchantName": "酒店商户编辑",
+  "type": 3,
+  "nickName": "三哥很猛编辑",
+  "mobile": "13136113359"
+}
+
+###
+
+POST http://localhost:8080/manage/merchant/lock
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607653979663085569"
+}
+
+###
+
+POST http://localhost:8080/manage/merchant/unlock
+Content-Type: application/json
+token: {{token}}
+
+{
+  "id": "1607653979663085569"
+}

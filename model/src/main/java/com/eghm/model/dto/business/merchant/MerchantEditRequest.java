@@ -32,11 +32,11 @@ public class MerchantEditRequest {
     @ApiModelProperty(value = "联系人姓名", required = true)
     @NotBlank(message = "联系人姓名不能为空")
     @Size(min = 2, max = 10, message = "联系人姓名长度2~10位")
-    private String contactName;
+    private String nickName;
     
     @ApiModelProperty(value = "联系人电话", required = true)
     @NotBlank(message = "联系人电话不能为空")
     @Size(min = 7, max = 15, message = "联系人电话长度7~15位")
-    private String contactPhone;
+    private String mobile;
 
 }
