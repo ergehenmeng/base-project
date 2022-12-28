@@ -3,12 +3,14 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.HomestayRoomConfigMapper;
 import com.eghm.model.HomestayRoomConfig;
+import com.eghm.model.LineConfig;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;
@@ -53,17 +55,15 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
                 continue;
             }
             // 只有该日期所在周日期在指定范围时,才进行插入或更新操作
-            for (Long roomId : request.getRoomIds()) {
-                config = new HomestayRoomConfig();
-                config.setId(IdWorker.getId());
-                config.setConfigDate(localDate);
-                config.setHomestayRoomId(roomId);
-                config.setState(request.getState());
-                config.setStock(request.getStock());
-                config.setLinePrice(request.getLinePrice());
-                config.setSalePrice(request.getSalePrice());
-                homestayRoomConfigMapper.insertOrUpdate(config);
-            }
+            config = new HomestayRoomConfig();
+            config.setId(IdWorker.getId());
+            config.setConfigDate(localDate);
+            config.setHomestayRoomId(request.getRoomId());
+            config.setState(request.getState());
+            config.setStock(request.getStock());
+            config.setLinePrice(request.getLinePrice());
+            config.setSalePrice(request.getSalePrice());
+            homestayRoomConfigMapper.insertOrUpdate(config);
         }
     }
 
@@ -76,8 +76,17 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     @Override
     public void update(RoomConfigEditRequest request) {
-        HomestayRoomConfig config = DataUtil.copy(request, HomestayRoomConfig.class);
-        homestayRoomConfigMapper.updateById(config);
+        HomestayRoomConfig config = this.getConfig(request.getRoomId(), request.getConfigDate());
+        if (config == null) {
+            config = DataUtil.copy(request, HomestayRoomConfig.class);
+            homestayRoomConfigMapper.insert(config);
+        } else {
+            config.setLinePrice(request.getLinePrice());
+            config.setSalePrice(request.getSalePrice());
+            config.setStock(request.getStock());
+            config.setState(request.getState());
+            homestayRoomConfigMapper.updateById(config);
+        }
     }
 
     @Override
@@ -98,6 +107,15 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             }
         }
         return voList;
+    }
+
+    @Override
+    public HomestayRoomConfig getConfig(Long roomId, LocalDate configDate) {
+        LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
+        wrapper.eq(HomestayRoomConfig::getConfigDate, configDate);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return homestayRoomConfigMapper.selectOne(wrapper);
     }
 
     @Override

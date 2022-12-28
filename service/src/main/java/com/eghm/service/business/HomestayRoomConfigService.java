@@ -43,6 +43,14 @@ public interface HomestayRoomConfigService {
     List<RoomConfigVO> getList(LocalDate month, Long roomId);
 
     /**
+     * 获取房间某一天的价格配置信息
+     * @param roomId 房间id
+     * @param configDate 日期
+     * @return 价格库存配置信息
+     */
+    HomestayRoomConfig getConfig(Long roomId, LocalDate configDate);
+
+    /**
      * 查询指定房型的房态信息
      * @param roomId 房型id
      * @param startDate 开始时间(含)

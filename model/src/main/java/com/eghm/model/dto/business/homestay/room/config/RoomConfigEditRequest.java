@@ -2,11 +2,13 @@ package com.eghm.model.dto.business.homestay.room.config;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
 import com.eghm.model.validation.annotation.RangeInt;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
@@ -15,13 +17,18 @@ import javax.validation.constraints.NotNull;
 @Data
 public class RoomConfigEditRequest {
 
-    @ApiModelProperty("id")
-    @NotNull
-    private Long id;
+    @ApiModelProperty("房间id")
+    @NotNull(message = "房型id不能为空")
+    private Long roomId;
 
-    @ApiModelProperty("状态 0:不可用 1:可用")
+    @ApiModelProperty("日期yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "日期不能为空")
+    private LocalDate configDate;
+
+    @ApiModelProperty("状态 false:不可用 true:可用")
     @NotNull(message = "是否可定不能为空")
-    private Integer state;
+    private Boolean state;
 
     @ApiModelProperty("库存不能为空")
     @RangeInt(max = 9999, message = "最大库存9999")

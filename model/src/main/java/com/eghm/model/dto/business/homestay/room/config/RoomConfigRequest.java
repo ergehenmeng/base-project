@@ -19,8 +19,8 @@ import java.util.List;
 public class RoomConfigRequest {
 
     @ApiModelProperty("房型id")
-    @NotEmpty(message = "房型id不能为空")
-    private List<Long> roomIds;
+    @NotNull(message = "房型id不能为空")
+    private Long roomId;
 
     @ApiModelProperty("开始日期 yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
@@ -36,7 +36,7 @@ public class RoomConfigRequest {
     @NotEmpty(message = "请选择周期")
     public List<Integer> week;
 
-    @ApiModelProperty("状态 0:不可用 1:可用")
+    @ApiModelProperty("状态 false:不可用 true:可用")
     @NotNull(message = "是否可定不能为空")
     private Boolean state;
 
