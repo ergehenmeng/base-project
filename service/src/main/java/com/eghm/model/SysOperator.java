@@ -28,11 +28,24 @@ public class SysOperator extends BaseEntity {
      */
     public static final byte STATE_0 = 0;
 
+    /**
+     * 系统用户
+     */
+    public static final int USER_TYPE_1 = 1;
+
+    /**
+     * 商户用户
+     */
+    public static final int USER_TYPE_2 = 2;
+
     @ApiModelProperty("用户姓名")
-    private String operatorName;
+    private String nickName;
 
     @ApiModelProperty("手机号码(登陆账户)")
     private String mobile;
+
+    @ApiModelProperty("用户类型 1: 系统用户 2: 商户用户")
+    private Integer userType;
 
     @ApiModelProperty("用户状态:0:锁定,1:正常")
     private Byte state;

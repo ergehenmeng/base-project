@@ -24,7 +24,6 @@ public interface SysOperatorService {
     /**
      * 更新登陆密码
      * @param request 前台参数
-     * @return 新加密过的密码
      */
     void updateLoginPassword(PasswordEditRequest request);
 
@@ -47,6 +46,12 @@ public interface SysOperatorService {
      * @param request 前台参数
      */
     void create(OperatorAddRequest request);
+
+    /**
+     * 添加管理人员
+     * @param operator 管理人员
+     */
+    void insert(SysOperator operator);
 
     /**
      * 根据手机号生成初始化密码,手机号后六位
@@ -74,6 +79,13 @@ public interface SysOperatorService {
      * @param id 系统用户id
      */
     void resetPassword(Long id);
+
+    /**
+     * 重置密码
+     * @param id id
+     * @param pwd 新密码
+     */
+    void resetPassword(Long id, String pwd);
 
     /**
      * 删除用户

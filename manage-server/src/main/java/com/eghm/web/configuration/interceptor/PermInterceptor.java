@@ -6,7 +6,7 @@ import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysMenu;
-import com.eghm.model.dto.ext.JwtManage;
+import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
@@ -67,8 +67,8 @@ public class PermInterceptor implements InterceptorAdapter {
      * @return true: 匹配 false: 不匹配
      */
     private boolean match(HttpServletRequest request) {
-        JwtManage jwtManage = SecurityHolder.getManageRequired();
-        List<String> codeList = jwtManage.getAuthList();
+        JwtOperator jwtOperator = SecurityHolder.getOperatorRequired();
+        List<String> codeList = jwtOperator.getAuthList();
         String code = PERM_MAP.get(request.getRequestURI());
         return codeList.contains(code);
     }

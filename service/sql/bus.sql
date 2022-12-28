@@ -12,7 +12,7 @@ CREATE TABLE `homestay`
     `detail_address` varchar(100)   DEFAULT NULL COMMENT '详细地址',
     `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
     `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
-    `intro`         varchar(100)   DEFAULT NULL COMMENT '简介信息',
+    `intro`          varchar(100)   DEFAULT NULL COMMENT '简介信息',
     `cover_url`      varchar(100)   DEFAULT NULL COMMENT '封面图片',
     `introduce`      longtext COMMENT '详细介绍',
     `phone`          varchar(20)    DEFAULT NULL COMMENT '联系电话',
@@ -20,7 +20,7 @@ CREATE TABLE `homestay`
     `bathroom`       varchar(200)   DEFAULT NULL COMMENT '卫浴设施',
     `kitchen`        varchar(200)   DEFAULT NULL COMMENT '厨房设施',
     `key_service`    varchar(200)   DEFAULT NULL COMMENT '特色服务',
-    `create_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `tags`           varchar(200)   DEFAULT NULL COMMENT '标签',
@@ -47,9 +47,9 @@ CREATE TABLE `homestay_room`
     `room_type`       tinyint(1)    DEFAULT NULL COMMENT '房型类型 1:整租 2:单间 3:合租',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图片',
     `introduce`       longtext COMMENT '详细介绍',
-    `refund_type`  tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述',
-    `create_time`        datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -67,7 +67,7 @@ CREATE TABLE `homestay_room_config`
     `sale_price`       int(10)     DEFAULT NULL COMMENT '销售价',
     `stock`            smallint(4) DEFAULT NULL COMMENT '剩余库存',
     `sale_num`         smallint(4) DEFAULT '0' COMMENT '已预订数量',
-    `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`      datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `date_index` (`homestay_room_id`, `config_date`)
@@ -91,7 +91,7 @@ CREATE TABLE `line`
     `refund_type`       tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe`   varchar(200)  DEFAULT NULL COMMENT '退款描述',
     `introduce`         longtext COMMENT '商品介绍',
-    `create_time`          datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`       datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`       datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -125,12 +125,13 @@ CREATE TABLE `line_day_config`
     `traffic_type` tinyint(1)  DEFAULT NULL COMMENT '交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他',
     `repast`       tinyint(2)  DEFAULT '0' COMMENT '包含就餐 1:早餐 2:午餐 4:晚餐',
     `depict`       longtext COMMENT '详细描述信息',
-    `create_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
     UNIQUE KEY `line_index` (`line_id`, `route_index`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路每日行程配置信息';
+
 DROP TABLE IF EXISTS `restaurant`;
 CREATE TABLE `restaurant`
 (
@@ -139,21 +140,24 @@ CREATE TABLE `restaurant`
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户',
     `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
     `platform_state` tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `logo_url`       varchar(200)   DEFAULT NULL COMMENT '商家logo',
     `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '商家封面',
     `open_time`      varchar(100)   DEFAULT NULL COMMENT '营业时间',
     `province_id`    bigint(20)     DEFAULT NULL COMMENT '省份',
     `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
     `county_id`      bigint(20)     DEFAULT NULL COMMENT '县区id',
+    `detail_address` varchar(50)    DEFAULT NULL COMMENT '详细地址',
     `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
     `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
     `phone`          varchar(20)    DEFAULT NULL COMMENT '商家热线',
     `introduce`      longtext COMMENT '商家介绍',
-    `create_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮商家信息表';
+
 DROP TABLE IF EXISTS `restaurant_voucher`;
 CREATE TABLE `restaurant_voucher`
 (
@@ -175,10 +179,10 @@ CREATE TABLE `restaurant_voucher`
     `expire_date`     date         DEFAULT NULL COMMENT '使用截止日期(包含) yyyy-MM-dd',
     `effect_time`     varchar(10)  DEFAULT NULL COMMENT '使用开始时间 HH:mm',
     `expire_time`     varchar(10)  DEFAULT NULL COMMENT '使用截止时间 HH:mm',
-    `refund_type`  tinyint(1)   DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)   DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200) DEFAULT NULL COMMENT '退款描述信息',
     `introduce`       longtext COMMENT '详细介绍',
-    `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -206,7 +210,7 @@ CREATE TABLE `scenic`
     `depict`         varchar(100)   DEFAULT NULL COMMENT '景区描述信息',
     `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '景区图片',
     `introduce`      longtext COMMENT '景区详细介绍信息',
-    `create_time`       datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)         DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     `min_price`      int(10)        DEFAULT '0' COMMENT '景区最低票价',
@@ -247,7 +251,7 @@ CREATE TABLE `scenic_ticket`
     `pay_time`          datetime            DEFAULT NULL COMMENT '订单支付时间',
     `complete_time`     datetime            DEFAULT NULL COMMENT '订单完成时间',
     `use_time`          datetime            DEFAULT NULL COMMENT '门票使用时间',
-    `create_time`          datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',
+    `create_time`       datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',
     `update_time`       datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           bit(1)              DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -266,14 +270,14 @@ CREATE TABLE `product`
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
     `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
     `delivery_type`   tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
-    `refund_type`  tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述信息',
     `min_price`       int(10)       DEFAULT NULL COMMENT '最低价格',
     `max_price`       int(10)       DEFAULT NULL COMMENT '最高价格',
     `sale_num`        int(10)       DEFAULT '0' COMMENT '销售数量(所有规格销售总量)',
     `total_num`       int(10)       DEFAULT '0' COMMENT '总销售量=实际销售+虚拟销量',
     `introduce`       longtext COMMENT '商品介绍信息',
-    `create_time`        datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -322,33 +326,23 @@ CREATE TABLE `product_shop`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='店铺信息表';
+
 DROP TABLE IF EXISTS `merchant`;
 CREATE TABLE `merchant`
 (
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `merchant_name`       varchar(30)  DEFAULT NULL COMMENT '商家名称',
-    `type`        smallint(4)  DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
-    `nick_name`   varchar(20)  DEFAULT NULL COMMENT '联系人姓名',
-    `mobile`      varchar(20)  DEFAULT NULL COMMENT '联系人电话',
-    `user_name`   varchar(30)  DEFAULT NULL COMMENT '账号名称',
-    `pwd`         varchar(255) DEFAULT NULL COMMENT '账号密码',
-    `init_pwd`    bit(1)       DEFAULT b'1' COMMENT '是否为初始化密码 1:是 0:不是',
-    `state`       tinyint(1)   DEFAULT '1' COMMENT '状态 0:锁定 1:正常 2:销户',
-    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)       DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',
+    `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `merchant_name` varchar(30) DEFAULT NULL COMMENT '商家名称',
+    `type`          smallint(4) DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
+    `nick_name`     varchar(20) DEFAULT NULL COMMENT '联系人姓名',
+    `mobile`        varchar(20) DEFAULT NULL COMMENT '联系人电话',
+    `operator_id`   bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
+    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)      DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
-DROP TABLE IF EXISTS `merchant_role`;
-CREATE TABLE `merchant_role`
-(
-    `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `merchant_id` bigint(20) DEFAULT NULL COMMENT '商户ID',
-    `role_id`     bigint(20) DEFAULT NULL COMMENT '角色ID',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='商户与角色关联表';
+
 DROP TABLE IF EXISTS `coupon_config`;
 CREATE TABLE `coupon_config`
 (
@@ -391,7 +385,7 @@ CREATE TABLE `ticket_order`
     `ticket_id`         bigint(20)   DEFAULT NULL COMMENT '门票id',
     `mobile`            varchar(11)  DEFAULT NULL COMMENT '联系人手机号',
     `use_time`          datetime     DEFAULT NULL COMMENT '使用时间',
-    `create_time`          datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`       datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`       datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -405,7 +399,7 @@ CREATE TABLE `coupon_product`
     `coupon_config_id` bigint(20)  DEFAULT NULL COMMENT '优惠券配置id',
     `product_type`     varchar(20) DEFAULT NULL COMMENT '商品类型',
     `product_id`       bigint(20)  DEFAULT NULL COMMENT '商品id',
-    `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券商品关联表';
@@ -418,7 +412,7 @@ CREATE TABLE `user_coupon`
     `state`            tinyint(1) DEFAULT '0' COMMENT '使用状态 0:未使用 1:已使用 2:已过期',
     `receive_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '领取时间',
     `use_time`         datetime   DEFAULT NULL COMMENT '使用时间',
-    `create_time`         datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`      datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`      datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`          bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -435,7 +429,7 @@ CREATE TABLE `activity`
     `address`     varchar(100) DEFAULT NULL COMMENT '活动地点',
     `cover_url`   varchar(500) DEFAULT NULL COMMENT '活动封面图片',
     `introduce`   longtext COMMENT '活动详细介绍',
-    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -451,7 +445,7 @@ CREATE TABLE `pay_notify_log`
     `out_trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
     `out_refund_no` varchar(30) DEFAULT NULL COMMENT '退款流水号',
     `params`        text COMMENT '退款通知原始参数',
-    `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
@@ -468,7 +462,7 @@ CREATE TABLE `order_visitor`
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
     `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 待使用 1:已使用 2:已退款',
     `collect_id`   bigint(20)  DEFAULT NULL COMMENT '关联id(退款记录id或核销记录id)',
-    `create_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -501,11 +495,11 @@ CREATE TABLE `order_refund_log`
 DROP TABLE IF EXISTS `verify_log`;
 CREATE TABLE `verify_log`
 (
-    `id`       bigint(20)   DEFAULT NULL COMMENT '主键',
-    `order_id` bigint(20)   DEFAULT NULL COMMENT '订单id',
-    `user_id`  bigint(20)   DEFAULT NULL COMMENT '核销人id',
-    `num`      tinyint(2)   DEFAULT '1' COMMENT '核销数量',
-    `remark`   varchar(100) DEFAULT NULL COMMENT '核销备注',
+    `id`          bigint(20)   DEFAULT NULL COMMENT '主键',
+    `order_id`    bigint(20)   DEFAULT NULL COMMENT '订单id',
+    `user_id`     bigint(20)   DEFAULT NULL COMMENT '核销人id',
+    `num`         tinyint(2)   DEFAULT '1' COMMENT '核销数量',
+    `remark`      varchar(100) DEFAULT NULL COMMENT '核销备注',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '核销时间'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单核销记录表';
@@ -529,7 +523,7 @@ CREATE TABLE `homestay_order`
     `cover_url`   varchar(1000) DEFAULT NULL COMMENT '封面图片',
     `introduce`   longtext COMMENT '详细介绍',
     `mobile`      varchar(11)   DEFAULT NULL COMMENT '联系人手机号',
-    `create_time`    datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     varchar(255)  DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -549,7 +543,7 @@ CREATE TABLE `order`
     `price`           int(10)      DEFAULT NULL COMMENT '单价',
     `num`             smallint(3)  DEFAULT '1' COMMENT '数量',
     `product_type`    varchar(30)  DEFAULT NULL COMMENT '商品类型',
-    `refund_type`  tinyint(1)   DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)   DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200) DEFAULT NULL COMMENT '退款描述信息',
     `state`           tinyint(2)   DEFAULT '0' COMMENT '订单状态 0:待支付 1:支付处理中 2:支付成功,待使用 3:已使用,待评价 4:已完成 5:已关闭',
     `refund_state`    tinyint(1)   DEFAULT NULL COMMENT '退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功',
@@ -560,7 +554,7 @@ CREATE TABLE `order`
     `pay_time`        datetime     DEFAULT NULL COMMENT '订单支付时间',
     `complete_time`   datetime     DEFAULT NULL COMMENT '订单完成时间',
     `close_time`      datetime     DEFAULT NULL COMMENT '订单关闭时间',
-    `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -584,7 +578,7 @@ CREATE TABLE `restaurant_order`
     `effect_time`   varchar(10)  DEFAULT NULL COMMENT '使用开始时间',
     `expire_time`   varchar(10)  DEFAULT NULL COMMENT '使用截止时间',
     `introduce`     longtext COMMENT '详细介绍',
-    `create_time`      datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -599,7 +593,7 @@ CREATE TABLE `homestay_order_snapshot`
     `sale_price`       int(10)     DEFAULT '0' COMMENT '销售价',
     `line_price`       int(10)     DEFAULT '0' COMMENT '划线价',
     `config_date`      date        DEFAULT NULL COMMENT '日期',
-    `create_time`         datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='房态快照表';
@@ -620,7 +614,7 @@ CREATE TABLE `line_order`
     `advance_day`       tinyint(2)    DEFAULT NULL COMMENT '提前天数',
     `introduce`         longtext COMMENT '商品介绍',
     `line_price`        int(10)       DEFAULT '0' COMMENT '划线价',
-    `create_time`          datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`       datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`       datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -638,7 +632,7 @@ CREATE TABLE `line_day_snapshot`
     `traffic_type` tinyint(1)  DEFAULT NULL COMMENT '交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他',
     `repast`       tinyint(2)  DEFAULT '0' COMMENT '包含就餐 1:早餐 2:午餐 4:晚餐',
     `depict`       longtext COMMENT '详细描述信息',
-    `create_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路订单每日行程配置快照表';
@@ -663,7 +657,7 @@ CREATE TABLE `product_order`
     `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
     `delivery_method` tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无需发货 1:门店自提 2:快递包邮',
     `introduce`       longtext COMMENT '商品介绍信息',
-    `create_time`        datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
@@ -679,7 +673,7 @@ CREATE TABLE `shopping_car`
     `sku_id`      bigint(20)  DEFAULT NULL COMMENT '商品规格id',
     `sale_price`  int(10)     DEFAULT NULL COMMENT '商品售价(冗余)',
     `quantity`    smallint(3) DEFAULT '1' COMMENT '数量',
-    `create_time`    datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),

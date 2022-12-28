@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -110,6 +111,21 @@ public class SysRoleServiceImpl implements SysRoleService {
             List<String> roleStringList = StrUtil.split(roleIds, ',');
             //循环插入角色关联信息
             roleStringList.forEach(s -> sysOperatorRoleMapper.insert(new SysOperatorRole(operatorId, Long.parseLong(s))));
+        }
+    }
+
+    @Override
+    public void authRole(Long operatorId, List<RoleType> roleList) {
+        if (CollUtil.isEmpty(roleList)) {
+            throw new BusinessException(ErrorCode.MERCHANT_ROLE_NULL);
+        }
+        sysOperatorRoleMapper.deleteByOperatorId(operatorId);
+        LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(SysRole::getId);
+        wrapper.in(SysRole::getRoleType, roleList);
+        List<SysRole> selectList = sysRoleMapper.selectList(wrapper);
+        for (SysRole sysRole : selectList) {
+            sysOperatorRoleMapper.insert(new SysOperatorRole(operatorId, sysRole.getId()));
         }
     }
 

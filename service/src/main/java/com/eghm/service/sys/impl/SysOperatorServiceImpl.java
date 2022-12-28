@@ -4,6 +4,7 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.DataType;
@@ -81,7 +82,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, SysOperator::getState, request.getState());
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
-                queryWrapper.like(SysOperator::getOperatorName, request.getQueryName()).or().
+                queryWrapper.like(SysOperator::getNickName, request.getQueryName()).or().
                         like(SysOperator::getMobile, request.getQueryName()));
         return sysOperatorMapper.selectPage(request.createPage(), wrapper);
     }
@@ -91,6 +92,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         this.redoMobile(request.getMobile(), null);
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         operator.setState(SysOperator.STATE_1);
+        operator.setUserType(SysOperator.USER_TYPE_1);
         String initPassword = this.initPassword(request.getMobile());
         operator.setPwd(initPassword);
         operator.setInitPwd(initPassword);
@@ -104,10 +106,16 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         }
     }
 
+    @Override
+    public void insert(SysOperator operator) {
+        this.redoMobile(operator.getMobile(), null);
+        operator.setState(SysOperator.STATE_1);
+        sysOperatorMapper.insert(operator);
+    }
 
     @Override
     public String initPassword(String mobile) {
-        String md5Password = MD5.create().digestHex(Base64.encode(mobile.substring(5)));
+        String md5Password = MD5.create().digestHex(mobile.substring(5));
         return encoder.encode(md5Password);
     }
 
@@ -137,6 +145,16 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         operator.setPwd(password);
         operator.setInitPwd(password);
         sysOperatorMapper.updateById(operator);
+    }
+
+    @Override
+    public void resetPassword(Long id, String pwd) {
+        LambdaUpdateWrapper<SysOperator> wrapper = Wrappers.lambdaUpdate();
+        String encode = encoder.encode(MD5.create().digestHex(pwd));
+        wrapper.set(SysOperator::getPwd, encode);
+        wrapper.set(SysOperator::getInitPwd, encode);
+        wrapper.eq(SysOperator::getId, id);
+        sysOperatorMapper.update(null, wrapper);
     }
 
     @Override
@@ -188,6 +206,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         LoginResponse response = new LoginResponse();
         response.setToken(jwtTokenService.createToken(operator, buttonList));
         response.setButtonList(buttonList);
+        response.setUserType(operator.getUserType());
         response.setLeftMenuList(leftMenu);
         return response;
     }

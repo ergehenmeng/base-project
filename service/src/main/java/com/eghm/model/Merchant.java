@@ -1,7 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.common.enums.ref.MerchantState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -37,16 +36,6 @@ public class Merchant extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "联系人电话")
     private String mobile;
 
-    @ApiModelProperty(value = "账号名称")
-    private String userName;
-
-    @ApiModelProperty(value = "账号密码")
-    private String pwd;
-
-    @ApiModelProperty(value = "是否为初始化密码 1:是 0:不是")
-    private Boolean initPwd;
-
-    @ApiModelProperty(value = "状态 0:锁定 1:正常 2:销户")
-    private MerchantState state;
-
+    @ApiModelProperty("关联的系统用户id")
+    private Long operatorId;
 }

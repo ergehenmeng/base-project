@@ -1,0 +1,22 @@
+GET http://localhost:8080/manage/restaurant/listPage?page=1&pageSize=10
+token: {{token}}
+###
+
+POST http://localhost:8080/manage/restaurant/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "三哥的小吃店",
+  "logoUrl": "https://localhost:8080/logoUrl.png",
+  "coverUrl": "https://localhost:8080/coverUrl.png",
+  "openTime": "09:00~20:00",
+  "provinceId": 110000,
+  "cityId": 110100,
+  "countyId": 110102,
+  "detailAddress": "我是详细地址",
+  "longitude": "30.332149",
+  "latitude": "120.306943",
+  "phone": "13766889954",
+  "introduce": "吃喝玩乐一起游"
+}

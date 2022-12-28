@@ -7,12 +7,27 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "roomIds": ["1607665031129849858"],
+  "roomIds": "1607665031129849858",
   "startDate": "2022-12-01",
   "endDate": "2022-12-21",
   "week": [1,2,3,4,5],
   "state": true,
   "stock": 10,
   "linePrice": 88,
+  "salePrice": 68
+}
+
+###
+
+POST http://localhost:8080/manage/homestay/room/config/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "roomId": "1607665031129849858",
+  "configDate": "2022-12-09",
+  "state": true,
+  "stock": 20,
+  "linePrice": 100,
   "salePrice": 68
 }

@@ -509,7 +509,7 @@ DROP TABLE IF EXISTS `sys_operator`;
 CREATE TABLE `sys_operator`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `operator_name`   varchar(20)         NOT NULL COMMENT '用户名称',
+    `nick_name`   varchar(20)         NOT NULL COMMENT '用户名称',
     `mobile`          char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
     `state`           tinyint(1) unsigned                                   DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256)                                          DEFAULT NULL COMMENT '登陆密码MD5',
@@ -521,7 +521,7 @@ CREATE TABLE `sys_operator`
     `update_time`     datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(200)                                          DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `name_index` (`operator_name`) USING BTREE,
+    KEY `name_index` (`nick_name`) USING BTREE,
     KEY `mobile_index` (`mobile`) USING BTREE,
     KEY `status_index` (`state`) USING BTREE
 ) ENGINE = InnoDB

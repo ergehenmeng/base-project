@@ -82,7 +82,7 @@ public class BaseTest {
      */
     public void loginByAccount(String account, String password) {
         params.put("account",account);
-        params.put("pwd", MD5.create().digestHex16(password));
+        params.put("pwd", MD5.create().digestHex(password));
         String content = this.post("/api/login/account");
         Type type = new TypeToken<RespBody<LoginTokenVO>>(){}.getType();
         RespBody<LoginTokenVO> json = gson.fromJson(content, type);

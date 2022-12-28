@@ -4,11 +4,9 @@ import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.model.dto.business.merchant.MerchantLoginRequest;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.login.LoginRequest;
 import com.eghm.model.vo.login.LoginResponse;
-import com.eghm.service.business.MerchantService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -40,8 +38,6 @@ public class ManageLoginController {
 
     private final SysConfigApi sysConfigApi;
 
-    private final MerchantService merchantService;
-
     @PostMapping("/login")
     @ApiOperation("管理后台登陆")
     public RespBody<LoginResponse> login(@Validated @RequestBody LoginRequest request, HttpServletRequest servletRequest) {
@@ -50,17 +46,6 @@ public class ManageLoginController {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }
         LoginResponse response = sysOperatorService.login(request.getUserName(), request.getPwd());
-        return RespBody.success(response);
-    }
-
-    @PostMapping("/merchant/login")
-    @ApiOperation("商户端登陆")
-    public RespBody<LoginResponse> login(@Validated @RequestBody MerchantLoginRequest request, HttpServletRequest servletRequest) {
-        String key = IpUtil.getIpAddress(servletRequest);
-        if (this.verifyCodeError(key, request.getVerifyCode())) {
-            return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
-        }
-        LoginResponse response = merchantService.login(request.getUserName(), request.getPwd());
         return RespBody.success(response);
     }
 

@@ -6,10 +6,13 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysOperator;
-import com.eghm.model.dto.ext.JwtManage;
+import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.service.business.MerchantService;
 import com.eghm.service.common.JwtTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,36 +32,37 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     private SystemProperties systemProperties;
 
+    private final MerchantService merchantService;
+
     @Override
     public String createToken(SysOperator operator, List<String> authList) {
+        // 在此处调用merchantService有点鸡肋, 但是在operatorService调用,会出现循环依赖问题
+        Long merchantId = null;
+        if (operator.getUserType() == SysOperator.USER_TYPE_2) {
+            Merchant merchant = merchantService.selectByOperatorId(operator.getId());
+            if (merchant == null) {
+                log.error("商户信息未查询到 [{}]", operator.getId());
+                throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
+            }
+            merchantId = merchant.getId();
+        }
         SystemProperties.ManageProperties.Jwt jwt = systemProperties.getManage().getJwt();
-        return jwt.getPrefix() + this.doCreateJwt(operator, jwt.getExpire(), authList);
+        return jwt.getPrefix() + this.doCreateJwt(operator, merchantId, jwt.getExpire(), authList);
     }
 
     @Override
-    public String createToken(Merchant merchant, List<String> authList) {
-        SystemProperties.ManageProperties.Jwt jwt = systemProperties.getManage().getJwt();
-        JWTCreator.Builder builder = JWT.create();
-        return jwt.getPrefix() + builder.withClaim("id", merchant.getId())
-                .withClaim("nickName", merchant.getNickName())
-                .withClaim("r", System.currentTimeMillis())
-                .withClaim("auth", authList)
-                .withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), jwt.getExpire()))
-                .sign(this.getAlgorithm());
-    }
-
-    @Override
-    public Optional<JwtManage> parseToken(String token) {
+    public Optional<JwtOperator> parseToken(String token) {
         JWTVerifier verifier = JWT.require(this.getAlgorithm()).build();
         try {
             DecodedJWT verify = verifier.verify(token);
-            JwtManage jwtManage = new JwtManage();
-            jwtManage.setId(verify.getClaim("id").asLong());
-            jwtManage.setNickName(verify.getClaim("nickName").asString());
-            jwtManage.setAuthList(verify.getClaim("auth").asList(String.class));
-            jwtManage.setDeptCode(verify.getClaim("deptCode").asString());
-            jwtManage.setDeptList(verify.getClaim("deptList").asList(String.class));
-            return Optional.of(jwtManage);
+            JwtOperator jwtOperator = new JwtOperator();
+            jwtOperator.setId(verify.getClaim("id").asLong());
+            jwtOperator.setId(verify.getClaim("merchantId").asLong());
+            jwtOperator.setNickName(verify.getClaim("nickName").asString());
+            jwtOperator.setAuthList(verify.getClaim("auth").asList(String.class));
+            jwtOperator.setDeptCode(verify.getClaim("deptCode").asString());
+            jwtOperator.setDeptList(verify.getClaim("deptList").asList(String.class));
+            return Optional.of(jwtOperator);
         } catch (Exception e) {
             log.warn("jwt解析失败,token可能已过期 [{}]", token);
             return Optional.empty();
@@ -68,14 +72,16 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     /**
      * 根据用户id及渠道创建token
      * @param operator  用户信息
+     * @param merchantId 商户id
      * @param expireSeconds 过期时间
      * @param authList 权限信息
      * @return jwtToken
      */
-    private String doCreateJwt(SysOperator operator, int expireSeconds, List<String> authList) {
+    private String doCreateJwt(SysOperator operator, Long merchantId, int expireSeconds, List<String> authList) {
         JWTCreator.Builder builder = JWT.create();
         return builder.withClaim("id", operator.getId())
-                .withClaim("nickName", operator.getOperatorName())
+                .withClaim("nickName", operator.getNickName())
+                .withClaim("merchantId", merchantId)
                 .withClaim("deptCode", operator.getDeptCode())
                 .withClaim("deptList", operator.getDeptList())
                 .withClaim("r", System.currentTimeMillis())

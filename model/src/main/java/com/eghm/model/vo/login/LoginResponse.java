@@ -16,6 +16,9 @@ public class LoginResponse {
     @ApiModelProperty("token")
     private String token;
 
+    @ApiModelProperty("用户类型 1:系统用户 2: 商户用户")
+    private Integer userType;
+
     @ApiModelProperty("按钮权限列表")
     private List<String> buttonList;
 

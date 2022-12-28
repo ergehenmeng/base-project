@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2020/8/28
  */
 @Data
-public class JwtManage {
+public class JwtOperator {
 
     /**
      * 用户id
@@ -21,6 +21,11 @@ public class JwtManage {
      * 1: 平台用户 2: 商户用户
      */
     private Integer userType;
+
+    /**
+     * 商户id
+     */
+    private Long merchantId;
 
     /**
      * 昵称

@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -24,7 +26,7 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("restaurant")
-@ApiModel(value="Restaurant对象", description="餐饮商家信息表")
+@ApiModel(value = "Restaurant对象", description = "餐饮商家信息表")
 public class Restaurant extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +43,9 @@ public class Restaurant extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
     private PlatformState platformState;
+
+    @ApiModelProperty("商家logo")
+    private String logoUrl;
 
     @ApiModelProperty(value = "商家封面")
     private String coverUrl;
@@ -59,6 +64,9 @@ public class Restaurant extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "县区id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long countyId;
+
+    @ApiModelProperty("详细地址")
+    private String detailAddress;
 
     @ApiModelProperty(value = "经度")
     private BigDecimal longitude;

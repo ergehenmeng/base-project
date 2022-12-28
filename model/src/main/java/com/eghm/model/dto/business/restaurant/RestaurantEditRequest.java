@@ -25,6 +25,10 @@ public class RestaurantEditRequest {
     @Size(min = 2, max = 20, message = "商家名称长度应为2~20位")
     private String title;
 
+    @ApiModelProperty("商家logo")
+    @NotBlank(message = "logo不能为空")
+    private String logoUrl;
+
     @ApiModelProperty(value = "商家封面")
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
@@ -47,6 +51,11 @@ public class RestaurantEditRequest {
     @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "县区不能为空")
     private Long countyId;
+
+    @ApiModelProperty("详细地址")
+    @NotBlank(message = "详细地址不能为空")
+    @Size(max = 20, message = "详细地址长度2~20字符")
+    private String detailAddress;
 
     @ApiModelProperty(value = "经度")
     @NotNull(message = "经度不能为空")
