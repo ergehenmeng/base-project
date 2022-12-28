@@ -1,5 +1,6 @@
 package com.eghm.web.configuration.interceptor;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.configuration.annotation.SkipPerm;
@@ -70,6 +71,6 @@ public class PermInterceptor implements InterceptorAdapter {
         JwtOperator jwtOperator = SecurityHolder.getOperatorRequired();
         List<String> codeList = jwtOperator.getAuthList();
         String code = PERM_MAP.get(request.getRequestURI());
-        return codeList.contains(code);
+        return CollUtil.isNotEmpty(codeList) && codeList.contains(code);
     }
 }

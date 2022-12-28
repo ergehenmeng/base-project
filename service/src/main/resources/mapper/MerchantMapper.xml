@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.MerchantMapper">
 
-    <select id="getOperatorId" resultType="long">
-        select operator_id from merchant where id = #{id}
+    <select id="getByOperatorId" resultType="long">
+        select id from merchant where operator_id = #{operatorId}
     </select>
 </mapper>

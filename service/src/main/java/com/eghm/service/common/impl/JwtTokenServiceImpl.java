@@ -40,7 +40,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         // 在此处调用merchantService有点鸡肋, 但是在operatorService调用,会出现循环依赖问题
         Long merchantId = null;
         if (operator.getUserType() == SysOperator.USER_TYPE_2) {
-            merchantId = merchantMapper.getOperatorId(operator.getId());
+            merchantId = merchantMapper.getByOperatorId(operator.getId());
             if (merchantId == null) {
                 log.error("商户信息未查询到 [{}]", operator.getId());
                 throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);

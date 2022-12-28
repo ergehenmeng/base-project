@@ -1,5 +1,6 @@
 package com.eghm.configuration.encoder;
 
+import cn.hutool.crypto.digest.MD5;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -44,5 +45,11 @@ public class BcEncoder implements Encoder {
             return false;
         }
         return BCrypt.checkpw(rawPassword, encodedPassword);
+    }
+
+    public static void main(String[] args) {
+        BcEncoder encoder = new BcEncoder();
+        String encode = encoder.encode(MD5.create().digestHex("123456"));
+        System.out.println(encode);
     }
 }

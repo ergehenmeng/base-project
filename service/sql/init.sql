@@ -3585,7 +3585,7 @@ INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `del
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('8', '公告分类', 'notice_classify', '1', '科普', b'0', b'0', '2019-11-25 16:13:43', '2019-11-27 11:39:52', NULL);
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('9', '公告分类', 'notice_classify', '2', '通知', b'0', b'0', '2019-11-25 16:14:10', '2019-11-27 11:39:54', NULL);
 
-INSERT INTO `sys_operator` (`id`, `operator_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$ztSM0sQT.mqMOZBXxjYCK.IOHiKtCvUdKei/drs0qmm081omlcvC6', '$2a$10$5r2rvlqCSSwOHRvoBxQNkecRVKOqcIFF3NY3.FHnrTdtTp7Fmh2omy', '0', b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
+INSERT INTO `sys_operator` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
 INSERT INTO `sys_operator_role` (`id`, `operator_id`, `role_id`) VALUES ('5', '1', '1');
 
