@@ -80,6 +80,8 @@ public class SysOperatorServiceImpl implements SysOperatorService {
     @Override
     public Page<SysOperator> getByPage(OperatorQueryRequest request) {
         LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
+        // 只查询系统用户
+        wrapper.eq(SysOperator::getUserType, SysOperator.USER_TYPE_1);
         wrapper.eq(request.getState() != null, SysOperator::getState, request.getState());
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(SysOperator::getNickName, request.getQueryName()).or().

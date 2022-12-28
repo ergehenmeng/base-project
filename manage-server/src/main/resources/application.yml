@@ -58,5 +58,4 @@ system:
         - /v2/api-docs
         - /swagger-resources/**
         - /manage/login
-        - /manage/merchant/login
         - /favicon.ico
