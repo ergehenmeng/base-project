@@ -9,6 +9,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.mapper.MerchantMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysOperator;
 import com.eghm.model.dto.ext.JwtOperator;
@@ -32,19 +33,18 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     private SystemProperties systemProperties;
 
-    private final MerchantService merchantService;
+    private final MerchantMapper merchantMapper;
 
     @Override
     public String createToken(SysOperator operator, List<String> authList) {
         // 在此处调用merchantService有点鸡肋, 但是在operatorService调用,会出现循环依赖问题
         Long merchantId = null;
         if (operator.getUserType() == SysOperator.USER_TYPE_2) {
-            Merchant merchant = merchantService.selectByOperatorId(operator.getId());
-            if (merchant == null) {
+            merchantId = merchantMapper.getOperatorId(operator.getId());
+            if (merchantId == null) {
                 log.error("商户信息未查询到 [{}]", operator.getId());
                 throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
             }
-            merchantId = merchant.getId();
         }
         SystemProperties.ManageProperties.Jwt jwt = systemProperties.getManage().getJwt();
         return jwt.getPrefix() + this.doCreateJwt(operator, merchantId, jwt.getExpire(), authList);

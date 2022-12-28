@@ -2,6 +2,7 @@ package com.eghm.mapper;
 
 import com.eghm.model.Merchant;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MerchantMapper extends BaseMapper<Merchant> {
 
+    /**
+     * 查询商户对应的系统用户id
+     * @param id id
+     * @return 系统用户id
+     */
+    Long getOperatorId(@Param("id") Long id);
 }

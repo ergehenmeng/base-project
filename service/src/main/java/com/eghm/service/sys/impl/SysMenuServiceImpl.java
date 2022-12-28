@@ -54,12 +54,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<MenuResponse> getMerchantLeftMenuList(Long merchantId) {
-        List<MenuResponse> list = sysMenuMapper.getMerchantLeftMenuList(merchantId);
-        return this.treeBin(list);
-    }
-
-    @Override
     public List<MenuResponse> getLeftMenuList() {
         List<MenuResponse> list = sysMenuMapper.getLeftMenuList(null);
         return this.treeBin(list);
@@ -114,11 +108,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<String> getAuth(Long operator) {
         return sysMenuMapper.getButtonList(operator);
-    }
-
-    @Override
-    public List<String> getMerchantAuth(Long merchantId) {
-        return sysMenuMapper.getMerchantButtonList(merchantId);
     }
 
     @Override

@@ -20,25 +20,11 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<MenuResponse> getLeftMenuList(@Param("operatorId") Long operatorId);
 
     /**
-     * 获取某商户的导航菜单
-     * @param merchantId 商户id
-     * @return 商户所有可查看菜单列表
-     */
-    List<MenuResponse> getMerchantLeftMenuList(@Param("merchantId") Long merchantId);
-
-    /**
      * 获取某用户的按钮菜单
      * @param operatorId 用户id
      * @return 用户所有可查看菜单列表
      */
     List<String> getButtonList(@Param("operatorId")Long operatorId);
-
-    /**
-     * 获取某商户的按钮菜单
-     * @param merchantId 商户id
-     * @return 商户所有可查看菜单列表
-     */
-    List<String> getMerchantButtonList(@Param("merchantId")Long merchantId);
 
     /**
      * 获取某用户的所有菜单
