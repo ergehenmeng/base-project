@@ -73,6 +73,7 @@ CREATE TABLE `homestay_room_config`
     UNIQUE KEY `date_index` (`homestay_room_id`, `config_date`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='房间价格配置表';
+
 DROP TABLE IF EXISTS `line`;
 CREATE TABLE `line`
 (
@@ -97,6 +98,7 @@ CREATE TABLE `line`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路商品信息表';
+
 DROP TABLE IF EXISTS `line_config`;
 CREATE TABLE `line_config`
 (
@@ -114,6 +116,7 @@ CREATE TABLE `line_config`
     UNIQUE KEY `date_index` (`line_id`, `config_date`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路商品配置表';
+
 DROP TABLE IF EXISTS `line_day_config`;
 CREATE TABLE `line_day_config`
 (
@@ -188,6 +191,7 @@ CREATE TABLE `restaurant_voucher`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮代金券';
+
 DROP TABLE IF EXISTS `scenic`;
 CREATE TABLE `scenic`
 (
@@ -218,6 +222,8 @@ CREATE TABLE `scenic`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='景区信息表';
+
+
 DROP TABLE IF EXISTS `scenic_ticket`;
 CREATE TABLE `scenic_ticket`
 (
@@ -230,7 +236,6 @@ CREATE TABLE `scenic_ticket`
     `cover_url`         varchar(500)        DEFAULT NULL COMMENT '门票封面图',
     `line_price`        int(10)             DEFAULT NULL COMMENT '划线价',
     `sale_price`        int(10)             DEFAULT '0' COMMENT '销售价',
-    `cost_price`        int(10)             DEFAULT NULL COMMENT '成本价',
     `advance_day`       tinyint(2) unsigned DEFAULT NULL COMMENT '提前多少天购票',
     `quota`             tinyint(2)          DEFAULT '1' COMMENT '单次最大购买数量',
     `start_date`        date                DEFAULT NULL COMMENT '开始预订时间',
@@ -239,24 +244,19 @@ CREATE TABLE `scenic_ticket`
     `sale_num`          int(10)             DEFAULT '0' COMMENT '真实销售数量',
     `total_num`         int(10)             DEFAULT '0' COMMENT '总销量=实际销量+虚拟销量',
     `introduce`         longtext COMMENT '景区介绍',
-    `valid_days`        smallint(3)         DEFAULT NULL COMMENT '有效期购买之日起',
-    `effect_date`       date                DEFAULT NULL COMMENT '生效日期(包含)',
-    `expire_date`       date                DEFAULT NULL COMMENT '失效日期(包含)',
     `use_scope`         smallint(3)         DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
     `verification_type` tinyint(2)          DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
     `refund_type`       tinyint(1)          DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe`   varchar(200)        DEFAULT NULL COMMENT '退款描述',
     `real_buy`          bit(1)              DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
-    `close_time`        datetime            DEFAULT NULL COMMENT '订单关闭时间',
-    `pay_time`          datetime            DEFAULT NULL COMMENT '订单支付时间',
-    `complete_time`     datetime            DEFAULT NULL COMMENT '订单完成时间',
-    `use_time`          datetime            DEFAULT NULL COMMENT '门票使用时间',
     `create_time`       datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',
     `update_time`       datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`           bit(1)              DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='景区门票信息表';
+
+
 DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product`
 (
@@ -302,6 +302,7 @@ CREATE TABLE `product_sku`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格表';
+
 DROP TABLE IF EXISTS `product_shop`;
 CREATE TABLE `product_shop`
 (
@@ -418,6 +419,7 @@ CREATE TABLE `user_coupon`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户优惠券表';
+
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE `activity`
 (
@@ -435,6 +437,7 @@ CREATE TABLE `activity`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='活动信息表';
+
 DROP TABLE IF EXISTS `pay_notify_log`;
 CREATE TABLE `pay_notify_log`
 (
@@ -452,6 +455,7 @@ CREATE TABLE `pay_notify_log`
     UNIQUE KEY `notify_id_unique` (`trade_type`, `notify_id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付异步通知记录表';
+
 DROP TABLE IF EXISTS `order_visitor`;
 CREATE TABLE `order_visitor`
 (
@@ -468,6 +472,7 @@ CREATE TABLE `order_visitor`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单游客信息表';
+
 DROP TABLE IF EXISTS `order_refund_log`;
 CREATE TABLE `order_refund_log`
 (
@@ -492,6 +497,7 @@ CREATE TABLE `order_refund_log`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单退款记录表';
+
 DROP TABLE IF EXISTS `verify_log`;
 CREATE TABLE `verify_log`
 (
@@ -503,6 +509,7 @@ CREATE TABLE `verify_log`
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '核销时间'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单核销记录表';
+
 DROP TABLE IF EXISTS `homestay_order`;
 CREATE TABLE `homestay_order`
 (
@@ -529,6 +536,7 @@ CREATE TABLE `homestay_order`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='民宿订单表';
+
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`
 (
@@ -560,6 +568,7 @@ CREATE TABLE `order`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单表';
+
 DROP TABLE IF EXISTS `restaurant_order`;
 CREATE TABLE `restaurant_order`
 (
@@ -584,6 +593,7 @@ CREATE TABLE `restaurant_order`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮券订单表';
+
 DROP TABLE IF EXISTS `homestay_order_snapshot`;
 CREATE TABLE `homestay_order_snapshot`
 (
@@ -597,6 +607,7 @@ CREATE TABLE `homestay_order_snapshot`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='房态快照表';
+
 DROP TABLE IF EXISTS `line_order`;
 CREATE TABLE `line_order`
 (
@@ -620,6 +631,7 @@ CREATE TABLE `line_order`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路订单表';
+
 DROP TABLE IF EXISTS `line_day_snapshot`;
 CREATE TABLE `line_day_snapshot`
 (
@@ -636,6 +648,7 @@ CREATE TABLE `line_day_snapshot`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路订单每日行程配置快照表';
+
 DROP TABLE IF EXISTS `product_order`;
 CREATE TABLE `product_order`
 (
@@ -663,6 +676,7 @@ CREATE TABLE `product_order`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品订单表';
+
 DROP TABLE IF EXISTS `shopping_car`;
 CREATE TABLE `shopping_car`
 (

@@ -870,6 +870,11 @@ public enum ErrorCode {
     SCENIC_NOT_UP(3201, "该景区尚未提交审核"),
 
     /**
+     * 景区不存在或已删除
+     */
+    SCENIC_DELETE(3201, "景区不存在或已删除"),
+
+    /**
      * 门票名称重复
      */
     SCENIC_TICKET_REDO(3203, "门票名称重复"),

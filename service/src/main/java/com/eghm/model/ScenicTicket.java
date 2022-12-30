@@ -59,10 +59,6 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "成本价")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer costPrice;
-
     @ApiModelProperty(value = "提前多少天购票")
     private Integer advanceDay;
 
@@ -88,17 +84,6 @@ public class ScenicTicket extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "景区介绍")
     private String introduce;
-
-    @ApiModelProperty(value = "有效期购买之日起")
-    private Integer validDays;
-
-    @ApiModelProperty(value = "生效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate effectDate;
-
-    @ApiModelProperty(value = "失效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate expireDate;
 
     @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
     private Integer useScope;

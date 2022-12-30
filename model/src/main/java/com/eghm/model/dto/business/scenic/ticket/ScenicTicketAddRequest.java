@@ -46,10 +46,6 @@ public class ScenicTicketAddRequest {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "成本价")
-    @JsonDeserialize(using = YuanToCentDecoder.class)
-    private Integer costPrice;
-
     @ApiModelProperty(value = "提前多少天购票", required = true)
     @NotNull(message = "提前购票时间不能为空")
     private Integer advanceDay;
@@ -74,17 +70,6 @@ public class ScenicTicketAddRequest {
     @NotBlank(message = "景区介绍不能为空")
     private String introduce;
 
-    @ApiModelProperty(value = "有效期购买之日起")
-    private Integer validDays;
-
-    @ApiModelProperty(value = "生效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate effectDate;
-
-    @ApiModelProperty(value = "失效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate expireDate;
-
     @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日", required = true)
     @RangeInt(min = 1, max = 127, message = "使用范围格式错误")
     private Integer useScope;
@@ -96,6 +81,10 @@ public class ScenicTicketAddRequest {
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款", required = true)
     @NotNull(message = "退款方式不能为空")
     private RefundType refundType;
+
+    @ApiModelProperty("退款描述信息")
+    @Size(max = 100, message = "退款描述信息最大100字符")
+    private String refundDescribe;
 
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名", required = true)
     private Boolean realBuy;

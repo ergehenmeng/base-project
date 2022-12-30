@@ -8,6 +8,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.mapper.ScenicMapper;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
@@ -35,6 +36,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     private final ScenicTicketMapper scenicTicketMapper;
 
+    private final ScenicMapper scenicMapper;
+
     @Override
     public Page<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request) {
         return scenicTicketMapper.getByPage(request.createPage(), request);
@@ -43,6 +46,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public void createTicket(ScenicTicketAddRequest request) {
         this.redoTitle(request.getTitle(), null);
+        this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         scenicTicketMapper.insert(ticket);
     }
@@ -50,6 +54,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public void updateTicket(ScenicTicketEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
+        this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         scenicTicketMapper.updateById(ticket);
     }
@@ -132,6 +137,18 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         Integer count = scenicTicketMapper.selectCount(wrapper);
         if (count > 0) {
             throw new BusinessException(ErrorCode.SCENIC_TICKET_REDO);
+        }
+    }
+
+    /**
+     * 校验门票所属景区是否存在
+     * @param id 景区id
+     */
+    private void checkScenic(Long id) {
+        Scenic scenic = scenicMapper.selectById(id);
+        if (scenic == null) {
+            log.info("门票绑定的景区不存在或已被删除 [{}]", id);
+            throw new BusinessException(ErrorCode.SCENIC_DELETE);
         }
     }
 }
