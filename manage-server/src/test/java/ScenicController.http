@@ -1,0 +1,108 @@
+GET http://localhost:8080/manage/scenic/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/scenic/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "scenicName": "西湖博物馆",
+  "level": 3,
+  "openTime": "09:00~12:00",
+  "phone": "0573-62943991",
+  "tag": "122,123",
+  "provinceId": 120000,
+  "cityId": 120300,
+  "countyId": 120322,
+  "detailAddress": "详细地址",
+  "longitude": "30.973762",
+  "latitude": "120.386113",
+  "depict": "一句话描述",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "introduce": "详细简介",
+  "merchantId": ""
+}
+
+###
+
+
+POST http://localhost:8080/manage/scenic/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608668364569292801",
+  "scenicName": "西湖文化博物馆",
+  "level": 2,
+  "openTime": "09:00~18:00",
+  "phone": "0573-6294399",
+  "tag": "122,123",
+  "provinceId": 120000,
+  "cityId": 120300,
+  "countyId": 120322,
+  "detailAddress": "详细地址",
+  "longitude": "30.973762",
+  "latitude": "120.386113",
+  "depict": "一句话描述",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "introduce": "详细简介",
+  "merchantId": ""
+}
+
+###
+
+GET http://localhost:8080/manage/scenic/select?id=1608668364569292801
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/scenic/shelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608668364569292801"
+}
+###
+
+POST http://localhost:8080/manage/scenic/unShelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608668364569292801"
+}
+
+
+###
+
+POST http://localhost:8080/manage/scenic/platformAudit
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608668364569292801"
+}
+
+
+###
+
+POST http://localhost:8080/manage/scenic/platformUnShelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608668364569292801"
+}
+
+###
+
+POST http://localhost:8080/manage/scenic/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608668364569292801"
+}

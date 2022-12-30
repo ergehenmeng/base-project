@@ -93,5 +93,5 @@ public class Homestay extends BaseEntity implements Serializable {
     private String keyService;
 
     @ApiModelProperty(value = "标签")
-    private String tags;
+    private String tag;
 }

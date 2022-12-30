@@ -2,6 +2,7 @@ package com.eghm.model.dto.business.scenic;
 
 import com.eghm.model.annotation.Sign;
 import com.eghm.model.validation.annotation.OptionInt;
+import com.eghm.model.validation.annotation.Phone;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -32,8 +33,7 @@ public class ScenicAddRequest {
     private String openTime;
 
     @ApiModelProperty("景区电话")
-    @NotBlank(message = "景区电话不能为空")
-    @Size(min = 7, max = 20, message = "景区电话长度2~20位")
+    @Phone(message = "景区电话格式错误")
     private String phone;
 
     @ApiModelProperty(value = "景区标签")

@@ -87,6 +87,6 @@ public class HomestayEditRequest {
     private String keyService;
 
     @ApiModelProperty(value = "标签,逗号分隔")
-    private String tags;
+    private String tag;
 
 }

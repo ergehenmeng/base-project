@@ -132,9 +132,11 @@ public class SysOperatorServiceImpl implements SysOperatorService {
 
         SysOperator operator = DataUtil.copy(request, SysOperator.class);
         sysOperatorMapper.updateById(operator);
-        // 数据权限
+        // 数据权限, 在新增系统用户时,可以手动指定数据权限,此处既是将用户与其所拥有的的部门权限做关联,方便后续进行数据权限分组
         if (request.getPermissionType() == DataType.CUSTOM.getValue()) {
+            // 删除旧数据权限
             sysDataDeptService.deleteByOperatorId(operator.getId());
+            // 添加新数据权限
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
             roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(operator.getId(), s)));
         }
