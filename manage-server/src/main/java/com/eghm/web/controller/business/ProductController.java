@@ -10,6 +10,7 @@ import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.vo.business.product.ProductResponse;
 import com.eghm.service.business.ProductService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -33,8 +34,8 @@ public class ProductController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public PageData<Product> listPage(ProductQueryRequest request) {
-        Page<Product> byPage = productService.getByPage(request);
+    public PageData<ProductResponse> listPage(ProductQueryRequest request) {
+        Page<ProductResponse> byPage = productService.getByPage(request);
         return PageData.toPage(byPage);
     }
 

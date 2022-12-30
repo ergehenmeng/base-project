@@ -1,0 +1,64 @@
+GET http://localhost:8080/manage/product/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+
+GET http://localhost:8080/manage/product/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "火腿肠5包",
+  "storeId": "1608726046030311425",
+  "depict": "商品描述信息",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "purchaseNotes": "购买须知",
+  "quota": 10,
+  "deliveryMethod": 1,
+  "refundType": 1,
+  "virtualNum": 10,
+  "introduce": "详细介绍",
+  "skuList": [{
+    "title": "规格1",
+    "linePrice": 12,
+    "costPrice": 10,
+    "salePrice": 11,
+    "stock": 10,
+    "coverUrl": "http://localhost:8080/sku/coverUrl.png"
+  }]
+}
+
+###
+
+GET http://localhost:8080/manage/product/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608738767752790017",
+  "title": "火腿肠8包",
+  "storeId": "1608726046030311425",
+  "depict": "商品描述信息",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "purchaseNotes": "购买须知",
+  "quota": 10,
+  "deliveryMethod": 1,
+  "refundType": 1,
+  "virtualNum": 10,
+  "introduce": "详细介绍",
+  "skuList": [{
+    "title": "规格1",
+    "linePrice": 12,
+    "costPrice": 10,
+    "salePrice": 11,
+    "stock": 10,
+    "coverUrl": "http://localhost:8080/sku/coverUrl.png"
+  },{
+    "title": "规格2",
+    "linePrice": 18,
+    "costPrice": 12,
+    "salePrice": 18,
+    "stock": 10,
+    "coverUrl": "http://localhost:8080/sku/coverUrl.png"
+  }]
+}

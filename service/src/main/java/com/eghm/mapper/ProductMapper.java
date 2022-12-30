@@ -1,7 +1,10 @@
 package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Product;
+import com.eghm.model.dto.business.product.ProductQueryRequest;
+import com.eghm.model.vo.business.product.ProductResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -26,4 +29,12 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @param orderNo 订单编号
      */
     void updateSaleNumByOrderNo(@Param("orderNo") String orderNo);
+
+    /**
+     * 分页查询商品信息
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 商品列表
+     */
+    Page<ProductResponse> listPage(Page<ProductResponse> page, @Param("param")ProductQueryRequest request);
 }

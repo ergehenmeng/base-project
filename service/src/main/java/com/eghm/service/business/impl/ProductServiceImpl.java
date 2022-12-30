@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -11,22 +11,23 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.ProductMapper;
 import com.eghm.model.Product;
-import com.eghm.model.RestaurantVoucher;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
+import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
+import com.eghm.model.vo.business.product.ProductResponse;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductSkuService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.min;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
 
@@ -44,19 +45,16 @@ public class ProductServiceImpl implements ProductService {
     private final ProductSkuService productSkuService;
 
     @Override
-    public Page<Product> getByPage(ProductQueryRequest request) {
-        LambdaQueryWrapper<Product> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Product::getTitle, request.getQueryName());
-        wrapper.eq(request.getDeliveryType() != null, Product::getDeliveryType, request.getDeliveryType());
-        wrapper.eq(request.getState() != null, Product::getState, request.getState());
-        wrapper.eq(request.getPlatformState() != null, Product::getPlatformState, request.getPlatformState());
-        return productMapper.selectPage(request.createPage(), wrapper);
+    public Page<ProductResponse> getByPage(ProductQueryRequest request) {
+        // TODO 过滤当前登录人的storeId
+        return productMapper.listPage(request.createPage(), request);
     }
 
     @Override
     public void create(ProductAddRequest request) {
         this.titleRedo(request.getTitle(), null, request.getStoreId());
         Product product = DataUtil.copy(request, Product.class);
+        this.setMinMaxPrice(product, request.getSkuList());
         productMapper.insert(product);
         productSkuService.create(product.getId(), request.getSkuList());
     }
@@ -65,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
     public void update(ProductEditRequest request) {
         this.titleRedo(request.getTitle(), request.getId(), request.getStoreId());
         Product product = DataUtil.copy(request, Product.class);
+        this.setMinMaxPrice(product, request.getSkuList());
         productMapper.updateById(product);
         productSkuService.update(product.getId(), request.getSkuList());
     }
@@ -145,6 +144,24 @@ public class ProductServiceImpl implements ProductService {
         if (count > 0) {
             log.info("零售商品名称重复 [{}] [{}] [{}]", productName, id, storeId);
             throw new BusinessException(ErrorCode.PRODUCT_TITLE_REDO);
+        }
+    }
+
+    /**
+     * 设置商品的最大值和最小值
+     * @param product 商品信息
+     * @param skuList 商品sku的信息
+     */
+    private void setMinMaxPrice(Product product, List<ProductSkuRequest> skuList) {
+        if (CollUtil.isNotEmpty(skuList)) {
+            OptionalInt max = skuList.stream().mapToInt(ProductSkuRequest::getSalePrice).max();
+            if (max.isPresent()) {
+                product.setMaxPrice(max.getAsInt());
+            }
+            OptionalInt min = skuList.stream().mapToInt(ProductSkuRequest::getSalePrice).min();
+            if (min.isPresent()) {
+                product.setMinPrice(min.getAsInt());
+            }
         }
     }
 }

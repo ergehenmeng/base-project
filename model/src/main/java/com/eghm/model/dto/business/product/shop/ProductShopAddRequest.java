@@ -1,5 +1,6 @@
 package com.eghm.model.dto.business.product.shop;
 
+import com.eghm.model.validation.annotation.Phone;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -22,6 +23,10 @@ public class ProductShopAddRequest {
     @ApiModelProperty(value = "店铺logo")
     @NotBlank(message = "店铺logo不能为空")
     private String logoUrl;
+
+    @ApiModelProperty("封面图")
+    @NotBlank(message = "店铺封面图不能为空")
+    private String coverUrl;
 
     @ApiModelProperty(value = "营业时间")
     @NotBlank(message = "营业时间不能为空")
@@ -52,7 +57,7 @@ public class ProductShopAddRequest {
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "商家电话")
-    @NotBlank(message = "商家电话不能为空")
+    @Phone(message = "商家电话格式错误")
     private String telephone;
 
     @ApiModelProperty(value = "商家介绍")

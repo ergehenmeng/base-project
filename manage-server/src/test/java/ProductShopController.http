@@ -1,0 +1,89 @@
+GET http://localhost:8080/manage/product/shop/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/product/shop/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "二哥的百货小店",
+  "logoUrl": "http://localhost:8080/logoUrl.png",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "openTime": "08:00~18:00",
+  "provinceId": 110000,
+  "cityId": 110400,
+  "countyId": 110412,
+  "detailAddress": "河滨路72号街",
+  "longitude": 30.992031,
+  "latitude": 120.332075,
+  "telephone": "0371-7730302",
+  "introduce": "详细介绍"
+}
+
+###
+POST http://localhost:8080/manage/product/shop/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608726046030311425",
+  "title": "二哥的精品小店",
+  "logoUrl": "http://localhost:8080/logoUrl.png",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "openTime": "08:00~18:00",
+  "provinceId": 110000,
+  "cityId": 110400,
+  "countyId": 110412,
+  "detailAddress": "河滨路81号街",
+  "longitude": 30.992031,
+  "latitude": 120.332075,
+  "telephone": "0371-773032222",
+  "introduce": "详细介绍"
+}
+
+###
+POST http://localhost:8080/manage/product/shop/shelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608726046030311425"
+}
+
+###
+POST http://localhost:8080/manage/product/shop/unShelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608726046030311425"
+}
+
+###
+POST http://localhost:8080/manage/product/shop/platformUnShelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608726046030311425"
+}
+
+###
+POST http://localhost:8080/manage/product/shop/platformAudit
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608726046030311425"
+}
+
+###
+POST http://localhost:8080/manage/product/shop/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608726046030311425"
+}

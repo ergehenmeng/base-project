@@ -16,7 +16,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ProductQueryRequest extends PagingQuery {
 
-
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
 
@@ -26,4 +25,6 @@ public class ProductQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
     private DeliveryType deliveryType;
 
+    @ApiModelProperty("店铺id")
+    private Long storeId;
 }

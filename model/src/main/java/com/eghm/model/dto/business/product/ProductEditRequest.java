@@ -2,6 +2,7 @@ package com.eghm.model.dto.business.product;
 
 import com.eghm.common.enums.ref.RefundType;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
+import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -44,7 +45,7 @@ public class ProductEditRequest {
     private Integer quota;
 
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
-    @NotNull(message = "交付方式不能为空")
+    @OptionInt(value = {1, 2}, message = "交付方式不能为空")
     private Integer deliveryMethod;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")

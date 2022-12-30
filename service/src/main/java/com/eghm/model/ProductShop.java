@@ -45,6 +45,9 @@ public class ProductShop extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "店铺logo")
     private String logoUrl;
 
+    @ApiModelProperty("封面图")
+    private String coverUrl;
+
     @ApiModelProperty(value = "营业时间")
     private String openTime;
 

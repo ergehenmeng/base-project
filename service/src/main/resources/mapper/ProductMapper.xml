@@ -10,4 +10,40 @@
         update product t, product_order r set t.sale_num = t.sale_num + r.num, t.total_num = t.total_num + r.num
         where t.id = r.product_id and r.order_no = #{orderNo}
     </update>
+
+    <select id="listPage" resultType="com.eghm.model.vo.business.product.ProductResponse" parameterType="com.eghm.model.dto.business.product.ProductQueryRequest">
+        select
+        t.id,
+        t.store_id as storeId,
+        t.title,
+        r.title as shopName,
+        t.sale_num as saleNum,
+        t.state,
+        t.platform_state as platformState,
+        t.quota,
+        t.delivery_type as deliveryType,
+        t.refund_type as refundType,
+        t.max_price as maxPrice,
+        t.min_price as minPrice,
+        t.create_time as createTime,
+        t.update_time as updateTime
+        from product t left join product_shop r on t.store_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.title like concat('%', #{param.queryName} ,'%')  or r.title like concat('%', #{param.queryName} ,'%'))
+        </if>
+        <if test="param.deliveryType != null ">
+            and t.delivery_type = #{param.deliveryType}
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.platformState != null">
+            and t.platform_state = #{param.platformState}
+        </if>
+        <if test="param.storeId != null">
+            and t.store_id = #{param.storeId}
+        </if>
+        order by t.id desc
+    </select>
 </mapper>
