@@ -130,7 +130,7 @@ public class FileServiceImpl implements FileService {
             log.warn("上传文件保存失败", e);
             throw new BusinessException(ErrorCode.FILE_SAVE_ERROR);
         }
-        return filePath.replaceAll("\\\\", "/");
+        return filePath.replace("\\\\", "/");
     }
 
 

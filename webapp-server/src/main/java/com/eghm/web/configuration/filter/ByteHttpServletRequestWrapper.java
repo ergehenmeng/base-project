@@ -70,6 +70,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
             @Override
             public void setReadListener(ReadListener listener) {
+
             }
 
             @Override

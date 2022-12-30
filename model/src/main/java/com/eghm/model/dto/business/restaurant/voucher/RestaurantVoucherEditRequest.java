@@ -23,6 +23,10 @@ public class RestaurantVoucherEditRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
+    @ApiModelProperty("餐饮店铺")
+    @NotNull(message = "店铺id不能为空")
+    private Long restaurantId;
+
     @ApiModelProperty(value = "商品名称")
     @Size(min = 2, max = 20, message = "餐饮券名称不能为空")
     private String title;
@@ -66,17 +70,21 @@ public class RestaurantVoucherEditRequest {
     @ApiModelProperty(value = "失效日期(包含)")
     private LocalDate expireDate;
 
-    @ApiModelProperty(value = "使用开始时间")
-    @NotBlank(message = "开始使用时间不能为空")
+    @ApiModelProperty(value = "使用开始时段")
+    @NotBlank(message = "开始使用时段不能为空")
     private String effectTime;
 
-    @ApiModelProperty(value = "使用截止时间")
-    @NotBlank(message = "结束使用时间不能为空")
+    @ApiModelProperty(value = "使用截止时段")
+    @NotBlank(message = "结束使用时段不能为空")
     private String expireTime;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     @NotNull(message = "退款方式不能为空")
     private RefundType refundType;
+
+    @ApiModelProperty("退款描述信息")
+    @Size(max = 100, message = "退款描述信息最大100字符")
+    private String refundDescribe;
 
     @ApiModelProperty(value = "详细介绍")
     @NotBlank(message = "退订规则不能为空")

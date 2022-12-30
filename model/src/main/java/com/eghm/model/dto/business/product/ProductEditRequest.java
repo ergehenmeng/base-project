@@ -23,6 +23,10 @@ public class ProductEditRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
+    @ApiModelProperty("店铺id")
+    @NotNull(message = "店铺id不能为空")
+    private Long storeId;
+
     @ApiModelProperty(value = "商品名称")
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")
     private String title;

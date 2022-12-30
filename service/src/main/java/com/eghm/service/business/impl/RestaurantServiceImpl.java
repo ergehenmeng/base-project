@@ -9,6 +9,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.RestaurantMapper;
 import com.eghm.model.Restaurant;
 import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
@@ -41,13 +42,15 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void create(RestaurantAddRequest request) {
-        // TODO 商家id
+        this.redoTitle(request.getTitle(), null);
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
+        restaurant.setMerchantId(SecurityHolder.getMerchantId());
         restaurantMapper.insert(restaurant);
     }
 
     @Override
     public void update(RestaurantEditRequest request) {
+        this.redoTitle(request.getTitle(), request.getId());
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         restaurantMapper.updateById(restaurant);
     }
@@ -76,5 +79,21 @@ public class RestaurantServiceImpl implements RestaurantService {
             throw new BusinessException(ErrorCode.RESTAURANT_NOT_FOUND);
         }
         return restaurant;
+    }
+
+    /**
+     * 校验餐饮商家名称是否重复
+     * @param title 名称
+     * @param id id 编辑时不能为空
+     */
+    private void redoTitle(String title, Long id) {
+        LambdaQueryWrapper<Restaurant> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Restaurant::getTitle, title);
+        wrapper.ne(id != null, Restaurant::getId, id);
+        Integer count = restaurantMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.info("餐饮商家名称重复 [{}] [{}]", title, id);
+            throw new BusinessException(ErrorCode.RESTAURANT_TITLE_REDO);
+        }
     }
 }

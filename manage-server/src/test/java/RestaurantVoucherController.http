@@ -1,0 +1,53 @@
+GET http://localhost:8080/manage/restaurant/voucher/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/restaurant/voucher/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "麦当娜20元抵扣券",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "linePrice": 20,
+  "salePrice": 16,
+  "stock": 100,
+  "virtualNum": 100,
+  "depict": "抵扣一条龙服务",
+  "quota": 1,
+  "validDays": 3,
+  "effectDate": "",
+  "expireDate": "",
+  "effectTime": "08:00",
+  "expireTime": "18:00",
+  "refundType": 1,
+  "refundDescribe": "退款描述",
+  "introduce": "退款简介"
+}
+
+###
+
+POST http://localhost:8080/manage/restaurant/voucher/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608705501880594433",
+  "title": "麦当娜20元抵扣券",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "linePrice": 20,
+  "salePrice": 16,
+  "stock": 100,
+  "virtualNum": 100,
+  "depict": "抵扣一条龙服务1",
+  "quota": 3,
+  "validDays": 7,
+  "effectDate": "",
+  "expireDate": "",
+  "effectTime": "08:00",
+  "expireTime": "18:00",
+  "refundType": 1,
+  "refundDescribe": "退款描述",
+  "introduce": "退款简介"
+}

@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.ProductMapper;
 import com.eghm.model.Product;
+import com.eghm.model.RestaurantVoucher;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
@@ -53,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void create(ProductAddRequest request) {
-        // TODO 商户id
+        this.titleRedo(request.getTitle(), null, request.getStoreId());
         Product product = DataUtil.copy(request, Product.class);
         productMapper.insert(product);
         productSkuService.create(product.getId(), request.getSkuList());
@@ -61,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void update(ProductEditRequest request) {
-        // TODO 商户id
+        this.titleRedo(request.getTitle(), request.getId(), request.getStoreId());
         Product product = DataUtil.copy(request, Product.class);
         productMapper.updateById(product);
         productSkuService.update(product.getId(), request.getSkuList());
@@ -126,5 +128,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateSaleNum(List<String> orderNoList) {
         orderNoList.forEach(productMapper::updateSaleNumByOrderNo);
+    }
+
+    /**
+     * 同一家店铺 商品名称重复校验
+     * @param productName 商品名称
+     * @param id 商品id
+     * @param storeId 店铺id
+     */
+    private void titleRedo(String productName, Long id, Long storeId) {
+        LambdaQueryWrapper<Product> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Product::getTitle, productName);
+        wrapper.ne(id != null, Product::getId, id);
+        wrapper.eq(Product::getStoreId, storeId);
+        Integer count = productMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.info("零售商品名称重复 [{}] [{}] [{}]", productName, id, storeId);
+            throw new BusinessException(ErrorCode.PRODUCT_TITLE_REDO);
+        }
     }
 }

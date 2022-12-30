@@ -16,7 +16,7 @@ public class RegExpUtil {
     /**
      * 手机号正则表达式
      */
-    private static final Pattern REGEXP_MOBILE = Pattern.compile("^((13[0-9])|(14[579])|(15[^4])|(18[0-9])|(17[0135678])|(19[026789]))\\d{8}$");
+    private static final Pattern REGEXP_MOBILE = Pattern.compile("^((13\\d)|(14[579])|(15[^4])|(18\\d)|(17[0135678])|(19[026789]))\\d{8}$");
 
     /**
      * 隐藏字符串要替换的正则表达式值

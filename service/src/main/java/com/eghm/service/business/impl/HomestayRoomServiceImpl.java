@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -36,12 +37,14 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     @Override
     public void create(HomestayRoomAddRequest request) {
+        this.titleRedo(request.getTitle(), null, request.getHomestayId());
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
         homestayRoomMapper.insert(room);
     }
 
     @Override
     public void update(HomestayRoomEditRequest request) {
+        this.titleRedo(request.getTitle(), request.getId(), request.getHomestayId());
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
         homestayRoomMapper.updateById(room);
     }
@@ -90,5 +93,23 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     @Override
     public void deleteById(Long id) {
         homestayRoomMapper.deleteById(id);
+    }
+
+    /**
+     * 同一家民宿 房型名称重复校验
+     * @param roomName 房型名称
+     * @param id 房型id
+     * @param homestayId 民宿id
+     */
+    private void titleRedo(String roomName, Long id, Long homestayId) {
+        LambdaQueryWrapper<HomestayRoom> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(HomestayRoom::getTitle, roomName);
+        wrapper.ne(id != null, HomestayRoom::getId, id);
+        wrapper.eq(HomestayRoom::getHomestayId, homestayId);
+        Integer count = homestayRoomMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.info("房型名称名称重复 [{}] [{}] [{}]", roomName, id, homestayId);
+            throw new BusinessException(ErrorCode.ROOM_TITLE_REDO);
+        }
     }
 }

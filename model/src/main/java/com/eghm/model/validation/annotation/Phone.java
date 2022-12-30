@@ -1,6 +1,5 @@
 package com.eghm.model.validation.annotation;
 
-import com.eghm.model.validation.MobileDefine;
 import com.eghm.model.validation.PhoneDefine;
 
 import javax.validation.Constraint;

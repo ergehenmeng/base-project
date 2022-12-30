@@ -1,7 +1,6 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.model.SysNotice;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.PageData;

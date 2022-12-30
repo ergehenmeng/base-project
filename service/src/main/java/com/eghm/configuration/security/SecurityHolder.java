@@ -48,6 +48,14 @@ public class SecurityHolder {
         return getOperatorRequired().getId();
     }
 
+    /**
+     * 获取当前用户对应的商户id
+     * @return 商户id, 注意: 如果用户没关联商户,则为空
+     */
+    public static Long getMerchantId() {
+        return getOperatorRequired().getMerchantId();
+    }
+
     public static void remove() {
         LOCAL.remove();
     }

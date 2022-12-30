@@ -23,6 +23,10 @@ public class ProductAddRequest {
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")
     private String title;
 
+    @ApiModelProperty("店铺id")
+    @NotNull(message = "店铺id不能为空")
+    private Long storeId;
+
     @ApiModelProperty(value = "商品描述信息")
     @Size(min = 5, max = 40, message = "商品描述信息长度5~40字符")
     private String depict;

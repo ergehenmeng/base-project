@@ -814,6 +814,8 @@ public enum ErrorCode {
      */
     VOUCHER_STOCK(3179, "餐饮券库存不足"),
 
+
+
     /**
      * 餐饮单次购买上限为%s张
      */
@@ -927,7 +929,32 @@ public enum ErrorCode {
     /**
      * 商户账号或密码错误
      */
-    MERCHANT_PWD_ERROR(3218, "商户账号或密码错误"),
+    MERCHANT_PWD_ERROR(3220, "商户账号或密码错误"),
+
+    /**
+     * 餐饮券名称重复
+     */
+    VOUCHER_TITLE_REDO(3230, "餐饮券名称重复"),
+
+    /**
+     * 商家名称重复
+     */
+    RESTAURANT_TITLE_REDO(3233, "商家名称重复"),
+
+    /**
+     * 店铺名称重复
+     */
+    SHOP_TITLE_REDO(3233, "店铺名称重复"),
+
+    /**
+     * 商品名称重复
+     */
+    PRODUCT_TITLE_REDO(3237, "商品名称重复"),
+
+    /**
+     * 房型名称重复
+     */
+    ROOM_TITLE_REDO(3240, "房型名称重复"),
 
     /**
      * 微信公众号尚未配置

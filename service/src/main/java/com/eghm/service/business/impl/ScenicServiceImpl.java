@@ -12,6 +12,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ScenicMapper;
 import com.eghm.model.Scenic;
@@ -69,8 +70,8 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public void createScenic(ScenicAddRequest request) {
         this.redoTitle(request.getScenicName(), null);
-        // TODO 商户id添加
         Scenic scenic = DataUtil.copy(request, Scenic.class);
+        scenic.setMerchantId(SecurityHolder.getMerchantId());
         scenicMapper.insert(scenic);
     }
 

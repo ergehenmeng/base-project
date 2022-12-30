@@ -9,6 +9,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.ScenicTicket;
@@ -41,15 +42,15 @@ public class HomestayServiceImpl implements HomestayService {
 
     @Override
     public void create(HomestayAddRequest request) {
-        this.checkTitleRedo(request.getTitle(), null);
-        // TODO 商家id补充
+        this.titleRedo(request.getTitle(), null);
         Homestay homestay = DataUtil.copy(request, Homestay.class);
+        homestay.setMerchantId(SecurityHolder.getMerchantId());
         homestayMapper.insert(homestay);
     }
 
     @Override
     public void update(HomestayEditRequest request) {
-        this.checkTitleRedo(request.getTitle(), request.getId());
+        this.titleRedo(request.getTitle(), request.getId());
         Homestay homestay = DataUtil.copy(request, Homestay.class);
         homestayMapper.updateById(homestay);
     }
@@ -85,7 +86,7 @@ public class HomestayServiceImpl implements HomestayService {
      * @param title 民宿名称
      * @param id    id
      */
-    private void checkTitleRedo(String title, Long id) {
+    private void titleRedo(String title, Long id) {
         LambdaQueryWrapper<Homestay> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Homestay::getTitle, title);
         wrapper.ne(id != null, Homestay::getId, id);

@@ -51,7 +51,7 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public void create(LineAddRequest request) {
-        this.checkTitleRedo(request.getTitle(), request.getTravelAgencyId(), null);
+        this.titleRedo(request.getTitle(), request.getTravelAgencyId(), null);
         Line line = DataUtil.copy(request, Line.class);
         lineMapper.insert(line);
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
@@ -59,7 +59,7 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public void update(LineEditRequest request) {
-        this.checkTitleRedo(request.getTitle(), request.getTravelAgencyId(), request.getId());
+        this.titleRedo(request.getTitle(), request.getTravelAgencyId(), request.getId());
         Line line = DataUtil.copy(request, Line.class);
         lineMapper.updateById(line);
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
@@ -117,7 +117,7 @@ public class LineServiceImpl implements LineService {
      * @param travelAgencyId 旅行社id
      * @param id    id
      */
-    private void checkTitleRedo(String title, Long travelAgencyId, Long id) {
+    private void titleRedo(String title, Long travelAgencyId, Long id) {
         LambdaQueryWrapper<Line> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Line::getTitle, title);
         wrapper.eq(Line::getTravelAgencyId, travelAgencyId);

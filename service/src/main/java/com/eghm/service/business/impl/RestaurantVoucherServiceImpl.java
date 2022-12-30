@@ -42,6 +42,7 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
 
     @Override
     public void create(RestaurantVoucherAddRequest request) {
+        this.redoTitle(request.getTitle(), null, request.getRestaurantId());
         RestaurantVoucher voucher = DataUtil.copy(request, RestaurantVoucher.class);
         voucher.setTotalNum(request.getVirtualNum());
         restaurantVoucherMapper.insert(voucher);
@@ -49,6 +50,8 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
 
     @Override
     public void update(RestaurantVoucherEditRequest request) {
+        this.redoTitle(request.getTitle(), request.getId(), request.getRestaurantId());
+        
         RestaurantVoucher select = restaurantVoucherMapper.selectById(request.getId());
         RestaurantVoucher voucher = DataUtil.copy(request, RestaurantVoucher.class);
         // 总销量要根据真实销量计算
@@ -109,5 +112,23 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
     @Override
     public void deleteById(Long id) {
         restaurantVoucherMapper.deleteById(id);
+    }
+
+    /**
+     * 针对同一个家店铺餐饮区名称不能重复
+     * @param title 餐券名称
+     * @param id 餐券id 编辑时不能为空
+     * @param restaurantId 所属餐厅
+     */
+    public void redoTitle(String title, Long id, Long restaurantId) {
+        LambdaQueryWrapper<RestaurantVoucher> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(RestaurantVoucher::getTitle, title);
+        wrapper.ne(id != null, RestaurantVoucher::getId, id);
+        wrapper.eq(RestaurantVoucher::getRestaurantId, restaurantId);
+        Integer count = restaurantVoucherMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.info("餐饮券名称重复 [{}] [{}] [{}]", title, id, restaurantId);
+            throw new BusinessException(ErrorCode.VOUCHER_TITLE_REDO);
+        }
     }
 }
