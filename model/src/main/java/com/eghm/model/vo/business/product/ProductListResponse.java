@@ -1,39 +1,35 @@
-package com.eghm.model;
+package com.eghm.model.vo.business.product;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.enums.ref.State;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * <p>
- * 商品信息
- * </p>
- *
  * @author 二哥很猛
- * @since 2022-07-01
+ * @since 2022/12/30
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("product")
-@ApiModel(value="Product对象", description="商品信息")
-public class Product extends BaseEntity implements Serializable {
+public class ProductListResponse {
 
-    private static final long serialVersionUID = 1L;
+    @ApiModelProperty(value = "商品id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
     @ApiModelProperty(value = "所属店铺")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long storeId;
+
+    @ApiModelProperty("店铺名称")
+    private String shopName;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
@@ -44,15 +40,6 @@ public class Product extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商品名称")
     private String title;
 
-    @ApiModelProperty(value = "商品描述信息")
-    private String depict;
-
-    @ApiModelProperty(value = "封面图")
-    private String coverUrl;
-
-    @ApiModelProperty(value = "购买须知")
-    private String purchaseNotes;
-
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
 
@@ -61,9 +48,6 @@ public class Product extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
-    
-    @ApiModelProperty("退款描述信息")
-    private String refundDescribe;
 
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
@@ -76,10 +60,11 @@ public class Product extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "销售数量(所有规格销售总量)")
     private Integer saleNum;
 
-    @ApiModelProperty(value = "总销售量=实际销售+虚拟销量")
-    private Integer totalNum;
+    @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "商品介绍信息")
-    private String introduce;
-
+    @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
 }

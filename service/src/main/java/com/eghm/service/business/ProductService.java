@@ -7,7 +7,7 @@ import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
-import com.eghm.model.vo.business.product.ProductResponse;
+import com.eghm.model.vo.business.product.ProductListResponse;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,7 @@ public interface ProductService {
      * @param request 分页信息及查询条件
      * @return 商品列表
      */
-    Page<ProductResponse> getByPage(ProductQueryRequest request);
+    Page<ProductListResponse> getByPage(ProductQueryRequest request);
 
     /**
      * 增加商品信息

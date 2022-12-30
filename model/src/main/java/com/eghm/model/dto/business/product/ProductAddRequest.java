@@ -52,6 +52,10 @@ public class ProductAddRequest {
     @NotNull(message = "退款方式不能为空")
     private RefundType refundType;
 
+    @ApiModelProperty("退款描述信息")
+    @Size(max = 100, message = "退款描述信息最大100字符")
+    private String refundDescribe;
+
     @ApiModelProperty(value = "虚拟销量")
     @NotNull(message = "虚拟销量不能为空")
     @Min(value = 0, message = "虚拟销量不能小于0")

@@ -11,7 +11,7 @@
         where t.id = r.product_id and r.order_no = #{orderNo}
     </update>
 
-    <select id="listPage" resultType="com.eghm.model.vo.business.product.ProductResponse" parameterType="com.eghm.model.dto.business.product.ProductQueryRequest">
+    <select id="listPage" resultType="com.eghm.model.vo.business.product.ProductListResponse" parameterType="com.eghm.model.dto.business.product.ProductQueryRequest">
         select
         t.id,
         t.store_id as storeId,

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
-import com.eghm.model.vo.business.product.ProductResponse;
+import com.eghm.model.vo.business.product.ProductListResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -36,5 +36,5 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @param request 查询条件
      * @return 商品列表
      */
-    Page<ProductResponse> listPage(Page<ProductResponse> page, @Param("param")ProductQueryRequest request);
+    Page<ProductListResponse> listPage(Page<ProductListResponse> page, @Param("param")ProductQueryRequest request);
 }

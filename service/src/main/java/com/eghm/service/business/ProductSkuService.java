@@ -38,6 +38,13 @@ public interface ProductSkuService {
     ProductSku selectById(Long skuId);
 
     /**
+     * 查询商品下所有的sku
+     * @param productId 商品id
+     * @return sku信息
+     */
+    List<ProductSku> selectByProductId(Long productId);
+
+    /**
      * 主键查询商品规格信息(不存在则异常)
      * @param skuId id
      * @return 规格信息

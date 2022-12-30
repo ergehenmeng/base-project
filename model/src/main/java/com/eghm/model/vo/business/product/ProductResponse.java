@@ -1,17 +1,13 @@
 package com.eghm.model.vo.business.product;
 
-import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.DeliveryType;
-import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.RefundType;
-import com.eghm.common.enums.ref.State;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -20,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 public class ProductResponse {
 
-    @ApiModelProperty(value = "商品id")
+    @ApiModelProperty("商品id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
@@ -28,17 +24,17 @@ public class ProductResponse {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long storeId;
 
-    @ApiModelProperty("店铺名称")
-    private String shopName;
-
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
-    private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
-
     @ApiModelProperty(value = "商品名称")
     private String title;
+
+    @ApiModelProperty(value = "商品描述信息")
+    private String depict;
+
+    @ApiModelProperty(value = "封面图")
+    private String coverUrl;
+
+    @ApiModelProperty(value = "购买须知")
+    private String purchaseNotes;
 
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
@@ -49,22 +45,15 @@ public class ProductResponse {
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
 
-    @ApiModelProperty(value = "最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer minPrice;
+    @ApiModelProperty("退款描述信息")
+    private String refundDescribe;
 
-    @ApiModelProperty(value = "最高价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer maxPrice;
+    @ApiModelProperty(value = "虚拟销量")
+    private Integer virtualNum;
 
-    @ApiModelProperty(value = "销售数量(所有规格销售总量)")
-    private Integer saleNum;
+    @ApiModelProperty(value = "商品介绍信息")
+    private String introduce;
 
-    @ApiModelProperty("添加时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty("更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updateTime;
+    @ApiModelProperty("sku列表")
+    private List<ProductSkuResponse> skuList;
 }

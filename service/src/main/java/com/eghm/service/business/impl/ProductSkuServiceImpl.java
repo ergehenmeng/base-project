@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
@@ -65,6 +66,13 @@ public class ProductSkuServiceImpl implements ProductSkuService {
     }
 
     @Override
+    public List<ProductSku> selectByProductId(Long productId) {
+        LambdaQueryWrapper<ProductSku> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ProductSku::getProductId, productId);
+        return productSkuMapper.selectList(wrapper);
+    }
+
+    @Override
     public ProductSku selectByIdRequired(Long skuId) {
         ProductSku sku = productSkuMapper.selectById(skuId);
         if (sku == null) {
@@ -76,7 +84,7 @@ public class ProductSkuServiceImpl implements ProductSkuService {
 
     @Override
     public Map<Long, ProductSku> getByIds(Set<Long> ids) {
-        LambdaUpdateWrapper<ProductSku> wrapper = Wrappers.lambdaUpdate();
+        LambdaQueryWrapper<ProductSku> wrapper = Wrappers.lambdaQuery();
         wrapper.in(ProductSku::getId, ids);
         List<ProductSku> skuList = productSkuMapper.selectList(wrapper);
         if (skuList.size() != ids.size()) {

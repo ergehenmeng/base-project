@@ -44,6 +44,7 @@ Content-Type: application/json
   "quota": 10,
   "deliveryMethod": 1,
   "refundType": 1,
+  "refundDescribe": "我是退款描述",
   "virtualNum": 10,
   "introduce": "详细介绍",
   "skuList": [{
@@ -62,3 +63,8 @@ Content-Type: application/json
     "coverUrl": "http://localhost:8080/sku/coverUrl.png"
   }]
 }
+
+###
+
+GET http://localhost:8080/manage/product/select?id=1608738767752790017
+token: {{token}}

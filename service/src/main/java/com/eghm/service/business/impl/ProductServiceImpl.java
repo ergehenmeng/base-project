@@ -15,19 +15,17 @@ import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
-import com.eghm.model.vo.business.product.ProductResponse;
+import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductSkuService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.min;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
 
@@ -45,7 +43,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductSkuService productSkuService;
 
     @Override
-    public Page<ProductResponse> getByPage(ProductQueryRequest request) {
+    public Page<ProductListResponse> getByPage(ProductQueryRequest request) {
         // TODO 过滤当前登录人的storeId
         return productMapper.listPage(request.createPage(), request);
     }
@@ -55,6 +53,8 @@ public class ProductServiceImpl implements ProductService {
         this.titleRedo(request.getTitle(), null, request.getStoreId());
         Product product = DataUtil.copy(request, Product.class);
         this.setMinMaxPrice(product, request.getSkuList());
+        // 总销量需要添加虚拟销量
+        product.setTotalNum(request.getVirtualNum());
         productMapper.insert(product);
         productSkuService.create(product.getId(), request.getSkuList());
     }
@@ -64,6 +64,10 @@ public class ProductServiceImpl implements ProductService {
         this.titleRedo(request.getTitle(), request.getId(), request.getStoreId());
         Product product = DataUtil.copy(request, Product.class);
         this.setMinMaxPrice(product, request.getSkuList());
+
+        Product origin = productMapper.selectById(request.getId());
+        // 总销量=源真实销售量+虚拟销量
+        product.setTotalNum(origin.getSaleNum() + request.getVirtualNum());
         productMapper.updateById(product);
         productSkuService.update(product.getId(), request.getSkuList());
     }

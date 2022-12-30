@@ -4,20 +4,27 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.model.Product;
+import com.eghm.model.ProductSku;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.model.vo.business.product.ProductResponse;
+import com.eghm.model.vo.business.product.ProductSkuResponse;
 import com.eghm.service.business.ProductService;
+import com.eghm.service.business.ProductSkuService;
+import com.eghm.utils.DataUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -32,10 +39,12 @@ public class ProductController {
 
     private final ProductService productService;
 
+    private final ProductSkuService productSkuService;
+
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public PageData<ProductResponse> listPage(ProductQueryRequest request) {
-        Page<ProductResponse> byPage = productService.getByPage(request);
+    public PageData<ProductListResponse> listPage(ProductQueryRequest request) {
+        Page<ProductListResponse> byPage = productService.getByPage(request);
         return PageData.toPage(byPage);
     }
 
@@ -56,8 +65,13 @@ public class ProductController {
     @GetMapping("/select")
     @ApiOperation("查询商品")
     @ApiImplicitParam(name = "id", value = "商品id", required = true)
-    public Product select(@RequestParam("id") Long id) {
-        return productService.selectById(id);
+    public ProductResponse select(@RequestParam("id") Long id) {
+        Product product = productService.selectById(id);
+        ProductResponse response = DataUtil.copy(product, ProductResponse.class);
+        List<ProductSku> skuList = productSkuService.selectByProductId(id);
+        response.setSkuList(DataUtil.convert(skuList, ProductSkuResponse.class));
+        response.setVirtualNum(product.getTotalNum() - product.getSaleNum());
+        return response;
     }
 
     @PostMapping("/shelves")
