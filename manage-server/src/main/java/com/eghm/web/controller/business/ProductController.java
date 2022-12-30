@@ -48,14 +48,14 @@ public class ProductController {
         return PageData.toPage(byPage);
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     @ApiOperation("新增商品")
     public RespBody<Void> create(@Validated @RequestBody ProductAddRequest request) {
         productService.create(request);
         return RespBody.success();
     }
 
-    @GetMapping("/update")
+    @PostMapping("/update")
     @ApiOperation("更新商品")
     public RespBody<Void> update(@Validated @RequestBody ProductEditRequest request) {
         productService.update(request);

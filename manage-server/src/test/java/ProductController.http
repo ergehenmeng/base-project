@@ -3,7 +3,7 @@ token: {{token}}
 
 ###
 
-GET http://localhost:8080/manage/product/create
+POST http://localhost:8080/manage/product/create
 token: {{token}}
 Content-Type: application/json
 
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/manage/product/update
+POST http://localhost:8080/manage/product/update
 token: {{token}}
 Content-Type: application/json
 
@@ -68,3 +68,49 @@ Content-Type: application/json
 
 GET http://localhost:8080/manage/product/select?id=1608738767752790017
 token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/product/shelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608738767752790017"
+}
+###
+
+POST http://localhost:8080/manage/product/unShelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608738767752790017"
+}
+###
+
+POST http://localhost:8080/manage/product/platformAudit
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608738767752790017"
+}
+###
+
+POST http://localhost:8080/manage/product/platformUnShelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608738767752790017"
+}
+
+###
+POST http://localhost:8080/manage/product/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1608738767752790017"
+}
