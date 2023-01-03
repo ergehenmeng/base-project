@@ -957,6 +957,11 @@ public enum ErrorCode {
     ROOM_TITLE_REDO(3240, "房型名称重复"),
 
     /**
+     * 优惠券可领取数量上限啦
+     */
+    COUPON_GET_MAX(3144, "优惠券可领取数量上限啦~"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.CouponMode;
 import com.eghm.common.enums.ref.CouponType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
@@ -63,18 +64,23 @@ public class CouponConfig extends BaseEntity implements Serializable {
     private Integer discountValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer useThreshold;
 
     @ApiModelProperty(value = "发放开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "发放截止时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "可以使用的开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime useStartTime;
 
     @ApiModelProperty(value = "可以使用的截止时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime useEndTime;
 
     @ApiModelProperty(value = "使用说明")

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -21,6 +22,10 @@ public class CouponConfigEditRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
+    @ApiModelProperty("优惠券名称")
+    @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")
+    private String title;
+
     @ApiModelProperty(value = "库存(发放数量)")
     @RangeInt(max = 9999, message = "库存应为0~9999")
     private Integer stock;
@@ -30,11 +35,11 @@ public class CouponConfigEditRequest {
     private Integer maxLimit;
 
     @ApiModelProperty(value = "发放开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "发放截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "使用说明")

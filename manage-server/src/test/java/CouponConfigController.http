@@ -26,3 +26,60 @@ Content-Type: application/json
     "productIds": ["1608756388669820929"]
   }]
 }
+
+###
+
+POST http://localhost:8080/manage/coupon/config/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1610178152813809666",
+  "title": "年货节满100-30",
+  "stock": 888,
+  "maxLimit": 2,
+  "startTime": "2022-01-08 00:00",
+  "endTime": "2023-01-18 00:00",
+  "instruction": "优惠券不折现,如果涉及退款,优惠券不返还. 部分退款时,按比例使用",
+  "productList": [{
+    "productType": "product",
+    "productIds": ["1608756388669820929"]
+  }]
+}
+
+###
+
+POST http://localhost:8080/manage/coupon/config/open
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1610178152813809666"
+}
+
+###
+
+GET http://localhost:8080/manage/coupon/config/select?id=1610178152813809666
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/coupon/config/close
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1610178152813809666"
+}
+
+###
+
+POST http://localhost:8080/manage/coupon/config/grant
+token: {{token}}
+Content-Type: application/json
+
+{
+  "userIdList": ["1"],
+  "couponConfigId": "1610178152813809666",
+  "num": 1
+}

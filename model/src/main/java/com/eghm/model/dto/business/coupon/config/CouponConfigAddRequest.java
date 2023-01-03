@@ -40,7 +40,7 @@ public class CouponConfigAddRequest {
     @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
     private CouponType couponType;
 
-    @ApiModelProperty(value = "抵扣金额 单位:分")
+    @ApiModelProperty(value = "抵扣金额 单位:元")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer deductionValue;
 
@@ -48,7 +48,8 @@ public class CouponConfigAddRequest {
     @RangeInt(min = 10, max = 100, required = false, message = "折扣比例应为10~100之间")
     private Integer discountValue;
 
-    @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
+    @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:元")
+    @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer useThreshold;
 
     @ApiModelProperty(value = "发放开始时间 yyyy-MM-dd HH:mm")

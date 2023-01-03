@@ -184,7 +184,7 @@ public class UserCouponServiceImpl implements UserCouponService {
     private void checkCoupon(CouponConfig config, ReceiveCouponDTO dto) {
 
         if (config == null || config.getState() != 1 || (config.getStock() - dto.getNum()) <= 0) {
-            log.error("领取优惠券失败, 优惠券可能库存不足 [{}]", config != null ? config.getStock() : -1);
+            log.error("领取优惠券失败, 优惠券可能库存不足 [{}] [{}]", config != null ? config.getState() : -1, config != null ? config.getStock() : -1);
             throw new BusinessException(ErrorCode.COUPON_EMPTY);
         }
 
@@ -200,9 +200,9 @@ public class UserCouponServiceImpl implements UserCouponService {
         }
 
         int count = this.receiveCount(config.getId(), dto.getUserId());
-        if (count >= config.getMaxLimit()) {
-            log.error("优惠券领取已达上限 [{}] [{}] [{}]", dto.getUserId(), config.getId(), count);
-            throw new BusinessException(ErrorCode.COUPON_MAX);
+        if (count + dto.getNum() > config.getMaxLimit()) {
+            log.error("已领取+待发放数量优惠券总和超过上限 [{}] [{}] [{}] [{}] [{}]", dto.getUserId(), config.getId(), count, dto.getNum(), config.getMaxLimit());
+            throw new BusinessException(ErrorCode.COUPON_GET_MAX);
         }
     }
 
