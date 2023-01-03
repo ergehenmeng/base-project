@@ -85,7 +85,7 @@ public class AliPayServiceImpl implements PayService {
         vo.setAmount(DecimalUtil.yuanToCent(response.getTotalAmount()));
         vo.setTransactionId(response.getTradeNo());
         vo.setSuccessTime(DateUtil.parseLocalDateTime(response.getSendPayDate()));
-        vo.setTradeState(TradeState.forState(response.getTradeStatus()));
+        vo.setTradeState(TradeState.of(response.getTradeStatus()));
         vo.setTradeType(TradeType.ALI_PAY);
         return vo;
     }

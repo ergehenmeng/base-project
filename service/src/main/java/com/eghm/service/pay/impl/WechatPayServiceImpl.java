@@ -123,8 +123,8 @@ public class WechatPayServiceImpl implements PayService {
         response.setAmount(result.getAmount().getPayerTotal());
         response.setAttach(result.getAttach());
         response.setSuccessTime(DateUtil.parseIso(result.getSuccessTime()));
-        response.setTradeType(TradeType.forType(result.getTradeType()));
-        response.setTradeState(TradeState.forState(result.getTradeState()));
+        response.setTradeType(TradeType.of(result.getTradeType()));
+        response.setTradeState(TradeState.of(result.getTradeState()));
         response.setPayerId(result.getPayer().getOpenid());
         response.setTransactionId(result.getTransactionId());
         return response;

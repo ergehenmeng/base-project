@@ -44,7 +44,7 @@ public enum CouponType implements IEnum<Integer>  {
     }
 
     @JsonCreator
-    public static CouponType valueOf(Integer value) {
+    public static CouponType of(Integer value) {
         if (value == null) {
             return null;
         }

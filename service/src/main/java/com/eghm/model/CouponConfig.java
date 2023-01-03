@@ -1,8 +1,11 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.CouponMode;
 import com.eghm.common.enums.ref.CouponType;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,6 +26,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @TableName("coupon_config")
 @ApiModel(value="CouponConfig对象", description="优惠券配置表")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CouponConfig extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,11 +55,12 @@ public class CouponConfig extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
     private CouponType couponType;
 
-    @ApiModelProperty(value = "折扣比例 1-100")
-    private Integer discountValue;
-
     @ApiModelProperty(value = "抵扣金额 单位:分")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer deductionValue;
+
+    @ApiModelProperty(value = "折扣比例 10-100")
+    private Integer discountValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
     private Integer useThreshold;

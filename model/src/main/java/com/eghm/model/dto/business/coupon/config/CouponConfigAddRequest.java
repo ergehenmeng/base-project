@@ -40,30 +40,31 @@ public class CouponConfigAddRequest {
     @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
     private CouponType couponType;
 
-    @JsonDeserialize(using = YuanToCentDecoder.class)
-    @ApiModelProperty(value = "折扣比例 1-100")
-    private Integer discountValue;
-
     @ApiModelProperty(value = "抵扣金额 单位:分")
+    @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer deductionValue;
+
+    @ApiModelProperty(value = "折扣比例 10-100")
+    @RangeInt(min = 10, max = 100, required = false, message = "折扣比例应为10~100之间")
+    private Integer discountValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
     private Integer useThreshold;
 
-    @ApiModelProperty(value = "发放开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "发放开始时间 yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;
 
-    @ApiModelProperty(value = "发放截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "发放截止时间 yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime endTime;
 
-    @ApiModelProperty(value = "可以使用的开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "可以使用的开始时间 yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime useStartTime;
 
-    @ApiModelProperty(value = "可以使用的截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "可以使用的截止时间 yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime useEndTime;
 
     @ApiModelProperty(value = "使用说明")

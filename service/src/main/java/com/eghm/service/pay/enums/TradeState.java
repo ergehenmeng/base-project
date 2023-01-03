@@ -82,7 +82,7 @@ public enum TradeState {
     private final PayChannel channel;
 
     @JsonCreator
-    public static TradeState forState(String code) {
+    public static TradeState of(String code) {
         return Stream.of(TradeState.values()).filter(state -> state.getCode().equals(code)).findFirst().orElse(PAY_ERROR);
     }
 
