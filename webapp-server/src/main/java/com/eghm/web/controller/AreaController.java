@@ -1,18 +1,18 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.area.AreaQueryDTO;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.sys.SysAreaVO;
 import com.eghm.service.sys.SysAreaService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -29,8 +29,9 @@ public class AreaController {
 
     @ApiOperation("获取省市区列表")
     @GetMapping("/list")
-    public RespBody<List<SysAreaVO>> list(@RequestBody @Validated AreaQueryDTO request) {
-        List<SysAreaVO> voList = sysAreaService.getByPid(request.getPid());
+    @ApiImplicitParam(name = "pid", value = "pid")
+    public RespBody<List<SysAreaVO>> list(@NotNull(message = "pid不能为空") @RequestParam(value = "pid") Long pid) {
+        List<SysAreaVO> voList = sysAreaService.getByPid(pid);
         return RespBody.success(voList);
     }
 

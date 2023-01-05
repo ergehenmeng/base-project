@@ -27,7 +27,7 @@ public class UserNoticeController {
 
     @GetMapping("/listPage")
     @ApiOperation("分页查询站内信列表")
-    public RespBody<PageData<UserNoticeVO>> listPage(@RequestBody @Validated PagingQuery query) {
+    public RespBody<PageData<UserNoticeVO>> listPage(PagingQuery query) {
         PageData<UserNoticeVO> paging = userNoticeService.getByPage(query, ApiHolder.getUserId());
         return RespBody.success(paging);
     }

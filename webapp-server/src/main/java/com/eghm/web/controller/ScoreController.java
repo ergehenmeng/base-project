@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +28,7 @@ public class ScoreController {
 
     @GetMapping("/listPage")
     @ApiOperation("用户积分列表")
-    public RespBody<PageData<UserScoreVO>> listPage(@RequestBody @Validated UserScoreQueryDTO request) {
+    public RespBody<PageData<UserScoreVO>> listPage(@Validated UserScoreQueryDTO request) {
         request.setUserId(ApiHolder.getUserId());
         PageData<UserScoreVO> page = userScoreLogService.getByPage(request);
         return RespBody.success(page);
