@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -13,9 +14,11 @@ import com.eghm.model.dto.business.activity.ActivityAddRequest;
 import com.eghm.model.dto.business.activity.ActivityConfigRequest;
 import com.eghm.model.dto.business.activity.ActivityDeleteRequest;
 import com.eghm.model.dto.business.activity.ActivityEditRequest;
+import com.eghm.model.vo.business.activity.ActivityBaseDTO;
 import com.eghm.model.vo.business.activity.ActivityBaseResponse;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -40,6 +43,8 @@ public class ActivityServiceImpl implements ActivityService {
     private final ActivityMapper activityMapper;
 
     private final CommonService commonService;
+
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public void create(ActivityConfigRequest request) {
@@ -75,10 +80,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<ActivityBaseResponse> getMonthActivity(String month) {
+    public List<ActivityBaseResponse> getMonthActivity(String month, Long scenicId) {
         LocalDate startDate = LocalDate.parse(month + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate endDate = startDate.plusMonths(1);
         LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Activity::getScenicId, scenicId);
         wrapper.ge(Activity::getNowDate, startDate);
         wrapper.lt(Activity::getNowDate, endDate);
         wrapper.last(" order by id desc ");
@@ -108,15 +114,34 @@ public class ActivityServiceImpl implements ActivityService {
         activityMapper.delete(wrapper);
     }
 
+    @Override
+    public List<ActivityBaseDTO> scenicActivityList(Long scenicId) {
+        long endLimit = sysConfigApi.getLong(ConfigConstant.SCENIC_ACTIVITY_LIMIT, 7);
+        LocalDate start = LocalDate.now();
+        LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Activity::getScenicId, scenicId);
+        wrapper.between(Activity::getNowDate, start, start.plusDays(endLimit));
+        wrapper.last(" order by id desc ");
+
+        List<Activity> activityList = activityMapper.selectList(wrapper);
+        if (CollUtil.isEmpty(activityList)) {
+            return Lists.newArrayListWithCapacity(1);
+        }
+        return activityList.stream()
+                .map(activityCalendar -> DataUtil.copy(activityCalendar, ActivityBaseDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
     /**
      * 过滤某一天的活动并进行对象映射
      * @param selectList 活动列表
      * @param date 天 yyyy-MM-dd
      * @return 该天的活动 倒叙列表
      */
-    private List<ActivityBaseResponse.ActivityResponse> filterDateActivity(List<Activity> selectList, LocalDate date) {
+    private List<ActivityBaseDTO> filterDateActivity(List<Activity> selectList, LocalDate date) {
         return selectList.stream().filter(activityCalendar -> activityCalendar.getNowDate().isEqual(date))
-                .map(activityCalendar -> DataUtil.copy(activityCalendar, ActivityBaseResponse.ActivityResponse.class))
+                .map(activityCalendar -> DataUtil.copy(activityCalendar, ActivityBaseDTO.class))
                 .collect(Collectors.toList());
     }
 

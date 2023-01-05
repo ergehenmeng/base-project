@@ -432,6 +432,7 @@ CREATE TABLE `activity`
     `address`     varchar(100) DEFAULT NULL COMMENT '活动地点',
     `cover_url`   varchar(500) DEFAULT NULL COMMENT '活动封面图片',
     `introduce`   longtext COMMENT '活动详细介绍',
+    `scenic_id`   bigint(20) COMMENT '活动关联的景区',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',

@@ -11,6 +11,7 @@ import com.eghm.model.vo.business.activity.ActivityBaseResponse;
 import com.eghm.service.business.ActivityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -31,10 +32,14 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @GetMapping("/month")
-    @ApiImplicitParam(name = "month", value = "月份yyyy-MM", required = true)
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "month", value = "月份yyyy-MM", required = true),
+        @ApiImplicitParam(name = "scenicId", value = "景区id")
+    })
     @ApiOperation("查询月活动")
-    public List<ActivityBaseResponse> select(@RequestParam("month") String month) {
-        return activityService.getMonthActivity(month);
+    public List<ActivityBaseResponse> select(@RequestParam("month") String month,
+                                             @RequestParam(value = "scenicId", required = false) Long scenicId) {
+        return activityService.getMonthActivity(month, scenicId);
     }
 
     @PostMapping("/config")

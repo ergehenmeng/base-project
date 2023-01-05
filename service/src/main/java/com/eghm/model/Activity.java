@@ -48,4 +48,6 @@ public class Activity extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "活动详细介绍")
     private String introduce;
 
+    @ApiModelProperty("活动关联的景区")
+    private Long scenicId;
 }

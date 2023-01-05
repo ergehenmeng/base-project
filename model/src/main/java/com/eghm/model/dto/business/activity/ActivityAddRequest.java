@@ -44,4 +44,6 @@ public class ActivityAddRequest {
     @NotNull(message = "活动详细介绍不能为空")
     private String introduce;
 
+    @ApiModelProperty("活动关联的景区id")
+    private Long scenicId;
 }

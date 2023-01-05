@@ -163,4 +163,9 @@ public class ConfigConstant {
      * 订单过期时间
      */
     public static final String ORDER_EXPIRE_TIME = "order_expire_time";
+
+    /**
+     * 景区活动日期限制
+     */
+    public static final String SCENIC_ACTIVITY_LIMIT = "scenic_activity_limit";
 }
