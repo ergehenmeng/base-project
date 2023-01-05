@@ -41,7 +41,7 @@ public class ScenicVO {
     @ApiModelProperty("景区信息描述")
     private String depict;
 
-    @ApiModelProperty("距离 单位:km")
+    @ApiModelProperty("距离 单位:m")
     private BigDecimal distance;
 
     @ApiModelProperty(value = "详细地址(含省市县)")

@@ -38,7 +38,7 @@ public class ScenicListVO {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer minPrice;
 
-    @ApiModelProperty("距离 单位:km")
+    @ApiModelProperty("距离 单位:m")
     private BigDecimal distance;
 
     @ApiModelProperty(value = "经度", hidden = true)

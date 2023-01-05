@@ -123,7 +123,6 @@ public class ScenicServiceImpl implements ScenicService {
             return voList;
         }
         // 由于距离计算比较耗时, 因此按需决定是否要支持距离
-
         boolean flag = sysConfigApi.getBoolean(ConfigConstant.SCENIC_CONTAIN_DISTANCE);
         LinkedHashMap<String, Double> hashMap = new LinkedHashMap<>();
         if (flag && dto.getLongitude() != null && dto.getLatitude() != null) {

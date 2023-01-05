@@ -15,8 +15,6 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class ScenicQueryDTO extends PagingQuery {
 
-    // TODO 其他排序方式, 距离 价格
-
     @ApiModelProperty("经度")
     private BigDecimal longitude;
 

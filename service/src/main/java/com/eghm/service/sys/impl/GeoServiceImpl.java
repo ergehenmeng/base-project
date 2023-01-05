@@ -33,7 +33,7 @@ public class GeoServiceImpl implements GeoService {
         String key2 = IdWorker.getIdStr();
         operations.add(key, new RedisGeoCommands.GeoLocation<>(key1, new Point(longitude, latitude)));
         operations.add(key, new RedisGeoCommands.GeoLocation<>(key2, new Point(targetLongitude, targetLatitude)));
-        Distance distance = operations.distance(key, key1, key2, Metrics.KILOMETERS);
+        Distance distance = operations.distance(key, key1, key2, Metrics.MILES);
         stringRedisTemplate.delete(key);
         return distance != null ? distance.getValue() : 0;
     }
@@ -48,7 +48,7 @@ public class GeoServiceImpl implements GeoService {
         GeoOperations<String, String> operations = stringRedisTemplate.opsForGeo();
         String id2 = IdWorker.getIdStr();
         operations.add(key, new RedisGeoCommands.GeoLocation<>(id2, new Point(targetLongitude, targetLatitude)));
-        Distance distance = operations.distance(key, id, id2, Metrics.KILOMETERS);
+        Distance distance = operations.distance(key, id, id2, Metrics.MILES);
         operations.remove(key, id2);
         return distance != null ? distance.getValue() : 0;
     }
@@ -61,7 +61,7 @@ public class GeoServiceImpl implements GeoService {
     @Override
     public LinkedHashMap<String, Double> radius(String key, double longitude, double latitude, double radius, int limit) {
         GeoOperations<String, String> operations = stringRedisTemplate.opsForGeo();
-        GeoResults<RedisGeoCommands.GeoLocation<String>> geoResults = operations.radius(key, new Circle(new Point(longitude, latitude), new Distance(radius, Metrics.KILOMETERS)),
+        GeoResults<RedisGeoCommands.GeoLocation<String>> geoResults = operations.radius(key, new Circle(new Point(longitude, latitude), new Distance(radius, Metrics.MILES)),
                 RedisGeoCommands.GeoRadiusCommandArgs.newGeoRadiusArgs().includeDistance().sortAscending().limit(limit));
         if (geoResults == null || CollUtil.isEmpty(geoResults)) {
             return Maps.newLinkedHashMapWithExpectedSize(1);
