@@ -22,12 +22,12 @@ public class ActivityConfigRequest {
     @Size(min = 2, max = 20, message = "活动名称长度2~20位")
     private String title;
 
-    @ApiModelProperty("开始日期")
+    @ApiModelProperty("开始日期yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期")
+    @ApiModelProperty("截止日期yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空")
     private LocalDate endDate;

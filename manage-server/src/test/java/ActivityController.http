@@ -1,0 +1,68 @@
+GET http://localhost:8080/manage/activity/month?month=2022-12
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/activity/config
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "正月逛花灯",
+  "startDate": "2022-12-01",
+  "endDate": "2023-01-21",
+  "week": [1,2,3,4,5],
+  "startTime": "9:00",
+  "endTime": "12:00",
+  "address": "周口屋檐山景区",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "introduce": "每逢3月3,6月1都会有庙会"
+}
+
+###
+
+POST http://localhost:8080/manage/activity/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "正月逛花灯二期",
+  "nowDate": "2022-12-02",
+  "startTime": "9:00",
+  "endTime": "12:00",
+  "address": "周口屋檐山景区",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "introduce": "每逢3月3,6月1都会有庙会"
+}
+
+###
+
+POST http://localhost:8080/manage/activity/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1610878868465340418",
+  "title": "正月逛花灯三期",
+  "nowDate": "2022-12-02",
+  "startTime": "9:00",
+  "endTime": "12:00",
+  "address": "周口屋檐山景区",
+  "coverUrl": "http://localhost:8080/coverUrl.png",
+  "introduce": "每逢3月3,6月1都会有庙会"
+}
+
+###
+
+POST http://localhost:8080/manage/activity/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": "1610876638395871233"
+}
+
+###
+
+GET http://localhost:8080/manage/activity/select?id=1610878868465340418
+token: {{token}}

@@ -4,6 +4,7 @@ import com.eghm.model.Activity;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.activity.ActivityAddRequest;
 import com.eghm.model.dto.business.activity.ActivityConfigRequest;
+import com.eghm.model.dto.business.activity.ActivityDeleteRequest;
 import com.eghm.model.dto.business.activity.ActivityEditRequest;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.business.activity.ActivityBaseResponse;
@@ -66,8 +67,8 @@ public class ActivityController {
 
     @PostMapping("/delete")
     @ApiOperation("删除活动")
-    public RespBody<Void> open(@RequestBody @Validated IdDTO dto) {
-        activityService.deleteById(dto.getId());
+    public RespBody<Void> open(@RequestBody @Validated ActivityDeleteRequest request) {
+        activityService.delete(request);
         return RespBody.success();
     }
 

@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.eghm.model.Activity;
 import com.eghm.model.dto.business.activity.ActivityAddRequest;
 import com.eghm.model.dto.business.activity.ActivityConfigRequest;
+import com.eghm.model.dto.business.activity.ActivityDeleteRequest;
 import com.eghm.model.dto.business.activity.ActivityEditRequest;
 import com.eghm.model.vo.business.activity.ActivityBaseResponse;
 
@@ -47,8 +48,8 @@ public interface ActivityService {
     Activity selectById(Long id);
 
     /**
-     * 删除活动
-     * @param id id
+     * 删除活动,条件不能全部为空
+     * @param request 删除条件
      */
-    void deleteById(Long id);
+    void delete(ActivityDeleteRequest request);
 }

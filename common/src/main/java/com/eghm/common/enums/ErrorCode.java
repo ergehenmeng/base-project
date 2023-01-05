@@ -962,6 +962,11 @@ public enum ErrorCode {
     COUPON_GET_MAX(3144, "优惠券可领取数量上限啦~"),
 
     /**
+     * 活动名称重复啦~
+     */
+    ACTIVITY_TITLE_REDO(3150, "活动名称重复啦~"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
