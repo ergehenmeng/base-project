@@ -9,7 +9,7 @@ import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherEditReque
 import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/6/30
  */
 public interface RestaurantVoucherService {

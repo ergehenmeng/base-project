@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/7/1
  */
 public interface ProductService {

@@ -3,7 +3,7 @@ package com.eghm.service.sys;
 import java.util.LinkedHashMap;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/7/11
  */
 public interface GeoService {

@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * @author wyb
+ * @author 二哥很猛
  * @date 2022/6/30 21:33
  */
 @Data
