@@ -77,7 +77,7 @@ public class HomestayController {
         return RespBody.success();
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         homestayService.deleteById(dto.getId());

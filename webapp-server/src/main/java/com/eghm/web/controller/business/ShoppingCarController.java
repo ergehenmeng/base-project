@@ -40,7 +40,7 @@ public class ShoppingCarController {
         return shoppingCarService.getList(ApiHolder.getUserId());
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ApiOperation("删除购物车商品")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         shoppingCarService.delete(dto.getId(), ApiHolder.getUserId());
