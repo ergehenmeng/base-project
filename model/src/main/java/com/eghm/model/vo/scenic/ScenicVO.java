@@ -1,5 +1,6 @@
 package com.eghm.model.vo.scenic;
 
+import com.eghm.model.vo.business.activity.ActivityBaseDTO;
 import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -58,4 +59,7 @@ public class ScenicVO {
 
     @ApiModelProperty("景区门票列表")
     private List<TicketBaseVO> ticketList;
+
+    @ApiModelProperty("景区活动")
+    private List<ActivityBaseDTO> activityList;
 }

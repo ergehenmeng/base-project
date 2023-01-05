@@ -16,14 +16,15 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ScenicMapper;
 import com.eghm.model.Scenic;
-import com.eghm.model.ScenicTicket;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
 import com.eghm.model.dto.business.scenic.ScenicEditRequest;
 import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.model.dto.business.scenic.ScenicQueryRequest;
+import com.eghm.model.vo.business.activity.ActivityBaseDTO;
 import com.eghm.model.vo.scenic.ScenicListVO;
 import com.eghm.model.vo.scenic.ScenicVO;
 import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
+import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.sys.GeoService;
@@ -56,6 +57,8 @@ public class ScenicServiceImpl implements ScenicService {
     private final SysAreaService sysAreaService;
 
     private final ScenicTicketService scenicTicketService;
+
+    private final ActivityService activityService;
 
     @Override
     public Page<Scenic> getByPage(ScenicQueryRequest request) {
@@ -149,10 +152,15 @@ public class ScenicServiceImpl implements ScenicService {
             double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(id), longitude, latitude);
             vo.setDistance(BigDecimal.valueOf(distance));
         }
+
         vo.setDetailAddress(sysAreaService.parseArea(scenic.getProvinceId(), scenic.getCityId(), scenic.getCountyId()) + scenic.getDetailAddress());
 
         List<TicketBaseVO> ticketList = scenicTicketService.getTicketList(id);
         vo.setTicketList(ticketList);
+
+        List<ActivityBaseDTO> activityList = activityService.scenicActivityList(id);
+        vo.setActivityList(activityList);
+
         return vo;
     }
 
