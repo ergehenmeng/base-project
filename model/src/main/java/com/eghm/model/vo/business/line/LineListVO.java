@@ -1,0 +1,38 @@
+package com.eghm.model.vo.business.line;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+/**
+ * @author 二哥很猛
+ * @since 2023/1/5
+ */
+@Data
+public class LineListVO {
+
+    @ApiModelProperty("线路id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
+
+    @ApiModelProperty("线路名称")
+    private String title;
+
+    @ApiModelProperty("出发城市")
+    private String startCity;
+
+    @ApiModelProperty("出发城市(前端忽略该字段)")
+    @JsonIgnore
+    private Long startCityId;
+
+    @ApiModelProperty(value = "封面图片")
+    private String coverUrl;
+
+    @ApiModelProperty(value = "总销量")
+    private Integer totalNum;
+
+    @ApiModelProperty(value = "几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游")
+    private Integer duration;
+}

@@ -2,6 +2,9 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.LineConfig;
+import org.apache.ibatis.annotations.Param;
+
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -27,4 +30,12 @@ public interface LineConfigMapper extends BaseMapper<LineConfig> {
      * @return 1
      */
     int updateStock(Long id, Integer num);
+
+    /**
+     * 从某一段时间开始查询最低的线路价格
+     * @param lineId 线路id
+     * @param startDate 开始日期
+     * @return 最低价 单位:分
+     */
+    Integer getMinPrice(@Param("lineId") Long lineId, @Param("startDate") LocalDate startDate);
 }

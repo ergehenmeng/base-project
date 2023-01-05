@@ -168,4 +168,10 @@ public class ConfigConstant {
      * 景区活动日期限制
      */
     public static final String SCENIC_ACTIVITY_LIMIT = "scenic_activity_limit";
+
+    /**
+     * 线路可以预约的最长时间
+     */
+    public static final String LINE_MAX_DAY = "line_max_day";
+
 }

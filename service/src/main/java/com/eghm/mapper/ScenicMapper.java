@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Scenic;
 import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.model.vo.scenic.ScenicListVO;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -22,5 +23,5 @@ public interface ScenicMapper extends BaseMapper<Scenic> {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<ScenicListVO> getByPage(Page<ScenicListVO> page, ScenicQueryDTO dto);
+    Page<ScenicListVO> getByPage(Page<ScenicListVO> page, @Param("param") ScenicQueryDTO dto);
 }

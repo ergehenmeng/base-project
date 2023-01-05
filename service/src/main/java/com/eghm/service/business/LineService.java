@@ -6,7 +6,12 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.model.Line;
 import com.eghm.model.dto.business.line.LineAddRequest;
 import com.eghm.model.dto.business.line.LineEditRequest;
+import com.eghm.model.dto.business.line.LineQueryDTO;
 import com.eghm.model.dto.business.line.LineQueryRequest;
+import com.eghm.model.vo.business.line.LineListVO;
+import com.eghm.model.vo.business.line.LineVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -55,6 +60,13 @@ public interface LineService {
     Line selectByIdRequired(Long id);
 
     /**
+     * 分页查询线路列表
+     * @param dto 查询条件
+     * @return 列表 不含总页数/总条数
+     */
+    List<LineListVO> getByPage(LineQueryDTO dto);
+
+    /**
      * 主键查询线路(没有上架则报错)
      * @param id id
      * @return 线路信息
@@ -73,4 +85,11 @@ public interface LineService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 线路详细信息
+     * @param id 线路id
+     * @return 详细信息 包含行程信息
+     */
+    LineVO detailById(Long id);
 }

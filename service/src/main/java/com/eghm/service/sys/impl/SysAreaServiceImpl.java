@@ -63,6 +63,20 @@ public class SysAreaServiceImpl implements SysAreaService {
         if (sysArea != null) {
             address += sysArea.getTitle();
         }
+        sysArea = cacheProxyService.getAreaById(countyId);
+        if (sysArea != null) {
+            address += sysArea.getTitle();
+        }
+        return address;
+    }
+
+    @Override
+    public String parseProvinceCity(Long provinceId, Long cityId) {
+        SysArea sysArea = cacheProxyService.getAreaById(provinceId);
+        String address = "";
+        if (sysArea != null) {
+            address += sysArea.getTitle();
+        }
         sysArea = cacheProxyService.getAreaById(cityId);
         if (sysArea != null) {
             address += sysArea.getTitle();

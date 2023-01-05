@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -11,15 +12,25 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.model.Line;
+import com.eghm.model.LineDayConfig;
 import com.eghm.model.dto.business.line.LineAddRequest;
 import com.eghm.model.dto.business.line.LineEditRequest;
+import com.eghm.model.dto.business.line.LineQueryDTO;
 import com.eghm.model.dto.business.line.LineQueryRequest;
+import com.eghm.model.vo.business.line.LineDayConfigResponse;
+import com.eghm.model.vo.business.line.LineListVO;
+import com.eghm.model.vo.business.line.LineVO;
+import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 import static com.eghm.common.enums.ErrorCode.LINE_DOWN;
 
@@ -35,6 +46,10 @@ public class LineServiceImpl implements LineService {
     private final LineMapper lineMapper;
 
     private final LineDayConfigService lineDayConfigService;
+
+    private final LineConfigService lineConfigService;
+
+    private final SysAreaService sysAreaService;
 
     @Override
     public Page<Line> getByPage(LineQueryRequest request) {
@@ -92,6 +107,17 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
+    public List<LineListVO> getByPage(LineQueryDTO dto) {
+        Page<LineListVO> voPage = lineMapper.getByPage(dto.createPage(false), dto);
+        List<LineListVO> voList = voPage.getRecords();
+        // 转义城市名称
+        if (CollUtil.isNotEmpty(voList)) {
+            voList.forEach(vo -> vo.setStartCity(sysAreaService.getById(vo.getStartCityId()).getTitle()));
+        }
+        return voList;
+    }
+
+    @Override
     public Line selectByIdShelve(Long id) {
         Line line = this.selectByIdRequired(id);
         if (line == null) {
@@ -109,6 +135,20 @@ public class LineServiceImpl implements LineService {
     @Override
     public void deleteById(Long id) {
         lineMapper.deleteById(id);
+    }
+
+    @Override
+    public LineVO detailById(Long id) {
+        Line line = this.selectByIdShelve(id);
+        LineVO vo = DataUtil.copy(line, LineVO.class);
+
+        List<LineDayConfig> dayConfigList = lineDayConfigService.getByLineId(id);
+        vo.setDayList(DataUtil.convert(dayConfigList, LineDayConfigResponse.class));
+        // 出发地格式化
+        vo.setStartPoint(sysAreaService.parseProvinceCity(line.getStartProvinceId(), line.getStartCityId()));
+        // 最低参考价
+        vo.setMinPrice(lineConfigService.getMinPrice(id, LocalDate.now()));
+        return vo;
     }
 
     /**

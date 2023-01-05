@@ -4102,3 +4102,5 @@ INSERT INTO `sys_config` VALUES ('48', 'activity_config_max_day', '活动单次�
 INSERT INTO `sys_config` VALUES ('49', 'shopping_car_max', '用户购物车商品数量', '20', b'0', '默认20个,即单个用户最大添加20中商品', '2022-07-23 15:08:30', '2022-07-23 15:09:24');
 INSERT INTO `sys_config` VALUES ('50', 'order_expire_time', '订单过期时间', '1800', b'0', '默认30分钟过期', '2022-07-28 13:48:34', '2022-07-28 13:48:34');
 INSERT INTO `sys_config` VALUES ('51', 'line_config_max_day', '线路价格批量设置最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-12-27 13:13:18', '2022-12-27 13:13:52');
+INSERT INTO `sys_config` VALUES ('52', 'merchant_pwd', '商户默认密码', 'eghm123456', b'0', NULL, '2022-12-27 14:52:19', '2022-12-27 14:52:19');
+INSERT INTO `sys_config` VALUES ('53', 'line_max_day', '线路可预约的最大天数', '60', b'0', '即可以预约从当前时间到之后60日的线路', '2023-01-05 18:23:59', '2023-01-05 18:23:59');

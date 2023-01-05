@@ -12,4 +12,9 @@
         update line_config set stock = stock + #{num}, sale_num = sale_num - #{num}
         where id = #{id} and state = true and stock + #{num} &gt;= 0
     </update>
+
+    <select id="getMinPrice" resultType="integer">
+        select min(sale_price) from line_config where state = 1 and stock &gt; 0 and line_id = #{lineId} and config_date &gt;= #{startDate}
+    </select>
+
 </mapper>

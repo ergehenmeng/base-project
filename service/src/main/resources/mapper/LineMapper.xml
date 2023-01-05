@@ -2,4 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LineMapper">
 
+    <select id="getByPage" parameterType="com.eghm.model.dto.business.line.LineQueryDTO" resultType="com.eghm.model.vo.business.line.LineListVO">
+        select
+        id,
+        title,
+        start_city_id as startCityId,
+        cover_url as coverUrl,
+        total_num as totalNum,
+        duration
+        from line where deleted = false and state = 2 and platform_state = 2
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName}, '%')
+        </if>
+        <if test="param.startProvinceId != null">
+            and start_province_id = #{param.startProvinceId}
+        </if>
+        <if test="param.startCityId != null">
+            and start_city_id = #{param.startCityId}
+        </if>
+        <if test="param.duration != null">
+            and duration = #{param.duration}
+        </if>
+        <if test="param.sortBySale != null">
+            <choose>
+                <when test="param.sortBySale">
+                    order by total_num desc
+                </when>
+                <otherwise>
+                    order by id desc
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
 </mapper>

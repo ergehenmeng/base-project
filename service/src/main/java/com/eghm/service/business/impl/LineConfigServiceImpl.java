@@ -9,20 +9,26 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.LineConfigMapper;
+import com.eghm.mapper.LineMapper;
+import com.eghm.model.Line;
 import com.eghm.model.LineConfig;
 import com.eghm.model.dto.business.line.config.LineConfigOneRequest;
 import com.eghm.model.dto.business.line.config.LineConfigQueryRequest;
 import com.eghm.model.dto.business.line.config.LineConfigRequest;
 import com.eghm.model.vo.business.line.config.LineConfigResponse;
+import com.eghm.model.vo.business.line.config.LineConfigVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.LineConfigService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import netscape.security.UserTarget;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +42,11 @@ public class LineConfigServiceImpl implements LineConfigService {
 
     private final LineConfigMapper lineConfigMapper;
 
+    private final LineMapper lineMapper;
+
     private final CommonService commonService;
+
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public void setup(LineConfigRequest request) {
@@ -78,6 +88,21 @@ public class LineConfigServiceImpl implements LineConfigService {
         return DataUtil.paddingMonth(configList, (lineConfig, localDate) -> lineConfig.getConfigDate().equals(localDate), LineConfigResponse::new, month);
     }
 
+    @Override
+    public List<LineConfigVO> getPriceList(Long lineId) {
+        Line line = lineMapper.selectById(lineId);
+        long max = sysConfigApi.getLong(ConfigConstant.LINE_MAX_DAY, 60);
+        LocalDate now = LocalDate.now();
+        // 提前多少天,即这几天的是无法预约的
+        LocalDate startDate = LocalDate.now().plusDays(line.getAdvanceDay());
+        LambdaQueryWrapper<LineConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.between(LineConfig::getConfigDate, startDate, now.plusDays(max));
+        wrapper.eq(LineConfig::getLineId, lineId);
+        List<LineConfigVO> responseList = new ArrayList<>();
+
+
+        return responseList;
+    }
 
     @Override
     public LineConfig getConfig(Long lineId, LocalDate localDate) {
@@ -96,7 +121,13 @@ public class LineConfigServiceImpl implements LineConfigService {
             throw new BusinessException(ErrorCode.LINE_STOCK);
         }
     }
-    
+
+    @Override
+    public Integer getMinPrice(Long lineId, LocalDate startDate) {
+        Integer minPrice = lineConfigMapper.getMinPrice(lineId, startDate);
+        return minPrice != null ? minPrice : 0;
+    }
+
     /**
      * 获取某一月配置信息
      * @param month 月份

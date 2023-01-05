@@ -1,7 +1,6 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.model.Activity;
-import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.activity.ActivityAddRequest;
 import com.eghm.model.dto.business.activity.ActivityConfigRequest;
 import com.eghm.model.dto.business.activity.ActivityDeleteRequest;

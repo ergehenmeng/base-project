@@ -11,9 +11,9 @@
         latitude,
         `level`,
         min_price as minPrice
-        from scenic where deleted = false and state = 2
-        <if test="queryName != null and queryName != '' ">
-            and scenic_name like concat('%', #{queryName} ,'%')
+        from scenic where deleted = false and state = 2 and platform_state = 2
+        <if test="param.queryName != null and param.queryName != '' ">
+            and scenic_name like concat('%', #{param.queryName} ,'%')
         </if>
         order by sort
     </select>
