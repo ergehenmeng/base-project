@@ -110,17 +110,20 @@ public class LineConfigServiceImpl implements LineConfigService {
 
         for (int i = 0; i < max; i++) {
             LocalDate configDate = now.plusDays(i);
-            Optional<LineConfig> optional = configList.stream().filter(config -> configDate.isEqual(config.getConfigDate())).findFirst();
 
             LineConfigVO vo = new LineConfigVO();
-            if (optional.isPresent()) {
-                BeanUtil.copyProperties(optional.get(), vo);
-            } else {
-                vo.setState(0);
-            }
+            vo.setConfigDate(configDate);
             // 如果线路设置了提前日期,在提前日期之前默认无法预约
             if (i < line.getAdvanceDay()) {
                 vo.setState(0);
+            } else {
+                Optional<LineConfig> optional = configList.stream().filter(config -> configDate.isEqual(config.getConfigDate())).findFirst();
+                if (optional.isPresent()) {
+                    BeanUtil.copyProperties(optional.get(), vo);
+                } else {
+                    vo.setState(0);
+                }
+
             }
             responseList.add(vo);
         }

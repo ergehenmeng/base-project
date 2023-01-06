@@ -7,9 +7,9 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "lineId": "1607290976547602434",
+  "lineId": "1611287570074824706",
   "startDate": "2022-12-01",
-  "endDate": "2022-12-10",
+  "endDate": "2023-01-20",
   "week": [1,2,3,4,5],
   "state": true,
   "stock": 10,

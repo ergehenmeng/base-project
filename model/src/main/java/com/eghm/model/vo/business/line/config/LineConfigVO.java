@@ -2,6 +2,7 @@ package com.eghm.model.vo.business.line.config;
 
 import com.eghm.common.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
  * @since 2023/1/5
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class LineConfigVO {
 
     @ApiModelProperty("id")

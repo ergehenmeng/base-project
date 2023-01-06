@@ -51,12 +51,9 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     public List<BlackRoster> getAvailableList() {
-        return cacheService.getValue(CacheConstant.BLACK_ROSTER, new TypeReference<List<BlackRoster>>() {
-            @Override
-            public Type getType() {
-                return BlackRoster.class;
-            }
-        }, () -> blackRosterMapper.selectList(null));
+        return cacheService.getValue(CacheConstant.BLACK_ROSTER,
+                new TypeReference<List<BlackRoster>>() {},
+                () -> blackRosterMapper.selectList(null));
     }
 
     @Override
