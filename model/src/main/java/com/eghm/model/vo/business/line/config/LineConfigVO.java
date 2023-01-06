@@ -20,9 +20,6 @@ public class LineConfigVO {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @ApiModelProperty("是否设置了价格 true:是 false:否")
-    private Boolean hasSet;
-
     @ApiModelProperty("日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate configDate;

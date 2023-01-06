@@ -1,5 +1,7 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -23,13 +25,13 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import netscape.security.UserTarget;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 二哥很猛
@@ -93,14 +95,35 @@ public class LineConfigServiceImpl implements LineConfigService {
         Line line = lineMapper.selectById(lineId);
         long max = sysConfigApi.getLong(ConfigConstant.LINE_MAX_DAY, 60);
         LocalDate now = LocalDate.now();
-        // 提前多少天,即这几天的是无法预约的
-        LocalDate startDate = LocalDate.now().plusDays(line.getAdvanceDay());
+        // 假如今天是12.12, 线路需要提前3天预约,则线路配置列表 12.12 12.13,12.14这几日均无法预约,
         LambdaQueryWrapper<LineConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.between(LineConfig::getConfigDate, startDate, now.plusDays(max));
+        wrapper.between(LineConfig::getConfigDate, now, now.plusDays(max));
         wrapper.eq(LineConfig::getLineId, lineId);
+
+        List<LineConfig> configList = lineConfigMapper.selectList(wrapper);
         List<LineConfigVO> responseList = new ArrayList<>();
 
+        if (CollUtil.isEmpty(configList)) {
+            return responseList;
+        }
 
+
+        for (int i = 0; i < max; i++) {
+            LocalDate configDate = now.plusDays(i);
+            Optional<LineConfig> optional = configList.stream().filter(config -> configDate.isEqual(config.getConfigDate())).findFirst();
+
+            LineConfigVO vo = new LineConfigVO();
+            if (optional.isPresent()) {
+                BeanUtil.copyProperties(optional.get(), vo);
+            } else {
+                vo.setState(0);
+            }
+            // 如果线路设置了提前日期,在提前日期之前默认无法预约
+            if (i < line.getAdvanceDay()) {
+                vo.setState(0);
+            }
+            responseList.add(vo);
+        }
         return responseList;
     }
 
