@@ -126,15 +126,16 @@ public class ScenicServiceImpl implements ScenicService {
             return voList;
         }
         // 由于距离计算比较耗时, 因此按需决定是否要支持距离
-        boolean flag = sysConfigApi.getBoolean(ConfigConstant.SCENIC_CONTAIN_DISTANCE);
+        boolean containDistance = sysConfigApi.getBoolean(ConfigConstant.SCENIC_CONTAIN_DISTANCE);
         LinkedHashMap<String, Double> hashMap = new LinkedHashMap<>();
-        if (flag && dto.getLongitude() != null && dto.getLatitude() != null) {
+        containDistance = containDistance && dto.getLongitude() != null && dto.getLatitude() != null;
+        if (containDistance) {
             hashMap = geoService.radius(CacheConstant.GEO_SCENIC_DISTANCE, dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue(), 10);
         }
         for (ScenicListVO vo : voList) {
             // 封面图默认取第一张
             vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.SPLIT)[0]);
-            vo.setDistance(flag ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))): null);
+            vo.setDistance(containDistance ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))): null);
         }
         return voList;
     }

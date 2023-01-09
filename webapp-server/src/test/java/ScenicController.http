@@ -1,0 +1,1 @@
+GET http://localhost:9090/webapp/scenic/listPage?page=1&pageSize=10
