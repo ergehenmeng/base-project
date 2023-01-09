@@ -50,6 +50,13 @@ public interface ActivityService {
     Activity selectById(Long id);
 
     /**
+     * 主键查询活动 如果为空则抛异常
+     * @param id 活动id
+     * @return 活动详细信息
+     */
+    Activity selectByIdRequired(Long id);
+
+    /**
      * 删除活动,条件不能全部为空
      * @param request 删除条件
      */

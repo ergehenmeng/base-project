@@ -36,7 +36,7 @@ public class ActivityController {
         @ApiImplicitParam(name = "scenicId", value = "景区id")
     })
     @ApiOperation("查询月活动")
-    public List<ActivityBaseResponse> select(@RequestParam("month") String month,
+    public List<ActivityBaseResponse> month(@RequestParam("month") String month,
                                              @RequestParam(value = "scenicId", required = false) Long scenicId) {
         return activityService.getMonthActivity(month, scenicId);
     }

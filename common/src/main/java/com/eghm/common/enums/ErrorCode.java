@@ -967,6 +967,11 @@ public enum ErrorCode {
     ACTIVITY_TITLE_REDO(3150, "活动名称重复啦~"),
 
     /**
+     * 活动提前结束啦~
+     */
+    ACTIVITY_DELETE(3154, "活动提前结束啦~"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

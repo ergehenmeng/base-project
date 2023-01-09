@@ -1,0 +1,6 @@
+GET http://localhost:9090/webapp/activity/month?month=2023-01
+
+###
+
+GET http://localhost:9090/webapp/activity/detail?id=1612364152573452290
+

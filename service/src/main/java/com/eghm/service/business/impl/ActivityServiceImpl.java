@@ -84,7 +84,8 @@ public class ActivityServiceImpl implements ActivityService {
         LocalDate startDate = LocalDate.parse(month + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate endDate = startDate.plusMonths(1);
         LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Activity::getScenicId, scenicId);
+        wrapper.isNull(scenicId == null, Activity::getScenicId);
+        wrapper.eq(scenicId != null, Activity::getScenicId, scenicId);
         wrapper.ge(Activity::getNowDate, startDate);
         wrapper.lt(Activity::getNowDate, endDate);
         wrapper.last(" order by id desc ");
@@ -104,6 +105,16 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Activity selectById(Long id) {
         return activityMapper.selectById(id);
+    }
+
+    @Override
+    public Activity selectByIdRequired(Long id) {
+        Activity activity = activityMapper.selectById(id);
+        if (activity == null) {
+            log.error("该活动已被删除 [{}]", id);
+            throw new BusinessException(ErrorCode.ACTIVITY_DELETE);
+        }
+        return activity;
     }
 
     @Override
