@@ -109,7 +109,6 @@
             <artifactId>weixin-java-pay</artifactId>
         </dependency>
         <dependency>
-            <!--https://opendocs.alipay.com/open/204/105051-->
             <groupId>com.alipay.sdk</groupId>
             <artifactId>alipay-easysdk</artifactId>
             <exclusions>

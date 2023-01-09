@@ -31,3 +31,5 @@ mybatis-plus:
     - classpath*:mapper/**/*.xml
   type-enums-package: com.eghm.common.enums.ref
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
+system:
+  wrapper-base-package: com.eghm.web.controller

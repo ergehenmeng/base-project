@@ -47,7 +47,7 @@ mybatis-plus:
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
 
 system:
-  base-package: com.eghm.web.controller
+  wrapper-base-package: com.eghm.web.controller
   manage:
     security:
       ignore:

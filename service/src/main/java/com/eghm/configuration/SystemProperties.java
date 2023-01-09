@@ -28,7 +28,7 @@ public class SystemProperties {
     /**
      * 自动针对@ResponseBody进行包装
      */
-    private String basePackage;
+    private String wrapperBasePackage;
 
     /**
      * 上传文件的路径

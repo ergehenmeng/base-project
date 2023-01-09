@@ -31,8 +31,8 @@ public class WrapperRespBodyAdviceHandler implements ResponseBodyAdvice<Object> 
     @Override
     public boolean supports(@NonNull MethodParameter returnType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
         // 只针对部分controller且没有标示SkipWrapper的返回值进行包装
-        return systemProperties.getBasePackage() != null
-                && returnType.getDeclaringClass().getPackage().getName().startsWith(systemProperties.getBasePackage())
+        return systemProperties.getWrapperBasePackage() != null
+                && returnType.getDeclaringClass().getPackage().getName().startsWith(systemProperties.getWrapperBasePackage())
                 && !returnType.hasMethodAnnotation(SkipWrapper.class);
     }
 
