@@ -55,25 +55,17 @@ public class TicketVO {
     @ApiModelProperty(value = "总销量=实际销量+虚拟销量")
     private Integer totalNum;
 
-    @ApiModelProperty(value = "景区介绍")
+    @ApiModelProperty(value = "门票介绍")
     private String introduce;
-
-    @ApiModelProperty(value = "有效期购买之日起")
-    private Integer validDays;
-
-    @ApiModelProperty(value = "生效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate effectDate;
-
-    @ApiModelProperty(value = "失效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate expireDate;
 
     @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
     private Integer useScope;
 
     @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
     private RefundType refundType;
+
+    @ApiModelProperty("退款描述信息")
+    private String refundDescribe;
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;

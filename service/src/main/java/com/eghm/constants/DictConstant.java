@@ -29,4 +29,9 @@ public class DictConstant {
      * 轮播图
      */
     public static final String BANNER_CLASSIFY = "banner_classify";
+
+    /**
+     * 景区标签
+     */
+    public static final String SCENIC_TAG = "scenic_tag";
 }

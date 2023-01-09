@@ -14,6 +14,7 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.constants.DictConstant;
 import com.eghm.mapper.ScenicMapper;
 import com.eghm.model.Scenic;
 import com.eghm.model.dto.business.scenic.ScenicAddRequest;
@@ -29,6 +30,7 @@ import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.sys.GeoService;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -59,6 +61,8 @@ public class ScenicServiceImpl implements ScenicService {
     private final ScenicTicketService scenicTicketService;
 
     private final ActivityService activityService;
+
+    private final SysDictService sysDictService;
 
     @Override
     public Page<Scenic> getByPage(ScenicQueryRequest request) {
@@ -147,18 +151,20 @@ public class ScenicServiceImpl implements ScenicService {
             log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
             throw new BusinessException(ErrorCode.SCENIC_DOWN);
         }
-        ScenicVO vo = DataUtil.copy(scenic, ScenicVO.class);
+        ScenicVO vo = DataUtil.copy(scenic, ScenicVO.class, "tag");
         // 用户未开启定位, 不查询距离
         if (longitude != null && latitude != null) {
             double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(id), longitude, latitude);
             vo.setDistance(BigDecimal.valueOf(distance));
         }
-
+        // 景区地址
         vo.setDetailAddress(sysAreaService.parseArea(scenic.getProvinceId(), scenic.getCityId(), scenic.getCountyId()) + scenic.getDetailAddress());
-
+        // 景区标签
+        vo.setTagList(sysDictService.getTags(DictConstant.SCENIC_TAG, scenic.getTag()));
+        // 景区门票
         List<TicketBaseVO> ticketList = scenicTicketService.getTicketList(id);
         vo.setTicketList(ticketList);
-
+        // 景区关联的活动
         List<ActivityBaseDTO> activityList = activityService.scenicActivityList(id);
         vo.setActivityList(activityList);
 

@@ -4104,3 +4104,4 @@ INSERT INTO `sys_config` VALUES ('50', 'order_expire_time', '订单过期时间'
 INSERT INTO `sys_config` VALUES ('51', 'line_config_max_day', '线路价格批量设置最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-12-27 13:13:18', '2022-12-27 13:13:52');
 INSERT INTO `sys_config` VALUES ('52', 'merchant_pwd', '商户默认密码', 'eghm123456', b'0', NULL, '2022-12-27 14:52:19', '2022-12-27 14:52:19');
 INSERT INTO `sys_config` VALUES ('53', 'line_max_day', '线路可预约的最大天数', '60', b'0', '即可以预约从当前时间到之后60日的线路', '2023-01-05 18:23:59', '2023-01-05 18:23:59');
+INSERT INTO `sys_config` VALUES ('54', 'scenic_activity_limit', '景区关联的活动查询时最大日期', '7', b'0', '7即从今日开始到未来七天景区关联的活动都会显示在该景区内', '2023-01-09 14:50:59', '2023-01-09 14:50:59');

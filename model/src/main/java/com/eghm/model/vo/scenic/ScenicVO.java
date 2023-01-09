@@ -37,7 +37,7 @@ public class ScenicVO {
     private String openTime;
 
     @ApiModelProperty("景区标签")
-    private String tag;
+    private List<String> tagList;
 
     @ApiModelProperty("景区信息描述")
     private String depict;

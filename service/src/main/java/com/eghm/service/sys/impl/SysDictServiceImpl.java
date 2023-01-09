@@ -1,6 +1,7 @@
 package com.eghm.service.sys.impl;
 
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -16,7 +17,9 @@ import com.eghm.model.dto.dict.DictQueryRequest;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +32,7 @@ import java.util.List;
  */
 @Service("sysDictService")
 @AllArgsConstructor
+@Slf4j
 public class SysDictServiceImpl implements SysDictService {
 
     private final SysDictMapper sysDictMapper;
@@ -88,5 +92,26 @@ public class SysDictServiceImpl implements SysDictService {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<String> getTags(String nid, String tagIds) {
+        List<String> tagList = Lists.newArrayListWithCapacity(4);
+        if (StrUtil.isBlank(tagIds)) {
+            log.info("标签id为空,不查询标签字典 [{}]", nid);
+            return tagList;
+        }
+        List<SysDict> dictList = cacheProxyService.getDictByNid(nid);
+        if (CollUtil.isEmpty(dictList)) {
+            log.error("数据字典中未查询到标签信息 [{}]", nid);
+            return tagList;
+        }
+        String[] split = tagIds.split(",");
+        for (String tagId : split) {
+            dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Byte.parseByte(tagId))
+                    .map(SysDict::getShowValue)
+                    .findFirst().ifPresent(tagList::add);
+        }
+        return tagList;
     }
 }

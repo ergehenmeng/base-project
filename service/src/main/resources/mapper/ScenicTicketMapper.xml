@@ -45,14 +45,15 @@
         select
         id,
         title,
+        stock,
         line_price as linePrice,
         sale_price as salePrice
-        from scenic_ticket where deleted = false and audit_state = 2 and stock > 0 and end_date &gt; now()
+        from scenic_ticket where deleted = false and platform_state = 2 and end_date &gt; now()
         and scenic_id = #{scenicId} order by id desc
     </select>
 
     <update id="updateStock" >
         update scenic_ticket set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
-        where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and audit_state = 2
+        where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and platform_state = 2
     </update>
 </mapper>

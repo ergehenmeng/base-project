@@ -29,6 +29,6 @@ public class TicketBaseVO {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer salePrice;
 
-    @ApiModelProperty(value = "剩余库存")
+    @ApiModelProperty(value = "剩余库存0:为售罄")
     private Integer stock;
 }
