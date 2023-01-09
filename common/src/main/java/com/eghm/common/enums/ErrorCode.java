@@ -972,6 +972,11 @@ public enum ErrorCode {
     ACTIVITY_DELETE(3154, "活动提前结束啦~"),
 
     /**
+     * 开启定位后方可按距离排序
+     */
+    POSITION_NO(3158, "开启定位后方可按距离排序"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

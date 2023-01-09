@@ -2,4 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.HomestayMapper">
 
+    <select id="getByPage" resultType="com.eghm.model.vo.business.homestay.HomestayListVO" parameterType="com.eghm.model.dto.business.homestay.HomestayQueryDTO">
+        <if test="sortByDistance">
+
+        </if>
+    </select>
+
+    <sql id="getHomeListSql">
+        select
+        id,
+        title,
+        longitude,
+        latitude,
+        <if test="sortByDistance">
+            st_distance_sphere(point(113.3424590000,41.0497810000),point(116.3424590000,40.0497810000)) as distance,
+        </if>
+        `level`,
+        city_id as cityId,
+        county_id as countyId,
+        detail_address as detailAddress,
+        cover_url as coverUrl,
+        phone,
+        tag
+        from homestay where state = 1 and platform_state = 2 and deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName}, '%')
+        </if>
+        <if test="param.level != null">
+            and `level` = #{param.level}
+        </if>
+    </sql>
 </mapper>

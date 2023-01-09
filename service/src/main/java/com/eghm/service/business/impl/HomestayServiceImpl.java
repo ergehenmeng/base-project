@@ -15,12 +15,16 @@ import com.eghm.model.Homestay;
 import com.eghm.model.ScenicTicket;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
+import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
+import com.eghm.model.vo.business.homestay.HomestayListVO;
 import com.eghm.service.business.HomestayService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -79,6 +83,15 @@ public class HomestayServiceImpl implements HomestayService {
     @Override
     public void deleteById(Long id) {
         homestayMapper.deleteById(id);
+    }
+
+    @Override
+    public List<HomestayListVO> getByPage(HomestayQueryDTO dto) {
+        if (Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null)) {
+            log.info("民宿列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
+            throw new BusinessException(ErrorCode.POSITION_NO);
+        }
+        return null;
     }
 
     /**

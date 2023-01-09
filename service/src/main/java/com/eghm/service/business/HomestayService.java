@@ -6,7 +6,11 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
+import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
+import com.eghm.model.vo.business.homestay.HomestayListVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -51,4 +55,11 @@ public interface HomestayService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 移动端分页查询民宿信息
+     * @param dto 查询跳进
+     * @return 列表
+     */
+    List<HomestayListVO> getByPage(HomestayQueryDTO dto);
 }

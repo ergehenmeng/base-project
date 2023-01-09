@@ -63,9 +63,11 @@ public class Homestay extends BaseEntity implements Serializable {
     private String detailAddress;
 
     @ApiModelProperty(value = "经度")
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal longitude;
 
     @ApiModelProperty(value = "纬度")
+    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "描述信息")
