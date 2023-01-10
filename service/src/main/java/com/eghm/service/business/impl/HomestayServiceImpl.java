@@ -15,11 +15,13 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.model.Homestay;
+import com.eghm.model.SysDict;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.vo.business.homestay.HomestayListVO;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayService;
 import com.eghm.service.sys.SysAreaService;
@@ -44,6 +46,8 @@ import java.util.stream.Collectors;
 public class HomestayServiceImpl implements HomestayService {
 
     private final HomestayMapper homestayMapper;
+
+    private final CommonService commonService;
 
     private final SysDictService sysDictService;
 
@@ -140,9 +144,11 @@ public class HomestayServiceImpl implements HomestayService {
         LocalDate startDate = LocalDate.now();
         // 查询酒店最近一个月(由系统参数配置)的最低价
         Map<Long, Integer> priceMap = homestayRoomConfigService.getHomestayMinPrice(homestayIds, startDate, startDate.plusDays(maxDay));
+        // 查询数据字典,匹配标签列表
+        List<SysDict> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
         // 针对针对标签,位置和最低价进行赋值或解析
         for (HomestayListVO vo : voList) {
-            vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, vo.getTagIds()));
+            vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));
             vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId()) + vo.getDetailAddress());
             vo.setMinPrice(priceMap.getOrDefault(vo.getId(), 0));
         }

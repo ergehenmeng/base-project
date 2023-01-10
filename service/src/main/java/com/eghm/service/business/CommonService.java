@@ -1,7 +1,10 @@
 package com.eghm.service.business;
 
+import com.eghm.model.SysDict;
 import com.eghm.service.business.handler.OrderExpireHandler;
 import com.eghm.service.business.handler.PayNotifyHandler;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -31,4 +34,12 @@ public interface CommonService {
      * @return handler
      */
     OrderExpireHandler getExpireHandler(String orderNo);
+
+    /**
+     * 根据给定的字典列表和标签id进行解析
+     * @param dictList 字典列表
+     * @param tagIds 标签id 逗号分割
+     * @return 标签名称
+     */
+    List<String> parseTags(List<SysDict> dictList, String tagIds);
 }

@@ -1,18 +1,22 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.model.SysDict;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.OrderExpireHandler;
 import com.eghm.service.business.handler.PayNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -42,6 +46,23 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public OrderExpireHandler getExpireHandler(String orderNo) {
         return getHandlerBean(orderNo, OrderExpireHandler.class);
+    }
+
+    @Override
+    public List<String> parseTags(List<SysDict> dictList, String tagIds) {
+        List<String> tagList = Lists.newArrayListWithCapacity(4);
+        if (CollUtil.isEmpty(dictList)) {
+            log.error("数据字典为空,不做解析 [{}]", tagIds);
+            return tagList;
+        }
+
+        String[] split = tagIds.split(",");
+        for (String tagId : split) {
+            dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Byte.parseByte(tagId))
+                    .map(SysDict::getShowValue)
+                    .findFirst().ifPresent(tagList::add);
+        }
+        return tagList;
     }
 
     /**

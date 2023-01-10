@@ -1,7 +1,6 @@
 package com.eghm.service.sys.impl;
 
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -14,6 +13,7 @@ import com.eghm.model.SysDict;
 import com.eghm.model.dto.dict.DictAddRequest;
 import com.eghm.model.dto.dict.DictEditRequest;
 import com.eghm.model.dto.dict.DictQueryRequest;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.DataUtil;
@@ -38,6 +38,8 @@ public class SysDictServiceImpl implements SysDictService {
     private final SysDictMapper sysDictMapper;
 
     private final CacheProxyService cacheProxyService;
+
+    private final CommonService commonService;
 
     @Override
     public List<SysDict> getDictByNid(String nid) {
@@ -96,22 +98,12 @@ public class SysDictServiceImpl implements SysDictService {
 
     @Override
     public List<String> getTags(String nid, String tagIds) {
-        List<String> tagList = Lists.newArrayListWithCapacity(4);
         if (StrUtil.isBlank(tagIds)) {
             log.info("标签id为空,不查询标签字典 [{}]", nid);
-            return tagList;
+            return Lists.newArrayListWithCapacity(4);
         }
-        List<SysDict> dictList = cacheProxyService.getDictByNid(nid);
-        if (CollUtil.isEmpty(dictList)) {
-            log.error("数据字典中未查询到标签信息 [{}]", nid);
-            return tagList;
-        }
-        String[] split = tagIds.split(",");
-        for (String tagId : split) {
-            dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Byte.parseByte(tagId))
-                    .map(SysDict::getShowValue)
-                    .findFirst().ifPresent(tagList::add);
-        }
-        return tagList;
+        List<SysDict> dictList = this.getDictByNid(nid);
+
+        return commonService.parseTags(dictList, tagIds);
     }
 }
