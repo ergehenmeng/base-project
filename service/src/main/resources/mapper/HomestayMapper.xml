@@ -34,7 +34,7 @@
         <if test="param.level != null">
             and `level` = #{param.level}
         </if>
-        order by .id desc
+        order by id desc
     </sql>
     <!--有距离排序-->
     <sql id="getByPageSortDistanceSql">
