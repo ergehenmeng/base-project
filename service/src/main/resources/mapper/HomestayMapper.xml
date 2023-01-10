@@ -20,6 +20,9 @@
         title,
         longitude,
         latitude,
+        <if test="param.longitude != null and param.latitude != null">
+            st_distance_sphere(point(longitude, latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+        </if>
         `level`,
         city_id as cityId,
         county_id as countyId,

@@ -7,14 +7,14 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "roomIds": "1607665031129849858",
-  "startDate": "2022-12-01",
-  "endDate": "2022-12-21",
+  "roomId": "1607665031129849858",
+  "startDate": "2023-01-01",
+  "endDate": "2023-01-31",
   "week": [1,2,3,4,5],
   "state": true,
   "stock": 10,
   "linePrice": 88,
-  "salePrice": 68
+  "salePrice": 38
 }
 
 ###

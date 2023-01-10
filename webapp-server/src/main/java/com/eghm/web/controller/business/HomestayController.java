@@ -1,9 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.Homestay;
 import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
-import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.vo.business.homestay.HomestayListVO;
 import com.eghm.service.business.HomestayService;
 import io.swagger.annotations.Api;
