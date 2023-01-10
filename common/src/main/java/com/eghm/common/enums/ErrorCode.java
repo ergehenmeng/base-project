@@ -959,22 +959,32 @@ public enum ErrorCode {
     /**
      * 优惠券可领取数量上限啦
      */
-    COUPON_GET_MAX(3144, "优惠券可领取数量上限啦~"),
+    COUPON_GET_MAX(3244, "优惠券可领取数量上限啦~"),
 
     /**
      * 活动名称重复啦~
      */
-    ACTIVITY_TITLE_REDO(3150, "活动名称重复啦~"),
+    ACTIVITY_TITLE_REDO(3250, "活动名称重复啦~"),
 
     /**
      * 活动提前结束啦~
      */
-    ACTIVITY_DELETE(3154, "活动提前结束啦~"),
+    ACTIVITY_DELETE(3254, "活动提前结束啦~"),
 
     /**
      * 开启定位后方可按距离排序
      */
-    POSITION_NO(3158, "开启定位后方可按距离排序"),
+    POSITION_NO(3258, "开启定位后方可按距离排序"),
+
+    /**
+     * 该民宿已下架
+     */
+    HOMESTAY_NULL(3263, "该民宿已下架"),
+
+    /**
+     * 该民宿已下架
+     */
+    HOMESTAY_DOWN(3266, "该民宿已下架"),
 
     /**
      * 微信公众号尚未配置

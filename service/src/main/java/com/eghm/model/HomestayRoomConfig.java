@@ -43,13 +43,17 @@ public class HomestayRoomConfig implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long homestayRoomId;
 
+    @ApiModelProperty(value = "民宿id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long homestayId;
+
     @ApiModelProperty("状态 false:不可预定 true:可预定")
     private Boolean state;
 
     @ApiModelProperty(value = "日期")
     private LocalDate configDate;
 
-    @ApiModelProperty(value = "划线机")
+    @ApiModelProperty(value = "划线价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer linePrice;
 

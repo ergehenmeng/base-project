@@ -3,27 +3,30 @@
 <mapper namespace="com.eghm.mapper.HomestayMapper">
 
     <select id="getByPage" resultType="com.eghm.model.vo.business.homestay.HomestayListVO" parameterType="com.eghm.model.dto.business.homestay.HomestayQueryDTO">
-        <if test="sortByDistance">
-
-        </if>
+        <choose>
+            <when test="param.sortByDistance">
+                <include refid="getByPageSortDistanceSql"/>
+            </when>
+            <otherwise>
+                <include refid="getByPageSql"/>
+            </otherwise>
+        </choose>
     </select>
 
-    <sql id="getHomeListSql">
+    <!--无距离排序,不进行子查询-->
+    <sql id="getByPageSql">
         select
         id,
         title,
         longitude,
         latitude,
-        <if test="sortByDistance">
-            st_distance_sphere(point(113.3424590000,41.0497810000),point(116.3424590000,40.0497810000)) as distance,
-        </if>
         `level`,
         city_id as cityId,
         county_id as countyId,
         detail_address as detailAddress,
         cover_url as coverUrl,
         phone,
-        tag
+        tag as tagIds
         from homestay where state = 1 and platform_state = 2 and deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName}, '%')
@@ -31,5 +34,31 @@
         <if test="param.level != null">
             and `level` = #{param.level}
         </if>
+        order by .id desc
+    </sql>
+    <!--有距离排序-->
+    <sql id="getByPageSortDistanceSql">
+        select s.* from ( select
+        id,
+        title,
+        longitude,
+        latitude,
+        st_distance_sphere(point(longitude, latitude),point(#{param.longitude}, #{param.latitude})) as distance,
+        `level`,
+        city_id as cityId,
+        county_id as countyId,
+        detail_address as detailAddress,
+        cover_url as coverUrl,
+        phone,
+        tag as tagIds
+        from homestay where state = 1 and platform_state = 2 and deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName}, '%')
+        </if>
+        <if test="param.level != null">
+            and `level` = #{param.level}
+        </if>
+        ) s
+        order by s.distance, s.id desc
     </sql>
 </mapper>

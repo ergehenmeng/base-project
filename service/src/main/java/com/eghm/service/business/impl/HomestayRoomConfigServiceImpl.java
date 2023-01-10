@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -9,16 +10,19 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.HomestayRoomConfigMapper;
+import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;
-import com.eghm.model.LineConfig;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;
+import com.eghm.model.vo.business.homestay.room.config.HomestayMinPriceVO;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigResponse;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
+import com.eghm.service.business.HomestayRoomService;
 import com.eghm.utils.DataUtil;
+import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +31,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -41,11 +47,16 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     private final CommonService commonService;
 
+    private final HomestayRoomService homestayRoomService;
+
     @Override
     public void setup(RoomConfigRequest request) {
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
 
         commonService.checkMaxDay(ConfigConstant.ROOM_CONFIG_MAX_DAY, between);
+
+        HomestayRoom room = homestayRoomService.selectByIdRequired(request.getRoomId());
+
 
         HomestayRoomConfig config;
         List<Integer> week = request.getWeek();
@@ -57,6 +68,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             // 只有该日期所在周日期在指定范围时,才进行插入或更新操作
             config = new HomestayRoomConfig();
             config.setId(IdWorker.getId());
+            config.setHomestayId(room.getHomestayId());
             config.setConfigDate(localDate);
             config.setHomestayRoomId(request.getRoomId());
             config.setState(request.getState());
@@ -136,6 +148,19 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             log.error("更新房态库存时,存在库存不足 [{}] [{}] [{}]", roomId, stock, size);
             throw new BusinessException(ErrorCode.HOMESTAY_STOCK);
         }
+    }
+
+    @Override
+    public Map<Long, Integer> getHomestayMinPrice(List<Long> homestayList, LocalDate startDate, LocalDate endDate) {
+        if (CollUtil.isEmpty(homestayList)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<HomestayMinPriceVO> priceList = homestayRoomConfigMapper.getHomestayMinPrice(homestayList, startDate, endDate);
+
+        if (CollUtil.isEmpty(priceList)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        return priceList.stream().collect(Collectors.toMap(HomestayMinPriceVO::getHomestayId, HomestayMinPriceVO::getMinPrice, (integer, integer2) -> integer));
     }
 
     /**

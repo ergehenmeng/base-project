@@ -62,6 +62,7 @@ CREATE TABLE `homestay_room_config`
     `id`               bigint(20) NOT NULL COMMENT '主键',
     `state`            bit(1)      DEFAULT b'1' COMMENT '状态 false:不可预定 true:可预定',
     `homestay_room_id` bigint(20)  DEFAULT NULL COMMENT '房型id',
+    `homestay_id`      bigint(20)  DEFAULT NULL COMMENT '民宿id(冗余字段)',
     `config_date`      date        DEFAULT NULL COMMENT '日期',
     `line_price`       int(10)     DEFAULT NULL COMMENT '划线机',
     `sale_price`       int(10)     DEFAULT NULL COMMENT '销售价',

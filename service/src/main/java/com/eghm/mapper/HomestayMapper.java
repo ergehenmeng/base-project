@@ -24,4 +24,5 @@ public interface HomestayMapper extends BaseMapper<Homestay> {
      * @return 列表
      */
     Page<HomestayListVO> getByPage(Page<HomestayListVO> page, @Param("param") HomestayQueryDTO dto);
+
 }

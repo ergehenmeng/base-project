@@ -62,7 +62,7 @@ public class HomestayListVO {
 
     @ApiModelProperty("标签")
     @JsonIgnore
-    private String tag;
+    private String tagIds;
 
     @ApiModelProperty("标签列表")
     private List<String> tagList;

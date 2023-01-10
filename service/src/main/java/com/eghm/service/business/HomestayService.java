@@ -57,6 +57,20 @@ public interface HomestayService {
     void deleteById(Long id);
 
     /**
+     * 主键查询民宿信息, 如果为空,则抛异常
+     * @param id id
+     * @return 民宿信息
+     */
+    Homestay selectByIdRequired(Long id);
+
+    /**
+     * 主键查询民宿(民宿没有上架则报错)
+     * @param id id
+     * @return 民宿信息
+     */
+    Homestay selectByIdShelve(Long id);
+
+    /**
      * 移动端分页查询民宿信息
      * @param dto 查询跳进
      * @return 列表

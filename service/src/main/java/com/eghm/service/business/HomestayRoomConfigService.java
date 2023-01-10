@@ -9,6 +9,7 @@ import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -67,4 +68,13 @@ public interface HomestayRoomConfigService {
      * @param num 正数+库存,负数-库存
      */
     void updateStock(Long roomId, LocalDate startDate, LocalDate endDate, Integer num);
+
+    /**
+     * 计算未来一段时间内民宿的最低价(开始时间~截止时间)
+     * @param homestayList 民宿id列表
+     * @param startDate  开始时间
+     * @param endDate  截止时间
+     * @return 最低价
+     */
+    Map<Long, Integer> getHomestayMinPrice(List<Long> homestayList, LocalDate startDate, LocalDate endDate);
 }

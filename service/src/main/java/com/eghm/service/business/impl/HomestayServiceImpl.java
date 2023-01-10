@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -10,21 +11,29 @@ import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.ConfigConstant;
+import com.eghm.constants.DictConstant;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.model.Homestay;
-import com.eghm.model.ScenicTicket;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.vo.business.homestay.HomestayListVO;
+import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayService;
+import com.eghm.service.sys.SysAreaService;
+import com.eghm.service.sys.SysDictService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -35,6 +44,14 @@ import java.util.List;
 public class HomestayServiceImpl implements HomestayService {
 
     private final HomestayMapper homestayMapper;
+
+    private final SysDictService sysDictService;
+
+    private final SysAreaService sysAreaService;
+
+    private final SysConfigApi sysConfigApi;
+
+    private final HomestayRoomConfigService homestayRoomConfigService;
 
     @Override
     public Page<Homestay> getByPage(HomestayQueryRequest request) {
@@ -86,12 +103,50 @@ public class HomestayServiceImpl implements HomestayService {
     }
 
     @Override
+    public Homestay selectByIdRequired(Long id) {
+        Homestay homestay = homestayMapper.selectById(id);
+        if (homestay == null) {
+            log.error("民宿未查询到, 可能已被删除 [{}]", id);
+            throw new BusinessException(ErrorCode.HOMESTAY_NULL);
+        }
+        return homestay;
+    }
+
+    @Override
+    public Homestay selectByIdShelve(Long id) {
+        Homestay homestay = this.selectByIdRequired(id);
+        if (homestay.getPlatformState() != PlatformState.SHELVE) {
+            log.error("该民宿已下架 [{}]", id);
+            throw new BusinessException(ErrorCode.HOMESTAY_DOWN);
+        }
+        return homestay;
+    }
+
+    @Override
     public List<HomestayListVO> getByPage(HomestayQueryDTO dto) {
         if (Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null)) {
             log.info("民宿列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
             throw new BusinessException(ErrorCode.POSITION_NO);
         }
-        return null;
+        // 分页查询
+        Page<HomestayListVO> page = homestayMapper.getByPage(dto.createPage(false), dto);
+
+        List<HomestayListVO> voList = page.getRecords();
+        if (CollUtil.isEmpty(voList)) {
+            return voList;
+        }
+        List<Long> homestayIds = voList.stream().map(HomestayListVO::getId).collect(Collectors.toList());
+        int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_PRICE_MAX_DAY, 30);
+        LocalDate startDate = LocalDate.now();
+        // 查询酒店最近一个月(由系统参数配置)的最低价
+        Map<Long, Integer> priceMap = homestayRoomConfigService.getHomestayMinPrice(homestayIds, startDate, startDate.plusDays(maxDay));
+        // 针对针对标签,位置和最低价进行赋值或解析
+        for (HomestayListVO vo : voList) {
+            vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, vo.getTagIds()));
+            vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId()) + vo.getDetailAddress());
+            vo.setMinPrice(priceMap.getOrDefault(vo.getId(), 0));
+        }
+        return voList;
     }
 
     /**
