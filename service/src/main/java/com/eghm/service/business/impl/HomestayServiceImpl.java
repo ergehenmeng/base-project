@@ -140,7 +140,7 @@ public class HomestayServiceImpl implements HomestayService {
             return voList;
         }
         List<Long> homestayIds = voList.stream().map(HomestayListVO::getId).collect(Collectors.toList());
-        int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_PRICE_MAX_DAY, 30);
+        int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_MAX_RESERVE_DAY, 30);
         LocalDate startDate = LocalDate.now();
         // 查询酒店最近一个月(由系统参数配置)的最低价
         Map<Long, Integer> priceMap = homestayRoomConfigService.getHomestayMinPrice(homestayIds, startDate, startDate.plusDays(maxDay));

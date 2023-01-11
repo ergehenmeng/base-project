@@ -175,7 +175,7 @@ public class ConfigConstant {
     public static final String LINE_MAX_DAY = "line_max_day";
 
     /**
-     * 民宿最低价查询的时间维度
+     * 民宿最大预定时间维度
      */
-    public static final String HOMESTAY_PRICE_MAX_DAY = "homestay_price_max_day";
+    public static final String HOMESTAY_MAX_RESERVE_DAY = "homestay_max_reserve_day";
 }
