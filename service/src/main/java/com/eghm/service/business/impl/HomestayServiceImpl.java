@@ -21,8 +21,10 @@ import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.vo.business.homestay.HomestayListVO;
+import com.eghm.model.vo.business.homestay.HomestayVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
+import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.business.HomestayService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
@@ -56,6 +58,8 @@ public class HomestayServiceImpl implements HomestayService {
     private final SysConfigApi sysConfigApi;
 
     private final HomestayRoomConfigService homestayRoomConfigService;
+
+    private final HomestayRoomService homestayRoomService;
 
     @Override
     public Page<Homestay> getByPage(HomestayQueryRequest request) {
@@ -153,6 +157,16 @@ public class HomestayServiceImpl implements HomestayService {
             vo.setMinPrice(priceMap.getOrDefault(vo.getId(), 0));
         }
         return voList;
+    }
+
+    @Override
+    public HomestayVO detailById(Long homestayId) {
+        Homestay homestay = this.selectByIdShelve(homestayId);
+        HomestayVO vo = DataUtil.copy(homestay, HomestayVO.class);
+        vo.setDetailAddress(sysAreaService.parseArea(homestay.getCityId(), homestay.getCountyId()) + homestay.getDetailAddress());
+        vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, homestay.getTag()));
+        vo.setRecommendRoomList(homestayRoomService.getRecommendRoom(homestayId));
+        return vo;
     }
 
     /**
