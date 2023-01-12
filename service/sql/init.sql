@@ -4106,3 +4106,4 @@ INSERT INTO `sys_config` VALUES ('52', 'merchant_pwd', '商户默认密码', 'eg
 INSERT INTO `sys_config` VALUES ('53', 'line_max_day', '线路可预约的最大天数', '60', b'0', '即可以预约从当前时间到之后60日的线路', '2023-01-05 18:23:59', '2023-01-05 18:23:59');
 INSERT INTO `sys_config` VALUES ('54', 'scenic_activity_limit', '景区关联的活动查询时最大日期', '7', b'0', '7即从今日开始到未来七天景区关联的活动都会显示在该景区内', '2023-01-09 14:50:59', '2023-01-09 14:50:59');
 INSERT INTO `sys_config` VALUES ('55', 'homestay_max_reserve_day', '民宿最低价查询的时间维度', '30', b'0', '30即从今日开始到未来30天内民宿房型的最低价', '2023-01-10 16:23:51', '2023-01-11 10:07:15');
+INSERT INTO `sys_config` VALUES ('56', 'homestay_room_max_recommend', '民宿房型最大推荐数量', '6', b'0', '6 默认推荐6间房型', '2023-01-12 11:35:02', '2023-01-12 11:35:02');
