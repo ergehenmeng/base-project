@@ -74,7 +74,14 @@ public interface HomestayRoomConfigService {
      * @param homestayList 民宿id列表
      * @param startDate  开始时间
      * @param endDate  截止时间
-     * @return 最低价
+     * @return 最低价 key:民宿id value:价格  单位:分
      */
     Map<Long, Integer> getHomestayMinPrice(List<Long> homestayList, LocalDate startDate, LocalDate endDate);
+
+    /**
+     * 查询房型最低价(一段时间内的最低价)
+     * @param roomId 房型id
+     * @return 最低价 单位:分
+     */
+    Integer getRoomMinPrice(Long roomId);
 }

@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -90,8 +91,10 @@ public class Scenic extends BaseEntity implements Serializable {
     private String introduce;
 
     @ApiModelProperty(value = "最低票价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer minPrice;
 
     @ApiModelProperty("最高票价")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer maxPrice;
 }

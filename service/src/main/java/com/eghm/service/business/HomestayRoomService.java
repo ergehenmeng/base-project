@@ -10,6 +10,7 @@ import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomResponse;
+import com.eghm.model.vo.business.homestay.room.HomestayRoomVO;
 
 import java.util.List;
 
@@ -91,4 +92,11 @@ public interface HomestayRoomService {
      * @return 房型列表
      */
     List<HomestayRoomListVO> getRecommendRoom(Long homestayId);
+
+    /**
+     * 查询房型详细信息
+     * @param roomId 房型id
+     * @return 详细信息
+     */
+    HomestayRoomVO detailById(Long roomId);
 }

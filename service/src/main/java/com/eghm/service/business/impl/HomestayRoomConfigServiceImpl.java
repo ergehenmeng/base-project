@@ -10,7 +10,6 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.common.utils.DateUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.HomestayRoomConfigMapper;
-import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigEditRequest;
 import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
@@ -20,7 +19,7 @@ import com.eghm.model.vo.business.homestay.room.config.RoomConfigResponse;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
-import com.eghm.service.business.HomestayRoomService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
@@ -47,16 +46,12 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
 
     private final CommonService commonService;
 
-    private final HomestayRoomService homestayRoomService;
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public void setup(RoomConfigRequest request) {
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
-
         commonService.checkMaxDay(ConfigConstant.ROOM_CONFIG_MAX_DAY, between);
-
-        HomestayRoom room = homestayRoomService.selectByIdRequired(request.getRoomId());
-
 
         HomestayRoomConfig config;
         List<Integer> week = request.getWeek();
@@ -68,7 +63,7 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             // 只有该日期所在周日期在指定范围时,才进行插入或更新操作
             config = new HomestayRoomConfig();
             config.setId(IdWorker.getId());
-            config.setHomestayId(room.getHomestayId());
+            config.setHomestayId(request.getHomestayId());
             config.setConfigDate(localDate);
             config.setHomestayRoomId(request.getRoomId());
             config.setState(request.getState());
@@ -161,6 +156,14 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
             return Maps.newLinkedHashMapWithExpectedSize(4);
         }
         return priceList.stream().collect(Collectors.toMap(HomestayMinPriceVO::getHomestayId, HomestayMinPriceVO::getMinPrice, (integer, integer2) -> integer));
+    }
+
+    @Override
+    public Integer getRoomMinPrice(Long roomId) {
+        int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_MAX_RESERVE_DAY, 30);
+        LocalDate start = LocalDate.now();
+        Integer minPrice = homestayRoomConfigMapper.getRoomMinPrice(roomId, start, start.plusDays(maxDay));
+        return minPrice == null ? 0 : minPrice;
     }
 
     /**

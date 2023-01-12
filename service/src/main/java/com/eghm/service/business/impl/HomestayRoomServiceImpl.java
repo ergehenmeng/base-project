@@ -17,6 +17,8 @@ import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomResponse;
+import com.eghm.model.vo.business.homestay.room.HomestayRoomVO;
+import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
@@ -37,6 +39,8 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     private final HomestayRoomMapper homestayRoomMapper;
 
     private final SysConfigApi sysConfigApi;
+
+    private final HomestayRoomConfigService homestayRoomConfigService;
 
     @Override
     public Page<HomestayRoomResponse> getByPage(HomestayRoomQueryRequest request) {
@@ -113,6 +117,14 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     public List<HomestayRoomListVO> getRecommendRoom(Long homestayId) {
         int maxRecommend = sysConfigApi.getInt(ConfigConstant.HOMESTAY_ROOM_MAX_RECOMMEND, 6);
         return homestayRoomMapper.getRecommendRoom(homestayId, maxRecommend);
+    }
+
+    @Override
+    public HomestayRoomVO detailById(Long roomId) {
+        HomestayRoom room = this.selectByIdShelve(roomId);
+        HomestayRoomVO vo = DataUtil.copy(room, HomestayRoomVO.class);
+        vo.setMinPrice(homestayRoomConfigService.getRoomMinPrice(roomId));
+        return vo;
     }
 
     /**
