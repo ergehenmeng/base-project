@@ -6,8 +6,12 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.model.HomestayRoom;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomEditRequest;
+import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest;
+import com.eghm.model.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomResponse;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -73,4 +77,18 @@ public interface HomestayRoomService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 分页查询酒店房型列表
+     * @param dto 分页信息
+     * @return 房型列表
+     */
+    List<HomestayRoomListVO> listPage(HomestayRoomQueryDTO dto);
+
+    /**
+     * 查询民宿推荐房型, 注意如果没有推荐房型,默认查询最新上架房型
+     * @param homestayId 民宿id
+     * @return 房型列表
+     */
+    List<HomestayRoomListVO> getRecommendRoom(Long homestayId);
 }

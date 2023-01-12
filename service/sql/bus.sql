@@ -37,6 +37,7 @@ CREATE TABLE `homestay_room`
     `homestay_id`     bigint(20)    DEFAULT NULL COMMENT '民宿id',
     `state`           tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
     `platform_state`  tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐房型 1:是 0:不是',
     `room`            tinyint(1)    DEFAULT '1' COMMENT '几室',
     `hall`            tinyint(1)    DEFAULT '0' COMMENT '几厅',
     `kitchen`         tinyint(1)    DEFAULT '0' COMMENT '几厨',

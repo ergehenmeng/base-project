@@ -8,17 +8,23 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.HomestayRoomMapper;
 import com.eghm.model.HomestayRoom;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomEditRequest;
+import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest;
+import com.eghm.model.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomResponse;
 import com.eghm.service.business.HomestayRoomService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -29,6 +35,8 @@ import org.springframework.stereotype.Service;
 public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     private final HomestayRoomMapper homestayRoomMapper;
+
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public Page<HomestayRoomResponse> getByPage(HomestayRoomQueryRequest request) {
@@ -93,6 +101,18 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     @Override
     public void deleteById(Long id) {
         homestayRoomMapper.deleteById(id);
+    }
+
+    @Override
+    public List<HomestayRoomListVO> listPage(HomestayRoomQueryDTO dto) {
+        Page<HomestayRoomListVO> voPage = homestayRoomMapper.getByPage(dto.createPage(false), dto);
+        return voPage.getRecords();
+    }
+
+    @Override
+    public List<HomestayRoomListVO> getRecommendRoom(Long homestayId) {
+        int maxRecommend = sysConfigApi.getInt(ConfigConstant.HOMESTAY_ROOM_MAX_RECOMMEND, 6);
+        return homestayRoomMapper.getRecommendRoom(homestayId, maxRecommend);
     }
 
     /**

@@ -178,4 +178,9 @@ public class ConfigConstant {
      * 民宿最大预定时间维度
      */
     public static final String HOMESTAY_MAX_RESERVE_DAY = "homestay_max_reserve_day";
+
+    /**
+     * 房型最大推荐数量
+     */
+    public static final String HOMESTAY_ROOM_MAX_RECOMMEND = "homestay_room_max_recommend";
 }

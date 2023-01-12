@@ -31,4 +31,42 @@
             and t.refund_type = #{request.refundType}
         </if>
     </select>
+
+    <select id="getByPage" resultType="com.eghm.model.vo.business.homestay.room.HomestayRoomListVO"
+            parameterType="com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO">
+        select
+        id,
+        title,
+        cover_url as coverUrl,
+        room_type as roomType
+        from homestay_room
+        where state = 1 and platform_state = 2 and deleted = false and homestay_id = #{param.homestayId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName}, '%')
+        </if>
+        <if test="param.roomType != null">
+            and room_type = #{param.roomType}
+        </if>
+        <if test="param.room != null">
+            and room = #{param.room}
+        </if>
+        <if test="hasKitchen != null and hasKitchen">
+            and kitchen &gt; 0
+        </if>
+        <if test="resident != null">
+            and resident &gt;= #{resident}
+        </if>
+    </select>
+
+    <select id="getRecommendRoom" resultType="com.eghm.model.vo.business.homestay.room.HomestayRoomListVO">
+        select
+            id,
+            title,
+            cover_url as coverUrl,
+            room_type as roomType
+        from homestay_room
+        where state = 1 and platform_state = 2 and deleted = false and homestay_id = #{homestayId}
+        order by recommend desc, id limit #{limit}
+    </select>
+
 </mapper>
