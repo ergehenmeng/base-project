@@ -36,14 +36,6 @@ public interface HomestayRoomConfigService {
     void update(RoomConfigEditRequest request);
 
     /**
-     * 查询某个房型当月的价格信息
-     * @param month  月份
-     * @param roomId 房型id
-     * @return 价格列表
-     */
-    List<RoomConfigVO> getList(LocalDate month, Long roomId);
-
-    /**
      * 获取房间某一天的价格配置信息
      * @param roomId 房间id
      * @param configDate 日期
@@ -84,4 +76,11 @@ public interface HomestayRoomConfigService {
      * @return 最低价 单位:分
      */
     Integer getRoomMinPrice(Long roomId);
+
+    /**
+     * 查询某个房型当月的价格信息
+     * @param roomId 房型id
+     * @return 价格列表
+     */
+    List<RoomConfigVO> getList(Long roomId);
 }

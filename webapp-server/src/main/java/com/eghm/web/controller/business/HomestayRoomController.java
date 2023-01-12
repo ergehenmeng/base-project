@@ -1,10 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.HomestayRoom;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.model.vo.business.homestay.room.HomestayRoomVO;
+import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
+import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +28,8 @@ public class HomestayRoomController {
 
     private final HomestayRoomService homestayRoomService;
 
+    private final HomestayRoomConfigService homestayRoomConfigService;
+
     @GetMapping("/listPage")
     @ApiOperation("房型列表")
     public List<HomestayRoomListVO> listPage(HomestayRoomQueryDTO request) {
@@ -39,4 +42,9 @@ public class HomestayRoomController {
         return homestayRoomService.detailById(dto.getId());
     }
 
+    @GetMapping("/priceList")
+    @ApiOperation("房型价格")
+    public List<RoomConfigVO> priceList(@Validated IdDTO dto) {
+        return homestayRoomConfigService.getList(dto.getId());
+    }
 }

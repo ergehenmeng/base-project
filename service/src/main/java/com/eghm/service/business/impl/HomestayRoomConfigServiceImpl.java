@@ -21,6 +21,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -97,26 +97,6 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
     }
 
     @Override
-    public List<RoomConfigVO> getList(LocalDate month, Long roomId) {
-        List<HomestayRoomConfig> configList = this.getMonthConfig(month, roomId);
-        int monthDay = month.lengthOfMonth();
-        List<RoomConfigVO> voList = new ArrayList<>(45);
-        // 月初到月末进行拼装
-        for (int i = 0; i < monthDay; i++) {
-            LocalDate localDate = month.plusDays(i);
-            Optional<HomestayRoomConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();
-            if (optional.isPresent()) {
-                RoomConfigVO vo = DataUtil.copy(optional.get(), RoomConfigVO.class);
-                vo.setState(vo.getState() && vo.getStock() > 0);
-                voList.add(vo);
-            } else {
-                voList.add(new RoomConfigVO(false, localDate));
-            }
-        }
-        return voList;
-    }
-
-    @Override
     public HomestayRoomConfig getConfig(Long roomId, LocalDate configDate) {
         LambdaQueryWrapper<HomestayRoomConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(HomestayRoomConfig::getHomestayRoomId, roomId);
@@ -164,6 +144,28 @@ public class HomestayRoomConfigServiceImpl implements HomestayRoomConfigService 
         LocalDate start = LocalDate.now();
         Integer minPrice = homestayRoomConfigMapper.getRoomMinPrice(roomId, start, start.plusDays(maxDay));
         return minPrice == null ? 0 : minPrice;
+    }
+
+    @Override
+    public List<RoomConfigVO> getList(Long roomId) {
+        int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_MAX_RESERVE_DAY, 30);
+        LocalDate start = LocalDate.now();
+        List<HomestayRoomConfig> configList = this.getList(roomId, start, start.plusDays(maxDay));
+
+        List<RoomConfigVO> voList = Lists.newArrayListWithExpectedSize(maxDay);
+
+        for (int i = 0; i < maxDay; i++) {
+            LocalDate localDate = start.plusDays(i);
+            Optional<HomestayRoomConfig> optional = configList.stream().filter(config -> config.getConfigDate().isEqual(localDate)).findFirst();
+            if (optional.isPresent()) {
+                RoomConfigVO vo = DataUtil.copy(optional.get(), RoomConfigVO.class);
+                vo.setState(vo.getState() && vo.getStock() > 0);
+                voList.add(vo);
+            } else {
+                voList.add(new RoomConfigVO(false, localDate));
+            }
+        }
+        return voList;
     }
 
     /**
