@@ -101,4 +101,11 @@ public class ProductController {
         productService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
         return RespBody.success();
     }
+
+    @PostMapping("/recommend")
+    @ApiOperation("设置推荐商品")
+    public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
+        productService.setRecommend(dto.getId());
+        return RespBody.success();
+    }
 }

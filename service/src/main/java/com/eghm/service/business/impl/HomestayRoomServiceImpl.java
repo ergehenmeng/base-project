@@ -108,6 +108,14 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     }
 
     @Override
+    public void setRecommend(Long id) {
+        LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(HomestayRoom::getId, id);
+        wrapper.set(HomestayRoom::getRecommend, true);
+        homestayRoomMapper.update(null, wrapper);
+    }
+
+    @Override
     public List<HomestayRoomListVO> listPage(HomestayRoomQueryDTO dto) {
         Page<HomestayRoomListVO> voPage = homestayRoomMapper.getByPage(dto.createPage(false), dto);
         return voPage.getRecords();

@@ -8,6 +8,7 @@ import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
+import com.eghm.model.vo.business.product.ProductListVO;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,12 @@ public interface ProductService {
     void updateAuditState(Long id, PlatformState state);
 
     /**
+     * 设置商品为推荐商品
+     * @param id 商品id
+     */
+    void setRecommend(Long id);
+
+    /**
      * 根据id查询商品
      * @param ids 商品id
      * @return 商品信息 key为商品id
@@ -91,4 +98,13 @@ public interface ProductService {
      * @param orderNoList 订单号
      */
     void updateSaleNum(List<String> orderNoList);
+
+    /**
+     * 查询店铺下首页推荐的商品, 注意:
+     * 1. 如果推荐商品本身没有规格,则不会优先展示
+     * 2. 如果没有推荐默认以最新且上架的商品进行展示
+     * @param shopId 店铺id
+     * @return 推荐商品
+     */
+    List<ProductListVO> getRecommendProduct(Long shopId);
 }

@@ -15,6 +15,8 @@ import com.eghm.model.ProductShop;
 import com.eghm.model.dto.business.product.shop.ProductShopAddRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopEditRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopQueryRequest;
+import com.eghm.model.vo.business.product.shop.ProductShopHomeVO;
+import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductShopService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,8 @@ import org.springframework.stereotype.Service;
 public class ProductShopServiceImpl implements ProductShopService {
 
     private final ProductShopMapper productShopMapper;
+
+    private final ProductService productService;
 
     @Override
     public Page<ProductShop> getByPage(ProductShopQueryRequest request) {
@@ -62,6 +66,21 @@ public class ProductShopServiceImpl implements ProductShopService {
     }
 
     @Override
+    public ProductShop selectByIdShelve(Long id) {
+        ProductShop shop = productShopMapper.selectById(id);
+        if (shop == null) {
+            log.error("零售店铺未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.SHOP_DOWN);
+        }
+
+        if (shop.getPlatformState() != PlatformState.SHELVE) {
+            log.error("零售店铺已下架 [{}]", id);
+            throw new BusinessException(ErrorCode.SHOP_DOWN);
+        }
+        return shop;
+    }
+
+    @Override
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<ProductShop> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ProductShop::getId, id);
@@ -75,6 +94,14 @@ public class ProductShopServiceImpl implements ProductShopService {
         wrapper.eq(ProductShop::getId, id);
         wrapper.set(ProductShop::getPlatformState, state);
         productShopMapper.update(null, wrapper);
+    }
+
+    @Override
+    public ProductShopHomeVO homeDetail(Long id) {
+        ProductShop shop = this.selectByIdShelve(id);
+        ProductShopHomeVO vo = DataUtil.copy(shop, ProductShopHomeVO.class);
+        vo.setProductList(productService.getRecommendProduct(id));
+        return vo;
     }
 
     /**

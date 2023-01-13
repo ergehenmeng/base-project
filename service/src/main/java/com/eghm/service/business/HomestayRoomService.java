@@ -80,6 +80,12 @@ public interface HomestayRoomService {
     void deleteById(Long id);
 
     /**
+     * 设置房型为推荐房型
+     * @param id 房型id
+     */
+    void setRecommend(Long id);
+
+    /**
      * 分页查询酒店房型列表
      * @param dto 分页信息
      * @return 房型列表

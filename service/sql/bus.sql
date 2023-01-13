@@ -264,8 +264,9 @@ CREATE TABLE `product`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属特产店',
-    `state`           tinyint(1)    DEFAULT '0' COMMENT '商品状态 0:待上架 1:待审核 2:已上架',
+    `state`           tinyint(1)    DEFAULT '0' COMMENT '商品状态 0:待上架 1:已上架',
     `platform_state`  tinyint(1)    DEFAULT NULL COMMENT '平台状态 0:初始 1:待审核 2:已上架',
+    `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐商品 true:是 false:否',
     `title`           varchar(30)   DEFAULT NULL COMMENT '商品名称',
     `depict`          varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',

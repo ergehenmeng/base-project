@@ -987,6 +987,11 @@ public enum ErrorCode {
     HOMESTAY_DOWN(3266, "该民宿已下架"),
 
     /**
+     * 该店铺已下架
+     */
+    SHOP_DOWN(3270, "该店铺已下架"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

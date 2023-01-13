@@ -46,4 +46,16 @@
         </if>
         order by t.id desc
     </select>
+
+    <select id="getRecommendProduct" resultType="com.eghm.model.vo.business.product.ProductListVO">
+        select
+            id,
+            title,
+            sale_num as saleNum,
+            max_price as maxPrice
+        from product where deleted = false and state = 1 and platform_state = 2 and store_id = #{shopId}
+        order by min_price &gt; 0,  recommend desc, id limit #{limit}
+    </select>
+
+
 </mapper>

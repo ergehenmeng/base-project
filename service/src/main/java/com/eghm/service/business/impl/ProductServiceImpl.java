@@ -9,6 +9,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ProductMapper;
 import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
@@ -16,14 +17,19 @@ import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
+import com.eghm.model.vo.business.product.ProductListVO;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductSkuService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.OptionalInt;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -41,6 +47,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     private final ProductSkuService productSkuService;
+
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public Page<ProductListResponse> getByPage(ProductQueryRequest request) {
@@ -104,6 +112,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void setRecommend(Long id) {
+        LambdaUpdateWrapper<Product> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Product::getId, id);
+        wrapper.set(Product::getRecommend, true);
+        productMapper.update(null, wrapper);
+    }
+
+    @Override
     public Map<Long, Product> getByIds(Set<Long> ids) {
         LambdaUpdateWrapper<Product> wrapper = Wrappers.lambdaUpdate();
         wrapper.in(Product::getId, ids);
@@ -131,6 +147,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateSaleNum(List<String> orderNoList) {
         orderNoList.forEach(productMapper::updateSaleNumByOrderNo);
+    }
+
+    @Override
+    public List<ProductListVO> getRecommendProduct(Long shopId) {
+        int max = sysConfigApi.getInt(ConfigConstant.PRODUCT_MAX_RECOMMEND, 10);
+        return productMapper.getRecommendProduct(shopId, max);
     }
 
     /**

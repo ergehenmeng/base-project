@@ -3618,7 +3618,7 @@ INSERT INTO `sys_menu` VALUES ('101116', '任务日志', 'odU', '1011', NULL, NU
 INSERT INTO `sys_menu` VALUES ('101117', '推送模板', 'gdU', '1011', NULL, NULL, '1', '30', b'1', '', '2019-11-27 01:53:11', '2022-11-08 20:19:04');
 INSERT INTO `sys_menu` VALUES ('101118', '意见反馈', 'HdU', '1011', NULL, NULL, '1', '40', b'1', NULL, '2022-12-13 19:45:29', '2022-12-13 19:45:29');
 INSERT INTO `sys_menu` VALUES ('101119', '优惠券配置', 'PdU', '1011', NULL, NULL, '1', '50', b'1', NULL, '2022-12-13 19:51:19', '2022-12-13 19:51:19');
-INSERT INTO `sys_menu` VALUES ('101120', '商品管理', 'FdU', '1011', NULL, NULL, '1', '60', b'1', NULL, '2022-12-14 11:31:13', '2022-12-14 11:31:54');
+INSERT INTO `sys_menu` VALUES ('101120', '零售商品', 'FdU', '1011', NULL, NULL, '1', '60', b'1', NULL, '2022-12-14 11:31:13', '2022-12-14 11:31:54');
 INSERT INTO `sys_menu` VALUES ('101121', '商户管理', 'hdU', '1011', NULL, NULL, '1', '70', b'1', NULL, '2022-12-14 11:47:03', '2022-12-14 11:47:03');
 INSERT INTO `sys_menu` VALUES ('101122', '店铺管理', 'f5U', '1011', NULL, NULL, '1', '80', b'1', NULL, '2022-12-14 18:45:35', '2022-12-14 18:45:35');
 INSERT INTO `sys_menu` VALUES ('101123', '民宿房型', 'I5U', '1011', NULL, NULL, '1', '100', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 15:21:20');
@@ -3790,6 +3790,8 @@ INSERT INTO `sys_menu` VALUES ('10121314', '下架', 'fI2t', '101213', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121315', '审核', 'II2t', '101213', NULL, '/manage/homestay/platformAudit', '2', '60', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121316', '强制下架', 'nI2t', '101213', NULL, '/manage/homestay/platformUnShelves', '2', '70', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121317', '删除', '0I2t', '101213', NULL, '/manage/homestay/delete', '2', '80', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
+INSERT INTO `sys_menu` VALUES ('10112321', '推荐房型', 'PcUt', '101123', NULL, '/manage/homestay/room/commend', '2', '120', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_menu` VALUES ('10112018', '推荐商品', '6gUt', '101120', NULL, '/manage/product/recommend', '2', '90', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
 
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');

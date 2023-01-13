@@ -26,7 +26,7 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("product")
-@ApiModel(value="Product对象", description="商品信息")
+@ApiModel(value = "Product对象", description = "商品信息")
 public class Product extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,6 +40,9 @@ public class Product extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
     private PlatformState platformState;
+
+    @ApiModelProperty("是否为推荐商品 true:是 false:否")
+    private Boolean recommend;
 
     @ApiModelProperty(value = "商品名称")
     private String title;
@@ -61,7 +64,7 @@ public class Product extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
-    
+
     @ApiModelProperty("退款描述信息")
     private String refundDescribe;
 

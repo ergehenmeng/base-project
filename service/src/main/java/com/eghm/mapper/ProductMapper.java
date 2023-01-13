@@ -5,7 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
+import com.eghm.model.vo.business.product.ProductListVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,4 +40,12 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @return 商品列表
      */
     Page<ProductListResponse> listPage(Page<ProductListResponse> page, @Param("param")ProductQueryRequest request);
+
+    /**
+     * 查询店铺下推荐的商品列表, 不含下架的商品
+     * @param shopId 店铺id
+     * @param limit 查询多少条
+     * @return 商品列表
+     */
+    List<ProductListVO> getRecommendProduct(Long shopId, Integer limit);
 }

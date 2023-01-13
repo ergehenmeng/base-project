@@ -183,4 +183,9 @@ public class ConfigConstant {
      * 房型最大推荐数量
      */
     public static final String HOMESTAY_ROOM_MAX_RECOMMEND = "homestay_room_max_recommend";
+
+    /**
+     * 商品最大推荐数量
+     */
+    public static final String PRODUCT_MAX_RECOMMEND = "product_max_recommend";
 }

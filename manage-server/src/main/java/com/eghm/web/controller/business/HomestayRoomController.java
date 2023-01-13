@@ -92,4 +92,11 @@ public class HomestayRoomController {
         homestayRoomService.deleteById(dto.getId());
         return RespBody.success();
     }
+
+    @PostMapping("/recommend")
+    @ApiOperation("设置推荐房型")
+    public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
+        homestayRoomService.setRecommend(dto.getId());
+        return RespBody.success();
+    }
 }
