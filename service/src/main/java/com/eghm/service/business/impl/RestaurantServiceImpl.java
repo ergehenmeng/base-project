@@ -14,12 +14,18 @@ import com.eghm.mapper.RestaurantMapper;
 import com.eghm.model.Restaurant;
 import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
+import com.eghm.model.vo.business.restaurant.RestaurantListVO;
+import com.eghm.model.vo.business.restaurant.RestaurantVO;
 import com.eghm.service.business.RestaurantService;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -31,6 +37,8 @@ import org.springframework.stereotype.Service;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantMapper restaurantMapper;
+
+    private final SysAreaService sysAreaService;
 
     @Override
     public Page<Restaurant> getByPage(RestaurantQueryRequest request) {
@@ -79,6 +87,33 @@ public class RestaurantServiceImpl implements RestaurantService {
             throw new BusinessException(ErrorCode.RESTAURANT_NOT_FOUND);
         }
         return restaurant;
+    }
+
+    @Override
+    public Restaurant selectByIdShelve(Long id) {
+        Restaurant restaurant = this.selectByIdRequired(id);
+        if (restaurant.getPlatformState() != PlatformState.SHELVE) {
+            log.info("餐饮商家信息已下架 [{}] [{}]", id, restaurant.getPlatformState());
+            throw new BusinessException(ErrorCode.RESTAURANT_DOWN);
+        }
+        return restaurant;
+    }
+
+    @Override
+    public List<RestaurantListVO> getByPage(RestaurantQueryDTO dto) {
+        if (Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null)) {
+            log.info("餐饮列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
+            throw new BusinessException(ErrorCode.POSITION_NO);
+        }
+        return restaurantMapper.getByPage(dto.createPage(false), dto).getRecords();
+    }
+
+    @Override
+    public RestaurantVO detailById(Long id) {
+        Restaurant restaurant = this.selectByIdShelve(id);
+        RestaurantVO vo = DataUtil.copy(restaurant, RestaurantVO.class);
+        vo.setDetailAddress(sysAreaService.parseArea(restaurant.getCityId(), restaurant.getCountyId()) + restaurant.getDetailAddress());
+        return vo;
     }
 
     /**

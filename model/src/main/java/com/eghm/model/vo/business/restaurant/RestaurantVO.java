@@ -1,46 +1,30 @@
-package com.eghm.model;
+package com.eghm.model.vo.business.restaurant;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * <p>
- * 餐饮商家信息表
- * </p>
- *
  * @author 二哥很猛
- * @since 2022-06-30
+ * @since 2023/1/16
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("restaurant")
-@ApiModel(value = "Restaurant对象", description = "餐饮商家信息表")
-public class Restaurant extends BaseEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+@Data
+public class RestaurantVO {
+
+    @TableId(type = IdType.ASSIGN_ID)
+    @ApiModelProperty("id主键")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long id;
 
     @ApiModelProperty(value = "商家名称")
     private String title;
-
-    @ApiModelProperty(value = "所属商户")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long merchantId;
-
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
-    private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty("商家logo")
     private String logoUrl;
@@ -52,15 +36,15 @@ public class Restaurant extends BaseEntity implements Serializable {
     private String openTime;
 
     @ApiModelProperty(value = "省份")
-    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonIgnore
     private Long provinceId;
 
     @ApiModelProperty(value = "城市id")
-    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonIgnore
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
-    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonIgnore
     private Long countyId;
 
     @ApiModelProperty("详细地址")
@@ -79,5 +63,4 @@ public class Restaurant extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "商家介绍")
     private String introduce;
-
 }

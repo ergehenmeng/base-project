@@ -2,4 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.RestaurantMapper">
 
+    <select id="getByPage" resultType="com.eghm.model.vo.business.restaurant.RestaurantListVO"
+            parameterType="com.eghm.model.dto.business.restaurant.RestaurantQueryDTO">
+        <choose>
+            <when test="param.sortByDistance">
+                <include refid="getByPageSortDistanceSql"/>
+            </when>
+            <otherwise>
+                <include refid="getByPageSql"/>
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--无距离排序,不进行子查询-->
+    <sql id="getByPageSql">
+        select
+        id,
+        title,
+        longitude,
+        latitude,
+        open_time as openTime,
+        <if test="param.longitude != null and param.latitude != null">
+            st_distance_sphere(point(longitude, latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+        </if>
+        cover_url as coverUrl,
+        logo_url as logoUrl,
+        phone
+        from restaurant where state = 1 and platform_state = 2 and deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName}, '%')
+        </if>
+        order by id desc
+    </sql>
+    <!--有距离排序-->
+    <sql id="getByPageSortDistanceSql">
+        select s.* from ( select
+        id,
+        title,
+        longitude,
+        latitude,
+        open_time as openTime,
+        st_distance_sphere(point(longitude, latitude),point(#{param.longitude}, #{param.latitude})) as distance,
+        cover_url as coverUrl,
+        logo_url as logoUrl,
+        phone
+        from restaurant where state = 1 and platform_state = 2 and deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName}, '%')
+        </if>
+        ) s
+        order by s.distance, s.id desc
+    </sql>
+
 </mapper>

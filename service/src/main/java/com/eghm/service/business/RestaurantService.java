@@ -6,7 +6,12 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.model.Restaurant;
 import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;
+import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
+import com.eghm.model.vo.business.restaurant.RestaurantListVO;
+import com.eghm.model.vo.business.restaurant.RestaurantVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -53,4 +58,25 @@ public interface RestaurantService {
      * @return 商家信息
      */
     Restaurant selectByIdRequired(Long id);
+
+    /**
+     * 主键查询餐饮商家,未上架直接抛异常
+     * @param id id
+     * @return 商家信息
+     */
+    Restaurant selectByIdShelve(Long id);
+
+    /**
+     * 分页查询餐饮店铺
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<RestaurantListVO> getByPage(RestaurantQueryDTO dto);
+
+    /**
+     * 查询餐饮店详情
+     * @param id id
+     * @return 详细信息
+     */
+    RestaurantVO detailById(Long id);
 }

@@ -992,6 +992,11 @@ public enum ErrorCode {
     SHOP_DOWN(3270, "该店铺已下架"),
 
     /**
+     * 该商家已下架
+     */
+    RESTAURANT_DOWN(3275, "该商家已下架"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
