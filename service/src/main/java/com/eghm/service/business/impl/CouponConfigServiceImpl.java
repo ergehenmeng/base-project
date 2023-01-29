@@ -13,6 +13,8 @@ import com.eghm.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
+import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
 import com.eghm.utils.DataUtil;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -91,5 +94,10 @@ public class CouponConfigServiceImpl implements CouponConfigService {
             log.error("优惠券库存更新异常 [{}] [{}]", id, num);
             throw new BusinessException(ErrorCode.COUPON_EMPTY);
         }
+    }
+
+    @Override
+    public List<CouponListVO> getByPage(CouponQueryDTO dto) {
+        return null;
     }
 }

@@ -5,7 +5,6 @@ import com.eghm.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.service.business.CouponConfigService;
-import com.eghm.web.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,7 +27,6 @@ public class CouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
-    @Access
     public PageData<CouponConfig> listPage(@Validated CouponConfigQueryRequest request) {
         Page<CouponConfig> configPage = couponConfigService.getByPage(request);
         return PageData.toPage(configPage);

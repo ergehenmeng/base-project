@@ -31,4 +31,14 @@ public interface InterceptorAdapter extends HandlerInterceptor {
         return ((HandlerMethod) handler).getMethodAnnotation(annotationType);
     }
 
+    /**
+     * 获取handler上的指定注解
+     * @param handler  handler
+     * @param annotationType 注解类型
+     * @param <A> 泛型
+     * @return 注解信息
+     */
+    default <A extends Annotation> A getClassAnnotation(Object handler, Class<A> annotationType) {
+        return ((HandlerMethod) handler).getBeanType().getAnnotation(annotationType);
+    }
 }

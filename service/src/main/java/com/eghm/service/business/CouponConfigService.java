@@ -5,6 +5,10 @@ import com.eghm.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
+import com.eghm.model.vo.coupon.CouponListVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -51,4 +55,11 @@ public interface CouponConfigService {
      * @param num 数量 负数-库存 正数+库存
      */
     void updateStock(Long id, int num);
+
+    /**
+     * 分页查询可以领取的优惠券列表
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<CouponListVO> getByPage(CouponQueryDTO dto);
 }

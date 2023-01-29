@@ -6,4 +6,14 @@
         update coupon_config set stock = stock + #{num}, receive_num = receive_num - #{num}
         where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and state = true
     </update>
+
+    <select id="getByPage" resultType="com.eghm.model.vo.coupon.CouponListVO"
+            parameterType="com.eghm.model.dto.business.coupon.config.CouponQueryDTO">
+        select
+        id,
+        title,
+        from coupon_config where deleted = false and stock &gt; 0 and state = 1 and `mode` = 1
+
+    </select>
+
 </mapper>

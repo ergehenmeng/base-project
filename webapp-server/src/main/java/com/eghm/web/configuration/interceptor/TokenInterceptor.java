@@ -6,8 +6,8 @@ import com.eghm.common.exception.DataException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.dto.ext.RedisToken;
+import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
@@ -116,7 +116,7 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @return true:需要验签 false不需要
      */
     private boolean skipAccess(Object handler) {
-        return this.getAnnotation(handler, Access.class) != null;
+        return this.getClassAnnotation(handler, Access.class) == null && this.getAnnotation(handler, Access.class) == null;
     }
 
 }
