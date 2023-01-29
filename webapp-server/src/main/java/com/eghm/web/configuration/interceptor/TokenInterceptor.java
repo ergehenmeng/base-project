@@ -11,7 +11,7 @@ import com.eghm.model.dto.ext.RedisToken;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginLogService;
-import com.eghm.web.annotation.SkipAccess;
+import com.eghm.web.annotation.Access;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
@@ -116,7 +116,7 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @return true:需要验签 false不需要
      */
     private boolean skipAccess(Object handler) {
-        return this.getAnnotation(handler, SkipAccess.class) != null;
+        return this.getAnnotation(handler, Access.class) != null;
     }
 
 }

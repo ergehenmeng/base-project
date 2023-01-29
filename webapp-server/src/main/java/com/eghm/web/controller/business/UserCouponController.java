@@ -7,6 +7,7 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.coupon.UserCouponBaseVO;
 import com.eghm.model.vo.coupon.UserCouponVO;
 import com.eghm.service.business.UserCouponService;
+import com.eghm.web.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +32,7 @@ public class UserCouponController {
 
     @PostMapping("/receive")
     @ApiOperation("优惠券领取")
+    @Access
     public RespBody<Void> receive(@RequestBody @Validated ReceiveCouponDTO dto) {
         dto.setUserId(ApiHolder.getUserId());
         userCouponService.receiveCoupon(dto);
@@ -39,6 +41,7 @@ public class UserCouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
+    @Access
     public List<UserCouponVO> listPage(@Validated UserCouponQueryPageDTO dto) {
         dto.setUserId(ApiHolder.getUserId());
         return userCouponService.userCouponPage(dto);
@@ -47,6 +50,7 @@ public class UserCouponController {
     @GetMapping("/choose")
     @ApiOperation("选择优惠券")
     @ApiImplicitParam(name = "productId", value = "商品id", required = true)
+    @Access
     public List<UserCouponBaseVO> choose(@Param("productId") Long productId) {
         return userCouponService.selectCoupon(ApiHolder.getUserId(), productId);
     }

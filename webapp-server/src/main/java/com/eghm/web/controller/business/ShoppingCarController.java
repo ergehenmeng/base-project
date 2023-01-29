@@ -7,6 +7,7 @@ import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.shopping.ShoppingCarVO;
 import com.eghm.service.business.ShoppingCarService;
+import com.eghm.web.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class ShoppingCarController {
 
     @PostMapping("/add")
     @ApiOperation("添加购物车")
+    @Access
     public RespBody<Void> add(@RequestBody @Validated AddCarDTO dto) {
         shoppingCarService.add(dto);
         return RespBody.success();
@@ -36,12 +38,14 @@ public class ShoppingCarController {
 
     @GetMapping("/list")
     @ApiOperation("购物车商品列表")
+    @Access
     public List<ShoppingCarVO> list() {
         return shoppingCarService.getList(ApiHolder.getUserId());
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除购物车商品")
+    @Access
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         shoppingCarService.delete(dto.getId(), ApiHolder.getUserId());
         return RespBody.success();
@@ -49,6 +53,7 @@ public class ShoppingCarController {
 
     @PostMapping("/quantity")
     @ApiOperation("更新商品数量")
+    @Access
     public RespBody<Void> quantity(@RequestBody @Validated CarQuantityDTO dto) {
         shoppingCarService.updateQuantity(dto.getId(), dto.getQuantity(), ApiHolder.getUserId());
         return RespBody.success();

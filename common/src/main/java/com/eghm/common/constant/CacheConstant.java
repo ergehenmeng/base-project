@@ -174,4 +174,19 @@ public class CacheConstant {
      * 消息队列异步key
      */
     public static final String MQ_ASYNC_KEY = "mq_async_key:";
+
+    /**
+     * 短信前置
+     */
+    public static final String SMS_PREFIX = "sms:";
+
+    /**
+     * 短信验证码前置
+     */
+    public static final String VERIFY_PREFIX = "verify:";
+
+    /**
+     * 短信验证码手机号前缀
+     */
+    public static final String VERIFY_MOBILE_PREFIX = "verify_mobile:";
 }

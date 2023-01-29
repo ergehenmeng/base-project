@@ -5,7 +5,6 @@ import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.model.vo.business.homestay.HomestayListVO;
 import com.eghm.model.vo.business.homestay.HomestayVO;
 import com.eghm.service.business.HomestayService;
-import com.eghm.web.annotation.SkipAccess;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,14 +29,12 @@ public class HomestayController {
 
     @GetMapping("/listPage")
     @ApiOperation("民宿列表")
-    @SkipAccess
     public List<HomestayListVO> listPage(HomestayQueryDTO dto) {
         return homestayService.getByPage(dto);
     }
 
     @GetMapping("/detail")
     @ApiOperation("民宿详情")
-    @SkipAccess
     public HomestayVO detail(@Validated IdDTO dto) {
         return homestayService.detailById(dto.getId());
     }

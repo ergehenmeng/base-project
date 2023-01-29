@@ -2,7 +2,6 @@ package com.eghm.web.controller;
 
 import com.eghm.common.constant.WeChatConstant;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.handler.dto.OrderCancelContext;
 import com.eghm.service.business.handler.dto.PayNotifyContext;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;

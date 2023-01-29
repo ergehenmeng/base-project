@@ -3,7 +3,6 @@ package com.eghm.web.controller.business;
 import com.eghm.model.dto.business.product.ProductQueryDTO;
 import com.eghm.model.vo.business.product.ProductListVO;
 import com.eghm.service.business.ProductService;
-import com.eghm.web.annotation.SkipAccess;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,14 +27,12 @@ public class ProductController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    @SkipAccess
     public List<ProductListVO> listPage(ProductQueryDTO dto) {
         return productService.getByPage(dto);
     }
 
     @GetMapping("/recommend")
     @ApiOperation("商品推荐列表")
-    @SkipAccess
     public List<ProductListVO> recommend() {
         return productService.getRecommend();
     }

@@ -195,8 +195,8 @@ public interface UserService {
 
     /**
      * 设置新密码
-     * @param userId userId
+     * @param requestId requestId
      * @param password 新密码
      */
-    void setPassword(Long userId, String password);
+    void setPassword(String requestId, String password);
 }

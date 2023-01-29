@@ -1,5 +1,6 @@
 package com.eghm.web.annotation;
 
+import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 
 import java.lang.annotation.Documented;
@@ -10,14 +11,16 @@ import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 跳过登陆认证 注意跳过登陆后,如果用户真实登陆,依旧可以获取到userId
- *
+ * 登陆认证, 在方法上添加该注解,即可通过 {@link ApiHolder} 获取到用户信息 <br/>
+ * 注意: 如果方法上未添加该注解, 但是用户确实是已登陆状态, 依旧可以获取用户信息 <br/>
+ * 如果无法确认用是否登陆,请在获取用户信息时给予必要的非空判断
  * @see TokenInterceptor 登陆校验规则
+ * @see ApiHolder 用户信息
  * @author 二哥很猛
  * @date 2019/11/20 16:04
  */
 @Documented
 @Target({METHOD})
 @Retention(RUNTIME)
-public @interface SkipAccess {
+public @interface Access {
 }

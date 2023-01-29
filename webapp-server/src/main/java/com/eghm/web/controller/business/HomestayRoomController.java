@@ -7,7 +7,6 @@ import com.eghm.model.vo.business.homestay.room.HomestayRoomVO;
 import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
-import com.eghm.web.annotation.SkipAccess;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -33,21 +32,18 @@ public class HomestayRoomController {
 
     @GetMapping("/listPage")
     @ApiOperation("房型列表")
-    @SkipAccess
     public List<HomestayRoomListVO> listPage(HomestayRoomQueryDTO request) {
         return homestayRoomService.listPage(request);
     }
 
     @GetMapping("/detail")
     @ApiOperation("房型详细信息")
-    @SkipAccess
     public HomestayRoomVO detail(@Validated IdDTO dto) {
         return homestayRoomService.detailById(dto.getId());
     }
 
     @GetMapping("/priceList")
     @ApiOperation("房型价格")
-    @SkipAccess
     public List<RoomConfigVO> priceList(@Validated IdDTO dto) {
         return homestayRoomConfigService.getList(dto.getId());
     }

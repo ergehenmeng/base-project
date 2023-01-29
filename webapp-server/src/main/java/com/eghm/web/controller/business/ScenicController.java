@@ -8,7 +8,6 @@ import com.eghm.model.vo.scenic.ScenicVO;
 import com.eghm.model.vo.scenic.ticket.TicketVO;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
-import com.eghm.web.annotation.SkipAccess;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,21 +34,18 @@ public class ScenicController {
 
     @GetMapping("/listPage")
     @ApiOperation("景区列表")
-    @SkipAccess
     public List<ScenicListVO> listPage(ScenicQueryDTO dto) {
         return scenicService.getByPage(dto);
     }
 
     @GetMapping("/detail")
     @ApiOperation("景区详情")
-    @SkipAccess
     public ScenicVO scenicDetail(@Validated ScenicDetailDTO dto) {
         return scenicService.detailById(dto.getScenicId(), dto.getLongitude(), dto.getLatitude());
     }
 
     @GetMapping("/ticket/detail")
     @ApiOperation("景区门票详情")
-    @SkipAccess
     public TicketVO ticketDetail(@Validated IdDTO dto) {
         return scenicTicketService.detailById(dto.getId());
     }

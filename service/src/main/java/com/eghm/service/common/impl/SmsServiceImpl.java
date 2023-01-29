@@ -38,10 +38,6 @@ public class SmsServiceImpl implements SmsService {
 
     private final SysConfigApi sysConfigApi;
 
-    private static final String SMS_PREFIX = "sms:";
-
-    private static final String VERIFY_PREFIX = "verify:";
-
     @Override
     public void sendSmsCode(SmsType smsType, String mobile) {
         this.smsLimitCheck(smsType.getValue(), mobile);
@@ -68,7 +64,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public String getSmsCode(SmsType smsType, String mobile) {
-        return cacheService.getValue(SMS_PREFIX + smsType + mobile);
+        return cacheService.getValue(CacheConstant.SMS_PREFIX + smsType + mobile);
     }
 
     @Override
@@ -82,13 +78,14 @@ public class SmsServiceImpl implements SmsService {
         }
         this.cleanSmsCode(smsType, mobile);
         String uuid = IdUtil.fastUUID();
-        cacheService.setValue(VERIFY_PREFIX + uuid, true, 300000);
+        cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, 300000);
+        cacheService.setValue(CacheConstant.VERIFY_MOBILE_PREFIX + uuid, mobile, 300000);
         return uuid;
     }
 
     @Override
     public boolean verifyRequestId(String requestId) {
-        String key = VERIFY_PREFIX + requestId;
+        String key = CacheConstant.VERIFY_PREFIX + requestId;
         boolean exist = cacheService.exist(key);
         if (exist) {
             cacheService.delete(key);
@@ -120,7 +117,7 @@ public class SmsServiceImpl implements SmsService {
      * @param mobile 手机号码
      */
     private void cleanSmsCode(SmsType smsType, String mobile) {
-        cacheService.getValue(SMS_PREFIX + smsType + mobile);
+        cacheService.getValue(CacheConstant.SMS_PREFIX + smsType + mobile);
     }
 
     /**
@@ -144,7 +141,7 @@ public class SmsServiceImpl implements SmsService {
      * @param smsCode 短信验证码
      */
     private void saveSmsCode(String smsType, String mobile, String smsCode) {
-        cacheService.setValue(SMS_PREFIX + smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600_000));
+        cacheService.setValue(CacheConstant.SMS_PREFIX + smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600_000));
     }
 
     /**

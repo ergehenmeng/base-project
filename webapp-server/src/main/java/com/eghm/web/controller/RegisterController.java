@@ -7,7 +7,7 @@ import com.eghm.model.dto.register.RegisterUserDTO;
 import com.eghm.model.vo.login.LoginTokenVO;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.IpUtil;
-import com.eghm.web.annotation.SkipAccess;
+import com.eghm.web.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -35,7 +35,7 @@ public class RegisterController {
 
     @PostMapping("/sendSms")
     @ApiOperation("注册发送验证码①")
-    @SkipAccess
+    @Access
     public RespBody<Void> sendSms(@RequestBody @Validated RegisterSendSmsDTO request) {
         userService.registerSendSms(request.getMobile());
         return RespBody.success();
@@ -43,7 +43,7 @@ public class RegisterController {
 
     @PostMapping("/user")
     @ApiOperation("短信注册用户②")
-    @SkipAccess
+    @Access
     public RespBody<LoginTokenVO> user(@RequestBody @Validated RegisterUserDTO request, HttpServletRequest servletRequest) {
         request.setChannel(ApiHolder.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));

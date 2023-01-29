@@ -439,11 +439,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void setPassword(Long userId, String password) {
-        User user = userMapper.selectById(userId);
+    public void setPassword(String requestId, String password) {
+        String value = cacheService.getValue(CacheConstant.VERIFY_MOBILE_PREFIX + requestId);
+        if (value == null) {
+            log.error("短信验证码认证已过期 [{}]", requestId);
+            throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_EXPIRE);
+        }
+        User user = this.getByMobile(value);
+        if (user == null) {
+            log.error("验证码手机号不存在 [{}] [{}]", requestId, value);
+            throw new BusinessException(ErrorCode.MOBILE_NOT_REGISTER);
+        }
         user.setPwd(encoder.encode(password));
         userMapper.updateById(user);
     }
+
+
 
     /**
      * 注册手机号被占用校验
