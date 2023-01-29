@@ -13,14 +13,14 @@
         from user_coupon t
         left join `user` r on t.user_id = r.id
         where t.deleted = false
-        <if test="couponConfigId != null">
-            and t.coupon_config_id = #{couponConfigId}
+        <if test="param.couponConfigId != null">
+            and t.coupon_config_id = #{param.couponConfigId}
         </if>
-        <if test="state != null">
-            and t.state = #{state}
+        <if test="param.state != null">
+            and t.state = #{param.state}
         </if>
-        <if test="queryName != null and queryName != ''">
-            and (r.nick_name like concat('%', #{queryName} ,'%') or r.mobile = #{queryName} )
+        <if test="param.queryName != null and param.queryName != ''">
+            and (r.nick_name like concat('%', #{param.queryName} ,'%') or r.mobile = #{param.queryName} )
         </if>
         order by t.id desc
     </select>
@@ -39,9 +39,9 @@
         r.instruction
         from user_coupon t
         left join coupon_config r on t.coupon_config_id = r.id
-        where t.deleted = false and t.user_id = #{userId}
-        <if test="state != null" >
-            and t.state = #{state}
+        where t.deleted = false and t.user_id = #{param.userId}
+        <if test="param.state != null" >
+            and t.state = #{param.state}
         </if>
         order by t.id desc
     </select>

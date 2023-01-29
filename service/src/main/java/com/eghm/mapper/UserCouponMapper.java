@@ -28,7 +28,7 @@ public interface UserCouponMapper extends BaseMapper<UserCoupon> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<UserCouponResponse> getByPage(Page<UserCouponVO> page, UserCouponQueryRequest request);
+    Page<UserCouponResponse> getByPage(Page<UserCouponVO> page, @Param("param") UserCouponQueryRequest request);
 
     /**
      * 用户优惠券列表查询
@@ -36,7 +36,7 @@ public interface UserCouponMapper extends BaseMapper<UserCoupon> {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<UserCouponVO> userCouponPage(Page<UserCouponVO> page, UserCouponQueryPageDTO dto);
+    Page<UserCouponVO> userCouponPage(Page<UserCouponVO> page, @Param("param") UserCouponQueryPageDTO dto);
 
     /**
      * 选择某个产品可以使用的优惠券列表

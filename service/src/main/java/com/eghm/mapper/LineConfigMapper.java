@@ -29,7 +29,7 @@ public interface LineConfigMapper extends BaseMapper<LineConfig> {
      * @param num 正数+库存 负数-库存
      * @return 1
      */
-    int updateStock(Long id, Integer num);
+    int updateStock(@Param("id") Long id, @Param("num") Integer num);
 
     /**
      * 从某一段时间开始查询最低的线路价格

@@ -17,7 +17,7 @@ public interface ManageLogMapper extends BaseMapper<ManageLog> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<ManageLog> getByPage(Page<ManageLog> page, ManageQueryRequest request);
+    Page<ManageLog> getByPage(Page<ManageLog> page, @Param("param") ManageQueryRequest request);
 
     /**
      * 根据id查询响应信息

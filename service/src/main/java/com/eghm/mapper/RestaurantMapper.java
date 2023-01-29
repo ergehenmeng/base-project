@@ -1,11 +1,9 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Restaurant;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
-import com.eghm.model.vo.business.homestay.HomestayListVO;
 import com.eghm.model.vo.business.restaurant.RestaurantListVO;
 import org.apache.ibatis.annotations.Param;
 

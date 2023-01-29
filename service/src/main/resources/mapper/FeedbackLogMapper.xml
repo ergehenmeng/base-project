@@ -40,14 +40,14 @@
         r.mobile
         from feedback_log t left join user r on t.user_id = r.id
         <where>
-            <if test="queryName != null and queryName != ''">
-                and r.mobile = #{queryName}
+            <if test="param.queryName != null and param.queryName != ''">
+                and r.mobile = #{param.queryName}
             </if>
-            <if test="classify != null">
-                and t.classify = #{classify}
+            <if test="param.classify != null">
+                and t.classify = #{param.classify}
             </if>
-            <if test="state != null">
-                and t.state = #{state}
+            <if test="param.state != null">
+                and t.state = #{param.state}
             </if>
         </where>
     </select>
