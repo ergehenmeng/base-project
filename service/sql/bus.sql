@@ -144,7 +144,7 @@ CREATE TABLE `restaurant`
     `title`          varchar(50)    DEFAULT NULL COMMENT '商家名称',
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户',
     `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
-    `platform_state` tinyint(1)     DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
+    `platform_state` tinyint(1)     DEFAULT '0' COMMENT '审核状态 0:初始  1:未上架 2:已上架',
     `logo_url`       varchar(200)   DEFAULT NULL COMMENT '商家logo',
     `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '商家封面',
     `open_time`      varchar(100)   DEFAULT NULL COMMENT '营业时间',

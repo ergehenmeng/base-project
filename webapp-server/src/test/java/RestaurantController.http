@@ -1,0 +1,5 @@
+GET http://localhost:9090/webapp/restaurant/listPage?page=1&pageSize=10
+
+###
+
+GET http://localhost:9090/webapp/restaurant/detail?id=1607996608443555841
