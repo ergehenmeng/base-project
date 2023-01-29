@@ -7,6 +7,7 @@ import com.eghm.model.vo.business.line.LineVO;
 import com.eghm.model.vo.business.line.config.LineConfigVO;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineService;
+import com.eghm.web.annotation.SkipAccess;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -36,12 +37,14 @@ public class LineController {
 
     @GetMapping("/listPage")
     @ApiOperation("线路列表")
+    @SkipAccess
     public List<LineListVO> getByPage(LineQueryDTO dto) {
         return lineService.getByPage(dto);
     }
 
     @GetMapping("/detail")
     @ApiOperation("线路详情")
+    @SkipAccess
     public LineVO detail(@Validated IdDTO request) {
         return lineService.detailById(request.getId());
     }
@@ -49,6 +52,7 @@ public class LineController {
     @GetMapping("/price/list")
     @ApiOperation("线路日价格")
     @ApiImplicitParam(name = "lineId", value = "线路id", required = true)
+    @SkipAccess
     public List<LineConfigVO> getPriceList(@NotNull(message = "线路id不能为空") @RequestParam("lineId") Long lineId) {
         return lineConfigService.getPriceList(lineId);
     }

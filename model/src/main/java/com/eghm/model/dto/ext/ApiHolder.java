@@ -55,12 +55,12 @@ public class ApiHolder {
 
     /**
      * 获取用户id
-     * @param need 用户是否需要登陆,如果必须登陆登陆,用户id不存在则抛异常
+     * @param needLogin 用户是否需要登陆,如果必须登陆登陆,用户id不存在则抛异常
      * @return 用户id
      */
-    private static Long getUserId(boolean need) {
+    private static Long getUserId(boolean needLogin) {
         Long userId = get().getUserId();
-        if (need && userId == null) {
+        if (needLogin && userId == null) {
             throw new BusinessException(ErrorCode.USER_LOGIN_TIMEOUT);
         }
         return userId;

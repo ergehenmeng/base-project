@@ -5,6 +5,7 @@ import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.model.vo.business.restaurant.RestaurantListVO;
 import com.eghm.model.vo.business.restaurant.RestaurantVO;
 import com.eghm.service.business.RestaurantService;
+import com.eghm.web.annotation.SkipAccess;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,12 +30,14 @@ public class RestaurantController {
 
     @GetMapping("/listPage")
     @ApiOperation("商家列表")
+    @SkipAccess
     public List<RestaurantListVO> listPage(RestaurantQueryDTO dto) {
         return restaurantService.getByPage(dto);
     }
 
     @GetMapping("/detail")
     @ApiOperation("店铺详情")
+    @SkipAccess
     public RestaurantVO detail(@Validated IdDTO dto) {
         return restaurantService.detailById(dto.getId());
     }

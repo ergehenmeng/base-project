@@ -43,19 +43,22 @@ public class WebappMvcConfig extends WebMvcConfig {
 
     private final LoginLogService loginLogService;
 
-    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginLogService loginLogService) {
+    private final CacheService cacheService;
+
+    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginLogService loginLogService, CacheService cacheService) {
         super(objectMapper, systemProperties);
         this.tokenService = tokenService;
         this.loginLogService = loginLogService;
+        this.cacheService = cacheService;
     }
 
 
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
-//        registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 6);
-//        registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 10);
-//        registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 15);
-//        registry.addInterceptor(submitFrequencyLimitInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 30);
+        registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 6);
+        registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 15);
+        registry.addInterceptor(submitIntervalInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 30);
     }
 
     @Override
@@ -75,7 +78,7 @@ public class WebappMvcConfig extends WebMvcConfig {
      * 提交间隔限制
      */
     @Bean
-    public HandlerInterceptor submitIntervalInterceptor(CacheService cacheService) {
+    public HandlerInterceptor submitIntervalInterceptor() {
         return new SubmitIntervalInterceptor(getSystemProperties(), cacheService);
     }
 

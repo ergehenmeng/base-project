@@ -21,7 +21,7 @@ public interface InterceptorAdapter extends HandlerInterceptor {
     }
 
     /**
-     * 获取handler上的指定注解
+     * 获取handler上方法的指定注解
      * @param handler  handler
      * @param annotationType 注解类型
      * @param <A> 泛型
