@@ -13,11 +13,14 @@ import com.eghm.model.dto.ext.RespBody;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
+import com.eghm.utils.WebUtil;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -117,6 +120,24 @@ public class ControllerAdviceHandler {
     public String aliPayException(HttpServletRequest request) {
         log.error("支付宝异步通知异常 [{}]", request.getRequestURI());
         return "FAIL";
+    }
+
+    /**
+     * 参数校验失败
+     */
+    @ExceptionHandler({BindException.class})
+    public RespBody<Void> exception(HttpServletRequest request, BindException e) {
+        log.error("数据绑定异常, 接口[{}]", request.getRequestURI());
+        return WebUtil.fieldError(e.getBindingResult());
+    }
+
+    /**
+     * 参数校验失败
+     */
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    public RespBody<Void> exception(HttpServletRequest request, MethodArgumentNotValidException e) {
+        log.error("参数校验异常, 接口[{}]", request.getRequestURI());
+        return WebUtil.fieldError(e.getBindingResult());
     }
 
 }

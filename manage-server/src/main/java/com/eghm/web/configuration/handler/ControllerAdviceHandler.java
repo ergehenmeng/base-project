@@ -5,12 +5,11 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.configuration.DatePropertyEditor;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.WebDataBinder;
@@ -90,7 +89,7 @@ public class ControllerAdviceHandler {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public RespBody<Void> exception(HttpServletRequest request, MethodArgumentNotValidException e) {
         log.error("参数校验异常, 接口[{}]", request.getRequestURI());
-        return this.fieldError(e.getBindingResult());
+        return WebUtil.fieldError(e.getBindingResult());
     }
 
     /**
@@ -99,21 +98,7 @@ public class ControllerAdviceHandler {
     @ExceptionHandler({BindException.class})
     public RespBody<Void> exception(HttpServletRequest request, BindException e) {
         log.error("数据绑定异常, 接口[{}]", request.getRequestURI());
-        return this.fieldError(e.getBindingResult());
-    }
-
-    /**
-     * 参数校验或数据绑定异常
-     * @param result 绑定结果
-     * @return 错误信息
-     */
-    public RespBody<Void> fieldError(BindingResult result) {
-        FieldError error = result.getFieldError();
-        if (error == null) {
-            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), result.getAllErrors().get(0).getDefaultMessage());
-        } else {
-            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), String.format(ErrorCode.PARAM_VERIFY_ERROR.getMsg(), error.getField(), error.getDefaultMessage()));
-        }
+        return WebUtil.fieldError(e.getBindingResult());
     }
 
 }

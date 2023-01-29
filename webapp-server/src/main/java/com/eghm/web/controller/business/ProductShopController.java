@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @Api(tags = "店铺")
 @AllArgsConstructor
-@RequestMapping("/webapp/product/shop")
+@RequestMapping("/webapp/shop")
 public class ProductShopController {
 
     private final ProductShopService productShopService;

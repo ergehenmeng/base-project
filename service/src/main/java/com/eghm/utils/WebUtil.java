@@ -1,9 +1,12 @@
 package com.eghm.utils;
 
+import com.eghm.common.enums.ErrorCode;
 import com.eghm.model.dto.ext.RespBody;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
@@ -53,5 +56,19 @@ public class WebUtil {
                 MultipartFile.class.isAssignableFrom(paramType) ||
                 HttpSession.class.isAssignableFrom(paramType) ||
                 Model.class.isAssignableFrom(paramType);
+    }
+
+    /**
+     * 参数校验或数据绑定异常
+     * @param result 绑定结果
+     * @return 错误信息
+     */
+    public static RespBody<Void> fieldError(BindingResult result) {
+        FieldError error = result.getFieldError();
+        if (error == null) {
+            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), result.getAllErrors().get(0).getDefaultMessage());
+        } else {
+            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), String.format(ErrorCode.PARAM_VERIFY_ERROR.getMsg(), error.getDefaultMessage()));
+        }
     }
 }
