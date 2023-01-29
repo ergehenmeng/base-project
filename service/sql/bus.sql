@@ -314,6 +314,7 @@ CREATE TABLE `product_shop`
     `platform_state` tinyint(1)     DEFAULT '0' COMMENT '平台状态 0:初始 1:待审核 2:已上架',
     `title`          varchar(50)    DEFAULT NULL COMMENT '店铺名称',
     `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户id',
+    `recommend`      bit(1)         DEFAULT b'0' COMMENT '是否为推荐店铺 1:是 0:不是',
     `logo_url`       varchar(200)   DEFAULT NULL COMMENT '店铺logo',
     `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '封面图',
     `open_time`      varchar(100)   DEFAULT NULL COMMENT '线下营业时间',

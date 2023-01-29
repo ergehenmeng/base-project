@@ -1,18 +1,18 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.product.shop.ProductShopAddRequest;
-import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.business.product.shop.ProductShopHomeVO;
+import com.eghm.model.vo.business.product.shop.ProductShopVO;
 import com.eghm.service.business.ProductShopService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -32,11 +32,10 @@ public class ProductShopController {
         return productShopService.homeDetail(dto.getId());
     }
 
-    @GetMapping("/listPage")
-    @ApiOperation("商品列表")
-    public RespBody<Void> listPage(@Validated @RequestBody ProductShopAddRequest request) {
-        productShopService.create(request);
-        return RespBody.success();
+    @GetMapping("/recommend")
+    @ApiOperation("推荐店铺列表")
+    public List<ProductShopVO> recommend() {
+        return productShopService.getRecommend();
     }
 
 }

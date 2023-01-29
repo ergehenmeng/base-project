@@ -53,9 +53,39 @@
             title,
             sale_num as saleNum,
             max_price as maxPrice
-        from product where deleted = false and state = 1 and platform_state = 2 and store_id = #{shopId}
+        from product where deleted = false and state = 1 and platform_state = 2 and
+        <if test="shopId != null">
+            store_id = #{shopId}
+        </if>
         order by min_price &gt; 0,  recommend desc, id limit #{limit}
     </select>
 
+    <select id="getByPage" parameterType="com.eghm.model.dto.business.product.ProductQueryDTO" resultType="com.eghm.model.vo.business.product.ProductListVO">
+        select
+        id,
+        title,
+        sale_num as saleNum,
+        max_price as maxPrice
+        from product where deleted = false and state = 1 and platform_state = 2 and min_price &gt; 0
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName} ,'%')
+        </if>
+        <if test="param.deliveryType != null">
+            and delivery_type = #{param.deliveryType}
+        </if>
+        <if test="param.sortBy != null">
+            <choose>
+                <when test="param.sortBy == 1">
+                    order by min_price, recommend desc
+                </when>
+                <when test="param.sortBy == 2">
+                    order by total_num desc, recommend desc
+                </when>
+                <otherwise>
+                    order by recommend desc
+                </otherwise>
+            </choose>
+        </if>
+    </select>
 
 </mapper>

@@ -10,18 +10,23 @@ import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ProductShopMapper;
 import com.eghm.model.ProductShop;
 import com.eghm.model.dto.business.product.shop.ProductShopAddRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopEditRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopQueryRequest;
 import com.eghm.model.vo.business.product.shop.ProductShopHomeVO;
+import com.eghm.model.vo.business.product.shop.ProductShopVO;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductShopService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -35,6 +40,8 @@ public class ProductShopServiceImpl implements ProductShopService {
     private final ProductShopMapper productShopMapper;
 
     private final ProductService productService;
+
+    private final SysConfigApi sysConfigApi;
 
     @Override
     public Page<ProductShop> getByPage(ProductShopQueryRequest request) {
@@ -102,6 +109,20 @@ public class ProductShopServiceImpl implements ProductShopService {
         ProductShopHomeVO vo = DataUtil.copy(shop, ProductShopHomeVO.class);
         vo.setProductList(productService.getRecommendProduct(id));
         return vo;
+    }
+
+    @Override
+    public void setRecommend(Long id) {
+        LambdaUpdateWrapper<ProductShop> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ProductShop::getId, id);
+        wrapper.set(ProductShop::getRecommend, true);
+        productShopMapper.update(null, wrapper);
+    }
+
+    @Override
+    public List<ProductShopVO> getRecommend() {
+        int limit = sysConfigApi.getInt(ConfigConstant.SHOP_MAX_RECOMMEND, 6);
+        return productShopMapper.getRecommend(limit);
     }
 
     /**

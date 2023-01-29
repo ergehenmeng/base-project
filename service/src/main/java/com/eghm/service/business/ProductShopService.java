@@ -8,6 +8,9 @@ import com.eghm.model.dto.business.product.shop.ProductShopAddRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopEditRequest;
 import com.eghm.model.dto.business.product.shop.ProductShopQueryRequest;
 import com.eghm.model.vo.business.product.shop.ProductShopHomeVO;
+import com.eghm.model.vo.business.product.shop.ProductShopVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -68,4 +71,16 @@ public interface ProductShopService {
      * @return 详情信息
      */
     ProductShopHomeVO homeDetail(Long id);
+
+    /**
+     * 设置为推荐店铺
+     * @param id 店铺id
+     */
+    void setRecommend(Long id);
+
+    /**
+     * 推荐店铺列表
+     * @return 店铺列表
+     */
+    List<ProductShopVO> getRecommend();
 }

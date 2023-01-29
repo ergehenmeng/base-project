@@ -2,6 +2,10 @@ package com.eghm.mapper;
 
 import com.eghm.model.ProductShop;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.vo.business.product.shop.ProductShopVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface ProductShopMapper extends BaseMapper<ProductShop> {
 
+    /**
+     * 店铺推荐列表
+     * @param limit 限制多少条
+     * @return 列表
+     */
+    List<ProductShopVO> getRecommend(@Param("limit") int limit);
 }

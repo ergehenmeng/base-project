@@ -1,6 +1,7 @@
 package com.eghm.model.vo.business.product;
 
 import com.eghm.common.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +12,7 @@ import lombok.Data;
  * @since 2022/12/30
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductListVO {
 
     @ApiModelProperty(value = "商品id")

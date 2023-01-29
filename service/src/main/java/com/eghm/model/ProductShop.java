@@ -78,4 +78,6 @@ public class ProductShop extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商家介绍")
     private String introduce;
 
+    @ApiModelProperty("是否为推荐店铺 true:是 false:不是")
+    private Boolean recommend;
 }

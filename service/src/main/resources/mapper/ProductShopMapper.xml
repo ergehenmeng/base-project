@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ProductShopMapper">
 
+    <select id="getRecommend" resultType="com.eghm.model.vo.business.product.shop.ProductShopVO">
+        select
+        id,
+        title,
+        logo_url as logoUrl,
+        cover_url as coverUrl,
+        telephone,
+        introduce
+        from product_shop where  platform_state = 2 and deleted = false order by recommend desc limit #{limit}
+    </select>
+
 </mapper>

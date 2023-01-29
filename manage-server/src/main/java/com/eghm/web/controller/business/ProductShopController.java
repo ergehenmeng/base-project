@@ -86,4 +86,11 @@ public class ProductShopController {
         return RespBody.success();
     }
 
+    @PostMapping("/recommend")
+    @ApiOperation("设置为推荐店铺")
+    public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
+        productShopService.setRecommend(dto.getId());
+        return RespBody.success();
+    }
+
 }

@@ -3,6 +3,7 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Product;
+import com.eghm.model.dto.business.product.ProductQueryDTO;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.model.vo.business.product.ProductListVO;
@@ -47,5 +48,13 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @param limit 查询多少条
      * @return 商品列表
      */
-    List<ProductListVO> getRecommendProduct(Long shopId, Integer limit);
+    List<ProductListVO> getRecommendProduct(@Param("shopId") Long shopId, @Param("shopId") Integer limit);
+
+    /**
+     * 分页查询商品列表
+     * @param page  分页信息
+     * @param dto 查询条件
+     * @return 商品信息
+     */
+    Page<ProductListVO> getByPage(Page<ProductListVO> page, @Param("param") ProductQueryDTO dto);
 }

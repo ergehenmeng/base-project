@@ -14,6 +14,7 @@ import com.eghm.mapper.ProductMapper;
 import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
+import com.eghm.model.dto.business.product.ProductQueryDTO;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
@@ -151,8 +152,20 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductListVO> getRecommendProduct(Long shopId) {
-        int max = sysConfigApi.getInt(ConfigConstant.PRODUCT_MAX_RECOMMEND, 10);
+        int max = sysConfigApi.getInt(ConfigConstant.SHOP_PRODUCT_MAX_RECOMMEND, 10);
         return productMapper.getRecommendProduct(shopId, max);
+    }
+
+    @Override
+    public List<ProductListVO> getRecommend() {
+        int max = sysConfigApi.getInt(ConfigConstant.PRODUCT_MAX_RECOMMEND, 10);
+        return productMapper.getRecommendProduct(null, max);
+    }
+
+    @Override
+    public List<ProductListVO> getByPage(ProductQueryDTO dto) {
+        Page<ProductListVO> voPage = productMapper.getByPage(dto.createPage(false), dto);
+        return voPage.getRecords();
     }
 
     /**

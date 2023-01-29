@@ -6,6 +6,7 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
+import com.eghm.model.dto.business.product.ProductQueryDTO;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.model.vo.business.product.ProductListVO;
@@ -100,11 +101,26 @@ public interface ProductService {
     void updateSaleNum(List<String> orderNoList);
 
     /**
-     * 查询店铺下首页推荐的商品, 注意:
+     * 查询<b>店铺首页</b>推荐的商品, 注意:
      * 1. 如果推荐商品本身没有规格,则不会优先展示
      * 2. 如果没有推荐默认以最新且上架的商品进行展示
      * @param shopId 店铺id
      * @return 推荐商品
      */
     List<ProductListVO> getRecommendProduct(Long shopId);
+
+    /**
+     * 查询<b>首页</b>推荐的商品, 注意:
+     * 1. 如果推荐商品本身没有规格,则不会优先展示
+     * 2. 如果没有推荐默认以最新且上架的商品进行展示
+     * @return 推荐商品
+     */
+    List<ProductListVO> getRecommend();
+
+    /**
+     * 商品列表查询 移动端
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<ProductListVO> getByPage(ProductQueryDTO dto);
 }
