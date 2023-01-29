@@ -22,6 +22,9 @@ public class ProductListVO {
     @ApiModelProperty(value = "商品名称")
     private String title;
 
+    @ApiModelProperty("图片")
+    private String coverUrl;
+
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer minPrice;

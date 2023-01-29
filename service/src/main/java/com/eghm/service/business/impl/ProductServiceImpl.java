@@ -121,6 +121,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void sortBy(Long id, Integer sortBy) {
+        LambdaUpdateWrapper<Product> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Product::getId, id);
+        wrapper.set(Product::getSortBy, sortBy);
+        productMapper.update(null, wrapper);
+    }
+
+    @Override
     public Map<Long, Product> getByIds(Set<Long> ids) {
         LambdaUpdateWrapper<Product> wrapper = Wrappers.lambdaUpdate();
         wrapper.in(Product::getId, ids);
@@ -151,15 +159,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductListVO> getRecommendProduct(Long shopId) {
+    public List<ProductListVO> getPriorityProduct(Long shopId) {
         int max = sysConfigApi.getInt(ConfigConstant.SHOP_PRODUCT_MAX_RECOMMEND, 10);
-        return productMapper.getRecommendProduct(shopId, max);
+        return productMapper.getPriorityProduct(shopId, max);
     }
 
     @Override
     public List<ProductListVO> getRecommend() {
         int max = sysConfigApi.getInt(ConfigConstant.PRODUCT_MAX_RECOMMEND, 10);
-        return productMapper.getRecommendProduct(null, max);
+        return productMapper.getRecommendProduct(max);
     }
 
     @Override

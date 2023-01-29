@@ -47,25 +47,38 @@
         order by t.id desc
     </select>
 
-    <select id="getRecommendProduct" resultType="com.eghm.model.vo.business.product.ProductListVO">
+    <select id="getPriorityProduct" resultType="com.eghm.model.vo.business.product.ProductListVO">
         select
             id,
             title,
+            cover_url as coverUrl,
             sale_num as saleNum,
-            max_price as maxPrice
-        from product where deleted = false and state = 1 and platform_state = 2 and
+            min_price as minPrice
+        from product where deleted = false and state = 1 and platform_state = 2
         <if test="shopId != null">
-            store_id = #{shopId}
+            and store_id = #{shopId}
         </if>
-        order by min_price &gt; 0,  recommend desc, id limit #{limit}
+        order by min_price &gt; 0, sort_by, id limit #{limit}
+    </select>
+
+    <select id="getRecommendProduct" resultType="com.eghm.model.vo.business.product.ProductListVO">
+        select
+        id,
+        title,
+        cover_url as coverUrl,
+        sale_num as saleNum,
+        min_price as minPrice
+        from product where deleted = false and state = 1 and platform_state = 2
+        order by min_price &gt; 0, recommend desc, id limit #{limit}
     </select>
 
     <select id="getByPage" parameterType="com.eghm.model.dto.business.product.ProductQueryDTO" resultType="com.eghm.model.vo.business.product.ProductListVO">
         select
         id,
         title,
+        cover_url as coverUrl,
         sale_num as saleNum,
-        max_price as maxPrice
+        min_price as minPrice
         from product where deleted = false and state = 1 and platform_state = 2 and min_price &gt; 0
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName} ,'%')

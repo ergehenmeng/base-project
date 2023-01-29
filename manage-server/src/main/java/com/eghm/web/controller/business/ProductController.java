@@ -6,6 +6,7 @@ import com.eghm.common.enums.ref.State;
 import com.eghm.model.Product;
 import com.eghm.model.ProductSku;
 import com.eghm.model.dto.IdDTO;
+import com.eghm.model.dto.SortByDTO;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
 import com.eghm.model.dto.business.product.ProductQueryRequest;
@@ -106,6 +107,13 @@ public class ProductController {
     @ApiOperation("设置推荐商品")
     public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
         productService.setRecommend(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/sortBy")
+    @ApiOperation("商品排序设置")
+    public RespBody<Void> recommend(@RequestBody @Validated SortByDTO dto) {
+        productService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
 }

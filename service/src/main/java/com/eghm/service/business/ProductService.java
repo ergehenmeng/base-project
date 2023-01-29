@@ -75,6 +75,13 @@ public interface ProductService {
     void setRecommend(Long id);
 
     /**
+     * 商品排序
+     * @param id 商品id
+     * @param sortBy 排序 最大999
+     */
+    void sortBy(Long id, Integer sortBy);
+
+    /**
      * 根据id查询商品
      * @param ids 商品id
      * @return 商品信息 key为商品id
@@ -107,7 +114,7 @@ public interface ProductService {
      * @param shopId 店铺id
      * @return 推荐商品
      */
-    List<ProductListVO> getRecommendProduct(Long shopId);
+    List<ProductListVO> getPriorityProduct(Long shopId);
 
     /**
      * 查询<b>首页</b>推荐的商品, 注意:

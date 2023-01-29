@@ -107,7 +107,7 @@ public class ProductShopServiceImpl implements ProductShopService {
     public ProductShopHomeVO homeDetail(Long id) {
         ProductShop shop = this.selectByIdShelve(id);
         ProductShopHomeVO vo = DataUtil.copy(shop, ProductShopHomeVO.class);
-        vo.setProductList(productService.getRecommendProduct(id));
+        vo.setProductList(productService.getPriorityProduct(id));
         return vo;
     }
 

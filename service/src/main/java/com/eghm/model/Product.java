@@ -85,4 +85,6 @@ public class Product extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商品介绍信息")
     private String introduce;
 
+    @ApiModelProperty("商品排序 越小越排在前面")
+    private Integer sortBy;
 }

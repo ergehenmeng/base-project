@@ -3791,7 +3791,9 @@ INSERT INTO `sys_menu` VALUES ('10121315', '审核', 'II2t', '101213', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121316', '强制下架', 'nI2t', '101213', NULL, '/manage/homestay/platformUnShelves', '2', '70', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121317', '删除', '0I2t', '101213', NULL, '/manage/homestay/delete', '2', '80', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10112321', '推荐房型', 'PcUt', '101123', NULL, '/manage/homestay/room/commend', '2', '120', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
-INSERT INTO `sys_menu` VALUES ('10112018', '推荐商品', '6gUt', '101120', NULL, '/manage/product/recommend', '2', '90', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_menu` VALUES ('10112018', '推荐', '6gUt', '101120', NULL, '/manage/product/recommend', '2', '90', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
+INSERT INTO `sys_menu` VALUES ('10112019', '排序', 'KgUt', '101120', NULL, '/manage/product/sortBy', '2', '100', b'1', NULL, '2023-01-29 14:51:41', '2023-01-29 14:51:41');
+INSERT INTO `sys_menu` VALUES ('10112217', '排序', 'W9Ut', '101122', NULL, '/manage/product/shop/recommend', '2', '80', b'1', NULL, '2023-01-29 14:55:29', '2023-01-29 14:55:29');
 
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');

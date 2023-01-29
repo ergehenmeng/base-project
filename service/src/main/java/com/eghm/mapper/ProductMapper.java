@@ -43,12 +43,19 @@ public interface ProductMapper extends BaseMapper<Product> {
     Page<ProductListResponse> listPage(Page<ProductListResponse> page, @Param("param")ProductQueryRequest request);
 
     /**
-     * 查询店铺下推荐的商品列表, 不含下架的商品
+     * 查询店铺首页下推荐的商品列表, 不含下架的商品
      * @param shopId 店铺id
      * @param limit 查询多少条
      * @return 商品列表
      */
-    List<ProductListVO> getRecommendProduct(@Param("shopId") Long shopId, @Param("shopId") Integer limit);
+    List<ProductListVO> getPriorityProduct(@Param("shopId") Long shopId, @Param("limit") Integer limit);
+
+    /**
+     * 查询店铺下推荐的商品列表, 不含下架的商品
+     * @param limit 查询多少条
+     * @return 商品列表
+     */
+    List<ProductListVO> getRecommendProduct(@Param("limit") Integer limit);
 
     /**
      * 分页查询商品列表

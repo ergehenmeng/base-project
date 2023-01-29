@@ -267,6 +267,7 @@ CREATE TABLE `product`
     `state`           tinyint(1)    DEFAULT '0' COMMENT '商品状态 0:待上架 1:已上架',
     `platform_state`  tinyint(1)    DEFAULT NULL COMMENT '平台状态 0:初始 1:待审核 2:已上架',
     `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐商品 true:是 false:否',
+    `sort_by`         smallint(4)   DEFAULT '999' COMMENT '商品排序 越小越排在前面',
     `title`           varchar(30)   DEFAULT NULL COMMENT '商品名称',
     `depict`          varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
