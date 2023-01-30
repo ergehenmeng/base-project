@@ -149,7 +149,7 @@ public class CacheServiceImpl implements CacheService {
      */
     private <T> T mutexLock(String key, Supplier<T> supplier) {
         Boolean absent = opsForValue.setIfAbsent(CacheConstant.MUTEX_LOCK + key, CacheConstant.PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.MILLISECONDS);
-        if (absent != null && absent) {
+        if (Boolean.TRUE.equals(absent)) {
             T result = supplier.get();
             redisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
             return result;

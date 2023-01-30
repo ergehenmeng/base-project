@@ -7,6 +7,8 @@ import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.model.vo.coupon.CouponListVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 优惠券配置表 Mapper 接口
@@ -31,4 +33,11 @@ public interface CouponConfigMapper extends BaseMapper<CouponConfig> {
      * @return 列表
      */
     Page<CouponListVO> getByPage(Page<CouponListVO> page, @Param("param") CouponQueryDTO dto);
+
+    /**
+     * 查询商品下用户可以领取的优惠券列表
+     * @param productId 商品id
+     * @return 优惠券列表
+     */
+    List<CouponListVO> getProductCoupon(@Param("productId") Long productId);
 }

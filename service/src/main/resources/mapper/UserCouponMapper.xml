@@ -63,4 +63,14 @@
         order by t.id desc
     </select>
 
+    <select id="countUserReceived" resultType="com.eghm.model.vo.coupon.UserCouponCountVO">
+        select
+        count(id) as num,
+        coupon_config_id as couponId
+        from user_coupon where user_id = #{userId} and deleted = false and coupon_config_id in
+        <foreach collection="couponIds" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+        group by coupon_config_id
+    </select>
 </mapper>

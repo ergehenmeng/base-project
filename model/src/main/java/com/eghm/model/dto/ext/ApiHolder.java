@@ -47,7 +47,7 @@ public class ApiHolder {
 
     /**
      * 尝试获取用户信息
-     * @return 如果用户未登陆获取结果为0
+     * @return 如果用户未登陆获取结果为null
      */
     public static Long tryGetUserId() {
         return getUserId(false);

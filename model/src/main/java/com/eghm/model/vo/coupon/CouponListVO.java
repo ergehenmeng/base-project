@@ -2,6 +2,7 @@ package com.eghm.model.vo.coupon;
 
 import com.eghm.common.convertor.CentToYuanEncoder;
 import com.eghm.common.enums.ref.CouponType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -47,9 +48,11 @@ public class CouponListVO {
     private Integer useThreshold;
 
     @ApiModelProperty("有效期开始时间")
+    @JsonFormat(pattern = "MM-dd HH:mm:ss")
     private LocalDateTime useStartTime;
 
     @ApiModelProperty("有效期截止时间")
+    @JsonFormat(pattern = "MM-dd HH:mm:ss")
     private LocalDateTime useEndTime;
 
     @ApiModelProperty("使用说明")

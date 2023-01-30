@@ -50,16 +50,16 @@ public interface CouponConfigService {
     CouponConfig selectById(Long id);
 
     /**
-     * 更新优惠券库存及领取数量
-     * @param id 优惠券id
-     * @param num 数量 负数-库存 正数+库存
-     */
-    void updateStock(Long id, int num);
-
-    /**
      * 分页查询可以领取的优惠券列表
      * @param dto 查询条件
      * @return 列表
      */
     List<CouponListVO> getByPage(CouponQueryDTO dto);
+
+    /**
+     * 查询商品下用户可以领取的优惠券列表
+     * @param productId 商品id
+     * @return 优惠券列表
+     */
+    List<CouponListVO> getProductCoupon(Long productId);
 }

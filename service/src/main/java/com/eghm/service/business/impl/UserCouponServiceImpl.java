@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -9,6 +10,7 @@ import com.eghm.common.enums.ref.CouponMode;
 import com.eghm.common.enums.ref.CouponState;
 import com.eghm.common.enums.ref.CouponType;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.UserCouponMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.UserCoupon;
@@ -17,17 +19,20 @@ import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryRequest;
 import com.eghm.model.vo.coupon.UserCouponBaseVO;
+import com.eghm.model.vo.coupon.UserCouponCountVO;
 import com.eghm.model.vo.coupon.UserCouponResponse;
 import com.eghm.model.vo.coupon.UserCouponVO;
-import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
 import com.eghm.service.business.UserCouponService;
+import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -40,7 +45,7 @@ public class UserCouponServiceImpl implements UserCouponService {
 
     private final UserCouponMapper userCouponMapper;
 
-    private final CouponConfigService couponConfigService;
+    private final CouponConfigMapper couponConfigMapper;
 
     private final CouponProductService couponProductService;
 
@@ -110,7 +115,7 @@ public class UserCouponServiceImpl implements UserCouponService {
             log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productId);
             throw new BusinessException(ErrorCode.COUPON_MATCH);
         }
-        CouponConfig config = couponConfigService.selectById(coupon.getCouponConfigId());
+        CouponConfig config = couponConfigMapper.selectById(coupon.getCouponConfigId());
         LocalDateTime now = LocalDateTime.now();
         if (config.getUseStartTime().isAfter(now) || config.getUseEndTime().isBefore(now)) {
             log.error("优惠券不在有效期 [{}] [{}] [{}]", couponId, config.getStartTime(), config.getUseEndTime());
@@ -148,7 +153,7 @@ public class UserCouponServiceImpl implements UserCouponService {
             log.warn("该优惠券未使用,不需要释放 [{}]", id);
             return;
         }
-        CouponConfig config = couponConfigService.selectById(coupon.getCouponConfigId());
+        CouponConfig config = couponConfigMapper.selectById(coupon.getCouponConfigId());
         LocalDateTime now = LocalDateTime.now();
         // 优惠券在有效期则改为未使用,否则改为已过期
         if (config.getUseStartTime().isBefore(now) && config.getUseEndTime().isAfter(now)) {
@@ -160,12 +165,21 @@ public class UserCouponServiceImpl implements UserCouponService {
         userCouponMapper.updateById(coupon);
     }
 
+    @Override
+    public Map<Long, Integer> countUserReceived(Long userId, List<Long> couponIds) {
+        if (CollUtil.isEmpty(couponIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(1);
+        }
+        List<UserCouponCountVO> receivedList = userCouponMapper.countUserReceived(userId, couponIds);
+        return receivedList.stream().collect(Collectors.toMap(UserCouponCountVO::getCouponId, UserCouponCountVO::getNum));
+    }
+
     /**
      * 发放优惠券给用户
      * @param dto 发放信息
      */
     private void doGrantCoupon(ReceiveCouponDTO dto) {
-        CouponConfig config = couponConfigService.selectById(dto.getCouponConfigId());
+        CouponConfig config = couponConfigMapper.selectById(dto.getCouponConfigId());
         this.checkCoupon(config, dto);
         UserCoupon coupon = new UserCoupon();
         coupon.setUserId(dto.getUserId());
@@ -173,7 +187,11 @@ public class UserCouponServiceImpl implements UserCouponService {
         coupon.setState(CouponState.UNUSED);
         coupon.setReceiveTime(LocalDateTime.now());
         userCouponMapper.insert(coupon);
-        couponConfigService.updateStock(dto.getCouponConfigId(), -1);
+        int stock = couponConfigMapper.updateStock(dto.getCouponConfigId(), -1);
+        if (stock != 1) {
+            log.error("优惠券库存更新异常 [{}]", dto.getCouponConfigId());
+            throw new BusinessException(ErrorCode.COUPON_EMPTY);
+        }
     }
 
     /**

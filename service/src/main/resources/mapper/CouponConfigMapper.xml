@@ -12,8 +12,31 @@
         select
         id,
         title,
+        max_limit as maxLimit,
+        coupon_type as couponType,
+        deduction_value as deductionValue,
+        discount_value as discountValue,
+        use_threshold as useThreshold,
+        use_start_time as useStartTime,
+        use_end_time as useEndTime,
+        instruction
         from coupon_config where deleted = false and stock &gt; 0 and state = 1 and `mode` = 1
-
+        and now() between start_time and end_time
     </select>
 
+    <select id="getProductCoupon" resultType="com.eghm.model.vo.coupon.CouponListVO" >
+        select
+            r.id,
+            r.title,
+            r.max_limit as maxLimit,
+            r.coupon_type as couponType,
+            r.deduction_value as deductionValue,
+            r.discount_value as discountValue,
+            r.use_threshold as useThreshold,
+            r.use_start_time as useStartTime,
+            r.use_end_time as useEndTime,
+            r.instruction
+        from coupon_product t inner join coupon_config r on t.coupon_config_id = r.id
+        where r.deleted = false and stock &gt; 0 and state = 1 and `mode` = 1 and t.product_id = #{productId}
+    </select>
 </mapper>

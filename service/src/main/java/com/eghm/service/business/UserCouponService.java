@@ -10,6 +10,7 @@ import com.eghm.model.vo.coupon.UserCouponResponse;
 import com.eghm.model.vo.coupon.UserCouponVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -81,4 +82,12 @@ public interface UserCouponService {
      * @param id id
      */
     void releaseCoupon(Long id);
+
+    /**
+     * 统计用户领取的优惠券的数量
+     * @param userId 用户id
+     * @param couponIds 优惠券
+     * @return 每种优惠券的数量 key:优惠券id value:数量(可能为空)
+     */
+    Map<Long, Integer> countUserReceived(Long userId, List<Long> couponIds);
 }

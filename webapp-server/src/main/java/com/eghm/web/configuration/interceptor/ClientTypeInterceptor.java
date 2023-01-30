@@ -6,6 +6,7 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.web.annotation.ClientType;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +20,10 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
     /**
      * 默认只允许 ios和android的设备访问接口
      */
-    private static final Channel[] DEFAULT_CHANNEL = {Channel.IOS, Channel.ANDROID};
+    private static final Channel[] DEFAULT_CHANNEL = {Channel.IOS, Channel.ANDROID, Channel.WECHAT, Channel.ALIPAY};
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         if (!supportHandler(handler)) {
             return true;
         }

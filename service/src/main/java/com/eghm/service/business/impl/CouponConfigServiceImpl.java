@@ -1,22 +1,23 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.CouponMode;
-import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
 import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
+import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
+import com.eghm.service.business.UserCouponService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -37,6 +40,8 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     private final CouponConfigMapper couponConfigMapper;
 
     private final CouponProductService couponProductService;
+
+    private final UserCouponService userCouponService;
 
     @Override
     public Page<CouponConfig> getByPage(CouponConfigQueryRequest request) {
@@ -88,16 +93,33 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     }
 
     @Override
-    public void updateStock(Long id, int num) {
-        int stock = couponConfigMapper.updateStock(id, num);
-        if (stock != 1) {
-            log.error("优惠券库存更新异常 [{}] [{}]", id, num);
-            throw new BusinessException(ErrorCode.COUPON_EMPTY);
-        }
+    public List<CouponListVO> getByPage(CouponQueryDTO dto) {
+        Page<CouponListVO> voPage = couponConfigMapper.getByPage(dto.createPage(false), dto);
+        List<CouponListVO> voList = voPage.getRecords();
+        this.fillAttribute(voList);
+        return voList;
     }
 
     @Override
-    public List<CouponListVO> getByPage(CouponQueryDTO dto) {
-        return null;
+    public List<CouponListVO> getProductCoupon(Long productId) {
+        List<CouponListVO> couponList = couponConfigMapper.getProductCoupon(productId);
+        this.fillAttribute(couponList);
+        return couponList;
+    }
+
+    /**
+     * 填充优惠券是否已领取字段属性
+     * @param couponList 优惠券信息
+     */
+    private void fillAttribute(List<CouponListVO> couponList) {
+        Long userId = ApiHolder.tryGetUserId();
+        // 用户未登陆, 默认全部可以领取
+        if (userId == null || CollUtil.isEmpty(couponList)) {
+            return;
+        }
+        List<Long> couponIds = couponList.stream().map(CouponListVO::getId).collect(Collectors.toList());
+
+        Map<Long, Integer> receivedMap = userCouponService.countUserReceived(userId, couponIds);
+        couponList.forEach(vo -> vo.setReceived(receivedMap.getOrDefault(vo.getId(), 0) >= vo.getMaxLimit()));
     }
 }

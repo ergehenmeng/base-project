@@ -6,6 +6,7 @@ import com.eghm.model.UserCoupon;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
 import com.eghm.model.dto.business.coupon.user.UserCouponQueryRequest;
 import com.eghm.model.vo.coupon.UserCouponBaseVO;
+import com.eghm.model.vo.coupon.UserCouponCountVO;
 import com.eghm.model.vo.coupon.UserCouponResponse;
 import com.eghm.model.vo.coupon.UserCouponVO;
 import org.apache.ibatis.annotations.Param;
@@ -46,4 +47,11 @@ public interface UserCouponMapper extends BaseMapper<UserCoupon> {
      */
     List<UserCouponBaseVO> selectCoupon(@Param("userId") Long userId, @Param("productId") Long productId);
 
+    /**
+     * 统计用户领取的优惠券的数量
+     * @param userId 用户id
+     * @param couponIds 优惠券id
+     * @return 每种优惠券的数量 key:优惠券id value:数量(可能为空)
+     */
+    List<UserCouponCountVO> countUserReceived(@Param("userId") Long userId, @Param("couponIds") List<Long> couponIds);
 }

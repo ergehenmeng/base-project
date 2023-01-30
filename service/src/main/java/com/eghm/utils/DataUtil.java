@@ -41,14 +41,9 @@ public class DataUtil {
     public static <S, T> PageData<T> convert(Page<S> page, Function<S, T> transfer) {
 
         PageData<T> paging = new PageData<>();
-
-        List<S> list = page.getRecords();
-
         List<T> formatList = Lists.newArrayList();
-        list.forEach(s -> {
-            T format = transfer.apply(s);
-            formatList.add(format);
-        });
+
+        page.getRecords().forEach(s -> formatList.add(transfer.apply(s)));
 
         paging.setRows(formatList);
         paging.setTotal(page.getTotal());
@@ -100,7 +95,7 @@ public class DataUtil {
             }
             return t;
         } catch (Exception e) {
-            log.error("bean复制异常", e);
+            log.error("bean复制异常 [{}] [{}]", source, cls, e);
             return null;
         }
     }

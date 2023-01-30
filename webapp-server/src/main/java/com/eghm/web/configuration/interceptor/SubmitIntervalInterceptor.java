@@ -9,6 +9,7 @@ import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.service.cache.CacheService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,10 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         if (!this.supportHandler(handler)) {
             return true;
         }
+        // 只针对post请求有效
+        if (!HttpMethod.POST.matches(request.getMethod())) {
+            return true;
+        }
         Long userId = ApiHolder.getUserId();
         String uri = request.getRequestURI();
         String key = String.format(CacheConstant.SUBMIT_LIMIT, userId, uri);
@@ -44,4 +49,6 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         }
         return true;
     }
+
+
 }
