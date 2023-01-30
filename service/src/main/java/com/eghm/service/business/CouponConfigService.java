@@ -50,14 +50,14 @@ public interface CouponConfigService {
     CouponConfig selectById(Long id);
 
     /**
-     * 分页查询可以领取的优惠券列表
+     * 分页查询可以领取的优惠券列表  注意如果当前用户已的登陆, 则会根据用户是否领取过该优惠券来返回是否能领取状态
      * @param dto 查询条件
      * @return 列表
      */
     List<CouponListVO> getByPage(CouponQueryDTO dto);
 
     /**
-     * 查询商品下用户可以领取的优惠券列表
+     * 查询商品下用户可以领取的优惠券列表. 注意如果当前用户已的登陆, 则会根据用户是否领取过该优惠券来返回是否能领取状态
      * @param productId 商品id
      * @return 优惠券列表
      */

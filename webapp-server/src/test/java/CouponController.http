@@ -1,0 +1,7 @@
+GET http://localhost:9090/webapp/coupon/listPage?page=1&pageSize=20
+Channel: WECHAT
+
+###
+
+GET http://localhost:9090/webapp/coupon/products?productId=1608756388669820929
+Channel: WECHAT
