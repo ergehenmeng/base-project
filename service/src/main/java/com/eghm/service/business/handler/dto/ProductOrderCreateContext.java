@@ -69,6 +69,7 @@ public class ProductOrderCreateContext extends AsyncKey implements Context {
     public BaseProductDTO getFirstProduct(){
         return productList.get(0);
     }
+
     @ApiModelProperty("源状态")
     private Integer from;
 

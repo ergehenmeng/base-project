@@ -87,6 +87,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void next(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
+        super.addVisitor(order, context.getVisitorList());
         lineConfigService.updateStock(payload.getConfig().getId(), -order.getNum());
         LineOrder lineOrder = DataUtil.copy(payload.getLine(), LineOrder.class);
         lineOrder.setOrderNo(order.getOrderNo());

@@ -110,6 +110,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected void next(HomestayOrderCreateContext context, HomestayOrderPayload payload, Order order) {
+        super.addVisitor(order, context.getVisitorList());
         homestayRoomConfigService.updateStock(context.getRoomId(), context.getStartDate(), context.getEndDate(), -context.getNum());
         HomestayOrder homestayOrder = DataUtil.copy(payload.getHomestayRoom(), HomestayOrder.class);
         homestayOrder.setOrderNo(order.getOrderNo());

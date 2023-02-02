@@ -4,7 +4,6 @@ import com.eghm.model.annotation.Sign;
 import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.annotation.RangeInt;
-import com.eghm.model.validation.group.HomestayOrderCreateGroup;
 import com.eghm.state.machine.Context;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;

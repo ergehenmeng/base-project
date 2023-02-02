@@ -655,9 +655,9 @@ public enum ErrorCode {
     COUPON_ILLEGAL(3144, "优惠券不合法"),
 
     /**
-     * 商品无法使用该优惠券
+     * 商品不支持该优惠券
      */
-    COUPON_MATCH(3145, "商品无法使用该优惠券"),
+    COUPON_MATCH(3145, "商品不支持该优惠券"),
 
     /**
      * 优惠券不在有效期
