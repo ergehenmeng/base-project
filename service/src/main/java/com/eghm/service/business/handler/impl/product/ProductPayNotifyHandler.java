@@ -14,12 +14,12 @@ import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,6 +41,8 @@ public class ProductPayNotifyHandler implements PayNotifyHandler {
 
     private final ProductService productService;
 
+    private final TransactionTemplate transactionTemplate;
+
     @Override
     public IEvent getEvent() {
         return null;
@@ -52,29 +54,22 @@ public class ProductPayNotifyHandler implements PayNotifyHandler {
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     @Async
     public void doAction(PayNotifyContext context) {
         List<Order> orderList = orderService.selectByOutTradeNoList(context.getOutTradeNo());
         this.before(orderList);
-        this.doProcess(orderList, context.getOutTradeNo());
-    }
 
-    /**
-     * 更新主订单状态
-     * @param orderList 订单信息
-     * @param outTradeNo 交易流水号
-     */
-    private void doProcess(List<Order> orderList, String outTradeNo) {
         TradeType tradeType = TradeType.valueOf(orderList.get(0).getPayType().name());
-        OrderVO vo = aggregatePayService.queryOrder(tradeType, outTradeNo);
+        OrderVO vo = aggregatePayService.queryOrder(tradeType, context.getOutTradeNo());
         boolean payState = vo.getTradeState() == TradeState.SUCCESS || vo.getTradeState() == TradeState.TRADE_SUCCESS;
         List<String> orderNoList = orderList.stream().map(Order::getOrderNo).collect(Collectors.toList());
-        if (payState) {
+
+        TransactionUtil.manualCommit(() -> {
             orderService.updateState(orderNoList, OrderState.UN_USED, OrderState.UN_PAY, OrderState.PROGRESS);
             productService.updateSaleNum(orderNoList);
-        }
-        log.info("订单支付异步处理结果 [{}] [{}] [{}]", outTradeNo, payState, orderNoList);
+        });
+
+        log.info("订单支付异步处理结果 [{}] [{}] [{}]", context.getOutTradeNo(), payState, orderNoList);
     }
 
     /**
