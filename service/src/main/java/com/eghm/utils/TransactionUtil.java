@@ -1,6 +1,5 @@
 package com.eghm.utils;
 
-import com.eghm.common.enums.ref.OrderState;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,12 @@ import org.springframework.transaction.support.TransactionTemplate;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TransactionUtil {
+
+    private static final TransactionTemplate TEMPLATE;
+
+    static {
+        TEMPLATE = SpringContextUtil.getBean(TransactionTemplate.class);
+    }
 
     /**
      * 事务提交后置处理
@@ -46,8 +51,8 @@ public class TransactionUtil {
      * @param runnable r
      */
     public static void manualCommit(Runnable runnable) {
-        TransactionTemplate template = SpringContextUtil.getBean(TransactionTemplate.class);
-        template.execute(new TransactionCallbackWithoutResult() {
+        // 采用静态方式为了减少从容器中查询bean所消耗的时间
+        TEMPLATE.execute(new TransactionCallbackWithoutResult() {
             @Override
             protected void doInTransactionWithoutResult(@NonNull TransactionStatus status) {
                 runnable.run();
