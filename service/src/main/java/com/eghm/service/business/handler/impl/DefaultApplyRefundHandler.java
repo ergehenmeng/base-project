@@ -16,6 +16,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.ApplyRefundHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
             refundLog.setAuditState(AuditState.PASS);
             refundLog.setAuditRemark("系统自动审核");
             order.setRefundState(RefundState.PROGRESS);
-            orderService.startRefund(refundLog, order);
+            TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
         }
         orderService.updateById(order);
         orderRefundLogService.insert(refundLog);

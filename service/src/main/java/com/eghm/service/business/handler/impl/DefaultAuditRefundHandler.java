@@ -14,6 +14,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.AuditRefundHandler;
 import com.eghm.service.business.handler.dto.AuditRefundContext;
+import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -95,7 +96,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
         refundLog.setOutRefundNo(IdWorker.getIdStr());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);
-        orderService.startRefund(refundLog, order);
+        TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
     }
 
     /**
