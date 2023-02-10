@@ -307,8 +307,8 @@ CREATE TABLE `product_sku`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格表';
 
-DROP TABLE IF EXISTS `product_shop`;
-CREATE TABLE `product_shop`
+DROP TABLE IF EXISTS `product_store`;
+CREATE TABLE `product_store`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
     `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
@@ -362,6 +362,8 @@ CREATE TABLE `coupon_config`
     `max_limit`       smallint(2)  DEFAULT '1' COMMENT '单人领取限制',
     `mode`            tinyint(1)   DEFAULT '1' COMMENT '领取方式 1:页面领取 2: 手动发放',
     `coupon_type`     tinyint(1)   DEFAULT '1' COMMENT '优惠券类型 1: 抵扣券 2: 折扣券',
+    `use_scope`       tinyint(1)   DEFAULT '1' COMMENT '使用范围  1:店铺通用 2:指定商品',
+    `store_id`        bigint(20) COMMENT '店铺id(use_scope=1时,该字段可能有值)',
     `discount_value`  smallint(3) COMMENT '折扣比例 0-100',
     `deduction_value` smallint(6) COMMENT '抵扣金额 单位:分',
     `use_threshold`   smallint(6)  DEFAULT '0' COMMENT '使用门槛 0:不限制 大于0表示限制启用金额 单位:分',

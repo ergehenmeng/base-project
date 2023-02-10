@@ -1,4 +1,4 @@
-package com.eghm.model.vo.business.product.shop;
+package com.eghm.model.vo.business.product.store;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2023/1/13
  */
 @Data
-public class ProductShopHomeVO {
+public class ProductStoreHomeVO {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

@@ -56,6 +56,12 @@ public class CouponConfig extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
     private CouponType couponType;
 
+    @ApiModelProperty("使用范围  1:店铺通用 2:指定商品")
+    private Integer useScope;
+
+    @ApiModelProperty("店铺id")
+    private Long storeId;
+
     @ApiModelProperty(value = "抵扣金额 单位:分")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer deductionValue;

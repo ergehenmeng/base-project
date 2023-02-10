@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/product/shop/listPage?page=1&pageSize=10
+GET http://localhost:8080/manage/product/store/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/product/shop/create
+POST http://localhost:8080/manage/product/store/create
 token: {{token}}
 Content-Type: application/json
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/product/shop/update
+POST http://localhost:8080/manage/product/store/update
 token: {{token}}
 Content-Type: application/json
 
@@ -44,7 +44,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/product/shop/shelves
+POST http://localhost:8080/manage/product/store/shelves
 token: {{token}}
 Content-Type: application/json
 
@@ -53,7 +53,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/product/shop/unShelves
+POST http://localhost:8080/manage/product/store/unShelves
 token: {{token}}
 Content-Type: application/json
 
@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/product/shop/platformUnShelves
+POST http://localhost:8080/manage/product/store/platformUnShelves
 token: {{token}}
 Content-Type: application/json
 
@@ -71,7 +71,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/product/shop/platformAudit
+POST http://localhost:8080/manage/product/store/platformAudit
 token: {{token}}
 Content-Type: application/json
 
@@ -80,7 +80,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/product/shop/delete
+POST http://localhost:8080/manage/product/store/delete
 token: {{token}}
 Content-Type: application/json
 

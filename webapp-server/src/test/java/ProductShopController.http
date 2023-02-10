@@ -1,5 +1,0 @@
-GET http://localhost:9090/webapp/shop/recommend
-
-###
-
-GET http://localhost:9090/webapp/shop/home?id=1608726046030311425

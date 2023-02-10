@@ -1,4 +1,4 @@
-package com.eghm.model.dto.business.product.shop;
+package com.eghm.model.dto.business.product.store;
 
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ProductShopQueryRequest extends PagingQuery {
+public class ProductStoreQueryRequest extends PagingQuery {
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
