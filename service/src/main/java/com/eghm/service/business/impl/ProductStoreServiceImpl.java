@@ -121,7 +121,7 @@ public class ProductStoreServiceImpl implements ProductStoreService {
 
     @Override
     public List<ProductStoreVO> getRecommend() {
-        int limit = sysConfigApi.getInt(ConfigConstant.SHOP_MAX_RECOMMEND, 6);
+        int limit = sysConfigApi.getInt(ConfigConstant.STORE_MAX_RECOMMEND, 6);
         return productStoreMapper.getRecommend(limit);
     }
 

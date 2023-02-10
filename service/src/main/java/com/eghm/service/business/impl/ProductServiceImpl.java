@@ -160,7 +160,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductListVO> getPriorityProduct(Long shopId) {
-        int max = sysConfigApi.getInt(ConfigConstant.SHOP_PRODUCT_MAX_RECOMMEND, 10);
+        int max = sysConfigApi.getInt(ConfigConstant.STORE_PRODUCT_MAX_RECOMMEND, 10);
         return productMapper.getPriorityProduct(shopId, max);
     }
 

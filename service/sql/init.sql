@@ -3709,13 +3709,13 @@ INSERT INTO `sys_menu` VALUES ('10112112', '编辑', 'e1Ut', '101121', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10112113', '锁定', 'g1Ut', '101121', NULL, '/manage/merchant/lock', '2', '40', b'1', NULL, '2022-12-14 16:16:00', '2022-12-16 16:40:59');
 INSERT INTO `sys_menu` VALUES ('10112114', '重置', '11Ut', '101121', NULL, '/manage/merchant/resetPwd', '2', '50', b'1', NULL, '2022-12-14 16:17:47', '2022-12-16 16:40:59');
 INSERT INTO `sys_menu` VALUES ('10112115', '解锁', 'q1Ut', '101121', NULL, '/manage/merchant/unlock', '2', '60', b'1', NULL, '2022-12-14 16:18:35', '2022-12-16 16:40:59');
-INSERT INTO `sys_menu` VALUES ('10112210', '列表', 'A9Ut', '101122', NULL, '/manage/product/shop/listPage', '2', '10', b'1', NULL, '2022-12-14 19:25:22', '2022-12-16 16:40:59');
-INSERT INTO `sys_menu` VALUES ('10112211', '新增', 'm9Ut', '101122', NULL, '/manage/product/shop/create', '2', '20', b'1', NULL, '2022-12-16 11:19:46', '2022-12-16 16:40:59');
-INSERT INTO `sys_menu` VALUES ('10112212', '编辑', 'w9Ut', '101122', NULL, '/manage/product/shop/update', '2', '30', b'1', NULL, '2022-12-16 11:20:24', '2022-12-16 16:40:59');
-INSERT INTO `sys_menu` VALUES ('10112213', '上架', 'V9Ut', '101122', NULL, '/manage/product/shop/shelves', '2', '40', b'1', NULL, '2022-12-16 11:38:52', '2022-12-16 16:40:59');
-INSERT INTO `sys_menu` VALUES ('10112214', '下架', 'C9Ut', '101122', NULL, '/manage/product/shop/unShelves', '2', '50', b'1', NULL, '2022-12-16 11:39:14', '2022-12-16 16:40:59');
-INSERT INTO `sys_menu` VALUES ('10112215', '审核', '49Ut', '101122', NULL, '/manage/product/shop/platformAudit', '2', '60', b'1', NULL, '2022-12-16 11:39:59', '2022-12-16 16:40:59');
-INSERT INTO `sys_menu` VALUES ('10112216', '强制下架', 'O9Ut', '101122', NULL, '/manage/product/shop/platformUnShelves', '2', '70', b'1', NULL, '2022-12-16 11:40:45', '2022-12-16 16:40:59');
+INSERT INTO `sys_menu` VALUES ('10112210', '列表', 'A9Ut', '101122', NULL, '/manage/product/store/listPage', '2', '10', b'1', NULL, '2022-12-14 19:25:22', '2022-12-16 16:40:59');
+INSERT INTO `sys_menu` VALUES ('10112211', '新增', 'm9Ut', '101122', NULL, '/manage/product/store/create', '2', '20', b'1', NULL, '2022-12-16 11:19:46', '2022-12-16 16:40:59');
+INSERT INTO `sys_menu` VALUES ('10112212', '编辑', 'w9Ut', '101122', NULL, '/manage/product/store/update', '2', '30', b'1', NULL, '2022-12-16 11:20:24', '2022-12-16 16:40:59');
+INSERT INTO `sys_menu` VALUES ('10112213', '上架', 'V9Ut', '101122', NULL, '/manage/product/store/shelves', '2', '40', b'1', NULL, '2022-12-16 11:38:52', '2022-12-16 16:40:59');
+INSERT INTO `sys_menu` VALUES ('10112214', '下架', 'C9Ut', '101122', NULL, '/manage/product/store/unShelves', '2', '50', b'1', NULL, '2022-12-16 11:39:14', '2022-12-16 16:40:59');
+INSERT INTO `sys_menu` VALUES ('10112215', '审核', '49Ut', '101122', NULL, '/manage/product/store/platformAudit', '2', '60', b'1', NULL, '2022-12-16 11:39:59', '2022-12-16 16:40:59');
+INSERT INTO `sys_menu` VALUES ('10112216', '强制下架', 'O9Ut', '101122', NULL, '/manage/product/store/platformUnShelves', '2', '70', b'1', NULL, '2022-12-16 11:40:45', '2022-12-16 16:40:59');
 INSERT INTO `sys_menu` VALUES ('10112310', '列表', 'YcUt', '101123', NULL, '/manage/homestay/room/listPage', '2', '10', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 16:40:59');
 INSERT INTO `sys_menu` VALUES ('10112311', '新增', 'ZcUt', '101123', NULL, '/manage/homestay/room/create', '2', '20', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 16:40:59');
 INSERT INTO `sys_menu` VALUES ('10112312', '编辑', 'RcUt', '101123', NULL, '/manage/homestay/room/update', '2', '30', b'1', NULL, '2022-12-16 14:35:30', '2022-12-16 16:40:59');
@@ -3780,8 +3780,6 @@ INSERT INTO `sys_menu` VALUES ('10121218', '删除', 'BhBt', '101212', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10121219', '价格详情', '2hBt', '101212', NULL, '/manage/line/config/month', '2', '100', b'1', NULL, '2022-12-27 11:26:16', '2022-12-27 11:28:13');
 INSERT INTO `sys_menu` VALUES ('10121220', '价格设置(月)', 'phBt', '101212', NULL, '/manage/line/config/setup', '2', '110', b'1', NULL, '2022-12-27 11:26:16', '2022-12-27 11:28:21');
 INSERT INTO `sys_menu` VALUES ('10121221', '价格设置(天)', 'bhBt', '101212', NULL, '/manage/line/config/setDay', '2', '120', b'1', NULL, '2022-12-27 11:26:16', '2022-12-27 11:28:26');
-
-
 INSERT INTO `sys_menu` VALUES ('10121310', '列表', 'Hf2t', '101213', NULL, '/manage/homestay/listPage', '2', '1', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121311', '新增', 'Pf2t', '101213', NULL, '/manage/homestay/create', '2', '10', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
 INSERT INTO `sys_menu` VALUES ('10121312', '编辑', 'Ff2t', '101213', NULL, '/manage/homestay/update', '2', '20', b'1', NULL, '2022-11-26 18:01:13', '2022-11-26 18:01:21');
@@ -3793,7 +3791,7 @@ INSERT INTO `sys_menu` VALUES ('10121317', '删除', '0I2t', '101213', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10112321', '推荐房型', 'PcUt', '101123', NULL, '/manage/homestay/room/commend', '2', '120', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
 INSERT INTO `sys_menu` VALUES ('10112018', '推荐', '6gUt', '101120', NULL, '/manage/product/recommend', '2', '90', b'1', NULL, 'CURRENT_TIMESTAMP', 'CURRENT_TIMESTAMP');
 INSERT INTO `sys_menu` VALUES ('10112019', '排序', 'KgUt', '101120', NULL, '/manage/product/sortBy', '2', '100', b'1', NULL, '2023-01-29 14:51:41', '2023-01-29 14:51:41');
-INSERT INTO `sys_menu` VALUES ('10112217', '排序', 'W9Ut', '101122', NULL, '/manage/product/shop/recommend', '2', '80', b'1', NULL, '2023-01-29 14:55:29', '2023-01-29 14:55:29');
+INSERT INTO `sys_menu` VALUES ('10112217', '排序', 'W9Ut', '101122', NULL, '/manage/product/store/recommend', '2', '80', b'1', NULL, '2023-01-29 14:55:29', '2023-01-29 14:55:29');
 
 
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('1', 'login', '您正在登陆EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:16', '短信登陆发送验证码');
@@ -4111,3 +4109,6 @@ INSERT INTO `sys_config` VALUES ('53', 'line_max_day', '线路可预约的最大
 INSERT INTO `sys_config` VALUES ('54', 'scenic_activity_limit', '景区关联的活动查询时最大日期', '7', b'0', '7即从今日开始到未来七天景区关联的活动都会显示在该景区内', '2023-01-09 14:50:59', '2023-01-09 14:50:59');
 INSERT INTO `sys_config` VALUES ('55', 'homestay_max_reserve_day', '民宿最低价查询的时间维度', '30', b'0', '30即从今日开始到未来30天内民宿房型的最低价', '2023-01-10 16:23:51', '2023-01-11 10:07:15');
 INSERT INTO `sys_config` VALUES ('56', 'homestay_room_max_recommend', '民宿房型最大推荐数量', '6', b'0', '6 默认推荐6间房型', '2023-01-12 11:35:02', '2023-01-12 11:35:02');
+INSERT INTO `sys_config` VALUES ('57', 'product_max_recommend', '商品最大推荐数量', '10', b'0', '默认推荐10件商品', '2023-01-29 14:20:39', '2023-01-29 14:20:39');
+INSERT INTO `sys_config` VALUES ('58', 'store_product_max_recommend', '店铺商品最大推荐数量', '10', b'0', '单个店铺默认推荐商品数量', '2023-01-29 14:21:43', '2023-02-10 13:02:30');
+INSERT INTO `sys_config` VALUES ('59', 'store_max_recommend', '店铺最大推荐数量', '6', b'0', '店铺默认推荐数量', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
