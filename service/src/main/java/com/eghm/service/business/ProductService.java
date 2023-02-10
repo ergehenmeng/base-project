@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.model.Product;
-import com.eghm.model.dto.business.product.ProductAddRequest;
-import com.eghm.model.dto.business.product.ProductEditRequest;
-import com.eghm.model.dto.business.product.ProductQueryDTO;
-import com.eghm.model.dto.business.product.ProductQueryRequest;
+import com.eghm.model.dto.business.product.*;
 import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.model.vo.business.product.ProductListVO;
 
@@ -130,4 +127,11 @@ public interface ProductService {
      * @return 列表
      */
     List<ProductListVO> getByPage(ProductQueryDTO dto);
+
+    /**
+     * 优惠券所能使用的商品范围, 分页查询
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<ProductListVO> getCouponScopeByPage(ProductCouponQueryDTO dto);
 }

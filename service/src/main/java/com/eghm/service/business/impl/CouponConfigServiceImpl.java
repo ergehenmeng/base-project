@@ -7,8 +7,11 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.CouponMode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
+import com.eghm.mapper.ProductMapper;
 import com.eghm.model.CouponConfig;
+import com.eghm.model.Product;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
@@ -17,6 +20,7 @@ import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
+import com.eghm.service.business.ProductService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -27,6 +31,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
 
 /**
  * @author 二哥很猛
@@ -42,6 +48,8 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     private final CouponProductService couponProductService;
 
     private final UserCouponService userCouponService;
+
+    private final ProductMapper productMapper;
 
     @Override
     public Page<CouponConfig> getByPage(CouponConfigQueryRequest request) {
@@ -102,7 +110,13 @@ public class CouponConfigServiceImpl implements CouponConfigService {
 
     @Override
     public List<CouponListVO> getProductCoupon(Long productId) {
-        List<CouponListVO> couponList = couponConfigMapper.getProductCoupon(productId);
+        Product product = productMapper.selectById(productId);
+        if (product == null) {
+            log.error("该零售商品已删除 [{}]", productId);
+            throw new BusinessException(PRODUCT_DOWN);
+        }
+        // 优惠券有店铺券或商品券之分
+        List<CouponListVO> couponList = couponConfigMapper.getProductCoupon(productId, product.getStoreId());
         this.fillAttribute(couponList);
         return couponList;
     }

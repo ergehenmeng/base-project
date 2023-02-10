@@ -101,4 +101,40 @@
         </if>
     </select>
 
+    <select id="getCouponScopeByPage" parameterType="com.eghm.model.dto.business.product.ProductCouponQueryDTO" resultType="com.eghm.model.vo.business.product.ProductListVO">
+        select
+        t.id,
+        t.title,
+        t.cover_url as coverUrl,
+        t.sale_num as saleNum,
+        t.min_price as minPrice
+        from product t where t.deleted = false and t.state = 1 and t.platform_state = 2 and t.min_price &gt; 0
+        and t.store_id = #{storeId}
+        <if test="param.useScope == 2">
+            and exists (select 1 from coupon_product r where t.id  = r.product_id and r.coupon_config_id = #{couponId} )
+        </if>
+        <if test="param.useScope == 1">
+            and t.store_id = #{storeId}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.title like concat('%', #{param.queryName} ,'%')
+        </if>
+        <if test="param.deliveryType != null">
+            and t.delivery_type = #{param.deliveryType}
+        </if>
+        <if test="param.sortBy != null">
+            <choose>
+                <when test="param.sortBy == 1">
+                    order by t.min_price, t.recommend desc
+                </when>
+                <when test="param.sortBy == 2">
+                    order by t.total_num desc, t.recommend desc
+                </when>
+                <otherwise>
+                    order by t.recommend desc
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+
 </mapper>

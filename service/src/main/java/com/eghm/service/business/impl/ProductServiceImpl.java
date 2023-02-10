@@ -10,12 +10,11 @@ import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ProductMapper;
+import com.eghm.model.CouponConfig;
 import com.eghm.model.Product;
-import com.eghm.model.dto.business.product.ProductAddRequest;
-import com.eghm.model.dto.business.product.ProductEditRequest;
-import com.eghm.model.dto.business.product.ProductQueryDTO;
-import com.eghm.model.dto.business.product.ProductQueryRequest;
+import com.eghm.model.dto.business.product.*;
 import com.eghm.model.dto.business.product.sku.ProductSkuRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.model.vo.business.product.ProductListVO;
@@ -50,6 +49,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductSkuService productSkuService;
 
     private final SysConfigApi sysConfigApi;
+
+    private final CouponConfigMapper couponConfigMapper;
 
     @Override
     public Page<ProductListResponse> getByPage(ProductQueryRequest request) {
@@ -174,6 +175,19 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductListVO> getByPage(ProductQueryDTO dto) {
         Page<ProductListVO> voPage = productMapper.getByPage(dto.createPage(false), dto);
         return voPage.getRecords();
+    }
+
+    @Override
+    public List<ProductListVO> getCouponScopeByPage(ProductCouponQueryDTO dto) {
+        CouponConfig coupon = couponConfigMapper.selectById(dto.getCouponId());
+        if (coupon == null) {
+            log.error("优惠券不存在 [{}]", dto.getCouponId());
+            throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
+        }
+        // 增加过滤条件,提高查询效率
+        dto.setStoreId(coupon.getStoreId());
+        dto.setUseScope(coupon.getUseScope());
+        return productMapper.getCouponScopeByPage(dto.createPage(false), dto).getRecords();
     }
 
     /**

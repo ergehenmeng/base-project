@@ -36,7 +36,9 @@
             r.use_start_time as useStartTime,
             r.use_end_time as useEndTime,
             r.instruction
-        from coupon_product t inner join coupon_config r on t.coupon_config_id = r.id
-        where r.deleted = false and stock &gt; 0 and state = 1 and `mode` = 1 and t.product_id = #{productId}
+        from coupon_config r left join coupon_product t on t.coupon_config_id = r.id
+        where r.deleted = false and r.stock &gt; 0 and r.state = 1 and r.`mode` = 1
+        <!-- 商品券或店铺券都过滤 注意 storeId为空时 默认查询自营商品的优惠券 -->
+        and ((t.product_id = #{productId} and r.use_scope = 2)  or (r.use_scope = 1 and r.store_id = #{storeId}))
     </select>
 </mapper>

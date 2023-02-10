@@ -37,7 +37,8 @@ public interface CouponConfigMapper extends BaseMapper<CouponConfig> {
     /**
      * 查询商品下用户可以领取的优惠券列表
      * @param productId 商品id
+     * @param storeId   店铺id
      * @return 优惠券列表
      */
-    List<CouponListVO> getProductCoupon(@Param("productId") Long productId);
+    List<CouponListVO> getProductCoupon(@Param("productId") Long productId, @Param("storeId") Long storeId);
 }
