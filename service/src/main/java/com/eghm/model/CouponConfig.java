@@ -60,7 +60,7 @@ public class CouponConfig extends BaseEntity implements Serializable {
     private Integer useScope;
 
     /**
-     * 注意: useScope=1该字段需要设置值, 自营商品为null,非自愿及
+     * 注意: useScope=1该字段需要设置值, 自营商品为null,非自营商品存其所属店铺id
      */
     @ApiModelProperty("店铺id")
     private Long storeId;
