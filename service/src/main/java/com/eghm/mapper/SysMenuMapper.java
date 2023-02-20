@@ -15,16 +15,18 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     /**
      * 获取某用户的导航菜单
      * @param operatorId 用户id
+     * @param adminHide  是否过滤对admin隐藏的菜单
      * @return 用户所有可查看菜单列表
      */
-    List<MenuResponse> getLeftMenuList(@Param("operatorId") Long operatorId);
+    List<MenuResponse> getLeftMenuList(@Param("operatorId") Long operatorId, @Param("adminHide") Boolean adminHide);
 
     /**
      * 获取某用户的按钮菜单
      * @param operatorId 用户id
+     * @param adminHide 是否过滤对admin隐藏的按钮
      * @return 用户所有可查看菜单列表
      */
-    List<String> getButtonList(@Param("operatorId")Long operatorId);
+    List<String> getButtonList(@Param("operatorId")Long operatorId, @Param("adminHide") Boolean adminHide);
 
     /**
      * 获取某用户的所有菜单

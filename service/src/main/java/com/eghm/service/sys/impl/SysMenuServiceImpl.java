@@ -49,13 +49,13 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<MenuResponse> getLeftMenuList(Long operatorId) {
-        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(operatorId);
+        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(operatorId, false);
         return this.treeBin(list);
     }
 
     @Override
     public List<MenuResponse> getLeftMenuList() {
-        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(null);
+        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(null, true);
         return this.treeBin(list);
     }
 
@@ -107,12 +107,12 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<String> getAuth(Long operator) {
-        return sysMenuMapper.getButtonList(operator);
+        return sysMenuMapper.getButtonList(operator, false);
     }
 
     @Override
     public List<String> getAuth() {
-        return sysMenuMapper.getButtonList(null);
+        return sysMenuMapper.getButtonList(null, true);
     }
 
     /**

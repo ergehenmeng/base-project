@@ -31,10 +31,11 @@
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where t.state = true and t.grade = 1
+        where t.state = true and t.grade = 1 and t.admin_hide = #{adminHide}
         <if test="operatorId != null">
             and o.operator_id = #{operatorId}
         </if>
+        
     </select>
 
     <select id="getButtonList" resultType="string">
@@ -43,7 +44,7 @@
         from sys_menu t
         LEFT JOIN sys_role_menu s on t.id = s.menu_id
         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where t.state = true and t.grade = 2
+        where t.state = true and t.grade = 2 and t.admin_hide = #{adminHide}
         <if test="operatorId != null" >
             and o.operator_id = #{operatorId}
         </if>
