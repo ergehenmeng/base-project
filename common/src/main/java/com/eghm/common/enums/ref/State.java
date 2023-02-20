@@ -12,7 +12,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum State implements IEnum<Integer> {
-
+    
+    /**
+     * 初始化
+     */
+    INIT(-1, "初始化"),
+    
     /**
      * 待上架
      */
