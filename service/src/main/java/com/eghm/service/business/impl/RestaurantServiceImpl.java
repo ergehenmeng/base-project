@@ -7,10 +7,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
+import com.eghm.common.enums.ref.RoleType;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.RestaurantMapper;
+import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;
@@ -18,6 +20,7 @@ import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.model.vo.business.restaurant.RestaurantListVO;
 import com.eghm.model.vo.business.restaurant.RestaurantVO;
+import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
@@ -34,7 +37,7 @@ import java.util.List;
 @Service("restaurantService")
 @AllArgsConstructor
 @Slf4j
-public class RestaurantServiceImpl implements RestaurantService {
+public class RestaurantServiceImpl implements RestaurantService, MerchantInitService {
 
     private final RestaurantMapper restaurantMapper;
 
@@ -130,5 +133,18 @@ public class RestaurantServiceImpl implements RestaurantService {
             log.info("餐饮商家名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.RESTAURANT_TITLE_REDO);
         }
+    }
+    
+    @Override
+    public boolean support(List<RoleType> roleTypes) {
+        return roleTypes.contains(RoleType.RESTAURANT);
+    }
+    
+    @Override
+    public void init(Merchant merchant) {
+        Restaurant restaurant = new Restaurant();
+        restaurant.setMerchantId(merchant.getId());
+        restaurant.setState(State.INIT);
+        restaurantMapper.insert(restaurant);
     }
 }

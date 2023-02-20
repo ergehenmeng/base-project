@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
+import com.eghm.common.enums.ref.RoleType;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
@@ -15,6 +16,7 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.model.Homestay;
+import com.eghm.model.Merchant;
 import com.eghm.model.SysDict;
 import com.eghm.model.dto.business.homestay.HomestayAddRequest;
 import com.eghm.model.dto.business.homestay.HomestayEditRequest;
@@ -26,6 +28,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.business.HomestayService;
+import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -45,7 +48,7 @@ import java.util.stream.Collectors;
 @Service("homestayService")
 @AllArgsConstructor
 @Slf4j
-public class HomestayServiceImpl implements HomestayService {
+public class HomestayServiceImpl implements HomestayService, MerchantInitService {
 
     private final HomestayMapper homestayMapper;
 
@@ -184,5 +187,17 @@ public class HomestayServiceImpl implements HomestayService {
             throw new BusinessException(ErrorCode.HOMESTAY_TITLE_REDO);
         }
     }
-
+    
+    @Override
+    public void init(Merchant merchant) {
+        Homestay homestay = new Homestay();
+        homestay.setMerchantId(merchant.getId());
+        homestay.setState(State.INIT);
+        homestayMapper.insert(homestay);
+    }
+    
+    @Override
+    public boolean support(List<RoleType> roleTypes) {
+        return roleTypes.contains(RoleType.HOMESTAY);
+    }
 }

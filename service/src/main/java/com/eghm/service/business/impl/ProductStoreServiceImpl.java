@@ -7,17 +7,20 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
+import com.eghm.common.enums.ref.RoleType;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ProductStoreMapper;
+import com.eghm.model.Merchant;
 import com.eghm.model.ProductStore;
 import com.eghm.model.dto.business.product.store.ProductStoreAddRequest;
 import com.eghm.model.dto.business.product.store.ProductStoreEditRequest;
 import com.eghm.model.dto.business.product.store.ProductStoreQueryRequest;
 import com.eghm.model.vo.business.product.store.ProductStoreHomeVO;
 import com.eghm.model.vo.business.product.store.ProductStoreVO;
+import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductStoreService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -35,7 +38,7 @@ import java.util.List;
 @Service("productStoreService")
 @AllArgsConstructor
 @Slf4j
-public class ProductStoreServiceImpl implements ProductStoreService {
+public class ProductStoreServiceImpl implements ProductStoreService, MerchantInitService {
 
     private final ProductStoreMapper productStoreMapper;
 
@@ -139,5 +142,18 @@ public class ProductStoreServiceImpl implements ProductStoreService {
             log.info("店铺名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.SHOP_TITLE_REDO);
         }
+    }
+    
+    @Override
+    public void init(Merchant merchant) {
+        ProductStore shop = new ProductStore();
+        shop.setMerchantId(merchant.getId());
+        shop.setState(State.INIT);
+        productStoreMapper.insert(shop);
+    }
+    
+    @Override
+    public boolean support(List<RoleType> roleTypes) {
+        return roleTypes.contains(RoleType.SPECIALTY);
     }
 }

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.MerchantRoleMap;
+import com.eghm.common.enums.ref.RoleType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
@@ -17,6 +18,7 @@ import com.eghm.model.SysOperator;
 import com.eghm.model.dto.business.merchant.MerchantAddRequest;
 import com.eghm.model.dto.business.merchant.MerchantEditRequest;
 import com.eghm.model.dto.business.merchant.MerchantQueryRequest;
+import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.MerchantService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.SysRoleService;
@@ -26,6 +28,8 @@ import com.eghm.utils.PageUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -45,6 +49,8 @@ public class MerchantServiceImpl implements MerchantService {
     private final SysOperatorService sysOperatorService;
 
     private final SysRoleService sysRoleService;
+    
+    private final List<MerchantInitService> initList;
 
     @Override
     public Page<Merchant> getByPage(MerchantQueryRequest request) {
@@ -71,7 +77,9 @@ public class MerchantServiceImpl implements MerchantService {
         // 系统用户和商户关联
         merchant.setOperatorId(operator.getId());
         merchantMapper.insert(merchant);
-        sysRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
+        List<RoleType> roleTypes = MerchantRoleMap.parseRoleType(request.getType());
+        sysRoleService.authRole(merchant.getId(), roleTypes);
+        this.initStore(merchant, roleTypes);
     }
     
     @Override
@@ -119,6 +127,19 @@ public class MerchantServiceImpl implements MerchantService {
             log.error("商户手机号被占用 [{}]", mobile);
             throw new BusinessException(ErrorCode.MERCHANT_MOBILE_REDO);
         }
+    }
+    
+    /**
+     * 根据商户信息初始化商户下的店铺信息
+     * @param merchant 商户信息
+     * @param typeList 角色类型
+     */
+    private void initStore(Merchant merchant, List<RoleType> typeList) {
+        initList.forEach(service -> {
+            if (service.support(typeList)) {
+                service.init(merchant);
+            }
+        });
     }
 
 }
