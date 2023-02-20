@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.dto.business.travel.TravelAgencyAddRequest;
+import com.eghm.model.dto.business.travel.TravelAgencyEditRequest;
 
 /**
  * @author 殿小二
@@ -13,4 +14,10 @@ public interface TravelAgencyService {
      * @param request 旅行社信息
      */
     void create(TravelAgencyAddRequest request);
+    
+    /**
+     * 更新旅行社信息
+     * @param request 旅行社信息
+     */
+    void update(TravelAgencyEditRequest request);
 }

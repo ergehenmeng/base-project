@@ -62,7 +62,12 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     @Override
     public void update(RestaurantEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
+        Restaurant required = this.selectByIdRequired(request.getId());
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
+        // 商户在进行注册时默认会初始化一条餐饮店(未激活状态), 更新时自动变更为激活后的状态,即:待上架
+        if (required.getState() == State.INIT) {
+            restaurant.setState(State.UN_SHELVE);
+        }
         restaurantMapper.updateById(restaurant);
     }
 

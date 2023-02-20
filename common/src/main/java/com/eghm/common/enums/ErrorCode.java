@@ -995,7 +995,12 @@ public enum ErrorCode {
      * 该商家已下架
      */
     RESTAURANT_DOWN(3275, "该商家已下架"),
-
+    
+    /**
+     * 旅行社名称重复
+     */
+    TRAVEL_AGENCY_REDO(3300, "旅行社名称重复"),
+    
     /**
      * 微信公众号尚未配置
      */

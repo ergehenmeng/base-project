@@ -66,7 +66,12 @@ public class ProductStoreServiceImpl implements ProductStoreService, MerchantIni
     @Override
     public void update(ProductStoreEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
+        ProductStore productStore = productStoreMapper.selectById(request.getId());
         ProductStore shop = DataUtil.copy(request, ProductStore.class);
+        // 商户在进行注册时默认会初始化一条零售店铺(未激活状态), 更新时自动变更为激活后的状态,即:待上架
+        if (productStore.getState() == State.INIT) {
+            shop.setState(State.UN_SHELVE);
+        }
         productStoreMapper.updateById(shop);
     }
 
