@@ -79,4 +79,10 @@ public interface RestaurantService {
      * @return 详细信息
      */
     RestaurantVO detailById(Long id);
+    
+    /**
+     * 逻辑删除
+     * @param id id
+     */
+    void deleteById(Long id);
 }

@@ -1002,6 +1002,11 @@ public enum ErrorCode {
     TRAVEL_AGENCY_REDO(3300, "旅行社名称重复"),
     
     /**
+     * 旅行社信息不存在
+     */
+    TRAVEL_AGENCY_NOT_FOUND(3302, "旅行社信息不存在"),
+    
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

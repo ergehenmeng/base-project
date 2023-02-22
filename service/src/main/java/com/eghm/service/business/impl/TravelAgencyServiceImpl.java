@@ -1,7 +1,10 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.RoleType;
@@ -12,6 +15,7 @@ import com.eghm.model.Merchant;
 import com.eghm.model.TravelAgency;
 import com.eghm.model.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.model.dto.business.travel.TravelAgencyEditRequest;
+import com.eghm.model.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.utils.DataUtil;
@@ -30,7 +34,15 @@ import java.util.List;
 @AllArgsConstructor
 public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantInitService {
     
-    private TravelAgencyMapper travelAgencyMapper;
+    private final TravelAgencyMapper travelAgencyMapper;
+    
+    @Override
+    public Page<TravelAgency> getByPage(TravelAgencyQueryRequest request) {
+        LambdaQueryWrapper<TravelAgency> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getState() != null, TravelAgency::getState, request.getState());
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), TravelAgency::getTitle, request.getQueryName());
+        return travelAgencyMapper.selectPage(request.createPage(), wrapper);
+    }
     
     @Override
     public void create(TravelAgencyAddRequest request) {
@@ -50,6 +62,37 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
             agency.setState(State.UN_SHELVE);
         }
         travelAgencyMapper.updateById(agency);
+    }
+    
+    @Override
+    public void updateState(Long id, State state) {
+        LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(TravelAgency::getId, id);
+        wrapper.set(TravelAgency::getState, state);
+        travelAgencyMapper.update(null, wrapper);
+    }
+    
+    @Override
+    public void updateAuditState(Long id, PlatformState state) {
+        LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(TravelAgency::getId, id);
+        wrapper.set(TravelAgency::getPlatformState, state);
+        travelAgencyMapper.update(null, wrapper);
+    }
+    
+    @Override
+    public TravelAgency selectByIdRequired(Long id) {
+        TravelAgency travelAgency = travelAgencyMapper.selectById(id);
+        if (travelAgency == null) {
+            log.info("旅行社商家信息未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.TRAVEL_AGENCY_NOT_FOUND);
+        }
+        return travelAgency;
+    }
+    
+    @Override
+    public void deleteById(Long id) {
+        travelAgencyMapper.deleteById(id);
     }
     
     @Override

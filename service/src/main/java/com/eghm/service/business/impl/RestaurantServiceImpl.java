@@ -124,7 +124,12 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         vo.setDetailAddress(sysAreaService.parseArea(restaurant.getCityId(), restaurant.getCountyId()) + restaurant.getDetailAddress());
         return vo;
     }
-
+    
+    @Override
+    public void deleteById(Long id) {
+        restaurantMapper.deleteById(id);
+    }
+    
     /**
      * 校验餐饮商家名称是否重复
      * @param title 名称
