@@ -55,6 +55,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public void create(RestaurantAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
+        restaurant.setState(State.UN_SHELVE);
         restaurant.setMerchantId(SecurityHolder.getMerchantId());
         restaurantMapper.insert(restaurant);
     }

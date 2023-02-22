@@ -76,6 +76,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     public void create(HomestayAddRequest request) {
         this.titleRedo(request.getTitle(), null);
         Homestay homestay = DataUtil.copy(request, Homestay.class);
+        homestay.setState(State.UN_SHELVE);
         homestay.setMerchantId(SecurityHolder.getMerchantId());
         homestayMapper.insert(homestay);
     }

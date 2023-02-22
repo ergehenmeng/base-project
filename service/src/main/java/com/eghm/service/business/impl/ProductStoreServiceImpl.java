@@ -59,6 +59,7 @@ public class ProductStoreServiceImpl implements ProductStoreService, MerchantIni
     public void create(ProductStoreAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         ProductStore shop = DataUtil.copy(request, ProductStore.class);
+        shop.setState(State.UN_SHELVE);
         shop.setMerchantId(SecurityHolder.getMerchantId());
         productStoreMapper.insert(shop);
     }
