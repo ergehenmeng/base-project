@@ -20,6 +20,7 @@ import com.eghm.model.dto.business.product.store.ProductStoreEditRequest;
 import com.eghm.model.dto.business.product.store.ProductStoreQueryRequest;
 import com.eghm.model.vo.business.product.store.ProductStoreHomeVO;
 import com.eghm.model.vo.business.product.store.ProductStoreVO;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.ProductService;
 import com.eghm.service.business.ProductStoreService;
@@ -45,6 +46,8 @@ public class ProductStoreServiceImpl implements ProductStoreService, MerchantIni
     private final ProductService productService;
 
     private final SysConfigApi sysConfigApi;
+    
+    private final CommonService commonService;
 
     @Override
     public Page<ProductStore> getByPage(ProductStoreQueryRequest request) {
@@ -68,6 +71,8 @@ public class ProductStoreServiceImpl implements ProductStoreService, MerchantIni
     public void update(ProductStoreEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         ProductStore productStore = productStoreMapper.selectById(request.getId());
+        commonService.checkIllegal(productStore.getMerchantId());
+        
         ProductStore shop = DataUtil.copy(request, ProductStore.class);
         // 商户在进行注册时默认会初始化一条零售店铺(未激活状态), 更新时自动变更为激活后的状态,即:待上架
         if (productStore.getState() == State.INIT) {
@@ -77,23 +82,23 @@ public class ProductStoreServiceImpl implements ProductStoreService, MerchantIni
     }
 
     @Override
-    public ProductStore selectById(Long id) {
-        return productStoreMapper.selectById(id);
-    }
-
-    @Override
-    public ProductStore selectByIdShelve(Long id) {
+    public ProductStore selectByIdRequired(Long id) {
         ProductStore shop = productStoreMapper.selectById(id);
         if (shop == null) {
             log.error("零售店铺未查询到 [{}]", id);
             throw new BusinessException(ErrorCode.SHOP_DOWN);
         }
+        return shop;
+    }
 
-        if (shop.getPlatformState() != PlatformState.SHELVE) {
+    @Override
+    public ProductStore selectByIdShelve(Long id) {
+        ProductStore store = this.selectByIdRequired(id);
+        if (store.getPlatformState() != PlatformState.SHELVE) {
             log.error("零售店铺已下架 [{}]", id);
             throw new BusinessException(ErrorCode.SHOP_DOWN);
         }
-        return shop;
+        return store;
     }
 
     @Override

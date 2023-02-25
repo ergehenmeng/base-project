@@ -42,4 +42,10 @@ public interface CommonService {
      * @return 标签名称
      */
     List<String> parseTags(List<SysDict> dictList, String tagIds);
+    
+    /**
+     * 检查当前登陆用户是否为指定的商户id, 注意:如果登陆用户商户号(表示是管理员)为空则不校验
+     * @param merchantId 商户号
+     */
+    void checkIllegal(Long merchantId);
 }

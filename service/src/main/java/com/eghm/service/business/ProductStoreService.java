@@ -42,7 +42,7 @@ public interface ProductStoreService {
      * @param id id
      * @return 店铺信息
      */
-    ProductStore selectById(Long id);
+    ProductStore selectByIdRequired(Long id);
 
     /**
      * 主键查询, 删除或未上架则抛异常

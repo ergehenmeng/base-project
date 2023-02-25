@@ -20,6 +20,7 @@ import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.model.vo.business.restaurant.RestaurantListVO;
 import com.eghm.model.vo.business.restaurant.RestaurantVO;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.sys.SysAreaService;
@@ -42,6 +43,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     private final RestaurantMapper restaurantMapper;
 
     private final SysAreaService sysAreaService;
+    
+    private final CommonService commonService;
 
     @Override
     public Page<Restaurant> getByPage(RestaurantQueryRequest request) {
@@ -64,6 +67,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public void update(RestaurantEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         Restaurant required = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(required.getMerchantId());
+        
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         // 商户在进行注册时默认会初始化一条餐饮店(未激活状态), 更新时自动变更为激活后的状态,即:待上架
         if (required.getState() == State.INIT) {

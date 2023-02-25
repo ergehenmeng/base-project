@@ -10,12 +10,17 @@ import com.eghm.model.dto.business.homestay.HomestayEditRequest;
 import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author 二哥很猛
@@ -27,6 +32,8 @@ import org.springframework.web.bind.annotation.*;
 public class HomestayController {
 
     private final HomestayService homestayService;
+    
+    private final CommonService commonService;
 
     @GetMapping("/listPage")
     @ApiOperation("民宿列表")
@@ -82,6 +89,15 @@ public class HomestayController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         homestayService.deleteById(dto.getId());
         return RespBody.success();
+    }
+    
+    
+    @GetMapping("/select")
+    @ApiOperation("详情")
+    public RespBody<Homestay> select(@Validated IdDTO dto) {
+        Homestay homestay = homestayService.selectByIdRequired(dto.getId());
+        commonService.checkIllegal(homestay.getMerchantId());
+        return RespBody.success(homestay);
     }
 
 }

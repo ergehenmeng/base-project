@@ -1,10 +1,8 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.TravelAgency;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.travel.TravelAgencyAddRequest;
@@ -12,6 +10,7 @@ import com.eghm.model.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.model.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.TravelAgencyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TravelAgencyController {
     
     private final TravelAgencyService travelAgencyService;
+    
+    private final CommonService commonService;
     
     @GetMapping("/listPage")
     @ApiOperation("旅行社列表")
@@ -89,13 +90,9 @@ public class TravelAgencyController {
     
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<TravelAgency> select(IdDTO dto) {
+    public RespBody<TravelAgency> select(@Validated IdDTO dto) {
         TravelAgency travelAgency = travelAgencyService.selectByIdRequired(dto.getId());
-        Long merchantId = SecurityHolder.getMerchantId();
-        // 该接口是商家和平台共用, 商家只能查看自己的商户信息
-        if (merchantId != null && !merchantId.equals(travelAgency.getMerchantId())) {
-            return RespBody.error(ErrorCode.ILLEGAL_OPERATION);
-        }
+        commonService.checkIllegal(travelAgency.getMerchantId());
         return RespBody.success(travelAgency);
     }
     

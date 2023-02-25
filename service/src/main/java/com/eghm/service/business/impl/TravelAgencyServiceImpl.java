@@ -16,6 +16,7 @@ import com.eghm.model.TravelAgency;
 import com.eghm.model.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.model.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.model.dto.business.travel.TravelAgencyQueryRequest;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.TravelAgencyService;
 import com.eghm.utils.DataUtil;
@@ -35,6 +36,8 @@ import java.util.List;
 public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantInitService {
     
     private final TravelAgencyMapper travelAgencyMapper;
+    
+    private final CommonService commonService;
     
     @Override
     public Page<TravelAgency> getByPage(TravelAgencyQueryRequest request) {
@@ -56,7 +59,9 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     @Override
     public void update(TravelAgencyEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
-        TravelAgency travelAgency = travelAgencyMapper.selectById(request.getId());
+        TravelAgency travelAgency = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(travelAgency.getMerchantId());
+        
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         if (travelAgency.getState() == State.INIT) {
             agency.setState(State.UN_SHELVE);

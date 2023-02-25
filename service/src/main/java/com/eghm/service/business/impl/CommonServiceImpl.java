@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysDict;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.OrderExpireHandler;
@@ -64,7 +65,17 @@ public class CommonServiceImpl implements CommonService {
         }
         return tagList;
     }
-
+    
+    @Override
+    public void checkIllegal(Long merchantId) {
+        Long loginMerchantId = SecurityHolder.getMerchantId();
+        // 该接口是商家和平台共用, 商家只能查看自己的商户信息
+        if (merchantId != null && !merchantId.equals(loginMerchantId)) {
+            log.error("商户访问了非自己的数据 [{}] [{}]", merchantId, loginMerchantId);
+            throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
+        }
+    }
+    
     /**
      * 根据订单前缀查询处理的bean
      * @param orderNo 订单编号

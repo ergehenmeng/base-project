@@ -85,6 +85,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     public void update(HomestayEditRequest request) {
         this.titleRedo(request.getTitle(), request.getId());
         Homestay required = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(required.getMerchantId());
+    
         Homestay homestay = DataUtil.copy(request, Homestay.class);
         // 商户在进行注册时默认会初始化一条零售店铺(未激活状态), 更新时自动变更为激活后的状态,即:待上架
         if (required.getState() == State.INIT) {
@@ -141,7 +143,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     @Override
     public List<HomestayListVO> getByPage(HomestayQueryDTO dto) {
-        if (Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null)) {
+        boolean getDistance = Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null);
+        if (getDistance) {
             log.info("民宿列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
             throw new BusinessException(ErrorCode.POSITION_NO);
         }

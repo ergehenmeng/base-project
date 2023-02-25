@@ -10,13 +10,19 @@ import com.eghm.model.dto.business.product.store.ProductStoreEditRequest;
 import com.eghm.model.dto.business.product.store.ProductStoreQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ProductStoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author 二哥很猛
@@ -29,6 +35,8 @@ import org.springframework.web.bind.annotation.*;
 public class ProductStoreController {
 
     private final ProductStoreService productStoreService;
+    
+    private final CommonService commonService;
 
     @GetMapping("/listPage")
     @ApiOperation("店铺列表")
@@ -54,8 +62,10 @@ public class ProductStoreController {
     @GetMapping("/select")
     @ApiOperation("查询店铺")
     @ApiImplicitParam(name = "id", value = "店铺id", required = true)
-    public ProductStore select(@RequestParam("id") Long id) {
-        return productStoreService.selectById(id);
+    public RespBody<ProductStore> select(@RequestParam("id") Long id) {
+        ProductStore store = productStoreService.selectByIdRequired(id);
+        commonService.checkIllegal(store.getMerchantId());
+        return RespBody.success(store);
     }
 
     @PostMapping("/shelves")

@@ -1,10 +1,8 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.Restaurant;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
@@ -12,6 +10,7 @@ import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.RestaurantService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
+    
+    private final CommonService commonService;
 
     @GetMapping("/listPage")
     @ApiOperation("商家列表")
@@ -91,11 +92,7 @@ public class RestaurantController {
     @ApiOperation("详情")
     public RespBody<Restaurant> select(IdDTO dto) {
         Restaurant restaurant = restaurantService.selectByIdRequired(dto.getId());
-        Long merchantId = SecurityHolder.getMerchantId();
-        // 该接口是商家和平台共用, 商家只能查看自己的商户信息
-        if (merchantId != null && !merchantId.equals(restaurant.getMerchantId())) {
-            return RespBody.error(ErrorCode.ILLEGAL_OPERATION);
-        }
+        commonService.checkIllegal(restaurant.getMerchantId());
         return RespBody.success(restaurant);
     }
     
@@ -108,4 +105,5 @@ public class RestaurantController {
         restaurantService.deleteById(dto.getId());
         return RespBody.success();
     }
+    
 }
