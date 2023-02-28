@@ -19,7 +19,6 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -97,7 +96,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void authMenu(Long roleId, String menuIds) {
         sysRoleMapper.deleteRoleMenu(roleId);
-        if (StringUtils.isNotEmpty(menuIds)) {
+        if (StrUtil.isNotBlank(menuIds)) {
             List<Long> menuIdList = StrUtil.split(menuIds, ",").stream().mapToLong(Long::parseLong)
                     .boxed().collect(Collectors.toList());
             sysRoleMapper.batchInsertRoleMenu(roleId, menuIdList);

@@ -3,7 +3,6 @@ package com.eghm.model.dto.role;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -17,7 +16,6 @@ public class RoleAuthRequest {
     private Long roleId;
 
     @ApiModelProperty("菜单id,逗号分割")
-    @NotBlank(message = "菜单id不能为空")
     private String menuIds;
 
 }

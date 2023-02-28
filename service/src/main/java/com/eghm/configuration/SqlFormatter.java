@@ -1,6 +1,6 @@
 package com.eghm.configuration;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
 /**
@@ -11,6 +11,6 @@ public class SqlFormatter implements MessageFormattingStrategy {
 
     @Override
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
-        return StringUtils.isNotBlank(sql) ? sql.replaceAll("[\\s]+", " ") + "\n" : "";
+        return StrUtil.isNotBlank(sql) ? sql.replaceAll("[\\s]+", " ") + "\n" : "";
     }
 }
