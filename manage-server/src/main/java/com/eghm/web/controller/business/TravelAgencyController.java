@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "旅行社")
 @AllArgsConstructor
-@RequestMapping("/manage/scenic/ticket")
+@RequestMapping("/manage/travel")
 public class TravelAgencyController {
     
     private final TravelAgencyService travelAgencyService;
