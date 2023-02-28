@@ -14,6 +14,7 @@ import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
 import com.eghm.model.vo.menu.MenuResponse;
 import com.eghm.service.sys.SysMenuService;
+import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     private final SysMenuMapper sysMenuMapper;
 
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
+    
+    private final SysRoleService sysRoleService;
 
     /**
      * 步长默认2位数即 10~99
@@ -49,21 +52,42 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<MenuResponse> getLeftMenuList(Long operatorId) {
-        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(operatorId, false);
+        List<MenuResponse> list = sysMenuMapper.getMenuList(operatorId, 1, false);
         return this.treeBin(list);
     }
 
     @Override
-    public List<MenuResponse> getLeftMenuList() {
-        List<MenuResponse> list = sysMenuMapper.getLeftMenuList(null, true);
+    public List<MenuResponse> getAdminLeftMenuList() {
+        List<MenuResponse> list = sysMenuMapper.getMenuList(null, 1, true);
         return this.treeBin(list);
     }
 
     @Override
-    public List<SysMenu> getList(Long operatorId) {
-        return sysMenuMapper.getList(operatorId);
+    public List<MenuResponse> getList(Long operatorId) {
+        boolean adminRole = sysRoleService.isAdminRole(operatorId);
+        List<MenuResponse> responseList;
+        if (adminRole) {
+            // adminHide = true, 部分菜单时商户独有菜单,不对超管进行开放
+            responseList = sysMenuMapper.getMenuList(null, null, true);
+        } else {
+            responseList = sysMenuMapper.getMenuList(operatorId, null, false);
+        }
+        return this.treeBin(responseList);
     }
-
+    
+    @Override
+    public List<MenuResponse> getAuthList(Long operatorId) {
+        boolean adminRole = sysRoleService.isAdminRole(operatorId);
+        List<MenuResponse> responseList;
+        if (adminRole) {
+            // adminHide = true, 因为超管授权时可以授权所有菜单
+            responseList = sysMenuMapper.getMenuList(null, null, false);
+        } else {
+            responseList = sysMenuMapper.getMenuList(operatorId, null, false);
+        }
+        return this.treeBin(responseList);
+    }
+    
     @Override
     public List<SysMenu> getList() {
         return sysMenuMapper.selectList(null);
@@ -106,13 +130,15 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<String> getAuth(Long operator) {
-        return sysMenuMapper.getButtonList(operator, false);
+    public List<String> getPermCode(Long operator) {
+        List<MenuResponse> menuList = sysMenuMapper.getMenuList(operator, 2, false);
+        return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 
     @Override
-    public List<String> getAuth() {
-        return sysMenuMapper.getButtonList(null, true);
+    public List<String> getAdminPermCode() {
+        List<MenuResponse> menuList = sysMenuMapper.getMenuList(null, 2, true);
+        return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 
     /**

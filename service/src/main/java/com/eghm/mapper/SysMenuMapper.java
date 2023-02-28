@@ -13,27 +13,13 @@ import java.util.List;
 public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     /**
-     * 获取某用户的导航菜单
+     * 获取某用户的菜单
      * @param operatorId 用户id
+     * @param grade 空: 全部菜单, 1:导航菜单 2: 按钮菜单
      * @param adminHide  是否过滤对admin隐藏的菜单
      * @return 用户所有可查看菜单列表
      */
-    List<MenuResponse> getLeftMenuList(@Param("operatorId") Long operatorId, @Param("adminHide") Boolean adminHide);
-
-    /**
-     * 获取某用户的按钮菜单
-     * @param operatorId 用户id
-     * @param adminHide 是否过滤对admin隐藏的按钮
-     * @return 用户所有可查看菜单列表
-     */
-    List<String> getButtonList(@Param("operatorId")Long operatorId, @Param("adminHide") Boolean adminHide);
-
-    /**
-     * 获取某用户的所有菜单
-     * @param operatorId 用户id
-     * @return 用户所有可查看菜单列表
-     */
-    List<SysMenu> getList(@Param("operatorId")Long operatorId);
+    List<MenuResponse> getMenuList(@Param("operatorId") Long operatorId, @Param("state") Integer grade, @Param("adminHide") Boolean adminHide);
 
     /**
      * 查询某个菜单下的最大子菜单id

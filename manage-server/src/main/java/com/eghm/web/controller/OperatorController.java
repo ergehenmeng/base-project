@@ -3,13 +3,17 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.model.SysMenu;
 import com.eghm.model.SysOperator;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.ext.JwtOperator;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.operator.*;
+import com.eghm.model.dto.operator.CheckPwdRequest;
+import com.eghm.model.dto.operator.OperatorAddRequest;
+import com.eghm.model.dto.operator.OperatorEditRequest;
+import com.eghm.model.dto.operator.OperatorQueryRequest;
+import com.eghm.model.dto.operator.PasswordEditRequest;
+import com.eghm.model.vo.menu.MenuResponse;
 import com.eghm.model.vo.operator.OperatorResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysMenuService;
@@ -22,7 +26,12 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -133,7 +142,7 @@ public class OperatorController {
 
     @GetMapping("/menuList")
     @ApiOperation("查询自己拥有的菜单列表")
-    public List<SysMenu> menuList() {
+    public List<MenuResponse> menuList() {
         return sysMenuService.getList(SecurityHolder.getOperatorId());
     }
 }

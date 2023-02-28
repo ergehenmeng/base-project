@@ -73,6 +73,6 @@ public class ProductApplyRefundHandler extends DefaultApplyRefundHandler {
 
     @Override
     protected void after(ApplyRefundContext dto, Order order, OrderRefundLog refundLog) {
-        log.info("商品订单退款申请成功 [{}] [{}] [{}]", dto.getOrderNo(), dto.getProductOrderId(), refundLog.getId());
+        log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", dto.getOrderNo(), dto.getProductOrderId(), refundLog.getId());
     }
 }

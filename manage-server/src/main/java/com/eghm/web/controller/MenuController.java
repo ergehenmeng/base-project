@@ -1,18 +1,23 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.SysMenu;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.IdStateDTO;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.dto.menu.MenuAddRequest;
 import com.eghm.model.dto.menu.MenuEditRequest;
+import com.eghm.model.vo.menu.MenuResponse;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -32,8 +37,8 @@ public class MenuController {
 
     @GetMapping("/listPage")
     @ApiOperation("菜单列表(不分页)")
-    public List<SysMenu> listPage() {
-        return sysMenuService.getList();
+    public List<MenuResponse> listPage() {
+        return sysMenuService.getAuthList(SecurityHolder.getOperatorId());
     }
 
     @PostMapping("/create")

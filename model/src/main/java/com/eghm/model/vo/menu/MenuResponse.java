@@ -26,18 +26,22 @@ public class MenuResponse {
     @ApiModelProperty("菜单标示符 唯一")
     private String code;
 
-    @ApiModelProperty("父节点ID,一级菜单默认为0")
-    @JsonSerialize(using = ToStringSerializer.class)
-    @JsonIgnore
-    private Long pid;
-
     @ApiModelProperty("菜单地址")
     private String path;
+    
+    @ApiModelProperty("菜单级别 1:导航 2:按钮")
+    private Byte state;
+    
+    @ApiModelProperty("子菜单")
+    private List<MenuResponse> children;
 
     @ApiModelProperty("排序")
     @JsonIgnore
     private Integer sort;
-
-    @ApiModelProperty("子菜单")
-    private List<MenuResponse> children;
+    
+    @ApiModelProperty("父节点ID,一级菜单默认为0")
+    @JsonSerialize(using = ToStringSerializer.class)
+    @JsonIgnore
+    private Long pid;
+    
 }

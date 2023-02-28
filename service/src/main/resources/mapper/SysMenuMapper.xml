@@ -25,39 +25,37 @@
         t.id, t.title, t.code, t.pid, t.path,t.sub_path, t.grade, t.sort, t.state, t.remark, t.create_time, t.update_time
     </sql>
 
-    <select id="getLeftMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
+    <select id="getMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
+        <choose>
+            <when test="operatorId != null">
+                <include refid="selectOperatorMenuSql"/>
+            </when>
+            <otherwise>
+                <include refid="selectMenuSql"/>
+            </otherwise>
+        </choose>
+    </select>
+    
+    <sql id="selectOperatorMenuSql" >
         SELECT
-        t.id, t.title, t.code, t.pid, t.path, t.sort
+            t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
         from sys_menu t
-        LEFT JOIN sys_role_menu s on t.id = s.menu_id
-        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where t.state = true and t.grade = 1 and t.admin_hide = #{adminHide}
-        <if test="operatorId != null">
-            and o.operator_id = #{operatorId}
+         LEFT JOIN sys_role_menu s on t.id = s.menu_id
+         LEFT JOIN sys_operator_role o on s.role_id = o.role_id
+        where t.state = true and t.admin_hide = #{adminHide} and o.operator_id = #{operatorId}
+        <if test="grade != null">
+            and t.grade = #{grade}
         </if>
-        
-    </select>
-
-    <select id="getButtonList" resultType="string">
+    </sql>
+    
+    <sql id="selectMenuSql" >
         SELECT
-        t.code
-        from sys_menu t
-        LEFT JOIN sys_role_menu s on t.id = s.menu_id
-        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where t.state = true and t.grade = 2 and t.admin_hide = #{adminHide}
-        <if test="operatorId != null" >
-            and o.operator_id = #{operatorId}
+        t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
+        from sys_menu t where t.state = true and t.admin_hide = #{adminHide}
+        <if test="grade != null">
+            and t.grade = #{grade}
         </if>
-    </select>
-
-    <select id="getList" resultMap="BaseResultMap">
-        SELECT
-        <include refid="BaseColumnList"/>
-        from sys_menu t
-        LEFT JOIN sys_role_menu s on t.id = s.menu_id
-        LEFT JOIN sys_operator_role o on s.role_id = o.role_id
-        where o.operator_id = #{operatorId} and t.state = true
-    </select>
+    </sql>
 
     <select id="getMaxId" resultType="string">
         select id from sys_menu where pid = #{pid} and state = true order by id desc limit 1

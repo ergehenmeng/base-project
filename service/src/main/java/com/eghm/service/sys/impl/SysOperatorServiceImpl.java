@@ -1,6 +1,5 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -200,10 +199,10 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         // 如果用户拥有超管角色,则默认查询全部菜单等信息
         List<MenuResponse> leftMenu;
         if (adminRole) {
-            leftMenu = sysMenuService.getLeftMenuList();
-            buttonList = sysMenuService.getAuth();
+            leftMenu = sysMenuService.getAdminLeftMenuList();
+            buttonList = sysMenuService.getAdminPermCode();
         } else {
-            buttonList = sysMenuService.getAuth(operator.getId());
+            buttonList = sysMenuService.getPermCode(operator.getId());
             leftMenu = sysMenuService.getLeftMenuList(operator.getId());
         }
         // 根据用户名和权限创建jwtToken
