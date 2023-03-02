@@ -56,10 +56,10 @@ public class StopWatch {
         }
         started = false;
         this.createTaskClock(System.nanoTime());
-        StringBuilder builder = new StringBuilder(" StopWatch 总耗时: ").append(TimeUnit.NANOSECONDS.toMillis(totalElapsedTime)).append(" ms");
+        StringBuilder builder = new StringBuilder("\nStopWatch 总耗时: ").append(TimeUnit.NANOSECONDS.toMillis(totalElapsedTime)).append(" ms");
         builder.append("\n");
         for (TimeClock clock : taskList) {
-            builder.append("任务: ").append(clock.getTaskName()).append("  耗时(ms): ").append(TimeUnit.NANOSECONDS.toMillis(clock.getElapsedTime())).append("\n");
+            builder.append("[").append(clock.getTaskName()).append("] 耗时(ms): ").append(TimeUnit.NANOSECONDS.toMillis(clock.getElapsedTime())).append("\n");
         }
         return builder.toString();
     }
