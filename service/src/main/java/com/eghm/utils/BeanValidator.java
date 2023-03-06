@@ -20,7 +20,7 @@ public class BeanValidator {
     
     private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
     
-    private static <T> void validate(T t, Class<?>... groups) {
+    public static <T> void validate(T t, Class<?>... groups) {
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<T>> validate = validator.validate(t, groups);
         if (CollUtil.isNotEmpty(validate)) {

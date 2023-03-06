@@ -8,6 +8,7 @@ import com.eghm.model.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -19,24 +20,24 @@ import java.util.List;
  * @date 2022/7/1
  */
 @Data
-public class ItemAddRequest {
+public class ItemEditRequest {
 
-    @ApiModelProperty(value = "商品名称")
-    @Size(min = 2, max = 20, message = "商品名称长度2~20位")
-    private String title;
+    @ApiModelProperty("id")
+    @NotNull(message = "id不能为空")
+    private Long id;
 
     @ApiModelProperty("店铺id")
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
-    @ApiModelProperty(value = "商品描述信息")
-    @Size(min = 5, max = 40, message = "商品描述信息长度5~40字符")
-    private String depict;
+    @ApiModelProperty(value = "商品名称")
+    @Size(min = 2, max = 20, message = "商品名称长度2~20位")
+    private String title;
     
     @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是")
     @NotNull(message = "规格类型不能为空")
     private Boolean multiSpec;
-
+    
     @ApiModelProperty(value = "封面图")
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
@@ -50,7 +51,7 @@ public class ItemAddRequest {
     private Integer quota;
 
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
-    @OptionInt(value = {1, 2}, message = "交付方式不合法")
+    @OptionInt(value = {1, 2}, message = "交付方式不能为空")
     private Integer deliveryMethod;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
@@ -60,6 +61,11 @@ public class ItemAddRequest {
     @ApiModelProperty("退款描述信息")
     @Size(max = 100, message = "退款描述信息最大100字符")
     private String refundDescribe;
+
+    @ApiModelProperty(value = "虚拟销量")
+    @NotNull(message = "虚拟销量不能为空")
+    @Min(value = 0, message = "虚拟销量不能小于0")
+    private Integer virtualNum;
 
     @ApiModelProperty(value = "商品介绍信息")
     @NotBlank(message = "商品介绍信息不能为空")

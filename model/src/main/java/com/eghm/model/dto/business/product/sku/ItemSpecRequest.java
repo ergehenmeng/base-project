@@ -15,6 +15,9 @@ import javax.validation.constraints.Size;
 @Data
 public class ItemSpecRequest {
     
+    @ApiModelProperty("id(编辑时不能为空)")
+    private Long id;
+    
     @ApiModelProperty(value = "规格名")
     @Size(min = 1, max = 20, message = "规格名长度1~20位")
     private String specName;

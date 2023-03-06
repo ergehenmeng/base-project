@@ -814,8 +814,6 @@ public enum ErrorCode {
      */
     VOUCHER_STOCK(3179, "餐饮券库存不足"),
 
-
-
     /**
      * 餐饮单次购买上限为%s张
      */
@@ -1005,6 +1003,11 @@ public enum ErrorCode {
      * 旅行社信息不存在
      */
     TRAVEL_AGENCY_NOT_FOUND(3302, "旅行社信息不存在"),
+    
+    /**
+     * 规格值重复啦
+     */
+    SKU_TITLE_REDO(3305, "规格值重复啦"),
     
     /**
      * 微信公众号尚未配置

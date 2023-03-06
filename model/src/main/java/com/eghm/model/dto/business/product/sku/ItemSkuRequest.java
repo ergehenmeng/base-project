@@ -15,6 +15,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ItemSkuRequest {
     
+    @ApiModelProperty("id(编辑时不能为空)")
+    private Long id;
+    
     @ApiModelProperty(value = "一级规格名(单规格为空)")
     private String primarySpecValue;
     
