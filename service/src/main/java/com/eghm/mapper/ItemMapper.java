@@ -56,6 +56,7 @@ public interface ItemMapper extends BaseMapper<Item> {
     
     /**
      * 优惠券所能使用的商品范围, 分页查询
+     * @param page 分页信息
      * @param dto 查询条件
      * @return 列表
      */

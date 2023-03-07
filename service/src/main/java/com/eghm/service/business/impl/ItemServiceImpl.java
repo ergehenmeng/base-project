@@ -20,8 +20,10 @@ import com.eghm.model.dto.business.product.ItemAddRequest;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
 import com.eghm.model.dto.business.product.ItemEditRequest;
 import com.eghm.model.dto.business.product.ItemQueryDTO;
+import com.eghm.model.dto.business.product.ItemQueryRequest;
 import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
 import com.eghm.model.dto.business.product.sku.ItemSpecRequest;
+import com.eghm.model.vo.business.item.ItemListResponse;
 import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.business.item.ItemResponse;
 import com.eghm.model.vo.business.item.ItemSkuResponse;
@@ -64,6 +66,12 @@ public class ItemServiceImpl implements ItemService {
     private final SysConfigApi sysConfigApi;
     
     private final CouponConfigMapper couponConfigMapper;
+    
+    @Override
+    public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
+        // TODO 过滤当前登录人的storeId
+        return itemMapper.listPage(request.createPage(), request);
+    }
     
     @Override
     public void create(ItemAddRequest request) {

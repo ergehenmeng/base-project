@@ -1,11 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.business.product.ItemQueryDTO;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.vo.business.product.ProductListVO;
+import com.eghm.model.dto.business.product.ItemQueryDTO;
+import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
-import com.eghm.service.business.ProductService;
+import com.eghm.service.business.ItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -26,35 +26,35 @@ import java.util.List;
 @RestController
 @Api(tags = "商品信息")
 @AllArgsConstructor
-@RequestMapping("/webapp/product")
-public class ProductController {
+@RequestMapping("/webapp/item")
+public class ItemController {
 
-    private final ProductService productService;
+    private final ItemService itemService;
 
     private final CouponConfigService couponConfigService;
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public List<ProductListVO> listPage(ItemQueryDTO dto) {
-        return productService.getByPage(dto);
+    public List<ItemListVO> listPage(ItemQueryDTO dto) {
+        return itemService.getByPage(dto);
     }
 
     @GetMapping("/recommend")
     @ApiOperation("商品推荐列表")
-    public List<ProductListVO> recommend() {
-        return productService.getRecommend();
+    public List<ItemListVO> recommend() {
+        return itemService.getRecommend();
     }
 
     @GetMapping("/coupon")
     @ApiOperation("商品页可以领取的优惠券")
-    @ApiImplicitParam(name = "productId", value = "商品id", required = true)
-    public List<CouponListVO> product(@RequestParam("productId") Long productId) {
-        return couponConfigService.getProductCoupon(productId);
+    @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
+    public List<CouponListVO> product(@RequestParam("itemId") Long itemId) {
+        return couponConfigService.getProductCoupon(itemId);
     }
 
     @GetMapping("/couponScope")
     @ApiOperation("优惠券匹配的商品列表")
-    public List<ProductListVO> couponScope(@Validated ItemCouponQueryDTO dto) {
-        return productService.getCouponScopeByPage(dto);
+    public List<ItemListVO> couponScope(@Validated ItemCouponQueryDTO dto) {
+        return itemService.getCouponScopeByPage(dto);
     }
 }

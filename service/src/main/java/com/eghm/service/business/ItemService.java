@@ -1,12 +1,15 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.model.Item;
 import com.eghm.model.dto.business.product.ItemAddRequest;
-import com.eghm.model.dto.business.product.ItemEditRequest;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
+import com.eghm.model.dto.business.product.ItemEditRequest;
 import com.eghm.model.dto.business.product.ItemQueryDTO;
+import com.eghm.model.dto.business.product.ItemQueryRequest;
+import com.eghm.model.vo.business.item.ItemListResponse;
 import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.business.item.ItemResponse;
 
@@ -19,6 +22,13 @@ import java.util.Set;
  * @date 2023/3/6
  */
 public interface ItemService {
+    
+    /**
+     * 分页查询商品信息
+     * @param request 分页信息及查询条件
+     * @return 商品列表
+     */
+    Page<ItemListResponse> getByPage(ItemQueryRequest request);
     
     /**
      * 创建零售商品
