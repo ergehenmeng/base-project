@@ -9,7 +9,7 @@ import com.eghm.model.dto.IdDTO;
 import com.eghm.model.dto.SortByDTO;
 import com.eghm.model.dto.business.product.ProductAddRequest;
 import com.eghm.model.dto.business.product.ProductEditRequest;
-import com.eghm.model.dto.business.product.ProductQueryRequest;
+import com.eghm.model.dto.business.product.ItemQueryRequest;
 import com.eghm.model.dto.ext.PageData;
 import com.eghm.model.dto.ext.RespBody;
 import com.eghm.model.vo.business.product.ProductListResponse;
@@ -44,7 +44,7 @@ public class ProductController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public PageData<ProductListResponse> listPage(ProductQueryRequest request) {
+    public PageData<ProductListResponse> listPage(ItemQueryRequest request) {
         Page<ProductListResponse> byPage = productService.getByPage(request);
         return PageData.toPage(byPage);
     }

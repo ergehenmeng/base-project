@@ -2,23 +2,34 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.PlatformState;
+import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ItemMapper;
+import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
 import com.eghm.model.dto.business.product.ItemAddRequest;
 import com.eghm.model.dto.business.product.ItemEditRequest;
+import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
+import com.eghm.model.dto.business.product.ProductQueryDTO;
 import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
 import com.eghm.model.dto.business.product.sku.ItemSpecRequest;
+import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.business.item.ItemResponse;
 import com.eghm.model.vo.business.item.ItemSkuResponse;
 import com.eghm.model.vo.business.item.ItemSpecResponse;
+import com.eghm.model.vo.business.product.ProductListVO;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ItemSpecService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -29,6 +40,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
@@ -47,6 +60,8 @@ public class ItemServiceImpl implements ItemService {
     private final ItemSkuService itemSkuService;
     
     private final ItemSpecService itemSpecService;
+    
+    private final SysConfigApi sysConfigApi;
     
     @Override
     public void create(ItemAddRequest request) {
@@ -104,6 +119,97 @@ public class ItemServiceImpl implements ItemService {
             throw new BusinessException(PRODUCT_DOWN);
         }
         return item;
+    }
+    
+    @Override
+    public void updateState(Long id, State state) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getId, id);
+        wrapper.set(Item::getState, state);
+        itemMapper.update(null, wrapper);
+    }
+    
+    @Override
+    public void updateAuditState(Long id, PlatformState state) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getId, id);
+        wrapper.set(Item::getPlatformState, state);
+        itemMapper.update(null, wrapper);
+    }
+    
+    @Override
+    public void setRecommend(Long id) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getId, id);
+        wrapper.set(Item::getRecommend, true);
+        itemMapper.update(null, wrapper);
+    }
+    
+    @Override
+    public void sortBy(Long id, Integer sortBy) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getId, id);
+        wrapper.set(Item::getSortBy, sortBy);
+        itemMapper.update(null, wrapper);
+    }
+    
+    @Override
+    public Map<Long, Item> getByIds(Set<Long> ids) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.in(Item::getId, ids);
+        wrapper.eq(Item::getPlatformState, PlatformState.SHELVE);
+        List<Item> productList = itemMapper.selectList(wrapper);
+        if (productList.size() != ids.size()) {
+            log.info("存在已下架的商品 {}", ids);
+            throw new BusinessException(PRODUCT_DOWN);
+        }
+        return productList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
+    }
+    
+    @Override
+    public void updateSaleNum(Map<Long, Integer> productNumMap) {
+        // TODO
+    }
+    
+    @Override
+    public void updateSaleNum(Long id, Integer num) {
+        // TODO
+    }
+    
+    @Override
+    public void updateSaleNum(List<String> orderNoList) {
+        // TODO
+    }
+    
+    @Override
+    public List<ItemListVO> getPriorityItem(Long shopId) {
+        int max = sysConfigApi.getInt(ConfigConstant.STORE_PRODUCT_MAX_RECOMMEND, 10);
+        return itemMapper.getPriorityProduct(shopId, max);
+    }
+    
+    @Override
+    public List<ItemListVO> getRecommend() {
+        int max = sysConfigApi.getInt(ConfigConstant.PRODUCT_MAX_RECOMMEND, 10);
+        return itemMapper.getRecommendProduct(max);
+    }
+    
+    @Override
+    public List<ItemListVO> getByPage(ProductQueryDTO dto) {
+        Page<ProductListVO> voPage = itemMapper.getByPage(dto.createPage(false), dto);
+        return voPage.getRecords();
+    }
+    
+    @Override
+    public List<ItemListVO> getCouponScopeByPage(ItemCouponQueryDTO dto) {
+        CouponConfig coupon = couponConfigMapper.selectById(dto.getCouponId());
+        if (coupon == null) {
+            log.error("优惠券不存在 [{}]", dto.getCouponId());
+            throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
+        }
+        // 增加过滤条件,提高查询效率
+        dto.setStoreId(coupon.getStoreId());
+        dto.setUseScope(coupon.getUseScope());
+        return itemMapper.getCouponScopeByPage(dto.createPage(false), dto).getRecords();
     }
     
     /**

@@ -23,7 +23,7 @@ public interface ProductService {
      * @param request 分页信息及查询条件
      * @return 商品列表
      */
-    Page<ProductListResponse> getByPage(ProductQueryRequest request);
+    Page<ProductListResponse> getByPage(ItemQueryRequest request);
 
     /**
      * 增加商品信息
@@ -133,5 +133,5 @@ public interface ProductService {
      * @param dto 查询条件
      * @return 列表
      */
-    List<ProductListVO> getCouponScopeByPage(ProductCouponQueryDTO dto);
+    List<ProductListVO> getCouponScopeByPage(ItemCouponQueryDTO dto);
 }

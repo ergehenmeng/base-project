@@ -1,7 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.model.dto.business.product.ProductQueryDTO;
-import com.eghm.model.dto.business.product.ProductCouponQueryDTO;
+import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
 import com.eghm.model.vo.business.product.ProductListVO;
 import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
@@ -54,7 +54,7 @@ public class ProductController {
 
     @GetMapping("/couponScope")
     @ApiOperation("优惠券匹配的商品列表")
-    public List<ProductListVO> couponScope(@Validated ProductCouponQueryDTO dto) {
+    public List<ProductListVO> couponScope(@Validated ItemCouponQueryDTO dto) {
         return productService.getCouponScopeByPage(dto);
     }
 }

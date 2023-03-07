@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
     private final CouponConfigMapper couponConfigMapper;
 
     @Override
-    public Page<ProductListResponse> getByPage(ProductQueryRequest request) {
+    public Page<ProductListResponse> getByPage(ItemQueryRequest request) {
         // TODO 过滤当前登录人的storeId
         return productMapper.listPage(request.createPage(), request);
     }
@@ -178,7 +178,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductListVO> getCouponScopeByPage(ProductCouponQueryDTO dto) {
+    public List<ProductListVO> getCouponScopeByPage(ItemCouponQueryDTO dto) {
         CouponConfig coupon = couponConfigMapper.selectById(dto.getCouponId());
         if (coupon == null) {
             log.error("优惠券不存在 [{}]", dto.getCouponId());

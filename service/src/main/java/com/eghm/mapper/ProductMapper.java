@@ -3,9 +3,9 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Product;
-import com.eghm.model.dto.business.product.ProductCouponQueryDTO;
+import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
 import com.eghm.model.dto.business.product.ProductQueryDTO;
-import com.eghm.model.dto.business.product.ProductQueryRequest;
+import com.eghm.model.dto.business.product.ItemQueryRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.model.vo.business.product.ProductListVO;
 import org.apache.ibatis.annotations.Param;
@@ -41,7 +41,7 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @param request 查询条件
      * @return 商品列表
      */
-    Page<ProductListResponse> listPage(Page<ProductListResponse> page, @Param("param")ProductQueryRequest request);
+    Page<ProductListResponse> listPage(Page<ProductListResponse> page, @Param("param") ItemQueryRequest request);
 
     /**
      * 查询店铺首页下推荐的商品列表, 不含下架的商品
@@ -71,5 +71,5 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<ProductListVO> getCouponScopeByPage(Page<ProductListVO> page, @Param("param") ProductCouponQueryDTO dto);
+    Page<ProductListVO> getCouponScopeByPage(Page<ProductListVO> page, @Param("param") ItemCouponQueryDTO dto);
 }
