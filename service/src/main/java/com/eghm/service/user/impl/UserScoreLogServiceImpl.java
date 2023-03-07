@@ -44,6 +44,6 @@ public class UserScoreLogServiceImpl implements UserScoreLogService {
         wrapper.eq(UserScoreLog::getUserId, request.getUserId());
         wrapper.eq(request.getType() != null, UserScoreLog::getType, request.getType());
         Page<UserScoreLog> page = userScoreLogMapper.selectPage(request.createPage(), wrapper);
-        return DataUtil.convert(page, scoreLog -> DataUtil.copy(scoreLog, UserScoreVO.class));
+        return DataUtil.copy(page, scoreLog -> DataUtil.copy(scoreLog, UserScoreVO.class));
     }
 }

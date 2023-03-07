@@ -125,7 +125,7 @@ public class UserNoticeServiceImpl implements UserNoticeService {
         wrapper.eq(UserNotice::getUserId, userId);
         wrapper.last(" order by read desc, id desc ");
         Page<UserNotice> page = userNoticeMapper.selectPage(query.createPage(), wrapper);
-        return DataUtil.convert(page, userNotice -> DataUtil.copy(userNotice, UserNoticeVO.class));
+        return DataUtil.copy(page, userNotice -> DataUtil.copy(userNotice, UserNoticeVO.class));
     }
 
     @Override

@@ -80,7 +80,7 @@ public class UserAddressServiceImpl implements UserAddressService {
     @Override
     public List<AddressVO> getByUserId(Long userId) {
         List<UserAddress> addressList = userAddressMapper.getByUserId(userId);
-        return DataUtil.convert(addressList, address -> DataUtil.copy(address, AddressVO.class));
+        return DataUtil.copy(addressList, address -> DataUtil.copy(address, AddressVO.class));
     }
 
     /**

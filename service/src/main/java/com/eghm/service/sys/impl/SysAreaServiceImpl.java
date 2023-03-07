@@ -38,7 +38,7 @@ public class SysAreaServiceImpl implements SysAreaService {
     @Override
     public List<SysAreaVO> getByPid(Long pid) {
         List<SysArea> selectList = cacheProxyService.getAreaByPid(pid);
-        return DataUtil.convert(selectList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
+        return DataUtil.copy(selectList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
 
     }
 

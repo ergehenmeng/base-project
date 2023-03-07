@@ -46,7 +46,7 @@ public class SysNoticeServiceImpl implements SysNoticeService {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
         SysDictService finalProxy = this.sysDictService;
-        return DataUtil.convert(noticeList, notice -> {
+        return DataUtil.copy(noticeList, notice -> {
             TopNoticeVO vo = DataUtil.copy(notice, TopNoticeVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
             vo.setTitle(finalProxy.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());

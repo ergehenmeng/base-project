@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.mapper.ItemSpecMapper;
@@ -66,6 +67,13 @@ public class ItemSpecServiceImpl implements ItemSpecService {
             specMap.put(spec.getSpecValue(), spec.getId());
         }
         return specMap;
+    }
+    
+    @Override
+    public List<ItemSpec> getByItemId(Long itemId) {
+        LambdaQueryWrapper<ItemSpec> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemSpec::getItemId, itemId);
+        return itemSpecMapper.selectList(wrapper);
     }
     
     /**

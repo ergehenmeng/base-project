@@ -7,10 +7,15 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.Item;
+import com.eghm.model.ItemSku;
+import com.eghm.model.ItemSpec;
 import com.eghm.model.dto.business.product.ItemAddRequest;
 import com.eghm.model.dto.business.product.ItemEditRequest;
 import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
 import com.eghm.model.dto.business.product.sku.ItemSpecRequest;
+import com.eghm.model.vo.business.item.ItemResponse;
+import com.eghm.model.vo.business.item.ItemSkuResponse;
+import com.eghm.model.vo.business.item.ItemSpecResponse;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ItemSpecService;
@@ -20,9 +25,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalInt;
+import java.util.stream.Collectors;
+
+import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
 
 /**
  * @author 殿小二
@@ -63,6 +72,38 @@ public class ItemServiceImpl implements ItemService {
         
         Map<String, Long> specMap = itemSpecService.update(item, request.getSpecList());
         itemSkuService.update(item, specMap, request.getSkuList());
+    }
+    
+    @Override
+    public ItemResponse getDetailById(Long itemId) {
+        Item item = this.selectByIdRequired(itemId);
+        ItemResponse response = DataUtil.copy(item, ItemResponse.class);
+        // 多规格才会保存规格配置信息
+        if (Boolean.TRUE.equals(item.getMultiSpec())) {
+            List<ItemSpec> spec = itemSpecService.getByItemId(itemId);
+            List<ItemSpecResponse> specList = DataUtil.copy(spec, ItemSpecResponse.class);
+            // 根据规格名分组
+            LinkedHashMap<String, List<ItemSpecResponse>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpecResponse::getSpecName, LinkedHashMap::new, Collectors.toList()));
+            response.setSpecMap(specMap);
+        }
+        List<ItemSku> skuList = itemSkuService.getByItemId(itemId);
+        response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
+        return response;
+    }
+    
+    @Override
+    public Item selectById(Long itemId) {
+        return itemMapper.selectById(itemId);
+    }
+    
+    @Override
+    public Item selectByIdRequired(Long itemId) {
+        Item item = itemMapper.selectById(itemId);
+        if (item == null) {
+            log.error("该零售商品已删除 [{}]", itemId);
+            throw new BusinessException(PRODUCT_DOWN);
+        }
+        return item;
     }
     
     /**

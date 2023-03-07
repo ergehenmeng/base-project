@@ -70,7 +70,7 @@ public class ProductController {
         Product product = productService.selectById(id);
         ProductResponse response = DataUtil.copy(product, ProductResponse.class);
         List<ProductSku> skuList = productSkuService.selectByProductId(id);
-        response.setSkuList(DataUtil.convert(skuList, ProductSkuResponse.class));
+        response.setSkuList(DataUtil.copy(skuList, ProductSkuResponse.class));
         response.setVirtualNum(product.getTotalNum() - product.getSaleNum());
         return response;
     }

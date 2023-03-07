@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.mapper.ItemSkuMapper;
@@ -53,6 +54,13 @@ public class ItemSkuServiceImpl implements ItemSkuService {
                 itemSkuMapper.updateById(sku);
             }
         }
+    }
+    
+    @Override
+    public List<ItemSku> getByItemId(Long itemId) {
+        LambdaQueryWrapper<ItemSku> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemSku::getItemId, itemId);
+        return itemSkuMapper.selectList(wrapper);
     }
     
     /**

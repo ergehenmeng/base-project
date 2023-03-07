@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.Item;
+import com.eghm.model.ItemSku;
 import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
 
 import java.util.List;
@@ -27,4 +28,11 @@ public interface ItemSkuService {
      * @param skuList sku信息
      */
     void update(Item item, Map<String, Long> specMap, List<ItemSkuRequest> skuList);
+    
+    /**
+     * 根据商品id查询sku信息
+     * @param itemId 商品id
+     * @return sku列表
+     */
+    List<ItemSku> getByItemId(Long itemId);
 }

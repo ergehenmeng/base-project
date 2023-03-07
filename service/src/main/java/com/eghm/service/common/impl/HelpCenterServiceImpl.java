@@ -57,6 +57,6 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     @Override
     public List<HelpCenterVO> list(HelpQueryDTO dto) {
         List<HelpCenter> list = helpCenterMapper.getListSorted(dto.getClassify(), dto.getQueryName());
-        return DataUtil.convert(list, helpCenter -> DataUtil.copy(helpCenter, HelpCenterVO.class));
+        return DataUtil.copy(list, helpCenter -> DataUtil.copy(helpCenter, HelpCenterVO.class));
     }
 }

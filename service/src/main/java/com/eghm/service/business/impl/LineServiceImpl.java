@@ -143,7 +143,7 @@ public class LineServiceImpl implements LineService {
         LineVO vo = DataUtil.copy(line, LineVO.class);
 
         List<LineDayConfig> dayConfigList = lineDayConfigService.getByLineId(id);
-        vo.setDayList(DataUtil.convert(dayConfigList, LineDayConfigResponse.class));
+        vo.setDayList(DataUtil.copy(dayConfigList, LineDayConfigResponse.class));
         // 出发地格式化
         vo.setStartPoint(sysAreaService.parseProvinceCity(line.getStartProvinceId(), line.getStartCityId()));
         // 最低参考价

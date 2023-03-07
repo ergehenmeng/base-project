@@ -38,7 +38,7 @@ public class DataUtil {
      * @param transfer 转换对象
      * @return 结果
      */
-    public static <S, T> PageData<T> convert(Page<S> page, Function<S, T> transfer) {
+    public static <S, T> PageData<T> copy(Page<S> page, Function<S, T> transfer) {
 
         PageData<T> paging = new PageData<>();
         List<T> formatList = Lists.newArrayList();
@@ -62,7 +62,7 @@ public class DataUtil {
      * @param <T>        目标数据类型
      * @return 结果数据列表
      */
-    public static <S, T> List<T> convert(Collection<S> sourceList, Function<S, T> transfer) {
+    public static <S, T> List<T> copy(Collection<S> sourceList, Function<S, T> transfer) {
         List<T> resultList = Lists.newArrayList();
         sourceList.forEach(s -> resultList.add(transfer.apply(s)));
         return resultList;
@@ -77,8 +77,8 @@ public class DataUtil {
      * @param <T>        目标数据类型
      * @return 结果数据列表
      */
-    public static <S, T> List<T> convert(Collection<S> sourceList, Class<T> cls) {
-        return convert(sourceList, s -> DataUtil.copy(s, cls));
+    public static <S, T> List<T> copy(Collection<S> sourceList, Class<T> cls, String... ignoreProperties) {
+        return copy(sourceList, s -> DataUtil.copy(s, cls, ignoreProperties));
     }
 
 

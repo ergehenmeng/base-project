@@ -58,7 +58,7 @@ public class LoginDeviceServiceImpl implements LoginDeviceService {
         wrapper.last(" order by id desc ");
         List<LoginDevice> deviceList = loginDeviceMapper.selectList(wrapper);
 
-        return DataUtil.convert(deviceList, device -> {
+        return DataUtil.copy(deviceList, device -> {
             LoginDeviceVO vo = DataUtil.copy(device, LoginDeviceVO.class, "loginTime");
             vo.setLoginTime(DateUtil.formatSimple(device.getLoginTime()));
             return vo;

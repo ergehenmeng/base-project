@@ -65,7 +65,7 @@ public class LineController {
         Line line = lineService.selectByIdRequired(request.getId());
         LineResponse response = DataUtil.copy(line, LineResponse.class);
         List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());
-        response.setDayList(DataUtil.convert(dayList, LineDayConfigResponse.class));
+        response.setDayList(DataUtil.copy(dayList, LineDayConfigResponse.class));
         // 虚拟销量需要计算
         response.setVirtualNum(line.getTotalNum() - line.getSaleNum());
         return response;
