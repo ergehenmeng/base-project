@@ -7,6 +7,8 @@ import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.exception.BusinessException;
+import com.eghm.model.Item;
+import com.eghm.model.ItemSku;
 import com.eghm.model.Order;
 import com.eghm.model.ShippingAddress;
 import com.eghm.service.business.*;
@@ -36,9 +38,9 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
 
     private final ShippingAddressService shippingAddressService;
 
-    private final ProductService productService;
+    private final ItemService itemService;
 
-    private final ProductSkuService productSkuService;
+    private final ItemSkuService itemSkuService;
 
     private final OrderService orderService;
 
@@ -62,7 +64,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
             // 更新库存信息
-            productSkuService.updateStock(skuNumMap);
+            itemSkuService.updateStock(skuNumMap);
 
             String orderNo = ProductType.PRODUCT.getPrefix() + IdWorker.getIdStr();
             address.setOrderNo(orderNo);
@@ -97,14 +99,14 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
     private ProductOrderPayload getProduct(ProductOrderCreateContext dto) {
         // 组装数据,减少后面遍历逻辑
         Set<Long> productIds = dto.getProductList().stream().map(BaseProductDTO::getProductId).collect(Collectors.toSet());
-        Map<Long, Product> productMap = productService.getByIds(productIds);
+        Map<Long, Item> productMap = itemService.getByIds(productIds);
         Set<Long> skuIds = dto.getProductList().stream().map(BaseProductDTO::getSkuId).collect(Collectors.toSet());
-        Map<Long, ProductSku> skuMap = productSkuService.getByIds(skuIds);
+        Map<Long, ItemSku> skuMap = itemSkuService.getByIds(skuIds);
         List<OrderPackage> packageList = new ArrayList<>();
         OrderPackage orderPackage;
         for (BaseProductDTO product : dto.getProductList()) {
             orderPackage = new OrderPackage();
-            orderPackage.setProduct(productMap.get(product.getProductId()));
+            orderPackage.setItem(productMap.get(product.getProductId()));
             orderPackage.setSku(skuMap.get(product.getSkuId()));
             orderPackage.setNum(product.getNum());
             orderPackage.setProductId(product.getProductId());
@@ -125,11 +127,11 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
     private void before(ProductOrderPayload product) {
         List<OrderPackage> packageList = product.getPackageList();
         for (OrderPackage aPackage : packageList) {
-            if (aPackage.getProduct() == null) {
+            if (aPackage.getItem() == null) {
                 log.error("未查询到商品信息 [{}] ", aPackage.getProductId());
                 throw new BusinessException(ErrorCode.PRODUCT_DOWN);
             }
-            ProductSku sku = aPackage.getSku();
+            ItemSku sku = aPackage.getSku();
             if (sku == null) {
                 log.error("未查询到商品规格信息 [{}] ", aPackage.getSkuId());
                 throw new BusinessException(ErrorCode.SKU_STOCK);
@@ -151,7 +153,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
      * @return 退款方式, 普通商品只支持审核下单或不退款
      */
     private RefundType getRefundType(List<OrderPackage> packageList) {
-        Optional<OrderPackage> optional = packageList.stream().filter(orderPackage -> orderPackage.getProduct().getRefundType() != RefundType.NOT_SUPPORTED).findFirst();
+        Optional<OrderPackage> optional = packageList.stream().filter(orderPackage -> orderPackage.getItem().getRefundType() != RefundType.NOT_SUPPORTED).findFirst();
         return optional.isPresent() ? RefundType.AUDIT_REFUND : RefundType.NOT_SUPPORTED;
     }
 

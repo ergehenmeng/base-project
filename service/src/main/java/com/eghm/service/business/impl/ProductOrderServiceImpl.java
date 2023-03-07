@@ -41,7 +41,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public void insert(String orderNo, List<OrderPackage> packageList) {
         for (OrderPackage aPackage : packageList) {
-            ProductOrder order = DataUtil.copy(aPackage.getProduct(), ProductOrder.class);
+            ProductOrder order = DataUtil.copy(aPackage.getItem(), ProductOrder.class);
             order.setOrderNo(orderNo);
             order.setProductId(aPackage.getProductId());
             ProductSku sku = aPackage.getSku();
