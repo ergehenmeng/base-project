@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -39,6 +40,7 @@ public class AuditRefundContext implements Context {
 
     @ApiModelProperty("审批意见")
     @Size(min = 2, max = 100, message = "审批意见长度2~100字符")
+    @NotBlank(message = "审批意见不能为空")
     private String auditRemark;
 
     @ApiModelProperty("源状态")

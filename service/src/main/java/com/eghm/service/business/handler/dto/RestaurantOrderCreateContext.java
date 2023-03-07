@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,6 +34,7 @@ public class RestaurantOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("联系人姓名")
     @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符")
+    @NotBlank(message = "联系人姓名不能为空")
     private String nickName;
 
     @ApiModelProperty("联系人电话")

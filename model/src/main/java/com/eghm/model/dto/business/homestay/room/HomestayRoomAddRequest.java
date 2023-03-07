@@ -21,6 +21,7 @@ public class HomestayRoomAddRequest {
 
     @ApiModelProperty("房型名称")
     @Size(min = 2, max = 20, message = "房型名称应为2~20位")
+    @NotBlank(message = "房型名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "几室")

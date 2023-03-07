@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -41,6 +42,7 @@ public class ProductOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("联系人姓名")
     @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
+    @NotBlank(message = "联系人姓名不能为空", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private String nickName;
 
     @ApiModelProperty("游客信息列表")

@@ -32,6 +32,7 @@ public class ItemEditRequest {
 
     @ApiModelProperty(value = "商品名称")
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")
+    @NotBlank(message = "商品名称不能为空")
     private String title;
     
     @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是")

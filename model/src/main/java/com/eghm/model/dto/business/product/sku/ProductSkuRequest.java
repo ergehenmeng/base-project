@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,6 +23,7 @@ public class ProductSkuRequest {
 
     @ApiModelProperty(value = "规格名称")
     @Size(min = 1, max = 20, message = "规格名称长度1~20位")
+    @NotBlank(message = "规格名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "划线价")

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,6 +24,7 @@ public class CouponConfigAddRequest {
 
     @ApiModelProperty(value = "优惠券名称")
     @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")
+    @NotBlank(message = "优惠券名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "库存(发放数量)")

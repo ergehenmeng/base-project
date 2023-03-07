@@ -3,6 +3,8 @@ package com.eghm.utils;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import org.hibernate.validator.HibernateValidator;
+import org.hibernate.validator.HibernateValidatorConfiguration;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -18,7 +20,7 @@ import java.util.Set;
  */
 public class BeanValidator {
     
-    private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+    private static ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().addProperty(HibernateValidatorConfiguration.FAIL_FAST, "true").buildValidatorFactory();
     
     public static <T> void validate(T t, Class<?>... groups) {
         Validator validator = validatorFactory.getValidator();
@@ -37,5 +39,5 @@ public class BeanValidator {
             validate(o);
         }
     }
- 
+  
 }

@@ -19,8 +19,9 @@ import java.time.LocalDate;
 @Data
 public class RestaurantVoucherAddRequest {
 
-    @ApiModelProperty(value = "商品名称")
-    @Size(min = 2, max = 20, message = "餐饮券名称不能为空")
+    @ApiModelProperty(value = "餐饮券名称")
+    @Size(min = 2, max = 20, message = "餐饮券名称应为2~20字符")
+    @NotBlank(message = "餐饮券名称不能为空")
     private String title;
 
     @ApiModelProperty("餐饮店铺")

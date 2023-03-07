@@ -22,6 +22,7 @@ public class LineAddRequest {
 
     @ApiModelProperty(value = "线路名称", required = true)
     @Size(min = 2, max = 20, message = "线路名称长度2~20字符")
+    @NotBlank(message = "线路名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "出发省份id")

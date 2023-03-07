@@ -24,6 +24,7 @@ public class HomestayEditRequest {
 
     @ApiModelProperty(value = "民宿名称", required = true)
     @Size(min = 2, max = 20,message = "民宿名称长度2~20位")
+    @NotBlank(message = "民宿名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他", required = true)
@@ -47,6 +48,7 @@ public class HomestayEditRequest {
 
     @ApiModelProperty(value = "详细地址", required = true)
     @Size(min = 2, max = 20,message = "详细地址长度2~50位")
+    @NotBlank(message = "详细地址不能为空")
     private String detailAddress;
 
     @ApiModelProperty(value = "经度", required = true)

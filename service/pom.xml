@@ -128,10 +128,6 @@
             <groupId>org.springframework.amqp</groupId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.alibaba.cola</groupId>
             <artifactId>cola-component-statemachine</artifactId>
         </dependency>

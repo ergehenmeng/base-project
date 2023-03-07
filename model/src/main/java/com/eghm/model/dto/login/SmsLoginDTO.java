@@ -5,6 +5,7 @@ import com.eghm.model.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -18,6 +19,7 @@ public class SmsLoginDTO implements Serializable {
     private static final long serialVersionUID = -297158371625408459L;
 
     @Size(min = 4,max = 6,message = "短信验证码格式错误")
+    @NotBlank(message = "短信验证码不能为空")
     @ApiModelProperty(value = "短信验证码4-6位",required = true)
     private String smsCode;
 

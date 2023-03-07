@@ -9,6 +9,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -30,6 +31,7 @@ public class ProductEditRequest {
 
     @ApiModelProperty(value = "商品名称")
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")
+    @NotBlank(message = "商品名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "封面图")
@@ -65,6 +67,6 @@ public class ProductEditRequest {
     @NotBlank(message = "商品介绍信息不能为空")
     private String introduce;
 
-    @Size(message = "规格不能为空")
+    @NotEmpty(message = "规格不能为空")
     private List<ProductSkuRequest> skuList;
 }

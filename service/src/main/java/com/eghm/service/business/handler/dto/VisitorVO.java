@@ -4,6 +4,7 @@ import com.eghm.model.validation.annotation.IdCard;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -14,8 +15,9 @@ import java.io.Serializable;
 @Data
 public class VisitorVO implements Serializable {
 
-    @ApiModelProperty("用户姓名")
+    @ApiModelProperty("游客姓名")
     @Size(min = 2, max = 10, message = "游客姓名长度2~10字符")
+    @NotBlank(message = "游客姓名不能为空")
     private String userName;
 
     @ApiModelProperty("身份证")

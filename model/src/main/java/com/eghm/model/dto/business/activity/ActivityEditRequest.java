@@ -3,6 +3,7 @@ package com.eghm.model.dto.business.activity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,6 +20,7 @@ public class ActivityEditRequest {
 
     @ApiModelProperty(value = "活动名称")
     @Size(min = 2, max = 20, message = "活动名称长度2~20位")
+    @NotBlank(message = "活动名称不能为空")
     private String title;
 
     @ApiModelProperty(value = "开始时间HH:mm")
