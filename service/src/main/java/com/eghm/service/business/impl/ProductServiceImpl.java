@@ -172,7 +172,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductListVO> getByPage(ProductQueryDTO dto) {
+    public List<ProductListVO> getByPage(ItemQueryDTO dto) {
         Page<ProductListVO> voPage = productMapper.getByPage(dto.createPage(false), dto);
         return voPage.getRecords();
     }

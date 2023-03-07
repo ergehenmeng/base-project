@@ -38,7 +38,7 @@
         order by t.id desc
     </select>
     
-    <select id="getPriorityItem" resultType="com.eghm.model.vo.business.product.ProductListVO">
+    <select id="getPriorityItem" resultType="com.eghm.model.vo.business.item.ItemListVO">
         select
         id,
         title,
@@ -52,7 +52,7 @@
         order by min_price &gt; 0, sort_by, id limit #{limit}
     </select>
     
-    <select id="getRecommendItem" resultType="com.eghm.model.vo.business.product.ProductListVO">
+    <select id="getRecommendItem" resultType="com.eghm.model.vo.business.item.ItemListVO">
         select
             id,
             title,
@@ -63,7 +63,7 @@
         order by min_price &gt; 0, recommend desc, id limit #{limit}
     </select>
     
-    <select id="getByPage" parameterType="com.eghm.model.dto.business.product.ProductQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
+    <select id="getByPage" parameterType="com.eghm.model.dto.business.product.ItemQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
         select
         id,
         title,
@@ -92,7 +92,7 @@
         </if>
     </select>
     
-    <select id="getCouponScopeByPage" parameterType="com.eghm.model.dto.business.product.ItemCouponQueryDTO" resultType="com.eghm.model.vo.business.product.ProductListVO">
+    <select id="getCouponScopeByPage" parameterType="com.eghm.model.dto.business.product.ItemCouponQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
         select
         t.id,
         t.title,

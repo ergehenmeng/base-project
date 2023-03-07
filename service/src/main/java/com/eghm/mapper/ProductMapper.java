@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Product;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.product.ProductQueryDTO;
+import com.eghm.model.dto.business.product.ItemQueryDTO;
 import com.eghm.model.dto.business.product.ItemQueryRequest;
 import com.eghm.model.vo.business.product.ProductListResponse;
 import com.eghm.model.vo.business.product.ProductListVO;
@@ -64,7 +64,7 @@ public interface ProductMapper extends BaseMapper<Product> {
      * @param dto 查询条件
      * @return 商品信息
      */
-    Page<ProductListVO> getByPage(Page<ProductListVO> page, @Param("param") ProductQueryDTO dto);
+    Page<ProductListVO> getByPage(Page<ProductListVO> page, @Param("param") ItemQueryDTO dto);
 
     /**
      * 优惠券所能使用的商品范围, 分页查询

@@ -72,7 +72,7 @@
         order by min_price &gt; 0, recommend desc, id limit #{limit}
     </select>
 
-    <select id="getByPage" parameterType="com.eghm.model.dto.business.product.ProductQueryDTO" resultType="com.eghm.model.vo.business.product.ProductListVO">
+    <select id="getByPage" parameterType="com.eghm.model.dto.business.product.ItemQueryDTO" resultType="com.eghm.model.vo.business.product.ProductListVO">
         select
         id,
         title,

@@ -126,7 +126,7 @@ public interface ProductService {
      * @param dto 查询条件
      * @return 列表
      */
-    List<ProductListVO> getByPage(ProductQueryDTO dto);
+    List<ProductListVO> getByPage(ItemQueryDTO dto);
 
     /**
      * 优惠券所能使用的商品范围, 分页查询

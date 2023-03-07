@@ -1,6 +1,6 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.business.product.ProductQueryDTO;
+import com.eghm.model.dto.business.product.ItemQueryDTO;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
 import com.eghm.model.vo.business.product.ProductListVO;
 import com.eghm.model.vo.coupon.CouponListVO;
@@ -35,7 +35,7 @@ public class ProductController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public List<ProductListVO> listPage(ProductQueryDTO dto) {
+    public List<ProductListVO> listPage(ItemQueryDTO dto) {
         return productService.getByPage(dto);
     }
 

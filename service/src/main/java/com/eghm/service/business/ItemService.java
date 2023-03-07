@@ -6,7 +6,7 @@ import com.eghm.model.Item;
 import com.eghm.model.dto.business.product.ItemAddRequest;
 import com.eghm.model.dto.business.product.ItemEditRequest;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.product.ProductQueryDTO;
+import com.eghm.model.dto.business.product.ItemQueryDTO;
 import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.business.item.ItemResponse;
 
@@ -128,7 +128,7 @@ public interface ItemService {
      * @param dto 查询条件
      * @return 列表
      */
-    List<ItemListVO> getByPage(ProductQueryDTO dto);
+    List<ItemListVO> getByPage(ItemQueryDTO dto);
     
     /**
      * 优惠券所能使用的商品范围, 分页查询

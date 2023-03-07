@@ -10,22 +10,22 @@ import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
 import com.eghm.model.dto.business.product.ItemAddRequest;
-import com.eghm.model.dto.business.product.ItemEditRequest;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.product.ProductQueryDTO;
+import com.eghm.model.dto.business.product.ItemEditRequest;
+import com.eghm.model.dto.business.product.ItemQueryDTO;
 import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
 import com.eghm.model.dto.business.product.sku.ItemSpecRequest;
 import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.business.item.ItemResponse;
 import com.eghm.model.vo.business.item.ItemSkuResponse;
 import com.eghm.model.vo.business.item.ItemSpecResponse;
-import com.eghm.model.vo.business.product.ProductListVO;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ItemSpecService;
@@ -62,6 +62,8 @@ public class ItemServiceImpl implements ItemService {
     private final ItemSpecService itemSpecService;
     
     private final SysConfigApi sysConfigApi;
+    
+    private final CouponConfigMapper couponConfigMapper;
     
     @Override
     public void create(ItemAddRequest request) {
@@ -184,18 +186,18 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public List<ItemListVO> getPriorityItem(Long shopId) {
         int max = sysConfigApi.getInt(ConfigConstant.STORE_PRODUCT_MAX_RECOMMEND, 10);
-        return itemMapper.getPriorityProduct(shopId, max);
+        return itemMapper.getPriorityItem(shopId, max);
     }
     
     @Override
     public List<ItemListVO> getRecommend() {
         int max = sysConfigApi.getInt(ConfigConstant.PRODUCT_MAX_RECOMMEND, 10);
-        return itemMapper.getRecommendProduct(max);
+        return itemMapper.getRecommendItem(max);
     }
     
     @Override
-    public List<ItemListVO> getByPage(ProductQueryDTO dto) {
-        Page<ProductListVO> voPage = itemMapper.getByPage(dto.createPage(false), dto);
+    public List<ItemListVO> getByPage(ItemQueryDTO dto) {
+        Page<ItemListVO> voPage = itemMapper.getByPage(dto.createPage(false), dto);
         return voPage.getRecords();
     }
     
