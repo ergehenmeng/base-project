@@ -35,4 +35,11 @@ public interface ItemSkuService {
      * @return sku列表
      */
     List<ItemSku> getByItemId(Long itemId);
+    
+    /**
+     * 主键查询商品规格信息(不存在则异常)
+     * @param skuId id
+     * @return 规格信息
+     */
+    ItemSku selectByIdRequired(Long skuId);
 }

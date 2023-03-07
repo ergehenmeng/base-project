@@ -307,8 +307,8 @@ CREATE TABLE `product_sku`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格表';
 
-DROP TABLE IF EXISTS `product_store`;
-CREATE TABLE `product_store`
+DROP TABLE IF EXISTS `item_store`;
+CREATE TABLE `item_store`
 (
     `id`             bigint(20) NOT NULL COMMENT '主键',
     `state`          tinyint(1)     DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',

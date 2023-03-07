@@ -1,7 +1,6 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.model.Product;
-import com.eghm.model.ProductSku;
+import com.eghm.model.ItemSku;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,5 +27,5 @@ public class OrderPackage {
     private Product product;
 
     @ApiModelProperty("sku信息")
-    private ProductSku sku;
+    private ItemSku sku;
 }

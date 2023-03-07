@@ -8,8 +8,6 @@ import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.enums.ref.RefundType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
-import com.eghm.model.Product;
-import com.eghm.model.ProductSku;
 import com.eghm.model.ShippingAddress;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.OrderCreateHandler;

@@ -10,7 +10,7 @@
         cover_url as coverUrl,
         telephone,
         introduce
-        from product_shop where  platform_state = 2 and deleted = false order by recommend desc limit #{limit}
+        from item_store where  platform_state = 2 and deleted = false order by recommend desc limit #{limit}
     </select>
 
 </mapper>

@@ -6,7 +6,6 @@ import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.ProductOrderMapper;
 import com.eghm.model.ProductOrder;
-import com.eghm.model.ProductSku;
 import com.eghm.service.business.ProductOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.utils.DataUtil;

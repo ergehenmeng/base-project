@@ -7,15 +7,15 @@ import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ShoppingCarMapper;
-import com.eghm.model.Product;
-import com.eghm.model.ProductSku;
+import com.eghm.model.Item;
+import com.eghm.model.ItemSku;
 import com.eghm.model.ShoppingCar;
 import com.eghm.model.dto.business.shopping.AddCarDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.shopping.ShoppingCarProductVO;
 import com.eghm.model.vo.shopping.ShoppingCarVO;
-import com.eghm.service.business.ProductService;
-import com.eghm.service.business.ProductSkuService;
+import com.eghm.service.business.ItemService;
+import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ShoppingCarService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
@@ -29,7 +29,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.common.enums.ErrorCode.*;
+import static com.eghm.common.enums.ErrorCode.CAR_PRODUCT_EMPTY;
+import static com.eghm.common.enums.ErrorCode.ILLEGAL_OPERATION;
+import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
+import static com.eghm.common.enums.ErrorCode.PRODUCT_QUOTA;
+import static com.eghm.common.enums.ErrorCode.PRODUCT_SKU_MATCH;
+import static com.eghm.common.enums.ErrorCode.SHOPPING_CAR_MAX;
+import static com.eghm.common.enums.ErrorCode.SKU_STOCK;
 
 /**
  * @author 二哥很猛
@@ -44,9 +50,9 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     private final SysConfigApi sysConfigApi;
 
-    private final ProductService productService;
-
-    private final ProductSkuService productSkuService;
+    private final ItemService itemService;
+    
+    private final ItemSkuService itemSkuService;
 
     @Override
     public void add(AddCarDTO dto) {
@@ -59,14 +65,14 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
         int num = shoppingCar == null ? dto.getQuantity() : shoppingCar.getQuantity() + dto.getQuantity();
 
-        ProductSku sku = this.checkAndGetSku(dto, num);
+        ItemSku sku = this.checkAndGetSku(dto, num);
 
         if (shoppingCar == null) {
             this.checkCarMax(userId);
             shoppingCar = DataUtil.copy(dto, ShoppingCar.class);
             shoppingCar.setSalePrice(sku.getSalePrice());
-            Product product = productService.selectByIdRequired(dto.getProductId());
-            shoppingCar.setStoreId(product.getStoreId());
+            Item item = itemService.selectByIdRequired(dto.getProductId());
+            shoppingCar.setStoreId(item.getStoreId());
             shoppingCarMapper.insert(shoppingCar);
         } else {
             shoppingCar.setQuantity(num);
@@ -110,20 +116,20 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
             log.error("非本人购物车信息, 禁止操作 [{}] [{}]", id, userId);
             throw new BusinessException(ILLEGAL_OPERATION);
         }
-        Product product = productService.selectById(shoppingCar.getProductId());
-        if (product.getPlatformState() != PlatformState.SHELVE) {
+        Item item = itemService.selectByIdRequired(shoppingCar.getProductId());
+        if (item.getPlatformState() != PlatformState.SHELVE) {
             log.error("商品已下架, 无法更新购物车数量 [{}]", shoppingCar.getProductId());
             throw new BusinessException(PRODUCT_DOWN);
         }
-        if (product.getQuota() < quantity) {
-            log.error("超出商品最大限购数量, 无法更新购物车数量 [{}] [{}] [{}]", shoppingCar.getProductId(), product.getQuota(), quantity);
+        if (item.getQuota() < quantity) {
+            log.error("超出商品最大限购数量, 无法更新购物车数量 [{}] [{}] [{}]", shoppingCar.getProductId(), item.getQuota(), quantity);
             throw new BusinessException(PRODUCT_QUOTA);
         }
+    
+        ItemSku itemSku = itemSkuService.selectByIdRequired(shoppingCar.getSkuId());
 
-        ProductSku productSku = productSkuService.selectByIdRequired(shoppingCar.getSkuId());
-
-        if (productSku.getStock() < quantity) {
-            log.error("商品规格的库存不足, 无法更新购物车数量 [{}] [{}]", productSku.getStock(), quantity);
+        if (itemSku.getStock() < quantity) {
+            log.error("商品规格的库存不足, 无法更新购物车数量 [{}] [{}]", itemSku.getStock(), quantity);
             throw new BusinessException(SKU_STOCK);
         }
 
@@ -136,28 +142,28 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
      * @param dto 商品信息
      * @param quantity 添加总数量
      */
-    private ProductSku checkAndGetSku(AddCarDTO dto, int quantity) {
-        Product product = productService.selectByIdRequired(dto.getProductId());
-        if (product.getPlatformState() != PlatformState.SHELVE) {
-            log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getProductId(), product.getPlatformState());
+    private ItemSku checkAndGetSku(AddCarDTO dto, int quantity) {
+        Item item = itemService.selectByIdRequired(dto.getProductId());
+        if (item.getPlatformState() != PlatformState.SHELVE) {
+            log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getProductId(), item.getPlatformState());
             throw new BusinessException(PRODUCT_DOWN);
         }
-        ProductSku productSku = productSkuService.selectByIdRequired(dto.getSkuId());
+        ItemSku itemSku = itemSkuService.selectByIdRequired(dto.getSkuId());
 
-        if (!product.getId().equals(productSku.getProductId())) {
+        if (!item.getId().equals(itemSku.getItemId())) {
             log.error("规格与商品不匹配 [{}] [{}]", dto.getSkuId(), dto.getProductId());
             throw new BusinessException(PRODUCT_SKU_MATCH);
         }
-        if (productSku.getStock() < quantity) {
-            log.error("商品规格的库存不足 [{}] [{}]", productSku.getStock(), quantity);
+        if (itemSku.getStock() < quantity) {
+            log.error("商品规格的库存不足 [{}] [{}]", itemSku.getStock(), quantity);
             throw new BusinessException(SKU_STOCK);
         }
 
-        if (product.getQuota() < quantity) {
-            log.error("超出商品的最大购买数量 [{}] [{}] [{}]", product.getId(), product.getQuota(), quantity);
+        if (item.getQuota() < quantity) {
+            log.error("超出商品的最大购买数量 [{}] [{}] [{}]", item.getId(), item.getQuota(), quantity);
             throw new BusinessException(PRODUCT_QUOTA);
         }
-        return productSku;
+        return itemSku;
     }
 
 

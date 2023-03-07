@@ -14,7 +14,6 @@ import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
-import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
 import com.eghm.model.dto.business.product.ItemAddRequest;
 import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
@@ -111,7 +110,7 @@ public class ItemServiceImpl implements ItemService {
             LinkedHashMap<String, List<ItemSpecResponse>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpecResponse::getSpecName, LinkedHashMap::new, Collectors.toList()));
             response.setSpecMap(specMap);
         }
-        List<ItemSku> skuList = itemSkuService.getByItemId(itemId);
+        List<ProductSku> skuList = itemSkuService.getByItemId(itemId);
         response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
         return response;
     }

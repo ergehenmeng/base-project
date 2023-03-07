@@ -4,6 +4,8 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.ItemSkuMapper;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
@@ -61,6 +63,16 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         LambdaQueryWrapper<ItemSku> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemSku::getItemId, itemId);
         return itemSkuMapper.selectList(wrapper);
+    }
+    
+    @Override
+    public ItemSku selectByIdRequired(Long skuId) {
+        ItemSku sku = itemSkuMapper.selectById(skuId);
+        if (sku == null) {
+            log.error("商品规格已删除 [{}]", skuId);
+            throw new BusinessException(ErrorCode.SKU_DOWN);
+        }
+        return sku;
     }
     
     /**
