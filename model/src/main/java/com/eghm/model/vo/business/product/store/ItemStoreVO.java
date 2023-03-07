@@ -13,7 +13,7 @@ import lombok.Data;
  */
 
 @Data
-public class ProductStoreVO {
+public class ItemStoreVO {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

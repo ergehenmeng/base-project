@@ -1,9 +1,9 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.model.dto.IdDTO;
-import com.eghm.model.vo.business.product.store.ProductStoreHomeVO;
-import com.eghm.model.vo.business.product.store.ProductStoreVO;
-import com.eghm.service.business.ProductStoreService;
+import com.eghm.model.vo.business.product.store.ItemStoreHomeVO;
+import com.eghm.model.vo.business.product.store.ItemStoreVO;
+import com.eghm.service.business.ItemStoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -22,20 +22,20 @@ import java.util.List;
 @Api(tags = "店铺")
 @AllArgsConstructor
 @RequestMapping("/webapp/store")
-public class ProductStoreController {
+public class ItemStoreController {
 
-    private final ProductStoreService productStoreService;
+    private final ItemStoreService itemStoreService;
 
     @GetMapping("/home")
     @ApiOperation("店铺首页")
-    public ProductStoreHomeVO home(@Validated IdDTO dto) {
-        return productStoreService.homeDetail(dto.getId());
+    public ItemStoreHomeVO home(@Validated IdDTO dto) {
+        return itemStoreService.homeDetail(dto.getId());
     }
 
     @GetMapping("/recommend")
     @ApiOperation("推荐店铺列表")
-    public List<ProductStoreVO> recommend() {
-        return productStoreService.getRecommend();
+    public List<ItemStoreVO> recommend() {
+        return itemStoreService.getRecommend();
     }
 
 }

@@ -1,8 +1,8 @@
 package com.eghm.mapper;
 
-import com.eghm.model.ProductStore;
+import com.eghm.model.ItemStore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.vo.business.product.store.ProductStoreVO;
+import com.eghm.model.vo.business.product.store.ItemStoreVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022-07-01
  */
-public interface ProductStoreMapper extends BaseMapper<ProductStore> {
+public interface ItemStoreMapper extends BaseMapper<ItemStore> {
 
     /**
      * 店铺推荐列表
      * @param limit 限制多少条
      * @return 列表
      */
-    List<ProductStoreVO> getRecommend(@Param("limit") int limit);
+    List<ItemStoreVO> getRecommend(@Param("limit") int limit);
 }

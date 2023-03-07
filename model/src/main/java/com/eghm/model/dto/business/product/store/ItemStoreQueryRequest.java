@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ProductStoreQueryRequest extends PagingQuery {
+public class ItemStoreQueryRequest extends PagingQuery {
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;

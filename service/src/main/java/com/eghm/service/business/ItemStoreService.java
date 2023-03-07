@@ -3,12 +3,12 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
-import com.eghm.model.ProductStore;
-import com.eghm.model.dto.business.product.store.ProductStoreAddRequest;
-import com.eghm.model.dto.business.product.store.ProductStoreEditRequest;
-import com.eghm.model.dto.business.product.store.ProductStoreQueryRequest;
-import com.eghm.model.vo.business.product.store.ProductStoreHomeVO;
-import com.eghm.model.vo.business.product.store.ProductStoreVO;
+import com.eghm.model.ItemStore;
+import com.eghm.model.dto.business.product.store.ItemStoreAddRequest;
+import com.eghm.model.dto.business.product.store.ItemStoreEditRequest;
+import com.eghm.model.dto.business.product.store.ItemStoreQueryRequest;
+import com.eghm.model.vo.business.product.store.ItemStoreHomeVO;
+import com.eghm.model.vo.business.product.store.ItemStoreVO;
 
 import java.util.List;
 
@@ -16,40 +16,40 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/7/1
  */
-public interface ProductStoreService {
+public interface ItemStoreService {
 
     /**
      * 分页查询商铺信息
      * @param request 查询条案件
      * @return 列表
      */
-    Page<ProductStore> getByPage(ProductStoreQueryRequest request);
+    Page<ItemStore> getByPage(ItemStoreQueryRequest request);
 
     /**
      * 创建特产店铺
      * @param request 店铺信息
      */
-    void create(ProductStoreAddRequest request);
+    void create(ItemStoreAddRequest request);
 
     /**
      * 更新特产店铺
      * @param request 店铺信息
      */
-    void update(ProductStoreEditRequest request);
+    void update(ItemStoreEditRequest request);
 
     /**
      * 主键查询
      * @param id id
      * @return 店铺信息
      */
-    ProductStore selectByIdRequired(Long id);
+    ItemStore selectByIdRequired(Long id);
 
     /**
      * 主键查询, 删除或未上架则抛异常
      * @param id  id
      * @return 店铺信息
      */
-    ProductStore selectByIdShelve(Long id);
+    ItemStore selectByIdShelve(Long id);
 
     /**
      * 更新上下架状态
@@ -70,7 +70,7 @@ public interface ProductStoreService {
      * @param id id
      * @return 详情信息
      */
-    ProductStoreHomeVO homeDetail(Long id);
+    ItemStoreHomeVO homeDetail(Long id);
 
     /**
      * 设置为推荐店铺
@@ -82,5 +82,5 @@ public interface ProductStoreService {
      * 推荐店铺列表
      * @return 店铺列表
      */
-    List<ProductStoreVO> getRecommend();
+    List<ItemStoreVO> getRecommend();
 }

@@ -2,7 +2,7 @@ package com.eghm.model.vo.business.product.store;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.eghm.model.vo.business.product.ProductListVO;
+import com.eghm.model.vo.business.item.ItemListVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2023/1/13
  */
 @Data
-public class ProductStoreHomeVO {
+public class ItemStoreHomeVO {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
@@ -50,6 +50,6 @@ public class ProductStoreHomeVO {
     private String introduce;
 
     @ApiModelProperty("推荐商品列表")
-    private List<ProductListVO> productList;
+    private List<ItemListVO> itemList;
 
 }

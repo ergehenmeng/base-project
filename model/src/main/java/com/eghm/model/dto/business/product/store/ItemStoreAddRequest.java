@@ -13,13 +13,8 @@ import java.math.BigDecimal;
  * @author 二哥很猛
  * @date 2022/7/1
  */
-
 @Data
-public class ProductStoreEditRequest {
-
-    @ApiModelProperty("id")
-    @NotNull(message = "id不能为空")
-    private Long id;
+public class ItemStoreAddRequest {
 
     @ApiModelProperty("店铺名称")
     @Size(min = 2, max = 20, message = "店铺名称长度2~20位")
@@ -69,4 +64,5 @@ public class ProductStoreEditRequest {
     @ApiModelProperty(value = "商家介绍")
     @NotBlank(message = "商家介绍不能为空")
     private String introduce;
+
 }

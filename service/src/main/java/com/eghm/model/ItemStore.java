@@ -23,9 +23,9 @@ import java.math.BigDecimal;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("product_store")
-@ApiModel(value="ProductStore对象", description="店铺信息表")
-public class ProductStore extends BaseEntity implements Serializable {
+@TableName("item_store")
+@ApiModel(value="ItemStore对象", description="店铺信息表")
+public class ItemStore extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
