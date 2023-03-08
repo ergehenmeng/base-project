@@ -21,14 +21,14 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("product_order")
-@ApiModel(value="ProductOrder对象", description="商品订单表")
-public class ProductOrder extends BaseEntity implements Serializable {
+@TableName("item_order")
+@ApiModel(value="ItemOrder对象", description="商品订单表")
+public class ItemOrder extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "商品id")
-    private Long productId;
+    private Long itemId;
 
     @ApiModelProperty(value = "商品名称")
     private String title;

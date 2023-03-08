@@ -1,6 +1,6 @@
 package com.eghm.mapper;
 
-import com.eghm.model.ProductOrder;
+import com.eghm.model.ItemOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
  * @author 二哥很猛
  * @since 2022-09-05
  */
-public interface ProductOrderMapper extends BaseMapper<ProductOrder> {
+public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
 
     /**
      * 查询订单下所有商品的总数量

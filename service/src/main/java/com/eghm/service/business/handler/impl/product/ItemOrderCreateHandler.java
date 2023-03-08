@@ -15,7 +15,7 @@ import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.ProductOrderService;
+import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.ShippingAddressService;
 import com.eghm.service.business.handler.OrderCreateHandler;
 import com.eghm.service.business.handler.dto.BaseItemDTO;
@@ -38,12 +38,12 @@ import java.util.stream.Collectors;
  * @author 二哥很猛
  * @date 2022/9/5
  */
-@Service("productOrderCreateHandler")
+@Service("itemOrderCreateHandler")
 @Slf4j
 @AllArgsConstructor
-public class ProductOrderCreateHandler implements OrderCreateHandler<ItemOrderCreateContext> {
+public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreateContext> {
 
-    private final ProductOrderService productOrderService;
+    private final ItemOrderService itemOrderService;
 
     private final ShippingAddressService shippingAddressService;
 
@@ -91,7 +91,7 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ItemOrderCr
             // 添加配送地址
             shippingAddressService.insert(address);
             // 添加商品订单
-            productOrderService.insert(orderNo, entry.getValue());
+            itemOrderService.insert(orderNo, entry.getValue());
 
             // 30分钟过期定时任务
             orderMQService.sendOrderExpireMessage(orderNo);

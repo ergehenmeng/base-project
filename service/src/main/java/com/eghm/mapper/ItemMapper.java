@@ -8,7 +8,6 @@ import com.eghm.model.dto.business.product.ItemQueryDTO;
 import com.eghm.model.dto.business.product.ItemQueryRequest;
 import com.eghm.model.vo.business.item.ItemListResponse;
 import com.eghm.model.vo.business.item.ItemListVO;
-import com.eghm.model.vo.business.product.ProductListVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -259,54 +259,6 @@ CREATE TABLE `scenic_ticket`
   DEFAULT CHARSET = utf8mb4 COMMENT ='景区门票信息表';
 
 
-DROP TABLE IF EXISTS `product`;
-CREATE TABLE `product`
-(
-    `id`              bigint(20) NOT NULL COMMENT '主键',
-    `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属特产店',
-    `state`           tinyint(1)    DEFAULT '0' COMMENT '商品状态 0:待上架 1:已上架',
-    `platform_state`  tinyint(1)    DEFAULT NULL COMMENT '平台状态 0:初始 1:待审核 2:已上架',
-    `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐商品 true:是 false:否',
-    `sort_by`         smallint(4)   DEFAULT '999' COMMENT '商品排序 越小越排在前面',
-    `title`           varchar(30)   DEFAULT NULL COMMENT '商品名称',
-    `depict`          varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
-    `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
-    `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
-    `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
-    `delivery_type`   tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
-    `refund_type`     tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
-    `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述信息',
-    `min_price`       int(10)       DEFAULT NULL COMMENT '最低价格',
-    `max_price`       int(10)       DEFAULT NULL COMMENT '最高价格',
-    `sale_num`        int(10)       DEFAULT '0' COMMENT '销售数量(所有规格销售总量)',
-    `total_num`       int(10)       DEFAULT '0' COMMENT '总销售量=实际销售+虚拟销量',
-    `introduce`       longtext COMMENT '商品介绍信息',
-    `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`         bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='商品信息';
-
-DROP TABLE IF EXISTS `product_sku`;
-CREATE TABLE `product_sku`
-(
-    `id`          bigint(20) NOT NULL COMMENT '主键',
-    `product_id`  bigint(20)  DEFAULT NULL COMMENT '商品id',
-    `title`       varchar(20) DEFAULT NULL COMMENT '规格名称',
-    `line_price`  int(10)     DEFAULT NULL COMMENT '划线价',
-    `cost_price`  int(10)     DEFAULT '0' COMMENT '成本价',
-    `sale_price`  int(10)     DEFAULT '0' COMMENT '销售价',
-    `stock`       smallint(4) DEFAULT NULL COMMENT '库存',
-    `sale_num`    int(10)     DEFAULT '0' COMMENT '销售量',
-    `cover_url`   varchar(200) COMMENT '封面图',
-    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格表';
-
 DROP TABLE IF EXISTS `item_store`;
 CREATE TABLE `item_store`
 (
@@ -401,8 +353,8 @@ CREATE TABLE `ticket_order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
 
-DROP TABLE IF EXISTS `coupon_product`;
-CREATE TABLE `coupon_product`
+DROP TABLE IF EXISTS `coupon_item`;
+CREATE TABLE `coupon_item`
 (
     `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `coupon_config_id` bigint(20)  DEFAULT NULL COMMENT '优惠券配置id',
@@ -412,6 +364,8 @@ CREATE TABLE `coupon_product`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券商品关联表';
+
+
 DROP TABLE IF EXISTS `user_coupon`;
 CREATE TABLE `user_coupon`
 (
@@ -658,11 +612,11 @@ CREATE TABLE `line_day_snapshot`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路订单每日行程配置快照表';
 
-DROP TABLE IF EXISTS `product_order`;
-CREATE TABLE `product_order`
+DROP TABLE IF EXISTS `item_order`;
+CREATE TABLE `item_order`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
-    `product_id`      bigint(20) COMMENT '商品id',
+    `item_id`      bigint(20) COMMENT '商品id',
     `title`           varchar(50) comment '商品名称',
     `order_no`        varchar(30) COMMENT '订单编号',
     `num`             smallint(4) COMMENT '订单数量',
@@ -686,13 +640,13 @@ CREATE TABLE `product_order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品订单表';
 
-DROP TABLE IF EXISTS `shopping_car`;
-CREATE TABLE `shopping_car`
+DROP TABLE IF EXISTS `shopping_cart`;
+CREATE TABLE `shopping_cart`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `user_id`     bigint(20)  DEFAULT NULL COMMENT '用户id',
     `store_id`    bigint(20)  DEFAULT NULL COMMENT '店铺id',
-    `product_id`  bigint(20)  DEFAULT NULL COMMENT '商品id',
+    `item_id`  bigint(20)  DEFAULT NULL COMMENT '商品id',
     `sku_id`      bigint(20)  DEFAULT NULL COMMENT '商品规格id',
     `sale_price`  int(10)     DEFAULT NULL COMMENT '商品售价(冗余)',
     `quantity`    smallint(3) DEFAULT '1' COMMENT '数量',
