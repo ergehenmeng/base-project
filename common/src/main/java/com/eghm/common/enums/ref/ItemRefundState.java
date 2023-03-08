@@ -12,7 +12,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum ProductRefundState implements IEnum<Integer> {
+public enum ItemRefundState implements IEnum<Integer> {
 
     /**
      * 初始状态

@@ -12,7 +12,7 @@ import com.eghm.model.ItemSku;
 import com.eghm.model.ShoppingCar;
 import com.eghm.model.dto.business.shopping.AddCarDTO;
 import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.vo.shopping.ShoppingCarProductVO;
+import com.eghm.model.vo.shopping.ShoppingCartItemVO;
 import com.eghm.model.vo.shopping.ShoppingCarVO;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
@@ -83,11 +83,11 @@ public class ShoppingCarServiceImpl implements ShoppingCarService {
 
     @Override
     public List<ShoppingCarVO> getList(Long userId) {
-        List<ShoppingCarProductVO> voList = shoppingCarMapper.getList(userId);
+        List<ShoppingCartItemVO> voList = shoppingCarMapper.getList(userId);
         // 根据根据店铺进行分组
-        Map<Long, List<ShoppingCarProductVO>> listMap = voList.stream().collect(Collectors.groupingBy(ShoppingCarProductVO::getStoreId, LinkedHashMap::new, Collectors.toList()));
+        Map<Long, List<ShoppingCartItemVO>> listMap = voList.stream().collect(Collectors.groupingBy(ShoppingCartItemVO::getStoreId, LinkedHashMap::new, Collectors.toList()));
         List<ShoppingCarVO> vosList = new ArrayList<>();
-        for (Map.Entry<Long, List<ShoppingCarProductVO>> entry : listMap.entrySet()) {
+        for (Map.Entry<Long, List<ShoppingCartItemVO>> entry : listMap.entrySet()) {
             ShoppingCarVO vo = new ShoppingCarVO();
             vo.setStoreId(entry.getKey());
             vo.setStoreTitle(entry.getValue().get(0).getStoreTitle());

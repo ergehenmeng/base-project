@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.impl.product;
 
 import com.eghm.model.Order;
 import com.eghm.model.ItemOrder;
+import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.UserCouponService;
@@ -17,17 +18,17 @@ import java.util.stream.Collectors;
  * @author 二哥很猛
  * @date 2022/8/25
  */
-@Service("productOrderCancelHandler")
+@Service("itemOrderCancelHandler")
 @Slf4j
-public class ProductOrderCancelHandler extends DefaultOrderCancelHandler {
+public class ItemOrderCancelHandler extends DefaultOrderCancelHandler {
 
-    private final ProductSkuService productSkuService;
+    private final ItemSkuService itemSkuService;
 
     private final ItemOrderService itemOrderService;
 
-    public ProductOrderCancelHandler(OrderService orderService, UserCouponService userCouponService, ProductSkuService productSkuService, ItemOrderService itemOrderService) {
+    public ItemOrderCancelHandler(OrderService orderService, UserCouponService userCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService) {
         super(orderService, userCouponService);
-        this.productSkuService = productSkuService;
+        this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
     }
 
@@ -35,6 +36,6 @@ public class ProductOrderCancelHandler extends DefaultOrderCancelHandler {
     protected void after(Order order) {
         List<ItemOrder> orderList = itemOrderService.selectByOrderNo(order.getOrderNo());
         Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getSkuId, ItemOrder::getNum));
-        productSkuService.updateStock(skuNumMap);
+        itemSkuService.updateStock(skuNumMap);
     }
 }

@@ -1,6 +1,6 @@
 package com.eghm.mapper;
 
-import com.eghm.model.CouponProduct;
+import com.eghm.model.CouponItem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 二哥很猛
  * @since 2022-07-13
  */
-public interface CouponProductMapper extends BaseMapper<CouponProduct> {
+public interface CouponItemMapper extends BaseMapper<CouponItem> {
 
 }

@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "店铺管理")
 @AllArgsConstructor
-@RequestMapping("/manage/product/store")
-public class ProductStoreController {
+@RequestMapping("/manage/item/store")
+public class ItemStoreController {
 
     private final ItemStoreService itemStoreService;
     

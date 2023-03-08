@@ -23,5 +23,5 @@ public class ShoppingCarVO {
     private Long storeId;
 
     @ApiModelProperty("购物车商品列表")
-    private List<ShoppingCarProductVO> productList;
+    private List<ShoppingCartItemVO> productList;
 }

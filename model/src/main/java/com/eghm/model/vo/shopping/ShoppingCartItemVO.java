@@ -13,7 +13,7 @@ import lombok.Data;
  * @since 2022/9/27
  */
 @Data
-public class ShoppingCarProductVO {
+public class ShoppingCartItemVO {
 
     @ApiModelProperty("店铺名称")
     @JsonIgnore

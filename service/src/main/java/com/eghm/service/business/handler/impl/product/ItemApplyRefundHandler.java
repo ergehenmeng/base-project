@@ -2,7 +2,7 @@ package com.eghm.service.business.handler.impl.product;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.enums.ref.AuditState;
-import com.eghm.common.enums.ref.ProductRefundState;
+import com.eghm.common.enums.ref.ItemRefundState;
 import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
@@ -24,13 +24,13 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  * @date 2022/9/9
  */
-@Service("productApplyRefundHandler")
+@Service("itemApplyRefundHandler")
 @Slf4j
-public class ProductApplyRefundHandler extends DefaultApplyRefundHandler {
+public class ItemApplyRefundHandler extends DefaultApplyRefundHandler {
 
     private final ItemOrderService itemOrderService;
 
-    public ProductApplyRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
+    public ItemApplyRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
     }
@@ -52,7 +52,7 @@ public class ProductApplyRefundHandler extends DefaultApplyRefundHandler {
             log.error("商品总退款数量大于下单数量 [{}] [{}] [{}] [{}] [{}]", dto.getOrderNo(), dto.getProductOrderId(), itemOrder.getNum(), dto.getNum(), refundNum);
             throw new BusinessException(ErrorCode.REFUND_MUM_MATCH);
         }
-        itemOrder.setRefundState(totalRefund == itemOrder.getNum() ? ProductRefundState.REFUND : ProductRefundState.REBATE);
+        itemOrder.setRefundState(totalRefund == itemOrder.getNum() ? ItemRefundState.REFUND : ItemRefundState.REBATE);
 
         OrderRefundLog refundLog = DataUtil.copy(dto, OrderRefundLog.class);
         refundLog.setProductOrderId(itemOrder.getId());

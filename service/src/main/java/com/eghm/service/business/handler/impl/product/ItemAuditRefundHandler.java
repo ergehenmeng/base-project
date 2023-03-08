@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.impl.product;
 
-import com.eghm.common.enums.ref.ProductRefundState;
+import com.eghm.common.enums.ref.ItemRefundState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.ItemOrder;
@@ -17,13 +17,13 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2022/9/15
  */
-@Service("productAuditRefundHandler")
+@Service("itemAuditRefundHandler")
 @Slf4j
-public class ProductAuditRefundHandler extends DefaultAuditRefundHandler {
+public class ItemAuditRefundHandler extends DefaultAuditRefundHandler {
 
     private final ItemOrderService itemOrderService;
 
-    public ProductAuditRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
+    public ItemAuditRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
     }
@@ -36,9 +36,9 @@ public class ProductAuditRefundHandler extends DefaultAuditRefundHandler {
         int refundNum = getOrderRefundLogService().getTotalRefundNum(order.getOrderNo(), refundLog.getProductOrderId());
         if (refundNum > 0) {
             // 审批拒绝后一定是部分退款
-            itemOrder.setRefundState(ProductRefundState.REBATE);
+            itemOrder.setRefundState(ItemRefundState.REBATE);
         } else {
-            itemOrder.setRefundState(ProductRefundState.INIT);
+            itemOrder.setRefundState(ItemRefundState.INIT);
         }
         itemOrderService.updateById(itemOrder);
     }

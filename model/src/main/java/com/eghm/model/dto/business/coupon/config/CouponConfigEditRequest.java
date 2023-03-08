@@ -1,6 +1,6 @@
 package com.eghm.model.dto.business.coupon.config;
 
-import com.eghm.model.dto.business.coupon.product.CouponProductRequest;
+import com.eghm.model.dto.business.coupon.product.CouponItemRequest;
 import com.eghm.model.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -48,5 +48,5 @@ public class CouponConfigEditRequest {
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")
-    private List<CouponProductRequest> productList;
+    private List<CouponItemRequest> productList;
 }

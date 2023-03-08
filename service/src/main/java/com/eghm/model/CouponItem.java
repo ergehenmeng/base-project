@@ -25,10 +25,10 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("coupon_product")
-@ApiModel(value="CouponProduct对象", description="优惠券商品关联表")
+@TableName("coupon_item")
+@ApiModel(value="CouponItem对象", description="优惠券商品关联表")
 @NoArgsConstructor
-public class CouponProduct implements Serializable {
+public class CouponItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,7 +48,7 @@ public class CouponProduct implements Serializable {
     @ApiModelProperty(value = "添加时间")
     private LocalDateTime createTime;
 
-    public CouponProduct(Long couponConfigId, ProductType productType, Long productId) {
+    public CouponItem(Long couponConfigId, ProductType productType, Long productId) {
         this.couponConfigId = couponConfigId;
         this.productType = productType;
         this.productId = productId;

@@ -2,7 +2,7 @@ package com.eghm.model.dto.business.coupon.config;
 
 import com.eghm.common.convertor.YuanToCentDecoder;
 import com.eghm.common.enums.ref.CouponType;
-import com.eghm.model.dto.business.coupon.product.CouponProductRequest;
+import com.eghm.model.dto.business.coupon.product.CouponItemRequest;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -80,5 +80,5 @@ public class CouponConfigAddRequest {
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")
-    private List<CouponProductRequest> productList;
+    private List<CouponItemRequest> productList;
 }

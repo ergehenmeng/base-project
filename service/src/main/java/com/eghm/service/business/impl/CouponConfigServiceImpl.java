@@ -17,7 +17,7 @@ import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
-import com.eghm.service.business.CouponProductService;
+import com.eghm.service.business.CouponItemService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
 
     private final CouponConfigMapper couponConfigMapper;
 
-    private final CouponProductService couponProductService;
+    private final CouponItemService couponItemService;
 
     private final UserCouponService userCouponService;
 
@@ -74,14 +74,14 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     public void create(CouponConfigAddRequest request) {
         CouponConfig config = DataUtil.copy(request, CouponConfig.class);
         couponConfigMapper.insert(config);
-        couponProductService.insert(config.getId(), request.getProductList());
+        couponItemService.insert(config.getId(), request.getProductList());
     }
 
     @Override
     public void update(CouponConfigEditRequest request) {
         CouponConfig config = DataUtil.copy(request, CouponConfig.class);
         couponConfigMapper.updateById(config);
-        couponProductService.insertWithDelete(config.getId(), request.getProductList());
+        couponItemService.insertWithDelete(config.getId(), request.getProductList());
     }
 
     @Override

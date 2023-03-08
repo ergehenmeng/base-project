@@ -6,6 +6,7 @@ import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
+import com.eghm.service.business.ItemService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.PayNotifyHandler;
 import com.eghm.service.business.handler.dto.PayNotifyContext;
@@ -18,7 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,18 +29,16 @@ import java.util.stream.Collectors;
  * @author 二哥很猛
  * @date 2022/9/9
  */
-@Service("productPayNotifyHandler")
+@Service("itemPayNotifyHandler")
 @AllArgsConstructor
 @Slf4j
-public class ProductPayNotifyHandler implements PayNotifyHandler {
+public class ItemPayNotifyHandler implements PayNotifyHandler {
 
     private final OrderService orderService;
 
     private final AggregatePayService aggregatePayService;
 
-    private final ProductService productService;
-
-    private final TransactionTemplate transactionTemplate;
+    private final ItemService itemService;
 
     @Override
     public IEvent getEvent() {
@@ -65,7 +63,7 @@ public class ProductPayNotifyHandler implements PayNotifyHandler {
 
         TransactionUtil.manualCommit(() -> {
             orderService.updateState(orderNoList, OrderState.UN_USED, OrderState.UN_PAY, OrderState.PROGRESS);
-            productService.updateSaleNum(orderNoList);
+            itemService.updateSaleNum(orderNoList);
         });
 
         log.info("订单支付异步处理结果 [{}] [{}] [{}]", context.getOutTradeNo(), payState, orderNoList);

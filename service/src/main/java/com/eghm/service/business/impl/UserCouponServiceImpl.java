@@ -22,7 +22,7 @@ import com.eghm.model.vo.coupon.UserCouponBaseVO;
 import com.eghm.model.vo.coupon.UserCouponCountVO;
 import com.eghm.model.vo.coupon.UserCouponResponse;
 import com.eghm.model.vo.coupon.UserCouponVO;
-import com.eghm.service.business.CouponProductService;
+import com.eghm.service.business.CouponItemService;
 import com.eghm.service.business.UserCouponService;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
@@ -47,7 +47,7 @@ public class UserCouponServiceImpl implements UserCouponService {
 
     private final CouponConfigMapper couponConfigMapper;
 
-    private final CouponProductService couponProductService;
+    private final CouponItemService couponItemService;
 
     @Override
     public Page<UserCouponResponse> getByPage(UserCouponQueryRequest request) {
@@ -110,7 +110,7 @@ public class UserCouponServiceImpl implements UserCouponService {
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
 
-        boolean match = couponProductService.match(coupon.getCouponConfigId(), productId);
+        boolean match = couponItemService.match(coupon.getCouponConfigId(), productId);
         if (!match) {
             log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productId);
             throw new BusinessException(ErrorCode.COUPON_MATCH);

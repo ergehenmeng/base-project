@@ -1,7 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.common.enums.ref.ProductRefundState;
+import com.eghm.common.enums.ref.ItemRefundState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,7 +34,7 @@ public class ItemOrder extends BaseEntity implements Serializable {
     private String title;
 
     @ApiModelProperty("退款状态")
-    private ProductRefundState refundState;
+    private ItemRefundState refundState;
 
     @ApiModelProperty("数量")
     private Integer num;

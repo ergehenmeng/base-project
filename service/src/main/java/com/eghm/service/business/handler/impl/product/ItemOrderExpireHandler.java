@@ -1,9 +1,10 @@
 package com.eghm.service.business.handler.impl.product;
 
-import com.eghm.model.Order;
 import com.eghm.model.ItemOrder;
-import com.eghm.service.business.OrderService;
+import com.eghm.model.Order;
 import com.eghm.service.business.ItemOrderService;
+import com.eghm.service.business.ItemSkuService;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.impl.DefaultOrderExpireHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -18,17 +19,17 @@ import java.util.stream.Collectors;
  * @author 二哥很猛
  * @date 2022/8/25
  */
-@Service("productOrderExpireHandler")
+@Service("itemOrderExpireHandler")
 @Slf4j
-public class ProductOrderExpireHandler extends DefaultOrderExpireHandler {
+public class ItemOrderExpireHandler extends DefaultOrderExpireHandler {
 
-    private final ProductSkuService productSkuService;
+    private final ItemSkuService itemSkuService;
 
     private final ItemOrderService itemOrderService;
 
-    public ProductOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, ProductSkuService productSkuService, ItemOrderService itemOrderService) {
+    public ItemOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService) {
         super(orderService, userCouponService);
-        this.productSkuService = productSkuService;
+        this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
     }
 
@@ -36,6 +37,6 @@ public class ProductOrderExpireHandler extends DefaultOrderExpireHandler {
     protected void after(Order order) {
         List<ItemOrder> orderList = itemOrderService.selectByOrderNo(order.getOrderNo());
         Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getSkuId, ItemOrder::getNum));
-        productSkuService.updateStock(skuNumMap);
+        itemSkuService.updateStock(skuNumMap);
     }
 }

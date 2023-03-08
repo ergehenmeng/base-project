@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2022/7/13
  */
 @Data
-public class CouponProductRequest {
+public class CouponItemRequest {
 
     @ApiModelProperty("商品类型")
     @NotNull(message = "商品类型不能为空")
