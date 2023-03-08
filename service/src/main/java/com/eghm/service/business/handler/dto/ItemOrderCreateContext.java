@@ -23,11 +23,11 @@ import java.util.List;
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class ProductOrderCreateContext extends AsyncKey implements Context {
+public class ItemOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
     @Size(min = 1, max = 99, message = "商品不能超过99种", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
-    private List<BaseProductDTO> productList;
+    private List<BaseItemDTO> itemList;
 
     @Sign
     @ApiModelProperty(hidden = true, value = "用户id")
@@ -68,8 +68,8 @@ public class ProductOrderCreateContext extends AsyncKey implements Context {
      * 获取下单的第一个产品信息, 针对绝多数品类,只支持单商品下单, 只有普通商品支持多品类或多店铺同时下单
      * @return 商品信息
      */
-    public BaseProductDTO getFirstProduct(){
-        return productList.get(0);
+    public BaseItemDTO getFirstProduct(){
+        return itemList.get(0);
     }
 
     @ApiModelProperty("源状态")

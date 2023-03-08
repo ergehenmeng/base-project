@@ -11,18 +11,27 @@ import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.Order;
 import com.eghm.model.ShippingAddress;
-import com.eghm.service.business.*;
+import com.eghm.service.business.ItemService;
+import com.eghm.service.business.ItemSkuService;
+import com.eghm.service.business.OrderMQService;
+import com.eghm.service.business.OrderService;
+import com.eghm.service.business.ProductOrderService;
+import com.eghm.service.business.ShippingAddressService;
 import com.eghm.service.business.handler.OrderCreateHandler;
-import com.eghm.service.business.handler.dto.BaseProductDTO;
+import com.eghm.service.business.handler.dto.BaseItemDTO;
+import com.eghm.service.business.handler.dto.ItemOrderCreateContext;
+import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
-import com.eghm.service.business.handler.dto.ProductOrderCreateContext;
-import com.eghm.service.business.handler.dto.ProductOrderPayload;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -32,7 +41,7 @@ import java.util.stream.Collectors;
 @Service("productOrderCreateHandler")
 @Slf4j
 @AllArgsConstructor
-public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrderCreateContext> {
+public class ProductOrderCreateHandler implements OrderCreateHandler<ItemOrderCreateContext> {
 
     private final ProductOrderService productOrderService;
 
@@ -52,13 +61,13 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
      * @param dto 订单信息
      */
     @Override
-    public void doAction(ProductOrderCreateContext dto) {
-        ProductOrderPayload product = this.getProduct(dto);
-        this.before(product);
+    public void doAction(ItemOrderCreateContext dto) {
+        ItemOrderPayload payload = this.getItem(dto);
+        this.before(payload);
         // 购物车商品可能存在多商铺同时下单,按店铺进行分组
-        Map<Long, List<OrderPackage>> storeMap = product.getPackageList().stream().collect(Collectors.groupingBy(OrderPackage::getStoreId, Collectors.toList()));
+        Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().collect(Collectors.groupingBy(OrderPackage::getStoreId, Collectors.toList()));
         // 优惠券还没想好如何设计
-        ShippingAddress address = DataUtil.copy(product, ShippingAddress.class);
+        ShippingAddress address = DataUtil.copy(payload, ShippingAddress.class);
         address.setUserId(dto.getUserId());
 
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
@@ -96,25 +105,25 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
      * @param dto 下单信息
      * @return 商品信息及下单信息
      */
-    private ProductOrderPayload getProduct(ProductOrderCreateContext dto) {
+    private ItemOrderPayload getItem(ItemOrderCreateContext dto) {
         // 组装数据,减少后面遍历逻辑
-        Set<Long> productIds = dto.getProductList().stream().map(BaseProductDTO::getProductId).collect(Collectors.toSet());
-        Map<Long, Item> productMap = itemService.getByIds(productIds);
-        Set<Long> skuIds = dto.getProductList().stream().map(BaseProductDTO::getSkuId).collect(Collectors.toSet());
+        Set<Long> itemIds = dto.getItemList().stream().map(BaseItemDTO::getItemId).collect(Collectors.toSet());
+        Map<Long, Item> productMap = itemService.getByIds(itemIds);
+        Set<Long> skuIds = dto.getItemList().stream().map(BaseItemDTO::getSkuId).collect(Collectors.toSet());
         Map<Long, ItemSku> skuMap = itemSkuService.getByIds(skuIds);
         List<OrderPackage> packageList = new ArrayList<>();
         OrderPackage orderPackage;
-        for (BaseProductDTO product : dto.getProductList()) {
+        for (BaseItemDTO item : dto.getItemList()) {
             orderPackage = new OrderPackage();
-            orderPackage.setItem(productMap.get(product.getProductId()));
-            orderPackage.setSku(skuMap.get(product.getSkuId()));
-            orderPackage.setNum(product.getNum());
-            orderPackage.setProductId(product.getProductId());
-            orderPackage.setSkuId(product.getSkuId());
+            orderPackage.setItem(productMap.get(item.getItemId()));
+            orderPackage.setSku(skuMap.get(item.getSkuId()));
+            orderPackage.setNum(item.getNum());
+            orderPackage.setItemId(item.getItemId());
+            orderPackage.setSkuId(item.getSkuId());
             orderPackage.setStoreId(orderPackage.getStoreId());
             packageList.add(orderPackage);
         }
-        ProductOrderPayload orderDTO = DataUtil.copy(dto, ProductOrderPayload.class);
+        ItemOrderPayload orderDTO = DataUtil.copy(dto, ItemOrderPayload.class);
         orderDTO.setPackageList(packageList);
         return orderDTO;
     }
@@ -122,13 +131,13 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
 
     /**
      * 校验下单信息是否合法
-     * @param product 下单信息
+     * @param payload 下单信息
      */
-    private void before(ProductOrderPayload product) {
-        List<OrderPackage> packageList = product.getPackageList();
+    private void before(ItemOrderPayload payload) {
+        List<OrderPackage> packageList = payload.getPackageList();
         for (OrderPackage aPackage : packageList) {
             if (aPackage.getItem() == null) {
-                log.error("未查询到商品信息 [{}] ", aPackage.getProductId());
+                log.error("未查询到商品信息 [{}] ", aPackage.getItemId());
                 throw new BusinessException(ErrorCode.PRODUCT_DOWN);
             }
             ItemSku sku = aPackage.getSku();
@@ -136,8 +145,8 @@ public class ProductOrderCreateHandler implements OrderCreateHandler<ProductOrde
                 log.error("未查询到商品规格信息 [{}] ", aPackage.getSkuId());
                 throw new BusinessException(ErrorCode.SKU_STOCK);
             }
-            if (!sku.getProductId().equals(aPackage.getProductId())) {
-                log.error("下单商品和规格不匹配 [{}] [{}]", aPackage.getSkuId(), aPackage.getProductId());
+            if (!sku.getItemId().equals(aPackage.getItemId())) {
+                log.error("下单商品和规格不匹配 [{}] [{}]", aPackage.getSkuId(), aPackage.getItemId());
                 throw new BusinessException(ErrorCode.PRODUCT_SKU_MATCH);
             }
             if (sku.getStock() < aPackage.getNum()) {

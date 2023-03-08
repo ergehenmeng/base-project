@@ -12,6 +12,7 @@ import com.eghm.model.ItemSku;
 import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.utils.DataUtil;
+import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.eghm.common.enums.ErrorCode.SKU_DOWN;
+import static com.eghm.common.enums.ErrorCode.SKU_STOCK;
 
 /**
  * @author 殿小二
@@ -73,6 +79,36 @@ public class ItemSkuServiceImpl implements ItemSkuService {
             throw new BusinessException(ErrorCode.SKU_DOWN);
         }
         return sku;
+    }
+    
+    
+    @Override
+    public void updateStock(Long skuId, Integer num) {
+        int stock = itemSkuMapper.updateStock(skuId, num);
+        if (stock != 1) {
+            log.error("商品更新库存失败 [{}] [{}] [{}]", skuId, num, stock);
+            throw new BusinessException(SKU_STOCK);
+        }
+    }
+    
+    @Override
+    public void updateStock(Map<Long, Integer> map) {
+        for (Map.Entry<Long, Integer> entry : map.entrySet()) {
+            this.updateStock(entry.getKey(), entry.getValue());
+        }
+    }
+    
+    @Override
+    public Map<Long, ItemSku> getByIds(Set<Long> ids) {
+        if (CollUtil.isEmpty(ids)) {
+            return Maps.newHashMapWithExpectedSize(1);
+        }
+        List<ItemSku> skuList = itemSkuMapper.selectBatchIds(ids);
+        if (skuList.size() != ids.size()) {
+            log.info("存在已下架的商品规格 {}", ids);
+            throw new BusinessException(SKU_DOWN);
+        }
+        return skuList.stream().collect(Collectors.toMap(ItemSku::getId, Function.identity()));
     }
     
     /**

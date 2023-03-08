@@ -13,7 +13,7 @@ import lombok.Data;
 public class OrderPackage {
 
     @ApiModelProperty("产品id")
-    private Long productId;
+    private Long itemId;
 
     @ApiModelProperty("产品skuId")
     private Long skuId;

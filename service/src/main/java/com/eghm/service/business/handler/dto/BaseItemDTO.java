@@ -13,14 +13,14 @@ import java.io.Serializable;
  * @date 2022/9/5
  */
 @Data
-public class BaseProductDTO implements Serializable {
+public class BaseItemDTO implements Serializable {
 
     /**
      * 商品id,例如门票id,餐饮券id,房型id
      */
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
-    private Long productId;
+    private Long itemId;
 
     @RangeInt(min = 1, max = 99, message = "购买数量应为1~99")
     private Integer num;
