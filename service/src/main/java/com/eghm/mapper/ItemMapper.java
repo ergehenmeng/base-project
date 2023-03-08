@@ -60,4 +60,17 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return 列表
      */
     Page<ItemListVO> getCouponScopeByPage(Page<ItemListVO> page, @Param("param") ItemCouponQueryDTO dto);
+    
+    /**
+     * 更新销售量
+     * @param id 商品ID
+     * @param num 销售数量
+     */
+    void updateSaleNum(@Param("id") Long id, @Param("num") Integer num);
+    
+    /**
+     * 根据该订单编号更新该订单下所有商品的销售量
+     * @param orderNo 订单编号
+     */
+    void updateSaleNumByOrderNo(@Param("orderNo") String orderNo);
 }

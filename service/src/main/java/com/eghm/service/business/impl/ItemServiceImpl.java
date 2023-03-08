@@ -178,17 +178,19 @@ public class ItemServiceImpl implements ItemService {
     
     @Override
     public void updateSaleNum(Map<Long, Integer> itemNumMap) {
-        // TODO
+        for (Map.Entry<Long, Integer> entry : itemNumMap.entrySet()) {
+            itemMapper.updateSaleNum(entry.getKey(), entry.getValue());
+        }
     }
     
     @Override
     public void updateSaleNum(Long id, Integer num) {
-        // TODO
+        itemMapper.updateSaleNum(id, num);
     }
     
     @Override
     public void updateSaleNum(List<String> orderNoList) {
-        // TODO
+        orderNoList.forEach(itemMapper::updateSaleNumByOrderNo);
     }
     
     @Override
