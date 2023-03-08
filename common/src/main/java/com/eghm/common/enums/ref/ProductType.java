@@ -36,7 +36,7 @@ public enum ProductType implements IEnum<String> {
     /**
      * 商品(文创/特产)
      */
-    PRODUCT("product", "商品", "SP", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
+    ITEM("item", "商品", "SP", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
 
     /**
      * 线路

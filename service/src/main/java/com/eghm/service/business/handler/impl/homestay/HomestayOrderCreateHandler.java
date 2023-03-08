@@ -80,10 +80,10 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     protected HomestayOrderPayload getPayload(HomestayOrderCreateContext context) {
         HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(context.getRoomId());
         List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(context.getRoomId(), context.getStartDate(), context.getEndDate());
-        HomestayOrderPayload product = new HomestayOrderPayload();
-        product.setHomestayRoom(homestayRoom);
-        product.setConfigList(configList);
-        return product;
+        HomestayOrderPayload payload = new HomestayOrderPayload();
+        payload.setHomestayRoom(homestayRoom);
+        payload.setConfigList(configList);
+        return payload;
     }
 
     @Override

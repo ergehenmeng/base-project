@@ -187,12 +187,12 @@ public class ConfigConstant {
     /**
      * 单店铺商品最大推荐数量
      */
-    public static final String STORE_PRODUCT_MAX_RECOMMEND = "store_product_max_recommend";
+    public static final String STORE_ITEM_MAX_RECOMMEND = "store_item_max_recommend";
 
     /**
      * 首页商品最大推荐数量
      */
-    public static final String PRODUCT_MAX_RECOMMEND = "product_max_recommend";
+    public static final String ITEM_MAX_RECOMMEND = "item_max_recommend";
 
     /**
      * 首页店铺最大推荐数量

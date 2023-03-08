@@ -2,7 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.model.Item;
 import com.eghm.model.ItemSpec;
-import com.eghm.model.dto.business.product.sku.ItemSpecRequest;
+import com.eghm.model.dto.business.item.sku.ItemSpecRequest;
 
 import java.util.List;
 import java.util.Map;

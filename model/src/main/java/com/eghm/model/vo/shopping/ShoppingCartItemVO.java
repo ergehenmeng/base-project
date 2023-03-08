@@ -45,7 +45,7 @@ public class ShoppingCartItemVO {
     private Integer rawSalePrice;
 
     @ApiModelProperty("商品限购数量")
-    private Integer productQuota;
+    private Integer quota;
 
     @ApiModelProperty("规格名称")
     private String skuName;
@@ -57,5 +57,5 @@ public class ShoppingCartItemVO {
     private Boolean skuState;
 
     @ApiModelProperty("商品状态 2:已上架 其他下架")
-    private PlatformState productState;
+    private PlatformState platformState;
 }

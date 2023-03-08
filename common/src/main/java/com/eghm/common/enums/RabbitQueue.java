@@ -40,7 +40,7 @@ public enum RabbitQueue {
     /**
      * 商品订单队列
      */
-    PRODUCT_ORDER("product_order_exchange", QueueConstant.PRODUCT_ORDER_QUEUE, ""),
+    ITEM_ORDER("item_order_exchange", QueueConstant.ITEM_ORDER_QUEUE, ""),
 
     /**
      * 优惠券领取

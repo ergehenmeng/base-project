@@ -3,9 +3,9 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Item;
-import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.product.ItemQueryDTO;
-import com.eghm.model.dto.business.product.ItemQueryRequest;
+import com.eghm.model.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.model.dto.business.item.ItemQueryDTO;
+import com.eghm.model.dto.business.item.ItemQueryRequest;
 import com.eghm.model.vo.business.item.ItemListResponse;
 import com.eghm.model.vo.business.item.ItemListVO;
 import org.apache.ibatis.annotations.Param;
@@ -51,7 +51,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param dto 查询条件
      * @return 商品信息
      */
-    Page<ItemListVO> getByPage(Page<ProductListVO> page, @Param("param") ItemQueryDTO dto);
+    Page<ItemListVO> getByPage(Page<ItemListVO> page, @Param("param") ItemQueryDTO dto);
     
     /**
      * 优惠券所能使用的商品范围, 分页查询
@@ -59,5 +59,5 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<ItemListVO> getCouponScopeByPage(Page<ProductListVO> page, @Param("param") ItemCouponQueryDTO dto);
+    Page<ItemListVO> getCouponScopeByPage(Page<ItemListVO> page, @Param("param") ItemCouponQueryDTO dto);
 }

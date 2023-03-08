@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ItemMapper">
     
-    <select id="listPage" resultType="com.eghm.model.vo.business.item.ItemListResponse" parameterType="com.eghm.model.dto.business.product.ItemQueryRequest">
+    <select id="listPage" resultType="com.eghm.model.vo.business.item.ItemListResponse" parameterType="com.eghm.model.dto.business.item.ItemQueryRequest">
         select
         t.id,
         t.store_id as storeId,
@@ -18,7 +18,7 @@
         t.min_price as minPrice,
         t.create_time as createTime,
         t.update_time as updateTime
-        from item t left join product_store r on t.store_id = r.id
+        from item t left join item_store r on t.store_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (t.title like concat('%', #{param.queryName} ,'%')  or r.title like concat('%', #{param.queryName} ,'%'))
@@ -63,7 +63,7 @@
         order by min_price &gt; 0, recommend desc, id limit #{limit}
     </select>
     
-    <select id="getByPage" parameterType="com.eghm.model.dto.business.product.ItemQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
+    <select id="getByPage" parameterType="com.eghm.model.dto.business.item.ItemQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
         select
         id,
         title,
@@ -92,7 +92,7 @@
         </if>
     </select>
     
-    <select id="getCouponScopeByPage" parameterType="com.eghm.model.dto.business.product.ItemCouponQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
+    <select id="getCouponScopeByPage" parameterType="com.eghm.model.dto.business.item.ItemCouponQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
         select
         t.id,
         t.title,
@@ -102,7 +102,7 @@
         from item t where t.deleted = false and t.state = 1 and t.platform_state = 2 and t.min_price &gt; 0
         and t.store_id = #{storeId}
         <if test="param.useScope == 2">
-            and exists (select 1 from coupon_product r where t.id  = r.product_id and r.coupon_config_id = #{couponId} )
+            and exists (select 1 from coupon_item r where t.id  = r.product_id and r.coupon_config_id = #{couponId} )
         </if>
         <if test="param.useScope == 1">
             and t.store_id = #{storeId}

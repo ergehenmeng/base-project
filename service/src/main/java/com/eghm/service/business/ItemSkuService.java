@@ -2,9 +2,8 @@ package com.eghm.service.business;
 
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
-import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
+import com.eghm.model.dto.business.item.sku.ItemSkuRequest;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

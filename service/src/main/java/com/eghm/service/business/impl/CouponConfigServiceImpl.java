@@ -9,7 +9,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.CouponMode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
+import com.eghm.mapper.ItemMapper;
 import com.eghm.model.CouponConfig;
+import com.eghm.model.Item;
 import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
@@ -17,7 +19,7 @@ import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
-import com.eghm.service.business.CouponItemService;
+import com.eghm.service.business.CouponProductService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -42,11 +44,11 @@ public class CouponConfigServiceImpl implements CouponConfigService {
 
     private final CouponConfigMapper couponConfigMapper;
 
-    private final CouponItemService couponItemService;
+    private final CouponProductService couponProductService;
 
     private final UserCouponService userCouponService;
 
-    private final ProductMapper productMapper;
+    private final ItemMapper itemMapper;
 
     @Override
     public Page<CouponConfig> getByPage(CouponConfigQueryRequest request) {
@@ -74,14 +76,14 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     public void create(CouponConfigAddRequest request) {
         CouponConfig config = DataUtil.copy(request, CouponConfig.class);
         couponConfigMapper.insert(config);
-        couponItemService.insert(config.getId(), request.getProductList());
+        couponProductService.insert(config.getId(), request.getItemList());
     }
 
     @Override
     public void update(CouponConfigEditRequest request) {
         CouponConfig config = DataUtil.copy(request, CouponConfig.class);
         couponConfigMapper.updateById(config);
-        couponItemService.insertWithDelete(config.getId(), request.getProductList());
+        couponProductService.insertWithDelete(config.getId(), request.getItemList());
     }
 
     @Override
@@ -106,14 +108,14 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     }
 
     @Override
-    public List<CouponListVO> getProductCoupon(Long productId) {
-        Product product = productMapper.selectById(productId);
-        if (product == null) {
-            log.error("该零售商品已删除 [{}]", productId);
+    public List<CouponListVO> getItemCoupon(Long itemId) {
+        Item item = itemMapper.selectById(itemId);
+        if (item == null) {
+            log.error("该零售商品已删除 [{}]", itemId);
             throw new BusinessException(PRODUCT_DOWN);
         }
         // 优惠券有店铺券或商品券之分
-        List<CouponListVO> couponList = couponConfigMapper.getProductCoupon(productId, product.getStoreId());
+        List<CouponListVO> couponList = couponConfigMapper.getItemCoupon(itemId, item.getStoreId());
         this.fillAttribute(couponList);
         return couponList;
     }

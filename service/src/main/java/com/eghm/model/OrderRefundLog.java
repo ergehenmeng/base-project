@@ -39,7 +39,7 @@ public class OrderRefundLog extends BaseEntity implements Serializable {
     private Integer num;
 
     @ApiModelProperty("普通商品订单id(普通商品退款,该字段必填)")
-    private Long productOrderId;
+    private Long itemOrderId;
 
     @ApiModelProperty(value = "申请退款金额")
     private Integer applyAmount;

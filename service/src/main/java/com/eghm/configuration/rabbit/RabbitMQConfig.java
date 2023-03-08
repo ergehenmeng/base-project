@@ -1,7 +1,12 @@
 package com.eghm.configuration.rabbit;
 
 import com.eghm.common.enums.RabbitQueue;
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.ExchangeBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.QueueBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -191,25 +196,25 @@ public class RabbitMQConfig {
     /**
      * 商品交换机
      */
-    @Bean("productOrderExchange")
-    public Exchange productOrderExchange() {
-        return ExchangeBuilder.topicExchange(RabbitQueue.PRODUCT_ORDER.getExchange()).durable(true).build();
+    @Bean("itemOrderExchange")
+    public Exchange itemOrderExchange() {
+        return ExchangeBuilder.topicExchange(RabbitQueue.ITEM_ORDER.getExchange()).durable(true).build();
     }
 
     /**
      * 商品处理队列
      */
-    @Bean("productOrderQueue")
-    public Queue productOrderQueue() {
-        return QueueBuilder.durable(RabbitQueue.PRODUCT_ORDER.getQueue()).build();
+    @Bean("itemOrderQueue")
+    public Queue itemOrderQueue() {
+        return QueueBuilder.durable(RabbitQueue.ITEM_ORDER.getQueue()).build();
     }
 
     /**
      * 商品交换机与队列绑定
      */
     @Bean
-    public Binding productOrderBinding() {
-        return BindingBuilder.bind(productOrderQueue()).to(productOrderExchange()).with(RabbitQueue.PRODUCT_ORDER.getRoutingKey()).noargs();
+    public Binding itemOrderBinding() {
+        return BindingBuilder.bind(itemOrderQueue()).to(itemOrderExchange()).with(RabbitQueue.ITEM_ORDER.getRoutingKey()).noargs();
     }
 
     /**

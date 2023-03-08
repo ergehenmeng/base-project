@@ -4,11 +4,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.common.enums.ref.PlatformState;
 import com.eghm.common.enums.ref.State;
 import com.eghm.model.Item;
-import com.eghm.model.dto.business.product.ItemAddRequest;
-import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.product.ItemEditRequest;
-import com.eghm.model.dto.business.product.ItemQueryDTO;
-import com.eghm.model.dto.business.product.ItemQueryRequest;
+import com.eghm.model.dto.business.item.ItemAddRequest;
+import com.eghm.model.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.model.dto.business.item.ItemEditRequest;
+import com.eghm.model.dto.business.item.ItemQueryDTO;
+import com.eghm.model.dto.business.item.ItemQueryRequest;
 import com.eghm.model.vo.business.item.ItemListResponse;
 import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.business.item.ItemResponse;
@@ -99,9 +99,9 @@ public interface ItemService {
     
     /**
      * 更新销售量
-     * @param productNumMap 商品及销售数量
+     * @param itemNumMap 商品及销售数量
      */
-    void updateSaleNum(Map<Long, Integer> productNumMap);
+    void updateSaleNum(Map<Long, Integer> itemNumMap);
     
     /**
      * 更新销售量

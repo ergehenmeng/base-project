@@ -14,14 +14,15 @@ import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
+import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
-import com.eghm.model.dto.business.product.ItemAddRequest;
-import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.product.ItemEditRequest;
-import com.eghm.model.dto.business.product.ItemQueryDTO;
-import com.eghm.model.dto.business.product.ItemQueryRequest;
-import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
-import com.eghm.model.dto.business.product.sku.ItemSpecRequest;
+import com.eghm.model.dto.business.item.ItemAddRequest;
+import com.eghm.model.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.model.dto.business.item.ItemEditRequest;
+import com.eghm.model.dto.business.item.ItemQueryDTO;
+import com.eghm.model.dto.business.item.ItemQueryRequest;
+import com.eghm.model.dto.business.item.sku.ItemSkuRequest;
+import com.eghm.model.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.model.vo.business.item.ItemListResponse;
 import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.business.item.ItemResponse;
@@ -110,7 +111,7 @@ public class ItemServiceImpl implements ItemService {
             LinkedHashMap<String, List<ItemSpecResponse>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpecResponse::getSpecName, LinkedHashMap::new, Collectors.toList()));
             response.setSpecMap(specMap);
         }
-        List<ProductSku> skuList = itemSkuService.getByItemId(itemId);
+        List<ItemSku> skuList = itemSkuService.getByItemId(itemId);
         response.setSkuList(DataUtil.copy(skuList, ItemSkuResponse.class));
         return response;
     }
@@ -167,16 +168,16 @@ public class ItemServiceImpl implements ItemService {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.in(Item::getId, ids);
         wrapper.eq(Item::getPlatformState, PlatformState.SHELVE);
-        List<Item> productList = itemMapper.selectList(wrapper);
-        if (productList.size() != ids.size()) {
+        List<Item> itemList = itemMapper.selectList(wrapper);
+        if (itemList.size() != ids.size()) {
             log.info("存在已下架的商品 {}", ids);
             throw new BusinessException(PRODUCT_DOWN);
         }
-        return productList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
+        return itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
     }
     
     @Override
-    public void updateSaleNum(Map<Long, Integer> productNumMap) {
+    public void updateSaleNum(Map<Long, Integer> itemNumMap) {
         // TODO
     }
     
@@ -192,13 +193,13 @@ public class ItemServiceImpl implements ItemService {
     
     @Override
     public List<ItemListVO> getPriorityItem(Long shopId) {
-        int max = sysConfigApi.getInt(ConfigConstant.STORE_PRODUCT_MAX_RECOMMEND, 10);
+        int max = sysConfigApi.getInt(ConfigConstant.STORE_ITEM_MAX_RECOMMEND, 10);
         return itemMapper.getPriorityItem(shopId, max);
     }
     
     @Override
     public List<ItemListVO> getRecommend() {
-        int max = sysConfigApi.getInt(ConfigConstant.PRODUCT_MAX_RECOMMEND, 10);
+        int max = sysConfigApi.getInt(ConfigConstant.ITEM_MAX_RECOMMEND, 10);
         return itemMapper.getRecommendItem(max);
     }
     
@@ -235,18 +236,18 @@ public class ItemServiceImpl implements ItemService {
     
     /**
      * 同一家店铺 商品名称重复校验
-     * @param productName 商品名称
+     * @param itemName 商品名称
      * @param id 商品id
      * @param storeId 店铺id
      */
-    private void titleRedo(String productName, Long id, Long storeId) {
+    private void titleRedo(String itemName, Long id, Long storeId) {
         LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Item::getTitle, productName);
+        wrapper.eq(Item::getTitle, itemName);
         wrapper.ne(id != null, Item::getId, id);
         wrapper.eq(Item::getStoreId, storeId);
         Integer count = itemMapper.selectCount(wrapper);
         if (count > 0) {
-            log.info("零售商品名称重复 [{}] [{}] [{}]", productName, id, storeId);
+            log.info("零售商品名称重复 [{}] [{}] [{}]", itemName, id, storeId);
             throw new BusinessException(ErrorCode.PRODUCT_TITLE_REDO);
         }
     }

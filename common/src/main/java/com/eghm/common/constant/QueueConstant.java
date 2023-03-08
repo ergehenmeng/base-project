@@ -37,7 +37,7 @@ public class QueueConstant {
     /**
      * 商品订单队列
      */
-    public static final String PRODUCT_ORDER_QUEUE = "product_order_queue";
+    public static final String ITEM_ORDER_QUEUE = "item_order_queue";
 
     /**
      * 优惠券领取

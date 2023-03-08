@@ -9,7 +9,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.mapper.ItemSkuMapper;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
-import com.eghm.model.dto.business.product.sku.ItemSkuRequest;
+import com.eghm.model.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Maps;

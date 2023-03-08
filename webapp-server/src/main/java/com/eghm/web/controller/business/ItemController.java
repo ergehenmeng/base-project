@@ -1,7 +1,7 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.business.product.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.product.ItemQueryDTO;
+import com.eghm.model.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.model.dto.business.item.ItemQueryDTO;
 import com.eghm.model.vo.business.item.ItemListVO;
 import com.eghm.model.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
@@ -48,8 +48,8 @@ public class ItemController {
     @GetMapping("/coupon")
     @ApiOperation("商品页可以领取的优惠券")
     @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
-    public List<CouponListVO> product(@RequestParam("itemId") Long itemId) {
-        return couponConfigService.getProductCoupon(itemId);
+    public List<CouponListVO> item(@RequestParam("itemId") Long itemId) {
+        return couponConfigService.getItemCoupon(itemId);
     }
 
     @GetMapping("/couponScope")

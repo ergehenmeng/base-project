@@ -353,8 +353,8 @@ CREATE TABLE `ticket_order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
 
-DROP TABLE IF EXISTS `coupon_item`;
-CREATE TABLE `coupon_item`
+DROP TABLE IF EXISTS `coupon_product`;
+CREATE TABLE `coupon_product`
 (
     `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `coupon_config_id` bigint(20)  DEFAULT NULL COMMENT '优惠券配置id',

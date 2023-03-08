@@ -26,7 +26,7 @@ import java.util.List;
 public class ItemOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
-    @Size(min = 1, max = 99, message = "商品不能超过99种", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
+    @Size(min = 1, max = 99, message = "商品不能超过99种", groups = {TicketOrderCreateGroup.class, ItemOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private List<BaseItemDTO> itemList;
 
     @Sign
@@ -37,12 +37,12 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     private Long couponId;
 
     @ApiModelProperty("联系人电话")
-    @Mobile(message = "联系人手机号格式错误", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
+    @Mobile(message = "联系人手机号格式错误", groups = {TicketOrderCreateGroup.class, ItemOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private String mobile;
 
     @ApiModelProperty("联系人姓名")
-    @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
-    @NotBlank(message = "联系人姓名不能为空", groups = {TicketOrderCreateGroup.class, ProductOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
+    @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符", groups = {TicketOrderCreateGroup.class, ItemOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
+    @NotBlank(message = "联系人姓名不能为空", groups = {TicketOrderCreateGroup.class, ItemOrderCreateGroup.class, RestaurantOrderCreateGroup.class, LineOrderCreateGroup.class, HomestayOrderCreateGroup.class})
     private String nickName;
 
     @ApiModelProperty("游客信息列表")
