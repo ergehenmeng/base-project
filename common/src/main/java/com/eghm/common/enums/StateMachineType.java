@@ -23,6 +23,9 @@ public enum StateMachineType {
      * 民宿
      */
     HOMESTAY,
-
-
+    
+    /**
+     * 零售
+     */
+    ITEM,
 }
