@@ -55,7 +55,7 @@ public class ItemApplyRefundHandler extends DefaultApplyRefundHandler {
         itemOrder.setRefundState(totalRefund == itemOrder.getNum() ? ItemRefundState.REFUND : ItemRefundState.REBATE);
 
         OrderRefundLog refundLog = DataUtil.copy(dto, OrderRefundLog.class);
-        refundLog.setProductOrderId(itemOrder.getId());
+        refundLog.setItemOrderId(itemOrder.getId());
         LocalDateTime now = LocalDateTime.now();
         refundLog.setApplyTime(now);
         refundLog.setState(0);

@@ -36,7 +36,7 @@ public class ItemRefundNotifyHandler extends DefaultRefundNotifyHandler {
 
     @Override
     protected void refundSuccessSetState(Order order, OrderRefundLog refundLog) {
-        int successNum = getOrderRefundLogService().getRefundSuccessNum(order.getOrderNo(), refundLog.getProductOrderId());
+        int successNum = getOrderRefundLogService().getRefundSuccessNum(order.getOrderNo(), refundLog.getItemOrderId());
         int productNum = itemOrderService.getProductNum(order.getOrderNo());
         if (successNum  + refundLog.getNum() >= productNum) {
             order.setState(OrderState.CLOSE);
@@ -44,7 +44,7 @@ public class ItemRefundNotifyHandler extends DefaultRefundNotifyHandler {
         }
         order.setRefundState(RefundState.SUCCESS);
 
-        ItemOrder itemOrder = itemOrderService.selectById(refundLog.getProductOrderId());
+        ItemOrder itemOrder = itemOrderService.selectById(refundLog.getItemOrderId());
         // 退款完成库存增加
         itemSkuService.updateStock(itemOrder.getSkuId(), refundLog.getNum());
     }

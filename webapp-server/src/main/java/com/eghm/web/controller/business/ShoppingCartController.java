@@ -12,7 +12,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -23,8 +27,8 @@ import java.util.List;
 @RestController
 @Api(tags = "购物车")
 @AllArgsConstructor
-@RequestMapping("/webapp/shopping/car")
-public class ShoppingCarController {
+@RequestMapping("/webapp/shopping/cart")
+public class ShoppingCartController {
 
     private final ShoppingCartService shoppingCartService;
 

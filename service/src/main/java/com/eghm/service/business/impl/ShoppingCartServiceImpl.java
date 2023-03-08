@@ -59,7 +59,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Long userId = ApiHolder.getUserId();
         LambdaQueryWrapper<ShoppingCart> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ShoppingCart::getUserId, userId);
-        wrapper.eq(ShoppingCart::getItemId, dto.getProductId());
+        wrapper.eq(ShoppingCart::getItemId, dto.getItemId());
         wrapper.eq(ShoppingCart::getSkuId, dto.getSkuId());
         ShoppingCart shoppingCart = shoppingCartMapper.selectOne(wrapper);
 
@@ -71,7 +71,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             this.checkCarMax(userId);
             shoppingCart = DataUtil.copy(dto, ShoppingCart.class);
             shoppingCart.setSalePrice(sku.getSalePrice());
-            Item item = itemService.selectByIdRequired(dto.getProductId());
+            Item item = itemService.selectByIdRequired(dto.getItemId());
             shoppingCart.setStoreId(item.getStoreId());
             shoppingCartMapper.insert(shoppingCart);
         } else {
@@ -143,15 +143,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * @param quantity 添加总数量
      */
     private ItemSku checkAndGetSku(AddCartDTO dto, int quantity) {
-        Item item = itemService.selectByIdRequired(dto.getProductId());
+        Item item = itemService.selectByIdRequired(dto.getItemId());
         if (item.getPlatformState() != PlatformState.SHELVE) {
-            log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getProductId(), item.getPlatformState());
+            log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getItemId(), item.getPlatformState());
             throw new BusinessException(PRODUCT_DOWN);
         }
         ItemSku itemSku = itemSkuService.selectByIdRequired(dto.getSkuId());
 
         if (!item.getId().equals(itemSku.getItemId())) {
-            log.error("规格与商品不匹配 [{}] [{}]", dto.getSkuId(), dto.getProductId());
+            log.error("规格与商品不匹配 [{}] [{}]", dto.getSkuId(), dto.getItemId());
             throw new BusinessException(PRODUCT_SKU_MATCH);
         }
         if (itemSku.getStock() < quantity) {
