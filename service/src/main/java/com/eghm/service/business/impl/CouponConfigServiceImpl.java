@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
+import static com.eghm.common.enums.ErrorCode.ITEM_DOWN;
 
 /**
  * @author 二哥很猛
@@ -112,7 +112,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
         Item item = itemMapper.selectById(itemId);
         if (item == null) {
             log.error("该零售商品已删除 [{}]", itemId);
-            throw new BusinessException(PRODUCT_DOWN);
+            throw new BusinessException(ITEM_DOWN);
         }
         // 优惠券有店铺券或商品券之分
         List<CouponListVO> couponList = couponConfigMapper.getItemCoupon(itemId, item.getStoreId());

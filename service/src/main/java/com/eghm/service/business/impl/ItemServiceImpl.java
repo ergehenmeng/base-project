@@ -46,7 +46,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
+import static com.eghm.common.enums.ErrorCode.ITEM_DOWN;
 
 /**
  * @author 殿小二
@@ -126,7 +126,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemMapper.selectById(itemId);
         if (item == null) {
             log.error("该零售商品已删除 [{}]", itemId);
-            throw new BusinessException(PRODUCT_DOWN);
+            throw new BusinessException(ITEM_DOWN);
         }
         return item;
     }
@@ -171,7 +171,7 @@ public class ItemServiceImpl implements ItemService {
         List<Item> itemList = itemMapper.selectList(wrapper);
         if (itemList.size() != ids.size()) {
             log.info("存在已下架的商品 {}", ids);
-            throw new BusinessException(PRODUCT_DOWN);
+            throw new BusinessException(ITEM_DOWN);
         }
         return itemList.stream().collect(Collectors.toMap(Item::getId, Function.identity()));
     }
@@ -250,7 +250,7 @@ public class ItemServiceImpl implements ItemService {
         Integer count = itemMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("零售商品名称重复 [{}] [{}] [{}]", itemName, id, storeId);
-            throw new BusinessException(ErrorCode.PRODUCT_TITLE_REDO);
+            throw new BusinessException(ErrorCode.ITEM_TITLE_REDO);
         }
     }
     

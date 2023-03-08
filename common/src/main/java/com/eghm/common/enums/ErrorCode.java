@@ -672,12 +672,12 @@ public enum ErrorCode {
     /**
      * 购物车数量不能超过%s个
      */
-    SHOPPING_CAR_MAX(3148, "购物车数量不能超过%s个"),
+    SHOPPING_CART_MAX(3148, "购物车数量不能超过%s个"),
 
     /**
      * 该商品已下架
      */
-    PRODUCT_DOWN(3149, "该商品已下架"),
+    ITEM_DOWN(3149, "该商品已下架"),
 
     /**
      * 该商品规格已下架
@@ -687,7 +687,7 @@ public enum ErrorCode {
     /**
      * 商品规格不匹配
      */
-    PRODUCT_SKU_MATCH(3151, "商品规格不匹配"),
+    ITEM_SKU_MATCH(3151, "商品规格不匹配"),
 
     /**
      * 该商品库存不足
@@ -697,12 +697,12 @@ public enum ErrorCode {
     /**
      * 超出商品限购数量
      */
-    PRODUCT_QUOTA(3153, "超出商品限购数量"),
+    ITEM_QUOTA(3153, "超出商品限购数量"),
 
     /**
      * 购物车商品信息不存在
      */
-    CAR_PRODUCT_EMPTY(3154, "购物车商品信息不存在"),
+    CART_ITEM_EMPTY(3154, "购物车商品信息不存在"),
 
     /**
      * 门票库存不足
@@ -835,14 +835,9 @@ public enum ErrorCode {
     LINE_STOCK(3185, "线路库存不足"),
 
     /**
-     * 商品不支持
-     */
-    PRODUCT_NOT_SUPPORT(3185, "商品不支持"),
-
-    /**
      * 商品订单未查询到
      */
-    PRODUCT_ORDER_NULL(3185, "商品订单未查询到"),
+    ITEM_ORDER_NULL(3185, "商品订单未查询到"),
 
     /**
      * 订单信息不匹配
@@ -947,7 +942,7 @@ public enum ErrorCode {
     /**
      * 商品名称重复
      */
-    PRODUCT_TITLE_REDO(3237, "商品名称重复"),
+    ITEM_TITLE_REDO(3237, "商品名称重复"),
 
     /**
      * 房型名称重复

@@ -29,12 +29,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.common.enums.ErrorCode.CAR_PRODUCT_EMPTY;
+import static com.eghm.common.enums.ErrorCode.CART_ITEM_EMPTY;
 import static com.eghm.common.enums.ErrorCode.ILLEGAL_OPERATION;
-import static com.eghm.common.enums.ErrorCode.PRODUCT_DOWN;
-import static com.eghm.common.enums.ErrorCode.PRODUCT_QUOTA;
-import static com.eghm.common.enums.ErrorCode.PRODUCT_SKU_MATCH;
-import static com.eghm.common.enums.ErrorCode.SHOPPING_CAR_MAX;
+import static com.eghm.common.enums.ErrorCode.ITEM_DOWN;
+import static com.eghm.common.enums.ErrorCode.ITEM_QUOTA;
+import static com.eghm.common.enums.ErrorCode.ITEM_SKU_MATCH;
+import static com.eghm.common.enums.ErrorCode.SHOPPING_CART_MAX;
 import static com.eghm.common.enums.ErrorCode.SKU_STOCK;
 
 /**
@@ -110,7 +110,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ShoppingCart shoppingCart = shoppingCartMapper.selectById(id);
         if (shoppingCart == null) {
             log.error("未查询到购物车商品信息 [{}]", id);
-            throw new BusinessException(CAR_PRODUCT_EMPTY);
+            throw new BusinessException(CART_ITEM_EMPTY);
         }
         if (!userId.equals(shoppingCart.getUserId())) {
             log.error("非本人购物车信息, 禁止操作 [{}] [{}]", id, userId);
@@ -119,11 +119,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Item item = itemService.selectByIdRequired(shoppingCart.getItemId());
         if (item.getPlatformState() != PlatformState.SHELVE) {
             log.error("商品已下架, 无法更新购物车数量 [{}]", shoppingCart.getItemId());
-            throw new BusinessException(PRODUCT_DOWN);
+            throw new BusinessException(ITEM_DOWN);
         }
         if (item.getQuota() < quantity) {
             log.error("超出商品最大限购数量, 无法更新购物车数量 [{}] [{}] [{}]", shoppingCart.getItemId(), item.getQuota(), quantity);
-            throw new BusinessException(PRODUCT_QUOTA);
+            throw new BusinessException(ITEM_QUOTA);
         }
     
         ItemSku itemSku = itemSkuService.selectByIdRequired(shoppingCart.getSkuId());
@@ -146,13 +146,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Item item = itemService.selectByIdRequired(dto.getItemId());
         if (item.getPlatformState() != PlatformState.SHELVE) {
             log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getItemId(), item.getPlatformState());
-            throw new BusinessException(PRODUCT_DOWN);
+            throw new BusinessException(ITEM_DOWN);
         }
         ItemSku itemSku = itemSkuService.selectByIdRequired(dto.getSkuId());
 
         if (!item.getId().equals(itemSku.getItemId())) {
             log.error("规格与商品不匹配 [{}] [{}]", dto.getSkuId(), dto.getItemId());
-            throw new BusinessException(PRODUCT_SKU_MATCH);
+            throw new BusinessException(ITEM_SKU_MATCH);
         }
         if (itemSku.getStock() < quantity) {
             log.error("商品规格的库存不足 [{}] [{}]", itemSku.getStock(), quantity);
@@ -161,7 +161,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         if (item.getQuota() < quantity) {
             log.error("超出商品的最大购买数量 [{}] [{}] [{}]", item.getId(), item.getQuota(), quantity);
-            throw new BusinessException(PRODUCT_QUOTA);
+            throw new BusinessException(ITEM_QUOTA);
         }
         return itemSku;
     }
@@ -177,7 +177,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         Integer count = shoppingCartMapper.selectCount(wrapper);
         int max = sysConfigApi.getInt(ConfigConstant.SHOPPING_CAR_MAX);
         if (count >= max) {
-            throw new BusinessException(SHOPPING_CAR_MAX.getCode(), String.format(SHOPPING_CAR_MAX.getMsg(), max));
+            throw new BusinessException(SHOPPING_CART_MAX.getCode(), String.format(SHOPPING_CART_MAX.getMsg(), max));
         }
     }
 

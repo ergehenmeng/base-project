@@ -138,7 +138,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         for (OrderPackage aPackage : packageList) {
             if (aPackage.getItem() == null) {
                 log.error("未查询到商品信息 [{}] ", aPackage.getItemId());
-                throw new BusinessException(ErrorCode.PRODUCT_DOWN);
+                throw new BusinessException(ErrorCode.ITEM_DOWN);
             }
             ItemSku sku = aPackage.getSku();
             if (sku == null) {
@@ -147,7 +147,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             }
             if (!sku.getItemId().equals(aPackage.getItemId())) {
                 log.error("下单商品和规格不匹配 [{}] [{}]", aPackage.getSkuId(), aPackage.getItemId());
-                throw new BusinessException(ErrorCode.PRODUCT_SKU_MATCH);
+                throw new BusinessException(ErrorCode.ITEM_SKU_MATCH);
             }
             if (sku.getStock() < aPackage.getNum()) {
                 log.error("商品规格库存不足 [{}] [{}] [{}]", sku.getId(), sku.getStock(), aPackage.getNum());

@@ -65,7 +65,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         ItemOrder order = itemOrderMapper.selectById(id);
         if (order == null) {
             log.error("商品订单信息未查询到 [{}]", id);
-            throw new BusinessException(ErrorCode.PRODUCT_ORDER_NULL);
+            throw new BusinessException(ErrorCode.ITEM_ORDER_NULL);
         }
         return order;
     }
