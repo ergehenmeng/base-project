@@ -5,14 +5,14 @@
     <select id="getTotalRefundNum" resultType="int">
         select ifnull(sum(num), 0) from order_refund_log where deleted = false and order_no = #{orderNo} and `state` in (0, 1)
         <if test="productOrderId != null">
-            product_order_id = #{itemOrderId}
+            item_order_id = #{itemOrderId}
         </if>
     </select>
 
     <select id="getRefundSuccessNum" resultType="int">
         select ifnull(sum(num), 0) from order_refund_log where deleted = false and order_no = #{orderNo} and `state` = 1
         <if test="productOrderId != null">
-            product_order_id = #{itemOrderId}
+            item_order_id = #{itemOrderId}
         </if>
     </select>
     

@@ -444,7 +444,9 @@ CREATE TABLE `order_refund_log`
     `user_id`           bigint(20)   DEFAULT NULL COMMENT '退款人id',
     `out_refund_no`     varchar(50)  DEFAULT NULL COMMENT '退款流水号',
     `num`               smallint(2)  DEFAULT '1' COMMENT '退款数量',
-    `amount`            int(10)      DEFAULT '0' COMMENT '申请退款金额',
+    `item_order_id`     bigint(20)   DEFAULT '1' COMMENT '零售退款订单id',
+    `apply_amount`      int(10)      DEFAULT '0' COMMENT '申请退款金额',
+    `refund_amount`     int(10)      DEFAULT '0' COMMENT '实际退款金额',
     `reason`            varchar(200) DEFAULT NULL COMMENT '退款原因',
     `apply_type`        tinyint(1)   DEFAULT '1' COMMENT '申请方式 1:仅退款 2:退货退款',
     `state`             tinyint(1)   DEFAULT '-1' COMMENT '退款状态 -1:退款申请中 0:退款中 1:退款成功 2:退款失败',
@@ -616,7 +618,7 @@ DROP TABLE IF EXISTS `item_order`;
 CREATE TABLE `item_order`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
-    `item_id`      bigint(20) COMMENT '商品id',
+    `item_id`         bigint(20) COMMENT '商品id',
     `title`           varchar(50) comment '商品名称',
     `order_no`        varchar(30) COMMENT '订单编号',
     `num`             smallint(4) COMMENT '订单数量',
@@ -646,7 +648,7 @@ CREATE TABLE `shopping_cart`
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `user_id`     bigint(20)  DEFAULT NULL COMMENT '用户id',
     `store_id`    bigint(20)  DEFAULT NULL COMMENT '店铺id',
-    `item_id`  bigint(20)  DEFAULT NULL COMMENT '商品id',
+    `item_id`     bigint(20)  DEFAULT NULL COMMENT '商品id',
     `sku_id`      bigint(20)  DEFAULT NULL COMMENT '商品规格id',
     `sale_price`  int(10)     DEFAULT NULL COMMENT '商品售价(冗余)',
     `quantity`    smallint(3) DEFAULT '1' COMMENT '数量',
