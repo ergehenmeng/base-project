@@ -48,11 +48,6 @@ public enum RabbitQueue {
     COUPON_RECEIVE("coupon_receive_exchange", ExchangeType.DIRECT, QueueConstant.COUPON_RECEIVE_QUEUE, "", false),
 
     /**
-     * 死信队列
-     */
-    DEAD_LETTER("dead_letter_exchange", ExchangeType.DIRECT, QueueConstant.DEAD_LETTER_QUEUE, "", false),
-
-    /**
      * 管理后台操作日志队列
      */
     MANAGE_OP_LOG("manage_op_log_exchange", ExchangeType.DIRECT, QueueConstant.MANAGE_OP_LOG_QUEUE, "", false),
