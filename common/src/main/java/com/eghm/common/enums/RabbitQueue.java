@@ -15,57 +15,57 @@ public enum RabbitQueue {
     /**
      * 订单未支付时取消队列 延迟队列
      */
-    ORDER_PAY_EXPIRE("order_pay_expire_exchange", QueueConstant.ORDER_PAY_EXPIRE_QUEUE, ""),
+    ORDER_PAY_EXPIRE("order_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.ORDER_PAY_EXPIRE_QUEUE, "", true),
 
     /**
      * 订单发货后自动完成 延迟队列
      */
-    ORDER_COMPLETE("order_complete_exchange", QueueConstant.ORDER_COMPLETE_QUEUE, ""),
+    ORDER_COMPLETE("order_complete_exchange", ExchangeType.DIRECT, QueueConstant.ORDER_COMPLETE_QUEUE, "", false),
 
     /**
      * 门票订单队列
      */
-    TICKET_ORDER("ticket_order_exchange", QueueConstant.TICKET_ORDER_QUEUE, ""),
+    TICKET_ORDER("ticket_order_exchange", ExchangeType.DIRECT, QueueConstant.TICKET_ORDER_QUEUE, "", false),
 
     /**
      * 餐饮订单队列
      */
-    VOUCHER_ORDER("voucher_order_exchange", QueueConstant.VOUCHER_ORDER_QUEUE, ""),
+    VOUCHER_ORDER("voucher_order_exchange", ExchangeType.DIRECT, QueueConstant.VOUCHER_ORDER_QUEUE, "", false),
 
     /**
      * 民宿订单队列
      */
-    HOMESTAY_ORDER("homestay_order_exchange", QueueConstant.HOMESTAY_ORDER_QUEUE, ""),
+    HOMESTAY_ORDER("homestay_order_exchange", ExchangeType.DIRECT, QueueConstant.HOMESTAY_ORDER_QUEUE, "", false),
 
     /**
      * 商品订单队列
      */
-    ITEM_ORDER("item_order_exchange", QueueConstant.ITEM_ORDER_QUEUE, ""),
+    ITEM_ORDER("product_order_exchange", ExchangeType.DIRECT, QueueConstant.ITEM_ORDER_QUEUE, "", false),
 
     /**
      * 优惠券领取
      */
-    COUPON_RECEIVE("coupon_receive_exchange", QueueConstant.COUPON_RECEIVE_QUEUE, ""),
+    COUPON_RECEIVE("coupon_receive_exchange", ExchangeType.DIRECT, QueueConstant.COUPON_RECEIVE_QUEUE, "", false),
 
     /**
      * 死信队列
      */
-    DEAD_LETTER("dead_letter_exchange", QueueConstant.DEAD_LETTER_QUEUE, ""),
+    DEAD_LETTER("dead_letter_exchange", ExchangeType.DIRECT, QueueConstant.DEAD_LETTER_QUEUE, "", false),
 
     /**
      * 管理后台操作日志队列
      */
-    MANAGE_OP_LOG("manage_op_log_exchange", QueueConstant.MANAGE_OP_LOG_QUEUE, ""),
+    MANAGE_OP_LOG("manage_op_log_exchange", ExchangeType.DIRECT, QueueConstant.MANAGE_OP_LOG_QUEUE, "", false),
 
     /**
      * 移动端用户登录日志队列
      */
-    LOGIN_LOG("login_log_exchange", QueueConstant.LOGIN_LOG_QUEUE, ""),
+    LOGIN_LOG("login_log_exchange", ExchangeType.DIRECT, QueueConstant.LOGIN_LOG_QUEUE, "", false),
 
     /**
      * 移动端异常日志
      */
-    WEBAPP_LOG("webapp_log_exchange", QueueConstant.WEBAPP_LOG_QUEUE, ""),
+    WEBAPP_LOG("webapp_log_exchange", ExchangeType.DIRECT, QueueConstant.WEBAPP_LOG_QUEUE, "", false),
 
     ;
 
@@ -73,6 +73,11 @@ public enum RabbitQueue {
      * mq交换机名称
      */
     private final String exchange;
+
+    /**
+     * 交换机类型
+     */
+    private final ExchangeType exchangeType;
 
     /**
      * mq队列名称
@@ -83,5 +88,10 @@ public enum RabbitQueue {
      * 路由key
      */
     private final String routingKey;
+
+    /**
+     * 是否为延迟队列
+     */
+    private final boolean delayed;
 
 }
