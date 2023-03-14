@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 
-import com.eghm.common.enums.RabbitQueue;
+import com.eghm.common.enums.ExchangeQueue;
 import com.eghm.model.WebappLog;
 import com.eghm.model.dto.ext.ApiHolder;
 import com.eghm.model.dto.ext.RequestMessage;
@@ -57,7 +57,7 @@ public class WebappLogAspect {
             webappLog.setUrl(uri);
             webappLog.setRequestParam(message.getRequestBody());
             webappLog.setElapsedTime(System.currentTimeMillis() - start);
-            rabbitMessageService.send(webappLog, RabbitQueue.WEBAPP_LOG.getExchange());
+            rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
             return proceed;
         } catch (Throwable e) {
             log.warn("请求地址:[{}],请求ip:[{}],操作id:[{}],请求参数:[{}],响应参数:[{}],耗时:[{}ms],软件版本:[{}],客户端:[{}],系统版本:[{}],设备厂商:[{}],设备型号:[{}]",

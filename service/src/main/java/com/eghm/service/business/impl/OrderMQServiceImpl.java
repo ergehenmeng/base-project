@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.common.enums.RabbitQueue;
+import com.eghm.common.enums.ExchangeQueue;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.mq.service.MessageService;
@@ -24,6 +24,6 @@ public class OrderMQServiceImpl implements OrderMQService {
     @Override
     public void sendOrderExpireMessage(String orderNo) {
         int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
-        rabbitService.sendDelay(orderNo, RabbitQueue.ORDER_PAY_EXPIRE.getExchange(), expireTime);
+        rabbitService.sendDelay(ExchangeQueue.ORDER_PAY_EXPIRE, orderNo, expireTime);
     }
 }

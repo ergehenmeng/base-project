@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.RabbitQueue;
+import com.eghm.common.enums.ExchangeQueue;
 import com.eghm.common.exception.AiliPayException;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
@@ -82,7 +82,7 @@ public class ControllerAdviceHandler {
         webappLog.setUserId(ApiHolder.tryGetUserId());
         webappLog.setRequestParam(ApiHolder.getRequestBody());
         webappLog.setErrorMsg(ExceptionUtils.getStackTrace(e));
-        rabbitMessageService.send(webappLog, RabbitQueue.WEBAPP_LOG.getExchange());
+        rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

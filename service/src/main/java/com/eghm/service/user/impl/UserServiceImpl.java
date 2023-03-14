@@ -17,13 +17,13 @@ import com.eghm.common.utils.StringUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.handler.chain.HandlerChain;
+import com.eghm.handler.chain.MessageData;
+import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.mapper.UserMapper;
 import com.eghm.model.LoginDevice;
 import com.eghm.model.User;
 import com.eghm.model.UserScoreLog;
-import com.eghm.handler.chain.HandlerChain;
-import com.eghm.handler.chain.MessageData;
-import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.ext.*;
 import com.eghm.model.dto.login.AccountLoginDTO;
@@ -189,7 +189,7 @@ public class UserServiceImpl implements UserService {
                 .softwareVersion(request.getVersion())
                 .serialNumber(request.getSerialNumber())
                 .build();
-        rabbitMessageService.send(loginRecord, RabbitQueue.LOGIN_LOG.getExchange());
+        rabbitMessageService.send(ExchangeQueue.LOGIN_LOG, loginRecord);
         return LoginTokenVO.builder().token(redisToken.getToken()).refreshToken(redisToken.getRefreshToken()).build();
     }
 

@@ -1,6 +1,6 @@
 package com.eghm.configuration.rabbit;
 
-import com.eghm.common.enums.RabbitQueue;
+import com.eghm.common.enums.ExchangeQueue;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
@@ -25,7 +25,7 @@ public class RabbitMQConfig {
     @Bean
     public void init() {
         log.info("****初始化rabbit消息队列开始****");
-        for (RabbitQueue value : RabbitQueue.values()) {
+        for (ExchangeQueue value : ExchangeQueue.values()) {
             Queue queue = QueueBuilder.durable(value.getQueue()).build();
             amqpAdmin.declareQueue(queue);
             String exchangeType = value.getExchangeType().name().toLowerCase();

@@ -1,6 +1,6 @@
 package com.eghm.web.configuration.handler;
 
-import com.eghm.common.enums.RabbitQueue;
+import com.eghm.common.enums.ExchangeQueue;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ManageLog;
@@ -82,7 +82,7 @@ public class ManageLogAspect {
         }
         boolean logSwitch = sysConfigApi.getBoolean(ConfigConstant.OPERATION_LOG_SWITCH);
         if (logSwitch) {
-            rabbitMessageService.send(sy, RabbitQueue.MANAGE_OP_LOG.getExchange());
+            rabbitMessageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
         } else {
             log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getOperatorId(), sy.getBusinessTime());
         }

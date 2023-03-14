@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum RabbitQueue {
+public enum ExchangeQueue {
 
     /**
      * 订单未支付时取消队列 延迟队列

@@ -2,6 +2,7 @@ package com.eghm.service.mq.service.impl;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.CommonConstant;
+import com.eghm.common.enums.ExchangeQueue;
 import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.mq.service.MessageService;
@@ -33,13 +34,8 @@ public class RabbitMessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void sendDelay(Object msg, String exchange, int delay) {
-        this.sendDelay(msg, "", exchange, delay);
-    }
-
-    @Override
-    public void sendDelay(Object msg, String routeKey, String exchange, int delay) {
-        amqpTemplate.convertAndSend(exchange, routeKey, msg, message -> {
+    public void sendDelay(ExchangeQueue queue, Object msg, int delay) {
+        amqpTemplate.convertAndSend(queue.getExchange(), queue.getRoutingKey(), msg, message -> {
             MessageProperties properties = message.getMessageProperties();
             properties.setDelay(delay * 1000);
             return message;
@@ -47,25 +43,14 @@ public class RabbitMessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void send(Object msg, String routeKey, String exchange) {
-        amqpTemplate.convertAndSend(exchange, routeKey, msg);
+    public void send(ExchangeQueue queue, Object msg) {
+        amqpTemplate.convertAndSend(queue.getExchange(), queue.getRoutingKey(), msg);
     }
 
     @Override
-    public void send(Object msg, String exchange) {
-        this.send(msg, "", exchange);
-    }
-
-    @Override
-    public void sendAsync(AsyncKey msg, String exchange) {
-        amqpTemplate.convertAndSend(exchange, "", msg);
+    public void sendAsync(ExchangeQueue queue, AsyncKey msg) {
+        amqpTemplate.convertAndSend(queue.getExchange(), queue.getRoutingKey(), msg);
         cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), CacheConstant.PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
-    }
 
-    @Override
-    public void sendAsync(AsyncKey msg, String routeKey, String exchange) {
-        amqpTemplate.convertAndSend(exchange, routeKey, msg);
-        cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), CacheConstant.PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
     }
-
 }
