@@ -32,7 +32,7 @@ public class MessageController {
             @ApiImplicitParam(value = "delay", name = "延迟多长时间", required = true),
     })
     public RespBody<Void> sendMsg(@RequestParam("msg") String msg, @RequestParam("delay") Integer delay) {
-        messageService.sendDelay(ExchangeQueue.ORDER_PAY_EXPIRE, msg, delay);
+        messageService.sendDelay(ExchangeQueue.ITEM_PAY_EXPIRE, msg, delay);
         return RespBody.success();
     }
 

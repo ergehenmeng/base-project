@@ -10,14 +10,34 @@ public class QueueConstant {
     private QueueConstant() {}
 
     /**
-     * 订单过期队列
+     * 零售过期队列
      */
-    public static final String ORDER_PAY_EXPIRE_QUEUE = "order_pay_expire_queue";
+    public static final String ITEM_PAY_EXPIRE_QUEUE = "item_pay_expire_queue";
+
+    /**
+     * 门票过期队列
+     */
+    public static final String TICKET_PAY_EXPIRE_QUEUE = "ticket_pay_expire_queue";
+
+    /**
+     * 民宿过期队列
+     */
+    public static final String HOMESTAY_PAY_EXPIRE_QUEUE = "homestay_pay_expire_queue";
+
+    /**
+     * 餐饮券过期队列
+     */
+    public static final String VOUCHER_PAY_EXPIRE_QUEUE = "voucher_pay_expire_queue";
+
+    /**
+     * 线路过期队列
+     */
+    public static final String LINE_PAY_EXPIRE_QUEUE = "line_pay_expire_queue";
 
     /**
      * 订单发货后自动完成
      */
-    public static final String ORDER_COMPLETE_QUEUE = "order_complete_queue";
+    public static final String ITEM_COMPLETE_QUEUE = "item_complete_queue";
 
     /**
      * 门票订单队列

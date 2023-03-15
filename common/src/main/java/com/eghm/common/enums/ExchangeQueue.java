@@ -13,14 +13,34 @@ import lombok.Getter;
 public enum ExchangeQueue {
 
     /**
-     * 订单未支付时取消队列 延迟队列
+     * 零售订单未支付时取消队列 延迟队列
      */
-    ORDER_PAY_EXPIRE("order_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.ORDER_PAY_EXPIRE_QUEUE, "", true),
+    ITEM_PAY_EXPIRE("item_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.ITEM_PAY_EXPIRE_QUEUE, "", true),
 
     /**
-     * 订单发货后自动完成 延迟队列
+     * 门票订单未支付时取消队列 延迟队列
      */
-    ORDER_COMPLETE("order_complete_exchange", ExchangeType.DIRECT, QueueConstant.ORDER_COMPLETE_QUEUE, "", false),
+    TICKET_PAY_EXPIRE("ticket_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.TICKET_PAY_EXPIRE_QUEUE, "", true),
+
+    /**
+     * 门票订单未支付时取消队列 延迟队列
+     */
+    HOMESTAY_PAY_EXPIRE("homestay_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.HOMESTAY_PAY_EXPIRE_QUEUE, "", true),
+
+    /**
+     * 餐饮券订单未支付时取消队列 延迟队列
+     */
+    VOUCHER_PAY_EXPIRE("voucher_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.VOUCHER_PAY_EXPIRE_QUEUE, "", true),
+
+    /**
+     * 线路订单未支付时取消队列 延迟队列
+     */
+    LINE_PAY_EXPIRE("line_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.LINE_PAY_EXPIRE_QUEUE, "", true),
+
+    /**
+     * 商品订单发货后自动完成 延迟队列
+     */
+    ITEM_COMPLETE("item_complete_exchange", ExchangeType.DIRECT, QueueConstant.ITEM_COMPLETE_QUEUE, "", false),
 
     /**
      * 门票订单队列

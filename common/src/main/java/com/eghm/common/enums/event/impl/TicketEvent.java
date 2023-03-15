@@ -45,6 +45,13 @@ public enum TicketEvent implements IEvent {
      * 自动确认
      */
     AUTO_CONFIRM(Lists.newArrayList(OrderState.USED.getValue()), OrderState.COMPLETE.getValue()),
+
+    /**
+     * 订单取消
+     */
+    CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
+
+
     ;
 
 

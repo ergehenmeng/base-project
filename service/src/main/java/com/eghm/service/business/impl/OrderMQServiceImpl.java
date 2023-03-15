@@ -24,6 +24,6 @@ public class OrderMQServiceImpl implements OrderMQService {
     @Override
     public void sendOrderExpireMessage(String orderNo) {
         int expireTime = sysConfigApi.getInt(ConfigConstant.ORDER_EXPIRE_TIME);
-        rabbitService.sendDelay(ExchangeQueue.ORDER_PAY_EXPIRE, orderNo, expireTime);
+        rabbitService.sendDelay(ExchangeQueue.ITEM_PAY_EXPIRE, orderNo, expireTime);
     }
 }

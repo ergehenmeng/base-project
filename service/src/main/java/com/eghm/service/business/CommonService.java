@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.SysDict;
+import com.eghm.service.business.handler.OrderExpireHandler;
 import com.eghm.service.business.handler.PayNotifyHandler;
 
 import java.util.List;
@@ -26,6 +27,13 @@ public interface CommonService {
      * @return 订单处理类
      */
     PayNotifyHandler getPayHandler(String orderNo);
+
+    /**
+     * 订单过期处理类
+     * @param orderNo 订单编号
+     * @return handler
+     */
+    OrderExpireHandler getExpireHandler(String orderNo);
 
     /**
      * 根据给定的字典列表和标签id进行解析
