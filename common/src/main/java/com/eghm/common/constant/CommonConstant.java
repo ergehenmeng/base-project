@@ -71,4 +71,9 @@ public class CommonConstant {
      * 测试环境
      */
     public static final int ENV_TEST = 3;
+
+    /**
+     * 支付宝支付成功状态
+     */
+    public static final String ALI_PAY_SUCCESS = "success";
 }

@@ -1,19 +1,19 @@
 package com.eghm.service.business.handler.impl;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
+import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.RefundNotifyContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.RefundNotifyHandler;
+import com.eghm.service.business.handler.dto.RefundNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeType;
@@ -50,8 +50,8 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
     }
 
     @Override
-    public StateMachineType getStateMachineType() {
-        return null;
+    public ProductType getStateMachineType() {
+        return ProductType.VOUCHER;
     }
 
     @Override

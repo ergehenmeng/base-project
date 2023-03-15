@@ -1,9 +1,9 @@
 package com.eghm.service.business.handler.impl.item;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.OrderState;
+import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.ItemService;
@@ -46,8 +46,8 @@ public class ItemPayNotifyHandler implements PayNotifyHandler {
     }
 
     @Override
-    public StateMachineType getStateMachineType() {
-        return null;
+    public ProductType getStateMachineType() {
+        return ProductType.ITEM;
     }
 
     @Override

@@ -70,7 +70,7 @@ public class ManageLogAspect {
 
         Object[] args = joinPoint.getArgs();
         if (args != null && args.length > 0) {
-            sy.setRequest(formatRequest(args));
+            sy.setRequest(this.formatRequest(args));
         }
 
         sy.setUrl(request.getRequestURI());

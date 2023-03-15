@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.eghm.common.constant.CommonConstant.ALI_PAY_SUCCESS;
+
 /**
  * @author 二哥很猛
  * @date 2022/7/25
@@ -39,8 +41,6 @@ public class PayNotifyController {
 
     private final CommonService commonService;
 
-    private static final String ALI_SUCCESS = "success";
-
     @PostMapping("${system.ali-pay.pay-notify-url:/notify/ali/pay}")
     @ApiOperation("支付宝回调")
     public String aliPay(HttpServletRequest request) {
@@ -52,9 +52,8 @@ public class PayNotifyController {
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
         context.setOutTradeNo(outTradeNo);
-        // TODO fireEvent
         commonService.getPayHandler(orderNo).doAction(context);
-        return ALI_SUCCESS;
+        return ALI_PAY_SUCCESS;
     }
 
     @PostMapping("${system.ali-pay.refund-notify-url:/notify/ali/refund}")
@@ -64,7 +63,7 @@ public class PayNotifyController {
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, NotifyType.REFUND);
         // TODO 业务
-        return ALI_SUCCESS;
+        return ALI_PAY_SUCCESS;
     }
 
     @PostMapping("${system.wechat.pay-notify-url:/notify/weChat/pay}")

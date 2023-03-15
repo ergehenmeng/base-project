@@ -1,10 +1,10 @@
 package com.eghm.service.business.handler.impl;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.CloseType;
 import com.eghm.common.enums.ref.OrderState;
+import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
@@ -38,8 +38,8 @@ public class DefaultOrderCancelHandler implements OrderCancelHandler {
     }
 
     @Override
-    public StateMachineType getStateMachineType() {
-        return null;
+    public ProductType getStateMachineType() {
+        return ProductType.VOUCHER;
     }
 
     @Override

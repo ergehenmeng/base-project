@@ -2,8 +2,8 @@ package com.eghm.state.machine;
 
 import com.alibaba.cola.statemachine.Action;
 import com.alibaba.cola.statemachine.Condition;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
+import com.eghm.common.enums.ref.ProductType;
 
 /**
  * @author 二哥很猛
@@ -18,10 +18,10 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
     IEvent getEvent();
 
     /**
-     * 状态机名称
-     * @return 名称
+     * 状态机类型
+     * @return 类型
      */
-    StateMachineType getStateMachineType();
+    ProductType getStateMachineType();
 
     @Override
     default boolean isSatisfied(C context) {

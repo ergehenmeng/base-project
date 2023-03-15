@@ -2,7 +2,6 @@ package com.eghm.service.business.handler.impl.restaurant;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.DeliveryType;
 import com.eghm.common.enums.ref.OrderState;
@@ -45,8 +44,8 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    public StateMachineType getStateMachineType() {
-        return null;
+    public ProductType getStateMachineType() {
+        return ProductType.VOUCHER;
     }
 
     @Override

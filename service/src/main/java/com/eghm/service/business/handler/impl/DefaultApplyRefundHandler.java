@@ -1,20 +1,16 @@
 package com.eghm.service.business.handler.impl;
 
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.ref.AuditState;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.RefundState;
-import com.eghm.common.enums.ref.RefundType;
+import com.eghm.common.enums.ref.*;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.ApplyRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.ApplyRefundHandler;
+import com.eghm.service.business.handler.dto.ApplyRefundContext;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
@@ -143,8 +139,8 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
     }
 
     @Override
-    public StateMachineType getStateMachineType() {
-        return null;
+    public ProductType getStateMachineType() {
+        return ProductType.VOUCHER;
     }
 
 }

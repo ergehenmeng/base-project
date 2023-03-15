@@ -21,27 +21,27 @@ public enum ProductType implements IEnum<String> {
     /**
      * 景区门票
      */
-    TICKET("ticket", "门票", "MP", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
+    TICKET("ticket", "门票", "MP", "defaultPayNotifyHandler"),
 
     /**
      * 餐饮券
      */
-    VOUCHER("voucher", "餐饮券", "CY", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
+    VOUCHER("voucher", "餐饮券", "CY", "defaultPayNotifyHandler"),
 
     /**
      * 民宿
      */
-    HOMESTAY("homestay", "民宿", "MS", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
+    HOMESTAY("homestay", "民宿", "MS", "defaultPayNotifyHandler"),
 
     /**
      * 商品(文创/特产)
      */
-    ITEM("item", "商品", "SP", "defaultApplyRefundHandler", "defaultAuditRefundHandler", "defaultOrderCancelHandler", "defaultPayNotifyHandler","defaultRefundNotifyHandler"),
+    ITEM("item", "商品", "SP", "itemPayNotifyHandler"),
 
     /**
      * 线路
      */
-    LINE("line", "线路", "SL", "", "", "", "", "")
+    LINE("line", "线路", "XL", "defaultPayNotifyHandler")
     ;
 
     /**
@@ -60,29 +60,9 @@ public enum ProductType implements IEnum<String> {
     private final String  prefix;
 
     /**
-     * 申请退款bean
-     */
-    private final String applyRefundBean;
-
-    /**
-     * 审核退款bean
-     */
-    private final String auditRefundBean;
-
-    /**
-     * 订单取消bean
-     */
-    private final String orderCancelBean;
-
-    /**
-     * 订单支付异步处理bean
+     * 异步通知处理bean
      */
     private final String payNotifyBean;
-
-    /**
-     * 退款异步处理bean
-     */
-    private final String refundNotifyBean;
 
     @Override
     @JsonValue
@@ -93,6 +73,11 @@ public enum ProductType implements IEnum<String> {
     @JsonCreator
     public static ProductType of(String value) {
         return Arrays.stream(ProductType.values()).filter(productType -> productType.getValue().equals(value))
+                .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_TYPE_MATCH));
+    }
+
+    public static ProductType prefix(String orderCode) {
+        return Arrays.stream(ProductType.values()).filter(productType -> orderCode.startsWith(productType.getPrefix()))
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_TYPE_MATCH));
     }
 }

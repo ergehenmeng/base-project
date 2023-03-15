@@ -27,7 +27,7 @@ public enum TicketEvent implements IEvent {
     PAYING(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.PROGRESS.getValue()),
 
     /**
-     * 支付处理中
+     * 支付成功
      */
     PAY_SUCCESS(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
 

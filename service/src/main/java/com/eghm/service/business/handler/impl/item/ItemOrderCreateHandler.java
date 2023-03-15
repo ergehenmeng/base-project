@@ -2,7 +2,6 @@ package com.eghm.service.business.handler.impl.item;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.enums.ref.RefundType;
@@ -11,12 +10,7 @@ import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.Order;
 import com.eghm.model.ShippingAddress;
-import com.eghm.service.business.ItemService;
-import com.eghm.service.business.ItemSkuService;
-import com.eghm.service.business.OrderMQService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.ShippingAddressService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.OrderCreateHandler;
 import com.eghm.service.business.handler.dto.BaseItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderCreateContext;
@@ -27,11 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -190,7 +180,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     }
 
     @Override
-    public StateMachineType getStateMachineType() {
-        return null;
+    public ProductType getStateMachineType() {
+        return ProductType.ITEM;
     }
 }

@@ -2,9 +2,9 @@ package com.eghm.service.business.handler.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.StateMachineType;
 import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.ref.AuditState;
+import com.eghm.common.enums.ref.ProductType;
 import com.eghm.common.enums.ref.RefundState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.Order;
@@ -46,8 +46,8 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
     }
 
     @Override
-    public StateMachineType getStateMachineType() {
-        return null;
+    public ProductType getStateMachineType() {
+        return ProductType.VOUCHER;
     }
 
     @Override
