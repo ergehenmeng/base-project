@@ -2,6 +2,7 @@ package com.eghm.service.mq.listener;
 
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.constant.QueueConstant;
+import com.eghm.common.enums.event.IEvent;
 import com.eghm.common.enums.event.impl.TicketEvent;
 import com.eghm.common.enums.ref.OrderState;
 import com.eghm.common.enums.ref.ProductType;
@@ -10,7 +11,6 @@ import com.eghm.model.ManageLog;
 import com.eghm.model.WebappLog;
 import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.dto.ext.LoginRecord;
-import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.dto.ItemOrderCreateContext;
 import com.eghm.service.business.handler.dto.OrderCancelContext;
 import com.eghm.service.cache.CacheService;
@@ -40,8 +40,6 @@ import static com.eghm.common.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
 @Slf4j
 public class RabbitListenerHandler {
 
-    private final CommonService commonService;
-
     private final WebappLogService webappLogService;
 
     private final LoginLogService loginLogService;
@@ -53,62 +51,67 @@ public class RabbitListenerHandler {
     private final StateHandler stateHandler;
 
     /**
-     * 消息队列订单过期处理
+     * 零售商品消息队列订单过期处理
+     * TODO 待完善事件类型
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.ITEM_PAY_EXPIRE_QUEUE)
     public void itemExpire(String orderNo, Message message, Channel channel) throws IOException {
-        OrderCancelContext context = new OrderCancelContext();
-        context.setOrderNo(orderNo);
-        processMessageAck(context, message, channel, commonService.getExpireHandler(orderNo)::doAction);
+        this.doOrderExpire(orderNo, TicketEvent.AUTO_CANCEL, message, channel);
     }
 
     /**
-     * 消息队列订单过期处理
+     * 门票队列订单过期处理
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.TICKET_PAY_EXPIRE_QUEUE)
     public void ticketExpire(String orderNo, Message message, Channel channel) throws IOException {
-        OrderCancelContext context = new OrderCancelContext();
-        context.setOrderNo(orderNo);
-        processMessageAck(context, message, channel, commonService.getExpireHandler(orderNo)::doAction);
+        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
     }
 
     /**
-     * 消息队列订单过期处理
+     * 民宿队列订单过期处理
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.HOMESTAY_PAY_EXPIRE_QUEUE)
-    public void homestayExpire(String orderNo, Message message, Channel channel) throws IOException {
-        OrderCancelContext context = new OrderCancelContext();
-        context.setOrderNo(orderNo);
-        processMessageAck(context, message, channel, orderCancelContext -> {
-            stateHandler.fireEvent(ProductType.prefix(orderNo), OrderState.NONE.getValue(), TicketEvent.PAY_SUCCESS, orderCancelContext);
-        });
+    public void homeStayExpire(String orderNo, Message message, Channel channel) throws IOException {
+        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
     }
 
     /**
-     * 消息队列订单过期处理
+     * 餐饮券队列订单过期处理
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.VOUCHER_PAY_EXPIRE_QUEUE)
     public void voucherExpire(String orderNo, Message message, Channel channel) throws IOException {
-        OrderCancelContext context = new OrderCancelContext();
-        context.setOrderNo(orderNo);
-        processMessageAck(context, message, channel, commonService.getExpireHandler(orderNo)::doAction);
+        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
     }
 
     /**
-     * 消息队列订单过期处理
+     * 线路队列订单过期处理
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.LINE_PAY_EXPIRE_QUEUE)
     public void lineExpire(String orderNo, Message message, Channel channel) throws IOException {
+        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
+    }
+    
+    /**
+     * 订单30分钟过期处理
+     * @param orderNo 订单编号
+     * @param event 状态机事件, 不同品类事件不一样
+     * @param message mq消息
+     * @param channel mq channel
+     */
+    private void doOrderExpire(String orderNo, IEvent event, Message message, Channel channel) throws IOException {
         OrderCancelContext context = new OrderCancelContext();
         context.setOrderNo(orderNo);
-        processMessageAck(context, message, channel, commonService.getExpireHandler(orderNo)::doAction);
+        processMessageAck(context, message, channel, orderCancelContext ->
+                // 开启状态机流转
+                stateHandler.fireEvent(ProductType.prefix(orderNo), OrderState.NONE.getValue(), event, orderCancelContext)
+        );
     }
-
+    
     /**
      * 移动端异常日志
      */

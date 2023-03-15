@@ -58,11 +58,16 @@ public enum ProductType implements IEnum<String> {
      * 前缀
      */
     private final String  prefix;
-
+    
     /**
      * 异步通知处理bean
      */
     private final String payNotifyBean;
+    
+    /**
+     * 主订单状态定义 没有逻辑上的使用
+     */
+    private final OrderState[] stateDefine;
 
     @Override
     @JsonValue

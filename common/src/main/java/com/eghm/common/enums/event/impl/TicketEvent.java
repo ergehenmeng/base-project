@@ -50,6 +50,11 @@ public enum TicketEvent implements IEvent {
      * 订单取消
      */
     CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
+    
+    /**
+     * 订单取消
+     */
+    AUTO_CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
 
 
     ;

@@ -65,22 +65,17 @@ public class QueueConstant {
     public static final String COUPON_RECEIVE_QUEUE = "coupon_receive_queue";
 
     /**
-     * 死信队列
-     */
-    public static final String DEAD_LETTER_QUEUE = "dead_letter_queue";
-
-    /**
      * 管理后台操作日志队列
      */
     public static final String MANAGE_OP_LOG_QUEUE = "manage_op_log_queue";
 
     /**
-     * 移动端登陆日志队列
+     * 移动端登陆日志队列, 主要记录用户登陆设备信息
      */
     public static final String LOGIN_LOG_QUEUE = "login_log_queue";
 
     /**
-     * 移动端登陆日志队列
+     * 移动端操作日志队列
      */
     public static final String WEBAPP_LOG_QUEUE = "webapp_log_queue";
 }
