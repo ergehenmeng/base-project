@@ -1,5 +1,6 @@
 package com.eghm.configuration.security;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.model.dto.ext.JwtOperator;
@@ -14,7 +15,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityHolder {
 
-    private static final ThreadLocal<JwtOperator> LOCAL = ThreadLocal.withInitial(JwtOperator::new);
+    /**
+     * 异步也能获取到用户信息
+     */
+    private static final TransmittableThreadLocal<JwtOperator> LOCAL = TransmittableThreadLocal.withInitial(JwtOperator::new);
 
     public static void setToken(JwtOperator token) {
         LOCAL.set(token);

@@ -1,5 +1,6 @@
 package com.eghm.model.dto.ext;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 
@@ -10,7 +11,7 @@ import com.eghm.common.exception.BusinessException;
  */
 public class ApiHolder {
 
-    private static final ThreadLocal<RequestMessage> TOKEN_LOCAL = ThreadLocal.withInitial(RequestMessage::new);
+    private static final TransmittableThreadLocal<RequestMessage> TOKEN_LOCAL = TransmittableThreadLocal.withInitial(RequestMessage::new);
 
     private ApiHolder() {
     }
