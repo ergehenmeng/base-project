@@ -67,7 +67,7 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty("支付方式")
     private PayType payType;
 
-    @ApiModelProperty(value = "订单状态 0:待支付 1:支付处理中 2:支付成功,待使用 3:已使用,待评价 4:已完成 5:已关闭")
+    @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
     @ApiModelProperty("退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功 5: 退款失败(该状态和退款中在C端用户看来都是退款中)")

@@ -7,8 +7,9 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysDict;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.handler.OrderExpireHandler;
 import com.eghm.service.business.handler.PayNotifyHandler;
+import com.eghm.service.business.handler.impl.DefaultPayNotifyHandler;
+import com.eghm.service.business.handler.impl.item.ItemPayNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
 import com.google.common.collect.Lists;
@@ -16,7 +17,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,12 +41,10 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public PayNotifyHandler getPayHandler(String orderNo) {
-        return getHandlerBean(orderNo, PayNotifyHandler.class);
-    }
-
-    @Override
-    public OrderExpireHandler getExpireHandler(String orderNo) {
-        return getHandlerBean(orderNo, OrderExpireHandler.class);
+        if (orderNo.startsWith(ProductType.ITEM.getPrefix())) {
+            return SpringContextUtil.getBean(ItemPayNotifyHandler.class);
+        }
+        return SpringContextUtil.getBean(DefaultPayNotifyHandler.class);
     }
 
     @Override
@@ -75,23 +73,5 @@ public class CommonServiceImpl implements CommonService {
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
         }
     }
-    
-    /**
-     * 根据订单前缀查询处理的bean
-     * @param orderNo 订单编号
-     * @param cls 处理类
-     * @param <T> Type
-     * @return bean
-     */
-    private static <T> T getHandlerBean(String orderNo, Class<T> cls) {
-        String beanName = Arrays.stream(ProductType.values())
-                .filter(productType -> orderNo.startsWith(productType.getPrefix()))
-                .map(ProductType::getPayNotifyBean)
-                .findFirst()
-                .orElseThrow(() -> {
-                    log.error("该订单类型不匹配 [{}]", orderNo);
-                    return new BusinessException(ErrorCode.ORDER_TYPE_MATCH);
-                });
-        return SpringContextUtil.getBean(beanName, cls);
-    }
+
 }

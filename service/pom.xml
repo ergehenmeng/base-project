@@ -64,6 +64,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>transmittable-thread-local</artifactId>
+        </dependency>
         <!--bc加密-->
         <dependency>
             <groupId>org.mindrot</groupId>

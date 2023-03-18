@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import com.alibaba.ttl.TtlRunnable;
 import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.SystemConstant;
@@ -15,8 +16,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.TaskDecorator;
+import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -34,7 +39,7 @@ import java.util.Properties;
 @EnableConfigurationProperties({SystemProperties.class})
 @AllArgsConstructor
 @Slf4j
-public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
+public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDecorator, TaskExecutorCustomizer {
 
     private final ObjectMapper objectMapper;
 
@@ -124,5 +129,15 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer {
 
     public SystemProperties getSystemProperties() {
         return systemProperties;
+    }
+
+    @Override
+    public Runnable decorate(@NonNull Runnable runnable) {
+        return TtlRunnable.get(runnable);
+    }
+
+    @Override
+    public void customize(ThreadPoolTaskExecutor taskExecutor) {
+        taskExecutor.setThreadNamePrefix("异步线程-");
     }
 }

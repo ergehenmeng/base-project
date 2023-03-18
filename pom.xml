@@ -120,6 +120,8 @@
         <totp.version>1.4.0</totp.version>
         <!--状态机-->
         <cola.version>4.3.1</cola.version>
+        <!--异步线程变量-->
+        <transmittable.version>2.14.2</transmittable.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -162,6 +164,11 @@
                 <version>${spring.boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable.version}</version>
             </dependency>
             <!--验证码-->
             <dependency>

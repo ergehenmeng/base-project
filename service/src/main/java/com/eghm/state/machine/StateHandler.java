@@ -50,8 +50,10 @@ public class StateHandler {
         for (ActionHandler<? extends Context> handler : handlerList) {
             if (machineType == handler.getStateMachineType()) {
                 IEvent event = handler.getEvent();
-                for (Integer from : event.from()) {
-                    builder.externalTransition().from(from).to(event.to()).on(handler.getEvent()).when((Condition<Context>) handler).perform((Action<Integer, IEvent, Context>) handler);
+                if (event != null) {
+                    for (Integer from : event.from()) {
+                        builder.externalTransition().from(from).to(event.to()).on(handler.getEvent()).when((Condition<Context>) handler).perform((Action<Integer, IEvent, Context>) handler);
+                    }
                 }
             }
         }

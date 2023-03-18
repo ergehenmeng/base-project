@@ -10,6 +10,8 @@ import lombok.Getter;
 
 import java.util.Arrays;
 
+import static com.eghm.common.enums.ref.OrderState.*;
+
 /**
  * @author 二哥很猛
  * @date 2022/7/13
@@ -21,27 +23,37 @@ public enum ProductType implements IEnum<String> {
     /**
      * 景区门票
      */
-    TICKET("ticket", "门票", "MP", "defaultPayNotifyHandler"),
+    TICKET("ticket", "门票", "MP", new OrderState[] {
+            NONE, UN_PAY, PROGRESS, UN_USED, VERIFY, COMPLETE, CLOSE
+    }),
 
     /**
      * 餐饮券
      */
-    VOUCHER("voucher", "餐饮券", "CY", "defaultPayNotifyHandler"),
+    VOUCHER("voucher", "餐饮券", "CY", new OrderState[] {
+            NONE, UN_PAY, PROGRESS, UN_USED, VERIFY, COMPLETE, CLOSE
+    }),
 
     /**
      * 民宿
      */
-    HOMESTAY("homestay", "民宿", "MS", "defaultPayNotifyHandler"),
+    HOMESTAY("homestay", "民宿", "MS", new OrderState[] {
+            NONE, UN_PAY, PROGRESS, UN_USED, VERIFY, COMPLETE, CLOSE
+    }),
 
     /**
      * 商品(文创/特产)
      */
-    ITEM("item", "商品", "SP", "itemPayNotifyHandler"),
+    ITEM("item", "商品", "SP", new OrderState[] {
+            NONE, UN_PAY, PROGRESS, WAIT_DELIVERY, WAIT_RECEIVE, APPRAISE, COMPLETE, CLOSE
+    }),
 
     /**
      * 线路
      */
-    LINE("line", "线路", "XL", "defaultPayNotifyHandler")
+    LINE("line", "线路", "XL", new OrderState[] {
+            NONE, UN_PAY, PROGRESS, UN_USED, VERIFY, COMPLETE, CLOSE
+    })
     ;
 
     /**
@@ -58,14 +70,9 @@ public enum ProductType implements IEnum<String> {
      * 前缀
      */
     private final String  prefix;
-    
+
     /**
-     * 异步通知处理bean
-     */
-    private final String payNotifyBean;
-    
-    /**
-     * 主订单状态定义 没有逻辑上的使用
+     * 主订单状态定义 没有逻辑上的使用, 仅仅方便开发人员查看订单状态
      */
     private final OrderState[] stateDefine;
 
