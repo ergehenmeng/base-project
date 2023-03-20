@@ -5,6 +5,7 @@ import com.eghm.common.enums.ExchangeQueue;
 import com.eghm.common.exception.AiliPayException;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.DataException;
+import com.eghm.common.exception.ParameterException;
 import com.eghm.common.exception.WeChatPayException;
 import com.eghm.model.WebappLog;
 import com.eghm.model.dto.ext.ApiHolder;
@@ -63,6 +64,18 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(BusinessException.class)
     public RespBody<Void> businessException(HttpServletRequest request, BusinessException e) {
         log.warn("业务异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
+        return RespBody.error(e.getCode(), e.getMessage());
+    }
+    
+    /**
+     * 参数异常
+     *
+     * @param e 异常
+     * @return 返回标准对象
+     */
+    @ExceptionHandler(ParameterException.class)
+    public RespBody<Void> parameterException(HttpServletRequest request, ParameterException e) {
+        log.warn("参数异常:[{}] [{}:{}]", request.getRequestURI(), e.getCode(), e.getMessage());
         return RespBody.error(e.getCode(), e.getMessage());
     }
 

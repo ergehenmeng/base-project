@@ -2,6 +2,7 @@ package com.eghm.web;
 
 
 import com.eghm.configuration.annotation.EnableTask;
+import com.eghm.configuration.rabbit.RabbitConfig;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -23,7 +24,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
  *
  * @author 二哥很猛
  */
-@SpringBootApplication(scanBasePackages = "com.eghm", exclude = RabbitAutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = "com.eghm", exclude = {RabbitAutoConfiguration.class, RabbitConfig.class})
 @EnableAsync
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = "com.eghm.configuration.listener")
