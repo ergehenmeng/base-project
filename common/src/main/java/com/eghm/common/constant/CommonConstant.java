@@ -76,4 +76,9 @@ public class CommonConstant {
      * 支付宝支付成功状态
      */
     public static final String ALI_PAY_SUCCESS = "success";
+
+    /**
+     * 日志id
+     */
+    public static final String TRACE_ID = "traceId";
 }

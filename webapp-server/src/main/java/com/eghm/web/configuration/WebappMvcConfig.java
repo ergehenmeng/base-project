@@ -2,6 +2,7 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
+import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.BlackRosterService;
@@ -127,6 +128,18 @@ public class WebappMvcConfig extends WebMvcConfig {
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);
+        return registrationBean;
+    }
+
+    /**
+     * 日志追踪过滤器
+     */
+    @Bean("logTraceFilter")
+    public FilterRegistrationBean<LogTraceFilter> logTraceFilter() {
+        FilterRegistrationBean<LogTraceFilter> registrationBean = new FilterRegistrationBean<>();
+        LogTraceFilter requestFilter = new LogTraceFilter();
+        registrationBean.setFilter(requestFilter);
+        registrationBean.setOrder(Integer.MIN_VALUE + 1);
         return registrationBean;
     }
 }

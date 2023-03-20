@@ -29,6 +29,11 @@ public class StringUtil {
     private static final String NUMBER_LETTERS = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
 
     /**
+     * 随机字符串小写
+     */
+    private static final String NUMBER_LOWER_LETTERS = "123456789abcdef";
+
+    /**
      * 进制串
      */
     private static final String ENCRYPT = "fIn06K3NTrAmwVC4OWd5azvXlsUGB2pbEQLueg1q9ctJ7MxkYZRSyDi8ogHPFh";
@@ -74,6 +79,16 @@ public class StringUtil {
      */
     public static String random(int length) {
         return random(NUMBER_LETTERS, length);
+    }
+
+    /**
+     * 生成指定长度的随机字符串
+     *
+     * @param length 长度
+     * @return 定长字符串 小写
+     */
+    public static String randomLowerCase(int length) {
+        return random(NUMBER_LOWER_LETTERS, length);
     }
 
     /**
