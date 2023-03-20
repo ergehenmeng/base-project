@@ -27,38 +27,40 @@ import javax.annotation.PostConstruct;
 @AllArgsConstructor
 public class RabbitMQConfig {
 
-    private final RabbitAdmin rabbitAdmin;
+    private final AmqpAdmin amqpAdmin;
 
     @Bean
     public void init() {
         log.info("****初始化rabbit消息队列开始****");
         for (ExchangeQueue value : ExchangeQueue.values()) {
             Queue queue = QueueBuilder.durable(value.getQueue()).build();
-            rabbitAdmin.declareQueue(queue);
+            amqpAdmin.declareQueue(queue);
             String exchangeType = value.getExchangeType().name().toLowerCase();
             ExchangeBuilder builder = new ExchangeBuilder(value.getExchange(), exchangeType).durable(true);
             if (value.isDelayed()) {
                 builder.delayed().withArgument("x-delayed-type", exchangeType);
             }
             Exchange exchange = builder.build();
-            rabbitAdmin.declareExchange(exchange);
-            rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(value.getRoutingKey()).noargs());
+            amqpAdmin.declareExchange(exchange);
+            amqpAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(value.getRoutingKey()).noargs());
         }
         log.info("****初始化rabbit消息队列结束****");
     }
 
     /**
-     * 额外配置rabbitmq
+     * 自定义配置
      */
     @PostConstruct
     public void config() {
+        RabbitAdmin rabbitAdmin = (RabbitAdmin) this.amqpAdmin;
+        log.info("****初始化rabbit日志追踪配置****");
         RabbitTemplate rabbitTemplate = rabbitAdmin.getRabbitTemplate();
-        rabbitTemplate.addBeforePublishPostProcessors(message -> {
+        rabbitTemplate.setBeforePublishPostProcessors(message -> {
             MessageProperties properties = message.getMessageProperties();
             properties.setHeader(CommonConstant.TRACE_ID, LogTraceHolder.get());
             return message;
         });
-        rabbitTemplate.addAfterReceivePostProcessors(message -> {
+        rabbitTemplate.setAfterReceivePostProcessors(message -> {
             MessageProperties properties = message.getMessageProperties();
             String traceId = properties.getHeader(CommonConstant.TRACE_ID);
             MDC.put(CommonConstant.TRACE_ID, traceId);
@@ -66,6 +68,4 @@ public class RabbitMQConfig {
             return message;
         });
     }
-    
-
 }
