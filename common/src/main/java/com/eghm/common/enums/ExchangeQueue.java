@@ -82,6 +82,11 @@ public enum ExchangeQueue {
      */
     WEBAPP_LOG("webapp_log_exchange", ExchangeType.DIRECT, QueueConstant.WEBAPP_LOG_QUEUE, "", false),
 
+    /**
+     * 测试
+     */
+    TEST("test_exchange", ExchangeType.DIRECT, "test_queue", "", false),
+
     ;
 
     /**

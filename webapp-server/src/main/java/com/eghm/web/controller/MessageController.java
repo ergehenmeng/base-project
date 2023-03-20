@@ -25,14 +25,22 @@ public class MessageController {
 
     private final MessageService messageService;
 
+    @GetMapping("/sendDelayMsg")
+    @ApiOperation("发送延迟消息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "msg",  value= "消息", required = true),
+            @ApiImplicitParam(name = "delay", value = "延迟多长时间", required = true),
+    })
+    public RespBody<Void> sendDelayMsg(@RequestParam("msg") String msg, @RequestParam(value = "delay", defaultValue = "10") Integer delay) {
+        messageService.sendDelay(ExchangeQueue.ITEM_PAY_EXPIRE, msg, delay);
+        return RespBody.success();
+    }
+
     @GetMapping("/sendMsg")
     @ApiOperation("发送消息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(value = "msg", name = "消息", required = true),
-            @ApiImplicitParam(value = "delay", name = "延迟多长时间", required = true),
-    })
-    public RespBody<Void> sendMsg(@RequestParam("msg") String msg, @RequestParam("delay") Integer delay) {
-        messageService.sendDelay(ExchangeQueue.ITEM_PAY_EXPIRE, msg, delay);
+    @ApiImplicitParam(name = "msg",  value= "消息", required = true)
+    public RespBody<Void> sendMsg(@RequestParam("msg") String msg) {
+        messageService.send(ExchangeQueue.TEST, msg);
         return RespBody.success();
     }
 
