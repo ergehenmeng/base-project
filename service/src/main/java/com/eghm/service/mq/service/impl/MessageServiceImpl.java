@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 /**
  * @author 二哥很猛 2022/6/10 15:55
  */
-@Service("rabbitMessageService")
+@Service("messageService")
 @Slf4j
-public class RabbitMessageServiceImpl implements MessageService {
+public class MessageServiceImpl implements MessageService {
 
     private RabbitTemplate rabbitTemplate;
 
