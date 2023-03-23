@@ -41,7 +41,7 @@ import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
-import com.eghm.service.user.LoginDeviceService;
+import com.eghm.service.user.LoginService;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.service.wechat.WeChatMpService;
@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
     private final SmsService smsService;
 
-    private final LoginDeviceService loginDeviceService;
+    private final LoginService loginService;
 
     private final EmailService emailService;
 
@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
         RequestMessage request = ApiHolder.get();
-        LoginDevice loginLog = loginDeviceService.getBySerialNumber(user.getId(), request.getSerialNumber());
+        LoginDevice loginLog = loginService.getBySerialNumber(user.getId(), request.getSerialNumber());
         if (loginLog == null && StrUtil.isNotBlank(user.getMobile())) {
             // 新设备登陆时,如果使用密码登陆需要验证短信,当然前提是用户已经绑定手机号码
             throw new DataException(ErrorCode.NEW_DEVICE_LOGIN, user.getMobile());

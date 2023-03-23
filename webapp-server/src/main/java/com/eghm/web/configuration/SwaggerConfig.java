@@ -10,7 +10,7 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
 
@@ -20,7 +20,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
  * @date 2019/8/20 10:58
  */
 @Configuration
-@EnableSwagger2
+@EnableSwagger2WebMvc
 @Profile({"dev", "test"})
 public class SwaggerConfig {
 

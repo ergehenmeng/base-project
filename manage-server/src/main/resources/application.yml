@@ -12,6 +12,9 @@ spring:
   profiles:
     ## 环境切换
     active: dev
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   servlet:
     multipart:
       max-file-size: 100MB
@@ -43,7 +46,6 @@ spring:
 mybatis-plus:
   mapper-locations:
     - classpath*:mapper/**/*.xml
-  type-enums-package: com.eghm.common.enums.ref
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
 
 system:

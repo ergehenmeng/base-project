@@ -14,7 +14,9 @@ import com.google.code.kaptcha.impl.ShadowGimpy;
 import com.google.code.kaptcha.util.Config;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
+import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -81,6 +83,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
 
     /**
      * 密码加密bean 独立于spring-security之外的工具类
+     *
      * @return bean
      */
     @Bean
@@ -112,25 +115,26 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         };
 
         objectMapper.setSerializerFactory(objectMapper.getSerializerFactory().withSerializerModifier(new BeanSerializerModifier() {
-                    @Override
-                    public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
-                        for (BeanPropertyWriter writer : beanProperties) {
-                            JavaType javaType = writer.getType();
-                            if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
-                                writer.assignNullSerializer(arraySerializer);
-                            } else if (javaType.hasRawClass(String.class)){
-                                writer.assignNullSerializer(serializer);
-                            }
-                        }
-                        return beanProperties;
+            @Override
+            public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
+                for (BeanPropertyWriter writer : beanProperties) {
+                    JavaType javaType = writer.getType();
+                    if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
+                        writer.assignNullSerializer(arraySerializer);
+                    } else if (javaType.hasRawClass(String.class)) {
+                        writer.assignNullSerializer(serializer);
                     }
-                }));
+                }
+                return beanProperties;
+            }
+        }));
     }
 
     public SystemProperties getSystemProperties() {
         return systemProperties;
     }
 
+    @NotNull
     @Override
     public Runnable decorate(@NonNull Runnable runnable) {
         return TtlRunnable.get(runnable);
@@ -139,5 +143,10 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
     @Override
     public void customize(ThreadPoolTaskExecutor taskExecutor) {
         taskExecutor.setThreadNamePrefix("异步线程-");
+    }
+
+    @Bean
+    public static BeanPostProcessor springFoxBeanPostProcessor() {
+        return new SpringFoxBeanPostProcessor();
     }
 }

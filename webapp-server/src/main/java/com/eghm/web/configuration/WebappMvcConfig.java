@@ -6,7 +6,7 @@ import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.BlackRosterService;
-import com.eghm.service.user.LoginLogService;
+import com.eghm.service.user.LoginService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
@@ -42,14 +42,14 @@ public class WebappMvcConfig extends WebMvcConfig {
 
     private final TokenService tokenService;
 
-    private final LoginLogService loginLogService;
+    private final LoginService loginService;
 
     private final CacheService cacheService;
 
-    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginLogService loginLogService, CacheService cacheService) {
+    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginService loginService, CacheService cacheService) {
         super(objectMapper, systemProperties);
         this.tokenService = tokenService;
-        this.loginLogService = loginLogService;
+        this.loginService = loginService;
         this.cacheService = cacheService;
     }
 
@@ -72,7 +72,7 @@ public class WebappMvcConfig extends WebMvcConfig {
      */
     @Bean
     public HandlerInterceptor tokenInterceptor() {
-        return new TokenInterceptor(tokenService, loginLogService);
+        return new TokenInterceptor(tokenService, loginService);
     }
 
     /**

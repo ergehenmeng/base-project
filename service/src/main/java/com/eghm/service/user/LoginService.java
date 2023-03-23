@@ -1,15 +1,36 @@
 package com.eghm.service.user;
 
 import com.eghm.model.LoginDevice;
+import com.eghm.model.dto.ext.LoginRecord;
 import com.eghm.model.vo.user.LoginDeviceVO;
 
 import java.util.List;
 
 /**
- * @author 殿小二
- * @date 2020/9/4
+ * @author 二哥很猛
+ * @since 2023/3/23
  */
-public interface LoginDeviceService {
+public interface LoginService {
+
+    /**
+     * 添加登陆日志
+     * @param loginRecord 登陆日志
+     */
+    void insertLoginLog(LoginRecord loginRecord);
+
+    /**
+     * 获取用户最近一次登陆的信息, 如果用户首次登陆系统时结果为空
+     * @param userId 用户id
+     * @return 登陆信息
+     */
+    LoginDeviceVO getLastLogin(Long userId);
+
+    /**
+     * 逻辑删除用户登陆信息
+     * @param userId 用户id
+     * @param serialNumber 设备号
+     */
+    void deleteLoginLog(Long userId, String serialNumber);
 
     /**
      * 插入或更新,更新或插入字段中必须包含唯一性约束条件

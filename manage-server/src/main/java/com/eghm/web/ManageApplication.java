@@ -15,16 +15,19 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
  * 程序启动入口 
- *
+ * 排除RabbitConfig是因为管理后台暂不使用mq
  * @author 二哥很猛
  */
-@SpringBootApplication(scanBasePackages = "com.eghm", exclude = {RabbitAutoConfiguration.class, RabbitConfig.class})
+@SpringBootApplication
+@ComponentScan(value = "com.eghm", excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {RabbitAutoConfiguration.class, RabbitConfig.class}))
 @EnableAsync
 @EnableAspectJAutoProxy
 @ServletComponentScan(basePackages = "com.eghm.configuration.listener")

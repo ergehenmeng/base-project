@@ -13,7 +13,7 @@ import com.eghm.model.dto.task.TaskQueryRequest;
 import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
-import org.springframework.scheduling.support.CronSequenceGenerator;
+import org.springframework.scheduling.support.CronExpression;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,7 +53,7 @@ public class SysTaskServiceImpl implements SysTaskService {
 
     @Override
     public void update(TaskEditRequest request) {
-        if (!CronSequenceGenerator.isValidExpression(request.getCronExpression())) {
+        if (!CronExpression.isValidExpression(request.getCronExpression())) {
             throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
         }
         SysTask config = DataUtil.copy(request, SysTask.class);

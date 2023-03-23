@@ -10,7 +10,7 @@ import com.eghm.model.dto.ext.RedisToken;
 import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.model.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
-import com.eghm.service.user.LoginLogService;
+import com.eghm.service.user.LoginService;
 import com.eghm.web.annotation.Access;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ public class TokenInterceptor implements InterceptorAdapter {
 
     private final TokenService tokenService;
 
-    private final LoginLogService loginLogService;
+    private final LoginService loginService;
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
@@ -103,7 +103,7 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @return exception
      */
     private DataException createOfflineException(Long userId) {
-        LoginDeviceVO vo = loginLogService.getLastLogin(userId);
+        LoginDeviceVO vo = loginService.getLastLogin(userId);
         return new DataException(ErrorCode.KICK_OFF_LINE, vo);
     }
 

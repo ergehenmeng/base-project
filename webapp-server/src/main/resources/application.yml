@@ -9,6 +9,8 @@ spring:
     web-application-type: servlet
   mvc:
     throw-exception-if-no-handler-found: true
+    pathmatch:
+      matching-strategy: ant_path_matcher
   freemarker:
     check-template-location: false
     content-type: text/html
@@ -29,7 +31,6 @@ spring:
 mybatis-plus:
   mapper-locations:
     - classpath*:mapper/**/*.xml
-  type-enums-package: com.eghm.common.enums.ref
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
 system:
   wrapper-base-package: com.eghm.web.controller

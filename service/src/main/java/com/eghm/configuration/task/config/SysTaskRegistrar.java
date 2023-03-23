@@ -9,7 +9,7 @@ import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
-import org.springframework.scheduling.support.CronSequenceGenerator;
+import org.springframework.scheduling.support.CronExpression;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -135,7 +135,7 @@ public class SysTaskRegistrar {
      */
     private void verifyCronExpression(List<SysCronTask> taskList) {
         for (SysCronTask task : taskList) {
-            if (StrUtil.isBlank(task.getExpression()) || !CronSequenceGenerator.isValidExpression(task.getExpression())) {
+            if (StrUtil.isBlank(task.getExpression()) || !CronExpression.isValidExpression(task.getExpression())) {
                 log.error("定时任务表达式配置错误 nid:[{}],cron:[{}]", task.getNid(), task.getExpression());
                 throw new BusinessException(ErrorCode.CRON_CONFIG_ERROR);
             }

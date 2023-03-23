@@ -16,7 +16,7 @@ import com.eghm.service.business.handler.dto.OrderCancelContext;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
-import com.eghm.service.user.LoginLogService;
+import com.eghm.service.user.LoginService;
 import com.eghm.state.machine.StateHandler;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class RabbitListenerHandler {
 
     private final WebappLogService webappLogService;
 
-    private final LoginLogService loginLogService;
+    private final LoginService loginService;
 
     private final ManageLogService manageLogService;
 
@@ -125,7 +125,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.LOGIN_LOG_QUEUE)
     public void loginLog(LoginRecord loginRecord, Message message, Channel channel) throws IOException {
-        processMessageAck(loginRecord, message, channel, loginLogService::insertLoginLog);
+        processMessageAck(loginRecord, message, channel, loginService::insertLoginLog);
     }
 
     /**
