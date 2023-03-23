@@ -12,9 +12,6 @@ spring:
   profiles:
     ## 环境切换
     active: dev
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   servlet:
     multipart:
       max-file-size: 100MB
