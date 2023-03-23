@@ -90,7 +90,7 @@ public class UserAddressServiceImpl implements UserAddressService {
     private void checkMaxAddress(Long userId) {
         LambdaQueryWrapper<UserAddress> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(UserAddress::getUserId, userId);
-        Integer count = userAddressMapper.selectCount(wrapper);
+        Long count = userAddressMapper.selectCount(wrapper);
         int max = sysConfigApi.getInt(ConfigConstant.USER_ADDRESS_MAX);
         if (count >= max) {
             log.error("收货地址添加数量上限 [{}] [{}] [{}]", userId, max, count);

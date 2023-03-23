@@ -144,7 +144,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         LambdaQueryWrapper<Restaurant> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Restaurant::getTitle, title);
         wrapper.ne(id != null, Restaurant::getId, id);
-        Integer count = restaurantMapper.selectCount(wrapper);
+        Long count = restaurantMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("餐饮商家名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.RESTAURANT_TITLE_REDO);

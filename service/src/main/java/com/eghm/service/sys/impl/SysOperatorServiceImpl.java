@@ -223,7 +223,7 @@ public class SysOperatorServiceImpl implements SysOperatorService {
         LambdaQueryWrapper<SysOperator> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysOperator::getMobile, mobile);
         wrapper.ne(id != null, SysOperator::getId, id);
-        Integer count = sysOperatorMapper.selectCount(wrapper);
+        Long count = sysOperatorMapper.selectCount(wrapper);
         if (count > 0) {
             log.warn("手机号码被占用 [{}] [{}]", mobile, id);
             throw new BusinessException(ErrorCode.MOBILE_REDO);

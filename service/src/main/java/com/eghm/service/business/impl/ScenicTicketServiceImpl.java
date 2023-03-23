@@ -134,7 +134,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         LambdaQueryWrapper<ScenicTicket> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ScenicTicket::getTitle, title);
         wrapper.ne(id != null, ScenicTicket::getId, id);
-        Integer count = scenicTicketMapper.selectCount(wrapper);
+        Long count = scenicTicketMapper.selectCount(wrapper);
         if (count > 0) {
             throw new BusinessException(ErrorCode.SCENIC_TICKET_REDO);
         }

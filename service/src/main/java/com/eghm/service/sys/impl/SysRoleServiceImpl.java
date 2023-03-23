@@ -147,7 +147,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysRole::getRoleName, name);
         wrapper.ne(id != null, SysRole::getId, id);
-        Integer count = sysRoleMapper.selectCount(wrapper);
+        Long count = sysRoleMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("角色名称重复[{}] [{}]", name, id);
             throw new BusinessException(ErrorCode.ROLE_NAME_REDO);

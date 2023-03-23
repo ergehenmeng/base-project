@@ -6,12 +6,15 @@ import com.eghm.model.vo.login.LoginTokenVO;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -26,7 +29,7 @@ import java.util.Map;
  * @author 二哥很猛
  * @date 2019/11/21 15:07
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = WebappApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BaseTest {
 
@@ -42,7 +45,7 @@ public class BaseTest {
     @Autowired
     private Gson gson;
 
-    @Before
+    @BeforeEach
     public void before(){
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         headers.add("Channel","ANDROID");
@@ -53,7 +56,7 @@ public class BaseTest {
     }
 
 
-
+    @Test
     public String post(String url){
         String content = this.doPost(url, gson.toJson(params));
         System.out.println("响应结果: " + content);

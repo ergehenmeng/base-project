@@ -125,7 +125,7 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
         wrapper.eq(RestaurantVoucher::getTitle, title);
         wrapper.ne(id != null, RestaurantVoucher::getId, id);
         wrapper.eq(RestaurantVoucher::getRestaurantId, restaurantId);
-        Integer count = restaurantVoucherMapper.selectCount(wrapper);
+        Long count = restaurantVoucherMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("餐饮券名称重复 [{}] [{}] [{}]", title, id, restaurantId);
             throw new BusinessException(ErrorCode.VOUCHER_TITLE_REDO);

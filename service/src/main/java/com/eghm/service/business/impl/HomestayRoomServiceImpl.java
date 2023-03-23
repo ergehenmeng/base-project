@@ -146,7 +146,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         wrapper.eq(HomestayRoom::getTitle, roomName);
         wrapper.ne(id != null, HomestayRoom::getId, id);
         wrapper.eq(HomestayRoom::getHomestayId, homestayId);
-        Integer count = homestayRoomMapper.selectCount(wrapper);
+        Long count = homestayRoomMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("房型名称名称重复 [{}] [{}] [{}]", roomName, id, homestayId);
             throw new BusinessException(ErrorCode.ROOM_TITLE_REDO);

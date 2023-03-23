@@ -78,8 +78,8 @@ public class UserCouponServiceImpl implements UserCouponService {
         LambdaQueryWrapper<UserCoupon> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(UserCoupon::getCouponConfigId, couponId);
         wrapper.eq(UserCoupon::getUserId, userId);
-        Integer count = userCouponMapper.selectCount(wrapper);
-        return count != null ? count : 0;
+        Long count = userCouponMapper.selectCount(wrapper);
+        return count != null ? count.intValue() : 0;
     }
 
     @Override

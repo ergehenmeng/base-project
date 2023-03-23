@@ -247,7 +247,7 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getTitle, itemName);
         wrapper.ne(id != null, Item::getId, id);
         wrapper.eq(Item::getStoreId, storeId);
-        Integer count = itemMapper.selectCount(wrapper);
+        Long count = itemMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("零售商品名称重复 [{}] [{}] [{}]", itemName, id, storeId);
             throw new BusinessException(ErrorCode.ITEM_TITLE_REDO);

@@ -148,7 +148,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemStore::getTitle, title);
         wrapper.ne(id != null, ItemStore::getId, id);
-        Integer count = itemStoreMapper.selectCount(wrapper);
+        Long count = itemStoreMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("店铺名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.SHOP_TITLE_REDO);

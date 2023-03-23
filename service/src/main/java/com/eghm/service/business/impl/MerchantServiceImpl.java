@@ -122,7 +122,7 @@ public class MerchantServiceImpl implements MerchantService {
     private void checkMobileRedo(String mobile) {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Merchant::getMobile, mobile);
-        Integer count = merchantMapper.selectCount(wrapper);
+        Long count = merchantMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("商户手机号被占用 [{}]", mobile);
             throw new BusinessException(ErrorCode.MERCHANT_MOBILE_REDO);

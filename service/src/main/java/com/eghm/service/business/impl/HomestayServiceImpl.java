@@ -190,7 +190,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         LambdaQueryWrapper<Homestay> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Homestay::getTitle, title);
         wrapper.ne(id != null, Homestay::getId, id);
-        Integer count = homestayMapper.selectCount(wrapper);
+        Long count = homestayMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("民宿名称被占用 [{}]", title);
             throw new BusinessException(ErrorCode.HOMESTAY_TITLE_REDO);

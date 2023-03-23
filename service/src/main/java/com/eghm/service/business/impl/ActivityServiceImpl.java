@@ -166,7 +166,7 @@ public class ActivityServiceImpl implements ActivityService {
         LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Activity::getTitle, title);
         wrapper.between(Activity::getNowDate, startDate, endDate);
-        Integer count = activityMapper.selectCount(wrapper);
+        Long count = activityMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("活动配置名称重复 [{}] [{}] [{}]", title, startDate, endDate);
             throw new BusinessException(ErrorCode.ACTIVITY_TITLE_REDO);
@@ -184,7 +184,7 @@ public class ActivityServiceImpl implements ActivityService {
         wrapper.eq(Activity::getTitle, title);
         wrapper.ne(id != null, Activity::getId, id);
         wrapper.eq(Activity::getNowDate, localDate);
-        Integer count = activityMapper.selectCount(wrapper);
+        Long count = activityMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("活动名称重复 [{}] [{}] [{}]", title, id, localDate);
             throw new BusinessException(ErrorCode.ACTIVITY_TITLE_REDO);

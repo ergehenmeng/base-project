@@ -185,7 +185,7 @@ public class ScenicServiceImpl implements ScenicService {
         LambdaQueryWrapper<Scenic> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Scenic::getScenicName, title);
         wrapper.ne(id != null, Scenic::getId, id);
-        Integer count = scenicMapper.selectCount(wrapper);
+        Long count = scenicMapper.selectCount(wrapper);
         if (count > 0) {
             throw new BusinessException(ErrorCode.SCENIC_REDO);
         }

@@ -117,7 +117,7 @@ public class AppVersionServiceImpl implements AppVersionService {
     private void redoVersion(String version) {
         LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(AppVersion::getVersion, version);
-        Integer count = appVersionMapper.selectCount(wrapper);
+        Long count = appVersionMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("版本号重复 [{}]", version);
             throw new BusinessException(ErrorCode.VERSION_REDO);

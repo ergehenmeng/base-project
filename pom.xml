@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.5.RELEASE</version>
+        <version>2.7.8</version>
         <relativePath/>
     </parent>
 
@@ -109,13 +109,13 @@
         <!--retrofit版本-->
         <retrofit.version>2.9.0</retrofit.version>
         <!--swagger2版本-->
-        <knif4j.version>1.0.7.RELEASE</knif4j.version>
+        <knif4j.version>4.0.0</knif4j.version>
         <!--微信三方sdk包-->
         <wx-sdk.version>4.3.6.B</wx-sdk.version>
         <!--支付宝sdk-->
         <ali-sdk.version>2.2.2</ali-sdk.version>
         <!--mybatis-plus-->
-        <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <!--totp-->
         <totp.version>1.4.0</totp.version>
         <!--状态机-->
@@ -212,21 +212,10 @@
                 <version>${fastjson.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.github.ulisesbocchio</groupId>
-                <artifactId>jasypt-spring-boot-starter</artifactId>
-                <version>${jasypt.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>${cglib.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.javassist</groupId>
@@ -289,9 +278,9 @@
                 <version>${retrofit.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gitee.sophis</groupId>
-                <artifactId>spring-boot-knif4j-starter</artifactId>
-                <version>${knif4j.version}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+                <version>4.0.0</version>
             </dependency>
             <dependency>
                 <groupId>com.github.binarywang</groupId>

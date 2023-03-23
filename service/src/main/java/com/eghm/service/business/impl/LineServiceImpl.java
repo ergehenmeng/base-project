@@ -162,7 +162,7 @@ public class LineServiceImpl implements LineService {
         wrapper.eq(Line::getTitle, title);
         wrapper.eq(Line::getTravelAgencyId, travelAgencyId);
         wrapper.ne(id != null, Line::getId, id);
-        Integer count = lineMapper.selectCount(wrapper);
+        Long count = lineMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("线路名称被占用 [{}] [{}]", title, travelAgencyId);
             throw new BusinessException(ErrorCode.LINE_TITLE_REDO);

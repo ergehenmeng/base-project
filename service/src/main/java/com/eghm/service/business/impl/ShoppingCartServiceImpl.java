@@ -174,7 +174,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private void checkCarMax(Long userId) {
         LambdaQueryWrapper<ShoppingCart> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ShoppingCart::getUserId, userId);
-        Integer count = shoppingCartMapper.selectCount(wrapper);
+        Long count = shoppingCartMapper.selectCount(wrapper);
         int max = sysConfigApi.getInt(ConfigConstant.SHOPPING_CAR_MAX);
         if (count >= max) {
             throw new BusinessException(SHOPPING_CART_MAX.getCode(), String.format(SHOPPING_CART_MAX.getMsg(), max));

@@ -45,7 +45,7 @@ public class CouponProductServiceImpl implements CouponProductService {
         LambdaQueryWrapper<CouponProduct> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(CouponProduct::getProductId, productId);
         wrapper.eq(CouponProduct::getCouponConfigId, couponConfigId);
-        Integer count = couponProductMapper.selectCount(wrapper);
+        Long count = couponProductMapper.selectCount(wrapper);
         return count > 0;
     }
 }

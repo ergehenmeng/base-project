@@ -123,7 +123,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         LambdaQueryWrapper<TravelAgency> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(TravelAgency::getTitle, title);
         wrapper.ne(id != null, TravelAgency::getId, id);
-        Integer count = travelAgencyMapper.selectCount(wrapper);
+        Long count = travelAgencyMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("旅行社名称重复 [{}] [{}]", title, id);
             throw new BusinessException(ErrorCode.TRAVEL_AGENCY_REDO);

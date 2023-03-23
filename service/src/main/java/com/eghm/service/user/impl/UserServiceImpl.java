@@ -309,7 +309,7 @@ public class UserServiceImpl implements UserService {
     public void checkEmail(String email) {
         LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(User::getEmail, email);
-        Integer count = userMapper.selectCount(wrapper);
+        Long count = userMapper.selectCount(wrapper);
         if (count > 0) {
             log.warn("邮箱号已被占用 email:[{}]", email);
             throw new BusinessException(ErrorCode.EMAIL_OCCUPY_ERROR);
@@ -464,7 +464,7 @@ public class UserServiceImpl implements UserService {
     private void registerRedoVerify(String mobile) {
         LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(User::getMobile, mobile);
-        Integer count = userMapper.selectCount(wrapper);
+        Long count = userMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("手机号被占用,无法注册用户 [{}]", mobile);
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
