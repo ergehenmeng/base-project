@@ -68,7 +68,7 @@ public class ControllerAdviceHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public RespBody<Void> exception(HttpServletRequest request, HttpRequestMethodNotSupportedException e) {
         log.error("系统异常, 接口[{}]不支持[{}]请求方式", request.getRequestURI(), e.getMethod());
-        return RespBody.error(ErrorCode.METHOD_NOT_SUPPOERTED.getCode(), String.format(ErrorCode.METHOD_NOT_SUPPOERTED.getMsg(), e.getMethod()));
+        return RespBody.error(ErrorCode.METHOD_NOT_SUPPORTED.getCode(), String.format(ErrorCode.METHOD_NOT_SUPPORTED.getMsg(), e.getMethod()));
     }
 
     /**

@@ -43,6 +43,11 @@ public enum ErrorCode {
      * 系统繁忙,请稍后再试
      */
     SYSTEM_ERROR(500,"系统繁忙,请稍后再试"),
+    
+    /**
+     * 线程中断异常
+     */
+    THREAD_INTERRUPTED(501,"线程中断异常"),
 
     /**
      * 应用上下文尚未完全启动
@@ -52,7 +57,7 @@ public enum ErrorCode {
     /**
      * 该访问地址不支持%s请求
      */
-    METHOD_NOT_SUPPOERTED(505,"该访问地址不支持%s请求"),
+    METHOD_NOT_SUPPORTED(505,"该访问地址不支持%s请求"),
 
     /**
      * 数据转换异常

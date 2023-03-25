@@ -79,7 +79,7 @@
         <!--分布式数据库工具-->
         <sharding-jdbc.version>2.0.3</sharding-jdbc.version>
         <!--redis客户端工具-->
-        <redisson.version>3.5.0</redisson.version>
+        <redisson.version>3.17.7</redisson.version>
         <!--cglib代理-->
         <cglib.version>3.2.5</cglib.version>
         <!--lucene搜索-->
@@ -155,6 +155,11 @@
                 <groupId>com.eghm</groupId>
                 <artifactId>manage-server</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

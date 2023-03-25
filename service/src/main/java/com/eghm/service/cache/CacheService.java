@@ -12,6 +12,16 @@ import java.util.function.Supplier;
  * @date 2018/11/21 16:19
  */
 public interface CacheService {
+    
+    /**
+     * 获取锁
+     * @param key key
+     * @param lockTime 锁最大持续时间,单位:毫秒
+     * @param supplier 获取成功后执行业务
+     * @param <T> T
+     * @return T
+     */
+    <T> T lock(String key, long lockTime, Supplier<T> supplier);
 
     /**
      * 缓存对象 默认30分钟

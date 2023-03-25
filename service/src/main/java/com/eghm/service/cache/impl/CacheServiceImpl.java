@@ -3,18 +3,21 @@ package com.eghm.service.cache.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.constants.SystemConstant;
 import com.eghm.model.dto.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
-import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -33,35 +36,17 @@ import java.util.function.Supplier;
  */
 @Service("cacheService")
 @Slf4j
+@AllArgsConstructor
 public class CacheServiceImpl implements CacheService {
 
-    private StringRedisTemplate redisTemplate;
+    private final StringRedisTemplate redisTemplate;
 
-    private final ValueOperations<String, String> opsForValue;
+    private final SysConfigApi sysConfigApi;
 
-    private final ListOperations<String, String> opsForList;
-
-    private final HashOperations<String, String, String> opsForHash;
-
-    private SysConfigApi sysConfigApi;
-
-    private JsonService jsonService;
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
-
-    @Autowired
-    public void setRedisTemplate(StringRedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
-
-    @Autowired
-    public void setJsonService(JsonService jsonService) {
-        this.jsonService = jsonService;
-    }
-
+    private final JsonService jsonService;
+    
+    private final RedissonClient redissonClient;
+    
     /**
      * 默认过期数据 30s
      */
@@ -76,17 +61,26 @@ public class CacheServiceImpl implements CacheService {
      * bitmap最大位
      */
     private static final int BITMAP = 64;
-
-    public CacheServiceImpl(StringRedisTemplate redisTemplate, SysConfigApi sysConfigApi, JsonService jsonService) {
-        this.redisTemplate = redisTemplate;
-        this.sysConfigApi = sysConfigApi;
-        this.jsonService = jsonService;
-        this.opsForValue = redisTemplate.opsForValue();
-        this.opsForList = redisTemplate.opsForList();
-        this.opsForHash = redisTemplate.opsForHash();
+    
+    @Override
+    public <T> T lock(String key, long lockTime, Supplier<T> supplier) {
+        RLock lock = redissonClient.getLock(key);
+        try {
+            boolean tryLock = lock.tryLock(lockTime, TimeUnit.MILLISECONDS);
+            if (tryLock) {
+                return supplier.get();
+            }
+            return null;
+        } catch (InterruptedException e) {
+            log.error("锁中断异常 [{}]", key, e);
+            throw new BusinessException(ErrorCode.THREAD_INTERRUPTED);
+        } finally {
+            if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+        }
     }
-
-
+    
     @Override
     public void setValue(String key, Object value) {
         this.setValue(key, value, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
@@ -95,9 +89,9 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setPersistent(String key, Object value) {
         if (value instanceof String) {
-            opsForValue.set(key, (String) value);
+            redisTemplate.opsForValue().set(key, (String) value);
         } else {
-            opsForValue.set(key, jsonService.toJson(value));
+            redisTemplate.opsForValue().set(key, jsonService.toJson(value));
         }
     }
 
@@ -130,7 +124,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 结果信息
      */
     private <T> T doSupplier(String key, Supplier<T> supplier) {
-        T result = this.mutexLock(key, supplier);
+        T result = this.lock(CacheConstant.MUTEX_LOCK + key, MUTEX_EXPIRE, supplier);
         if (result != null) {
             this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
@@ -140,36 +134,12 @@ public class CacheServiceImpl implements CacheService {
         return result;
     }
 
-    /**
-     * 从提供商处获取数据信息(一般为数据库),采用互斥锁进行获取,互斥锁默认过期时间10秒,即数据库查询时间不能超过10秒,否则可能出现缓存击穿
-     * @param key 缓存key
-     * @param supplier 数据提供方
-     * @param <T> 数据结果类型
-     * @return 数据结果
-     */
-    private <T> T mutexLock(String key, Supplier<T> supplier) {
-        Boolean absent = opsForValue.setIfAbsent(CacheConstant.MUTEX_LOCK + key, CacheConstant.PLACE_HOLDER, MUTEX_EXPIRE, TimeUnit.MILLISECONDS);
-        if (Boolean.TRUE.equals(absent)) {
-            T result = supplier.get();
-            redisTemplate.delete(CacheConstant.MUTEX_LOCK + key);
-            return result;
-        }
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            log.error("缓存互斥锁中断异常 key:[{}]", key, e);
-            Thread.currentThread().interrupt();
-        }
-        // 递归获取
-        return this.doSupplier(key, supplier);
-    }
-
     @Override
     public void setValue(String key, Object value, long expire) {
         if (value instanceof String) {
-            opsForValue.set(key, (String)value, expire, TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.MILLISECONDS);
         } else {
-            opsForValue.set(key, jsonService.toJson(value), expire, TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(key, jsonService.toJson(value), expire, TimeUnit.MILLISECONDS);
         }
     }
 
@@ -181,7 +151,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public boolean setIfAbsent(String key, String value) {
-        Boolean absent = opsForValue.setIfAbsent(key, value);
+        Boolean absent = redisTemplate.opsForValue().setIfAbsent(key, value);
         return Boolean.TRUE.equals(absent);
     }
 
@@ -212,7 +182,7 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public String getValue(String key) {
-        return opsForValue.get(key);
+        return redisTemplate.opsForValue().get(key);
     }
 
     @Override
@@ -256,57 +226,57 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public boolean limit(String key, int maxLimit, long maxTtl) {
         // 数组不设置过期时间,默认最多保留maxLimit个元素
-        Long size = opsForList.size(key);
+        Long size = redisTemplate.opsForList().size(key);
         String leftPop;
-        if (size == null || size < maxLimit || (leftPop = opsForList.leftPop(key)) == null) {
-            opsForList.rightPush(key, String.valueOf(System.currentTimeMillis()));
+        if (size == null || size < maxLimit || (leftPop = redisTemplate.opsForList().leftPop(key)) == null) {
+            redisTemplate.opsForList().rightPush(key, String.valueOf(System.currentTimeMillis()));
             return false;
         }
         // 如果刚好此时,在maxTtl时间内的第一次存储的数据过期了,依旧返回true,不做毫秒值等判断
         if (System.currentTimeMillis() - Long.parseLong(leftPop) < maxTtl) {
             return true;
         }
-        opsForList.rightPush(key, String.valueOf(System.currentTimeMillis()));
+        redisTemplate.opsForList().rightPush(key, String.valueOf(System.currentTimeMillis()));
         // 相当于集合中只保留最多maxLimit个元素
-        opsForList.trim(key, size - maxLimit, size - 1);
+        redisTemplate.opsForList().trim(key, size - maxLimit, size - 1);
         return false;
     }
 
     @Override
     public void setHashValue(String key, String hKey, String hValue) {
-        opsForHash.put(key, hKey, hValue);
+        redisTemplate.opsForHash().put(key, hKey, hValue);
     }
 
     @Override
     public void setHashValue(String key, long expire, String hKey, String hValue) {
-        opsForHash.put(key, hKey, hValue);
+        redisTemplate.opsForHash().put(key, hKey, hValue);
         redisTemplate.expire(key, expire, TimeUnit.MILLISECONDS);
     }
 
     @Override
     public String getHashValue(String key, String hKey) {
-        return opsForHash.get(key, hKey);
+        return (String) redisTemplate.opsForHash().get(key, hKey);
     }
 
     @Override
     public boolean hasHashKey(String key, String hKey) {
-        Boolean hasKey = opsForHash.hasKey(key, hKey);
+        Boolean hasKey = redisTemplate.opsForHash().hasKey(key, hKey);
         return Boolean.TRUE.equals(hasKey);
     }
 
     @Override
     public void deleteHashKey(String key, Object... hKeys) {
-        opsForHash.delete(key, hKeys);
+        redisTemplate.opsForHash().delete(key, hKeys);
     }
 
     @Override
     public void setBitmap(String key, Long ops, Boolean value) {
-        opsForValue.setBit(key, ops, value);
+        redisTemplate.opsForValue().setBit(key, ops, value);
     }
 
     @Override
     public boolean getBitmap(String key, Long ops) {
-        return Boolean.TRUE.equals(opsForValue.getBit(key, ops));
+        return Boolean.TRUE.equals(redisTemplate.opsForValue().getBit(key, ops));
     }
 
     @Override
@@ -337,7 +307,7 @@ public class CacheServiceImpl implements CacheService {
             }
         }
 
-        List<Long> bitField = opsForValue.bitField(key, subCommands);
+        List<Long> bitField = redisTemplate.opsForValue().bitField(key, subCommands);
         if (CollUtil.isEmpty(bitField)) {
             return false;
         }
@@ -380,7 +350,7 @@ public class CacheServiceImpl implements CacheService {
             throw new ParameterException(ErrorCode.DATA_ERROR);
         }
         long startIndex = (end - maxLength) > 0 ? end - maxLength : 0;
-        List<Long> longList = opsForValue.bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(startIndex));
+        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(startIndex));
         if (CollUtil.isEmpty(longList)) {
             return null;
         }
