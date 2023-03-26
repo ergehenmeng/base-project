@@ -3,18 +3,16 @@ package com.eghm.service.cache.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.constant.CacheConstant;
 import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
 import com.eghm.common.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.dto.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.cache.LockService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.fasterxml.jackson.core.type.TypeReference;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RLock;
-import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.connection.BitFieldSubCommands;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -44,9 +42,9 @@ public class CacheServiceImpl implements CacheService {
     private final SysConfigApi sysConfigApi;
 
     private final JsonService jsonService;
-    
-    private final RedissonClient redissonClient;
-    
+
+    private final LockService lockService;
+
     /**
      * 默认过期数据 30s
      */
@@ -61,25 +59,6 @@ public class CacheServiceImpl implements CacheService {
      * bitmap最大位
      */
     private static final int BITMAP = 64;
-    
-    @Override
-    public <T> T lock(String key, long lockTime, Supplier<T> supplier) {
-        RLock lock = redissonClient.getLock(key);
-        try {
-            boolean tryLock = lock.tryLock(lockTime, TimeUnit.MILLISECONDS);
-            if (tryLock) {
-                return supplier.get();
-            }
-            return null;
-        } catch (InterruptedException e) {
-            log.error("锁中断异常 [{}]", key, e);
-            throw new BusinessException(ErrorCode.THREAD_INTERRUPTED);
-        } finally {
-            if (lock.isLocked() && lock.isHeldByCurrentThread()) {
-                lock.unlock();
-            }
-        }
-    }
     
     @Override
     public void setValue(String key, Object value) {
@@ -124,7 +103,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 结果信息
      */
     private <T> T doSupplier(String key, Supplier<T> supplier) {
-        T result = this.lock(CacheConstant.MUTEX_LOCK + key, MUTEX_EXPIRE, supplier);
+        T result = lockService.lock(CacheConstant.MUTEX_LOCK + key, MUTEX_EXPIRE, supplier);
         if (result != null) {
             this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
