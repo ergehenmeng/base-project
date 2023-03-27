@@ -727,3 +727,58 @@ CREATE TABLE `item_spec`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格配置表';
 
+CREATE TABLE `lottery`
+(
+    `id`            bigint(20)    DEFAULT NULL COMMENT '主键',
+    `title`         varchar(30)   DEFAULT NULL COMMENT '活动名称',
+    `merchant_id`   bigint(20)    DEFAULT NULL COMMENT '商户id',
+    `start_time`    datetime      DEFAULT NULL COMMENT '开始时间',
+    `end_time`      datetime      DEFAULT NULL COMMENT '结束时间',
+    `state`         tinyint(1)    DEFAULT '0' COMMENT '活动状态  0:未开始 1:进行中 2:已结束',
+    `lottery_day`   smallint(4)   DEFAULT '1' COMMENT '单日抽奖次数限制',
+    `lottery_total` smallint(4)   DEFAULT '1' COMMENT '总抽奖次数限制',
+    `win_num`       smallint(4)   DEFAULT '1' COMMENT '中奖次数限制',
+    `cover_url`     varchar(255)  DEFAULT NULL COMMENT '抽奖页面封面图',
+    `sub_title`     varchar(20)   DEFAULT NULL COMMENT '抽奖标题',
+    `rule`          varchar(1000) DEFAULT NULL COMMENT '抽奖规则',
+    `create_time`   datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖活动表';
+
+CREATE TABLE `lottery_prize`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id` bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `lottery_id`  bigint(20)   DEFAULT NULL COMMENT '抽奖活动id',
+    `prize_name`  varchar(20)  DEFAULT NULL COMMENT '奖品名称',
+    `prize_type`  tinyint(1)   DEFAULT NULL COMMENT '奖品类型',
+    `total_num`   int(10)      DEFAULT NULL COMMENT '奖品总数量',
+    `win_num`     int(10)      DEFAULT NULL COMMENT '已抽中数量',
+    `cover_url`   varchar(255) DEFAULT NULL COMMENT '奖品图片',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='奖品信息表';
+
+CREATE TABLE `lottery_prize_position`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id` bigint(20)  DEFAULT NULL COMMENT '商户id',
+    `lottery_id`  bigint(20)  DEFAULT NULL COMMENT '抽奖活动id',
+    `prize_id`    bigint(20)  DEFAULT NULL COMMENT '奖品id',
+    `prize_type`  tinyint(2)  DEFAULT NULL COMMENT '中奖商品类型',
+    `location`    tinyint(1)  DEFAULT '8' COMMENT '中奖位置 1-8',
+    `start_range` smallint(4) DEFAULT NULL COMMENT '中奖权重开始范围',
+    `end_range`   smallint(4) DEFAULT NULL COMMENT '中奖权重截止范围',
+    `weight`      smallint(4) DEFAULT NULL COMMENT '中奖权重',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '开始时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖位置配置表';
+

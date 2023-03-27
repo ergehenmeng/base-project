@@ -35,6 +35,7 @@ public class OrderAsyncController {
             vo.setState(2);
             return RespBody.success(vo);
         }
+
         if (CacheConstant.PLACE_HOLDER.equals(hashValue)) {
             vo.setState(0);
             return RespBody.success(vo);
