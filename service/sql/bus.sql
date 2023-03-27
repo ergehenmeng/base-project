@@ -755,7 +755,7 @@ CREATE TABLE `lottery_prize`
     `prize_name`  varchar(20)  DEFAULT NULL COMMENT '奖品名称',
     `prize_type`  tinyint(1)   DEFAULT NULL COMMENT '奖品类型',
     `total_num`   int(10)      DEFAULT NULL COMMENT '奖品总数量',
-    `win_num`     int(10)      DEFAULT NULL COMMENT '已抽中数量',
+    `win_num`     int(10)      DEFAULT 0 COMMENT '已抽中数量',
     `cover_url`   varchar(255) DEFAULT NULL COMMENT '奖品图片',
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -764,7 +764,7 @@ CREATE TABLE `lottery_prize`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='奖品信息表';
 
-CREATE TABLE `lottery_prize_position`
+CREATE TABLE `lottery_prize_config`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `merchant_id` bigint(20)  DEFAULT NULL COMMENT '商户id',

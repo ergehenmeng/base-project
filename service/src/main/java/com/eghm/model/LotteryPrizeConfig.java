@@ -20,9 +20,9 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("lottery_prize_position")
-@ApiModel(value="LotteryPrizePosition对象", description="抽奖位置配置表")
-public class LotteryPrizePosition extends BaseEntity implements Serializable {
+@TableName("lottery_prize_config")
+@ApiModel(value="LotteryPrizeConfig对象", description="抽奖位置配置表")
+public class LotteryPrizeConfig extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,7 +39,7 @@ public class LotteryPrizePosition extends BaseEntity implements Serializable {
     private Integer prizeType;
 
     @ApiModelProperty(value = "中奖位置 1-8")
-    private Boolean location;
+    private Integer location;
 
     @ApiModelProperty(value = "中奖权重开始范围")
     private Integer startRange;
