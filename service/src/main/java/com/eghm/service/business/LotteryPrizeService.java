@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.model.LotteryPrize;
 import com.eghm.model.dto.business.lottery.LotteryPrizeRequest;
 
 import java.util.List;
@@ -20,5 +21,5 @@ public interface LotteryPrizeService {
      * @param prizeList 奖品信息
      * @return 奖品id
      */
-    List<Long> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList);
+    List<LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList);
 }

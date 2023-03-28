@@ -27,14 +27,14 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
     private final LotteryPrizeMapper lotteryPrizeMapper;
     
     @Override
-    public List<Long> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
-        List<Long> prizeIds = new ArrayList<>(12);
+    public List<LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
+        List<LotteryPrize> prizeIds = new ArrayList<>(12);
         for (LotteryPrizeRequest request : prizeList) {
             LotteryPrize prize = DataUtil.copy(request, LotteryPrize.class);
             prize.setLotteryId(lotteryId);
             prize.setMerchantId(SecurityHolder.getMerchantId());
             lotteryPrizeMapper.insert(prize);
-            prizeIds.add(prize.getId());
+            prizeIds.add(prize);
         }
         return prizeIds;
     }

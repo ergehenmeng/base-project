@@ -7,6 +7,7 @@ import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryMapper;
 import com.eghm.model.Lottery;
+import com.eghm.model.LotteryPrize;
 import com.eghm.model.dto.business.lottery.LotteryAddRequest;
 import com.eghm.model.dto.business.lottery.LotteryPrizeConfigRequest;
 import com.eghm.service.business.LotteryPrizeConfigService;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -46,7 +48,8 @@ public class LotteryServiceImpl implements LotteryService {
         this.redoTitle(request.getTitle(), null, SecurityHolder.getMerchantId());
         Lottery lottery = DataUtil.copy(request, Lottery.class);
         lotteryMapper.insert(lottery);
-        List<Long> prizeIds = lotteryPrizeService.insert(lottery.getId(), request.getPrizeList());
+        List<LotteryPrize> prizeList = lotteryPrizeService.insert(lottery.getId(), request.getPrizeList());
+        List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
         lotteryPrizeConfigService.insert(lottery.getId(), request.getConfigList(), prizeIds);
     }
     

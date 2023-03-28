@@ -1023,6 +1023,11 @@ public enum ErrorCode {
      * 抽奖配置位置错误
      */
     LOTTERY_POSITION(3405, "抽奖配置位置错误"),
+
+    /**
+     * 红包金额太小啦~
+     */
+    RED_PACKET_ERROR(3600, "红包金额太小啦~"),
     
     /**
      * 微信公众号尚未配置
