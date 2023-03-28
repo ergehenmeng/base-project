@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.dto.business.lottery.LotteryAddRequest;
+import com.eghm.model.dto.business.lottery.LotteryEditRequest;
 
 /**
  * <p>
@@ -17,4 +18,11 @@ public interface LotteryService {
      * @param request 抽奖配置信息
      */
     void create(LotteryAddRequest request);
+
+    /**
+     * 更新抽奖活动
+     * @param request 信息
+     */
+    void update(LotteryEditRequest request);
+
 }

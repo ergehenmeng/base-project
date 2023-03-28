@@ -15,10 +15,18 @@ import java.util.List;
 public interface LotteryPrizeConfigService {
     
     /**
-     * 查询中奖配置表
+     * 新增中奖配置表
      * @param lotteryId 活动id
      * @param positionList 中奖位置概率配置信息
      * @param prizeIds 奖品id
      */
     void insert(Long lotteryId, List<LotteryPrizeConfigRequest> positionList, List<Long> prizeIds);
+
+    /**
+     * 更新中奖配置表
+     * @param lotteryId 活动id
+     * @param positionList 中奖位置概率配置信息
+     * @param prizeIds 奖品id
+     */
+    void update(Long lotteryId, List<LotteryPrizeConfigRequest> positionList, List<Long> prizeIds);
 }

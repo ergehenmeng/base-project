@@ -22,4 +22,12 @@ public interface LotteryPrizeService {
      * @return 奖品id
      */
     List<LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList);
+
+    /**
+     * 更新抽奖活动奖品信息
+     * @param lotteryId 活动id
+     * @param prizeList 奖品信息
+     * @return 奖品id
+     */
+    List<LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList);
 }

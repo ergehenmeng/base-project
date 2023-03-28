@@ -3,12 +3,14 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.common.enums.ErrorCode;
+import com.eghm.common.enums.ref.LotteryState;
 import com.eghm.common.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryMapper;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryPrize;
 import com.eghm.model.dto.business.lottery.LotteryAddRequest;
+import com.eghm.model.dto.business.lottery.LotteryEditRequest;
 import com.eghm.model.dto.business.lottery.LotteryPrizeConfigRequest;
 import com.eghm.service.business.LotteryPrizeConfigService;
 import com.eghm.service.business.LotteryPrizeService;
@@ -52,7 +54,22 @@ public class LotteryServiceImpl implements LotteryService {
         List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
         lotteryPrizeConfigService.insert(lottery.getId(), request.getConfigList(), prizeIds);
     }
-    
+
+    @Override
+    public void update(LotteryEditRequest request) {
+        this.checkConfig(request.getConfigList());
+        this.redoTitle(request.getTitle(), request.getId(), SecurityHolder.getMerchantId());
+        Lottery select = lotteryMapper.selectById(request.getId());
+        if (select.getState() != LotteryState.INIT) {
+            throw new BusinessException(ErrorCode.LOTTERY_STATE);
+        }
+        Lottery lottery = DataUtil.copy(request, Lottery.class);
+        lotteryMapper.updateById(lottery);
+        List<LotteryPrize> prizeList = lotteryPrizeService.update(lottery.getId(), request.getPrizeList());
+        List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
+        lotteryPrizeConfigService.update(lottery.getId(), request.getConfigList(), prizeIds);
+    }
+
     /**
      * 校验中奖配置信息
      * @param configList 配置信息

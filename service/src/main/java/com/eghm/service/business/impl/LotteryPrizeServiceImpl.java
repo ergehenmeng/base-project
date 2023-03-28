@@ -1,5 +1,7 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
@@ -37,5 +39,13 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
             prizeIds.add(prize);
         }
         return prizeIds;
+    }
+
+    @Override
+    public List<LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
+        LambdaUpdateWrapper<LotteryPrize> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LotteryPrize::getLotteryId, lotteryId);
+        lotteryPrizeMapper.delete(wrapper);
+        return this.insert(lotteryId, prizeList);
     }
 }

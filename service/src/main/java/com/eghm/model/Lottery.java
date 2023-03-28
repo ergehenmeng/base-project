@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.common.enums.ref.LotteryState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,7 +41,7 @@ public class Lottery extends BaseEntity implements Serializable {
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "活动状态  0:未开始 1:进行中 2:已结束")
-    private Boolean state;
+    private LotteryState state;
 
     @ApiModelProperty(value = "单日抽奖次数限制")
     private Integer lotteryDay;

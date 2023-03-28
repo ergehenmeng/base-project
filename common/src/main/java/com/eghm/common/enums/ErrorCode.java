@@ -1025,6 +1025,11 @@ public enum ErrorCode {
     LOTTERY_POSITION(3405, "抽奖配置位置错误"),
 
     /**
+     * 抽奖只能在未开始时才能编辑
+     */
+    LOTTERY_STATE(3408, "抽奖只能在未开始时才能编辑"),
+
+    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(3600, "红包金额太小啦~"),
