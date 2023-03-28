@@ -67,7 +67,7 @@ public class RedPacketUtil {
             total = total.subtract(value);
         }
         // 打乱顺序
-        Collections.shuffle(result);
+        Collections.shuffle(result, random);
         return result;
     }
 
