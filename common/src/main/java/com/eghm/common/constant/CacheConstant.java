@@ -189,4 +189,9 @@ public class CacheConstant {
      * 短信验证码手机号前缀
      */
     public static final String VERIFY_MOBILE_PREFIX = "verify_mobile:";
+
+    /**
+     * 奖品总数量
+     */
+    public static final String LOTTERY_PRIZE_NUM = "lottery_prize_num:";
 }

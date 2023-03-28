@@ -1027,7 +1027,7 @@ public enum ErrorCode {
     /**
      * 抽奖只能在未开始时才能编辑
      */
-    LOTTERY_STATE(3408, "抽奖只能在未开始时才能编辑"),
+    LOTTERY_NOT_INIT(3408, "抽奖只能在未开始时才能编辑"),
 
     /**
      * 红包金额太小啦~

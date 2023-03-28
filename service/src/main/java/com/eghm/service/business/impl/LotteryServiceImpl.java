@@ -61,7 +61,7 @@ public class LotteryServiceImpl implements LotteryService {
         this.redoTitle(request.getTitle(), request.getId(), SecurityHolder.getMerchantId());
         Lottery select = lotteryMapper.selectById(request.getId());
         if (select.getState() != LotteryState.INIT) {
-            throw new BusinessException(ErrorCode.LOTTERY_STATE);
+            throw new BusinessException(ErrorCode.LOTTERY_NOT_INIT);
         }
         Lottery lottery = DataUtil.copy(request, Lottery.class);
         lotteryMapper.updateById(lottery);

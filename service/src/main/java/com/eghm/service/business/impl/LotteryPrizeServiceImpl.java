@@ -1,7 +1,8 @@
 package com.eghm.service.business.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.common.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
@@ -9,10 +10,14 @@ import com.eghm.model.dto.business.lottery.LotteryPrizeRequest;
 import com.eghm.service.business.LotteryPrizeService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RSemaphore;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -24,10 +29,13 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
+@Slf4j
 public class LotteryPrizeServiceImpl implements LotteryPrizeService {
 
     private final LotteryPrizeMapper lotteryPrizeMapper;
-    
+
+    private final RedissonClient redissonClient;
+
     @Override
     public List<LotteryPrize> insert(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
         List<LotteryPrize> prizeIds = new ArrayList<>(12);
@@ -36,6 +44,7 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
             prize.setLotteryId(lotteryId);
             prize.setMerchantId(SecurityHolder.getMerchantId());
             lotteryPrizeMapper.insert(prize);
+            this.setSemaphore(prize);
             prizeIds.add(prize);
         }
         return prizeIds;
@@ -43,9 +52,35 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
 
     @Override
     public List<LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList) {
-        LambdaUpdateWrapper<LotteryPrize> wrapper = Wrappers.lambdaUpdate();
+        LambdaQueryWrapper<LotteryPrize> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(LotteryPrize::getId);
         wrapper.eq(LotteryPrize::getLotteryId, lotteryId);
-        lotteryPrizeMapper.delete(wrapper);
+        List<LotteryPrize> selectList = lotteryPrizeMapper.selectList(wrapper);
+        List<Long> prizeIds = selectList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
+        this.clearSemaphore(prizeIds);
+        lotteryPrizeMapper.deleteBatchIds(prizeIds);
         return this.insert(lotteryId, prizeList);
+    }
+
+    /**
+     * 设置奖品数量新号量
+     * @param prize 奖品信息
+     */
+    private void setSemaphore(LotteryPrize prize) {
+        RSemaphore semaphore = redissonClient.getSemaphore(CacheConstant.LOTTERY_PRIZE_NUM + prize.getId());
+        semaphore.trySetPermits(prize.getTotalNum());
+    }
+
+    /**
+     * 删除奖品数量信号量
+     * @param prizeIds 奖品id
+     */
+    private void clearSemaphore(List<Long> prizeIds) {
+        for (Long prizeId : prizeIds) {
+            boolean delete = redissonClient.getSemaphore(CacheConstant.LOTTERY_PRIZE_NUM + prizeId).delete();
+            if (!delete) {
+                log.error("删除奖品数量信号量失败 [{}]", prizeId);
+            }
+        }
     }
 }
