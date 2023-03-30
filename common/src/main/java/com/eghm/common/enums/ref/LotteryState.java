@@ -1,6 +1,7 @@
 package com.eghm.common.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -31,6 +32,7 @@ public enum LotteryState {
     /**
      * 状态值
      */
+    @JsonValue
     @EnumValue
     private final int value;
 

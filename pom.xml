@@ -120,6 +120,8 @@
         <cola.version>4.3.1</cola.version>
         <!--异步线程变量-->
         <transmittable.version>2.14.2</transmittable.version>
+        <!--excel导出-->
+        <easyexcel.version>3.2.0</easyexcel.version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -304,6 +306,11 @@
                 <groupId>com.alipay.sdk</groupId>
                 <artifactId>alipay-easysdk</artifactId>
                 <version>${ali-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>

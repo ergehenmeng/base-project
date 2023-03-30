@@ -1,6 +1,6 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum OrderState implements IEnum<Integer> {
+public enum OrderState {
 
     /**
      * 初始状态
@@ -76,18 +76,14 @@ public enum OrderState implements IEnum<Integer> {
     /**
      * 状态
      */
+    @JsonValue
+    @EnumValue
     private final int value;
 
     /**
      * 名称
      */
     private final String name;
-
-    @Override
-    @JsonValue
-    public Integer getValue() {
-        return value;
-    }
 
     @JsonCreator
     public static OrderState of(Integer value) {

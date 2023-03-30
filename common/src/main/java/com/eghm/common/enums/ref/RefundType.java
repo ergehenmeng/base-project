@@ -1,6 +1,6 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -16,7 +16,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RefundType implements IEnum<Integer> {
+public enum RefundType {
 
     /**
      * 不支持退款
@@ -34,16 +34,11 @@ public enum RefundType implements IEnum<Integer> {
     AUDIT_REFUND(2, "审核后退款"),
     ;
 
+    @EnumValue
+    @JsonValue
     private final int value;
 
     private final String name;
-
-
-    @Override
-    @JsonValue
-    public Integer getValue() {
-        return value;
-    }
 
     @JsonCreator
     public static RefundType of(Integer value) {

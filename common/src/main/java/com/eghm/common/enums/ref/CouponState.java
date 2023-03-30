@@ -1,6 +1,6 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum CouponState implements IEnum<Integer> {
+public enum CouponState {
 
     /**
      * 未使用
@@ -33,6 +33,8 @@ public enum CouponState implements IEnum<Integer> {
     /**
      * 方式
      */
+    @JsonValue
+    @EnumValue
     private final int value;
 
     /**
@@ -40,9 +42,4 @@ public enum CouponState implements IEnum<Integer> {
      */
     private final String name;
 
-    @Override
-    @JsonValue
-    public Integer getValue() {
-        return value;
-    }
 }

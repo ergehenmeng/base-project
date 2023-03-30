@@ -1,6 +1,5 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +9,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum PayType implements IEnum<String>  {
+public enum PayType {
 
     /**
      * APP
@@ -40,12 +39,6 @@ public enum PayType implements IEnum<String>  {
     /**
      * 支付宝支付
      */
-    ALI_PAY,
-    ;
+    ALI_PAY
 
-
-    @Override
-    public String getValue() {
-        return name();
-    }
 }

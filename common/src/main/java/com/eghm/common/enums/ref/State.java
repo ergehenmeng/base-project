@@ -1,6 +1,6 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum State implements IEnum<Integer> {
+public enum State {
     
     /**
      * 初始化
@@ -27,12 +27,13 @@ public enum State implements IEnum<Integer> {
      * 已上架
      */
     SHELVE(1, "已上架"),
-
     ;
 
     /**
      * 状态值
      */
+    @EnumValue
+    @JsonValue
     private final int value;
 
     /**
@@ -40,9 +41,4 @@ public enum State implements IEnum<Integer> {
      */
     private final String name;
 
-    @Override
-    @JsonValue
-    public Integer getValue() {
-        return value;
-    }
 }

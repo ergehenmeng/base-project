@@ -1,6 +1,6 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum RoleType implements IEnum<String> {
+public enum RoleType {
 
     /**
      * 超级管理员
@@ -47,12 +47,13 @@ public enum RoleType implements IEnum<String> {
      */
     LINE("line", "线路商户"),
 
-
     ;
 
     /**
      * 角色code
      */
+    @EnumValue
+    @JsonValue
     private final String value;
 
     /**
@@ -60,9 +61,4 @@ public enum RoleType implements IEnum<String> {
      */
     private final String name;
 
-    @Override
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
 }

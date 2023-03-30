@@ -1,6 +1,6 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -18,7 +18,7 @@ import static com.eghm.common.enums.ref.OrderState.*;
  */
 @Getter
 @AllArgsConstructor
-public enum ProductType implements IEnum<String> {
+public enum ProductType {
 
     /**
      * 景区门票
@@ -59,6 +59,8 @@ public enum ProductType implements IEnum<String> {
     /**
      * 值
      */
+    @EnumValue
+    @JsonValue
     private final String value;
 
     /**
@@ -75,12 +77,6 @@ public enum ProductType implements IEnum<String> {
      * 主订单状态定义 没有逻辑上的使用, 仅仅方便开发人员查看订单状态
      */
     private final OrderState[] stateDefine;
-
-    @Override
-    @JsonValue
-    public String getValue() {
-        return value;
-    }
 
     @JsonCreator
     public static ProductType of(String value) {

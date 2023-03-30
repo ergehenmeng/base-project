@@ -1,6 +1,6 @@
 package com.eghm.common.enums.ref;
 
-import com.baomidou.mybatisplus.annotation.IEnum;
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Getter;
  */
 @AllArgsConstructor
 @Getter
-public enum DeliveryType implements IEnum<Integer> {
+public enum DeliveryType {
     
     /**
      * 无须发货
@@ -23,13 +23,11 @@ public enum DeliveryType implements IEnum<Integer> {
      */
     EXPRESS(1, "快递包邮"),
     ;
+
+    @JsonValue
+    @EnumValue
     private final int value;
     
     private final String name;
 
-    @Override
-    @JsonValue
-    public Integer getValue() {
-        return value;
-    }
 }
