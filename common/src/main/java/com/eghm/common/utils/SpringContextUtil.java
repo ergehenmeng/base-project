@@ -1,4 +1,4 @@
-package com.eghm.utils;
+package com.eghm.common.utils;
 
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.SystemException;

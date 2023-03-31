@@ -1,4 +1,4 @@
-package com.eghm.utils;
+package com.eghm.common.utils;
 
 import lombok.Data;
 import lombok.Getter;

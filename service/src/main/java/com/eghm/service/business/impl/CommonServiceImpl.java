@@ -11,7 +11,7 @@ import com.eghm.service.business.handler.PayNotifyHandler;
 import com.eghm.service.business.handler.impl.DefaultPayNotifyHandler;
 import com.eghm.service.business.handler.impl.item.ItemPayNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
-import com.eghm.utils.SpringContextUtil;
+import com.eghm.common.utils.SpringContextUtil;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

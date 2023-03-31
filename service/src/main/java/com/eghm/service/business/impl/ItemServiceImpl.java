@@ -32,7 +32,7 @@ import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ItemSpecService;
 import com.eghm.service.sys.impl.SysConfigApi;
-import com.eghm.utils.BeanValidator;
+import com.eghm.common.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

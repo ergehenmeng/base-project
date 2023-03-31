@@ -1,4 +1,4 @@
-package com.eghm.utils;
+package com.eghm.common.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;

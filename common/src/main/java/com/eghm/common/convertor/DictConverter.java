@@ -24,6 +24,7 @@ public class DictConverter implements Converter<Integer> {
         if (dict == null) {
             return NumberUtils.formatToCellDataString(value, contentProperty);
         }
+
         return Converter.super.convertToExcelData(value, contentProperty, globalConfiguration);
     }
 }

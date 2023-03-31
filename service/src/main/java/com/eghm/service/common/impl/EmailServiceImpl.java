@@ -9,7 +9,7 @@ import com.eghm.model.dto.email.SendEmail;
 import com.eghm.model.dto.ext.VerifyEmailCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
-import com.eghm.utils.SpringContextUtil;
+import com.eghm.common.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;

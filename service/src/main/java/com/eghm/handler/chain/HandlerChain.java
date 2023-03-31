@@ -3,7 +3,7 @@ package com.eghm.handler.chain;
 
 import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.handler.chain.annotation.HandlerMark;
-import com.eghm.utils.SpringContextUtil;
+import com.eghm.common.utils.SpringContextUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 import org.springframework.core.annotation.AnnotationUtils;

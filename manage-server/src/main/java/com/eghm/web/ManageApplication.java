@@ -3,7 +3,7 @@ package com.eghm.web;
 
 import com.eghm.configuration.annotation.EnableTask;
 import com.eghm.configuration.rabbit.RabbitConfig;
-import com.eghm.utils.SpringContextUtil;
+import com.eghm.common.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.BeansException;

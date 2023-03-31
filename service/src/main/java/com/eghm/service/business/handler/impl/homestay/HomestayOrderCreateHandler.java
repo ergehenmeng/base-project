@@ -16,7 +16,6 @@ import com.eghm.service.business.handler.dto.HomestayOrderCreateContext;
 import com.eghm.service.business.handler.dto.HomestayOrderPayload;
 import com.eghm.service.business.handler.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,6 @@ import java.util.List;
  */
 @Service("homestayOrderCreateHandler")
 @Slf4j
-@AllArgsConstructor
 public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<HomestayOrderCreateContext, HomestayOrderPayload> {
 
     private final HomestayOrderService homestayOrderService;
