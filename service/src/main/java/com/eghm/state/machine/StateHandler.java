@@ -41,6 +41,7 @@ public class StateHandler {
      * 注册状态机
      * @param machineType 状态机类型
      */
+    @SuppressWarnings("unchecked")
     public void registerStateMachine(ProductType machineType) {
         if (CollUtil.isEmpty(handlerList)) {
             log.info("未发现状态机处理类 [{}]", machineType);
