@@ -36,11 +36,6 @@ public class CacheConstant {
     public static final String SYS_DICT = "sys_dict";
 
     /**
-     * 审核配置信息
-     */
-    public static final String AUDIT_CONFIG = "audit_config";
-
-    /**
      * 短信模板
      */
     public static final String SMS_TEMPLATE = "sms_template";
@@ -139,11 +134,6 @@ public class CacheConstant {
      * 用户签到缓存 user_sign_in::userId
      */
     public static final String USER_SIGN_IN = "user_sign_in:";
-
-    /**
-     * hash类型 用户邀请信息缓存
-     */
-    public static final String USER_INVITE_CODE = "user_invite_code";
 
     /**
      * post提交限制
