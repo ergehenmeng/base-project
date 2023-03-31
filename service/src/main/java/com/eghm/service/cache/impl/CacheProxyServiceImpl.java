@@ -2,13 +2,13 @@ package com.eghm.service.cache.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.Channel;
-import com.eghm.common.enums.EmailType;
+import com.eghm.constant.CacheConstant;
+import com.eghm.enums.Channel;
+import com.eghm.enums.EmailType;
 import com.eghm.mapper.*;
 import com.eghm.model.*;
-import com.eghm.model.dto.banner.BannerAddRequest;
-import com.eghm.model.dto.banner.BannerEditRequest;
+import com.eghm.dto.banner.BannerAddRequest;
+import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.utils.DataUtil;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.eghm.common.constant.CommonConstant.LIMIT_ONE;
+import static com.eghm.constant.CommonConstant.LIMIT_ONE;
 
 /**
  * 缓存代理层<br/>

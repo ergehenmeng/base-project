@@ -1,12 +1,12 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.model.Activity;
-import com.eghm.model.dto.business.activity.ActivityAddRequest;
-import com.eghm.model.dto.business.activity.ActivityConfigRequest;
-import com.eghm.model.dto.business.activity.ActivityDeleteRequest;
-import com.eghm.model.dto.business.activity.ActivityEditRequest;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.business.activity.ActivityBaseResponse;
+import com.eghm.dto.business.activity.ActivityAddRequest;
+import com.eghm.dto.business.activity.ActivityConfigRequest;
+import com.eghm.dto.business.activity.ActivityDeleteRequest;
+import com.eghm.dto.business.activity.ActivityEditRequest;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.business.activity.ActivityBaseResponse;
 import com.eghm.service.business.ActivityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

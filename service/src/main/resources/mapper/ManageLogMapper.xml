@@ -18,7 +18,7 @@
         <result column="nick_name" jdbcType="VARCHAR" property="operatorName"/>
     </resultMap>
 
-    <select id="getByPage" parameterType="com.eghm.model.dto.log.ManageQueryRequest" resultMap="ExtBaseResultMap">
+    <select id="getByPage" parameterType="com.eghm.dto.log.ManageQueryRequest" resultMap="ExtBaseResultMap">
         select t.id, t.url, t.operator_id, t.request, t.create_time, t.ip, t.business_time,r.nick_name
         from manage_log t inner join sys_operator r on t.operator_id = r.id
         <where>

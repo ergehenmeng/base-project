@@ -1,6 +1,6 @@
 package com.eghm.configuration.timer.job;
 
-import com.eghm.common.utils.DateUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.configuration.timer.BaseTask;
 import com.eghm.configuration.timer.SystemTimer;
 import lombok.extern.slf4j.Slf4j;

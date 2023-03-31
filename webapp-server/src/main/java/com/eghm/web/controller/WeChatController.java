@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.wechat.MpLoginDTO;
+import com.eghm.dto.wechat.MpLoginDTO;
 import com.eghm.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

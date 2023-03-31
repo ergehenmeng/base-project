@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.model.dto.ext.RedisToken;
+import com.eghm.dto.ext.RedisToken;
 
 /**
  * 会话令牌service

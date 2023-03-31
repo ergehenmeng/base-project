@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.SysMenu;
-import com.eghm.model.vo.menu.MenuResponse;
+import com.eghm.vo.menu.MenuResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

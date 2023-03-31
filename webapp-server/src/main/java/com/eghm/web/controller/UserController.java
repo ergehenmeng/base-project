@@ -1,11 +1,11 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.user.BindEmailDTO;
-import com.eghm.model.dto.user.ChangeEmailDTO;
-import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
-import com.eghm.model.vo.user.SignInVO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.user.BindEmailDTO;
+import com.eghm.dto.user.ChangeEmailDTO;
+import com.eghm.dto.user.SendEmailAuthCodeDTO;
+import com.eghm.vo.user.SignInVO;
 import com.eghm.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

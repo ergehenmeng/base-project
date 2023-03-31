@@ -1,7 +1,7 @@
 package com.eghm.lottery.config;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

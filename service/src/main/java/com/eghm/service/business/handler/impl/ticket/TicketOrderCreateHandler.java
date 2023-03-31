@@ -2,12 +2,12 @@ package com.eghm.service.business.handler.impl.ticket;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.ref.DeliveryType;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.ProductType;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.DeliveryType;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.ScenicTicket;
 import com.eghm.model.TicketOrder;

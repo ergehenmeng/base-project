@@ -1,13 +1,13 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
-import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
-import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
-import com.eghm.model.dto.business.coupon.user.UserCouponQueryRequest;
-import com.eghm.model.vo.coupon.UserCouponBaseVO;
-import com.eghm.model.vo.coupon.UserCouponResponse;
-import com.eghm.model.vo.coupon.UserCouponVO;
+import com.eghm.dto.business.coupon.user.GrantCouponDTO;
+import com.eghm.dto.business.coupon.user.ReceiveCouponDTO;
+import com.eghm.dto.business.coupon.user.UserCouponQueryPageDTO;
+import com.eghm.dto.business.coupon.user.UserCouponQueryRequest;
+import com.eghm.vo.coupon.UserCouponBaseVO;
+import com.eghm.vo.coupon.UserCouponResponse;
+import com.eghm.vo.coupon.UserCouponVO;
 
 import java.util.List;
 import java.util.Map;

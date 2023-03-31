@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.version.AppVersionVO;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.version.AppVersionVO;
 import com.eghm.service.common.AppVersionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

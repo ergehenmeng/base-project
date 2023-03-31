@@ -60,6 +60,11 @@ public class SystemProperties {
      */
     private Redis redis = new Redis();
 
+    /**
+     * 极光推送
+     */
+    private PushProperties push = new PushProperties();
+
     @Data
     public static class Redis {
 
@@ -149,6 +154,30 @@ public class SystemProperties {
          */
         private String secretKey = "Mfw7MfWbaTxiT7X3aKqItx94oMqRs60FiKXe65QN3cUTbwJ2V2ux6ilf361yEU==";
 
+    }
+
+    @Data
+    public static class PushProperties {
+
+        /**
+         * 推送地址
+         */
+        private String url;
+
+        /**
+         * true:生产环境 false:测试环境
+         */
+        private Boolean env;
+
+        /**
+         * 推送key
+         */
+        private String masterSecret;
+
+        /**
+         * 推送appKey
+         */
+        private String appKey;
     }
 
     @Data

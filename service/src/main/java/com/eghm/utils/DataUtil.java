@@ -2,8 +2,8 @@ package com.eghm.utils;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.vo.business.BaseConfigResponse;
+import com.eghm.dto.ext.PageData;
+import com.eghm.vo.business.BaseConfigResponse;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;

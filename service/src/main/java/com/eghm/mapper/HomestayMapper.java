@@ -3,8 +3,8 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Homestay;
-import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
-import com.eghm.model.vo.business.homestay.HomestayListVO;
+import com.eghm.dto.business.homestay.HomestayQueryDTO;
+import com.eghm.vo.business.homestay.HomestayListVO;
 import org.apache.ibatis.annotations.Param;
 
 /**

@@ -1,8 +1,8 @@
 package com.eghm.web;
 
 import com.eghm.configuration.SystemProperties;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.login.LoginResponse;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.login.LoginResponse;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.web.configuration.filter.AuthFilter;

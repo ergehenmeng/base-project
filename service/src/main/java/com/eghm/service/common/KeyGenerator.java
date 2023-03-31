@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.common.enums.Workspace;
+import com.eghm.enums.Workspace;
 
 /**
  * 项目中只能指定一种生成方式,否则可能会出现id重复

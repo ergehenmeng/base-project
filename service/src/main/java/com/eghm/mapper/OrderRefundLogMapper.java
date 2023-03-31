@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.eghm.model.OrderRefundLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.dto.ext.OrderRefund;
+import com.eghm.dto.ext.OrderRefund;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

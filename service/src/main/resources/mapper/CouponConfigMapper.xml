@@ -7,8 +7,8 @@
         where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and state = true
     </update>
 
-    <select id="getByPage" resultType="com.eghm.model.vo.coupon.CouponListVO"
-            parameterType="com.eghm.model.dto.business.coupon.config.CouponQueryDTO">
+    <select id="getByPage" resultType="com.eghm.vo.coupon.CouponListVO"
+            parameterType="com.eghm.dto.business.coupon.config.CouponQueryDTO">
         select
         id,
         title,
@@ -24,7 +24,7 @@
         and now() between start_time and end_time
     </select>
 
-    <select id="getItemCoupon" resultType="com.eghm.model.vo.coupon.CouponListVO" >
+    <select id="getItemCoupon" resultType="com.eghm.vo.coupon.CouponListVO" >
         select
             r.id,
             r.title,

@@ -1,6 +1,5 @@
 package com.eghm.utils;
 
-import com.eghm.common.utils.SpringContextUtil;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

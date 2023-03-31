@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
 
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.RefundType;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;

@@ -1,12 +1,12 @@
 package com.eghm.web.configuration.interceptor;
 
-import com.eghm.common.constant.AppHeader;
-import com.eghm.common.constant.CommonConstant;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.constant.AppHeader;
+import com.eghm.constant.CommonConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RequestMessage;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RequestMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 

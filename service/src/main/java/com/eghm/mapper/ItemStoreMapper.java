@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.eghm.model.ItemStore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.vo.business.item.store.ItemStoreVO;
+import com.eghm.vo.business.item.store.ItemStoreVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -1,10 +1,10 @@
 package com.eghm.web.configuration.handler;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.exception.ParameterException;
 import com.eghm.configuration.DatePropertyEditor;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.impl.item;
 
-import com.eghm.common.enums.ref.ItemRefundState;
+import com.eghm.enums.ref.ItemRefundState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.ItemOrder;

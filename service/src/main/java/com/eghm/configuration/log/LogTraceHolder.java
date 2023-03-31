@@ -1,7 +1,7 @@
 package com.eghm.configuration.log;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
-import com.eghm.common.constant.CommonConstant;
+import com.eghm.constant.CommonConstant;
 import com.google.common.collect.Maps;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

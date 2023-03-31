@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.model.ShoppingCart;
-import com.eghm.model.vo.shopping.ShoppingCartItemVO;
+import com.eghm.vo.shopping.ShoppingCartItemVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

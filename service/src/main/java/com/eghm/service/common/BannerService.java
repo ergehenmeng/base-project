@@ -1,11 +1,11 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.Channel;
+import com.eghm.enums.Channel;
 import com.eghm.model.Banner;
-import com.eghm.model.dto.banner.BannerAddRequest;
-import com.eghm.model.dto.banner.BannerEditRequest;
-import com.eghm.model.dto.banner.BannerQueryRequest;
+import com.eghm.dto.banner.BannerAddRequest;
+import com.eghm.dto.banner.BannerEditRequest;
+import com.eghm.dto.banner.BannerQueryRequest;
 
 import java.util.List;
 

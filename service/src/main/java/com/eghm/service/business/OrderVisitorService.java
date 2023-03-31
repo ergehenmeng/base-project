@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.common.enums.ref.ProductType;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.handler.dto.VisitorVO;
 
 import java.util.List;

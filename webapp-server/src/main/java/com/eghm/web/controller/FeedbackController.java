@@ -1,9 +1,9 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RequestMessage;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.feedback.FeedbackAddDTO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RequestMessage;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.feedback.FeedbackAddDTO;
 import com.eghm.service.common.FeedbackService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -3,8 +3,8 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Line;
-import com.eghm.model.dto.business.line.LineQueryDTO;
-import com.eghm.model.vo.business.line.LineListVO;
+import com.eghm.dto.business.line.LineQueryDTO;
+import com.eghm.vo.business.line.LineListVO;
 import org.apache.ibatis.annotations.Param;
 
 /**

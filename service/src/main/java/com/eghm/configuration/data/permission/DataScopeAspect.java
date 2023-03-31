@@ -3,9 +3,9 @@ package com.eghm.configuration.data.permission;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.enums.DataType;
+import com.eghm.enums.DataType;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtOperator;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;

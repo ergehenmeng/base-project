@@ -1,10 +1,10 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO;
-import com.eghm.model.vo.business.homestay.room.HomestayRoomListVO;
-import com.eghm.model.vo.business.homestay.room.HomestayRoomVO;
-import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
+import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
+import com.eghm.vo.business.homestay.room.HomestayRoomVO;
+import com.eghm.vo.business.homestay.room.config.RoomConfigVO;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import io.swagger.annotations.Api;

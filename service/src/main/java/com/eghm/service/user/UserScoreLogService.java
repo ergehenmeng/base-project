@@ -1,9 +1,9 @@
 package com.eghm.service.user;
 
 import com.eghm.model.UserScoreLog;
-import com.eghm.model.dto.score.UserScoreQueryDTO;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.vo.score.UserScoreVO;
+import com.eghm.dto.score.UserScoreQueryDTO;
+import com.eghm.dto.ext.PageData;
+import com.eghm.vo.score.UserScoreVO;
 
 /**
  * @author 殿小二

@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.eghm.model.SysOperator;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtOperator;
 
 import java.util.List;
 import java.util.Optional;

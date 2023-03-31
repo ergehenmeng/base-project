@@ -1,9 +1,9 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.login.DeviceUnbindDTO;
-import com.eghm.model.vo.user.LoginDeviceVO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.login.DeviceUnbindDTO;
+import com.eghm.vo.user.LoginDeviceVO;
 import com.eghm.service.user.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

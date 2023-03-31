@@ -1,7 +1,7 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.common.JsonService;
 import lombok.AllArgsConstructor;

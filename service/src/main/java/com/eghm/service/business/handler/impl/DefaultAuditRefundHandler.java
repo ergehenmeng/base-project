@@ -1,12 +1,12 @@
 package com.eghm.service.business.handler.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.ref.AuditState;
-import com.eghm.common.enums.ref.ProductType;
-import com.eghm.common.enums.ref.RefundState;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.AuditState;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.RefundState;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
@@ -22,8 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static com.eghm.common.enums.ErrorCode.REFUND_AUDITED;
-import static com.eghm.common.enums.ErrorCode.TOTAL_REFUND_MAX;
+import static com.eghm.enums.ErrorCode.REFUND_AUDITED;
+import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX;
 
 /**
  * @author 二哥很猛

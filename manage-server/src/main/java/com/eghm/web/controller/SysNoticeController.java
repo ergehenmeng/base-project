@@ -2,12 +2,12 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysNotice;
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.notice.NoticeAddRequest;
-import com.eghm.model.dto.notice.NoticeEditRequest;
-import com.eghm.model.dto.notice.NoticeQueryRequest;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.notice.NoticeAddRequest;
+import com.eghm.dto.notice.NoticeEditRequest;
+import com.eghm.dto.notice.NoticeQueryRequest;
 import com.eghm.service.common.SysNoticeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

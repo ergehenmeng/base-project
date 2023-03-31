@@ -1,15 +1,15 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.item.store.ItemStoreAddRequest;
-import com.eghm.model.dto.business.item.store.ItemStoreEditRequest;
-import com.eghm.model.dto.business.item.store.ItemStoreQueryRequest;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.item.store.ItemStoreAddRequest;
+import com.eghm.dto.business.item.store.ItemStoreEditRequest;
+import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ItemStoreService;
 import io.swagger.annotations.Api;

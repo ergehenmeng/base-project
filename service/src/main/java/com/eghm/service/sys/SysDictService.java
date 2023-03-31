@@ -2,9 +2,9 @@ package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysDict;
-import com.eghm.model.dto.dict.DictAddRequest;
-import com.eghm.model.dto.dict.DictEditRequest;
-import com.eghm.model.dto.dict.DictQueryRequest;
+import com.eghm.dto.dict.DictAddRequest;
+import com.eghm.dto.dict.DictEditRequest;
+import com.eghm.dto.dict.DictQueryRequest;
 
 import java.util.List;
 

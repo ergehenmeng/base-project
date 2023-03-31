@@ -1,7 +1,7 @@
 package com.eghm.web.configuration.filter;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.enums.ErrorCode;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;

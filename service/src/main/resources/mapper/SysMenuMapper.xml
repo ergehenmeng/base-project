@@ -25,7 +25,7 @@
         t.id, t.title, t.code, t.pid, t.path,t.sub_path, t.grade, t.sort, t.state, t.remark, t.create_time, t.update_time
     </sql>
 
-    <select id="getMenuList" resultType="com.eghm.model.vo.menu.MenuResponse">
+    <select id="getMenuList" resultType="com.eghm.vo.menu.MenuResponse">
         <choose>
             <when test="operatorId != null">
                 <include refid="selectOperatorMenuSql"/>

@@ -1,8 +1,8 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.common.annotation.Sign;
-import com.eghm.model.validation.annotation.OptionInt;
-import com.eghm.model.validation.annotation.RangeInt;
+import com.eghm.annotation.Sign;
+import com.eghm.validation.annotation.OptionInt;
+import com.eghm.validation.annotation.RangeInt;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.eghm.service.cache.impl;
 
-import com.eghm.common.constant.CacheConstant;
+import com.eghm.constant.CacheConstant;
 import com.eghm.mapper.SysCacheMapper;
 import com.eghm.model.SysCache;
 import com.eghm.service.cache.ClearCacheService;

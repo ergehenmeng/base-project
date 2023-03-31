@@ -2,8 +2,8 @@ package com.eghm.state.machine;
 
 import com.alibaba.cola.statemachine.Action;
 import com.alibaba.cola.statemachine.Condition;
-import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.ref.ProductType;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 
 /**
  * @author 二哥很猛

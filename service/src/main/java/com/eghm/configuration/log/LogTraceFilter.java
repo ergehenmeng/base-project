@@ -1,7 +1,7 @@
 package com.eghm.configuration.log;
 
-import com.eghm.common.constant.CommonConstant;
-import com.eghm.common.utils.StringUtil;
+import com.eghm.constant.CommonConstant;
+import com.eghm.utils.StringUtil;
 import org.slf4j.MDC;
 import org.springframework.lang.NonNull;
 import org.springframework.web.filter.OncePerRequestFilter;

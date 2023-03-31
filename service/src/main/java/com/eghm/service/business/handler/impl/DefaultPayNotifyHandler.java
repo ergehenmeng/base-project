@@ -1,10 +1,10 @@
 package com.eghm.service.business.handler.impl;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.ProductType;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.PayNotifyHandler;

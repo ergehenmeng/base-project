@@ -28,6 +28,7 @@ public class DataScopeInterceptor implements Interceptor {
 
     private static final String DATA_SCOPE = "dataScope";
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
     public Object intercept(Invocation invocation) throws SQLException {
         Object[] args = invocation.getArgs();
@@ -41,8 +42,7 @@ public class DataScopeInterceptor implements Interceptor {
         if (paramObject == null) {
             paramMap = new HashMap<>();
         } else if (paramObject instanceof Map) {
-            paramMap = new HashMap<>();
-            paramMap.putAll((Map)paramObject);
+            paramMap = new HashMap<>((Map) paramObject);
         } else {
             paramMap = new HashMap<>();
             boolean hasTypeHandler = ms.getConfiguration().getTypeHandlerRegistry().hasTypeHandler(paramObject.getClass());

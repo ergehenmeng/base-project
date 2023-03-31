@@ -4,12 +4,12 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemSkuMapper;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
-import com.eghm.model.dto.business.item.sku.ItemSkuRequest;
+import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Maps;
@@ -24,8 +24,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.common.enums.ErrorCode.SKU_DOWN;
-import static com.eghm.common.enums.ErrorCode.SKU_STOCK;
+import static com.eghm.enums.ErrorCode.SKU_DOWN;
+import static com.eghm.enums.ErrorCode.SKU_STOCK;
 
 /**
  * @author 殿小二

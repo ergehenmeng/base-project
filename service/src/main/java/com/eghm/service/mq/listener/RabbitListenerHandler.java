@@ -1,16 +1,16 @@
 package com.eghm.service.mq.listener;
 
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.constant.QueueConstant;
-import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.event.impl.TicketEvent;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.ProductType;
-import com.eghm.common.exception.SystemException;
+import com.eghm.constant.CacheConstant;
+import com.eghm.constant.QueueConstant;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.TicketEvent;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.exception.SystemException;
 import com.eghm.model.ManageLog;
 import com.eghm.model.WebappLog;
-import com.eghm.model.dto.ext.AsyncKey;
-import com.eghm.model.dto.ext.LoginRecord;
+import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.LoginRecord;
 import com.eghm.service.business.handler.dto.ItemOrderCreateContext;
 import com.eghm.service.business.handler.dto.OrderCancelContext;
 import com.eghm.service.cache.CacheService;
@@ -28,8 +28,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import static com.eghm.common.constant.CacheConstant.ERROR_PLACE_HOLDER;
-import static com.eghm.common.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
+import static com.eghm.constant.CacheConstant.ERROR_PLACE_HOLDER;
+import static com.eghm.constant.CacheConstant.SUCCESS_PLACE_HOLDER;
 
 /**
  * @author 二哥很猛

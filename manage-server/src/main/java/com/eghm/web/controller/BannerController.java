@@ -2,11 +2,11 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Banner;
-import com.eghm.model.dto.banner.BannerAddRequest;
-import com.eghm.model.dto.banner.BannerEditRequest;
-import com.eghm.model.dto.banner.BannerQueryRequest;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.banner.BannerAddRequest;
+import com.eghm.dto.banner.BannerEditRequest;
+import com.eghm.dto.banner.BannerQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.common.BannerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

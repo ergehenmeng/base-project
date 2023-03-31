@@ -1,14 +1,14 @@
 package com.eghm.web.configuration.interceptor;
 
-import com.eghm.common.constant.AppHeader;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.DataException;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.constant.AppHeader;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.DataException;
+import com.eghm.exception.ParameterException;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RedisToken;
-import com.eghm.model.dto.ext.RequestMessage;
-import com.eghm.model.vo.user.LoginDeviceVO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RedisToken;
+import com.eghm.dto.ext.RequestMessage;
+import com.eghm.vo.user.LoginDeviceVO;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.user.LoginService;
 import com.eghm.web.annotation.Access;

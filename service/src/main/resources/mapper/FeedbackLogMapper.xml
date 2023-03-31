@@ -18,12 +18,12 @@
         <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
     </resultMap>
 
-    <resultMap id="ListResultMap" type="com.eghm.model.vo.feedback.FeedbackVO" extends="BaseResultMap">
+    <resultMap id="ListResultMap" type="com.eghm.vo.feedback.FeedbackVO" extends="BaseResultMap">
         <result column="nick_name" jdbcType="CHAR" property="nickName"/>
         <result column="mobile" jdbcType="CHAR" property="mobile"/>
     </resultMap>
 
-    <select id="getByPage" parameterType="com.eghm.model.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
+    <select id="getByPage" parameterType="com.eghm.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
         select
         t.id,
         t.user_id,

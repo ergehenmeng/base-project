@@ -1,10 +1,10 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.enums.Channel;
+import com.eghm.enums.Channel;
 import com.eghm.model.Banner;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.banner.BannerVO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.banner.BannerVO;
 import com.eghm.service.common.BannerService;
 import com.eghm.utils.DataUtil;
 import io.swagger.annotations.Api;

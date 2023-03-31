@@ -1,6 +1,6 @@
 package com.eghm.service.cache;
 
-import com.eghm.common.constant.CacheConstant;
+import com.eghm.constant.CacheConstant;
 import com.eghm.model.SysCache;
 
 import java.util.List;

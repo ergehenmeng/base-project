@@ -1,16 +1,16 @@
 package com.eghm.web.configuration.handler;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.ExchangeQueue;
-import com.eghm.common.exception.AiliPayException;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.common.exception.DataException;
-import com.eghm.common.exception.ParameterException;
-import com.eghm.common.exception.WeChatPayException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.exception.AiliPayException;
+import com.eghm.exception.BusinessException;
+import com.eghm.exception.DataException;
+import com.eghm.exception.ParameterException;
+import com.eghm.exception.WeChatPayException;
 import com.eghm.model.WebappLog;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RequestMessage;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RequestMessage;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;

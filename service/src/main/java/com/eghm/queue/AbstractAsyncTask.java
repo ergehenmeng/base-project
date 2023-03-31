@@ -1,11 +1,11 @@
 package com.eghm.queue;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.model.dto.ext.AsyncKey;
-import com.eghm.model.dto.ext.AsyncResponse;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
-import com.eghm.common.utils.SpringContextUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ItemMapper">
     
-    <select id="listPage" resultType="com.eghm.model.vo.business.item.ItemListResponse" parameterType="com.eghm.model.dto.business.item.ItemQueryRequest">
+    <select id="listPage" resultType="com.eghm.vo.business.item.ItemListResponse" parameterType="com.eghm.dto.business.item.ItemQueryRequest">
         select
         t.id,
         t.store_id as storeId,
@@ -38,7 +38,7 @@
         order by t.id desc
     </select>
     
-    <select id="getPriorityItem" resultType="com.eghm.model.vo.business.item.ItemListVO">
+    <select id="getPriorityItem" resultType="com.eghm.vo.business.item.ItemListVO">
         select
         id,
         title,
@@ -52,7 +52,7 @@
         order by min_price &gt; 0, sort_by, id limit #{limit}
     </select>
     
-    <select id="getRecommendItem" resultType="com.eghm.model.vo.business.item.ItemListVO">
+    <select id="getRecommendItem" resultType="com.eghm.vo.business.item.ItemListVO">
         select
             id,
             title,
@@ -63,7 +63,7 @@
         order by min_price &gt; 0, recommend desc, id limit #{limit}
     </select>
     
-    <select id="getByPage" parameterType="com.eghm.model.dto.business.item.ItemQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
+    <select id="getByPage" parameterType="com.eghm.dto.business.item.ItemQueryDTO" resultType="com.eghm.vo.business.item.ItemListVO">
         select
         id,
         title,
@@ -92,7 +92,7 @@
         </if>
     </select>
     
-    <select id="getCouponScopeByPage" parameterType="com.eghm.model.dto.business.item.ItemCouponQueryDTO" resultType="com.eghm.model.vo.business.item.ItemListVO">
+    <select id="getCouponScopeByPage" parameterType="com.eghm.dto.business.item.ItemCouponQueryDTO" resultType="com.eghm.vo.business.item.ItemListVO">
         select
         t.id,
         t.title,

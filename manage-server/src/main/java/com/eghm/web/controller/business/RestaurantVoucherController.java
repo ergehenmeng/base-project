@@ -1,15 +1,15 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.RestaurantVoucher;
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
-import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
-import com.eghm.model.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
+import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
+import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.RestaurantVoucherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

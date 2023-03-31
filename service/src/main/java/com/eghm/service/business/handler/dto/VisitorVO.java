@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.model.validation.annotation.IdCard;
+import com.eghm.validation.annotation.IdCard;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

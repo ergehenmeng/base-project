@@ -1,9 +1,9 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.business.item.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.item.ItemQueryDTO;
-import com.eghm.model.vo.business.item.ItemListVO;
-import com.eghm.model.vo.coupon.CouponListVO;
+import com.eghm.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.dto.business.item.ItemQueryDTO;
+import com.eghm.vo.business.item.ItemListVO;
+import com.eghm.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.ItemService;
 import io.swagger.annotations.Api;

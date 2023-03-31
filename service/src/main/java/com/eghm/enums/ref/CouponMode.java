@@ -1,0 +1,47 @@
+package com.eghm.enums.ref;
+
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Arrays;
+
+/**
+ * 优惠券领取方式
+ * @author 二哥很猛
+ * @date 2022/7/14
+ */
+@Getter
+@AllArgsConstructor
+public enum CouponMode {
+
+    /**
+     * 页面领取
+     */
+    PAGE_RECEIVE(1, "页面领取"),
+
+    /**
+     * 手动方法
+     */
+    GRANT(2, "手动方法");
+
+    /**
+     * 方式
+     */
+    @JsonValue
+    @EnumValue
+    private final int value;
+
+    /**
+     * 名称
+     */
+    private final String name;
+
+    public static CouponMode of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(PAGE_RECEIVE);
+    }
+}

@@ -1,6 +1,6 @@
 package com.eghm.configuration.task.job;
 
-import com.eghm.common.utils.DateUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.configuration.task.config.OnceTask;
 import com.eghm.configuration.task.config.SysTaskRegistrar;
 import lombok.extern.slf4j.Slf4j;

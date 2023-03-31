@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SmsLog;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.sms.SmsLogQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.sms.SmsLogQueryRequest;
 import com.eghm.service.sys.SmsLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

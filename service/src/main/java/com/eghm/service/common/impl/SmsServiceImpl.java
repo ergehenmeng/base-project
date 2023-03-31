@@ -1,11 +1,11 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.IdUtil;
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.SmsType;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.common.utils.StringUtil;
+import com.eghm.constant.CacheConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.SmsType;
+import com.eghm.exception.BusinessException;
+import com.eghm.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.SmsLog;
 import com.eghm.service.cache.CacheService;

@@ -1,15 +1,15 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.Line;
-import com.eghm.model.dto.business.line.LineAddRequest;
-import com.eghm.model.dto.business.line.LineEditRequest;
-import com.eghm.model.dto.business.line.LineQueryDTO;
-import com.eghm.model.dto.business.line.LineQueryRequest;
-import com.eghm.model.vo.business.line.LineListVO;
-import com.eghm.model.vo.business.line.LineVO;
+import com.eghm.dto.business.line.LineAddRequest;
+import com.eghm.dto.business.line.LineEditRequest;
+import com.eghm.dto.business.line.LineQueryDTO;
+import com.eghm.dto.business.line.LineQueryRequest;
+import com.eghm.vo.business.line.LineListVO;
+import com.eghm.vo.business.line.LineVO;
 
 import java.util.List;
 

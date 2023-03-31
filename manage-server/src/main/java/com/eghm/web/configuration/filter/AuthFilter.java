@@ -1,11 +1,11 @@
 package com.eghm.web.configuration.filter;
 
-import com.eghm.common.enums.ErrorCode;
+import com.eghm.enums.ErrorCode;
 import com.eghm.configuration.AbstractIgnoreFilter;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.model.dto.ext.JwtOperator;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.ext.JwtOperator;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;

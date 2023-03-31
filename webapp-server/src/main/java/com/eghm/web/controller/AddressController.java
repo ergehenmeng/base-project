@@ -1,11 +1,11 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.address.AddressAddDTO;
-import com.eghm.model.dto.address.AddressEditDTO;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.user.AddressVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.address.AddressAddDTO;
+import com.eghm.dto.address.AddressEditDTO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.user.AddressVO;
 import com.eghm.service.user.UserAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,8 +1,8 @@
 package com.eghm.service.pay.enums;
 
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

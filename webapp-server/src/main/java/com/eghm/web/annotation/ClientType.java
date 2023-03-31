@@ -1,7 +1,7 @@
 package com.eghm.web.annotation;
 
 
-import com.eghm.common.enums.Channel;
+import com.eghm.enums.Channel;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
 
 import java.lang.annotation.Documented;

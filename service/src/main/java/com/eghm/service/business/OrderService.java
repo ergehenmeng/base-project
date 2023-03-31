@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.common.enums.ref.OrderState;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.pay.enums.TradeState;

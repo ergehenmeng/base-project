@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LineMapper">
 
-    <select id="getByPage" parameterType="com.eghm.model.dto.business.line.LineQueryDTO" resultType="com.eghm.model.vo.business.line.LineListVO">
+    <select id="getByPage" parameterType="com.eghm.dto.business.line.LineQueryDTO" resultType="com.eghm.vo.business.line.LineListVO">
         select
         id,
         title,

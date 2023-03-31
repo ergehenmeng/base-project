@@ -6,20 +6,20 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
-import com.eghm.model.dto.business.line.LineAddRequest;
-import com.eghm.model.dto.business.line.LineEditRequest;
-import com.eghm.model.dto.business.line.LineQueryDTO;
-import com.eghm.model.dto.business.line.LineQueryRequest;
-import com.eghm.model.vo.business.line.LineDayConfigResponse;
-import com.eghm.model.vo.business.line.LineListVO;
-import com.eghm.model.vo.business.line.LineVO;
+import com.eghm.dto.business.line.LineAddRequest;
+import com.eghm.dto.business.line.LineEditRequest;
+import com.eghm.dto.business.line.LineQueryDTO;
+import com.eghm.dto.business.line.LineQueryRequest;
+import com.eghm.vo.business.line.LineDayConfigResponse;
+import com.eghm.vo.business.line.LineListVO;
+import com.eghm.vo.business.line.LineVO;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.eghm.common.enums.ErrorCode.LINE_DOWN;
+import static com.eghm.enums.ErrorCode.LINE_DOWN;
 
 /**
  * @author 二哥很猛

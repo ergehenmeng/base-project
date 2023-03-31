@@ -1,8 +1,8 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.common.convertor.YuanToCentDecoder;
-import com.eghm.model.validation.annotation.OptionInt;
-import com.eghm.model.validation.annotation.RangeInt;
+import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.validation.annotation.OptionInt;
+import com.eghm.validation.annotation.RangeInt;
 import com.eghm.state.machine.Context;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;

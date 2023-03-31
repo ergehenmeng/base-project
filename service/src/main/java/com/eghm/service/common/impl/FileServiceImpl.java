@@ -1,12 +1,12 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.common.utils.DateUtil;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.utils.DateUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
-import com.eghm.model.dto.ext.FilePath;
+import com.eghm.dto.ext.FilePath;
 import com.eghm.service.common.FileService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;

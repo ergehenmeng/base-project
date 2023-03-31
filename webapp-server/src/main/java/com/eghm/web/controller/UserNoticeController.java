@@ -1,12 +1,12 @@
 package com.eghm.web.controller;
 
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.PagingQuery;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.user.UserNoticeVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.user.UserNoticeVO;
 import com.eghm.service.user.UserNoticeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

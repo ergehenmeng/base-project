@@ -1,11 +1,11 @@
 package com.eghm.service.business;
 
 import com.eghm.model.LineConfig;
-import com.eghm.model.dto.business.line.config.LineConfigOneRequest;
-import com.eghm.model.dto.business.line.config.LineConfigQueryRequest;
-import com.eghm.model.dto.business.line.config.LineConfigRequest;
-import com.eghm.model.vo.business.line.config.LineConfigResponse;
-import com.eghm.model.vo.business.line.config.LineConfigVO;
+import com.eghm.dto.business.line.config.LineConfigOneRequest;
+import com.eghm.dto.business.line.config.LineConfigQueryRequest;
+import com.eghm.dto.business.line.config.LineConfigRequest;
+import com.eghm.vo.business.line.config.LineConfigResponse;
+import com.eghm.vo.business.line.config.LineConfigVO;
 
 import java.time.LocalDate;
 import java.util.List;

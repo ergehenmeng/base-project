@@ -1,7 +1,7 @@
 package com.eghm.configuration.template;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.constants.SystemConstant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;

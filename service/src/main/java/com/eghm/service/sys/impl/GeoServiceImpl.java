@@ -2,8 +2,8 @@ package com.eghm.service.sys.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.constant.CommonConstant;
+import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.service.sys.GeoService;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;

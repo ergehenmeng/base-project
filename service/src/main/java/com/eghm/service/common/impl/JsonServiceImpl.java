@@ -1,8 +1,8 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
 import com.eghm.service.common.JsonService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;

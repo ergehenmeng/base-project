@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.HomestayRoomMapper">
 
-    <select id="listPage" parameterType="com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest" resultType="com.eghm.model.vo.business.homestay.room.HomestayRoomResponse">
+    <select id="listPage" parameterType="com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest" resultType="com.eghm.vo.business.homestay.room.HomestayRoomResponse">
         select
         t.id,
         t.title,
@@ -32,8 +32,8 @@
         </if>
     </select>
 
-    <select id="getByPage" resultType="com.eghm.model.vo.business.homestay.room.HomestayRoomListVO"
-            parameterType="com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO">
+    <select id="getByPage" resultType="com.eghm.vo.business.homestay.room.HomestayRoomListVO"
+            parameterType="com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO">
         select
         id,
         title,
@@ -58,7 +58,7 @@
         </if>
     </select>
 
-    <select id="getRecommendRoom" resultType="com.eghm.model.vo.business.homestay.room.HomestayRoomListVO">
+    <select id="getRecommendRoom" resultType="com.eghm.vo.business.homestay.room.HomestayRoomListVO">
         select
             id,
             title,

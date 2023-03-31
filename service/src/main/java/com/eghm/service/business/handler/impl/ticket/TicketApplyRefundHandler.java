@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.impl.ticket;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.handler.dto.ApplyRefundContext;

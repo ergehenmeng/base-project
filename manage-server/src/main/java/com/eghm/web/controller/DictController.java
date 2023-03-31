@@ -1,12 +1,12 @@
 package com.eghm.web.controller;
 
 import com.eghm.model.SysDict;
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.dict.DictAddRequest;
-import com.eghm.model.dto.dict.DictEditRequest;
-import com.eghm.model.dto.dict.DictQueryRequest;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.dict.DictAddRequest;
+import com.eghm.dto.dict.DictEditRequest;
+import com.eghm.dto.dict.DictQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

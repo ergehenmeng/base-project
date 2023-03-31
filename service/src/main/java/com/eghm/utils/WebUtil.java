@@ -1,7 +1,7 @@
 package com.eghm.utils;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.enums.ErrorCode;
+import com.eghm.dto.ext.RespBody;
 import com.google.gson.Gson;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;

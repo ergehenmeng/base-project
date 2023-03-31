@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.RestaurantMapper">
 
-    <select id="getByPage" resultType="com.eghm.model.vo.business.restaurant.RestaurantListVO"
-            parameterType="com.eghm.model.dto.business.restaurant.RestaurantQueryDTO">
+    <select id="getByPage" resultType="com.eghm.vo.business.restaurant.RestaurantListVO"
+            parameterType="com.eghm.dto.business.restaurant.RestaurantQueryDTO">
         <choose>
             <when test="param.sortByDistance">
                 <include refid="getByPageSortDistanceSql"/>

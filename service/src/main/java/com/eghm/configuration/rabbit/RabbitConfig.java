@@ -1,7 +1,7 @@
 package com.eghm.configuration.rabbit;
 
-import com.eghm.common.constant.CommonConstant;
-import com.eghm.common.enums.ExchangeQueue;
+import com.eghm.constant.CommonConstant;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.configuration.log.LogTraceHolder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

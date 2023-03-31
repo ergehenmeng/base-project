@@ -1,12 +1,12 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
-import com.eghm.model.dto.business.travel.TravelAgencyAddRequest;
-import com.eghm.model.dto.business.travel.TravelAgencyEditRequest;
-import com.eghm.model.dto.business.travel.TravelAgencyQueryRequest;
+import com.eghm.dto.business.travel.TravelAgencyAddRequest;
+import com.eghm.dto.business.travel.TravelAgencyEditRequest;
+import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 
 /**
  * @author 殿小二

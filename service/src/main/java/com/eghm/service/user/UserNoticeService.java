@@ -1,9 +1,9 @@
 package com.eghm.service.user;
 
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.PagingQuery;
-import com.eghm.model.dto.ext.SendNotice;
-import com.eghm.model.vo.user.UserNoticeVO;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.SendNotice;
+import com.eghm.vo.user.UserNoticeVO;
 
 import java.util.List;
 

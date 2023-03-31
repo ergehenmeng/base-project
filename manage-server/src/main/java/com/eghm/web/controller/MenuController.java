@@ -1,12 +1,12 @@
 package com.eghm.web.controller;
 
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.IdStateDTO;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.menu.MenuAddRequest;
-import com.eghm.model.dto.menu.MenuEditRequest;
-import com.eghm.model.vo.menu.MenuResponse;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.IdStateDTO;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.menu.MenuAddRequest;
+import com.eghm.dto.menu.MenuEditRequest;
+import com.eghm.vo.menu.MenuResponse;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.annotations.Api;

@@ -3,10 +3,10 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.HomestayRoom;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryDTO;
-import com.eghm.model.dto.business.homestay.room.HomestayRoomQueryRequest;
-import com.eghm.model.vo.business.homestay.room.HomestayRoomListVO;
-import com.eghm.model.vo.business.homestay.room.HomestayRoomResponse;
+import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
+import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
+import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
+import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

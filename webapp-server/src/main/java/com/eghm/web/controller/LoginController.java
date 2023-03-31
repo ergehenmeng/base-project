@@ -1,11 +1,11 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.SmsType;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.login.*;
-import com.eghm.model.vo.login.LoginTokenVO;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.SmsType;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.login.*;
+import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.user.UserService;
 import com.eghm.utils.IpUtil;

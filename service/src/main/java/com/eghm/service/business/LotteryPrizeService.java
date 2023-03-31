@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.LotteryPrize;
-import com.eghm.model.dto.business.lottery.LotteryPrizeRequest;
+import com.eghm.dto.business.lottery.LotteryPrizeRequest;
 
 import java.util.List;
 

@@ -3,9 +3,9 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.ScenicTicket;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
-import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
-import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
+import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
+import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.vo.scenic.ticket.TicketBaseVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

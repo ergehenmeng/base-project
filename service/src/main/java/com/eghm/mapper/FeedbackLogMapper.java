@@ -3,8 +3,8 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.FeedbackLog;
-import com.eghm.model.dto.feedback.FeedbackQueryRequest;
-import com.eghm.model.vo.feedback.FeedbackVO;
+import com.eghm.dto.feedback.FeedbackQueryRequest;
+import com.eghm.vo.feedback.FeedbackVO;
 import org.apache.ibatis.annotations.Param;
 
 public interface FeedbackLogMapper extends BaseMapper<FeedbackLog> {

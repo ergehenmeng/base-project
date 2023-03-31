@@ -1,9 +1,9 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.common.utils.StringUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.mapper.SysAreaMapper;
 import com.eghm.model.SysArea;
-import com.eghm.model.vo.sys.SysAreaVO;
+import com.eghm.vo.sys.SysAreaVO;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;

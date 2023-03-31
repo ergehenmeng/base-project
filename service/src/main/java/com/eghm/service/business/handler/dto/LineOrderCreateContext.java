@@ -1,9 +1,9 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.common.annotation.Sign;
-import com.eghm.model.dto.ext.AsyncKey;
-import com.eghm.model.validation.annotation.Mobile;
-import com.eghm.model.validation.annotation.RangeInt;
+import com.eghm.annotation.Sign;
+import com.eghm.dto.ext.AsyncKey;
+import com.eghm.validation.annotation.Mobile;
+import com.eghm.validation.annotation.RangeInt;
 import com.eghm.state.machine.Context;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;

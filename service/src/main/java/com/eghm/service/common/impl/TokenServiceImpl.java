@@ -1,10 +1,10 @@
 package com.eghm.service.common.impl;
 
 
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.utils.StringUtil;
+import com.eghm.constant.CacheConstant;
+import com.eghm.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.model.dto.ext.RedisToken;
+import com.eghm.dto.ext.RedisToken;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.common.TokenService;

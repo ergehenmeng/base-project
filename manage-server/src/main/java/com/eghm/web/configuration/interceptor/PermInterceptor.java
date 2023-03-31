@@ -2,13 +2,13 @@ package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.enums.ErrorCode;
+import com.eghm.enums.ErrorCode;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysMenu;
-import com.eghm.model.dto.ext.JwtOperator;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.ext.JwtOperator;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;

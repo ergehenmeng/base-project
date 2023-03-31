@@ -1,9 +1,9 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.order.OrderResultVO;
+import com.eghm.constant.CacheConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.order.OrderResultVO;
 import com.eghm.service.cache.CacheService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

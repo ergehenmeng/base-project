@@ -1,8 +1,8 @@
 package com.eghm.service.common;
 
-import com.eghm.model.dto.ext.PushMessage;
-import com.eghm.model.dto.ext.PushNotice;
-import com.eghm.model.dto.ext.PushTemplateNotice;
+import com.eghm.dto.ext.PushMessage;
+import com.eghm.dto.ext.PushNotice;
+import com.eghm.dto.ext.PushTemplateNotice;
 
 /**
  * @author 二哥很猛

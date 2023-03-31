@@ -2,11 +2,11 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.CouponConfig;
-import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
-import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
-import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
-import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
-import com.eghm.model.vo.coupon.CouponListVO;
+import com.eghm.dto.business.coupon.config.CouponConfigAddRequest;
+import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
+import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.dto.business.coupon.config.CouponQueryDTO;
+import com.eghm.vo.coupon.CouponListVO;
 
 import java.util.List;
 

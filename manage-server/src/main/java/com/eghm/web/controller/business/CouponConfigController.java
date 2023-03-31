@@ -1,15 +1,15 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.State;
 import com.eghm.model.CouponConfig;
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
-import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
-import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
-import com.eghm.model.dto.business.coupon.user.GrantCouponDTO;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.coupon.config.CouponConfigAddRequest;
+import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
+import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.dto.business.coupon.user.GrantCouponDTO;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.UserCouponService;
 import io.swagger.annotations.Api;

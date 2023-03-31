@@ -1,8 +1,8 @@
 package com.eghm.service.business.handler.impl.item;
 
-import com.eghm.common.enums.ref.CloseType;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.RefundState;
+import com.eghm.enums.ref.CloseType;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.RefundState;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;

@@ -1,15 +1,15 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
-import com.eghm.model.dto.business.homestay.HomestayAddRequest;
-import com.eghm.model.dto.business.homestay.HomestayEditRequest;
-import com.eghm.model.dto.business.homestay.HomestayQueryDTO;
-import com.eghm.model.dto.business.homestay.HomestayQueryRequest;
-import com.eghm.model.vo.business.homestay.HomestayListVO;
-import com.eghm.model.vo.business.homestay.HomestayVO;
+import com.eghm.dto.business.homestay.HomestayAddRequest;
+import com.eghm.dto.business.homestay.HomestayEditRequest;
+import com.eghm.dto.business.homestay.HomestayQueryDTO;
+import com.eghm.dto.business.homestay.HomestayQueryRequest;
+import com.eghm.vo.business.homestay.HomestayListVO;
+import com.eghm.vo.business.homestay.HomestayVO;
 
 import java.util.List;
 

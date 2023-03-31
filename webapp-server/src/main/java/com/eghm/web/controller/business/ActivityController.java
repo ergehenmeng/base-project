@@ -1,9 +1,9 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.model.Activity;
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.vo.business.activity.ActivityBaseResponse;
-import com.eghm.model.vo.business.activity.ActivityVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.vo.business.activity.ActivityVO;
 import com.eghm.service.business.ActivityService;
 import com.eghm.utils.DataUtil;
 import io.swagger.annotations.Api;

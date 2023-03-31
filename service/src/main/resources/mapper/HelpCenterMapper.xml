@@ -16,7 +16,7 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
     </resultMap>
 
-    <select id="getListSorted" parameterType="com.eghm.model.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
+    <select id="getListSorted" parameterType="com.eghm.dto.help.HelpQueryRequest" resultMap="BaseResultMap">
         select classify, ask, answer from help_center where deleted = false and state = true and classify = #{classify}
         <if test="queryName != null and queryName != ''">
             and (ask like concat('%', #{queryName}, '%') or answer like concat('%', #{queryName} ,'%'))

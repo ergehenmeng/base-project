@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.model.dto.business.lottery.LotteryPrizeConfigRequest;
+import com.eghm.dto.business.lottery.LotteryPrizeConfigRequest;
 
 import java.util.List;
 

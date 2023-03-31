@@ -1,9 +1,9 @@
 package com.eghm.web.controller;
 
 import com.eghm.model.SysDept;
-import com.eghm.model.dto.dept.DeptAddRequest;
-import com.eghm.model.dto.dept.DeptEditRequest;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.dept.DeptAddRequest;
+import com.eghm.dto.dept.DeptEditRequest;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysDeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

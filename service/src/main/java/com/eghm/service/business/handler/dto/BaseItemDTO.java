@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.model.validation.annotation.RangeInt;
-import com.eghm.model.validation.group.ItemOrderCreateGroup;
+import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.group.ItemOrderCreateGroup;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

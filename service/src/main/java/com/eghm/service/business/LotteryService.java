@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
-import com.eghm.model.dto.business.lottery.LotteryAddRequest;
-import com.eghm.model.dto.business.lottery.LotteryEditRequest;
+import com.eghm.dto.business.lottery.LotteryAddRequest;
+import com.eghm.dto.business.lottery.LotteryEditRequest;
 
 /**
  * <p>

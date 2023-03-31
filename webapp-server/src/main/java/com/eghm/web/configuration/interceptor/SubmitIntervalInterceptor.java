@@ -1,12 +1,12 @@
 package com.eghm.web.configuration.interceptor;
 
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.constant.CacheConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.web.annotation.SubmitInterval;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
-import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.service.cache.CacheService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpMethod;

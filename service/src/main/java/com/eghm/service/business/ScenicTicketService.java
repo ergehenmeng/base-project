@@ -1,15 +1,15 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
-import com.eghm.model.dto.business.scenic.ticket.ScenicTicketAddRequest;
-import com.eghm.model.dto.business.scenic.ticket.ScenicTicketEditRequest;
-import com.eghm.model.dto.business.scenic.ticket.ScenicTicketQueryRequest;
-import com.eghm.model.vo.business.scenic.ticket.ScenicTicketResponse;
-import com.eghm.model.vo.scenic.ticket.TicketBaseVO;
-import com.eghm.model.vo.scenic.ticket.TicketVO;
+import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
+import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
+import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
+import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.vo.scenic.ticket.TicketBaseVO;
+import com.eghm.vo.scenic.ticket.TicketVO;
 
 import java.util.List;
 

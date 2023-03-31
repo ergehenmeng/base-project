@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.common.enums.SmsType;
+import com.eghm.enums.SmsType;
 
 import java.util.List;
 

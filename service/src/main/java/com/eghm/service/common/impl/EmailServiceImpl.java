@@ -1,15 +1,15 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.exception.ParameterException;
 import com.eghm.handler.email.AuthCodeEmailHandler;
 import com.eghm.handler.email.BaseEmailHandler;
-import com.eghm.model.dto.email.SendEmail;
-import com.eghm.model.dto.ext.VerifyEmailCode;
+import com.eghm.dto.email.SendEmail;
+import com.eghm.dto.ext.VerifyEmailCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
-import com.eghm.common.utils.SpringContextUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;

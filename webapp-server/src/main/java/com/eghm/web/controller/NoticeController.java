@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.notice.TopNoticeVO;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.notice.TopNoticeVO;
 import com.eghm.service.common.SysNoticeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

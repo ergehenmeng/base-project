@@ -1,10 +1,10 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.business.line.config.LineConfigOneRequest;
-import com.eghm.model.dto.business.line.config.LineConfigQueryRequest;
-import com.eghm.model.dto.business.line.config.LineConfigRequest;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.business.line.config.LineConfigResponse;
+import com.eghm.dto.business.line.config.LineConfigOneRequest;
+import com.eghm.dto.business.line.config.LineConfigQueryRequest;
+import com.eghm.dto.business.line.config.LineConfigRequest;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.business.line.config.LineConfigResponse;
 import com.eghm.service.business.LineConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

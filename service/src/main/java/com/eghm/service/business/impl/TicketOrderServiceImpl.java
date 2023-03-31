@@ -2,7 +2,7 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.common.constant.CommonConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.TicketOrderService;

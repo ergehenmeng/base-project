@@ -3,11 +3,11 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Item;
-import com.eghm.model.dto.business.item.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.item.ItemQueryDTO;
-import com.eghm.model.dto.business.item.ItemQueryRequest;
-import com.eghm.model.vo.business.item.ItemListResponse;
-import com.eghm.model.vo.business.item.ItemListVO;
+import com.eghm.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.dto.business.item.ItemQueryDTO;
+import com.eghm.dto.business.item.ItemQueryRequest;
+import com.eghm.vo.business.item.ItemListResponse;
+import com.eghm.vo.business.item.ItemListVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

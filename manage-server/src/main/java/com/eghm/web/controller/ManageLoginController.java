@@ -1,12 +1,12 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.constant.CommonConstant;
-import com.eghm.common.enums.ErrorCode;
+import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
+import com.eghm.enums.ErrorCode;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.login.LoginRequest;
-import com.eghm.model.vo.login.LoginResponse;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.login.LoginRequest;
+import com.eghm.vo.login.LoginResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysOperatorService;
 import com.eghm.service.sys.impl.SysConfigApi;

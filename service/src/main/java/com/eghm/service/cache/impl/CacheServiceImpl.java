@@ -1,11 +1,11 @@
 package com.eghm.service.cache.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import com.eghm.common.constant.CacheConstant;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.constant.CacheConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.model.dto.ext.AsyncResponse;
+import com.eghm.dto.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.cache.LockService;
 import com.eghm.service.common.JsonService;

@@ -1,17 +1,17 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
-import com.eghm.model.dto.business.item.ItemAddRequest;
-import com.eghm.model.dto.business.item.ItemCouponQueryDTO;
-import com.eghm.model.dto.business.item.ItemEditRequest;
-import com.eghm.model.dto.business.item.ItemQueryDTO;
-import com.eghm.model.dto.business.item.ItemQueryRequest;
-import com.eghm.model.vo.business.item.ItemListResponse;
-import com.eghm.model.vo.business.item.ItemListVO;
-import com.eghm.model.vo.business.item.ItemResponse;
+import com.eghm.dto.business.item.ItemAddRequest;
+import com.eghm.dto.business.item.ItemCouponQueryDTO;
+import com.eghm.dto.business.item.ItemEditRequest;
+import com.eghm.dto.business.item.ItemQueryDTO;
+import com.eghm.dto.business.item.ItemQueryRequest;
+import com.eghm.vo.business.item.ItemListResponse;
+import com.eghm.vo.business.item.ItemListVO;
+import com.eghm.vo.business.item.ItemResponse;
 
 import java.util.List;
 import java.util.Map;

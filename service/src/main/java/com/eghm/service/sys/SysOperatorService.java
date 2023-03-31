@@ -2,11 +2,11 @@ package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysOperator;
-import com.eghm.model.dto.operator.OperatorAddRequest;
-import com.eghm.model.dto.operator.OperatorEditRequest;
-import com.eghm.model.dto.operator.OperatorQueryRequest;
-import com.eghm.model.dto.operator.PasswordEditRequest;
-import com.eghm.model.vo.login.LoginResponse;
+import com.eghm.dto.operator.OperatorAddRequest;
+import com.eghm.dto.operator.OperatorEditRequest;
+import com.eghm.dto.operator.OperatorQueryRequest;
+import com.eghm.dto.operator.PasswordEditRequest;
+import com.eghm.vo.login.LoginResponse;
 
 /**
  * @author 二哥很猛

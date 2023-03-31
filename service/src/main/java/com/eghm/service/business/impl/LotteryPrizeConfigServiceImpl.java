@@ -2,13 +2,13 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.common.utils.DecimalUtil;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.utils.DecimalUtil;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryPrizeConfigMapper;
 import com.eghm.model.LotteryPrizeConfig;
-import com.eghm.model.dto.business.lottery.LotteryPrizeConfigRequest;
+import com.eghm.dto.business.lottery.LotteryPrizeConfigRequest;
 import com.eghm.service.business.LotteryPrizeConfigService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.RoleType;
+import com.eghm.enums.ref.RoleType;
 import com.eghm.model.SysRole;
-import com.eghm.model.dto.role.RoleAddRequest;
-import com.eghm.model.dto.role.RoleEditRequest;
-import com.eghm.model.dto.role.RoleQueryRequest;
+import com.eghm.dto.role.RoleAddRequest;
+import com.eghm.dto.role.RoleEditRequest;
+import com.eghm.dto.role.RoleQueryRequest;
 
 import java.util.List;
 

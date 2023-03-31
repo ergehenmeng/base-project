@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.UserCouponMapper">
 
-    <select id="getByPage" resultType="com.eghm.model.vo.coupon.UserCouponResponse" parameterType="com.eghm.model.dto.business.coupon.user.UserCouponQueryRequest">
+    <select id="getByPage" resultType="com.eghm.vo.coupon.UserCouponResponse" parameterType="com.eghm.dto.business.coupon.user.UserCouponQueryRequest">
         select
         t.id,
         t.state,
@@ -25,7 +25,7 @@
         order by t.id desc
     </select>
 
-    <select id="userCouponPage" resultType="com.eghm.model.vo.coupon.UserCouponVO" parameterType="com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO">
+    <select id="userCouponPage" resultType="com.eghm.vo.coupon.UserCouponVO" parameterType="com.eghm.dto.business.coupon.user.UserCouponQueryPageDTO">
         select
         t.id,
         t.state,
@@ -46,7 +46,7 @@
         order by t.id desc
     </select>
 
-    <select id="selectCoupon" resultType="com.eghm.model.vo.coupon.UserCouponBaseVO">
+    <select id="selectCoupon" resultType="com.eghm.vo.coupon.UserCouponBaseVO">
         select
         t.id,
         r.title,
@@ -63,7 +63,7 @@
         order by t.id desc
     </select>
 
-    <select id="countUserReceived" resultType="com.eghm.model.vo.coupon.UserCouponCountVO">
+    <select id="countUserReceived" resultType="com.eghm.vo.coupon.UserCouponCountVO">
         select
         count(id) as num,
         coupon_config_id as couponId

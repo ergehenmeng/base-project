@@ -1,9 +1,9 @@
 package com.eghm.configuration;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.ParameterException;
-import com.eghm.common.utils.DateUtil;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
+import com.eghm.utils.DateUtil;
 
 import java.beans.PropertyEditorSupport;
 

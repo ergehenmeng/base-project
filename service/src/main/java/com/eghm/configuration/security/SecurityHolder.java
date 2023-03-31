@@ -1,9 +1,9 @@
 package com.eghm.configuration.security;
 
 import com.alibaba.ttl.TransmittableThreadLocal;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.dto.ext.JwtOperator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 

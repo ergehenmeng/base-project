@@ -1,7 +1,7 @@
 package com.eghm.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.dto.ext.PagingQuery;
+import com.eghm.dto.ext.PagingQuery;
 
 /**
  * @author 二哥很猛

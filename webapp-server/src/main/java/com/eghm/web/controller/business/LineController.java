@@ -1,10 +1,10 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.line.LineQueryDTO;
-import com.eghm.model.vo.business.line.LineListVO;
-import com.eghm.model.vo.business.line.LineVO;
-import com.eghm.model.vo.business.line.config.LineConfigVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.line.LineQueryDTO;
+import com.eghm.vo.business.line.LineListVO;
+import com.eghm.vo.business.line.LineVO;
+import com.eghm.vo.business.line.config.LineConfigVO;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineService;
 import io.swagger.annotations.Api;

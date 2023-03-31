@@ -1,11 +1,11 @@
 package com.eghm.service.business;
 
 import com.eghm.model.HomestayRoomConfig;
-import com.eghm.model.dto.business.homestay.room.config.RoomConfigEditRequest;
-import com.eghm.model.dto.business.homestay.room.config.RoomConfigQueryRequest;
-import com.eghm.model.dto.business.homestay.room.config.RoomConfigRequest;
-import com.eghm.model.vo.business.homestay.room.config.RoomConfigResponse;
-import com.eghm.model.vo.business.homestay.room.config.RoomConfigVO;
+import com.eghm.dto.business.homestay.room.config.RoomConfigEditRequest;
+import com.eghm.dto.business.homestay.room.config.RoomConfigQueryRequest;
+import com.eghm.dto.business.homestay.room.config.RoomConfigRequest;
+import com.eghm.vo.business.homestay.room.config.RoomConfigResponse;
+import com.eghm.vo.business.homestay.room.config.RoomConfigVO;
 
 import java.time.LocalDate;
 import java.util.List;

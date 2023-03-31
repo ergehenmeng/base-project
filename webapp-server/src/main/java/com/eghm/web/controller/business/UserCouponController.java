@@ -1,11 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.business.coupon.user.ReceiveCouponDTO;
-import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.coupon.UserCouponBaseVO;
-import com.eghm.model.vo.coupon.UserCouponVO;
+import com.eghm.dto.business.coupon.user.ReceiveCouponDTO;
+import com.eghm.dto.business.coupon.user.UserCouponQueryPageDTO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.coupon.UserCouponBaseVO;
+import com.eghm.vo.coupon.UserCouponVO;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.web.annotation.Access;
 import io.swagger.annotations.Api;

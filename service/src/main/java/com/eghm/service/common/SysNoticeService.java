@@ -2,10 +2,10 @@ package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysNotice;
-import com.eghm.model.dto.notice.NoticeAddRequest;
-import com.eghm.model.dto.notice.NoticeEditRequest;
-import com.eghm.model.dto.notice.NoticeQueryRequest;
-import com.eghm.model.vo.notice.TopNoticeVO;
+import com.eghm.dto.notice.NoticeAddRequest;
+import com.eghm.dto.notice.NoticeEditRequest;
+import com.eghm.dto.notice.NoticeQueryRequest;
+import com.eghm.vo.notice.TopNoticeVO;
 
 import java.util.List;
 

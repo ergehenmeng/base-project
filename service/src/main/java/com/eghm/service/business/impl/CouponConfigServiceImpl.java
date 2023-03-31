@@ -6,18 +6,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.CouponMode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ref.CouponMode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
-import com.eghm.model.dto.business.coupon.config.CouponConfigAddRequest;
-import com.eghm.model.dto.business.coupon.config.CouponConfigEditRequest;
-import com.eghm.model.dto.business.coupon.config.CouponConfigQueryRequest;
-import com.eghm.model.dto.business.coupon.config.CouponQueryDTO;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.vo.coupon.CouponListVO;
+import com.eghm.dto.business.coupon.config.CouponConfigAddRequest;
+import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
+import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.dto.business.coupon.config.CouponQueryDTO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
 import com.eghm.service.business.UserCouponService;
@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.common.enums.ErrorCode.ITEM_DOWN;
+import static com.eghm.enums.ErrorCode.ITEM_DOWN;
 
 /**
  * @author 二哥很猛

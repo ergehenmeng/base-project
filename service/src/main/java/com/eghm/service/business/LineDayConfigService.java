@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.LineDayConfig;
-import com.eghm.model.dto.business.line.LineDayConfigRequest;
+import com.eghm.dto.business.line.LineDayConfigRequest;
 
 import java.util.List;
 

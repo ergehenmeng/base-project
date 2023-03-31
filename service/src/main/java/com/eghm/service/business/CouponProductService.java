@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.model.dto.business.coupon.product.CouponProductRequest;
+import com.eghm.dto.business.coupon.product.CouponProductRequest;
 
 import java.util.List;
 

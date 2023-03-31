@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysTaskLog;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.task.TaskLogQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.SysTaskLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

@@ -1,12 +1,12 @@
 package com.eghm.service.business.handler.impl.homestay;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.ref.DeliveryType;
-import com.eghm.common.enums.ref.OrderState;
-import com.eghm.common.enums.ref.ProductType;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.DeliveryType;
+import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;

@@ -1,12 +1,12 @@
 package com.eghm.service.business;
 
 import com.eghm.model.Activity;
-import com.eghm.model.dto.business.activity.ActivityAddRequest;
-import com.eghm.model.dto.business.activity.ActivityConfigRequest;
-import com.eghm.model.dto.business.activity.ActivityDeleteRequest;
-import com.eghm.model.dto.business.activity.ActivityEditRequest;
-import com.eghm.model.vo.business.activity.ActivityBaseDTO;
-import com.eghm.model.vo.business.activity.ActivityBaseResponse;
+import com.eghm.dto.business.activity.ActivityAddRequest;
+import com.eghm.dto.business.activity.ActivityConfigRequest;
+import com.eghm.dto.business.activity.ActivityDeleteRequest;
+import com.eghm.dto.business.activity.ActivityEditRequest;
+import com.eghm.vo.business.activity.ActivityBaseDTO;
+import com.eghm.vo.business.activity.ActivityBaseResponse;
 
 import java.util.List;
 

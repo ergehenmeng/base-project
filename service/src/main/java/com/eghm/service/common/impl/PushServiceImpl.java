@@ -14,15 +14,16 @@ import cn.jpush.api.push.model.audience.Audience;
 import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
-import com.eghm.configuration.PushProperties;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.model.PushTemplate;
-import com.eghm.model.dto.ext.PushMessage;
-import com.eghm.model.dto.ext.PushNotice;
-import com.eghm.model.dto.ext.PushTemplateNotice;
+import com.eghm.dto.ext.PushMessage;
+import com.eghm.dto.ext.PushNotice;
+import com.eghm.dto.ext.PushTemplateNotice;
 import com.eghm.service.common.PushService;
 import com.eghm.service.common.PushTemplateService;
 import com.google.common.collect.Maps;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -35,6 +36,7 @@ import java.util.Map;
  * @date 2019/8/29 10:57
  */
 @Slf4j(topic = "push_response")
+@AllArgsConstructor
 public class PushServiceImpl implements PushService {
 
     /**
@@ -44,23 +46,18 @@ public class PushServiceImpl implements PushService {
 
     private final PushTemplateService pushTemplateService;
 
-    private final PushProperties pushProperties;
+    private final SystemProperties systemProperties;
 
     private JPushClient pushClient;
 
     private final TemplateEngine templateEngine;
 
-    public PushServiceImpl(PushTemplateService pushTemplateService, PushProperties pushProperties, TemplateEngine templateEngine) {
-        this.pushTemplateService = pushTemplateService;
-        this.pushProperties = pushProperties;
-        this.templateEngine = templateEngine;
-    }
-
     @PostConstruct
     public void init() {
         ClientConfig config = ClientConfig.getInstance();
-        pushClient = new JPushClient(pushProperties.getMasterSecret(), pushProperties.getAppKey(), null, config);
-        String authCode = ServiceHelper.getBasicAuthorization(pushProperties.getMasterSecret(), pushProperties.getAppKey());
+        SystemProperties.PushProperties properties = systemProperties.getPush();
+        pushClient = new JPushClient(properties.getMasterSecret(), properties.getAppKey(), null, config);
+        String authCode = ServiceHelper.getBasicAuthorization(properties.getMasterSecret(), properties.getAppKey());
         ApacheHttpClient client = new ApacheHttpClient(authCode, null, config);
         pushClient.getPushClient().setHttpClient(client);
         log.info("极光推送客户端初始化成功...");

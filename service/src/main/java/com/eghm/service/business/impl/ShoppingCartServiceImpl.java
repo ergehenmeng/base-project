@@ -3,17 +3,17 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ShoppingCartMapper;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ShoppingCart;
-import com.eghm.model.dto.business.shopping.AddCartDTO;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.vo.shopping.ShoppingCartItemVO;
-import com.eghm.model.vo.shopping.ShoppingCartVO;
+import com.eghm.dto.business.shopping.AddCartDTO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.vo.shopping.ShoppingCartItemVO;
+import com.eghm.vo.shopping.ShoppingCartVO;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ShoppingCartService;
@@ -29,13 +29,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.eghm.common.enums.ErrorCode.CART_ITEM_EMPTY;
-import static com.eghm.common.enums.ErrorCode.ILLEGAL_OPERATION;
-import static com.eghm.common.enums.ErrorCode.ITEM_DOWN;
-import static com.eghm.common.enums.ErrorCode.ITEM_QUOTA;
-import static com.eghm.common.enums.ErrorCode.ITEM_SKU_MATCH;
-import static com.eghm.common.enums.ErrorCode.SHOPPING_CART_MAX;
-import static com.eghm.common.enums.ErrorCode.SKU_STOCK;
+import static com.eghm.enums.ErrorCode.CART_ITEM_EMPTY;
+import static com.eghm.enums.ErrorCode.ILLEGAL_OPERATION;
+import static com.eghm.enums.ErrorCode.ITEM_DOWN;
+import static com.eghm.enums.ErrorCode.ITEM_QUOTA;
+import static com.eghm.enums.ErrorCode.ITEM_SKU_MATCH;
+import static com.eghm.enums.ErrorCode.SHOPPING_CART_MAX;
+import static com.eghm.enums.ErrorCode.SKU_STOCK;
 
 /**
  * @author 二哥很猛

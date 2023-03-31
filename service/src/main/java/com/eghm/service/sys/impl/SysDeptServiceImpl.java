@@ -1,13 +1,13 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.SysDeptMapper;
 import com.eghm.model.SysDept;
-import com.eghm.model.dto.dept.DeptAddRequest;
-import com.eghm.model.dto.dept.DeptEditRequest;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.dto.dept.DeptAddRequest;
+import com.eghm.dto.dept.DeptEditRequest;
+import com.eghm.dto.ext.JwtOperator;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

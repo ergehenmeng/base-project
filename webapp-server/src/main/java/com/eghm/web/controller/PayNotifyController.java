@@ -1,6 +1,6 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.constant.WeChatConstant;
+import com.eghm.constant.WeChatConstant;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.dto.PayNotifyContext;
 import com.eghm.service.pay.PayNotifyLogService;
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.eghm.common.constant.CommonConstant.ALI_PAY_SUCCESS;
+import static com.eghm.constant.CommonConstant.ALI_PAY_SUCCESS;
 
 /**
  * @author 二哥很猛

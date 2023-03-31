@@ -2,9 +2,9 @@ package com.eghm.web.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.model.SysCache;
-import com.eghm.model.dto.cache.ClearCacheRequest;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.cache.ClearCacheRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.cache.SysCacheService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

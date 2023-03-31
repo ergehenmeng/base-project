@@ -1,12 +1,12 @@
 package com.eghm.configuration.task.config;
 
 import cn.hutool.core.util.ReflectUtil;
-import com.eghm.common.utils.DateUtil;
+import com.eghm.utils.DateUtil;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
 import com.eghm.service.common.TaskAlarmService;
 import com.eghm.utils.IpUtil;
-import com.eghm.common.utils.SpringContextUtil;
+import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.aop.support.AopUtils;

@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.common.enums.EmailType;
+import com.eghm.enums.EmailType;
 import com.eghm.model.EmailTemplate;
 
 /**

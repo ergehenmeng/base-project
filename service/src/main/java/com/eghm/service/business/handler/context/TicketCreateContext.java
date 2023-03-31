@@ -2,7 +2,7 @@ package com.eghm.service.business.handler.context;
 
 import com.eghm.model.Order;
 import com.eghm.model.ScenicTicket;
-import com.eghm.model.dto.ext.PreOrder;
+import com.eghm.dto.ext.PreOrder;
 import com.eghm.state.machine.Context;
 import lombok.Data;
 

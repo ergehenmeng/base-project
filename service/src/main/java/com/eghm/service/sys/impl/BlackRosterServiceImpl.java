@@ -5,11 +5,11 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.constant.CacheConstant;
+import com.eghm.constant.CacheConstant;
 import com.eghm.mapper.BlackRosterMapper;
 import com.eghm.model.BlackRoster;
-import com.eghm.model.dto.roster.BlackRosterAddRequest;
-import com.eghm.model.dto.roster.BlackRosterQueryRequest;
+import com.eghm.dto.roster.BlackRosterAddRequest;
+import com.eghm.dto.roster.BlackRosterQueryRequest;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.BlackRosterService;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,7 +17,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.List;
 

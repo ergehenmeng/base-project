@@ -2,10 +2,10 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.PushTemplate;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.push.PushTemplateEditRequest;
-import com.eghm.model.dto.push.PushTemplateQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.push.PushTemplateEditRequest;
+import com.eghm.dto.push.PushTemplateQueryRequest;
 import com.eghm.service.common.PushTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

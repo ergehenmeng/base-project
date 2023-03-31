@@ -1,8 +1,8 @@
 package com.eghm.service.user;
 
-import com.eghm.model.dto.address.AddressAddDTO;
-import com.eghm.model.dto.address.AddressEditDTO;
-import com.eghm.model.vo.user.AddressVO;
+import com.eghm.dto.address.AddressAddDTO;
+import com.eghm.dto.address.AddressEditDTO;
+import com.eghm.vo.user.AddressVO;
 
 import java.util.List;
 

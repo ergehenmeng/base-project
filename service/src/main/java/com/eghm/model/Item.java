@@ -1,11 +1,11 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.common.convertor.CentToYuanEncoder;
-import com.eghm.common.enums.ref.DeliveryType;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.RefundType;
-import com.eghm.common.enums.ref.State;
+import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.enums.ref.DeliveryType;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

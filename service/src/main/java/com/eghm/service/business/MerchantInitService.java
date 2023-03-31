@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.common.enums.ref.RoleType;
+import com.eghm.enums.ref.RoleType;
 import com.eghm.model.Merchant;
 
 import java.util.List;

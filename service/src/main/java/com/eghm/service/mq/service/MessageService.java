@@ -1,7 +1,7 @@
 package com.eghm.service.mq.service;
 
-import com.eghm.common.enums.ExchangeQueue;
-import com.eghm.model.dto.ext.AsyncKey;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.dto.ext.AsyncKey;
 
 /**
  * @author 二哥很猛 2022/6/10 15:55

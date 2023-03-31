@@ -1,11 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.shopping.AddCartDTO;
-import com.eghm.model.dto.business.shopping.CartQuantityDTO;
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.vo.shopping.ShoppingCartVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.shopping.AddCartDTO;
+import com.eghm.dto.business.shopping.CartQuantityDTO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.vo.shopping.ShoppingCartVO;
 import com.eghm.service.business.ShoppingCartService;
 import com.eghm.web.annotation.Access;
 import io.swagger.annotations.Api;

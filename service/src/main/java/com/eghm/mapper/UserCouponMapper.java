@@ -3,12 +3,12 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.UserCoupon;
-import com.eghm.model.dto.business.coupon.user.UserCouponQueryPageDTO;
-import com.eghm.model.dto.business.coupon.user.UserCouponQueryRequest;
-import com.eghm.model.vo.coupon.UserCouponBaseVO;
-import com.eghm.model.vo.coupon.UserCouponCountVO;
-import com.eghm.model.vo.coupon.UserCouponResponse;
-import com.eghm.model.vo.coupon.UserCouponVO;
+import com.eghm.dto.business.coupon.user.UserCouponQueryPageDTO;
+import com.eghm.dto.business.coupon.user.UserCouponQueryRequest;
+import com.eghm.vo.coupon.UserCouponBaseVO;
+import com.eghm.vo.coupon.UserCouponCountVO;
+import com.eghm.vo.coupon.UserCouponResponse;
+import com.eghm.vo.coupon.UserCouponVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

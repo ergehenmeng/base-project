@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
-import com.eghm.model.dto.business.shopping.AddCartDTO;
-import com.eghm.model.vo.shopping.ShoppingCartVO;
+import com.eghm.dto.business.shopping.AddCartDTO;
+import com.eghm.vo.shopping.ShoppingCartVO;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.mapper.LineDayConfigMapper;
 import com.eghm.model.LineDayConfig;
-import com.eghm.model.dto.business.line.LineDayConfigRequest;
+import com.eghm.dto.business.line.LineDayConfigRequest;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;

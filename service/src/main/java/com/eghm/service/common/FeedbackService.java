@@ -1,10 +1,10 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.dto.feedback.FeedbackAddDTO;
-import com.eghm.model.dto.feedback.FeedbackDisposeRequest;
-import com.eghm.model.dto.feedback.FeedbackQueryRequest;
-import com.eghm.model.vo.feedback.FeedbackVO;
+import com.eghm.dto.feedback.FeedbackAddDTO;
+import com.eghm.dto.feedback.FeedbackDisposeRequest;
+import com.eghm.dto.feedback.FeedbackQueryRequest;
+import com.eghm.vo.feedback.FeedbackVO;
 
 /**
  * @author 二哥很猛

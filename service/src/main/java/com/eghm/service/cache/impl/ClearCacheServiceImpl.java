@@ -1,6 +1,6 @@
 package com.eghm.service.cache.impl;
 
-import com.eghm.common.constant.CacheConstant;
+import com.eghm.constant.CacheConstant;
 import com.eghm.service.cache.ClearCacheService;
 import freemarker.template.Configuration;
 import lombok.extern.slf4j.Slf4j;

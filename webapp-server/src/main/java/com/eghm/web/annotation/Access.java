@@ -1,6 +1,6 @@
 package com.eghm.web.annotation;
 
-import com.eghm.model.dto.ext.ApiHolder;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 
 import java.lang.annotation.Documented;

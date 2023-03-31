@@ -1,15 +1,15 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.common.enums.ref.PlatformState;
-import com.eghm.common.enums.ref.State;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
-import com.eghm.model.dto.business.restaurant.RestaurantAddRequest;
-import com.eghm.model.dto.business.restaurant.RestaurantEditRequest;
-import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
-import com.eghm.model.dto.business.restaurant.RestaurantQueryRequest;
-import com.eghm.model.vo.business.restaurant.RestaurantListVO;
-import com.eghm.model.vo.business.restaurant.RestaurantVO;
+import com.eghm.dto.business.restaurant.RestaurantAddRequest;
+import com.eghm.dto.business.restaurant.RestaurantEditRequest;
+import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
+import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
+import com.eghm.vo.business.restaurant.RestaurantListVO;
+import com.eghm.vo.business.restaurant.RestaurantVO;
 
 import java.util.List;
 

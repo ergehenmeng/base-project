@@ -1,16 +1,16 @@
 package com.eghm.service.user;
 
 import com.eghm.model.User;
-import com.eghm.model.dto.login.AccountLoginDTO;
-import com.eghm.model.dto.login.SmsLoginDTO;
-import com.eghm.model.dto.register.RegisterUserDTO;
-import com.eghm.model.dto.user.BindEmailDTO;
-import com.eghm.model.dto.user.ChangeEmailDTO;
-import com.eghm.model.dto.user.SendEmailAuthCodeDTO;
-import com.eghm.model.dto.user.UserAuthDTO;
-import com.eghm.model.dto.ext.UserRegister;
-import com.eghm.model.vo.login.LoginTokenVO;
-import com.eghm.model.vo.user.SignInVO;
+import com.eghm.dto.login.AccountLoginDTO;
+import com.eghm.dto.login.SmsLoginDTO;
+import com.eghm.dto.register.RegisterUserDTO;
+import com.eghm.dto.user.BindEmailDTO;
+import com.eghm.dto.user.ChangeEmailDTO;
+import com.eghm.dto.user.SendEmailAuthCodeDTO;
+import com.eghm.dto.user.UserAuthDTO;
+import com.eghm.dto.ext.UserRegister;
+import com.eghm.vo.login.LoginTokenVO;
+import com.eghm.vo.user.SignInVO;
 
 /**
  * @author 二哥很猛

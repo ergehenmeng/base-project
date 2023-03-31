@@ -1,10 +1,10 @@
 package com.eghm.web.configuration.handler;
 
-import com.eghm.common.enums.ExchangeQueue;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ManageLog;
-import com.eghm.model.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtOperator;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;

@@ -1,11 +1,11 @@
 package com.eghm.handler.email;
 
-import com.eghm.common.enums.EmailType;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.EmailType;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.model.EmailTemplate;
-import com.eghm.model.dto.email.SendEmail;
+import com.eghm.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.EmailTemplateService;
 import lombok.extern.slf4j.Slf4j;

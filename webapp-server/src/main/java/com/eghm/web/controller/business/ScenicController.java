@@ -1,11 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.scenic.ScenicDetailDTO;
-import com.eghm.model.dto.business.scenic.ScenicQueryDTO;
-import com.eghm.model.vo.scenic.ScenicListVO;
-import com.eghm.model.vo.scenic.ScenicVO;
-import com.eghm.model.vo.scenic.ticket.TicketVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.scenic.ScenicDetailDTO;
+import com.eghm.dto.business.scenic.ScenicQueryDTO;
+import com.eghm.vo.scenic.ScenicListVO;
+import com.eghm.vo.scenic.ScenicVO;
+import com.eghm.vo.scenic.ticket.TicketVO;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import io.swagger.annotations.Api;

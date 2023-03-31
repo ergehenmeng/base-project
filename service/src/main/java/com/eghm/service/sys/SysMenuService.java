@@ -1,9 +1,9 @@
 package com.eghm.service.sys;
 
 import com.eghm.model.SysMenu;
-import com.eghm.model.dto.menu.MenuAddRequest;
-import com.eghm.model.dto.menu.MenuEditRequest;
-import com.eghm.model.vo.menu.MenuResponse;
+import com.eghm.dto.menu.MenuAddRequest;
+import com.eghm.dto.menu.MenuEditRequest;
+import com.eghm.vo.menu.MenuResponse;
 
 import java.util.List;
 

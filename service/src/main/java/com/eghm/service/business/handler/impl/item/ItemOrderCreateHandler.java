@@ -1,11 +1,11 @@
 package com.eghm.service.business.handler.impl.item;
 
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.enums.event.IEvent;
-import com.eghm.common.enums.ref.ProductType;
-import com.eghm.common.enums.ref.RefundType;
-import com.eghm.common.exception.BusinessException;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.RefundType;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.Order;

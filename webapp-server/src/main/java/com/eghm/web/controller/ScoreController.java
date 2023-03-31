@@ -1,10 +1,10 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.dto.ext.ApiHolder;
-import com.eghm.model.dto.ext.PageData;
-import com.eghm.model.dto.ext.RespBody;
-import com.eghm.model.dto.score.UserScoreQueryDTO;
-import com.eghm.model.vo.score.UserScoreVO;
+import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.score.UserScoreQueryDTO;
+import com.eghm.vo.score.UserScoreVO;
 import com.eghm.service.user.UserScoreLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -16,7 +16,7 @@
         </if>
     </select>
     
-    <select id="getRefundProcess" resultType="com.eghm.model.dto.ext.OrderRefund">
+    <select id="getRefundProcess" resultType="com.eghm.dto.ext.OrderRefund">
         select
              t.out_refund_no as outRefundNo,
              r.out_trade_no as outTradeNo,

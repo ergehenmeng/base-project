@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.mapper.SysTaskLogMapper;
 import com.eghm.model.SysTaskLog;
-import com.eghm.model.dto.task.TaskLogQueryRequest;
+import com.eghm.dto.task.TaskLogQueryRequest;
 import com.eghm.service.common.SysTaskLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

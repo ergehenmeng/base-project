@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.eghm.model.HomestayRoomConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.eghm.model.vo.business.homestay.room.config.HomestayMinPriceVO;
+import com.eghm.vo.business.homestay.room.config.HomestayMinPriceVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.time.LocalDate;

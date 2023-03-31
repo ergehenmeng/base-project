@@ -2,11 +2,11 @@ package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.HelpCenter;
-import com.eghm.model.dto.help.HelpAddRequest;
-import com.eghm.model.dto.help.HelpEditRequest;
-import com.eghm.model.dto.help.HelpQueryDTO;
-import com.eghm.model.dto.help.HelpQueryRequest;
-import com.eghm.model.vo.help.HelpCenterVO;
+import com.eghm.dto.help.HelpAddRequest;
+import com.eghm.dto.help.HelpEditRequest;
+import com.eghm.dto.help.HelpQueryDTO;
+import com.eghm.dto.help.HelpQueryRequest;
+import com.eghm.vo.help.HelpCenterVO;
 
 import java.util.List;
 

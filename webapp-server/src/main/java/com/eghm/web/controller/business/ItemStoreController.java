@@ -1,8 +1,8 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.vo.business.item.store.ItemStoreHomeVO;
-import com.eghm.model.vo.business.item.store.ItemStoreVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.vo.business.item.store.ItemStoreHomeVO;
+import com.eghm.vo.business.item.store.ItemStoreVO;
 import com.eghm.service.business.ItemStoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

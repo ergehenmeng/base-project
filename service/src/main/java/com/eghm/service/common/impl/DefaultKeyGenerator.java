@@ -1,6 +1,6 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.common.enums.Workspace;
+import com.eghm.enums.Workspace;
 import com.eghm.service.common.KeyGenerator;
 import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;

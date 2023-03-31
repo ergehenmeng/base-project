@@ -1,9 +1,9 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.dto.IdDTO;
-import com.eghm.model.dto.business.restaurant.RestaurantQueryDTO;
-import com.eghm.model.vo.business.restaurant.RestaurantListVO;
-import com.eghm.model.vo.business.restaurant.RestaurantVO;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
+import com.eghm.vo.business.restaurant.RestaurantListVO;
+import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.service.business.RestaurantService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,6 +1,6 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.common.enums.ExchangeQueue;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.mq.service.MessageService;

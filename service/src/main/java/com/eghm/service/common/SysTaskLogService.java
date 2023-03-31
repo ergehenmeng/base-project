@@ -2,7 +2,7 @@ package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysTaskLog;
-import com.eghm.model.dto.task.TaskLogQueryRequest;
+import com.eghm.dto.task.TaskLogQueryRequest;
 
 /**
  * @author 二哥很猛

@@ -1,8 +1,8 @@
 package com.eghm.web.configuration.filter;
 
-import com.eghm.common.constant.CommonConstant;
-import com.eghm.common.enums.ErrorCode;
-import com.eghm.common.exception.ParameterException;
+import com.eghm.constant.CommonConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ReadListener;

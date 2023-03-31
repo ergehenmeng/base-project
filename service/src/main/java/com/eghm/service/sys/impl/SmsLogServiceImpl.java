@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.mapper.SmsLogMapper;
 import com.eghm.model.SmsLog;
-import com.eghm.model.dto.sms.SmsLogQueryRequest;
+import com.eghm.dto.sms.SmsLogQueryRequest;
 import com.eghm.service.sys.SmsLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;

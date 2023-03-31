@@ -3,7 +3,7 @@ package com.eghm.web.configuration.handler;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.annotation.SkipWrapper;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.dto.ext.RespBody;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;

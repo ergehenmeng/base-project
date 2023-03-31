@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
-import com.eghm.common.enums.ExchangeQueue;
-import com.eghm.model.dto.ext.RespBody;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.mq.service.MessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

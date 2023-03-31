@@ -2,8 +2,8 @@ package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.BlackRoster;
-import com.eghm.model.dto.roster.BlackRosterAddRequest;
-import com.eghm.model.dto.roster.BlackRosterQueryRequest;
+import com.eghm.dto.roster.BlackRosterAddRequest;
+import com.eghm.dto.roster.BlackRosterQueryRequest;
 
 import java.util.List;
 

@@ -2,11 +2,11 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.common.constant.CacheConstant;
+import com.eghm.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
-import com.eghm.model.dto.business.lottery.LotteryPrizeRequest;
+import com.eghm.dto.business.lottery.LotteryPrizeRequest;
 import com.eghm.service.business.LotteryPrizeService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
