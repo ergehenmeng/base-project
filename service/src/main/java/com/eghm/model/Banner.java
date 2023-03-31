@@ -23,7 +23,7 @@ public class Banner extends BaseEntity {
     private String title;
 
     @ApiModelProperty("轮播图类型:由sys_dict的banner_type维护(不同模块的轮播均在该表中维护)")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty("客户端类型: PC,IOS,ANDROID,H5,WECHAT_MINI")
     private String clientType;
@@ -35,7 +35,7 @@ public class Banner extends BaseEntity {
     private String jumpUrl;
 
     @ApiModelProperty("轮播图顺序(大<->小) 最大的在最前面")
-    private Byte sort;
+    private Integer sort;
 
     @ApiModelProperty("开始展示时间(可在指定时间后开始展示)")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

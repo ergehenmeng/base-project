@@ -43,6 +43,6 @@ public class SmsLog implements Serializable {
     private String content;
 
     @ApiModelProperty("发送状态 0:失败 1:已发送")
-    private Byte state;
+    private Integer state;
 
 }

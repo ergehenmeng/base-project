@@ -16,10 +16,10 @@ import lombok.ToString;
 public class HelpCenter extends BaseEntity {
 
     @ApiModelProperty("帮助分类取sys_dict表中help_classify字段")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty("状态 0:不显示 1:显示")
-    private Byte state;
+    private Integer state;
 
     @ApiModelProperty("问")
     private String ask;
@@ -28,6 +28,6 @@ public class HelpCenter extends BaseEntity {
     private String answer;
 
     @ApiModelProperty("排序(小<->大)")
-    private Byte sort;
+    private Integer sort;
 
 }

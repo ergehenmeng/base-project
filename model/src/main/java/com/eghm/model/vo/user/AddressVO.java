@@ -58,5 +58,5 @@ public class AddressVO {
      * 状态 0:普通地址 1: 默认地址
      */
     @ApiModelProperty("状态 0:普通地址 1:默认地址")
-    private Byte state;
+    private Integer state;
 }

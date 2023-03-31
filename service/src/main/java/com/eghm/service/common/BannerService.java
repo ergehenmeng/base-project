@@ -21,7 +21,7 @@ public interface BannerService {
      * @param classify banner所属模块,数据字典的值
      * @return 轮播图列表
      */
-    List<Banner> getBanner(Channel channel, Byte classify);
+    List<Banner> getBanner(Channel channel, Integer classify);
 
     /**
      * 主键查询

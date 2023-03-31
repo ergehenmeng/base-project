@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class SendSmsServiceImpl implements SendSmsService {
 
     @Override
-    public byte sendSms(String mobile, String content) {
+    public int sendSms(String mobile, String content) {
         //TODO 待实现短信
         return 0;
     }

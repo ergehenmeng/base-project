@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.RangeInt;
 import com.eghm.state.machine.Context;

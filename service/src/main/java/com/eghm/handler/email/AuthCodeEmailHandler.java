@@ -44,10 +44,10 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
         String authCode = StringUtil.randomNumber(8);
         long expire = sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600);
         // 将本次发送验证码和接收的对象一并放入到缓存中
-        String cacheKey = email.getType().getValue() + "::" + userId;
+        String cacheKey = email.getType().getValue() + ":" + userId;
         cacheService.setHashValue(cacheKey, expire, AUTH_CODE, authCode);
         cacheService.setHashValue(cacheKey, expire, EMAIL, email.getEmail());
-        params.put("authCode", authCode);
+        params.put(AUTH_CODE, authCode);
         return params;
     }
 }

@@ -26,9 +26,9 @@ public class SysHoliday {
     private String dateMonth;
 
     @ApiModelProperty("类型 1:工作日 2:休息日")
-    private Byte type;
+    private Integer type;
 
     @ApiModelProperty("星期几")
-    private Byte weekday;
+    private Integer weekday;
 
 }

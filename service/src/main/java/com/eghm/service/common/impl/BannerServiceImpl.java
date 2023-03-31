@@ -30,7 +30,7 @@ public class BannerServiceImpl implements BannerService {
     private final CacheProxyService cacheProxyService;
 
     @Override
-    public List<Banner> getBanner(Channel channel, Byte classify) {
+    public List<Banner> getBanner(Channel channel, Integer classify) {
         return bannerMapper.getBannerList(classify, channel.name());
     }
 

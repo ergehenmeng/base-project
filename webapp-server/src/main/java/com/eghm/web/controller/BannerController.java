@@ -34,7 +34,7 @@ public class BannerController {
     @GetMapping("/list")
     @ApiOperation("查询可用的轮播图列表")
     @ApiImplicitParam(name = "classify", value = "轮播图分类id")
-    public RespBody<List<BannerVO>> list(@NotNull(message = "轮播图类型不能为空") @RequestParam("classify") Byte classify) {
+    public RespBody<List<BannerVO>> list(@NotNull(message = "轮播图类型不能为空") @RequestParam("classify") Integer classify) {
         List<Banner> bannerList = bannerService.getBanner(Channel.valueOf(ApiHolder.getChannel()), classify);
         return RespBody.success(DataUtil.copy(bannerList, banner -> DataUtil.copy(banner, BannerVO.class)));
     }

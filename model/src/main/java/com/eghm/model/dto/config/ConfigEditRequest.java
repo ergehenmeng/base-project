@@ -24,7 +24,7 @@ public class ConfigEditRequest {
 
     @ApiModelProperty(value = "参数类型(sys_dict#config_classify所配置)", required = true)
     @NotNull(message = "参数类型不能为空")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty(value = "参数值", required = true)
     @NotBlank(message = "参数值不能为空")

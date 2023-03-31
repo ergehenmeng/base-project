@@ -296,7 +296,7 @@ public class UserServiceImpl implements UserService {
         user.setRealName(request.getRealName());
         user.setBirthday(IdcardUtil.getBirthByIdCard(request.getIdCard()));
         user.setIdCard(SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8)).encryptHex(request.getIdCard()));
-        user.setSex((byte)IdcardUtil.getGenderByIdCard(request.getIdCard()));
+        user.setSex(IdcardUtil.getGenderByIdCard(request.getIdCard()));
         userMapper.updateById(user);
         //TODO 实名制认证
     }

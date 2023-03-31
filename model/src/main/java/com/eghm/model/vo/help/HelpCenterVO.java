@@ -16,7 +16,7 @@ public class HelpCenterVO {
      * 帮助分类
      */
     @ApiModelProperty("帮助分类")
-    private Byte classify;
+    private Integer classify;
 
     /**
      * 问题标题

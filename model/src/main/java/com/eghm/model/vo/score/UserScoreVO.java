@@ -25,7 +25,7 @@ public class UserScoreVO {
      * 积分类型
      */
     @ApiModelProperty("积分类型")
-    private Byte type;
+    private Integer type;
 
     /**
      * 时间

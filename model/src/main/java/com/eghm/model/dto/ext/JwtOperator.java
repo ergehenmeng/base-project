@@ -35,7 +35,7 @@ public class JwtOperator {
     /**
      * 数据权限类型(平台用户专属)
      */
-    private Byte dataType;
+    private Integer dataType;
 
     /**
      * 用户所属部门编号(平台用户专属)

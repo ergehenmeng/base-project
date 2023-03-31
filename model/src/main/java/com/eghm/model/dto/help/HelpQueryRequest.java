@@ -18,9 +18,9 @@ public class HelpQueryRequest extends PagingQuery implements Serializable {
     private static final long serialVersionUID = -3466349098042737884L;
 
     @ApiModelProperty("帮助说明类型")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty("是否显示 0:不显示 1:显示")
-    private Byte state;
+    private Integer state;
 
 }

@@ -25,7 +25,7 @@ public class UserScoreLog extends BaseEntity {
     private Integer score;
 
     @ApiModelProperty("积分收入或支出分类")
-    private Byte type;
+    private Integer type;
 
     @ApiModelProperty("备注信息")
     private String remark;

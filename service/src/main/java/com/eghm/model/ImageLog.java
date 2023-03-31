@@ -20,7 +20,7 @@ public class ImageLog extends BaseEntity {
     private String title;
 
     @ApiModelProperty("图片分类 数据字典image_log_type")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty("文件存放地址")
     private String path;

@@ -21,7 +21,7 @@ public class BannerQueryRequest extends PagingQuery {
     private static final long serialVersionUID = -7234026470157744373L;
 
     @ApiModelProperty("轮播图类型")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty("客户端类型 PC, ANDROID, IOS, H5, WECHAT ")
     private String clientType;

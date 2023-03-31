@@ -28,7 +28,7 @@ public class BannerEditRequest implements Serializable {
 
     @ApiModelProperty(value = "轮博图类型(数据字典)", required = true)
     @NotNull(message = "轮博图类型不能为空")
-    private Byte classify;
+    private Integer classify;
 
     /**
      * 客户端类型 {@link com.eghm.common.enums.Channel}
@@ -46,7 +46,7 @@ public class BannerEditRequest implements Serializable {
 
     @ApiModelProperty(value = "排序规则 大<->小 最大的在最前面", required = true)
     @NotNull(message = "排序不能为空")
-    private Byte sort;
+    private Integer sort;
 
     @ApiModelProperty(value = "开始展示时间(可在指定时间后开始展示)")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

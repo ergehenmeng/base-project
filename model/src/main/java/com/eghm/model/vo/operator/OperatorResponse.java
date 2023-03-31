@@ -23,13 +23,13 @@ public class OperatorResponse {
     private String mobile;
 
     @ApiModelProperty("用户状态:0:锁定,1:正常")
-    private Byte state;
+    private Integer state;
 
     @ApiModelProperty("部门编号")
     private String deptCode;
 
     @ApiModelProperty("权限类型")
-    private Byte permissionType;
+    private Integer permissionType;
 
     @ApiModelProperty("备注信息")
     private String remark;

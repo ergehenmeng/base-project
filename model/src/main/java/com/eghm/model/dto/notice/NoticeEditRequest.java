@@ -24,7 +24,7 @@ public class NoticeEditRequest implements Serializable {
     private String title;
 
     @ApiModelProperty(value = "公告类型(数据字典表sys_notice_type)", required = true)
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty(value = "公告内容(富文本)", required = true)
     @NotNull(message = "公告内容不能为空")

@@ -3,6 +3,8 @@ package com.eghm.utils;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.common.enums.ErrorCode;
 import com.eghm.common.exception.BusinessException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.HibernateValidator;
 import org.hibernate.validator.HibernateValidatorConfiguration;
 
@@ -18,9 +20,10 @@ import java.util.Set;
  * @author 殿小二
  * @date 2023/3/6
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BeanValidator {
     
-    private static ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().addProperty(HibernateValidatorConfiguration.FAIL_FAST, "true").buildValidatorFactory();
+    private static final ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().addProperty(HibernateValidatorConfiguration.FAIL_FAST, "true").buildValidatorFactory();
     
     public static <T> void validate(T t, Class<?>... groups) {
         Validator validator = validatorFactory.getValidator();

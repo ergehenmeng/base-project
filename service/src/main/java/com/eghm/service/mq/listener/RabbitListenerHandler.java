@@ -52,7 +52,6 @@ public class RabbitListenerHandler {
 
     /**
      * 零售商品消息队列订单过期处理
-     * TODO 待完善事件类型
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.ITEM_PAY_EXPIRE_QUEUE)
@@ -149,9 +148,7 @@ public class RabbitListenerHandler {
 
     @RabbitListener(queues = "test_queue")
     public void test(String msg, Message message, Channel channel) throws IOException {
-        processMessageAck(msg, message, channel, s -> {
-            log.info("接收到消息 : [{}]", s);
-        });
+        processMessageAck(msg, message, channel, s -> log.info("接收到消息 : [{}]", s));
     }
 
     /**

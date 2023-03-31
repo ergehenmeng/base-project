@@ -1,6 +1,6 @@
 package com.eghm.model.dto.business.coupon.user;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import com.eghm.model.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

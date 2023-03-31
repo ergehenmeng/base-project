@@ -69,7 +69,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")
-    public List<Banner> getBanner(Channel channel, Byte classify) {
+    public List<Banner> getBanner(Channel channel, Integer classify) {
         return bannerMapper.getBannerList(classify, channel.name());
     }
 
@@ -125,7 +125,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
     public void publishNotice(Long id) {
         SysNotice notice = new SysNotice();
-        notice.setState((byte) 1);
+        notice.setState(1);
         notice.setId(id);
         sysNoticeMapper.updateById(notice);
     }

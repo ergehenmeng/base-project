@@ -61,7 +61,7 @@ public interface SysDictService {
      * @param hiddenValue 隐藏值
      * @return 显示值
      */
-    String getDictValue(String nid, Byte hiddenValue);
+    String getDictValue(String nid, Integer hiddenValue);
 
     /**
      * 批量查询字典标签

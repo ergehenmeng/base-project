@@ -1,6 +1,6 @@
 package com.eghm.model.dto.register;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import com.eghm.model.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

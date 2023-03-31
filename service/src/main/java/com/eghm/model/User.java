@@ -50,10 +50,10 @@ public class User extends BaseEntity {
     private String birthday;
 
     @ApiModelProperty("性别 性别 0:未知 1:男 2:女 ")
-    private Byte sex;
+    private Integer sex;
 
     @ApiModelProperty("注册渠道 pc,android,ios,h5,other")
-    private Byte channel;
+    private Integer channel;
 
     @ApiModelProperty("头像")
     private String avatar;

@@ -40,6 +40,6 @@ public class BannerVO {
      * 排序
      */
     @ApiModelProperty("多图时排序规则大<->小")
-    private Byte sort;
+    private Integer sort;
 
 }

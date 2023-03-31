@@ -1,6 +1,6 @@
 package com.eghm.model.dto.help;
 
-import com.eghm.model.validation.annotation.OptionByte;
+import com.eghm.model.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -23,11 +23,11 @@ public class HelpEditRequest implements Serializable {
 
     @ApiModelProperty(value = "帮助说明分类", required = true)
     @NotNull(message = "请选择分类")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty(value = "是否显示 0:不显示 1:显示", required = true)
-    @OptionByte(value = {0, 1}, message = "显示状态不合法")
-    private Byte state;
+    @OptionInt(value = {0, 1}, message = "显示状态不合法")
+    private Integer state;
 
     @ApiModelProperty(value = "问", required = true)
     @NotBlank(message = "\"问\"不能为空")

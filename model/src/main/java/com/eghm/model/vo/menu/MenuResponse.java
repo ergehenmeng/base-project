@@ -30,7 +30,7 @@ public class MenuResponse {
     private String path;
     
     @ApiModelProperty("菜单级别 1:导航 2:按钮")
-    private Byte state;
+    private Integer state;
     
     @ApiModelProperty("子菜单")
     private List<MenuResponse> children;

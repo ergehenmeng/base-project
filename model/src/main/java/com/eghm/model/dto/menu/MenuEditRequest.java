@@ -26,7 +26,7 @@ public class MenuEditRequest implements Serializable {
 
     @ApiModelProperty(value = "菜单等级 1:导航菜单 2:按钮菜单", required = true)
     @OptionInt(value = {1, 2}, message = "菜单等级不合法")
-    private Byte grade;
+    private Integer grade;
 
     @ApiModelProperty(value = "菜单url")
     private String path;

@@ -1,6 +1,6 @@
 package com.eghm.model.dto.score;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import com.eghm.model.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import lombok.ToString;
 public class UserScoreQueryDTO extends PagingQuery {
 
     @ApiModelProperty("积分类型")
-    private Byte type;
+    private Integer type;
 
     @Sign
     @ApiModelProperty(hidden = true)

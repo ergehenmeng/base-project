@@ -123,7 +123,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
      * @param refundLog 退款记录
      */
     private void after(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
-        if (dto.getState().intValue() == AuditState.REFUSE.getValue()) {
+        if (dto.getState() == AuditState.REFUSE.getValue()) {
             orderVisitorService.unlockVisitor(dto.getOrderNo(), refundLog.getId());
         }
     }

@@ -17,5 +17,5 @@ public interface HelpCenterMapper extends BaseMapper<HelpCenter> {
      * @param queryName 关键字查询
      * @return list 不包含删除的和不显示的,且排序好了
      */
-    List<HelpCenter> getListSorted(@Param("classify") Byte classify, @Param("queryName") String queryName);
+    List<HelpCenter> getListSorted(@Param("classify") Integer classify, @Param("queryName") String queryName);
 }

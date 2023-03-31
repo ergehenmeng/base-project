@@ -18,6 +18,6 @@ public class NoticeQueryRequest extends PagingQuery implements Serializable {
     private static final long serialVersionUID = -6968777991245814063L;
 
     @ApiModelProperty("公告类型")
-    private Byte classify;
+    private Integer classify;
 
 }

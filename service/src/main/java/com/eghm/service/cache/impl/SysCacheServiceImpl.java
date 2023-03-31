@@ -87,9 +87,9 @@ public class SysCacheServiceImpl implements SysCacheService {
         cache.setCacheName(cacheName);
         cache.setUpdateTime(LocalDateTime.now());
         if (state) {
-            cache.setState((byte) 1);
+            cache.setState(1);
         } else {
-            cache.setState((byte) 2);
+            cache.setState(2);
         }
         sysCacheMapper.updateCache(cache);
     }

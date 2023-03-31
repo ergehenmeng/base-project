@@ -29,7 +29,7 @@ public class SmsLogQueryRequest extends PagingQuery {
     private Date endTime;
 
     @ApiModelProperty("短信发送状态 0:发送中 1:发送成功 2:发送失败")
-    private Byte state;
+    private Integer state;
 
     @ApiModelProperty("短信类型")
     private String smsType;

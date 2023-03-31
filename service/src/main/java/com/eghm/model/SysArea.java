@@ -17,17 +17,17 @@ public class SysArea implements Serializable {
     /**
      * 省级
      */
-    public static final byte CLASSIFY_PROVINCE = 1;
+    public static final int CLASSIFY_PROVINCE = 1;
 
     /**
      * 市级
      */
-    public static final byte CLASSIFY_CITY = 2;
+    public static final int CLASSIFY_CITY = 2;
 
     /**
      * 县级
      */
-    public static final byte CLASSIFY_COUNTY = 3;
+    public static final int CLASSIFY_COUNTY = 3;
 
     @ApiModelProperty("区域代码")
     private Long id;
@@ -45,6 +45,6 @@ public class SysArea implements Serializable {
     private String mark;
 
     @ApiModelProperty("分类 省份1级 市2级 县3级")
-    private Byte classify;
+    private Integer classify;
 
 }

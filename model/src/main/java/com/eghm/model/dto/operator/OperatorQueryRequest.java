@@ -1,7 +1,7 @@
 package com.eghm.model.dto.operator;
 
 import com.eghm.model.dto.ext.PagingQuery;
-import com.eghm.model.validation.annotation.OptionByte;
+import com.eghm.model.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,8 +19,8 @@ public class OperatorQueryRequest extends PagingQuery implements Serializable {
     private static final long serialVersionUID = 6710255160163962722L;
 
     @ApiModelProperty("锁定状态 0: 锁定 1:正常")
-    @OptionByte(value = {0, 1}, required = false)
-    private Byte state;
+    @OptionInt(value = {0, 1}, required = false)
+    private Integer state;
 
 
 }

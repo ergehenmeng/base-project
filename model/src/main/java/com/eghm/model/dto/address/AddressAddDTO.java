@@ -1,6 +1,6 @@
 package com.eghm.model.dto.address;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,7 +19,7 @@ public class AddressAddDTO {
     private Long userId;
 
     @ApiModelProperty("是否为默认地址 0:非默认 1:默认")
-    private Byte state;
+    private Integer state;
 
     @ApiModelProperty(value = "省份id",required = true)
     @NotNull(message = "省份不能为空")

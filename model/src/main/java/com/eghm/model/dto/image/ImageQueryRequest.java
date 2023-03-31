@@ -18,6 +18,6 @@ public class ImageQueryRequest extends PagingQuery implements Serializable {
     private static final long serialVersionUID = 4515347312371743977L;
 
     @ApiModelProperty("图片分类(数据字典)")
-    private Byte classify;
+    private Integer classify;
 
 }

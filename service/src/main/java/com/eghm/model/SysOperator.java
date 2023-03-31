@@ -21,12 +21,12 @@ public class SysOperator extends BaseEntity {
     /**
      * 正常
      */
-    public static final byte STATE_1 = 1;
+    public static final int STATE_1 = 1;
 
     /**
      * 锁定
      */
-    public static final byte STATE_0 = 0;
+    public static final int STATE_0 = 0;
 
     /**
      * 系统用户
@@ -48,7 +48,7 @@ public class SysOperator extends BaseEntity {
     private Integer userType;
 
     @ApiModelProperty("用户状态:0:锁定,1:正常")
-    private Byte state;
+    private Integer state;
 
     @ApiModelProperty("登陆密码")
     @JsonIgnore
@@ -62,7 +62,7 @@ public class SysOperator extends BaseEntity {
     private String deptCode;
 
     @ApiModelProperty("权限类型")
-    private Byte permissionType;
+    private Integer permissionType;
 
     @ApiModelProperty("备注信息")
     private String remark;

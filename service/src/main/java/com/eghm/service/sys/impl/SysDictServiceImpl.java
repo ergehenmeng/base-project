@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 数据字典服务类
@@ -86,10 +87,10 @@ public class SysDictServiceImpl implements SysDictService {
     }
 
     @Override
-    public String getDictValue(String nid, Byte hiddenValue) {
+    public String getDictValue(String nid, Integer hiddenValue) {
         List<SysDict> dictList = cacheProxyService.getDictByNid(nid);
         for (SysDict dict : dictList) {
-            if (dict.getHiddenValue().equals(hiddenValue)) {
+            if (Objects.equals(dict.getHiddenValue(), hiddenValue)) {
                 return dict.getShowValue();
             }
         }

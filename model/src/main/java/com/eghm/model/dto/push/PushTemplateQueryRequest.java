@@ -1,7 +1,7 @@
 package com.eghm.model.dto.push;
 
 import com.eghm.model.dto.ext.PagingQuery;
-import com.eghm.model.validation.annotation.OptionByte;
+import com.eghm.model.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +17,7 @@ public class PushTemplateQueryRequest extends PagingQuery {
     private static final long serialVersionUID = 2652554259813794315L;
 
     @ApiModelProperty("0:关闭 1:开启")
-    @OptionByte(value = {0, 1}, required = false)
-    private Byte state;
+    @OptionInt(value = {0, 1}, required = false)
+    private Integer state;
 
 }

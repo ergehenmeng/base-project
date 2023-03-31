@@ -23,7 +23,7 @@ public class VersionAddRequest implements Serializable {
     
     @ApiModelProperty(required = true, value = "上架状态 0:待上架 1:已上架")
     @NotNull(message = "上架状态不能为空")
-    private Byte state;
+    private Integer state;
     
     @ApiModelProperty(required = true, value = "版本号(0.0.01~99.99.99)")
     @NotBlank(message = "版本号不能为空")

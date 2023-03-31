@@ -13,12 +13,12 @@ public enum ScoreType {
     /**
      * 签到积分
      */
-    SIGN_IN((byte) 1, "签到积分", "+");
+    SIGN_IN(1, "签到积分", "+");
 
     /**
      * 类型
      */
-    private final byte value;
+    private final int value;
 
     /**
      * 说明

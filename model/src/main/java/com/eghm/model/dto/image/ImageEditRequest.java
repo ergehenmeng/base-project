@@ -26,7 +26,7 @@ public class ImageEditRequest implements Serializable {
 
     @ApiModelProperty(value = "图片类型", required = true)
     @NotNull(message = "图片类型不能为空")
-    private Byte classify;
+    private Integer classify;
 
     @ApiModelProperty("备注信息")
     private String remark;

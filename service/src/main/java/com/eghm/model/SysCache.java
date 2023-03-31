@@ -28,7 +28,7 @@ public class SysCache {
     private String cacheName;
 
     @ApiModelProperty("缓存更新状态 0:未更新 1:更新成功 2:更新失败")
-    private Byte state;
+    private Integer state;
 
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

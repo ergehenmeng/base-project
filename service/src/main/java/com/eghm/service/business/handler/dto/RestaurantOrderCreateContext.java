@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.dto;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import com.eghm.model.dto.ext.AsyncKey;
 import com.eghm.model.validation.annotation.Mobile;
 import com.eghm.model.validation.annotation.RangeInt;

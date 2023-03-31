@@ -22,7 +22,7 @@ public class SysDict extends BaseEntity {
     private String nid;
 
     @ApiModelProperty("数据字典隐藏值")
-    private Byte hiddenValue;
+    private Integer hiddenValue;
 
     @ApiModelProperty("显示值")
     private String showValue;

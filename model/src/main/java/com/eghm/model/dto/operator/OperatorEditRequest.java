@@ -35,7 +35,7 @@ public class OperatorEditRequest implements Serializable {
     private String roleIds;
 
     @ApiModelProperty("数据权限类型")
-    private Byte permissionType;
+    private Integer permissionType;
 
     @ApiModelProperty("数据权限部门id,逗号分割")
     private String deptIds;

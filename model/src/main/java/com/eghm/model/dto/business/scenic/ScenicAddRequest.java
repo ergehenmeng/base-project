@@ -1,6 +1,6 @@
 package com.eghm.model.dto.business.scenic;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import com.eghm.model.validation.annotation.OptionInt;
 import com.eghm.model.validation.annotation.Phone;
 import io.swagger.annotations.ApiModelProperty;

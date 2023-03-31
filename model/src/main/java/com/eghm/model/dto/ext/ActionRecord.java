@@ -1,6 +1,6 @@
 package com.eghm.model.dto.ext;
 
-import com.eghm.model.annotation.Sign;
+import com.eghm.common.annotation.Sign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;

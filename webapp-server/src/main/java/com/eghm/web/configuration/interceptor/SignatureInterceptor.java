@@ -13,6 +13,7 @@ import com.eghm.model.dto.ext.RequestMessage;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +31,7 @@ public class SignatureInterceptor implements InterceptorAdapter {
     private final SysConfigApi sysConfigApi;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         if (!this.supportHandler(handler)) {
             return true;
         }

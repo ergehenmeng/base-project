@@ -24,7 +24,7 @@ public interface UserAddressMapper extends BaseMapper<UserAddress> {
      * @param state 状态
      * @return 批量多少条
      */
-    int updateState(@Param("userId")Long userId, @Param("state")Byte state);
+    int updateState(@Param("userId")Long userId, @Param("state")Integer state);
 
     /**
      * 主键+userId更新地址

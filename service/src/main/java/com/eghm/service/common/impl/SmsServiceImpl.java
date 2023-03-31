@@ -128,7 +128,7 @@ public class SmsServiceImpl implements SmsService {
      * @param smsType 短信类型
      */
     private void doSendSms(String mobile, String content, SmsType smsType) {
-        byte state = sendSmsService.sendSms(mobile, content);
+        int state = sendSmsService.sendSms(mobile, content);
         SmsLog smsLog = SmsLog.builder().content(content).mobile(mobile).smsType(smsType.getValue()).state(state).build();
         smsLogService.addSmsLog(smsLog);
     }

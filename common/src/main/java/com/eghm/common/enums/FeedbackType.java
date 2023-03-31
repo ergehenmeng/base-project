@@ -16,29 +16,29 @@ public enum FeedbackType {
     /**
      * 功能异常
      */
-    EXCEPTION((byte) 1, "功能异常"),
+    EXCEPTION(1, "功能异常"),
 
     /**
      * 产品建议
      */
-    ADVISE((byte)2, "产品建议"),
+    ADVISE(2, "产品建议"),
 
     /**
      * 安全问题
      */
-    SECURITY((byte)3, "安全问题"),
+    SECURITY(3, "安全问题"),
 
     /**
      * 其他问题
      */
-    OTHER((byte)4, "其他问题"),
+    OTHER(4, "其他问题"),
 
     ;
-    private final byte value;
+    private final int value;
 
     private final String msg;
 
-    public static FeedbackType getType(Byte type) {
+    public static FeedbackType getType(Integer type) {
         if (type == null) {
             return null;
         }

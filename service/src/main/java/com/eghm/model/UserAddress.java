@@ -20,19 +20,19 @@ public class UserAddress extends BaseEntity {
     /**
      * 默认地址
      */
-    public static final byte STATE_DEFAULT = 1;
+    public static final int STATE_DEFAULT = 1;
 
     /**
      * 普通地址
      */
-    public static final byte STATE_COMMON = 0;
+    public static final int STATE_COMMON = 0;
 
     @ApiModelProperty("用户id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
     @ApiModelProperty("状态 0: 普通地址  1:默认地址")
-    private Byte state;
+    private Integer state;
 
     @ApiModelProperty("省份id")
     @JsonSerialize(using = ToStringSerializer.class)
