@@ -6,8 +6,8 @@
 * java1.8+
 * redis3.2+
 * mysql5.7+
-* spring boot 2.3.5
-* spring security
+* spring boot 2.7.8
+* spring security(废弃)
 * mybatis
 * freemarker
 * nginx
