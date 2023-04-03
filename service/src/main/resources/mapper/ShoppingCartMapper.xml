@@ -7,16 +7,16 @@
         t.id,
         t.store_id as storeId,
         m.title as storeTitle,
-        ifnull(ps.cover_url, r.cover_url) as coverUrl,
+        r.cover_url as coverUrl,
         r.title,
         t.quantity,
         ps.sale_price as salePrice,
         t.sale_price as rawSalePrice,
         r.quota as quota,
-        ps.title as skuName,
+        if(second_spec_value is null, concat(ps.primary_spec_value, '-', ps.second_spec_value), ps.primary_spec_value) as skuName,
         ps.stock,
         ps.deleted as skuState,
-        r.audit_state as productState
+        r.state as productState
         from shopping_cart t
         left join item_store m on t.store_id = m.id
         left join item r on t.item_id = r.id
