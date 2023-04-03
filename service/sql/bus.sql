@@ -782,3 +782,19 @@ CREATE TABLE `lottery_prize_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖位置配置表';
 
+CREATE TABLE `lottery_log`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `lottery_id`  bigint(20) DEFAULT NULL COMMENT '抽奖活动id',
+    `member_id`   bigint(20) DEFAULT NULL COMMENT '用户id',
+    `location`    tinyint(1) DEFAULT NULL COMMENT '抽奖位置',
+    `winning`     bit(1)     DEFAULT b'0' COMMENT '是否中奖 0:未中奖 1:中奖',
+    `prize_id`    bigint(20) DEFAULT NULL COMMENT '中奖奖品id',
+    `create_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '抽奖时间',
+    `update_time` datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`),
+    KEY `lottery_member_idx` (`lottery_id`, `member_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖记录表';
+

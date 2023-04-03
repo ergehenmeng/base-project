@@ -1,17 +1,19 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.LotteryState;
-import com.eghm.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.mapper.LotteryMapper;
-import com.eghm.model.Lottery;
-import com.eghm.model.LotteryPrize;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
 import com.eghm.dto.business.lottery.LotteryPrizeConfigRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.LotteryState;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.LotteryMapper;
+import com.eghm.model.Lottery;
+import com.eghm.model.LotteryPrize;
+import com.eghm.service.business.LotteryLogService;
 import com.eghm.service.business.LotteryPrizeConfigService;
 import com.eghm.service.business.LotteryPrizeService;
 import com.eghm.service.business.LotteryService;
@@ -21,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,7 +46,9 @@ public class LotteryServiceImpl implements LotteryService {
     private final LotteryPrizeService lotteryPrizeService;
     
     private final LotteryPrizeConfigService lotteryPrizeConfigService;
-    
+
+    private final LotteryLogService lotteryLogService;
+
     @Override
     public void create(LotteryAddRequest request) {
         this.checkConfig(request.getConfigList());
@@ -68,6 +73,53 @@ public class LotteryServiceImpl implements LotteryService {
         List<LotteryPrize> prizeList = lotteryPrizeService.update(lottery.getId(), request.getPrizeList());
         List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
         lotteryPrizeConfigService.update(lottery.getId(), request.getConfigList(), prizeIds);
+    }
+
+    @Override
+    public void lottery(Long lotteryId, Long userId) {
+        Lottery lottery = this.selectByIdRequired(lotteryId);
+        this.checkLottery(lottery, userId);
+
+    }
+
+    @Override
+    public Lottery selectByIdRequired(Long lotteryId) {
+        Lottery lottery = lotteryMapper.selectById(lotteryId);
+        if (lottery == null) {
+            log.error("抽奖活动可能已删除 [{}]", lotteryId);
+            throw new BusinessException(ErrorCode.LOTTERY_NULL);
+        }
+        return lottery;
+    }
+
+
+    /**
+     * 校验是否可以抽奖
+     * @param lottery 抽奖信息
+     * @param memberId 用户id
+     */
+    private void checkLottery(Lottery lottery, Long memberId) {
+        if (lottery.getState() != LotteryState.START) {
+            log.error("抽奖活动不在进行中 [{}] [{}]", lottery.getId(), lottery.getState());
+            throw new BusinessException(ErrorCode.LOTTERY_STATE);
+        }
+        LocalDateTime now = LocalDateTime.now();
+        if (lottery.getStartTime().isAfter(now) || lottery.getEndTime().isBefore(now)) {
+            log.error("抽奖活动不在有效期 [{}] [{}] [{}]", lottery.getId(), lottery.getStartTime(), lottery.getEndTime());
+            throw new BusinessException(ErrorCode.LOTTERY_EXPIRE);
+        }
+        long countLottery = lotteryLogService.countLottery(lottery.getId(), memberId);
+        if (lottery.getLotteryTotal() <= countLottery) {
+            log.error("用户抽奖次数用完了 [{}] 最大次数:[{}] 已抽次数:[{}]", lottery.getId(), lottery.getLotteryTotal(), countLottery);
+            throw new BusinessException(ErrorCode.LOTTERY_TIME_EMPTY);
+        }
+        LocalDateTime startTime = LocalDateTimeUtil.beginOfDay(now);
+        LocalDateTime endTime = LocalDateTimeUtil.endOfDay(now);
+        countLottery = lotteryLogService.countLottery(lottery.getId(), memberId, startTime, endTime);
+        if (lottery.getLotteryTotal() <= countLottery) {
+            log.error("用户今日抽奖次数用完了 [{}] 最大次数:[{}] 已抽次数:[{}]", lottery.getId(), lottery.getLotteryDay(), countLottery);
+            throw new BusinessException(ErrorCode.LOTTERY_TIME_EMPTY);
+        }
     }
 
     /**

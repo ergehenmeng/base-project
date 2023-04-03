@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
+import com.eghm.model.Lottery;
 
 /**
  * <p>
@@ -25,4 +26,17 @@ public interface LotteryService {
      */
     void update(LotteryEditRequest request);
 
+    /**
+     *  抽奖
+     * @param lotteryId 活动id
+     * @param userId 用户id
+     */
+    void lottery(Long lotteryId, Long userId);
+
+    /**
+     * 查询抽奖活动
+     * @param lotteryId 活动id
+     * @return 抽奖信息
+     */
+    Lottery selectByIdRequired(Long lotteryId);
 }

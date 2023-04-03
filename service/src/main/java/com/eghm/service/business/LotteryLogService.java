@@ -1,0 +1,36 @@
+package com.eghm.service.business;
+
+import java.time.LocalDateTime;
+
+/**
+ * @author wyb
+ * @since 2023/4/3
+ */
+public interface LotteryLogService {
+
+    /**
+     * 统计用户在某个抽奖活动的次数
+     * @param lotteryId 活动id
+     * @param memberId 用户id
+     * @return 抽奖次数
+     */
+    long countLottery(Long lotteryId, Long memberId);
+
+    /**
+     * 统计用户在某个抽奖活动中一段时间内的次数
+     * @param lotteryId 活动id
+     * @param memberId 用户id
+     * @param startTime 开始时间
+     * @param endTime 截止时间
+     * @return 抽奖次数
+     */
+    long countLottery(Long lotteryId, Long memberId, LocalDateTime startTime, LocalDateTime endTime);
+
+    /**
+     * 统计用户在某个抽奖活动的中奖次数
+     * @param lotteryId 活动id
+     * @param memberId 用户id
+     * @return 中奖次数
+     */
+    long countLotteryWin(Long lotteryId, Long memberId);
+}
