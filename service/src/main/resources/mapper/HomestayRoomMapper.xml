@@ -22,7 +22,7 @@
         left join homestay r on t.homestay_id = r.id
         where t.deleted = false and r.deleted = false
         <if test="request.queryName != null and request.queryName != ''">
-            and t.title like concat('%', #{request.queryName} ,'%')
+            and t.title like concat('%', #{request.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="request.state != null">
             and t.state = #{request.state}
@@ -42,7 +42,7 @@
         from homestay_room
         where state = 1 and platform_state = 2 and deleted = false and homestay_id = #{param.homestayId}
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName}, '%')
+            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.roomType != null">
             and room_type = #{param.roomType}

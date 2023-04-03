@@ -1,4 +1,5 @@
-GET http://localhost:9090/webapp/scenic/listPage?page=1&pageSize=10
+GET http://localhost:9090/webapp/scenic/listPage?page=1&pageSize=10&queryName=%
+Channel: {{Channel}}
 ###
 
 GET http://localhost:9090/webapp/scenic/detail?scenicId=1608668364569292801

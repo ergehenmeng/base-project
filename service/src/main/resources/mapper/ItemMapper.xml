@@ -72,7 +72,7 @@
         min_price as minPrice
         from item where deleted = false and state = 1 and platform_state = 2 and min_price &gt; 0
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName} ,'%')
+            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null">
             and delivery_type = #{param.deliveryType}
@@ -108,7 +108,7 @@
             and t.store_id = #{storeId}
         </if>
         <if test="param.queryName != null and param.queryName != ''">
-            and t.title like concat('%', #{param.queryName} ,'%')
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="param.deliveryType != null">
             and t.delivery_type = #{param.deliveryType}

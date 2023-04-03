@@ -12,7 +12,7 @@
         duration
         from line where deleted = false and state = 2 and platform_state = 2
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName}, '%')
+            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.startProvinceId != null">
             and start_province_id = #{param.startProvinceId}

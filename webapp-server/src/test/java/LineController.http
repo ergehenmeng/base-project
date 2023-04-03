@@ -7,3 +7,4 @@ GET http://localhost:9090/webapp/line/detail?id=1611287570074824706
 ###
 
 GET http://localhost:9090/webapp/line/listPage?page=1&pageSize=10
+Channel: {{Channel}}

@@ -23,9 +23,9 @@
         from manage_log t inner join sys_operator r on t.operator_id = r.id
         <where>
             <if test="param.queryName != null and param.queryName != ''">
-                and (t.url like concat('%',#{param.queryName},'%') or
-                r.nick_name like concat('%',#{param.queryName},'%') or
-                t.ip like concat('%',#{param.ip},'%') )
+                and (t.url like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler },'%') or
+                r.nick_name like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
+                t.ip like concat('%',#{param.ip, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') )
             </if>
             <if test="param.startTime != null">
                 and t.create_time &gt;= #{param.startTime}
