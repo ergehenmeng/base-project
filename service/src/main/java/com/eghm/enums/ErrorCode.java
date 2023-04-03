@@ -170,6 +170,11 @@ public enum ErrorCode {
     ILLEGAL_OPERATION(1020,"非法操作"),
 
     /**
+     * 转换器不支持非枚举类
+     */
+    ENUM_SUPPORTED(1025,"转换器不支持非枚举类"),
+
+    /**
      * 参数解析异常
      */
     PARAM_VERIFY_ERROR(2000,"%s"),
