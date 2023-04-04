@@ -58,3 +58,4 @@ system:
         - /swagger-resources/**
         - /manage/login
         - /favicon.ico
+        - /manage/export/exportMenu

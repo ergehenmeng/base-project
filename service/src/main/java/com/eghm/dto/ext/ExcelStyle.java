@@ -8,11 +8,12 @@ import com.alibaba.excel.enums.poi.HorizontalAlignmentEnum;
 import com.alibaba.excel.enums.poi.VerticalAlignmentEnum;
 
 /**
+ * 导出excel通用样式
  * @author wyb
  * @since 2023/3/31
  */
 
-@ColumnWidth(25)
+@ColumnWidth(20)
 @HeadRowHeight(25)
 @ContentStyle(horizontalAlignment = HorizontalAlignmentEnum.CENTER, verticalAlignment = VerticalAlignmentEnum.CENTER)
 @ContentRowHeight(20)

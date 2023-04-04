@@ -10,7 +10,10 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * easy excel转化枚举类
@@ -20,29 +23,43 @@ import java.lang.reflect.Field;
 @Slf4j
 public class EnumConverter implements Converter<Object> {
 
+    private static final Map<Class<?>, Field> FIELD_MAP = new ConcurrentHashMap<>(32);
+
     @Override
     public Class<?> supportJavaTypeKey() {
         return Object.class;
     }
 
     @Override
-    public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+    public WriteCellData<?> convertToExcelData(Object value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
         if (!(value instanceof Enum)) {
             log.error("该类型不是枚举不支持使用EnumConverter转换器 [{}]", value.getClass());
             throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
         }
-        Field valueAs = null;
-        for (Field field : contentProperty.getField().getType().getDeclaredFields()) {
-            ExcelValue excelValue = field.getAnnotation(ExcelValue.class);
-            if (excelValue != null) {
-                valueAs = field;
-                break;
-            }
-        }
+        Field valueAs = this.getAnnotationField(contentProperty);
         if (valueAs == null) {
             log.error("枚举类请使用@ExcelValue标注解释字段 [{}]", value.getClass());
             throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
         }
         return new WriteCellData<>(ReflectUtil.getFieldValue(value, valueAs).toString());
+    }
+
+    /**
+     * 获取带有@ExcelValue注解的属性
+     * @param contentProperty 原导出excel的字段
+     * @return Field
+     */
+    @Nullable
+    private Field getAnnotationField(ExcelContentProperty contentProperty) {
+        Class<?> fieldType = contentProperty.getField().getType();
+        return FIELD_MAP.computeIfAbsent(fieldType, aClass -> {
+            for (Field field : contentProperty.getField().getType().getDeclaredFields()) {
+                ExcelValue excelValue = field.getAnnotation(ExcelValue.class);
+                if (excelValue != null) {
+                    return field;
+                }
+            }
+            return null;
+        });
     }
 }

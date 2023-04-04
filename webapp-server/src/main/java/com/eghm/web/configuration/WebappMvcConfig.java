@@ -131,15 +131,4 @@ public class WebappMvcConfig extends WebMvcConfig {
         return registrationBean;
     }
 
-    /**
-     * 日志追踪过滤器
-     */
-    @Bean("logTraceFilter")
-    public FilterRegistrationBean<LogTraceFilter> logTraceFilter() {
-        FilterRegistrationBean<LogTraceFilter> registrationBean = new FilterRegistrationBean<>();
-        LogTraceFilter requestFilter = new LogTraceFilter();
-        registrationBean.setFilter(requestFilter);
-        registrationBean.setOrder(Integer.MIN_VALUE + 1);
-        return registrationBean;
-    }
 }

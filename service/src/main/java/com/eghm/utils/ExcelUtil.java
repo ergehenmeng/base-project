@@ -20,7 +20,15 @@ import java.util.List;
 @Slf4j
 public class ExcelUtil {
 
+    /**
+     * 默认sheetName
+     */
     private static final String DEFAULT_SHEET_NAME = "表格";
+
+    /**
+     * xlsx格式
+     */
+    public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     /**
      * 导出xlsx表格 (统一表格样式)
@@ -57,11 +65,11 @@ public class ExcelUtil {
      */
     public static <T> void export(HttpServletResponse response, String fileName, List<T> rowValues, Class<T> cls, String sheetName) {
         if (!fileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {
-            fileName += fileName + ExcelTypeEnum.XLSX.getValue();
+            fileName = fileName + ExcelTypeEnum.XLSX.getValue();
         }
         try {
             response.setHeader("Content-Disposition", "attachment;filename=" + RFC3986.PATH.encode(fileName, StandardCharsets.UTF_8));
-            response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setContentType(XLSX_CONTENT_TYPE);
             EasyExcel.write(response.getOutputStream(), cls).sheet(sheetName).doWrite(rowValues);
         } catch (Exception e) {
             log.error("导出Excel异常 [{}] [{}]", fileName, cls, e);

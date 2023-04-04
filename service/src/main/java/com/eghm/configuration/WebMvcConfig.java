@@ -3,6 +3,7 @@ package com.eghm.configuration;
 import com.alibaba.ttl.TtlRunnable;
 import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.constants.SystemConstant;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
@@ -19,6 +20,7 @@ import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.task.TaskExecutorCustomizer;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.lang.NonNull;
@@ -148,5 +150,17 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
     @Bean
     public static BeanPostProcessor springFoxBeanPostProcessor() {
         return new SpringFoxBeanPostProcessor();
+    }
+
+    /**
+     * 日志追踪过滤器
+     */
+    @Bean("logTraceFilter")
+    public FilterRegistrationBean<LogTraceFilter> logTraceFilter() {
+        FilterRegistrationBean<LogTraceFilter> registrationBean = new FilterRegistrationBean<>();
+        LogTraceFilter requestFilter = new LogTraceFilter();
+        registrationBean.setFilter(requestFilter);
+        registrationBean.setOrder(Integer.MIN_VALUE + 1);
+        return registrationBean;
     }
 }
