@@ -51,7 +51,9 @@ public class RabbitConfig {
             properties.setHeader(CommonConstant.TRACE_ID, LogTraceHolder.get());
             return message;
         });
-        log.info("****初始化rabbit消息队列成功****");
+        log.info("\n-------------------------------------------------\n\t" +
+                "          初始化rabbit消息队列完成\n" +
+                "-------------------------------------------------");
     }
     
     @Bean(name = "rabbitListenerContainerFactory")

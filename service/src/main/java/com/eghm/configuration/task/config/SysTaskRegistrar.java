@@ -52,7 +52,6 @@ public class SysTaskRegistrar {
      */
     @PostConstruct
     public synchronized void loadOrRefreshTask() {
-        log.info("定时任务配置信息开始加载...");
         List<SysTask> taskConfigs = taskConfigService.getAvailableList();
         List<SysCronTask> taskList = new ArrayList<>();
         for (SysTask taskConfig : taskConfigs) {
@@ -60,7 +59,9 @@ public class SysTaskRegistrar {
             taskList.add(triggerTask);
         }
         this.doRefreshTask(taskList);
-        log.info("定时任务配置信息加载完成..");
+        log.info("\n-------------------------------------------------\n\t" +
+                "           定时任务配置信息加载完成\n" +
+                "-------------------------------------------------");
     }
 
     /**
