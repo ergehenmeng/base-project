@@ -764,7 +764,7 @@ CREATE TABLE `lottery_prize`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='奖品信息表';
 
-CREATE TABLE `lottery_prize_config`
+CREATE TABLE `lottery_config`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `merchant_id` bigint(20)  DEFAULT NULL COMMENT '商户id',

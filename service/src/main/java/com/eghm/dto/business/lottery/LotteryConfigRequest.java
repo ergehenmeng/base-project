@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * @date 2023/3/27
  */
 @Data
-public class LotteryPrizeConfigRequest {
+public class LotteryConfigRequest {
     
     @ApiModelProperty(value = "奖品位置0-7")
     @NotBlank(message = "请选择奖品")

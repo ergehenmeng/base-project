@@ -74,6 +74,6 @@ public class LotteryEditRequest {
     @ApiModelProperty("中奖配置信息")
     @NotEmpty(message = "中奖配置不能为空")
     @Size(min = 8, max = 8, message = "中奖配置应为8条")
-    private List<LotteryPrizeConfigRequest> configList;
+    private List<LotteryConfigRequest> configList;
     
 }

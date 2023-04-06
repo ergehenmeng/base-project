@@ -5,27 +5,31 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
+import com.eghm.dto.business.lottery.LotteryConfigRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
-import com.eghm.dto.business.lottery.LotteryPrizeConfigRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.LotteryState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LotteryMapper;
 import com.eghm.model.Lottery;
+import com.eghm.model.LotteryConfig;
 import com.eghm.model.LotteryPrize;
+import com.eghm.service.business.LotteryConfigService;
 import com.eghm.service.business.LotteryLogService;
-import com.eghm.service.business.LotteryPrizeConfigService;
 import com.eghm.service.business.LotteryPrizeService;
 import com.eghm.service.business.LotteryService;
+import com.eghm.service.cache.LockService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
 /**
@@ -45,9 +49,13 @@ public class LotteryServiceImpl implements LotteryService {
     
     private final LotteryPrizeService lotteryPrizeService;
     
-    private final LotteryPrizeConfigService lotteryPrizeConfigService;
+    private final LotteryConfigService lotteryConfigService;
 
     private final LotteryLogService lotteryLogService;
+
+    private final RedissonClient redissonClient;
+
+    private final LockService lockService;
 
     @Override
     public void create(LotteryAddRequest request) {
@@ -57,7 +65,7 @@ public class LotteryServiceImpl implements LotteryService {
         lotteryMapper.insert(lottery);
         List<LotteryPrize> prizeList = lotteryPrizeService.insert(lottery.getId(), request.getPrizeList());
         List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
-        lotteryPrizeConfigService.insert(lottery.getId(), request.getConfigList(), prizeIds);
+        lotteryConfigService.insert(lottery.getId(), request.getConfigList(), prizeIds);
     }
 
     @Override
@@ -72,13 +80,15 @@ public class LotteryServiceImpl implements LotteryService {
         lotteryMapper.updateById(lottery);
         List<LotteryPrize> prizeList = lotteryPrizeService.update(lottery.getId(), request.getPrizeList());
         List<Long> prizeIds = prizeList.stream().map(LotteryPrize::getId).collect(Collectors.toList());
-        lotteryPrizeConfigService.update(lottery.getId(), request.getConfigList(), prizeIds);
+        lotteryConfigService.update(lottery.getId(), request.getConfigList(), prizeIds);
     }
 
     @Override
     public void lottery(Long lotteryId, Long userId) {
         Lottery lottery = this.selectByIdRequired(lotteryId);
         this.checkLottery(lottery, userId);
+        List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
+        LotteryConfig config = this.doLottery(userId, lottery, configList);
 
     }
 
@@ -92,6 +102,23 @@ public class LotteryServiceImpl implements LotteryService {
         return lottery;
     }
 
+    /**
+     * 抽奖
+     * @param userId 用户ID
+     * @param lottery 活动信息
+     * @param configList 配置信息
+     * @return 中奖位置
+     */
+    private LotteryConfig doLottery(Long userId, Lottery lottery, List<LotteryConfig> configList) {
+        long lotteryWin = lotteryLogService.countLotteryWin(lottery.getId(), userId);
+        // 已经超过中奖次数,默认不再中奖,最后一个位置默认都是不中奖
+        LotteryConfig freeConfig = configList.get(configList.size() - 1);
+        if (lottery.getWinNum() <= lotteryWin) {
+            return freeConfig;
+        }
+        int index = ThreadLocalRandom.current().nextInt(10000);
+        return configList.stream().filter(config -> config.getStartRange() >= index && index < config.getEndRange()).findFirst().orElse(freeConfig);
+    }
 
     /**
      * 校验是否可以抽奖
@@ -126,8 +153,8 @@ public class LotteryServiceImpl implements LotteryService {
      * 校验中奖配置信息
      * @param configList 配置信息
      */
-    private void checkConfig(List<LotteryPrizeConfigRequest> configList) {
-        Optional<BigDecimal> optional = configList.stream().map(LotteryPrizeConfigRequest::getRatio).reduce(BigDecimal::add);
+    private void checkConfig(List<LotteryConfigRequest> configList) {
+        Optional<BigDecimal> optional = configList.stream().map(LotteryConfigRequest::getRatio).reduce(BigDecimal::add);
         if (!optional.isPresent() || optional.get().compareTo(BigDecimal.valueOf(100L)) != 0) {
             throw new BusinessException(ErrorCode.LOTTERY_RATIO);
         }

@@ -184,4 +184,9 @@ public class CacheConstant {
      * 奖品总数量
      */
     public static final String LOTTERY_PRIZE_NUM = "lottery_prize_num:";
+
+    /**
+     * 抽奖
+     */
+    public static final String LOTTERY = "lottery:%d:%d";
 }

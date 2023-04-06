@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.PrizeType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,9 +21,9 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("lottery_prize_config")
-@ApiModel(value="LotteryPrizeConfig对象", description="抽奖位置配置表")
-public class LotteryPrizeConfig extends BaseEntity implements Serializable {
+@TableName("lottery_config")
+@ApiModel(value="LotteryConfig对象", description="抽奖位置配置表")
+public class LotteryConfig extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,7 +37,7 @@ public class LotteryPrizeConfig extends BaseEntity implements Serializable {
     private Long prizeId;
 
     @ApiModelProperty(value = "中奖商品类型")
-    private Integer prizeType;
+    private PrizeType prizeType;
 
     @ApiModelProperty(value = "中奖位置 1-8")
     private Integer location;

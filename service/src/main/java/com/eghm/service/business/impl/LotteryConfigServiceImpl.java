@@ -6,10 +6,10 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.mapper.LotteryPrizeConfigMapper;
-import com.eghm.model.LotteryPrizeConfig;
-import com.eghm.dto.business.lottery.LotteryPrizeConfigRequest;
-import com.eghm.service.business.LotteryPrizeConfigService;
+import com.eghm.mapper.LotteryConfigMapper;
+import com.eghm.model.LotteryConfig;
+import com.eghm.dto.business.lottery.LotteryConfigRequest;
+import com.eghm.service.business.LotteryConfigService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,20 +25,20 @@ import java.util.List;
  */
 @Service
 @AllArgsConstructor
-public class LotteryPrizeConfigServiceImpl implements LotteryPrizeConfigService {
+public class LotteryConfigServiceImpl implements LotteryConfigService {
 
-    private final LotteryPrizeConfigMapper lotteryPrizeConfigMapper;
+    private final LotteryConfigMapper lotteryConfigMapper;
     
     @Override
-    public void insert(Long lotteryId, List<LotteryPrizeConfigRequest> positionList, List<Long> prizeIds) {
+    public void insert(Long lotteryId, List<LotteryConfigRequest> positionList, List<Long> prizeIds) {
         int weight = 0;
         for (int i = 0; i < positionList.size(); i++) {
-            LotteryPrizeConfigRequest request = positionList.get(i);
+            LotteryConfigRequest request = positionList.get(i);
             if (request.getLocation() != i + 1 ) {
                 throw new BusinessException(ErrorCode.LOTTERY_POSITION);
             }
             int ratio = DecimalUtil.yuanToCent(request.getRatio().doubleValue());
-            LotteryPrizeConfig config = new LotteryPrizeConfig();
+            LotteryConfig config = new LotteryConfig();
             config.setStartRange(weight);
             config.setEndRange(weight + ratio);
             config.setPrizeType(request.getPrizeType());
@@ -47,16 +47,24 @@ public class LotteryPrizeConfigServiceImpl implements LotteryPrizeConfigService 
             config.setLotteryId(lotteryId);
             config.setWeight(ratio);
             config.setMerchantId(SecurityHolder.getMerchantId());
-            lotteryPrizeConfigMapper.insert(config);
+            lotteryConfigMapper.insert(config);
             weight += ratio;
         }
     }
 
     @Override
-    public void update(Long lotteryId, List<LotteryPrizeConfigRequest> positionList, List<Long> prizeIds) {
-        LambdaUpdateWrapper<LotteryPrizeConfig> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(LotteryPrizeConfig::getLotteryId, lotteryId);
-        lotteryPrizeConfigMapper.delete(wrapper);
+    public void update(Long lotteryId, List<LotteryConfigRequest> positionList, List<Long> prizeIds) {
+        LambdaUpdateWrapper<LotteryConfig> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LotteryConfig::getLotteryId, lotteryId);
+        lotteryConfigMapper.delete(wrapper);
         this.insert(lotteryId, positionList, prizeIds);
+    }
+
+    @Override
+    public List<LotteryConfig> getList(Long lotteryId) {
+        LambdaUpdateWrapper<LotteryConfig> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(LotteryConfig::getLotteryId, lotteryId);
+        wrapper.orderByAsc(LotteryConfig::getLocation);
+        return lotteryConfigMapper.selectList(wrapper);
     }
 }
