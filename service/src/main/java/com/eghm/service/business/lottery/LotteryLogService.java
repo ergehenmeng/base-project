@@ -1,4 +1,6 @@
-package com.eghm.service.business;
+package com.eghm.service.business.lottery;
+
+import com.eghm.model.LotteryLog;
 
 import java.time.LocalDateTime;
 
@@ -7,6 +9,12 @@ import java.time.LocalDateTime;
  * @since 2023/4/3
  */
 public interface LotteryLogService {
+
+    /**
+     * 添加抽奖日志信息
+     * @param lotteryLog 抽奖信息
+     */
+    void insert(LotteryLog lotteryLog);
 
     /**
      * 统计用户在某个抽奖活动的次数

@@ -1055,6 +1055,11 @@ public enum ErrorCode {
     LOTTERY_TIME_EMPTY(3416, "抽奖次数用完啦~"),
 
     /**
+     * 该奖品类型不支持
+     */
+    LOTTERY_PRIZE_ERROR(3418, "该奖品类型不支持"),
+
+    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(3600, "红包金额太小啦~"),

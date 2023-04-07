@@ -1,4 +1,4 @@
-package com.eghm.service.business;
+package com.eghm.service.business.lottery;
 
 import com.eghm.model.LotteryPrize;
 import com.eghm.dto.business.lottery.LotteryPrizeRequest;

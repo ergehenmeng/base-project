@@ -1,15 +1,15 @@
-package com.eghm.service.business.impl;
+package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.service.business.lottery.LotteryConfigService;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryConfigMapper;
 import com.eghm.model.LotteryConfig;
 import com.eghm.dto.business.lottery.LotteryConfigRequest;
-import com.eghm.service.business.LotteryConfigService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

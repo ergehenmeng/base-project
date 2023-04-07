@@ -21,6 +21,11 @@ public enum PrizeType {
      */
     NONE(0, "谢谢参与"),
 
+    /**
+     * 优惠券
+     */
+    COUPON(1, "优惠券"),
+
     ;
 
     @EnumValue

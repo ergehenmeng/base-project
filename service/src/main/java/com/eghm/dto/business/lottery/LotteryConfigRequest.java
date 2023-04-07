@@ -1,5 +1,6 @@
 package com.eghm.dto.business.lottery;
 
+import com.eghm.enums.ref.PrizeType;
 import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,7 +21,7 @@ public class LotteryConfigRequest {
     private Integer prizeIndex;
     
     @ApiModelProperty("奖品类型不能为空")
-    private Integer prizeType;
+    private PrizeType prizeType;
     
     @ApiModelProperty(value = "中奖位置 1-8")
     @NotNull(message = "中奖位置不能为空")

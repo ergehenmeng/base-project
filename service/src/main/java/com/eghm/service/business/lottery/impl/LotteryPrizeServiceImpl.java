@@ -1,4 +1,4 @@
-package com.eghm.service.business.impl;
+package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -7,7 +7,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
 import com.eghm.dto.business.lottery.LotteryPrizeRequest;
-import com.eghm.service.business.LotteryPrizeService;
+import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.eghm.service.business.impl;
+package com.eghm.service.business.lottery.impl;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -9,20 +9,21 @@ import com.eghm.dto.business.lottery.LotteryConfigRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.LotteryState;
+import com.eghm.enums.ref.PrizeType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LotteryMapper;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
+import com.eghm.model.LotteryLog;
 import com.eghm.model.LotteryPrize;
-import com.eghm.service.business.LotteryConfigService;
-import com.eghm.service.business.LotteryLogService;
-import com.eghm.service.business.LotteryPrizeService;
-import com.eghm.service.business.LotteryService;
-import com.eghm.service.cache.LockService;
+import com.eghm.service.business.lottery.LotteryConfigService;
+import com.eghm.service.business.lottery.LotteryLogService;
+import com.eghm.service.business.lottery.LotteryPrizeService;
+import com.eghm.service.business.lottery.LotteryService;
+import com.eghm.service.business.lottery.handler.PrizeHandler;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -53,9 +54,7 @@ public class LotteryServiceImpl implements LotteryService {
 
     private final LotteryLogService lotteryLogService;
 
-    private final RedissonClient redissonClient;
-
-    private final LockService lockService;
+    private final List<PrizeHandler> handlerList;
 
     @Override
     public void create(LotteryAddRequest request) {
@@ -90,6 +89,15 @@ public class LotteryServiceImpl implements LotteryService {
         List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
         LotteryConfig config = this.doLottery(userId, lottery, configList);
 
+        this.givePrize(userId, lottery, config);
+
+        LotteryLog lotteryLog = new LotteryLog();
+        lotteryLog.setLotteryId(lotteryId);
+        lotteryLog.setMemberId(userId);
+        lotteryLog.setLocation(config.getLocation());
+        lotteryLog.setPrizeId(config.getPrizeId());
+        lotteryLog.setWinning(config.getPrizeType() != PrizeType.NONE);
+        lotteryLogService.insert(lotteryLog);
     }
 
     @Override
@@ -101,6 +109,21 @@ public class LotteryServiceImpl implements LotteryService {
         }
         return lottery;
     }
+
+
+    /**
+     * 发放奖品
+     * @param userId 用户id
+     * @param lottery 抽奖信息
+     * @param config 中奖信息
+     */
+    private void givePrize(Long userId, Lottery lottery, LotteryConfig config) {
+        handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
+            log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
+          throw new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
+        }).execute(userId, lottery, config);
+    }
+
 
     /**
      * 抽奖

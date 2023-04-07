@@ -1,10 +1,10 @@
-package com.eghm.service.business.impl;
+package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.mapper.LotteryLogMapper;
 import com.eghm.model.LotteryLog;
-import com.eghm.service.business.LotteryLogService;
+import com.eghm.service.business.lottery.LotteryLogService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,11 @@ import java.time.LocalDateTime;
 public class LotteryLogServiceImpl implements LotteryLogService {
 
     private final LotteryLogMapper lotteryLogMapper;
+
+    @Override
+    public void insert(LotteryLog lotteryLog) {
+        lotteryLogMapper.insert(lotteryLog);
+    }
 
     @Override
     public long countLottery(Long lotteryId, Long memberId) {
