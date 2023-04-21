@@ -244,12 +244,12 @@ public class StringUtil {
 
     public static void main(String[] args) {
         int pid = 101212;
-        System.out.println(sql(pid, "", 1011, 1, 130));
+        log.info(sql(pid, "", 1011, 1, 130));
 
         int start = Integer.parseInt(pid + "10");
         int index = 1;
         for (int i = start; i <= start + 20; i++) {
-            System.out.println(sql(i, "替换", pid, 2, index * 10));
+            log.info(sql(i, "替换", pid, 2, index * 10));
             index++;
         }
     }

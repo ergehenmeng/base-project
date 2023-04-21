@@ -2,7 +2,6 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
-import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.BlackRosterService;

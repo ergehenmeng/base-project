@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 /**
  * 用户信息表
  * @author 二哥很猛
@@ -14,7 +16,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @TableName("user")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable {
 
     @ApiModelProperty("昵称")
     private String nickName;

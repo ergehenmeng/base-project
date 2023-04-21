@@ -24,17 +24,6 @@ public class RegExpUtil {
     static final String HIDDEN_REGEXP_VALUE = "$1****$2";
 
     /**
-     * 根据给定的正则表达式判断字符串是否匹配
-     *
-     * @param regExp 正则表达式
-     * @param str    字符串
-     * @return true匹配成功, false匹配不成功
-     */
-    private static boolean match(String regExp, String str) {
-        return Pattern.matches(regExp, str);
-    }
-
-    /**
      * 判断字符串格式是否为手机号
      *
      * @param mobile 字符串

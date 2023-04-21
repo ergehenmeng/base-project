@@ -74,6 +74,7 @@ public class BaseEmailHandler {
      * 邮件标题 默认不进行渲染, 子类可以重写该方法来进行动态生成标题
      */
     protected String getTitle(EmailTemplate template, SendEmail email) {
+        log.info("邮件模板 [{}] 邮件参数 [{}]", template.getNid(), email.getParams());
         return template.getTitle();
     }
 

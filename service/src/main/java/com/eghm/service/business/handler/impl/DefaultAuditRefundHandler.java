@@ -72,7 +72,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
     private void doProcess(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         refundLog.setAuditRemark(dto.getAuditRemark());
         refundLog.setAuditTime(LocalDateTime.now());
-        if (dto.getState().intValue() == AuditState.PASS.getValue()) {
+        if (dto.getState() == AuditState.PASS.getValue()) {
             this.doPass(dto, order, refundLog);
         } else {
             this.doRefuse(dto, order, refundLog);
@@ -124,7 +124,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
      */
     private void after(AuditRefundContext dto, Order order, OrderRefundLog refundLog) {
         if (dto.getState() == AuditState.REFUSE.getValue()) {
-            orderVisitorService.unlockVisitor(dto.getOrderNo(), refundLog.getId());
+            orderVisitorService.unlockVisitor(order.getOrderNo(), refundLog.getId());
         }
     }
 

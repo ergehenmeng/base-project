@@ -4,6 +4,8 @@ import com.eghm.enums.ref.PrizeType;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
  * @since 2023/4/7
  */
 @Service
+@AllArgsConstructor
+@Slf4j
 public class CouponPrizeHandler implements PrizeHandler {
 
     @Override
@@ -20,6 +24,6 @@ public class CouponPrizeHandler implements PrizeHandler {
 
     @Override
     public void execute(Long memberId, Lottery lottery, LotteryConfig config) {
-
+        log.info("抽中优惠券啦 [{}] [{}]", memberId, lottery);
     }
 }

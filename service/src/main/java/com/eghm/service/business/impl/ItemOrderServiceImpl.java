@@ -42,15 +42,6 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     public void insert(String orderNo, List<OrderPackage> packageList) {
         for (OrderPackage aPackage : packageList) {
             ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class);
-//            order.setOrderNo(orderNo);
-//            order.setItemId(aPackage.getProductId());
-//            ProductSku sku = aPackage.getSku();
-//            order.setNum(aPackage.getNum());
-//            order.setSkuTitle(sku.getTitle());
-//            order.setSkuId(sku.getId());
-//            order.setSkuCoverUrl(sku.getCoverUrl());
-//            order.setLinePrice(sku.getLinePrice());
-//            order.setCostPrice(sku.getCostPrice());
             itemOrderMapper.insert(order);
         }
     }
