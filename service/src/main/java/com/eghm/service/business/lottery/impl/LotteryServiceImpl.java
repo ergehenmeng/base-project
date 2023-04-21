@@ -120,7 +120,7 @@ public class LotteryServiceImpl implements LotteryService {
     private void givePrize(Long userId, Lottery lottery, LotteryConfig config) {
         handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
             log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
-          throw new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
+            return new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
         }).execute(userId, lottery, config);
     }
 

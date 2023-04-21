@@ -1,10 +1,9 @@
 package com.eghm.service.pay.impl;
 
+import com.eghm.configuration.SystemProperties;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.WeChatPayException;
-import com.eghm.utils.DateUtil;
-import com.eghm.configuration.SystemProperties;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -15,6 +14,7 @@ import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
+import com.eghm.utils.DateUtil;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -90,7 +90,7 @@ public class WechatPayServiceImpl implements PayService {
                 response.setPackageValue("prepay_id=" + result.getPrepayId());
                 response.setNonceStr(nonceStr);
                 response.setSignType("RSA");
-                response.setPaySign(SignUtils.sign(String.format("%s\n%s\n%s\n%s\n", wxPayService.getConfig().getAppId(), timestamp, nonceStr, response.getPackageValue()), wxPayService.getConfig().getPrivateKey()));
+                response.setPaySign(SignUtils.sign(String.format("%s%n%s%n%s%n%s%n", wxPayService.getConfig().getAppId(), timestamp, nonceStr, response.getPackageValue()), wxPayService.getConfig().getPrivateKey()));
                 return response;
             case WECHAT_H5:
                 response.setH5Url(result.getH5Url());
