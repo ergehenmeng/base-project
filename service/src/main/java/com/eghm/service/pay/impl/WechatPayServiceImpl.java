@@ -79,35 +79,7 @@ public class WechatPayServiceImpl implements PayService {
             log.error("微信支付下单失败 [{}]", dto, e);
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
-
-        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-        String nonceStr = SignUtils.genRandomStr();
-        PrepayVO response = new PrepayVO();
-        switch (dto.getTradeType()) {
-            case WECHAT_MINI:
-            case WECHAT_JSAPI:
-                response.setTimeStamp(timestamp);
-                response.setPackageValue("prepay_id=" + result.getPrepayId());
-                response.setNonceStr(nonceStr);
-                response.setSignType("RSA");
-                response.setPaySign(SignUtils.sign(String.format("%s%n%s%n%s%n%s%n", wxPayService.getConfig().getAppId(), timestamp, nonceStr, response.getPackageValue()), wxPayService.getConfig().getPrivateKey()));
-                return response;
-            case WECHAT_H5:
-                response.setH5Url(result.getH5Url());
-                return response;
-            case WECHAT_NATIVE:
-                response.setQrCodeUrl(result.getCodeUrl());
-                return response;
-            case WECHAT_APP:
-                response.setPrepayId(result.getPrepayId());
-                response.setPartnerId(wxPayService.getConfig().getMchId());
-                response.setTimeStamp(timestamp);
-                response.setNonceStr(nonceStr);
-                response.setPackageValue("Sign=WXPay");
-                return response;
-            default:
-                throw new BusinessException(ErrorCode.UNKNOWN_PAY_TYPE);
-        }
+        return this.createStandardResult(dto.getTradeType(), result);
     }
 
     @Override
@@ -199,6 +171,43 @@ public class WechatPayServiceImpl implements PayService {
     public void verifyNotify(Map<String, String> param) {
         log.error("微信不支持该接口 [{}]", param);
         throw new BusinessException(ErrorCode.NOT_SUPPORTED);
+    }
+
+    /**
+     * 返回标准支付参数
+     * @param tradeType 交易方式
+     * @param result 微信支付信息
+     * @return vo
+     */
+    private PrepayVO createStandardResult(TradeType tradeType, WxPayUnifiedOrderV3Result result) {
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
+        String nonceStr = SignUtils.genRandomStr();
+        PrepayVO response = new PrepayVO();
+        switch (tradeType) {
+            case WECHAT_MINI:
+            case WECHAT_JSAPI:
+                response.setTimeStamp(timestamp);
+                response.setPackageValue("prepay_id=" + result.getPrepayId());
+                response.setNonceStr(nonceStr);
+                response.setSignType("RSA");
+                response.setPaySign(SignUtils.sign(String.format("%s%n%s%n%s%n%s%n", wxPayService.getConfig().getAppId(), timestamp, nonceStr, response.getPackageValue()), wxPayService.getConfig().getPrivateKey()));
+                return response;
+            case WECHAT_H5:
+                response.setH5Url(result.getH5Url());
+                return response;
+            case WECHAT_NATIVE:
+                response.setQrCodeUrl(result.getCodeUrl());
+                return response;
+            case WECHAT_APP:
+                response.setPrepayId(result.getPrepayId());
+                response.setPartnerId(wxPayService.getConfig().getMchId());
+                response.setTimeStamp(timestamp);
+                response.setNonceStr(nonceStr);
+                response.setPackageValue("Sign=WXPay");
+                return response;
+            default:
+                throw new BusinessException(ErrorCode.UNKNOWN_PAY_TYPE);
+        }
     }
 
     /**

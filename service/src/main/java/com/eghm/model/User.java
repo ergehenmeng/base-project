@@ -55,7 +55,7 @@ public class User extends BaseEntity implements Serializable {
     private Integer sex;
 
     @ApiModelProperty("注册渠道 pc,android,ios,h5,other")
-    private Integer channel;
+    private String channel;
 
     @ApiModelProperty("头像")
     private String avatar;

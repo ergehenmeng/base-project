@@ -40,10 +40,7 @@ import com.eghm.service.user.LoginService;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.service.wechat.WeChatMpService;
-import com.eghm.utils.DataUtil;
-import com.eghm.utils.DateUtil;
-import com.eghm.utils.RegExpUtil;
-import com.eghm.utils.StringUtil;
+import com.eghm.utils.*;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.user.SignInVO;
 import com.google.common.collect.Lists;
@@ -102,6 +99,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
+        user.setChannel(ApiHolder.getChannel());
         this.initUser(user);
         userMapper.insert(user);
         this.doPostRegister(user, register);
@@ -131,9 +129,6 @@ public class UserServiceImpl implements UserService {
      * @param user 用户信息
      */
     private void initUser(User user) {
-        if (StrUtil.isNotBlank(user.getPwd())) {
-            user.setPwd(encoder.encode(user.getPwd()));
-        }
         if (StrUtil.isBlank(user.getNickName())) {
             user.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
         }
@@ -298,7 +293,6 @@ public class UserServiceImpl implements UserService {
         user.setIdCard(SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8)).encryptHex(request.getIdCard()));
         user.setSex(IdcardUtil.getGenderByIdCard(request.getIdCard()));
         userMapper.updateById(user);
-        //TODO 实名制认证
     }
 
     /**
@@ -433,9 +427,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void mpLogin(String jsCode) {
+    public LoginTokenVO mpLogin(String jsCode, String ip) {
         WxOAuth2UserInfo userInfo = weChatMpService.auth2(jsCode);
-        // TODO 待完成
+        User user = this.getByOpenId(userInfo.getOpenid());
+        // 注销的用户算新增
+        if (user == null || Boolean.FALSE.equals(user.getState())) {
+            user = this.doMpRegister(userInfo, ip);
+        }
+        return this.doLogin(user, ip);
+    }
+
+    @Override
+    public User getByOpenId(String openId) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(User::getOpenId, openId);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return userMapper.selectOne(wrapper);
     }
 
     @Override
@@ -454,7 +461,28 @@ public class UserServiceImpl implements UserService {
         userMapper.updateById(user);
     }
 
-
+    /**
+     * 微信公众号用户注册
+     * @param info 微信用户信息
+     * @param ip ip
+     * @return 用户信息
+     */
+    private User doMpRegister(WxOAuth2UserInfo info, String ip) {
+        User user = new User();
+        user.setNickName(info.getNickname());
+        user.setOpenId(info.getOpenid());
+        user.setSex(info.getSex());
+        user.setAvatar(info.getHeadImgUrl());
+        user.setRegisterIp(IpUtil.ipToLong(ip));
+        user.setChannel(Channel.WECHAT.name());
+        this.initUser(user);
+        userMapper.insert(user);
+        UserRegister register = new UserRegister();
+        register.setRegisterIp(ip);
+        register.setNickName(info.getNickname());
+        this.doPostRegister(user, register);
+        return user;
+    }
 
     /**
      * 注册手机号被占用校验

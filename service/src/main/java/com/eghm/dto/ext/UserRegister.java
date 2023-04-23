@@ -39,11 +39,6 @@ public class UserRegister implements Serializable {
     private String inviteCode;
 
     /**
-     * 注册渠道
-     */
-    private String channel;
-
-    /**
      * 注册ip
      */
     private String registerIp;
