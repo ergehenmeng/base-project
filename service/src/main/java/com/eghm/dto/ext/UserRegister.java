@@ -1,5 +1,6 @@
 package com.eghm.dto.ext;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,6 +14,12 @@ public class UserRegister implements Serializable {
 
     private static final long serialVersionUID = 1211247555372353757L;
 
+
+    /**
+     * 微信openId
+     */
+    private String openId;
+
     /**
      * 昵称
      */
@@ -24,6 +31,11 @@ public class UserRegister implements Serializable {
     private String mobile;
 
     /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
      * 邮箱
      */
     private String email;
@@ -32,6 +44,16 @@ public class UserRegister implements Serializable {
      * 密码
      */
     private String pwd;
+
+    /**
+     * 注册渠道
+     */
+    private String channel;
+
+    /**
+     * 性别 0:未知 1:男 2:女
+     */
+    private Integer sex;
 
     /**
      * 注册邀请码

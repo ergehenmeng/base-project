@@ -509,9 +509,9 @@ DROP TABLE IF EXISTS `sys_operator`;
 CREATE TABLE `sys_operator`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nick_name`   varchar(20)         NOT NULL COMMENT '用户名称',
+    `nick_name`       varchar(20)         NOT NULL COMMENT '用户名称',
     `mobile`          char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
-    `user_type`       tinyint(2)            DEFAULT 1 COMMENT '用户类型 1:系统用户 2: 商户用户',
+    `user_type`       tinyint(2)                                            DEFAULT 1 COMMENT '用户类型 1:系统用户 2: 商户用户',
     `state`           tinyint(1) unsigned                                   DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256)                                          DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`        varchar(256)                                          DEFAULT NULL COMMENT '初始密码',
@@ -651,7 +651,7 @@ CREATE TABLE `user`
 
     `mobile`      char(11)                                              DEFAULT NULL COMMENT '手机号码',
     `open_id`     varchar(64)                                           DEFAULT NULL COMMENT '微信小程序openId',
-    `nick_name`   varchar(20)                                           DEFAULT '' COMMENT '昵称',
+    `nick_name`   varchar(40)                                           DEFAULT '' COMMENT '昵称',
     `email`       varchar(50)                                           DEFAULT NULL COMMENT '电子邮箱',
     `pwd`         varchar(256)                                          DEFAULT NULL COMMENT '登陆密码',
     `state`       bit(1)                                                DEFAULT b'1' COMMENT '状态 0:冻结 1:正常 ',
@@ -661,7 +661,7 @@ CREATE TABLE `user`
     `invite_code` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '邀请码',
     `sex`         tinyint(1)                                            DEFAULT '2' COMMENT '性别 0:女性 1:男 2:未知',
     `score`       int(10)                                               DEFAULT '0' COMMENT '积分',
-    `channel`     tinyint(1) unsigned                                   DEFAULT '0' COMMENT '注册渠道',
+    `channel`     varchar(20)                                           DEFAULT NULL COMMENT '注册渠道',
     `register_ip` bigint(20)                                            DEFAULT NULL COMMENT '注册地址',
     `create_time` datetime                                              DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
     `update_time` datetime                                              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

@@ -5,6 +5,7 @@ import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.encoder.Encoder;
@@ -40,7 +41,10 @@ import com.eghm.service.user.LoginService;
 import com.eghm.service.user.UserScoreLogService;
 import com.eghm.service.user.UserService;
 import com.eghm.service.wechat.WeChatMpService;
-import com.eghm.utils.*;
+import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
+import com.eghm.utils.RegExpUtil;
+import com.eghm.utils.StringUtil;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.user.SignInVO;
 import com.google.common.collect.Lists;
@@ -99,10 +103,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User doRegister(UserRegister register) {
         User user = DataUtil.copy(register, User.class);
-        user.setChannel(ApiHolder.getChannel());
-        this.initUser(user);
+        user.setId(IdWorker.getId());
+        user.setInviteCode(StringUtil.encryptNumber(user.getId()));
+        if (StrUtil.isBlank(user.getNickName())) {
+            user.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
+        }
         userMapper.insert(user);
-        this.doPostRegister(user, register);
+        this.registerPostHandler(user, register);
         return user;
     }
 
@@ -111,29 +118,13 @@ public class UserServiceImpl implements UserService {
      *
      * @param user 用户信息
      */
-    private void doPostRegister(User user, UserRegister register) {
-        // 获取到用户id,再次更新邀请码
-        String inviteCode = StringUtil.encryptNumber(user.getId());
-        user.setInviteCode(inviteCode);
-        userMapper.updateById(user);
+    private void registerPostHandler(User user, UserRegister register) {
         // 执行注册后置链
         MessageData data = new MessageData();
         data.setUser(user);
         data.setUserRegister(register);
         handlerChain.execute(data, HandlerEnum.REGISTER);
     }
-
-    /**
-     * 对用户部分信息进行初始化
-     *
-     * @param user 用户信息
-     */
-    private void initUser(User user) {
-        if (StrUtil.isBlank(user.getNickName())) {
-            user.setNickName(sysConfigApi.getString(ConfigConstant.NICK_NAME_PREFIX) + System.nanoTime());
-        }
-    }
-
 
     @Override
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
@@ -240,8 +231,12 @@ public class UserServiceImpl implements UserService {
     public LoginTokenVO registerByMobile(RegisterUserDTO request) {
         this.registerRedoVerify(request.getMobile());
         smsService.verifySmsCode(SmsType.REGISTER, request.getMobile(), request.getSmsCode());
+
         UserRegister register = DataUtil.copy(request, UserRegister.class);
+        register.setChannel(ApiHolder.getChannel());
+
         User user = this.doRegister(register);
+
         return this.doLogin(user, register.getRegisterIp());
     }
 
@@ -468,20 +463,14 @@ public class UserServiceImpl implements UserService {
      * @return 用户信息
      */
     private User doMpRegister(WxOAuth2UserInfo info, String ip) {
-        User user = new User();
-        user.setNickName(info.getNickname());
-        user.setOpenId(info.getOpenid());
-        user.setSex(info.getSex());
-        user.setAvatar(info.getHeadImgUrl());
-        user.setRegisterIp(IpUtil.ipToLong(ip));
-        user.setChannel(Channel.WECHAT.name());
-        this.initUser(user);
-        userMapper.insert(user);
         UserRegister register = new UserRegister();
         register.setRegisterIp(ip);
         register.setNickName(info.getNickname());
-        this.doPostRegister(user, register);
-        return user;
+        register.setOpenId(info.getOpenid());
+        register.setSex(info.getSex());
+        register.setAvatar(info.getHeadImgUrl());
+        register.setChannel(Channel.WECHAT.name());
+        return this.doRegister(register);
     }
 
     /**
