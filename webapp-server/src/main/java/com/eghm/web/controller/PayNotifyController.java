@@ -72,8 +72,11 @@ public class PayNotifyController {
         SignatureHeader header = this.parseHeader(httpHeader);
         WxPayOrderNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
-        // TODO 业务
-
+        String orderNo = payNotify.getResult().getAttach();
+        PayNotifyContext context = new PayNotifyContext();
+        context.setOrderNo(orderNo);
+        context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
+        commonService.getPayHandler(orderNo).doAction(context);
     }
 
     @PostMapping("${system.wechat.refund-notify-url:/notify/weChat/refund}")

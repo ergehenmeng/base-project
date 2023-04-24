@@ -1,6 +1,5 @@
 package com.eghm.dto.ext;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;

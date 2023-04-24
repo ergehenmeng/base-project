@@ -92,12 +92,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    public boolean isHotSell(TicketOrderCreateContext context, ScenicTicket payload) {
-        // TODO 热销商品设置
-        return true;
-    }
-
-    @Override
     public IEvent getEvent() {
         return null;
     }
