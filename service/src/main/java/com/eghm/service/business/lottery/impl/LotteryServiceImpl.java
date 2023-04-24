@@ -89,8 +89,10 @@ public class LotteryServiceImpl implements LotteryService {
         List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
         LotteryConfig config = this.doLottery(userId, lottery, configList);
 
-        this.givePrize(userId, lottery, config);
-
+        boolean status = this.givePrize(userId, lottery, config);
+        if (!status) {
+            config = configList.get(configList.size() - 1);
+        }
         LotteryLog lotteryLog = new LotteryLog();
         lotteryLog.setLotteryId(lotteryId);
         lotteryLog.setMemberId(userId);
@@ -117,11 +119,17 @@ public class LotteryServiceImpl implements LotteryService {
      * @param lottery 抽奖信息
      * @param config 中奖信息
      */
-    private void givePrize(Long userId, Lottery lottery, LotteryConfig config) {
-        handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
-            log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
-            return new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
-        }).execute(userId, lottery, config);
+    private boolean givePrize(Long userId, Lottery lottery, LotteryConfig config) {
+        try {
+            handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
+                log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
+                return new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
+            }).execute(userId, lottery, config);
+            return true;
+        } catch (BusinessException e) {
+            log.error("发放奖品异常 [{}] [{}] ", userId, config, e);
+        }
+        return false;
     }
 
 

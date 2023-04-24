@@ -28,6 +28,8 @@ import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -62,6 +64,7 @@ public class UserCouponServiceImpl implements UserCouponService {
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.SUPPORTS)
     public void grantCoupon(GrantCouponDTO dto) {
         ReceiveCouponDTO coupon = new ReceiveCouponDTO();
         coupon.setCouponConfigId(dto.getCouponConfigId());
