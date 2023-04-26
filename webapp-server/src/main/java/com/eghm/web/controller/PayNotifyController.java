@@ -1,9 +1,11 @@
 package com.eghm.web.controller;
 
+import com.eghm.constant.CacheConstant;
 import com.eghm.constant.WeChatConstant;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.dto.PayNotifyContext;
 import com.eghm.service.business.handler.dto.RefundNotifyContext;
+import com.eghm.service.cache.LockService;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.NotifyType;
@@ -42,8 +44,10 @@ public class PayNotifyController {
 
     private final CommonService commonService;
 
+    private final LockService lockService;
+
     @PostMapping("${system.ali-pay.pay-notify-url:/notify/ali/pay}")
-    @ApiOperation("支付宝回调")
+    @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
         Map<String, String> stringMap = parseRequest(request);
         aliPayService.verifyNotify(stringMap);
@@ -54,8 +58,10 @@ public class PayNotifyController {
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
         context.setOutTradeNo(outTradeNo);
-        commonService.getPayHandler(orderNo).doAction(context);
-        return ALI_PAY_SUCCESS;
+        return lockService.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
+            commonService.getPayHandler(orderNo).doAction(context);
+            return ALI_PAY_SUCCESS;
+        });
     }
 
     @PostMapping("${system.ali-pay.refund-notify-url:/notify/ali/refund}")
@@ -65,12 +71,15 @@ public class PayNotifyController {
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, NotifyType.REFUND);
         String outRefundNo = stringMap.get("out_biz_no");
+        String outTradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = new RefundNotifyContext();
         context.setOutRefundNo(outRefundNo);
-        context.setOutTradeNo(stringMap.get("out_trade_no"));
-        commonService.getRefundHandler(outRefundNo).doAction(context);
-        return ALI_PAY_SUCCESS;
+        context.setOutTradeNo(outTradeNo);
+        return lockService.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
+            commonService.getRefundHandler(outRefundNo).doAction(context);
+            return ALI_PAY_SUCCESS;
+        });
     }
 
     @PostMapping("${system.wechat.pay-notify-url:/notify/weChat/pay}")
@@ -84,7 +93,10 @@ public class PayNotifyController {
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
         context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
-        commonService.getPayHandler(orderNo).doAction(context);
+        lockService.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
+            commonService.getPayHandler(orderNo).doAction(context);
+            return null;
+        });
     }
 
     @PostMapping("${system.wechat.refund-notify-url:/notify/weChat/refund}")
@@ -94,11 +106,15 @@ public class PayNotifyController {
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
         String outRefundNo = payNotify.getResult().getOutRefundNo();
+        String outTradeNo = payNotify.getResult().getOutTradeNo();
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = new RefundNotifyContext();
         context.setOutRefundNo(outRefundNo);
-        context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
-        commonService.getRefundHandler(outRefundNo).doAction(context);
+        context.setOutTradeNo(outTradeNo);
+        lockService.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
+            commonService.getRefundHandler(outRefundNo).doAction(context);
+            return null;
+        });
     }
 
     /**

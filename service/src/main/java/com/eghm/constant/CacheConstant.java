@@ -189,4 +189,24 @@ public class CacheConstant {
      * 抽奖
      */
     public static final String LOTTERY = "lottery:%d:%d";
+
+    /**
+     * 支付宝支付异步通知锁
+     */
+    public static final String ALI_PAY_NOTIFY_LOCK = "ali_pay_notify_lock:";
+
+    /**
+     * 支付宝退款异步通知锁
+     */
+    public static final String ALI_REFUND_NOTIFY_LOCK = "ali_refund_notify_lock:";
+
+    /**
+     * 微信支付异步通知锁
+     */
+    public static final String WECHAT_PAY_NOTIFY_LOCK = "wechat_pay_notify_lock:";
+
+    /**
+     * 微信退款异步通知锁
+     */
+    public static final String WECHAT_REFUND_NOTIFY_LOCK = "wechat_refund_notify_lock:";
 }

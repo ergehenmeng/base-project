@@ -41,6 +41,9 @@ public class SysTask {
     @ApiModelProperty("报警邮箱地址")
     private String alarmEmail;
 
+    @ApiModelProperty("")
+    private Long lockTime;
+
     @ApiModelProperty("更新时间")
     private LocalDateTime updateTime;
 

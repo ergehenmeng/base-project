@@ -23,9 +23,14 @@ public class LockServiceImpl implements LockService {
 
     @Override
     public <T> T lock(String key, long lockTime, Supplier<T> supplier) {
+       return this.lock(key, -1, lockTime, supplier);
+    }
+
+    @Override
+    public <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier) {
         RLock lock = redissonClient.getLock(key);
         try {
-            if (lock.tryLock(lockTime, TimeUnit.MILLISECONDS)) {
+            if (lock.tryLock(waitTime, lockTime, TimeUnit.MILLISECONDS)) {
                 try {
                     return supplier.get();
                 } finally {

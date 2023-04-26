@@ -174,6 +174,12 @@ public enum ErrorCode {
      */
     ENUM_SUPPORTED(1025,"转换器不支持非枚举类"),
 
+
+    /**
+     * 定时任务配置异常
+     */
+    TASK_CONFIG_ERROR(1030,"定时任务配置异常"),
+
     /**
      * 参数解析异常
      */

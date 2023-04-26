@@ -30,4 +30,8 @@ public abstract class Task {
      */
     private String alarmEmail;
 
+    /**
+     * 锁定时间
+     */
+    private long lockTime;
 }

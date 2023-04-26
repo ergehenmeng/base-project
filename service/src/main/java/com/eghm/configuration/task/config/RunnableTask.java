@@ -1,10 +1,13 @@
 package com.eghm.configuration.task.config;
 
 import cn.hutool.core.util.ReflectUtil;
-import com.eghm.utils.DateUtil;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.SysTaskLog;
+import com.eghm.service.cache.LockService;
 import com.eghm.service.common.SysTaskLogService;
 import com.eghm.service.common.TaskAlarmService;
+import com.eghm.utils.DateUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +27,17 @@ public class RunnableTask implements Runnable {
     /**
      * 具体业务实现
      */
-    private Object bean;
+    private final Object bean;
+
+    /**
+     * 锁
+     */
+    private final LockService lockService;
 
     /**
      * 方法名
      */
-    private Method method;
+    private final Method method;
 
     /**
      * 日志记录
@@ -43,7 +51,14 @@ public class RunnableTask implements Runnable {
 
     RunnableTask(Task task) {
         this.task = task;
-        this.evaluateBean(task.getBeanName(), task.getMethodName());
+        try {
+            this.bean = SpringContextUtil.getBean(task.getBeanName());
+            this.lockService = SpringContextUtil.getBean(LockService.class);
+            this.method = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass().getMethod(task.getMethodName(), String.class) : bean.getClass().getMethod(task.getMethodName(), String.class);
+        } catch (Exception e) {
+            log.error("系统中不存在指定的类或该方法 [{}] [{}]", task.getBeanName(), task.getMethodName(), e);
+            throw new BusinessException(ErrorCode.TASK_CONFIG_ERROR);
+        }
     }
 
     @Override
@@ -52,8 +67,11 @@ public class RunnableTask implements Runnable {
         long startTime = now.getTime();
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
         try {
-            // 任务幂等由业务来决定
-            ReflectUtil.invoke(bean, method, task.getArgs());
+            // 外层加锁防止多部分运行时有并发执行问题, 幂等由业务进行控制
+            lockService.lock(task.getBeanName() + ":" + task.getMethodName(), task.getLockTime(), () -> {
+                ReflectUtil.invoke(bean, method, task.getArgs());
+                return null;
+            });
         } catch (Exception e) {
             // 异常时记录日志并发送邮件
             log.error("定时任务执行异常 bean:[{}] method: [{}]", task.getBeanName(), task.getMethodName(), e);
@@ -86,17 +104,4 @@ public class RunnableTask implements Runnable {
         taskAlarmService.noticeAlarm(task, errorMsg);
     }
 
-    /**
-     * 初始化bean与方法信息
-     * @param beanName bean名称
-     * @param methodName 方法名
-     */
-    private void evaluateBean(String beanName, String methodName) {
-        try {
-            this.bean = SpringContextUtil.getBean(beanName);
-            this.method = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass().getMethod(methodName, String.class) : bean.getClass().getMethod(methodName, String.class);
-        } catch (Exception e) {
-            log.error("系统中不存在指定的类或该方法 [{}] [{}]", beanName, methodName, e);
-        }
-    }
 }
