@@ -64,12 +64,12 @@ public enum ItemEvent implements IEvent {
     /**
      * 支付失败
      */
-    PAY_FAIL(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.PAY_FAIL.getValue()),
+    PAY_FAIL(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_PAY.getValue()),
 
     /**
-     * 支付失败
+     * 退款失败
      */
-    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_FAIL.getValue()),
+    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.UN_USED.getValue()),
     ;
 
 
