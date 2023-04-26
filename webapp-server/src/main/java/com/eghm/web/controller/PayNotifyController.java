@@ -53,12 +53,14 @@ public class PayNotifyController {
         Map<String, String> stringMap = parseRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, NotifyType.PAY);
+
         String orderNo = stringMap.get("body");
         String outTradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
         context.setOutTradeNo(outTradeNo);
+
         return lockService.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
             commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
             return ALI_PAY_SUCCESS;
@@ -71,12 +73,14 @@ public class PayNotifyController {
         Map<String, String> stringMap = parseRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, NotifyType.REFUND);
+
         String outRefundNo = stringMap.get("out_biz_no");
         String outTradeNo = stringMap.get("out_trade_no");
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = new RefundNotifyContext();
         context.setOutRefundNo(outRefundNo);
         context.setOutTradeNo(outTradeNo);
+
         return lockService.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
             commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
             return ALI_PAY_SUCCESS;
@@ -89,11 +93,13 @@ public class PayNotifyController {
         SignatureHeader header = this.parseHeader(httpHeader);
         WxPayOrderNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
+
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         String orderNo = payNotify.getResult().getAttach();
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
         context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
+
         lockService.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
             commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
             return null;
@@ -106,12 +112,14 @@ public class PayNotifyController {
         SignatureHeader header = this.parseHeader(httpHeader);
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
+
         String outRefundNo = payNotify.getResult().getOutRefundNo();
         String outTradeNo = payNotify.getResult().getOutTradeNo();
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         RefundNotifyContext context = new RefundNotifyContext();
         context.setOutRefundNo(outRefundNo);
         context.setOutTradeNo(outTradeNo);
+
         lockService.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
             commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
             return null;
@@ -138,7 +146,7 @@ public class PayNotifyController {
      * @return 解析后的参数
      */
     public static Map<String, String> parseRequest(HttpServletRequest request) {
-        Map< String , String > params = new HashMap<>();
+        Map<String , String > params = new HashMap<>(32);
         Map<String, String[]> requestParams = request.getParameterMap();
         for (Map.Entry<String, String[]> entry : requestParams.entrySet()) {
             String[] values = entry.getValue();
