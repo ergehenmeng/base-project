@@ -1,8 +1,9 @@
 package com.eghm.service.business;
 
 import com.eghm.model.SysDict;
-import com.eghm.service.business.handler.PayNotifyHandler;
-import com.eghm.service.business.handler.RefundNotifyHandler;
+import com.eghm.service.business.handler.access.AccessHandler;
+import com.eghm.service.business.handler.state.PayNotifyHandler;
+import com.eghm.service.business.handler.state.RefundNotifyHandler;
 
 import java.util.List;
 
@@ -21,12 +22,12 @@ public interface CommonService {
     void checkMaxDay(String configNid, long maxValue);
 
     /**
-     * 根据订单编号查询支付处理类
+     * 根据订单编号查询处理类
      *
      * @param orderNo 订单编号 以ProductType中的prefix开头的订单
-     * @return 支付处理类
+     * @return 处理类
      */
-    PayNotifyHandler getPayHandler(String orderNo);
+    <T> T getHandler(String orderNo, Class<T> clsHandler);
 
     /**
      * 根据订单编号查询退款处理类

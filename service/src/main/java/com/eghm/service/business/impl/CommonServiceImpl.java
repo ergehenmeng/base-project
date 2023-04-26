@@ -7,10 +7,7 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SysDict;
 import com.eghm.service.business.CommonService;
-import com.eghm.service.business.handler.PayNotifyHandler;
-import com.eghm.service.business.handler.RefundNotifyHandler;
-import com.eghm.service.business.handler.impl.DefaultPayNotifyHandler;
-import com.eghm.service.business.handler.impl.item.ItemPayNotifyHandler;
+import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
 import com.google.common.collect.Lists;
@@ -41,11 +38,8 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public PayNotifyHandler getPayHandler(String orderNo) {
-        if (orderNo.startsWith(ProductType.ITEM.getPrefix())) {
-            return SpringContextUtil.getBean(ItemPayNotifyHandler.class);
-        }
-        return SpringContextUtil.getBean(DefaultPayNotifyHandler.class);
+    public <T> T getHandler(String orderNo, Class<T> clsHandler) {
+        return SpringContextUtil.getBean(ProductType.prefix(orderNo).getValue() + clsHandler.getSimpleName(), clsHandler);
     }
 
     @Override

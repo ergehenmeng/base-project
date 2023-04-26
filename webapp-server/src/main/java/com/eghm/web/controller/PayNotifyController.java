@@ -2,15 +2,14 @@ package com.eghm.web.controller;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.WeChatConstant;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.cache.LockService;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.NotifyType;
-import com.eghm.state.machine.StateHandler;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -48,8 +47,6 @@ public class PayNotifyController {
 
     private final LockService lockService;
 
-    private final StateHandler stateHandler;
-
     @PostMapping("${system.ali-pay.pay-notify-url:/notify/ali/pay}")
     @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
@@ -63,8 +60,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setOutTradeNo(outTradeNo);
         return lockService.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
-            stateHandler.fireEvent(ProductType.prefix(orderNo), ProductType);
-            commonService.getPayHandler(orderNo).doAction(context);
+            commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
             return ALI_PAY_SUCCESS;
         });
     }
@@ -82,7 +78,7 @@ public class PayNotifyController {
         context.setOutRefundNo(outRefundNo);
         context.setOutTradeNo(outTradeNo);
         return lockService.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
-            commonService.getRefundHandler(outRefundNo).doAction(context);
+            commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
             return ALI_PAY_SUCCESS;
         });
     }
@@ -99,7 +95,7 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
         lockService.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
-            commonService.getPayHandler(orderNo).doAction(context);
+            commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
             return null;
         });
     }
@@ -117,7 +113,7 @@ public class PayNotifyController {
         context.setOutRefundNo(outRefundNo);
         context.setOutTradeNo(outTradeNo);
         lockService.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
-            commonService.getRefundHandler(outRefundNo).doAction(context);
+            commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
             return null;
         });
     }

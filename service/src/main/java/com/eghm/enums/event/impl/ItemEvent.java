@@ -9,13 +9,12 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * 门票订单流转事件
- * @author 二哥很猛
- * @since 2022/11/21
+ * @author wyb
+ * @since 2023/4/26
  */
 @Getter
 @AllArgsConstructor
-public enum TicketEvent implements IEvent {
+public enum ItemEvent implements IEvent {
 
     /**
      * 创建订单
@@ -51,13 +50,26 @@ public enum TicketEvent implements IEvent {
      * 订单取消
      */
     CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
-    
+
     /**
      * 订单取消
      */
     AUTO_CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
 
+    /**
+     * 退款成功
+     */
+    REFUND_SUCCESS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
 
+    /**
+     * 支付失败
+     */
+    PAY_FAIL(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.PAY_FAIL.getValue()),
+
+    /**
+     * 支付失败
+     */
+    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_FAIL.getValue()),
     ;
 
 

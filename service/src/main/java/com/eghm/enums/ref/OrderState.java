@@ -72,6 +72,16 @@ public enum OrderState {
      */
     CLOSE(9, "已关闭"),
 
+    /**
+     * 支付失败
+     */
+    PAY_FAIL(10, "支付失败"),
+
+    /**
+     * 退款失败
+     */
+    REFUND_FAIL(11, "退款失败"),
+
     ;
     /**
      * 状态
