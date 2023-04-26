@@ -3,7 +3,7 @@ package com.eghm.service.business.handler.impl.line;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.RefundNotifyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderRefundLogService;

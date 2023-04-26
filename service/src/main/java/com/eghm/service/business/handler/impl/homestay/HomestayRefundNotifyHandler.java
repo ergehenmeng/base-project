@@ -3,7 +3,7 @@ package com.eghm.service.business.handler.impl.homestay;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.service.business.handler.dto.RefundNotifyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.OrderRefundLogService;

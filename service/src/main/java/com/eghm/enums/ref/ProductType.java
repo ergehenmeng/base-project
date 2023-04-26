@@ -83,8 +83,8 @@ public enum ProductType {
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_TYPE_MATCH));
     }
 
-    public static ProductType prefix(String orderCode) {
-        return Arrays.stream(ProductType.values()).filter(productType -> orderCode.startsWith(productType.getPrefix()))
+    public static ProductType prefix(String orderNo) {
+        return Arrays.stream(ProductType.values()).filter(productType -> orderNo.startsWith(productType.getPrefix()))
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_TYPE_MATCH));
     }
 

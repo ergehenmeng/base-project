@@ -1,4 +1,4 @@
-package com.eghm.service.business.handler.dto;
+package com.eghm.service.business.handler.context;
 
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,16 +6,16 @@ import lombok.Data;
 
 /**
  * @author 二哥很猛
- * @date 2022/8/20
+ * @since 2022/11/21
  */
 @Data
-public class RefundNotifyContext implements Context {
+public class PayNotifyContext implements Context {
+
+    @ApiModelProperty("订单编号")
+    private String orderNo;
 
     @ApiModelProperty("支付流水号")
     private String outTradeNo;
-
-    @ApiModelProperty("退款流水号")
-    private String outRefundNo;
 
     @ApiModelProperty("源状态")
     private Integer from;

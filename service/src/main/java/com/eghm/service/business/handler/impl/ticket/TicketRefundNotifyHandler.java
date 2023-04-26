@@ -3,7 +3,7 @@ package com.eghm.service.business.handler.impl.ticket;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.TicketOrder;
-import com.eghm.service.business.handler.dto.RefundNotifyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ScenicTicketService;

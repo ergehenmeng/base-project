@@ -1,4 +1,4 @@
-package com.eghm.service.business.handler.dto;
+package com.eghm.service.business.handler.context;
 
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,13 +9,10 @@ import lombok.Data;
  * @since 2022/11/21
  */
 @Data
-public class PayNotifyContext implements Context {
+public class OrderCancelContext implements Context {
 
     @ApiModelProperty("订单编号")
     private String orderNo;
-
-    @ApiModelProperty("支付流水号")
-    private String outTradeNo;
 
     @ApiModelProperty("源状态")
     private Integer from;

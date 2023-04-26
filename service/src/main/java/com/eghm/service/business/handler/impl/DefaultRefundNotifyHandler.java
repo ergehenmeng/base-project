@@ -13,7 +13,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.RefundNotifyHandler;
-import com.eghm.service.business.handler.dto.RefundNotifyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeType;

@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler;
 
-import com.eghm.service.business.handler.dto.RefundNotifyContext;
+import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.state.machine.ActionHandler;
 
 /**

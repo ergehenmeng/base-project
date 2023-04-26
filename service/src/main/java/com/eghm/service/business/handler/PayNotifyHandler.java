@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler;
 
-import com.eghm.service.business.handler.dto.PayNotifyContext;
+import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.state.machine.ActionHandler;
 
 /**

@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler;
 
-import com.eghm.service.business.handler.dto.OrderCancelContext;
+import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.state.machine.ActionHandler;
 
 /**

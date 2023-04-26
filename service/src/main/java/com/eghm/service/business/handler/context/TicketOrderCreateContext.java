@@ -1,7 +1,8 @@
-package com.eghm.service.business.handler.dto;
+package com.eghm.service.business.handler.context;
 
 import com.eghm.annotation.Sign;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.service.business.handler.dto.VisitorVO;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.state.machine.Context;

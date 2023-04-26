@@ -9,7 +9,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.PayNotifyHandler;
-import com.eghm.service.business.handler.dto.PayNotifyContext;
+import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
