@@ -1,7 +1,6 @@
 package com.eghm.service.business.handler.impl.ticket;
 
 import cn.hutool.core.collection.CollUtil;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.DeliveryType;
@@ -46,7 +45,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     @Override
     protected Order createOrder(TicketOrderCreateContext context, ScenicTicket payload) {
-        String orderNo = ProductType.TICKET.getPrefix() + IdWorker.getIdStr();
+        String orderNo = ProductType.TICKET.generateTradeNo();
         // TODO 待完善
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.of(context.getTo()));

@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
@@ -46,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public PrepayVO createPrepay(Long orderId, String buyerId, TradeType tradeType) {
         Order order = this.getUnPayById(orderId);
-        String outTradeNo = IdWorker.getIdStr();
+        String outTradeNo = order.getProductType().generateTradeNo();
 
         PrepayDTO dto = new PrepayDTO();
         dto.setAttach(order.getOrderNo());

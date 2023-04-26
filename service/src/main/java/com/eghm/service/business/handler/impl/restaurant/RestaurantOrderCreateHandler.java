@@ -1,6 +1,5 @@
 package com.eghm.service.business.handler.impl.restaurant;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.DeliveryType;
@@ -68,7 +67,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected Order createOrder(RestaurantOrderCreateContext context, RestaurantVoucher payload) {
-        String orderNo = ProductType.VOUCHER.getPrefix() + IdWorker.getIdStr();
+        String orderNo = ProductType.VOUCHER.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.of(context.getTo()));
         order.setUserId(context.getUserId());

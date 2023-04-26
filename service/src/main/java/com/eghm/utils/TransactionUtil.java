@@ -11,6 +11,8 @@ import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import java.util.function.Consumer;
+
 /**
  * @author 二哥很猛
  * @since 2022/11/18
@@ -38,11 +40,11 @@ public class TransactionUtil {
     /**
      * 事务提交后置处理
      * @param runnable r
-     * @param errorRun 如果runnable执行异常, 则执行该方法
+     * @param consumer 如果runnable执行异常, 则执行该方法
      */
-    public static void afterCommit(Runnable runnable, Runnable errorRun) {
+    public static void afterCommit(Runnable runnable, Consumer<Throwable> consumer) {
         if (TransactionSynchronizationManager.isActualTransactionActive()) {
-            TransactionSynchronizationManager.registerSynchronization(new AfterCommitHandler(runnable, errorRun));
+            TransactionSynchronizationManager.registerSynchronization(new AfterCommitHandler(runnable, consumer));
         }
     }
 
@@ -55,7 +57,7 @@ public class TransactionUtil {
         /**
          * 执行错误时的补偿操作
          */
-        private Runnable errorRun;
+        private Consumer<Throwable> consumer;
 
         @Override
         public void afterCompletion(int status) {
@@ -64,8 +66,8 @@ public class TransactionUtil {
                     runnable.run();
                 } catch (Exception e) {
                     log.error("事务后置处理执行异常", e);
-                    if (errorRun != null) {
-                        errorRun.run();
+                    if (consumer != null) {
+                        consumer.accept(e);
                     }
                 }
             }

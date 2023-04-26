@@ -34,7 +34,7 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         log.setOutTradeNo(params.get("out_trade_no"));
         log.setNotifyId(params.get("notify_id"));
         if (notifyType == NotifyType.REFUND) {
-            log.setOutTradeNo(params.get("out_biz_no"));
+            log.setOutRefundNo(params.get("out_biz_no"));
         }
         payNotifyLogMapper.insert(log);
     }

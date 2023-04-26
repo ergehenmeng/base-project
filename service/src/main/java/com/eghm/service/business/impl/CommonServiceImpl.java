@@ -1,13 +1,14 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.model.SysDict;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.PayNotifyHandler;
+import com.eghm.service.business.handler.RefundNotifyHandler;
 import com.eghm.service.business.handler.impl.DefaultPayNotifyHandler;
 import com.eghm.service.business.handler.impl.item.ItemPayNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -45,6 +46,12 @@ public class CommonServiceImpl implements CommonService {
             return SpringContextUtil.getBean(ItemPayNotifyHandler.class);
         }
         return SpringContextUtil.getBean(DefaultPayNotifyHandler.class);
+    }
+
+    @Override
+    public RefundNotifyHandler getRefundHandler(String orderNo) {
+        String prefix = ProductType.prefix(orderNo).getValue();
+        return SpringContextUtil.getBean(prefix + RefundNotifyHandler.class.getSimpleName(), RefundNotifyHandler.class);
     }
 
     @Override

@@ -91,6 +91,7 @@ public class LotteryServiceImpl implements LotteryService {
 
         boolean status = this.givePrize(userId, lottery, config);
         if (!status) {
+            // 如果发放奖品失败, 默认还是按未中奖
             config = configList.get(configList.size() - 1);
         }
         LotteryLog lotteryLog = new LotteryLog();

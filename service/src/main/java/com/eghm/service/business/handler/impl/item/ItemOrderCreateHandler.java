@@ -1,6 +1,5 @@
 package com.eghm.service.business.handler.impl.item;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
@@ -65,7 +64,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             // 更新库存信息
             itemSkuService.updateStock(skuNumMap);
 
-            String orderNo = ProductType.ITEM.getPrefix() + IdWorker.getIdStr();
+            String orderNo = ProductType.ITEM.generateOrderNo();
             address.setOrderNo(orderNo);
             address.setId(null);
             Order order = new Order();

@@ -3,6 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.constant.WeChatConstant;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.dto.PayNotifyContext;
+import com.eghm.service.business.handler.dto.RefundNotifyContext;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.NotifyType;
@@ -49,6 +50,7 @@ public class PayNotifyController {
         payNotifyLogService.insertAliLog(stringMap, NotifyType.PAY);
         String orderNo = stringMap.get("body");
         String outTradeNo = stringMap.get("out_trade_no");
+        // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
         context.setOutTradeNo(outTradeNo);
@@ -62,7 +64,12 @@ public class PayNotifyController {
         Map<String, String> stringMap = parseRequest(request);
         aliPayService.verifyNotify(stringMap);
         payNotifyLogService.insertAliLog(stringMap, NotifyType.REFUND);
-        // TODO 业务
+        String outRefundNo = stringMap.get("out_biz_no");
+        // 不以第三方返回的状态为准, 而是通过接口查询订单状态
+        RefundNotifyContext context = new RefundNotifyContext();
+        context.setOutRefundNo(outRefundNo);
+        context.setOutTradeNo(stringMap.get("out_trade_no"));
+        commonService.getRefundHandler(outRefundNo).doAction(context);
         return ALI_PAY_SUCCESS;
     }
 
@@ -72,6 +79,7 @@ public class PayNotifyController {
         SignatureHeader header = this.parseHeader(httpHeader);
         WxPayOrderNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
+        // 不以第三方返回的状态为准, 而是通过接口查询订单状态
         String orderNo = payNotify.getResult().getAttach();
         PayNotifyContext context = new PayNotifyContext();
         context.setOrderNo(orderNo);
@@ -85,7 +93,12 @@ public class PayNotifyController {
         SignatureHeader header = this.parseHeader(httpHeader);
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
-        // TODO 业务
+        String outRefundNo = payNotify.getResult().getOutRefundNo();
+        // 不以第三方返回的状态为准, 而是通过接口查询订单状态
+        RefundNotifyContext context = new RefundNotifyContext();
+        context.setOutRefundNo(outRefundNo);
+        context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
+        commonService.getRefundHandler(outRefundNo).doAction(context);
     }
 
     /**

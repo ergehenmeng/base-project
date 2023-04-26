@@ -67,7 +67,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected Order createOrder(LineOrderCreateContext context, LineOrderPayload payload) {
-        String orderNo = ProductType.LINE.getPrefix() + IdWorker.getIdStr();
+        String orderNo = ProductType.LINE.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.of(context.getTo()));
         order.setUserId(context.getUserId());

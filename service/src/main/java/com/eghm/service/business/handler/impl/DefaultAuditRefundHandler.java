@@ -1,6 +1,5 @@
 package com.eghm.service.business.handler.impl;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.AuditState;
@@ -93,7 +92,7 @@ public class DefaultAuditRefundHandler implements AuditRefundHandler {
         refundLog.setAuditState(AuditState.PASS);
         refundLog.setState(0);
         refundLog.setRefundAmount(dto.getRefundAmount());
-        refundLog.setOutRefundNo(IdWorker.getIdStr());
+        refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);
         TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));

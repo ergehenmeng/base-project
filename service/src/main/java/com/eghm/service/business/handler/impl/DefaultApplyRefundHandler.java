@@ -69,6 +69,7 @@ public class DefaultApplyRefundHandler implements ApplyRefundHandler {
             this.checkRefund(dto, order);
             refundLog.setAuditState(AuditState.PASS);
             refundLog.setAuditRemark("系统自动审核");
+            refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
             order.setRefundState(RefundState.PROGRESS);
             TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
         }

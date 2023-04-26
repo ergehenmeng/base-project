@@ -1,6 +1,5 @@
 package com.eghm.service.business.handler.impl.homestay;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.DeliveryType;
@@ -87,7 +86,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected Order createOrder(HomestayOrderCreateContext context, HomestayOrderPayload payload) {
-        String orderNo = ProductType.HOMESTAY.getPrefix() + IdWorker.getIdStr();
+        String orderNo = ProductType.HOMESTAY.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.of(context.getTo()));
         order.setUserId(context.getUserId());

@@ -83,6 +83,7 @@
 * 分页响应对象最好为`RespBody<Paging<T>>`,做统一的处理
 * 禁止使用枚举ordinal()或name()作为参数进行传递,必须显式声明
 * 默认post请求有频率限制,具体在`SubmitFrequencyLimitInterceptor`声明
+* `ProductType` 商品类型枚举, 提供常用方法, 例如: 生成订单编号 `generateOrderNo()`, 生成交易单号 `generateSerialNo` 
 
 
 ## 其他开发说明

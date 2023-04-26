@@ -11,15 +11,12 @@ import lombok.Data;
 @Data
 public class RefundNotifyContext implements Context {
 
-    /**
-     * 支付流水号
-     */
+    @ApiModelProperty("支付流水号")
     private String outTradeNo;
 
-    /**
-     * 退款流水号
-     */
+    @ApiModelProperty("退款流水号")
     private String outRefundNo;
+
     @ApiModelProperty("源状态")
     private Integer from;
 

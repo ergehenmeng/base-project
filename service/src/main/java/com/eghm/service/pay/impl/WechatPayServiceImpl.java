@@ -123,6 +123,7 @@ public class WechatPayServiceImpl implements PayService {
         request.setNotifyUrl(wechat.getNotifyHost() + wechat.getRefundNotifyUrl());
         request.setOutTradeNo(dto.getOutTradeNo());
         request.setReason(dto.getReason());
+        request.setOutRefundNo(dto.getOutRefundNo());
         WxPayRefundV3Result result;
         try {
             result = wxPayService.refundV3(request);
