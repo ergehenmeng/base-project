@@ -512,7 +512,7 @@ CREATE TABLE `order`
     `delivery_type`   tinyint(1)   DEFAULT '0' COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
     `pay_type`        varchar(30)  DEFAULT NULL COMMENT '支付方式',
     `order_no`        varchar(30)  DEFAULT NULL COMMENT '订单编号',
-    `out_trade_no`    varchar(30)  DEFAULT NULL COMMENT '支付流水号',
+    `out_trade_no`    varchar(50)  DEFAULT NULL COMMENT '支付流水号',
     `price`           int(10)      DEFAULT NULL COMMENT '单价',
     `num`             smallint(3)  DEFAULT '1' COMMENT '数量',
     `product_type`    varchar(30)  DEFAULT NULL COMMENT '商品类型',
