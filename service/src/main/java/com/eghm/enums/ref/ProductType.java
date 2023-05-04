@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.utils.DateUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
@@ -93,7 +95,7 @@ public enum ProductType {
      * @return 交易单号
      */
     public String generateTradeNo() {
-        return prefix + IdWorker.getTimeId();
+        return prefix + DateUtil.formatShortLimit(LocalDate.now()) + IdWorker.getIdStr();
     }
 
     /**
