@@ -1,6 +1,6 @@
 package com.eghm.service.cache.impl;
 
-import com.eghm.service.cache.LockService;
+import com.eghm.service.cache.RedisLock;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -14,10 +14,10 @@ import java.util.function.Supplier;
  * @author wyb
  * @date 2023/3/26 16:26
  */
-@Service("lockService")
+@Service("redisLock")
 @AllArgsConstructor
 @Slf4j
-public class LockServiceImpl implements LockService {
+public class RedisLockImpl implements RedisLock {
 
     private final RedissonClient redissonClient;
 

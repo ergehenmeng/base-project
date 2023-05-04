@@ -6,7 +6,7 @@ import java.util.function.Supplier;
  * @author wyb
  * @date 2023/3/26 16:26
  */
-public interface LockService {
+public interface RedisLock {
 
     /**
      * 获取锁后执行指定逻辑

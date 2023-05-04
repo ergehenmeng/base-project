@@ -4,7 +4,7 @@ import cn.hutool.core.util.ReflectUtil;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SysTaskLog;
-import com.eghm.service.cache.LockService;
+import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.SysTaskLogService;
 import com.eghm.service.common.TaskAlarmService;
 import com.eghm.utils.DateUtil;
@@ -32,7 +32,7 @@ public class RunnableTask implements Runnable {
     /**
      * 锁
      */
-    private final LockService lockService;
+    private final RedisLock redisLock;
 
     /**
      * 方法名
@@ -53,7 +53,7 @@ public class RunnableTask implements Runnable {
         this.task = task;
         try {
             this.bean = SpringContextUtil.getBean(task.getBeanName());
-            this.lockService = SpringContextUtil.getBean(LockService.class);
+            this.redisLock = SpringContextUtil.getBean(RedisLock.class);
             this.method = AopUtils.isAopProxy(bean) ? bean.getClass().getSuperclass().getMethod(task.getMethodName(), String.class) : bean.getClass().getMethod(task.getMethodName(), String.class);
         } catch (Exception e) {
             log.error("系统中不存在指定的类或该方法 [{}] [{}]", task.getBeanName(), task.getMethodName(), e);
@@ -68,7 +68,7 @@ public class RunnableTask implements Runnable {
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
         try {
             // 外层加锁防止多部分运行时有并发执行问题, 幂等由业务进行控制
-            lockService.lock(task.getBeanName() + ":" + task.getMethodName(), task.getLockTime(), () -> {
+            redisLock.lock(task.getBeanName() + ":" + task.getMethodName(), task.getLockTime(), () -> {
                 ReflectUtil.invoke(bean, method, task.getArgs());
                 return null;
             });

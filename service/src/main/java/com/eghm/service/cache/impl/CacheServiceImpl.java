@@ -6,7 +6,7 @@ import com.eghm.dto.ext.AsyncResponse;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.cache.LockService;
+import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -42,7 +42,7 @@ public class CacheServiceImpl implements CacheService {
 
     private final JsonService jsonService;
 
-    private final LockService lockService;
+    private final RedisLock redisLock;
 
     /**
      * 默认过期数据 30s
@@ -102,7 +102,7 @@ public class CacheServiceImpl implements CacheService {
      * @return 结果信息
      */
     private <T> T doSupplier(String key, Supplier<T> supplier) {
-        T result = lockService.lock(CacheConstant.MUTEX_LOCK + key, MUTEX_EXPIRE, supplier);
+        T result = redisLock.lock(CacheConstant.MUTEX_LOCK + key, MUTEX_EXPIRE, supplier);
         if (result != null) {
             this.setValue(key, result, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE, DEFAULT_EXPIRE));
         } else {
