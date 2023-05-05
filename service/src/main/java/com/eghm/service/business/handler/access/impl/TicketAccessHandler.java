@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.access.impl;
 
-import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
@@ -14,30 +14,30 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author wyb
- * @since 2023/4/26
+ * @since 2023/5/5
  */
-@Service("itemAccessHandler")
-public class ItemAccessHandler extends AbstractAccessHandler {
+@Service("ticketAccessHandler")
+public class TicketAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
-    public ItemAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
+    public TicketAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
     }
 
     @Override
     public void createOrder(Context context) {
-        stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context);
+        stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE, context);
     }
 
     @Override
     public void payNotify(PayNotifyContext context) {
         boolean paySuccess = super.checkPaySuccess(context);
         if (paySuccess) {
-            stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.PAY_SUCCESS, context);
+            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.PAY_SUCCESS, context);
         } else {
-            stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.PAY_FAIL, context);
+            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.PAY_FAIL, context);
         }
     }
 
@@ -45,9 +45,9 @@ public class ItemAccessHandler extends AbstractAccessHandler {
     public void refundNotify(RefundNotifyContext context) {
         boolean refundSuccess = this.checkRefundSuccess(context);
         if (refundSuccess) {
-            stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.REFUND_SUCCESS, context);
+            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.REFUND_SUCCESS, context);
         } else {
-            stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.REFUND_FAIL, context);
+            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.REFUND_FAIL, context);
         }
     }
 }

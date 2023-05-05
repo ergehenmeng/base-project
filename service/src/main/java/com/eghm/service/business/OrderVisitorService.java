@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.enums.ref.ProductType;
-import com.eghm.service.business.handler.dto.VisitorVO;
+import com.eghm.service.business.handler.dto.VisitorDTO;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface OrderVisitorService {
      * @param orderNo 订单编号
      * @param voList 游客信息
      */
-    void addVisitor(ProductType productType, String orderNo, List<VisitorVO> voList);
+    void addVisitor(ProductType productType, String orderNo, List<VisitorDTO> voList);
 
     /**
      * 锁定游客信息,防止在退款中进行核销

@@ -2,10 +2,13 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.item.ItemCreateDTO;
+import com.eghm.dto.business.order.ticket.TicketCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
+import com.eghm.service.business.handler.access.impl.TicketAccessHandler;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
+import com.eghm.service.business.handler.context.TicketOrderCreateContext;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import io.swagger.annotations.Api;
@@ -29,6 +32,8 @@ public class OrderController {
 
     private final ItemAccessHandler itemAccessHandler;
 
+    private final TicketAccessHandler ticketAccessHandler;
+
     private final OrderService orderService;
 
     @PostMapping("/item/create")
@@ -37,6 +42,15 @@ public class OrderController {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setUserId(ApiHolder.getUserId());
         itemAccessHandler.createOrder(context);
+        return context.getOrderNo();
+    }
+
+    @PostMapping("/ticket/create")
+    @ApiOperation("门票创建订单")
+    public String ticketCreate(@RequestBody @Validated TicketCreateDTO dto) {
+        TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
+        context.setUserId(ApiHolder.getUserId());
+        ticketAccessHandler.createOrder(context);
         return context.getOrderNo();
     }
 

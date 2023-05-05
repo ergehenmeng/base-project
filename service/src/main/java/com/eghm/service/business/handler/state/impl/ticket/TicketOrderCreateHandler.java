@@ -63,7 +63,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     @Override
     protected void before(TicketOrderCreateContext dto, ScenicTicket ticket) {
-        Integer num = dto.getNum();
+        int num = dto.getVisitorList().size();
         if (ticket.getStock() - num < 0) {
             log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
             throw new BusinessException(ErrorCode.TICKET_STOCK);

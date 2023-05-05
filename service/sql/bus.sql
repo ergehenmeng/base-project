@@ -339,6 +339,7 @@ CREATE TABLE `ticket_order`
     `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
     `effective_date`    datetime     DEFAULT NULL COMMENT '生效日期(包含)',
     `expire_date`       datetime     DEFAULT NULL COMMENT '失效日期(包含)',
+    `visit_date`        date         DEFAULT NULL COMMENT '游玩日期',
     `use_scope`         smallint(3)  DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
     `verification_type` tinyint(2)   DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
     `real_buy`          bit(1)       DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',

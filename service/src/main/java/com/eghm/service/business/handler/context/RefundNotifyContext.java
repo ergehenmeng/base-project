@@ -31,23 +31,4 @@ public class RefundNotifyContext implements Context {
     @ApiModelProperty("新状态")
     private Integer to;
 
-    @Override
-    public void setFrom(Integer from) {
-        this.from = from;
-    }
-
-    @Override
-    public void setTo(Integer to) {
-        this.to = to;
-    }
-
-    @Override
-    public Integer getFrom() {
-        return from;
-    }
-
-    @Override
-    public Integer getTo() {
-        return to;
-    }
 }

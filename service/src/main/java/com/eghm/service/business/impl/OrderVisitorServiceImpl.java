@@ -8,7 +8,7 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderVisitorMapper;
 import com.eghm.model.OrderVisitor;
-import com.eghm.service.business.handler.dto.VisitorVO;
+import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -29,12 +29,12 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     private final OrderVisitorMapper orderVisitorMapper;
 
     @Override
-    public void addVisitor(ProductType productType, String orderNo, List<VisitorVO> voList) {
+    public void addVisitor(ProductType productType, String orderNo, List<VisitorDTO> voList) {
         if (CollUtil.isEmpty(voList)) {
             log.info("该订单没有游客信息 [{}] [{}]", orderNo, productType);
             return;
         }
-        for (VisitorVO vo : voList) {
+        for (VisitorDTO vo : voList) {
             OrderVisitor visitor = DataUtil.copy(vo, OrderVisitor.class);
             visitor.setOrderNo(orderNo);
             visitor.setProductType(productType);

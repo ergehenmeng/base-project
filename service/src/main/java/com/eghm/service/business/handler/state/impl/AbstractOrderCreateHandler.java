@@ -5,7 +5,7 @@ import com.eghm.service.business.OrderMQService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
-import com.eghm.service.business.handler.dto.VisitorVO;
+import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.state.machine.Context;
 import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
@@ -73,7 +73,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      * @param order 订单信息
      * @param visitorList 游客信息
      */
-    protected void addVisitor(Order order, List<VisitorVO> visitorList) {
+    protected void addVisitor(Order order, List<VisitorDTO> visitorList) {
         // 订单关联购买人信息
         orderVisitorService.addVisitor(order.getProductType(), order.getOrderNo(), visitorList);
     }

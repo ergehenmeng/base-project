@@ -49,12 +49,10 @@ public class StateHandler {
         }
         StateMachineBuilder<Integer, IEvent, Context> builder = StateMachineBuilderFactory.create();
         for (ActionHandler<? extends Context> handler : handlerList) {
-            if (machineType == handler.getStateMachineType()) {
+            if (machineType == handler.getStateMachineType() && handler.getEvent() != null) {
                 IEvent event = handler.getEvent();
-                if (event != null) {
-                    for (Integer from : event.from()) {
-                        builder.externalTransition().from(from).to(event.to()).on(handler.getEvent()).when((Condition<Context>) handler).perform((Action<Integer, IEvent, Context>) handler);
-                    }
+                for (Integer from : event.from()) {
+                    builder.externalTransition().from(from).to(event.to()).on(handler.getEvent()).when((Condition<Context>) handler).perform((Action<Integer, IEvent, Context>) handler);
                 }
             }
         }

@@ -57,7 +57,20 @@ public enum TicketEvent implements IEvent {
      */
     AUTO_CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
 
+    /**
+     * 退款成功, 注意 可能关闭也可能部分退款完成
+     */
+    REFUND_SUCCESS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
 
+    /**
+     * 支付失败
+     */
+    PAY_FAIL(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.PAY_ERROR.getValue()),
+
+    /**
+     * 退款失败
+     */
+    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue());
     ;
 
 

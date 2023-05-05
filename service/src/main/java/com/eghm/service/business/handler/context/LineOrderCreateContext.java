@@ -2,7 +2,7 @@ package com.eghm.service.business.handler.context;
 
 import com.eghm.annotation.Sign;
 import com.eghm.dto.ext.AsyncKey;
-import com.eghm.service.business.handler.dto.VisitorVO;
+import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.state.machine.Context;
@@ -51,7 +51,7 @@ public class LineOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("线路人数列表")
     @Size(min = 1, max = 99, message = "人数不能超过99人")
-    private List<VisitorVO> visitorList;
+    private List<VisitorDTO> visitorList;
 
     @ApiModelProperty("游玩日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -64,23 +64,4 @@ public class LineOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("新状态")
     private Integer to;
 
-    @Override
-    public void setFrom(Integer from) {
-        this.from = from;
-    }
-
-    @Override
-    public void setTo(Integer to) {
-        this.to = to;
-    }
-
-    @Override
-    public Integer getFrom() {
-        return from;
-    }
-
-    @Override
-    public Integer getTo() {
-        return to;
-    }
 }

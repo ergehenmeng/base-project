@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @date 2022/7/27
  */
 @Data
-public class VisitorVO implements Serializable {
+public class VisitorDTO implements Serializable {
 
     @ApiModelProperty("游客姓名")
     @Size(min = 2, max = 10, message = "游客姓名长度2~10字符")
