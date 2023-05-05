@@ -2,6 +2,8 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -93,4 +95,19 @@ public class Order extends BaseEntity implements Serializable {
 
     @ApiModelProperty("订单关闭时间")
     private LocalDateTime closeTime;
+
+    @ApiModelProperty(value = "省份id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long provinceId;
+
+    @ApiModelProperty(value = "城市id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long cityId;
+
+    @ApiModelProperty(value = "县区id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long countyId;
+
+    @ApiModelProperty(value = "详细地址")
+    private String detailAddress;
 }

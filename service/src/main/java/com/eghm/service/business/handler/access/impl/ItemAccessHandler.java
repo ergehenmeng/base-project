@@ -1,10 +1,12 @@
 package com.eghm.service.business.handler.access.impl;
 
 import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AccessHandler;
+import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
@@ -32,6 +34,11 @@ public class ItemAccessHandler implements AccessHandler {
     private final OrderService orderService;
 
     private final AggregatePayService aggregatePayService;
+
+    @Override
+    public void createOrder(ItemOrderCreateContext context) {
+        stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context);
+    }
 
     @Override
     public void payNotify(PayNotifyContext context) {

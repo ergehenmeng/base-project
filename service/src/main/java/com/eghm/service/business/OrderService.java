@@ -17,12 +17,12 @@ public interface OrderService {
 
     /**
      * 创建预支付订单
-     * @param orderId 订单id
+     * @param orderNo 订单编号
      * @param buyerId  付款人id
      * @param tradeType 支付方式
      * @return 拉起支付的信息
      */
-    PrepayVO createPrepay(Long orderId, String buyerId, TradeType tradeType);
+    PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType);
 
     /**
      * 添加主订单信息
@@ -58,12 +58,12 @@ public interface OrderService {
     void updateById(Order order);
 
     /**
-     * 根据主键查询订单信息,
+     * 根据订单查询订单信息,
      * 如果订单已删除或者未支付则抛异常
-     * @param id id
+     * @param orderNo 订单编号
      * @return 订单信息
      */
-    Order getUnPayById(Long id);
+    Order getUnPayById(String orderNo);
 
     /**
      * 订单是否已支付

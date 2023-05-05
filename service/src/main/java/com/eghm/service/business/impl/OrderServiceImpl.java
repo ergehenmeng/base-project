@@ -43,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
     private final AggregatePayService aggregatePayService;
 
     @Override
-    public PrepayVO createPrepay(Long orderId, String buyerId, TradeType tradeType) {
-        Order order = this.getUnPayById(orderId);
+    public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
+        Order order = this.getUnPayById(orderNo);
         String outTradeNo = order.getProductType().generateTradeNo();
 
         PrepayDTO dto = new PrepayDTO();
@@ -93,14 +93,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getUnPayById(Long id) {
-        Order order = orderMapper.selectById(id);
-        if (order == null) {
-            log.error("订单已被删除 [{}]", id);
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
+    public Order getUnPayById(String orderNo) {
+        Order order = this.getByOrderNo(orderNo);
         if (order.getState() != OrderState.UN_PAY) {
-            log.error("订单状态不是待支付 [{}] [{}]", id, order.getState());
+            log.error("订单状态不是待支付 [{}] [{}]", orderNo, order.getState());
             throw new BusinessException(ErrorCode.ORDER_PAID);
         }
         return order;

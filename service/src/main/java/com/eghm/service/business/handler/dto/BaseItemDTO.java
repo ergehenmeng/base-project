@@ -1,7 +1,6 @@
 package com.eghm.service.business.handler.dto;
 
 import com.eghm.validation.annotation.RangeInt;
-import com.eghm.validation.group.ItemOrderCreateGroup;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -26,7 +25,7 @@ public class BaseItemDTO implements Serializable {
     private Integer num;
 
     @ApiModelProperty("商品sku,普通商品时该字段不能为空")
-    @NotNull(groups = ItemOrderCreateGroup.class, message = "规格信息不能为空")
+    @NotNull(message = "规格信息不能为空")
     private Long skuId;
 
 }

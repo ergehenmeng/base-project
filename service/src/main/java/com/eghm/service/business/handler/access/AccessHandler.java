@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.access;
 
+import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 
@@ -8,6 +9,13 @@ import com.eghm.service.business.handler.context.RefundNotifyContext;
  * @since 2023/4/26
  */
 public interface AccessHandler {
+
+
+    /**
+     * 创建支付订单
+     * @param context 订单信息
+     */
+    void createOrder(ItemOrderCreateContext context);
 
     /**
      * 支付异步通知
@@ -20,4 +28,5 @@ public interface AccessHandler {
      * @param context context
      */
     void refundNotify(RefundNotifyContext context);
+
 }

@@ -25,6 +25,10 @@ import java.util.List;
 @Setter
 public class LineOrderCreateContext extends AsyncKey implements Context {
 
+    @Sign
+    @ApiModelProperty(hidden = true, value = "用户id")
+    private Long userId;
+
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
     private Long lineId;
@@ -54,9 +58,6 @@ public class LineOrderCreateContext extends AsyncKey implements Context {
     @NotNull(message = "游玩日期不能为空")
     private LocalDate configDate;
 
-    @Sign
-    @ApiModelProperty(hidden = true, value = "用户id")
-    private Long userId;
     @ApiModelProperty("源状态")
     private Integer from;
 
