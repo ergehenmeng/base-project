@@ -1,8 +1,5 @@
 package com.eghm.dto.business.order.ticket;
 
-import com.eghm.dto.ext.PreOrder;
-import com.eghm.model.Order;
-import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -20,7 +17,7 @@ import java.util.List;
  * @since 2023/5/5
  */
 @Data
-public class TicketCreateDTO {
+public class TicketOrderCreateDTO {
 
     @ApiModelProperty("门票id")
     @NotNull(message = "门票id不能为空")

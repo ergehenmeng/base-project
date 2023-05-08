@@ -1,15 +1,11 @@
-package com.eghm.service.business.handler.context;
+package com.eghm.dto.business.order.line;
 
 import com.eghm.annotation.Sign;
-import com.eghm.dto.ext.AsyncKey;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
-import com.eghm.validation.annotation.RangeInt;
-import com.eghm.state.machine.Context;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,24 +14,19 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * @author 二哥很猛
- * @since 2022/11/22
+ * @author wyb
+ * @since 2023/5/8
  */
-@Getter
-@Setter
-public class LineOrderCreateContext extends AsyncKey implements Context {
+@Data
+public class LineOrderCreateDTO {
 
+    @ApiModelProperty("用户ID")
     @Sign
-    @ApiModelProperty(hidden = true, value = "用户id")
     private Long userId;
 
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
     private Long lineId;
-
-    @RangeInt(min = 1, max = 99, message = "购买数量应为1~99张")
-    @ApiModelProperty("数量")
-    private Integer num;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
@@ -57,15 +48,5 @@ public class LineOrderCreateContext extends AsyncKey implements Context {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "游玩日期不能为空")
     private LocalDate configDate;
-
-    @ApiModelProperty("订单编号")
-    @Sign
-    private String orderNo;
-
-    @ApiModelProperty("源状态")
-    private Integer from;
-
-    @ApiModelProperty("新状态")
-    private Integer to;
 
 }

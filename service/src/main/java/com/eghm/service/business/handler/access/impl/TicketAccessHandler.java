@@ -32,22 +32,23 @@ public class TicketAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void payNotify(PayNotifyContext context) {
-        boolean paySuccess = super.checkPaySuccess(context);
-        if (paySuccess) {
-            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.PAY_SUCCESS, context);
-        } else {
-            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.PAY_FAIL, context);
-        }
+    public void paySuccess(PayNotifyContext context) {
+        stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.PAY_SUCCESS, context);
     }
 
     @Override
-    public void refundNotify(RefundNotifyContext context) {
-        boolean refundSuccess = this.checkRefundSuccess(context);
-        if (refundSuccess) {
-            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.REFUND_SUCCESS, context);
-        } else {
-            stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.REFUND_FAIL, context);
-        }
+    public void payFail(PayNotifyContext context) {
+        stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.PAY_FAIL, context);
     }
+
+    @Override
+    public void refundSuccess(RefundNotifyContext context) {
+        stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.REFUND_SUCCESS, context);
+    }
+
+    @Override
+    public void refundFail(RefundNotifyContext context) {
+        stateHandler.fireEvent(ProductType.TICKET, context.getFrom(), TicketEvent.REFUND_FAIL, context);
+    }
+
 }

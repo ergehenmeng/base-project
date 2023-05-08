@@ -13,7 +13,7 @@ import java.util.List;
  * @since 2023/5/5
  */
 @Data
-public class ItemCreateDTO {
+public class ItemOrderCreateDTO {
 
     @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
     @Size(min = 1, max = 99, message = "商品不能超过99种")

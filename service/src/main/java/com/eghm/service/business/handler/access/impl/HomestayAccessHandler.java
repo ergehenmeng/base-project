@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.access.impl;
 
+import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -14,42 +15,41 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author wyb
- * @since 2023/4/26
+ * @since 2023/5/8
  */
-@Service("itemAccessHandler")
-public class ItemAccessHandler extends AbstractAccessHandler {
+@Service("homestayAccessHandler")
+public class HomestayAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
-    public ItemAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
+    public HomestayAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
     }
 
     @Override
     public void createOrder(Context context) {
-        stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context);
+        stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE, context);
     }
-
 
     @Override
     public void paySuccess(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.PAY_SUCCESS, context);
+        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), ItemEvent.PAY_SUCCESS, context);
     }
 
     @Override
     public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.PAY_FAIL, context);
+        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), ItemEvent.PAY_FAIL, context);
     }
 
     @Override
     public void refundSuccess(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.REFUND_SUCCESS, context);
+        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), ItemEvent.REFUND_SUCCESS, context);
     }
 
     @Override
     public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.REFUND_FAIL, context);
+        stateHandler.fireEvent(ProductType.HOMESTAY, context.getFrom(), ItemEvent.REFUND_FAIL, context);
     }
 
 }

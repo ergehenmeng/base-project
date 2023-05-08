@@ -1,5 +1,7 @@
 package com.eghm.service.business.handler.access;
 
+import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
@@ -56,4 +58,49 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         context.setFrom(order.getState().getValue());
         return vo.getState() == REFUND_SUCCESS || vo.getState() == SUCCESS;
     }
+
+    @Override
+    public void payNotify(PayNotifyContext context) {
+        boolean paySuccess = this.checkPaySuccess(context);
+        if (paySuccess) {
+            this.paySuccess(context);
+        } else {
+            this.payFail(context);
+        }
+    }
+
+    @Override
+    public void refundNotify(RefundNotifyContext context) {
+        boolean refundSuccess = this.checkRefundSuccess(context);
+        if (refundSuccess) {
+            this.refundSuccess(context);
+        } else {
+            this.refundFail(context);
+        }
+    }
+
+    /**
+     * 支付成功处理
+     * @param context 上下文
+     */
+    public abstract void paySuccess(PayNotifyContext context);
+
+    /**
+     * 支付失败处理
+     * @param context 上下文
+     */
+    public abstract void payFail(PayNotifyContext context);
+
+    /**
+     * 退款成功处理
+     * @param context 上下文
+     */
+    public abstract void refundSuccess(RefundNotifyContext context);
+
+    /**
+     * 退款失败处理
+     * @param context 上下文
+     */
+    public abstract void refundFail(RefundNotifyContext context);
+
 }

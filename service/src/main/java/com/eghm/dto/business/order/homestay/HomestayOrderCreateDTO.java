@@ -1,15 +1,10 @@
-package com.eghm.service.business.handler.context;
+package com.eghm.dto.business.order.homestay;
 
-import com.eghm.annotation.Sign;
-import com.eghm.dto.ext.AsyncKey;
 import com.eghm.service.business.handler.dto.VisitorDTO;
-import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.Mobile;
-import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,24 +13,15 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * @author 二哥很猛
- * @since 2022/11/22
+ * @author wyb
+ * @since 2023/5/8
  */
-@Getter
-@Setter
-public class HomestayOrderCreateContext extends AsyncKey implements Context {
-
-    @Sign
-    @ApiModelProperty(hidden = true, value = "用户id")
-    private Long userId;
+@Data
+public class HomestayOrderCreateDTO {
 
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
     private Long roomId;
-
-    @RangeInt(min = 1, max = 9, message = "购买数量应为1~9张")
-    @ApiModelProperty("门票数量")
-    private Integer num;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
@@ -50,26 +36,16 @@ public class HomestayOrderCreateContext extends AsyncKey implements Context {
     private String nickName;
 
     @ApiModelProperty("入园信息列表")
-    @Size(min = 1, max = 9, message = "入园人数不能超过9人")
+    @Size(min = 1, max = 99, message = "入园人数不能超过99人")
     private List<VisitorDTO> visitorList;
 
-    @ApiModelProperty("开始日期")
+    @ApiModelProperty("入店日期(含晚上)")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "开始日期不能为空")
+    @NotNull(message = "入店日期不能为空")
     private LocalDate startDate;
 
-    @ApiModelProperty("截止日期")
+    @ApiModelProperty("离店日期(不含晚上)")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "截止日期不能为空")
+    @NotNull(message = "离店日期不能为空")
     private LocalDate endDate;
-
-    @ApiModelProperty("订单编号")
-    private String orderNo;
-
-    @ApiModelProperty("源状态")
-    private Integer from;
-
-    @ApiModelProperty("新状态")
-    private Integer to;
-
 }

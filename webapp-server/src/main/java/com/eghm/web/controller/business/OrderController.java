@@ -1,13 +1,19 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.order.OrderPayDTO;
-import com.eghm.dto.business.order.item.ItemCreateDTO;
-import com.eghm.dto.business.order.ticket.TicketCreateDTO;
+import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
+import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
+import com.eghm.dto.business.order.line.LineOrderCreateDTO;
+import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.service.business.OrderService;
+import com.eghm.service.business.handler.access.impl.HomestayAccessHandler;
 import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
+import com.eghm.service.business.handler.access.impl.LineAccessHandler;
 import com.eghm.service.business.handler.access.impl.TicketAccessHandler;
+import com.eghm.service.business.handler.context.HomestayOrderCreateContext;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
+import com.eghm.service.business.handler.context.LineOrderCreateContext;
 import com.eghm.service.business.handler.context.TicketOrderCreateContext;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
@@ -34,11 +40,15 @@ public class OrderController {
 
     private final TicketAccessHandler ticketAccessHandler;
 
+    private final HomestayAccessHandler homestayAccessHandler;
+
+    private final LineAccessHandler lineAccessHandler;
+
     private final OrderService orderService;
 
     @PostMapping("/item/create")
     @ApiOperation("零售创建订单")
-    public String itemCreate(@RequestBody @Validated ItemCreateDTO dto) {
+    public String itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setUserId(ApiHolder.getUserId());
         itemAccessHandler.createOrder(context);
@@ -47,10 +57,28 @@ public class OrderController {
 
     @PostMapping("/ticket/create")
     @ApiOperation("门票创建订单")
-    public String ticketCreate(@RequestBody @Validated TicketCreateDTO dto) {
+    public String ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setUserId(ApiHolder.getUserId());
         ticketAccessHandler.createOrder(context);
+        return context.getOrderNo();
+    }
+
+    @PostMapping("/homestay/create")
+    @ApiOperation("民宿创建订单")
+    public String homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
+        HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
+        context.setUserId(ApiHolder.getUserId());
+        homestayAccessHandler.createOrder(context);
+        return context.getOrderNo();
+    }
+
+    @PostMapping("/line/create")
+    @ApiOperation("线路创建订单")
+    public String lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
+        LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
+        context.setUserId(ApiHolder.getUserId());
+        lineAccessHandler.createOrder(context);
         return context.getOrderNo();
     }
 
