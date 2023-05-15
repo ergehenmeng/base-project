@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.state.impl.item;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
@@ -180,7 +181,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return ItemEvent.CREATE;
     }
 
     @Override

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderPayDTO {
 
-    @ApiModelProperty("订单编号")
+    @ApiModelProperty("订单编号,多笔订单(购物车订单)逗号分隔")
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 

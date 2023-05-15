@@ -5,10 +5,12 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
 import com.eghm.model.Order;
@@ -36,35 +38,34 @@ import java.util.List;
 @Service("orderService")
 @AllArgsConstructor
 @Slf4j
-public class OrderServiceImpl implements OrderService {
-
-    private final OrderMapper orderMapper;
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
     private final AggregatePayService aggregatePayService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
-        Order order = this.getUnPayById(orderNo);
-        String outTradeNo = order.getProductType().generateTradeNo();
+        List<String> orderNoList = StrUtil.split(orderNo, ',');
+        List<Order> orderList = this.getUnPay(orderNoList);
+        String outTradeNo = ProductType.ITEM.generateTradeNo();
+        StringBuilder builder = new StringBuilder();
+        int totalAmount = 0;
+        for (Order order : orderList) {
+            // 支付方式先占坑
+            order.setPayType(PayType.valueOf(tradeType.name()));
+            order.setOutTradeNo(outTradeNo);
+            builder.append(order.getTitle()).append(",");
+            totalAmount += order.getPayAmount();
+            baseMapper.updateById(order);
+        }
 
         PrepayDTO dto = new PrepayDTO();
-        dto.setAttach(order.getOrderNo());
-        dto.setDescription(order.getTitle());
+        dto.setAttach(orderNo);
+        dto.setDescription(this.getGoodsTitle(builder));
         dto.setTradeType(tradeType);
-        dto.setAmount(order.getPayAmount());
+        dto.setAmount(totalAmount);
         dto.setOutTradeNo(outTradeNo);
         dto.setBuyerId(buyerId);
-        PrepayVO vo = aggregatePayService.createPrepay(dto);
-        // 支付方式先占坑
-        order.setPayType(PayType.valueOf(tradeType.name()));
-        order.setOutTradeNo(outTradeNo);
-        orderMapper.updateById(order);
-        return vo;
-    }
-
-    @Override
-    public void insert(Order order) {
-        orderMapper.insert(order);
+        return aggregatePayService.createPrepay(dto);
     }
 
     @Override
@@ -72,34 +73,38 @@ public class OrderServiceImpl implements OrderService {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Order::getOutTradeNo, outTradeNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
-        return orderMapper.selectOne(wrapper);
+        return baseMapper.selectOne(wrapper);
     }
 
     @Override
     public List<Order> selectByOutTradeNoList(String outTradeNo) {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Order::getOutTradeNo, outTradeNo);
-        return orderMapper.selectList(wrapper);
+        return baseMapper.selectList(wrapper);
     }
 
     @Override
     public Order selectById(Long orderId) {
-        return orderMapper.selectById(orderId);
+        return baseMapper.selectById(orderId);
     }
 
     @Override
-    public void updateById(Order order) {
-        orderMapper.updateById(order);
-    }
+    public List<Order> getUnPay(List<String> orderNoList) {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(Order::getId, Order::getTitle, Order::getPayAmount);
+        wrapper.in(Order::getOrderNo, orderNoList);
+        wrapper.eq(Order::getState, OrderState.UN_PAY);
+        List<Order> orderList = baseMapper.selectList(wrapper);
+        if (CollUtil.isEmpty(orderList)) {
+            log.error("订单可能已被删除 {}", orderNoList);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
 
-    @Override
-    public Order getUnPayById(String orderNo) {
-        Order order = this.getByOrderNo(orderNo);
-        if (order.getState() != OrderState.UN_PAY) {
-            log.error("订单状态不是待支付 [{}] [{}]", orderNo, order.getState());
+        if (orderList.size() != orderNoList.size()) {
+            log.error("存在部分订单不是待支付 [{}]", orderNoList);
             throw new BusinessException(ErrorCode.ORDER_PAID);
         }
-        return order;
+        return orderList;
     }
 
     @Override
@@ -120,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Order::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
-        Order order = orderMapper.selectOne(wrapper);
+        Order order = baseMapper.selectOne(wrapper);
         if (order == null) {
             log.error("订单可能已被删除 [{}]", orderNo);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
@@ -136,7 +141,7 @@ public class OrderServiceImpl implements OrderService {
         wrapper.eq(Order::getId, orderId);
         wrapper.eq(Order::getState, OrderState.UN_PAY);
         wrapper.eq(Order::getUserId, userId);
-        orderMapper.update(null, wrapper);
+        baseMapper.update(null, wrapper);
     }
 
     @Override
@@ -145,7 +150,7 @@ public class OrderServiceImpl implements OrderService {
         wrapper.eq(Order::getId, orderId);
         wrapper.eq(Order::getState, OrderState.CLOSE);
         wrapper.eq(Order::getUserId, userId);
-        orderMapper.delete(wrapper);
+        baseMapper.delete(wrapper);
     }
 
     @Override
@@ -153,7 +158,7 @@ public class OrderServiceImpl implements OrderService {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
         wrapper.select(Order::getOrderNo, Order::getProductType);
         wrapper.eq(Order::getState, OrderState.PROGRESS);
-        return orderMapper.selectList(wrapper);
+        return baseMapper.selectList(wrapper);
     }
 
     @Override
@@ -176,7 +181,7 @@ public class OrderServiceImpl implements OrderService {
         wrapper.in(Order::getOrderNo, orderNoList);
         wrapper.eq(oldState.length > 0, Order::getState, oldState);
         wrapper.set(Order::getState, newState);
-        int update = orderMapper.update(null, wrapper);
+        int update = baseMapper.update(null, wrapper);
         if (update != orderNoList.size()) {
             log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNoList, newState, oldState);
         }
@@ -187,4 +192,15 @@ public class OrderServiceImpl implements OrderService {
         this.updateState(Lists.newArrayList(orderNo), newState, oldState);
     }
 
+    /**
+     * 支付时创建商品名称
+     * @param builder builder
+     * @return 商品名称
+     */
+    private String getGoodsTitle(StringBuilder builder) {
+        if (builder.length() > 50) {
+            return builder.substring(0, 50);
+        }
+        return builder.toString();
+    }
 }

@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -13,7 +14,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/8/17
  */
-public interface OrderService {
+public interface OrderService extends IService<Order> {
 
     /**
      * 创建预支付订单
@@ -24,11 +25,6 @@ public interface OrderService {
      */
     PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType);
 
-    /**
-     * 添加主订单信息
-     * @param order 订单信息
-     */
-    void insert(Order order);
 
     /**
      * 根据交易流水号查询订单, 门票,餐饮,线路,民宿
@@ -52,18 +48,12 @@ public interface OrderService {
     Order selectById(Long orderId);
 
     /**
-     * 更新订单信息
-     * @param order 订单信息
-     */
-    void updateById(Order order);
-
-    /**
      * 根据订单查询订单信息,
      * 如果订单已删除或者未支付则抛异常
-     * @param orderNo 订单编号
+     * @param orderNoList 订单编号
      * @return 订单信息
      */
-    Order getUnPayById(String orderNo);
+    List<Order> getUnPay(List<String> orderNoList);
 
     /**
      * 订单是否已支付
