@@ -628,6 +628,7 @@ CREATE TABLE `item_order`
     `depict`          varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
     `sku_title`       varchar(20)   DEFAULT NULL COMMENT '规格名称',
+    `spec_id`         varchar(50)   DEFAULT NULL COMMENT 'specId',
     `sku_id`          bigint(20) COMMENT 'skuId',
     `sku_cover_url`   varchar(200) COMMENT '封面图',
     `line_price`      int(10)       DEFAULT NULL COMMENT '划线价',

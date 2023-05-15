@@ -1,16 +1,20 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
 import com.eghm.model.ItemOrder;
+import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.mp.bean.card.Sku;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +46,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     public void insert(String orderNo, List<OrderPackage> packageList) {
         for (OrderPackage aPackage : packageList) {
             ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class);
+            BeanUtil.copyProperties(aPackage.getSku(), order);
+            order.setSkuTitle(this.getSkuTitle(aPackage.getSku()));
             itemOrderMapper.insert(order);
         }
     }
@@ -69,5 +75,17 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public int getProductNum(String orderNo) {
         return itemOrderMapper.getProductNum(orderNo);
+    }
+
+    /**
+     * 拼接sku名称
+     * @param sku sku信息
+     * @return sku名称
+     */
+    private String getSkuTitle(ItemSku sku) {
+        if (StrUtil.isBlank(sku.getSecondSpecValue())) {
+            return sku.getPrimarySpecValue();
+        }
+        return sku.getPrimarySpecValue() + "/" +sku.getSecondSpecValue();
     }
 }

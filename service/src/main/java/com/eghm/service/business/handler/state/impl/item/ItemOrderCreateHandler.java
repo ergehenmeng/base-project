@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import cn.hutool.core.collection.CollUtil;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.ProductType;
@@ -8,13 +9,12 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.Order;
-import com.eghm.model.ShippingAddress;
 import com.eghm.service.business.*;
-import com.eghm.service.business.handler.state.OrderCreateHandler;
-import com.eghm.service.business.handler.dto.BaseItemDTO;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
+import com.eghm.service.business.handler.dto.BaseItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
+import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +34,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     private final ItemOrderService itemOrderService;
 
-    private final ShippingAddressService shippingAddressService;
-
     private final ItemService itemService;
 
     private final ItemSkuService itemSkuService;
@@ -47,48 +45,54 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     /**
      * 普通订单下单处理逻辑
      * 说明: 由于普通订单存在购物车概念,在下单时会出现多店铺+多商品同时下单支付,因此需要按店铺进行分组生成多个订单
-     * @param dto 订单信息
+     * @param context 订单信息
      */
     @Override
-    public void doAction(ItemOrderCreateContext dto) {
-        ItemOrderPayload payload = this.getItem(dto);
+    public void doAction(ItemOrderCreateContext context) {
+        ItemOrderPayload payload = this.getItem(context);
         this.before(payload);
+
         // 购物车商品可能存在多商铺同时下单,按店铺进行分组
         Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().collect(Collectors.groupingBy(OrderPackage::getStoreId, Collectors.toList()));
-        // 优惠券还没想好如何设计
-        ShippingAddress address = DataUtil.copy(payload, ShippingAddress.class);
-        address.setUserId(dto.getUserId());
-
+        List<String> orderList = new ArrayList<>(8);
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
             // 更新库存信息
             itemSkuService.updateStock(skuNumMap);
-
-            String orderNo = ProductType.ITEM.generateOrderNo();
-            address.setOrderNo(orderNo);
-            address.setId(null);
-            Order order = new Order();
-            order.setUserId(dto.getUserId());
-            order.setOrderNo(orderNo);
-            order.setMultiple(true);
-            order.setRefundType(this.getRefundType(entry.getValue()));
-            order.setProductType(ProductType.ITEM);
-            order.setNum(this.getNum(entry.getValue()));
-            order.setPayAmount(this.getPayAmount(entry.getValue()));
+            // 如果是两个店铺同时下单,则为多订单模式
+            Order order = this.generateOrder(context.getUserId(), storeMap.size() > 1, entry.getValue());
             // 添加主订单
             orderService.insert(order);
-            // 添加配送地址
-            shippingAddressService.insert(address);
             // 添加商品订单
-            itemOrderService.insert(orderNo, entry.getValue());
-
+            itemOrderService.insert(order.getOrderNo(), entry.getValue());
             // 30分钟过期定时任务
-            orderMQService.sendOrderExpireMessage(orderNo);
-            // 添加优惠券
-            // 添加父订单编号
+            orderMQService.sendOrderExpireMessage(order.getOrderNo());
+            // 支持多笔同时支付
+            orderList.add(order.getOrderNo());
+            // 添加优惠券(待定)
         }
+        context.setOrderNo(CollUtil.join(orderList, ","));
     }
 
+
+    /**
+     * 添加主订单信息
+     * @param userId 用户ID
+     * @param multiple 是否为多笔订单同时支付
+     * @param packageList 商品信息
+     */
+    private Order generateOrder(Long userId, boolean multiple, List<OrderPackage> packageList) {
+        String orderNo = ProductType.ITEM.generateOrderNo();
+        Order order = new Order();
+        order.setUserId(userId);
+        order.setOrderNo(orderNo);
+        order.setMultiple(multiple);
+        order.setRefundType(this.getRefundType(packageList));
+        order.setProductType(ProductType.ITEM);
+        order.setNum(this.getNum(packageList));
+        order.setPayAmount(this.getPayAmount(packageList));
+        return order;
+    }
 
     /**
      * 组装商品下单信息

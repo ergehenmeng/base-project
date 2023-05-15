@@ -22,9 +22,10 @@ public class BaseItemDTO implements Serializable {
     private Long itemId;
 
     @RangeInt(min = 1, max = 99, message = "购买数量应为1~99")
+    @ApiModelProperty("商品数量,最大99")
     private Integer num;
 
-    @ApiModelProperty("商品sku,普通商品时该字段不能为空")
+    @ApiModelProperty("商品skuId")
     @NotNull(message = "规格信息不能为空")
     private Long skuId;
 

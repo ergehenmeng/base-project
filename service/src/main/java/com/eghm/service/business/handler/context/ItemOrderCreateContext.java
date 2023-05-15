@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long userId;
 
-    @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
+    @ApiModelProperty("商品信息")
     private List<BaseItemDTO> itemList;
 
     @ApiModelProperty("优惠券id")
@@ -32,6 +33,9 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("联系人电话")
     private String mobile;
+
+    @ApiModelProperty("自提点Id")
+    private Long pickUpId;
 
     @ApiModelProperty(value = "省份id")
     private Long provinceId;

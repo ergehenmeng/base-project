@@ -5,6 +5,7 @@ import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -15,8 +16,9 @@ import java.util.List;
 @Data
 public class ItemOrderCreateDTO {
 
-    @ApiModelProperty("商品信息(例如门票id,餐饮券id,房型id,商品id,线路id)")
+    @ApiModelProperty("商品信息")
     @Size(min = 1, max = 99, message = "商品不能超过99种")
+    @NotEmpty(message = "请选择商品")
     private List<BaseItemDTO> itemList;
 
     @ApiModelProperty("优惠券id")
@@ -25,6 +27,9 @@ public class ItemOrderCreateDTO {
     @ApiModelProperty("联系人电话")
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;
+
+    @ApiModelProperty("自提点Id")
+    private Long pickUpId;
 
     @ApiModelProperty(value = "省份id")
     private Long provinceId;

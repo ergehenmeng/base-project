@@ -57,6 +57,9 @@ public class ItemOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "skuId")
     private Long skuId;
 
+    @ApiModelProperty(value = "specId")
+    private String specId;
+
     @ApiModelProperty(value = "封面图")
     private String skuCoverUrl;
 
