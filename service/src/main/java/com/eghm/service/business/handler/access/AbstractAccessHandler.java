@@ -34,7 +34,8 @@ public abstract class AbstractAccessHandler implements AccessHandler {
      * @return true: 成功 false:失败
      */
     public boolean checkPaySuccess(PayNotifyContext context) {
-        Order order = orderService.getByOrderNo(context.getOrderNo());
+        // 零售订单可能会查询多条 取第一条即可
+        Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
         OrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
         context.setAmount(vo.getAmount());

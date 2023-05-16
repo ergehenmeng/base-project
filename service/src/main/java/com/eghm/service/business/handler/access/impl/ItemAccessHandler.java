@@ -31,7 +31,6 @@ public class ItemAccessHandler extends AbstractAccessHandler {
         stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context);
     }
 
-
     @Override
     public void paySuccess(PayNotifyContext context) {
         stateHandler.fireEvent(ProductType.ITEM, context.getFrom(), ItemEvent.PAY_SUCCESS, context);
