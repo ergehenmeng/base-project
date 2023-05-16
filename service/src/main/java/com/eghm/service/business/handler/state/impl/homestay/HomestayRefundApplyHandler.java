@@ -41,6 +41,6 @@ public class HomestayRefundApplyHandler extends AbstractRefundApplyHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.HOMESTAY;
     }
 }

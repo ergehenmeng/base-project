@@ -57,6 +57,6 @@ public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.RESTAURANT;
     }
 }

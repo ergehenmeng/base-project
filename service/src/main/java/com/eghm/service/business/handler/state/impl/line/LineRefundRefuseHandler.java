@@ -26,6 +26,6 @@ public class LineRefundRefuseHandler extends AbstractRefundRefuseHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.LINE;
     }
 }

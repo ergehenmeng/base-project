@@ -11,7 +11,6 @@ import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.state.OrderExpireHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  * @date 2022/8/20
  */
-@Service("defaultOrderExpireHandler")
 @Slf4j
 @AllArgsConstructor
 public abstract class AbstractOrderExpireHandler implements OrderExpireHandler {

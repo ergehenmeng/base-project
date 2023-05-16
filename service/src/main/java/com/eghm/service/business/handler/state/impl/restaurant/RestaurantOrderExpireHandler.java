@@ -43,6 +43,6 @@ public class RestaurantOrderExpireHandler extends AbstractOrderExpireHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.RESTAURANT;
     }
 }

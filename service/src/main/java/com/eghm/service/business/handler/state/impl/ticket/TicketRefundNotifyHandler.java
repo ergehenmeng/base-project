@@ -57,6 +57,6 @@ public class TicketRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.TICKET;
     }
 }

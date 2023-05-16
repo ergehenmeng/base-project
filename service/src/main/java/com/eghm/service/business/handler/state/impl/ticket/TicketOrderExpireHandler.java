@@ -43,6 +43,6 @@ public class TicketOrderExpireHandler extends AbstractOrderExpireHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.TICKET;
     }
 }

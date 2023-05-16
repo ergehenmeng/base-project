@@ -57,6 +57,6 @@ public class LineRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.LINE;
     }
 }

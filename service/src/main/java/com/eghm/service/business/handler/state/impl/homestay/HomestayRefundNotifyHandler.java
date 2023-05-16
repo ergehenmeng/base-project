@@ -58,6 +58,6 @@ public class HomestayRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.HOMESTAY;
     }
 }

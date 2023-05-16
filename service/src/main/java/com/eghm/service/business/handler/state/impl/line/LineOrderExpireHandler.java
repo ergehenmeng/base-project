@@ -42,6 +42,6 @@ public class LineOrderExpireHandler extends AbstractOrderExpireHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.LINE;
     }
 }

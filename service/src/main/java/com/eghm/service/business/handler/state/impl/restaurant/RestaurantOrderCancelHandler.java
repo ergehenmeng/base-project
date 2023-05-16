@@ -43,6 +43,6 @@ public class RestaurantOrderCancelHandler extends AbstractOrderCancelHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.RESTAURANT;
     }
 }

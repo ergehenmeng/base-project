@@ -2,10 +2,8 @@ package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,21 +11,17 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2022/8/23
  */
-@Service("homestayOrderCancelHandler")
+@Service("homestayOrderAutoCancelHandler")
 @Slf4j
-public class HomestayOrderCancelHandler extends AbstractOrderCancelHandler {
+public class HomestayOrderAutoCancelHandler extends HomestayOrderCancelHandler {
 
-    public HomestayOrderCancelHandler(OrderService orderService, UserCouponService userCouponService) {
+    public HomestayOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService) {
         super(orderService, userCouponService);
     }
 
     @Override
     public IEvent getEvent() {
-        return HomestayEvent.CANCEL;
+        return HomestayEvent.AUTO_CANCEL;
     }
 
-    @Override
-    public ProductType getStateMachineType() {
-        return ProductType.HOMESTAY;
-    }
 }

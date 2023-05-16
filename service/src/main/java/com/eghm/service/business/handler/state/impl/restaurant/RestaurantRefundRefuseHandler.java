@@ -26,6 +26,6 @@ public class RestaurantRefundRefuseHandler extends AbstractRefundRefuseHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.RESTAURANT;
     }
 }

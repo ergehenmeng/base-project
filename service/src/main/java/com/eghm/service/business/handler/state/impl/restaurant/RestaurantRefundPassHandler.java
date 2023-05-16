@@ -26,6 +26,6 @@ public class RestaurantRefundPassHandler extends AbstractRefundPassHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.RESTAURANT;
     }
 }

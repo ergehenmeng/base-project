@@ -49,6 +49,6 @@ public class ItemOrderExpireHandler extends AbstractOrderExpireHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.ITEM;
     }
 }

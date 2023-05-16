@@ -31,7 +31,7 @@ public enum ProductType {
     /**
      * 餐饮券
      */
-    VOUCHER("voucher", "餐饮券", "CY", new OrderState[] {
+    RESTAURANT("restaurant", "餐饮券", "CY", new OrderState[] {
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.VERIFY, OrderState.COMPLETE, OrderState.CLOSE
     }),
 

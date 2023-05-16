@@ -25,6 +25,6 @@ public class ItemRefundRefuseHandler extends AbstractRefundRefuseHandler {
 
     @Override
     public ProductType getStateMachineType() {
-        return null;
+        return ProductType.ITEM;
     }
 }

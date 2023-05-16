@@ -8,6 +8,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
+import com.eghm.service.business.handler.state.OrderAutoCancelHandler;
 import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.service.pay.enums.TradeState;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ import java.time.LocalDateTime;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderCancelHandler implements OrderCancelHandler {
+public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, OrderAutoCancelHandler {
 
     private final OrderService orderService;
 

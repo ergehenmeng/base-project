@@ -44,7 +44,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     public ProductType getStateMachineType() {
-        return ProductType.VOUCHER;
+        return ProductType.RESTAURANT;
     }
 
     @Override
