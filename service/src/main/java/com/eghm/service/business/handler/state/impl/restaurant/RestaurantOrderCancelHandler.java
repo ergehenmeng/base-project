@@ -1,5 +1,7 @@
 package com.eghm.service.business.handler.state.impl.restaurant;
 
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.service.business.OrderService;
@@ -32,5 +34,15 @@ public class RestaurantOrderCancelHandler extends AbstractOrderCancelHandler {
     protected void after(Order order) {
         RestaurantOrder restaurantOrder = restaurantOrderService.selectByOrderNo(order.getOrderNo());
         restaurantVoucherService.updateStock(restaurantOrder.getVoucherId(), order.getNum());
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }

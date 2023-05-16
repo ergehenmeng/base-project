@@ -1,8 +1,10 @@
 package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.AuditState;
 import com.eghm.enums.ref.ItemRefundState;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
@@ -74,5 +76,15 @@ public class ItemRefundApplyHandler extends AbstractRefundApplyHandler {
     @Override
     protected void after(ApplyRefundContext dto, Order order, OrderRefundLog refundLog) {
         log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", dto.getOrderNo(), dto.getItemOrderId(), refundLog.getId());
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }

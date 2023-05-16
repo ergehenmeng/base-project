@@ -6,7 +6,9 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
+import com.eghm.service.business.handler.context.ApplyRefundContext;
 import com.eghm.service.business.handler.context.PayNotifyContext;
+import com.eghm.service.business.handler.context.RefundAuditContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.state.machine.Context;
@@ -29,6 +31,16 @@ public class LineAccessHandler extends AbstractAccessHandler {
     @Override
     public void createOrder(Context context) {
         stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), HomestayEvent.CREATE, context);
+    }
+
+    @Override
+    public void refundApply(ApplyRefundContext context) {
+
+    }
+
+    @Override
+    public void refundAudit(RefundAuditContext context) {
+
     }
 
     @Override

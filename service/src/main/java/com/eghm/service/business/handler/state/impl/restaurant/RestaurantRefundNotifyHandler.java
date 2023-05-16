@@ -1,5 +1,7 @@
 package com.eghm.service.business.handler.state.impl.restaurant;
 
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.RestaurantOrder;
@@ -46,5 +48,15 @@ public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
                 log.error("餐饮券退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
         }
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }
