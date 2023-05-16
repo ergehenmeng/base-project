@@ -1,10 +1,8 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
@@ -12,8 +10,8 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
-import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
+import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeType;
@@ -21,7 +19,6 @@ import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,9 +29,8 @@ import static com.eghm.service.pay.enums.RefundStatus.*;
  * @date 2022/8/20
  */
 @AllArgsConstructor
-@Service("defaultRefundNotifyHandler")
 @Slf4j
-public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
+public abstract class AbstractRefundNotifyHandler implements RefundNotifyHandler {
 
     private final OrderService orderService;
 
@@ -43,16 +39,6 @@ public class DefaultRefundNotifyHandler implements RefundNotifyHandler {
     private final AggregatePayService aggregatePayService;
 
     private final VerifyLogService verifyLogService;
-
-    @Override
-    public IEvent getEvent() {
-        return null;
-    }
-
-    @Override
-    public ProductType getStateMachineType() {
-        return ProductType.VOUCHER;
-    }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)

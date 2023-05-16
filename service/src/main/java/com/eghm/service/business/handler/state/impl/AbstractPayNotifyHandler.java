@@ -1,14 +1,12 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.handler.state.PayNotifyHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
+import com.eghm.service.business.handler.state.PayNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
@@ -16,7 +14,6 @@ import com.eghm.service.pay.vo.OrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,24 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @author 二哥很猛
  * @date 2022/8/20
  */
-@Service("defaultPayNotifyHandler")
 @AllArgsConstructor
 @Slf4j
-public class DefaultPayNotifyHandler implements PayNotifyHandler {
+public abstract class AbstractPayNotifyHandler implements PayNotifyHandler {
 
     private final OrderService orderService;
 
     private final AggregatePayService aggregatePayService;
-
-    @Override
-    public IEvent getEvent() {
-        return null;
-    }
-
-    @Override
-    public ProductType getStateMachineType() {
-        return ProductType.VOUCHER;
-    }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)

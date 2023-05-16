@@ -6,7 +6,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.RestaurantOrderService;
 import com.eghm.service.business.RestaurantVoucherService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.DefaultOrderExpireHandler;
+import com.eghm.service.business.handler.state.impl.AbstractOrderExpireHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("restaurantOrderExpireHandler")
 @Slf4j
-public class RestaurantOrderExpireHandler extends DefaultOrderExpireHandler {
+public class RestaurantOrderExpireHandler extends AbstractOrderExpireHandler {
 
     private final RestaurantOrderService restaurantOrderService;
 

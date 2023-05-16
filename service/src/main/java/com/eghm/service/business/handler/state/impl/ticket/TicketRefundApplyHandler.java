@@ -1,6 +1,8 @@
 package com.eghm.service.business.handler.state.impl.ticket;
 
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.TicketOrder;
@@ -9,7 +11,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
-import com.eghm.service.business.handler.state.impl.DefaultRefundApplyHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundApplyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("ticketApplyRefundHandler")
 @Slf4j
-public class TicketRefundApplyHandler extends DefaultRefundApplyHandler {
+public class TicketRefundApplyHandler extends AbstractRefundApplyHandler {
 
     private final TicketOrderService ticketOrderService;
 
@@ -36,5 +38,15 @@ public class TicketRefundApplyHandler extends DefaultRefundApplyHandler {
             log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", dto.getOrderNo(), dto.getNum(), dto.getVisitorIds().size());
             throw new BusinessException(ErrorCode.REFUND_VISITOR);
         }
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }

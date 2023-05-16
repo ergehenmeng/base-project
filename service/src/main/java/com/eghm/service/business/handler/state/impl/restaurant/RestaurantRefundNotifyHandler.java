@@ -9,7 +9,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.RestaurantOrderService;
 import com.eghm.service.business.RestaurantVoucherService;
 import com.eghm.service.business.VerifyLogService;
-import com.eghm.service.business.handler.state.impl.DefaultRefundNotifyHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("restaurantRefundNotifyHandler")
 @Slf4j
-public class RestaurantRefundNotifyHandler extends DefaultRefundNotifyHandler {
+public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
     
     private final RestaurantVoucherService restaurantVoucherService;
     

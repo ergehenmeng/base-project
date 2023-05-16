@@ -1,5 +1,7 @@
 package com.eghm.service.business.handler.state.impl.homestay;
 
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -9,7 +11,7 @@ import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
-import com.eghm.service.business.handler.state.impl.DefaultRefundNotifyHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("homestayRefundNotifyHandler")
 @Slf4j
-public class HomestayRefundNotifyHandler extends DefaultRefundNotifyHandler {
+public class HomestayRefundNotifyHandler extends AbstractRefundNotifyHandler {
     
     private final HomestayOrderService homestayOrderService;
     
@@ -47,5 +49,15 @@ public class HomestayRefundNotifyHandler extends DefaultRefundNotifyHandler {
                 log.error("线路退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
         }
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }

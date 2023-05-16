@@ -1,9 +1,11 @@
 package com.eghm.service.business.handler.state.impl.line;
 
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.state.impl.DefaultRefundApplyHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundApplyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,20 @@ import org.springframework.stereotype.Service;
  */
 @Service("lineApplyRefundHandler")
 @Slf4j
-public class LineRefundApplyHandler extends DefaultRefundApplyHandler {
+public class LineRefundApplyHandler extends AbstractRefundApplyHandler {
     
     public LineRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                   OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
     }
-    
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
+    }
 }

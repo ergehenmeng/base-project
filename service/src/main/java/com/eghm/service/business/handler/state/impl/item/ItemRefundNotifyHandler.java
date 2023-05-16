@@ -1,13 +1,15 @@
 package com.eghm.service.business.handler.state.impl.item;
 
+import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundState;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.*;
-import com.eghm.service.business.handler.state.impl.DefaultRefundNotifyHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("itemRefundNotifyHandler")
 @Slf4j
-public class ItemRefundNotifyHandler extends DefaultRefundNotifyHandler {
+public class ItemRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     private final ItemSkuService itemSkuService;
 
@@ -45,4 +47,13 @@ public class ItemRefundNotifyHandler extends DefaultRefundNotifyHandler {
         itemSkuService.updateStock(itemOrder.getSkuId(), refundLog.getNum());
     }
 
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
+    }
 }

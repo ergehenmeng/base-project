@@ -1,16 +1,14 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.OrderExpireHandler;
 import com.eghm.service.business.handler.context.OrderCancelContext;
+import com.eghm.service.business.handler.state.OrderExpireHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,7 @@ import java.time.LocalDateTime;
 @Service("defaultOrderExpireHandler")
 @Slf4j
 @AllArgsConstructor
-public class DefaultOrderExpireHandler implements OrderExpireHandler {
+public abstract class AbstractOrderExpireHandler implements OrderExpireHandler {
 
     private final OrderService orderService;
 
@@ -71,16 +69,6 @@ public class DefaultOrderExpireHandler implements OrderExpireHandler {
             log.warn("订单状态不是待支付,无法自动取消订单 [{}] [{}]", order.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.ORDER_STATE_MATCH);
         }
-    }
-
-    @Override
-    public IEvent getEvent() {
-        return null;
-    }
-
-    @Override
-    public ProductType getStateMachineType() {
-        return ProductType.VOUCHER;
     }
 
 }

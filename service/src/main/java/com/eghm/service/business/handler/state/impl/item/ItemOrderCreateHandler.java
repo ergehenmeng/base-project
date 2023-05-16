@@ -63,7 +63,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             // 如果是两个店铺同时下单,则为多订单模式
             Order order = this.generateOrder(context.getUserId(), storeMap.size() > 1, entry.getValue());
             // 添加主订单
-            orderService.insert(order);
+            orderService.save(order);
             // 添加商品订单
             itemOrderService.insert(order.getOrderNo(), entry.getValue());
             // 30分钟过期定时任务

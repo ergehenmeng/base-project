@@ -13,7 +13,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.ItemOrderService;
-import com.eghm.service.business.handler.state.impl.DefaultRefundApplyHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundApplyHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
  */
 @Service("itemApplyRefundHandler")
 @Slf4j
-public class ItemRefundApplyHandler extends DefaultRefundApplyHandler {
+public class ItemRefundApplyHandler extends AbstractRefundApplyHandler {
 
     private final ItemOrderService itemOrderService;
 

@@ -1,12 +1,14 @@
 package com.eghm.service.business.handler.state.impl.homestay;
 
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.DefaultOrderExpireHandler;
+import com.eghm.service.business.handler.state.impl.AbstractOrderExpireHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("homestayOrderExpireHandler")
 @Slf4j
-public class HomestayOrderExpireHandler extends DefaultOrderExpireHandler {
+public class HomestayOrderExpireHandler extends AbstractOrderExpireHandler {
 
     private final HomestayOrderService homestayOrderService;
 
@@ -32,5 +34,15 @@ public class HomestayOrderExpireHandler extends DefaultOrderExpireHandler {
     protected void after(Order order) {
         HomestayOrder ticketOrder = homestayOrderService.selectByOrderNo(order.getOrderNo());
         homestayRoomConfigService.updateStock(ticketOrder.getRoomId(), ticketOrder.getStartDate(), ticketOrder.getEndDate(), order.getNum());
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }

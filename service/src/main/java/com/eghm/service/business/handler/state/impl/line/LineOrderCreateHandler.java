@@ -79,7 +79,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setMultiple(false);
         // 使用优惠券
         this.useDiscount(order, context.getUserId(), context.getCouponId(), context.getLineId());
-        orderService.insert(order);
+        orderService.save(order);
         return order;
     }
 

@@ -1,20 +1,17 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.event.IEvent;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.service.business.handler.context.OrderCancelContext;
+import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.service.pay.enums.TradeState;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -23,24 +20,13 @@ import java.time.LocalDateTime;
  * @author 二哥很猛
  * @date 2022/8/20
  */
-@Service("defaultOrderCancelHandler")
 @AllArgsConstructor
 @Slf4j
-public class DefaultOrderCancelHandler implements OrderCancelHandler {
+public abstract class AbstractOrderCancelHandler implements OrderCancelHandler {
 
     private final OrderService orderService;
 
     private final UserCouponService userCouponService;
-
-    @Override
-    public IEvent getEvent() {
-        return null;
-    }
-
-    @Override
-    public ProductType getStateMachineType() {
-        return ProductType.VOUCHER;
-    }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)

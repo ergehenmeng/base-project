@@ -1,5 +1,7 @@
 package com.eghm.service.business.handler.state.impl.line;
 
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -9,7 +11,7 @@ import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
-import com.eghm.service.business.handler.state.impl.DefaultRefundNotifyHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("lineRefundNotifyHandler")
 @Slf4j
-public class LineRefundNotifyHandler extends DefaultRefundNotifyHandler {
+public class LineRefundNotifyHandler extends AbstractRefundNotifyHandler {
     
     private final LineOrderService lineOrderService;
     
@@ -46,5 +48,15 @@ public class LineRefundNotifyHandler extends DefaultRefundNotifyHandler {
                 log.error("线路退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
         }
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }

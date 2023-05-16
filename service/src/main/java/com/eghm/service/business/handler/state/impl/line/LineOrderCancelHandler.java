@@ -1,12 +1,14 @@
 package com.eghm.service.business.handler.state.impl.line;
 
+import com.eghm.enums.event.IEvent;
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.DefaultOrderCancelHandler;
+import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @date 2022/9/3
  */
 @Service("lineOrderCancelHandler")
-public class LineOrderCancelHandler extends DefaultOrderCancelHandler {
+public class LineOrderCancelHandler extends AbstractOrderCancelHandler {
     
     private final LineConfigService lineConfigService;
     
@@ -31,5 +33,15 @@ public class LineOrderCancelHandler extends DefaultOrderCancelHandler {
     protected void after(Order order) {
         LineOrder lineOrder = lineOrderService.selectByOrderNo(order.getOrderNo());
         lineConfigService.updateStock(lineOrder.getLineConfigId(), order.getNum());
+    }
+
+    @Override
+    public IEvent getEvent() {
+        return null;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return null;
     }
 }
