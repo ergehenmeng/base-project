@@ -12,7 +12,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundAuditContext;
-import com.eghm.service.business.handler.state.impl.AbstractRefundAuditPassHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundPassHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +22,11 @@ import org.springframework.stereotype.Service;
  */
 @Service("itemAuditRefundHandler")
 @Slf4j
-public class ItemRefundAuditPassHandler extends AbstractRefundAuditPassHandler {
+public class ItemRefundPassHandler extends AbstractRefundPassHandler {
 
     private final ItemOrderService itemOrderService;
 
-    public ItemRefundAuditPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
+    public ItemRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
     }

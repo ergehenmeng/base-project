@@ -9,7 +9,7 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.state.ApplyRefundHandler;
+import com.eghm.service.business.handler.state.RefundApplyHandler;
 import com.eghm.service.business.handler.context.ApplyRefundContext;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
@@ -29,7 +29,7 @@ import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX;
 @AllArgsConstructor
 @Slf4j
 @Service("defaultApplyRefundHandler")
-public class DefaultApplyRefundHandler implements ApplyRefundHandler {
+public class DefaultRefundApplyHandler implements RefundApplyHandler {
 
     private final OrderService orderService;
 

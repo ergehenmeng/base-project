@@ -9,7 +9,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
-import com.eghm.service.business.handler.state.impl.DefaultApplyRefundHandler;
+import com.eghm.service.business.handler.state.impl.DefaultRefundApplyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,11 +19,11 @@ import org.springframework.stereotype.Service;
  */
 @Service("ticketApplyRefundHandler")
 @Slf4j
-public class TicketApplyRefundHandler extends DefaultApplyRefundHandler {
+public class TicketRefundApplyHandler extends DefaultRefundApplyHandler {
 
     private final TicketOrderService ticketOrderService;
 
-    public TicketApplyRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, TicketOrderService ticketOrderService) {
+    public TicketRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, TicketOrderService ticketOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.ticketOrderService = ticketOrderService;
     }

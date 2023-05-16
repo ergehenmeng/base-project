@@ -10,7 +10,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundAuditContext;
-import com.eghm.service.business.handler.state.RefundAuditPassHandler;
+import com.eghm.service.business.handler.state.RefundRefuseHandler;
 import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractRefundAuditPassHandler implements RefundAuditPassHandler {
+public abstract class AbstractRefundRefuseHandler implements RefundRefuseHandler {
 
     private final OrderService orderService;
 

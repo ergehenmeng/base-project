@@ -7,7 +7,7 @@ import com.eghm.service.business.handler.context.ApplyRefundContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.state.impl.DefaultApplyRefundHandler;
+import com.eghm.service.business.handler.state.impl.DefaultRefundApplyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
  */
 @Service("homestayApplyRefundHandler")
 @Slf4j
-public class HomestayApplyRefundHandler extends DefaultApplyRefundHandler {
+public class HomestayRefundApplyHandler extends DefaultRefundApplyHandler {
 
-    public HomestayApplyRefundHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
+    public HomestayRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
     }
 
