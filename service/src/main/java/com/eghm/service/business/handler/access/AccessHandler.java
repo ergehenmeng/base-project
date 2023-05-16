@@ -1,5 +1,7 @@
 package com.eghm.service.business.handler.access;
 
+import com.eghm.service.business.handler.context.ApplyRefundContext;
+import com.eghm.service.business.handler.context.RefundAuditContext;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.state.machine.Context;
@@ -29,4 +31,15 @@ public interface AccessHandler {
      */
     void refundNotify(RefundNotifyContext context);
 
+    /**
+     * 退款申请
+     * @param context context
+     */
+    void refundApply(ApplyRefundContext context);
+
+    /**
+     * 退款审核
+     * @param context context
+     */
+    void refundAudit(RefundAuditContext context);
 }

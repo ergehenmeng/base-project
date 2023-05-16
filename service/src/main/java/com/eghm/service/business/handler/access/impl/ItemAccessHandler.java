@@ -3,8 +3,11 @@ package com.eghm.service.business.handler.access.impl;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
+import com.eghm.service.business.handler.context.ApplyRefundContext;
+import com.eghm.service.business.handler.context.RefundAuditContext;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
@@ -21,14 +24,32 @@ public class ItemAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
+    private final OrderService orderService;
+
     public ItemAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
+        this.orderService = orderService;
     }
 
     @Override
     public void createOrder(Context context) {
         stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE, context);
+    }
+
+    @Override
+    public void refundApply(ApplyRefundContext context) {
+        Order order = orderService.selectById(context.getItemOrderId());
+        stateHandler.fireEvent(ProductType.ITEM, order.getState().getValue(), ItemEvent.CREATE, context);
+    }
+
+    @Override
+    public void refundAudit(RefundAuditContext context) {
+        if (context.getState() == 1) {
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_PASS, context);
+        } else {
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.REFUND.getValue(), ItemEvent.REFUND_REFUSE, context);
+        }
     }
 
     @Override
