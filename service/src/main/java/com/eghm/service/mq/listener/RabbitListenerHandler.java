@@ -2,15 +2,16 @@ package com.eghm.service.mq.listener;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.QueueConstant;
+import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.LoginRecord;
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.event.impl.TicketEvent;
-import com.eghm.enums.ref.OrderState;
+import com.eghm.enums.event.impl.*;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.SystemException;
 import com.eghm.model.ManageLog;
+import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
-import com.eghm.dto.ext.AsyncKey;
-import com.eghm.dto.ext.LoginRecord;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.cache.CacheService;
@@ -50,13 +51,15 @@ public class RabbitListenerHandler {
 
     private final StateHandler stateHandler;
 
+    private final OrderService orderService;
+
     /**
      * 零售商品消息队列订单过期处理
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.ITEM_PAY_EXPIRE_QUEUE)
     public void itemExpire(String orderNo, Message message, Channel channel) throws IOException {
-        this.doOrderExpire(orderNo, TicketEvent.AUTO_CANCEL, message, channel);
+        this.doOrderExpire(orderNo, ItemEvent.AUTO_CANCEL, message, channel);
     }
 
     /**
@@ -65,7 +68,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.TICKET_PAY_EXPIRE_QUEUE)
     public void ticketExpire(String orderNo, Message message, Channel channel) throws IOException {
-        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
+        this.doOrderExpire(orderNo, TicketEvent.AUTO_CANCEL, message, channel);
     }
 
     /**
@@ -74,16 +77,16 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.HOMESTAY_PAY_EXPIRE_QUEUE)
     public void homeStayExpire(String orderNo, Message message, Channel channel) throws IOException {
-        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
+        this.doOrderExpire(orderNo, HomestayEvent.AUTO_CANCEL, message, channel);
     }
 
     /**
      * 餐饮券队列订单过期处理
      * @param orderNo 订单编号
      */
-    @RabbitListener(queues = QueueConstant.VOUCHER_PAY_EXPIRE_QUEUE)
+    @RabbitListener(queues = QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE)
     public void voucherExpire(String orderNo, Message message, Channel channel) throws IOException {
-        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
+        this.doOrderExpire(orderNo, RestaurantEvent.AUTO_CANCEL, message, channel);
     }
 
     /**
@@ -92,7 +95,7 @@ public class RabbitListenerHandler {
      */
     @RabbitListener(queues = QueueConstant.LINE_PAY_EXPIRE_QUEUE)
     public void lineExpire(String orderNo, Message message, Channel channel) throws IOException {
-        this.doOrderExpire(orderNo, TicketEvent.CANCEL, message, channel);
+        this.doOrderExpire(orderNo, LineEvent.AUTO_CANCEL, message, channel);
     }
     
     /**
@@ -105,10 +108,14 @@ public class RabbitListenerHandler {
     private void doOrderExpire(String orderNo, IEvent event, Message message, Channel channel) throws IOException {
         OrderCancelContext context = new OrderCancelContext();
         context.setOrderNo(orderNo);
-        processMessageAck(context, message, channel, orderCancelContext ->
-                // 开启状态机流转
-                stateHandler.fireEvent(ProductType.prefix(orderNo), OrderState.NONE.getValue(), event, orderCancelContext)
-        );
+        processMessageAck(context, message, channel, orderCancelContext -> {
+            Order order = orderService.getByOrderNo(orderNo);
+            if (order == null) {
+                log.warn("订单已删除, 无须自动取消 [{}]", orderNo);
+                return;
+            }
+            stateHandler.fireEvent(ProductType.prefix(orderNo), order.getState().getValue(), event, orderCancelContext);
+        });
     }
     
     /**

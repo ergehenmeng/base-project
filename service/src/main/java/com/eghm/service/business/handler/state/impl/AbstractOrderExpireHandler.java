@@ -1,9 +1,7 @@
 package com.eghm.service.business.handler.state.impl;
 
-import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
-import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
@@ -32,7 +30,6 @@ public abstract class AbstractOrderExpireHandler implements OrderExpireHandler {
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(OrderCancelContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
-        this.before(order);
 
         this.doProcess(order);
 
@@ -60,13 +57,6 @@ public abstract class AbstractOrderExpireHandler implements OrderExpireHandler {
         order.setCloseTime(LocalDateTime.now());
         orderService.updateById(order);
         userCouponService.releaseCoupon(order.getCouponId());
-    }
-
-    protected void before(Order order) {
-        if (order.getState() != OrderState.UN_PAY) {
-            log.warn("订单状态不是待支付,无法自动取消订单 [{}] [{}]", order.getOrderNo(), order.getState());
-            throw new BusinessException(ErrorCode.ORDER_STATE_MATCH);
-        }
     }
 
 }

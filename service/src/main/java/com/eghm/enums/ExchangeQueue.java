@@ -30,7 +30,7 @@ public enum ExchangeQueue {
     /**
      * 餐饮券订单未支付时取消队列 延迟队列
      */
-    VOUCHER_PAY_EXPIRE("voucher_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.VOUCHER_PAY_EXPIRE_QUEUE, "", true),
+    RESTAURANT_PAY_EXPIRE("restaurant_pay_expire_exchange", ExchangeType.DIRECT, QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE, "", true),
 
     /**
      * 线路订单未支付时取消队列 延迟队列
@@ -50,7 +50,7 @@ public enum ExchangeQueue {
     /**
      * 餐饮订单队列
      */
-    VOUCHER_ORDER("voucher_order_exchange", ExchangeType.DIRECT, QueueConstant.VOUCHER_ORDER_QUEUE, "", false),
+    RESTAURANT_ORDER("restaurant_order_exchange", ExchangeType.DIRECT, QueueConstant.RESTAURANT_ORDER_QUEUE, "", false),
 
     /**
      * 民宿订单队列
