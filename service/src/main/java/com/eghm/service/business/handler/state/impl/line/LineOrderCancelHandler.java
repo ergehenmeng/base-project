@@ -2,7 +2,6 @@ package com.eghm.service.business.handler.state.impl.line;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
-import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
@@ -40,11 +39,6 @@ public class LineOrderCancelHandler extends AbstractOrderCancelHandler {
     @Override
     public IEvent getEvent() {
         return LineEvent.CANCEL;
-    }
-
-    @Override
-    public CloseType getCloseType() {
-        return CloseType.CANCEL;
     }
 
     @Override

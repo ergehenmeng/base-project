@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.state.impl.restaurant;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.enums.ref.CloseType;
+import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.RestaurantOrder;
@@ -39,12 +39,7 @@ public class RestaurantOrderCancelHandler extends AbstractOrderCancelHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
-    }
-
-    @Override
-    public CloseType getCloseType() {
-        return CloseType.CANCEL;
+        return RestaurantEvent.CANCEL;
     }
 
     @Override

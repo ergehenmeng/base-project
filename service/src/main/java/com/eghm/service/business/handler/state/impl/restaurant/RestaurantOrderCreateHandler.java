@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.restaurant;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -39,7 +40,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return RestaurantEvent.CREATE;
     }
 
     @Override

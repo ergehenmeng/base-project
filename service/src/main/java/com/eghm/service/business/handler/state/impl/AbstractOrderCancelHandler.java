@@ -8,9 +8,9 @@ import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
-import com.eghm.service.business.handler.state.OrderAutoCancelHandler;
 import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.service.pay.enums.TradeState;
+import com.eghm.state.machine.ActionHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, OrderAutoCancelHandler {
+public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, ActionHandler<OrderCancelContext> {
 
     private final OrderService orderService;
 
@@ -52,17 +52,12 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
      */
     private void doProcess(Order order) {
         order.setState(OrderState.CLOSE);
-        order.setCloseType(this.getCloseType());
+        order.setCloseType(CloseType.CANCEL);
         order.setCloseTime(LocalDateTime.now());
         orderService.updateById(order);
         userCouponService.releaseCoupon(order.getCouponId());
     }
 
-    /**
-     * 取消订单的方式
-     * @return 类型
-     */
-    public abstract CloseType getCloseType();
 
     /**
      * 取消订单前值校验

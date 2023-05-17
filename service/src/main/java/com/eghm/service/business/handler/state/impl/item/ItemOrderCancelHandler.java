@@ -2,13 +2,12 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.ProductType;
-import com.eghm.model.Order;
 import com.eghm.model.ItemOrder;
+import com.eghm.model.Order;
+import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -46,11 +45,6 @@ public class ItemOrderCancelHandler extends AbstractOrderCancelHandler {
     @Override
     public IEvent getEvent() {
         return ItemEvent.CANCEL;
-    }
-
-    @Override
-    public CloseType getCloseType() {
-        return CloseType.CANCEL;
     }
 
     @Override
