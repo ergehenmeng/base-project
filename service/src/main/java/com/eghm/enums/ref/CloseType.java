@@ -15,9 +15,9 @@ import lombok.Getter;
 public enum CloseType {
 
     /**
-     * 过期自动关闭
+     * 过期自动取消
      */
-    EXPIRE(1, "过期自动关闭"),
+    EXPIRE(1, "过期自动取消"),
 
     /**
      * 用户取消

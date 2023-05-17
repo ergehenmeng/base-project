@@ -1,10 +1,8 @@
 package com.eghm.service.business.handler.state.impl.restaurant;
 
 import com.eghm.enums.event.IEvent;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.ScenicTicketService;
-import com.eghm.service.business.TicketOrderService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.enums.ref.CloseType;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.state.impl.ticket.TicketOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,15 +13,21 @@ import org.springframework.stereotype.Service;
  */
 @Service("restaurantOrderAutoCancelHandler")
 @Slf4j
-public class RestaurantOrderAutoCancelHandler extends TicketOrderAutoCancelHandler {
+public class RestaurantOrderAutoCancelHandler extends RestaurantOrderCancelHandler {
 
-    public RestaurantOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService) {
-        super(orderService, userCouponService, ticketOrderService, scenicTicketService);
+    public RestaurantOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService) {
+        super(orderService, userCouponService, restaurantOrderService, restaurantVoucherService);
     }
 
     @Override
     public IEvent getEvent() {
         return null;
+    }
+
+
+    @Override
+    public CloseType getCloseType() {
+        return CloseType.EXPIRE;
     }
 
 }

@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
@@ -24,6 +25,11 @@ public class HomestayOrderCancelHandler extends AbstractOrderCancelHandler {
     @Override
     public IEvent getEvent() {
         return HomestayEvent.CANCEL;
+    }
+
+    @Override
+    public CloseType getCloseType() {
+        return CloseType.CANCEL;
     }
 
     @Override

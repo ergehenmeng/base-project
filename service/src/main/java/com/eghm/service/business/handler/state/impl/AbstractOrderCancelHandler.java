@@ -52,11 +52,17 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
      */
     private void doProcess(Order order) {
         order.setState(OrderState.CLOSE);
-        order.setCloseType(CloseType.CANCEL);
+        order.setCloseType(this.getCloseType());
         order.setCloseTime(LocalDateTime.now());
         orderService.updateById(order);
         userCouponService.releaseCoupon(order.getCouponId());
     }
+
+    /**
+     * 取消订单的方式
+     * @return 类型
+     */
+    public abstract CloseType getCloseType();
 
     /**
      * 取消订单前值校验

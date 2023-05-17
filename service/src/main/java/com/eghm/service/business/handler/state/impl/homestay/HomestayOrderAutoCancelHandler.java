@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,12 @@ public class HomestayOrderAutoCancelHandler extends HomestayOrderCancelHandler {
 
     public HomestayOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService) {
         super(orderService, userCouponService);
+    }
+
+
+    @Override
+    public CloseType getCloseType() {
+        return CloseType.EXPIRE;
     }
 
     @Override

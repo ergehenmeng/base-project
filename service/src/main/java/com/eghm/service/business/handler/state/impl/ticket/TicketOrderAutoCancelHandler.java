@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.ticket;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.business.TicketOrderService;
@@ -19,6 +20,13 @@ public class TicketOrderAutoCancelHandler extends TicketOrderCancelHandler {
     public TicketOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService) {
         super(orderService, userCouponService, ticketOrderService, scenicTicketService);
     }
+
+
+    @Override
+    public CloseType getCloseType() {
+        return CloseType.EXPIRE;
+    }
+
 
     @Override
     public IEvent getEvent() {

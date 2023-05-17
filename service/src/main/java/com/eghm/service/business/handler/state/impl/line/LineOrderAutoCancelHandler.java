@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.line;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderService;
@@ -24,4 +25,8 @@ public class LineOrderAutoCancelHandler extends LineOrderCancelHandler {
         return LineEvent.AUTO_CANCEL;
     }
 
+    @Override
+    public CloseType getCloseType() {
+        return CloseType.EXPIRE;
+    }
 }

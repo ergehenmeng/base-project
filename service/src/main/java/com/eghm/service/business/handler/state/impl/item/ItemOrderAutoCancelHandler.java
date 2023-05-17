@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.OrderService;
@@ -26,4 +27,8 @@ public class ItemOrderAutoCancelHandler extends ItemOrderCancelHandler {
         return ItemEvent.AUTO_CANCEL;
     }
 
+    @Override
+    public CloseType getCloseType() {
+        return CloseType.EXPIRE;
+    }
 }
