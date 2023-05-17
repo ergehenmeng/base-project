@@ -1,7 +1,6 @@
 package com.eghm.service.business.handler.access.impl;
 
-import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.event.impl.ItemEvent;
+import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
@@ -30,7 +29,7 @@ public class LineAccessHandler extends AbstractAccessHandler {
     }
     @Override
     public void createOrder(Context context) {
-        stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), HomestayEvent.CREATE, context);
+        stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE, context);
     }
 
     @Override
@@ -45,21 +44,21 @@ public class LineAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void paySuccess(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), ItemEvent.PAY_SUCCESS, context);
+        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.PAY_SUCCESS, context);
     }
 
     @Override
     public void payFail(PayNotifyContext context) {
-        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), ItemEvent.PAY_FAIL, context);
+        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.PAY_FAIL, context);
     }
 
     @Override
     public void refundSuccess(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), ItemEvent.REFUND_SUCCESS, context);
+        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.REFUND_SUCCESS, context);
     }
 
     @Override
     public void refundFail(RefundNotifyContext context) {
-        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), ItemEvent.REFUND_FAIL, context);
+        stateHandler.fireEvent(ProductType.LINE, context.getFrom(), LineEvent.REFUND_FAIL, context);
     }
 }
