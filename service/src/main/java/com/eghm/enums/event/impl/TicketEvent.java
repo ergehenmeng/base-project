@@ -70,7 +70,17 @@ public enum TicketEvent implements IEvent {
     /**
      * 退款失败
      */
-    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue());
+    REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
+
+    /**
+     * 退款审核通过
+     */
+    REFUND_PASS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
+
+    /**
+     * 退款审核拒绝
+     */
+    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
     ;
 
 

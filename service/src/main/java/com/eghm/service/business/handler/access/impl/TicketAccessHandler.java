@@ -40,7 +40,11 @@ public class TicketAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundAudit(RefundAuditContext context) {
-
+        if (context.getState() == 1) {
+            stateHandler.fireEvent(ProductType.TICKET, OrderState.REFUND.getValue(), TicketEvent.REFUND_PASS, context);
+        } else {
+            stateHandler.fireEvent(ProductType.TICKET, OrderState.REFUND.getValue(), TicketEvent.REFUND_REFUSE, context);
+        }
     }
 
     @Override
