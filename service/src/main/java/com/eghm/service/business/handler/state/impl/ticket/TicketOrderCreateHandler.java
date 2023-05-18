@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.state.impl.ticket;
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -97,7 +98,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return TicketEvent.CREATE;
     }
 
     @Override

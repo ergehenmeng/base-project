@@ -1066,6 +1066,11 @@ public enum ErrorCode {
     LOTTERY_PRIZE_ERROR(3418, "该奖品类型不支持"),
 
     /**
+     * 商品太火爆啦,请稍后再试
+     */
+    ORDER_ERROR(3420, "商品太火爆啦,请稍后再试"),
+
+    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(3600, "红包金额太小啦~"),

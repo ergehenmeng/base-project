@@ -23,6 +23,11 @@ public enum TicketEvent implements IEvent {
     CREATE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
 
     /**
+     * 队列模式创建订单
+     */
+    CREATE_QUEUE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
+
+    /**
      * 支付处理中
      */
     PAYING(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.PROGRESS.getValue()),

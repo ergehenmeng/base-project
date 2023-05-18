@@ -6,8 +6,9 @@ import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.LoginRecord;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
-import com.eghm.exception.SystemException;
+import com.eghm.exception.BusinessException;
 import com.eghm.model.ManageLog;
 import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
@@ -144,13 +145,13 @@ public class RabbitListenerHandler {
 
     /**
      * 消息队列门票下单
-     * @param dto 订单信息
+     * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.TICKET_ORDER_QUEUE)
-    public void ticketOrder(ItemOrderCreateContext dto, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsync(dto, message, channel, order -> {
-            // TODO 下单逻辑处理
-        });
+    public void ticketOrder(ItemOrderCreateContext context, Message message, Channel channel) throws IOException {
+        this.processMessageAckAsync(context, message, channel, order ->
+                stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE_QUEUE, context)
+        );
     }
 
     @RabbitListener(queues = "test_queue")
@@ -171,7 +172,7 @@ public class RabbitListenerHandler {
         try {
             consumer.accept(msg);
             cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER);
-        } catch (SystemException e) {
+        } catch (BusinessException e) {
             log.error("队列[{}]处理消息业务异常 [{}] [{}] [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e.getCode(), e.getMessage());
             cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), e.getMessage());
         } catch (Exception e) {

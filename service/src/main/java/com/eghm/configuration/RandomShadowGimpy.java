@@ -20,9 +20,7 @@ public class RandomShadowGimpy extends Configurable implements GimpyEngine {
     @Override
     public BufferedImage getDistortedImage(BufferedImage baseImage) {
         NoiseProducer noiseProducer = getConfig().getNoiseImpl();
-        BufferedImage distortedImage = new BufferedImage(baseImage.getWidth(),
-                baseImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
-
+        BufferedImage distortedImage = new BufferedImage(baseImage.getWidth(), baseImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
         Graphics2D graph = (Graphics2D) distortedImage.getGraphics();
 
         ShadowFilter shadowFilter = new ShadowFilter();
@@ -34,7 +32,8 @@ public class RandomShadowGimpy extends Configurable implements GimpyEngine {
 
         RippleFilter rippleFilter = new RippleFilter();
         rippleFilter.setWaveType(RippleFilter.SINE);
-        rippleFilter.setXAmplitude(7.6f);
+        rippleFilter.setXAmplitude(7.6F);
+
         rippleFilter.setYAmplitude(random.nextFloat() + 1.0F);
         rippleFilter.setXWavelength(random.nextInt(7) + 8F);
         rippleFilter.setYWavelength(random.nextInt(3) + 2F);
@@ -46,9 +45,8 @@ public class RandomShadowGimpy extends Configurable implements GimpyEngine {
         graph.drawImage(effectImage, 0, 0, null, null);
         graph.dispose();
 
-        // draw lines over the image and/or text
-        noiseProducer.makeNoise(distortedImage, .1f, .1f, .25f, .25f);
-        noiseProducer.makeNoise(distortedImage, .1f, .25f, .5f, .9f);
+        noiseProducer.makeNoise(distortedImage, .1F, .1F, .25F, .25F);
+        noiseProducer.makeNoise(distortedImage, .1F, .25F, .5F, .9F);
 
         return distortedImage;
     }
