@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.ticket;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.DeliveryType;
@@ -14,6 +15,7 @@ import com.eghm.model.TicketOrder;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.TicketOrderCreateContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,11 +34,14 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderService orderService;
 
-    public TicketOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService) {
-        super(userCouponService, orderVisitorService, orderMQService);
+    private final OrderMQService orderMQService;
+
+    public TicketOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService, MessageService messageService) {
+        super(userCouponService, orderVisitorService);
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
+        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -94,6 +99,16 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         ticketOrder.setMobile(context.getMobile());
         ticketOrder.setTicketId(context.getTicketId());
         ticketOrderService.insert(ticketOrder);
+    }
+
+    @Override
+    protected void sendMsg(TicketOrderCreateContext context, ScenicTicket payload, Order order) {
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
+    }
+
+    @Override
+    public void createOrderUseQueue(TicketOrderCreateContext context) {
+        orderMQService.sendOrderCreateMessage(ExchangeQueue.TICKET_ORDER, context);
     }
 
     @Override

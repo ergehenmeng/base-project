@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
@@ -17,6 +18,7 @@ import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -66,12 +68,12 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             orderService.save(order);
             // 添加商品订单
             itemOrderService.insert(order.getOrderNo(), entry.getValue());
-            // 30分钟过期定时任务
-            orderMQService.sendOrderExpireMessage(order.getOrderNo());
             // 支持多笔同时支付
             orderList.add(order.getOrderNo());
             // 添加优惠券(待定)
         }
+        // 30分钟过期定时任务
+        TransactionUtil.afterCommit(() -> orderList.forEach(orderNo -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, orderNo)));
         context.setOrderNo(CollUtil.join(orderList, ","));
     }
 

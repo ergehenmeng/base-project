@@ -5,18 +5,19 @@ import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.TicketOrderCreateContext;
+import com.eghm.service.mq.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 /**
  * @author 二哥很猛
  */
-@Service("ticketOrderQueueCreateHandler")
+@Service("ticketOrderCreateQueueHandler")
 @Slf4j
-public class TicketOrderQueueCreateHandler extends TicketOrderCreateHandler {
+public class TicketOrderCreateQueueHandler extends TicketOrderCreateHandler {
 
-    public TicketOrderQueueCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService) {
-        super(orderService, userCouponService, orderVisitorService, orderMQService, scenicTicketService, ticketOrderService);
+    public TicketOrderCreateQueueHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService, MessageService messageService) {
+        super(orderService, userCouponService, orderVisitorService, orderMQService, scenicTicketService, ticketOrderService, messageService);
     }
 
     @Override

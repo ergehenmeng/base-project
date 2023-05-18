@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -39,13 +40,16 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final OrderService orderService;
 
+    private final OrderMQService orderMQService;
+
     public HomestayOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
-        super(userCouponService, orderVisitorService, orderMQService);
+        super(userCouponService, orderVisitorService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
         this.homestayRoomConfigService = homestayRoomConfigService;
         this.homestayOrderSnapshotService = homestayOrderSnapshotService;
         this.orderService = orderService;
+        this.orderMQService = orderMQService;
     }
 
 
@@ -66,12 +70,17 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return HomestayEvent.CREATE;
     }
 
     @Override
     public ProductType getStateMachineType() {
         return ProductType.HOMESTAY;
+    }
+
+    @Override
+    protected void sendMsg(HomestayOrderCreateContext context, HomestayOrderPayload payload, Order order) {
+
     }
 
     @Override

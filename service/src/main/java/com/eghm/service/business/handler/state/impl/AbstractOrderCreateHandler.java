@@ -1,7 +1,6 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.model.Order;
-import com.eghm.service.business.OrderMQService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.dto.VisitorDTO;
@@ -27,8 +26,6 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     private final OrderVisitorService orderVisitorService;
 
-    private final OrderMQService orderMQService;
-
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void doAction(C context) {
@@ -37,7 +34,6 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
         // 主订单下单
         Order order = this.doProcess(context, payload);
         if (order == null) {
-            log.info("该商品为热销商品,走MQ队列处理");
             return;
         }
         this.next(context, payload, order);
@@ -45,14 +41,12 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     }
 
     /**
-     * 订单创建后置处理,默认定时任务
+     * 订单创建后置处理,默认过期自动取消定时任务
      * @param context 下单信息
      * @param payload 商品信息
      * @param order 主订单信息
      */
-    protected void sendMsg(C context, P payload, Order order) {
-        orderMQService.sendOrderExpireMessage(order.getOrderNo());
-    }
+    protected abstract void sendMsg(C context, P payload, Order order);
 
     /**
      * 下单
@@ -62,6 +56,9 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      */
     protected Order doProcess(C context, P payload) {
         if (this.isHotSell(context, payload)) {
+            log.info("该商品为热销商品,走MQ队列处理");
+            // 消息队列在事务之外发送减少事务持有时间
+            TransactionUtil.afterCommit(() -> this.createOrderUseQueue(context));
             return null;
         }
         return this.createOrder(context, payload);
@@ -86,6 +83,14 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      */
     public boolean isHotSell(C context, P payload) {
         return true;
+    }
+
+    /**
+     * 通过消息队列进行下单
+     * @param context 下单信息
+     */
+    protected void createOrderUseQueue(C context) {
+
     }
 
     /**
@@ -135,15 +140,4 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      */
     protected abstract void next(C context, P payload, Order order);
 
-    public UserCouponService getUserCouponService() {
-        return userCouponService;
-    }
-
-    public OrderVisitorService getOrderVisitorService() {
-        return orderVisitorService;
-    }
-
-    public OrderMQService getOrderMQService() {
-        return orderMQService;
-    }
 }

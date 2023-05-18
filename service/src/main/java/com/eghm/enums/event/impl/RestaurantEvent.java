@@ -22,6 +22,11 @@ public enum RestaurantEvent implements IEvent {
     CREATE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
 
     /**
+     * 创建订单 消息队列方式
+     */
+    CREATE_QUEUE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
+
+    /**
      * 支付处理中
      */
     PAYING(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.PROGRESS.getValue()),

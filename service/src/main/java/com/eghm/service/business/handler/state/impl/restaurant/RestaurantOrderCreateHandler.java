@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.restaurant;
 
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.enums.ref.DeliveryType;
@@ -31,11 +32,14 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     private final OrderService orderService;
 
+    private final OrderMQService orderMQService;
+
     public RestaurantOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, RestaurantVoucherService restaurantVoucherService, RestaurantOrderService restaurantOrderService) {
-        super(userCouponService, orderVisitorService, orderMQService);
+        super(userCouponService, orderVisitorService);
         this.restaurantVoucherService = restaurantVoucherService;
         this.restaurantOrderService = restaurantOrderService;
         this.orderService = orderService;
+        this.orderMQService = orderMQService;
     }
 
     @Override
@@ -61,7 +65,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
             throw new BusinessException(ErrorCode.VOUCHER_STOCK);
         }
         if (payload.getQuota() < num) {
-            log.error("超出餐椅券单次购买上限 [{}] [{}] [{}]", payload.getId(), payload.getQuota(), num);
+            log.error("超出餐饮券单次购买上限 [{}] [{}] [{}]", payload.getId(), payload.getQuota(), num);
             throw new BusinessException(ErrorCode.VOUCHER_QUOTA.getCode(), String.format(ErrorCode.VOUCHER_QUOTA.getMsg(), payload.getQuota()));
         }
     }
@@ -86,6 +90,16 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         orderService.save(order);
         return order;
 
+    }
+
+    @Override
+    protected void createOrderUseQueue(RestaurantOrderCreateContext context) {
+        orderMQService.sendOrderCreateMessage(ExchangeQueue.RESTAURANT_ORDER, context);
+    }
+
+    @Override
+    protected void sendMsg(RestaurantOrderCreateContext context, RestaurantVoucher payload, Order order) {
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.RESTAURANT_PAY_EXPIRE, order.getOrderNo());
     }
 
     @Override
