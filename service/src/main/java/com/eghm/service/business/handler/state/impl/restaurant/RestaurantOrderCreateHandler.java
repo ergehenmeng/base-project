@@ -70,7 +70,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     protected Order createOrder(RestaurantOrderCreateContext context, RestaurantVoucher payload) {
         String orderNo = ProductType.RESTAURANT.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
-        order.setState(OrderState.of(context.getTo()));
+        order.setState(OrderState.UN_PAY);
         order.setUserId(context.getUserId());
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());

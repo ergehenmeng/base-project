@@ -13,20 +13,9 @@ public interface Context {
     void setFrom(Integer from);
 
     /**
-     * 设置新状态
-     * @param to 新
-     */
-    void setTo(Integer to);
-
-    /**
      * 原状态
      * @return 原状态
      */
     Integer getFrom();
 
-    /**
-     * 新状态
-     * @return 新状态
-     */
-    Integer getTo();
 }

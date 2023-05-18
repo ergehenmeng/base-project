@@ -31,7 +31,6 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
     @Override
     default void execute(Integer from, Integer to, IEvent event, C context) {
         context.setFrom(from);
-        context.setTo(to);
         this.doAction(context);
     }
 

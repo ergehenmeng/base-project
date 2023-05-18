@@ -15,7 +15,7 @@ import java.util.Map;
  * @author 二哥很猛
  * @since 2023/3/20
  */
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LogTraceHolder {
 
     private static final TransmittableThreadLocal<Map<String, String>> TTL_MDC = new TransmittableThreadLocal<Map<String, String>>() {

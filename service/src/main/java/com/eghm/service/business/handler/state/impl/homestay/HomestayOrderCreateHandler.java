@@ -88,7 +88,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     protected Order createOrder(HomestayOrderCreateContext context, HomestayOrderPayload payload) {
         String orderNo = ProductType.HOMESTAY.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
-        order.setState(OrderState.of(context.getTo()));
+        order.setState(OrderState.UN_PAY);
         order.setUserId(context.getUserId());
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());
