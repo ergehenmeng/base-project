@@ -15,6 +15,11 @@ import lombok.Getter;
 public enum RefundState {
 
     /**
+     * 初始状态, 未退款
+     */
+    NONE(0, "未退款"),
+
+    /**
      * 退款申请中,待审核
      */
     APPLY(1, "退款申请中"),

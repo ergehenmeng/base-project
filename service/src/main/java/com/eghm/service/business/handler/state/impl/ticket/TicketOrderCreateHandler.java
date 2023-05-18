@@ -46,15 +46,20 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     @Override
     protected Order createOrder(TicketOrderCreateContext context, ScenicTicket payload) {
         String orderNo = ProductType.TICKET.generateTradeNo();
-        // TODO 待完善
-        Order order = DataUtil.copy(context, Order.class);
-        order.setState(OrderState.UN_PAY);
+        Order order = new Order();
         order.setUserId(context.getUserId());
+        order.setTitle(payload.getTitle());
+        order.setState(OrderState.UN_PAY);
+        order.setProductType(ProductType.TICKET);
         order.setOrderNo(orderNo);
         order.setPrice(payload.getSalePrice());
+        order.setNum(context.getVisitorList().size());
         order.setPayAmount(order.getNum() * payload.getSalePrice());
-        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
+
         order.setMultiple(false);
+        order.setRefundType(payload.getRefundType());
+        order.setRefundDescribe(payload.getRefundDescribe());
+        order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         // 使用优惠券
         this.useDiscount(order, context.getUserId(), context.getCouponId(), payload.getId());
         orderService.save(order);

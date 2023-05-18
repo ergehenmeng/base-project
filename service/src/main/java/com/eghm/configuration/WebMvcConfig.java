@@ -11,11 +11,9 @@ import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
-import com.google.code.kaptcha.impl.ShadowGimpy;
 import com.google.code.kaptcha.util.Config;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -66,7 +64,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "6");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "abcdefhkmnprstwxy23456789ABCEFGHGKMNPRSTWXY");
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_NAMES, "宋体");
-        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, ShadowGimpy.class.getName());
+        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, RandomShadowGimpy.class.getName());
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, CaptchaProducer.class.getName());
         Config config = new Config(properties);
         captcha.setConfig(config);
@@ -136,8 +134,8 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         return systemProperties;
     }
 
-    @NotNull
     @Override
+    @NonNull
     public Runnable decorate(@NonNull Runnable runnable) {
         return TtlRunnable.get(runnable);
     }
