@@ -60,7 +60,12 @@ public enum ExchangeQueue {
     /**
      * 商品订单队列
      */
-    ITEM_ORDER("product_order_exchange", ExchangeType.DIRECT, QueueConstant.ITEM_ORDER_QUEUE, "", false),
+    ITEM_ORDER("line_order_exchange", ExchangeType.DIRECT, QueueConstant.ITEM_ORDER_QUEUE, "", false),
+
+    /**
+     * 线路订单队列
+     */
+    LINE_ORDER("line_order_exchange", ExchangeType.DIRECT, QueueConstant.LINE_ORDER_QUEUE, "", false),
 
     /**
      * 优惠券领取

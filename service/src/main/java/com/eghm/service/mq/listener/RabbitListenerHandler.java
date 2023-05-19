@@ -13,8 +13,7 @@ import com.eghm.model.ManageLog;
 import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.handler.context.ItemOrderCreateContext;
-import com.eghm.service.business.handler.context.OrderCancelContext;
+import com.eghm.service.business.handler.context.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
@@ -144,14 +143,63 @@ public class RabbitListenerHandler {
     }
 
     /**
-     * 消息队列门票下单
+     * 门票下单
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.TICKET_ORDER_QUEUE)
-    public void ticketOrder(ItemOrderCreateContext context, Message message, Channel channel) throws IOException {
-        this.processMessageAckAsync(context, message, channel, order ->
-                stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE_QUEUE, context)
-        );
+    public void ticketOrder(TicketOrderCreateContext context, Message message, Channel channel) throws IOException {
+        this.processMessageAckAsync(context, message, channel, order -> {
+            stateHandler.fireEvent(ProductType.TICKET, OrderState.NONE.getValue(), TicketEvent.CREATE_QUEUE, context);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+        });
+    }
+
+    /**
+     * 零售下单
+     * @param context 下单信息
+     */
+    @RabbitListener(queues = QueueConstant.ITEM_ORDER_QUEUE)
+    public void itemOrder(ItemOrderCreateContext context, Message message, Channel channel) throws IOException {
+        this.processMessageAckAsync(context, message, channel, order -> {
+            stateHandler.fireEvent(ProductType.ITEM, OrderState.NONE.getValue(), ItemEvent.CREATE_QUEUE, context);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+        });
+    }
+
+    /**
+     * 线路下单
+     * @param context 下单信息
+     */
+    @RabbitListener(queues = QueueConstant.LINE_ORDER_QUEUE)
+    public void lineOrder(LineOrderCreateContext context, Message message, Channel channel) throws IOException {
+        this.processMessageAckAsync(context, message, channel, order -> {
+            stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE_QUEUE, context);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+        });
+    }
+
+    /**
+     * 民宿下单
+     * @param context 下单信息
+     */
+    @RabbitListener(queues = QueueConstant.HOMESTAY_ORDER_QUEUE)
+    public void homestayOrder(HomestayOrderCreateContext context, Message message, Channel channel) throws IOException {
+        this.processMessageAckAsync(context, message, channel, order -> {
+            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE_QUEUE, context);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+        });
+    }
+
+    /**
+     * 餐饮券下单
+     * @param context 下单信息
+     */
+    @RabbitListener(queues = QueueConstant.RESTAURANT_ORDER_QUEUE)
+    public void restaurantOrder(RestaurantOrderCreateContext context, Message message, Channel channel) throws IOException {
+        this.processMessageAckAsync(context, message, channel, order -> {
+            stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.NONE.getValue(), RestaurantEvent.CREATE_QUEUE, context);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+        });
     }
 
     @RabbitListener(queues = "test_queue")

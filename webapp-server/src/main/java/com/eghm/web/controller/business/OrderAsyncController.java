@@ -27,15 +27,17 @@ public class OrderAsyncController {
 
     @GetMapping("/result")
     @ApiImplicitParam(name = "key", value = "查询key", required = true)
-    public RespBody<OrderResultVO> getResult(@RequestParam("key") String key) {
+    public RespBody<OrderResultVO<String>> getResult(@RequestParam("key") String key) {
         String hashValue = cacheService.getValue(CacheConstant.MQ_ASYNC_KEY + key);
-        OrderResultVO vo = new OrderResultVO();
+        OrderResultVO<String> vo = new OrderResultVO<>();
         if (CacheConstant.PLACE_HOLDER.equals(hashValue)) {
             vo.setState(0);
             return RespBody.success(vo);
         }
+        // 下单成功将订单号返回给前端
         if (CacheConstant.SUCCESS_PLACE_HOLDER.equals(hashValue)) {
             vo.setState(1);
+            vo.setData(cacheService.getValue(CacheConstant.MQ_ASYNC_DATA_KEY + key));
             return RespBody.success(vo);
         }
         if (!CacheConstant.ERROR_PLACE_HOLDER.equals(hashValue)) {

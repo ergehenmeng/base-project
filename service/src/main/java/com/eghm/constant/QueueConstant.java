@@ -60,6 +60,11 @@ public class QueueConstant {
     public static final String ITEM_ORDER_QUEUE = "item_order_queue";
 
     /**
+     * 线路订单队列
+     */
+    public static final String LINE_ORDER_QUEUE = "line_order_queue";
+
+    /**
      * 优惠券领取
      */
     public static final String COUPON_RECEIVE_QUEUE = "coupon_receive_queue";

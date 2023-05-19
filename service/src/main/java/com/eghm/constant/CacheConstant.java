@@ -166,6 +166,11 @@ public class CacheConstant {
     public static final String MQ_ASYNC_KEY = "mq_async_key:";
 
     /**
+     * 消息队列异步数据的key
+     */
+    public static final String MQ_ASYNC_DATA_KEY = "mq_async_data_key:";
+
+    /**
      * 短信前置
      */
     public static final String SMS_PREFIX = "sms:";

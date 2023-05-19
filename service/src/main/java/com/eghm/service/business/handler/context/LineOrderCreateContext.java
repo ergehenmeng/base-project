@@ -65,7 +65,4 @@ public class LineOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("源状态")
     private Integer from;
 
-    @ApiModelProperty("新状态")
-    private Integer to;
-
 }

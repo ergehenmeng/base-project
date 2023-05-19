@@ -9,11 +9,13 @@ import lombok.Data;
  */
 
 @Data
-public class OrderResultVO {
+public class OrderResultVO<T> {
 
     @ApiModelProperty("结果状态 0: 处理中 1: 成功 2: 失败")
     private Integer state;
 
     @ApiModelProperty("错误信息")
     private String errorMsg;
+
+    private T data;
 }

@@ -48,7 +48,6 @@ public class RestaurantOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("源状态")
     private Integer from;
 
-    @ApiModelProperty("新状态")
-    private Integer to;
-
+    @ApiModelProperty("订单编号")
+    private String orderNo;
 }

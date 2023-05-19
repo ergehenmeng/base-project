@@ -52,9 +52,9 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     @Override
     public void doAction(ItemOrderCreateContext context) {
+        this.sortedItem(context);
         ItemOrderPayload payload = this.getItem(context);
         this.before(payload);
-
         // 购物车商品可能存在多商铺同时下单,按店铺进行分组
         Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().collect(Collectors.groupingBy(OrderPackage::getStoreId, Collectors.toList()));
         List<String> orderList = new ArrayList<>(8);
@@ -75,6 +75,18 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         // 30分钟过期定时任务
         TransactionUtil.afterCommit(() -> orderList.forEach(orderNo -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, orderNo)));
         context.setOrderNo(CollUtil.join(orderList, ","));
+    }
+
+    /**
+     * 重新对购物车商品排序防止数据库死锁
+     * @param context 下单信息
+     */
+    private void sortedItem(ItemOrderCreateContext context) {
+        if (context.getItemList().size() == 1) {
+            // 单个商品排鸡毛的序
+            return;
+        }
+        context.setItemList(context.getItemList().stream().sorted(Comparator.comparing(BaseItemDTO::getItemId).thenComparing(BaseItemDTO::getSkuId)).collect(Collectors.toList()));
     }
 
 
