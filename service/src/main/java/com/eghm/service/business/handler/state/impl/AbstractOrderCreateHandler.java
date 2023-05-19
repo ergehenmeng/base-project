@@ -37,7 +37,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             return;
         }
         this.next(context, payload, order);
-        TransactionUtil.afterCommit(() -> this.sendMsg(context, payload, order));
+        this.sendMsg(context, payload, order);
     }
 
     /**
