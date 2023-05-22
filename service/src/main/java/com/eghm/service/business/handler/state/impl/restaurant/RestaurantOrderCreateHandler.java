@@ -93,7 +93,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected void createOrderUseQueue(RestaurantOrderCreateContext context) {
+    protected void queueOrder(RestaurantOrderCreateContext context) {
         orderMQService.sendOrderCreateMessage(ExchangeQueue.RESTAURANT_ORDER, context);
     }
 

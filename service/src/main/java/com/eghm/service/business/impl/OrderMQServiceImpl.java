@@ -6,8 +6,11 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 /**
  * 订单处理类
@@ -30,6 +33,7 @@ public class OrderMQServiceImpl implements OrderMQService {
 
     @Override
     public void sendOrderCreateMessage(ExchangeQueue exchangeQueue, AsyncKey context) {
+        context.setKey(UUID.randomUUID().toString());
         rabbitService.sendAsync(exchangeQueue, context);
     }
 }

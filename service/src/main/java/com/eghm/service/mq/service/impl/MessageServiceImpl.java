@@ -2,8 +2,8 @@ package com.eghm.service.mq.service.impl;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ExchangeQueue;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.mq.service.MessageService;
 import lombok.extern.slf4j.Slf4j;

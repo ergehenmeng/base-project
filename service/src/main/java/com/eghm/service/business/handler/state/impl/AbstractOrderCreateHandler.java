@@ -58,7 +58,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
         if (this.isHotSell(context, payload)) {
             log.info("该商品为热销商品,走MQ队列处理");
             // 消息队列在事务之外发送减少事务持有时间
-            TransactionUtil.afterCommit(() -> this.createOrderUseQueue(context));
+            TransactionUtil.afterCommit(() -> this.queueOrder(context));
             return null;
         }
         return this.createOrder(context, payload);
@@ -89,7 +89,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      * 通过消息队列进行下单
      * @param context 下单信息
      */
-    protected void createOrderUseQueue(C context) {
+    protected void queueOrder(C context) {
 
     }
 

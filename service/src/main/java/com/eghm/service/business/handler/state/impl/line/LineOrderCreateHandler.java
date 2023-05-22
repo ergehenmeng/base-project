@@ -1,7 +1,9 @@
 package com.eghm.service.business.handler.state.impl.line;
 
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -51,7 +53,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void sendMsg(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
-
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
     }
 
     @Override
@@ -92,6 +94,11 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
+    protected void queueOrder(LineOrderCreateContext context) {
+        orderMQService.sendOrderCreateMessage(ExchangeQueue.LINE_ORDER, context);
+    }
+
+    @Override
     protected void next(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
         super.addVisitor(order, context.getVisitorList());
         lineConfigService.updateStock(payload.getConfig().getId(), -order.getNum());
@@ -107,7 +114,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return LineEvent.CREATE;
     }
 
     @Override

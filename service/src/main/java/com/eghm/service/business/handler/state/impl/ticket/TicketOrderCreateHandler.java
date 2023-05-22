@@ -15,7 +15,6 @@ import com.eghm.model.TicketOrder;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.TicketOrderCreateContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
-import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderMQService orderMQService;
 
-    public TicketOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService, MessageService messageService) {
+    public TicketOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService) {
         super(userCouponService, orderVisitorService);
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
@@ -107,7 +106,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    public void createOrderUseQueue(TicketOrderCreateContext context) {
+    public void queueOrder(TicketOrderCreateContext context) {
         orderMQService.sendOrderCreateMessage(ExchangeQueue.TICKET_ORDER, context);
     }
 

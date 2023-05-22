@@ -1,11 +1,13 @@
 package com.eghm.web.controller.business;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.AsyncKey;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.HomestayAccessHandler;
 import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
@@ -17,6 +19,7 @@ import com.eghm.service.business.handler.context.LineOrderCreateContext;
 import com.eghm.service.business.handler.context.TicketOrderCreateContext;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.order.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -48,38 +51,38 @@ public class OrderController {
 
     @PostMapping("/item/create")
     @ApiOperation("零售创建订单")
-    public String itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
+    public OrderVO<String> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setUserId(ApiHolder.getUserId());
         itemAccessHandler.createOrder(context);
-        return context.getOrderNo();
+        return this.generateResult(context, context.getOrderNo());
     }
 
     @PostMapping("/ticket/create")
     @ApiOperation("门票创建订单")
-    public String ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
+    public OrderVO<String> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setUserId(ApiHolder.getUserId());
         ticketAccessHandler.createOrder(context);
-        return context.getOrderNo();
+        return this.generateResult(context, context.getOrderNo());
     }
 
     @PostMapping("/homestay/create")
     @ApiOperation("民宿创建订单")
-    public String homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
+    public OrderVO<String> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setUserId(ApiHolder.getUserId());
         homestayAccessHandler.createOrder(context);
-        return context.getOrderNo();
+        return this.generateResult(context, context.getOrderNo());
     }
 
     @PostMapping("/line/create")
     @ApiOperation("线路创建订单")
-    public String lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
+    public OrderVO<String> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
         context.setUserId(ApiHolder.getUserId());
         lineAccessHandler.createOrder(context);
-        return context.getOrderNo();
+        return this.generateResult(context, context.getOrderNo());
     }
 
     @PostMapping("/pay")
@@ -88,5 +91,22 @@ public class OrderController {
         return orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType());
     }
 
+    /**
+     * 生成订单结果
+     * @param context 队列下单时不为空
+     * @param orderNo 订单编号
+     * @return vo
+     */
+    private OrderVO<String> generateResult(AsyncKey context, String orderNo) {
+        OrderVO<String> vo = new OrderVO<>();
+        if (StrUtil.isNotBlank(context.getKey())) {
+            vo.setState(0);
+            vo.setData(context.getKey());
+            return vo;
+        }
+        vo.setState(1);
+        vo.setData(orderNo);
+        return vo;
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.DeliveryType;
@@ -80,7 +81,12 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     protected void sendMsg(HomestayOrderCreateContext context, HomestayOrderPayload payload, Order order) {
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.HOMESTAY_PAY_EXPIRE, order.getOrderNo());
+    }
 
+    @Override
+    protected void queueOrder(HomestayOrderCreateContext context) {
+        orderMQService.sendOrderCreateMessage(ExchangeQueue.HOMESTAY_ORDER, context);
     }
 
     @Override
