@@ -1,6 +1,8 @@
 package com.eghm.service.mq.listener;
 
+import cn.hutool.core.util.StrUtil;
 import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.constant.QueueConstant;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.dto.ext.LoginRecord;
@@ -15,6 +17,7 @@ import com.eghm.model.WebappLog;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.service.user.LoginService;
@@ -48,6 +51,8 @@ public class RabbitListenerHandler {
     private final ManageLogService manageLogService;
 
     private final CacheService cacheService;
+
+    private final JsonService jsonService;
 
     private final StateHandler stateHandler;
 
@@ -218,8 +223,12 @@ public class RabbitListenerHandler {
      */
     public <T extends AsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
         try {
-            consumer.accept(msg);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER);
+            if (this.canConsumer(msg.getKey())) {
+                consumer.accept(msg);
+                cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER);
+            } else {
+                log.warn("订单已超时,不做下单处理 [{}]", jsonService.toJson(msg));
+            }
         } catch (BusinessException e) {
             log.error("队列[{}]处理消息业务异常 [{}] [{}] [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e.getCode(), e.getMessage());
             cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), e.getMessage());
@@ -230,6 +239,30 @@ public class RabbitListenerHandler {
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
     }
+
+    /**
+     * 判断消费是否可以要继续处理下单逻辑
+     * 1. 消息在队列长达30分钟, 肯定不允许下单成功
+     * 2. 如果前端一直轮训获取结果,到上限后会直接提示商品太火爆,因此如果下单还在队列中,则不允许下单
+     * 3. 只有前端轮训没有上限(100)
+     * @param asyncKey key
+     * @return 是否允许下单
+     */
+    private boolean canConsumer(String asyncKey) {
+        String hasValue = cacheService.getValue(CacheConstant.MQ_ASYNC_KEY + asyncKey);
+        // 可能key过期了
+        if (StrUtil.isNotBlank(hasValue)) {
+            return false;
+        }
+        String accessStr = hasValue.replace(CacheConstant.PLACE_HOLDER, "");
+        // 前端还没请求呢, 可以直接处理
+        if (StrUtil.isBlank(accessStr)) {
+            return true;
+        }
+        int accessNum = Integer.parseInt(accessStr);
+        return accessNum < CommonConstant.MAX_ACCESS_NUM;
+    }
+
 
     /**
      * 处理MQ中消息,并手动确认

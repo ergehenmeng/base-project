@@ -81,4 +81,9 @@ public class CommonConstant {
      * 日志id
      */
     public static final String TRACE_ID = "traceId";
+
+    /**
+     * 异步下单最大请求次数
+     */
+    public static final int MAX_ACCESS_NUM = 100;
 }

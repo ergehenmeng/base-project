@@ -69,7 +69,7 @@ public class CouponConfig extends BaseEntity implements Serializable {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer deductionValue;
 
-    @ApiModelProperty(value = "折扣比例 10-100")
+    @ApiModelProperty(value = "折扣比例 1-100")
     private Integer discountValue;
 
     @ApiModelProperty(value = "使用门槛 0:不限制 大于0表示限制启用金额 单位:分")
