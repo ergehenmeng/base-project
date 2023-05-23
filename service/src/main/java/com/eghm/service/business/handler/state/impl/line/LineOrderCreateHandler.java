@@ -94,6 +94,11 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
+    public boolean isHotSell(LineOrderCreateContext context, LineOrderPayload payload) {
+        return payload.getLine().getHotSell();
+    }
+
+    @Override
     protected void queueOrder(LineOrderCreateContext context) {
         orderMQService.sendOrderCreateMessage(ExchangeQueue.LINE_ORDER, context);
     }

@@ -24,6 +24,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
+ * 民宿下单默认全部都队列模式
  * @author 二哥很猛
  * @date 2022/8/22
  */
@@ -71,7 +72,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     @Override
     public IEvent getEvent() {
-        return HomestayEvent.CREATE;
+        return HomestayEvent.CREATE_QUEUE;
     }
 
     @Override

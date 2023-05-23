@@ -48,6 +48,9 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")
     private Integer category;
 
+    @ApiModelProperty("是否为热销商品 true:是 false:不是")
+    private Boolean hotSell;
+
     @ApiModelProperty(value = "门票封面图")
     private String coverUrl;
 

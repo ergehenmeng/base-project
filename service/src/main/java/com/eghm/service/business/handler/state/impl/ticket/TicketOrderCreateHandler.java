@@ -106,6 +106,11 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
+    public boolean isHotSell(TicketOrderCreateContext context, ScenicTicket payload) {
+        return payload.getHotSell();
+    }
+
+    @Override
     public void queueOrder(TicketOrderCreateContext context) {
         orderMQService.sendOrderCreateMessage(ExchangeQueue.TICKET_ORDER, context);
     }

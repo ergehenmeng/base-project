@@ -17,12 +17,7 @@ import java.util.List;
 public enum HomestayEvent implements IEvent {
 
     /**
-     * 创建订单
-     */
-    CREATE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
-
-    /**
-     * 创建订单
+     * 创建订单,因为可能涉及第三方接口调用,默认都是热销商品,走队列模式下单
      */
     CREATE_QUEUE(Lists.newArrayList(OrderState.NONE.getValue()), OrderState.UN_PAY.getValue()),
 

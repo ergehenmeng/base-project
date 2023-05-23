@@ -93,6 +93,11 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
+    public boolean isHotSell(RestaurantOrderCreateContext context, RestaurantVoucher payload) {
+        return payload.getHotSell();
+    }
+
+    @Override
     protected void queueOrder(RestaurantOrderCreateContext context) {
         orderMQService.sendOrderCreateMessage(ExchangeQueue.RESTAURANT_ORDER, context);
     }

@@ -8,6 +8,7 @@ import com.eghm.dto.business.order.line.LineOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.enums.ErrorCode;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.HomestayAccessHandler;
 import com.eghm.service.business.handler.access.impl.ItemAccessHandler;
@@ -104,8 +105,14 @@ public class OrderController {
             vo.setData(context.getKey());
             return vo;
         }
-        vo.setState(1);
-        vo.setData(orderNo);
+        if (StrUtil.isNotBlank(orderNo)) {
+            vo.setState(1);
+            vo.setData(orderNo);
+            return vo;
+        }
+        // 极端情况, mq发送失败时会发生
+        vo.setState(2);
+        vo.setErrorMsg(ErrorCode.ORDER_ERROR.getMsg());
         return vo;
     }
 

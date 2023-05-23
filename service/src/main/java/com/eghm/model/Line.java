@@ -45,6 +45,9 @@ public class Line extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
     private PlatformState platformState;
 
+    @ApiModelProperty("是否为热销商品 true:是 false:不是")
+    private Boolean hotSell;
+
     @ApiModelProperty(value = "出发省份id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long startProvinceId;
