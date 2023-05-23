@@ -48,6 +48,25 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         return scenicTicketService.selectByIdShelve(context.getTicketId());
     }
 
+
+    @Override
+    protected void before(TicketOrderCreateContext dto, ScenicTicket ticket) {
+        int num = dto.getVisitorList().size();
+        if (ticket.getStock() - num < 0) {
+            log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
+            throw new BusinessException(ErrorCode.TICKET_STOCK);
+        }
+        if (ticket.getQuota() < num) {
+            log.error("超出门票单次购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
+            throw new BusinessException(ErrorCode.TICKET_QUOTA.getCode(), String.format(ErrorCode.TICKET_QUOTA.getMsg(), ticket.getQuota()));
+        }
+        // 待补充用户信息
+        if (Boolean.TRUE.equals(ticket.getRealBuy()) && (CollUtil.isEmpty(dto.getVisitorList()) || dto.getVisitorList().size() != num)) {
+            log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
+            throw new BusinessException(ErrorCode.TICKET_VISITOR);
+        }
+    }
+
     @Override
     protected Order createOrder(TicketOrderCreateContext context, ScenicTicket payload) {
         String orderNo = ProductType.TICKET.generateTradeNo();
@@ -72,21 +91,13 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected void before(TicketOrderCreateContext dto, ScenicTicket ticket) {
-        int num = dto.getVisitorList().size();
-        if (ticket.getStock() - num < 0) {
-            log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
-            throw new BusinessException(ErrorCode.TICKET_STOCK);
-        }
-        if (ticket.getQuota() < num) {
-            log.error("超出门票单次购买上限 [{}] [{}] [{}]", ticket.getId(), ticket.getQuota(), num);
-            throw new BusinessException(ErrorCode.TICKET_QUOTA.getCode(), String.format(ErrorCode.TICKET_QUOTA.getMsg(), ticket.getQuota()));
-        }
-        // 待补充用户信息
-        if (Boolean.TRUE.equals(ticket.getRealBuy()) && (CollUtil.isEmpty(dto.getVisitorList()) || dto.getVisitorList().size() != num)) {
-            log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
-            throw new BusinessException(ErrorCode.TICKET_VISITOR);
-        }
+    public boolean isHotSell(TicketOrderCreateContext context, ScenicTicket payload) {
+        return payload.getHotSell();
+    }
+
+    @Override
+    public void queueOrder(TicketOrderCreateContext context) {
+        orderMQService.sendOrderCreateMessage(ExchangeQueue.TICKET_ORDER, context);
     }
 
     @Override
@@ -101,18 +112,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected void sendMsg(TicketOrderCreateContext context, ScenicTicket payload, Order order) {
+    protected void end(TicketOrderCreateContext context, ScenicTicket payload, Order order) {
         orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
-    }
-
-    @Override
-    public boolean isHotSell(TicketOrderCreateContext context, ScenicTicket payload) {
-        return payload.getHotSell();
-    }
-
-    @Override
-    public void queueOrder(TicketOrderCreateContext context) {
-        orderMQService.sendOrderCreateMessage(ExchangeQueue.TICKET_ORDER, context);
     }
 
     @Override

@@ -52,11 +52,6 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     }
 
     @Override
-    protected void sendMsg(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
-    }
-
-    @Override
     protected LineOrderPayload getPayload(LineOrderCreateContext context) {
         LineOrderPayload payload = new LineOrderPayload();
         payload.setLine(lineService.selectByIdShelve(context.getLineId()));
@@ -115,6 +110,11 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineOrder.setNickName(context.getNickName());
         lineOrderService.insert(lineOrder);
         lineDaySnapshotService.insert(payload.getLine().getId(), order.getOrderNo(), payload.getDayList());
+    }
+
+    @Override
+    protected void end(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
     }
 
     @Override

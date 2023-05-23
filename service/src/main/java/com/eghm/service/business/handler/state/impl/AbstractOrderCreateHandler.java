@@ -37,16 +37,8 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
             return;
         }
         this.next(context, payload, order);
-        this.sendMsg(context, payload, order);
+        this.end(context, payload, order);
     }
-
-    /**
-     * 订单创建后置处理,默认过期自动取消定时任务
-     * @param context 下单信息
-     * @param payload 商品信息
-     * @param order 主订单信息
-     */
-    protected abstract void sendMsg(C context, P payload, Order order);
 
     /**
      * 下单
@@ -139,5 +131,14 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      * @param order 主订单信息
      */
     protected abstract void next(C context, P payload, Order order);
+
+
+    /**
+     * 订单创建后置处理,默认过期自动取消定时任务
+     * @param context 下单信息
+     * @param payload 商品信息
+     * @param order 主订单信息
+     */
+    protected abstract void end(C context, P payload, Order order);
 
 }

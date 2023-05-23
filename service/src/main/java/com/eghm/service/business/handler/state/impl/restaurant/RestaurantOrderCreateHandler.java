@@ -43,16 +43,6 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    public IEvent getEvent() {
-        return RestaurantEvent.CREATE;
-    }
-
-    @Override
-    public ProductType getStateMachineType() {
-        return ProductType.RESTAURANT;
-    }
-
-    @Override
     protected RestaurantVoucher getPayload(RestaurantOrderCreateContext context) {
         return restaurantVoucherService.selectByIdShelve(context.getVoucherId());
     }
@@ -103,11 +93,6 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected void sendMsg(RestaurantOrderCreateContext context, RestaurantVoucher payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.RESTAURANT_PAY_EXPIRE, order.getOrderNo());
-    }
-
-    @Override
     protected void next(RestaurantOrderCreateContext context, RestaurantVoucher payload, Order order) {
         restaurantVoucherService.updateStock(context.getVoucherId(), -context.getNum());
         RestaurantOrder restaurantOrder = DataUtil.copy(payload, RestaurantOrder.class);
@@ -115,4 +100,21 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         restaurantOrder.setVoucherId(context.getVoucherId());
         restaurantOrderService.insert(restaurantOrder);
     }
+
+    @Override
+    protected void end(RestaurantOrderCreateContext context, RestaurantVoucher payload, Order order) {
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.RESTAURANT_PAY_EXPIRE, order.getOrderNo());
+    }
+
+
+    @Override
+    public IEvent getEvent() {
+        return RestaurantEvent.CREATE;
+    }
+
+    @Override
+    public ProductType getStateMachineType() {
+        return ProductType.RESTAURANT;
+    }
+
 }

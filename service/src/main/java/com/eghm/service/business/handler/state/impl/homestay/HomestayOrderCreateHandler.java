@@ -81,11 +81,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
     }
 
     @Override
-    protected void sendMsg(HomestayOrderCreateContext context, HomestayOrderPayload payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.HOMESTAY_PAY_EXPIRE, order.getOrderNo());
-    }
-
-    @Override
     protected void queueOrder(HomestayOrderCreateContext context) {
         orderMQService.sendOrderCreateMessage(ExchangeQueue.HOMESTAY_ORDER, context);
     }
@@ -135,4 +130,10 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         homestayOrderService.insert(homestayOrder);
         homestayOrderSnapshotService.orderSnapshot(order.getOrderNo(), payload.getConfigList());
     }
+
+    @Override
+    protected void end(HomestayOrderCreateContext context, HomestayOrderPayload payload, Order order) {
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.HOMESTAY_PAY_EXPIRE, order.getOrderNo());
+    }
+
 }
