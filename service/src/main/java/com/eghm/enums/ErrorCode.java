@@ -726,9 +726,9 @@ public enum ErrorCode {
     TICKET_STOCK(3155, "门票库存不足"),
 
     /**
-     * 请填写完整出行人信息
+     * 请填写游客信息
      */
-    TICKET_VISITOR(3156, "请填写完整出行人信息"),
+    TICKET_VISITOR(3156, "请填写游客信息"),
 
     /**
      * 门票单次购买上限为%s张

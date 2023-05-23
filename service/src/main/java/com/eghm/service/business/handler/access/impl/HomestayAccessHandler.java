@@ -30,7 +30,7 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void createOrder(Context context) {
-        stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE, context);
+        stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.NONE.getValue(), HomestayEvent.CREATE_QUEUE, context);
     }
 
     @Override
