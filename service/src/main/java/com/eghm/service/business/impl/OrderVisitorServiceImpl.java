@@ -5,11 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.VisitorState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderVisitorMapper;
 import com.eghm.model.OrderVisitor;
-import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
             OrderVisitor visitor = DataUtil.copy(vo, OrderVisitor.class);
             visitor.setOrderNo(orderNo);
             visitor.setProductType(productType);
-            visitor.setState(0);
+            visitor.setState(VisitorState.UN_PAY);
             orderVisitorMapper.insert(visitor);
         }
     }
@@ -53,8 +54,8 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);
         wrapper.in(OrderVisitor::getId, visitorList);
-        wrapper.eq(OrderVisitor::getState, 0);
-        wrapper.set(OrderVisitor::getState, 2);
+        wrapper.eq(OrderVisitor::getState, VisitorState.UN_PAY);
+        wrapper.set(OrderVisitor::getState, VisitorState.REFUND);
         wrapper.set(OrderVisitor::getCollectId, refundId);
         int update = orderVisitorMapper.update(null, wrapper);
         // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的
@@ -70,8 +71,16 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getCollectId, refundId);
-        wrapper.eq(OrderVisitor::getState, 2);
-        wrapper.set(OrderVisitor::getState, 0);
+        wrapper.eq(OrderVisitor::getState, VisitorState.REFUND);
+        wrapper.set(OrderVisitor::getState, VisitorState.UN_PAY);
+        orderVisitorMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void updateVisitor(String orderNo, VisitorState state) {
+        LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        wrapper.set(OrderVisitor::getState, state);
         orderVisitorMapper.update(null, wrapper);
     }
 }

@@ -432,7 +432,7 @@ CREATE TABLE `order_visitor`
     `order_id`     bigint(20)  DEFAULT NULL COMMENT '订单id',
     `user_name`    varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
-    `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 待使用 1:已使用 2:已退款',
+    `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 待支付 1: 待使用 2:已使用 3:已退款',
     `collect_id`   bigint(20)  DEFAULT NULL COMMENT '关联id(退款记录id或核销记录id)',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

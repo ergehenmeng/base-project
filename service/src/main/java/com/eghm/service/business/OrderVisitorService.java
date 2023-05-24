@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.VisitorState;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 
 import java.util.List;
@@ -35,4 +36,10 @@ public interface OrderVisitorService {
      */
     void unlockVisitor(String orderNo, Long refundId);
 
+    /**
+     * 更新订单游客使用状态
+     * @param orderNo 订单号
+     * @param state 状态
+     */
+    void updateVisitor(String orderNo, VisitorState state);
 }

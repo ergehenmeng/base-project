@@ -2,6 +2,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.VisitorState;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -33,8 +34,8 @@ public class OrderVisitor extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("状态 0: 待使用 1:已使用 2:已退款")
-    private Integer state;
+    @ApiModelProperty("状态 0: 初始化(待支付) 1: 待使用 2:已使用 3:已退款")
+    private VisitorState state;
 
     @ApiModelProperty("关联id(退款记录id或核销记录id)")
     private Long collectId;
