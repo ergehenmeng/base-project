@@ -1,6 +1,7 @@
 package com.eghm.dto.ext;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.constant.CommonConstant;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -66,6 +67,6 @@ public class PagingQuery implements Serializable {
      * @return 最大 20
      */
     public Integer getPageSize() {
-        return pageSize > 20 ? 20 : pageSize;
+        return pageSize > CommonConstant.MAX_PAGE_SIZE ? CommonConstant.MAX_PAGE_SIZE : pageSize;
     }
 }

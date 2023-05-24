@@ -28,11 +28,6 @@ public class CommonConstant {
     public static final String UNKNOWN = "unknown";
 
     /**
-     * url分隔符
-     */
-    public static final String URL_SEPARATOR = "/";
-
-    /**
      * 分页最大值 只适用于移动端
      */
     public static final int MAX_PAGE_SIZE = 20;
@@ -66,11 +61,6 @@ public class CommonConstant {
      * 开发环境
      */
     public static final int ENV_DEV = 2;
-
-    /**
-     * 测试环境
-     */
-    public static final int ENV_TEST = 3;
 
     /**
      * 支付宝支付成功状态
