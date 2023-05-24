@@ -225,16 +225,16 @@ public class RabbitListenerHandler {
         try {
             if (this.canConsumer(msg.getKey())) {
                 consumer.accept(msg);
-                cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER);
+                cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), SUCCESS_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
             } else {
                 log.warn("订单已超时,不做下单处理 [{}]", jsonService.toJson(msg));
             }
         } catch (BusinessException e) {
             log.error("队列[{}]处理消息业务异常 [{}] [{}] [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e.getCode(), e.getMessage());
-            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), e.getMessage());
+            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), e.getMessage(), CommonConstant.ASYNC_MSG_EXPIRE);
         } catch (Exception e) {
             log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
-            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), ERROR_PLACE_HOLDER);
+            cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + msg.getKey(), ERROR_PLACE_HOLDER, CommonConstant.ASYNC_MSG_EXPIRE);
         } finally {
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }

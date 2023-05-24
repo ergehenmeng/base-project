@@ -50,7 +50,7 @@ public class CommonConstant {
     /**
      * 异步消息在MQ中最大存放时间
      */
-    public static final long ASYNC_MSG_EXPIRE = 60000;
+    public static final long ASYNC_MSG_EXPIRE = 30_000;
 
     /**
      * 生产环境
@@ -75,5 +75,5 @@ public class CommonConstant {
     /**
      * 异步下单最大请求次数
      */
-    public static final int MAX_ACCESS_NUM = 100;
+    public static final int MAX_ACCESS_NUM = 10;
 }

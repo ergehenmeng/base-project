@@ -61,7 +61,7 @@ public class OrderAsyncController {
         String redisKey = CacheConstant.MQ_ASYNC_KEY + key;
         boolean hashValue = cacheService.exist(redisKey);
         if (hashValue) {
-            cacheService.setValue(redisKey, CacheConstant.PLACE_HOLDER + CommonConstant.MAX_ACCESS_NUM);
+            cacheService.setValue(redisKey, CacheConstant.PLACE_HOLDER + CommonConstant.MAX_ACCESS_NUM, CommonConstant.ASYNC_MSG_EXPIRE);
         }
         return RespBody.success();
     }
@@ -86,7 +86,7 @@ public class OrderAsyncController {
                 return;
             }
         }
-        cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + key, CacheConstant.PLACE_HOLDER + (++accessNum));
+        cacheService.setValue(CacheConstant.MQ_ASYNC_KEY + key, CacheConstant.PLACE_HOLDER + (++accessNum), CommonConstant.ASYNC_MSG_EXPIRE);
         vo.setState(1);
         vo.setData(key);
     }
