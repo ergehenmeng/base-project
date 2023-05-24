@@ -1,10 +1,8 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.state.PayNotifyHandler;
 import lombok.AllArgsConstructor;
