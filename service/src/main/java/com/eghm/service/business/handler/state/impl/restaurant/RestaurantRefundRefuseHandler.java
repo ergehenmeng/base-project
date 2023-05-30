@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.restaurant;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
@@ -21,7 +22,7 @@ public class RestaurantRefundRefuseHandler extends AbstractRefundRefuseHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return RestaurantEvent.REFUND_SUCCESS;
     }
 
     @Override

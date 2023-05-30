@@ -26,17 +26,20 @@ public class ItemRefundPassHandler extends AbstractRefundPassHandler {
 
     private final ItemOrderService itemOrderService;
 
+    private final OrderRefundLogService orderRefundLogService;
+
     public ItemRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService, ItemOrderService itemOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
         this.itemOrderService = itemOrderService;
+        this.orderRefundLogService = orderRefundLogService;
     }
 
     @Override
-    protected void doRefuse(RefundAuditContext dto, Order order, OrderRefundLog refundLog) {
-        super.doRefuse(dto, order, refundLog);
+    protected void doRefuse(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
+        super.doRefuse(context, order, refundLog);
         ItemOrder itemOrder = itemOrderService.selectByIdRequired(refundLog.getItemOrderId());
         // 退款拒绝后,需要将商品订单的退款状态变更
-        int refundNum = getOrderRefundLogService().getTotalRefundNum(order.getOrderNo(), refundLog.getItemOrderId());
+        int refundNum = orderRefundLogService.getTotalRefundNum(order.getOrderNo(), refundLog.getItemOrderId());
         if (refundNum > 0) {
             // 审批拒绝后一定是部分退款
             itemOrder.setRefundState(ItemRefundState.REBATE);

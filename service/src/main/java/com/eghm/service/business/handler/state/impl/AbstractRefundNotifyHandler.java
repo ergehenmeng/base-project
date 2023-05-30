@@ -43,30 +43,30 @@ public abstract class AbstractRefundNotifyHandler implements RefundNotifyHandler
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     @Async
-    public void doAction(RefundNotifyContext dto) {
-        Order order = orderService.selectByOutTradeNo(dto.getOutTradeNo());
-        OrderRefundLog refundLog = orderRefundLogService.selectByOutRefundNo(dto.getOutRefundNo());
+    public void doAction(RefundNotifyContext context) {
+        Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
+        OrderRefundLog refundLog = orderRefundLogService.selectByOutRefundNo(context.getOutRefundNo());
 
-        this.before(dto, order, refundLog);
+        this.before(context, order, refundLog);
 
-        RefundStatus refundStatus = this.doProcess(dto, order, refundLog);
+        RefundStatus refundStatus = this.doProcess(context, order, refundLog);
 
-        this.after(dto, order, refundLog, refundStatus);
+        this.after(context, order, refundLog, refundStatus);
     }
 
     /**
      * 校验订单及退款信息
-     * @param dto 流水号
+     * @param context 流水号
      * @param order 订单信息
      * @param refundLog 退款信息
      */
-    protected void before(RefundNotifyContext dto, Order order, OrderRefundLog refundLog) {
+    protected void before(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
         if (order == null) {
-            log.error("根据支付流水号未查询到订单,不做退款处理 [{}]", dto);
+            log.error("根据支付流水号未查询到订单,不做退款处理 [{}]", context);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
         if (refundLog == null) {
-            log.error("根据退款流水号未查询到退款记录,不做退款处理 [{}]", dto);
+            log.error("根据退款流水号未查询到退款记录,不做退款处理 [{}]", context);
         }
     }
 
@@ -75,15 +75,15 @@ public abstract class AbstractRefundNotifyHandler implements RefundNotifyHandler
      * 1.查询在支付平台的订单退款状态
      * 2.根据结果状态 更新订单状态,退款状态及退款记录状态
      *
-     * @param dto 流水号
+     * @param context 流水号
      * @param order 订单信息
      * @param refundLog 退款记录
      * @return true: 退款成功 false:不成功
      */
-    protected RefundStatus doProcess(RefundNotifyContext dto, Order order, OrderRefundLog refundLog) {
+    protected RefundStatus doProcess(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
 
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
-        RefundVO refund = aggregatePayService.queryRefund(tradeType, dto.getOutTradeNo(), dto.getOutRefundNo());
+        RefundVO refund = aggregatePayService.queryRefund(tradeType, context.getOutTradeNo(), context.getOutRefundNo());
 
         RefundStatus state = refund.getState();
         if (state == REFUND_SUCCESS || state == SUCCESS) {
@@ -133,16 +133,13 @@ public abstract class AbstractRefundNotifyHandler implements RefundNotifyHandler
 
     /**
      * 退款回调后置处理, 例如退款后, 例如库存退还
-     * @param dto 流水号
+     * @param context 流水号
      * @param order 订单信息
      * @param refundLog 退款记录
      * @param refundStatus 退款状态
      */
-    protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
+    protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         log.info("退款异步处理结果 [{}] [{}]", order.getOrderNo(), refundStatus);
     }
 
-    public OrderRefundLogService getOrderRefundLogService() {
-        return orderRefundLogService;
-    }
 }

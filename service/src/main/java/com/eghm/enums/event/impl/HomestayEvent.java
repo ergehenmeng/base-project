@@ -32,6 +32,11 @@ public enum HomestayEvent implements IEvent {
     PAY_SUCCESS(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
 
     /**
+     * 退款申请
+     */
+    REFUND_APPLY(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
+
+    /**
      * 核销
      */
     VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.APPRAISE.getValue()),

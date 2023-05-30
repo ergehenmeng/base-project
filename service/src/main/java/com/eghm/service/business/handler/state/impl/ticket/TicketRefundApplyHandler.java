@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.ticket;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
@@ -31,18 +32,18 @@ public class TicketRefundApplyHandler extends AbstractRefundApplyHandler {
     }
 
     @Override
-    protected void before(ApplyRefundContext dto, Order order) {
-        super.before(dto, order);
-        TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(dto.getOrderNo());
-        if (Boolean.TRUE.equals(ticketOrder.getRealBuy()) && dto.getNum() != dto.getVisitorIds().size()) {
-            log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", dto.getOrderNo(), dto.getNum(), dto.getVisitorIds().size());
+    protected void before(ApplyRefundContext context, Order order) {
+        super.before(context, order);
+        TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(context.getOrderNo());
+        if (Boolean.TRUE.equals(ticketOrder.getRealBuy()) && context.getNum() != context.getVisitorIds().size()) {
+            log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", context.getOrderNo(), context.getNum(), context.getVisitorIds().size());
             throw new BusinessException(ErrorCode.REFUND_VISITOR);
         }
     }
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return TicketEvent.REFUND_APPLY;
     }
 
     @Override

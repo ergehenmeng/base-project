@@ -26,15 +26,18 @@ public class ItemRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     private final ItemOrderService itemOrderService;
 
+    private final OrderRefundLogService orderRefundLogService;
+
     public ItemRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, AggregatePayService aggregatePayService, VerifyLogService verifyLogService, ItemSkuService itemSkuService, ItemOrderService itemOrderService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;
+        this.orderRefundLogService = orderRefundLogService;
     }
 
     @Override
     protected void refundSuccessSetState(Order order, OrderRefundLog refundLog) {
-        int successNum = getOrderRefundLogService().getRefundSuccessNum(order.getOrderNo(), refundLog.getItemOrderId());
+        int successNum = orderRefundLogService.getRefundSuccessNum(order.getOrderNo(), refundLog.getItemOrderId());
         int productNum = itemOrderService.getProductNum(order.getOrderNo());
         if (successNum  + refundLog.getNum() >= productNum) {
             order.setState(OrderState.CLOSE);

@@ -37,6 +37,11 @@ public enum RestaurantEvent implements IEvent {
     PAY_SUCCESS(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
 
     /**
+     * 退款申请
+     */
+    REFUND_APPLY(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
+
+    /**
      * 核销
      */
     VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.APPRAISE.getValue()),
@@ -60,6 +65,11 @@ public enum RestaurantEvent implements IEvent {
      * 订单取消
      */
     AUTO_CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
+
+    /**
+     * 退款审核拒绝
+     */
+    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
 
     /**
      * 退款成功

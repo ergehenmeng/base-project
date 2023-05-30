@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.ticket;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.TicketOrder;
@@ -38,7 +39,7 @@ public class TicketOrderExpireHandler extends AbstractOrderExpireHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return TicketEvent.AUTO_CANCEL;
     }
 
     @Override

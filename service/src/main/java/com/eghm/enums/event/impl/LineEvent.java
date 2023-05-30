@@ -37,6 +37,11 @@ public enum LineEvent implements IEvent {
     PAY_SUCCESS(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
 
     /**
+     * 退款申请
+     */
+    REFUND_APPLY(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
+
+    /**
      * 核销
      */
     VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.APPRAISE.getValue()),
@@ -75,6 +80,12 @@ public enum LineEvent implements IEvent {
      * 退款失败
      */
     REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
+
+    /**
+     * 退款审核拒绝
+     */
+    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
+
     ;
 
     private final List<Integer> from;

@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.ticket;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
@@ -20,7 +21,7 @@ public class TicketRefundPassHandler extends AbstractRefundPassHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return TicketEvent.REFUND_PASS;
     }
 
     @Override

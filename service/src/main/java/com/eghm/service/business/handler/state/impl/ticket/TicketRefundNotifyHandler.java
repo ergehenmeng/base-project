@@ -38,14 +38,14 @@ public class TicketRefundNotifyHandler extends AbstractRefundNotifyHandler {
     }
     
     @Override
-    protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
-        super.after(dto, order, refundLog, refundStatus);
+    protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
+        super.after(context, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
                 TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(order.getOrderNo());
                 scenicTicketService.updateStock(ticketOrder.getScenicId(), refundLog.getNum());
             } catch (Exception e) {
-                log.error("门票退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
+                log.error("门票退款成功,但更新库存失败 [{}] [{}] ", context, refundLog.getNum(), e);
             }
         }
     }

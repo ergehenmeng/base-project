@@ -50,8 +50,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
 
     @Override
-    protected void before(TicketOrderCreateContext dto, ScenicTicket ticket) {
-        int num = dto.getVisitorList().size();
+    protected void before(TicketOrderCreateContext context, ScenicTicket ticket) {
+        int num = context.getVisitorList().size();
         if (ticket.getStock() - num < 0) {
             log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
             throw new BusinessException(ErrorCode.TICKET_STOCK);
@@ -61,7 +61,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             throw new BusinessException(ErrorCode.TICKET_QUOTA.getCode(), String.format(ErrorCode.TICKET_QUOTA.getMsg(), ticket.getQuota()));
         }
         // 待补充用户信息
-        if (Boolean.TRUE.equals(ticket.getRealBuy()) && (CollUtil.isEmpty(dto.getVisitorList()) || dto.getVisitorList().size() != num)) {
+        if (Boolean.TRUE.equals(ticket.getRealBuy()) && (CollUtil.isEmpty(context.getVisitorList()) || context.getVisitorList().size() != num)) {
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
