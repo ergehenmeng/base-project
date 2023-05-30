@@ -2,10 +2,13 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
@@ -28,6 +31,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -41,6 +45,8 @@ import java.util.List;
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
 
     private final AggregatePayService aggregatePayService;
+
+    private final SystemProperties systemProperties;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -190,6 +196,30 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public void updateState(String orderNo, OrderState newState, OrderState... oldState) {
         this.updateState(Lists.newArrayList(orderNo), newState, oldState);
+    }
+
+    @Override
+    public String decryptVerifyNo(String verifyNo) {
+        AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
+        String decryptStr;
+        try {
+            decryptStr = aes.decryptStr(verifyNo);
+        } catch (Exception e) {
+            log.error("核销码解析错误 [{}]", verifyNo, e);
+            throw new BusinessException(ErrorCode.VERIFY_NO_ERROR);
+        }
+        String[] split = decryptStr.split(CommonConstant.ENCRYPT_SPLIT);
+        long theTime = Long.parseLong(split[0]);
+        if (CommonConstant.MAX_VERIFY_NO_EXPIRE < (System.currentTimeMillis() - theTime)) {
+            throw new BusinessException(ErrorCode.VERIFY_EXPIRE_ERROR);
+        }
+        return split[1];
+    }
+
+    @Override
+    public String encryptVerifyNo(String orderNo) {
+        AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
+        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.ENCRYPT_SPLIT + orderNo);
     }
 
     /**

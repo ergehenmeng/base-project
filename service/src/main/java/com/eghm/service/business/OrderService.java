@@ -25,7 +25,6 @@ public interface OrderService extends IService<Order> {
      */
     PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType);
 
-
     /**
      * 根据交易流水号查询订单, 门票,餐饮,线路,民宿
      * @param outTradeNo 交易流水号
@@ -114,4 +113,18 @@ public interface OrderService extends IService<Order> {
      * @param oldState 旧状态
      */
     void updateState(String orderNo, OrderState newState, OrderState... oldState);
+
+    /**
+     * 核销码解码
+     * @param verifyNo 核销码
+     * @return 订单号
+     */
+    String decryptVerifyNo(String verifyNo);
+
+    /**
+     * 加密订单号
+     * @param orderNo 订单号
+     * @return 核销码
+     */
+    String encryptVerifyNo(String orderNo);
 }

@@ -1,25 +1,20 @@
-package com.eghm.service.business.handler.context;
+package com.eghm.dto.business.order.restaurant;
 
-import com.eghm.annotation.Padding;
-import com.eghm.dto.ext.AsyncKey;
-import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * @author 二哥很猛
- * @since 2022/11/22
+ * @author wyb
+ * @since 2023/5/8
  */
-@Getter
-@Setter
-public class RestaurantOrderCreateContext extends AsyncKey implements Context {
+@Data
+public class RestaurantOrderCreateDTO {
 
     @ApiModelProperty("餐饮券id")
     @NotNull(message = "餐饮券不能为空")
@@ -41,13 +36,4 @@ public class RestaurantOrderCreateContext extends AsyncKey implements Context {
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;
 
-    @Padding
-    @ApiModelProperty(hidden = true, value = "用户id")
-    private Long userId;
-
-    @ApiModelProperty("源状态")
-    private Integer from;
-
-    @ApiModelProperty("订单编号")
-    private String orderNo;
 }

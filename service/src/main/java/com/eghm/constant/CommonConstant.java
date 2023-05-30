@@ -81,4 +81,14 @@ public class CommonConstant {
      * 异步下单最大请求次数
      */
     public static final int MAX_ACCESS_NUM = 10;
+
+    /**
+     * 加密分隔符
+     */
+    public static final String ENCRYPT_SPLIT  = "@";
+
+    /**
+     * 核销码有效期 30
+     */
+    public static final int MAX_VERIFY_NO_EXPIRE = 30_000;
 }

@@ -1,9 +1,6 @@
 package com.eghm.service.business.handler.access;
 
-import com.eghm.service.business.handler.context.ApplyRefundContext;
-import com.eghm.service.business.handler.context.RefundAuditContext;
-import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.business.handler.context.RefundNotifyContext;
+import com.eghm.service.business.handler.context.*;
 import com.eghm.state.machine.Context;
 
 /**
@@ -11,7 +8,6 @@ import com.eghm.state.machine.Context;
  * @since 2023/4/26
  */
 public interface AccessHandler {
-
 
     /**
      * 创建支付订单
@@ -42,4 +38,10 @@ public interface AccessHandler {
      * @param context context
      */
     void refundAudit(RefundAuditContext context);
+
+    /**
+     * 订单核销
+     * @param context context
+     */
+    void verifyOrder(OrderVerifyContext context);
 }

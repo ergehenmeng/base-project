@@ -1086,6 +1086,16 @@ public enum ErrorCode {
     ORDER_REFUND_PROCESS(3428, "订单退款处理中,无法核销"),
 
     /**
+     * 核销码错误, 请重新扫描
+     */
+    VERIFY_NO_ERROR(3430, "核销码错误, 请重新扫描"),
+
+    /**
+     * 核销类型匹配
+     */
+    VERIFY_TYPE_ERROR(3432, "核销类型匹配"),
+
+    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(3600, "红包金额太小啦~"),

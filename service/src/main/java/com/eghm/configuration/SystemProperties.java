@@ -152,7 +152,7 @@ public class SystemProperties {
         /**
          * 加密秘钥,用于数据库字段加密
          */
-        private String secretKey = "Mfw7MfWbaTxiT7X3aKqItx94oMqRs60FiKXe65QN3cUTbwJ2V2ux6ilf361yEU==";
+        private String secretKey = "7ec9ebaf378217d94df28342a4ff007b";
 
     }
 

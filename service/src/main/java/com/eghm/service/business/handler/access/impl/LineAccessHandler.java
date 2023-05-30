@@ -1,14 +1,12 @@
 package com.eghm.service.business.handler.access.impl;
 
+import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
-import com.eghm.service.business.handler.context.ApplyRefundContext;
-import com.eghm.service.business.handler.context.PayNotifyContext;
-import com.eghm.service.business.handler.context.RefundAuditContext;
-import com.eghm.service.business.handler.context.RefundNotifyContext;
+import com.eghm.service.business.handler.context.*;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.state.machine.Context;
 import com.eghm.state.machine.StateHandler;
@@ -40,6 +38,11 @@ public class LineAccessHandler extends AbstractAccessHandler {
     @Override
     public void refundAudit(RefundAuditContext context) {
 
+    }
+
+    @Override
+    public void verifyOrder(OrderVerifyContext context) {
+        stateHandler.fireEvent(ProductType.LINE, OrderState.UN_USED.getValue(), HomestayEvent.VERIFY, context);
     }
 
     @Override
