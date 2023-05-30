@@ -8,6 +8,8 @@ import com.eghm.service.business.handler.context.PayNotifyContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 普通商品订单支付通知
  * 说明:
@@ -25,7 +27,7 @@ public class ItemPayFailHandler extends AbstractItemPayNotifyHandler {
     }
 
     @Override
-    public void doAction(PayNotifyContext context) {
+    protected void doProcess(PayNotifyContext context, List<String> orderNoList) {
         log.error("零售异步支付失败 [{}]", context.getOrderNo());
     }
 

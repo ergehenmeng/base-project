@@ -52,7 +52,6 @@ public abstract class AbstractItemPayNotifyHandler implements PayNotifyHandler {
         }
     }
 
-    protected void doProcess(PayNotifyContext context, List<String> orderNoList) {
-    }
+    protected abstract void doProcess(PayNotifyContext context, List<String> orderNoList);
 
 }
