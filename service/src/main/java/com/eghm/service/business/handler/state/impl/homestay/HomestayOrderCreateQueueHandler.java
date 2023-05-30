@@ -28,9 +28,9 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/8/22
  */
-@Service("homestayOrderCreateHandler")
+@Service("homestayOrderCreateQueueHandler")
 @Slf4j
-public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<HomestayOrderCreateContext, HomestayOrderPayload> {
+public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<HomestayOrderCreateContext, HomestayOrderPayload> {
 
     private final HomestayOrderService homestayOrderService;
 
@@ -44,7 +44,7 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
 
     private final OrderMQService orderMQService;
 
-    public HomestayOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
+    public HomestayOrderCreateQueueHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
         super(userCouponService, orderVisitorService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;

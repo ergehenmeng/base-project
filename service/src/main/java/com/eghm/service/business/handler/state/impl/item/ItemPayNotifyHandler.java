@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
@@ -42,7 +43,7 @@ public class ItemPayNotifyHandler implements PayNotifyHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return ItemEvent.PAY_FAIL;
     }
 
     @Override
