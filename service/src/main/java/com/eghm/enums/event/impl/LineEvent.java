@@ -86,6 +86,11 @@ public enum LineEvent implements IEvent {
      */
     REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
 
+    /**
+     * 退款审核通过
+     */
+    REFUND_PASS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
+
     ;
 
     private final List<Integer> from;

@@ -67,11 +67,6 @@ public enum RestaurantEvent implements IEvent {
     AUTO_CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
 
     /**
-     * 退款审核拒绝
-     */
-    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
-
-    /**
      * 退款成功
      */
     REFUND_SUCCESS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
@@ -85,6 +80,16 @@ public enum RestaurantEvent implements IEvent {
      * 退款失败
      */
     REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
+
+    /**
+     * 退款审核通过
+     */
+    REFUND_PASS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
+
+    /**
+     * 退款审核拒绝
+     */
+    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
     ;
 
     private final List<Integer> from;

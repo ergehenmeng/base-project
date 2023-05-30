@@ -76,6 +76,16 @@ public enum HomestayEvent implements IEvent {
      */
     REFUND_FAIL(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.REFUND_ERROR.getValue()),
 
+    /**
+     * 退款审核通过
+     */
+    REFUND_PASS(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
+
+    /**
+     * 退款审核拒绝
+     */
+    REFUND_REFUSE(Lists.newArrayList(OrderState.REFUND.getValue()), OrderState.CLOSE.getValue()),
+
     ;
 
     private final List<Integer> from;

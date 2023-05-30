@@ -6,15 +6,15 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.state.impl.AbstractRefundPassHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundAuditHandler;
 import org.springframework.stereotype.Service;
 
 /**
  * @author wyb
  * @since 2023/5/16
  */
-@Service("lineAuditPassRefundHandler")
-public class LineRefundPassHandler extends AbstractRefundPassHandler {
+@Service("lineRefundPassHandler")
+public class LineRefundPassHandler extends AbstractRefundAuditHandler {
 
     public LineRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
@@ -22,7 +22,7 @@ public class LineRefundPassHandler extends AbstractRefundPassHandler {
 
     @Override
     public IEvent getEvent() {
-        return LineEvent.PAY_FAIL;
+        return LineEvent.REFUND_PASS;
     }
 
     @Override

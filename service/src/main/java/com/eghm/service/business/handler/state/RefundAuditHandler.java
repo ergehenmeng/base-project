@@ -8,6 +8,6 @@ import com.eghm.state.machine.ActionHandler;
  * @author 二哥很猛
  * @date 2022/8/20
  */
-public interface RefundRefuseHandler extends ActionHandler<RefundAuditContext> {
+public interface RefundAuditHandler extends ActionHandler<RefundAuditContext> {
 
 }

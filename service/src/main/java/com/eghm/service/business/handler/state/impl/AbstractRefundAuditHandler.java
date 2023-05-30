@@ -10,7 +10,7 @@ import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundAuditContext;
-import com.eghm.service.business.handler.state.RefundPassHandler;
+import com.eghm.service.business.handler.state.RefundAuditHandler;
 import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,13 +22,13 @@ import static com.eghm.enums.ErrorCode.REFUND_AUDITED;
 import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX;
 
 /**
- * 默认退款通过
+ * 默认退款拒绝
  * @author 二哥很猛
  * @date 2022/8/20
  */
 @AllArgsConstructor
 @Slf4j
-public abstract class AbstractRefundPassHandler implements RefundPassHandler {
+public abstract class AbstractRefundAuditHandler implements RefundAuditHandler {
 
     private final OrderService orderService;
 

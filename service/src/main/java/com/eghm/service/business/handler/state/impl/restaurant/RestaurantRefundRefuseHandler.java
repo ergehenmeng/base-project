@@ -6,7 +6,7 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.state.impl.AbstractRefundRefuseHandler;
+import com.eghm.service.business.handler.state.impl.AbstractRefundAuditHandler;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @since 2023/5/16
  */
 @Service("restaurantRefundRefuseHandler")
-public class RestaurantRefundRefuseHandler extends AbstractRefundRefuseHandler {
+public class RestaurantRefundRefuseHandler extends AbstractRefundAuditHandler {
 
     public RestaurantRefundRefuseHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
@@ -22,7 +22,7 @@ public class RestaurantRefundRefuseHandler extends AbstractRefundRefuseHandler {
 
     @Override
     public IEvent getEvent() {
-        return RestaurantEvent.REFUND_SUCCESS;
+        return RestaurantEvent.REFUND_REFUSE;
     }
 
     @Override
