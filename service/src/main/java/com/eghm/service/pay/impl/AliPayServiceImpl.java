@@ -3,12 +3,9 @@ package com.eghm.service.pay.impl;
 import cn.hutool.core.util.StrUtil;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.common.models.*;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.AiliPayException;
-import com.eghm.exception.BusinessException;
-import com.eghm.utils.DateUtil;
-import com.eghm.utils.DecimalUtil;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -19,6 +16,8 @@ import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
+import com.eghm.utils.DateUtil;
+import com.eghm.utils.DecimalUtil;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -180,7 +179,7 @@ public class AliPayServiceImpl implements PayService {
             log.error("支付宝退款状态查询失败 [{}]", param, e);
         }
         if (!flag) {
-            throw new AiliPayException(ErrorCode.NOTIFY_SIGN_ERROR);
+            throw new BusinessException(ErrorCode.NOTIFY_SIGN_ERROR);
         }
     }
 }

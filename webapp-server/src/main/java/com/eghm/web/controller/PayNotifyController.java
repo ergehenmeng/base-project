@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.WeChatConstant;
+import com.eghm.exception.BusinessException;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.PayNotifyContext;
@@ -18,12 +19,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.eghm.constant.CommonConstant.ALI_PAY_FAIL;
 import static com.eghm.constant.CommonConstant.ALI_PAY_SUCCESS;
 
 /**
@@ -61,10 +65,10 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setOutTradeNo(outTradeNo);
 
-        return redisLock.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
+        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
             commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
             return ALI_PAY_SUCCESS;
-        });
+        }));
     }
 
     @PostMapping("${system.ali-pay.refund-notify-url:/notify/ali/refund}")
@@ -81,15 +85,15 @@ public class PayNotifyController {
         context.setOutRefundNo(outRefundNo);
         context.setOutTradeNo(outTradeNo);
 
-        return redisLock.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
+        return this.aliResult(() -> redisLock.lock(CacheConstant.ALI_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
             commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
             return ALI_PAY_SUCCESS;
-        });
+        }));
     }
 
     @PostMapping("${system.wechat.pay-notify-url:/notify/weChat/pay}")
     @ApiOperation("微信支付回调")
-    public void weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody) {
+    public Map<String, String> weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseHeader(httpHeader);
         WxPayOrderNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
@@ -100,15 +104,15 @@ public class PayNotifyController {
         context.setOrderNo(orderNo);
         context.setOutTradeNo(payNotify.getResult().getOutTradeNo());
 
-        redisLock.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
+        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_PAY_NOTIFY_LOCK + orderNo, 10_000, () -> {
             commonService.getHandler(orderNo, AccessHandler.class).payNotify(context);
             return null;
-        });
+        }));
     }
 
     @PostMapping("${system.wechat.refund-notify-url:/notify/weChat/refund}")
     @ApiOperation("微信退款回调")
-    public void weChatRefund(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody) {
+    public Map<String, String> weChatRefund(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseHeader(httpHeader);
         WxPayRefundNotifyV3Result payNotify = wechatPayService.parseRefundNotify(requestBody, header);
         payNotifyLogService.insertWechatRefundLog(payNotify);
@@ -120,10 +124,51 @@ public class PayNotifyController {
         context.setOutRefundNo(outRefundNo);
         context.setOutTradeNo(outTradeNo);
 
-        redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
+        return this.wechatResult(response,() -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
             commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
             return null;
-        });
+        }));
+    }
+
+    /**
+     * 组装支付宝异步通知
+     * @param runnable 业务处理
+     * @return 返回给支付宝的数据
+     */
+    private String aliResult(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (BusinessException e) {
+            return ALI_PAY_FAIL;
+        } catch (Exception e) {
+            log.error("支付宝异步通知业务处理异常", e);
+            return ALI_PAY_FAIL;
+        }
+        return ALI_PAY_SUCCESS;
+    }
+
+    /**
+     * 组装微信异步通知
+     * @param response response
+     * @param runnable 业务处理
+     * @return 返回给微信的数据
+     */
+    private Map<String, String> wechatResult(HttpServletResponse response, Runnable runnable) {
+        Map<String, String> result = new HashMap<>(4);
+        try {
+            result.put("code", "SUCCESS");
+            runnable.run();
+        } catch (BusinessException e) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            result.put("code", "FAIL");
+            result.put("message", e.getMessage());
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.NOT_FOUND.value());
+            result.put("code", "FAIL");
+            result.put("message", "系统异常");
+            log.error("微信异步通知业务处理异常", e);
+        }
+        return result;
     }
 
     /**

@@ -3,7 +3,6 @@ package com.eghm.service.pay.impl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.exception.WeChatPayException;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -153,7 +152,7 @@ public class WechatPayServiceImpl implements PayService {
             return wxPayService.parseOrderNotifyV3Result(notifyData, header);
         } catch (WxPayException e) {
             log.error("微信支付响应信息解析失败 [{}] [{}]", notifyData, header, e);
-            throw new WeChatPayException(ErrorCode.NOTIFY_PAY_PARSE);
+            throw new BusinessException(ErrorCode.NOTIFY_PAY_PARSE);
         }
     }
 
@@ -164,7 +163,7 @@ public class WechatPayServiceImpl implements PayService {
             return wxPayService.parseRefundNotifyV3Result(notifyData, header);
         } catch (WxPayException e) {
             log.error("微信退款响应信息解析失败 [{}] [{}]", notifyData, header, e);
-            throw new WeChatPayException(ErrorCode.NOTIFY_REFUND_PARSE);
+            throw new BusinessException(ErrorCode.NOTIFY_REFUND_PARSE);
         }
     }
 

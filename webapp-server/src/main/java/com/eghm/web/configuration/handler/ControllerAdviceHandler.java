@@ -1,34 +1,28 @@
 package com.eghm.web.configuration.handler;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ExchangeQueue;
-import com.eghm.exception.AiliPayException;
-import com.eghm.exception.BusinessException;
-import com.eghm.exception.DataException;
-import com.eghm.exception.ParameterException;
-import com.eghm.exception.WeChatPayException;
-import com.eghm.model.WebappLog;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.exception.BusinessException;
+import com.eghm.exception.DataException;
+import com.eghm.exception.ParameterException;
+import com.eghm.model.WebappLog;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
-import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -109,30 +103,6 @@ public class ControllerAdviceHandler {
     public RespBody<Void> noHandlerFoundException(HttpServletRequest request) {
         log.warn("访问地址不存在:[{}]", request.getRequestURI());
         return RespBody.error(ErrorCode.PAGE_NOT_FOUND);
-    }
-
-    /**
-     * 微信异步通知异常
-     *
-     * @return 404
-     */
-    @ExceptionHandler(WeChatPayException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> weChatPayException(HttpServletRequest request, WeChatPayException e) {
-        log.error("微信异步通知异常 [{}]", request.getRequestURI());
-        Map<String, String> map = Maps.newLinkedHashMapWithExpectedSize(2);
-        map.put("code", "FAIL");
-        map.put("message", e.getMessage());
-        return map;
-    }
-
-    /**
-     * 支付宝异步通知
-     */
-    @ExceptionHandler(AiliPayException.class)
-    public String aliPayException(HttpServletRequest request) {
-        log.error("支付宝异步通知异常 [{}]", request.getRequestURI());
-        return "FAIL";
     }
 
     /**

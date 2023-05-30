@@ -68,6 +68,11 @@ public class CommonConstant {
     public static final String ALI_PAY_SUCCESS = "success";
 
     /**
+     * 支付宝支付失败状态
+     */
+    public static final String ALI_PAY_FAIL = "fail";
+
+    /**
      * 日志id
      */
     public static final String TRACE_ID = "traceId";
