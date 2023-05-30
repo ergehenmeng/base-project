@@ -8,7 +8,7 @@ import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.AbstractOrderExpireHandler;
+import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,13 @@ import org.springframework.stereotype.Service;
  */
 @Service("homestayOrderExpireHandler")
 @Slf4j
-public class HomestayOrderExpireHandler extends AbstractOrderExpireHandler {
+public class HomestayOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     private final HomestayOrderService homestayOrderService;
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
-    public HomestayOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService) {
+    public HomestayOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService) {
         super(orderService, userCouponService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomConfigService = homestayRoomConfigService;

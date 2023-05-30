@@ -8,7 +8,7 @@ import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.AbstractOrderExpireHandler;
+import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +23,13 @@ import java.util.stream.Collectors;
  */
 @Service("itemOrderExpireHandler")
 @Slf4j
-public class ItemOrderExpireHandler extends AbstractOrderExpireHandler {
+public class ItemOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     private final ItemSkuService itemSkuService;
 
     private final ItemOrderService itemOrderService;
 
-    public ItemOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService) {
+    public ItemOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, ItemSkuService itemSkuService, ItemOrderService itemOrderService) {
         super(orderService, userCouponService);
         this.itemSkuService = itemSkuService;
         this.itemOrderService = itemOrderService;

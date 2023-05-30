@@ -6,7 +6,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.UserCouponService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
-import com.eghm.service.business.handler.state.OrderExpireHandler;
+import com.eghm.service.business.handler.state.OrderAutoCancelHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,12 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 /**
+ * 订单自动取消 默认实现
  * @author 二哥很猛
  * @date 2022/8/20
  */
 @Slf4j
 @AllArgsConstructor
-public abstract class AbstractOrderExpireHandler implements OrderExpireHandler {
+public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelHandler {
 
     private final OrderService orderService;
 

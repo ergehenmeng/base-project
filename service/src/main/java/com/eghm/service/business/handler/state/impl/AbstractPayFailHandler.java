@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
+ * 支付异步回调 失败
  * @author 二哥很猛
  * @date 2022/8/20
  */

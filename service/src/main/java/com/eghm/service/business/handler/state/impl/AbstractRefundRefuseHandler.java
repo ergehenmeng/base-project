@@ -22,6 +22,7 @@ import static com.eghm.enums.ErrorCode.REFUND_AUDITED;
 import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX;
 
 /**
+ * 默认退款拒绝
  * @author 二哥很猛
  * @date 2022/8/20
  */

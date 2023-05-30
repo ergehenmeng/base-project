@@ -9,7 +9,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.AbstractOrderExpireHandler;
+import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
  */
 @Service("ticketOrderExpireHandler")
 @Slf4j
-public class TicketOrderExpireHandler extends AbstractOrderExpireHandler {
+public class TicketOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     private final TicketOrderService ticketOrderService;
 
     private final ScenicTicketService scenicTicketService;
 
-    public TicketOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService) {
+    public TicketOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService) {
         super(orderService, userCouponService);
         this.ticketOrderService = ticketOrderService;
         this.scenicTicketService = scenicTicketService;

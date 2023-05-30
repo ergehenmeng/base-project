@@ -9,7 +9,7 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.RestaurantOrderService;
 import com.eghm.service.business.RestaurantVoucherService;
 import com.eghm.service.business.UserCouponService;
-import com.eghm.service.business.handler.state.impl.AbstractOrderExpireHandler;
+import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
  */
 @Service("restaurantOrderExpireHandler")
 @Slf4j
-public class RestaurantOrderExpireHandler extends AbstractOrderExpireHandler {
+public class RestaurantOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     private final RestaurantOrderService restaurantOrderService;
 
     private final RestaurantVoucherService restaurantVoucherService;
 
-    public RestaurantOrderExpireHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService) {
+    public RestaurantOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService) {
         super(orderService, userCouponService);
         this.restaurantOrderService = restaurantOrderService;
         this.restaurantVoucherService = restaurantVoucherService;

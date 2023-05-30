@@ -4,6 +4,7 @@ import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.state.machine.ActionHandler;
 
 /**
+ * 支付异步回调
  * @author 二哥很猛
  * @date 2022/8/20
  */
