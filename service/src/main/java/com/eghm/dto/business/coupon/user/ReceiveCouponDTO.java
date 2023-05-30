@@ -1,7 +1,7 @@
 package com.eghm.dto.business.coupon.user;
 
 import com.eghm.enums.ref.CouponMode;
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,15 +19,15 @@ public class ReceiveCouponDTO {
     private Long couponConfigId;
 
     @ApiModelProperty(hidden = true, value = "用户id")
-    @Sign
+    @Padding
     private Long userId;
 
     @ApiModelProperty(value = "领取数量", hidden = true)
-    @Sign
+    @Padding
     private Integer num;
 
     @ApiModelProperty(value = "领取方式", hidden = true)
-    @Sign
+    @Padding
     private CouponMode mode;
 
 

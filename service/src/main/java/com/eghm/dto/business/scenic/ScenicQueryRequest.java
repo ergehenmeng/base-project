@@ -1,6 +1,6 @@
 package com.eghm.dto.business.scenic;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
@@ -20,6 +20,6 @@ public class ScenicQueryRequest extends PagingQuery {
     private Integer state;
 
     @ApiModelProperty(hidden = true, value = "景区所属商户id")
-    @Sign
+    @Padding
     private Long merchantId;
 }

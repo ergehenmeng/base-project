@@ -1,6 +1,6 @@
 package com.eghm.dto.business.coupon.user;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,7 +23,7 @@ public class UserCouponQueryPageDTO extends PagingQuery {
     private Long couponConfigId;
 
     @ApiModelProperty(value = "用户id", hidden = true)
-    @Sign
+    @Padding
     private Long userId;
 
 }

@@ -6,7 +6,6 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.business.OrderMQService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
-import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,5 +34,11 @@ public class OrderMQServiceImpl implements OrderMQService {
     public void sendOrderCreateMessage(ExchangeQueue exchangeQueue, AsyncKey context) {
         context.setKey(UUID.randomUUID().toString());
         rabbitService.sendAsync(exchangeQueue, context);
+    }
+
+    @Override
+    public void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo) {
+        int completeTime = sysConfigApi.getInt(ConfigConstant.ORDER_COMPLETE_TIME);
+        rabbitService.sendDelay(exchangeQueue, orderNo, completeTime);
     }
 }

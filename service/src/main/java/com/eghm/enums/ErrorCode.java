@@ -1071,6 +1071,21 @@ public enum ErrorCode {
     ORDER_ERROR(3420, "商品太火爆啦,请稍后再试"),
 
     /**
+     * 核销信息已变更, 请重新扫码
+     */
+    VERIFY_EXPIRE_ERROR(3425, "核销信息已变更, 请重新扫码"),
+
+    /**
+     * 用户[%s]状态异常,无法核销
+     */
+    VISITOR_VERIFY_ERROR(3426, "用户[%s]状态异常,无法核销"),
+
+    /**
+     * 订单退款处理中,无法核销
+     */
+    ORDER_REFUND_PROCESS(3428, "订单退款处理中,无法核销"),
+
+    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(3600, "红包金额太小啦~"),

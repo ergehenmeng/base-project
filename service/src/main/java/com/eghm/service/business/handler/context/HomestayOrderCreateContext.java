@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.state.machine.Context;
@@ -25,7 +25,7 @@ import java.util.List;
 @Setter
 public class HomestayOrderCreateContext extends AsyncKey implements Context {
 
-    @Sign
+    @Padding
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long userId;
 

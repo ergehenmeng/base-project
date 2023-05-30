@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.mapper.VerifyLogMapper">
 
     <select id="getVerifiedNum" resultType="int">
-        select ifnull(sum(num), 0) from verify_log where order_id = #{orderId}
+        select ifnull(sum(num), 0) from verify_log where order_no = #{orderNo}
     </select>
 
 </mapper>

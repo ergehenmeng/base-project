@@ -165,6 +165,11 @@ public class ConfigConstant {
     public static final String ORDER_EXPIRE_TIME = "order_expire_time";
 
     /**
+     * 订单完成时间
+     */
+    public static final String ORDER_COMPLETE_TIME = "order_complete_time";
+
+    /**
      * 景区活动日期限制
      */
     public static final String SCENIC_ACTIVITY_LIMIT = "scenic_activity_limit";

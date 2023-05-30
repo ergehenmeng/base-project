@@ -1,6 +1,6 @@
 package com.eghm.dto.ext;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,14 +21,14 @@ public class ActionRecord implements Serializable {
     /**
      * 操作人姓名
      */
-    @Sign
+    @Padding
     @ApiModelProperty(hidden = true)
     private String operatorName;
 
     /**
      * 操作人id
      */
-    @Sign
+    @Padding
     @ApiModelProperty(hidden = true)
     private Long operatorId;
 

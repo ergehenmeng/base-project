@@ -111,9 +111,9 @@ public abstract class AbstractRefundNotifyHandler implements RefundNotifyHandler
             order.setCloseType(CloseType.REFUND);
         } else {
             // 已核销+退款成功+当前退款成功的大于总付款数量,订单可以直接变成下一个状态
-            int verifiedNum = verifyLogService.getVerifiedNum(order.getId());
+            int verifiedNum = verifyLogService.getVerifiedNum(order.getOrderNo());
             if ((verifiedNum + refundNum + refundLog.getNum()) >= order.getNum()) {
-                order.setState(OrderState.VERIFY);
+                order.setState(OrderState.APPRAISE);
             } else {
                 log.info("核销数量+退款数量小于付款数量,可能还有部分订单待核销 [{}] [{}] [{}] [{}] [{}]",
                         order.getId(), order.getState(), order.getNum(), verifiedNum, refundNum);

@@ -1,6 +1,6 @@
 package com.eghm.dto.score;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class UserScoreQueryDTO extends PagingQuery {
     @ApiModelProperty("积分类型")
     private Integer type;
 
-    @Sign
+    @Padding
     @ApiModelProperty(hidden = true)
     private Long userId;
 }

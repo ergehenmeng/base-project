@@ -1,6 +1,8 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
@@ -17,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -82,5 +85,39 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.set(OrderVisitor::getState, state);
         orderVisitorMapper.update(null, wrapper);
+    }
+
+    @Override
+    public int visitorVerify(String orderNo, List<Long> visitorList) {
+        // 如果是部分核销需要判断前端传递过来的核销信息是否合法
+        if (CollUtil.isNotEmpty(visitorList)) {
+            LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
+            wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+            wrapper.in(OrderVisitor::getId, visitorList);
+            List<OrderVisitor> selectList = orderVisitorMapper.selectList(wrapper);
+            if (selectList.size() != visitorList.size()) {
+                log.error("核销信息数量不匹配 [{}] [{}]", orderNo, visitorList);
+                throw new BusinessException(ErrorCode.VERIFY_EXPIRE_ERROR);
+            }
+            String unPaid = selectList.stream().filter(orderVisitor -> orderVisitor.getState() != VisitorState.PAID).map(OrderVisitor::getUserName).collect(Collectors.joining(","));
+            if (StrUtil.isNotBlank(unPaid)) {
+                log.error("用户[{}]不是待使用状态,无法进行核销 orderNo:[{}] [{}]", unPaid, orderNo, visitorList);
+                throw new BusinessException(ErrorCode.VISITOR_VERIFY_ERROR.getCode(), String.format(ErrorCode.VISITOR_VERIFY_ERROR.getMsg(), unPaid));
+            }
+        }
+        LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        wrapper.in(CollUtil.isNotEmpty(visitorList), OrderVisitor::getId, visitorList);
+        wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
+        wrapper.set(OrderVisitor::getState, VisitorState.USED);
+        return orderVisitorMapper.update(null, wrapper);
+    }
+
+    @Override
+    public long getUnVerify(String orderNo) {
+        LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
+        return orderVisitorMapper.selectCount(wrapper);
     }
 }

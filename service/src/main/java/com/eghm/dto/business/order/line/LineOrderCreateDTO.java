@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.line;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -21,7 +21,7 @@ import java.util.List;
 public class LineOrderCreateDTO {
 
     @ApiModelProperty("用户ID")
-    @Sign
+    @Padding
     private Long userId;
 
     @ApiModelProperty("商品id")

@@ -1,6 +1,6 @@
 package com.eghm.dto.login;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,10 +28,10 @@ public class AccountLoginDTO implements Serializable {
     private String pwd;
 
     @ApiModelProperty(value = "ip", hidden = true)
-    @Sign
+    @Padding
     private String ip;
 
     @ApiModelProperty(value = "设备唯一编号", hidden = true)
-    @Sign
+    @Padding
     private String serialNumber;
 }

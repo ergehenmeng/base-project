@@ -472,7 +472,7 @@ DROP TABLE IF EXISTS `verify_log`;
 CREATE TABLE `verify_log`
 (
     `id`          bigint(20)   DEFAULT NULL COMMENT '主键',
-    `order_id`    bigint(20)   DEFAULT NULL COMMENT '订单id',
+    `order_no`    varchar(50)  DEFAULT NULL COMMENT '订单编号',
     `user_id`     bigint(20)   DEFAULT NULL COMMENT '核销人id',
     `num`         tinyint(2)   DEFAULT '1' COMMENT '核销数量',
     `remark`      varchar(100) DEFAULT NULL COMMENT '核销备注',

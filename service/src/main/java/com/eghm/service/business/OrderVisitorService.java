@@ -42,4 +42,19 @@ public interface OrderVisitorService {
      * @param state 状态
      */
     void updateVisitor(String orderNo, VisitorState state);
+
+    /**
+     * 游客核销
+     * @param orderNo  订单编号
+     * @param visitorList 核销的人 如果为空则默认核销全部可以核销的
+     * @return 核销的数量
+     */
+    int visitorVerify(String orderNo, List<Long> visitorList);
+
+    /**
+     * 根据订单号统计未核销的游客数量
+     * @param orderNo 订单编号
+     * @return 数量
+     */
+    long getUnVerify(String orderNo);
 }

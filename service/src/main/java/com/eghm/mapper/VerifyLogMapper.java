@@ -16,8 +16,8 @@ public interface VerifyLogMapper extends BaseMapper<VerifyLog> {
 
     /**
      * 统计某个订单被核销过的商品数量总数
-     * @param orderId 订单id
+     * @param orderNo 订单标号
      * @return 数量
      */
-    int getVerifiedNum(@Param("orderId") Long orderId);
+    int getVerifiedNum(@Param("orderNo") String orderNo);
 }

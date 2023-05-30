@@ -1,6 +1,6 @@
 package com.eghm.dto.user;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,7 +20,7 @@ public class SendEmailAuthCodeDTO {
     @ApiModelProperty(value = "短信验证码")
     private String smsCode;
 
-    @Sign
+    @Padding
     @ApiModelProperty(hidden = true)
     private Long userId;
 

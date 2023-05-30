@@ -43,6 +43,26 @@ public enum ExchangeQueue {
     ITEM_COMPLETE("item_complete_exchange", ExchangeType.DIRECT, QueueConstant.ITEM_COMPLETE_QUEUE, "", false),
 
     /**
+     * 门票自动完成 延迟队列
+     */
+    TICKET_COMPLETE("ticket_complete_exchange", ExchangeType.DIRECT, QueueConstant.TICKET_COMPLETE_QUEUE, "", false),
+
+    /**
+     * 线路自动完成 延迟队列
+     */
+    LINE_COMPLETE("line_complete_exchange", ExchangeType.DIRECT, QueueConstant.LINE_COMPLETE_QUEUE, "", false),
+
+    /**
+     * 餐饮自动完成 延迟队列
+     */
+    RESTAURANT_COMPLETE("restaurant_complete_exchange", ExchangeType.DIRECT, QueueConstant.RESTAURANT_COMPLETE_QUEUE, "", false),
+
+    /**
+     * 民宿自动完成 延迟队列
+     */
+    HOMESTAY_COMPLETE("homestay_complete_exchange", ExchangeType.DIRECT, QueueConstant.HOMESTAY_COMPLETE_QUEUE, "", false),
+
+    /**
      * 门票订单队列
      */
     TICKET_ORDER("ticket_order_exchange", ExchangeType.DIRECT, QueueConstant.TICKET_ORDER_QUEUE, "", false),

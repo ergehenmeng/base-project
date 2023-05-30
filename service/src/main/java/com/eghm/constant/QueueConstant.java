@@ -40,6 +40,26 @@ public class QueueConstant {
     public static final String ITEM_COMPLETE_QUEUE = "item_complete_queue";
 
     /**
+     * 门票核销后自动完成
+     */
+    public static final String TICKET_COMPLETE_QUEUE = "ticket_complete_queue";
+
+    /**
+     * 线路核销后自动完成
+     */
+    public static final String LINE_COMPLETE_QUEUE = "line_complete_queue";
+
+    /**
+     * 民宿核销后自动完成
+     */
+    public static final String HOMESTAY_COMPLETE_QUEUE = "homestay_complete_queue";
+
+    /**
+     * 餐饮核销后自动完成
+     */
+    public static final String RESTAURANT_COMPLETE_QUEUE = "restaurant_complete_queue";
+
+    /**
      * 门票订单队列
      */
     public static final String TICKET_ORDER_QUEUE = "ticket_order_queue";

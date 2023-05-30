@@ -1,6 +1,6 @@
 package com.eghm.dto.login;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,6 +28,6 @@ public class SmsLoginDTO implements Serializable {
     private String mobile;
 
     @ApiModelProperty(value = "ip", hidden = true)
-    @Sign
+    @Padding
     private String ip;
 }

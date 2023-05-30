@@ -1,6 +1,6 @@
 package com.eghm.dto.business.scenic;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.Phone;
 import io.swagger.annotations.ApiModelProperty;
@@ -81,6 +81,6 @@ public class ScenicAddRequest {
      * 编辑时该字段不更新该字段
      */
     @ApiModelProperty(value = "景区所属商户id", hidden = true)
-    @Sign
+    @Padding
     private Long merchantId;
 }

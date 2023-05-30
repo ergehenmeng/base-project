@@ -22,4 +22,11 @@ public interface OrderMQService {
      * @param context 下单信息
      */
     void sendOrderCreateMessage(ExchangeQueue exchangeQueue, AsyncKey context);
+
+    /**
+     * 发送订单完成消息
+     * @param exchangeQueue 队列类型
+     * @param orderNo 订单信息
+     */
+    void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo);
 }

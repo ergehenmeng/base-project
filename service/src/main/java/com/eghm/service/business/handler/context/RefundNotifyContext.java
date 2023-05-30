@@ -28,7 +28,4 @@ public class RefundNotifyContext implements Context {
     @ApiModelProperty("源状态")
     private Integer from;
 
-    @ApiModelProperty("新状态")
-    private Integer to;
-
 }

@@ -37,8 +37,8 @@ public class VerifyLog implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
-    @ApiModelProperty(value = "订单id")
-    private Long orderId;
+    @ApiModelProperty(value = "订单编号")
+    private String orderNo;
 
     @ApiModelProperty(value = "核销人id")
     private Long userId;

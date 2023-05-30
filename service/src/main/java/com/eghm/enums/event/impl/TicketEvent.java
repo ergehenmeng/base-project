@@ -40,17 +40,17 @@ public enum TicketEvent implements IEvent {
     /**
      * 核销
      */
-    VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.VERIFY.getValue()),
+    VERIFY(Lists.newArrayList(OrderState.UN_USED.getValue(), OrderState.REFUND.getValue(), OrderState.REFUND_ERROR.getValue()), OrderState.APPRAISE.getValue()),
 
     /**
      * 确认
      */
-    CONFIRM(Lists.newArrayList(OrderState.VERIFY.getValue()), OrderState.COMPLETE.getValue()),
+    CONFIRM(Lists.newArrayList(OrderState.WAIT_RECEIVE.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 自动确认
      */
-    AUTO_CONFIRM(Lists.newArrayList(OrderState.VERIFY.getValue()), OrderState.COMPLETE.getValue()),
+    AUTO_CONFIRM(Lists.newArrayList(OrderState.WAIT_RECEIVE.getValue()), OrderState.COMPLETE.getValue()),
 
     /**
      * 订单取消

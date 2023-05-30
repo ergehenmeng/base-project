@@ -1,6 +1,6 @@
 package com.eghm.dto.user;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class ChangeEmailDTO {
     @Email(message = "邮箱验证码不能为空")
     private String authCode;
 
-    @Sign
+    @Padding
     @ApiModelProperty(hidden = true)
     private Long userId;
 

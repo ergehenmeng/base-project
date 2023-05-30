@@ -1,6 +1,6 @@
 package com.eghm.dto.user;
 
-import com.eghm.annotation.Sign;
+import com.eghm.annotation.Padding;
 import com.eghm.validation.annotation.IdCard;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class UserAuthDTO implements Serializable {
 
     private static final long serialVersionUID = 7766577359309504055L;
 
-    @Sign
+    @Padding
     @ApiModelProperty(hidden = true)
     private Long userId;
 
