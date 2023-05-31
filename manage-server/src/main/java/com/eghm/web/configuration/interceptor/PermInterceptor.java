@@ -2,13 +2,13 @@ package com.eghm.web.configuration.interceptor;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import com.eghm.enums.ErrorCode;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.model.SysMenu;
 import com.eghm.dto.ext.JwtOperator;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ErrorCode;
+import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
@@ -51,14 +51,10 @@ public class PermInterceptor implements InterceptorAdapter {
             return true;
         }
         SkipPerm permission = this.getAnnotation(handler, SkipPerm.class);
-        if (permission != null) {
+        if (permission != null || this.match(request)) {
             return true;
         }
-        boolean match = this.match(request);
-        if (match) {
-            return true;
-        }
-        WebUtil.printJson(response, RespBody.error(ErrorCode.SYSTEM_AUTH));
+        WebUtil.printJson(response, RespBody.error(ErrorCode.ACCESS_DENIED));
         return false;
     }
 
