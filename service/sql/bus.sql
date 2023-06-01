@@ -433,13 +433,24 @@ CREATE TABLE `order_visitor`
     `user_name`    varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
     `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 待支付 1: 待使用 2:已使用 3:已退款',
-    `collect_id`   bigint(20)  DEFAULT NULL COMMENT '关联id(退款记录id或核销记录id)',
+    `refund_id`    bigint(20)  DEFAULT NULL COMMENT '关联的退款记录id',
+    `verify_id`    bigint(20)  DEFAULT NULL COMMENT '关联的核销记录id',
     `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单游客信息表';
+
+CREATE TABLE `order_visitor_refund`
+(
+    `id`         bigint(20) NOT NULL COMMENT '主键',
+    `order_id`   bigint(20) DEFAULT NULL COMMENT '订单id',
+    `visitor_id` bigint(20) DEFAULT NULL COMMENT '游客id',
+    `refund_id`  bigint(20) DEFAULT NULL COMMENT '退款记录id',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='游客退款记录关联表';
 
 DROP TABLE IF EXISTS `order_refund_log`;
 CREATE TABLE `order_refund_log`

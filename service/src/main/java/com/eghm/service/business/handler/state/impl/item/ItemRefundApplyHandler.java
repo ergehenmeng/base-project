@@ -15,7 +15,7 @@ import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.context.ApplyRefundContext;
+import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.impl.AbstractRefundApplyHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class ItemRefundApplyHandler extends AbstractRefundApplyHandler {
     }
 
     @Override
-    protected OrderRefundLog doProcess(ApplyRefundContext context, Order order) {
+    protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
         ItemOrder itemOrder = itemOrderService.selectByIdRequired(context.getItemOrderId());
         if (!itemOrder.getOrderNo().equals(context.getOrderNo())) {
             log.error("订单id与订单编号不匹配,无法申请退款 [{}] [{}]", context.getItemOrderId(), context.getOrderNo());
@@ -81,7 +81,7 @@ public class ItemRefundApplyHandler extends AbstractRefundApplyHandler {
     }
 
     @Override
-    protected void after(ApplyRefundContext context, Order order, OrderRefundLog refundLog) {
+    protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("零售商品订单退款申请成功 [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), refundLog.getId());
     }
 

@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Data
-public class ApplyRefundContext implements Context {
+public class RefundApplyContext implements Context {
 
     @ApiModelProperty(value = "订单编号", required = true)
     @NotNull(message = "订单编号不能为空")

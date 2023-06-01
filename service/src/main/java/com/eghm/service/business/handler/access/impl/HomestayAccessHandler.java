@@ -31,7 +31,7 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
     }
 
     @Override
-    public void refundApply(ApplyRefundContext context) {
+    public void refundApply(RefundApplyContext context) {
 
     }
 

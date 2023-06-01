@@ -31,7 +31,7 @@ public interface AccessHandler {
      * 退款申请
      * @param context context
      */
-    void refundApply(ApplyRefundContext context);
+    void refundApply(RefundApplyContext context);
 
     /**
      * 退款审核

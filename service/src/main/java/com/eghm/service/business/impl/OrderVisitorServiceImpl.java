@@ -11,6 +11,7 @@ import com.eghm.enums.ref.VisitorState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderVisitorMapper;
 import com.eghm.model.OrderVisitor;
+import com.eghm.service.business.OrderVisitorRefundService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.utils.DataUtil;
@@ -31,6 +32,8 @@ import java.util.stream.Collectors;
 public class OrderVisitorServiceImpl implements OrderVisitorService {
 
     private final OrderVisitorMapper orderVisitorMapper;
+
+    private final OrderVisitorRefundService orderVisitorRefundService;
 
     @Override
     public void addVisitor(ProductType productType, String orderNo, List<VisitorDTO> voList) {

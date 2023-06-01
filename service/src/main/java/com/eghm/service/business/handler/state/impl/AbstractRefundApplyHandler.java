@@ -11,7 +11,7 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.handler.context.ApplyRefundContext;
+import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.RefundApplyHandler;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
@@ -40,7 +40,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void doAction(ApplyRefundContext context) {
+    public void doAction(RefundApplyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
         this.before(context, order);
 
@@ -58,7 +58,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      * @param order 订单信息
      * @return 退款记录
      */
-    protected OrderRefundLog doProcess(ApplyRefundContext context, Order order) {
+    protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         LocalDateTime now = LocalDateTime.now();
         refundLog.setApplyTime(now);
@@ -85,7 +85,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    protected void after(ApplyRefundContext context, Order order, OrderRefundLog refundLog) {
+    protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
         orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds());
     }
@@ -95,7 +95,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      * @param context 订单申请信息
      * @param order 主订单
      */
-    protected void before(ApplyRefundContext context, Order order) {
+    protected void before(RefundApplyContext context, Order order) {
         if (!context.getUserId().equals(order.getUserId())) {
             log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", context.getOrderNo(), order.getUserId(), context.getUserId());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
@@ -119,7 +119,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      * @param context 订单申请信息
      * @param order 主订单
      */
-    protected void checkRefund(ApplyRefundContext context, Order order) {
+    protected void checkRefund(RefundApplyContext context, Order order) {
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);
         if ((refundNum + context.getNum()) > order.getNum()) {
             log.error("累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, context.getNum());

@@ -4,7 +4,6 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.RefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.VerifyLog;
@@ -49,8 +48,8 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
      */
     protected void before(OrderVerifyContext context, Order order) {
         log.info("开始核销订单[{}] [{}]", this.getStateMachineType(), jsonService.toJson(context));
-        // 如果订单在退款中,且已经退款处理中了,则不允许核销
-        if (order.getState() == OrderState.REFUND && order.getRefundState() == RefundState.PROGRESS) {
+        // 如果订单在退款中,则不允许核销
+        if (order.getState() == OrderState.REFUND) {
             throw new BusinessException(ErrorCode.ORDER_REFUND_PROCESS);
         }
     }
@@ -77,7 +76,6 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
         verifyLog.setUserId(context.getUserId());
         verifyLog.setNum(visited);
         verifyLogService.insert(verifyLog);
-
 
         context.setVerifyNum(visited);
     }
