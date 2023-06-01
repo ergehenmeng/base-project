@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.RefundState;
@@ -60,18 +61,24 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
      * @param order 订单信息
      */
     protected void doProcess(OrderVerifyContext context, Order order) {
-        int visited = orderVisitorService.visitorVerify(order.getOrderNo(), context.getVisitorList());
+        long verifyId = IdWorker.getId();
+
+        int visited = orderVisitorService.visitorVerify(order.getOrderNo(), context.getVisitorList(), verifyId);
+
         // 为空则表示根据订单号核销全部未核销的订单 如果待核销的数量为0也表示全部核销
         if (CollUtil.isEmpty(context.getVisitorList()) || orderVisitorService.getUnVerify(context.getOrderNo()) <= 0) {
             order.setState(OrderState.APPRAISE);
         }
         orderService.updateById(order);
         VerifyLog verifyLog = new VerifyLog();
+        verifyLog.setId(verifyId);
         verifyLog.setOrderNo(order.getOrderNo());
         verifyLog.setRemark(context.getRemark());
         verifyLog.setUserId(context.getUserId());
         verifyLog.setNum(visited);
         verifyLogService.insert(verifyLog);
+
+
         context.setVerifyNum(visited);
     }
 

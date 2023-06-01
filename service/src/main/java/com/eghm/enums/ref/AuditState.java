@@ -29,7 +29,10 @@ public enum AuditState {
      */
     REFUSE(2, "审核拒绝"),
 
-
+    /**
+     * 取消审核(用户主动取消退款)
+     */
+    CANCEL(3, "取消审核"),
     ;
 
     /**

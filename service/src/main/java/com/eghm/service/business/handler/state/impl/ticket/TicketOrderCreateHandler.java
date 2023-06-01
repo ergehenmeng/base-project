@@ -48,7 +48,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         return scenicTicketService.selectByIdShelve(context.getTicketId());
     }
 
-
     @Override
     protected void before(TicketOrderCreateContext context, ScenicTicket ticket) {
         int num = context.getVisitorList().size();

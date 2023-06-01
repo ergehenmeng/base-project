@@ -47,9 +47,10 @@ public interface OrderVisitorService {
      * 游客核销
      * @param orderNo  订单编号
      * @param visitorList 核销的人 如果为空则默认核销全部可以核销的
+     * @param visitorId  核销记录id
      * @return 核销的数量
      */
-    int visitorVerify(String orderNo, List<Long> visitorList);
+    int visitorVerify(String orderNo, List<Long> visitorList, long visitorId);
 
     /**
      * 根据订单号统计未核销的游客数量

@@ -88,7 +88,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public int visitorVerify(String orderNo, List<Long> visitorList) {
+    public int visitorVerify(String orderNo, List<Long> visitorList, long visitorId) {
         // 如果是部分核销需要判断前端传递过来的核销信息是否合法
         if (CollUtil.isNotEmpty(visitorList)) {
             LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
@@ -110,6 +110,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.in(CollUtil.isNotEmpty(visitorList), OrderVisitor::getId, visitorList);
         wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
         wrapper.set(OrderVisitor::getState, VisitorState.USED);
+        wrapper.set(OrderVisitor::getCollectId, visitorId);
         return orderVisitorMapper.update(null, wrapper);
     }
 

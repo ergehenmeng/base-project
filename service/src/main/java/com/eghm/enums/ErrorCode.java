@@ -1078,7 +1078,7 @@ public enum ErrorCode {
     /**
      * 用户[%s]状态异常,无法核销
      */
-    VISITOR_VERIFY_ERROR(3426, "用户[%s]状态异常,无法核销"),
+    VISITOR_VERIFY_ERROR(3426, "用户[%s]无法核销"),
 
     /**
      * 订单退款处理中,无法核销
