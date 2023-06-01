@@ -35,9 +35,9 @@ public class MenuController {
 
     private final PermInterceptor permInterceptor;
 
-    @GetMapping("/listPage")
+    @GetMapping("/list")
     @ApiOperation("菜单列表(不分页)")
-    public List<MenuResponse> listPage() {
+    public List<MenuResponse> list() {
         return sysMenuService.getAuthList(SecurityHolder.getOperatorId());
     }
 

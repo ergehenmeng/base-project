@@ -700,20 +700,20 @@ CREATE TABLE `item`
 CREATE TABLE `item_sku`
 (
     `id`                 bigint(20) NOT NULL,
-    `item_id`            bigint(20)                                             DEFAULT NULL COMMENT '零售id',
-    `primary_spec_value` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  DEFAULT NULL COMMENT '一级规格名',
-    `second_spec_value`  varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  DEFAULT NULL COMMENT '二级规格名',
-    `spec_id`            varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '规格id,多个逗号分隔',
-    `cost_price`         int(10)                                                DEFAULT NULL COMMENT '成本价',
-    `line_price`         int(10)                                                DEFAULT NULL COMMENT '划线价',
-    `sale_price`         int(10)                                                DEFAULT NULL COMMENT '销售价格',
-    `stock`              smallint(4)                                            DEFAULT '0' COMMENT '库存',
-    `virtual_num`        smallint(4)                                            DEFAULT '0' COMMENT '虚拟销量',
-    `sale_num`           int(11)                                                DEFAULT '0' COMMENT '销售量',
-    `sku_pic`            varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'sku图片(优先级最高)',
-    `create_time`        datetime                                               DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`        datetime                                               DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`            bit(1)                                                 DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `item_id`            bigint(20)   DEFAULT NULL COMMENT '零售id',
+    `primary_spec_value` varchar(30)  DEFAULT NULL COMMENT '一级规格名',
+    `second_spec_value`  varchar(30)  DEFAULT NULL COMMENT '二级规格名',
+    `spec_id`            varchar(100) DEFAULT NULL COMMENT '规格id,多个逗号分隔',
+    `cost_price`         int(10)      DEFAULT NULL COMMENT '成本价',
+    `line_price`         int(10)      DEFAULT NULL COMMENT '划线价',
+    `sale_price`         int(10)      DEFAULT NULL COMMENT '销售价格',
+    `stock`              smallint(4)  DEFAULT '0' COMMENT '库存',
+    `virtual_num`        smallint(4)  DEFAULT '0' COMMENT '虚拟销量',
+    `sale_num`           int(11)      DEFAULT '0' COMMENT '销售量',
+    `sku_pic`            varchar(255) DEFAULT NULL COMMENT 'sku图片(优先级最高)',
+    `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`        datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`            bit(1)       DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品sku表';
@@ -721,15 +721,15 @@ CREATE TABLE `item_sku`
 CREATE TABLE `item_spec`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `item_id`     bigint(20)                                             DEFAULT NULL COMMENT '商品id',
-    `spec_name`   varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  DEFAULT NULL COMMENT '规格名',
-    `spec_value`  varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin  DEFAULT NULL COMMENT '规格名称',
-    `spec_pic`    varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL COMMENT '规格图片(一级规格必填), 优先级比sku_pic低',
-    `sort`        smallint(4)                                            DEFAULT NULL COMMENT '排序',
-    `level`       tinyint(1)                                             DEFAULT NULL COMMENT '标签级别 一级标签 二级标签',
-    `create_time` datetime                                               DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime                                               DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)                                                 DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `item_id`     bigint(20)   DEFAULT NULL COMMENT '商品id',
+    `spec_name`   varchar(30)  DEFAULT NULL COMMENT '规格名',
+    `spec_value`  varchar(30)  DEFAULT NULL COMMENT '规格名称',
+    `spec_pic`    varchar(255) DEFAULT NULL COMMENT '规格图片(一级规格必填), 优先级比sku_pic低',
+    `sort`        smallint(4)  DEFAULT NULL COMMENT '排序',
+    `level`       tinyint(1)   DEFAULT NULL COMMENT '标签级别 一级标签 二级标签',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格配置表';
