@@ -1096,6 +1096,11 @@ public enum ErrorCode {
     VERIFY_TYPE_ERROR(3432, "核销类型匹配"),
 
     /**
+     * 核销状态不存在
+     */
+    VERIFY_STATE_ERROR(3435, "核销状态不存在"),
+
+    /**
      * 红包金额太小啦~
      */
     RED_PACKET_ERROR(3600, "红包金额太小啦~"),

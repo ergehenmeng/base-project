@@ -1,9 +1,14 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * 审核状态
@@ -47,4 +52,12 @@ public enum AuditState {
      */
     private final String name;
 
+    @JsonCreator
+    public static AuditState of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(AuditState.values()).filter(auditState -> auditState.value == value)
+                .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.VERIFY_STATE_ERROR));
+    }
 }

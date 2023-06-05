@@ -1,7 +1,12 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
+import com.eghm.dto.ext.PagingQuery;
+import com.eghm.model.CouponConfig;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.dto.ext.OrderRefund;
+import com.eghm.vo.order.refund.RefundLogResponse;
 
 import java.util.List;
 
@@ -10,6 +15,13 @@ import java.util.List;
  * @date 2022/8/1
  */
 public interface OrderRefundLogService {
+
+    /**
+     * 退款记录列表
+     * @param request 查询条件
+     * @return 记录
+     */
+    Page<RefundLogResponse> getByPage(RefundLogQueryRequest request);
 
     /**
      * 新增退款记录

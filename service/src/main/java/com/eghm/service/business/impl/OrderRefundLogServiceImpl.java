@@ -2,13 +2,16 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
+import com.eghm.vo.order.refund.RefundLogResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,12 @@ import java.util.List;
 public class OrderRefundLogServiceImpl implements OrderRefundLogService {
 
     private final OrderRefundLogMapper orderRefundLogMapper;
+
+    @Override
+    public Page<RefundLogResponse> getByPage(RefundLogQueryRequest request) {
+        // TODO
+        return null;
+    }
 
     @Override
     public void insert(OrderRefundLog log) {
