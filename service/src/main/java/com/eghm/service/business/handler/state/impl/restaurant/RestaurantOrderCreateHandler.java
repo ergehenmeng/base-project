@@ -64,6 +64,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     protected Order createOrder(RestaurantOrderCreateContext context, RestaurantVoucher payload) {
         String orderNo = ProductType.RESTAURANT.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
+        order.setCoverUrl(super.getFirstCoverUrl(payload.getCoverUrl()));
         order.setState(OrderState.UN_PAY);
         order.setUserId(context.getUserId());
         order.setOrderNo(orderNo);
@@ -79,7 +80,6 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         this.useDiscount(order, context.getUserId(), context.getCouponId(), payload.getId());
         orderService.save(order);
         return order;
-
     }
 
     @Override

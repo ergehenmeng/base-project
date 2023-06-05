@@ -101,6 +101,7 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.UN_PAY);
         order.setUserId(context.getUserId());
+        order.setCoverUrl(super.getFirstCoverUrl(payload.getHomestayRoom().getCoverUrl()));
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());
         order.setTitle(payload.getHomestayRoom().getTitle());

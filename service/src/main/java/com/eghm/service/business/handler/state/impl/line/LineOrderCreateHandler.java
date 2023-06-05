@@ -75,6 +75,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.UN_PAY);
         order.setUserId(context.getUserId());
+        order.setCoverUrl(super.getFirstCoverUrl(payload.getLine().getCoverUrl()));
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());
         order.setTitle(payload.getLine().getTitle());

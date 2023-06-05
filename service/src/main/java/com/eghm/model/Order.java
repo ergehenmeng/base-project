@@ -33,6 +33,9 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商品名称")
     private String title;
 
+    @ApiModelProperty(value = "封面图片(第一张)")
+    private String coverUrl;
+
     @ApiModelProperty("订单编号")
     private String orderNo;
 

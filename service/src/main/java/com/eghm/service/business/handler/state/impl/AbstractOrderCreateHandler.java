@@ -1,5 +1,7 @@
 package com.eghm.service.business.handler.state.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.eghm.constant.CommonConstant;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.UserCouponService;
@@ -142,4 +144,15 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
      */
     protected abstract void end(C context, P payload, Order order);
 
+    /**
+     * 第一张封面图
+     * @param coverUrl 图集列表
+     * @return 第一张
+     */
+    protected String getFirstCoverUrl(String coverUrl) {
+        if (StrUtil.isBlank(coverUrl)) {
+            return null;
+        }
+        return coverUrl.split(CommonConstant.SPLIT)[0];
+    }
 }

@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
+import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
@@ -132,6 +133,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private Order generateOrder(Long userId, boolean multiple, List<OrderPackage> packageList) {
         String orderNo = ProductType.ITEM.generateOrderNo();
         Order order = new Order();
+        order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setUserId(userId);
         order.setOrderNo(orderNo);
         order.setMultiple(multiple);
@@ -140,6 +142,15 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         order.setNum(this.getNum(packageList));
         order.setPayAmount(this.getPayAmount(packageList));
         return order;
+    }
+
+    /**
+     * 获取sku封面图
+     * @param packageList 下单的商品列表
+     * @return skuPic 多张逗号分隔
+     */
+    private String getFirstCoverUrl(List<OrderPackage> packageList) {
+        return packageList.stream().map(orderPackage -> orderPackage.getSku().getSkuPic()).collect(Collectors.joining(CommonConstant.SPLIT));
     }
 
     /**
