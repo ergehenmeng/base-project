@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -25,18 +26,28 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("order_visitor_refund")
-@ApiModel(value="OrderVisitorRefund对象", description="游客退款记录关联表")
+@ApiModel(value = "OrderVisitorRefund对象", description = "游客退款记录关联表")
 public class OrderVisitorRefund implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
-    @ApiModelProperty(value = "订单id")
-    private Long orderId;
+
+    @ApiModelProperty(value = "订单编号")
+    private String orderNo;
+
     @ApiModelProperty(value = "游客id")
     private Long visitorId;
+
     @ApiModelProperty(value = "退款记录id")
     private Long refundId;
 
+    @ApiModelProperty(value = "创建时间")
+    private LocalDateTime createTime;
+
+    @ApiModelProperty("更新时间")
+    private LocalDateTime updateTime;
 }

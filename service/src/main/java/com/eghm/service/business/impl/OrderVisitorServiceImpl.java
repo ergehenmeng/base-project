@@ -56,14 +56,17 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
             log.info("退款锁定用户为空,可能是非实名制用户 [{}] [{}] [{}]", orderNo, refundId, productType);
             return;
         }
+
+        orderVisitorRefundService.insertVisitorRefund(orderNo, refundId, visitorList);
+
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);
         wrapper.in(OrderVisitor::getId, visitorList);
         wrapper.eq(OrderVisitor::getState, VisitorState.UN_PAY);
         wrapper.set(OrderVisitor::getState, VisitorState.REFUND);
-        wrapper.set(OrderVisitor::getCollectId, refundId);
         int update = orderVisitorMapper.update(null, wrapper);
+
         // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的
         // 除非用户自己选择游客信息存在已核销的用户
         if (visitorList.size() != update) {
@@ -76,7 +79,6 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     public void unlockVisitor(String orderNo, Long refundId) {
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
-        wrapper.eq(OrderVisitor::getCollectId, refundId);
         wrapper.eq(OrderVisitor::getState, VisitorState.REFUND);
         wrapper.set(OrderVisitor::getState, VisitorState.UN_PAY);
         orderVisitorMapper.update(null, wrapper);
@@ -91,7 +93,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public int visitorVerify(String orderNo, List<Long> visitorList, long visitorId) {
+    public int visitorVerify(String orderNo, List<Long> visitorList, long verifyId) {
         // 如果是部分核销需要判断前端传递过来的核销信息是否合法
         if (CollUtil.isNotEmpty(visitorList)) {
             LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
@@ -113,7 +115,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.in(CollUtil.isNotEmpty(visitorList), OrderVisitor::getId, visitorList);
         wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
         wrapper.set(OrderVisitor::getState, VisitorState.USED);
-        wrapper.set(OrderVisitor::getCollectId, visitorId);
+        wrapper.set(OrderVisitor::getVerifyId, verifyId);
         return orderVisitorMapper.update(null, wrapper);
     }
 

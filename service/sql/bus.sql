@@ -442,15 +442,19 @@ CREATE TABLE `order_visitor`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单游客信息表';
 
+DROP TABLE IF EXISTS `order_visitor_refund`;
 CREATE TABLE `order_visitor_refund`
 (
-    `id`         bigint(20) NOT NULL COMMENT '主键',
-    `order_id`   bigint(20) DEFAULT NULL COMMENT '订单id',
-    `visitor_id` bigint(20) DEFAULT NULL COMMENT '游客id',
-    `refund_id`  bigint(20) DEFAULT NULL COMMENT '退款记录id',
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `order_no`    varchar(50) DEFAULT NULL COMMENT '订单编号',
+    `visitor_id`  bigint(20)  DEFAULT NULL COMMENT '游客id',
+    `refund_id`   bigint(20)  DEFAULT NULL COMMENT '退款记录id',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='游客退款记录关联表';
+
 
 DROP TABLE IF EXISTS `order_refund_log`;
 CREATE TABLE `order_refund_log`
