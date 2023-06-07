@@ -31,8 +31,7 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
 
     @Override
     public Page<RefundLogResponse> getByPage(RefundLogQueryRequest request) {
-        // TODO
-        return null;
+        return orderRefundLogMapper.getByPage(request.createPage(), request);
     }
 
     @Override

@@ -2,10 +2,10 @@ package com.eghm.dto.business.order.refund;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.AuditState;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -17,12 +17,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class RefundLogQueryRequest extends PagingQuery {
 
-    @ApiModelProperty("订单编号")
-    private String orderNo;
-
-    @ApiModelProperty("商品名称")
-    private String title;
-
     @ApiModelProperty("退款状态 0:退款中 1:退款成功 2:退款失败 3:取消退款")
     private Integer state;
 
@@ -30,10 +24,10 @@ public class RefundLogQueryRequest extends PagingQuery {
     private AuditState auditState;
 
     @ApiModelProperty(value = "退款申请时间开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "退款申请时间截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 }

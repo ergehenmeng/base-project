@@ -1,8 +1,11 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.model.OrderRefundLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.ext.OrderRefund;
+import com.eghm.vo.order.refund.RefundLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -41,4 +44,12 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
      * @return 流水号信息
      */
     List<OrderRefund> getRefundProcess();
+
+    /**
+     * 分页查询退款记录列表
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<RefundLogResponse> getByPage(Page<RefundLogResponse> page, @Param("param") RefundLogQueryRequest request);
 }

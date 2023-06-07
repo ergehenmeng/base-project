@@ -26,4 +26,31 @@
         inner join `order` r on t.order_no = r.order_no
         where t.deleted = false and t.state = 0
     </select>
+
+    <select id="getByPage" resultType="com.eghm.vo.order.refund.RefundLogResponse">
+        select
+            t.out_refund_no as outRefundNo,
+            r.out_trade_no as outTradeNo,
+            r.order_no as orderNo
+        from
+        order_refund_log t
+        inner join `order` r on t.order_no = r.order_no
+        where t.deleted = false and r.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.order_no like concat('%', #{param.queryName}, '%') or r.title like concat('%', #{param.queryName} ,'%'))
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.auditState != null">
+            and t.audit_state = #{param.auditState}
+        </if>
+        <if test="param.startTime != null">
+            and t.apply_time &gt;= #{param.startTime}
+        </if>
+        <if test="param.endTime != null">
+            and t.apply_time &lt;= #{param.endTime}
+        </if>
+    </select>
+
 </mapper>
