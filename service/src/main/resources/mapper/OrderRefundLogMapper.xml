@@ -29,9 +29,16 @@
 
     <select id="getByPage" resultType="com.eghm.vo.order.refund.RefundLogResponse">
         select
-            t.out_refund_no as outRefundNo,
-            r.out_trade_no as outTradeNo,
-            r.order_no as orderNo
+            t.id,
+            r.title,
+            r.cover_url as coverUrl,
+            t.order_no as orderNo
+            t.num,
+            t.apply_amount as applyAmount
+            t.reason,
+            t.state,
+            t.audit_state as auditState,
+            t.apply_time as applyTime
         from
         order_refund_log t
         inner join `order` r on t.order_no = r.order_no
