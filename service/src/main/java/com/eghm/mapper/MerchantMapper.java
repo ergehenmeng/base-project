@@ -16,8 +16,8 @@ public interface MerchantMapper extends BaseMapper<Merchant> {
 
     /**
      * 查询商户对应的系统用户id
-     * @param operatorId id
+     * @param userId id
      * @return 系统用户id
      */
-    Long getByOperatorId(@Param("operatorId") Long operatorId);
+    Long getByUserId(@Param("userId") Long userId);
 }

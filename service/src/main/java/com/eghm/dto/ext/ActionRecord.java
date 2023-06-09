@@ -23,13 +23,13 @@ public class ActionRecord implements Serializable {
      */
     @Padding
     @ApiModelProperty(hidden = true)
-    private String operatorName;
+    private String userName;
 
     /**
      * 操作人id
      */
     @Padding
     @ApiModelProperty(hidden = true)
-    private Long operatorId;
+    private Long userId;
 
 }

@@ -1,4 +1,4 @@
-package com.eghm.dto.operator;
+package com.eghm.dto.user;
 
 import com.eghm.annotation.Padding;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,5 +25,5 @@ public class PasswordEditRequest implements Serializable {
     private String newPwd;
 
     @Padding
-    private Long operatorId;
+    private Long userId;
 }

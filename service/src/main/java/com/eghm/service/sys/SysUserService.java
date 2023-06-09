@@ -1,25 +1,25 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.SysOperator;
-import com.eghm.dto.operator.OperatorAddRequest;
-import com.eghm.dto.operator.OperatorEditRequest;
-import com.eghm.dto.operator.OperatorQueryRequest;
-import com.eghm.dto.operator.PasswordEditRequest;
+import com.eghm.model.SysUser;
+import com.eghm.dto.user.UserAddRequest;
+import com.eghm.dto.user.UserEditRequest;
+import com.eghm.dto.user.UserQueryRequest;
+import com.eghm.dto.user.PasswordEditRequest;
 import com.eghm.vo.login.LoginResponse;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/26 10:24
  */
-public interface SysOperatorService {
+public interface SysUserService {
 
     /**
      * 根据手机号码查询管理员信息
      * @param mobile 手机号码
      * @return 系统管理人员
      */
-    SysOperator getByMobile(String mobile);
+    SysUser getByMobile(String mobile);
 
     /**
      * 更新登陆密码
@@ -39,19 +39,19 @@ public interface SysOperatorService {
      * @param request 请求参数
      * @return 系统人员信息
      */
-    Page<SysOperator> getByPage(OperatorQueryRequest request);
+    Page<SysUser> getByPage(UserQueryRequest request);
 
     /**
      * 添加管理人员 初始密码默认手机号后6位
      * @param request 前台参数
      */
-    void create(OperatorAddRequest request);
+    void create(UserAddRequest request);
 
     /**
      * 添加管理人员
-     * @param operator 管理人员
+     * @param user 管理人员
      */
-    void insert(SysOperator operator);
+    void insert(SysUser user);
 
     /**
      * 根据手机号生成初始化密码,手机号后六位
@@ -65,13 +65,13 @@ public interface SysOperatorService {
      * @param id 主键
      * @return 用户信息
      */
-    SysOperator getById(Long id);
+    SysUser getById(Long id);
 
     /**
      * 更新用户信息
      * @param request 请求参数
      */
-    void update(OperatorEditRequest request);
+    void update(UserEditRequest request);
 
     /**
      * 重置用户登录密码 默认手机号后六位
@@ -89,13 +89,13 @@ public interface SysOperatorService {
 
     /**
      * 删除用户
-     * @param id operatorId
+     * @param id userId
      */
     void delete(Long id);
 
     /**
      * 锁定用户
-     * @param id operatorId
+     * @param id userId
      */
     void lockOperator(Long id);
 

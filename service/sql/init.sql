@@ -3585,9 +3585,9 @@ INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `del
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('8', '公告分类', 'notice_classify', '1', '科普', b'0', b'0', '2019-11-25 16:13:43', '2019-11-27 11:39:52', NULL);
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('9', '公告分类', 'notice_classify', '2', '通知', b'0', b'0', '2019-11-25 16:14:10', '2019-11-27 11:39:54', NULL);
 
-INSERT INTO `sys_operator` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
+INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
-INSERT INTO `sys_operator_role` (`id`, `operator_id`, `role_id`) VALUES ('5', '1', '1');
+INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES ('5', '1', '1');
 
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '');
 
@@ -3635,13 +3635,13 @@ INSERT INTO `sys_menu` VALUES ('10101012', '编辑', 'LMXt', '101010', NULL, '/m
 INSERT INTO `sys_menu` VALUES ('10101013', '删除', 'uMXt', '101010', NULL, '/manage/menu/delete', '2', '4', b'1', '', '2019-09-09 08:01:28', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101110', '列表', 'TkXt', '101011', NULL, '/manage/config/listPage', '2', '1', b'1', '列表', '2019-09-12 08:13:51', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101111', '编辑', 'rkXt', '101011', NULL, '/manage/config/update', '2', '2', b'1', '', '2019-09-12 08:15:48', '2022-11-08 20:18:19');
-INSERT INTO `sys_menu` VALUES ('10101210', '列表', 'xYXt', '101012', NULL, '/manage/operator/listPage', '2', '1', b'1', '列表', '2019-09-12 08:21:44', '2022-11-08 20:18:19');
-INSERT INTO `sys_menu` VALUES ('10101211', '编辑', 'kYXt', '101012', NULL, '/manage/operator/update', '2', '2', b'1', '', '2019-09-12 08:22:32', '2022-11-08 20:18:19');
-INSERT INTO `sys_menu` VALUES ('10101212', '锁定', 'YYXt', '101012', NULL, '/manage/operator/lock', '2', '3', b'1', '', '2019-09-12 08:24:02', '2022-11-08 20:24:01');
-INSERT INTO `sys_menu` VALUES ('10101213', '解锁', 'ZYXt', '101012', NULL, '/manage/operator/unlock', '2', '4', b'1', '', '2019-09-12 08:24:26', '2022-11-08 20:24:06');
-INSERT INTO `sys_menu` VALUES ('10101214', '重置', 'RYXt', '101012', NULL, '/manage/operator/reset', '2', '5', b'1', '', '2019-09-12 08:25:03', '2022-11-08 20:24:04');
-INSERT INTO `sys_menu` VALUES ('10101215', '添加', 'SYXt', '101012', NULL, '/manage/operator/create', '2', '6', b'1', '', '2019-09-12 08:26:12', '2022-11-08 20:18:19');
-INSERT INTO `sys_menu` VALUES ('10101216', '删除', 'yYXt', '101012', NULL, '/manage/operator/delete', '2', '7', b'1', '', '2019-09-12 08:34:32', '2022-11-08 20:18:19');
+INSERT INTO `sys_menu` VALUES ('10101210', '列表', 'xYXt', '101012', NULL, '/manage/user/listPage', '2', '1', b'1', '列表', '2019-09-12 08:21:44', '2022-11-08 20:18:19');
+INSERT INTO `sys_menu` VALUES ('10101211', '编辑', 'kYXt', '101012', NULL, '/manage/user/update', '2', '2', b'1', '', '2019-09-12 08:22:32', '2022-11-08 20:18:19');
+INSERT INTO `sys_menu` VALUES ('10101212', '锁定', 'YYXt', '101012', NULL, '/manage/user/lock', '2', '3', b'1', '', '2019-09-12 08:24:02', '2022-11-08 20:24:01');
+INSERT INTO `sys_menu` VALUES ('10101213', '解锁', 'ZYXt', '101012', NULL, '/manage/user/unlock', '2', '4', b'1', '', '2019-09-12 08:24:26', '2022-11-08 20:24:06');
+INSERT INTO `sys_menu` VALUES ('10101214', '重置', 'RYXt', '101012', NULL, '/manage/user/reset', '2', '5', b'1', '', '2019-09-12 08:25:03', '2022-11-08 20:24:04');
+INSERT INTO `sys_menu` VALUES ('10101215', '添加', 'SYXt', '101012', NULL, '/manage/user/create', '2', '6', b'1', '', '2019-09-12 08:26:12', '2022-11-08 20:18:19');
+INSERT INTO `sys_menu` VALUES ('10101216', '删除', 'yYXt', '101012', NULL, '/manage/user/delete', '2', '7', b'1', '', '2019-09-12 08:34:32', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101310', '列表', 'vRXt', '101013', NULL, '/manage/role/listPage', '2', '1', b'1', '', '2019-09-12 08:35:33', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101311', '添加', 'XRXt', '101013', NULL, '/manage/role/create', '2', '2', b'1', '', '2019-09-12 08:36:26', '2022-11-08 20:18:19');
 INSERT INTO `sys_menu` VALUES ('10101312', '编辑', 'lRXt', '101013', NULL, '/manage/role/update', '2', '3', b'1', '', '2019-09-12 08:36:47', '2022-11-08 20:18:19');
@@ -4062,7 +4062,7 @@ INSERT INTO `pay_bank` VALUES ('252', 'OTHERS', '其他(银行卡以外)', '2021
 
 
 
-update sys_operator set pwd = '$2a$10$WIfMgLnfKf7NERTun09ahuD0lHupFO7AZ.n8cgGZBf7zAYOo7y5Ga' where id = 1;
+update sys_user set pwd = '$2a$10$WIfMgLnfKf7NERTun09ahuD0lHupFO7AZ.n8cgGZBf7zAYOo7y5Ga' where id = 1;
 
 INSERT INTO `sys_config` VALUES ('1', 'application_name', '后台系统名称', '后台管理系统', b'0', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
 INSERT INTO `sys_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', b'0', NULL, '2018-02-08 14:38:59', NULL);

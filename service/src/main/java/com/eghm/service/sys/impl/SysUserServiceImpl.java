@@ -1,0 +1,232 @@
+package com.eghm.service.sys.impl;
+
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.digest.MD5;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.enums.DataType;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.configuration.encoder.Encoder;
+import com.eghm.mapper.SysUserMapper;
+import com.eghm.model.SysDataDept;
+import com.eghm.model.SysUser;
+import com.eghm.dto.user.UserAddRequest;
+import com.eghm.dto.user.UserEditRequest;
+import com.eghm.dto.user.UserQueryRequest;
+import com.eghm.dto.user.PasswordEditRequest;
+import com.eghm.vo.login.LoginResponse;
+import com.eghm.vo.menu.MenuResponse;
+import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.sys.SysDataDeptService;
+import com.eghm.service.sys.SysMenuService;
+import com.eghm.service.sys.SysUserService;
+import com.eghm.service.sys.SysRoleService;
+import com.eghm.utils.DataUtil;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * @author 二哥很猛
+ * @date 2018/11/26 10:24
+ */
+@Service("sysUserService")
+@AllArgsConstructor
+@Slf4j
+public class SysUserServiceImpl implements SysUserService {
+
+    private final SysUserMapper sysUserMapper;
+
+    private final Encoder encoder;
+
+    private final SysRoleService sysRoleService;
+
+    private final SysDataDeptService sysDataDeptService;
+
+    private final SysMenuService sysMenuService;
+
+    private final JwtTokenService jwtTokenService;
+
+    @Override
+    public SysUser getByMobile(String mobile) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getMobile, mobile);
+        return sysUserMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public void updateLoginPassword(PasswordEditRequest request) {
+        SysUser user = sysUserMapper.selectById(request.getUserId());
+        this.checkPassword(request.getOldPwd(), user.getPwd());
+        String newPassword = encoder.encode(request.getNewPwd());
+        user.setPwd(newPassword);
+        sysUserMapper.updateById(user);
+    }
+
+    @Override
+    public void checkPassword(String rawPassword, String targetPassword) {
+        String oldPassword = encoder.encode(rawPassword);
+        if (!targetPassword.equals(oldPassword)) {
+            throw new BusinessException(ErrorCode.USER_PASSWORD_ERROR);
+        }
+    }
+
+    @Override
+    public Page<SysUser> getByPage(UserQueryRequest request) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        // 只查询系统用户
+        wrapper.eq(SysUser::getUserType, SysUser.USER_TYPE_1);
+        wrapper.eq(request.getState() != null, SysUser::getState, request.getState());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(SysUser::getNickName, request.getQueryName()).or().
+                        like(SysUser::getMobile, request.getQueryName()));
+        return sysUserMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public void create(UserAddRequest request) {
+        this.redoMobile(request.getMobile(), null);
+        SysUser user = DataUtil.copy(request, SysUser.class);
+        user.setState(SysUser.STATE_1);
+        user.setUserType(SysUser.USER_TYPE_1);
+        String initPassword = this.initPassword(request.getMobile());
+        user.setPwd(initPassword);
+        user.setInitPwd(initPassword);
+        sysUserMapper.insert(user);
+        // 角色权限
+        sysRoleService.authRole(user.getId(), request.getRoleIds());
+        // 数据权限
+        if (request.getPermissionType() == DataType.CUSTOM.getValue()) {
+            List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
+            roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
+        }
+    }
+
+    @Override
+    public void insert(SysUser user) {
+        this.redoMobile(user.getMobile(), null);
+        user.setState(SysUser.STATE_1);
+        sysUserMapper.insert(user);
+    }
+
+    @Override
+    public String initPassword(String mobile) {
+        String md5Password = MD5.create().digestHex(mobile.substring(5));
+        return encoder.encode(md5Password);
+    }
+
+    @Override
+    public SysUser getById(Long id) {
+        return sysUserMapper.selectById(id);
+    }
+
+    @Override
+    public void update(UserEditRequest request) {
+        this.redoMobile(request.getMobile(), request.getId());
+
+        SysUser user = DataUtil.copy(request, SysUser.class);
+        sysUserMapper.updateById(user);
+        // 数据权限, 在新增系统用户时,可以手动指定数据权限,此处既是将用户与其所拥有的的部门权限做关联,方便后续进行数据权限分组
+        if (request.getPermissionType() == DataType.CUSTOM.getValue()) {
+            // 删除旧数据权限
+            sysDataDeptService.deleteByUserId(user.getId());
+            // 添加新数据权限
+            List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
+            roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
+        }
+    }
+
+    @Override
+    public void resetPassword(Long id) {
+        SysUser user = this.getById(id);
+        String password = this.initPassword(user.getMobile());
+        user.setPwd(password);
+        user.setInitPwd(password);
+        sysUserMapper.updateById(user);
+    }
+
+    @Override
+    public void resetPassword(Long id, String pwd) {
+        LambdaUpdateWrapper<SysUser> wrapper = Wrappers.lambdaUpdate();
+        String encode = encoder.encode(MD5.create().digestHex(pwd));
+        wrapper.set(SysUser::getPwd, encode);
+        wrapper.set(SysUser::getInitPwd, encode);
+        wrapper.eq(SysUser::getId, id);
+        sysUserMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void delete(Long id) {
+        sysUserMapper.deleteById(id);
+    }
+
+    @Override
+    public void lockOperator(Long id) {
+        SysUser user = new SysUser();
+        user.setId(id);
+        user.setState(SysUser.STATE_0);
+        sysUserMapper.updateById(user);
+    }
+
+    @Override
+    public void unlockOperator(Long id) {
+        SysUser user = new SysUser();
+        user.setId(id);
+        user.setState(SysUser.STATE_1);
+        sysUserMapper.updateById(user);
+    }
+
+    @Override
+    public LoginResponse login(String userName, String password) {
+        SysUser user = this.getByMobile(userName);
+        if (user == null) {
+            throw new BusinessException(ErrorCode.USER_NOT_FOUND);
+        }
+        if (user.getState() == 0) {
+            throw new BusinessException(ErrorCode.USER_LOCKED_ERROR);
+        }
+        boolean match = encoder.match(password, user.getPwd());
+        if (!match) {
+            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+        }
+        boolean adminRole = sysRoleService.isAdminRole(user.getId());
+        List<String> buttonList;
+        // 如果用户拥有超管角色,则默认查询全部菜单等信息
+        List<MenuResponse> leftMenu;
+        if (adminRole) {
+            leftMenu = sysMenuService.getAdminLeftMenuList();
+            buttonList = sysMenuService.getAdminPermCode();
+        } else {
+            buttonList = sysMenuService.getPermCode(user.getId());
+            leftMenu = sysMenuService.getLeftMenuList(user.getId());
+        }
+        // 根据用户名和权限创建jwtToken
+        LoginResponse response = new LoginResponse();
+        response.setToken(jwtTokenService.createToken(user, buttonList));
+        response.setButtonList(buttonList);
+        response.setUserType(user.getUserType());
+        response.setLeftMenuList(leftMenu);
+        return response;
+    }
+
+    /**
+     * 校验手机号是否重复
+     * @param mobile 手机号
+     * @param id id (更新时不能为空)
+     */
+    private void redoMobile(String mobile, Long id) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysUser::getMobile, mobile);
+        wrapper.ne(id != null, SysUser::getId, id);
+        Long count = sysUserMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.warn("手机号码被占用 [{}] [{}]", mobile, id);
+            throw new BusinessException(ErrorCode.MOBILE_REDO);
+        }
+    }
+}

@@ -1,4 +1,4 @@
-package com.eghm.dto.operator;
+package com.eghm.dto.user;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -7,18 +7,20 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * 管理人员 添加
  * @author 二哥很猛
- * @date 2018/11/30 15:43
+ * @date 2018/11/30 16:37
  */
 @Data
-public class OperatorAddRequest implements Serializable {
+public class UserEditRequest implements Serializable {
+    private static final long serialVersionUID = 2695362882925858038L;
 
-    private static final long serialVersionUID = 6228244128468433700L;
+    @ApiModelProperty(value = "id主键", required = true)
+    @NotNull(message = "id不能为空")
+    private Long id;
 
     @ApiModelProperty(value = "用户名称", required = true)
     @NotNull(message = "用户名称不能为空")
-    private String operatorName;
+    private String userName;
 
     @ApiModelProperty(value = "手机号", required = true)
     @NotNull(message = "手机号不能为空")

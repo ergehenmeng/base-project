@@ -31,10 +31,10 @@ public class SysDept extends BaseEntity {
     private String remark;
 
     @ApiModelProperty("操作人姓名")
-    private String operatorName;
+    private String userName;
 
     @ApiModelProperty("操作人id")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long operatorId;
+    private Long userId;
 
 }

@@ -4,7 +4,7 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ManageLog;
-import com.eghm.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtUser;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
@@ -58,14 +58,14 @@ public class ManageLogAspect {
             return joinPoint.proceed();
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        JwtOperator operator = SecurityHolder.getOperator();
-        if (operator == null) {
+        JwtUser user = SecurityHolder.getOperator();
+        if (user == null) {
             log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();
         }
         ManageLog sy = new ManageLog();
 
-        sy.setOperatorId(operator.getId());
+        sy.setUserId(user.getId());
         sy.setIp(IpUtil.getIpAddress(request));
 
         Object[] args = joinPoint.getArgs();
@@ -84,7 +84,7 @@ public class ManageLogAspect {
         if (logSwitch) {
             rabbitMessageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
         } else {
-            log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getOperatorId(), sy.getBusinessTime());
+            log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
         }
         return proceed;
     }

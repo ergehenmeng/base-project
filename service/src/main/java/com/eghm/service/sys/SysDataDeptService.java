@@ -12,20 +12,20 @@ public interface SysDataDeptService {
 
     /**
      * 获取用户所拥有的所有部门(数据权限)
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @return 部门id
      */
-    List<String> getDeptList(Long operatorId);
+    List<String> getDeptList(Long userId);
 
     /**
      * 插入用户与部门数据权限关联信息
-     * @param dept operatorId + deptId
+     * @param dept userId + deptId
      */
     void insert(SysDataDept dept);
 
     /**
      * 删除用户对应的部门的数据权限
-     * @param operatorId 用户id
+     * @param userId 用户id
      */
-    void deleteByOperatorId(Long operatorId);
+    void deleteByUserId(Long userId);
 }

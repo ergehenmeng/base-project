@@ -15,10 +15,10 @@ public interface SysMenuService {
 
     /**
      * 获取用户导航菜单列表,不包含按钮菜单
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @return 菜单列表(一级菜单 内部包含二级菜单)
      */
-    List<MenuResponse> getLeftMenuList(Long operatorId);
+    List<MenuResponse> getLeftMenuList(Long userId);
 
     /**
      * 获取超管所有导航菜单列表,不包含按钮菜单
@@ -28,17 +28,17 @@ public interface SysMenuService {
 
     /**
      * 获取用户所拥有的导航菜单列表,按钮, 注意:超管的话查询超管全部菜单(不含对超管隐藏的菜单)
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @return 菜单列表
      */
-    List<MenuResponse> getList(Long operatorId);
+    List<MenuResponse> getList(Long userId);
     
     /**
      * 获取用户可以进行二次授权的导航菜单列表,按钮, 注意:超管的话查询全部
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @return 菜单列表
      */
-    List<MenuResponse> getAuthList(Long operatorId);
+    List<MenuResponse> getAuthList(Long userId);
 
     /**
      * 获取所有可用的菜单+按钮菜单
@@ -79,10 +79,10 @@ public interface SysMenuService {
 
     /**
      * 查询用户的菜单权限标识符
-     * @param operator 用户id
+     * @param user 用户id
      * @return 菜单标示符
      */
-    List<String> getPermCode(Long operator);
+    List<String> getPermCode(Long user);
 
     /**
      * 查询所有菜单权限

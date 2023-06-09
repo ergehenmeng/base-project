@@ -33,10 +33,10 @@ public interface MerchantService {
 
     /**
      * 根据系统用户id查询商户
-     * @param operatorId 系统用户id
+     * @param userId 系统用户id
      * @return 商户信息
      */
-    Merchant selectByOperatorId(Long operatorId);
+    Merchant selectByUserId(Long userId);
 
     /**
      * 账号锁定

@@ -4,7 +4,7 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.configuration.AbstractIgnoreFilter;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtUser;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.utils.WebUtil;
@@ -34,7 +34,7 @@ public class AuthFilter extends AbstractIgnoreFilter {
         String header = request.getHeader(manageProperties.getJwt().getHeader());
         String prefix = manageProperties.getJwt().getPrefix();
         if (header != null && header.startsWith(prefix)) {
-            Optional<JwtOperator> optional = jwtTokenService.parseToken(header.replace(prefix, ""));
+            Optional<JwtUser> optional = jwtTokenService.parseToken(header.replace(prefix, ""));
             if (optional.isPresent()) {
                 try {
                     SecurityHolder.setToken(optional.get());

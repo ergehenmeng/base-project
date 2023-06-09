@@ -1,4 +1,4 @@
-package com.eghm.dto.operator;
+package com.eghm.dto.user;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionInt;
@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class OperatorQueryRequest extends PagingQuery implements Serializable {
+public class UserQueryRequest extends PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 6710255160163962722L;
 

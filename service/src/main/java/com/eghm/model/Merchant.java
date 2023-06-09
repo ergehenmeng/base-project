@@ -37,5 +37,5 @@ public class Merchant extends BaseEntity implements Serializable {
     private String mobile;
 
     @ApiModelProperty("关联的系统用户id")
-    private Long operatorId;
+    private Long userId;
 }

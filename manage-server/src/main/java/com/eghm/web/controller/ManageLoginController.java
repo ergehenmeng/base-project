@@ -8,7 +8,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.LoginRequest;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.sys.SysOperatorService;
+import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
 import io.swagger.annotations.Api;
@@ -34,7 +34,7 @@ public class ManageLoginController {
 
     private final CacheService cacheService;
 
-    private final SysOperatorService sysOperatorService;
+    private final SysUserService sysUserService;
 
     private final SysConfigApi sysConfigApi;
 
@@ -45,7 +45,7 @@ public class ManageLoginController {
         if (this.verifyCodeError(key, request.getVerifyCode())) {
             return RespBody.error(ErrorCode.IMAGE_CODE_ERROR);
         }
-        LoginResponse response = sysOperatorService.login(request.getUserName(), request.getPwd());
+        LoginResponse response = sysUserService.login(request.getUserName(), request.getPwd());
         return RespBody.success(response);
     }
 

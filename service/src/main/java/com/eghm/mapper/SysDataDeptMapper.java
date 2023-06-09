@@ -10,9 +10,9 @@ public interface SysDataDeptMapper extends BaseMapper<SysDataDept> {
 
     /**
      * 获取用户所拥有的所有部门(数据权限)
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @return 部门id
      */
-    List<String> getDeptList(@Param("operatorId") Long operatorId);
+    List<String> getDeptList(@Param("userId") Long userId);
 
 }

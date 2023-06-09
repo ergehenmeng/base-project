@@ -21,8 +21,8 @@ public class SysDataDeptServiceImpl implements SysDataDeptService {
     private final SysDataDeptMapper sysDataDeptMapper;
 
     @Override
-    public List<String> getDeptList(Long operatorId) {
-        return sysDataDeptMapper.getDeptList(operatorId);
+    public List<String> getDeptList(Long userId) {
+        return sysDataDeptMapper.getDeptList(userId);
     }
 
     @Override
@@ -31,9 +31,9 @@ public class SysDataDeptServiceImpl implements SysDataDeptService {
     }
 
     @Override
-    public void deleteByOperatorId(Long operatorId) {
+    public void deleteByUserId(Long userId) {
         LambdaUpdateWrapper<SysDataDept> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(SysDataDept::getOperatorId, operatorId);
+        wrapper.eq(SysDataDept::getUserId, userId);
         sysDataDeptMapper.delete(wrapper);
     }
 }

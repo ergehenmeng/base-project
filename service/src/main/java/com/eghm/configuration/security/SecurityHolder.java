@@ -3,7 +3,7 @@ package com.eghm.configuration.security;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtUser;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,9 +18,9 @@ public class SecurityHolder {
     /**
      * 异步也能获取到用户信息
      */
-    private static final TransmittableThreadLocal<JwtOperator> LOCAL = TransmittableThreadLocal.withInitial(JwtOperator::new);
+    private static final TransmittableThreadLocal<JwtUser> LOCAL = TransmittableThreadLocal.withInitial(JwtUser::new);
 
-    public static void setToken(JwtOperator token) {
+    public static void setToken(JwtUser token) {
         LOCAL.set(token);
     }
 
@@ -28,19 +28,19 @@ public class SecurityHolder {
      * 获取当前登录用户的信息
      * @return 用户信息, 为空则抛登录过期异常
      */
-    public static JwtOperator getOperatorRequired() {
-        JwtOperator jwtOperator = LOCAL.get();
-        if (jwtOperator == null) {
+    public static JwtUser getOperatorRequired() {
+        JwtUser jwtUser = LOCAL.get();
+        if (jwtUser == null) {
             throw new BusinessException(ErrorCode.LOGIN_EXPIRE);
         }
-        return jwtOperator;
+        return jwtUser;
     }
 
     /**
      * 获取当前登录用户的信息
      * @return 用户信息 可能为空
      */
-    public static JwtOperator getOperator() {
+    public static JwtUser getOperator() {
         return LOCAL.get();
     }
 
@@ -48,7 +48,7 @@ public class SecurityHolder {
      * 获取当前用户id
      * @return id
      */
-    public static Long getOperatorId() {
+    public static Long getUserId() {
         return getOperatorRequired().getId();
     }
 

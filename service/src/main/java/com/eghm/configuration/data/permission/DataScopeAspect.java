@@ -5,7 +5,7 @@ import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.enums.DataType;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtUser;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * 生成数据权限拦截sql
- * 涉及数据权限的表中必须包含两个字段, 用户所属部门:dept_code, 用户ID:operator_id
+ * 涉及数据权限的表中必须包含两个字段, 用户所属部门:dept_code, 用户ID:user_id
  * 在Mapper的方法上添加@DataScope注解
  * 在sql中可以通过${dataScope}直接注入数据权限部分的sql
  * @see DataScopeInterceptor 拦截器
@@ -32,8 +32,8 @@ public class DataScopeAspect {
     @Around("@annotation(scope) && this(com.baomidou.mybatisplus.core.mapper.BaseMapper)")
     public Object around(ProceedingJoinPoint joinPoint, DataScope scope) throws Throwable{
         try {
-            JwtOperator operator = SecurityHolder.getOperatorRequired();
-            String sql = this.createPermissionSql(operator, scope);
+            JwtUser user = SecurityHolder.getOperatorRequired();
+            String sql = this.createPermissionSql(user, scope);
             DATA_SCOPE_PARAM.set(sql);
             return joinPoint.proceed();
         } finally {
@@ -43,36 +43,36 @@ public class DataScopeAspect {
 
     /**
      * 根据用户数据权限生成额外的sql
-     * @param operator 用户信息
+     * @param user 用户信息
      * @param scope 注解标示
      * @return sql 例如 t.dept_id = 123123
      */
-    private String createPermissionSql(JwtOperator operator, DataScope scope) {
+    private String createPermissionSql(JwtUser user, DataScope scope) {
         StringBuilder builder = new StringBuilder();
         builder.append(" ( ");
         // 全部
-        if (operator.getDataType() == DataType.ALL.getValue()) {
+        if (user.getDataType() == DataType.ALL.getValue()) {
             builder.append(" 1 = 1");
         }
         String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias() + ".";
         // 自定义
-        if (operator.getDataType() == DataType.CUSTOM.getValue()) {
-            List<String> deptList = operator.getDeptList();
+        if (user.getDataType() == DataType.CUSTOM.getValue()) {
+            List<String> deptList = user.getDeptList();
             builder.append(alias).append("dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
         }
         // 本部门及子部门
-        if (operator.getDataType() == DataType.DEPT.getValue()) {
-            builder.append(alias).append("dept_code like '").append(operator.getDeptCode()).append("%' ");
+        if (user.getDataType() == DataType.DEPT.getValue()) {
+            builder.append(alias).append("dept_code like '").append(user.getDeptCode()).append("%' ");
         }
         // 本部门
-        if (operator.getDataType() == DataType.SELF_DEPT.getValue()) {
-            builder.append(alias).append("dept_code = '").append(operator.getDeptCode()).append("' ");
+        if (user.getDataType() == DataType.SELF_DEPT.getValue()) {
+            builder.append(alias).append("dept_code = '").append(user.getDeptCode()).append("' ");
         }
         // 自己,可能会涉及到部门变更,默认老部门信息无法查看,因此此处过滤部门信息
-        if (operator.getDataType() == DataType.SELF.getValue()) {
+        if (user.getDataType() == DataType.SELF.getValue()) {
             builder.append(alias)
-                    .append("dept_code = '").append(operator.getDeptCode()).append("' and ")
-                    .append(alias).append(".operator_id = ").append(operator.getId());
+                    .append("dept_code = '").append(user.getDeptCode()).append("' and ")
+                    .append(alias).append(".user_id = ").append(user.getId());
         }
         builder.append(" ) ");
         return builder.toString();

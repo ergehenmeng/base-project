@@ -268,17 +268,17 @@ public enum ErrorCode {
     /**
      * 用户信息不存在
      */
-    OPERATOR_NOT_FOUND(3005,"用户信息不存在"),
+    USER_NOT_FOUND(3005,"用户信息不存在"),
 
     /**
      * 用户已锁定,请联系管理人员
      */
-    OPERATOR_LOCKED_ERROR(3006,"用户已锁定,请联系管理人员"),
+    USER_LOCKED_ERROR(3006,"用户已锁定,请联系管理人员"),
 
     /**
      * 用户超时,请重新登陆
      */
-    OPERATOR_TIMEOUT(3007,"用户超时,请重新登陆"),
+    USER_TIMEOUT(3007,"用户超时,请重新登陆"),
 
     /**
      * 登陆信息为空,请重新登陆
@@ -298,7 +298,7 @@ public enum ErrorCode {
     /**
      * 旧密码输入错误
      */
-    OPERATOR_PASSWORD_ERROR(3010,"旧密码输入错误"),
+    USER_PASSWORD_ERROR(3010,"旧密码输入错误"),
 
     /**
      * 上传文件过大

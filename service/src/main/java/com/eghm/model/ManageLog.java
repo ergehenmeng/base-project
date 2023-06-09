@@ -33,7 +33,7 @@ public class ManageLog extends BaseEntity {
 
     @ApiModelProperty("操作人")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long operatorId;
+    private Long userId;
 
     @ApiModelProperty("请求参数")
     private String request;
@@ -54,5 +54,5 @@ public class ManageLog extends BaseEntity {
     private String response;
 
     @ApiModelProperty("操作人(关联字段)")
-    private String operatorName;
+    private String userName;
 }

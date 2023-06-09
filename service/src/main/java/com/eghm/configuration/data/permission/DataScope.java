@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * aop 数据权限,借鉴 <a href='https://gitee.com/y_project/RuoYi'>RuoYi</a> 开源项目
- * 涉及到数据权限时,数据列名称必须包含 dept_code(用户所属部门编号)字段及operator_id(用户id)字段,建议对dept_code,operator_id列创建索引
+ * 涉及到数据权限时,数据列名称必须包含 dept_code(用户所属部门编号)字段及user_id(用户id)字段,建议对dept_code,user_id列创建索引
  * 如果要使用数据权限,则需要在指定的方法上添加该注解(service层),在方法内的Mapper参数中通过 DataScopeAspect#getScope()传递即可
  * @see DataScopeAspect
  * @author 殿小二

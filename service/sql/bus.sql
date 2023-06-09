@@ -298,7 +298,7 @@ CREATE TABLE `merchant`
     `type`          smallint(4) DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
     `nick_name`     varchar(20) DEFAULT NULL COMMENT '联系人姓名',
     `mobile`        varchar(20) DEFAULT NULL COMMENT '联系人电话',
-    `operator_id`   bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
+    `user_id`   bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
     `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)      DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',

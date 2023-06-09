@@ -4,6 +4,6 @@
     <select id="getDeptList" resultType="string">
         select dept_code
         from sys_data_dept
-        where operator_id = #{operatorId}
+        where user_id = #{userId}
     </select>
 </mapper>

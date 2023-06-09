@@ -14,8 +14,8 @@ import lombok.*;
  */
 @Data
 @AllArgsConstructor
-@TableName("sys_operator_role")
-public class SysOperatorRole {
+@TableName("sys_user_role")
+public class SysUserRole {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
@@ -24,14 +24,14 @@ public class SysOperatorRole {
 
     @ApiModelProperty("用户id")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long operatorId;
+    private Long userId;
 
     @ApiModelProperty("角色id")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long roleId;
 
-    public SysOperatorRole(Long operatorId, Long roleId) {
-        this.operatorId = operatorId;
+    public SysUserRole(Long userId, Long roleId) {
+        this.userId = userId;
         this.roleId = roleId;
     }
 }

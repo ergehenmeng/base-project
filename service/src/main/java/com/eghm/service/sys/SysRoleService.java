@@ -55,10 +55,10 @@ public interface SysRoleService {
 
     /**
      * 获取管理人员所拥有的角色id
-     * @param operatorId 管理人员id
+     * @param userId 管理人员id
      * @return 角色id列表
      */
-    List<Long> getByOperatorId(Long operatorId);
+    List<Long> getByUserId(Long userId);
 
     /**
      * 获取角色的菜单列表
@@ -76,30 +76,30 @@ public interface SysRoleService {
 
     /**
      * 给用户进行角色授权绑定
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @param roleIds 角色id 逗号分隔
      */
-    void authRole(Long operatorId, String roleIds);
+    void authRole(Long userId, String roleIds);
 
     /**
      * 商户角色授权
-     * @param operatorId 商户对应于用户id
+     * @param userId 商户对应于用户id
      * @param roleList 商户角色code
      */
-    void authRole(Long operatorId, List<RoleType> roleList);
+    void authRole(Long userId, List<RoleType> roleList);
 
     /**
      * 获取用户角色列表
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @return 角色列表
      */
-    List<SysRole> getRoleList(Long operatorId);
+    List<SysRole> getRoleList(Long userId);
 
     /**
      * 判断用户是否有超管角色
-     * @param operatorId 用户ID
+     * @param userId 用户ID
      * @return true:有管理员角色 false:没有
      */
-    boolean isAdminRole(Long operatorId);
+    boolean isAdminRole(Long userId);
 }
 

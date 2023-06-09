@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.SysOperatorRoleMapper;
+import com.eghm.mapper.SysUserRoleMapper;
 import com.eghm.mapper.SysRoleMapper;
-import com.eghm.model.SysOperatorRole;
+import com.eghm.model.SysUserRole;
 import com.eghm.model.SysRole;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
@@ -35,7 +35,7 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     private final SysRoleMapper sysRoleMapper;
 
-    private final SysOperatorRoleMapper sysOperatorRoleMapper;
+    private final SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public Page<SysRole> getByPage(RoleQueryRequest request) {
@@ -84,8 +84,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<Long> getByOperatorId(Long operatorId) {
-        return sysOperatorRoleMapper.getByOperatorId(operatorId);
+    public List<Long> getByUserId(Long userId) {
+        return sysUserRoleMapper.getByUserId(userId);
     }
 
     @Override
@@ -104,38 +104,38 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public void authRole(Long operatorId, String roleIds) {
-        sysOperatorRoleMapper.deleteByOperatorId(operatorId);
+    public void authRole(Long userId, String roleIds) {
+        sysUserRoleMapper.deleteByUserId(userId);
         if (StrUtil.isNotBlank(roleIds)) {
             List<String> roleStringList = StrUtil.split(roleIds, ',');
             //循环插入角色关联信息
-            roleStringList.forEach(s -> sysOperatorRoleMapper.insert(new SysOperatorRole(operatorId, Long.parseLong(s))));
+            roleStringList.forEach(s -> sysUserRoleMapper.insert(new SysUserRole(userId, Long.parseLong(s))));
         }
     }
 
     @Override
-    public void authRole(Long operatorId, List<RoleType> roleList) {
+    public void authRole(Long userId, List<RoleType> roleList) {
         if (CollUtil.isEmpty(roleList)) {
             throw new BusinessException(ErrorCode.MERCHANT_ROLE_NULL);
         }
-        sysOperatorRoleMapper.deleteByOperatorId(operatorId);
+        sysUserRoleMapper.deleteByUserId(userId);
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.select(SysRole::getId);
         wrapper.in(SysRole::getRoleType, roleList);
         List<SysRole> selectList = sysRoleMapper.selectList(wrapper);
         for (SysRole sysRole : selectList) {
-            sysOperatorRoleMapper.insert(new SysOperatorRole(operatorId, sysRole.getId()));
+            sysUserRoleMapper.insert(new SysUserRole(userId, sysRole.getId()));
         }
     }
 
     @Override
-    public List<SysRole> getRoleList(Long operatorId) {
-        return sysRoleMapper.getRoleList(operatorId);
+    public List<SysRole> getRoleList(Long userId) {
+        return sysRoleMapper.getRoleList(userId);
     }
 
     @Override
-    public boolean isAdminRole(Long operatorId) {
-        return sysRoleMapper.countByRoleType(operatorId, RoleType.ADMINISTRATOR.getValue()) > 0;
+    public boolean isAdminRole(Long userId) {
+        return sysRoleMapper.countByRoleType(userId, RoleType.ADMINISTRATOR.getValue()) > 0;
     }
 
     /**

@@ -14,13 +14,13 @@ import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.model.Merchant;
-import com.eghm.model.SysOperator;
+import com.eghm.model.SysUser;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.MerchantService;
-import com.eghm.service.sys.SysOperatorService;
+import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
@@ -46,7 +46,7 @@ public class MerchantServiceImpl implements MerchantService {
     
     private final Encoder encoder;
 
-    private final SysOperatorService sysOperatorService;
+    private final SysUserService sysUserService;
 
     private final SysRoleService sysRoleService;
     
@@ -65,17 +65,17 @@ public class MerchantServiceImpl implements MerchantService {
         this.checkMobileRedo(request.getMobile());
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
-        SysOperator operator = new SysOperator();
-        operator.setUserType(SysOperator.USER_TYPE_2);
+        SysUser user = new SysUser();
+        user.setUserType(SysUser.USER_TYPE_2);
         String encode = encoder.encode(MD5.create().digestHex(pwd));
-        operator.setInitPwd(encode);
-        operator.setPwd(encode);
+        user.setInitPwd(encode);
+        user.setPwd(encode);
         // 采用用户名登录
-        operator.setMobile(request.getMobile());
-        operator.setNickName(request.getNickName());
-        sysOperatorService.insert(operator);
+        user.setMobile(request.getMobile());
+        user.setNickName(request.getNickName());
+        sysUserService.insert(user);
         // 系统用户和商户关联
-        merchant.setOperatorId(operator.getId());
+        merchant.setUserId(user.getId());
         merchantMapper.insert(merchant);
         List<RoleType> roleTypes = MerchantRoleMap.parseRoleType(request.getType());
         sysRoleService.authRole(merchant.getId(), roleTypes);
@@ -90,29 +90,29 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
-    public Merchant selectByOperatorId(Long operatorId) {
+    public Merchant selectByUserId(Long userId) {
         LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Merchant::getOperatorId, operatorId);
+        wrapper.eq(Merchant::getUserId, userId);
         return merchantMapper.selectOne( wrapper);
     }
 
     @Override
     public void lock(Long id) {
         Merchant merchant = merchantMapper.selectById(id);
-        sysOperatorService.lockOperator(merchant.getOperatorId());
+        sysUserService.lockOperator(merchant.getUserId());
     }
     
     @Override
     public void unlock(Long id) {
         Merchant merchant = merchantMapper.selectById(id);
-        sysOperatorService.unlockOperator(merchant.getOperatorId());
+        sysUserService.unlockOperator(merchant.getUserId());
     }
     
     @Override
     public void resetPwd(Long id) {
         Merchant merchant = merchantMapper.selectById(id);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
-        sysOperatorService.resetPassword(merchant.getOperatorId(), pwd);
+        sysUserService.resetPassword(merchant.getUserId(), pwd);
     }
 
     /**

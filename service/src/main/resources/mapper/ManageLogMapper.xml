@@ -7,7 +7,7 @@
         -->
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
-        <result column="operator_id" jdbcType="BIGINT" property="operatorId"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="request" jdbcType="VARCHAR" property="request"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="ip" jdbcType="BIGINT" property="ip"/>
@@ -15,12 +15,12 @@
     </resultMap>
 
     <resultMap id="ExtBaseResultMap" type="com.eghm.model.ManageLog" extends="BaseResultMap">
-        <result column="nick_name" jdbcType="VARCHAR" property="operatorName"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="userName"/>
     </resultMap>
 
     <select id="getByPage" parameterType="com.eghm.dto.log.ManageQueryRequest" resultMap="ExtBaseResultMap">
-        select t.id, t.url, t.operator_id, t.request, t.create_time, t.ip, t.business_time,r.nick_name
-        from manage_log t inner join sys_operator r on t.operator_id = r.id
+        select t.id, t.url, t.user_id, t.request, t.create_time, t.ip, t.business_time,r.nick_name
+        from manage_log t inner join sys_user r on t.user_id = r.id
         <where>
             <if test="param.queryName != null and param.queryName != ''">
                 and (t.url like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler },'%') or

@@ -13,10 +13,10 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
      * 查询用户所拥有的角色列表
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @return 角色列表
      */
-    List<SysRole> getRoleList(@Param("operatorId") Long operatorId);
+    List<SysRole> getRoleList(@Param("userId") Long userId);
 
     /**
      * 获取角色拥有的菜单列表
@@ -42,9 +42,9 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
      * 统计用户是否拥有指定角色类型
-     * @param operatorId 用户ID
+     * @param userId 用户ID
      * @param roleType 角色类型
      * @return >0 表示有
      */
-    int countByRoleType(@Param("operatorId") Long operatorId, @Param("roleType") String roleType);
+    int countByRoleType(@Param("userId") Long userId, @Param("roleType") String roleType);
 }

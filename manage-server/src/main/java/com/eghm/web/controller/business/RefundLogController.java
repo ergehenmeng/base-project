@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.order.refund.RefundAuditRequest;
 import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
-import com.eghm.dto.ext.JwtOperator;
+import com.eghm.dto.ext.JwtUser;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.ProductType;
@@ -56,10 +56,10 @@ public class RefundLogController {
     public RespBody<Void> audit(@Validated @RequestBody RefundAuditRequest request) {
         ProductType productType = ProductType.prefix(request.getOrderNo());
         RefundAuditContext context = DataUtil.copy(request, RefundAuditContext.class);
-        JwtOperator jwtOperator = SecurityHolder.getOperatorRequired();
-        context.setAuditMemberId(jwtOperator.getId());
+        JwtUser jwtUser = SecurityHolder.getOperatorRequired();
+        context.setAuditMemberId(jwtUser.getId());
         // 备注信息标注是谁审批的 方便快速查看
-        context.setAuditRemark(jwtOperator.getNickName() + ":" +request.getAuditRemark());
+        context.setAuditRemark(jwtUser.getNickName() + ":" +request.getAuditRemark());
 
         if (productType == ProductType.ITEM) {
             itemAccessHandler.refundAudit(context);

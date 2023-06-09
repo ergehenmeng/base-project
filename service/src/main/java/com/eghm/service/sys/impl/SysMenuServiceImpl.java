@@ -51,8 +51,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
 
     @Override
-    public List<MenuResponse> getLeftMenuList(Long operatorId) {
-        List<MenuResponse> list = sysMenuMapper.getMenuList(operatorId, 1, false);
+    public List<MenuResponse> getLeftMenuList(Long userId) {
+        List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1, false);
         return this.treeBin(list);
     }
 
@@ -63,27 +63,27 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<MenuResponse> getList(Long operatorId) {
-        boolean adminRole = sysRoleService.isAdminRole(operatorId);
+    public List<MenuResponse> getList(Long userId) {
+        boolean adminRole = sysRoleService.isAdminRole(userId);
         List<MenuResponse> responseList;
         if (adminRole) {
             // adminHide = true, 部分菜单时商户独有菜单,不对超管进行开放
             responseList = sysMenuMapper.getMenuList(null, null, true);
         } else {
-            responseList = sysMenuMapper.getMenuList(operatorId, null, false);
+            responseList = sysMenuMapper.getMenuList(userId, null, false);
         }
         return this.treeBin(responseList);
     }
     
     @Override
-    public List<MenuResponse> getAuthList(Long operatorId) {
-        boolean adminRole = sysRoleService.isAdminRole(operatorId);
+    public List<MenuResponse> getAuthList(Long userId) {
+        boolean adminRole = sysRoleService.isAdminRole(userId);
         List<MenuResponse> responseList;
         if (adminRole) {
             // adminHide = true, 因为超管授权时可以授权所有菜单
             responseList = sysMenuMapper.getMenuList(null, null, false);
         } else {
-            responseList = sysMenuMapper.getMenuList(operatorId, null, false);
+            responseList = sysMenuMapper.getMenuList(userId, null, false);
         }
         return this.treeBin(responseList);
     }
@@ -130,8 +130,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<String> getPermCode(Long operator) {
-        List<MenuResponse> menuList = sysMenuMapper.getMenuList(operator, 2, false);
+    public List<String> getPermCode(Long user) {
+        List<MenuResponse> menuList = sysMenuMapper.getMenuList(user, 2, false);
         return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 

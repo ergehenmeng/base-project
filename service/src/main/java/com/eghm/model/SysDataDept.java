@@ -21,13 +21,13 @@ public class SysDataDept {
 
     @ApiModelProperty("用户id")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long operatorId;
+    private Long userId;
 
     @ApiModelProperty("部门id")
     private String deptCode;
 
-    public SysDataDept(Long operatorId, String deptCode) {
-        this.operatorId = operatorId;
+    public SysDataDept(Long userId, String deptCode) {
+        this.userId = userId;
         this.deptCode = deptCode;
     }
 }

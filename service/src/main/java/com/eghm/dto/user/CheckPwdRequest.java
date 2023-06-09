@@ -1,4 +1,4 @@
-package com.eghm.dto.operator;
+package com.eghm.dto.user;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -15,8 +15,8 @@ import java.util.List;
  */
 @Getter
 @Setter
-@TableName("sys_operator")
-public class SysOperator extends BaseEntity {
+@TableName("sys_user")
+public class SysUser extends BaseEntity {
 
     /**
      * 正常

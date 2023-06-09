@@ -59,24 +59,24 @@ CREATE TABLE `audit_config`
 DROP TABLE IF EXISTS `audit_record`;
 CREATE TABLE `audit_record`
 (
-    `id`                  bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `audit_no`            varchar(64)  DEFAULT NULL COMMENT '审批单号(在整个审批流程中不变)',
-    `state`               tinyint(1)   DEFAULT NULL COMMENT '审核状态 0:待审核 1:审批通过 2:审批拒绝',
-    `opinion`             varchar(255) DEFAULT NULL COMMENT '审批意见',
-    `title`               varchar(200) DEFAULT NULL COMMENT '审核信息标题',
-    `apply_id`            bigint(20)   DEFAULT NULL COMMENT '审批单关联的id',
-    `apply_operator_id`   bigint(20)   DEFAULT NULL COMMENT '该审批的发起人id',
-    `apply_operator_name` varchar(30)  DEFAULT NULL COMMENT '申请人姓名',
-    `role_type`           varchar(30)  DEFAULT NULL COMMENT '审核人角色类型',
-    `audit_type`          varchar(20)  DEFAULT NULL COMMENT '审核类型',
-    `step`                tinyint(2)   DEFAULT NULL COMMENT '当前审核的步骤',
-    `audit_operator_id`   bigint(20)   DEFAULT NULL COMMENT '审核人id',
-    `audit_operator_name` varchar(30)  DEFAULT NULL COMMENT '审核人姓名',
-    `audit_time`          datetime     DEFAULT NULL COMMENT '审核时间',
-    `create_time`         datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`         datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `audit_no`        varchar(64)  DEFAULT NULL COMMENT '审批单号(在整个审批流程中不变)',
+    `state`           tinyint(1)   DEFAULT NULL COMMENT '审核状态 0:待审核 1:审批通过 2:审批拒绝',
+    `opinion`         varchar(255) DEFAULT NULL COMMENT '审批意见',
+    `title`           varchar(200) DEFAULT NULL COMMENT '审核信息标题',
+    `apply_id`        bigint(20)   DEFAULT NULL COMMENT '审批单关联的id',
+    `apply_user_id`   bigint(20)   DEFAULT NULL COMMENT '该审批的发起人id',
+    `apply_user_name` varchar(30)  DEFAULT NULL COMMENT '申请人姓名',
+    `role_type`       varchar(30)  DEFAULT NULL COMMENT '审核人角色类型',
+    `audit_type`      varchar(20)  DEFAULT NULL COMMENT '审核类型',
+    `step`            tinyint(2)   DEFAULT NULL COMMENT '当前审核的步骤',
+    `audit_user_id`   bigint(20)   DEFAULT NULL COMMENT '审核人id',
+    `audit_user_name` varchar(30)  DEFAULT NULL COMMENT '审核人姓名',
+    `audit_time`      datetime     DEFAULT NULL COMMENT '审核时间',
+    `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    KEY `idx_operator_id_state` (`audit_operator_id`, `state`) USING BTREE
+    KEY `idx_user_id_state` (`audit_user_id`, `state`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='审核记录表';
 
@@ -147,7 +147,7 @@ DROP TABLE IF EXISTS `webapp_log`;
 CREATE TABLE `webapp_log`
 (
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`       bigint(20)    DEFAULT NULL COMMENT '用户id',
+    `member_id`     bigint(20)    DEFAULT NULL COMMENT '用户id',
     `url`           varchar(50)   DEFAULT NULL COMMENT '访问链接',
     `request_param` varchar(2000) DEFAULT NULL COMMENT '请求参数(json)',
     `error_msg`     text COMMENT '错误日志',
@@ -172,7 +172,7 @@ DROP TABLE IF EXISTS `feedback_log`;
 CREATE TABLE `feedback_log`
 (
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`        bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
+    `member_id`      bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
     `classify`       tinyint(1)          DEFAULT NULL COMMENT '反馈类型分类',
     `state`          bit(1)              DEFAULT b'0' COMMENT '状态: 0:待解决 1:已解决',
     `version`        varchar(50)         DEFAULT NULL COMMENT '软件版本',
@@ -183,8 +183,8 @@ CREATE TABLE `feedback_log`
     `deleted`        bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `device_brand`   varchar(50)         DEFAULT NULL COMMENT '设备厂商',
     `device_model`   varchar(50)         DEFAULT NULL COMMENT '设备型号',
-    `operator_id`    bigint(20) unsigned DEFAULT NULL COMMENT '处理人id',
-    `operator_name`  varchar(20)         DEFAULT NULL COMMENT '处理人姓名',
+    `user_id`        bigint(20) unsigned DEFAULT NULL COMMENT '处理人id',
+    `user_name`      varchar(20)         DEFAULT NULL COMMENT '处理人姓名',
     `remark`         varchar(200)        DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `index_status` (`state`) USING BTREE
@@ -236,7 +236,7 @@ DROP TABLE IF EXISTS `login_device`;
 CREATE TABLE `login_device`
 (
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
     `ip`            bigint(20)   DEFAULT NULL COMMENT '登录ip',
     `serial_number` varchar(128) DEFAULT NULL COMMENT '设备唯一序列号',
     `device_model`  varchar(50)  DEFAULT NULL COMMENT '设备型号',
@@ -253,7 +253,7 @@ DROP TABLE IF EXISTS `login_log`;
 CREATE TABLE `login_log`
 (
     `id`               bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`          bigint(20) unsigned DEFAULT NULL COMMENT '用户id',
+    `member_id`        bigint(20) unsigned DEFAULT NULL COMMENT '用户id',
     `channel`          varchar(10)         DEFAULT NULL COMMENT '登陆渠道',
     `ip`               bigint(20)          DEFAULT '0' COMMENT '登陆ip',
     `create_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '登陆时间',
@@ -394,11 +394,11 @@ CREATE TABLE `sys_config`
 DROP TABLE IF EXISTS `sys_data_dept`;
 CREATE TABLE `sys_data_dept`
 (
-    `id`          bigint(20) NOT NULL COMMENT '主键',
-    `operator_id` bigint(20)  DEFAULT NULL COMMENT '用户id',
-    `dept_code`   varchar(20) DEFAULT NULL COMMENT '部门编号',
+    `id`        bigint(20) NOT NULL COMMENT '主键',
+    `user_id`   bigint(20)  DEFAULT NULL COMMENT '用户id',
+    `dept_code` varchar(20) DEFAULT NULL COMMENT '部门编号',
     PRIMARY KEY (`id`),
-    KEY `idx_operator_id` (`operator_id`)
+    KEY `idx_user_id` (`user_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户与部门数据权限关联表(自定义数据权限)';
 
@@ -408,16 +408,16 @@ CREATE TABLE `sys_data_dept`
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept`
 (
-    `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`         varchar(50)         DEFAULT NULL COMMENT '部门名称',
-    `code`          varchar(128)        DEFAULT NULL COMMENT '部门编号',
-    `parent_code`   varchar(128)        DEFAULT '0' COMMENT '父级编号',
-    `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`       bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
-    `remark`        varchar(200)        DEFAULT NULL COMMENT '备注信息',
-    `operator_id`   bigint(20) unsigned DEFAULT NULL COMMENT '操作人id',
-    `operator_name` varchar(20)         DEFAULT NULL COMMENT '操作人姓名',
+    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title`       varchar(50)         DEFAULT NULL COMMENT '部门名称',
+    `code`        varchar(128)        DEFAULT NULL COMMENT '部门编号',
+    `parent_code` varchar(128)        DEFAULT '0' COMMENT '父级编号',
+    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
+    `user_id`     bigint(20) unsigned DEFAULT NULL COMMENT '操作人id',
+    `user_name`   varchar(20)         DEFAULT NULL COMMENT '操作人姓名',
     PRIMARY KEY (`id`) USING BTREE,
     UNIQUE KEY `code_index` (`code`) USING BTREE
 ) ENGINE = InnoDB
@@ -491,8 +491,8 @@ CREATE TABLE `manage_log`
 (
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `url`           varchar(200)        DEFAULT NULL COMMENT '请求地址',
-    `operator_id`   bigint(20) unsigned DEFAULT NULL COMMENT '操作人',
-    `operator_name` varchar(50)         DEFAULT NULL COMMENT '操作人姓名',
+    `user_id`       bigint(20) unsigned DEFAULT NULL COMMENT '操作人',
+    `user_name`     varchar(50)         DEFAULT NULL COMMENT '操作人姓名',
     `request`       varchar(1000)       DEFAULT NULL COMMENT '请求参数',
     `response`      longtext COMMENT '响应参数',
     `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -503,10 +503,10 @@ CREATE TABLE `manage_log`
   DEFAULT CHARSET = utf8mb4 COMMENT ='管理后台操作记录';
 
 -- ----------------------------
--- Table structure for sys_operator
+-- Table structure for sys_user
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_operator`;
-CREATE TABLE `sys_operator`
+DROP TABLE IF EXISTS `sys_user`;
+CREATE TABLE `sys_user`
 (
     `id`              bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `nick_name`       varchar(20)         NOT NULL COMMENT '用户名称',
@@ -530,19 +530,17 @@ CREATE TABLE `sys_operator`
   DEFAULT CHARSET = utf8mb4 COMMENT ='管理后台用户表';
 
 -- ----------------------------
--- Table structure for sys_operator_role
+-- Table structure for sys_user_role
 -- ----------------------------
-DROP TABLE IF EXISTS `sys_operator_role`;
-CREATE TABLE `sys_operator_role`
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `operator_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
-    `role_id`     bigint(10) unsigned NOT NULL COMMENT '角色id',
+    `id`      bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `user_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
+    `role_id` bigint(10) unsigned NOT NULL COMMENT '角色id',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `user_id_index` (`operator_id`) USING BTREE,
-    KEY `role_id_index` (`role_id`) USING BTREE
+    KEY `user_role_idx` (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 8
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色与用户关系表';
 
 -- ----------------------------
@@ -682,7 +680,7 @@ DROP TABLE IF EXISTS `member_address`;
 CREATE TABLE `member_address`
 (
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`        bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`      bigint(20)   DEFAULT NULL COMMENT '用户id',
     `state`          tinyint(1)   DEFAULT '0' COMMENT '状态 0: 普通地址  1:默认地址',
     `province_id`    bigint(20)   DEFAULT NULL COMMENT '省份id',
     `province_name`  varchar(50)  DEFAULT NULL COMMENT '省份名称',
@@ -705,10 +703,10 @@ CREATE TABLE `member_address`
 DROP TABLE IF EXISTS `member_invite_log`;
 CREATE TABLE `member_invite_log`
 (
-    `id`             bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `member_id`        bigint(20) DEFAULT NULL COMMENT '用户id',
     `invite_member_id` bigint(20) DEFAULT NULL COMMENT '被邀请人id',
-    `create_time`    datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `create_time`      datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`),
     KEY `idx_member_id` (`member_id`)
 ) ENGINE = InnoDB
@@ -721,7 +719,7 @@ DROP TABLE IF EXISTS `member_notice`;
 CREATE TABLE `member_notice`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`   bigint(20)   DEFAULT NULL COMMENT '用户id',
     `title`       varchar(50)  DEFAULT NULL COMMENT '消息标题',
     `content`     varchar(500) DEFAULT NULL COMMENT '站内信内容',
     `classify`    varchar(30)  DEFAULT NULL COMMENT '站内信分类',
@@ -741,7 +739,7 @@ DROP TABLE IF EXISTS `member_score_log`;
 CREATE TABLE `member_score_log`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`   bigint(20)   DEFAULT NULL COMMENT '用户id',
     `score`       int(10)      DEFAULT '0' COMMENT '本次收入或支出的积分数',
     `type`        tinyint(2)   DEFAULT NULL COMMENT '积分收入或支出分类',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',

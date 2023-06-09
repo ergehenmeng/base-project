@@ -14,12 +14,12 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     /**
      * 获取某用户的菜单
-     * @param operatorId 用户id
+     * @param userId 用户id
      * @param grade 空: 全部菜单, 1:导航菜单 2: 按钮菜单
      * @param adminHide  是否过滤对admin隐藏的菜单
      * @return 用户所有可查看菜单列表
      */
-    List<MenuResponse> getMenuList(@Param("operatorId") Long operatorId, @Param("state") Integer grade, @Param("adminHide") Boolean adminHide);
+    List<MenuResponse> getMenuList(@Param("userId") Long userId, @Param("state") Integer grade, @Param("adminHide") Boolean adminHide);
 
     /**
      * 查询某个菜单下的最大子菜单id

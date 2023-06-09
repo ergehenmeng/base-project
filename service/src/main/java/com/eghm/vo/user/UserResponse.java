@@ -1,4 +1,4 @@
-package com.eghm.vo.operator;
+package com.eghm.vo.user;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -10,14 +10,14 @@ import lombok.Data;
  * @date 2022/5/3 16:27
  */
 @Data
-public class OperatorResponse {
+public class UserResponse {
 
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty("id")
     private Long id;
 
     @ApiModelProperty("用户姓名")
-    private String operatorName;
+    private String userName;
 
     @ApiModelProperty("手机号码(登陆账户)")
     private String mobile;
