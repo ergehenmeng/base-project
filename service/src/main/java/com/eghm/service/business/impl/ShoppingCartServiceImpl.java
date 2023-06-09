@@ -56,9 +56,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public void add(AddCartDTO dto) {
-        Long userId = ApiHolder.getUserId();
+        Long memberId = ApiHolder.getMemberId();
         LambdaQueryWrapper<ShoppingCart> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ShoppingCart::getUserId, userId);
+        wrapper.eq(ShoppingCart::getMemberId, memberId);
         wrapper.eq(ShoppingCart::getItemId, dto.getItemId());
         wrapper.eq(ShoppingCart::getSkuId, dto.getSkuId());
         ShoppingCart shoppingCart = shoppingCartMapper.selectOne(wrapper);
@@ -68,7 +68,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         ItemSku sku = this.checkAndGetSku(dto, num);
 
         if (shoppingCart == null) {
-            this.checkCarMax(userId);
+            this.checkCarMax(memberId);
             shoppingCart = DataUtil.copy(dto, ShoppingCart.class);
             shoppingCart.setSalePrice(sku.getSalePrice());
             Item item = itemService.selectByIdRequired(dto.getItemId());
@@ -82,8 +82,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public List<ShoppingCartVO> getList(Long userId) {
-        List<ShoppingCartItemVO> voList = shoppingCartMapper.getList(userId);
+    public List<ShoppingCartVO> getList(Long memberId) {
+        List<ShoppingCartItemVO> voList = shoppingCartMapper.getList(memberId);
         // 根据根据店铺进行分组
         Map<Long, List<ShoppingCartItemVO>> listMap = voList.stream().collect(Collectors.groupingBy(ShoppingCartItemVO::getStoreId, LinkedHashMap::new, Collectors.toList()));
         List<ShoppingCartVO> vosList = new ArrayList<>();
@@ -98,22 +98,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     }
 
     @Override
-    public void delete(Long id, Long userId) {
+    public void delete(Long id, Long memberId) {
         LambdaUpdateWrapper<ShoppingCart> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ShoppingCart::getId, id);
-        wrapper.eq(ShoppingCart::getUserId, userId);
+        wrapper.eq(ShoppingCart::getMemberId, memberId);
         shoppingCartMapper.delete(wrapper);
     }
 
     @Override
-    public void updateQuantity(Long id, Integer quantity, Long userId) {
+    public void updateQuantity(Long id, Integer quantity, Long memberId) {
         ShoppingCart shoppingCart = shoppingCartMapper.selectById(id);
         if (shoppingCart == null) {
             log.error("未查询到购物车商品信息 [{}]", id);
             throw new BusinessException(CART_ITEM_EMPTY);
         }
-        if (!userId.equals(shoppingCart.getUserId())) {
-            log.error("非本人购物车信息, 禁止操作 [{}] [{}]", id, userId);
+        if (!memberId.equals(shoppingCart.getMemberId())) {
+            log.error("非本人购物车信息, 禁止操作 [{}] [{}]", id, memberId);
             throw new BusinessException(ILLEGAL_OPERATION);
         }
         Item item = itemService.selectByIdRequired(shoppingCart.getItemId());
@@ -169,11 +169,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 校验购物车最大值
-     * @param userId 用户
+     * @param memberId 用户
      */
-    private void checkCarMax(Long userId) {
+    private void checkCarMax(Long memberId) {
         LambdaQueryWrapper<ShoppingCart> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(ShoppingCart::getUserId, userId);
+        wrapper.eq(ShoppingCart::getMemberId, memberId);
         Long count = shoppingCartMapper.selectCount(wrapper);
         int max = sysConfigApi.getInt(ConfigConstant.SHOPPING_CAR_MAX);
         if (count >= max) {

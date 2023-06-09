@@ -42,16 +42,16 @@ public class ApiHolder {
     /**
      * 强制获取用户信息
      */
-    public static Long getUserId() {
-        return getUserId(true);
+    public static Long getMemberId() {
+        return getMemberId(true);
     }
 
     /**
      * 尝试获取用户信息
      * @return 如果用户未登陆获取结果为null
      */
-    public static Long tryGetUserId() {
-        return getUserId(false);
+    public static Long tryGetMemberId() {
+        return getMemberId(false);
     }
 
     /**
@@ -59,12 +59,12 @@ public class ApiHolder {
      * @param needLogin 用户是否需要登陆,如果必须登陆登陆,用户id不存在则抛异常
      * @return 用户id
      */
-    private static Long getUserId(boolean needLogin) {
-        Long userId = get().getUserId();
-        if (needLogin && userId == null) {
-            throw new BusinessException(ErrorCode.USER_LOGIN_TIMEOUT);
+    private static Long getMemberId(boolean needLogin) {
+        Long memberId = get().getMemberId();
+        if (needLogin && memberId == null) {
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_TIMEOUT);
         }
-        return userId;
+        return memberId;
     }
 
     /**

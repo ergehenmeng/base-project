@@ -104,7 +104,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
                 log.error("核销信息数量不匹配 [{}] [{}]", orderNo, visitorList);
                 throw new BusinessException(ErrorCode.VERIFY_EXPIRE_ERROR);
             }
-            String unPaid = selectList.stream().filter(orderVisitor -> orderVisitor.getState() != VisitorState.PAID).map(OrderVisitor::getUserName).collect(Collectors.joining(","));
+            String unPaid = selectList.stream().filter(orderVisitor -> orderVisitor.getState() != VisitorState.PAID).map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
             if (StrUtil.isNotBlank(unPaid)) {
                 log.error("用户[{}]不是待使用状态,无法进行核销 orderNo:[{}] [{}]", unPaid, orderNo, visitorList);
                 throw new BusinessException(ErrorCode.VISITOR_VERIFY_ERROR.getCode(), String.format(ErrorCode.VISITOR_VERIFY_ERROR.getMsg(), unPaid));

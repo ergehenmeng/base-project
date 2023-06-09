@@ -23,7 +23,7 @@ import java.util.List;
 public class ItemOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty(hidden = true, value = "用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("商品信息")
     private List<BaseItemDTO> itemList;

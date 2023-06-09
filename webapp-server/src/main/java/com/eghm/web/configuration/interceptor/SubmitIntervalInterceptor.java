@@ -35,9 +35,9 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         if (!HttpMethod.POST.matches(request.getMethod())) {
             return true;
         }
-        Long userId = ApiHolder.getUserId();
+        Long memberId = ApiHolder.getMemberId();
         String uri = request.getRequestURI();
-        String key = String.format(CacheConstant.SUBMIT_LIMIT, userId, uri);
+        String key = String.format(CacheConstant.SUBMIT_LIMIT, memberId, uri);
         if (cacheService.exist(key)) {
             throw new BusinessException(ErrorCode.SUBMIT_FREQUENTLY);
         }

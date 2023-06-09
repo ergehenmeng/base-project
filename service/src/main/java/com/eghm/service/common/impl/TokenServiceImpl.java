@@ -27,10 +27,10 @@ public class TokenServiceImpl implements TokenService {
     private final JsonService jsonService;
 
     @Override
-    public RedisToken createToken(Long userId, String channel) {
+    public RedisToken createToken(Long memberId, String channel) {
         String refreshToken = StringUtil.random(32);
         String accessToken = StringUtil.random(64);
-        RedisToken redisToken = RedisToken.builder().token(accessToken).userId(userId).channel(channel).refreshToken(refreshToken).build();
+        RedisToken redisToken = RedisToken.builder().token(accessToken).memberId(memberId).channel(channel).refreshToken(refreshToken).build();
         this.cacheToken(redisToken);
         return redisToken;
     }
@@ -41,13 +41,13 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public RedisToken getByUserId(Long userId) {
-        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + userId, RedisToken.class);
+    public RedisToken getByMemberId(Long memberId) {
+        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + memberId, RedisToken.class);
     }
 
     @Override
-    public long getTokenExpire(Long userId) {
-        return cacheService.getExpire(CacheConstant.ACCESS_TOKEN + userId);
+    public long getTokenExpire(Long memberId) {
+        return cacheService.getExpire(CacheConstant.ACCESS_TOKEN + memberId);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void cleanUserId(Long userId) {
-        cacheService.delete(CacheConstant.ACCESS_TOKEN + userId);
+    public void cleanMemberId(Long memberId) {
+        cacheService.delete(CacheConstant.ACCESS_TOKEN + memberId);
     }
 
     @Override
@@ -75,9 +75,9 @@ public class TokenServiceImpl implements TokenService {
         String tokenJson = jsonService.toJson(redisToken);
         cacheService.setValue(CacheConstant.ACCESS_TOKEN + redisToken.getToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.TOKEN_EXPIRE));
         // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
-        // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过userId定位到该缓存数据),
-        // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过userId定位登陆信息,仅仅方便删除无用缓存,方便强制下线
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + redisToken.getUserId(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过memberId定位到该缓存数据),
+        // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过memberId定位登陆信息,仅仅方便删除无用缓存,方便强制下线
+        cacheService.setValue(CacheConstant.ACCESS_TOKEN + redisToken.getMemberId(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
         cacheService.setValue(CacheConstant.REFRESH_TOKEN + redisToken.getRefreshToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
     }
 

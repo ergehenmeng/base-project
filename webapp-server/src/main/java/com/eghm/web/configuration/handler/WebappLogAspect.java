@@ -61,7 +61,7 @@ public class WebappLogAspect {
             return proceed;
         } catch (Throwable e) {
             log.warn("请求地址:[{}],请求ip:[{}],操作id:[{}],请求参数:[{}],响应参数:[{}],耗时:[{}ms],软件版本:[{}],客户端:[{}],系统版本:[{}],设备厂商:[{}],设备型号:[{}]",
-                    uri, ip,message.getUserId(), message.getRequestBody(), "接口异常" ,0 , message.getVersion(), message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
+                    uri, ip,message.getMemberId(), message.getRequestBody(), "接口异常" ,0 , message.getVersion(), message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
             throw e;
         }
     }

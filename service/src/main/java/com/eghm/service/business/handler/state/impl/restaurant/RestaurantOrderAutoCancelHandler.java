@@ -8,7 +8,7 @@ import com.eghm.model.RestaurantOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.RestaurantOrderService;
 import com.eghm.service.business.RestaurantVoucherService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,8 @@ public class RestaurantOrderAutoCancelHandler extends AbstractOrderAutoCancelHan
 
     private final RestaurantVoucherService restaurantVoucherService;
 
-    public RestaurantOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService) {
-        super(orderService, userCouponService);
+    public RestaurantOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, RestaurantOrderService restaurantOrderService, RestaurantVoucherService restaurantVoucherService) {
+        super(orderService, memberCouponService);
         this.restaurantOrderService = restaurantOrderService;
         this.restaurantVoucherService = restaurantVoucherService;
     }

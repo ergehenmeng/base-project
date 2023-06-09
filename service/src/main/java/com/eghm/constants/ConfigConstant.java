@@ -117,7 +117,7 @@ public class ConfigConstant {
     /**
      * 收货地址最大数
      */
-    public static final String USER_ADDRESS_MAX = "user_address_max";
+    public static final String MEMBER_ADDRESS_MAX = "member_address_max";
 
     /**
      * ios最新版本号

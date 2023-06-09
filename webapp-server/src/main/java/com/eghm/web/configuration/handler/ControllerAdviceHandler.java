@@ -86,7 +86,7 @@ public class ControllerAdviceHandler {
         WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
         webappLog.setUrl(request.getRequestURI());
         webappLog.setIp(IpUtil.getIpAddress(request));
-        webappLog.setUserId(ApiHolder.tryGetUserId());
+        webappLog.setMemberId(ApiHolder.tryGetMemberId());
         webappLog.setRequestParam(ApiHolder.getRequestBody());
         webappLog.setErrorMsg(ExceptionUtils.getStackTrace(e));
         rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);

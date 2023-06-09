@@ -1,10 +1,10 @@
 package com.eghm.service.business.lottery.handler.impl;
 
-import com.eghm.dto.business.coupon.user.GrantCouponDTO;
+import com.eghm.dto.business.coupon.member.GrantCouponDTO;
 import com.eghm.enums.ref.PrizeType;
 import com.eghm.model.Lottery;
 import com.eghm.model.LotteryConfig;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class CouponPrizeHandler implements PrizeHandler {
 
-    private final UserCouponService userCouponService;
+    private final MemberCouponService memberCouponService;
 
     @Override
     public boolean supported(PrizeType prizeType) {
@@ -33,7 +33,7 @@ public class CouponPrizeHandler implements PrizeHandler {
         GrantCouponDTO dto = new GrantCouponDTO();
         dto.setNum(1);
         dto.setCouponConfigId(config.getPrizeId());
-        dto.setUserIdList(Lists.newArrayList(memberId));
-        userCouponService.grantCoupon(dto);
+        dto.setMemberIdList(Lists.newArrayList(memberId));
+        memberCouponService.grantCoupon(dto);
     }
 }

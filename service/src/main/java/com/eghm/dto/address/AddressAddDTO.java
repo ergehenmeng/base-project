@@ -16,7 +16,7 @@ public class AddressAddDTO {
 
     @ApiModelProperty(hidden = true)
     @Padding
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("是否为默认地址 0:非默认 1:默认")
     private Integer state;

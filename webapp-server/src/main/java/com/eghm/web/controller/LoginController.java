@@ -7,7 +7,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.*;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.service.common.SmsService;
-import com.eghm.service.user.UserService;
+import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,14 +32,14 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/webapp")
 public class LoginController {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
     private final SmsService smsService;
 
     @ApiOperation("发送登陆验证码①")
     @PostMapping("/login/sendSms")
     public RespBody<Void> loginSendSms(@RequestBody @Validated SendSmsDTO request) {
-        userService.sendLoginSms(request.getMobile());
+        memberService.sendLoginSms(request.getMobile());
         return RespBody.success();
     }
 
@@ -47,7 +47,7 @@ public class LoginController {
     @PostMapping("/login/mobile")
     public RespBody<LoginTokenVO> mobile(@RequestBody @Validated SmsLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
-        return RespBody.success(userService.smsLogin(login));
+        return RespBody.success(memberService.smsLogin(login));
     }
 
     @ApiOperation("手机或邮箱密码登陆③")
@@ -55,13 +55,13 @@ public class LoginController {
     public RespBody<LoginTokenVO> account(@RequestBody @Validated AccountLoginDTO login, HttpServletRequest request) {
         login.setIp(IpUtil.getIpAddress(request));
         login.setSerialNumber(ApiHolder.get().getSerialNumber());
-        return RespBody.success(userService.accountLogin(login));
+        return RespBody.success(memberService.accountLogin(login));
     }
 
     @ApiOperation("忘记密码发送验证码①")
     @PostMapping("/forget/sendSms")
     public RespBody<Void> forgetSendSms(@RequestBody @Validated SendSmsDTO request) {
-        userService.sendForgetSms(request.getMobile());
+        memberService.sendForgetSms(request.getMobile());
         return RespBody.success();
     }
 
@@ -79,7 +79,7 @@ public class LoginController {
         if (!flag) {
             return RespBody.error(ErrorCode.REQUEST_ID_EXPIRE);
         }
-        userService.setPassword(request.getRequestId(), request.getPassword());
+        memberService.setPassword(request.getRequestId(), request.getPassword());
         return RespBody.success();
     }
 }

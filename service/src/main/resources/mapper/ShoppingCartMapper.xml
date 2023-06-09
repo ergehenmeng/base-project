@@ -21,7 +21,7 @@
         left join item_store m on t.store_id = m.id
         left join item r on t.item_id = r.id
         left join item_sku ps on t.sku_id = ps.id
-        where t.deleted = false and t.user_id = #{userId} order by t.id desc
+        where t.deleted = false and t.member_id = #{memberId} order by t.id desc
     </select>
 
 </mapper>

@@ -41,7 +41,7 @@ public class VerifyLog implements Serializable {
     private String orderNo;
 
     @ApiModelProperty(value = "核销人id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty(value = "核销数量")
     private Integer num;

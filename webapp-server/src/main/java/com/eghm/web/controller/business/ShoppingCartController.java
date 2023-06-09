@@ -44,14 +44,14 @@ public class ShoppingCartController {
     @ApiOperation("购物车商品列表")
     @Access
     public List<ShoppingCartVO> list() {
-        return shoppingCartService.getList(ApiHolder.getUserId());
+        return shoppingCartService.getList(ApiHolder.getMemberId());
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除购物车商品")
     @Access
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
-        shoppingCartService.delete(dto.getId(), ApiHolder.getUserId());
+        shoppingCartService.delete(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
@@ -59,7 +59,7 @@ public class ShoppingCartController {
     @ApiOperation("更新商品数量")
     @Access
     public RespBody<Void> quantity(@RequestBody @Validated CartQuantityDTO dto) {
-        shoppingCartService.updateQuantity(dto.getId(), dto.getQuantity(), ApiHolder.getUserId());
+        shoppingCartService.updateQuantity(dto.getId(), dto.getQuantity(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 

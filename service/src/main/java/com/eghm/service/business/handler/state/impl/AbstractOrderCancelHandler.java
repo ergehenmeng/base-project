@@ -6,7 +6,7 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.service.pay.enums.TradeState;
@@ -28,7 +28,7 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
 
     private final OrderService orderService;
 
-    private final UserCouponService userCouponService;
+    private final MemberCouponService memberCouponService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
@@ -56,7 +56,7 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
         order.setCloseType(CloseType.CANCEL);
         order.setCloseTime(LocalDateTime.now());
         orderService.updateById(order);
-        userCouponService.releaseCoupon(order.getCouponId());
+        memberCouponService.releaseCoupon(order.getCouponId());
     }
 
 

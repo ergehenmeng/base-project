@@ -147,7 +147,7 @@ DROP TABLE IF EXISTS `webapp_log`;
 CREATE TABLE `webapp_log`
 (
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`       bigint(20)    DEFAULT NULL COMMENT '用户id',
+    `member_id`       bigint(20)    DEFAULT NULL COMMENT '用户id',
     `url`           varchar(50)   DEFAULT NULL COMMENT '访问链接',
     `request_param` varchar(2000) DEFAULT NULL COMMENT '请求参数(json)',
     `error_msg`     text COMMENT '错误日志',
@@ -172,7 +172,7 @@ DROP TABLE IF EXISTS `feedback_log`;
 CREATE TABLE `feedback_log`
 (
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`        bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
+    `member_id`        bigint(20) unsigned DEFAULT NULL COMMENT '用户ID',
     `classify`       tinyint(1)          DEFAULT NULL COMMENT '反馈类型分类',
     `state`          bit(1)              DEFAULT b'0' COMMENT '状态: 0:待解决 1:已解决',
     `version`        varchar(50)         DEFAULT NULL COMMENT '软件版本',
@@ -236,13 +236,13 @@ DROP TABLE IF EXISTS `login_device`;
 CREATE TABLE `login_device`
 (
     `id`            bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
     `ip`            bigint(20)   DEFAULT NULL COMMENT '登录ip',
     `serial_number` varchar(128) DEFAULT NULL COMMENT '设备唯一序列号',
     `device_model`  varchar(50)  DEFAULT NULL COMMENT '设备型号',
     `login_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '最近一次登陆的时间',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `idx_unique_complex` (`user_id`, `serial_number`) USING BTREE
+    UNIQUE KEY `idx_unique_complex` (`member_id`, `serial_number`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='登陆设备管理表';
 
@@ -253,7 +253,7 @@ DROP TABLE IF EXISTS `login_log`;
 CREATE TABLE `login_log`
 (
     `id`               bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`          bigint(20) unsigned DEFAULT NULL COMMENT '用户id',
+    `member_id`          bigint(20) unsigned DEFAULT NULL COMMENT '用户id',
     `channel`          varchar(10)         DEFAULT NULL COMMENT '登陆渠道',
     `ip`               bigint(20)          DEFAULT '0' COMMENT '登陆ip',
     `create_time`      datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '登陆时间',
@@ -263,7 +263,7 @@ CREATE TABLE `login_log`
     `serial_number`    varchar(64)         DEFAULT NULL COMMENT '设备唯一编号',
     `deleted`          bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`) USING BTREE,
-    KEY `idx_user_serial` (`user_id`, `serial_number`) USING BTREE
+    KEY `idx_member_serial` (`member_id`, `serial_number`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户登陆日志信息';
 
@@ -642,10 +642,10 @@ CREATE TABLE `sys_task_log`
 
 
 -- ----------------------------
--- Table structure for user
+-- Table structure for member
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user`
+DROP TABLE IF EXISTS `member`;
+CREATE TABLE `member`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `avatar`      varchar(200) DEFAULT NULL COMMENT '头像路径',
@@ -678,11 +678,11 @@ CREATE TABLE `user`
 -- ----------------------------
 -- Table structure for user_address
 -- ----------------------------
-DROP TABLE IF EXISTS `user_address`;
-CREATE TABLE `user_address`
+DROP TABLE IF EXISTS `member_address`;
+CREATE TABLE `member_address`
 (
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`        bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`        bigint(20)   DEFAULT NULL COMMENT '用户id',
     `state`          tinyint(1)   DEFAULT '0' COMMENT '状态 0: 普通地址  1:默认地址',
     `province_id`    bigint(20)   DEFAULT NULL COMMENT '省份id',
     `province_name`  varchar(50)  DEFAULT NULL COMMENT '省份名称',
@@ -695,33 +695,33 @@ CREATE TABLE `user_address`
     `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    KEY `idx_user_id` (`user_id`)
+    KEY `idx_member_id` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户地址表';
 
 -- ----------------------------
--- Table structure for user_invite_log
+-- Table structure for member_invite_log
 -- ----------------------------
-DROP TABLE IF EXISTS `user_invite_log`;
-CREATE TABLE `user_invite_log`
+DROP TABLE IF EXISTS `member_invite_log`;
+CREATE TABLE `member_invite_log`
 (
     `id`             bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`        bigint(20) DEFAULT NULL COMMENT '用户id',
-    `invite_user_id` bigint(20) DEFAULT NULL COMMENT '被邀请人id',
+    `member_id`        bigint(20) DEFAULT NULL COMMENT '用户id',
+    `invite_member_id` bigint(20) DEFAULT NULL COMMENT '被邀请人id',
     `create_time`    datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`),
-    KEY `idx_user_id` (`user_id`)
+    KEY `idx_member_id` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户邀请记录表';
 
 -- ----------------------------
--- Table structure for user_notice
+-- Table structure for member_notice
 -- ----------------------------
-DROP TABLE IF EXISTS `user_notice`;
-CREATE TABLE `user_notice`
+DROP TABLE IF EXISTS `member_notice`;
+CREATE TABLE `member_notice`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
     `title`       varchar(50)  DEFAULT NULL COMMENT '消息标题',
     `content`     varchar(500) DEFAULT NULL COMMENT '站内信内容',
     `classify`    varchar(30)  DEFAULT NULL COMMENT '站内信分类',
@@ -730,18 +730,18 @@ CREATE TABLE `user_notice`
     `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`),
-    KEY `idx_user_id` (`user_id`)
+    KEY `idx_member_id` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户站内信';
 
 -- ----------------------------
--- Table structure for user_score_log
+-- Table structure for member_score_log
 -- ----------------------------
-DROP TABLE IF EXISTS `user_score_log`;
-CREATE TABLE `user_score_log`
+DROP TABLE IF EXISTS `member_score_log`;
+CREATE TABLE `member_score_log`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `user_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`     bigint(20)   DEFAULT NULL COMMENT '用户id',
     `score`       int(10)      DEFAULT '0' COMMENT '本次收入或支出的积分数',
     `type`        tinyint(2)   DEFAULT NULL COMMENT '积分收入或支出分类',
     `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',

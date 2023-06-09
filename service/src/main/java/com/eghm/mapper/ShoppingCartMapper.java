@@ -19,8 +19,8 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
 
     /**
      * 查询用户购物车商品列表
-     * @param userId 用户id
+     * @param memberId 用户id
      * @return 商品列表
      */
-    List<ShoppingCartItemVO> getList(@Param("userId") Long userId);
+    List<ShoppingCartItemVO> getList(@Param("memberId") Long memberId);
 }

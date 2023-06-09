@@ -1,7 +1,7 @@
 package com.eghm.handler.chain;
 
-import com.eghm.model.User;
-import com.eghm.dto.ext.UserRegister;
+import com.eghm.model.Member;
+import com.eghm.dto.ext.MemberRegister;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,8 +15,8 @@ public class MessageData implements Serializable {
 
     private static final long serialVersionUID = -4457725372361945283L;
 
-    private User user;
+    private Member member;
 
-    private UserRegister userRegister;
+    private MemberRegister memberRegister;
 
 }

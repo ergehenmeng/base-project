@@ -21,7 +21,7 @@ public class LoginDevice extends BaseEntity {
 
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("设备唯一序列号")
     private String serialNumber;

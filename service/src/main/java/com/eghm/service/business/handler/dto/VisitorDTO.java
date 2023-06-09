@@ -18,7 +18,7 @@ public class VisitorDTO implements Serializable {
     @ApiModelProperty("游客姓名")
     @Size(min = 2, max = 10, message = "游客姓名长度2~10字符")
     @NotBlank(message = "游客姓名不能为空")
-    private String userName;
+    private String memberName;
 
     @ApiModelProperty("身份证")
     @IdCard

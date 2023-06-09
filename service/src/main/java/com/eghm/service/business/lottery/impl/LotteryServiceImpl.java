@@ -83,20 +83,20 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     @Override
-    public void lottery(Long lotteryId, Long userId) {
+    public void lottery(Long lotteryId, Long memberId) {
         Lottery lottery = this.selectByIdRequired(lotteryId);
-        this.checkLottery(lottery, userId);
+        this.checkLottery(lottery, memberId);
         List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
-        LotteryConfig config = this.doLottery(userId, lottery, configList);
+        LotteryConfig config = this.doLottery(memberId, lottery, configList);
 
-        boolean status = this.givePrize(userId, lottery, config);
+        boolean status = this.givePrize(memberId, lottery, config);
         if (!status) {
             // 如果发放奖品失败, 默认还是按未中奖
             config = configList.get(configList.size() - 1);
         }
         LotteryLog lotteryLog = new LotteryLog();
         lotteryLog.setLotteryId(lotteryId);
-        lotteryLog.setMemberId(userId);
+        lotteryLog.setMemberId(memberId);
         lotteryLog.setLocation(config.getLocation());
         lotteryLog.setPrizeId(config.getPrizeId());
         lotteryLog.setWinning(config.getPrizeType() != PrizeType.NONE);
@@ -116,19 +116,19 @@ public class LotteryServiceImpl implements LotteryService {
 
     /**
      * 发放奖品
-     * @param userId 用户id
+     * @param memberId 用户id
      * @param lottery 抽奖信息
      * @param config 中奖信息
      */
-    private boolean givePrize(Long userId, Lottery lottery, LotteryConfig config) {
+    private boolean givePrize(Long memberId, Lottery lottery, LotteryConfig config) {
         try {
             handlerList.stream().filter(prizeHandler -> prizeHandler.supported(config.getPrizeType())).findFirst().orElseThrow(() -> {
                 log.error("本次中奖奖品没有配置 [{}] [{}]", lottery.getId(), config.getPrizeType());
                 return new BusinessException(ErrorCode.LOTTERY_PRIZE_ERROR);
-            }).execute(userId, lottery, config);
+            }).execute(memberId, lottery, config);
             return true;
         } catch (BusinessException e) {
-            log.error("发放奖品异常 [{}] [{}] ", userId, config, e);
+            log.error("发放奖品异常 [{}] [{}] ", memberId, config, e);
         }
         return false;
     }
@@ -136,13 +136,13 @@ public class LotteryServiceImpl implements LotteryService {
 
     /**
      * 抽奖
-     * @param userId 用户ID
+     * @param memberId 用户ID
      * @param lottery 活动信息
      * @param configList 配置信息
      * @return 中奖位置
      */
-    private LotteryConfig doLottery(Long userId, Lottery lottery, List<LotteryConfig> configList) {
-        long lotteryWin = lotteryLogService.countLotteryWin(lottery.getId(), userId);
+    private LotteryConfig doLottery(Long memberId, Lottery lottery, List<LotteryConfig> configList) {
+        long lotteryWin = lotteryLogService.countLotteryWin(lottery.getId(), memberId);
         // 已经超过中奖次数,默认不再中奖,最后一个位置默认都是不中奖
         LotteryConfig freeConfig = configList.get(configList.size() - 1);
         if (lottery.getWinNum() <= lotteryWin) {

@@ -35,8 +35,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderMQService orderMQService;
 
-    public TicketOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService) {
-        super(userCouponService, orderVisitorService);
+    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService) {
+        super(memberCouponService, orderVisitorService);
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
@@ -70,7 +70,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     protected Order createOrder(TicketOrderCreateContext context, ScenicTicket payload) {
         String orderNo = ProductType.TICKET.generateTradeNo();
         Order order = new Order();
-        order.setUserId(context.getUserId());
+        order.setMemberId(context.getMemberId());
         order.setTitle(payload.getTitle());
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.TICKET);
@@ -85,7 +85,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setRefundDescribe(payload.getRefundDescribe());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         // 使用优惠券
-        this.useDiscount(order, context.getUserId(), context.getCouponId(), payload.getId());
+        this.useDiscount(order, context.getMemberId(), context.getCouponId(), payload.getId());
         orderService.save(order);
         return order;
     }

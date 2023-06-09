@@ -6,7 +6,7 @@
           @create by mybatis
         -->
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="member_id" jdbcType="BIGINT" property="memberId"/>
         <result column="channel" jdbcType="VARCHAR" property="channel"/>
         <result column="ip" jdbcType="BIGINT" property="ip"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
@@ -19,8 +19,8 @@
 
     <select id="getLastLogin" resultMap="BaseResultMap">
         select
-        id, user_id, `channel`, ip, create_time, device_brand, device_model, software_version, serial_number
-        from login_log where user_id = #{userId} order by id desc limit 1
+        id, member_id, `channel`, ip, create_time, device_brand, device_model, software_version, serial_number
+        from login_log where member_id = #{memberId} order by id desc limit 1
     </select>
 
 </mapper>

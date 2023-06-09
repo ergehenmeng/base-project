@@ -20,7 +20,7 @@ import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
-import com.eghm.service.user.LoginService;
+import com.eghm.service.member.LoginService;
 import com.eghm.state.machine.StateHandler;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;

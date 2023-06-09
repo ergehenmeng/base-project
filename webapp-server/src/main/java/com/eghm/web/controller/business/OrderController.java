@@ -57,7 +57,7 @@ public class OrderController {
     @ApiOperation("零售创建订单")
     public OrderVO<String> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
-        context.setUserId(ApiHolder.getUserId());
+        context.setMemberId(ApiHolder.getMemberId());
         itemAccessHandler.createOrder(context);
         return this.generateResult(context, context.getOrderNo());
     }
@@ -66,7 +66,7 @@ public class OrderController {
     @ApiOperation("门票创建订单")
     public OrderVO<String> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
-        context.setUserId(ApiHolder.getUserId());
+        context.setMemberId(ApiHolder.getMemberId());
         ticketAccessHandler.createOrder(context);
         return this.generateResult(context, context.getOrderNo());
     }
@@ -75,7 +75,7 @@ public class OrderController {
     @ApiOperation("民宿创建订单")
     public OrderVO<String> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
-        context.setUserId(ApiHolder.getUserId());
+        context.setMemberId(ApiHolder.getMemberId());
         homestayAccessHandler.createOrder(context);
         return this.generateResult(context, context.getOrderNo());
     }
@@ -84,7 +84,7 @@ public class OrderController {
     @ApiOperation("线路创建订单")
     public OrderVO<String> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
-        context.setUserId(ApiHolder.getUserId());
+        context.setMemberId(ApiHolder.getMemberId());
         lineAccessHandler.createOrder(context);
         return this.generateResult(context, context.getOrderNo());
     }
@@ -93,7 +93,7 @@ public class OrderController {
     @ApiOperation("餐饮创建订单")
     public OrderVO<String> restaurantCreate(@RequestBody @Validated RestaurantOrderCreateDTO dto) {
         RestaurantOrderCreateContext context = DataUtil.copy(dto, RestaurantOrderCreateContext.class);
-        context.setUserId(ApiHolder.getUserId());
+        context.setMemberId(ApiHolder.getMemberId());
         restaurantAccessHandler.createOrder(context);
         return this.generateResult(context, context.getOrderNo());
     }
@@ -111,7 +111,7 @@ public class OrderController {
 
         OrderVerifyContext context = new OrderVerifyContext();
         context.setOrderNo(orderNo);
-        context.setUserId(ApiHolder.getUserId());
+        context.setMemberId(ApiHolder.getMemberId());
         context.setRemark(dto.getRemark());
         context.setVisitorList(dto.getVisitorList());
 

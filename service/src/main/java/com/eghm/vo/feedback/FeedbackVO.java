@@ -20,7 +20,7 @@ public class FeedbackVO implements Serializable {
     private Long id;
 
     @ApiModelProperty("用户ID")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("状态: false:待解决 true:已解决")
     private Boolean state;

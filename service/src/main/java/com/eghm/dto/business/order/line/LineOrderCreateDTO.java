@@ -22,7 +22,7 @@ public class LineOrderCreateDTO {
 
     @ApiModelProperty("用户ID")
     @Padding
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")

@@ -12,7 +12,7 @@ import com.eghm.dto.feedback.FeedbackDisposeRequest;
 import com.eghm.dto.feedback.FeedbackQueryRequest;
 import com.eghm.vo.feedback.FeedbackVO;
 import com.eghm.service.common.FeedbackService;
-import com.eghm.service.user.UserNoticeService;
+import com.eghm.service.member.MemberNoticeService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     private final FeedbackLogMapper feedbackLogMapper;
 
-    private final UserNoticeService userNoticeService;
+    private final MemberNoticeService memberNoticeService;
 
     @Override
     public void addFeedback(FeedbackAddDTO request) {
@@ -55,6 +55,6 @@ public class FeedbackServiceImpl implements FeedbackService {
         params.put("classify", FeedbackType.getType(log.getClassify()).getMsg());
         params.put("content", StrUtil.maxLength(log.getContent(), 20));
         notice.setParams(params);
-        userNoticeService.sendNotice(log.getUserId(), notice);
+        memberNoticeService.sendNotice(log.getMemberId(), notice);
     }
 }

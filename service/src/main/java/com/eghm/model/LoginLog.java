@@ -20,7 +20,7 @@ public class LoginLog extends BaseEntity {
 
     @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("登陆渠道")
     private String channel;

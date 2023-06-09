@@ -6,7 +6,7 @@
           @create by mybatis
         -->
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="member_id" jdbcType="BIGINT" property="memberId"/>
         <result column="serial_number" jdbcType="VARCHAR" property="serialNumber"/>
         <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
         <result column="ip" jdbcType="BIGINT" property="ip"/>
@@ -14,21 +14,21 @@
     </resultMap>
 
     <insert id="insertOrUpdateSelective" parameterType="com.eghm.model.LoginDevice">
-        insert into login_device(user_id, serial_number, device_model, login_time, ip)
-        values (#{userId}, #{serialNumber}, #{deviceModel}, now(), ip) on duplicate key
+        insert into login_device(member_id, serial_number, device_model, login_time, ip)
+        values (#{memberId}, #{serialNumber}, #{deviceModel}, now(), ip) on duplicate key
         update login_time = now()
     </insert>
 
     <select id="getBySerialNumber" resultMap="BaseResultMap">
         select
-        id, user_id, serial_number, device_model, login_time,ip
-        from login_device where user_id = #{userId} and serial_number = #{serialNumber} order by id desc limit 1
+        id, member_id, serial_number, device_model, login_time,ip
+        from login_device where member_id = #{memberId} and serial_number = #{serialNumber} order by id desc limit 1
     </select>
 
     <delete id="deleteLoginDevice">
         delete
         from login_device
-        where user_id = #{userId}
+        where member_id = #{memberId}
           and serial_number = #{serialNumber}
     </delete>
 

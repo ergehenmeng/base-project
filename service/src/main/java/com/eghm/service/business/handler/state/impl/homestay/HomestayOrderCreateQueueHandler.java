@@ -44,8 +44,8 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
 
     private final OrderMQService orderMQService;
 
-    public HomestayOrderCreateQueueHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
-        super(userCouponService, orderVisitorService);
+    public HomestayOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
+        super(memberCouponService, orderVisitorService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
         this.homestayRoomConfigService = homestayRoomConfigService;
@@ -100,7 +100,7 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
         String orderNo = ProductType.HOMESTAY.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.UN_PAY);
-        order.setUserId(context.getUserId());
+        order.setMemberId(context.getMemberId());
         order.setCoverUrl(super.getFirstCoverUrl(payload.getHomestayRoom().getCoverUrl()));
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());
@@ -112,7 +112,7 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         // 使用优惠券
-        this.useDiscount(order, context.getUserId(), context.getCouponId(), context.getRoomId());
+        this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getRoomId());
         orderService.save(order);
         return order;
     }

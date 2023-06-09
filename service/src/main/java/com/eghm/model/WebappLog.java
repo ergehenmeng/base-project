@@ -32,7 +32,7 @@ public class WebappLog implements Serializable {
     private Long id;
 
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("软件版本号 针对app端,例如 1.2.7")
     private String version;

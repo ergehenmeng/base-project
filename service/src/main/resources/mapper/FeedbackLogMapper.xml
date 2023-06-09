@@ -6,7 +6,7 @@
           @create by mybatis
         -->
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="member_id" jdbcType="BIGINT" property="memberId"/>
         <result column="state" jdbcType="TINYINT" property="state"/>
         <result column="classify" jdbcType="TINYINT" property="classify"/>
         <result column="version" jdbcType="VARCHAR" property="version"/>
@@ -26,7 +26,7 @@
     <select id="getByPage" parameterType="com.eghm.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
         select
         t.id,
-        t.user_id,
+        t.member_id,
         t.state,
         t.classify,
         t.version,
@@ -38,7 +38,7 @@
         t.device_model,
         r.nick_name,
         r.mobile
-        from feedback_log t left join user r on t.user_id = r.id
+        from feedback_log t left join member r on t.member_id = r.id
         <where>
             <if test="param.queryName != null and param.queryName != ''">
                 and r.mobile = #{param.queryName}

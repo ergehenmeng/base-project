@@ -71,7 +71,7 @@ public class MerchantServiceImpl implements MerchantService {
         operator.setInitPwd(encode);
         operator.setPwd(encode);
         // 采用用户名登录
-        operator.setMobile(request.getUserName());
+        operator.setMobile(request.getMobile());
         operator.setNickName(request.getNickName());
         sysOperatorService.insert(operator);
         // 系统用户和商户关联

@@ -40,11 +40,11 @@ public class AuthCodeEmailHandler extends BaseEmailHandler {
     @Override
     protected Map<String, Object> renderParams(EmailTemplate template, SendEmail email) {
         Map<String, Object> params = email.getParams();
-        String userId = params.get("userId").toString();
+        String memberId = params.get("memberId").toString();
         String authCode = StringUtil.randomNumber(8);
         long expire = sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600);
         // 将本次发送验证码和接收的对象一并放入到缓存中
-        String cacheKey = email.getType().getValue() + ":" + userId;
+        String cacheKey = email.getType().getValue() + ":" + memberId;
         cacheService.setHashValue(cacheKey, expire, AUTH_CODE, authCode);
         cacheService.setHashValue(cacheKey, expire, EMAIL, email.getEmail());
         params.put(AUTH_CODE, authCode);

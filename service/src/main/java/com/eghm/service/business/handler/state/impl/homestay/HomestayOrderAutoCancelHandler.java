@@ -7,7 +7,7 @@ import com.eghm.model.Order;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class HomestayOrderAutoCancelHandler extends AbstractOrderAutoCancelHandl
 
     private final HomestayRoomConfigService homestayRoomConfigService;
 
-    public HomestayOrderAutoCancelHandler(OrderService orderService, UserCouponService userCouponService, HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService) {
-        super(orderService, userCouponService);
+    public HomestayOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, HomestayOrderService homestayOrderService, HomestayRoomConfigService homestayRoomConfigService) {
+        super(orderService, memberCouponService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomConfigService = homestayRoomConfigService;
     }

@@ -1,0 +1,51 @@
+package com.eghm.service.member;
+
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.SendNotice;
+import com.eghm.vo.member.MemberNoticeVO;
+
+import java.util.List;
+
+/**
+ * @author 殿小二
+ * @date 2020/9/11
+ */
+public interface MemberNoticeService {
+
+    /**
+     * 发送站内信
+     * @param memberId 接收消息的用户
+     * @param sendNotice 消息内容
+     */
+    void sendNotice(Long memberId, SendNotice sendNotice);
+
+    /**
+     * 批量发送站内信
+     * @param memberIdList 接收消息的用户列表
+     * @param sendNotice 消息内容
+     */
+    void sendNotice(List<Long> memberIdList, SendNotice sendNotice);
+
+    /**
+     * 查询用户站内信通知列表
+     * @param query 分页参数
+     * @param memberId 用户id
+     * @return 列表
+     */
+    PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId);
+
+    /**
+     * 删除消息通知
+     * @param id 主键id
+     * @param memberId memberId
+     */
+    void deleteNotice(Long id, Long memberId);
+
+    /**
+     * 设置消息已读
+     * @param id id
+     * @param memberId memberId
+     */
+    void setNoticeRead(Long id, Long memberId);
+}

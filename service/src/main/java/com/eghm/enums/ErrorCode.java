@@ -293,7 +293,7 @@ public enum ErrorCode {
     /**
      * 用户登陆过期,请重新登陆 (获取用户id失败)
      */
-    USER_LOGIN_TIMEOUT(3009,"用户登陆过期,请重新登陆"),
+    MEMBER_LOGIN_TIMEOUT(3009,"用户登陆过期,请重新登陆"),
 
     /**
      * 旧密码输入错误
@@ -333,7 +333,7 @@ public enum ErrorCode {
     /**
      * 用户不存在或已冻结
      */
-    USER_NOT_FOUND(3017,"用户不存在或已冻结"),
+    MEMBER_NOT_FOUND(3017,"用户不存在或已冻结"),
 
     /**
      * 账号或密码错误
@@ -483,7 +483,7 @@ public enum ErrorCode {
     /**
      * 用户地址未查询到
      */
-    USER_ADDRESS_NULL(3062, "用户地址未查询到"),
+    MEMBER_ADDRESS_NULL(3062, "用户地址未查询到"),
 
     /**
      * 省份异常

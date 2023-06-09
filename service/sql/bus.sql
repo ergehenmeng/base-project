@@ -371,12 +371,12 @@ CREATE TABLE `coupon_item`
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券商品关联表';
 
 
-DROP TABLE IF EXISTS `user_coupon`;
-CREATE TABLE `user_coupon`
+DROP TABLE IF EXISTS `member_coupon`;
+CREATE TABLE `member_coupon`
 (
     `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `coupon_config_id` bigint(20) DEFAULT NULL COMMENT '优惠券配置id',
-    `user_id`          bigint(20) DEFAULT NULL COMMENT '用户id',
+    `member_id`          bigint(20) DEFAULT NULL COMMENT '用户id',
     `state`            tinyint(1) DEFAULT '0' COMMENT '使用状态 0:未使用 1:已使用 2:已过期',
     `receive_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '领取时间',
     `use_time`         datetime   DEFAULT NULL COMMENT '使用时间',
@@ -430,7 +430,7 @@ CREATE TABLE `order_visitor`
     `id`           bigint(20) NOT NULL COMMENT '主键',
     `product_type` varchar(30) DEFAULT NULL COMMENT '商品类型',
     `order_id`     bigint(20)  DEFAULT NULL COMMENT '订单id',
-    `user_name`    varchar(20) DEFAULT NULL COMMENT '游客姓名',
+    `member_name`    varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
     `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 待支付 1: 待使用 2:已使用 3:已退款',
     `refund_id`    bigint(20)  DEFAULT NULL COMMENT '关联的退款记录id',
@@ -461,7 +461,7 @@ CREATE TABLE `order_refund_log`
 (
     `id`                bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
-    `user_id`           bigint(20)   DEFAULT NULL COMMENT '退款人id',
+    `member_id`           bigint(20)   DEFAULT NULL COMMENT '退款人id',
     `out_refund_no`     varchar(50)  DEFAULT NULL COMMENT '退款流水号',
     `num`               smallint(2)  DEFAULT '1' COMMENT '退款数量',
     `item_order_id`     bigint(20)   DEFAULT '1' COMMENT '零售退款订单id',
@@ -529,7 +529,7 @@ CREATE TABLE `order`
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `title`           varchar(50)  DEFAULT NULL COMMENT '商品名称',
     `cover_url`       varchar(200) DEFAULT NULL COMMENT '商品封面图(第一张)',
-    `user_id`         bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `member_id`         bigint(20)   DEFAULT NULL COMMENT '用户id',
     `multiple`        bit(1)       default b'0' comment '是否为多订单,普通商品且购物车购买才可能是多订单,即一个订单对应多个商品',
     `delivery_type`   tinyint(1)   DEFAULT '0' COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
     `pay_type`        varchar(30)  DEFAULT NULL COMMENT '支付方式',
@@ -669,7 +669,7 @@ DROP TABLE IF EXISTS `shopping_cart`;
 CREATE TABLE `shopping_cart`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `user_id`     bigint(20)  DEFAULT NULL COMMENT '用户id',
+    `member_id`     bigint(20)  DEFAULT NULL COMMENT '用户id',
     `store_id`    bigint(20)  DEFAULT NULL COMMENT '店铺id',
     `item_id`     bigint(20)  DEFAULT NULL COMMENT '商品id',
     `sku_id`      bigint(20)  DEFAULT NULL COMMENT '商品规格id',
@@ -679,7 +679,7 @@ CREATE TABLE `shopping_cart`
     `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `user_id_index` (`user_id`)
+    KEY `member_id_index` (`member_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='购物车表';
 

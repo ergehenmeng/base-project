@@ -40,8 +40,8 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final OrderMQService orderMQService;
 
-    public LineOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineDaySnapshotService lineDaySnapshotService) {
-        super(userCouponService, orderVisitorService);
+    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineDaySnapshotService lineDaySnapshotService) {
+        super(memberCouponService, orderVisitorService);
         this.lineService = lineService;
         this.lineConfigService = lineConfigService;
         this.lineDayConfigService = lineDayConfigService;
@@ -74,7 +74,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         String orderNo = ProductType.LINE.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.UN_PAY);
-        order.setUserId(context.getUserId());
+        order.setMemberId(context.getMemberId());
         order.setCoverUrl(super.getFirstCoverUrl(payload.getLine().getCoverUrl()));
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());
@@ -84,7 +84,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
         // 使用优惠券
-        this.useDiscount(order, context.getUserId(), context.getCouponId(), context.getLineId());
+        this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getLineId());
         orderService.save(order);
         return order;
     }

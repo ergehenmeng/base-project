@@ -215,17 +215,17 @@ public class WechatPayServiceImpl implements PayService {
      * @param payerRefund 退款金额
      * @param status 退款状态
      * @param channel 退款渠道
-     * @param userReceivedAccount 退款返回账号
+     * @param memberReceivedAccount 退款返回账号
      * @param successTime 退款成功时间
      * @param createTime 退款受理时间
      * @return vo
      */
-    private RefundVO getRefundVO(Integer payerRefund, String status, String channel, String userReceivedAccount, String successTime, String createTime) {
+    private RefundVO getRefundVO(Integer payerRefund, String status, String channel, String memberReceivedAccount, String successTime, String createTime) {
         RefundVO vo = new RefundVO();
         vo.setAmount(payerRefund);
         vo.setState(RefundStatus.valueOf(status));
         vo.setChannel(RefundChannel.valueOf(channel));
-        vo.setChannelAccount(userReceivedAccount);
+        vo.setChannelAccount(memberReceivedAccount);
         vo.setSuccessTime(DateUtil.parseIso(successTime));
         vo.setCreateTime(DateUtil.parseIso(createTime));
         return vo;

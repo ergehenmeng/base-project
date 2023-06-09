@@ -21,7 +21,7 @@ public class TicketOrderCreateContext extends AsyncKey implements Context {
 
     @Padding
     @ApiModelProperty(hidden = true, value = "用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("门票id")
     private Long ticketId;

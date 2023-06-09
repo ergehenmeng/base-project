@@ -73,17 +73,17 @@ public interface OrderService extends IService<Order> {
      * 如果用户支付完直接杀进程,可能不会将订单改为支付处理中
      * 注意: 只有带支付的订单才会修改为支付处理中
      * @param orderId 订单号
-     * @param userId 用户id
+     * @param memberId 用户id
      */
-    void setProcess(Long orderId, Long userId);
+    void setProcess(Long orderId, Long memberId);
 
     /**
      * 订单删除
      * 已取消或者已关闭的订单才能删除
      * @param orderId 订单id
-     * @param userId  用户id
+     * @param memberId  用户id
      */
-    void deleteOrder(Long orderId, Long userId);
+    void deleteOrder(Long orderId, Long memberId);
 
     /**
      * 查询支付处理中的订单列表

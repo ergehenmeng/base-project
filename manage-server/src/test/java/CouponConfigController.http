@@ -79,7 +79,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "userIdList": ["1"],
+  "memberIdList": ["1"],
   "couponConfigId": "1610178152813809666",
   "num": 1
 }

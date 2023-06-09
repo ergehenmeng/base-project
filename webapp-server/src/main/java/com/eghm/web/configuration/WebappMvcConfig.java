@@ -5,7 +5,7 @@ import com.eghm.configuration.WebMvcConfig;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.BlackRosterService;
-import com.eghm.service.user.LoginService;
+import com.eghm.service.member.LoginService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;

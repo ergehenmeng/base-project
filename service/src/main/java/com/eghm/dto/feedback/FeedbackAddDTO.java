@@ -26,7 +26,7 @@ public class FeedbackAddDTO implements Serializable {
 
     @ApiModelProperty(value = "用户id", hidden = true)
     @Padding
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty(value = "设备品牌", hidden = true)
     @Padding

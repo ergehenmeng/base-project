@@ -73,7 +73,7 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
         verifyLog.setId(verifyId);
         verifyLog.setOrderNo(order.getOrderNo());
         verifyLog.setRemark(context.getRemark());
-        verifyLog.setUserId(context.getUserId());
+        verifyLog.setMemberId(context.getMemberId());
         verifyLog.setNum(visited);
         verifyLogService.insert(verifyLog);
 

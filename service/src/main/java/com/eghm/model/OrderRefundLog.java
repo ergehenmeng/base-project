@@ -30,7 +30,7 @@ public class OrderRefundLog extends BaseEntity implements Serializable {
     private String orderNo;
 
     @ApiModelProperty(value = "退款人id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty(value = "退款流水号")
     private String outRefundNo;
@@ -60,7 +60,7 @@ public class OrderRefundLog extends BaseEntity implements Serializable {
     private AuditState auditState;
 
     @ApiModelProperty("审批人id")
-    private Long auditUserId;
+    private Long auditMemberId;
 
     @ApiModelProperty(value = "退款审核时间")
     private LocalDateTime auditTime;

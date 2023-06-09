@@ -32,7 +32,7 @@ public class FeedbackController{
         RequestMessage message = ApiHolder.get();
         request.setSystemVersion(message.getOsVersion());
         request.setVersion(message.getVersion());
-        request.setUserId(message.getUserId());
+        request.setMemberId(message.getMemberId());
         request.setDeviceBrand(message.getDeviceBrand());
         request.setDeviceModel(message.getDeviceModel());
         feedbackService.addFeedback(request);

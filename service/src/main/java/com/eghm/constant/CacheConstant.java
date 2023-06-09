@@ -131,9 +131,9 @@ public class CacheConstant {
     public static final String SMS_DAY = "sms_day:";
 
     /**
-     * 用户签到缓存 user_sign_in::userId
+     * 用户签到缓存 member_sign_in::memberId
      */
-    public static final String USER_SIGN_IN = "user_sign_in:";
+    public static final String MEMBER_SIGN_IN = "member_sign_in:";
 
     /**
      * post提交限制

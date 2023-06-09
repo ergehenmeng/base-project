@@ -19,23 +19,23 @@ public interface ShoppingCartService {
 
     /**
      * 查询用户购物车商品列表
-     * @param userId 用户id
+     * @param memberId 用户id
      * @return 商品列表
      */
-    List<ShoppingCartVO> getList(Long userId);
+    List<ShoppingCartVO> getList(Long memberId);
 
     /**
      * 删除购物车商品
      * @param id 购物车id
-     * @param userId 用户id
+     * @param memberId 用户id
      */
-    void delete(Long id, Long userId);
+    void delete(Long id, Long memberId);
 
     /**
      * 更新购物车商品数量
      * @param id 购物车id
      * @param quantity 新数量
-     * @param userId 用户id
+     * @param memberId 用户id
      */
-    void updateQuantity(Long id, Integer quantity, Long userId);
+    void updateQuantity(Long id, Integer quantity, Long memberId);
 }

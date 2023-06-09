@@ -5,8 +5,8 @@ import com.eghm.dto.address.AddressAddDTO;
 import com.eghm.dto.address.AddressEditDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.user.AddressVO;
-import com.eghm.service.user.UserAddressService;
+import com.eghm.vo.member.AddressVO;
+import com.eghm.service.member.MemberAddressService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -21,45 +21,45 @@ import java.util.List;
 @RestController
 @Api(tags = "用户地址")
 @AllArgsConstructor
-@RequestMapping("/webapp/user/address")
+@RequestMapping("/webapp/member/address")
 public class AddressController {
 
-    private final UserAddressService userAddressService;
+    private final MemberAddressService memberAddressService;
 
     @PostMapping("/save")
     @ApiOperation("添加地址")
     public RespBody<Void> save(@RequestBody @Validated AddressAddDTO request) {
-        request.setUserId(ApiHolder.getUserId());
-        userAddressService.addUserAddress(request);
+        request.setMemberId(ApiHolder.getMemberId());
+        memberAddressService.addAddress(request);
         return RespBody.success();
     }
 
     @PostMapping("/default")
     @ApiOperation("设置默认地址")
     public RespBody<Void> setDefault(@RequestBody @Validated IdDTO request) {
-        userAddressService.setDefault(request.getId(), ApiHolder.getUserId());
+        memberAddressService.setDefault(request.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
     @GetMapping("/list")
     @ApiOperation("用户地址列表")
     public RespBody<List<AddressVO>> list() {
-        List<AddressVO> voList = userAddressService.getByUserId(ApiHolder.getUserId());
+        List<AddressVO> voList = memberAddressService.getByMemberId(ApiHolder.getMemberId());
         return RespBody.success(voList);
     }
 
     @PostMapping("/delete")
     @ApiOperation("设置默认地址")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO request) {
-        userAddressService.deleteAddress(request.getId(), ApiHolder.getUserId());
+        memberAddressService.deleteAddress(request.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
     @PostMapping("/update")
     @ApiOperation("编辑地址")
     public RespBody<Void> update(@RequestBody @Validated AddressEditDTO request) {
-        request.setUserId(ApiHolder.getUserId());
-        userAddressService.updateAddress(request);
+        request.setMemberId(ApiHolder.getMemberId());
+        memberAddressService.updateAddress(request);
         return RespBody.success();
     }
 

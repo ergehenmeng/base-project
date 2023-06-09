@@ -80,7 +80,7 @@ public abstract class AbstractRefundAuditHandler implements RefundAuditHandler {
         refundLog.setState(0);
         refundLog.setRefundAmount(context.getRefundAmount());
         refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
-        refundLog.setAuditUserId(context.getAuditUserId());
+        refundLog.setAuditMemberId(context.getAuditMemberId());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);
         TransactionUtil.afterCommit(() -> orderService.startRefund(refundLog, order));
@@ -98,7 +98,7 @@ public abstract class AbstractRefundAuditHandler implements RefundAuditHandler {
     protected void doRefuse(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         order.setRefundState(RefundState.REFUSE);
         refundLog.setAuditState(AuditState.REFUSE);
-        refundLog.setAuditUserId(context.getAuditUserId());
+        refundLog.setAuditMemberId(context.getAuditMemberId());
         orderService.updateById(order);
         orderRefundLogService.updateById(refundLog);
     }

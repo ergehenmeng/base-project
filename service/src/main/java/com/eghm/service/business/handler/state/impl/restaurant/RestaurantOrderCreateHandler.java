@@ -34,8 +34,8 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     private final OrderMQService orderMQService;
 
-    public RestaurantOrderCreateHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, RestaurantVoucherService restaurantVoucherService, RestaurantOrderService restaurantOrderService) {
-        super(userCouponService, orderVisitorService);
+    public RestaurantOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, RestaurantVoucherService restaurantVoucherService, RestaurantOrderService restaurantOrderService) {
+        super(memberCouponService, orderVisitorService);
         this.restaurantVoucherService = restaurantVoucherService;
         this.restaurantOrderService = restaurantOrderService;
         this.orderService = orderService;
@@ -66,7 +66,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         Order order = DataUtil.copy(context, Order.class);
         order.setCoverUrl(super.getFirstCoverUrl(payload.getCoverUrl()));
         order.setState(OrderState.UN_PAY);
-        order.setUserId(context.getUserId());
+        order.setMemberId(context.getMemberId());
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());
         order.setTitle(payload.getTitle());
@@ -77,7 +77,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         order.setRefundType(payload.getRefundType());
         order.setRefundDescribe(payload.getRefundDescribe());
         // 使用优惠券
-        this.useDiscount(order, context.getUserId(), context.getCouponId(), payload.getId());
+        this.useDiscount(order, context.getMemberId(), context.getCouponId(), payload.getId());
         orderService.save(order);
         return order;
     }

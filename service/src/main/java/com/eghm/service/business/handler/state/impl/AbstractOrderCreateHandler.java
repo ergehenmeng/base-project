@@ -4,7 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.constant.CommonConstant;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
 import com.eghm.state.machine.Context;
@@ -25,7 +25,7 @@ import java.util.List;
 @AllArgsConstructor
 public abstract class AbstractOrderCreateHandler<C extends Context, P> implements OrderCreateHandler<C> {
 
-    private final UserCouponService userCouponService;
+    private final MemberCouponService memberCouponService;
 
     private final OrderVisitorService orderVisitorService;
 
@@ -91,17 +91,17 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
     /**
      * 使用抵扣金额
      * @param order 订单信息,不含优惠金额
-     * @param userId 用户id
+     * @param memberId 用户id
      * @param couponId 优惠券id
      * @param productId 商品id
      */
-    public void useDiscount(Order order, Long userId, Long couponId, Long productId) {
+    public void useDiscount(Order order, Long memberId, Long couponId, Long productId) {
         if (couponId != null) {
             log.info("订单[{}]使用了优惠券 [{}]", order.getOrderNo(), couponId);
-            Integer couponAmount = userCouponService.getCouponAmountWithVerify(userId, couponId, productId, order.getPayAmount());
+            Integer couponAmount = memberCouponService.getCouponAmountWithVerify(memberId, couponId, productId, order.getPayAmount());
             order.setPayAmount(order.getPayAmount() - couponAmount);
             order.setCouponId(couponId);
-            userCouponService.useCoupon(couponId);
+            memberCouponService.useCoupon(couponId);
         }
     }
 

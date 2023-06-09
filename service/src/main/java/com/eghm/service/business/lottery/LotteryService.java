@@ -29,9 +29,9 @@ public interface LotteryService {
     /**
      *  抽奖
      * @param lotteryId 活动id
-     * @param userId 用户id
+     * @param memberId 用户id
      */
-    void lottery(Long lotteryId, Long userId);
+    void lottery(Long lotteryId, Long memberId);
 
     /**
      * 查询抽奖活动

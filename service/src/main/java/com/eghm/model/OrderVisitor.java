@@ -41,7 +41,7 @@ public class OrderVisitor extends BaseEntity implements Serializable {
     private Long verifyId;
 
     @ApiModelProperty(value = "游客姓名")
-    private String userName;
+    private String memberName;
 
     @ApiModelProperty(value = "身份证号码")
     private String idCard;

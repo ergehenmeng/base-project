@@ -1,0 +1,147 @@
+package com.eghm.service.member.impl;
+
+import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.NoticeType;
+import com.eghm.exception.BusinessException;
+import com.eghm.configuration.template.TemplateEngine;
+import com.eghm.mapper.MemberNoticeMapper;
+import com.eghm.model.NoticeTemplate;
+import com.eghm.model.Member;
+import com.eghm.model.MemberNotice;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.PushNotice;
+import com.eghm.dto.ext.SendNotice;
+import com.eghm.vo.member.MemberNoticeVO;
+import com.eghm.service.common.NoticeTemplateService;
+import com.eghm.service.common.PushService;
+import com.eghm.service.member.MemberNoticeService;
+import com.eghm.service.member.MemberService;
+import com.eghm.utils.DataUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author 殿小二
+ * @date 2020/9/11
+ */
+@Service("memberNoticeService")
+@Slf4j
+public class MemberNoticeServiceImpl implements MemberNoticeService {
+
+    private NoticeTemplateService noticeTemplateService;
+
+    private MemberNoticeMapper memberNoticeMapper;
+
+    private TemplateEngine templateEngine;
+
+    private MemberService memberService;
+
+    private PushService pushService;
+
+    @Autowired(required = false)
+    public void setPushService(PushService pushService) {
+        this.pushService = pushService;
+    }
+
+    @Autowired
+    public void setMemberService(MemberService memberService) {
+        this.memberService = memberService;
+    }
+
+    @Autowired
+    public void setNoticeTemplateService(NoticeTemplateService noticeTemplateService) {
+        this.noticeTemplateService = noticeTemplateService;
+    }
+
+    @Autowired
+    public void setMemberNoticeMapper(MemberNoticeMapper memberNoticeMapper) {
+        this.memberNoticeMapper = memberNoticeMapper;
+    }
+
+    @Autowired
+    public void setTemplateEngine(TemplateEngine templateEngine) {
+        this.templateEngine = templateEngine;
+    }
+
+    @Override
+    public void sendNotice(Long memberId, SendNotice sendNotice) {
+        NoticeType mailType = sendNotice.getNoticeType();
+        NoticeTemplate template = noticeTemplateService.getTemplate(mailType.getValue());
+        if (template == null) {
+            log.warn("站内性模板未配置 [{}]", mailType.getValue());
+            throw new BusinessException(ErrorCode.IN_MAIL_NULL);
+        }
+        String content = templateEngine.render(template.getContent(), sendNotice.getParams());
+        MemberNotice mail = new MemberNotice();
+        mail.setClassify(mailType.getValue());
+        mail.setTitle(template.getTitle());
+        mail.setContent(content);
+        mail.setMemberId(memberId);
+        memberNoticeMapper.insert(mail);
+        // 发送推送消息
+        if (mailType.isPushNotice()) {
+            this.doSendNotice(mail, mailType, sendNotice.getExtras());
+        }
+    }
+
+    /**
+     * 拼接通知消息信息并调用极光发送推送
+     * @param memberNotice 通知信息
+     * @param mailType 消息类型
+     * @param extras 消息发送时附加的参数
+     */
+    private void doSendNotice(MemberNotice memberNotice, NoticeType mailType, Map<String, String> extras) {
+        Member member = memberService.getById(memberNotice.getMemberId());
+        PushNotice notice = PushNotice.builder()
+                .alias(member.getMobile())
+                .content(memberNotice.getContent())
+                .title(memberNotice.getTitle())
+                .viewTag(mailType.getViewTag()).build();
+        if (CollUtil.isNotEmpty(extras)) {
+            notice.getExtras().putAll(extras);
+        }
+        pushService.pushNotification(notice);
+    }
+
+
+    @Override
+    public void sendNotice(List<Long> memberIdList, SendNotice sendNotice) {
+        memberIdList.forEach(memberId -> this.sendNotice(memberId, sendNotice));
+    }
+
+    @Override
+    public PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
+        LambdaQueryWrapper<MemberNotice> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(MemberNotice::getMemberId, memberId);
+        wrapper.last(" order by read desc, id desc ");
+        Page<MemberNotice> page = memberNoticeMapper.selectPage(query.createPage(), wrapper);
+        return DataUtil.copy(page, memberNotice -> DataUtil.copy(memberNotice, MemberNoticeVO.class));
+    }
+
+    @Override
+    public void deleteNotice(Long id, Long memberId) {
+        LambdaUpdateWrapper<MemberNotice> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(MemberNotice::getId, id);
+        wrapper.set(MemberNotice::getMemberId, memberId);
+        memberNoticeMapper.delete(wrapper);
+    }
+
+    @Override
+    public void setNoticeRead(Long id, Long memberId) {
+        MemberNotice notice = new MemberNotice();
+        notice.setId(id);
+        notice.setMemberId(memberId);
+        notice.setRead(true);
+        memberNoticeMapper.updateById(notice);
+    }
+}

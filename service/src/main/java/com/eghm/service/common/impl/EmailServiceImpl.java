@@ -70,7 +70,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void verifyEmailCode(VerifyEmailCode emailCode) {
-        String hashKey = emailCode.getEmailType().getValue() + "::" + emailCode.getUserId();
+        String hashKey = emailCode.getEmailType().getValue() + "::" + emailCode.getMemberId();
         String email = cacheService.getHashValue(hashKey, AuthCodeEmailHandler.EMAIL);
         if (email == null || !email.equals(emailCode.getEmail())) {
             throw new BusinessException(ErrorCode.EMAIL_ADDRESS_ERROR);

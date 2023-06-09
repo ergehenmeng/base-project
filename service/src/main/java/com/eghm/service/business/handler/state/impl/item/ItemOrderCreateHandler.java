@@ -93,7 +93,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             // 更新库存信息
             itemSkuService.updateStock(skuNumMap);
             // 如果是两个店铺同时下单,则为多订单模式
-            Order order = this.generateOrder(context.getUserId(), storeMap.size() > 1, entry.getValue());
+            Order order = this.generateOrder(context.getMemberId(), storeMap.size() > 1, entry.getValue());
             // 添加主订单
             orderService.save(order);
             // 添加商品订单
@@ -126,15 +126,15 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 添加主订单信息
-     * @param userId 用户ID
+     * @param memberId 用户ID
      * @param multiple 是否为多笔订单同时支付
      * @param packageList 商品信息
      */
-    private Order generateOrder(Long userId, boolean multiple, List<OrderPackage> packageList) {
+    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList) {
         String orderNo = ProductType.ITEM.generateOrderNo();
         Order order = new Order();
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
-        order.setUserId(userId);
+        order.setMemberId(memberId);
         order.setOrderNo(orderNo);
         order.setMultiple(multiple);
         order.setRefundType(this.getRefundType(packageList));

@@ -3,9 +3,9 @@ package com.eghm.web.controller;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.register.RegisterSendSmsDTO;
-import com.eghm.dto.register.RegisterUserDTO;
+import com.eghm.dto.register.RegisterMemberDTO;
 import com.eghm.vo.login.LoginTokenVO;
-import com.eghm.service.user.UserService;
+import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.web.annotation.Access;
 import io.swagger.annotations.Api;
@@ -31,23 +31,23 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/webapp/register")
 public class RegisterController {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
     @PostMapping("/sendSms")
     @ApiOperation("注册发送验证码①")
     @Access
     public RespBody<Void> sendSms(@RequestBody @Validated RegisterSendSmsDTO request) {
-        userService.registerSendSms(request.getMobile());
+        memberService.registerSendSms(request.getMobile());
         return RespBody.success();
     }
 
-    @PostMapping("/user")
+    @PostMapping("/member")
     @ApiOperation("短信注册用户②")
     @Access
-    public RespBody<LoginTokenVO> user(@RequestBody @Validated RegisterUserDTO request, HttpServletRequest servletRequest) {
+    public RespBody<LoginTokenVO> member(@RequestBody @Validated RegisterMemberDTO request, HttpServletRequest servletRequest) {
         request.setChannel(ApiHolder.getChannel());
         request.setIp(IpUtil.getIpAddress(servletRequest));
-        LoginTokenVO tokenVO = userService.registerByMobile(request);
+        LoginTokenVO tokenVO = memberService.registerByMobile(request);
         return RespBody.success(tokenVO);
     }
 

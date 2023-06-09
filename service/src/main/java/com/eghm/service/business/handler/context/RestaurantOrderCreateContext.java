@@ -43,7 +43,7 @@ public class RestaurantOrderCreateContext extends AsyncKey implements Context {
 
     @Padding
     @ApiModelProperty(hidden = true, value = "用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("源状态")
     private Integer from;

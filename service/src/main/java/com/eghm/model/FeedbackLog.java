@@ -19,7 +19,7 @@ public class FeedbackLog extends BaseEntity {
 
     @ApiModelProperty("用户ID")
     @JsonSerialize(using = ToStringSerializer.class)
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("状态: 0:待解决 1:已解决")
     private Boolean state;

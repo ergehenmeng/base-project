@@ -3,8 +3,8 @@ package com.eghm.web.controller;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.DeviceUnbindDTO;
-import com.eghm.vo.user.LoginDeviceVO;
-import com.eghm.service.user.LoginService;
+import com.eghm.vo.member.LoginDeviceVO;
+import com.eghm.service.member.LoginService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @Api(tags = "登陆设备")
 @AllArgsConstructor
-@RequestMapping("/webapp/user/device")
+@RequestMapping("/webapp/member/device")
 public class DeviceController {
 
     private final LoginService loginService;
@@ -28,14 +28,14 @@ public class DeviceController {
     @ApiOperation("用户登陆过的设备列表")
     @GetMapping("/loginDevice")
     public RespBody<List<LoginDeviceVO>> loginDevice() {
-        List<LoginDeviceVO> voList = loginService.getByUserId(ApiHolder.getUserId());
+        List<LoginDeviceVO> voList = loginService.getByMemberId(ApiHolder.getMemberId());
         return RespBody.success(voList);
     }
 
     @ApiOperation("解除设备绑定")
     @PostMapping("/unbind")
     public RespBody<Void> unbind(@RequestBody @Validated DeviceUnbindDTO request) {
-        loginService.deleteLoginDevice(ApiHolder.getUserId(), request.getSerialNumber());
+        loginService.deleteLoginDevice(ApiHolder.getMemberId(), request.getSerialNumber());
         return RespBody.success();
     }
 }

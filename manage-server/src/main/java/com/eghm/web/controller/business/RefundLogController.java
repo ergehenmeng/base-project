@@ -57,7 +57,7 @@ public class RefundLogController {
         ProductType productType = ProductType.prefix(request.getOrderNo());
         RefundAuditContext context = DataUtil.copy(request, RefundAuditContext.class);
         JwtOperator jwtOperator = SecurityHolder.getOperatorRequired();
-        context.setAuditUserId(jwtOperator.getId());
+        context.setAuditMemberId(jwtOperator.getId());
         // 备注信息标注是谁审批的 方便快速查看
         context.setAuditRemark(jwtOperator.getNickName() + ":" +request.getAuditRemark());
 

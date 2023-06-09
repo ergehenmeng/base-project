@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.wechat.MpLoginDTO;
-import com.eghm.service.user.UserService;
+import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.login.LoginTokenVO;
 import io.swagger.annotations.Api;
@@ -26,12 +26,12 @@ import javax.servlet.http.HttpServletRequest;
 @AllArgsConstructor
 public class WeChatController {
 
-    private final UserService userService;
+    private final MemberService memberService;
 
     @PostMapping("/mp/login")
     @ApiOperation("微信授权登陆(自动注册)")
     public RespBody<LoginTokenVO> login(@Validated @RequestBody MpLoginDTO dto, HttpServletRequest request) {
-        LoginTokenVO mpLogin = userService.mpLogin(dto.getCode(), IpUtil.getIpAddress(request));
+        LoginTokenVO mpLogin = memberService.mpLogin(dto.getCode(), IpUtil.getIpAddress(request));
         return RespBody.success(mpLogin);
     }
 

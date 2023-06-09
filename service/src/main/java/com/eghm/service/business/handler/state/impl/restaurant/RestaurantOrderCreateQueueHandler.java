@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2022/8/24
  */
-@Service("restaurantOrderCreateHandler")
+@Service("restaurantOrderCreateQueueHandler")
 @Slf4j
 public class RestaurantOrderCreateQueueHandler extends RestaurantOrderCreateHandler {
 
-    public RestaurantOrderCreateQueueHandler(OrderService orderService, UserCouponService userCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, RestaurantVoucherService restaurantVoucherService, RestaurantOrderService restaurantOrderService) {
-        super(orderService, userCouponService, orderVisitorService, orderMQService, restaurantVoucherService, restaurantOrderService);
+    public RestaurantOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, RestaurantVoucherService restaurantVoucherService, RestaurantOrderService restaurantOrderService) {
+        super(orderService, memberCouponService, orderVisitorService, orderMQService, restaurantVoucherService, restaurantOrderService);
     }
 
     @Override

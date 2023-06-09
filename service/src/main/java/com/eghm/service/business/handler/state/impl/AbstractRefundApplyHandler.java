@@ -96,8 +96,8 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      * @param order 主订单
      */
     protected void before(RefundApplyContext context, Order order) {
-        if (!context.getUserId().equals(order.getUserId())) {
-            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", context.getOrderNo(), order.getUserId(), context.getUserId());
+        if (!context.getMemberId().equals(order.getMemberId())) {
+            log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", context.getOrderNo(), order.getMemberId(), context.getMemberId());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
         }
         if (order.getRefundType() == RefundType.NOT_SUPPORTED) {

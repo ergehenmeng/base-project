@@ -3,9 +3,9 @@ package com.eghm.web.controller;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.score.UserScoreQueryDTO;
-import com.eghm.vo.score.UserScoreVO;
-import com.eghm.service.user.UserScoreLogService;
+import com.eghm.dto.member.MemberScoreQueryDTO;
+import com.eghm.vo.member.MemberScoreVO;
+import com.eghm.service.member.MemberScoreLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -21,16 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "用户积分")
 @AllArgsConstructor
-@RequestMapping("/webapp/user/score")
+@RequestMapping("/webapp/member/score")
 public class ScoreController {
 
-    private final UserScoreLogService userScoreLogService;
+    private final MemberScoreLogService memberScoreLogService;
 
     @GetMapping("/listPage")
     @ApiOperation("用户积分列表")
-    public RespBody<PageData<UserScoreVO>> listPage(@Validated UserScoreQueryDTO request) {
-        request.setUserId(ApiHolder.getUserId());
-        PageData<UserScoreVO> page = userScoreLogService.getByPage(request);
+    public RespBody<PageData<MemberScoreVO>> listPage(@Validated MemberScoreQueryDTO request) {
+        request.setMemberId(ApiHolder.getMemberId());
+        PageData<MemberScoreVO> page = memberScoreLogService.getByPage(request);
         return RespBody.success(page);
     }
 }

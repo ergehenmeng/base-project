@@ -25,7 +25,7 @@ public class ShoppingCart extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("商铺id")
     private Long storeId;

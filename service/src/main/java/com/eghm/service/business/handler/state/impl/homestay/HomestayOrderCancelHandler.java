@@ -4,7 +4,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class HomestayOrderCancelHandler extends AbstractOrderCancelHandler {
 
-    public HomestayOrderCancelHandler(OrderService orderService, UserCouponService userCouponService) {
-        super(orderService, userCouponService);
+    public HomestayOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService) {
+        super(orderService, memberCouponService);
     }
 
     @Override

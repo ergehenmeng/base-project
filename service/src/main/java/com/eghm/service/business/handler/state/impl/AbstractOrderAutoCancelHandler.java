@@ -4,7 +4,7 @@ import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.state.OrderAutoCancelHandler;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelH
 
     private final OrderService orderService;
 
-    private final UserCouponService userCouponService;
+    private final MemberCouponService memberCouponService;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
@@ -57,7 +57,7 @@ public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelH
         order.setCloseType(CloseType.EXPIRE);
         order.setCloseTime(LocalDateTime.now());
         orderService.updateById(order);
-        userCouponService.releaseCoupon(order.getCouponId());
+        memberCouponService.releaseCoupon(order.getCouponId());
     }
 
 }

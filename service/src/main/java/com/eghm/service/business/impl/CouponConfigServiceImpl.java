@@ -20,7 +20,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
-import com.eghm.service.business.UserCouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +46,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
 
     private final CouponProductService couponProductService;
 
-    private final UserCouponService userCouponService;
+    private final MemberCouponService memberCouponService;
 
     private final ItemMapper itemMapper;
 
@@ -125,14 +125,14 @@ public class CouponConfigServiceImpl implements CouponConfigService {
      * @param couponList 优惠券信息
      */
     private void fillAttribute(List<CouponListVO> couponList) {
-        Long userId = ApiHolder.tryGetUserId();
+        Long memberId = ApiHolder.tryGetMemberId();
         // 用户未登陆, 默认全部可以领取
-        if (userId == null || CollUtil.isEmpty(couponList)) {
+        if (memberId == null || CollUtil.isEmpty(couponList)) {
             return;
         }
         List<Long> couponIds = couponList.stream().map(CouponListVO::getId).collect(Collectors.toList());
 
-        Map<Long, Integer> receivedMap = userCouponService.countUserReceived(userId, couponIds);
+        Map<Long, Integer> receivedMap = memberCouponService.countMemberReceived(memberId, couponIds);
         couponList.forEach(vo -> vo.setReceived(receivedMap.getOrDefault(vo.getId(), 0) >= vo.getMaxLimit()));
     }
 }

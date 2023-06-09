@@ -40,7 +40,7 @@ public class Order extends BaseEntity implements Serializable {
     private String orderNo;
 
     @ApiModelProperty("用户id")
-    private Long userId;
+    private Long memberId;
 
     @ApiModelProperty("商品所属店铺")
     private Long storeId;
