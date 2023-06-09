@@ -2,4 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.TicketOrderMapper">
 
+    <select id="getByPage" parameterType="com.eghm.dto.business.order.ticket.TicketOrderQueryRequest" resultType="com.eghm.vo.order.ticket.TicketOrderResponse">
+        select
+            t.order_no as orderNo,
+            r.title,
+            s.title as scenicName,
+            r.pay_type as payType,
+            r.num,
+            t.mobile,
+            r.state,
+            r.pay_amount as payAmount,
+            r.pay_time as payTime,
+            r.create_time as createTime
+
+        from ticket_order t inner join `order` r on t.order_no = r.order_no
+        left join scenic_ticket s on t.scenic_id = s.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != '' ">
+            and (t.order_no like concat('%', #{param.queryName}, '%') or r.title like concat('%', #{param.queryName}, '%'))
+        </if>
+        <if test="param.scenicName != null and param.scenicName != '' ">
+            and s.title like concat('%', #{param.scenicName}, '%')
+        </if>
+        <if test="param.mobile != null and param.mobile != '' ">
+            and t.mobile like concat('%', #{param.mobile}, '%')
+        </if>
+        <if test="param.orderState != null">
+            and r.state = #{param.orderState}
+        </if>
+        order by t.id desc
+    </select>
+
 </mapper>

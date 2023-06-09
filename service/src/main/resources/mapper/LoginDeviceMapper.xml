@@ -22,7 +22,7 @@
     <select id="getBySerialNumber" resultMap="BaseResultMap">
         select
         id, user_id, serial_number, device_model, login_time,ip
-        from login_device where user_id = #{userId} and serial_number = #{serialNumber} limit 1
+        from login_device where user_id = #{userId} and serial_number = #{serialNumber} order by id desc limit 1
     </select>
 
     <delete id="deleteLoginDevice">

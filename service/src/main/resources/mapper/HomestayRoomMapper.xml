@@ -30,6 +30,7 @@
         <if test="request.refundType != null">
             and t.refund_type = #{request.refundType}
         </if>
+        order by t.id desc
     </select>
 
     <select id="getByPage" resultType="com.eghm.vo.business.homestay.room.HomestayRoomListVO"
@@ -56,6 +57,7 @@
         <if test="resident != null">
             and resident &gt;= #{resident}
         </if>
+        order by id desc
     </select>
 
     <select id="getRecommendRoom" resultType="com.eghm.vo.business.homestay.room.HomestayRoomListVO">
