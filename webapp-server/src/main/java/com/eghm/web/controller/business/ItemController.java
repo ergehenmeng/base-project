@@ -1,19 +1,18 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.ItemQueryDTO;
-import com.eghm.vo.business.item.ItemListVO;
-import com.eghm.vo.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.ItemService;
+import com.eghm.vo.business.item.ItemListVO;
+import com.eghm.vo.coupon.CouponListVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -47,9 +46,8 @@ public class ItemController {
 
     @GetMapping("/coupon")
     @ApiOperation("商品页可以领取的优惠券")
-    @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
-    public List<CouponListVO> item(@RequestParam("itemId") Long itemId) {
-        return couponConfigService.getItemCoupon(itemId);
+    public List<CouponListVO> item(@Validated IdDTO dto) {
+        return couponConfigService.getItemCoupon(dto.getId());
     }
 
     @GetMapping("/couponScope")

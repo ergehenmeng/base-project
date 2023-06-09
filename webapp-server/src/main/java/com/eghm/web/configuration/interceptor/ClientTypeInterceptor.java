@@ -24,9 +24,6 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
-        if (!supportHandler(handler)) {
-            return true;
-        }
         String channel = request.getHeader(AppHeader.CHANNEL);
         Channel[] channels = getClientTypeAnnotation(handler);
         for (Channel ch : channels) {

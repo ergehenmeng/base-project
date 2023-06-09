@@ -60,14 +60,12 @@ public class MessageInterceptor implements InterceptorAdapter {
         message.setSignature(signature);
         message.setSerialNumber(serialNumber);
         // 需要将requestBody中的数据采集,方便做日志
-        if (this.supportHandler(handler)) {
-            try {
-                String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
-                message.setRequestBody(requestBody);
-            } catch (IOException e) {
-                log.warn("获取请求参数信息异常", e);
-                throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
-            }
+        try {
+            String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+            message.setRequestBody(requestBody);
+        } catch (IOException e) {
+            log.warn("获取请求参数信息异常", e);
+            throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
         }
         return true;
     }

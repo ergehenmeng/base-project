@@ -27,6 +27,13 @@ public class ConfigController {
 
     private final SysConfigService sysConfigService;
 
+    @GetMapping("/listPage")
+    @ApiOperation("系统参数列表")
+    public PageData<SysConfig> listPage(ConfigQueryRequest request) {
+        Page<SysConfig> listByPage = sysConfigService.getByPage(request);
+        return PageData.toPage(listByPage);
+    }
+
     @PostMapping("/update")
     @ApiOperation("更新系统参数")
     public RespBody<Void> update(@Validated @RequestBody ConfigEditRequest request) {
@@ -34,10 +41,4 @@ public class ConfigController {
         return RespBody.success();
     }
 
-    @GetMapping("/listPage")
-    @ApiOperation("系统参数列表")
-    public PageData<SysConfig> listPage(ConfigQueryRequest request) {
-        Page<SysConfig> listByPage = sysConfigService.getByPage(request);
-        return PageData.toPage(listByPage);
-    }
 }

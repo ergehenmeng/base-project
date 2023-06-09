@@ -1,22 +1,22 @@
 package com.eghm.web.configuration.interceptor;
 
-import com.eghm.constant.AppHeader;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.DataException;
-import com.eghm.exception.ParameterException;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
+import com.eghm.constant.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RedisToken;
 import com.eghm.dto.ext.RequestMessage;
-import com.eghm.vo.member.LoginDeviceVO;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.DataException;
+import com.eghm.exception.ParameterException;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.member.LoginService;
-import com.eghm.web.annotation.Access;
+import com.eghm.vo.member.LoginDeviceVO;
+import com.eghm.web.annotation.AccessToken;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
 
+import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,62 +39,49 @@ public class TokenInterceptor implements InterceptorAdapter {
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
-        if (!supportHandler(handler)) {
-            return true;
-        }
-        boolean skipAccess = this.skipAccess(handler);
         RequestMessage message = ApiHolder.get();
-        this.tryLoginVerify(request.getHeader(AppHeader.TOKEN), request.getHeader(AppHeader.REFRESH_TOKEN), message, !skipAccess);
+        String token = request.getHeader(AppHeader.TOKEN);
+        // 从token中获取用户信息, 如果获取不到,则从refreshToken中获取用户信息, 如果还是获取不到,则根据@AccessToken来决定是否抛异常
+        if (token != null) {
+            RedisToken redisToken = tokenService.getByAccessToken(token);
+            if (redisToken != null) {
+                message.setMemberId(redisToken.getMemberId());
+            }
+            String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
+            if (message.getMemberId() == null && refreshToken != null) {
+                redisToken = tokenService.getByRefreshToken(refreshToken);
+                if (redisToken != null) {
+                    // 在accessToken过期时,可通过refreshToken进行刷新用户信息
+                    log.info("用户token已失效, 采用refreshToken重新激活 memberId:[{}]", redisToken.getMemberId());
+                    tokenService.cacheToken(redisToken);
+                    message.setMemberId(redisToken.getMemberId());
+                }
+            }
+            this.accessTokenCheck(message.getMemberId(), token, handler);
+        }
         return true;
     }
 
-
     /**
-     * 尝试获取登陆用户的信息(前提用户确实已经登陆,如果没有登陆则获取不到)
-     *
-     * @param accessToken 登陆的token
-     * @param refreshToken 刷新的token
-     * @param message 用户信息
-     * @param exception true:获取用户信息失败是否要抛异常 true:抛异常 false:不做任何处理
+     * 校验用户是否需要强制登陆, 如果需要强制登陆,则必须包含memberId
+     * @param memberId memberId, 可能为空
+     * @param token token
+     * @param handler handler
      */
-    private void tryLoginVerify(@Nullable String accessToken, @Nullable String refreshToken, RequestMessage message, boolean exception) {
-        boolean shouldSkip = (accessToken == null || refreshToken == null) && !exception;
-        if (shouldSkip) {
-            return;
-        }
-        if (accessToken == null || refreshToken == null) {
-            throw new ParameterException(ErrorCode.ACCESS_TOKEN_NULL);
-        }
+    private void accessTokenCheck(@Nullable Long memberId, String token, Object handler) {
+        // 如果用户需要登陆,且用户未获取到,则抛异常
+        if (memberId == null && this.hasAccessToken(handler)) {
+            RedisToken redisToken = tokenService.getOfflineToken(token);
 
-        // 尝试获取用户信息
-        RedisToken redisToken = tokenService.getByAccessToken(accessToken);
-        if (redisToken != null) {
-            message.setMemberId(redisToken.getMemberId());
-        }
-
-        // token获取失败,尝试从refreshToken中获取用户信息
-        if (message.getMemberId() == null) {
-            redisToken = tokenService.getByRefreshToken(refreshToken);
             if (redisToken != null) {
-                // 在accessToken过期时,可通过refreshToken进行刷新用户信息
-                log.info("用户token已失效, 采用refreshToken重新激活 memberId:[{}]", redisToken.getMemberId());
-                tokenService.cacheToken(redisToken);
-                message.setMemberId(redisToken.getMemberId());
-            }
-        }
-        // 接口确实需要登陆但是也确实没有获取到memberId,则抛异常
-        if (exception && message.getMemberId() == null) {
-            RedisToken offlineRedisToken = tokenService.getOfflineToken(accessToken);
-            if (offlineRedisToken != null) {
-                log.warn("用户其他设备登陆,accessToken:[{}],memberId:[{}]", accessToken, offlineRedisToken.getMemberId());
-                tokenService.cleanOfflineToken(accessToken);
+                log.warn("用户其他设备登陆,accessToken:[{}],memberId:[{}]", token, redisToken.getMemberId());
+                tokenService.cleanOfflineToken(token);
                 // 异常接口捎带一些额外信息方便移动端提醒用户
-                throw this.createOfflineException(offlineRedisToken.getMemberId());
+                throw this.createOfflineException(redisToken.getMemberId());
             }
-            log.warn("令牌为空,accessToken:[{}],refreshToken:[{}]", accessToken, refreshToken);
+            log.warn("令牌为空,accessToken:[{}]", token);
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
-
     }
 
     /**
@@ -107,16 +94,14 @@ public class TokenInterceptor implements InterceptorAdapter {
         return new DataException(ErrorCode.KICK_OFF_LINE, vo);
     }
 
-
-
     /**
      * 是否需要登陆校验
      *
      * @param handler handlerMethod
      * @return true:需要验签 false不需要
      */
-    private boolean skipAccess(Object handler) {
-        return this.getClassAnnotation(handler, Access.class) == null && this.getAnnotation(handler, Access.class) == null;
+    private boolean hasAccessToken(Object handler) {
+        return this.getClassAnnotation(handler, AccessToken.class) != null || this.getAnnotation(handler, AccessToken.class) != null;
     }
 
 }

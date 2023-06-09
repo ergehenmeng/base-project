@@ -28,9 +28,6 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
-        if (!this.supportHandler(handler)) {
-            return true;
-        }
         // 只针对post请求有效
         if (!HttpMethod.POST.matches(request.getMethod())) {
             return true;

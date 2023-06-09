@@ -7,7 +7,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.shopping.ShoppingCartVO;
 import com.eghm.service.business.ShoppingCartService;
-import com.eghm.web.annotation.Access;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,7 +34,7 @@ public class ShoppingCartController {
 
     @PostMapping("/add")
     @ApiOperation("添加购物车")
-    @Access
+    @AccessToken
     public RespBody<Void> add(@RequestBody @Validated AddCartDTO dto) {
         shoppingCartService.add(dto);
         return RespBody.success();
@@ -42,14 +42,14 @@ public class ShoppingCartController {
 
     @GetMapping("/list")
     @ApiOperation("购物车商品列表")
-    @Access
+    @AccessToken
     public List<ShoppingCartVO> list() {
         return shoppingCartService.getList(ApiHolder.getMemberId());
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除购物车商品")
-    @Access
+    @AccessToken
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         shoppingCartService.delete(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
@@ -57,7 +57,7 @@ public class ShoppingCartController {
 
     @PostMapping("/quantity")
     @ApiOperation("更新商品数量")
-    @Access
+    @AccessToken
     public RespBody<Void> quantity(@RequestBody @Validated CartQuantityDTO dto) {
         shoppingCartService.updateQuantity(dto.getId(), dto.getQuantity(), ApiHolder.getMemberId());
         return RespBody.success();

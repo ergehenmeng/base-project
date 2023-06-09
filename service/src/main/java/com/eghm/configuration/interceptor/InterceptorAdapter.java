@@ -12,15 +12,6 @@ import java.lang.annotation.Annotation;
 public interface InterceptorAdapter extends HandlerInterceptor {
 
     /**
-     * handler是否为 HandlerMethod
-     * @param handler  handler
-     * @return true:是 false:否
-     */
-    default boolean supportHandler(Object handler) {
-        return handler instanceof HandlerMethod;
-    }
-
-    /**
      * 获取handler上方法的指定注解
      * @param handler  handler
      * @param annotationType 注解类型

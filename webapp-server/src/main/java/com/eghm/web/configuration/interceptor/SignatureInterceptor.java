@@ -3,13 +3,13 @@ package com.eghm.web.configuration.interceptor;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.MD5;
-import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
+import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
 import com.eghm.service.sys.impl.SysConfigApi;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +32,6 @@ public class SignatureInterceptor implements InterceptorAdapter {
 
     @Override
     public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
-        if (!this.supportHandler(handler)) {
-            return true;
-        }
         RequestMessage message = ApiHolder.get();
         if (StrUtil.isBlank(message.getTimestamp())) {
             throw new ParameterException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);

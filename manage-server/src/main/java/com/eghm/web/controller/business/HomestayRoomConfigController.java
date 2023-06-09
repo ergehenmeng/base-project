@@ -51,5 +51,4 @@ public class HomestayRoomConfigController {
         return RespBody.success();
     }
 
-
 }

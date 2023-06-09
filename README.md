@@ -74,7 +74,7 @@
 * `swagger`访问地址`http://host:ip/swagger/index.html`
 * `RequestMapping`标示的方法返回前台数据时,可以为任意对象(此时swagger中不会显示RespBody的层级),最终会由`EncryptRespBodyAdviceHandler`包装为`RespBody`对象,如果不想返回前台`RespBody`格式的对象可在方法上添加`@SkipWrapper`,注意如果添加该注解,加密自动实现(相当于添加`@SkipEncrypt`)
 * 表`black_roster` 为ip黑名单 可限制某些用户访问
-* 默认所有的接口均需要登录才能访问,如果某个接口不需要登陆校验则方法上添加`@SkipAccess`
+* 默认所有的接口不登录即可访问,如果某个接口需要登陆校验则方法上添加`@AccessToken`
 * post请求接口默认做json格式数据绑定,如果不需要自动绑定则方法上添加`@SkipDataBinder`
 * 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加`@ClientType`
 * 所有接口的请求响应日志均会记录到日志文件中,如果不想记录则添加`SkipLogger`

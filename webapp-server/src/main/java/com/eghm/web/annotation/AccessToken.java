@@ -23,5 +23,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target({METHOD, TYPE})
 @Retention(RUNTIME)
-public @interface Access {
+public @interface AccessToken {
 }

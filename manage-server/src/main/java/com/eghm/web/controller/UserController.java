@@ -53,19 +53,19 @@ public class UserController {
 
     private final SysMenuService sysMenuService;
 
+    @GetMapping("/listPage")
+    @ApiOperation("管理后台用户列表")
+    public PageData<SysUser> listPage(UserQueryRequest request) {
+        Page<SysUser> page = sysUserService.getByPage(request);
+        return PageData.toPage(page);
+    }
+
     @PostMapping("/changePwd")
     @ApiOperation("修改管理人员密码")
     public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
         request.setUserId(SecurityHolder.getUserId());
         sysUserService.updateLoginPassword(request);
         return RespBody.success();
-    }
-
-    @GetMapping("/listPage")
-    @ApiOperation("管理后台用户列表")
-    public PageData<SysUser> listPage(UserQueryRequest request) {
-        Page<SysUser> page = sysUserService.getByPage(request);
-        return PageData.toPage(page);
     }
 
     @PostMapping("/create")

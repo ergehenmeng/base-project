@@ -90,7 +90,7 @@ public class RestaurantController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<Restaurant> select(IdDTO dto) {
+    public RespBody<Restaurant> select(@Validated IdDTO dto) {
         Restaurant restaurant = restaurantService.selectByIdRequired(dto.getId());
         commonService.checkIllegal(restaurant.getMerchantId());
         return RespBody.success(restaurant);

@@ -80,7 +80,7 @@ public class RestaurantVoucherController {
 
     @GetMapping("/select")
     @ApiOperation("餐饮券详情")
-    public RespBody<RestaurantVoucher> select(IdDTO dto) {
+    public RespBody<RestaurantVoucher> select(@Validated IdDTO dto) {
         RestaurantVoucher voucher = restaurantVoucherService.selectByIdRequired(dto.getId());
         return RespBody.success(voucher);
     }
