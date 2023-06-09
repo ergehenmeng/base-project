@@ -471,6 +471,7 @@ CREATE TABLE `order_refund_log`
     `apply_type`        tinyint(1)   DEFAULT '1' COMMENT '申请方式 1:仅退款 2:退货退款',
     `state`             tinyint(1)   DEFAULT '-1' COMMENT '退款状态 -1:退款申请中 0:退款中 1:退款成功 2:退款失败',
     `audit_state`       tinyint(1)   DEFAULT '0' COMMENT '审核状态 0:待审核 1:审核通过 2:审核拒绝',
+    `audit_user_id`     bigint(20)   DEFAULT NULL COMMENT '审核人',
     `audit_time`        datetime     DEFAULT NULL COMMENT '退款审核时间',
     `audit_remark`      varchar(255) DEFAULT NULL COMMENT '审批意见或建议',
     `apply_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '退款申请时间',

@@ -59,6 +59,9 @@ public class OrderRefundLog extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "审核状态 0:待审核 1:审核通过 2:审核拒绝 3:取消审核")
     private AuditState auditState;
 
+    @ApiModelProperty("审批人id")
+    private Long auditUserId;
+
     @ApiModelProperty(value = "退款审核时间")
     private LocalDateTime auditTime;
 

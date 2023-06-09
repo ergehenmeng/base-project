@@ -2,6 +2,7 @@ package com.eghm.dto.business.order.refund;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.AuditState;
+import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -30,4 +31,7 @@ public class RefundLogQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "退款申请时间截止时间")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
+
+    @ApiModelProperty(value = "订单前置类型", hidden = true)
+    private String prefix;
 }

@@ -1,8 +1,6 @@
-package com.eghm.service.business.handler.context;
+package com.eghm.dto.business.order.refund;
 
-import com.eghm.annotation.Padding;
 import com.eghm.convertor.YuanToCentDecoder;
-import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -14,12 +12,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * @author 二哥很猛
- * @date 2022/8/3
+ * 退款审核
+ * @author wyb
+ * @since 2023/6/9
  */
-
 @Data
-public class RefundAuditContext implements Context {
+public class RefundAuditRequest {
 
     @ApiModelProperty("订单编号")
     @NotNull(message = "订单编号不能为空")
@@ -43,12 +41,4 @@ public class RefundAuditContext implements Context {
     @Size(min = 2, max = 100, message = "审批意见长度2~100字符")
     @NotBlank(message = "审批意见不能为空")
     private String auditRemark;
-
-    @ApiModelProperty(value = "审批人id", hidden = true)
-    @Padding
-    private Long auditUserId;
-
-    @ApiModelProperty("源状态")
-    private Integer from;
-
 }

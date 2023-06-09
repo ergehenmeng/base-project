@@ -43,6 +43,9 @@
         order_refund_log t
         inner join `order` r on t.order_no = r.order_no
         where t.deleted = false and r.deleted = false
+        <if test="param.prefix != null and param.prefix != ''">
+            and t.order_no like concat(#{param.prefix}, '%')
+        </if>
         <if test="param.queryName != null and param.queryName != ''">
             and (t.order_no like concat('%', #{param.queryName}, '%') or r.title like concat('%', #{param.queryName} ,'%'))
         </if>
