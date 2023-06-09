@@ -1,9 +1,9 @@
 package com.eghm.service.business.handler.access.impl;
 
-import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
 import com.eghm.service.business.handler.context.*;
@@ -21,9 +21,12 @@ public class TicketAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
+    private final OrderService orderService;
+
     public TicketAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
+        this.orderService = orderService;
     }
 
     @Override
@@ -33,7 +36,8 @@ public class TicketAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundApply(RefundApplyContext context) {
-
+        Order order = orderService.selectById(context.getItemOrderId());
+        stateHandler.fireEvent(ProductType.TICKET, order.getState().getValue(), TicketEvent.REFUND_APPLY, context);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class TicketAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void verifyOrder(OrderVerifyContext context) {
-        stateHandler.fireEvent(ProductType.TICKET, OrderState.UN_USED.getValue(), HomestayEvent.VERIFY, context);
+        stateHandler.fireEvent(ProductType.TICKET, OrderState.UN_USED.getValue(), TicketEvent.VERIFY, context);
     }
 
     @Override

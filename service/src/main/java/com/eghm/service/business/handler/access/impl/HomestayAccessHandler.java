@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.access.impl;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
 import com.eghm.service.business.handler.context.*;
@@ -20,9 +21,12 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
+    private final OrderService orderService;
+
     public HomestayAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
+        this.orderService = orderService;
     }
 
     @Override
@@ -32,12 +36,17 @@ public class HomestayAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundApply(RefundApplyContext context) {
-
+        Order order = orderService.selectById(context.getItemOrderId());
+        stateHandler.fireEvent(ProductType.HOMESTAY, order.getState().getValue(), HomestayEvent.REFUND_APPLY, context);
     }
 
     @Override
     public void refundAudit(RefundAuditContext context) {
-
+        if (context.getState() == 1) {
+            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.REFUND.getValue(), HomestayEvent.REFUND_PASS, context);
+        } else {
+            stateHandler.fireEvent(ProductType.HOMESTAY, OrderState.REFUND.getValue(), HomestayEvent.REFUND_REFUSE, context);
+        }
     }
 
     @Override

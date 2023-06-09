@@ -1,6 +1,5 @@
 package com.eghm.service.business.handler.access.impl;
 
-import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -38,7 +37,7 @@ public class ItemAccessHandler extends AbstractAccessHandler {
     @Override
     public void refundApply(RefundApplyContext context) {
         Order order = orderService.selectById(context.getItemOrderId());
-        stateHandler.fireEvent(ProductType.ITEM, order.getState().getValue(), ItemEvent.CREATE, context);
+        stateHandler.fireEvent(ProductType.ITEM, order.getState().getValue(), ItemEvent.REFUND_APPLY, context);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class ItemAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void verifyOrder(OrderVerifyContext context) {
-        stateHandler.fireEvent(ProductType.ITEM, OrderState.UN_USED.getValue(), HomestayEvent.VERIFY, context);
+        stateHandler.fireEvent(ProductType.ITEM, OrderState.UN_USED.getValue(), ItemEvent.VERIFY, context);
     }
 
     @Override

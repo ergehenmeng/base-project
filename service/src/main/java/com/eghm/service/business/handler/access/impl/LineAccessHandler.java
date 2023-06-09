@@ -1,9 +1,9 @@
 package com.eghm.service.business.handler.access.impl;
 
-import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.model.Order;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.AbstractAccessHandler;
 import com.eghm.service.business.handler.context.*;
@@ -21,9 +21,12 @@ public class LineAccessHandler extends AbstractAccessHandler {
 
     private final StateHandler stateHandler;
 
+    private final OrderService orderService;
+
     public LineAccessHandler(OrderService orderService, AggregatePayService aggregatePayService, StateHandler stateHandler) {
         super(orderService, aggregatePayService);
         this.stateHandler = stateHandler;
+        this.orderService = orderService;
     }
     @Override
     public void createOrder(Context context) {
@@ -32,17 +35,22 @@ public class LineAccessHandler extends AbstractAccessHandler {
 
     @Override
     public void refundApply(RefundApplyContext context) {
-
+        Order order = orderService.selectById(context.getItemOrderId());
+        stateHandler.fireEvent(ProductType.LINE, order.getState().getValue(), LineEvent.REFUND_APPLY, context);
     }
 
     @Override
     public void refundAudit(RefundAuditContext context) {
-
+        if (context.getState() == 1) {
+            stateHandler.fireEvent(ProductType.LINE, OrderState.REFUND.getValue(), LineEvent.REFUND_PASS, context);
+        } else {
+            stateHandler.fireEvent(ProductType.LINE, OrderState.REFUND.getValue(), LineEvent.REFUND_REFUSE, context);
+        }
     }
 
     @Override
     public void verifyOrder(OrderVerifyContext context) {
-        stateHandler.fireEvent(ProductType.LINE, OrderState.UN_USED.getValue(), HomestayEvent.VERIFY, context);
+        stateHandler.fireEvent(ProductType.LINE, OrderState.UN_USED.getValue(), LineEvent.VERIFY, context);
     }
 
     @Override
