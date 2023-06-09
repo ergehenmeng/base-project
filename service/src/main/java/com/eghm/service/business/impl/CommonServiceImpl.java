@@ -58,7 +58,7 @@ public class CommonServiceImpl implements CommonService {
 
         String[] split = tagIds.split(",");
         for (String tagId : split) {
-            dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Byte.parseByte(tagId))
+            dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Integer.parseInt(tagId))
                     .map(SysDict::getShowValue)
                     .findFirst().ifPresent(tagList::add);
         }
