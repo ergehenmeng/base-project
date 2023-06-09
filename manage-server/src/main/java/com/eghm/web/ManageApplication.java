@@ -3,6 +3,7 @@ package com.eghm.web;
 
 import com.eghm.configuration.annotation.EnableTask;
 import com.eghm.configuration.rabbit.RabbitConfig;
+import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -38,9 +39,7 @@ public class ManageApplication implements ApplicationContextAware {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(ManageApplication.class).bannerMode(Banner.Mode.OFF).run(args);
-        log.info("\n-------------------------------------------------\n\t" +
-                "Swagger文档:  http://localhost:{}/doc.html\n" +
-                "-------------------------------------------------", context.getEnvironment().getProperty("server.port"));
+        LoggerUtil.print(String.format("Swagger文档:  http://localhost:%s/doc.html", context.getEnvironment().getProperty("server.port")));
     }
 
     @Override

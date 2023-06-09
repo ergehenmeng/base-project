@@ -6,6 +6,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.SysTask;
 import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.TaskScheduler;
@@ -59,9 +60,7 @@ public class SysTaskRegistrar {
             taskList.add(triggerTask);
         }
         this.doRefreshTask(taskList);
-        log.info("\n=================================================\n\t" +
-                "           定时任务配置信息加载完成\n" +
-                "=================================================");
+        LoggerUtil.print("定时任务配置信息加载完成");
     }
 
     /**

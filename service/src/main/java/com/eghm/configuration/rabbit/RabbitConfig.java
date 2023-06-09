@@ -3,6 +3,7 @@ package com.eghm.configuration.rabbit;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.configuration.log.LogTraceHolder;
+import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
@@ -51,9 +52,7 @@ public class RabbitConfig {
             properties.setHeader(CommonConstant.TRACE_ID, LogTraceHolder.get());
             return message;
         });
-        log.info("\n=================================================\n\t" +
-                "          rabbit消息队列初始化完成\n" +
-                "=================================================");
+        LoggerUtil.print("rabbit消息队列初始化完成");
     }
     
     @Bean(name = "rabbitListenerContainerFactory")

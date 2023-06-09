@@ -1,5 +1,6 @@
 package com.eghm.web;
 
+import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
@@ -30,9 +31,7 @@ public class WebappApplication implements ApplicationListener<ContextRefreshedEv
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = new SpringApplicationBuilder(WebappApplication.class).bannerMode(Banner.Mode.OFF).web(WebApplicationType.SERVLET).run(args);
-        log.info("\n-------------------------------------------------\n\t" +
-                "Swagger文档: http://localhost:{}/doc.html\n" +
-                "-------------------------------------------------", context.getEnvironment().getProperty("server.port"));
+        LoggerUtil.print(String.format("Swagger文档: http://localhost:%s/doc.html", context.getEnvironment().getProperty("server.port")));
     }
 
     @Override
