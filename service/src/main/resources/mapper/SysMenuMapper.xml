@@ -4,7 +4,7 @@
     <select id="getMenuList" resultType="com.eghm.vo.menu.MenuResponse">
         <choose>
             <when test="userId != null">
-                <include refid="selectOperatorMenuSql"/>
+                <include refid="selectUserMenuSql"/>
             </when>
             <otherwise>
                 <include refid="selectMenuSql"/>
@@ -12,7 +12,7 @@
         </choose>
     </select>
     
-    <sql id="selectOperatorMenuSql" >
+    <sql id="selectUserMenuSql" >
         SELECT
             t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
         from sys_menu t

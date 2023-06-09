@@ -166,7 +166,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void lockOperator(Long id) {
+    public void lockUser(Long id) {
         SysUser user = new SysUser();
         user.setId(id);
         user.setState(SysUser.STATE_0);
@@ -174,7 +174,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public void unlockOperator(Long id) {
+    public void unlockUser(Long id) {
         SysUser user = new SysUser();
         user.setId(id);
         user.setState(SysUser.STATE_1);

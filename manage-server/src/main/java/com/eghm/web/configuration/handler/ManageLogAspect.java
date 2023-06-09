@@ -58,7 +58,7 @@ public class ManageLogAspect {
             return joinPoint.proceed();
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        JwtUser user = SecurityHolder.getOperator();
+        JwtUser user = SecurityHolder.getUser();
         if (user == null) {
             log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();

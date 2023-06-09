@@ -32,7 +32,7 @@ public class DataScopeAspect {
     @Around("@annotation(scope) && this(com.baomidou.mybatisplus.core.mapper.BaseMapper)")
     public Object around(ProceedingJoinPoint joinPoint, DataScope scope) throws Throwable{
         try {
-            JwtUser user = SecurityHolder.getOperatorRequired();
+            JwtUser user = SecurityHolder.getUserRequired();
             String sql = this.createPermissionSql(user, scope);
             DATA_SCOPE_PARAM.set(sql);
             return joinPoint.proceed();

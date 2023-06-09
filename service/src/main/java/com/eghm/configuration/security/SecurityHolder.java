@@ -28,7 +28,7 @@ public class SecurityHolder {
      * 获取当前登录用户的信息
      * @return 用户信息, 为空则抛登录过期异常
      */
-    public static JwtUser getOperatorRequired() {
+    public static JwtUser getUserRequired() {
         JwtUser jwtUser = LOCAL.get();
         if (jwtUser == null) {
             throw new BusinessException(ErrorCode.LOGIN_EXPIRE);
@@ -40,7 +40,7 @@ public class SecurityHolder {
      * 获取当前登录用户的信息
      * @return 用户信息 可能为空
      */
-    public static JwtUser getOperator() {
+    public static JwtUser getUser() {
         return LOCAL.get();
     }
 
@@ -49,7 +49,7 @@ public class SecurityHolder {
      * @return id
      */
     public static Long getUserId() {
-        return getOperatorRequired().getId();
+        return getUserRequired().getId();
     }
 
     /**
@@ -57,7 +57,7 @@ public class SecurityHolder {
      * @return 商户id, 注意: 如果用户没关联商户,则为空
      */
     public static Long getMerchantId() {
-        return getOperatorRequired().getMerchantId();
+        return getUserRequired().getMerchantId();
     }
 
     public static void remove() {

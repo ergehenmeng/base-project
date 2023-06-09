@@ -56,10 +56,10 @@ public class RefundLogController {
     public RespBody<Void> audit(@Validated @RequestBody RefundAuditRequest request) {
         ProductType productType = ProductType.prefix(request.getOrderNo());
         RefundAuditContext context = DataUtil.copy(request, RefundAuditContext.class);
-        JwtUser jwtUser = SecurityHolder.getOperatorRequired();
-        context.setAuditMemberId(jwtUser.getId());
+        JwtUser jwtUser = SecurityHolder.getUserRequired();
+        context.setAuditUserId(jwtUser.getId());
         // 备注信息标注是谁审批的 方便快速查看
-        context.setAuditRemark(jwtUser.getNickName() + ":" +request.getAuditRemark());
+        context.setAuditRemark(jwtUser.getNickName() + ":" + request.getAuditRemark());
 
         if (productType == ProductType.ITEM) {
             itemAccessHandler.refundAudit(context);

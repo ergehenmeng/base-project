@@ -37,7 +37,7 @@ public class FeedbackController {
     @PostMapping("/dispose")
     @ApiOperation("回复")
     public RespBody<Void> dispose(@Validated @RequestBody FeedbackDisposeRequest request) {
-        JwtUser user = SecurityHolder.getOperatorRequired();
+        JwtUser user = SecurityHolder.getUserRequired();
         request.setUserId(user.getId());
         request.setUserName(user.getNickName());
         feedbackService.dispose(request);

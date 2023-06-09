@@ -97,13 +97,13 @@ public interface SysUserService {
      * 锁定用户
      * @param id userId
      */
-    void lockOperator(Long id);
+    void lockUser(Long id);
 
     /**
      * 解锁用户
      * @param id id
      */
-    void unlockOperator(Long id);
+    void unlockUser(Long id);
 
     /**
      * 系统用户登陆平台

@@ -64,7 +64,7 @@ public class PermInterceptor implements InterceptorAdapter {
      * @return true: 匹配 false: 不匹配
      */
     private boolean match(HttpServletRequest request) {
-        JwtUser jwtUser = SecurityHolder.getOperatorRequired();
+        JwtUser jwtUser = SecurityHolder.getUserRequired();
         List<String> codeList = jwtUser.getAuthList();
         String code = PERM_MAP.get(request.getRequestURI());
         return CollUtil.isNotEmpty(codeList) && codeList.contains(code);

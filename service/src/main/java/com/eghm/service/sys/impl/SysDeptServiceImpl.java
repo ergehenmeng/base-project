@@ -53,7 +53,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
-        JwtUser user = SecurityHolder.getOperatorRequired();
+        JwtUser user = SecurityHolder.getUserRequired();
         department.setUserId(user.getId());
         department.setUserName(user.getNickName());
         sysDeptMapper.insert(department);

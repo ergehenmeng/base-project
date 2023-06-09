@@ -46,7 +46,7 @@ public class RefundAuditContext implements Context {
 
     @ApiModelProperty(value = "审批人id", hidden = true)
     @Padding
-    private Long auditMemberId;
+    private Long auditUserId;
 
     @ApiModelProperty("源状态")
     private Integer from;

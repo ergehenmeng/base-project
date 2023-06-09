@@ -96,7 +96,7 @@ public class UserController {
     @PostMapping("/lockScreen")
     @ApiOperation("锁屏操作")
     public RespBody<Void> lockScreen() {
-        JwtUser user = SecurityHolder.getOperatorRequired();
+        JwtUser user = SecurityHolder.getUserRequired();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + user.getId(), true);
         return RespBody.success();
     }
@@ -105,7 +105,7 @@ public class UserController {
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
-        JwtUser user = SecurityHolder.getOperatorRequired();
+        JwtUser user = SecurityHolder.getUserRequired();
         // TODO 临时密码
         sysUserService.checkPassword(request.getPwd(), "");
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
@@ -115,14 +115,14 @@ public class UserController {
     @PostMapping("/lock")
     @ApiOperation("锁定用户")
     public RespBody<Void> lock(@Validated @RequestBody IdDTO request) {
-        sysUserService.lockOperator(request.getId());
+        sysUserService.lockUser(request.getId());
         return RespBody.success();
     }
 
     @PostMapping("/unlock")
     @ApiOperation("解锁用户")
     public RespBody<Void> unlock(@Validated @RequestBody IdDTO request) {
-        sysUserService.unlockOperator(request.getId());
+        sysUserService.unlockUser(request.getId());
         return RespBody.success();
     }
 
