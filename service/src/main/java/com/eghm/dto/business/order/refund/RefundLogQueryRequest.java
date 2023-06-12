@@ -2,7 +2,6 @@ package com.eghm.dto.business.order.refund;
 
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.AuditState;
-import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
