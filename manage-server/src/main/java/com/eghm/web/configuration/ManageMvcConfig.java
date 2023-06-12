@@ -3,9 +3,11 @@ package com.eghm.web.configuration;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.configuration.data.permission.DataScopeAspect;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.filter.AuthFilter;
+import com.eghm.web.configuration.filter.LockScreenFilter;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -28,10 +30,13 @@ public class ManageMvcConfig extends WebMvcConfig {
 
     private final SysMenuService sysMenuService;
 
-    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, JwtTokenService jwtTokenService, SysMenuService sysMenuService) {
+    private final CacheService cacheService;
+
+    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, JwtTokenService jwtTokenService, SysMenuService sysMenuService, CacheService cacheService) {
         super(objectMapper, systemProperties);
         this.jwtTokenService = jwtTokenService;
         this.sysMenuService = sysMenuService;
+        this.cacheService = cacheService;
     }
 
     @Override
@@ -68,6 +73,18 @@ public class ManageMvcConfig extends WebMvcConfig {
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);
+        return registrationBean;
+    }
+
+    @Bean("lockScreenFilter")
+    public FilterRegistrationBean<LockScreenFilter> lockScreenFilter() {
+        SystemProperties.ManageProperties manage = systemProperties.getManage();
+        FilterRegistrationBean<LockScreenFilter> registrationBean = new FilterRegistrationBean<>();
+        LockScreenFilter requestFilter = new LockScreenFilter(cacheService);
+        requestFilter.exclude(manage.getSecurity().getIgnore());
+        registrationBean.setFilter(requestFilter);
+        registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+        registrationBean.setOrder(Integer.MIN_VALUE + 10);
         return registrationBean;
     }
 }

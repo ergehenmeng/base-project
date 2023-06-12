@@ -60,6 +60,11 @@ public enum ErrorCode {
     METHOD_NOT_SUPPORTED(505,"该访问地址不支持%s请求"),
 
     /**
+     * 屏幕锁定中
+     */
+    LOCK_SCREEN(999, "屏幕锁定中"),
+
+    /**
      * 数据转换异常
      */
     JSON_FORMAT_ERROR(1000,"数据转换异常"),
