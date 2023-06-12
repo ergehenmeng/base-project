@@ -127,7 +127,7 @@ public class SystemProperties {
             /**
              * token默认过期时间 默认两个小时过期
              */
-            private Integer expire = 3600 * 20000;
+            private Integer expire = 3600 * 2;
 
             /**
              * 刷新token的过期时间 默认7天过期

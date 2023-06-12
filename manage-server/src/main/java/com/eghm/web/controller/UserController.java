@@ -1,37 +1,29 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.model.SysUser;
+import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.JwtUser;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.user.CheckPwdRequest;
-import com.eghm.dto.user.UserAddRequest;
-import com.eghm.dto.user.UserEditRequest;
-import com.eghm.dto.user.UserQueryRequest;
-import com.eghm.dto.user.PasswordEditRequest;
-import com.eghm.vo.menu.MenuResponse;
-import com.eghm.vo.user.UserResponse;
+import com.eghm.dto.user.*;
+import com.eghm.model.SysUser;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysMenuService;
-import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.SysRoleService;
+import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.menu.MenuResponse;
+import com.eghm.vo.user.UserResponse;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -97,7 +89,7 @@ public class UserController {
     @ApiOperation("锁屏操作")
     public RespBody<Void> lockScreen() {
         JwtUser user = SecurityHolder.getUserRequired();
-        cacheService.setValue(CacheConstant.LOCK_SCREEN + user.getId(), true);
+        cacheService.setValue(CacheConstant.LOCK_SCREEN + user.getId(), true, CommonConstant.MAX_LOCK_SCREEN);
         return RespBody.success();
     }
 
@@ -105,10 +97,9 @@ public class UserController {
     @ApiOperation("解锁操作")
     @ApiImplicitParam(name = "password", value = "密码", required = true)
     public RespBody<Void> unlockScreen(@RequestBody @Validated CheckPwdRequest request) {
-        JwtUser user = SecurityHolder.getUserRequired();
-        // TODO 临时密码
-        sysUserService.checkPassword(request.getPwd(), "");
-        cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
+        Long userId = SecurityHolder.getUserId();
+        sysUserService.checkPassword(userId, request.getPwd());
+        cacheService.delete(CacheConstant.LOCK_SCREEN + userId);
         return RespBody.success();
     }
 

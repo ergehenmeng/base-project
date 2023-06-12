@@ -1,16 +1,19 @@
 package com.eghm.web.controller;
 
+import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.ext.JwtUser;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.LoginRequest;
-import com.eghm.vo.login.LoginResponse;
+import com.eghm.enums.ErrorCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
+import com.eghm.vo.login.LoginResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -47,6 +50,18 @@ public class ManageLoginController {
         }
         LoginResponse response = sysUserService.login(request.getUserName(), request.getPwd());
         return RespBody.success(response);
+    }
+
+    @PostMapping("/exit")
+    @ApiOperation("退出登录")
+    @SkipPerm
+    public RespBody<Void> exit() {
+        JwtUser user = SecurityHolder.getUser();
+        if (user != null) {
+            // 删除锁屏状态
+            cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
+        }
+        return RespBody.success();
     }
 
     /**

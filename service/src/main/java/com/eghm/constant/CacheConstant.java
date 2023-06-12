@@ -86,7 +86,7 @@ public class CacheConstant {
     public static final String MUTEX_LOCK = "mutex_lock:";
 
     /**
-     * 锁屏
+     * 锁屏状态
      */
     public static final String LOCK_SCREEN = "lock_screen:";
 

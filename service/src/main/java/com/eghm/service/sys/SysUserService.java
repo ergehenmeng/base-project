@@ -29,10 +29,17 @@ public interface SysUserService {
 
     /**
      * 校验密码是否正确
-     * @param rawPassword 原始密码
-     * @param targetPassword 真实加密后的密码
+     * @param rawPassword 原始密码(用户输入的)
+     * @param targetPassword 真实加密后的密码(数据库保存的)
      */
     void checkPassword(String rawPassword, String targetPassword);
+
+    /**
+     * 校验用户密码是否等于指定的密码
+     * @param userId 用户ID
+     * @param rawPassword 用户输入的的密码
+     */
+    void checkPassword(Long  userId, String rawPassword);
 
     /**
      * 分页查询系统人员信息

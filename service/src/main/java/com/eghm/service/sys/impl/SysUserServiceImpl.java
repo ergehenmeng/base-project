@@ -70,9 +70,18 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public void checkPassword(String rawPassword, String targetPassword) {
-        String oldPassword = encoder.encode(rawPassword);
-        if (!targetPassword.equals(oldPassword)) {
+        boolean match = encoder.match(rawPassword, targetPassword);
+        if (!match) {
             throw new BusinessException(ErrorCode.USER_PASSWORD_ERROR);
+        }
+    }
+
+    @Override
+    public void checkPassword(Long userId, String rawPassword) {
+        SysUser user = sysUserMapper.selectById(userId);
+        boolean match = encoder.match(rawPassword, user.getPwd());
+        if (!match) {
+            throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
     }
 
