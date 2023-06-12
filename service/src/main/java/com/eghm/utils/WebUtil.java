@@ -33,13 +33,30 @@ public class WebUtil {
      *
      * @param response 响应对象
      * @param object   json内容
-     * @throws IOException 水电费
+     * @throws IOException exception
      */
     public static void printJson(HttpServletResponse response, RespBody<Void> object) throws IOException {
         response.setCharacterEncoding("UTF-8");
         try (PrintWriter writer = response.getWriter()) {
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             writer.write(new Gson().toJson(object));
+            writer.flush();
+        }
+    }
+
+
+    /**
+     * 直接返回前台错误json格式信息
+     *
+     * @param response 响应对象
+     * @param errorCode 错误信息
+     * @throws IOException exception
+     */
+    public static void printJson(HttpServletResponse response, ErrorCode errorCode) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        try (PrintWriter writer = response.getWriter()) {
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            writer.write(new Gson().toJson(RespBody.error(errorCode)));
             writer.flush();
         }
     }

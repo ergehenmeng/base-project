@@ -6,7 +6,6 @@ import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.JwtUser;
-import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
@@ -51,7 +50,7 @@ public class PermInterceptor implements InterceptorAdapter {
         if (permission != null || this.match(request)) {
             return true;
         }
-        WebUtil.printJson(response, RespBody.error(ErrorCode.ACCESS_DENIED));
+        WebUtil.printJson(response, ErrorCode.ACCESS_DENIED);
         return false;
     }
 

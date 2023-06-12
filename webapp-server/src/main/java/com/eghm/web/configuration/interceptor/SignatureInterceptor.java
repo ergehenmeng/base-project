@@ -9,14 +9,15 @@ import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 
 /**
@@ -31,10 +32,11 @@ public class SignatureInterceptor implements InterceptorAdapter {
     private final SysConfigApi sysConfigApi;
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         RequestMessage message = ApiHolder.get();
         if (StrUtil.isBlank(message.getTimestamp())) {
-            throw new ParameterException(ErrorCode.SIGNATURE_TIMESTAMP_NULL);
+            WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_NULL);
+            return false;
         }
         long clientTimestamp = Long.parseLong(message.getTimestamp());
         long systemTimestamp = System.currentTimeMillis();
@@ -42,13 +44,15 @@ public class SignatureInterceptor implements InterceptorAdapter {
         // 服务端时间误差
         if (Math.abs(systemTimestamp - clientTimestamp) > deviation) {
             log.warn("客户端服务端时间误差:[{}] ms", Math.abs(systemTimestamp - clientTimestamp));
-            throw new ParameterException(ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
+            WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
+            return false;
         }
         if (StrUtil.isNotBlank(message.getRequestBody())) {
             String digestHex = MD5.create().digestHex(message.getTimestamp() + Base64.decodeStr(message.getRequestBody(), CommonConstant.CHARSET));
             if (!digestHex.equals(message.getSignature())) {
                 log.warn("签名信息校验失败 signature:[{}], digestHex:[{}]", message.getSignature(), digestHex);
-                throw new ParameterException(ErrorCode.SIGNATURE_VERIFY_ERROR);
+                WebUtil.printJson(response, ErrorCode.SIGNATURE_VERIFY_ERROR);
+                return false;
             }
         }
         return true;

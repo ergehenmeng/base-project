@@ -1,15 +1,16 @@
 package com.eghm.web.configuration.interceptor;
 
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constant.AppHeader;
 import com.eghm.enums.Channel;
 import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
-import com.eghm.configuration.interceptor.InterceptorAdapter;
+import com.eghm.utils.WebUtil;
 import com.eghm.web.annotation.ClientType;
 import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author 二哥很猛
@@ -23,7 +24,7 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
     private static final Channel[] DEFAULT_CHANNEL = {Channel.IOS, Channel.ANDROID, Channel.WECHAT, Channel.ALIPAY};
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         String channel = request.getHeader(AppHeader.CHANNEL);
         Channel[] channels = getClientTypeAnnotation(handler);
         for (Channel ch : channels) {
@@ -31,7 +32,8 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
                 return true;
             }
         }
-        throw new ParameterException(ErrorCode.REQUEST_INTERFACE_ERROR);
+        WebUtil.printJson(response, ErrorCode.REQUEST_INTERFACE_ERROR);
+        return false;
     }
 
     /**

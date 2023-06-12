@@ -1,14 +1,16 @@
 package com.eghm.web.configuration.interceptor;
 
+import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constant.AppHeader;
 import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
-import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.ParameterException;
+import com.eghm.utils.WebUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +31,7 @@ public class MessageInterceptor implements InterceptorAdapter {
     private static final int MAX_HEADER_LENGTH = 256;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         //app请求头信息
         String channel = request.getHeader(AppHeader.CHANNEL);
         String version = request.getHeader(AppHeader.VERSION);
@@ -48,7 +50,8 @@ public class MessageInterceptor implements InterceptorAdapter {
                 || checkHeaderLength(timestamp)
                 || checkHeaderLength(serialNumber)) {
             // 该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
-            throw new ParameterException(ErrorCode.REQUEST_PARAM_ILLEGAL);
+            WebUtil.printJson(response, ErrorCode.REQUEST_PARAM_ILLEGAL);
+            return false;
         }
         RequestMessage message = ApiHolder.get();
         message.setVersion(version);
@@ -72,7 +75,7 @@ public class MessageInterceptor implements InterceptorAdapter {
 
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+    public void afterCompletion(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler, Exception ex) {
         ApiHolder.remove();
     }
 

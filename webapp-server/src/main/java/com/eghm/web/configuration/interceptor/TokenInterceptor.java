@@ -16,7 +16,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
-import javax.annotation.Nullable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,43 +42,55 @@ public class TokenInterceptor implements InterceptorAdapter {
         String token = request.getHeader(AppHeader.TOKEN);
         // 从token中获取用户信息, 如果获取不到,则从refreshToken中获取用户信息, 如果还是获取不到,则根据@AccessToken来决定是否抛异常
         if (token != null) {
-            RedisToken redisToken = tokenService.getByAccessToken(token);
-            if (redisToken != null) {
-                message.setMemberId(redisToken.getMemberId());
-            }
-            String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
-            if (message.getMemberId() == null && refreshToken != null) {
-                redisToken = tokenService.getByRefreshToken(refreshToken);
-                if (redisToken != null) {
-                    // 在accessToken过期时,可通过refreshToken进行刷新用户信息
-                    log.info("用户token已失效, 采用refreshToken重新激活 memberId:[{}]", redisToken.getMemberId());
-                    tokenService.cacheToken(redisToken);
-                    message.setMemberId(redisToken.getMemberId());
-                }
-            }
-            this.accessTokenCheck(message.getMemberId(), token, handler);
+            this.setMemberId(message, token, request);
+            this.accessTokenCheck(message, token, handler);
         }
         return true;
     }
 
     /**
+     * 根据token或refreshToken查询会员id,并设置到message中
+     * @param message 用户信息
+     * @param token token
+     * @param request request
+     */
+    private void setMemberId(RequestMessage message, String token, HttpServletRequest request) {
+        RedisToken redisToken = tokenService.getByAccessToken(token);
+        if (redisToken != null) {
+            message.setMemberId(redisToken.getMemberId());
+        }
+
+        String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
+        if (message.getMemberId() == null && refreshToken != null) {
+            redisToken = tokenService.getByRefreshToken(refreshToken);
+            if (redisToken != null) {
+                message.setMemberId(redisToken.getMemberId());
+                tokenService.cacheToken(redisToken);
+                log.info("用户token已失效, 采用refreshToken重新激活 memberId:[{}]", redisToken.getMemberId());
+            } else {
+                log.warn("用户token与refreshToken均已失效 [{}] [{}]", token, refreshToken);
+            }
+        }
+    }
+
+    /**
      * 校验用户是否需要强制登陆, 如果需要强制登陆,则必须包含memberId
-     * @param memberId memberId, 可能为空
+     * @param message 用户信息
      * @param token token
      * @param handler handler
      */
-    private void accessTokenCheck(@Nullable Long memberId, String token, Object handler) {
-        // 如果用户需要登陆,且用户未获取到,则抛异常
-        if (memberId == null && this.hasAccessToken(handler)) {
+    private void accessTokenCheck(RequestMessage message, String token, Object handler) {
+        if (message.getMemberId() == null && this.hasAccessToken(handler)) {
             RedisToken redisToken = tokenService.getOfflineToken(token);
-
+            // 如果redisToken不为空, 表示用户是被别人强制挤下线的
             if (redisToken != null) {
-                log.warn("用户其他设备登陆,accessToken:[{}],memberId:[{}]", token, redisToken.getMemberId());
+                log.warn("用户已在其他设备登陆,accessToken:[{}],memberId:[{}]", token, redisToken.getMemberId());
                 tokenService.cleanOfflineToken(token);
                 // 异常接口捎带一些额外信息方便移动端提醒用户
                 throw this.createOfflineException(redisToken.getMemberId());
             }
-            log.warn("令牌为空,accessToken:[{}]", token);
+            // 如果用户需要登陆,且用户未获取到,则抛异常
+            log.warn("用户登录已失效,请重新登陆 token:[{}]", token);
             throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
         }
     }
