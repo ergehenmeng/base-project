@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.StepType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +27,7 @@ public class PayNotifyLog extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")
-    private String tradeType;
+    private PayChannel payChannel;
 
     @ApiModelProperty("异步通知唯一id")
     private String notifyId;

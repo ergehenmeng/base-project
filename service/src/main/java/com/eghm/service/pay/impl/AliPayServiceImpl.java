@@ -9,10 +9,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
-import com.eghm.service.pay.enums.RefundChannel;
-import com.eghm.service.pay.enums.RefundStatus;
-import com.eghm.service.pay.enums.TradeState;
-import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.enums.*;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
@@ -61,7 +58,7 @@ public class AliPayServiceImpl implements PayService {
         }
         PrepayVO vo = new PrepayVO();
         vo.setTradeNo(response.tradeNo);
-        vo.setTradeType(TradeType.ALI_PAY);
+        vo.setPayChannel(PayChannel.ALIPAY);
         return vo;
     }
 
@@ -128,7 +125,7 @@ public class AliPayServiceImpl implements PayService {
         vo.setState(RefundStatus.PROCESSING);
         vo.setChannelAccount(response.getBuyerUserId());
         vo.setTotalAmount(DecimalUtil.yuanToCent(response.getRefundFee()));
-        vo.setTradeType(TradeType.ALI_PAY);
+        vo.setPayChannel(PayChannel.ALIPAY);
         return vo;
     }
 

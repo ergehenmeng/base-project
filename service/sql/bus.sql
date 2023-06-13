@@ -410,7 +410,7 @@ DROP TABLE IF EXISTS `pay_notify_log`;
 CREATE TABLE `pay_notify_log`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
-    `trade_type`    varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALIPAY:支付宝',
+    `pay_channel`    varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
     `notify_id`     varchar(50) DEFAULT NULL COMMENT '异步通知唯一ID',
     `step_type`     varchar(30) DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
     `out_trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
@@ -420,16 +420,17 @@ CREATE TABLE `pay_notify_log`
     `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `notify_id_unique` (`trade_type`, `notify_id`) USING BTREE
+    UNIQUE KEY `notify_id_unique` (`pay_channel`, `notify_id`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付或退款异步通知记录表';
 
+DROP TABLE IF EXISTS `pay_request_log`;
 CREATE TABLE `pay_request_log`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
-    `trade_type`    varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALIPAY:支付宝',
+    `pay_channel`    varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
     `order_no`      varchar(50) DEFAULT NULL COMMENT '订单编号',
-    `step_type`     VARCHAR(20) DEFAULT NULL COMMENT '请求类型 PAY: 支付异步通知 REFUND:退款异步通知',
+    `step_type`     VARCHAR(20) DEFAULT NULL COMMENT '请求类型 PAY: 支付 REFUND:退款',
     `out_trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
     `out_refund_no` varchar(30) DEFAULT NULL COMMENT '退款流水号',
     `request_body`  text COMMENT '请求参数',
@@ -438,7 +439,7 @@ CREATE TABLE `pay_request_log`
     `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`       bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `order_idx` (`order_no`, `trade_type`) USING BTREE
+    KEY `order_idx` (`order_no`, `pay_channel`) USING BTREE
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='支付或退款请求记录表';
 

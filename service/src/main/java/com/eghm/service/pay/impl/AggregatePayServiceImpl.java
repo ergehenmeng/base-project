@@ -2,7 +2,7 @@ package com.eghm.service.pay.impl;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.service.business.PayRequestLogService;
+import com.eghm.service.pay.PayRequestLogService;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;

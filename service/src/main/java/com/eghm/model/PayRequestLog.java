@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.StepType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +27,7 @@ import java.io.Serializable;
 public class PayRequestLog extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")
-    private String tradeType;
+    private PayChannel payChannel;
 
     @ApiModelProperty(value = "订单编号")
     private String orderNo;

@@ -1,5 +1,6 @@
 package com.eghm.service.pay.vo;
 
+import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.TradeType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -49,7 +50,7 @@ public class PrepayVO {
     @ApiModelProperty("支付宝交易单号")
     private String tradeNo;
 
-    @ApiModelProperty("支付渠道 WECHAT:微信, ALI_PAY:支付宝, 其他属性不做处理")
+    @ApiModelProperty("支付渠道 WECHAT:微信, ALIPAY:支付宝")
     @JsonIgnore
-    private TradeType tradeType;
+    private PayChannel payChannel;
 }

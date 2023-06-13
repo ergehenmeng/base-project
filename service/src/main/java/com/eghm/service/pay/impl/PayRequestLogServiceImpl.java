@@ -1,8 +1,13 @@
-package com.eghm.service.business.impl;
+package com.eghm.service.pay.impl;
 
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.log.PayLogQueryRequest;
 import com.eghm.mapper.PayRequestLogMapper;
 import com.eghm.model.PayRequestLog;
-import com.eghm.service.business.PayRequestLogService;
+import com.eghm.service.pay.PayRequestLogService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -31,13 +36,27 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
 
     private final JsonService jsonService;
 
+    @Override
+    public Page<PayRequestLog> getByPage(PayLogQueryRequest request) {
+        LambdaQueryWrapper<PayRequestLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getPayChannel() != null, PayRequestLog::getPayChannel, request.getPayChannel());
+        wrapper.eq(request.getStepType() != null, PayRequestLog::getStepType, request.getPayChannel());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper
+                .like(PayRequestLog::getOrderNo, request.getQueryName())
+                .or()
+                .like(PayRequestLog::getOutTradeNo, request.getQueryName())
+                .or()
+                .like(PayRequestLog::getOutRefundNo, request.getQueryName()));
+        return payRequestLogMapper.selectPage(request.createPage(), wrapper);
+    }
+
     @Async
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void insertPayLog(PrepayDTO request, PrepayVO response) {
         PayRequestLog requestLog = new PayRequestLog();
         requestLog.setOrderNo(request.getAttach());
-        requestLog.setTradeType(response.getTradeType().name());
+        requestLog.setPayChannel(response.getPayChannel());
         requestLog.setRequestBody(jsonService.toJson(request));
         requestLog.setResponseBody(jsonService.toJson(response));
         requestLog.setStepType(StepType.PAY);
@@ -51,7 +70,7 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
     public void insertRefundLog(RefundDTO request, RefundVO response) {
         PayRequestLog requestLog = new PayRequestLog();
         requestLog.setOrderNo(request.getOrderNo());
-        requestLog.setTradeType(response.getTradeType().name());
+        requestLog.setPayChannel(response.getPayChannel());
         requestLog.setRequestBody(jsonService.toJson(request));
         requestLog.setResponseBody(jsonService.toJson(response));
         requestLog.setStepType(StepType.REFUND);

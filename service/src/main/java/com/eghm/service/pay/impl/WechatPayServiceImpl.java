@@ -6,10 +6,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
-import com.eghm.service.pay.enums.RefundChannel;
-import com.eghm.service.pay.enums.RefundStatus;
-import com.eghm.service.pay.enums.TradeState;
-import com.eghm.service.pay.enums.TradeType;
+import com.eghm.service.pay.enums.*;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
@@ -183,7 +180,7 @@ public class WechatPayServiceImpl implements PayService {
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         String nonceStr = SignUtils.genRandomStr();
         PrepayVO response = new PrepayVO();
-        response.setTradeType(TradeType.WECHAT);
+        response.setPayChannel(PayChannel.WECHAT);
         switch (tradeType) {
             case WECHAT_MINI:
             case WECHAT_JSAPI:
@@ -229,7 +226,7 @@ public class WechatPayServiceImpl implements PayService {
         vo.setChannelAccount(memberReceivedAccount);
         vo.setSuccessTime(DateUtil.parseIso(successTime));
         vo.setCreateTime(DateUtil.parseIso(createTime));
-        vo.setTradeType(TradeType.WECHAT);
+        vo.setPayChannel(PayChannel.WECHAT);
         return vo;
     }
 

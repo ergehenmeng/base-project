@@ -1,5 +1,8 @@
 package com.eghm.service.pay;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.log.PayLogQueryRequest;
+import com.eghm.model.PayNotifyLog;
 import com.eghm.service.pay.enums.StepType;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -11,6 +14,13 @@ import java.util.Map;
  * @date 2022/7/26
  */
 public interface PayNotifyLogService {
+
+    /**
+     * 分页查询支付退款异步请求的日志
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<PayNotifyLog> getByPage(PayLogQueryRequest request);
 
     /**
      * 添加支付宝异步通知日志

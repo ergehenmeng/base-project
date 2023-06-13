@@ -1,5 +1,8 @@
-package com.eghm.service.business;
+package com.eghm.service.pay;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.log.PayLogQueryRequest;
+import com.eghm.model.PayRequestLog;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.vo.PrepayVO;
@@ -14,6 +17,13 @@ import com.eghm.service.pay.vo.RefundVO;
  * @since 2023-06-13
  */
 public interface PayRequestLogService {
+
+    /**
+     * 分页查询支付退款同步请求的日志
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<PayRequestLog> getByPage(PayLogQueryRequest request);
 
     /**
      * 添加请求支付的日志
