@@ -2,6 +2,7 @@ package com.eghm.service.pay.impl;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.service.business.PayRequestLogService;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
@@ -27,9 +28,17 @@ public class AggregatePayServiceImpl implements AggregatePayService {
 
     private final List<PayService> serviceList;
 
+    private final PayRequestLogService payRequestLogService;
+
     @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
-        return getPayService(dto.getTradeType()).createPrepay(dto);
+        PrepayVO vo = null;
+        try {
+            vo = getPayService(dto.getTradeType()).createPrepay(dto);
+        } finally {
+            payRequestLogService.insertPayLog(dto, vo);
+        }
+        return vo;
     }
 
     @Override
@@ -44,7 +53,13 @@ public class AggregatePayServiceImpl implements AggregatePayService {
 
     @Override
     public RefundVO applyRefund(RefundDTO dto) {
-        return getPayService(dto.getTradeType()).applyRefund(dto);
+        RefundVO vo = null;
+        try {
+            vo = getPayService(dto.getTradeType()).applyRefund(dto);
+        } finally {
+            payRequestLogService.insertRefundLog(dto, vo);
+        }
+        return vo;
     }
 
     @Override

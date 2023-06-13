@@ -2,6 +2,8 @@ package com.eghm.service.pay.vo;
 
 import com.eghm.service.pay.enums.RefundChannel;
 import com.eghm.service.pay.enums.RefundStatus;
+import com.eghm.service.pay.enums.TradeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -34,5 +36,9 @@ public class RefundVO {
 
     @ApiModelProperty("退款受理时间")
     private LocalDateTime createTime;
+
+    @ApiModelProperty("支付渠道 WECHAT:微信, ALI_PAY:支付宝, 其他属性不做处理")
+    @JsonIgnore
+    private TradeType tradeType;
 
 }

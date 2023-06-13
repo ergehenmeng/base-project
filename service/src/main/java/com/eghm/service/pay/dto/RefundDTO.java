@@ -1,5 +1,6 @@
 package com.eghm.service.pay.dto;
 
+import com.eghm.annotation.Padding;
 import com.eghm.service.pay.enums.TradeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,6 +11,9 @@ import lombok.Data;
  */
 @Data
 public class RefundDTO {
+
+    @ApiModelProperty(value = "订单号", hidden = true)
+    private String orderNo;
 
     @ApiModelProperty(value = "商户流水号(支付单号)", required = true)
     private String outTradeNo;

@@ -10,7 +10,7 @@ import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
-import com.eghm.service.pay.enums.NotifyType;
+import com.eghm.service.pay.enums.StepType;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -56,7 +56,7 @@ public class PayNotifyController {
     public String aliPay(HttpServletRequest request) {
         Map<String, String> stringMap = parseRequest(request);
         aliPayService.verifyNotify(stringMap);
-        payNotifyLogService.insertAliLog(stringMap, NotifyType.PAY);
+        payNotifyLogService.insertAliLog(stringMap, StepType.PAY);
 
         String orderNo = stringMap.get("body");
         String outTradeNo = stringMap.get("out_trade_no");
@@ -76,7 +76,7 @@ public class PayNotifyController {
     public String aliRefund(HttpServletRequest request) {
         Map<String, String> stringMap = parseRequest(request);
         aliPayService.verifyNotify(stringMap);
-        payNotifyLogService.insertAliLog(stringMap, NotifyType.REFUND);
+        payNotifyLogService.insertAliLog(stringMap, StepType.REFUND);
 
         String outRefundNo = stringMap.get("out_biz_no");
         String outTradeNo = stringMap.get("out_trade_no");

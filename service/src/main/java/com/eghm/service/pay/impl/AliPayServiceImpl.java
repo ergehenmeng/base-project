@@ -61,6 +61,7 @@ public class AliPayServiceImpl implements PayService {
         }
         PrepayVO vo = new PrepayVO();
         vo.setTradeNo(response.tradeNo);
+        vo.setTradeType(TradeType.ALI_PAY);
         return vo;
     }
 
@@ -127,6 +128,7 @@ public class AliPayServiceImpl implements PayService {
         vo.setState(RefundStatus.PROCESSING);
         vo.setChannelAccount(response.getBuyerUserId());
         vo.setTotalAmount(DecimalUtil.yuanToCent(response.getRefundFee()));
+        vo.setTradeType(TradeType.ALI_PAY);
         return vo;
     }
 

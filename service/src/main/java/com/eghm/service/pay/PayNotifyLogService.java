@@ -1,6 +1,6 @@
 package com.eghm.service.pay;
 
-import com.eghm.service.pay.enums.NotifyType;
+import com.eghm.service.pay.enums.StepType;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 
@@ -15,9 +15,9 @@ public interface PayNotifyLogService {
     /**
      * 添加支付宝异步通知日志
      * @param params 所有参数
-     * @param notifyType 通知类型
+     * @param stepType 通知类型
      */
-    void insertAliLog(Map<String, String> params, NotifyType notifyType);
+    void insertAliLog(Map<String, String> params, StepType stepType);
 
     /**
      * 添加微信支付异步通知

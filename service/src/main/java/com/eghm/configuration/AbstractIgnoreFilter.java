@@ -32,12 +32,7 @@ public abstract class AbstractIgnoreFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
-        for (String url : exclude) {
-            if (matcher.match(url, request.getRequestURI())) {
-                return true;
-            }
-        }
-        return false;
+        return exclude.stream().anyMatch(url -> matcher.match(url, request.getRequestURI()));
     }
 
 }

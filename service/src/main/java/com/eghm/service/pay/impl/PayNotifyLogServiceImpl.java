@@ -3,7 +3,7 @@ package com.eghm.service.pay.impl;
 import com.eghm.mapper.PayNotifyLogMapper;
 import com.eghm.model.PayNotifyLog;
 import com.eghm.service.pay.PayNotifyLogService;
-import com.eghm.service.pay.enums.NotifyType;
+import com.eghm.service.pay.enums.StepType;
 import com.eghm.service.pay.enums.TradeType;
 import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
@@ -26,14 +26,14 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
 
     @Override
     @Async
-    public void insertAliLog(Map<String, String> params, NotifyType notifyType) {
+    public void insertAliLog(Map<String, String> params, StepType stepType) {
         PayNotifyLog log = new PayNotifyLog();
-        log.setNotifyType(notifyType.name());
+        log.setStepType(stepType);
         log.setTradeType(TradeType.ALI_PAY.getCode());
         log.setParams(new Gson().toJson(params));
         log.setOutTradeNo(params.get("out_trade_no"));
         log.setNotifyId(params.get("notify_id"));
-        if (notifyType == NotifyType.REFUND) {
+        if (stepType == StepType.REFUND) {
             log.setOutRefundNo(params.get("out_biz_no"));
         }
         payNotifyLogMapper.insert(log);
@@ -44,7 +44,7 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
     public void insertWechatPayLog(WxPayOrderNotifyV3Result result) {
         WxPayOrderNotifyV3Result.DecryptNotifyResult notifyResult = result.getResult();
         PayNotifyLog log = new PayNotifyLog();
-        log.setNotifyType(NotifyType.PAY.name());
+        log.setStepType(StepType.PAY);
         log.setTradeType(TradeType.WECHAT.getCode());
         log.setParams(new Gson().toJson(notifyResult));
         log.setOutTradeNo(notifyResult.getOutTradeNo());
@@ -57,7 +57,7 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
     public void insertWechatRefundLog(WxPayRefundNotifyV3Result result) {
         WxPayRefundNotifyV3Result.DecryptNotifyResult notifyResult = result.getResult();
         PayNotifyLog log = new PayNotifyLog();
-        log.setNotifyType(NotifyType.REFUND.name());
+        log.setStepType(StepType.REFUND);
         log.setTradeType(TradeType.WECHAT.getCode());
         log.setParams(new Gson().toJson(notifyResult));
         log.setOutTradeNo(notifyResult.getOutTradeNo());
