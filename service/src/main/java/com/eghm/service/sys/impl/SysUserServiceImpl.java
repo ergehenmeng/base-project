@@ -6,25 +6,27 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.DataType;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
-import com.eghm.mapper.SysUserMapper;
-import com.eghm.model.SysDataDept;
-import com.eghm.model.SysUser;
+import com.eghm.constant.CacheConstant;
+import com.eghm.dto.user.PasswordEditRequest;
 import com.eghm.dto.user.UserAddRequest;
 import com.eghm.dto.user.UserEditRequest;
 import com.eghm.dto.user.UserQueryRequest;
-import com.eghm.dto.user.PasswordEditRequest;
-import com.eghm.vo.login.LoginResponse;
-import com.eghm.vo.menu.MenuResponse;
+import com.eghm.enums.DataType;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.SysUserMapper;
+import com.eghm.model.SysDataDept;
+import com.eghm.model.SysUser;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JwtTokenService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
-import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.SysRoleService;
+import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.login.LoginResponse;
+import com.eghm.vo.menu.MenuResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,8 @@ public class SysUserServiceImpl implements SysUserService {
     private final SysMenuService sysMenuService;
 
     private final JwtTokenService jwtTokenService;
+
+    private final CacheService cacheService;
 
     @Override
     public SysUser getByMobile(String mobile) {
@@ -220,6 +224,7 @@ public class SysUserServiceImpl implements SysUserService {
         response.setButtonList(buttonList);
         response.setUserType(user.getUserType());
         response.setLeftMenuList(leftMenu);
+        cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         return response;
     }
 
