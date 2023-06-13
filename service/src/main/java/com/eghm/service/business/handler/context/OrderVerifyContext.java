@@ -32,6 +32,10 @@ public class OrderVerifyContext implements Context {
     @Padding
     private Integer verifyNum;
 
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Padding
+    private Long merchantId;
+
     @ApiModelProperty("源状态")
     private Integer from;
 }

@@ -2,7 +2,6 @@ package com.eghm.web.controller.business;
 
 import cn.hutool.core.util.StrUtil;
 import com.eghm.dto.business.order.OrderPayDTO;
-import com.eghm.dto.business.order.OrderVerifyDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
@@ -10,10 +9,7 @@ import com.eghm.dto.business.order.restaurant.RestaurantOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
-import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.exception.BusinessException;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
@@ -28,8 +24,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
 
 /**
  * @author wyb
@@ -102,35 +96,6 @@ public class OrderController {
     @ApiOperation("拉起支付")
     public PrepayVO pay(@RequestBody @Validated OrderPayDTO dto) {
         return orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType());
-    }
-
-    @PostMapping("/verify")
-    @ApiOperation("核销")
-    public RespBody<Integer> verify(@RequestBody @Validated OrderVerifyDTO dto) {
-        String orderNo = orderService.decryptVerifyNo(dto.getVerifyNo());
-        // TODO 核销正常情况需要在管理后台登录,此处获取用户id不严谨
-        OrderVerifyContext context = new OrderVerifyContext();
-        context.setOrderNo(orderNo);
-        context.setUserId(ApiHolder.getMemberId());
-        context.setRemark(dto.getRemark());
-        context.setVisitorList(dto.getVisitorList());
-
-        ProductType productType = ProductType.prefix(orderNo);
-
-        if (productType == ProductType.ITEM) {
-            itemAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.HOMESTAY) {
-            homestayAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.LINE) {
-            lineAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.TICKET) {
-            ticketAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.RESTAURANT) {
-            restaurantAccessHandler.verifyOrder(context);
-        } else {
-            throw new BusinessException(VERIFY_TYPE_ERROR);
-        }
-        return RespBody.success(context.getVerifyNum());
     }
 
     /**

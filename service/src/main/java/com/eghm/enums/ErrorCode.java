@@ -1101,6 +1101,11 @@ public enum ErrorCode {
     ORDER_REFUND_PROCESS(3428, "订单退款处理中,无法核销"),
 
     /**
+     * 无法核销其他店铺的订单
+     */
+    ILLEGAL_VERIFY(3429, "无法核销其他店铺的订单"),
+
+    /**
      * 核销码错误, 请重新扫描
      */
     VERIFY_NO_ERROR(3430, "核销码错误, 请重新扫描"),
