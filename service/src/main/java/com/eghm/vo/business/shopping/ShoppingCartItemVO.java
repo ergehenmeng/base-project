@@ -1,4 +1,4 @@
-package com.eghm.vo.shopping;
+package com.eghm.vo.business.shopping;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.PlatformState;

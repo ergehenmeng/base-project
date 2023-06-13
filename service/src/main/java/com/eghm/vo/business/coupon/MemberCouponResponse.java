@@ -1,4 +1,4 @@
-package com.eghm.vo.coupon;
+package com.eghm.vo.business.coupon;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -5,10 +5,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.MemberCoupon;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
-import com.eghm.vo.coupon.MemberCouponBaseVO;
-import com.eghm.vo.coupon.MemberCouponCountVO;
-import com.eghm.vo.coupon.MemberCouponResponse;
-import com.eghm.vo.coupon.MemberCouponVO;
+import com.eghm.vo.business.coupon.MemberCouponBaseVO;
+import com.eghm.vo.business.coupon.MemberCouponCountVO;
+import com.eghm.vo.business.coupon.MemberCouponResponse;
+import com.eghm.vo.business.coupon.MemberCouponVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

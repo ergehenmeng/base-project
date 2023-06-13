@@ -6,7 +6,7 @@ import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.item.ItemListVO;
-import com.eghm.vo.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponListVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

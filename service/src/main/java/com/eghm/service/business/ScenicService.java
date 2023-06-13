@@ -8,8 +8,8 @@ import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
-import com.eghm.vo.scenic.ScenicListVO;
-import com.eghm.vo.scenic.ScenicVO;
+import com.eghm.vo.business.scenic.ScenicListVO;
+import com.eghm.vo.business.scenic.ScenicVO;
 
 import java.util.List;
 

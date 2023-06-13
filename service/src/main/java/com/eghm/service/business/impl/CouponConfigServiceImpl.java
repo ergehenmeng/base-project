@@ -17,7 +17,7 @@ import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
-import com.eghm.vo.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponListVO;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
 import com.eghm.service.business.MemberCouponService;

@@ -1,4 +1,4 @@
-package com.eghm.vo.scenic;
+package com.eghm.vo.business.scenic;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;

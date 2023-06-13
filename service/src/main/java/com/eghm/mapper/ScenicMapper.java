@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.Scenic;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
-import com.eghm.vo.scenic.ScenicListVO;
+import com.eghm.vo.business.scenic.ScenicListVO;
 import org.apache.ibatis.annotations.Param;
 
 /**

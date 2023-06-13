@@ -8,8 +8,8 @@ import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
-import com.eghm.vo.scenic.ticket.TicketBaseVO;
-import com.eghm.vo.scenic.ticket.TicketVO;
+import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
+import com.eghm.vo.business.scenic.ticket.TicketVO;
 
 import java.util.List;
 

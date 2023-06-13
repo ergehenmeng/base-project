@@ -42,7 +42,7 @@
         order by t.id desc
     </select>
 
-    <select id="getTicketList" resultType="com.eghm.vo.scenic.ticket.TicketBaseVO">
+    <select id="getTicketList" resultType="com.eghm.vo.business.scenic.ticket.TicketBaseVO">
         select
         id,
         title,

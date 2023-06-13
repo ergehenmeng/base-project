@@ -1,4 +1,4 @@
-package com.eghm.vo.shopping;
+package com.eghm.vo.business.shopping;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;

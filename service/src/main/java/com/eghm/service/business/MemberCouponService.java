@@ -5,9 +5,9 @@ import com.eghm.dto.business.coupon.member.GrantCouponDTO;
 import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
 import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
-import com.eghm.vo.coupon.MemberCouponBaseVO;
-import com.eghm.vo.coupon.MemberCouponResponse;
-import com.eghm.vo.coupon.MemberCouponVO;
+import com.eghm.vo.business.coupon.MemberCouponBaseVO;
+import com.eghm.vo.business.coupon.MemberCouponResponse;
+import com.eghm.vo.business.coupon.MemberCouponVO;
 
 import java.util.List;
 import java.util.Map;

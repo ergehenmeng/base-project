@@ -5,7 +5,7 @@ import com.eghm.model.ScenicTicket;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
-import com.eghm.vo.scenic.ticket.TicketBaseVO;
+import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

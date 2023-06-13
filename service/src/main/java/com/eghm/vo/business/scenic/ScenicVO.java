@@ -1,7 +1,7 @@
-package com.eghm.vo.scenic;
+package com.eghm.vo.business.scenic;
 
 import com.eghm.vo.business.activity.ActivityBaseDTO;
-import com.eghm.vo.scenic.ticket.TicketBaseVO;
+import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;

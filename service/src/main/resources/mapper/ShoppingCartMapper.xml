@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ShoppingCartMapper">
 
-    <select id="getList" resultType="com.eghm.vo.shopping.ShoppingCartItemVO">
+    <select id="getList" resultType="com.eghm.vo.business.shopping.ShoppingCartItemVO">
         select
         t.id,
         t.store_id as storeId,

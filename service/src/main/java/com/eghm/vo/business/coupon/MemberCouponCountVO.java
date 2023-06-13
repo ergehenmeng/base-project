@@ -1,4 +1,4 @@
-package com.eghm.vo.coupon;
+package com.eghm.vo.business.coupon;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

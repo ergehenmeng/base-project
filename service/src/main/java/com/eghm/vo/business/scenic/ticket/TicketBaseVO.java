@@ -1,4 +1,4 @@
-package com.eghm.vo.scenic.ticket;
+package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

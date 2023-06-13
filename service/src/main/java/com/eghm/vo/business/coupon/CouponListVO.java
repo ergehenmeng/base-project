@@ -1,4 +1,4 @@
-package com.eghm.vo.coupon;
+package com.eghm.vo.business.coupon;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.CouponType;
