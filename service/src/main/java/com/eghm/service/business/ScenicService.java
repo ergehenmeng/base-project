@@ -54,6 +54,13 @@ public interface ScenicService {
     Scenic selectById(Long id);
 
     /**
+     * 查询景区信息, 如果景区删除或下架则报错
+     * @param id id
+     * @return 景区信息
+     */
+    Scenic selectByIdShelve(Long id);
+
+    /**
      * 更新上下架状态
      * @param id id
      * @param state 状态

@@ -6,25 +6,21 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.exception.BusinessException;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
-import com.eghm.mapper.ScenicMapper;
-import com.eghm.model.Scenic;
 import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
-import com.eghm.vo.business.activity.ActivityBaseDTO;
-import com.eghm.vo.business.scenic.ScenicListVO;
-import com.eghm.vo.business.scenic.ScenicVO;
-import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.ScenicMapper;
+import com.eghm.model.Scenic;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
@@ -33,6 +29,10 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.activity.ActivityBaseDTO;
+import com.eghm.vo.business.scenic.ScenicListVO;
+import com.eghm.vo.business.scenic.ScenicVO;
+import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -102,6 +102,16 @@ public class ScenicServiceImpl implements ScenicService {
     }
 
     @Override
+    public Scenic selectByIdShelve(Long id) {
+        Scenic scenic = scenicMapper.selectById(id);
+        if (scenic == null || scenic.getPlatformState() != PlatformState.SHELVE) {
+            log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
+            throw new BusinessException(ErrorCode.SCENIC_DOWN);
+        }
+        return scenic;
+    }
+
+    @Override
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
@@ -146,11 +156,7 @@ public class ScenicServiceImpl implements ScenicService {
 
     @Override
     public ScenicVO detailById(Long id, Double longitude, Double latitude) {
-        Scenic scenic = scenicMapper.selectById(id);
-        if (scenic == null || scenic.getPlatformState() != PlatformState.SHELVE) {
-            log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
-            throw new BusinessException(ErrorCode.SCENIC_DOWN);
-        }
+        Scenic scenic = this.selectByIdShelve(id);
         ScenicVO vo = DataUtil.copy(scenic, ScenicVO.class, "tag");
         // 用户未开启定位, 不查询距离
         if (longitude != null && latitude != null) {

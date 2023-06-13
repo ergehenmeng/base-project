@@ -1,5 +1,6 @@
 package com.eghm.service.business.handler.dto;
 
+import com.eghm.model.Homestay;
 import com.eghm.model.HomestayRoom;
 import com.eghm.model.HomestayRoomConfig;
 import lombok.Data;
@@ -14,7 +15,12 @@ import java.util.List;
 public class HomestayOrderPayload {
 
     /**
-     * 房型信心
+     * 民宿信息
+     */
+    private Homestay homestay;
+
+    /**
+     * 房型信息
      */
     private HomestayRoom homestayRoom;
 

@@ -8,8 +8,10 @@ import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
+import com.eghm.model.Line;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
+import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.LineOrderCreateContext;
 import com.eghm.service.business.handler.dto.LineOrderPayload;
@@ -28,6 +30,8 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final LineService lineService;
 
+    private final TravelAgencyService travelAgencyService;
+
     private final LineConfigService lineConfigService;
 
     private final LineDayConfigService lineDayConfigService;
@@ -40,9 +44,10 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final OrderMQService orderMQService;
 
-    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineDaySnapshotService lineDaySnapshotService) {
+    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineDaySnapshotService lineDaySnapshotService) {
         super(memberCouponService, orderVisitorService);
         this.lineService = lineService;
+        this.travelAgencyService = travelAgencyService;
         this.lineConfigService = lineConfigService;
         this.lineDayConfigService = lineDayConfigService;
         this.lineOrderService = lineOrderService;
@@ -53,8 +58,11 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected LineOrderPayload getPayload(LineOrderCreateContext context) {
+        Line line = lineService.selectByIdShelve(context.getLineId());
+        TravelAgency travelAgency = travelAgencyService.selectByIdShelve(line.getTravelAgencyId());
         LineOrderPayload payload = new LineOrderPayload();
-        payload.setLine(lineService.selectByIdShelve(context.getLineId()));
+        payload.setLine(line);
+        payload.setTravelAgency(travelAgency);
         payload.setConfig(lineConfigService.getConfig(context.getLineId(), context.getConfigDate()));
         payload.setDayList(lineDayConfigService.getByLineId(context.getLineId()));
         return payload;
@@ -75,6 +83,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.UN_PAY);
         order.setMemberId(context.getMemberId());
+        order.setMerchantId(payload.getTravelAgency().getMerchantId());
         order.setCoverUrl(super.getFirstCoverUrl(payload.getLine().getCoverUrl()));
         order.setOrderNo(orderNo);
         order.setNum(context.getNum());

@@ -26,6 +26,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.eghm.enums.ErrorCode.LINE_DOWN;
+
 /**
  * @author 殿小二
  * @date 2023/2/18
@@ -94,7 +96,17 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         }
         return travelAgency;
     }
-    
+
+    @Override
+    public TravelAgency selectByIdShelve(Long id) {
+        TravelAgency travelAgency = this.selectByIdRequired(id);
+        if (travelAgency == null) {
+            log.error("该旅行社商品已下架 [{}]", id);
+            throw new BusinessException(LINE_DOWN);
+        }
+        return travelAgency;
+    }
+
     @Override
     public void deleteById(Long id) {
         travelAgencyMapper.deleteById(id);

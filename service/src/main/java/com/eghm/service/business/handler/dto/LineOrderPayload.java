@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.dto;
 import com.eghm.model.Line;
 import com.eghm.model.LineConfig;
 import com.eghm.model.LineDayConfig;
+import com.eghm.model.TravelAgency;
 import lombok.Data;
 
 import java.util.List;
@@ -13,6 +14,11 @@ import java.util.List;
  */
 @Data
 public class LineOrderPayload {
+
+    /**
+     * 旅行社信息
+     */
+    private TravelAgency travelAgency;
 
     /**
      * 线路商品信息

@@ -10,10 +10,12 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
+import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.TicketOrderCreateContext;
+import com.eghm.service.business.handler.dto.TicketOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,9 +27,11 @@ import org.springframework.stereotype.Service;
  */
 @Service("ticketOrderCreateHandler")
 @Slf4j
-public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketOrderCreateContext, ScenicTicket> {
+public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketOrderCreateContext, TicketOrderPayload> {
 
     private final ScenicTicketService scenicTicketService;
+
+    private final ScenicService scenicService;
 
     private final TicketOrderService ticketOrderService;
 
@@ -35,8 +39,9 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
 
     private final OrderMQService orderMQService;
 
-    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, TicketOrderService ticketOrderService) {
+    public TicketOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, ScenicTicketService scenicTicketService, ScenicService scenicService, TicketOrderService ticketOrderService) {
         super(memberCouponService, orderVisitorService);
+        this.scenicService = scenicService;
         this.scenicTicketService = scenicTicketService;
         this.ticketOrderService = ticketOrderService;
         this.orderService = orderService;
@@ -44,13 +49,19 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected ScenicTicket getPayload(TicketOrderCreateContext context) {
-        return scenicTicketService.selectByIdShelve(context.getTicketId());
+    protected TicketOrderPayload getPayload(TicketOrderCreateContext context) {
+        ScenicTicket scenicTicket = scenicTicketService.selectByIdShelve(context.getTicketId());
+        Scenic scenic = scenicService.selectByIdShelve(scenicTicket.getScenicId());
+        TicketOrderPayload payload = new TicketOrderPayload();
+        payload.setTicket(scenicTicket);
+        payload.setScenic(scenic);
+        return payload;
     }
 
     @Override
-    protected void before(TicketOrderCreateContext context, ScenicTicket ticket) {
+    protected void before(TicketOrderCreateContext context, TicketOrderPayload payload) {
         int num = context.getVisitorList().size();
+        ScenicTicket ticket = payload.getTicket();
         if (ticket.getStock() - num < 0) {
             log.error("门票库存不足 [{}] [{}] [{}]", ticket.getId(), ticket.getStock(), num);
             throw new BusinessException(ErrorCode.TICKET_STOCK);
@@ -67,32 +78,34 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected Order createOrder(TicketOrderCreateContext context, ScenicTicket payload) {
+    protected Order createOrder(TicketOrderCreateContext context, TicketOrderPayload payload) {
+        ScenicTicket ticket = payload.getTicket();
         String orderNo = ProductType.TICKET.generateTradeNo();
         Order order = new Order();
+        order.setMerchantId(payload.getScenic().getMerchantId());
         order.setMemberId(context.getMemberId());
-        order.setTitle(payload.getTitle());
+        order.setTitle(ticket.getTitle());
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.TICKET);
-        order.setCoverUrl(super.getFirstCoverUrl(payload.getCoverUrl()));
+        order.setCoverUrl(super.getFirstCoverUrl(ticket.getCoverUrl()));
         order.setOrderNo(orderNo);
-        order.setPrice(payload.getSalePrice());
+        order.setPrice(ticket.getSalePrice());
         order.setNum(context.getVisitorList().size());
-        order.setPayAmount(order.getNum() * payload.getSalePrice());
+        order.setPayAmount(order.getNum() * ticket.getSalePrice());
 
         order.setMultiple(false);
-        order.setRefundType(payload.getRefundType());
-        order.setRefundDescribe(payload.getRefundDescribe());
+        order.setRefundType(ticket.getRefundType());
+        order.setRefundDescribe(ticket.getRefundDescribe());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         // 使用优惠券
-        this.useDiscount(order, context.getMemberId(), context.getCouponId(), payload.getId());
+        this.useDiscount(order, context.getMemberId(), context.getCouponId(), ticket.getId());
         orderService.save(order);
         return order;
     }
 
     @Override
-    public boolean isHotSell(TicketOrderCreateContext context, ScenicTicket payload) {
-        return payload.getHotSell();
+    public boolean isHotSell(TicketOrderCreateContext context, TicketOrderPayload payload) {
+        return payload.getTicket().getHotSell();
     }
 
     @Override
@@ -101,9 +114,9 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected void next(TicketOrderCreateContext context, ScenicTicket payload, Order order) {
+    protected void next(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
         super.addVisitor(order, context.getVisitorList());
-        scenicTicketService.updateStock(payload.getId(), -order.getNum());
+        scenicTicketService.updateStock(payload.getTicket().getId(), -order.getNum());
         TicketOrder ticketOrder = DataUtil.copy(payload, TicketOrder.class);
         ticketOrder.setOrderNo(order.getOrderNo());
         ticketOrder.setMobile(context.getMobile());
@@ -112,7 +125,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     }
 
     @Override
-    protected void end(TicketOrderCreateContext context, ScenicTicket payload, Order order) {
+    protected void end(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
         orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
     }
 

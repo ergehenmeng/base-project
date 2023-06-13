@@ -30,6 +30,9 @@ public class Order extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("商户id")
+    private Long merchantId;
+
     @ApiModelProperty(value = "商品名称")
     private String title;
 

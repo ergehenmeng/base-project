@@ -8,10 +8,7 @@ import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
-import com.eghm.model.HomestayOrder;
-import com.eghm.model.HomestayRoom;
-import com.eghm.model.HomestayRoomConfig;
-import com.eghm.model.Order;
+import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.HomestayOrderCreateContext;
 import com.eghm.service.business.handler.dto.HomestayOrderPayload;
@@ -36,6 +33,8 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
 
     private final HomestayRoomService homestayRoomService;
 
+    private final HomestayService homestayService;
+
     private final HomestayRoomConfigService homestayRoomConfigService;
 
     private final HomestayOrderSnapshotService homestayOrderSnapshotService;
@@ -44,10 +43,11 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
 
     private final OrderMQService orderMQService;
 
-    public HomestayOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
+    public HomestayOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, HomestayOrderService homestayOrderService, HomestayRoomService homestayRoomService, HomestayService homestayService, HomestayRoomConfigService homestayRoomConfigService, HomestayOrderSnapshotService homestayOrderSnapshotService) {
         super(memberCouponService, orderVisitorService);
         this.homestayOrderService = homestayOrderService;
         this.homestayRoomService = homestayRoomService;
+        this.homestayService = homestayService;
         this.homestayRoomConfigService = homestayRoomConfigService;
         this.homestayOrderSnapshotService = homestayOrderSnapshotService;
         this.orderService = orderService;
@@ -88,8 +88,10 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
     @Override
     protected HomestayOrderPayload getPayload(HomestayOrderCreateContext context) {
         HomestayRoom homestayRoom = homestayRoomService.selectByIdShelve(context.getRoomId());
+        Homestay homestay = homestayService.selectByIdShelve(homestayRoom.getHomestayId());
         List<HomestayRoomConfig> configList = homestayRoomConfigService.getList(context.getRoomId(), context.getStartDate(), context.getEndDate());
         HomestayOrderPayload payload = new HomestayOrderPayload();
+        payload.setHomestay(homestay);
         payload.setHomestayRoom(homestayRoom);
         payload.setConfigList(configList);
         return payload;
@@ -100,6 +102,7 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
         String orderNo = ProductType.HOMESTAY.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
         order.setState(OrderState.UN_PAY);
+        order.setMerchantId(payload.getHomestay().getMerchantId());
         order.setMemberId(context.getMemberId());
         order.setCoverUrl(super.getFirstCoverUrl(payload.getHomestayRoom().getCoverUrl()));
         order.setOrderNo(orderNo);

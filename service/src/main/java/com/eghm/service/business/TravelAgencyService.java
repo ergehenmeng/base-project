@@ -53,6 +53,13 @@ public interface TravelAgencyService {
      * @return 商家信息
      */
     TravelAgency selectByIdRequired(Long id);
+
+    /**
+     * 主键查询旅行社商家,如果不是上架状态则报错
+     * @param id id
+     * @return 商家信息
+     */
+    TravelAgency selectByIdShelve(Long id);
     
     /**
      * 逻辑删除

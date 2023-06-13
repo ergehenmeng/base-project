@@ -851,6 +851,11 @@ public enum ErrorCode {
     LINE_DOWN(3182, "该线路商品已下架"),
 
     /**
+     * 线路所属旅行社下架啦
+     */
+    TRAVEL_AGENCY_DOWN(3182, "线路所属旅行社下架啦"),
+
+    /**
      * 线路库存不足
      */
     LINE_STOCK(3185, "线路库存不足"),
