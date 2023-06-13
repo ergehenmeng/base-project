@@ -6,4 +6,26 @@
         select ifnull(sum(num), 0) from verify_log where order_no = #{orderNo}
     </select>
 
+    <select id="getByPage" parameterType="com.eghm.dto.business.verify.VerifyLogQueryRequest" resultType="com.eghm.vo.business.verify.VerifyLogResponse">
+        select
+        t.id,
+        t.order_no as orderNo,
+        t.num,
+        t.remark,
+        t.create_time as createTime,
+        r.nick_name as verifyName
+        from verify_log t
+        left join sys_user r on t.user_id = r.id where t.merchant_id = #{param.merchantId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.order_no like concat('%', #{param.queryName} ,'%')
+        </if>
+        <if test="param.startDate != null">
+            and t.create_time &gt;= #{param.startDate}
+        </if>
+        <if test="param.endDate != null">
+            and t.create_time &lt; #{param.endDate}
+        </if>
+        order by t.id desc
+    </select>
+
 </mapper>

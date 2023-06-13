@@ -26,7 +26,7 @@ public class OrderVerifyContext implements Context {
 
     @Padding
     @ApiModelProperty(value = "当前登录用户ID", hidden = true)
-    private Long memberId;
+    private Long userId;
 
     @ApiModelProperty(value = "实际核销人数", hidden = true)
     @Padding

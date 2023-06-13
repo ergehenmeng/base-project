@@ -1,8 +1,11 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.verify.VerifyLogQueryRequest;
 import com.eghm.mapper.VerifyLogMapper;
 import com.eghm.model.VerifyLog;
 import com.eghm.service.business.VerifyLogService;
+import com.eghm.vo.business.verify.VerifyLogResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,14 @@ import org.springframework.stereotype.Service;
 public class VerifyLogServiceImpl implements VerifyLogService {
 
     private final VerifyLogMapper verifyLogMapper;
+
+    @Override
+    public Page<VerifyLogResponse> getByPage(VerifyLogQueryRequest request) {
+        if (request.getEndDate() != null) {
+            request.setEndDate(request.getEndDate().plusDays(1));
+        }
+        return verifyLogMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public int getVerifiedNum(String orderNo) {
