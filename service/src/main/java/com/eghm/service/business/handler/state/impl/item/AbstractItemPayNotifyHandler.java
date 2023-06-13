@@ -29,8 +29,8 @@ public abstract class AbstractItemPayNotifyHandler implements PayNotifyHandler {
 
     private final OrderService orderService;
 
-    @Override
     @Async
+    @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void doAction(PayNotifyContext context) {
         List<Order> orderList = orderService.selectByOutTradeNoList(context.getOutTradeNo());

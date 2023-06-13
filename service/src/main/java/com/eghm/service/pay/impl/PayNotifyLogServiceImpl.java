@@ -11,6 +11,8 @@ import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
 
@@ -24,8 +26,9 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
 
     private final PayNotifyLogMapper payNotifyLogMapper;
 
-    @Override
     @Async
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void insertAliLog(Map<String, String> params, StepType stepType) {
         PayNotifyLog log = new PayNotifyLog();
         log.setStepType(stepType);
@@ -39,8 +42,9 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         payNotifyLogMapper.insert(log);
     }
 
-    @Override
     @Async
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void insertWechatPayLog(WxPayOrderNotifyV3Result result) {
         WxPayOrderNotifyV3Result.DecryptNotifyResult notifyResult = result.getResult();
         PayNotifyLog log = new PayNotifyLog();
@@ -52,8 +56,9 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
         payNotifyLogMapper.insert(log);
     }
 
-    @Override
     @Async
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void insertWechatRefundLog(WxPayRefundNotifyV3Result result) {
         WxPayRefundNotifyV3Result.DecryptNotifyResult notifyResult = result.getResult();
         PayNotifyLog log = new PayNotifyLog();

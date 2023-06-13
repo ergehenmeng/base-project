@@ -41,9 +41,9 @@ public abstract class AbstractRefundNotifyHandler implements RefundNotifyHandler
 
     private final VerifyLogService verifyLogService;
 
+    @Async
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    @Async
     public void doAction(RefundNotifyContext context) {
         Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
         OrderRefundLog refundLog = orderRefundLogService.selectByOutRefundNo(context.getOutRefundNo());

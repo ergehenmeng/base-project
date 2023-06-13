@@ -11,6 +11,8 @@ import com.eghm.service.sys.SmsLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -24,8 +26,9 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     private final SmsLogMapper smsLogMapper;
 
-    @Override
     @Async
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void addSmsLog(SmsLog smsLog) {
         smsLogMapper.insert(smsLog);
     }

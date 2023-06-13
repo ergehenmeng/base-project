@@ -26,9 +26,9 @@ public abstract class AbstractPaySuccessHandler implements PayNotifyHandler {
 
     private final OrderVisitorService orderVisitorService;
 
+    @Async
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    @Async
     public void doAction(PayNotifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
 

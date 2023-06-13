@@ -22,9 +22,9 @@ public abstract class AbstractPayFailHandler implements PayNotifyHandler {
 
     private final OrderService orderService;
 
+    @Async
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    @Async
     public void doAction(PayNotifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
 
