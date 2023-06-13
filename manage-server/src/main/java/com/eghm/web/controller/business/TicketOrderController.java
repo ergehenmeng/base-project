@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.service.business.TicketOrderService;
-import com.eghm.vo.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

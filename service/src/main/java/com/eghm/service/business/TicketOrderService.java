@@ -3,7 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.model.TicketOrder;
-import com.eghm.vo.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 
 /**
  * @author 二哥很猛

@@ -11,7 +11,7 @@ import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.vo.order.refund.RefundLogResponse;
+import com.eghm.vo.business.order.refund.RefundLogResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

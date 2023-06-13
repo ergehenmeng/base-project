@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.model.TicketOrder;
-import com.eghm.vo.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**

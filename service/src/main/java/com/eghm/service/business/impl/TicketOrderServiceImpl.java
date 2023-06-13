@@ -8,7 +8,7 @@ import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.TicketOrderService;
-import com.eghm.vo.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

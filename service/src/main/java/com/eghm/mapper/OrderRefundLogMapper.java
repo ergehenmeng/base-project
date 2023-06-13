@@ -5,7 +5,7 @@ import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.model.OrderRefundLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.ext.OrderRefund;
-import com.eghm.vo.order.refund.RefundLogResponse;
+import com.eghm.vo.business.order.refund.RefundLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -27,7 +27,7 @@
         where t.deleted = false and t.state = 0
     </select>
 
-    <select id="getByPage" resultType="com.eghm.vo.order.refund.RefundLogResponse">
+    <select id="getByPage" resultType="com.eghm.vo.business.order.refund.RefundLogResponse">
         select
             t.id,
             r.title,

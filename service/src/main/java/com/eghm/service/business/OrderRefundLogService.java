@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.dto.ext.OrderRefund;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.vo.order.refund.RefundLogResponse;
+import com.eghm.vo.business.order.refund.RefundLogResponse;
 
 import java.util.List;
 

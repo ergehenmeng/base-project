@@ -1,4 +1,4 @@
-package com.eghm.vo.order;
+package com.eghm.vo.business.order;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

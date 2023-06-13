@@ -6,7 +6,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.cache.CacheService;
-import com.eghm.vo.order.OrderVO;
+import com.eghm.vo.business.order.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

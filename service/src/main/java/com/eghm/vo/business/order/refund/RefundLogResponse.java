@@ -1,4 +1,4 @@
-package com.eghm.vo.order.refund;
+package com.eghm.vo.business.order.refund;
 
 import com.eghm.enums.ref.AuditState;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

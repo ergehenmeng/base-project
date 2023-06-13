@@ -1,4 +1,4 @@
-package com.eghm.vo.order.ticket;
+package com.eghm.vo.business.order.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.OrderState;

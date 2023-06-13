@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.TicketOrderMapper">
 
-    <select id="getByPage" parameterType="com.eghm.dto.business.order.ticket.TicketOrderQueryRequest" resultType="com.eghm.vo.order.ticket.TicketOrderResponse">
+    <select id="getByPage" parameterType="com.eghm.dto.business.order.ticket.TicketOrderQueryRequest" resultType="com.eghm.vo.business.order.ticket.TicketOrderResponse">
         select
             t.order_no as orderNo,
             r.title,

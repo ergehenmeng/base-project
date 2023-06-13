@@ -19,7 +19,7 @@ import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.order.OrderVO;
+import com.eghm.vo.business.order.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
