@@ -1,6 +1,5 @@
 package com.eghm.service.pay.dto;
 
-import com.eghm.annotation.Padding;
 import com.eghm.service.pay.enums.TradeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -11,6 +11,7 @@ import com.eghm.enums.ref.RefundType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
+import com.eghm.model.ItemStore;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
@@ -41,6 +42,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private final ItemService itemService;
 
     private final ItemSkuService itemSkuService;
+
+    private final ItemStoreService itemStoreService;
 
     private final OrderService orderService;
 
@@ -94,6 +97,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             itemSkuService.updateStock(skuNumMap);
             // 如果是两个店铺同时下单,则为多订单模式
             Order order = this.generateOrder(context.getMemberId(), storeMap.size() > 1, entry.getValue());
+            // 因为entry是按商铺进行分组的,直接取第一个店铺的商户id即可
+            order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
             // 添加主订单
             orderService.save(order);
             // 添加商品订单
@@ -164,6 +169,9 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         Map<Long, Item> itemMap = itemService.getByIds(itemIds);
         Set<Long> skuIds = dto.getItemList().stream().map(BaseItemDTO::getSkuId).collect(Collectors.toSet());
         Map<Long, ItemSku> skuMap = itemSkuService.getByIds(skuIds);
+        List<Long> storeIds = itemMap.values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
+        Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
+
         List<OrderPackage> packageList = new ArrayList<>();
         OrderPackage orderPackage;
         for (BaseItemDTO item : dto.getItemList()) {
@@ -173,7 +181,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             orderPackage.setNum(item.getNum());
             orderPackage.setItemId(item.getItemId());
             orderPackage.setSkuId(item.getSkuId());
-            orderPackage.setStoreId(orderPackage.getStoreId());
+            orderPackage.setStoreId(orderPackage.getItem().getStoreId());
+            orderPackage.setItemStore(storeMap.get(orderPackage.getStoreId()));
             packageList.add(orderPackage);
         }
         ItemOrderPayload orderDTO = DataUtil.copy(dto, ItemOrderPayload.class);

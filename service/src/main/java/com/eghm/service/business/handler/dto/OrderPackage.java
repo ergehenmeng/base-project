@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.dto;
 
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
+import com.eghm.model.ItemStore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,4 +30,7 @@ public class OrderPackage {
 
     @ApiModelProperty("sku信息")
     private ItemSku sku;
+
+    @ApiModelProperty("零售店铺信息")
+    private ItemStore itemStore;
 }

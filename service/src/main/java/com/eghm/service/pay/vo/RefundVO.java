@@ -3,7 +3,6 @@ package com.eghm.service.pay.vo;
 import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.RefundChannel;
 import com.eghm.service.pay.enums.RefundStatus;
-import com.eghm.service.pay.enums.TradeType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

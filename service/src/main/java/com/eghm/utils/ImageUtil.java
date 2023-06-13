@@ -123,25 +123,29 @@ public class ImageUtil {
      * 顶部间距
      */
     private static int getTopGap(int maxWidthImg, int maxHeightImg, int width) {
-        return maxHeightImg == maxWidthImg ? GAP : (maxHeightImg == 2 ? (SIZE - 2 * width - GAP) / 2 : (SIZE - width) / 2 );
+        return maxHeightImg == maxWidthImg ? GAP : calc(maxHeightImg, width);
     }
 
     /**
      * 左间距
      */
     private static int getLeftGap(int maxWidthImg, int topWidth,  int width) {
-        return (maxWidthImg == topWidth || topWidth == 0) ? GAP : (topWidth == 2 ? (SIZE - 2 * width - GAP) / 2 : (SIZE - width) / 2 );
+        return (maxWidthImg == topWidth || topWidth == 0) ? GAP : calc(topWidth, width);
+    }
+
+    private static int calc(int topWidth, int width) {
+        return topWidth == 2 ? (SIZE - 2 * width - GAP) / 2 : (SIZE - width) / 2;
     }
 
     public static void main(String[] args) throws IOException {
         List<String> list = Lists.newArrayList();
-        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
-        list.add("https://test-img.caochangjihe.com/img/18451280511.jpeg");
+        String str = "http://img.duoziwang.com/2019/05/08211345616446.jpg";
+        list.add(str);
+        list.add(str);
+        list.add(str);
+        list.add(str);
+        list.add(str);
+        list.add(str);
         log.info(Base64.encode(merge(list)));
     }
 }

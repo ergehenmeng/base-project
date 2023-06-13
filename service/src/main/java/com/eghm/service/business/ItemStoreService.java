@@ -11,6 +11,7 @@ import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -50,6 +51,13 @@ public interface ItemStoreService {
      * @return 店铺信息
      */
     ItemStore selectByIdShelve(Long id);
+
+    /**
+     * 主键查询, 删除或未上架则抛异常
+     * @param ids  批量查询
+     * @return 店铺信息
+     */
+    Map<Long, ItemStore> selectByIdShelveMap(List<Long> ids);
 
     /**
      * 更新上下架状态

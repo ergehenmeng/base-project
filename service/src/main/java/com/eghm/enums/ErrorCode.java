@@ -1011,6 +1011,11 @@ public enum ErrorCode {
     SHOP_DOWN(3270, "该店铺已下架"),
 
     /**
+     * 存在下架的店铺
+     */
+    ANY_SHOP_DOWN(3271, "存在下架的店铺"),
+
+    /**
      * 该商家已下架
      */
     RESTAURANT_DOWN(3275, "该商家已下架"),

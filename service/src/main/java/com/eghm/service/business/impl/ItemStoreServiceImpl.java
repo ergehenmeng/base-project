@@ -5,32 +5,35 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.item.store.ItemStoreAddRequest;
+import com.eghm.dto.business.item.store.ItemStoreEditRequest;
+import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
-import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.ItemStore;
 import com.eghm.model.Merchant;
-import com.eghm.dto.business.item.store.ItemStoreAddRequest;
-import com.eghm.dto.business.item.store.ItemStoreEditRequest;
-import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
-import com.eghm.vo.business.item.store.ItemStoreHomeVO;
-import com.eghm.vo.business.item.store.ItemStoreVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemStoreService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.item.store.ItemStoreHomeVO;
+import com.eghm.vo.business.item.store.ItemStoreVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -99,6 +102,21 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
             throw new BusinessException(ErrorCode.SHOP_DOWN);
         }
         return store;
+    }
+
+    @Override
+    public Map<Long, ItemStore> selectByIdShelveMap(List<Long> ids) {
+        List<ItemStore> storeList = itemStoreMapper.selectBatchIds(ids);
+        if (storeList.size() != ids.size()) {
+            log.error("存在已删除零售店铺 {}", ids);
+            throw new BusinessException(ErrorCode.ANY_SHOP_DOWN);
+        }
+        boolean match = storeList.stream().anyMatch(itemStore -> itemStore.getPlatformState() != PlatformState.SHELVE);
+        if (match) {
+            log.error("存在已下架的零售店铺 {}", ids);
+            throw new BusinessException(ErrorCode.ANY_SHOP_DOWN);
+        }
+        return storeList.stream().collect(Collectors.toMap(ItemStore::getId, Function.identity(), (itemStore, itemStore2) -> itemStore));
     }
 
     @Override

@@ -410,7 +410,7 @@ DROP TABLE IF EXISTS `pay_notify_log`;
 CREATE TABLE `pay_notify_log`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
-    `pay_channel`    varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
+    `pay_channel`   varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
     `notify_id`     varchar(50) DEFAULT NULL COMMENT '异步通知唯一ID',
     `step_type`     varchar(30) DEFAULT NULL COMMENT '通知类型 PAY: 支付异步通知 REFUND:退款异步通知',
     `out_trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
@@ -428,7 +428,7 @@ DROP TABLE IF EXISTS `pay_request_log`;
 CREATE TABLE `pay_request_log`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
-    `pay_channel`    varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
+    `pay_channel`   varchar(30) DEFAULT NULL COMMENT '交易方式 WECHAT:微信 ALI_PAY:支付宝',
     `order_no`      varchar(50) DEFAULT NULL COMMENT '订单编号',
     `step_type`     VARCHAR(20) DEFAULT NULL COMMENT '请求类型 PAY: 支付 REFUND:退款',
     `out_trade_no`  varchar(30) DEFAULT NULL COMMENT '交易流水号',
@@ -480,6 +480,7 @@ CREATE TABLE `order_refund_log`
 (
     `id`                bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
+    `merchant_id`       bigint(20) NOT NULL COMMENT '订单所属商户id',
     `member_id`         bigint(20)   DEFAULT NULL COMMENT '退款人id',
     `out_refund_no`     varchar(50)  DEFAULT NULL COMMENT '退款流水号',
     `num`               smallint(2)  DEFAULT '1' COMMENT '退款数量',
@@ -507,6 +508,7 @@ DROP TABLE IF EXISTS `verify_log`;
 CREATE TABLE `verify_log`
 (
     `id`          bigint(20)   DEFAULT NULL COMMENT '主键',
+    `merchant_id` bigint(20)   DEFAULT NULL COMMENT '商户id',
     `order_no`    varchar(50)  DEFAULT NULL COMMENT '订单编号',
     `user_id`     bigint(20)   DEFAULT NULL COMMENT '核销人id',
     `num`         tinyint(2)   DEFAULT '1' COMMENT '核销数量',
@@ -546,6 +548,7 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`     bigint(20) NOT NULL COMMENT '订单所属商户id',
     `title`           varchar(50)  DEFAULT NULL COMMENT '商品名称',
     `cover_url`       varchar(200) DEFAULT NULL COMMENT '商品封面图(第一张)',
     `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',

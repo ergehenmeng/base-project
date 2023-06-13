@@ -1,7 +1,6 @@
 package com.eghm.service.pay.vo;
 
 import com.eghm.service.pay.enums.PayChannel;
-import com.eghm.service.pay.enums.TradeType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
