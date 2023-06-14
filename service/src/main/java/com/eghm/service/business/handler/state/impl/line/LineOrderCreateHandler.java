@@ -38,20 +38,20 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     private final LineOrderService lineOrderService;
 
-    private final LineDaySnapshotService lineDaySnapshotService;
+    private final LineOrderSnapshotService lineOrderSnapshotService;
 
     private final OrderService orderService;
 
     private final OrderMQService orderMQService;
 
-    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineDaySnapshotService lineDaySnapshotService) {
+    public LineOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, OrderMQService orderMQService, LineService lineService, TravelAgencyService travelAgencyService, LineConfigService lineConfigService, LineDayConfigService lineDayConfigService, LineOrderService lineOrderService, LineOrderSnapshotService lineOrderSnapshotService) {
         super(memberCouponService, orderVisitorService);
         this.lineService = lineService;
         this.travelAgencyService = travelAgencyService;
         this.lineConfigService = lineConfigService;
         this.lineDayConfigService = lineDayConfigService;
         this.lineOrderService = lineOrderService;
-        this.lineDaySnapshotService = lineDaySnapshotService;
+        this.lineOrderSnapshotService = lineOrderSnapshotService;
         this.orderService = orderService;
         this.orderMQService = orderMQService;
     }
@@ -119,7 +119,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineOrder.setMobile(context.getMobile());
         lineOrder.setNickName(context.getNickName());
         lineOrderService.insert(lineOrder);
-        lineDaySnapshotService.insert(payload.getLine().getId(), order.getOrderNo(), payload.getDayList());
+        lineOrderSnapshotService.insert(payload.getLine().getId(), order.getOrderNo(), payload.getDayList());
     }
 
     @Override

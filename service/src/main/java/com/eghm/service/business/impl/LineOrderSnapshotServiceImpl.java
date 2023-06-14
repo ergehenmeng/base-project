@@ -1,9 +1,9 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.mapper.LineDaySnapshotMapper;
+import com.eghm.mapper.LineOrderSnapshotMapper;
 import com.eghm.model.LineDayConfig;
-import com.eghm.model.LineDaySnapshot;
-import com.eghm.service.business.LineDaySnapshotService;
+import com.eghm.model.LineOrderSnapshot;
+import com.eghm.service.business.LineOrderSnapshotService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,20 +15,20 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/9/1
  */
-@Service("lineDaySnapshotService")
+@Service("lineOrderSnapshotService")
 @Slf4j
 @AllArgsConstructor
-public class LineDaySnapshotServiceImpl implements LineDaySnapshotService {
+public class LineOrderSnapshotServiceImpl implements LineOrderSnapshotService {
 
-    private final LineDaySnapshotMapper lineDaySnapshotMapper;
+    private final LineOrderSnapshotMapper lineOrderSnapshotMapper;
 
     @Override
     public void insert(Long lineId, String orderNo, List<LineDayConfig> configList) {
         for (LineDayConfig config : configList) {
-            LineDaySnapshot snapshot = DataUtil.copy(config, LineDaySnapshot.class);
+            LineOrderSnapshot snapshot = DataUtil.copy(config, LineOrderSnapshot.class);
             snapshot.setLineId(lineId);
             snapshot.setOrderNo(orderNo);
-            lineDaySnapshotMapper.insert(snapshot);
+            lineOrderSnapshotMapper.insert(snapshot);
         }
     }
 }

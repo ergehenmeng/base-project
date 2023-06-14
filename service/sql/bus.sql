@@ -641,8 +641,8 @@ CREATE TABLE `line_order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='线路订单表';
 
-DROP TABLE IF EXISTS `line_day_snapshot`;
-CREATE TABLE `line_day_snapshot`
+DROP TABLE IF EXISTS `line_order_snapshot`;
+CREATE TABLE `line_order_snapshot`
 (
     `id`           bigint(20) NOT NULL COMMENT '主键',
     `line_id`      bigint(20)  DEFAULT NULL COMMENT '线路商品id',

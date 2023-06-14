@@ -22,9 +22,9 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("line_day_snapshot")
-@ApiModel(value="LineDaySnapshot对象", description="线路订单每日行程配置快照表")
-public class LineDaySnapshot implements Serializable {
+@TableName("line_order_snapshot")
+@ApiModel(value="LineOrderSnapshot对象", description="线路订单每日行程配置快照表")
+public class LineOrderSnapshot implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

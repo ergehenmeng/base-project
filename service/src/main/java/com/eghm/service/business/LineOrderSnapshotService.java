@@ -8,7 +8,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/9/1
  */
-public interface LineDaySnapshotService {
+public interface LineOrderSnapshotService {
 
     /**
      * 插入线路每日线路配置快照信息
