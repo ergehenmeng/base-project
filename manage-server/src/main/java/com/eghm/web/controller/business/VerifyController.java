@@ -56,17 +56,16 @@ public class VerifyController {
     @PostMapping("/verify")
     @ApiOperation("核销")
     public RespBody<Integer> verify(@RequestBody @Validated OrderVerifyDTO dto) {
-        String orderNo = orderService.decryptVerifyNo(dto.getVerifyNo());
 
         OrderVerifyContext context = new OrderVerifyContext();
-        context.setOrderNo(orderNo);
+        context.setOrderNo(dto.getOrderNo());
         context.setUserId(SecurityHolder.getUserId());
         context.setMerchantId(SecurityHolder.getMerchantId());
 
         context.setRemark(dto.getRemark());
         context.setVisitorList(dto.getVisitorList());
 
-        ProductType productType = ProductType.prefix(orderNo);
+        ProductType productType = ProductType.prefix(dto.getOrderNo());
 
         if (productType == ProductType.ITEM) {
             itemAccessHandler.verifyOrder(context);

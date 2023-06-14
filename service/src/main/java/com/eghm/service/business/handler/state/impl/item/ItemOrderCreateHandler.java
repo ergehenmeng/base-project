@@ -15,7 +15,7 @@ import com.eghm.model.ItemStore;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
-import com.eghm.service.business.handler.dto.BaseItemDTO;
+import com.eghm.service.business.handler.dto.StoreItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
@@ -75,11 +75,11 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @param context 下单信息
      */
     private void sortedItem(ItemOrderCreateContext context) {
-        if (context.getItemList().size() == 1) {
+        if (context.getStoreItemList().size() == 1) {
             // 单个商品排鸡毛的序
             return;
         }
-        context.setItemList(context.getItemList().stream().sorted(Comparator.comparing(BaseItemDTO::getItemId).thenComparing(BaseItemDTO::getSkuId)).collect(Collectors.toList()));
+        context.setStoreItemList(context.getItemList().stream().sorted(Comparator.comparing(StoreItemDTO::getItemId).thenComparing(StoreItemDTO::getSkuId)).collect(Collectors.toList()));
     }
 
     /**
@@ -165,16 +165,16 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     private ItemOrderPayload getItem(ItemOrderCreateContext dto) {
         // 组装数据,减少后面遍历逻辑
-        Set<Long> itemIds = dto.getItemList().stream().map(BaseItemDTO::getItemId).collect(Collectors.toSet());
+        Set<Long> itemIds = dto.getItemList().stream().map(StoreItemDTO::getItemId).collect(Collectors.toSet());
         Map<Long, Item> itemMap = itemService.getByIds(itemIds);
-        Set<Long> skuIds = dto.getItemList().stream().map(BaseItemDTO::getSkuId).collect(Collectors.toSet());
+        Set<Long> skuIds = dto.getItemList().stream().map(StoreItemDTO::getSkuId).collect(Collectors.toSet());
         Map<Long, ItemSku> skuMap = itemSkuService.getByIds(skuIds);
         List<Long> storeIds = itemMap.values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
 
         List<OrderPackage> packageList = new ArrayList<>();
         OrderPackage orderPackage;
-        for (BaseItemDTO item : dto.getItemList()) {
+        for (StoreItemDTO item : dto.getItemList()) {
             orderPackage = new OrderPackage();
             orderPackage.setItem(itemMap.get(item.getItemId()));
             orderPackage.setSku(skuMap.get(item.getSkuId()));

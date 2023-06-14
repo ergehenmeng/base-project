@@ -49,4 +49,7 @@ public class LineOrderCreateDTO {
     @NotNull(message = "游玩日期不能为空")
     private LocalDate configDate;
 
+    @ApiModelProperty("备注")
+    @Size(max = 100, message = "备注最大100字符")
+    private String remark;
 }

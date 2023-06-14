@@ -81,6 +81,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         order.setState(OrderState.UN_PAY);
         order.setMemberId(context.getMemberId());
         order.setOrderNo(orderNo);
+        order.setRemark(context.getRemark());
         order.setNum(context.getNum());
         order.setTitle(voucher.getTitle());
         order.setPrice(voucher.getSalePrice());

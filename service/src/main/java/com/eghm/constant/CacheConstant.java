@@ -214,4 +214,9 @@ public class CacheConstant {
      * 微信退款异步通知锁
      */
     public static final String WECHAT_REFUND_NOTIFY_LOCK = "wechat_refund_notify_lock:";
+
+    /**
+     * 门票线下退款锁
+     */
+    public static final String TICKET_OFFLINE_REFUND_LOCK = "ticket_offline_refund_lock:";
 }

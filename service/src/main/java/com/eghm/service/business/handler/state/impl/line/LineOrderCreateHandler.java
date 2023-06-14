@@ -86,6 +86,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setMerchantId(payload.getTravelAgency().getMerchantId());
         order.setCoverUrl(super.getFirstCoverUrl(payload.getLine().getCoverUrl()));
         order.setOrderNo(orderNo);
+        order.setRemark(context.getRemark());
         order.setNum(context.getNum());
         order.setTitle(payload.getLine().getTitle());
         order.setPrice(payload.getConfig().getSalePrice());

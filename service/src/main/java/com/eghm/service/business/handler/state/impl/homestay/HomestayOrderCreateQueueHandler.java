@@ -106,6 +106,7 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
         order.setMemberId(context.getMemberId());
         order.setCoverUrl(super.getFirstCoverUrl(payload.getHomestayRoom().getCoverUrl()));
         order.setOrderNo(orderNo);
+        order.setRemark(context.getRemark());
         order.setNum(context.getNum());
         order.setTitle(payload.getHomestayRoom().getTitle());
         // 将每天的价格相加=总单价

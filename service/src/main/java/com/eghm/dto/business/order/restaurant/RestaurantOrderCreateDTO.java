@@ -36,4 +36,7 @@ public class RestaurantOrderCreateDTO {
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;
 
+    @ApiModelProperty("备注")
+    @Size(max = 100, message = "备注最大100字符")
+    private String remark;
 }

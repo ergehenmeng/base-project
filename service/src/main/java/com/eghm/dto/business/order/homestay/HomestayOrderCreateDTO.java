@@ -48,4 +48,8 @@ public class HomestayOrderCreateDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "离店日期不能为空")
     private LocalDate endDate;
+
+    @ApiModelProperty("备注")
+    @Size(max = 100, message = "备注最大100字符")
+    private String remark;
 }

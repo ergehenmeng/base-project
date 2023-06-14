@@ -39,4 +39,8 @@ public class TicketOrderCreateDTO {
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
+
+    @ApiModelProperty("备注")
+    @Size(max = 100, message = "备注最大100字符")
+    private String remark;
 }

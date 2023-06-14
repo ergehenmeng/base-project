@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.item;
 
-import com.eghm.service.business.handler.dto.BaseItemDTO;
+import com.eghm.service.business.handler.dto.StoreItemDTO;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class ItemOrderCreateDTO {
     @ApiModelProperty("商品信息")
     @Size(min = 1, max = 99, message = "商品不能超过99种")
     @NotEmpty(message = "请选择商品")
-    private List<BaseItemDTO> itemList;
+    private List<StoreItemDTO> storeItemList;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
@@ -42,4 +42,5 @@ public class ItemOrderCreateDTO {
 
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
+
 }

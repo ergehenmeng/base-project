@@ -245,6 +245,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
         // TODO
 
+
     }
 
     /**
@@ -253,16 +254,15 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
      * @param orderNo 订单号
      */
     private void checkHasRefund(List<Long> visitorList, String orderNo) {
+        List<OrderVisitor> visitors = orderVisitorService.getByIds(visitorList, orderNo);
+        if (visitorList.size() != visitors.size()) {
+            log.error("订单号与游客id不匹配,可能不属于同一个订单 [{}] [{}]", orderNo, visitorList);
+            throw new BusinessException(ErrorCode.MEMBER_REFUND_MATCH);
+        }
         List<Long> refundVisitorIds = offlineRefundLogService.getTicketRefundLog(orderNo);
-        List<Long> hasRefundIds = refundVisitorIds.stream().filter(visitorList::contains).collect(Collectors.toList());
-        if (!hasRefundIds.isEmpty()) {
-            List<OrderVisitor> visitors = orderVisitorService.getByIds(hasRefundIds, orderNo);
-            // 正常情况下一定不为空, 除非用户线下退款时传递的用户信息和订单号不匹配
-            if (visitors.isEmpty()) {
-                log.error("订单号与游客id不匹配,可能不属于同一个订单 [{}] [{}]", orderNo, hasRefundIds);
-                throw new BusinessException(ErrorCode.MEMBER_REFUND_MATCH);
-            }
-            String userList = visitors.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
+        List<OrderVisitor> hasRefundList = visitors.stream().filter(orderVisitor -> refundVisitorIds.contains(orderVisitor.getId())).collect(Collectors.toList());
+        if (!hasRefundList.isEmpty()) {
+            String userList = hasRefundList.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
             throw new BusinessException(ErrorCode.MEMBER_HAS_REFUND.getCode(), String.format(ErrorCode.MEMBER_HAS_REFUND.getMsg(), userList));
         }
     }

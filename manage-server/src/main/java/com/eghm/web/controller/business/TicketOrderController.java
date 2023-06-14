@@ -1,12 +1,14 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.constant.CacheConstant;
 import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.TicketOrderService;
+import com.eghm.service.cache.RedisLock;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +30,8 @@ public class TicketOrderController {
 
     private final TicketOrderService ticketOrderService;
 
+    private final RedisLock redisLock;
+
     @GetMapping("/listPage")
     @ApiOperation("订单列表")
     public PageData<TicketOrderResponse> listPage(TicketOrderQueryRequest request) {
@@ -38,7 +42,10 @@ public class TicketOrderController {
     @PostMapping("/offlineRefund")
     @ApiOperation("线下退款")
     public RespBody<Void> offlineRefund(@RequestBody @Validated TicketOfflineRefundRequest request) {
-        orderService.ticketOfflineRefund(request);
+        redisLock.lock(CacheConstant.TICKET_OFFLINE_REFUND_LOCK + request.getOrderNo(), 5_000, () -> {
+            orderService.ticketOfflineRefund(request);
+            return null;
+        });
         return RespBody.success();
     }
 }
