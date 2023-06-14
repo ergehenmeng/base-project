@@ -48,7 +48,7 @@ CREATE TABLE `homestay_room`
     `room_type`       tinyint(1)    DEFAULT NULL COMMENT '房型类型 1:整租 2:单间 3:合租',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图片',
     `introduce`       longtext COMMENT '详细介绍',
-    `refund_type`     tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)    DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述',
     `create_time`     datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -92,7 +92,7 @@ CREATE TABLE `line`
     `total_num`         int(10)       DEFAULT '0' COMMENT '总销量=实际销售+虚拟销量',
     `duration`          tinyint(2)    DEFAULT NULL COMMENT '几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游',
     `advance_day`       tinyint(2)    DEFAULT NULL COMMENT '提前天数',
-    `refund_type`       tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`       tinyint(1)    DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe`   varchar(200)  DEFAULT NULL COMMENT '退款描述',
     `introduce`         longtext COMMENT '商品介绍',
     `create_time`       datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -187,7 +187,7 @@ CREATE TABLE `restaurant_voucher`
     `expire_date`     date         DEFAULT NULL COMMENT '使用截止日期(包含) yyyy-MM-dd',
     `effect_time`     varchar(10)  DEFAULT NULL COMMENT '使用开始时间 HH:mm',
     `expire_time`     varchar(10)  DEFAULT NULL COMMENT '使用截止时间 HH:mm',
-    `refund_type`     tinyint(1)   DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)   DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200) DEFAULT NULL COMMENT '退款描述信息',
     `introduce`       longtext COMMENT '详细介绍',
     `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -252,7 +252,7 @@ CREATE TABLE `scenic_ticket`
     `introduce`         longtext COMMENT '景区介绍',
     `use_scope`         smallint(3)         DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
     `verification_type` tinyint(2)          DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
-    `refund_type`       tinyint(1)          DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`       tinyint(1)          DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe`   varchar(200)        DEFAULT NULL COMMENT '退款描述',
     `real_buy`          bit(1)              DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
     `create_time`       datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间(订单创建时间)',
@@ -560,7 +560,7 @@ CREATE TABLE `order`
     `price`           int(10)      DEFAULT NULL COMMENT '单价',
     `num`             smallint(3)  DEFAULT '1' COMMENT '数量',
     `product_type`    varchar(30)  DEFAULT NULL COMMENT '商品类型',
-    `refund_type`     tinyint(1)   DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)   DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200) DEFAULT NULL COMMENT '退款描述信息',
     `state`           tinyint(2)   DEFAULT '0' COMMENT '订单状态 -1:初始状态 0:待支付 1:支付中 2:支付成功,待使用 3:已核销 4:待发货 5:待收货 6:退款中 7:待评价 8:订单完成 9:已关闭 10:支付异常 11:退款异常',
     `refund_state`    tinyint(1)   DEFAULT NULL COMMENT '退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功',
@@ -705,7 +705,7 @@ CREATE TABLE `shopping_cart`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='购物车表';
 
-
+DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
@@ -722,7 +722,7 @@ CREATE TABLE `item`
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
     `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
     `delivery_type`   tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无须发货 1:门店自提 2:快递包邮',
-    `refund_type`     tinyint(1)    DEFAULT '0' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
+    `refund_type`     tinyint(1)    DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe` varchar(200)  DEFAULT NULL COMMENT '退款描述信息',
     `min_price`       int(10)       DEFAULT NULL COMMENT '最低价格',
     `max_price`       int(10)       DEFAULT NULL COMMENT '最高价格',
@@ -736,6 +736,7 @@ CREATE TABLE `item`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='零售商品信息';
 
+DROP TABLE IF EXISTS `item_sku`;
 CREATE TABLE `item_sku`
 (
     `id`                 bigint(20) NOT NULL,
@@ -757,6 +758,7 @@ CREATE TABLE `item_sku`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品sku表';
 
+DROP TABLE IF EXISTS `item_spec`;
 CREATE TABLE `item_spec`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
@@ -773,6 +775,7 @@ CREATE TABLE `item_spec`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品规格配置表';
 
+DROP TABLE IF EXISTS `lottery`;
 CREATE TABLE `lottery`
 (
     `id`            bigint(20)    DEFAULT NULL COMMENT '主键',
@@ -793,6 +796,7 @@ CREATE TABLE `lottery`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖活动表';
 
+DROP TABLE IF EXISTS `lottery_prize`;
 CREATE TABLE `lottery_prize`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
@@ -810,6 +814,7 @@ CREATE TABLE `lottery_prize`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='奖品信息表';
 
+DROP TABLE IF EXISTS `lottery_config`;
 CREATE TABLE `lottery_config`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
@@ -828,6 +833,7 @@ CREATE TABLE `lottery_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖位置配置表';
 
+DROP TABLE IF EXISTS `lottery_log`;
 CREATE TABLE `lottery_log`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
@@ -844,3 +850,19 @@ CREATE TABLE `lottery_log`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='抽奖记录表';
 
+DROP TABLE IF EXISTS `offline_refund_log`;
+CREATE TABLE offline_refund_log
+(
+    id            BIGINT(20) NOT NULL COMMENT '主键',
+    order_no      VARCHAR(50) COMMENT '订单编号',
+    refund_amount INT(10) COMMENT '退款金额',
+    note          VARCHAR(1000) COMMENT '线下退款关联信息(json)',
+    certificate   VARCHAR(200) COMMENT '退款凭证(转账记录)',
+    remark        VARCHAR(200) COMMENT '备注信息',
+    user_id       BIGINT(20) COMMENT '用户id',
+    create_time   DATETIME DEFAULT NOW() COMMENT '创建时间',
+    update_time   DATETIME DEFAULT NOW() ON UPDATE NOW() COMMENT '更新时间',
+    deleted       BIT(1)   DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (id)
+) ENGINE = INNODB
+  DEFAULT CHARSET = utf8mb4 COMMENT '线下退款记录表';

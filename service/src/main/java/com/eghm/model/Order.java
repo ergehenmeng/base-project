@@ -78,7 +78,7 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
-    @ApiModelProperty("退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功 5: 退款失败(该状态和退款中在C端用户看来都是退款中)")
+    @ApiModelProperty("当前订单所处的退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功 5: 退款失败(该状态和退款中在C端用户看来都是退款中) 6: 线下退款(该状态与退款成功在C端用户看来是一样的)")
     private RefundState refundState;
 
     @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")

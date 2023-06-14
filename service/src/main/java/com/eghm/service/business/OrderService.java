@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -127,4 +128,10 @@ public interface OrderService extends IService<Order> {
      * @return 核销码
      */
     String encryptVerifyNo(String orderNo);
+
+    /**
+     * 门票下线退款
+     * @param request 退款金额
+     */
+    void ticketOfflineRefund(TicketOfflineRefundRequest request);
 }

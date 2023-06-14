@@ -88,9 +88,9 @@ public class CommonConstant {
     public static final String ENCRYPT_SPLIT  = "@";
 
     /**
-     * 核销码有效期 30秒
+     * 核销码刷新频率 60秒
      */
-    public static final int MAX_VERIFY_NO_EXPIRE = 30_000;
+    public static final int MAX_VERIFY_NO_EXPIRE = 60_000;
 
     /**
      * 最大锁屏时间 1天

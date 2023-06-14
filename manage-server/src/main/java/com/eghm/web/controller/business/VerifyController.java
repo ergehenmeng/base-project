@@ -53,12 +53,11 @@ public class VerifyController {
         return PageData.toPage(roomPage);
     }
 
-
     @PostMapping("/verify")
     @ApiOperation("核销")
     public RespBody<Integer> verify(@RequestBody @Validated OrderVerifyDTO dto) {
         String orderNo = orderService.decryptVerifyNo(dto.getVerifyNo());
-        // TODO 核销正常情况需要在管理后台登录,此处获取用户id不严谨
+
         OrderVerifyContext context = new OrderVerifyContext();
         context.setOrderNo(orderNo);
         context.setUserId(SecurityHolder.getUserId());

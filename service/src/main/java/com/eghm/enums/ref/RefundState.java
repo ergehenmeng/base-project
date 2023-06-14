@@ -44,6 +44,11 @@ public enum RefundState {
      */
     FAIL(5, "退款失败"),
 
+    /**
+     * 线下退款成功
+     */
+    OFFLINE(6, "线下退款成功")
+
     ;
     /**
      * 状态

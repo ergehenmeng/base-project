@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
@@ -18,6 +19,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.service.business.OfflineRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.dto.PrepayDTO;
@@ -47,6 +49,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final AggregatePayService aggregatePayService;
 
     private final SystemProperties systemProperties;
+
+    private final OfflineRefundLogService offlineRefundLogService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -198,7 +202,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public void updateState(String orderNo, OrderState newState, OrderState... oldState) {
         this.updateState(Lists.newArrayList(orderNo), newState, oldState);
     }
-
     @Override
     public String decryptVerifyNo(String verifyNo) {
         AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
@@ -221,6 +224,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public String encryptVerifyNo(String orderNo) {
         AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
         return aes.encryptHex(System.currentTimeMillis() + CommonConstant.ENCRYPT_SPLIT + orderNo);
+    }
+
+    @Override
+    public void ticketOfflineRefund(TicketOfflineRefundRequest request) {
+        Order order = this.getByOrderNo(request.getOrderNo());
+        if (order.getState() == OrderState.UN_PAY) {
+            log.warn("订单未支付, 不支持线下退款 [{}]", request.getOrderNo());
+            throw new BusinessException(ErrorCode.ORDER_UN_PAY);
+        }
+        if (order.getState() == OrderState.CLOSE) {
+            log.warn("订单已关闭, 不支持线下退款 [{}]", request.getOrderNo());
+            throw new BusinessException(ErrorCode.ORDER_CLOSE_REFUND);
+        }
+
+
     }
 
     /**
