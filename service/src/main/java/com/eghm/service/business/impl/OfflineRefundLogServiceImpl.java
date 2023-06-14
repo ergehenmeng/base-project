@@ -1,14 +1,18 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.mapper.OfflineRefundLogMapper;
 import com.eghm.model.OfflineRefundLog;
 import com.eghm.service.business.OfflineRefundLogService;
+import com.eghm.service.common.JsonService;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -24,11 +28,18 @@ public class OfflineRefundLogServiceImpl implements OfflineRefundLogService {
 
     private final OfflineRefundLogMapper offlineRefundLogMapper;
 
+    private final JsonService jsonService;
+
     @Override
     public List<Long> getTicketRefundLog(String orderNo) {
         LambdaQueryWrapper<OfflineRefundLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(OfflineRefundLog::getNote, OfflineRefundLog::getId);
         wrapper.eq(OfflineRefundLog::getOrderNo, orderNo);
-
-        return null;
+        List<OfflineRefundLog> selectList = offlineRefundLogMapper.selectList(wrapper);
+        if (CollUtil.isEmpty(selectList)) {
+            return Lists.newArrayList();
+        }
+        return selectList.stream().flatMap(refundLog -> jsonService.fromJsonList(refundLog.getNote(), Long.class).stream()).distinct().collect(Collectors.toList());
     }
+
 }

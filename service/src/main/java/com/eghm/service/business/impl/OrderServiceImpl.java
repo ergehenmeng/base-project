@@ -19,8 +19,10 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.OfflineRefundLogService;
 import com.eghm.service.business.OrderService;
+import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -36,6 +38,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -51,6 +54,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final SystemProperties systemProperties;
 
     private final OfflineRefundLogService offlineRefundLogService;
+
+    private final OrderVisitorService orderVisitorService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -237,8 +242,29 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.warn("订单已关闭, 不支持线下退款 [{}]", request.getOrderNo());
             throw new BusinessException(ErrorCode.ORDER_CLOSE_REFUND);
         }
+        this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
+        // TODO
 
+    }
 
+    /**
+     * 校验用户列表中是否存在已经线下退款的人,如果存在则给出提示
+     * @param visitorList 待线下退款的用户
+     * @param orderNo 订单号
+     */
+    private void checkHasRefund(List<Long> visitorList, String orderNo) {
+        List<Long> refundVisitorIds = offlineRefundLogService.getTicketRefundLog(orderNo);
+        List<Long> hasRefundIds = refundVisitorIds.stream().filter(visitorList::contains).collect(Collectors.toList());
+        if (!hasRefundIds.isEmpty()) {
+            List<OrderVisitor> visitors = orderVisitorService.getByIds(hasRefundIds, orderNo);
+            // 正常情况下一定不为空, 除非用户线下退款时传递的用户信息和订单号不匹配
+            if (visitors.isEmpty()) {
+                log.error("订单号与游客id不匹配,可能不属于同一个订单 [{}] [{}]", orderNo, hasRefundIds);
+                throw new BusinessException(ErrorCode.MEMBER_REFUND_MATCH);
+            }
+            String userList = visitors.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(","));
+            throw new BusinessException(ErrorCode.MEMBER_HAS_REFUND.getCode(), String.format(ErrorCode.MEMBER_HAS_REFUND.getMsg(), userList));
+        }
     }
 
     /**

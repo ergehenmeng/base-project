@@ -1136,6 +1136,16 @@ public enum ErrorCode {
     ORDER_CLOSE_REFUND(3605, "订单已关闭,不支持线下退款"),
 
     /**
+     * 退款用户与订单不匹配
+     */
+    MEMBER_REFUND_MATCH(3608, "退款用户与订单不匹配"),
+
+    /**
+     * 游客[%s]已退款,请勿重复退款
+     */
+    MEMBER_HAS_REFUND(3612, "游客[%s]已退款,请勿重复退款"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

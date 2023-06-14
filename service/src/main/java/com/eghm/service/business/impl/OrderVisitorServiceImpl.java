@@ -126,4 +126,12 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
         return orderVisitorMapper.selectCount(wrapper);
     }
+
+    @Override
+    public List<OrderVisitor> getByIds(List<Long> ids, String orderNo) {
+        LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(OrderVisitor::getId, ids);
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        return orderVisitorMapper.selectList(wrapper);
+    }
 }

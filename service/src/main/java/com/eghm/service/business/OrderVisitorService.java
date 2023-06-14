@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
+import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 
 import java.util.List;
@@ -58,4 +59,12 @@ public interface OrderVisitorService {
      * @return 数量
      */
     long getUnVerify(String orderNo);
+
+    /**
+     * 根据id列表查询游客信息
+     * @param ids ids
+     * @param orderNo 额外过滤条件
+     * @return 游客列表
+     */
+    List<OrderVisitor> getByIds(List<Long> ids, String orderNo);
 }
