@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.dto;
 
 import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.NotNull;
  * @author wyb
  * @since 2023/6/14
  */
+@Data
 public class ItemDTO {
 
     @ApiModelProperty("商品id")

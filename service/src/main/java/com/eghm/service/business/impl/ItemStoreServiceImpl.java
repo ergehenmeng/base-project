@@ -106,14 +106,12 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
 
     @Override
     public Map<Long, ItemStore> selectByIdShelveMap(List<Long> ids) {
+        LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(ItemStore::getId, ids);
+        wrapper.eq(ItemStore::getPlatformState, PlatformState.SHELVE);
         List<ItemStore> storeList = itemStoreMapper.selectBatchIds(ids);
         if (storeList.size() != ids.size()) {
             log.error("存在已删除零售店铺 {}", ids);
-            throw new BusinessException(ErrorCode.ANY_SHOP_DOWN);
-        }
-        boolean match = storeList.stream().anyMatch(itemStore -> itemStore.getPlatformState() != PlatformState.SHELVE);
-        if (match) {
-            log.error("存在已下架的零售店铺 {}", ids);
             throw new BusinessException(ErrorCode.ANY_SHOP_DOWN);
         }
         return storeList.stream().collect(Collectors.toMap(ItemStore::getId, Function.identity(), (itemStore, itemStore2) -> itemStore));

@@ -62,5 +62,5 @@ public interface ItemSkuService {
      * @param ids ids
      * @return sku
      */
-    Map<Long, ItemSku> getByIds(Set<Long> ids);
+    Map<Long, ItemSku> getByIdShelveMap(Set<Long> ids);
 }

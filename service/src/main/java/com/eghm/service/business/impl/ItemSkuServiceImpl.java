@@ -99,7 +99,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
     }
     
     @Override
-    public Map<Long, ItemSku> getByIds(Set<Long> ids) {
+    public Map<Long, ItemSku> getByIdShelveMap(Set<Long> ids) {
         if (CollUtil.isEmpty(ids)) {
             return Maps.newHashMapWithExpectedSize(1);
         }

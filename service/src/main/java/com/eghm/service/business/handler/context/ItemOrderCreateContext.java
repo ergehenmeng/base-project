@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.context;
 
 import com.eghm.dto.ext.AsyncKey;
-import com.eghm.service.business.handler.dto.StoreItemDTO;
+import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
@@ -25,7 +25,7 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     private Long memberId;
 
     @ApiModelProperty("商品信息")
-    private List<StoreItemDTO> storeItemList;
+    private List<ItemDTO> itemList;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;

@@ -2,20 +2,18 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundType;
-import com.eghm.exception.BusinessException;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemStore;
 import com.eghm.model.Order;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
-import com.eghm.service.business.handler.dto.StoreItemDTO;
+import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
@@ -56,9 +54,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     @Override
     public void doAction(ItemOrderCreateContext context) {
-        this.sortedItem(context);
-        ItemOrderPayload payload = this.getItem(context);
-        this.before(payload);
+        ItemOrderPayload payload = this.getPayload(context);
 
         if (this.isHotSell(payload)) {
             log.info("该商品为热销商品,走MQ队列处理");
@@ -69,28 +65,17 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         this.createOrder(context, payload);
     }
 
-
-    /**
-     * 重新对购物车商品排序防止数据库死锁
-     * @param context 下单信息
-     */
-    private void sortedItem(ItemOrderCreateContext context) {
-        if (context.getStoreItemList().size() == 1) {
-            // 单个商品排鸡毛的序
-            return;
-        }
-        context.setStoreItemList(context.getItemList().stream().sorted(Comparator.comparing(StoreItemDTO::getItemId).thenComparing(StoreItemDTO::getSkuId)).collect(Collectors.toList()));
-    }
-
     /**
      * 创建零售订单
      * @param context 下单信息
      * @param payload 商品信息
      */
     private void createOrder(ItemOrderCreateContext context, ItemOrderPayload payload) {
-        // 购物车商品可能存在多商铺同时下单,按店铺进行分组
-        Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().collect(Collectors.groupingBy(OrderPackage::getStoreId, Collectors.toList()));
+        // 购物车商品可能存在多商铺同时下单,按店铺进行分组, 同时按商品和skuId进行排序
+        Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().sorted(Comparator.comparing(OrderPackage::getStoreId).thenComparing(OrderPackage::getItemId).thenComparing(OrderPackage::getSkuId)).collect(Collectors.groupingBy(OrderPackage::getStoreId, LinkedHashMap::new, Collectors.toList()));
+
         List<String> orderList = new ArrayList<>(8);
+
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
             // 更新库存信息
@@ -160,21 +145,22 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 组装商品下单信息
-     * @param dto 下单信息
+     * @param context 下单信息
      * @return 商品信息及下单信息
      */
-    private ItemOrderPayload getItem(ItemOrderCreateContext dto) {
+    private ItemOrderPayload getPayload(ItemOrderCreateContext context) {
+
         // 组装数据,减少后面遍历逻辑
-        Set<Long> itemIds = dto.getItemList().stream().map(StoreItemDTO::getItemId).collect(Collectors.toSet());
-        Map<Long, Item> itemMap = itemService.getByIds(itemIds);
-        Set<Long> skuIds = dto.getItemList().stream().map(StoreItemDTO::getSkuId).collect(Collectors.toSet());
-        Map<Long, ItemSku> skuMap = itemSkuService.getByIds(skuIds);
+        Set<Long> itemIds = context.getItemList().stream().map(ItemDTO::getItemId).collect(Collectors.toSet());
+        Map<Long, Item> itemMap = itemService.getByIdShelveMap(itemIds);
+        Set<Long> skuIds = context.getItemList().stream().map(ItemDTO::getSkuId).collect(Collectors.toSet());
+        Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(skuIds);
         List<Long> storeIds = itemMap.values().stream().map(Item::getStoreId).distinct().collect(Collectors.toList());
         Map<Long, ItemStore> storeMap = itemStoreService.selectByIdShelveMap(storeIds);
 
         List<OrderPackage> packageList = new ArrayList<>();
         OrderPackage orderPackage;
-        for (StoreItemDTO item : dto.getItemList()) {
+        for (ItemDTO item : context.getItemList()) {
             orderPackage = new OrderPackage();
             orderPackage.setItem(itemMap.get(item.getItemId()));
             orderPackage.setSku(skuMap.get(item.getSkuId()));
@@ -185,37 +171,9 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             orderPackage.setItemStore(storeMap.get(orderPackage.getStoreId()));
             packageList.add(orderPackage);
         }
-        ItemOrderPayload orderDTO = DataUtil.copy(dto, ItemOrderPayload.class);
+        ItemOrderPayload orderDTO = DataUtil.copy(context, ItemOrderPayload.class);
         orderDTO.setPackageList(packageList);
         return orderDTO;
-    }
-
-
-    /**
-     * 校验下单信息是否合法
-     * @param payload 下单信息
-     */
-    private void before(ItemOrderPayload payload) {
-        List<OrderPackage> packageList = payload.getPackageList();
-        for (OrderPackage aPackage : packageList) {
-            if (aPackage.getItem() == null) {
-                log.error("未查询到商品信息 [{}] ", aPackage.getItemId());
-                throw new BusinessException(ErrorCode.ITEM_DOWN);
-            }
-            ItemSku sku = aPackage.getSku();
-            if (sku == null) {
-                log.error("未查询到商品规格信息 [{}] ", aPackage.getSkuId());
-                throw new BusinessException(ErrorCode.SKU_STOCK);
-            }
-            if (!sku.getItemId().equals(aPackage.getItemId())) {
-                log.error("下单商品和规格不匹配 [{}] [{}]", aPackage.getSkuId(), aPackage.getItemId());
-                throw new BusinessException(ErrorCode.ITEM_SKU_MATCH);
-            }
-            if (sku.getStock() < aPackage.getNum()) {
-                log.error("商品规格库存不足 [{}] [{}] [{}]", sku.getId(), sku.getStock(), aPackage.getNum());
-                throw new BusinessException(ErrorCode.SKU_STOCK);
-            }
-        }
     }
 
     /**

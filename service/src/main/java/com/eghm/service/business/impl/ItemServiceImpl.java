@@ -164,7 +164,7 @@ public class ItemServiceImpl implements ItemService {
     }
     
     @Override
-    public Map<Long, Item> getByIds(Set<Long> ids) {
+    public Map<Long, Item> getByIdShelveMap(Set<Long> ids) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.in(Item::getId, ids);
         wrapper.eq(Item::getPlatformState, PlatformState.SHELVE);

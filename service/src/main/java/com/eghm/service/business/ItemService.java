@@ -95,7 +95,7 @@ public interface ItemService {
      * @param ids 商品id
      * @return 商品信息 key为商品id
      */
-    Map<Long, Item> getByIds(Set<Long> ids);
+    Map<Long, Item> getByIdShelveMap(Set<Long> ids);
     
     /**
      * 更新销售量
