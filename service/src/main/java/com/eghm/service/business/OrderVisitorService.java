@@ -67,4 +67,11 @@ public interface OrderVisitorService {
      * @return 游客列表
      */
     List<OrderVisitor> getByIds(List<Long> ids, String orderNo);
+
+    /**
+     * 把游客状态更新为已退款
+     * @param ids ids
+     * @param orderNo 额外过滤条件
+     */
+    void updateRefund(List<Long> ids, String orderNo);
 }

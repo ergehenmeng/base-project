@@ -75,13 +75,15 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         Map<Long, List<OrderPackage>> storeMap = payload.getPackageList().stream().sorted(Comparator.comparing(OrderPackage::getStoreId).thenComparing(OrderPackage::getItemId).thenComparing(OrderPackage::getSkuId)).collect(Collectors.groupingBy(OrderPackage::getStoreId, LinkedHashMap::new, Collectors.toList()));
 
         List<String> orderList = new ArrayList<>(8);
-
+        // 是否为多店铺下单
+        boolean isMultiple = storeMap.size() > 1;
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
             // 更新库存信息
             itemSkuService.updateStock(skuNumMap);
-            // 如果是两个店铺同时下单,则为多订单模式
-            Order order = this.generateOrder(context.getMemberId(), storeMap.size() > 1, entry.getValue());
+
+            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue());
+
             // 因为entry是按商铺进行分组的,直接取第一个店铺的商户id即可
             order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
             // 添加主订单

@@ -1146,6 +1146,11 @@ public enum ErrorCode {
     MEMBER_HAS_REFUND(3612, "游客[%s]已退款,请勿重复退款"),
 
     /**
+     * 存在退款中的游客,不支持线下退款
+     */
+    MEMBER_HAS_REFUNDING(3615, "存在退款中的游客,不支持线下退款"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

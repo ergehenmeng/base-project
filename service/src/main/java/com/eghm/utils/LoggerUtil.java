@@ -43,12 +43,13 @@ public class LoggerUtil {
             return;
         }
         StringBuilder builder = new StringBuilder();
-        builder.append("\n");
+        builder.append("\n\n");
         appendChar(builder, paddingChar);
         builder.append(" ");
         builder.append(msg);
         builder.append(" ");
         appendChar(builder, paddingChar);
+        builder.append("\n");
         log.info(builder.toString());
     }
 

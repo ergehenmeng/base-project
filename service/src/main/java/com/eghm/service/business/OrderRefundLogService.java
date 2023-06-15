@@ -76,4 +76,13 @@ public interface OrderRefundLogService {
      * @return 退款信息
      */
     List<OrderRefund> getRefundProcess();
+
+    /**
+     * 检查订单是否存在已退款或者审核通过在退款中的订单
+     * 如果退款记录审核通过, 在退款中或退款成功,则不允许再次退款
+     * @param orderNo 订单编号
+     * @param visitorList 待退款游客id
+     * @return true:存在 false:不存在
+     */
+    boolean hasRefundSuccess(String orderNo, List<Long> visitorList);
 }

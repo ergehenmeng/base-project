@@ -1,5 +1,7 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
+
 import java.util.List;
 
 /**
@@ -18,4 +20,10 @@ public interface OfflineRefundLogService {
      * @return 游客id
      */
     List<Long> getTicketRefundLog(String orderNo);
+
+    /**
+     * 添加线下退款日志
+     * @param request 退款信息
+     */
+    void insertLog(TicketOfflineRefundRequest request);
 }

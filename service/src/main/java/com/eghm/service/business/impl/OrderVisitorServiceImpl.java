@@ -134,4 +134,13 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         return orderVisitorMapper.selectList(wrapper);
     }
+
+    @Override
+    public void updateRefund(List<Long> ids, String orderNo) {
+        LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        wrapper.in(OrderVisitor::getId, ids);
+        wrapper.set(OrderVisitor::getState, VisitorState.REFUND);
+        orderVisitorMapper.update(null, wrapper);
+    }
 }

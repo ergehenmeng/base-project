@@ -52,4 +52,12 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
      * @return 列表
      */
     Page<RefundLogResponse> getByPage(Page<RefundLogResponse> page, @Param("param") RefundLogQueryRequest request);
+
+    /**
+     * 查询退款成功审核记录列表
+     * @param orderNo 订单编号
+     * @param visitorList 游客列表
+     * @return 数量
+     */
+    int getRefundSuccess(@Param("orderNo") String orderNo, @Param("visitorList") List<Long> visitorList);
 }

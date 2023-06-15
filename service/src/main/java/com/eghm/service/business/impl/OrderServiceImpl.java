@@ -21,6 +21,7 @@ import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.OfflineRefundLogService;
+import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.pay.AggregatePayService;
@@ -54,6 +55,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final SystemProperties systemProperties;
 
     private final OfflineRefundLogService offlineRefundLogService;
+
+    private final OrderRefundLogService orderRefundLogService;
 
     private final OrderVisitorService orderVisitorService;
 
@@ -207,6 +210,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public void updateState(String orderNo, OrderState newState, OrderState... oldState) {
         this.updateState(Lists.newArrayList(orderNo), newState, oldState);
     }
+
     @Override
     public String decryptVerifyNo(String verifyNo) {
         AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
@@ -242,10 +246,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.warn("订单已关闭, 不支持线下退款 [{}]", request.getOrderNo());
             throw new BusinessException(ErrorCode.ORDER_CLOSE_REFUND);
         }
+        boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
+
+        if (refundSuccess) {
+            log.warn("待线下退款的游客列表中, 存在退款中的游客 [{}] {}", request.getOrderNo(), request.getVisitorList());
+            throw new BusinessException(ErrorCode.MEMBER_HAS_REFUNDING);
+        }
+
         this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
-        // TODO
 
-
+        offlineRefundLogService.insertLog(request);
+        orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
+        // TODO 待更新主订单信息
     }
 
     /**

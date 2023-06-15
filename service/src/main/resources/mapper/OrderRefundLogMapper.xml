@@ -64,4 +64,14 @@
         order by t.id desc
     </select>
 
+    <select id="getRefundSuccess" resultType="int">
+        select count(t.id)
+        from order_visitor_refund t
+        inner join order_refund_log r on t.refund_id = r.id
+        where r.deleted = false and t.order_no = #{orderNo} and r.audit_state = 1 and state in (0, 1)
+        and t.visitor_id in
+        <foreach collection="visitorList" separator="," open="(" item="item" close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

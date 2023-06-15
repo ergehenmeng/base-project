@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
+import com.eghm.dto.ext.OrderRefund;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.vo.business.order.refund.RefundLogResponse;
 import lombok.AllArgsConstructor;
@@ -81,5 +81,11 @@ public class OrderRefundLogServiceImpl implements OrderRefundLogService {
     @Override
     public List<OrderRefund> getRefundProcess() {
         return orderRefundLogMapper.getRefundProcess();
+    }
+
+    @Override
+    public boolean hasRefundSuccess(String orderNo, List<Long> visitorList) {
+        int refundSuccess = orderRefundLogMapper.getRefundSuccess(orderNo, visitorList);
+        return refundSuccess > 0;
     }
 }
