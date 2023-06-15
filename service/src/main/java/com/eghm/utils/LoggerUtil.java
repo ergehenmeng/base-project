@@ -17,7 +17,7 @@ public class LoggerUtil {
     /**
      * 左右填充的长度
      */
-    private static final int MAX_LENGTH = 60;
+    private static final int MAX_LENGTH = 20;
 
     /**
      * 默认填充字符
@@ -44,15 +44,11 @@ public class LoggerUtil {
         }
         StringBuilder builder = new StringBuilder();
         builder.append("\n");
-        appendChar(builder, paddingChar, MAX_LENGTH);
-        builder.append("\n");
-        int blankLength = MAX_LENGTH - msg.length();
-        int left = blankLength / 2;
-        appendChar(builder, " ", left);
+        appendChar(builder, paddingChar);
+        builder.append(" ");
         builder.append(msg);
-        appendChar(builder, " ", blankLength - left);
-        builder.append("\n");
-        appendChar(builder, paddingChar, MAX_LENGTH);
+        builder.append(" ");
+        appendChar(builder, paddingChar);
         log.info(builder.toString());
     }
 
@@ -60,10 +56,9 @@ public class LoggerUtil {
      * 填充指定长度的字符
      * @param builder builder
      * @param paddingChar 填充的字符
-     * @param length 填充的长度
      */
-    private static void appendChar(StringBuilder builder, String paddingChar, int length) {
-        for (int i = 0; i < length; i++) {
+    private static void appendChar(StringBuilder builder, String paddingChar) {
+        for (int i = 0; i < MAX_LENGTH; i++) {
             builder.append(paddingChar);
         }
     }
