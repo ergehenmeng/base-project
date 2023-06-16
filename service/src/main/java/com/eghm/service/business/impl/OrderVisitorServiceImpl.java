@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.exception.BusinessException;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -48,6 +50,13 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
             visitor.setState(VisitorState.UN_PAY);
             orderVisitorMapper.insert(visitor);
         }
+    }
+
+    @Override
+    public List<OrderVisitor> getByOrderNo(String orderNo) {
+        LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        return orderVisitorMapper.selectList(wrapper);
     }
 
     @Override
@@ -136,5 +145,22 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.in(OrderVisitor::getId, ids);
         wrapper.set(OrderVisitor::getState, VisitorState.REFUND);
         orderVisitorMapper.update(null, wrapper);
+    }
+
+    @Override
+    public OrderState getOrderState(String orderNo) {
+        List<OrderVisitor> visitorList = this.getByOrderNo(orderNo);
+        return this.getOrderState(visitorList);
+    }
+
+    @Override
+    public OrderState getOrderState(List<OrderVisitor> visitorList) {
+        Optional<OrderVisitor> optional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.PAID).findFirst();
+        if (optional.isPresent()) {
+            return OrderState.UN_USED;
+        }
+        optional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.PAID).findFirst();
+
+        return null;
     }
 }

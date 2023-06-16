@@ -257,7 +257,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         offlineRefundLogService.insertLog(request);
         orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
-        // TODO 待更新主订单信息
+
     }
 
     /**

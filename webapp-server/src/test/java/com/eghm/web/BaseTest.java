@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,9 +30,9 @@ import java.util.Map;
 @SpringBootTest(classes = WebappApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BaseTest {
 
-    private HttpHeaders headers = new HttpHeaders();
+    private final HttpHeaders headers = new HttpHeaders();
 
-    protected Map<String,Object> params = Maps.newHashMapWithExpectedSize(10);
+    protected final Map<String,Object> params = Maps.newHashMapWithExpectedSize(10);
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -53,12 +52,8 @@ public class BaseTest {
         headers.add("Device-Model","xiaomi 10 pro");
     }
 
-
-    @Test
     public String post(String url){
-        String content = this.doPost(url, gson.toJson(params));
-        System.out.println("响应结果: " + content);
-        return content;
+        return this.doPost(url, gson.toJson(params));
     }
 
     private String doPost(String url, String content){

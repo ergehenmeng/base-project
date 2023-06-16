@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.OrderVisitor;
@@ -20,6 +21,13 @@ public interface OrderVisitorService {
      * @param voList 游客信息
      */
     void addVisitor(ProductType productType, String orderNo, List<VisitorDTO> voList);
+
+    /**
+     * 查询订单下的游客信息
+     * @param orderNo 订单编号
+     * @return 游客信息
+     */
+    List<OrderVisitor> getByOrderNo(String orderNo);
 
     /**
      * 锁定游客信息,防止在退款中进行核销
@@ -75,4 +83,18 @@ public interface OrderVisitorService {
      * @param orderNo 额外过滤条件
      */
     void updateRefund(List<Long> ids, String orderNo);
+
+    /**
+     * 根据游客信息计算主订单的状态
+     * @param orderNo 订单编号
+     * @return 主订单状态
+     */
+    OrderState getOrderState(String orderNo);
+
+    /**
+     * 根据游客信息计算主订单的状态
+     * @param visitorList 游客信息
+     * @return 主订单状态
+     */
+    OrderState getOrderState(List<OrderVisitor> visitorList);
 }
