@@ -3,6 +3,7 @@ package com.eghm.service.business.handler.state.impl;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.AuditState;
 import com.eghm.enums.ref.RefundState;
+import com.eghm.enums.ref.VisitorState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -105,14 +106,16 @@ public abstract class AbstractRefundAuditHandler implements RefundAuditHandler {
 
     /**
      * 审核后置处理
-     * 如果审核拒绝则解锁用户
+     * 如果审核拒绝则解锁用户,审核通过则将退款中改为已退款
      * @param context 退款信息
      * @param order 订单信息
      * @param refundLog 退款记录
      */
     private void after(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
         if (context.getState() == AuditState.REFUSE.getValue()) {
-            orderVisitorService.unlockVisitor(order.getOrderNo(), refundLog.getId());
+            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.PAID);
+        } else {
+            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
         }
     }
 

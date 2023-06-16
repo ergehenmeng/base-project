@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.OrderVisitorMapper">
 
+    <update id="refundVisitor" >
+        update order_visitor t, order_visitor_refund r
+        set t.state = #{state}
+        where t.id = r.visitor_id and t.state = 3 and t.order_no = #{orderNo} and r.refund_id = #{refundId}
+    </update>
 </mapper>

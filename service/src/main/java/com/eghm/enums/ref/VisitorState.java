@@ -29,9 +29,14 @@ public enum VisitorState {
     USED(2, "已使用"),
 
     /**
-     * 已退款
+     * 已退款(提交退款申请,尚未审核)
      */
-    REFUND(3, "已退款"),
+    REFUNDING(3, "退款中"),
+
+    /**
+     * 已退款(钱已到账)
+     */
+    REFUND(4, "已退款"),
 
     ;
 

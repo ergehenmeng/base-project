@@ -1,10 +1,7 @@
 package com.eghm.service.business.handler.state.impl;
 
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.AuditState;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.RefundState;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -87,7 +84,11 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      */
     protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
-        orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds());
+        if (order.getRefundType() == RefundType.AUDIT_REFUND) {
+            orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING);
+        } else {
+            orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUND);
+        }
     }
 
     /**

@@ -27,15 +27,9 @@ public interface OrderVisitorService {
      * @param orderNo 订单编号
      * @param refundId 退款id
      * @param visitorList 游客id列表
+     * @param state  退款状态(REFUNDING, REFUND)
      */
-    void lockVisitor(ProductType productType, String orderNo, Long refundId, List<Long> visitorList);
-
-    /**
-     * 解锁游客信息,退款拒绝使其可以继续使用
-     * @param orderNo 订单编号
-     * @param refundId 退款id
-     */
-    void unlockVisitor(String orderNo, Long refundId);
+    void lockVisitor(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState state);
 
     /**
      * 更新订单游客使用状态
@@ -43,6 +37,13 @@ public interface OrderVisitorService {
      * @param state 状态
      */
     void updateVisitor(String orderNo, VisitorState state);
+
+    /**
+     * 将退款申请中的游客信息更新为已退款
+     * @param orderNo 订单
+     * @param refundId 退款记录id
+     */
+    void refundVisitor(String orderNo, Long refundId, VisitorState state);
 
     /**
      * 游客核销

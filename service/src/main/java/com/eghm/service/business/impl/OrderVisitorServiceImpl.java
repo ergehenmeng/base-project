@@ -51,20 +51,18 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public void lockVisitor(ProductType productType, String orderNo, Long refundId, List<Long> visitorList) {
+    public void lockVisitor(ProductType productType, String orderNo, Long refundId, List<Long> visitorList, VisitorState state) {
         if (CollUtil.isEmpty(visitorList)) {
             log.info("退款锁定用户为空,可能是非实名制用户 [{}] [{}] [{}]", orderNo, refundId, productType);
             return;
         }
-
         orderVisitorRefundService.insertVisitorRefund(orderNo, refundId, visitorList);
-
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);
         wrapper.in(OrderVisitor::getId, visitorList);
         wrapper.eq(OrderVisitor::getState, VisitorState.UN_PAY);
-        wrapper.set(OrderVisitor::getState, VisitorState.REFUND);
+        wrapper.set(OrderVisitor::getState, state);
         int update = orderVisitorMapper.update(null, wrapper);
 
         // 退款锁定游客信息时,该游客一定是未核销的, 因此正常情况下更新的数量一定和visitorList数量一致的
@@ -76,20 +74,16 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
-    public void unlockVisitor(String orderNo, Long refundId) {
-        LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
-        wrapper.eq(OrderVisitor::getState, VisitorState.REFUND);
-        wrapper.set(OrderVisitor::getState, VisitorState.UN_PAY);
-        orderVisitorMapper.update(null, wrapper);
-    }
-
-    @Override
     public void updateVisitor(String orderNo, VisitorState state) {
         LambdaUpdateWrapper<OrderVisitor> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.set(OrderVisitor::getState, state);
         orderVisitorMapper.update(null, wrapper);
+    }
+
+    @Override
+    public void refundVisitor(String orderNo, Long refundId, VisitorState state) {
+        orderVisitorMapper.refundVisitor(orderNo, refundId, state);
     }
 
     @Override
