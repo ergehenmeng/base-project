@@ -32,7 +32,7 @@ public class SignatureInterceptor implements InterceptorAdapter {
     private final SysConfigApi sysConfigApi;
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         RequestMessage message = ApiHolder.get();
         if (StrUtil.isBlank(message.getTimestamp())) {
             WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_NULL);

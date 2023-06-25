@@ -1,8 +1,11 @@
 package com.eghm.configuration.interceptor;
 
+import org.springframework.lang.NonNull;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 
 /**
@@ -10,6 +13,23 @@ import java.lang.annotation.Annotation;
  * @date 2020/7/23
  */
 public interface InterceptorAdapter extends HandlerInterceptor {
+
+    @Override
+    default boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+        return this.beforeHandle(request, response, handler);
+    }
+
+    /**
+     * 前置拦截 默认不做特殊处理
+     * @param request request
+     * @param response response
+     * @param handler handler
+     * @return default true
+     */
+    boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception ;
 
     /**
      * 获取handler上方法的指定注解

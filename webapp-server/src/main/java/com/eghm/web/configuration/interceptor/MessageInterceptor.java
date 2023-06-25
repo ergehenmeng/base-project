@@ -31,7 +31,7 @@ public class MessageInterceptor implements InterceptorAdapter {
     private static final int MAX_HEADER_LENGTH = 256;
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         //app请求头信息
         String channel = request.getHeader(AppHeader.CHANNEL);
         String version = request.getHeader(AppHeader.VERSION);

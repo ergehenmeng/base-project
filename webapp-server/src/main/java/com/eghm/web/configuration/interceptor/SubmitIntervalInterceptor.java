@@ -28,7 +28,7 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
     private final CacheService cacheService;
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         // 只针对post请求有效
         if (!HttpMethod.POST.matches(request.getMethod())) {
             return true;

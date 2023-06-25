@@ -37,7 +37,7 @@ public class TokenInterceptor implements InterceptorAdapter {
     private final LoginService loginService;
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) {
         RequestMessage message = ApiHolder.get();
         String token = request.getHeader(AppHeader.TOKEN);
         // 从token中获取用户信息, 如果获取不到,则从refreshToken中获取用户信息, 如果还是获取不到,则根据@AccessToken来决定是否抛异常

@@ -45,7 +45,7 @@ public class PermInterceptor implements InterceptorAdapter {
     }
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
         SkipPerm permission = this.getAnnotation(handler, SkipPerm.class);
         if (permission != null || this.match(request)) {
             return true;

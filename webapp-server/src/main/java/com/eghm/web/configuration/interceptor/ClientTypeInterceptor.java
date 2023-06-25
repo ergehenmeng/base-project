@@ -24,7 +24,7 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
     private static final Channel[] DEFAULT_CHANNEL = {Channel.IOS, Channel.ANDROID, Channel.WECHAT, Channel.ALIPAY};
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         String channel = request.getHeader(AppHeader.CHANNEL);
         Channel[] channels = getClientTypeAnnotation(handler);
         for (Channel ch : channels) {
