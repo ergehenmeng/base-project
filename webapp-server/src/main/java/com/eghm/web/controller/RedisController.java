@@ -1,7 +1,9 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.Channel;
 import com.eghm.service.cache.CacheService;
+import com.eghm.web.annotation.ClientType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,6 +32,7 @@ public class RedisController {
             @ApiImplicitParam(name = "key", value = "key", required = true),
             @ApiImplicitParam(name = "value", value = "value", required = true)
     })
+    @ClientType(Channel.PC)
     public RespBody<Boolean> setValue(@RequestParam("key") String key, @RequestParam("value") String value) {
         boolean absent = cacheService.setIfAbsent(key, value);
         return RespBody.success(absent);

@@ -6,6 +6,7 @@ import com.eghm.enums.Channel;
 import com.eghm.enums.ErrorCode;
 import com.eghm.utils.WebUtil;
 import com.eghm.web.annotation.ClientType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import java.io.IOException;
  * @author 二哥很猛
  * @date 2019/11/21 10:00
  */
+@Slf4j
 public class ClientTypeInterceptor implements InterceptorAdapter {
 
     /**
@@ -32,6 +34,7 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
                 return true;
             }
         }
+        log.warn("接口不支持该设备请求方式, 当前设备:[{}] 支持列表:[{}]", channel, channels);
         WebUtil.printJson(response, ErrorCode.REQUEST_INTERFACE_ERROR);
         return false;
     }
