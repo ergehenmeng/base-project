@@ -1,5 +1,6 @@
 package com.eghm.configuration.rabbit;
 
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.configuration.log.LogTraceHolder;
@@ -17,6 +18,7 @@ import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainer
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 /**
  * mq配置
@@ -67,6 +69,7 @@ public class RabbitConfig {
             LogTraceHolder.put(traceId);
             return message;
         });
+        factory.setTaskExecutor(TtlExecutors.getTtlExecutor(new SimpleAsyncTaskExecutor("@RabbitListener线程-")));
         configurer.configure(factory, connectionFactory);
         return factory;
     }
