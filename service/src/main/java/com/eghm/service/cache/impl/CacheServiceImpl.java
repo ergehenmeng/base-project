@@ -1,6 +1,7 @@
 package com.eghm.service.cache.impl;
 
 import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.AsyncResponse;
 import com.eghm.enums.ErrorCode;
@@ -214,6 +215,7 @@ public class CacheServiceImpl implements CacheService {
             return true;
         }
         redisTemplate.opsForList().rightPush(key, String.valueOf(System.currentTimeMillis()));
+        redisTemplate.expire(key, CommonConstant.LIMIT_MAX_EXPIRE, TimeUnit.MILLISECONDS);
         return false;
     }
 

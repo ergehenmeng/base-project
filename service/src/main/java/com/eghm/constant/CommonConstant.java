@@ -96,4 +96,9 @@ public class CommonConstant {
      * 最大锁屏时间 1天
      */
     public static final long MAX_LOCK_SCREEN = 86_400_000;
+
+    /**
+     * redis中 limit限制最大时间7天
+     */
+    public static final long LIMIT_MAX_EXPIRE = 604_800_000;
 }

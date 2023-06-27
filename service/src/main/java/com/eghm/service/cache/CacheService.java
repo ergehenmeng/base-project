@@ -151,7 +151,7 @@ public interface CacheService {
      * 表示在{maxTtl}时间内最多能访问{maxLimit}次
      * @param key key
      * @param maxLimit 次数限制
-     * @param maxTtl 单位:毫秒
+     * @param maxTtl 单位:毫秒 不能大于7天 {@link com.eghm.constant.CommonConstant#LIMIT_MAX_EXPIRE}
      * @return true:限制() false:不限制(表示没有达到最大值 可以执行后续操作)
      */
     boolean limit(String key, int maxLimit, long maxTtl);

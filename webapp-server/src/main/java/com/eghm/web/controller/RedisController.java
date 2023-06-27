@@ -49,4 +49,28 @@ public class RedisController {
         boolean absent = cacheService.limit(key, maxLimit, maxTtl);
         return RespBody.success(absent);
     }
+
+    @GetMapping("/getBitmap64")
+    @ApiOperation("bitmap64长度")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "end", value = "end", required = true)
+    })
+    @ClientType(Channel.WECHAT)
+    public RespBody<Long> getBitmap64(@RequestParam("key") String key, @RequestParam("end") Long end) {
+        long absent = cacheService.getBitmap64(key, end);
+        return RespBody.success(absent);
+    }
+
+    @GetMapping("/setBitmap")
+    @ApiOperation("设置bitmap")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "offset", value = "offset", required = true)
+    })
+    @ClientType(Channel.WECHAT)
+    public RespBody<Void> setBitmap(@RequestParam("key") String key, @RequestParam("offset") Long offset) {
+        cacheService.setBitmap(key, offset, true);
+        return RespBody.success();
+    }
 }
