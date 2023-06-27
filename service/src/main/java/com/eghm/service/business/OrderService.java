@@ -8,6 +8,7 @@ import com.eghm.model.OrderRefundLog;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.vo.business.order.OrderScanVO;
 
 import java.util.List;
 
@@ -134,4 +135,11 @@ public interface OrderService extends IService<Order> {
      * @param request 退款金额
      */
     void ticketOfflineRefund(TicketOfflineRefundRequest request);
+
+    /**
+     * 查询扫码后的订单结果
+     * @param orderNo 订单编号
+     * @return 订单及游客信息
+     */
+    OrderScanVO getScanResult(String orderNo);
 }

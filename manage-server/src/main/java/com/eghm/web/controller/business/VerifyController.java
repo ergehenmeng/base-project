@@ -12,13 +12,16 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
+import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.verify.VerifyLogResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import static com.eghm.enums.ErrorCode.VERIFY_ORDER_ERROR;
 import static com.eghm.enums.ErrorCode.VERIFY_TYPE_ERROR;
 
 /**
@@ -51,6 +54,20 @@ public class VerifyController {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VerifyLogResponse> roomPage = verifyLogService.getByPage(request);
         return PageData.toPage(roomPage);
+    }
+
+    @GetMapping("/scan")
+    @ApiOperation("查询扫码结果")
+    @ApiImplicitParam(name = "verifyNo", value = "核销码", required = true)
+    public RespBody<OrderScanVO> scan(@RequestParam("verifyNo") String verifyNo) {
+        String orderNo = orderService.decryptVerifyNo(verifyNo);
+        ProductType productType = ProductType.prefix(orderNo);
+        if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET) {
+            OrderScanVO vo = orderService.getScanResult(orderNo);
+            return RespBody.success(vo);
+        } else {
+            return RespBody.error(VERIFY_ORDER_ERROR);
+        }
     }
 
     @PostMapping("/verify")

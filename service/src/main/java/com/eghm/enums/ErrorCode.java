@@ -1116,6 +1116,11 @@ public enum ErrorCode {
     VERIFY_TYPE_ERROR(3432, "核销类型匹配"),
 
     /**
+     * 订单不支持扫码核销
+     */
+    VERIFY_ORDER_ERROR(3433, "订单不支持扫码核销"),
+
+    /**
      * 核销状态不存在
      */
     VERIFY_STATE_ERROR(3435, "核销状态不存在"),

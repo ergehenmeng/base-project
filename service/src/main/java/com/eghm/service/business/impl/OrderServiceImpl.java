@@ -31,6 +31,9 @@ import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.order.OrderScanVO;
+import com.eghm.vo.business.order.VisitorVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -261,6 +264,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
         order.setState(orderState);
         baseMapper.updateById(order);
+    }
+
+    @Override
+    public OrderScanVO getScanResult(String orderNo) {
+        Order order = this.getByOrderNo(orderNo);
+        OrderScanVO vo = DataUtil.copy(order, OrderScanVO.class);
+        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
+        List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
+        vo.setVisitorList(voList);
+        return vo;
     }
 
     /**
