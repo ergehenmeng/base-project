@@ -12,6 +12,8 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.ProductType;
@@ -20,10 +22,7 @@ import com.eghm.mapper.OrderMapper;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.OrderVisitor;
-import com.eghm.service.business.OfflineRefundLogService;
-import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.business.*;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -32,6 +31,7 @@ import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.OrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.VisitorVO;
 import com.google.common.collect.Lists;
@@ -42,6 +42,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -62,6 +63,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final OrderRefundLogService orderRefundLogService;
 
     private final OrderVisitorService orderVisitorService;
+
+    private final OrderMQService orderMQService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -263,6 +266,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 计算主订单状态
         OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
         order.setState(orderState);
+        this.orderStateModify(order, mainOrder -> mainOrder.setCloseType(CloseType.REFUND));
         baseMapper.updateById(order);
     }
 
@@ -274,6 +278,44 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
         vo.setVisitorList(voList);
         return vo;
+    }
+
+    @Override
+    public void orderStateModify(Order order) {
+        this.orderStateModify(order, null);
+    }
+
+    @Override
+    public void orderStateModify(Order order, Consumer<Order> closeConsumer) {
+        Order databaseOrder = this.getByOrderNo(order.getOrderNo());
+        if (databaseOrder.getState() == order.getState()) {
+            log.warn("订单状态未发生改变,不做处理 [{}]", order.getOrderNo());
+            return;
+        }
+        if (order.getState() == OrderState.CLOSE) {
+            order.setCloseTime(LocalDateTime.now());
+            if (closeConsumer != null) {
+                closeConsumer.accept(order);
+            }
+        }
+        if (order.getState() == OrderState.APPRAISE) {
+            TransactionUtil.afterCommit(() -> {
+                if (order.getProductType() == ProductType.TICKET) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.TICKET_COMPLETE, order.getOrderNo());
+                } else if (order.getProductType() == ProductType.ITEM) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE, order.getOrderNo());
+                } else if (order.getProductType() == ProductType.LINE) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE, order.getOrderNo());
+                } else if (order.getProductType() == ProductType.RESTAURANT) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE, order.getOrderNo());
+                }else if (order.getProductType() == ProductType.HOMESTAY) {
+                    orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE, order.getOrderNo());
+                }
+            });
+        }
+        if (order.getState() == OrderState.COMPLETE) {
+            order.setCompleteTime(LocalDateTime.now());
+        }
     }
 
     /**

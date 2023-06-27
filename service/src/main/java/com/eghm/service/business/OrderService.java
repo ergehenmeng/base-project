@@ -11,6 +11,7 @@ import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.vo.business.order.OrderScanVO;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author 二哥很猛
@@ -142,4 +143,17 @@ public interface OrderService extends IService<Order> {
      * @return 订单及游客信息
      */
     OrderScanVO getScanResult(String orderNo);
+
+    /**
+     * 订单状态变更处理, 注意:只有订单状态变动时才需要调用该方法
+     * @param order 订单信息
+     */
+    void orderStateModify(Order order);
+
+    /**
+     * 订单状态变更时所做的字段变更, 注意:只有订单状态变动时才需要调用该方法
+     * @param order 订单信息
+     * @param closeConsumer 关闭订单的特殊处理
+     */
+    void orderStateModify(Order order, Consumer<Order> closeConsumer);
 }
