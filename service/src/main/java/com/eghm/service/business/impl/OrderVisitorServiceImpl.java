@@ -159,8 +159,22 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         if (optional.isPresent()) {
             return OrderState.UN_USED;
         }
-        optional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.PAID).findFirst();
-
-        return null;
+        Optional<OrderVisitor> useOptional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.USED).findFirst();
+        Optional<OrderVisitor> refundingOptional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.REFUNDING).findFirst();
+        // 存在已使用和退款中,退款完成之前默认是待使用
+        if (useOptional.isPresent() && refundingOptional.isPresent()) {
+            return OrderState.UN_USED;
+        }
+        Optional<OrderVisitor> refundOptional = visitorList.stream().filter(orderVisitor -> orderVisitor.getState() == VisitorState.REFUND).findFirst();
+        // 表示订单只有已使用和已退款
+        if (useOptional.isPresent() && refundOptional.isPresent()) {
+            return OrderState.APPRAISE;
+        }
+        // 存在存款中的游客信息
+        if (refundingOptional.isPresent()) {
+            return OrderState.REFUND;
+        }
+        // 全部退款完成
+        return OrderState.CLOSE;
     }
 }

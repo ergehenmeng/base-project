@@ -257,7 +257,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
         offlineRefundLogService.insertLog(request);
         orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
-
+        // 计算主订单状态
+        OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
+        order.setState(orderState);
+        baseMapper.updateById(order);
     }
 
     /**
