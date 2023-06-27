@@ -1,5 +1,7 @@
 package com.eghm.web.configuration.interceptor;
 
+import cn.hutool.core.util.URLUtil;
+import com.eghm.configuration.annotation.SkipLogger;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constant.AppHeader;
 import com.eghm.constant.CommonConstant;
@@ -8,13 +10,16 @@ import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
 import com.eghm.utils.WebUtil;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.lang.NonNull;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * 基础头信息收集 将定义好的头信息参数全部放入RequestMessage对象中
@@ -62,14 +67,7 @@ public class MessageInterceptor implements InterceptorAdapter {
         message.setTimestamp(timestamp);
         message.setSignature(signature);
         message.setSerialNumber(serialNumber);
-        // 需要将requestBody中的数据采集,方便做日志
-        try {
-            String requestBody = IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
-            message.setRequestBody(requestBody);
-        } catch (IOException e) {
-            log.warn("获取请求参数信息异常", e);
-            throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
-        }
+        message.setRequestParam(this.parseRequestParam(request, handler));
         return true;
     }
 
@@ -89,4 +87,30 @@ public class MessageInterceptor implements InterceptorAdapter {
         return headerValue != null && headerValue.length() > MAX_HEADER_LENGTH;
     }
 
+    /**
+     * 解析请求的参数信息
+     * @param request request
+     * @param handler handler
+     * @return post请求: json get请求a=3&b=4
+     */
+    private String parseRequestParam(HttpServletRequest request, Object handler) {
+        // 此处增加判断是防止文件上传时解析请求数据,产生没必要内存垃圾
+        SkipLogger skipLogger = this.getAnnotation(handler, SkipLogger.class);
+        if (skipLogger != null) {
+            return null;
+        }
+
+        if (HttpMethod.POST.matches(request.getMethod())) {
+            try {
+                return IOUtils.toString(request.getInputStream(), CommonConstant.CHARSET);
+            } catch (IOException e) {
+                log.warn("获取POST请求参数信息异常", e);
+                throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
+            }
+        }
+        Map<String, String[]> parameterMap = request.getParameterMap();
+        Map<String, String> queryMap = Maps.newHashMapWithExpectedSize(parameterMap.size());
+        parameterMap.forEach((key, values) -> queryMap.put(key, values[0]));
+        return URLUtil.buildQuery(queryMap, CommonConstant.CHARSET);
+    }
 }

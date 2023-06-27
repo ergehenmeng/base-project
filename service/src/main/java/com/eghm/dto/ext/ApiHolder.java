@@ -87,7 +87,7 @@ public class ApiHolder {
      * 请求参数json
      * @return {"id":1,"age":12}
      */
-    public static String getRequestBody(){
-        return get().getRequestBody();
+    public static String getRequestParam(){
+        return get().getRequestParam();
     }
 }

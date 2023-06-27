@@ -165,9 +165,9 @@ public enum ErrorCode {
     SIGNATURE_VERIFY_ERROR(1018,"签名校验失败"),
 
     /**
-     * 读取参数异常
+     * 读取请求参数异常
      */
-    READ_PARAM_ERROR(1019,"读取参数异常"),
+    READ_PARAM_ERROR(1019,"读取请求参数异常"),
 
     /**
      * 非法操作 操作了不属于自己的数据

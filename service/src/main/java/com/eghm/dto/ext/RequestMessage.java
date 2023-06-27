@@ -63,7 +63,7 @@ public class RequestMessage implements Serializable {
     /**
      * http请求内容,json格式
      */
-    private String requestBody;
+    private String requestParam;
 
     /**
      * 时间戳
