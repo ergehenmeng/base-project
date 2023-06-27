@@ -16,6 +16,7 @@ import org.springframework.lang.NonNull;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,7 +46,7 @@ public class PermInterceptor implements InterceptorAdapter {
     }
 
     @Override
-    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+    public boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException {
         SkipPerm permission = this.getAnnotation(handler, SkipPerm.class);
         if (permission != null || this.match(request)) {
             return true;

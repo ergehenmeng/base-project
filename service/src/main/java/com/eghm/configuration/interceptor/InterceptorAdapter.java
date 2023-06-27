@@ -6,6 +6,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 
 /**
@@ -29,7 +30,7 @@ public interface InterceptorAdapter extends HandlerInterceptor {
      * @param handler handler
      * @return default true
      */
-    boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception ;
+    boolean beforeHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws IOException;
 
     /**
      * 获取handler上方法的指定注解
