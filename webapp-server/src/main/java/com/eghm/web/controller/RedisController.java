@@ -32,9 +32,21 @@ public class RedisController {
             @ApiImplicitParam(name = "key", value = "key", required = true),
             @ApiImplicitParam(name = "value", value = "value", required = true)
     })
-    @ClientType(Channel.PC)
     public RespBody<Boolean> setValue(@RequestParam("key") String key, @RequestParam("value") String value) {
         boolean absent = cacheService.setIfAbsent(key, value);
+        return RespBody.success(absent);
+    }
+
+    @GetMapping("/setLimit")
+    @ApiOperation("限制设置")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "maxLimit", value = "maxLimit", required = true),
+            @ApiImplicitParam(name = "maxTtl", value = "maxTtl", required = true),
+    })
+    @ClientType(Channel.WECHAT)
+    public RespBody<Boolean> setLimit(@RequestParam("key") String key, @RequestParam("maxLimit") Integer maxLimit, @RequestParam("maxTtl") Long maxTtl) {
+        boolean absent = cacheService.limit(key, maxLimit, maxTtl);
         return RespBody.success(absent);
     }
 }

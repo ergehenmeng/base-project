@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = WebappApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BaseTest {
+public abstract class BaseTest {
 
     private final HttpHeaders headers = new HttpHeaders();
 

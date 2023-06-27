@@ -37,7 +37,7 @@ import java.util.Map;
         classes = ManageApplication.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
-public class BaseTest {
+public abstract class BaseTest {
 
     private final HttpHeaders headers = new HttpHeaders();
 

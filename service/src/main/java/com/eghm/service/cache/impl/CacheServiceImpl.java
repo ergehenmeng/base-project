@@ -209,11 +209,11 @@ public class CacheServiceImpl implements CacheService {
         }
         // 如果刚好此时,在maxTtl时间内的第一次存储的数据过期了,依旧返回true,不做毫秒值等判断
         if (System.currentTimeMillis() - Long.parseLong(leftPop) < maxTtl) {
+            // pop会取出元素,因此此处需要再重新放进去
+            redisTemplate.opsForList().leftPush(key, leftPop);
             return true;
         }
         redisTemplate.opsForList().rightPush(key, String.valueOf(System.currentTimeMillis()));
-        // 相当于集合中只保留最多maxLimit个元素
-        redisTemplate.opsForList().trim(key, size - maxLimit, size - 1);
         return false;
     }
 
