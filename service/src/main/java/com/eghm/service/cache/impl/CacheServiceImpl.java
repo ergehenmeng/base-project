@@ -321,6 +321,17 @@ public class CacheServiceImpl implements CacheService {
         return this.getBitmapLong(key, end, BITMAP);
     }
 
+    @Override
+    public Long getBitmapOffset(String key, Long offset) {
+        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(offset));
+        return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
+    }
+
+    @Override
+    public Long getBitmapCount(String key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
+    }
+
     private Long getBitmapLong(String key, Long end, int maxLength) {
         if (maxLength > BITMAP) {
             log.error("bitmap位数过大 [{}]", maxLength);
@@ -329,11 +340,6 @@ public class CacheServiceImpl implements CacheService {
         long startIndex = (end - maxLength) > 0 ? end - maxLength : 0;
         List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(startIndex));
         return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
-    }
-
-    @Override
-    public Long getBitmapCount(String key) {
-        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 
     /**

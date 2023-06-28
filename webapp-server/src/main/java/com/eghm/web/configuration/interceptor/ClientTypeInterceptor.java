@@ -34,7 +34,7 @@ public class ClientTypeInterceptor implements InterceptorAdapter {
                 return true;
             }
         }
-        log.warn("接口不支持该设备请求方式, 当前设备:[{}] 支持列表:[{}]", channel, channels);
+        log.warn("接口不支持该设备请求方式, 当前设备:[{}] 支持列表:{}", channel, channels);
         WebUtil.printJson(response, ErrorCode.REQUEST_INTERFACE_ERROR);
         return false;
     }

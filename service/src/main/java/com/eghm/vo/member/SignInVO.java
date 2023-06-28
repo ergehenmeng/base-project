@@ -14,9 +14,6 @@ import java.util.List;
 @ApiModel
 public class SignInVO {
 
-    @ApiModelProperty("累计签到天数")
-    private Integer addUp;
-
     @ApiModelProperty("今日是否签到 true:已签到 false:未签到")
     private Boolean todayIsSign;
 

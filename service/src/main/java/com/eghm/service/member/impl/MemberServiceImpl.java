@@ -16,11 +16,11 @@ import com.eghm.dto.email.SendEmail;
 import com.eghm.dto.ext.*;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
-import com.eghm.dto.register.RegisterMemberDTO;
 import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
-import com.eghm.dto.member.SendEmailAuthCodeDTO;
 import com.eghm.dto.member.MemberAuthDTO;
+import com.eghm.dto.member.SendEmailAuthCodeDTO;
+import com.eghm.dto.register.RegisterMemberDTO;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
@@ -35,14 +35,13 @@ import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.SmsService;
 import com.eghm.service.common.TokenService;
-import com.eghm.service.mq.service.MessageService;
-import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.member.LoginService;
 import com.eghm.service.member.MemberScoreLogService;
 import com.eghm.service.member.MemberService;
+import com.eghm.service.mq.service.MessageService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.service.wechat.WeChatMpService;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.DateUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.login.LoginTokenVO;
@@ -58,7 +57,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -385,33 +383,27 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public SignInVO getSignIn(Long memberId) {
         Member member = memberMapper.selectById(memberId);
-        Date now = DateUtil.getNow();
-        long day = ChronoUnit.DAYS.between(member.getCreateTime(), LocalDateTime.now());
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDay = endDate.withDayOfMonth(1);
+        LocalDate registerDate = member.getCreateTime().toLocalDate();
+        // 从注册到今天的日期
+        long totalDay = ChronoUnit.DAYS.between(registerDate, endDate);
+        // 从注册到本月初的日期
+        long offset = ChronoUnit.DAYS.between(registerDate, startDay);
         String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
         // 今日是否签到
-        boolean todaySignIn = cacheService.getBitmap(signKey, day);
-
+        boolean todaySignIn = cacheService.getBitmap(signKey, totalDay);
         SignInVO sign = new SignInVO();
         sign.setTodayIsSign(todaySignIn);
-        // 先将参数放进去,防止返回时整个属性字段都为空
-
-
-        // 累计签到次数
-        Long count = cacheService.getBitmapCount(signKey);
-        sign.setAddUp(count == null ? 0 : count.intValue());
-
-        Long bitmap64 = cacheService.getBitmap64(signKey, day);
-
-        Date monthStart = DateUtil.firstDayOfMonth(now);
-        // 本月已过天数
-        long monthDays = DateUtil.diffDay(now, monthStart);
+        // 本月签到的情况
+        Long bitmap64 = cacheService.getBitmapOffset(signKey, offset);
+        long monthDays = totalDay - offset;
         List<Boolean> thisMonth = Lists.newArrayListWithCapacity(31);
         thisMonth.add(todaySignIn);
         for (int i = 0; i < monthDays; i++) {
             thisMonth.add(bitmap64 >> 1 << 1 != bitmap64);
             bitmap64 >>= 1;
         }
-
         Collections.reverse(thisMonth);
         sign.setThisMonth(thisMonth);
         return sign;

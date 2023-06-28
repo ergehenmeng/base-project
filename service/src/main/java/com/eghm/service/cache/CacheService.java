@@ -240,6 +240,14 @@ public interface CacheService {
     Long getBitmap64(String key, Long end);
 
     /**
+     * 查询指定位置后long的长度
+     * @param key key
+     * @param offset 位置
+     * @return long
+     */
+    Long getBitmapOffset(String key, Long offset);
+
+    /**
      * 统计bitmap中为true的总个数
      * @param key key
      * @return 个数
