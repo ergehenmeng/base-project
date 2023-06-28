@@ -4,7 +4,6 @@ import cn.hutool.dfa.SensitiveUtil;
 import com.eghm.mapper.SensitiveWordMapper;
 import com.eghm.service.common.SensitiveWordService;
 import com.eghm.utils.LoggerUtil;
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,8 +12,8 @@ import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
- * @author wyb
- * @date 2021/12/4 11:10
+ * @author eghm
+ * @date 2020/11/4 19:12
  */
 @Slf4j
 @Service("SensitiveWordService")
@@ -37,12 +36,9 @@ public class SensitiveWordServiceImpl implements SensitiveWordService {
     public void reloadLexicon() {
         long start = System.currentTimeMillis();
         List<String> wordList = sensitiveWordMapper.getWordList();
+        SensitiveUtil.setCharFilter(character -> true);
         SensitiveUtil.init(wordList, false);
         LoggerUtil.print(String.format("敏感词库加载成功,耗时:%dms", (System.currentTimeMillis() - start)));
     }
 
-    public static void main(String[] args) {
-        SensitiveUtil.init(Lists.newArrayList("１６大"));
-        SensitiveUtil.containsSensitive("大吃饭");
-    }
 }
