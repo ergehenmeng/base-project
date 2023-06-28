@@ -54,6 +54,7 @@ import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
@@ -355,7 +356,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void signIn(Long memberId) {
         Member member = memberMapper.selectById(memberId);
-        long day = ChronoUnit.DAYS.between(member.getCreateTime(), LocalDateTime.now());
+        long day = ChronoUnit.DAYS.between(member.getCreateTime(), LocalDate.now());
         String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
         Boolean signIn = cacheService.getBitmap(signKey, day);
         if (Boolean.TRUE.equals(signIn)) {
@@ -365,6 +366,7 @@ public class MemberServiceImpl implements MemberService {
         // 今日签到记录到缓存中
         cacheService.setBitmap(signKey, day, true);
         int score = memberScoreLogService.getSignInScore();
+
         MemberScoreLog log = new MemberScoreLog();
         log.setScore(score);
         log.setMemberId(memberId);
@@ -388,28 +390,30 @@ public class MemberServiceImpl implements MemberService {
         String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
         // 今日是否签到
         boolean todaySignIn = cacheService.getBitmap(signKey, day);
-        List<Boolean> thisMonth = Lists.newArrayListWithCapacity(31);
-        thisMonth.add(todaySignIn);
+
         SignInVO sign = new SignInVO();
-        sign.setToday(todaySignIn);
+        sign.setTodayIsSign(todaySignIn);
         // 先将参数放进去,防止返回时整个属性字段都为空
-        sign.setThisMonth(thisMonth);
+
+
         // 累计签到次数
         Long count = cacheService.getBitmapCount(signKey);
         sign.setAddUp(count == null ? 0 : count.intValue());
+
         Long bitmap64 = cacheService.getBitmap64(signKey, day);
-        if (bitmap64 == null) {
-            log.info("该用户尚未签到过 memberId:[{}]", memberId);
-            return sign;
-        }
+
         Date monthStart = DateUtil.firstDayOfMonth(now);
         // 本月已过天数
         long monthDays = DateUtil.diffDay(now, monthStart);
+        List<Boolean> thisMonth = Lists.newArrayListWithCapacity(31);
+        thisMonth.add(todaySignIn);
         for (int i = 0; i < monthDays; i++) {
             thisMonth.add(bitmap64 >> 1 << 1 != bitmap64);
             bitmap64 >>= 1;
         }
+
         Collections.reverse(thisMonth);
+        sign.setThisMonth(thisMonth);
         return sign;
     }
 

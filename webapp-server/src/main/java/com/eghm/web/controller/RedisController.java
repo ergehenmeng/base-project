@@ -3,6 +3,7 @@ package com.eghm.web.controller;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.Channel;
 import com.eghm.service.cache.CacheService;
+import com.eghm.service.common.SensitiveWordService;
 import com.eghm.web.annotation.ClientType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RedisController {
 
     private final CacheService cacheService;
+
+    private final SensitiveWordService sensitiveWordService;
 
     @GetMapping("/setValue")
     @ApiOperation("设置值")
@@ -72,5 +75,27 @@ public class RedisController {
     public RespBody<Void> setBitmap(@RequestParam("key") String key, @RequestParam("offset") Long offset) {
         cacheService.setBitmap(key, offset, true);
         return RespBody.success();
+    }
+
+    @GetMapping("/checkSerial")
+    @ApiOperation("检查是否连续(64以内)")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "end", value = "end", required = true),
+            @ApiImplicitParam(name = "succession", value = "succession", required = true),
+    })
+    @ClientType(Channel.WECHAT)
+    public RespBody<Boolean> checkSerial(@RequestParam("key") String key, @RequestParam("end") Long end, @RequestParam("succession") Integer succession) {
+        boolean checkSerial = cacheService.checkSerial(key, end, succession);
+        return RespBody.success(checkSerial);
+    }
+
+    @GetMapping("/match")
+    @ApiOperation("匹配")
+    @ApiImplicitParam(name = "keyword", value = "keyword", required = true)
+    @ClientType(Channel.WECHAT)
+    public RespBody<Boolean> match(@RequestParam("keyword") String keyword) {
+        boolean checkSerial = sensitiveWordService.match(keyword);
+        return RespBody.success(checkSerial);
     }
 }

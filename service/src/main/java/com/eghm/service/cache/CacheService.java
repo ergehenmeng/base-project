@@ -227,7 +227,7 @@ public interface CacheService {
      * @param key key
      * @param end 当前尾节点
      * @param succession 连续天数,不能大于64
-     * @return 个数
+     * @return true:连续 false:不连续
      */
     boolean checkSerial(String key, Long end, Integer succession);
 

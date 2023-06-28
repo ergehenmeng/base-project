@@ -14,21 +14,12 @@ import java.util.List;
 @ApiModel
 public class SignInVO {
 
-    /**
-     * 累计签到天数
-     */
-    @ApiModelProperty("今日是否签到 true:已签到 false:未签到")
+    @ApiModelProperty("累计签到天数")
     private Integer addUp;
 
-    /**
-     * 今日是否签到
-     */
     @ApiModelProperty("今日是否签到 true:已签到 false:未签到")
-    private Boolean today;
+    private Boolean todayIsSign;
 
-    /**
-     * 本月签到信息1号~今日
-     */
     @ApiModelProperty("本月签到信息(1号~今日)")
     private List<Boolean> thisMonth;
 
