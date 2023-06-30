@@ -12,6 +12,8 @@ import com.eghm.dto.ext.MemberRegister;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.SignInVO;
 
+import java.time.LocalDateTime;
+
 /**
  * @author 二哥很猛
  * @date 2019/8/19 15:50
@@ -167,11 +169,12 @@ public interface MemberService {
     void signIn(Long memberId);
 
     /**
-     * 获取今天签到状态
-     * @param member member信息
+     * 判断用户今日签到状态
+     * @param memberId  用户id
+     * @param registerTime 时间
      * @return true 已签到 false 未签到
      */
-    Boolean isSignInToday(Member member);
+    Boolean isSignInToday(Long memberId, LocalDateTime registerTime);
 
     /**
      * 获取用户签到信息 只显示当月签到信息
@@ -208,4 +211,12 @@ public interface MemberService {
      * @param password 新密码
      */
     void setPassword(String requestId, String password);
+
+    /**
+     * 判断用户是否连续签到
+     * @param memberId 用户id
+     * @param signDay 最大签到天数 不能超过32天
+     * @return true: 连续签到 false:不连续签到
+     */
+    boolean checkSeriesSign(Long memberId, int signDay);
 }

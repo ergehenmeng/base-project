@@ -217,35 +217,27 @@ public interface CacheService {
      * 采用bitField实现
      * @param key key
      * @param end 当前尾节点
-     * @param succession 连续天数 该值越大性能越差 如果小于64更建议用 {@link CacheService#checkSerial(String, Long, Integer)}方法
+     * @param succession 连续天数 该值越大性能越差
      * @return 个数
      */
     boolean checkSerialBoost(String key, Long end, Integer succession);
 
     /**
-     * 判断在指定key上是否有succession个数连续为true 主要用于连续签到
+     * 查询指定位置后long的长度
      * @param key key
-     * @param end 当前尾节点
-     * @param succession 连续天数,不能大于64
-     * @return true:连续 false:不连续
+     * @param offset 位置
+     * @return long 默认取32位
      */
-    boolean checkSerial(String key, Long end, Integer succession);
-
-    /**
-     * 查询bitmap中的点
-     * @param key  key
-     * @param end 结束位置 该值为了确认bitmap的总长度
-     * @return 值
-     */
-    Long getBitmap64(String key, Long end);
+    Long getBitmapOffset(String key, Long offset);
 
     /**
      * 查询指定位置后long的长度
      * @param key key
      * @param offset 位置
-     * @return long
+     * @param length 取多少位数字返回(不能超过63)
+     * @return long 默认取32位
      */
-    Long getBitmapOffset(String key, Long offset);
+    Long getBitmapOffset(String key, Long offset, int length);
 
     /**
      * 统计bitmap中为true的总个数

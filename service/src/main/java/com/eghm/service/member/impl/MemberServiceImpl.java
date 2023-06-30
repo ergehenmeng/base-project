@@ -375,38 +375,24 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Boolean isSignInToday(Member member) {
-        long day = ChronoUnit.DAYS.between(member.getCreateTime(), LocalDateTime.now());
-        return cacheService.getBitmap(CacheConstant.MEMBER_SIGN_IN + member.getId(), day);
+    public Boolean isSignInToday(Long memberId, LocalDateTime registerTime) {
+        long day = ChronoUnit.DAYS.between(registerTime.toLocalDate(), LocalDateTime.now());
+        return cacheService.getBitmap(CacheConstant.MEMBER_SIGN_IN + memberId, day);
     }
 
     @Override
     public SignInVO getSignIn(Long memberId) {
         Member member = memberMapper.selectById(memberId);
         LocalDate endDate = LocalDate.now();
-        LocalDate startDay = endDate.withDayOfMonth(1);
         LocalDate registerDate = member.getCreateTime().toLocalDate();
-        // 从注册到今天的日期
-        long totalDay = ChronoUnit.DAYS.between(registerDate, endDate);
-        // 从注册到本月初的日期
-        long offset = ChronoUnit.DAYS.between(registerDate, startDay);
+        long registerDays = ChronoUnit.DAYS.between(registerDate, endDate);
         String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
-        // 今日是否签到
-        boolean todaySignIn = cacheService.getBitmap(signKey, totalDay);
-        SignInVO sign = new SignInVO();
-        sign.setTodayIsSign(todaySignIn);
-        // 本月签到的情况
-        Long bitmap64 = cacheService.getBitmapOffset(signKey, offset);
-        long monthDays = totalDay - offset;
-        List<Boolean> thisMonth = Lists.newArrayListWithCapacity(31);
-        thisMonth.add(todaySignIn);
-        for (int i = 0; i < monthDays; i++) {
-            thisMonth.add(bitmap64 >> 1 << 1 != bitmap64);
-            bitmap64 >>= 1;
-        }
-        Collections.reverse(thisMonth);
-        sign.setThisMonth(thisMonth);
-        return sign;
+        boolean todaySign = cacheService.getBitmap(signKey, registerDays);
+        List<Boolean> monthList = this.getMonthSign(signKey, registerDate);
+        SignInVO vo = new SignInVO();
+        vo.setMonthSign(monthList);
+        vo.setTodaySign(todaySign);
+        return vo;
     }
 
     @Override
@@ -450,6 +436,53 @@ public class MemberServiceImpl implements MemberService {
         }
         member.setPwd(encoder.encode(password));
         memberMapper.updateById(member);
+    }
+
+    @Override
+    public boolean checkSeriesSign(Long memberId, int signDay) {
+        if (CommonConstant.BITMAP < signDay) {
+            log.error("接口不支持超过32天连续签到校验 [{}]", signDay);
+            return false;
+        }
+        Member member = memberMapper.selectById(memberId);
+        long registerDays = ChronoUnit.DAYS.between(member.getCreateTime().toLocalDate(), LocalDate.now());
+        String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
+        Long signNumber = cacheService.getBitmapOffset(signKey, registerDays - signDay, signDay);
+        int bitmap = 1;
+        for (int i = 0; i < signDay; i++) {
+            if ((signNumber & bitmap) != bitmap) {
+                return false;
+            }
+            signNumber >>= 1;
+        }
+        return true;
+    }
+
+    /**
+     * 计算用户本月签到的情况
+     * 由于签到是从用户注册开始计算,因此需要根据注册时间计算偏移量得到本月签到
+     * @param signKey 用户签到key
+     * @param registerDate 注册日期
+     * @return 签到情况 最多31条
+     */
+    private List<Boolean> getMonthSign(String signKey, LocalDate registerDate) {
+        // 本月第一天
+        LocalDate startDay = LocalDate.now().withDayOfMonth(1);
+        // 从注册到本月初的日期
+        long offset = ChronoUnit.DAYS.between(registerDate, startDay);
+        // 本月签到的情况
+        Long bitmap64 = cacheService.getBitmapOffset(signKey, offset, startDay.getDayOfMonth());
+        // 本月总天数
+        int monthDays = startDay.lengthOfMonth();
+        List<Boolean> monthList = Lists.newArrayListWithCapacity(31);
+
+        int bitmap = 1;
+        for (int i = 0; i < monthDays; i++) {
+            monthList.add((bitmap64 & bitmap) == bitmap);
+            bitmap64 >>= 1;
+        }
+        Collections.reverse(monthList);
+        return monthList;
     }
 
     /**

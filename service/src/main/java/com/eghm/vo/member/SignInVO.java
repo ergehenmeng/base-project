@@ -15,9 +15,9 @@ import java.util.List;
 public class SignInVO {
 
     @ApiModelProperty("今日是否签到 true:已签到 false:未签到")
-    private Boolean todayIsSign;
+    private Boolean todaySign;
 
     @ApiModelProperty("本月签到信息(1号~今日)")
-    private List<Boolean> thisMonth;
+    private List<Boolean> monthSign;
 
 }

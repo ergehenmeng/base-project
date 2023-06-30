@@ -101,4 +101,9 @@ public class CommonConstant {
      * redis中 limit限制最大时间7天
      */
     public static final long LIMIT_MAX_EXPIRE = 604_800_000;
+
+    /**
+     * bitmap最大有效位 此处不使用64位的原因是针对无符号的u64最多只支持63位(最高位是符号位)
+     */
+    public static final int BITMAP = 32;
 }

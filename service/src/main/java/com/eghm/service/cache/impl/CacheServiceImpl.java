@@ -4,8 +4,6 @@ import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.AsyncResponse;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.JsonService;
@@ -55,10 +53,6 @@ public class CacheServiceImpl implements CacheService {
      */
     private static final long MUTEX_EXPIRE = 10_000;
 
-    /**
-     * bitmap最大位
-     */
-    private static final int BITMAP = 64;
     
     @Override
     public void setValue(String key, Object value) {
@@ -269,18 +263,18 @@ public class CacheServiceImpl implements CacheService {
         BitFieldSubCommands subCommands = BitFieldSubCommands.create();
         // succession如果比较大的话 需要执行多次命令才能查询想要的结果
         int commands = this.getCommands(succession);
-        int firstOffset = succession % BITMAP;
+        int firstOffset = succession % CommonConstant.BITMAP;
         long offset = start;
         // 11111111 11111111 11111011 11111111 111111111 11111111 11111111 11111111 11111111 11111111 80位的总长度
-        // 判断最近70天是否连续, 则从第10位开始,第一次取6位(同时在判断时也只判断低位的6位) 第二次取64位
+        // 判断最近70天是否连续, 则从第10位开始,第一次取6位(同时在判断时也只判断低位的6位) 第二次取32位
         for (long i = start; i < commands; i++ ) {
-            // 第一个命令,如果直接设置64,在总长度时不变时,会导致最后一个数不准确
+            // 第一个命令,如果直接设置32,在总长度时不变时,会导致最后一个数不准确
             if (i == start && firstOffset > 0) {
                 subCommands = subCommands.get(BitFieldSubCommands.BitFieldType.signed(firstOffset)).valueAt(offset);
                 offset += firstOffset;
             } else {
-                subCommands = subCommands.get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(offset);
-                offset += BITMAP;
+                subCommands = subCommands.get(BitFieldSubCommands.BitFieldType.UINT_32).valueAt(offset);
+                offset += CommonConstant.BITMAP;
             }
         }
 
@@ -288,11 +282,12 @@ public class CacheServiceImpl implements CacheService {
         if (CollectionUtils.isEmpty(bitField)) {
             return false;
         }
-        for (int i = 0,size = bitField.size(); i < size; i++) {
-            int maxSize = (i == 0) ? firstOffset : BITMAP;
+        int bitmap = 1;
+        for (int i = 0, size = bitField.size(); i < size; i++) {
+            int maxSize = (i == 0) ? firstOffset : CommonConstant.BITMAP;
             long longBit = bitField.get(i);
             for (int j = 0; j < maxSize; j++) {
-                if (longBit >> 1 << 1 == longBit) {
+                if ((longBit & bitmap) != bitmap) {
                     return false;
                 }
                 longBit >>= 1;
@@ -302,28 +297,14 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
-    public boolean checkSerial(String key, Long end, Integer succession) {
-        Long longBit = this.getBitmapLong(key, end, succession);
-        if (longBit == null) {
-            return false;
-        }
-        for (int j = 0; j < succession; j++) {
-            if (longBit >> 1 << 1 == longBit) {
-                return false;
-            }
-            longBit >>= 1;
-        }
-        return true;
-    }
-
-    @Override
-    public Long getBitmap64(String key, Long end) {
-        return this.getBitmapLong(key, end, BITMAP);
-    }
-
-    @Override
     public Long getBitmapOffset(String key, Long offset) {
-        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(offset));
+        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.UINT_32).valueAt(offset));
+        return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
+    }
+
+    @Override
+    public Long getBitmapOffset(String key, Long offset, int length) {
+        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.unsigned(length)).valueAt(offset));
         return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
     }
 
@@ -332,23 +313,14 @@ public class CacheServiceImpl implements CacheService {
         return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
     }
 
-    private Long getBitmapLong(String key, Long end, int maxLength) {
-        if (maxLength > BITMAP) {
-            log.error("bitmap位数过大 [{}]", maxLength);
-            throw new ParameterException(ErrorCode.DATA_ERROR);
-        }
-        long startIndex = (end - maxLength) > 0 ? end - maxLength : 0;
-        List<Long> longList = redisTemplate.opsForValue().bitField(key, BitFieldSubCommands.create().get(BitFieldSubCommands.BitFieldType.INT_64).valueAt(startIndex));
-        return CollectionUtils.isEmpty(longList) ? null : longList.get(0);
-    }
-
     /**
      * 计算需要多少个命令才能执行完, bitField采用有符号long数据时,最大支持64为数据
+     * 如果是无符号则最大支持63位长度, 因此只能用32位
      */
     private int getCommands(Integer succession) {
-        if (succession / BITMAP == 0) {
-            return succession / BITMAP;
+        if (succession / CommonConstant.BITMAP == 0) {
+            return succession / CommonConstant.BITMAP;
         }
-        return succession / BITMAP + 1;
+        return succession / CommonConstant.BITMAP + 1;
     }
 }

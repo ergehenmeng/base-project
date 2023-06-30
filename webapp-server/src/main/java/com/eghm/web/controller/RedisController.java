@@ -10,10 +10,14 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author wyb
@@ -53,15 +57,15 @@ public class RedisController {
         return RespBody.success(absent);
     }
 
-    @GetMapping("/getBitmap64")
-    @ApiOperation("bitmap64长度")
+    @GetMapping("/getBitmap")
+    @ApiOperation("getBitmap")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "key", value = "key", required = true),
-            @ApiImplicitParam(name = "end", value = "end", required = true)
+            @ApiImplicitParam(name = "offset", value = "offset", required = true)
     })
     @ClientType(Channel.WECHAT)
-    public RespBody<Long> getBitmap64(@RequestParam("key") String key, @RequestParam("end") Long end) {
-        long absent = cacheService.getBitmap64(key, end);
+    public RespBody<Long> getBitmap32(@RequestParam("key") String key, @RequestParam("offset") Long offset) {
+        long absent = cacheService.getBitmapOffset(key, offset);
         return RespBody.success(absent);
     }
 
@@ -77,19 +81,6 @@ public class RedisController {
         return RespBody.success();
     }
 
-    @GetMapping("/checkSerial")
-    @ApiOperation("检查是否连续(64以内)")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "key", required = true),
-            @ApiImplicitParam(name = "end", value = "end", required = true),
-            @ApiImplicitParam(name = "succession", value = "succession", required = true),
-    })
-    @ClientType(Channel.WECHAT)
-    public RespBody<Boolean> checkSerial(@RequestParam("key") String key, @RequestParam("end") Long end, @RequestParam("succession") Integer succession) {
-        boolean checkSerial = cacheService.checkSerial(key, end, succession);
-        return RespBody.success(checkSerial);
-    }
-
     @GetMapping("/match")
     @ApiOperation("匹配")
     @ApiImplicitParam(name = "keyword", value = "keyword", required = true)
@@ -97,5 +88,23 @@ public class RedisController {
     public RespBody<Boolean> match(@RequestParam("keyword") String keyword) {
         boolean checkSerial = sensitiveWordService.match(keyword);
         return RespBody.success(checkSerial);
+    }
+
+    @GetMapping("/signIn")
+    @ApiOperation("签到")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "key", value = "key", required = true),
+            @ApiImplicitParam(name = "localDate", value = "localDate", required = true)
+    })
+    @ClientType(Channel.WECHAT)
+    public RespBody<Boolean> signIn(@RequestParam("key") String key, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam("localDate") LocalDate localDate) {
+        LocalDate registerDate = LocalDate.of(2023, 5, 3);
+        long day = ChronoUnit.DAYS.between(registerDate, localDate);
+        Boolean signIn = cacheService.getBitmap(key, day);
+        if (Boolean.TRUE.equals(signIn)) {
+            return RespBody.success(false);
+        }
+        cacheService.setBitmap(key, day, true);
+        return RespBody.success(true);
     }
 }
