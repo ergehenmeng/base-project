@@ -142,7 +142,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @return skuPic 多张逗号分隔
      */
     private String getFirstCoverUrl(List<OrderPackage> packageList) {
-        return packageList.stream().map(orderPackage -> orderPackage.getSku().getSkuPic()).collect(Collectors.joining(CommonConstant.SPLIT));
+        return packageList.stream().map(orderPackage -> orderPackage.getSku().getSkuPic()).collect(Collectors.joining(CommonConstant.DOT_SPLIT));
     }
 
     /**

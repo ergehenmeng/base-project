@@ -148,7 +148,7 @@ public class ScenicServiceImpl implements ScenicService {
         }
         for (ScenicListVO vo : voList) {
             // 封面图默认取第一张
-            vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.SPLIT)[0]);
+            vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.DOT_SPLIT)[0]);
             vo.setDistance(containDistance ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))): null);
         }
         return voList;

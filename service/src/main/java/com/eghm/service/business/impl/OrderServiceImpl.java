@@ -227,7 +227,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("核销码解析错误 [{}]", verifyNo, e);
             throw new BusinessException(ErrorCode.VERIFY_NO_ERROR);
         }
-        String[] split = decryptStr.split(CommonConstant.ENCRYPT_SPLIT);
+        String[] split = decryptStr.split(CommonConstant.SPECIAL_SPLIT);
         long theTime = Long.parseLong(split[0]);
         if (CommonConstant.MAX_VERIFY_NO_EXPIRE < (System.currentTimeMillis() - theTime)) {
             throw new BusinessException(ErrorCode.VERIFY_EXPIRE_ERROR);
@@ -238,7 +238,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public String encryptVerifyNo(String orderNo) {
         AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
-        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.ENCRYPT_SPLIT + orderNo);
+        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + orderNo);
     }
 
     @Override

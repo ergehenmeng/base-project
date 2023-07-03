@@ -153,6 +153,6 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
         if (StrUtil.isBlank(coverUrl)) {
             return null;
         }
-        return coverUrl.split(CommonConstant.SPLIT)[0];
+        return coverUrl.split(CommonConstant.DOT_SPLIT)[0];
     }
 }

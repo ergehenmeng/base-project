@@ -23,7 +23,7 @@ public class RedisLockImpl implements RedisLock {
 
     @Override
     public <T> T lock(String key, long lockTime, Supplier<T> supplier) {
-       return this.lock(key, -1, lockTime, supplier);
+       return this.lock(key, 0, lockTime, supplier);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class RedisLockImpl implements RedisLock {
             log.error("锁中断异常 [{}]", key, e);
             Thread.currentThread().interrupt();
         }
-        log.error("锁对象获取失败 [{}]", key);
+        log.error("锁对象获取失败 [{}] [{}] [{}]", key, waitTime, lockTime);
         return null;
     }
 

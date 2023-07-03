@@ -40,7 +40,7 @@ public class CommonConstant {
     /**
      * 分隔符
      */
-    public static final String SPLIT = ",";
+    public static final String DOT_SPLIT = ",";
 
     /**
      * idea强迫症
@@ -83,9 +83,9 @@ public class CommonConstant {
     public static final int MAX_ACCESS_NUM = 10;
 
     /**
-     * 加密分隔符
+     * 特殊分隔符
      */
-    public static final String ENCRYPT_SPLIT  = "@";
+    public static final String SPECIAL_SPLIT  = "@";
 
     /**
      * 核销码刷新频率 60秒
@@ -101,6 +101,11 @@ public class CommonConstant {
      * redis中 limit限制最大时间7天
      */
     public static final long LIMIT_MAX_EXPIRE = 604_800_000;
+
+    /**
+     * Scheduled 定时任务最大锁时间
+     */
+    public static final long SCHEDULED_MAX_LOCK_TIME = 60_000;
 
     /**
      * bitmap最大有效位 此处不使用64位的原因是针对无符号的u64最多只支持63位(最高位是符号位)
