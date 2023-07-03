@@ -1,5 +1,8 @@
 package com.eghm.utils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 import java.util.regex.Pattern;
 
 /**
@@ -8,10 +11,8 @@ import java.util.regex.Pattern;
  * @author 二哥很猛
  * @date 2018/2/23 11:17
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RegExpUtil {
-
-    private RegExpUtil() {
-    }
 
     /**
      * 手机号正则表达式

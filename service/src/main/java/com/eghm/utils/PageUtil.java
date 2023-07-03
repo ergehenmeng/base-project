@@ -2,14 +2,15 @@ package com.eghm.utils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 /**
  * @author 二哥很猛
  * @date 2021/12/25 13:57
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PageUtil {
-
-    private PageUtil() {}
 
     /**
      * 创建分页对象

@@ -86,7 +86,7 @@ public class ControllerAdviceHandler {
     /**
      * 参数校验失败
      */
-    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public RespBody<Void> exception(HttpServletRequest request, MethodArgumentNotValidException e) {
         log.error("参数校验异常, 接口[{}]", request.getRequestURI());
         return WebUtil.fieldError(e.getBindingResult());
@@ -95,7 +95,7 @@ public class ControllerAdviceHandler {
     /**
      * 参数校验失败
      */
-    @ExceptionHandler({BindException.class})
+    @ExceptionHandler(BindException.class)
     public RespBody<Void> exception(HttpServletRequest request, BindException e) {
         log.error("数据绑定异常, 接口[{}]", request.getRequestURI());
         return WebUtil.fieldError(e.getBindingResult());

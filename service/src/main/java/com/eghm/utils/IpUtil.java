@@ -1,6 +1,8 @@
 package com.eghm.utils;
 
 import com.eghm.constant.CommonConstant;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,10 +14,8 @@ import java.net.InetAddress;
  * @date 2018/1/18 18:39
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IpUtil {
-
-    private IpUtil() {
-    }
 
     /**
      * 获取ip地址

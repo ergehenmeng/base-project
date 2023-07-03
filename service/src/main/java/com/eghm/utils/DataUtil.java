@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PageData;
 import com.eghm.vo.business.BaseConfigResponse;
 import com.google.common.collect.Lists;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
@@ -26,10 +28,8 @@ import java.util.function.Supplier;
  * @date 2018/11/21 10:10
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DataUtil {
-
-    private DataUtil() {
-    }
 
     /**
      * 分页数据格式转换

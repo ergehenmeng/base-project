@@ -35,7 +35,7 @@ public class TestJobService {
     }
 
     @Scheduled(cron = "0 0 0-5 * * ?")
-    public void annotationTest(){
+    public void annotationTest() {
         log.error("我是个注解配置的Job {}" , DateUtil.formatLong(DateUtil.getNow()));
     }
 }

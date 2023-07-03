@@ -3,6 +3,8 @@ package com.eghm.utils;
 import cn.hutool.core.util.StrUtil;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.ParameterException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 
@@ -22,10 +24,8 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/11/9 16:56
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateUtil {
-
-    private DateUtil() {
-    }
 
     private static final String LONG_DATE = "yyyy-MM-dd HH:mm:ss";
 

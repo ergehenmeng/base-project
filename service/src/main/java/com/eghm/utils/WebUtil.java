@@ -3,6 +3,8 @@ package com.eghm.utils;
 import com.eghm.enums.ErrorCode;
 import com.eghm.dto.ext.RespBody;
 import com.google.gson.Gson;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,10 +25,8 @@ import java.io.PrintWriter;
  * @author 二哥很猛
  * @date 2018/1/26 10:30
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class WebUtil {
-
-    private WebUtil() {
-    }
 
     /**
      * 直接返回前台json格式信息

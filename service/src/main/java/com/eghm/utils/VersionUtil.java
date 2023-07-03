@@ -2,6 +2,8 @@ package com.eghm.utils;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -11,10 +13,8 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2018/3/14 9:04
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class VersionUtil {
-
-    private VersionUtil() {
-    }
 
     private static final String[] REPLACE_CHAR = {"v"};
 

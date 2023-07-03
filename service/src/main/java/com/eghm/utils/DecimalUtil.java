@@ -1,6 +1,8 @@
 package com.eghm.utils;
 
 import cn.hutool.core.math.Money;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.text.DecimalFormat;
 
@@ -8,9 +10,8 @@ import java.text.DecimalFormat;
  * @author 二哥很猛
  * @date 2022/6/12 19:03
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DecimalUtil {
-
-    private DecimalUtil() {}
 
     /**
      * 金额元转换为分

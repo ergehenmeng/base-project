@@ -2,6 +2,8 @@ package com.eghm.utils;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.SystemException;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 
@@ -12,11 +14,8 @@ import org.springframework.context.ApplicationContext;
  * @date 2018/1/18 18:44
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SpringContextUtil {
-
-    private SpringContextUtil() {
-    }
-
 
     private static ApplicationContext applicationContext;
 

@@ -2,6 +2,8 @@ package com.eghm.utils;
 
 
 import cn.hutool.core.util.StrUtil;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
@@ -18,10 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
  * @date 2018/1/8 14:56
  */
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StringUtil {
-
-    private StringUtil() {
-    }
 
     /**
      * 随机字符串
