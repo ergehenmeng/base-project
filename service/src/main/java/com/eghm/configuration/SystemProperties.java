@@ -51,11 +51,6 @@ public class SystemProperties {
     private AliPayProperties aliPay = new AliPayProperties();
 
     /**
-     * 是否开启定时任务
-     */
-    private Boolean jobEnable = true;
-
-    /**
      * redis配置
      */
     private Redis redis = new Redis();

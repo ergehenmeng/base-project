@@ -23,7 +23,6 @@ spring:
 system:
   # 全局配置
   upload-dir: D://file
-  job-enable: true
   # 管理后台配置
   manage:
     jwt:
