@@ -33,7 +33,7 @@ public class OfflineRefundLogServiceImpl implements OfflineRefundLogService {
     private final JsonService jsonService;
 
     @Override
-    public List<Long> getTicketRefundLog(String orderNo) {
+    public List<Long> getRefundLog(String orderNo) {
         LambdaQueryWrapper<OfflineRefundLog> wrapper = Wrappers.lambdaQuery();
         wrapper.select(OfflineRefundLog::getNote, OfflineRefundLog::getId);
         wrapper.eq(OfflineRefundLog::getOrderNo, orderNo);

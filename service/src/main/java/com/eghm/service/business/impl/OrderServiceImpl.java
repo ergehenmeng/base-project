@@ -6,17 +6,17 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.AES;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.order.ticket.ForceRefundRequest;
 import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.enums.ref.CloseType;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
-import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
 import com.eghm.model.Order;
@@ -243,15 +243,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public void ticketOfflineRefund(TicketOfflineRefundRequest request) {
-        Order order = this.getByOrderNo(request.getOrderNo());
-        if (order.getState() == OrderState.UN_PAY) {
-            log.warn("订单未支付, 不支持线下退款 [{}]", request.getOrderNo());
-            throw new BusinessException(ErrorCode.ORDER_UN_PAY);
-        }
-        if (order.getState() == OrderState.CLOSE) {
-            log.warn("订单已关闭, 不支持线下退款 [{}]", request.getOrderNo());
-            throw new BusinessException(ErrorCode.ORDER_CLOSE_REFUND);
-        }
+        Order order = this.getRefuningOrder(request.getOrderNo());
+
         boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
 
         if (refundSuccess) {
@@ -267,6 +260,43 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
         order.setState(orderState);
         this.orderStateModify(order, mainOrder -> mainOrder.setCloseType(CloseType.REFUND));
+        baseMapper.updateById(order);
+    }
+
+    @Override
+    public void forceRefund(ForceRefundRequest request) {
+        Order order = this.getRefuningOrder(request.getOrderNo());
+        boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
+        if (refundSuccess) {
+            log.warn("退款的游客列表中, 存在退款中的游客 [{}] {}", request.getOrderNo(), request.getVisitorList());
+            throw new BusinessException(ErrorCode.MEMBER_REFUNDING);
+        }
+        this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
+        orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
+
+        OrderRefundLog refundLog = new OrderRefundLog();
+
+        refundLog.setId(IdWorker.getId());
+        refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
+        refundLog.setMemberId(order.getMemberId());
+        refundLog.setRefundAmount(request.getRefundAmount());
+        refundLog.setApplyAmount(request.getRefundAmount());
+        refundLog.setAuditUserId(SecurityHolder.getUserId());
+        LocalDateTime now = LocalDateTime.now();
+        refundLog.setApplyTime(now);
+        refundLog.setAuditTime(now);
+        refundLog.setAuditState(AuditState.PASS);
+        refundLog.setNum(request.getVisitorList().size());
+        refundLog.setOrderNo(refundLog.getOrderNo());
+        refundLog.setState(0);
+        orderRefundLogService.insert(refundLog);
+        orderVisitorService.lockVisitor(order.getProductType(), request.getOrderNo(), refundLog.getId(), request.getVisitorList(), VisitorState.REFUNDING);
+        // 计算主订单状态
+        OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
+        order.setState(orderState);
+        this.orderStateModify(order, mainOrder -> mainOrder.setCloseType(CloseType.REFUND));
+        // 发起退款
+        TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
         baseMapper.updateById(order);
     }
 
@@ -319,6 +349,24 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     /**
+     * 获取待退款的订单信息
+     * @param orderNo 订单信息
+     * @return 订单信息
+     */
+    private Order getRefuningOrder(String orderNo) {
+        Order order = this.getByOrderNo(orderNo);
+        if (order.getState() == OrderState.UN_PAY) {
+            log.warn("订单未支付, 不支持退款 [{}]", orderNo);
+            throw new BusinessException(ErrorCode.ORDER_UN_PAY);
+        }
+        if (order.getState() == OrderState.CLOSE) {
+            log.warn("订单已关闭, 不支持退款 [{}]", orderNo);
+            throw new BusinessException(ErrorCode.ORDER_CLOSE_REFUND);
+        }
+        return order;
+    }
+
+    /**
      * 校验用户列表中是否存在已经线下退款的人,如果存在则给出提示
      * @param visitorList 待线下退款的用户
      * @param orderNo 订单号
@@ -329,7 +377,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             log.error("订单号与游客id不匹配,可能不属于同一个订单 [{}] [{}]", orderNo, visitorList);
             throw new BusinessException(ErrorCode.MEMBER_REFUND_MATCH);
         }
-        List<Long> refundVisitorIds = offlineRefundLogService.getTicketRefundLog(orderNo);
+        List<Long> refundVisitorIds = offlineRefundLogService.getRefundLog(orderNo);
         List<OrderVisitor> hasRefundList = visitors.stream().filter(orderVisitor -> refundVisitorIds.contains(orderVisitor.getId())).collect(Collectors.toList());
         if (!hasRefundList.isEmpty()) {
             String userList = hasRefundList.stream().map(OrderVisitor::getMemberName).collect(Collectors.joining(","));

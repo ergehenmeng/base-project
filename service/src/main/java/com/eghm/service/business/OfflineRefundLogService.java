@@ -15,11 +15,11 @@ import java.util.List;
 public interface OfflineRefundLogService {
 
     /**
-     * 查询门票订单线下退款人id
+     * 查询订单线下退款人id
      * @param orderNo 订单编号
      * @return 游客id
      */
-    List<Long> getTicketRefundLog(String orderNo);
+    List<Long> getRefundLog(String orderNo);
 
     /**
      * 添加线下退款日志
