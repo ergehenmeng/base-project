@@ -140,6 +140,12 @@ public interface OrderService extends IService<Order> {
 
     /**
      * 线上强制退款
+     * 1. 如果只有未完成或未关闭的订单才能退款
+     * 2. 如果已经线下退款货线下退款中则不能退款
+     * 3. 添加强制退款记录
+     * 4. 锁定游客信息
+     * 5. 更新主订单状态
+     * 6. 发起退款
      * @param request 退款金额
      */
     void forceRefund(ForceRefundRequest request);
