@@ -3,7 +3,7 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
+import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
 import com.eghm.mapper.OfflineRefundLogMapper;
 import com.eghm.model.OfflineRefundLog;
 import com.eghm.service.business.OfflineRefundLogService;
@@ -45,7 +45,7 @@ public class OfflineRefundLogServiceImpl implements OfflineRefundLogService {
     }
 
     @Override
-    public void insertLog(TicketOfflineRefundRequest request) {
+    public void insertLog(OfflineRefundRequest request) {
         OfflineRefundLog refundLog = DataUtil.copy(request, OfflineRefundLog.class);
         refundLog.setNote(jsonService.toJson(request.getVisitorList()));
         offlineRefundLogMapper.insert(refundLog);

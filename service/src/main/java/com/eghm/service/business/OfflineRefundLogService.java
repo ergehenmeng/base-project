@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
+import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
 
 import java.util.List;
 
@@ -25,5 +25,5 @@ public interface OfflineRefundLogService {
      * 添加线下退款日志
      * @param request 退款信息
      */
-    void insertLog(TicketOfflineRefundRequest request);
+    void insertLog(OfflineRefundRequest request);
 }

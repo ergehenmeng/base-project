@@ -12,8 +12,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.business.order.ticket.ForceRefundRequest;
-import com.eghm.dto.business.order.ticket.TicketOfflineRefundRequest;
+import com.eghm.dto.business.order.ticket.OnlineRefundRequest;
+import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ref.*;
@@ -242,7 +242,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void ticketOfflineRefund(TicketOfflineRefundRequest request) {
+    public void offlineRefund(OfflineRefundRequest request) {
         Order order = this.getRefuningOrder(request.getOrderNo());
 
         boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
@@ -264,7 +264,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void forceRefund(ForceRefundRequest request) {
+    public void onlineRefund(OnlineRefundRequest request) {
         Order order = this.getRefuningOrder(request.getOrderNo());
         boolean refundSuccess = orderRefundLogService.hasRefundSuccess(order.getOrderNo(), request.getVisitorList());
         if (refundSuccess) {
