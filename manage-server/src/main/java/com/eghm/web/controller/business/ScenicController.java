@@ -1,15 +1,15 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.Scenic;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.model.Scenic;
 import com.eghm.service.business.ScenicService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

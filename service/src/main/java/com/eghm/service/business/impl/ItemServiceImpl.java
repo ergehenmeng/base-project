@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
@@ -69,7 +70,7 @@ public class ItemServiceImpl implements ItemService {
     
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
-        // TODO 过滤当前登录人的storeId
+        request.setStoreId(SecurityHolder.getStoreId());
         return itemMapper.listPage(request.createPage(), request);
     }
     

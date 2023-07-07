@@ -67,6 +67,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     @Override
     public Page<Homestay> getByPage(HomestayQueryRequest request) {
         LambdaQueryWrapper<Homestay> wrapper = Wrappers.lambdaQuery();
+        Long merchantId = SecurityHolder.getMerchantId();
+        wrapper.eq(merchantId != null, Homestay::getMerchantId, merchantId);
         wrapper.eq(request.getState() != null, Homestay::getState, request.getState());
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Homestay::getTitle, request.getQueryName());
         return homestayMapper.selectPage(request.createPage(), wrapper);

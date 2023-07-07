@@ -28,6 +28,11 @@ public class JwtUser {
     private Long merchantId;
 
     /**
+     * 所属零售店铺id
+     */
+    private Long storeId;
+
+    /**
      * 昵称
      */
     private String nickName;

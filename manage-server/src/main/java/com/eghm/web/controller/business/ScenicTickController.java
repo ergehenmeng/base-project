@@ -19,7 +19,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author 二哥很猛 2022/6/17 19:05
+ * @author 二哥很猛
+ * @date 2022/6/17
  */
 @RestController
 @Api(tags = "景区门票")

@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
+import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
+import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
@@ -12,14 +16,11 @@ import com.eghm.mapper.ScenicMapper;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
-import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
-import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
-import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
+import com.eghm.service.business.ScenicTicketService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
-import com.eghm.service.business.ScenicTicketService;
-import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public Page<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         return scenicTicketMapper.getByPage(request.createPage(), request);
     }
 
