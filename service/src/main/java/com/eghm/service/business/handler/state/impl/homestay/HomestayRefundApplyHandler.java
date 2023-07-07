@@ -2,6 +2,7 @@ package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
@@ -36,7 +37,7 @@ public class HomestayRefundApplyHandler extends AbstractRefundApplyHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return HomestayEvent.REFUND_APPLY;
     }
 
     @Override

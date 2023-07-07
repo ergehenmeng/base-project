@@ -39,7 +39,7 @@ public class RestaurantOrderAutoCancelHandler extends AbstractOrderAutoCancelHan
 
     @Override
     public IEvent getEvent() {
-        return RestaurantEvent.CANCEL;
+        return RestaurantEvent.AUTO_CANCEL;
     }
 
     @Override

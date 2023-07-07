@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.line;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
@@ -37,7 +38,7 @@ public class LineOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return LineEvent.AUTO_CANCEL;
     }
 
     @Override

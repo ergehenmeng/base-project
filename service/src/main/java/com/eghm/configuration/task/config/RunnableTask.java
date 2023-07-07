@@ -7,7 +7,6 @@ import com.eghm.model.SysTaskLog;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.SysTaskLogService;
 import com.eghm.service.common.TaskAlarmService;
-import com.eghm.utils.DateUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Method;
-import java.util.Date;
 
 /**
  * @author 二哥很猛
@@ -63,11 +61,10 @@ public class RunnableTask implements Runnable {
 
     @Override
     public void run() {
-        Date now = DateUtil.getNow();
-        long startTime = now.getTime();
+        long startTime = System.currentTimeMillis();
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
         try {
-            // 外层加锁防止多部分运行时有并发执行问题, 幂等由业务进行控制
+            // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
             redisLock.lock(task.getBeanName() + ":" + task.getMethodName(), task.getLockTime(), () -> {
                 ReflectUtil.invoke(bean, method, task.getArgs());
                 return null;

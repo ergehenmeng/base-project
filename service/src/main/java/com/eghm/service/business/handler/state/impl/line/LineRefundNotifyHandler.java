@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.line;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
@@ -52,7 +53,7 @@ public class LineRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return LineEvent.REFUND_SUCCESS;
     }
 
     @Override

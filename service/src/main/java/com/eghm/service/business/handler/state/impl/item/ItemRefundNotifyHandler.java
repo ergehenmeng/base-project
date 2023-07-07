@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
@@ -52,7 +53,7 @@ public class ItemRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return ItemEvent.REFUND_SUCCESS;
     }
 
     @Override

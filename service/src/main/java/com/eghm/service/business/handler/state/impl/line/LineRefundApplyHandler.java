@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.line;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
@@ -24,7 +25,7 @@ public class LineRefundApplyHandler extends AbstractRefundApplyHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return LineEvent.REFUND_APPLY;
     }
 
     @Override

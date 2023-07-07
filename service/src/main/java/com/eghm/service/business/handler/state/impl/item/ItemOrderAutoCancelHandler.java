@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.item;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
@@ -44,7 +45,7 @@ public class ItemOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return ItemEvent.AUTO_CANCEL;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.event.IEvent;
+import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
@@ -38,7 +39,7 @@ public class HomestayOrderAutoCancelHandler extends AbstractOrderAutoCancelHandl
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return HomestayEvent.AUTO_CANCEL;
     }
 
     @Override

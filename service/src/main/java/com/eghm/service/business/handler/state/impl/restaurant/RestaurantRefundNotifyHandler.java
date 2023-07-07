@@ -53,7 +53,7 @@ public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
 
     @Override
     public IEvent getEvent() {
-        return null;
+        return RestaurantEvent.REFUND_SUCCESS;
     }
 
     @Override
