@@ -85,11 +85,8 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "总销量=实际销量+虚拟销量")
     private Integer totalNum;
 
-    @ApiModelProperty(value = "景区介绍")
+    @ApiModelProperty(value = "门票介绍")
     private String introduce;
-
-    @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
-    private Integer useScope;
 
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)")
     private Integer verificationType;

@@ -1,7 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -39,16 +39,14 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "订单号")
     private String orderNo;
 
-    @ApiModelProperty(value = "生效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime effectiveDate;
+    @ApiModelProperty("划线价")
+    private Integer linePrice;
 
-    @ApiModelProperty(value = "失效日期(包含)")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime expireDate;
+    @ApiModelProperty("预计游玩日期")
+    private LocalDate visitDate;
 
-    @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
-    private Integer useScope;
+    @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")
+    private Integer category;
 
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)")
     private Integer verificationType;
@@ -62,6 +60,6 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "联系人手机号")
     private String mobile;
 
-    @ApiModelProperty("门票使用时间")
+    @ApiModelProperty("门票核销时间")
     private LocalDateTime useTime;
 }

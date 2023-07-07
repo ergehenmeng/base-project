@@ -249,8 +249,7 @@ CREATE TABLE `scenic_ticket`
     `stock`             int(10)             DEFAULT '0' COMMENT '剩余库存',
     `sale_num`          int(10)             DEFAULT '0' COMMENT '真实销售数量',
     `total_num`         int(10)             DEFAULT '0' COMMENT '总销量=实际销量+虚拟销量',
-    `introduce`         longtext COMMENT '景区介绍',
-    `use_scope`         smallint(3)         DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
+    `introduce`         longtext COMMENT '门票介绍',
     `verification_type` tinyint(2)          DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
     `refund_type`       tinyint(1)          DEFAULT '2' COMMENT '是否支持退款 0:不支持 1:直接退款 2:审核后退款',
     `refund_describe`   varchar(200)        DEFAULT NULL COMMENT '退款描述',
@@ -262,6 +261,28 @@ CREATE TABLE `scenic_ticket`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='景区门票信息表';
 
+
+DROP TABLE IF EXISTS `ticket_order`;
+CREATE TABLE `ticket_order`
+(
+    `id`                bigint(20) NOT NULL COMMENT '主键',
+    `scenic_id`         bigint(20)   DEFAULT NULL COMMENT '门票所属景区(冗余字段)',
+    `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
+    `line_price`        int(10)      DEFAULT NULL DEFAULT NULL COMMENT '划线价',
+    `category`          tinyint(2)   DEFAULT NULL COMMENT '门票种类 1: 成人票 2: 老人票 3:儿童票',
+    `visit_date`        date         DEFAULT NULL COMMENT '预计游玩日期',
+    `verification_type` tinyint(2)   DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
+    `real_buy`          bit(1)       DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
+    `introduce`         longtext COMMENT '门票介绍',
+    `ticket_id`         bigint(20)   DEFAULT NULL COMMENT '门票id',
+    `mobile`            varchar(11)  DEFAULT NULL COMMENT '联系人手机号',
+    `use_time`          datetime     DEFAULT NULL COMMENT '使用时间',
+    `create_time`       datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`       datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`           varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
 
 DROP TABLE IF EXISTS `item_store`;
 CREATE TABLE `item_store`
@@ -335,28 +356,6 @@ CREATE TABLE `coupon_config`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券配置表';
 
-DROP TABLE IF EXISTS `ticket_order`;
-CREATE TABLE `ticket_order`
-(
-    `id`                bigint(20) NOT NULL COMMENT '主键',
-    `scenic_id`         bigint(20)   DEFAULT NULL COMMENT '门票所属景区(冗余字段)',
-    `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
-    `effective_date`    datetime     DEFAULT NULL COMMENT '生效日期(包含)',
-    `expire_date`       datetime     DEFAULT NULL COMMENT '失效日期(包含)',
-    `visit_date`        date         DEFAULT NULL COMMENT '游玩日期',
-    `use_scope`         smallint(3)  DEFAULT NULL COMMENT '使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日',
-    `verification_type` tinyint(2)   DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
-    `real_buy`          bit(1)       DEFAULT b'0' COMMENT '是否实名购票 0:不实名 1:实名',
-    `introduce`         longtext COMMENT '门票介绍',
-    `ticket_id`         bigint(20)   DEFAULT NULL COMMENT '门票id',
-    `mobile`            varchar(11)  DEFAULT NULL COMMENT '联系人手机号',
-    `use_time`          datetime     DEFAULT NULL COMMENT '使用时间',
-    `create_time`       datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`       datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`           varchar(255) DEFAULT '0' COMMENT '删除状态 0:未删除 1:已删除',
-    PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='门票订单表';
 
 DROP TABLE IF EXISTS `coupon_item`;
 CREATE TABLE `coupon_item`
@@ -448,7 +447,7 @@ CREATE TABLE `order_visitor`
 (
     `id`           bigint(20) NOT NULL COMMENT '主键',
     `product_type` varchar(30) DEFAULT NULL COMMENT '商品类型',
-    `order_no`     varchar(50)  DEFAULT NULL COMMENT '订单编号',
+    `order_no`     varchar(50) DEFAULT NULL COMMENT '订单编号',
     `member_name`  varchar(20) DEFAULT NULL COMMENT '游客姓名',
     `id_card`      varchar(20) DEFAULT NULL COMMENT '身份证号码',
     `state`        tinyint(1)  DEFAULT '0' COMMENT '状态 0: 初始化(待支付) 1: 已支付,待使用 2:已使用 3:退款中 4:已退款',
