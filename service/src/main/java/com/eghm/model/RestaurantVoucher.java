@@ -34,6 +34,10 @@ public class RestaurantVoucher extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long restaurantId;
 
+    @ApiModelProperty(value = "所属商户id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long merchantId;
+
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
 

@@ -35,6 +35,10 @@ public class HomestayRoom extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long homestayId;
 
+    @ApiModelProperty(value = "所属商户id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long merchantId;
+
     @ApiModelProperty("房型名称")
     private String title;
 

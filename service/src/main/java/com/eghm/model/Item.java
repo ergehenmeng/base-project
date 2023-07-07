@@ -7,6 +7,7 @@ import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -34,6 +35,10 @@ public class Item extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "所属特产店")
     private Long storeId;
+
+    @ApiModelProperty(value = "所属商户id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long merchantId;
     
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;

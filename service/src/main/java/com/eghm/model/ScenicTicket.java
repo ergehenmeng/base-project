@@ -36,6 +36,10 @@ public class ScenicTicket extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long scenicId;
 
+    @ApiModelProperty(value = "所属商户id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long merchantId;
+
     @ApiModelProperty(value = "门票名称")
     private String title;
 

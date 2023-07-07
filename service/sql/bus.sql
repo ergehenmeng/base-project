@@ -34,6 +34,7 @@ CREATE TABLE `homestay_room`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `title`           varchar(50)   DEFAULT NULL COMMENT '房型名称',
+    `merchant_id`     bigint(20)    DEFAULT NULL COMMENT '所属商家',
     `homestay_id`     bigint(20)    DEFAULT NULL COMMENT '民宿id',
     `state`           tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
     `platform_state`  tinyint(1)    DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
@@ -81,6 +82,7 @@ CREATE TABLE `line`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
     `travel_agency_id`  bigint(20)    DEFAULT NULL COMMENT '所属旅行社id',
+    `merchant_id`       bigint(20)    DEFAULT NULL COMMENT '所属商家',
     `title`             varchar(50)   DEFAULT NULL COMMENT '线路名称',
     `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:待审核 2:已上架',
     `platform_state`    tinyint(1)    DEFAULT '0' COMMENT '平台状态 0:初始 1:待审核 2:已上架',
@@ -170,6 +172,7 @@ CREATE TABLE `restaurant_voucher`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `restaurant_id`   bigint(20)   DEFAULT NULL COMMENT '餐饮商家id',
+    `merchant_id`     bigint(20)   DEFAULT NULL COMMENT '所属商家',
     `title`           varchar(50)  DEFAULT NULL COMMENT '商品名称',
     `state`           tinyint(1)   DEFAULT '0' COMMENT '状态 0:待上架 1:已上架',
     `platform_state`  tinyint(1)   DEFAULT NULL COMMENT '审核状态 0:初始  1:未上架 2:已上架',
@@ -234,6 +237,7 @@ CREATE TABLE `scenic_ticket`
 (
     `id`                bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
     `scenic_id`         bigint(20)          DEFAULT NULL COMMENT '门票所属景区',
+    `merchant_id`       bigint(20)          DEFAULT NULL COMMENT '所属商家',
     `title`             varchar(50)         DEFAULT NULL COMMENT '门票名称',
     `state`             tinyint(1)          DEFAULT '0' COMMENT '景区状态 0:待上架 1:已上架',
     `platform_state`    tinyint(1)          DEFAULT '0' COMMENT '审核状态 0:初始  1:未上架 2:已上架',
@@ -710,6 +714,7 @@ CREATE TABLE `item`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `store_id`        bigint(20)    DEFAULT NULL COMMENT '所属特产店',
+    `merchant_id`     bigint(20)    DEFAULT NULL COMMENT '所属商家',
     `state`           tinyint(1)    DEFAULT '0' COMMENT '商品状态 0:待上架 1:已上架',
     `platform_state`  tinyint(1)    DEFAULT NULL COMMENT '平台状态 0:初始 1:待审核 2:已上架',
     `recommend`       bit(1)        DEFAULT b'0' COMMENT '是否为推荐商品 true:是 false:否',

@@ -36,6 +36,10 @@ public class Line extends BaseEntity implements Serializable {
     @JsonSerialize(using = ToStringSerializer.class)
     private Long travelAgencyId;
 
+    @ApiModelProperty(value = "所属商户id")
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long merchantId;
+
     @ApiModelProperty(value = "线路名称")
     private String title;
 
