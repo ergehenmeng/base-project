@@ -62,7 +62,6 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-
     public void sendEmail(SendEmail email) {
         BaseEmailHandler handler = SpringContextUtil.getBean(email.getType().getHandler(), BaseEmailHandler.class);
         handler.execute(email);

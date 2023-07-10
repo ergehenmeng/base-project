@@ -10,6 +10,7 @@ import com.eghm.service.common.EmailService;
 import com.eghm.service.common.EmailTemplateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -47,6 +48,7 @@ public class BaseEmailHandler {
      * 发送邮件 (主入口)
      * @param email 邮件信息
      */
+    @Async
     public void execute(SendEmail email) {
         // 获取模板
         EmailTemplate template = this.getValidTemplate(email.getType());
