@@ -1,8 +1,8 @@
 package com.eghm.service.sys;
 
-import com.eghm.model.SysMenu;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
+import com.eghm.model.SysMenu;
 import com.eghm.vo.menu.MenuResponse;
 
 import java.util.List;
@@ -32,13 +32,6 @@ public interface SysMenuService {
      * @return 菜单列表
      */
     List<MenuResponse> getList(Long userId);
-    
-    /**
-     * 获取用户可以进行二次授权的导航菜单列表,按钮, 注意:超管的话查询全部
-     * @param userId 用户id
-     * @return 菜单列表
-     */
-    List<MenuResponse> getAuthList(Long userId);
 
     /**
      * 获取所有可用的菜单+按钮菜单

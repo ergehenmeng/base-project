@@ -2,36 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysMenuMapper">
     <select id="getMenuList" resultType="com.eghm.vo.menu.MenuResponse">
-        <choose>
-            <when test="userId != null">
-                <include refid="selectUserMenuSql"/>
-            </when>
-            <otherwise>
-                <include refid="selectMenuSql"/>
-            </otherwise>
-        </choose>
-    </select>
-    
-    <sql id="selectUserMenuSql" >
-        SELECT
-            t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
-        from sys_menu t
-         LEFT JOIN sys_role_menu s on t.id = s.menu_id
-         LEFT JOIN sys_user_role o on s.role_id = o.role_id
-        where t.state = true and t.admin_hide = #{adminHide} and o.user_id = #{userId}
-        <if test="grade != null">
-            and t.grade = #{grade}
-        </if>
-    </sql>
-    
-    <sql id="selectMenuSql" >
         SELECT
         t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
-        from sys_menu t where t.state = true and t.admin_hide = #{adminHide}
+        from sys_menu t
+        LEFT JOIN sys_role_menu s on t.id = s.menu_id
+        LEFT JOIN sys_user_role o on s.role_id = o.role_id
+        where t.state = true and o.user_id = #{userId}
         <if test="grade != null">
             and t.grade = #{grade}
         </if>
-    </sql>
+    </select>
+
+    <select id="getAdminMenuList" resultType="com.eghm.vo.menu.MenuResponse">
+        SELECT
+        t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
+        from sys_menu t where t.state = true
+        <if test="grade != null">
+            and t.grade = #{grade}
+        </if>
+    </select>
 
     <select id="getMaxId" resultType="string">
         select id from sys_menu where pid = #{pid} and state = true order by id desc limit 1

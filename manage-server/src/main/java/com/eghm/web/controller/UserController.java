@@ -11,11 +11,9 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.user.*;
 import com.eghm.model.SysUser;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.menu.MenuResponse;
 import com.eghm.vo.user.UserResponse;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
@@ -42,8 +40,6 @@ public class UserController {
     private final SysRoleService sysRoleService;
 
     private final CacheService cacheService;
-
-    private final SysMenuService sysMenuService;
 
     @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
@@ -131,9 +127,4 @@ public class UserController {
         return RespBody.success();
     }
 
-    @GetMapping("/menuList")
-    @ApiOperation("查询自己拥有的菜单列表")
-    public List<MenuResponse> menuList() {
-        return sysMenuService.getList(SecurityHolder.getUserId());
-    }
 }

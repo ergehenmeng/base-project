@@ -5,17 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
-import com.eghm.utils.StringUtil;
-import com.eghm.mapper.SysMenuMapper;
-import com.eghm.model.SysMenu;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
-import com.eghm.vo.menu.MenuResponse;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.SysMenuMapper;
+import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
+import com.eghm.vo.menu.MenuResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -52,13 +52,13 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {
-        List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1, false);
+        List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1);
         return this.treeBin(list);
     }
 
     @Override
     public List<MenuResponse> getAdminLeftMenuList() {
-        List<MenuResponse> list = sysMenuMapper.getMenuList(null, 1, true);
+        List<MenuResponse> list = sysMenuMapper.getAdminMenuList(1);
         return this.treeBin(list);
     }
 
@@ -68,26 +68,13 @@ public class SysMenuServiceImpl implements SysMenuService {
         List<MenuResponse> responseList;
         if (adminRole) {
             // adminHide = true, 部分菜单时商户独有菜单,不对超管进行开放
-            responseList = sysMenuMapper.getMenuList(null, null, true);
+            responseList = sysMenuMapper.getAdminMenuList(null);
         } else {
-            responseList = sysMenuMapper.getMenuList(userId, null, false);
+            responseList = sysMenuMapper.getMenuList(userId, null);
         }
         return this.treeBin(responseList);
     }
-    
-    @Override
-    public List<MenuResponse> getAuthList(Long userId) {
-        boolean adminRole = sysRoleService.isAdminRole(userId);
-        List<MenuResponse> responseList;
-        if (adminRole) {
-            // adminHide = true, 因为超管授权时可以授权所有菜单
-            responseList = sysMenuMapper.getMenuList(null, null, false);
-        } else {
-            responseList = sysMenuMapper.getMenuList(userId, null, false);
-        }
-        return this.treeBin(responseList);
-    }
-    
+
     @Override
     public List<SysMenu> getList() {
         return sysMenuMapper.selectList(null);
@@ -131,13 +118,13 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<String> getPermCode(Long user) {
-        List<MenuResponse> menuList = sysMenuMapper.getMenuList(user, 2, false);
+        List<MenuResponse> menuList = sysMenuMapper.getMenuList(user, 2);
         return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 
     @Override
     public List<String> getAdminPermCode() {
-        List<MenuResponse> menuList = sysMenuMapper.getMenuList(null, 2, true);
+        List<MenuResponse> menuList = sysMenuMapper.getAdminMenuList( 2);
         return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 

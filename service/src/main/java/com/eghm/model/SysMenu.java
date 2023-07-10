@@ -36,9 +36,6 @@ public class SysMenu {
     @ApiModelProperty("菜单级别 1:导航菜单 2:按钮菜单")
     private Integer grade;
 
-    @ApiModelProperty("是否对超管隐藏 true: 是 false: 不隐藏")
-    private Boolean adminHide;
-
     @ApiModelProperty("排序规则 小的排在前面")
     private Integer sort;
 
