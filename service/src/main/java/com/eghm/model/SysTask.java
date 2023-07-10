@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,12 +23,15 @@ public class SysTask {
     private Long id;
 
     @ApiModelProperty("定时任务名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty("类的bean名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String beanName;
 
     @ApiModelProperty("bean的方法名(单个类中不能有重载方法,有则默认取第一个方法执行)")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String methodName;
 
     @ApiModelProperty("方法入参")

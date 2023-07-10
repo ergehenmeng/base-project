@@ -17,7 +17,7 @@
         from verify_log t
         left join sys_user r on t.user_id = r.id where t.merchant_id = #{param.merchantId}
         <if test="param.queryName != null and param.queryName != ''">
-            and t.order_no like concat('%', #{param.queryName} ,'%')
+            and t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')
         </if>
         <if test="param.startDate != null">
             and t.create_time &gt;= #{param.startDate}

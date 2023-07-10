@@ -1,8 +1,10 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -29,9 +31,11 @@ public class SysTaskLog implements Serializable {
     private Long id;
 
     @ApiModelProperty("定时任务bean名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String beanName;
 
     @ApiModelProperty("方法名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String methodName;
 
     @ApiModelProperty("方法入参")
@@ -49,6 +53,7 @@ public class SysTaskLog implements Serializable {
     private Long elapsedTime;
 
     @ApiModelProperty("执行任务的机器ip")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String ip;
 
     @ApiModelProperty("执行错误时的信息")

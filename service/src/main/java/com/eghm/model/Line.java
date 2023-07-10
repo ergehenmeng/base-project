@@ -1,5 +1,6 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -7,6 +8,7 @@ import java.io.Serializable;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -41,6 +43,7 @@ public class Line extends BaseEntity implements Serializable {
     private Long merchantId;
 
     @ApiModelProperty(value = "线路名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")

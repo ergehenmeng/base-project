@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 public class Banner extends BaseEntity {
 
     @ApiModelProperty("标题")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty("轮播图类型:由sys_dict的banner_type维护(不同模块的轮播均在该表中维护)")

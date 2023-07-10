@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -22,15 +24,18 @@ public class SysConfig {
     private Long id;
 
     @ApiModelProperty("参数标示符")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String nid;
 
     @ApiModelProperty("参数名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty("参数值")
     private String content;
 
     @ApiModelProperty("备注信息")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String remark;
 
     @ApiModelProperty("锁定状态(禁止编辑) 0:未锁定,1:锁定")

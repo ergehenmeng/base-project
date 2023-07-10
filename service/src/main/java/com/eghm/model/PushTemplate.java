@@ -1,8 +1,10 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -28,9 +30,11 @@ public class PushTemplate {
     private Long id;
 
     @ApiModelProperty("消息名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty("消息nid")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String nid;
 
     @ApiModelProperty("状态 0:关闭 1:开启")
@@ -40,6 +44,7 @@ public class PushTemplate {
     private String content;
 
     @ApiModelProperty("后置处理标示符(消息推送跳转页面)")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String tag;
 
     @ApiModelProperty("备注信息")

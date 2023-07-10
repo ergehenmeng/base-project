@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +24,7 @@ public class HelpCenter extends BaseEntity {
     private Integer state;
 
     @ApiModelProperty("问")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String ask;
 
     @ApiModelProperty("答")

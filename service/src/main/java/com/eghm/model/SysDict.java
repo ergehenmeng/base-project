@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +18,11 @@ import lombok.ToString;
 public class SysDict extends BaseEntity {
 
     @ApiModelProperty("字典中文名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
     @ApiModelProperty("数据字典nid(英文名称)")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String nid;
 
     @ApiModelProperty("数据字典隐藏值")

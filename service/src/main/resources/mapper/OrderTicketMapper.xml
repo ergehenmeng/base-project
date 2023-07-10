@@ -19,13 +19,13 @@
         left join scenic_ticket s on t.scenic_id = s.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != '' ">
-            and (t.order_no like concat('%', #{param.queryName}, '%') or r.title like concat('%', #{param.queryName}, '%'))
+            and (t.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
         </if>
         <if test="param.scenicName != null and param.scenicName != '' ">
-            and s.title like concat('%', #{param.scenicName}, '%')
+            and s.title like concat('%', #{param.scenicName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.mobile != null and param.mobile != '' ">
-            and t.mobile like concat('%', #{param.mobile}, '%')
+            and t.mobile like concat('%', #{param.mobile, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.orderState != null">
             and r.state = #{param.orderState}

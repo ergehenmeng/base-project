@@ -1,6 +1,8 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +22,7 @@ public class AppVersion extends BaseEntity {
     private String classify;
 
     @ApiModelProperty("版本号:1.2.8 最大:xx.xx.xx")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String version;
 
     @ApiModelProperty("版本号:10208")

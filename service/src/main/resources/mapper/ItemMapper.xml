@@ -21,7 +21,7 @@
         from item t left join item_store r on t.store_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and (t.title like concat('%', #{param.queryName} ,'%')  or r.title like concat('%', #{param.queryName} ,'%'))
+            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')  or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
         </if>
         <if test="param.deliveryType != null ">
             and t.delivery_type = #{param.deliveryType}

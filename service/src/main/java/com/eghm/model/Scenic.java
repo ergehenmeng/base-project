@@ -1,9 +1,11 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
@@ -31,6 +33,7 @@ public class Scenic extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "景区名称")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String scenicName;
 
     @ApiModelProperty(value = "景区等级 5: 5A 4: 4A 3: 3A 0:其他")

@@ -1,8 +1,10 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
@@ -37,6 +39,7 @@ public class SmsLog implements Serializable {
     private String smsType;
 
     @ApiModelProperty("手机号")
+    @TableField(typeHandler = LikeTypeHandler.class)
     private String mobile;
 
     @ApiModelProperty("短信内容")
