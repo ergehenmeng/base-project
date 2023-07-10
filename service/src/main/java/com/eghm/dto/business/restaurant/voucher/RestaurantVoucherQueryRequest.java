@@ -1,5 +1,6 @@
 package com.eghm.dto.business.restaurant.voucher;
 
+import com.eghm.annotation.Padding;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,4 +19,8 @@ public class RestaurantVoucherQueryRequest extends PagingQuery {
 
     @ApiModelProperty("餐饮商家id")
     private Long restaurantId;
+
+    @ApiModelProperty(value = "商家id", hidden = true)
+    @Padding
+    private Long merchantId;
 }

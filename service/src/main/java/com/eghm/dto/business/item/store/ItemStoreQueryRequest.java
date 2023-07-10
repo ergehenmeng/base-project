@@ -1,5 +1,6 @@
 package com.eghm.dto.business.item.store;
 
+import com.eghm.annotation.Padding;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.dto.ext.PagingQuery;
@@ -21,4 +22,7 @@ public class ItemStoreQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
     private PlatformState platformState;
 
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Padding
+    private Long merchantId;
 }

@@ -27,7 +27,7 @@ public interface HomestayRoomMapper extends BaseMapper<HomestayRoom> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<HomestayRoomResponse> listPage(Page<HomestayRoomResponse> page, @Param("request") HomestayRoomQueryRequest request);
+    Page<HomestayRoomResponse> listPage(Page<HomestayRoomResponse> page, @Param("param") HomestayRoomQueryRequest request);
 
     /**
      * 分页查询民宿下的房型信息

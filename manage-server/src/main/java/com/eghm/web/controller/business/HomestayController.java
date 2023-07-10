@@ -1,26 +1,23 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.Homestay;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.homestay.HomestayAddRequest;
 import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.model.Homestay;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
@@ -38,6 +35,7 @@ public class HomestayController {
     @GetMapping("/listPage")
     @ApiOperation("民宿列表")
     public PageData<Homestay> listPage(HomestayQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<Homestay> byPage = homestayService.getByPage(request);
         return PageData.toPage(byPage);
     }

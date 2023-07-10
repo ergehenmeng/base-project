@@ -1,5 +1,6 @@
 package com.eghm.dto.business.scenic.ticket;
 
+import com.eghm.annotation.Padding;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +19,8 @@ public class ScenicTicketQueryRequest extends PagingQuery {
     @ApiModelProperty("景区id")
     private Long scenicId;
 
-    @ApiModelProperty("商户id")
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Padding
     private Long merchantId;
 
     @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")

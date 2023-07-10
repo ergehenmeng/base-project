@@ -35,6 +35,9 @@
         <if test="param.storeId != null">
             and t.store_id = #{param.storeId}
         </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
         order by t.id desc
     </select>
     

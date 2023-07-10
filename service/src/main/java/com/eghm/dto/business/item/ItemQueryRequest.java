@@ -1,9 +1,10 @@
 package com.eghm.dto.business.item;
 
+import com.eghm.annotation.Padding;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
-import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,4 +28,8 @@ public class ItemQueryRequest extends PagingQuery {
 
     @ApiModelProperty("店铺id")
     private Long storeId;
+
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Padding
+    private Long merchantId;
 }

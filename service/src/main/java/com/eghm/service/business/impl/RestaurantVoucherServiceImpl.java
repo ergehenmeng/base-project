@@ -5,15 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
+import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
+import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RestaurantVoucherMapper;
 import com.eghm.model.RestaurantVoucher;
-import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
-import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
-import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
 import com.eghm.service.business.RestaurantVoucherService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
     @Override
     public Page<RestaurantVoucher> getByPage(RestaurantVoucherQueryRequest request) {
         LambdaQueryWrapper<RestaurantVoucher> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getMerchantId() != null, RestaurantVoucher::getMerchantId, request.getRestaurantId());
         wrapper.eq(request.getRestaurantId() != null, RestaurantVoucher::getRestaurantId, request.getRestaurantId());
         wrapper.eq(request.getState() != null, RestaurantVoucher::getState, request.getState());
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), RestaurantVoucher::getTitle, request.getQueryName());
@@ -45,6 +47,7 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
         this.redoTitle(request.getTitle(), null, request.getRestaurantId());
         RestaurantVoucher voucher = DataUtil.copy(request, RestaurantVoucher.class);
         voucher.setTotalNum(request.getVirtualNum());
+        voucher.setMerchantId(SecurityHolder.getMerchantId());
         restaurantVoucherMapper.insert(voucher);
     }
 

@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
@@ -31,6 +32,7 @@ public class ScenicController {
     @ApiOperation("查询景区列表")
     @GetMapping("/listPage")
     public PageData<Scenic> getByPage(ScenicQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<Scenic> scenicPage = scenicService.getByPage(request);
         return PageData.toPage(scenicPage);
     }

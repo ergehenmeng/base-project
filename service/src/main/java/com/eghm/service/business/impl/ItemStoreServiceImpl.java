@@ -58,6 +58,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), ItemStore::getTitle, request.getQueryName());
         wrapper.eq(request.getState() != null, ItemStore::getState , request.getState());
         wrapper.eq(request.getPlatformState() != null, ItemStore::getPlatformState, request.getPlatformState());
+        wrapper.eq(request.getMerchantId() != null, ItemStore::getMerchantId, request.getMerchantId());
         return itemStoreMapper.selectPage(request.createPage(), wrapper);
     }
 

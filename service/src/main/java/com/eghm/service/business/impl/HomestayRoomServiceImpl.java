@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
@@ -51,6 +52,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     public void create(HomestayRoomAddRequest request) {
         this.titleRedo(request.getTitle(), null, request.getHomestayId());
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
+        room.setMerchantId(SecurityHolder.getMerchantId());
         homestayRoomMapper.insert(room);
     }
 

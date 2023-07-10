@@ -1,5 +1,6 @@
 package com.eghm.dto.business.homestay.room;
 
+import com.eghm.annotation.Padding;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,4 +20,8 @@ public class HomestayRoomQueryRequest extends PagingQuery {
 
     @ApiModelProperty("退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
+
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Padding
+    private Long merchantId;
 }

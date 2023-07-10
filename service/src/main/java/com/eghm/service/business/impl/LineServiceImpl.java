@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
@@ -68,6 +69,7 @@ public class LineServiceImpl implements LineService {
     public void create(LineAddRequest request) {
         this.titleRedo(request.getTitle(), request.getTravelAgencyId(), null);
         Line line = DataUtil.copy(request, Line.class);
+        line.setMerchantId(SecurityHolder.getMerchantId());
         lineMapper.insert(line);
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
     }

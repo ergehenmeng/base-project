@@ -1,5 +1,6 @@
 package com.eghm.dto.business.restaurant;
 
+import com.eghm.annotation.Padding;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,4 +16,8 @@ public class RestaurantQueryRequest extends PagingQuery {
 
     @ApiModelProperty("上下架状态")
     private Integer state;
+
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Padding
+    private Long merchantId;
 }

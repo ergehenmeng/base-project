@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
@@ -39,6 +40,7 @@ public class RestaurantController {
     @GetMapping("/listPage")
     @ApiOperation("商家列表")
     public PageData<Restaurant> listPage(RestaurantQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<Restaurant> roomPage = restaurantService.getByPage(request);
         return PageData.toPage(roomPage);
     }

@@ -5,45 +5,32 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.item.*;
+import com.eghm.dto.business.item.sku.ItemSkuRequest;
+import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
-import com.eghm.dto.business.item.ItemAddRequest;
-import com.eghm.dto.business.item.ItemCouponQueryDTO;
-import com.eghm.dto.business.item.ItemEditRequest;
-import com.eghm.dto.business.item.ItemQueryDTO;
-import com.eghm.dto.business.item.ItemQueryRequest;
-import com.eghm.dto.business.item.sku.ItemSkuRequest;
-import com.eghm.dto.business.item.sku.ItemSpecRequest;
-import com.eghm.vo.business.item.ItemListResponse;
-import com.eghm.vo.business.item.ItemListVO;
-import com.eghm.vo.business.item.ItemResponse;
-import com.eghm.vo.business.item.ItemSkuResponse;
-import com.eghm.vo.business.item.ItemSpecResponse;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ItemSpecService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.item.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.OptionalInt;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -70,7 +57,6 @@ public class ItemServiceImpl implements ItemService {
     
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
-        request.setStoreId(SecurityHolder.getStoreId());
         return itemMapper.listPage(request.createPage(), request);
     }
     

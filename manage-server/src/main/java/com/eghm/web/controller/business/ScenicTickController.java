@@ -1,17 +1,18 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.ScenicTicket;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ScenicTicketService;
+import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class ScenicTickController {
     @GetMapping("/listPage")
     @ApiOperation("门票列表")
     public PageData<ScenicTicketResponse> listPage(ScenicTicketQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ScenicTicketResponse> responsePage = scenicTicketService.getByPage(request);
         return PageData.toPage(responsePage);
     }

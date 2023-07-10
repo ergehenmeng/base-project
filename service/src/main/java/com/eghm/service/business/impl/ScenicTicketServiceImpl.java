@@ -41,7 +41,6 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public Page<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request) {
-        request.setMerchantId(SecurityHolder.getMerchantId());
         return scenicTicketMapper.getByPage(request.createPage(), request);
     }
 
@@ -50,6 +49,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         this.redoTitle(request.getTitle(), null);
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
+        ticket.setMerchantId(SecurityHolder.getMerchantId());
         scenicTicketMapper.insert(ticket);
     }
 

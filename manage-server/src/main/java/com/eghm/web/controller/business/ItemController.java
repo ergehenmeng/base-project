@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.dto.IdDTO;
@@ -41,6 +42,7 @@ public class ItemController {
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
     public PageData<ItemListResponse> listPage(ItemQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemListResponse> byPage = itemService.getByPage(request);
         return PageData.toPage(byPage);
     }
