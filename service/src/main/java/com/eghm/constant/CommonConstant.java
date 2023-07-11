@@ -53,16 +53,6 @@ public class CommonConstant {
     public static final long ASYNC_MSG_EXPIRE = 30_000;
 
     /**
-     * 生产环境
-     */
-    public static final int ENV_PROD = 1;
-
-    /**
-     * 开发环境
-     */
-    public static final int ENV_DEV = 2;
-
-    /**
      * 支付宝支付成功状态
      */
     public static final String ALI_PAY_SUCCESS = "success";

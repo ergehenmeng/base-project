@@ -15,16 +15,6 @@ public class ConfigConstant {
     public static final String OPERATION_LOG_SWITCH = "operation_log_switch";
 
     /**
-     * 系统环境
-     */
-    public static final String ENV = "env";
-
-    /**
-     * 客户端与服务端时间误差,单位ms
-     */
-    public static final String TIMESTAMP_DEVIATION = "timestamp_deviation";
-
-    /**
      * 昵称前缀
      */
     public static final String NICK_NAME_PREFIX = "nick_name_prefix";
@@ -55,11 +45,6 @@ public class ConfigConstant {
     public static final String NOTICE_LIMIT = "notice_limit";
 
     /**
-     * app store下载地址
-     */
-    public static final String APP_STORE_URL = "app_store_url";
-
-    /**
      * 文件服务器地址
      */
     public static final String FILE_SERVER_ADDRESS = "file_server_address";
@@ -73,11 +58,6 @@ public class ConfigConstant {
      * 多文件上传大小限制
      */
     public static final String BATCH_MAX_FILE_SIZE = "batch_max_file_size";
-
-    /**
-     * 安卓软件包大小
-     */
-    public static final String ANDROID_MAX_SIZE = "android_max_size";
 
     /**
      * 非注解缓存的默认过期时间
@@ -98,11 +78,6 @@ public class ConfigConstant {
      * 刷新token过期时间(比登陆token过期时间要大)
      */
     public static final String REFRESH_TOKEN_EXPIRE = "refresh_token_expire";
-
-    /**
-     * jwt秘钥
-     */
-    public static final String JWT_SECRET_KEY = "jwt_secret_key";
 
     /**
      * 全局所有验证码默认过期时间

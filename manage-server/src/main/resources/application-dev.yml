@@ -37,3 +37,4 @@ system:
     notify-host: https://localhost:8080
     pay-notify-url: /notify/weChat/pay
     refund-notify-url: /notify/weChat/refund
+  env: dev

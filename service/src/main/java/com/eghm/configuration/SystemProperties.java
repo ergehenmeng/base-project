@@ -1,5 +1,6 @@
 package com.eghm.configuration;
 
+import com.eghm.enums.Env;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -39,6 +40,11 @@ public class SystemProperties {
      * 两次提交间隔时间,只针对post请求, 单位:毫秒
      */
     private Long submitInterval = 1000L;
+
+    /**
+     * 系统运行环境(默认准生产环境)
+     */
+    private Env env = Env.PRE;
 
     /**
      * 微信配置
