@@ -61,7 +61,7 @@ public class LineServiceImpl implements LineService {
         wrapper.eq(request.getTravelAgencyId() != null, Line::getTravelAgencyId, request.getTravelAgencyId());
         wrapper.eq(request.getStartProvinceId() != null, Line::getStartProvinceId, request.getStartProvinceId());
         wrapper.eq(request.getStartCityId() != null, Line::getStartCityId, request.getStartCityId());
-        wrapper.like(StrUtil.isNotBlank(request.getTitle()), Line::getTitle, request.getTitle());
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Line::getTitle, request.getQueryName());
         return lineMapper.selectPage(request.createPage(), wrapper);
     }
 
