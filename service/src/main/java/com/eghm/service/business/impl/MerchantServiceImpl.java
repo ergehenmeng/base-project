@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.MerchantRoleMap;
+import com.eghm.enums.MerchantRoleMapping;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.configuration.encoder.Encoder;
@@ -77,7 +77,7 @@ public class MerchantServiceImpl implements MerchantService {
         // 系统用户和商户关联
         merchant.setUserId(user.getId());
         merchantMapper.insert(merchant);
-        List<RoleType> roleTypes = MerchantRoleMap.parseRoleType(request.getType());
+        List<RoleType> roleTypes = MerchantRoleMapping.parseRoleType(request.getType());
         sysRoleService.authRole(merchant.getId(), roleTypes);
         this.initStore(merchant, roleTypes);
     }
@@ -86,7 +86,7 @@ public class MerchantServiceImpl implements MerchantService {
     public void update(MerchantEditRequest request) {
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         merchantMapper.updateById(merchant);
-        sysRoleService.authRole(merchant.getId(), MerchantRoleMap.parseRoleType(request.getType()));
+        sysRoleService.authRole(merchant.getId(), MerchantRoleMapping.parseRoleType(request.getType()));
     }
 
     @Override
