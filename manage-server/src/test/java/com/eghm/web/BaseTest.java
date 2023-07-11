@@ -33,9 +33,7 @@ import java.util.Map;
  * @date 2019/11/21 15:07
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(
-        classes = ManageApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = ManageApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Slf4j
 public abstract class BaseTest {
 
@@ -77,7 +75,8 @@ public abstract class BaseTest {
         try {
             mockMvc.perform(builder).andDo(mvcResult -> {
                 String content = mvcResult.getResponse().getContentAsString(StandardCharsets.UTF_8);
-                RespBody<LoginResponse> respBody = jsonService.fromJson(content, new TypeReference<RespBody<LoginResponse>>() {});
+                RespBody<LoginResponse> respBody = jsonService.fromJson(content, new TypeReference<RespBody<LoginResponse>>() {
+                });
                 headers.add("token", respBody.getData().getToken());
             });
         } catch (Exception e) {

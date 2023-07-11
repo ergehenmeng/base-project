@@ -27,12 +27,12 @@ import java.util.Map;
  * @date 2019/11/21 15:07
  */
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = WebappApplication.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = WebappApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class BaseTest {
 
     private final HttpHeaders headers = new HttpHeaders();
 
-    protected final Map<String,Object> params = Maps.newHashMapWithExpectedSize(10);
+    protected final Map<String, Object> params = Maps.newHashMapWithExpectedSize(10);
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -43,25 +43,25 @@ public abstract class BaseTest {
     private Gson gson;
 
     @BeforeEach
-    public void before(){
+    public void before() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        headers.add("Channel","ANDROID");
-        headers.add("Version","v1.2.8");
-        headers.add("Os-Version","8.0.1");
-        headers.add("Device-Brand","小米");
-        headers.add("Device-Model","xiaomi 10 pro");
+        headers.add("Channel", "ANDROID");
+        headers.add("Version", "v1.2.8");
+        headers.add("Os-Version", "8.0.1");
+        headers.add("Device-Brand", "小米");
+        headers.add("Device-Model", "xiaomi 10 pro");
     }
 
-    public String post(String url){
+    public String post(String url) {
         return this.doPost(url, gson.toJson(params));
     }
 
-    private String doPost(String url, String content){
+    private String doPost(String url, String content) {
         try {
             return mockMvc.perform(MockMvcRequestBuilders.post(URI.create(url)).
-                    contentType(MediaType.APPLICATION_JSON_VALUE)
-                    .headers(headers)
-                    .content(gson.toJson(params)))
+                            contentType(MediaType.APPLICATION_JSON_VALUE)
+                            .headers(headers)
+                            .content(gson.toJson(params)))
                     .andReturn().getResponse().getContentAsString();
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,17 +73,18 @@ public abstract class BaseTest {
     /**
      * 账号登陆
      *
-     * @param account 账号
+     * @param account  账号
      * @param password 密码
      */
     public void loginByAccount(String account, String password) {
-        params.put("account",account);
+        params.put("account", account);
         params.put("pwd", MD5.create().digestHex(password));
         String content = this.post("/api/login/account");
-        Type type = new TypeToken<RespBody<LoginTokenVO>>(){}.getType();
+        Type type = new TypeToken<RespBody<LoginTokenVO>>() {
+        }.getType();
         RespBody<LoginTokenVO> json = gson.fromJson(content, type);
         LoginTokenVO data = json.getData();
-        headers.add("Token",data.getToken());
+        headers.add("Token", data.getToken());
         headers.add("Refresh-Token", data.getRefreshToken());
         params.clear();
     }
