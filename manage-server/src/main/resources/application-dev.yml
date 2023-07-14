@@ -25,8 +25,8 @@ system:
   upload-dir: D://file
   # 管理后台配置
   manage:
-    jwt:
-      secret-key: xC&ln9Q5pNn11RXUr7s#Owzm4nK16wGB3PTnM6OI@b51Q9NUrQTrTIQU6r&UTT9O
+    token:
+      jwt-secret: xC&ln9Q5pNn11RXUr7s#Owzm4nK16wGB3PTnM6OI@b51Q9NUrQTrTIQU6r&UTT9O
   # 支付宝支付配置
   ali-pay:
     notify-host: https://localhost:8080

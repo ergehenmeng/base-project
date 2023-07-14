@@ -4,22 +4,22 @@ import cn.hutool.core.collection.CollUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
+import com.eghm.enums.DataType;
 import com.eghm.model.SysUser;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.common.JsonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 /**
+ * 默认实现
  * @author 二哥很猛
  * @since 2023/7/14
  */
 @Slf4j
-@Service("redisAccessTokenService")
 @AllArgsConstructor
 public class RedisAccessTokenServiceImpl implements AccessTokenService {
 
@@ -48,9 +48,9 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         userToken.setMerchantId((Long) hasMap.get("merchantId"));
         userToken.setDeptCode((String) hasMap.get("deptCode"));
         userToken.setUserType((Integer) hasMap.get("userType"));
+        userToken.setDataType(DataType.of(Integer.parseInt(hasMap.get("dataType").toString())));
         userToken.setDeptList(jsonService.fromJsonList(hasMap.get("deptList").toString(), String.class));
         userToken.setAuthList(jsonService.fromJsonList(hasMap.get("auth").toString(), String.class));
-
         return Optional.of(userToken);
     }
 
@@ -69,6 +69,7 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         hashMap.put("nickName", String.valueOf(user.getNickName()));
         hashMap.put("merchantId", String.valueOf(merchantId));
         hashMap.put("deptCode", user.getDeptCode());
+        hashMap.put("dataType", String.valueOf(user.getDataType().getValue()));
         hashMap.put("userType", String.valueOf(user.getUserType()));
         hashMap.put("deptList", jsonService.toJson(user.getDeptList()));
         hashMap.put("auth", jsonService.toJson(authList));

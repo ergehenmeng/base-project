@@ -13,7 +13,6 @@ import com.eghm.model.SysUser;
 import com.eghm.service.common.AccessTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,6 @@ import java.util.Optional;
  * @date 2020/8/28
  */
 @Slf4j
-@Service("jwtAccessTokenService")
 @AllArgsConstructor
 public class JwtAccessTokenServiceImpl implements AccessTokenService {
 
@@ -84,6 +82,6 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
      * @return secretKey
      */
     private Algorithm getAlgorithm() {
-        return Algorithm.HMAC512(systemProperties.getManage().getToken().getSecretKey());
+        return Algorithm.HMAC512(systemProperties.getManage().getToken().getJwtSecret());
     }
 }

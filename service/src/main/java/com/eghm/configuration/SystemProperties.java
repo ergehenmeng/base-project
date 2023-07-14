@@ -142,14 +142,9 @@ public class SystemProperties {
             private Integer expire = 3600 * 2;
 
             /**
-             * 刷新token的过期时间 默认7天过期
-             */
-            private Integer refreshExpire = 3600 * 24 * 7;
-
-            /**
              * token加密秘钥(jwt专用)
              */
-            private String secretKey;
+            private String jwtSecret;
         }
     }
 
