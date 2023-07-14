@@ -66,6 +66,11 @@ public class SystemProperties {
      */
     private PushProperties push = new PushProperties();
 
+    /**
+     * 钉钉消息通知
+     */
+    private DingTalk dingTalk = new DingTalk();
+
     @Data
     public static class Redis {
 
@@ -287,5 +292,24 @@ public class SystemProperties {
          * 退款异步通知地址
          */
         private String refundNotifyUrl;
+    }
+
+    @Data
+    public static class DingTalk {
+
+        /**
+         * 接口地址
+         */
+        private String url;
+
+        /**
+         * 钉钉消息推送通知
+         */
+        private String accessToken;
+
+        /**
+         * 签名(为空表示采用非签名模式)
+         */
+        private String secret;
     }
 }
