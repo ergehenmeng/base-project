@@ -1,6 +1,7 @@
 package com.eghm.configuration;
 
 import com.eghm.enums.Env;
+import com.eghm.enums.TokenType;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -121,6 +122,11 @@ public class SystemProperties {
         public static class Token {
 
             /**
+             * token实现类型
+             */
+            private TokenType tokenType;
+
+            /**
              * 在请求头中key
              */
             private String header = "token";
@@ -141,7 +147,7 @@ public class SystemProperties {
             private Integer refreshExpire = 3600 * 24 * 7;
 
             /**
-             * token加密秘钥
+             * token加密秘钥(jwt专用)
              */
             private String secretKey;
         }

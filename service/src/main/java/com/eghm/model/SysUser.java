@@ -3,6 +3,7 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.DataType;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
@@ -49,6 +50,9 @@ public class SysUser extends BaseEntity {
 
     @ApiModelProperty("用户类型 1: 系统用户 2: 商户用户")
     private Integer userType;
+
+    @ApiModelProperty("数据权限 只针对系统用户有效")
+    private DataType dataType;
 
     @ApiModelProperty("用户状态:0:锁定,1:正常")
     private Integer state;

@@ -15,10 +15,11 @@ public interface AccessTokenService {
     /**
      * 根据用户信息创建 jwt refresh Token
      * @param user 用户信息
+     * @param merchantId 商户id
      * @param authList 权限列表
      * @return token
      */
-    String createToken(SysUser user, List<String> authList);
+    String createToken(SysUser user, Long merchantId, List<String> authList);
 
     /**
      * 解析token

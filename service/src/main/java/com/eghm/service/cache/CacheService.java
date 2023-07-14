@@ -4,6 +4,7 @@ import com.eghm.dto.ext.AsyncResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Date;
+import java.util.Map;
 import java.util.function.Supplier;
 
 
@@ -165,6 +166,20 @@ public interface CacheService {
     void setHashValue(String key, String hKey, String hValue);
 
     /**
+     * 设置hash map
+     * @param key key
+     * @param hashValue hashValue
+     */
+    void setHashMap(String key, Map<String, String> hashValue);
+
+    /**
+     * 查询hash上所有的key
+     * @param key key
+     * @return hashValue
+     */
+    Map<Object, Object> getHasMap(String key);
+
+    /**
      * 设置hash值
      * @param key key
      * @param expire 过期时间 毫秒
@@ -245,5 +260,12 @@ public interface CacheService {
      * @return 个数
      */
     Long getBitmapCount(String key);
+
+    /**
+     * 设置过期时间
+     * @param key key
+     * @param expire 过期时间,单位:耗时
+     */
+    void setExpire(String key, long expire);
 }
 

@@ -15,6 +15,7 @@ import com.eghm.dto.user.UserQueryRequest;
 import com.eghm.enums.DataType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.MerchantMapper;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
 import com.eghm.model.SysUser;
@@ -43,6 +44,8 @@ import java.util.List;
 public class SysUserServiceImpl implements SysUserService {
 
     private final SysUserMapper sysUserMapper;
+
+    private final MerchantMapper merchantMapper;
 
     private final Encoder encoder;
 
@@ -220,12 +223,30 @@ public class SysUserServiceImpl implements SysUserService {
         }
         // 根据用户名和权限创建jwtToken
         LoginResponse response = new LoginResponse();
-        response.setToken(accessTokenService.createToken(user, buttonList));
+        response.setToken(accessTokenService.createToken(user, this.getMerchantId(user.getId(), user.getUserType()), buttonList));
         response.setButtonList(buttonList);
         response.setUserType(user.getUserType());
         response.setLeftMenuList(leftMenu);
         cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
         return response;
+    }
+
+    /**
+     * 查询用户关联的商户id, 只针对普通商户
+     * @param userId userId
+     * @param userType 用户类型
+     * @return merchantId
+     */
+    private Long getMerchantId(Long userId, Integer userType) {
+        Long merchantId = null;
+        if (userType == SysUser.USER_TYPE_2) {
+            merchantId = merchantMapper.getByUserId(userId);
+            if (merchantId == null) {
+                log.error("商户信息未查询到 [{}]", userId);
+                throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
+            }
+        }
+        return merchantId;
     }
 
     /**

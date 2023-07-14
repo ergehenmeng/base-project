@@ -6,12 +6,10 @@ import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.configuration.SystemProperties;
-import com.eghm.mapper.MerchantMapper;
-import com.eghm.model.SysUser;
 import com.eghm.dto.ext.UserToken;
+import com.eghm.enums.DataType;
+import com.eghm.model.SysUser;
 import com.eghm.service.common.AccessTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,19 +29,8 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
 
     private final SystemProperties systemProperties;
 
-    private final MerchantMapper merchantMapper;
-
     @Override
-    public String createToken(SysUser user, List<String> authList) {
-        // 在此处调用merchantService有点鸡肋, 但是在userService调用,会出现循环依赖问题
-        Long merchantId = null;
-        if (user.getUserType() == SysUser.USER_TYPE_2) {
-            merchantId = merchantMapper.getByUserId(user.getId());
-            if (merchantId == null) {
-                log.error("商户信息未查询到 [{}]", user.getId());
-                throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
-            }
-        }
+    public String createToken(SysUser user, Long merchantId,  List<String> authList) {
         SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
         return token.getPrefix() + this.doCreateJwt(user, merchantId, token.getExpire(), authList);
     }
@@ -55,7 +42,9 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
             DecodedJWT verify = verifier.verify(token);
             UserToken userToken = new UserToken();
             userToken.setId(verify.getClaim("id").asLong());
-            userToken.setId(verify.getClaim("merchantId").asLong());
+            userToken.setMerchantId(verify.getClaim("merchantId").asLong());
+            userToken.setUserType(verify.getClaim("userType").asInt());
+            userToken.setDataType(DataType.of(verify.getClaim("dataType").asInt()));
             userToken.setNickName(verify.getClaim("nickName").asString());
             userToken.setAuthList(verify.getClaim("auth").asList(String.class));
             userToken.setDeptCode(verify.getClaim("deptCode").asString());
@@ -77,15 +66,17 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
      */
     private String doCreateJwt(SysUser user, Long merchantId, int expireSeconds, List<String> authList) {
         JWTCreator.Builder builder = JWT.create();
-        return builder.withClaim("id", user.getId())
+        builder.withClaim("id", user.getId())
                 .withClaim("nickName", user.getNickName())
-                .withClaim("merchantId", merchantId)
                 .withClaim("deptCode", user.getDeptCode())
+                .withClaim("userType", user.getUserType())
+                .withClaim("dataType", user.getDataType().getValue())
                 .withClaim("deptList", user.getDeptList())
-                .withClaim("r", System.currentTimeMillis())
-                .withClaim("auth", authList)
-                .withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), expireSeconds))
-                .sign(this.getAlgorithm());
+                .withClaim("auth", authList);
+        if (merchantId != null) {
+            builder.withClaim("merchantId", merchantId);
+        }
+        return builder.withExpiresAt(DateUtil.offsetSecond(DateUtil.date(), expireSeconds)).sign(this.getAlgorithm());
     }
 
     /**

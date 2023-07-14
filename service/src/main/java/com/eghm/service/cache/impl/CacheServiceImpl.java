@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -219,6 +220,16 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public void setHashMap(String key, Map<String, String> hashValue) {
+        redisTemplate.opsForHash().putAll(key, hashValue);
+    }
+
+    @Override
+    public Map<Object, Object> getHasMap(String key) {
+        return redisTemplate.opsForHash().entries(key);
+    }
+
+    @Override
     public void setHashValue(String key, long expire, String hKey, String hValue) {
         redisTemplate.opsForHash().put(key, hKey, hValue);
         redisTemplate.expire(key, expire, TimeUnit.MILLISECONDS);
@@ -311,6 +322,11 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public Long getBitmapCount(String key) {
         return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key.getBytes(StandardCharsets.UTF_8)));
+    }
+
+    @Override
+    public void setExpire(String key, long expire) {
+        redisTemplate.expire(key, expire, TimeUnit.SECONDS);
     }
 
     /**

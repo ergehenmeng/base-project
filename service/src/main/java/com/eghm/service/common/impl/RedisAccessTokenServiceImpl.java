@@ -1,14 +1,18 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import com.eghm.configuration.SystemProperties;
+import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.model.SysUser;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.AccessTokenService;
+import com.eghm.service.common.JsonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author 二哥很猛
@@ -19,13 +23,59 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RedisAccessTokenServiceImpl implements AccessTokenService {
 
+    private final SystemProperties systemProperties;
+
+    private final CacheService cacheService;
+
+    private final JsonService jsonService;
+
     @Override
-    public String createToken(SysUser user, List<String> authList) {
-        return null;
+    public String createToken(SysUser user, Long merchantId, List<String> authList) {
+        SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
+        return token.getPrefix() + this.doCreateToken(user, merchantId, token.getExpire(), authList);
     }
 
     @Override
     public Optional<UserToken> parseToken(String token) {
-        return Optional.empty();
+        String key = CacheConstant.USER_REDIS_TOKEN + token;
+        Map<Object, Object> hasMap = cacheService.getHasMap(key);
+        if (CollUtil.isEmpty(hasMap)) {
+            return Optional.empty();
+        }
+        UserToken userToken = new UserToken();
+        userToken.setId((long) hasMap.get("id"));
+        userToken.setNickName((String) hasMap.get("nickName"));
+        userToken.setMerchantId((Long) hasMap.get("merchantId"));
+        userToken.setDeptCode((String) hasMap.get("deptCode"));
+        userToken.setUserType((Integer) hasMap.get("userType"));
+        userToken.setDeptList(jsonService.fromJsonList(hasMap.get("deptList").toString(), String.class));
+        userToken.setAuthList(jsonService.fromJsonList(hasMap.get("auth").toString(), String.class));
+
+        return Optional.of(userToken);
     }
+
+
+    /**
+     * 根据用户id及渠道创建token
+     * @param user  用户信息
+     * @param merchantId 商户id
+     * @param expireSeconds 过期时间
+     * @param authList 权限信息
+     * @return jwtToken
+     */
+    private String doCreateToken(SysUser user, Long merchantId, int expireSeconds, List<String> authList) {
+        Map<String, String> hashMap = new HashMap<>();
+        hashMap.put("id", String.valueOf(user.getId()));
+        hashMap.put("nickName", String.valueOf(user.getNickName()));
+        hashMap.put("merchantId", String.valueOf(merchantId));
+        hashMap.put("deptCode", user.getDeptCode());
+        hashMap.put("userType", String.valueOf(user.getUserType()));
+        hashMap.put("deptList", jsonService.toJson(user.getDeptList()));
+        hashMap.put("auth", jsonService.toJson(authList));
+        String key = CacheConstant.USER_REDIS_TOKEN + UUID.randomUUID();
+        cacheService.setHashMap(key, hashMap);
+        cacheService.setExpire(key, expireSeconds);
+        return key;
+    }
+
 }

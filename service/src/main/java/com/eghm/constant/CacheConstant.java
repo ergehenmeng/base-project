@@ -219,4 +219,9 @@ public class CacheConstant {
      * 管理后台手动退款锁
      */
     public static final String MANUAL_REFUND_LOCK = "manual_refund_lock:";
+
+    /**
+     * 缓存
+     */
+    public static final String USER_REDIS_TOKEN = "user_redis_token:";
 }

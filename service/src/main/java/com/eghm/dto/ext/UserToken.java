@@ -1,5 +1,6 @@
 package com.eghm.dto.ext;
 
+import com.eghm.enums.DataType;
 import lombok.Data;
 
 import java.util.List;
@@ -28,11 +29,6 @@ public class UserToken {
     private Long merchantId;
 
     /**
-     * 所属零售店铺id
-     */
-    private Long storeId;
-
-    /**
      * 昵称
      */
     private String nickName;
@@ -40,7 +36,7 @@ public class UserToken {
     /**
      * 数据权限类型(平台用户专属)
      */
-    private Integer dataType;
+    private DataType dataType;
 
     /**
      * 用户所属部门编号(平台用户专属)

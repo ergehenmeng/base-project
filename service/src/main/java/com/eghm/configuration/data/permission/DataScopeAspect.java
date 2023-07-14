@@ -3,9 +3,9 @@ package com.eghm.configuration.data.permission;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
-import com.eghm.enums.DataType;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.ext.UserToken;
+import com.eghm.enums.DataType;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -51,25 +51,25 @@ public class DataScopeAspect {
         StringBuilder builder = new StringBuilder();
         builder.append(" ( ");
         // 全部
-        if (user.getDataType() == DataType.ALL.getValue()) {
+        if (user.getDataType() == DataType.ALL) {
             builder.append(" 1 = 1");
         }
         String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias() + ".";
         // 自定义
-        if (user.getDataType() == DataType.CUSTOM.getValue()) {
+        if (user.getDataType() == DataType.CUSTOM) {
             List<String> deptList = user.getDeptList();
             builder.append(alias).append("dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
         }
         // 本部门及子部门
-        if (user.getDataType() == DataType.DEPT.getValue()) {
+        if (user.getDataType() == DataType.DEPT) {
             builder.append(alias).append("dept_code like '").append(user.getDeptCode()).append("%' ");
         }
         // 本部门
-        if (user.getDataType() == DataType.SELF_DEPT.getValue()) {
+        if (user.getDataType() == DataType.SELF_DEPT) {
             builder.append(alias).append("dept_code = '").append(user.getDeptCode()).append("' ");
         }
         // 自己,可能会涉及到部门变更,默认老部门信息无法查看,因此此处过滤部门信息
-        if (user.getDataType() == DataType.SELF.getValue()) {
+        if (user.getDataType() == DataType.SELF) {
             builder.append(alias)
                     .append("dept_code = '").append(user.getDeptCode()).append("' and ")
                     .append(alias).append(".user_id = ").append(user.getId());

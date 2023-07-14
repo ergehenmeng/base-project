@@ -1,7 +1,13 @@
 package com.eghm.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.exception.BusinessException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.Arrays;
 
 /**
  * @author 殿小二
@@ -37,9 +43,18 @@ public enum DataType {
     ALL(5, "所有数据权限"),
 
     ;
-
+    @JsonValue
+    @EnumValue
     private final int value;
 
     private final String msg;
 
+    @JsonCreator
+    public static DataType of(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return Arrays.stream(DataType.values()).filter(auditState -> auditState.value == value)
+                .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.DATA_TYPE_ERROR));
+    }
 }
