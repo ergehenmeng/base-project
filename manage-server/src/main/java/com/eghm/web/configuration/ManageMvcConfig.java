@@ -4,7 +4,7 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.configuration.data.permission.DataScopeAspect;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.web.configuration.filter.AuthFilter;
 import com.eghm.web.configuration.filter.LockScreenFilter;
@@ -26,15 +26,15 @@ import javax.servlet.DispatcherType;
 @Configuration
 public class ManageMvcConfig extends WebMvcConfig {
 
-    private final JwtTokenService jwtTokenService;
+    private final AccessTokenService accessTokenService;
 
     private final SysMenuService sysMenuService;
 
     private final CacheService cacheService;
 
-    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, JwtTokenService jwtTokenService, SysMenuService sysMenuService, CacheService cacheService) {
+    public ManageMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, AccessTokenService accessTokenService, SysMenuService sysMenuService, CacheService cacheService) {
         super(objectMapper, systemProperties);
-        this.jwtTokenService = jwtTokenService;
+        this.accessTokenService = accessTokenService;
         this.sysMenuService = sysMenuService;
         this.cacheService = cacheService;
     }
@@ -68,7 +68,7 @@ public class ManageMvcConfig extends WebMvcConfig {
     public FilterRegistrationBean<AuthFilter> authFilter() {
         SystemProperties.ManageProperties manage = systemProperties.getManage();
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
-        AuthFilter requestFilter = new AuthFilter(manage, jwtTokenService);
+        AuthFilter requestFilter = new AuthFilter(manage, accessTokenService);
         requestFilter.exclude(manage.getSecurity().getIgnore());
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);

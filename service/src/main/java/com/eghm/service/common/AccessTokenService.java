@@ -1,7 +1,7 @@
 package com.eghm.service.common;
 
 import com.eghm.model.SysUser;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author 殿小二
  * @date 2020/8/28
  */
-public interface JwtTokenService {
+public interface AccessTokenService {
 
     /**
      * 根据用户信息创建 jwt refresh Token
@@ -25,5 +25,5 @@ public interface JwtTokenService {
      * @param token token
      * @return 解析出来的用户信息
      */
-    Optional<JwtUser> parseToken(String token);
+    Optional<UserToken> parseToken(String token);
 }

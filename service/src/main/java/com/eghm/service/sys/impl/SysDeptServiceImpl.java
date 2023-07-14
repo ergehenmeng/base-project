@@ -7,7 +7,7 @@ import com.eghm.mapper.SysDeptMapper;
 import com.eghm.model.SysDept;
 import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -53,7 +53,7 @@ public class SysDeptServiceImpl implements SysDeptService {
         SysDept department = DataUtil.copy(request, SysDept.class);
         String code = this.getNextCode(request.getParentCode());
         department.setCode(code);
-        JwtUser user = SecurityHolder.getUserRequired();
+        UserToken user = SecurityHolder.getUserRequired();
         department.setUserId(user.getId());
         department.setUserName(user.getNickName());
         sysDeptMapper.insert(department);

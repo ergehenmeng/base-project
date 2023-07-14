@@ -4,9 +4,9 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.configuration.AbstractIgnoreFilter;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.common.AccessTokenService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.lang.NonNull;
@@ -27,14 +27,14 @@ public class AuthFilter extends AbstractIgnoreFilter {
 
     private final SystemProperties.ManageProperties manageProperties;
 
-    private final JwtTokenService jwtTokenService;
+    private final AccessTokenService accessTokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String header = request.getHeader(manageProperties.getJwt().getHeader());
-        String prefix = manageProperties.getJwt().getPrefix();
+        String header = request.getHeader(manageProperties.getToken().getHeader());
+        String prefix = manageProperties.getToken().getPrefix();
         if (header != null && header.startsWith(prefix)) {
-            Optional<JwtUser> optional = jwtTokenService.parseToken(header.replace(prefix, ""));
+            Optional<UserToken> optional = accessTokenService.parseToken(header.replace(prefix, ""));
             if (optional.isPresent()) {
                 try {
                     SecurityHolder.setToken(optional.get());

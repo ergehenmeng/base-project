@@ -6,7 +6,7 @@ import cn.hutool.crypto.SecureUtil;
 import cn.hutool.http.HttpUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.dto.ext.DingTalkRequest;
+import com.eghm.dto.ext.DingTalkMsg;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.DingTalkService;
 import lombok.AllArgsConstructor;
@@ -53,9 +53,9 @@ public class DingTalkServiceImpl implements DingTalkService {
      * @return 消息 json
      */
     private String createTextMsg(String content) {
-        DingTalkRequest msg = new DingTalkRequest();
+        DingTalkMsg msg = new DingTalkMsg();
         msg.setMsgType("text");
-        DingTalkRequest.Text text = new DingTalkRequest.Text();
+        DingTalkMsg.Text text = new DingTalkMsg.Text();
         text.setContent(content);
         msg.setText(text);
         return jsonService.toJson(msg);
@@ -69,9 +69,9 @@ public class DingTalkServiceImpl implements DingTalkService {
      * @return 消息 json
      */
     private String createMarkdownMsg(String title, Map<String, Object> params, String path) {
-        DingTalkRequest msg = new DingTalkRequest();
+        DingTalkMsg msg = new DingTalkMsg();
         msg.setMsgType("markdown");
-        DingTalkRequest.Markdown markdown = new DingTalkRequest.Markdown();
+        DingTalkMsg.Markdown markdown = new DingTalkMsg.Markdown();
         markdown.setTitle(title);
         String content = templateEngine.renderFile(path, params);
         markdown.setText(content);

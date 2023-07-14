@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
@@ -61,8 +61,8 @@ public class PermInterceptor implements InterceptorAdapter {
      * @return true: 匹配 false: 不匹配
      */
     private boolean match(HttpServletRequest request) {
-        JwtUser jwtUser = SecurityHolder.getUserRequired();
-        List<String> codeList = jwtUser.getAuthList();
+        UserToken userToken = SecurityHolder.getUserRequired();
+        List<String> codeList = userToken.getAuthList();
         String code = PERM_MAP.get(request.getRequestURI());
         return CollUtil.isNotEmpty(codeList) && codeList.contains(code);
     }

@@ -11,8 +11,8 @@ import com.eghm.exception.BusinessException;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.model.SysUser;
-import com.eghm.dto.ext.JwtUser;
-import com.eghm.service.common.JwtTokenService;
+import com.eghm.dto.ext.UserToken;
+import com.eghm.service.common.AccessTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,12 +24,12 @@ import java.util.Optional;
  * @author 殿小二
  * @date 2020/8/28
  */
-@Service("jwtTokenService")
 @Slf4j
+@Service("jwtAccessTokenService")
 @AllArgsConstructor
-public class JwtTokenServiceImpl implements JwtTokenService {
+public class JwtAccessTokenServiceImpl implements AccessTokenService {
 
-    private SystemProperties systemProperties;
+    private final SystemProperties systemProperties;
 
     private final MerchantMapper merchantMapper;
 
@@ -44,23 +44,23 @@ public class JwtTokenServiceImpl implements JwtTokenService {
                 throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
             }
         }
-        SystemProperties.ManageProperties.Jwt jwt = systemProperties.getManage().getJwt();
-        return jwt.getPrefix() + this.doCreateJwt(user, merchantId, jwt.getExpire(), authList);
+        SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
+        return token.getPrefix() + this.doCreateJwt(user, merchantId, token.getExpire(), authList);
     }
 
     @Override
-    public Optional<JwtUser> parseToken(String token) {
+    public Optional<UserToken> parseToken(String token) {
         JWTVerifier verifier = JWT.require(this.getAlgorithm()).build();
         try {
             DecodedJWT verify = verifier.verify(token);
-            JwtUser jwtUser = new JwtUser();
-            jwtUser.setId(verify.getClaim("id").asLong());
-            jwtUser.setId(verify.getClaim("merchantId").asLong());
-            jwtUser.setNickName(verify.getClaim("nickName").asString());
-            jwtUser.setAuthList(verify.getClaim("auth").asList(String.class));
-            jwtUser.setDeptCode(verify.getClaim("deptCode").asString());
-            jwtUser.setDeptList(verify.getClaim("deptList").asList(String.class));
-            return Optional.of(jwtUser);
+            UserToken userToken = new UserToken();
+            userToken.setId(verify.getClaim("id").asLong());
+            userToken.setId(verify.getClaim("merchantId").asLong());
+            userToken.setNickName(verify.getClaim("nickName").asString());
+            userToken.setAuthList(verify.getClaim("auth").asList(String.class));
+            userToken.setDeptCode(verify.getClaim("deptCode").asString());
+            userToken.setDeptList(verify.getClaim("deptList").asList(String.class));
+            return Optional.of(userToken);
         } catch (Exception e) {
             log.warn("jwt解析失败,token可能已过期 [{}]", token);
             return Optional.empty();
@@ -93,6 +93,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
      * @return secretKey
      */
     private Algorithm getAlgorithm() {
-        return Algorithm.HMAC512(systemProperties.getManage().getJwt().getSecretKey());
+        return Algorithm.HMAC512(systemProperties.getManage().getToken().getSecretKey());
     }
 }

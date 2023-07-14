@@ -3,7 +3,7 @@ package com.eghm.configuration.security;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -18,9 +18,9 @@ public class SecurityHolder {
     /**
      * 异步也能获取到用户信息
      */
-    private static final TransmittableThreadLocal<JwtUser> LOCAL = TransmittableThreadLocal.withInitial(JwtUser::new);
+    private static final TransmittableThreadLocal<UserToken> LOCAL = TransmittableThreadLocal.withInitial(UserToken::new);
 
-    public static void setToken(JwtUser token) {
+    public static void setToken(UserToken token) {
         LOCAL.set(token);
     }
 
@@ -28,19 +28,19 @@ public class SecurityHolder {
      * 获取当前登录用户的信息
      * @return 用户信息, 为空则抛登录过期异常
      */
-    public static JwtUser getUserRequired() {
-        JwtUser jwtUser = LOCAL.get();
-        if (jwtUser == null) {
+    public static UserToken getUserRequired() {
+        UserToken userToken = LOCAL.get();
+        if (userToken == null) {
             throw new BusinessException(ErrorCode.LOGIN_EXPIRE);
         }
-        return jwtUser;
+        return userToken;
     }
 
     /**
      * 获取当前登录用户的信息
      * @return 用户信息 可能为空
      */
-    public static JwtUser getUser() {
+    public static UserToken getUser() {
         return LOCAL.get();
     }
 

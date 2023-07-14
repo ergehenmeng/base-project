@@ -10,7 +10,7 @@ import java.util.List;
  * @date 2020/8/28
  */
 @Data
-public class JwtUser {
+public class UserToken {
 
     /**
      * 用户id

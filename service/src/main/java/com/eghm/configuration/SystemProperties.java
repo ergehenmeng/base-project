@@ -96,7 +96,7 @@ public class SystemProperties {
         /**
          * token相关配置
          */
-        private Jwt jwt = new Jwt();
+        private Token token = new Token();
 
         /**
          * 权限
@@ -118,7 +118,7 @@ public class SystemProperties {
         }
 
         @Data
-        public static class Jwt {
+        public static class Token {
 
             /**
              * 在请求头中key

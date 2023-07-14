@@ -5,7 +5,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.user.*;
@@ -84,7 +84,7 @@ public class UserController {
     @PostMapping("/lockScreen")
     @ApiOperation("锁屏操作")
     public RespBody<Void> lockScreen() {
-        JwtUser user = SecurityHolder.getUserRequired();
+        UserToken user = SecurityHolder.getUserRequired();
         cacheService.setValue(CacheConstant.LOCK_SCREEN + user.getId(), true, CommonConstant.MAX_LOCK_SCREEN);
         return RespBody.success();
     }

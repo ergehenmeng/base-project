@@ -3,7 +3,7 @@ package com.eghm.web.configuration.interceptor;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.constant.AppHeader;
 import com.eghm.dto.ext.ApiHolder;
-import com.eghm.dto.ext.RedisToken;
+import com.eghm.dto.ext.MemberToken;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.DataException;
@@ -55,18 +55,18 @@ public class TokenInterceptor implements InterceptorAdapter {
      * @param request request
      */
     private void setMemberId(RequestMessage message, String token, HttpServletRequest request) {
-        RedisToken redisToken = tokenService.getByAccessToken(token);
-        if (redisToken != null) {
-            message.setMemberId(redisToken.getMemberId());
+        MemberToken memberToken = tokenService.getByAccessToken(token);
+        if (memberToken != null) {
+            message.setMemberId(memberToken.getMemberId());
         }
 
         String refreshToken = request.getHeader(AppHeader.REFRESH_TOKEN);
         if (message.getMemberId() == null && refreshToken != null) {
-            redisToken = tokenService.getByRefreshToken(refreshToken);
-            if (redisToken != null) {
-                message.setMemberId(redisToken.getMemberId());
-                tokenService.cacheToken(redisToken);
-                log.info("用户token已失效, 采用refreshToken重新激活 memberId:[{}]", redisToken.getMemberId());
+            memberToken = tokenService.getByRefreshToken(refreshToken);
+            if (memberToken != null) {
+                message.setMemberId(memberToken.getMemberId());
+                tokenService.cacheToken(memberToken);
+                log.info("用户token已失效, 采用refreshToken重新激活 memberId:[{}]", memberToken.getMemberId());
             } else {
                 log.warn("用户token与refreshToken均已失效 [{}] [{}]", token, refreshToken);
             }
@@ -81,13 +81,13 @@ public class TokenInterceptor implements InterceptorAdapter {
      */
     private void accessTokenCheck(RequestMessage message, String token, Object handler) {
         if (message.getMemberId() == null && this.hasAccessToken(handler)) {
-            RedisToken redisToken = tokenService.getOfflineToken(token);
+            MemberToken memberToken = tokenService.getOfflineToken(token);
             // 如果redisToken不为空, 表示用户是被别人强制挤下线的
-            if (redisToken != null) {
-                log.warn("用户已在其他设备登陆,accessToken:[{}],memberId:[{}]", token, redisToken.getMemberId());
+            if (memberToken != null) {
+                log.warn("用户已在其他设备登陆,accessToken:[{}],memberId:[{}]", token, memberToken.getMemberId());
                 tokenService.cleanOfflineToken(token);
                 // 异常接口捎带一些额外信息方便移动端提醒用户
-                throw this.createOfflineException(redisToken.getMemberId());
+                throw this.createOfflineException(memberToken.getMemberId());
             }
             // 如果用户需要登陆,且用户未获取到,则抛异常
             log.warn("用户登录已失效,请重新登陆 token:[{}]", token);

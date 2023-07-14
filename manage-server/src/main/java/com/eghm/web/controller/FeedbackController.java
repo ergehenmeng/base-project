@@ -2,7 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.feedback.FeedbackDisposeRequest;
@@ -37,7 +37,7 @@ public class FeedbackController {
     @PostMapping("/dispose")
     @ApiOperation("回复")
     public RespBody<Void> dispose(@Validated @RequestBody FeedbackDisposeRequest request) {
-        JwtUser user = SecurityHolder.getUserRequired();
+        UserToken user = SecurityHolder.getUserRequired();
         request.setUserId(user.getId());
         request.setUserName(user.getNickName());
         feedbackService.dispose(request);

@@ -3,7 +3,7 @@ package com.eghm.web.configuration.filter;
 import com.eghm.configuration.AbstractIgnoreFilter;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.utils.WebUtil;
@@ -27,7 +27,7 @@ public class LockScreenFilter extends AbstractIgnoreFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        JwtUser user = SecurityHolder.getUser();
+        UserToken user = SecurityHolder.getUser();
         if (user != null) {
             String value = cacheService.getValue(CacheConstant.LOCK_SCREEN + user.getId());
             if (value != null) {

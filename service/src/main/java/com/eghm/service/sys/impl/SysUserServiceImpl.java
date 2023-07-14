@@ -19,7 +19,7 @@ import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
 import com.eghm.model.SysUser;
 import com.eghm.service.cache.CacheService;
-import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.sys.SysDataDeptService;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.service.sys.SysRoleService;
@@ -52,7 +52,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final SysMenuService sysMenuService;
 
-    private final JwtTokenService jwtTokenService;
+    private final AccessTokenService accessTokenService;
 
     private final CacheService cacheService;
 
@@ -220,7 +220,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         // 根据用户名和权限创建jwtToken
         LoginResponse response = new LoginResponse();
-        response.setToken(jwtTokenService.createToken(user, buttonList));
+        response.setToken(accessTokenService.createToken(user, buttonList));
         response.setButtonList(buttonList);
         response.setUserType(user.getUserType());
         response.setLeftMenuList(leftMenu);

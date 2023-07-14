@@ -4,7 +4,7 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.service.common.JsonService;
-import com.eghm.service.common.JwtTokenService;
+import com.eghm.service.common.AccessTokenService;
 import com.eghm.web.configuration.filter.AuthFilter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Maps;
@@ -53,11 +53,11 @@ public abstract class BaseTest {
     private SystemProperties systemProperties;
 
     @Autowired
-    private JwtTokenService jwtTokenService;
+    private AccessTokenService accessTokenService;
 
     @BeforeEach
     public void before() {
-        AuthFilter filter = new AuthFilter(systemProperties.getManage(), jwtTokenService);
+        AuthFilter filter = new AuthFilter(systemProperties.getManage(), accessTokenService);
         filter.exclude(systemProperties.getManage().getSecurity().getIgnore());
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(filter).build();
         this.mockLogin("13000000000", "123456");

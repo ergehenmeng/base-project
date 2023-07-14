@@ -4,7 +4,7 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.model.ManageLog;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.IpUtil;
@@ -58,7 +58,7 @@ public class ManageLogAspect {
             return joinPoint.proceed();
         }
         HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-        JwtUser user = SecurityHolder.getUser();
+        UserToken user = SecurityHolder.getUser();
         if (user == null) {
             log.warn("操作日志无法查询到登陆用户 url:[{}]", request.getRequestURI());
             return joinPoint.proceed();

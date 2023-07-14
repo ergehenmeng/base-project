@@ -8,7 +8,7 @@ import lombok.Data;
  * @since 2023/7/14
  */
 @Data
-public class DingTalkRequest {
+public class DingTalkMsg {
 
     @JsonProperty("msgtype")
     private String msgType;

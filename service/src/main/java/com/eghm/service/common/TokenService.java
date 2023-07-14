@@ -1,6 +1,6 @@
 package com.eghm.service.common;
 
-import com.eghm.dto.ext.RedisToken;
+import com.eghm.dto.ext.MemberToken;
 
 /**
  * 会话令牌service
@@ -16,21 +16,21 @@ public interface TokenService {
      * @param channel 访问渠道
      * @return token
      */
-    RedisToken createToken(Long memberId, String channel);
+    MemberToken createToken(Long memberId, String channel);
 
     /**
      * 根据accessToken查找token
      * @param accessToken token信息
      * @return token
      */
-    RedisToken getByAccessToken(String accessToken);
+    MemberToken getByAccessToken(String accessToken);
 
     /**
      * 根据memberId查找token
      * @param memberId memberId
      * @return token
      */
-    RedisToken getByMemberId(Long memberId);
+    MemberToken getByMemberId(Long memberId);
 
     /**
      * 获取token剩余过期时间
@@ -44,7 +44,7 @@ public interface TokenService {
      * @param refreshToken 刷新token
      * @return 用户登陆信息
      */
-    RedisToken getByRefreshToken(String refreshToken);
+    MemberToken getByRefreshToken(String refreshToken);
 
     /**
      * 清除用户token信息
@@ -67,23 +67,23 @@ public interface TokenService {
     /**
      * 缓存登陆时所有需要保存的用户信息
      *
-     * @param redisToken 用户登陆信息
+     * @param memberToken 用户登陆信息
      */
-    void cacheToken(RedisToken redisToken);
+    void cacheToken(MemberToken memberToken);
 
     /**
      * 缓存强制下线token信息
-     * @param redisToken token
+     * @param memberToken token
      * @param expire 过期时间
      */
-    void cacheOfflineToken(RedisToken redisToken, long expire);
+    void cacheOfflineToken(MemberToken memberToken, long expire);
 
     /**
      * 获取用户强制被踢下线时保留的token信息
      * @param accessToken key
      * @return token信息
      */
-    RedisToken getOfflineToken(String accessToken);
+    MemberToken getOfflineToken(String accessToken);
 
     /**
      * 清除被踢下线的token

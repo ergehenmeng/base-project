@@ -4,7 +4,7 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
-import com.eghm.dto.ext.JwtUser;
+import com.eghm.dto.ext.UserToken;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.LoginRequest;
 import com.eghm.enums.Env;
@@ -55,7 +55,7 @@ public class ManageLoginController {
     @ApiOperation("退出登录")
     @SkipPerm
     public RespBody<Void> exit() {
-        JwtUser user = SecurityHolder.getUser();
+        UserToken user = SecurityHolder.getUser();
         if (user != null) {
             // 删除锁屏状态
             cacheService.delete(CacheConstant.LOCK_SCREEN + user.getId());
