@@ -16,7 +16,7 @@
 
 ### 约定
 * 所有后端接口一律强制采用 `@GetMapping` 或 `@PostMapping`
-* 默认 `POST` 请求会记录操作日志, 如果不需要记录则在`PostMapping`同方法上添加 `SkipLogger` 注解
+* 默认 `POST` 请求会记录操作日志, 如果不需要记录则在 `@PostMapping` 同方法上添加 `@SkipLogger` 注解
 * `GET` 默认采用表单或链接直接携带参数方式, `POST` 使用json方式进行请求
 
 ### 定时任务相关
@@ -26,26 +26,26 @@
     * 定时任务配置更新后需要 *手动刷新配置* 才能重新生效
     * 只执行一次的定时任务可通过 `TaskConfiguration.addTask()` 实现
     * demo例子`TestJobService` `OnceJobService`
-    * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是`public`, 强烈建议方法上添加 `@ScheduledTask` 注解作为定时任务标注一下
+    * 注意: bean方法定义时必须包含一个字符串类型的入参, 且方法必须是 `public`, 强烈建议方法上添加 `@ScheduledTask` 注解作为定时任务标注一下
 * `@Scheduled`(不推荐使用) 定时任务不受 `@EnableTask` 影响
     
 ### 其他
 * 刷新缓存由缓存管理模块统一管理,后台需要开发其他缓存刷新功能,则在`ClearCacheService`,`SystemCacheService`中按指定格式修改
-* 异步任务可采用原生`@Async` + `AsyncConfigurer`实现异步+额外记录,也可自定义实现`AbstractTask`或`AbstractAsyncTask`类(增加额外一些日志记录等),统一定义在`TaskHandler`类型调用, `AbstractAsyncTask`接口主要用于获取异步执行的结果,参数类必须实现`AsyncKey`,在自身实现逻辑中可通过`cacheService#cacheAsyncResponse`来缓存结果
+* 异步任务可采用原生`@Async` + `AsyncConfigurer`实现异步+额外记录,也可自定义实现 `AbstractTask` 或 `AbstractAsyncTask` 类(增加额外一些日志记录等),`AbstractAsyncTask` 接口主要用于获取异步执行的结果,参数类必须实现 `AsyncKey` 接口, 在自身实现逻辑中可通过 `cacheService#cacheAsyncResponse` 来缓存结果
 * `KeyGenerator` 订单号生成类
-* `CacheProxyService` 缓存代理类(为了防止同一个类中调用本类其他带有`@Cacheable`,`@CachePut`注解的方法无效问题而额外增加的类)
-* `EmailService` 简单发送邮件的工具类,配合`HtmlTemplate`类可实现发送html的邮件(样式图片必须定义在模板文件中),模板路径放在`spring.freemarker.template-loader-path`即可, `spring.freemarker.settings.template_update_delay` 默认刷新间隔
+* `CacheProxyService` 缓存代理类(为了防止同一个类中调用本类其他带有 `@Cacheable` , `@CachePut` 注解的方法无效问题而额外增加的类)
+* `EmailService` 简单发送邮件的工具类,配合 `HtmlTemplate` 类可实现发送html的邮件(样式图片必须定义在模板文件中),模板路径放在 `spring.freemarker.template-loader-path` 即可, `spring.freemarker.settings.template_update_delay` 默认刷新间隔
 * `FileService` 文件上传工具类
 * `PushService` 极光推送工具类(未测试)
 * `SmsService` 短信发送工具类(未接入)
-* `HandlerExecute` 精简版责任链工具类(有点鸡肋,没想到适用的场景),通过实现`Handler`接口并标注`HandlerMark`注解
+* `HandlerExecute` 精简版责任链工具类(有点鸡肋,没想到适用的场景),通过实现 `Handler` 接口并标注 `HandlerMark` 注解
 * 后台用户新增 默认密码手机号码后6位
 
 ## 移动端
 
 ## 约定
 * 基础必填请求头字段:
-    * `Channel` 设备渠道:`IOS`,`ANDROID`
+    * `Channel` 设备渠道: `IOS` , `ANDROID`
     * `Version` app版本号
     * `Os-Version` 系统版本
     * `Device-Brand` 设备厂商
@@ -64,28 +64,29 @@
 }
 ```
 
-* post请求接口默认`application/json`格式
-* get请求接口默认`x-www-form-urlencoded`格式
-* 上传文件`multipart/form-data`格式(不需要进行加解密操作)
+* post请求接口默认 `application/json` 格式
+* get请求接口默认 `x-www-form-urlencoded` 格式
+* 上传文件 `multipart/form-data` 格式(不需要进行加解密操作)
 
 
 ### 其他注意事项
 * 一个账户只能登陆一台设备
-* `swagger`访问地址`http://host:ip/swagger/index.html`
-* `RequestMapping`标示的方法返回前台数据时,可以为任意对象(此时swagger中不会显示RespBody的层级),最终会由`EncryptRespBodyAdviceHandler`包装为`RespBody`对象,如果不想返回前台`RespBody`格式的对象可在方法上添加`@SkipWrapper`,注意如果添加该注解,加密自动实现(相当于添加`@SkipEncrypt`)
-* 表`black_roster` 为ip黑名单 可限制某些用户访问
-* 默认所有的接口不登录即可访问,如果某个接口需要登陆校验则方法上添加`@AccessToken`
-* post请求接口默认做json格式数据绑定,如果不需要自动绑定则方法上添加`@SkipDataBinder`
-* 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加`@ClientType`
-* 所有接口的请求响应日志均会记录到日志文件中,如果不想记录则添加`SkipLogger`
-* 后台获取用户id方法`ApiHolder.getMemberId()`,同理获取其他相关属性也可以通过该类,也可在`@RequestMapping`所在的方法上声明一个RequestMessage对象,该对象会自动被注入
-* 涉及分页查询必须继承`PagingQuery`类(内部会校验页容量等信息)
-* 分页响应对象最好为`RespBody<Paging<T>>`,做统一的处理
+* `swagger` 访问地址 `http://host:ip/swagger/index.html`
+* `RequestMapping` 标示的方法返回前台数据时,可以为任意对象(此时swagger中不会显示RespBody的层级),最终会由 `EncryptRespBodyAdviceHandler` 包装为 `RespBody` 对象,如果不想返回前台 `RespBody` 格式的对象可在方法上添加 `@SkipWrapper`
+* 表 `black_roster` 为ip黑名单 可限制某些用户访问
+* 默认所有的接口不登录即可访问,如果某个接口需要登陆校验则方法上添加 `@AccessToken`
+* 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加 `@ClientType`
+* 所有接口的请求响应日志均会记录到日志文件中,如果不想记录则添加 `@SkipLogger`
+* 除配置文件中约定路径,其他任何路径均会有权限校验, 如果特殊接口不需要权限校验可通过 `@SkipPerm` 屏蔽
+* 后台获取用户id方法 `ApiHolder.getMemberId()` , 同理获取其他相关属性也可以通过该类,也可在 `@RequestMapping` 所在的方法上声明一个RequestMessage对象,该对象会自动被注入
+* 涉及分页查询必须继承 `PagingQuery` 类(内部会校验页容量等信息)
+* 分页响应对象最好为 `RespBody<Paging<T>>` ,做统一的处理
 * 禁止使用枚举ordinal()或name()作为参数进行传递,必须显式声明
-* 默认post请求有频率限制,具体在`SubmitFrequencyLimitInterceptor`声明
+* 全局默认post请求有频率限制,具体在 `SubmitIntervalInterceptor` 声明, 可在配置文件中调整, 同时可通过 `@SubmitInterval` 调整个别接口的频率
 * `ProductType` 商品类型枚举, 提供常用方法, 例如: 生成订单编号 `generateOrderNo()`, 生成交易单号 `generateSerialNo` 
 
 
 ## 其他开发说明
 * `CacheProxyService` 缓存代理层 增加该类的原因: 由于@Cacheable等注解是基于动态代理实现的, 在同一个类中调用另一个方法则换成不会生效, 因此统一归集到该类中, 即:所有使用SpringCache注解的方法都建议维护到该类中
 * `CacheService` 缓存类封装, 建议所有手动设置查询的缓存走该接口, 方便后期维护
+* `SystemProperties` 所有本地化配置参数必须强制在该类中定义,方便统一维护, 禁止使用 `@Value`,
