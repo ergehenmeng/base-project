@@ -3,7 +3,6 @@ package com.eghm.service.cache.impl;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.ext.AsyncResponse;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.JsonService;
@@ -139,16 +138,6 @@ public class CacheServiceImpl implements CacheService {
     public void setValue(String key, Object value, Date expireTime) {
         this.setValue(key, value);
         redisTemplate.expireAt(key, expireTime);
-    }
-
-    @Override
-    public void cacheAsyncResponse(AsyncResponse response) {
-        this.setValue(CacheConstant.ASYNC_RESPONSE + response.getKey(), response);
-    }
-
-    @Override
-    public AsyncResponse getAsyncResponse(String key) {
-        return this.getValue(CacheConstant.ASYNC_RESPONSE + key, AsyncResponse.class);
     }
 
     @Override

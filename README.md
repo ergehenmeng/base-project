@@ -31,7 +31,7 @@
     
 ### 其他
 * 刷新缓存由缓存管理模块统一管理,后台需要开发其他缓存刷新功能,则在`ClearCacheService`,`SystemCacheService`中按指定格式修改
-* 异步任务可采用原生`@Async` + `AsyncConfigurer`实现异步+额外记录,也可自定义实现 `AbstractTask` 或 `AbstractAsyncTask` 类(增加额外一些日志记录等),`AbstractAsyncTask` 接口主要用于获取异步执行的结果,参数类必须实现 `AsyncKey` 接口, 在自身实现逻辑中可通过 `cacheService#cacheAsyncResponse` 来缓存结果
+* 异步任务可采用原生`@Async` + `AsyncConfigurer`实现异步或者MQ
 * `KeyGenerator` 订单号生成类
 * `CacheProxyService` 缓存代理类(为了防止同一个类中调用本类其他带有 `@Cacheable` , `@CachePut` 注解的方法无效问题而额外增加的类)
 * `EmailService` 简单发送邮件的工具类,配合 `HtmlTemplate` 类可实现发送html的邮件(样式图片必须定义在模板文件中),模板路径放在 `spring.freemarker.template-loader-path` 即可, `spring.freemarker.settings.template_update_delay` 默认刷新间隔

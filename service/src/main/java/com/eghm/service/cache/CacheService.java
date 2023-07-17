@@ -1,6 +1,5 @@
 package com.eghm.service.cache;
 
-import com.eghm.dto.ext.AsyncResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Date;
@@ -116,21 +115,6 @@ public interface CacheService {
      * @return 剩余过期时间
      */
     long getExpire(String key);
-
-    /**
-     * 缓存任务异步结果  默认30分钟
-     *
-     * @param response 对象
-     */
-    void cacheAsyncResponse(AsyncResponse response);
-
-    /**
-     * 获取任务异步结果
-     *
-     * @param key key
-     * @return 异步结果
-     */
-    AsyncResponse getAsyncResponse(String key);
 
     /**
      * 获取指定key的总数 (模糊查询) 慎用
