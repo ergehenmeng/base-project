@@ -18,10 +18,7 @@ public class MybatisServiceImpl implements MybatisService {
     @Override
     public void test() {
         try {
-            int updated = mybatisMapper.updateState();
-//            if (updated == 1) {
-//                throw new BusinessException(ErrorCode.MEMBER_HAS_REFUND);
-//            }
+            mybatisMapper.updateState();
         } catch (Exception e) {
             mybatisMapper.updateState2();
             throw new RuntimeException("123123");
