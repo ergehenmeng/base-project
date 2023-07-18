@@ -46,9 +46,9 @@ public class RefundLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("退款申请列表")
-    public PageData<RefundLogResponse> listPage(RefundLogQueryRequest request) {
+    public RespBody<PageData<RefundLogResponse>> listPage(RefundLogQueryRequest request) {
         Page<RefundLogResponse> roomPage = orderRefundLogService.getByPage(request);
-        return PageData.toPage(roomPage);
+        return RespBody.success(PageData.toPage(roomPage));
     }
 
     @PostMapping("/audit")

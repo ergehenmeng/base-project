@@ -31,9 +31,9 @@ public class RestaurantVoucherController {
 
     @GetMapping("/listPage")
     @ApiOperation("餐饮券列表")
-    public PageData<RestaurantVoucher> listPage(RestaurantVoucherQueryRequest request) {
+    public RespBody<PageData<RestaurantVoucher>> listPage(RestaurantVoucherQueryRequest request) {
         Page<RestaurantVoucher> roomPage = restaurantVoucherService.getByPage(request);
-        return PageData.toPage(roomPage);
+        return RespBody.success(PageData.toPage(roomPage));
     }
 
     @PostMapping("/create")

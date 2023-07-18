@@ -30,9 +30,9 @@ public class SysTaskController {
 
     @GetMapping("/listPage")
     @ApiOperation("定时任务列表(分页)")
-    public PageData<SysTask> listPage(TaskQueryRequest request) {
+    public RespBody<PageData<SysTask>> listPage(TaskQueryRequest request) {
         Page<SysTask> byPage = sysTaskService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/update")

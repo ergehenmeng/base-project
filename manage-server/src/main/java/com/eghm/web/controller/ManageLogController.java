@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.log.ManageQueryRequest;
 import com.eghm.model.ManageLog;
 import com.eghm.service.sys.ManageLogService;
@@ -29,15 +30,16 @@ public class ManageLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("日志列表")
-    public PageData<ManageLog> listPage(ManageQueryRequest request) {
+    public RespBody<PageData<ManageLog>> listPage(ManageQueryRequest request) {
         Page<ManageLog> byPage = manageLogService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/select")
     @SkipPerm
     @ApiOperation("日志详细信息")
-    public String select(@Validated IdDTO dto) {
-        return manageLogService.getResponseById(dto.getId());
+    public RespBody<String> select(@Validated IdDTO dto) {
+        String response = manageLogService.getResponseById(dto.getId());
+        return RespBody.success(response);
     }
 }

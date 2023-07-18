@@ -35,9 +35,9 @@ public class TicketOrderController {
 
     @GetMapping("/listPage")
     @ApiOperation("订单列表")
-    public PageData<TicketOrderResponse> listPage(TicketOrderQueryRequest request) {
+    public RespBody<PageData<TicketOrderResponse>> listPage(TicketOrderQueryRequest request) {
         Page<TicketOrderResponse> byPage = ticketOrderService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/offlineRefund")

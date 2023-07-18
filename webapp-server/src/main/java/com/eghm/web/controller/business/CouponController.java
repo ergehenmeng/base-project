@@ -1,8 +1,9 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
-import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CouponConfigService;
+import com.eghm.vo.business.coupon.CouponListVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,9 @@ public class CouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
-    public List<CouponListVO> listPage(CouponQueryDTO dto) {
-        return couponConfigService.getByPage(dto);
+    public RespBody<List<CouponListVO>> listPage(CouponQueryDTO dto) {
+        List<CouponListVO> byPage = couponConfigService.getByPage(dto);
+        return RespBody.success(byPage);
     }
 
 }

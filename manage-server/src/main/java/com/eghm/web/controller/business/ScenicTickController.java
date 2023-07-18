@@ -33,10 +33,10 @@ public class ScenicTickController {
 
     @GetMapping("/listPage")
     @ApiOperation("门票列表")
-    public PageData<ScenicTicketResponse> listPage(ScenicTicketQueryRequest request) {
+    public RespBody<PageData<ScenicTicketResponse>> listPage(ScenicTicketQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ScenicTicketResponse> responsePage = scenicTicketService.getByPage(request);
-        return PageData.toPage(responsePage);
+        return RespBody.success(PageData.toPage(responsePage));
     }
 
     @PostMapping("/create")
@@ -55,8 +55,9 @@ public class ScenicTickController {
 
     @GetMapping("/select")
     @ApiOperation("查询门票")
-    public ScenicTicket select(@Validated IdDTO dto) {
-        return scenicTicketService.selectByIdRequired(dto.getId());
+    public RespBody<ScenicTicket> select(@Validated IdDTO dto) {
+        ScenicTicket scenicTicket = scenicTicketService.selectByIdRequired(dto.getId());
+        return RespBody.success(scenicTicket);
     }
 
     @PostMapping("/shelves")

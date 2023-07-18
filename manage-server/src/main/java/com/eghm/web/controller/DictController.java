@@ -1,5 +1,6 @@
 package com.eghm.web.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysDict;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.dict.DictAddRequest;
@@ -28,8 +29,9 @@ public class DictController {
 
     @GetMapping("/listPage")
     @ApiOperation("数据字典列表(分页)")
-    public PageData<SysDict> listPage(DictQueryRequest request) {
-        return PageData.toPage(sysDictService.getByPage(request));
+    public RespBody<PageData<SysDict>> listPage(DictQueryRequest request) {
+        Page<SysDict> byPage = sysDictService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/create")

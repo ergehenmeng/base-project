@@ -3,6 +3,7 @@ package com.eghm.web.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.task.TaskLogQueryRequest;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.common.SysTaskLogService;
@@ -28,14 +29,15 @@ public class SysTaskLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("日志列表(分页)")
-    public PageData<SysTaskLog> listPage(TaskLogQueryRequest request) {
+    public RespBody<PageData<SysTaskLog>> listPage(TaskLogQueryRequest request) {
         Page<SysTaskLog> byPage = sysTaskLogService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/select")
     @ApiOperation("日志详情")
-    public String select(@Validated IdDTO dto) {
-        return sysTaskLogService.getErrorMsg(dto.getId());
+    public RespBody<String> select(@Validated IdDTO dto) {
+        String errorMsg = sysTaskLogService.getErrorMsg(dto.getId());
+        return RespBody.success(errorMsg);
     }
 }

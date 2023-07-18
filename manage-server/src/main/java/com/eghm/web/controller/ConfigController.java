@@ -29,9 +29,9 @@ public class ConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("系统参数列表")
-    public PageData<SysConfig> listPage(ConfigQueryRequest request) {
+    public RespBody<PageData<SysConfig>> listPage(ConfigQueryRequest request) {
         Page<SysConfig> listByPage = sysConfigService.getByPage(request);
-        return PageData.toPage(listByPage);
+        return RespBody.success(PageData.toPage(listByPage));
     }
 
     @PostMapping("/update")

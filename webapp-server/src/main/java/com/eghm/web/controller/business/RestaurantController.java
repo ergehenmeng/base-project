@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.service.business.RestaurantService;
@@ -29,13 +30,15 @@ public class RestaurantController {
 
     @GetMapping("/listPage")
     @ApiOperation("商家列表")
-    public List<RestaurantListVO> listPage(RestaurantQueryDTO dto) {
-        return restaurantService.getByPage(dto);
+    public RespBody<List<RestaurantListVO>> listPage(RestaurantQueryDTO dto) {
+        List<RestaurantListVO> byPage = restaurantService.getByPage(dto);
+        return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @ApiOperation("店铺详情")
-    public RestaurantVO detail(@Validated IdDTO dto) {
-        return restaurantService.detailById(dto.getId());
+    public RespBody<RestaurantVO> detail(@Validated IdDTO dto) {
+        RestaurantVO detail = restaurantService.detailById(dto.getId());
+        return RespBody.success(detail);
     }
 }

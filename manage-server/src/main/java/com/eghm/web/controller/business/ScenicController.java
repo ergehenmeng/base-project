@@ -31,10 +31,10 @@ public class ScenicController {
 
     @ApiOperation("查询景区列表")
     @GetMapping("/listPage")
-    public PageData<Scenic> getByPage(ScenicQueryRequest request) {
+    public RespBody<PageData<Scenic>> getByPage(ScenicQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<Scenic> scenicPage = scenicService.getByPage(request);
-        return PageData.toPage(scenicPage);
+        return RespBody.success(PageData.toPage(scenicPage));
     }
 
     @ApiOperation("创建景区")
@@ -53,8 +53,9 @@ public class ScenicController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public Scenic select(@Validated IdDTO request) {
-        return scenicService.selectById(request.getId());
+    public RespBody<Scenic> select(@Validated IdDTO request) {
+        Scenic scenic = scenicService.selectById(request.getId());
+        return RespBody.success(scenic);
     }
 
     @PostMapping("/shelves")

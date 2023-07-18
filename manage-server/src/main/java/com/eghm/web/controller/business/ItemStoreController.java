@@ -36,10 +36,10 @@ public class ItemStoreController {
 
     @GetMapping("/listPage")
     @ApiOperation("店铺列表")
-    public PageData<ItemStore> listPage(ItemStoreQueryRequest request) {
+    public RespBody<PageData<ItemStore>> listPage(ItemStoreQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemStore> byPage = itemStoreService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/create")

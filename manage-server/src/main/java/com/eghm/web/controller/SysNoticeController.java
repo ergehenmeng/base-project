@@ -30,9 +30,9 @@ public class SysNoticeController {
 
     @ApiOperation("公告列表")
     @GetMapping("/listPage")
-    public PageData<SysNotice> listPage(NoticeQueryRequest request) {
+    public RespBody<PageData<SysNotice>> listPage(NoticeQueryRequest request) {
         Page<SysNotice> byPage = sysNoticeService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/create")
@@ -45,8 +45,9 @@ public class SysNoticeController {
     @GetMapping("/select")
     @ApiImplicitParam(name = "id", value = "id", required = true)
     @ApiOperation("查看")
-    public SysNotice select(@RequestParam("id") Long id) {
-        return sysNoticeService.getByIdRequired(id);
+    public RespBody<SysNotice> select(@RequestParam("id") Long id) {
+        SysNotice notice = sysNoticeService.getByIdRequired(id);
+        return RespBody.success(notice);
     }
 
     @PostMapping("/publish")

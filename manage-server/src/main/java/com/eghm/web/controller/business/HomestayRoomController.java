@@ -33,10 +33,10 @@ public class HomestayRoomController {
 
     @GetMapping("/listPage")
     @ApiOperation("房型列表")
-    public PageData<HomestayRoomResponse> listPage(HomestayRoomQueryRequest request) {
+    public RespBody<PageData<HomestayRoomResponse>> listPage(HomestayRoomQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<HomestayRoomResponse> roomPage = homestayRoomService.getByPage(request);
-        return PageData.toPage(roomPage);
+        return RespBody.success(PageData.toPage(roomPage));
     }
 
     @PostMapping("/create")
@@ -56,8 +56,9 @@ public class HomestayRoomController {
     @GetMapping("/select")
     @ApiOperation("查询房型")
     @ApiImplicitParam(name = "id", value = "店铺id", required = true)
-    public HomestayRoom select(@RequestParam("id") Long id) {
-        return homestayRoomService.selectById(id);
+    public RespBody<HomestayRoom> select(@RequestParam("id") Long id) {
+        HomestayRoom homestayRoom = homestayRoomService.selectById(id);
+        return RespBody.success(homestayRoom);
     }
 
     @PostMapping("/shelves")

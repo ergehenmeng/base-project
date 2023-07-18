@@ -28,9 +28,9 @@ public class MerchantController {
 
     @GetMapping("/listPage")
     @ApiOperation("商户列表")
-    public PageData<Merchant> listPage(@Validated MerchantQueryRequest request) {
+    public RespBody<PageData<Merchant>> listPage(@Validated MerchantQueryRequest request) {
         Page<Merchant> merchantPage = merchantService.getByPage(request);
-        return PageData.toPage(merchantPage);
+        return RespBody.success(PageData.toPage(merchantPage));
     }
 
     @PostMapping("/create")

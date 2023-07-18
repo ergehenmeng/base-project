@@ -40,9 +40,9 @@ public class LineController {
 
     @ApiOperation("查询线路列表")
     @GetMapping("/listPage")
-    public PageData<Line> getByPage(LineQueryRequest request) {
+    public RespBody<PageData<Line>> getByPage(LineQueryRequest request) {
         Page<Line> scenicPage = lineService.getByPage(request);
-        return PageData.toPage(scenicPage);
+        return RespBody.success(PageData.toPage(scenicPage));
     }
 
     @ApiOperation("创建线路")
@@ -61,14 +61,14 @@ public class LineController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public LineResponse select(@Validated IdDTO request) {
+    public RespBody<LineResponse> select(@Validated IdDTO request) {
         Line line = lineService.selectByIdRequired(request.getId());
         LineResponse response = DataUtil.copy(line, LineResponse.class);
         List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());
         response.setDayList(DataUtil.copy(dayList, LineDayConfigResponse.class));
         // 虚拟销量需要计算
         response.setVirtualNum(line.getTotalNum() - line.getSaleNum());
-        return response;
+        return RespBody.success(response);
     }
 
     @PostMapping("/shelves")

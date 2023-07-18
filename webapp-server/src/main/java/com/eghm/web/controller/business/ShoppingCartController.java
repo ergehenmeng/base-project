@@ -43,8 +43,9 @@ public class ShoppingCartController {
     @GetMapping("/list")
     @ApiOperation("购物车商品列表")
     @AccessToken
-    public List<ShoppingCartVO> list() {
-        return shoppingCartService.getList(ApiHolder.getMemberId());
+    public RespBody<List<ShoppingCartVO>> list() {
+        List<ShoppingCartVO> voList = shoppingCartService.getList(ApiHolder.getMemberId());
+        return RespBody.success(voList);
     }
 
     @PostMapping("/delete")

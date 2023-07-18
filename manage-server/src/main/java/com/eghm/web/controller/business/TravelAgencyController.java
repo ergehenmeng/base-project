@@ -38,9 +38,9 @@ public class TravelAgencyController {
     
     @GetMapping("/listPage")
     @ApiOperation("旅行社列表")
-    public PageData<TravelAgency> listPage(TravelAgencyQueryRequest request) {
+    public RespBody<PageData<TravelAgency>> listPage(TravelAgencyQueryRequest request) {
         Page<TravelAgency> roomPage = travelAgencyService.getByPage(request);
-        return PageData.toPage(roomPage);
+        return RespBody.success(PageData.toPage(roomPage));
     }
     
     @PostMapping("/create")

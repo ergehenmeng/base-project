@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.business.homestay.HomestayListVO;
 import com.eghm.vo.business.homestay.HomestayVO;
 import com.eghm.service.business.HomestayService;
@@ -29,13 +30,15 @@ public class HomestayController {
 
     @GetMapping("/listPage")
     @ApiOperation("民宿列表")
-    public List<HomestayListVO> listPage(HomestayQueryDTO dto) {
-        return homestayService.getByPage(dto);
+    public RespBody<List<HomestayListVO>> listPage(HomestayQueryDTO dto) {
+        List<HomestayListVO> byPage = homestayService.getByPage(dto);
+        return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @ApiOperation("民宿详情")
-    public HomestayVO detail(@Validated IdDTO dto) {
-        return homestayService.detailById(dto.getId());
+    public RespBody<HomestayVO> detail(@Validated IdDTO dto) {
+        HomestayVO detail = homestayService.detailById(dto.getId());
+        return RespBody.success(detail);
     }
 }

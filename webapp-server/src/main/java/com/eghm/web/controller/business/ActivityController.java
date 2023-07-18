@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Activity;
 import com.eghm.dto.IdDTO;
 import com.eghm.vo.business.activity.ActivityBaseResponse;
@@ -33,14 +34,15 @@ public class ActivityController {
     @GetMapping("/month")
     @ApiImplicitParam(name = "month", value = "月份yyyy-MM", required = true)
     @ApiOperation("查询月活动")
-    public List<ActivityBaseResponse> month(@RequestParam("month") String month) {
-        return activityService.getMonthActivity(month, null);
+    public RespBody<List<ActivityBaseResponse>> month(@RequestParam("month") String month) {
+        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(month, null);
+        return RespBody.success(monthActivity);
     }
 
     @GetMapping("/detail")
     @ApiOperation("活动详情")
-    public ActivityVO detail(@Validated IdDTO dto) {
+    public RespBody<ActivityVO> detail(@Validated IdDTO dto) {
         Activity activity = activityService.selectByIdRequired(dto.getId());
-        return DataUtil.copy(activity, ActivityVO.class);
+        return RespBody.success(DataUtil.copy(activity, ActivityVO.class));
     }
 }

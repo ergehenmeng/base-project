@@ -27,9 +27,9 @@ public class PushTemplateController {
 
     @GetMapping("/listPage")
     @ApiOperation("消息模板列表")
-    public PageData<PushTemplate> listPage(PushTemplateQueryRequest request) {
+    public RespBody<PageData<PushTemplate>> listPage(PushTemplateQueryRequest request) {
         Page<PushTemplate> byPage = pushTemplateService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/update")

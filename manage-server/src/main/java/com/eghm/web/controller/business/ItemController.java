@@ -41,10 +41,10 @@ public class ItemController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public PageData<ItemListResponse> listPage(ItemQueryRequest request) {
+    public RespBody<PageData<ItemListResponse>> listPage(ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ItemListResponse> byPage = itemService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/create")
@@ -64,8 +64,9 @@ public class ItemController {
     @GetMapping("/select")
     @ApiOperation("查询商品")
     @ApiImplicitParam(name = "id", value = "商品id", required = true)
-    public ItemResponse select(@RequestParam("id") Long id) {
-        return itemService.getDetailById(id);
+    public RespBody<ItemResponse> select(@RequestParam("id") Long id) {
+        ItemResponse detail = itemService.getDetailById(id);
+        return RespBody.success(detail);
     }
 
     @PostMapping("/shelves")

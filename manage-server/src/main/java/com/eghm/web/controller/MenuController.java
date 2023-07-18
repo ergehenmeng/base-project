@@ -37,8 +37,9 @@ public class MenuController {
 
     @GetMapping("/list")
     @ApiOperation("菜单列表(不分页)")
-    public List<MenuResponse> list() {
-        return sysMenuService.getList(SecurityHolder.getUserId());
+    public RespBody<List<MenuResponse>> list() {
+        List<MenuResponse> responseList = sysMenuService.getList(SecurityHolder.getUserId());
+        return RespBody.success(responseList);
     }
 
     @PostMapping("/create")

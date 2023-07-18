@@ -30,9 +30,9 @@ public class AppVersionController {
 
     @GetMapping("/listPage")
     @ApiOperation("查询版本列表")
-    public PageData<AppVersion> listPage(VersionQueryRequest request) {
+    public RespBody<PageData<AppVersion>> listPage(VersionQueryRequest request) {
         Page<AppVersion> byPage = appVersionService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/create")

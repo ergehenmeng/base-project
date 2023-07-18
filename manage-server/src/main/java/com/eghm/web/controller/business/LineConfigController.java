@@ -28,8 +28,9 @@ public class LineConfigController {
 
     @GetMapping("/month")
     @ApiOperation("线路月度价格")
-    public List<LineConfigResponse> month(@Validated LineConfigQueryRequest request) {
-        return lineConfigService.getMonthList(request);
+    public RespBody<List<LineConfigResponse>> month(@Validated LineConfigQueryRequest request) {
+        List<LineConfigResponse> monthList = lineConfigService.getMonthList(request);
+        return RespBody.success(monthList);
     }
 
     @PostMapping("/setup")

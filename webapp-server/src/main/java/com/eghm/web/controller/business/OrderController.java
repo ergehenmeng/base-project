@@ -9,6 +9,7 @@ import com.eghm.dto.business.order.restaurant.RestaurantOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.access.impl.*;
@@ -49,53 +50,59 @@ public class OrderController {
 
     @PostMapping("/item/create")
     @ApiOperation("零售创建订单")
-    public OrderVO<String> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
+    public RespBody<OrderVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         itemAccessHandler.createOrder(context);
-        return this.generateResult(context, context.getOrderNo());
+        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
     }
 
     @PostMapping("/ticket/create")
     @ApiOperation("门票创建订单")
-    public OrderVO<String> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
+    public RespBody<OrderVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         ticketAccessHandler.createOrder(context);
-        return this.generateResult(context, context.getOrderNo());
+        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
     }
 
     @PostMapping("/homestay/create")
     @ApiOperation("民宿创建订单")
-    public OrderVO<String> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
+    public RespBody<OrderVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         homestayAccessHandler.createOrder(context);
-        return this.generateResult(context, context.getOrderNo());
+        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
     }
 
     @PostMapping("/line/create")
     @ApiOperation("线路创建订单")
-    public OrderVO<String> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
+    public RespBody<OrderVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         lineAccessHandler.createOrder(context);
-        return this.generateResult(context, context.getOrderNo());
+        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
     }
 
     @PostMapping("/restaurant/create")
     @ApiOperation("餐饮创建订单")
-    public OrderVO<String> restaurantCreate(@RequestBody @Validated RestaurantOrderCreateDTO dto) {
+    public RespBody<OrderVO<String>> restaurantCreate(@RequestBody @Validated RestaurantOrderCreateDTO dto) {
         RestaurantOrderCreateContext context = DataUtil.copy(dto, RestaurantOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         restaurantAccessHandler.createOrder(context);
-        return this.generateResult(context, context.getOrderNo());
+        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        return RespBody.success(result);
     }
 
     @PostMapping("/pay")
     @ApiOperation("拉起支付")
-    public PrepayVO pay(@RequestBody @Validated OrderPayDTO dto) {
-        return orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType());
+    public RespBody<PrepayVO> pay(@RequestBody @Validated OrderPayDTO dto) {
+        PrepayVO vo = orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType());
+        return RespBody.success(vo);
     }
 
     /**

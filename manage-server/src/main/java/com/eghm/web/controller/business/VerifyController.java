@@ -50,10 +50,10 @@ public class VerifyController {
 
     @GetMapping("listPage")
     @ApiOperation("核销记录列表")
-    public PageData<VerifyLogResponse> listPage(VerifyLogQueryRequest request) {
+    public RespBody<PageData<VerifyLogResponse>> listPage(VerifyLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         Page<VerifyLogResponse> roomPage = verifyLogService.getByPage(request);
-        return PageData.toPage(roomPage);
+        return RespBody.success(PageData.toPage(roomPage));
     }
 
     @GetMapping("/scan")

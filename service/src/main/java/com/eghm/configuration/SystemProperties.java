@@ -28,11 +28,6 @@ public class SystemProperties {
     private final ManageProperties manage = new ManageProperties();
 
     /**
-     * 自动针对@ResponseBody进行包装
-     */
-    private String wrapperBasePackage;
-
-    /**
      * 上传文件的路径
      */
     private String uploadDir;

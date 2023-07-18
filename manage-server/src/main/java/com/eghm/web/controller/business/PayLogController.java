@@ -3,6 +3,7 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.log.PayLogQueryRequest;
 import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.model.PayNotifyLog;
 import com.eghm.model.PayRequestLog;
 import com.eghm.service.pay.PayNotifyLogService;
@@ -30,16 +31,16 @@ public class PayLogController {
 
     @GetMapping("/sync/listPage")
     @ApiOperation("支付同步请求日志列表")
-    public PageData<PayRequestLog> syncListPage(PayLogQueryRequest request) {
+    public RespBody<PageData<PayRequestLog>> syncListPage(PayLogQueryRequest request) {
         Page<PayRequestLog> merchantPage = payRequestLogService.getByPage(request);
-        return PageData.toPage(merchantPage);
+        return RespBody.success(PageData.toPage(merchantPage));
     }
 
     @GetMapping("/notify/listPage")
     @ApiOperation("支付异步响应日志列表")
-    public PageData<PayNotifyLog> notifyListPage(PayLogQueryRequest request) {
+    public RespBody<PageData<PayNotifyLog>> notifyListPage(PayLogQueryRequest request) {
         Page<PayNotifyLog> merchantPage = payNotifyLogService.getByPage(request);
-        return PageData.toPage(merchantPage);
+        return RespBody.success(PageData.toPage(merchantPage));
     }
 
 }

@@ -29,9 +29,9 @@ public class FeedbackController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public PageData<FeedbackVO> listPage(FeedbackQueryRequest request) {
+    public RespBody<PageData<FeedbackVO>> listPage(FeedbackQueryRequest request) {
         Page<FeedbackVO> byPage = feedbackService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/dispose")

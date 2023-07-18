@@ -1,8 +1,6 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.State;
-import com.eghm.model.CouponConfig;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
@@ -10,6 +8,8 @@ import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
 import com.eghm.dto.business.coupon.member.GrantCouponDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.State;
+import com.eghm.model.CouponConfig;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.MemberCouponService;
 import io.swagger.annotations.Api;
@@ -35,9 +35,9 @@ public class CouponConfigController {
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
-    public PageData<CouponConfig> listPage(@Validated CouponConfigQueryRequest request) {
+    public RespBody<PageData<CouponConfig>> listPage(@Validated CouponConfigQueryRequest request) {
         Page<CouponConfig> configPage = couponConfigService.getByPage(request);
-        return PageData.toPage(configPage);
+        return RespBody.success(PageData.toPage(configPage));
     }
 
     @PostMapping("/create")
@@ -57,8 +57,9 @@ public class CouponConfigController {
     @GetMapping("/select")
     @ApiOperation("查询优惠券")
     @ApiImplicitParam(name = "id", value = "id", required = true)
-    public CouponConfig select(@RequestParam("id") Long id) {
-        return couponConfigService.selectById(id);
+    public RespBody<CouponConfig> select(@RequestParam("id") Long id) {
+        CouponConfig config = couponConfigService.selectById(id);
+        return RespBody.success(config);
     }
 
     @PostMapping("/open")

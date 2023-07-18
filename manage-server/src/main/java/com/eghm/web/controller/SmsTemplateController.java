@@ -29,9 +29,9 @@ public class SmsTemplateController {
 
     @GetMapping("/listPage")
     @ApiOperation("短信模板列表(分页)")
-    public PageData<SmsTemplate> listPage(SmsTemplateQueryRequest request) {
+    public RespBody<PageData<SmsTemplate>> listPage(SmsTemplateQueryRequest request) {
         Page<SmsTemplate> byPage = smsTemplateService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/update")

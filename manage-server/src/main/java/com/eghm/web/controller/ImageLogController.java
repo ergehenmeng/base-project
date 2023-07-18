@@ -29,9 +29,9 @@ public class ImageLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("图片列表(分页)")
-    public PageData<ImageLog> listPage(ImageQueryRequest request) {
+    public RespBody<PageData<ImageLog>> listPage(ImageQueryRequest request) {
         Page<ImageLog> page = imageLogService.getByPage(request);
-        return PageData.toPage(page);
+        return RespBody.success(PageData.toPage(page));
     }
 
     @PostMapping("/create")

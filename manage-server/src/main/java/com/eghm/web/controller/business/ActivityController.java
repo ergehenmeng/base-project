@@ -1,13 +1,13 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.model.Activity;
 import com.eghm.dto.business.activity.ActivityAddRequest;
 import com.eghm.dto.business.activity.ActivityConfigRequest;
 import com.eghm.dto.business.activity.ActivityDeleteRequest;
 import com.eghm.dto.business.activity.ActivityEditRequest;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
+import com.eghm.vo.business.activity.ActivityBaseResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -36,9 +36,10 @@ public class ActivityController {
         @ApiImplicitParam(name = "scenicId", value = "景区id")
     })
     @ApiOperation("查询月活动")
-    public List<ActivityBaseResponse> month(@RequestParam("month") String month,
+    public RespBody<List<ActivityBaseResponse>> month(@RequestParam("month") String month,
                                              @RequestParam(value = "scenicId", required = false) Long scenicId) {
-        return activityService.getMonthActivity(month, scenicId);
+        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(month, scenicId);
+        return RespBody.success(monthActivity);
     }
 
     @PostMapping("/config")
@@ -65,8 +66,9 @@ public class ActivityController {
     @GetMapping("/select")
     @ApiOperation("查询活动")
     @ApiImplicitParam(name = "id", value = "id", required = true)
-    public Activity select(@RequestParam("id") Long id) {
-        return activityService.selectById(id);
+    public RespBody<Activity> select(@RequestParam("id") Long id) {
+        Activity activity = activityService.selectById(id);
+        return RespBody.success(activity);
     }
 
     @PostMapping("/delete")

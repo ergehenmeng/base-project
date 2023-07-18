@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.line.LineQueryDTO;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.vo.business.line.LineListVO;
@@ -33,19 +34,22 @@ public class LineController {
 
     @GetMapping("/listPage")
     @ApiOperation("线路列表")
-    public List<LineListVO> getByPage(LineQueryDTO dto) {
-        return lineService.getByPage(dto);
+    public RespBody<List<LineListVO>> getByPage(LineQueryDTO dto) {
+        List<LineListVO> byPage = lineService.getByPage(dto);
+        return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @ApiOperation("线路详情")
-    public LineVO detail(@Validated IdDTO request) {
-        return lineService.detailById(request.getId());
+    public RespBody<LineVO> detail(@Validated IdDTO request) {
+        LineVO detail = lineService.detailById(request.getId());
+        return RespBody.success(detail);
     }
 
     @GetMapping("/price/list")
     @ApiOperation("线路日价格")
-    public List<LineConfigVO> getPriceList(@Validated IdDTO dto) {
-        return lineConfigService.getPriceList(dto.getId());
+    public RespBody<List<LineConfigVO>> getPriceList(@Validated IdDTO dto) {
+        List<LineConfigVO> voList = lineConfigService.getPriceList(dto.getId());
+        return RespBody.success(voList);
     }
 }

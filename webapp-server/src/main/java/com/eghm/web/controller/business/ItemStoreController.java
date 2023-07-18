@@ -1,9 +1,10 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.ItemStoreService;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
-import com.eghm.service.business.ItemStoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,14 +29,16 @@ public class ItemStoreController {
 
     @GetMapping("/home")
     @ApiOperation("店铺首页")
-    public ItemStoreHomeVO home(@Validated IdDTO dto) {
-        return itemStoreService.homeDetail(dto.getId());
+    public RespBody<ItemStoreHomeVO> home(@Validated IdDTO dto) {
+        ItemStoreHomeVO detail = itemStoreService.homeDetail(dto.getId());
+        return RespBody.success(detail);
     }
 
     @GetMapping("/recommend")
     @ApiOperation("推荐店铺列表")
-    public List<ItemStoreVO> recommend() {
-        return itemStoreService.getRecommend();
+    public RespBody<List<ItemStoreVO>> recommend() {
+        List<ItemStoreVO> recommend = itemStoreService.getRecommend();
+        return RespBody.success(recommend);
     }
 
 }

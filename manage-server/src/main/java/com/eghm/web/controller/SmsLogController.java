@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SmsLog;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.sms.SmsLogQueryRequest;
@@ -28,9 +29,9 @@ public class SmsLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("短信记录列表(分页)")
-    public PageData<SmsLog> listPage(SmsLogQueryRequest request) {
+    public RespBody<PageData<SmsLog>> listPage(SmsLogQueryRequest request) {
         Page<SmsLog> byPage = smsLogService.getByPage(request);
-        return PageData.toPage(byPage);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
 }

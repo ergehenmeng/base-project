@@ -43,7 +43,7 @@
 
 ## 移动端
 
-## 约定
+### 约定
 * 基础必填请求头字段:
     * `Channel` 设备渠道: `IOS` , `ANDROID`
     * `Version` app版本号
@@ -67,12 +67,12 @@
 * post请求接口默认 `application/json` 格式
 * get请求接口默认 `x-www-form-urlencoded` 格式
 * 上传文件 `multipart/form-data` 格式(不需要进行加解密操作)
+* **涉及分页列表,不建议返回总条数**
 
 
 ### 其他注意事项
 * 一个账户只能登陆一台设备
-* `swagger` 访问地址 `http://host:ip/swagger/index.html`
-* `RequestMapping` 标示的方法返回前台数据时,可以为任意对象(此时swagger中不会显示RespBody的层级),最终会由 `EncryptRespBodyAdviceHandler` 包装为 `RespBody` 对象,如果不想返回前台 `RespBody` 格式的对象可在方法上添加 `@SkipWrapper`
+* `swagger` 地址会在服务启动时打印出来地址,访问地址 `http://host:ip/doc.html`
 * 表 `black_roster` 为ip黑名单 可限制某些用户访问
 * 默认所有的接口不登录即可访问,如果某个接口需要登陆校验则方法上添加 `@AccessToken`
 * 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加 `@ClientType`

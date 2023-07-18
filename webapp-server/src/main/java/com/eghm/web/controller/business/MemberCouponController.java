@@ -41,15 +41,17 @@ public class MemberCouponController {
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
     @AccessToken
-    public List<MemberCouponVO> listPage(@Validated MemberCouponQueryPageDTO dto) {
+    public RespBody<List<MemberCouponVO>> listPage(@Validated MemberCouponQueryPageDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
-        return memberCouponService.memberCouponPage(dto);
+        List<MemberCouponVO> voList = memberCouponService.memberCouponPage(dto);
+        return RespBody.success(voList);
     }
 
     @GetMapping("/choose")
     @ApiOperation("选择优惠券")
     @AccessToken
-    public List<MemberCouponBaseVO> choose(@Validated IdDTO dto) {
-        return memberCouponService.selectCoupon(ApiHolder.getMemberId(), dto.getId());
+    public RespBody<List<MemberCouponBaseVO>> choose(@Validated IdDTO dto) {
+        List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), dto.getId());
+        return RespBody.success(selectCoupon);
     }
 }

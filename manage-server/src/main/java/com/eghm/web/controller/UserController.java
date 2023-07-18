@@ -43,9 +43,9 @@ public class UserController {
 
     @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
-    public PageData<SysUser> listPage(UserQueryRequest request) {
+    public RespBody<PageData<SysUser>> listPage(UserQueryRequest request) {
         Page<SysUser> page = sysUserService.getByPage(request);
-        return PageData.toPage(page);
+        return RespBody.success(PageData.toPage(page));
     }
 
     @PostMapping("/changePwd")
@@ -66,12 +66,12 @@ public class UserController {
     @GetMapping("/select")
     @ApiOperation("查询系统用户信息")
     @ApiImplicitParam(name = "id", value = "id主键", required = true)
-    public UserResponse select(@RequestParam("id") Long id) {
+    public RespBody<UserResponse> select(@RequestParam("id") Long id) {
         SysUser user = sysUserService.getById(id);
         UserResponse response = DataUtil.copy(user, UserResponse.class);
         List<Long> roleList = sysRoleService.getByUserId(id);
         response.setRoleIds(Joiner.on(",").join(roleList));
-        return response;
+        return RespBody.success(response);
     }
 
     @PostMapping("/update")

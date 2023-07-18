@@ -27,8 +27,9 @@ public class DeptController {
 
     @GetMapping("/list")
     @ApiOperation("部门列表(不分页)")
-    public List<SysDept> list() {
-        return sysDeptService.getList();
+    public RespBody<List<SysDept>> list() {
+        List<SysDept> list = sysDeptService.getList();
+        return RespBody.success(list);
     }
 
     @PostMapping("/create")

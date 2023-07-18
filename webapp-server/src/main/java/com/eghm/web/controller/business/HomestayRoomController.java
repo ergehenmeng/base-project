@@ -2,11 +2,12 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.HomestayRoomConfigService;
+import com.eghm.service.business.HomestayRoomService;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import com.eghm.vo.business.homestay.room.HomestayRoomVO;
 import com.eghm.vo.business.homestay.room.config.RoomConfigVO;
-import com.eghm.service.business.HomestayRoomConfigService;
-import com.eghm.service.business.HomestayRoomService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -32,19 +33,22 @@ public class HomestayRoomController {
 
     @GetMapping("/listPage")
     @ApiOperation("房型列表")
-    public List<HomestayRoomListVO> listPage(HomestayRoomQueryDTO request) {
-        return homestayRoomService.listPage(request);
+    public RespBody<List<HomestayRoomListVO>> listPage(HomestayRoomQueryDTO request) {
+        List<HomestayRoomListVO> listPage = homestayRoomService.listPage(request);
+        return RespBody.success(listPage);
     }
 
     @GetMapping("/detail")
     @ApiOperation("房型详细信息")
-    public HomestayRoomVO detail(@Validated IdDTO dto) {
-        return homestayRoomService.detailById(dto.getId());
+    public RespBody<HomestayRoomVO> detail(@Validated IdDTO dto) {
+        HomestayRoomVO detail = homestayRoomService.detailById(dto.getId());
+        return RespBody.success(detail);
     }
 
     @GetMapping("/priceList")
     @ApiOperation("房型价格")
-    public List<RoomConfigVO> priceList(@Validated IdDTO dto) {
-        return homestayRoomConfigService.getList(dto.getId());
+    public RespBody<List<RoomConfigVO>> priceList(@Validated IdDTO dto) {
+        List<RoomConfigVO> voList = homestayRoomConfigService.getList(dto.getId());
+        return RespBody.success(voList);
     }
 }
