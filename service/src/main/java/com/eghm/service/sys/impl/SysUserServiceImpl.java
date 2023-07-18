@@ -223,7 +223,13 @@ public class SysUserServiceImpl implements SysUserService {
         }
         // 根据用户名和权限创建jwtToken
         LoginResponse response = new LoginResponse();
-        response.setToken(accessTokenService.createToken(user, this.getMerchantId(user.getId(), user.getUserType()), buttonList));
+
+        // 数据权限(此处没有判断,逻辑不够严谨,仅仅为了代码简洁)
+        List<String> customList = sysDataDeptService.getDeptList(user.getId());
+
+        String token = accessTokenService.createToken(user, this.getMerchantId(user.getId(), user.getUserType()), buttonList, customList);
+
+        response.setToken(token);
         response.setButtonList(buttonList);
         response.setUserType(user.getUserType());
         response.setLeftMenuList(leftMenu);

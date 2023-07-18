@@ -10,8 +10,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 /**
  * @author 二哥很猛
  */
@@ -74,15 +72,4 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    @TableField(exist = false)
-    @ApiModelProperty("用户的左侧菜单权限")
-    private List<SysMenu> leftMenu;
-
-    @TableField(exist = false)
-    @ApiModelProperty("用户的按钮权限")
-    private List<SysMenu> buttonMenu;
-
-    @TableField(exist = false)
-    @ApiModelProperty("用户的部门数据权限")
-    private List<String> deptList;
 }

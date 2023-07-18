@@ -28,9 +28,9 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
     private final SystemProperties systemProperties;
 
     @Override
-    public String createToken(SysUser user, Long merchantId,  List<String> authList) {
+    public String createToken(SysUser user, Long merchantId,  List<String> authList, List<String> dataList) {
         SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
-        return token.getPrefix() + this.doCreateJwt(user, merchantId, token.getExpire(), authList);
+        return token.getPrefix() + this.doCreateJwt(user, merchantId, token.getExpire(), authList, dataList);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
             userToken.setNickName(verify.getClaim("nickName").asString());
             userToken.setAuthList(verify.getClaim("auth").asList(String.class));
             userToken.setDeptCode(verify.getClaim("deptCode").asString());
-            userToken.setDeptList(verify.getClaim("deptList").asList(String.class));
+            userToken.setDataList(verify.getClaim("dataList").asList(String.class));
             return Optional.of(userToken);
         } catch (Exception e) {
             log.warn("jwt解析失败,token可能已过期 [{}]", token);
@@ -62,14 +62,14 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
      * @param authList 权限信息
      * @return jwtToken
      */
-    private String doCreateJwt(SysUser user, Long merchantId, int expireSeconds, List<String> authList) {
+    private String doCreateJwt(SysUser user, Long merchantId, int expireSeconds, List<String> authList, List<String> dataList) {
         JWTCreator.Builder builder = JWT.create();
         builder.withClaim("id", user.getId())
                 .withClaim("nickName", user.getNickName())
                 .withClaim("deptCode", user.getDeptCode())
                 .withClaim("userType", user.getUserType())
                 .withClaim("dataType", user.getDataType().getValue())
-                .withClaim("deptList", user.getDeptList())
+                .withClaim("dataList", dataList)
                 .withClaim("auth", authList);
         if (merchantId != null) {
             builder.withClaim("merchantId", merchantId);

@@ -512,7 +512,7 @@ CREATE TABLE `sys_user`
     `nick_name`       varchar(20)         NOT NULL COMMENT '用户名称',
     `mobile`          char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
     `user_type`       tinyint(2)          DEFAULT 1 COMMENT '用户类型 1:系统用户 2: 商户用户',
-    `data_type`       tinyint(2)          DEFAULT 1 COMMENT '数据权限,只针对系统用户',
+    `data_type`       tinyint(2)          DEFAULT 1 COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义),只针对系统用户',
     `state`           tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`             varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`        varchar(256)        DEFAULT NULL COMMENT '初始密码',

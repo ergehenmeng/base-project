@@ -57,7 +57,7 @@ public class DataScopeAspect {
         String alias = StrUtil.isBlank(scope.alias()) ? "" : scope.alias() + ".";
         // 自定义
         if (user.getDataType() == DataType.CUSTOM) {
-            List<String> deptList = user.getDeptList();
+            List<String> deptList = user.getDataList();
             builder.append(alias).append("dept_code in ( ").append(ArrayUtil.join(deptList.toArray(), ",")).append(" ) ");
         }
         // 本部门及子部门

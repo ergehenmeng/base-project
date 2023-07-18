@@ -46,7 +46,7 @@ public class UserToken {
     /**
      * 用户所拥有权限部门编号(平台用户专属)
      */
-    private List<String> deptList;
+    private List<String> dataList;
 
     /**
      * 权限标示符
