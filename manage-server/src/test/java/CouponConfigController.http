@@ -14,7 +14,7 @@ Content-Type: application/json
   "mode": 1,
   "couponType": 1,
   "deductionValue": 30,
-  "discountValue": "",
+  "discountValue": 0,
   "useThreshold": 100,
   "startTime": "2022-01-01 00:00",
   "endTime": "2023-01-18 00:00",
@@ -34,7 +34,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1610178152813809666",
+  "id": 1610178152813809666,
   "title": "年货节满100-30",
   "stock": 888,
   "maxLimit": 2,
@@ -54,7 +54,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1610178152813809666"
+  "id": 1610178152813809666
 }
 
 ###
@@ -69,7 +69,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1610178152813809666"
+  "id": 1610178152813809666
 }
 
 ###
@@ -79,7 +79,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "memberIdList": ["1"],
-  "couponConfigId": "1610178152813809666",
+  "memberIdList": [1],
+  "couponConfigId": 1610178152813809666,
   "num": 1
 }

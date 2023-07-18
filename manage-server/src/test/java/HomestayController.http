@@ -34,7 +34,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1607659894533513218",
+  "id": 1607659894533513218,
   "title": "民宿名称编辑",
   "level": 4,
   "provinceId": 110000,

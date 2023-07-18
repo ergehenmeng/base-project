@@ -37,7 +37,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1611287570074824706",
+  "id": 1611287570074824706,
   "travelAgencyId": 12,
   "title": "杭州-上海(7日游)编辑",
   "startProvinceId": 110000,
@@ -77,7 +77,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1607290976547602434"
+  "id": 1607290976547602434
 }
 
 ###
@@ -86,7 +86,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1611287570074824706"
+  "id": 1611287570074824706
 }
 
 ###
@@ -95,7 +95,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1607290976547602434"
+  "id": 1607290976547602434
 }
 
 ###
@@ -104,7 +104,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1611287570074824706"
+  "id": 1611287570074824706
 }
 ###
 
@@ -114,5 +114,5 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1607290976547602434"
+  "id": 1607290976547602434
 }

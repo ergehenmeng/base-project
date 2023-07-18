@@ -33,7 +33,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608705501880594433",
+  "id": 1608705501880594433,
   "title": "麦当娜20元抵扣券",
   "coverUrl": "http://localhost:8080/coverUrl.png",
   "linePrice": 20,

@@ -28,7 +28,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608726046030311425",
+  "id": 1608726046030311425,
   "title": "二哥的精品小店",
   "logoUrl": "http://localhost:8080/logoUrl.png",
   "coverUrl": "http://localhost:8080/coverUrl.png",
@@ -49,7 +49,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608726046030311425"
+  "id": 1608726046030311425
 }
 
 ###
@@ -58,7 +58,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608726046030311425"
+  "id": 1608726046030311425
 }
 
 ###
@@ -67,7 +67,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608726046030311425"
+  "id": 1608726046030311425
 }
 
 ###
@@ -76,7 +76,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608726046030311425"
+  "id": 1608726046030311425
 }
 
 ###
@@ -85,5 +85,5 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608726046030311425"
+  "id": 1608726046030311425
 }

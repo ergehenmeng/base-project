@@ -35,7 +35,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608738767752790017",
+  "id": 1608738767752790017,
   "title": "火腿肠8包",
   "storeId": "1608726046030311425",
   "depict": "商品描述信息",
@@ -76,7 +76,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608738767752790017"
+  "id": 1608738767752790017
 }
 ###
 
@@ -85,7 +85,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608738767752790017"
+  "id": 1608738767752790017
 }
 ###
 
@@ -94,7 +94,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608738767752790017"
+  "id": 1608738767752790017
 }
 ###
 
@@ -103,7 +103,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608738767752790017"
+  "id": 1608738767752790017
 }
 
 ###
@@ -112,5 +112,5 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1608738767752790017"
+  "id": 1608738767752790017
 }

@@ -22,7 +22,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1607653979663085569",
+  "id": 1607653979663085569,
   "merchantName": "酒店商户编辑",
   "type": 3,
   "nickName": "三哥很猛编辑",
@@ -36,7 +36,7 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1607653979663085569"
+  "id": 1607653979663085569
 }
 
 ###
@@ -46,5 +46,5 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "id": "1607653979663085569"
+  "id": 1607653979663085569
 }

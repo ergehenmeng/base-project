@@ -7,7 +7,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "roomId": "1607665031129849858",
+  "roomId": 1607665031129849858,
   "startDate": "2023-01-01",
   "endDate": "2023-01-31",
   "week": [1,2,3,4,5],
@@ -24,7 +24,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "roomId": "1607665031129849858",
+  "roomId": 1607665031129849858,
   "configDate": "2022-12-09",
   "state": true,
   "stock": 20,
