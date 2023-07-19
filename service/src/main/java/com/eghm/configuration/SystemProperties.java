@@ -103,14 +103,14 @@ public class SystemProperties {
         public static class Security {
 
             /**
-             * 不进行认证和校验和权限校验的链接
+             * 不进行登陆检验和权限校验
              */
-            private String[] ignore = new String[]{};
+            private String[] skipAuth = new String[]{};
 
             /**
-             * 进行认证但不进行权限校验的链接
+             * 需要登陆但不进行权限校验
              */
-            private String[] ignoreAuth = new String[]{};
+            private String[] skipPerm = new String[]{};
         }
 
         @Data

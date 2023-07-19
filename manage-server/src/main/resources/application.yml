@@ -48,7 +48,7 @@ mybatis-plus:
 system:
   manage:
     security:
-      ignore:
+      skip-auth:
         - /captcha
         - /**/captcha
         - /doc.html

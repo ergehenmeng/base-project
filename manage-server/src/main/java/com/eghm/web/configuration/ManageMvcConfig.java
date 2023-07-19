@@ -42,7 +42,7 @@ public class ManageMvcConfig extends WebMvcConfig {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         SystemProperties.ManageProperties.Security security = systemProperties.getManage().getSecurity();
-        registry.addInterceptor(permInterceptor()).excludePathPatterns(security.getIgnoreAuth()).excludePathPatterns(security.getIgnore());
+        registry.addInterceptor(permInterceptor()).excludePathPatterns(security.getSkipPerm()).excludePathPatterns(security.getSkipAuth());
     }
 
     /**
@@ -69,7 +69,7 @@ public class ManageMvcConfig extends WebMvcConfig {
         SystemProperties.ManageProperties manage = systemProperties.getManage();
         FilterRegistrationBean<AuthFilter> registrationBean = new FilterRegistrationBean<>();
         AuthFilter requestFilter = new AuthFilter(manage, accessTokenService);
-        requestFilter.exclude(manage.getSecurity().getIgnore());
+        requestFilter.exclude(manage.getSecurity().getSkipAuth());
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 5);
@@ -81,7 +81,7 @@ public class ManageMvcConfig extends WebMvcConfig {
         SystemProperties.ManageProperties manage = systemProperties.getManage();
         FilterRegistrationBean<LockScreenFilter> registrationBean = new FilterRegistrationBean<>();
         LockScreenFilter requestFilter = new LockScreenFilter(cacheService);
-        requestFilter.exclude(manage.getSecurity().getIgnore());
+        requestFilter.exclude(manage.getSecurity().getSkipAuth());
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
         registrationBean.setOrder(Integer.MIN_VALUE + 10);
