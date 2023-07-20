@@ -50,7 +50,7 @@ public class CommonConstant {
     /**
      * 异步消息在MQ中最大存放时间
      */
-    public static final long ASYNC_MSG_EXPIRE = 30_000;
+    public static final long ASYNC_MSG_EXPIRE = 30;
 
     /**
      * 支付宝支付成功状态
@@ -85,17 +85,17 @@ public class CommonConstant {
     /**
      * 最大锁屏时间 1天
      */
-    public static final long MAX_LOCK_SCREEN = 86_400_000;
+    public static final long MAX_LOCK_SCREEN = 86_400;
 
     /**
      * redis中 limit限制最大时间7天
      */
-    public static final long LIMIT_MAX_EXPIRE = 604_800_000;
+    public static final long LIMIT_MAX_EXPIRE = 604_800;
 
     /**
      * Scheduled 定时任务最大锁时间
      */
-    public static final long SCHEDULED_MAX_LOCK_TIME = 60_000;
+    public static final long SCHEDULED_MAX_LOCK_TIME = 60;
 
     /**
      * bitmap最大有效位 此处不使用64位的原因是针对无符号的u64最多只支持63位(最高位是符号位)

@@ -1165,6 +1165,11 @@ public enum ErrorCode {
     MEMBER_REFUNDING(3618, "存在退款中的游客,请稍后再试"),
 
     /**
+     * 该账号已禁用,请联系客服解封
+     */
+    MEMBER_LOGIN_FORBID(3636,"该账号已禁用,请联系客服解封"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

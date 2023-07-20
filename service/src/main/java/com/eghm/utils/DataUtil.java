@@ -54,6 +54,30 @@ public class DataUtil {
     }
 
     /**
+     * 分页数据格式转换
+     *
+     * @param page page对象
+     * @param cls  要转换的数据类型
+     * @return 结果
+     * @param <S> 源类型
+     * @param <T> 目标类型
+     */
+    public static <S, T> PageData<T> copy(Page<S> page, Class<T> cls) {
+
+        PageData<T> paging = new PageData<>();
+        List<T> formatList = Lists.newArrayList();
+
+        page.getRecords().forEach(s -> formatList.add(copy(s, cls)));
+
+        paging.setRows(formatList);
+        paging.setTotal(page.getTotal());
+        paging.setPage(page.getCurrent());
+        paging.setPageSize(page.getSize());
+
+        return paging;
+    }
+
+    /**
      * 列表数据转换
      *
      * @param sourceList 原列表数据 集合

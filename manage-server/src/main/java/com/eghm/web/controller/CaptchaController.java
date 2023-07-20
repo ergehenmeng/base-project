@@ -42,7 +42,7 @@ public class CaptchaController {
         String value = producer.createText();
         String ipAddress = IpUtil.getIpAddress(request);
         log.info("图形验证码[{}]:[{}]", ipAddress, value);
-        cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, value, 60000L);
+        cacheService.setValue(CacheConstant.IMAGE_CAPTCHA + ipAddress, value, 60L);
         BufferedImage bi = producer.createImage(value);
         response.setDateHeader("Expires", 0);
         response.setHeader("Pragma", "no-cache");

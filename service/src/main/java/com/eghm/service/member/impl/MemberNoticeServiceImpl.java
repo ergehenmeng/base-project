@@ -5,24 +5,24 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.NoticeType;
-import com.eghm.exception.BusinessException;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.mapper.MemberNoticeMapper;
-import com.eghm.model.NoticeTemplate;
-import com.eghm.model.Member;
-import com.eghm.model.MemberNotice;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.PushNotice;
 import com.eghm.dto.ext.SendNotice;
-import com.eghm.vo.member.MemberNoticeVO;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.NoticeType;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.MemberNoticeMapper;
+import com.eghm.model.Member;
+import com.eghm.model.MemberNotice;
+import com.eghm.model.NoticeTemplate;
 import com.eghm.service.common.NoticeTemplateService;
 import com.eghm.service.common.PushService;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.member.MemberNoticeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,7 +125,7 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
         wrapper.eq(MemberNotice::getMemberId, memberId);
         wrapper.last(" order by read desc, id desc ");
         Page<MemberNotice> page = memberNoticeMapper.selectPage(query.createPage(), wrapper);
-        return DataUtil.copy(page, memberNotice -> DataUtil.copy(memberNotice, MemberNoticeVO.class));
+        return DataUtil.copy(page, MemberNoticeVO.class);
     }
 
     @Override

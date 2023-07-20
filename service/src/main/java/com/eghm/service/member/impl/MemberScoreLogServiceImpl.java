@@ -3,16 +3,16 @@ package com.eghm.service.member.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.mapper.MemberScoreLogMapper;
-import com.eghm.model.MemberScoreLog;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.member.MemberScoreQueryDTO;
-import com.eghm.vo.member.MemberScoreVO;
-import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.mapper.MemberScoreLogMapper;
+import com.eghm.model.MemberScoreLog;
 import com.eghm.service.member.MemberScoreLogService;
+import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
+import com.eghm.vo.member.MemberScoreVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +44,6 @@ public class MemberScoreLogServiceImpl implements MemberScoreLogService {
         wrapper.eq(MemberScoreLog::getMemberId, request.getMemberId());
         wrapper.eq(request.getType() != null, MemberScoreLog::getType, request.getType());
         Page<MemberScoreLog> page = memberScoreLogMapper.selectPage(request.createPage(), wrapper);
-        return DataUtil.copy(page, scoreLog -> DataUtil.copy(scoreLog, MemberScoreVO.class));
+        return DataUtil.copy(page, MemberScoreVO.class);
     }
 }

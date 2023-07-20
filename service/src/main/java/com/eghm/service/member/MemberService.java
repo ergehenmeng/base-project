@@ -1,15 +1,14 @@
 package com.eghm.service.member;
 
-import com.eghm.model.Member;
+import com.eghm.dto.ext.MemberRegister;
+import com.eghm.dto.ext.PageData;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
+import com.eghm.dto.member.*;
 import com.eghm.dto.register.RegisterMemberDTO;
-import com.eghm.dto.member.BindEmailDTO;
-import com.eghm.dto.member.ChangeEmailDTO;
-import com.eghm.dto.member.SendEmailAuthCodeDTO;
-import com.eghm.dto.member.MemberAuthDTO;
-import com.eghm.dto.ext.MemberRegister;
+import com.eghm.model.Member;
 import com.eghm.vo.login.LoginTokenVO;
+import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.SignInVO;
 
 import java.time.LocalDateTime;
@@ -19,6 +18,8 @@ import java.time.LocalDateTime;
  * @date 2019/8/19 15:50
  */
 public interface MemberService {
+
+    PageData<MemberResponse> getByPage(MemberQueryRequest request);
 
     /**
      * 主键查询

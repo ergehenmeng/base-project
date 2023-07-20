@@ -36,5 +36,11 @@ public interface SysDeptService {
      * @param request 前天参数
      */
     void update(DeptEditRequest request);
+
+    /**
+     * 逻辑删除部门信息
+     * @param id id
+     */
+    void deleteById(Long id);
 }
 

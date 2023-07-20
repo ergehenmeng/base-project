@@ -33,9 +33,9 @@ public class SystemProperties {
     private String uploadDir;
 
     /**
-     * 两次提交间隔时间,只针对post请求, 单位:毫秒
+     * 两次提交间隔时间,只针对post请求, 单位:秒
      */
-    private Long submitInterval = 1000L;
+    private Long submitInterval = 1L;
 
     /**
      * 系统运行环境(默认准生产环境)
@@ -165,11 +165,6 @@ public class SystemProperties {
          * 推送地址
          */
         private String url;
-
-        /**
-         * true:生产环境 false:测试环境
-         */
-        private Boolean env;
 
         /**
          * 推送key

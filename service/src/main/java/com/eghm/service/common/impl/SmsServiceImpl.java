@@ -78,8 +78,8 @@ public class SmsServiceImpl implements SmsService {
         }
         this.cleanSmsCode(smsType, mobile);
         String uuid = IdUtil.fastUUID();
-        cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, 300000);
-        cacheService.setValue(CacheConstant.VERIFY_MOBILE_PREFIX + uuid, mobile, 300000);
+        cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, 300);
+        cacheService.setValue(CacheConstant.VERIFY_MOBILE_PREFIX + uuid, mobile, 300);
         return uuid;
     }
 
@@ -141,7 +141,7 @@ public class SmsServiceImpl implements SmsService {
      * @param smsCode 短信验证码
      */
     private void saveSmsCode(String smsType, String mobile, String smsCode) {
-        cacheService.setValue(CacheConstant.SMS_PREFIX + smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600_000));
+        cacheService.setValue(CacheConstant.SMS_PREFIX + smsType + mobile, smsCode, sysConfigApi.getLong(ConfigConstant.AUTH_CODE_EXPIRE, 600));
     }
 
     /**

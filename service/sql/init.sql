@@ -3585,7 +3585,7 @@ INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `del
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('8', '公告分类', 'notice_classify', '1', '科普', b'0', b'0', '2019-11-25 16:13:43', '2019-11-27 11:39:52', NULL);
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('9', '公告分类', 'notice_classify', '2', '通知', b'0', b'0', '2019-11-25 16:14:10', '2019-11-27 11:39:54', NULL);
 
-INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
+INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', `8`, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES ('5', '1', '1');
 
@@ -4088,12 +4088,11 @@ INSERT INTO `sys_config` VALUES ('33', 'batch_max_file_size', '批量文件最�
 INSERT INTO `sys_config` VALUES ('35', 'signature_verification', '接口签名验证', 'false', b'0', '是否开启接口签名验证 false:关闭 true:开启', '2019-11-21 11:19:29', '2020-07-23 14:07:39');
 INSERT INTO `sys_config` VALUES ('36', 'android_max_size', '安卓软件包最大限制', '104857600', b'0', '安卓软件包大小限制 单位byte 最大100M', '2019-11-22 17:05:36', '2019-11-22 17:09:37');
 INSERT INTO `sys_config` VALUES ('37', 'analog_sms_code', '模拟短信验证码', '9527', b'0', '短信功能未开启时,所有验证码短信都以此验证码为准', '2019-11-25 11:54:05', '2019-11-25 11:54:44');
-INSERT INTO `sys_config` VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800000', b'0', '单位:豪秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-12-15 19:07:30');
-INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800000', b'0', '单位:豪秒默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
-INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30000', b'0', '单位:豪秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
-INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600000', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
+INSERT INTO `sys_config` VALUES ('38', 'cache_expire', '非注解缓存默认过期时间', '1800', b'0', '单位:秒 默认失效时间30分钟', '2020-01-15 16:21:47', '2020-12-15 19:07:30');
+INSERT INTO `sys_config` VALUES ('39', 'token_expire', '用户登陆过期时间', '604800', b'0', '单位:秒,默认7天过期', '2020-01-15 16:38:47', '2020-12-15 19:07:32');
+INSERT INTO `sys_config` VALUES ('41', 'null_expire', '占位符缓存过期时间', '30', b'0', '单位:秒,超过该时间后,缓存过期', '2020-01-15 16:39:33', '2020-12-15 19:07:35');
+INSERT INTO `sys_config` VALUES ('43', 'auth_code_expire', '验证码有效期', '600', b'0', '全局涉及验证码有限期默认10分钟', '2020-08-29 14:07:11', '2020-12-15 19:07:01');
 INSERT INTO `sys_config` VALUES ('44', 'sign_in_score', '签到积分奖励数', '8', b'0', '表示积分1~7之间随机发放', '2020-09-07 10:02:28', '2020-09-07 10:03:02');
-INSERT INTO `sys_config` VALUES ('45', 'submit_frequency_limit', 'post请求最小间隔时间', '500', b'0', '单位:毫秒 表示500内只允许访问一次', '2020-12-15 19:12:22', '2020-12-15 19:12:40');
 INSERT INTO `sys_config` VALUES ('46', 'room_config_max_day', '房间价格批量设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-06-30 11:13:32', '2022-07-23 15:07:54');
 INSERT INTO `sys_config` VALUES ('47', 'scenic_contain_distance', '景区列表是否包含距离', '1', b'0', '0:不包含 1:包含', '2022-07-11 19:54:12', '2022-07-11 19:54:29');
 INSERT INTO `sys_config` VALUES ('48', 'activity_config_max_day', '活动单次设置日期最大间隔', '90', b'0', '默认90天,该值越大保存时会越慢', '2022-07-23 15:07:10', '2022-07-23 15:07:50');

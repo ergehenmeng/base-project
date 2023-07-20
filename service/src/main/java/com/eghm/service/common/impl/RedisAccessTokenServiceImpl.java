@@ -1,6 +1,7 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
@@ -64,18 +65,17 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
      * @return jwtToken
      */
     private String doCreateToken(SysUser user, Long merchantId, int expireSeconds, List<String> authList, List<String> dataList) {
-        Map<String, String> hashMap = new HashMap<>();
-        hashMap.put("id", String.valueOf(user.getId()));
-        hashMap.put("nickName", String.valueOf(user.getNickName()));
-        hashMap.put("merchantId", String.valueOf(merchantId));
+        Map<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", user.getId());
+        hashMap.put("nickName", user.getNickName());
+        hashMap.put("dataType", user.getDataType().getValue());
+        hashMap.put("userType", user.getUserType());
+        hashMap.put("deptList", dataList);
+        hashMap.put("auth", authList);
+        hashMap.put("merchantId", merchantId);
         hashMap.put("deptCode", user.getDeptCode());
-        hashMap.put("dataType", String.valueOf(user.getDataType().getValue()));
-        hashMap.put("userType", String.valueOf(user.getUserType()));
-        hashMap.put("deptList", jsonService.toJson(dataList));
-        hashMap.put("auth", jsonService.toJson(authList));
         String key = CacheConstant.USER_REDIS_TOKEN + UUID.randomUUID();
-        cacheService.setHashMap(key, hashMap);
-        cacheService.setExpire(key, expireSeconds);
+        cacheService.setValue(key, jsonService.toJson(hashMap), expireSeconds * 1000);
         return key;
     }
 

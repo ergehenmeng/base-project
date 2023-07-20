@@ -248,7 +248,7 @@ public interface CacheService {
     /**
      * 设置过期时间
      * @param key key
-     * @param expire 过期时间,单位:耗时
+     * @param expire 过期时间,单位:毫秒
      */
     void setExpire(String key, long expire);
 }

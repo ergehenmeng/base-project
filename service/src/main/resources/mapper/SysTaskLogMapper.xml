@@ -3,6 +3,6 @@
 <mapper namespace="com.eghm.mapper.SysTaskLogMapper">
 
     <select id="getErrorMsg" resultType="string">
-        select error_msg from task_log where id = #{id}
+        select error_msg from sys_task_log where id = #{id}
     </select>
 </mapper>

@@ -65,6 +65,11 @@ public class SysDeptServiceImpl implements SysDeptService {
         sysDeptMapper.updateById(department);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        sysDeptMapper.deleteById(id);
+    }
+
     /**
      * 根据列表计算出子级部门下一个编码的值
      * 初始编号默认101,后面依次累计+1

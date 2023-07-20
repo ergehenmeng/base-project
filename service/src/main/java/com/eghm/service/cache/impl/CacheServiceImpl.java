@@ -46,12 +46,12 @@ public class CacheServiceImpl implements CacheService {
     /**
      * 默认过期数据 30s
      */
-    private static final long DEFAULT_EXPIRE = 30_000;
+    private static final long DEFAULT_EXPIRE = 30;
 
     /**
      * 互斥等待时间 10s
      */
-    private static final long MUTEX_EXPIRE = 10_000;
+    private static final long MUTEX_EXPIRE = 10;
 
     
     @Override

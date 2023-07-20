@@ -7,6 +7,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constant.CacheConstant;
@@ -16,10 +17,7 @@ import com.eghm.dto.email.SendEmail;
 import com.eghm.dto.ext.*;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
-import com.eghm.dto.member.BindEmailDTO;
-import com.eghm.dto.member.ChangeEmailDTO;
-import com.eghm.dto.member.MemberAuthDTO;
-import com.eghm.dto.member.SendEmailAuthCodeDTO;
+import com.eghm.dto.member.*;
 import com.eghm.dto.register.RegisterMemberDTO;
 import com.eghm.enums.*;
 import com.eghm.exception.BusinessException;
@@ -45,6 +43,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.login.LoginTokenVO;
+import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.SignInVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -93,6 +92,21 @@ public class MemberServiceImpl implements MemberService {
     private final WeChatMpService weChatMpService;
 
     private final MessageService rabbitMessageService;
+
+    @Override
+    public PageData<MemberResponse> getByPage(MemberQueryRequest request) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), likeWrapper ->
+                likeWrapper.like(Member::getNickName, request.getQueryName()).or()
+                .like(Member::getMobile, request.getQueryName()));
+        wrapper.eq(request.getState() != null, Member::getState, request.getState());
+        wrapper.eq(request.getSex() != null, Member::getSex, request.getSex());
+        wrapper.eq(StrUtil.isNotBlank(request.getChannel()), Member::getChannel, request.getChannel());
+
+        Page<Member> selectPage = memberMapper.selectPage(request.createPage(), wrapper);
+
+        return DataUtil.copy(selectPage, MemberResponse.class);
+    }
 
     @Override
     public Member getById(Long memberId) {
@@ -407,8 +421,12 @@ public class MemberServiceImpl implements MemberService {
     public LoginTokenVO mpLogin(String jsCode, String ip) {
         WxOAuth2UserInfo userInfo = weChatMpService.auth2(jsCode);
         Member member = this.getByOpenId(userInfo.getOpenid());
-        // 注销的用户算新增
-        if (member == null || Boolean.FALSE.equals(member.getState())) {
+        if (member != null && Boolean.FALSE.equals(member.getState())) {
+            log.warn("账号已被封禁,无法登录 [{}]", member.getId());
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
+        }
+        // 为空用户算新增
+        if (member == null) {
             member = this.doMpRegister(userInfo, ip);
         }
         return this.doLogin(member, ip);
