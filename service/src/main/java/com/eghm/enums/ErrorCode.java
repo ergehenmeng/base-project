@@ -435,26 +435,6 @@ public enum ErrorCode {
     DEPARTMENT_DEPTH_ERROR(3032,"部门层级已上限"),
 
     /**
-     * 审批配置信息为空
-     */
-    AUDIT_CONFIG_ERROR(3035,"审批配置信息为空"),
-
-    /**
-     * 审批申请信息未查询到
-     */
-    AUDIT_APPLY_NULL(3038,"审批申请信息未查询到"),
-
-    /**
-     * 该申请已审批
-     */
-    AUDIT_REDO(3040,"该申请已审批"),
-
-    /**
-     * 暂无审批权限
-     */
-    AUDIT_NO_ACCESS(3042,"暂无审批权限"),
-
-    /**
      * 邮件模板未配置
      */
     EMAIL_TEMPLATE_NULL(3045,"邮件模板未配置"),
