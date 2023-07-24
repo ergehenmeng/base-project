@@ -22,7 +22,7 @@ public enum ExchangeType {
     TOPIC,
 
     /**
-     * Fanout exchange.
+     * 广播方式
      */
     FANOUT,
 

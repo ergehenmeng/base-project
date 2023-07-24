@@ -1,9 +1,11 @@
 package com.eghm.configuration.rabbit;
 
 import com.alibaba.ttl.threadpool.TtlExecutors;
+import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.configuration.log.LogTraceHolder;
+import com.eghm.enums.ExchangeType;
+import com.eghm.enums.RoutingKey;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * mq配置
@@ -38,8 +43,6 @@ public class RabbitConfig {
     @Bean
     public void init() {
         for (ExchangeQueue value : ExchangeQueue.values()) {
-            Queue queue = QueueBuilder.durable(value.getQueue()).build();
-            amqpAdmin.declareQueue(queue);
             String exchangeType = value.getExchangeType().name().toLowerCase();
             ExchangeBuilder builder = new ExchangeBuilder(value.getExchange(), exchangeType).durable(true);
             if (value.isDelayed()) {
@@ -47,7 +50,11 @@ public class RabbitConfig {
             }
             Exchange exchange = builder.build();
             amqpAdmin.declareExchange(exchange);
-            amqpAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(value.getRoutingKey()).noargs());
+            for (RoutingKey routingKey : value.getRoutingKeys()) {
+                Queue queue = QueueBuilder.durable(routingKey.getQueue()).build();
+                amqpAdmin.declareQueue(queue);
+                amqpAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(routingKey.getKey()).noargs());
+            }
         }
         rabbitTemplate.setBeforePublishPostProcessors(message -> {
             MessageProperties properties = message.getMessageProperties();
@@ -73,4 +80,6 @@ public class RabbitConfig {
         configurer.configure(factory, connectionFactory);
         return factory;
     }
+
+
 }
