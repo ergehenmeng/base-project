@@ -35,7 +35,6 @@ public interface LineConfigService {
      */
     List<LineConfigResponse> getMonthList(LineConfigQueryRequest request);
 
-
     /**
      * 查询线路的价格列表, 从当前日期开始
      * @param lineId 线路id
