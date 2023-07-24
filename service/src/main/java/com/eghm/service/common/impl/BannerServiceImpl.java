@@ -30,16 +30,6 @@ public class BannerServiceImpl implements BannerService {
     private final CacheProxyService cacheProxyService;
 
     @Override
-    public List<Banner> getBanner(Channel channel, Integer classify) {
-        return bannerMapper.getBannerList(classify, channel.name());
-    }
-
-    @Override
-    public Banner getById(Long id) {
-        return bannerMapper.selectById(id);
-    }
-
-    @Override
     public Page<Banner> getByPage(BannerQueryRequest request) {
         LambdaQueryWrapper<Banner> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getClassify() != null, Banner::getClassify, request.getClassify());
@@ -48,6 +38,16 @@ public class BannerServiceImpl implements BannerService {
                 queryWrapper.le(Banner::getStartTime, request.getMiddleTime()).ge(Banner::getEndTime, request.getMiddleTime()));
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Banner::getTitle, request.getQueryName());
         return bannerMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public List<Banner> getBanner(Channel channel, Integer classify) {
+        return bannerMapper.getBannerList(classify, channel.name());
+    }
+
+    @Override
+    public Banner getById(Long id) {
+        return bannerMapper.selectById(id);
     }
 
     @Override

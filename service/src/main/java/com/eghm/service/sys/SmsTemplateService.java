@@ -12,6 +12,13 @@ import com.eghm.dto.sms.SmsTemplateQueryRequest;
 public interface SmsTemplateService {
 
     /**
+     * 根据条件查询短信模板列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request);
+
+    /**
      * 获取短信发送模板
      * @param nid nid
      * @return 短信内容模板
@@ -24,13 +31,6 @@ public interface SmsTemplateService {
      * @return 短信模板
      */
     SmsTemplate getById(Long id);
-
-    /**
-     * 根据条件查询短信模板列表
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request);
 
     /**
      * 更新短信模板

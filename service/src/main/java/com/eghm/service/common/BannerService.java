@@ -16,6 +16,13 @@ import java.util.List;
 public interface BannerService {
 
     /**
+     * 根据条件分页查询录播图列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<Banner> getByPage(BannerQueryRequest request);
+
+    /**
      * 根据客户端类型及模板获取轮播图信息
      * @param channel 客户端类型
      * @param classify banner所属模块,数据字典的值
@@ -29,13 +36,6 @@ public interface BannerService {
      * @return banner
      */
     Banner getById(Long id);
-
-    /**
-     * 根据条件分页查询录播图列表
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<Banner> getByPage(BannerQueryRequest request);
 
     /**
      * 新增轮播图信息

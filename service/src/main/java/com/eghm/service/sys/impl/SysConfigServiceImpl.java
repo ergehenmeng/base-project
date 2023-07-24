@@ -27,12 +27,6 @@ public class SysConfigServiceImpl implements SysConfigService {
     private final SysConfigMapper sysConfigMapper;
 
     @Override
-    public void update(ConfigEditRequest request) {
-        SysConfig config = DataUtil.copy(request, SysConfig.class);
-        sysConfigMapper.updateById(config);
-    }
-
-    @Override
     public Page<SysConfig> getByPage(ConfigQueryRequest request) {
         LambdaQueryWrapper<SysConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getLocked() != null, SysConfig::getLocked, request.getLocked());
@@ -41,6 +35,12 @@ public class SysConfigServiceImpl implements SysConfigService {
                         .like(SysConfig::getNid, request.getQueryName()).or()
                         .like(SysConfig::getRemark, request.getQueryName()));
         return sysConfigMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public void update(ConfigEditRequest request) {
+        SysConfig config = DataUtil.copy(request, SysConfig.class);
+        sysConfigMapper.updateById(config);
     }
 
     @Override

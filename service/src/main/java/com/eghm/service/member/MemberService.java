@@ -19,6 +19,11 @@ import java.time.LocalDateTime;
  */
 public interface MemberService {
 
+    /**
+     * 分页查询会员信息
+     * @param request 查询条件
+     * @return 列表
+     */
     PageData<MemberResponse> getByPage(MemberQueryRequest request);
 
     /**

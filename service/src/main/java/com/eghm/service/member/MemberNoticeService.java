@@ -14,6 +14,14 @@ import java.util.List;
 public interface MemberNoticeService {
 
     /**
+     * 查询用户站内信通知列表
+     * @param query 分页参数
+     * @param memberId 用户id
+     * @return 列表
+     */
+    PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId);
+
+    /**
      * 发送站内信
      * @param memberId 接收消息的用户
      * @param sendNotice 消息内容
@@ -26,14 +34,6 @@ public interface MemberNoticeService {
      * @param sendNotice 消息内容
      */
     void sendNotice(List<Long> memberIdList, SendNotice sendNotice);
-
-    /**
-     * 查询用户站内信通知列表
-     * @param query 分页参数
-     * @param memberId 用户id
-     * @return 列表
-     */
-    PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId);
 
     /**
      * 删除消息通知

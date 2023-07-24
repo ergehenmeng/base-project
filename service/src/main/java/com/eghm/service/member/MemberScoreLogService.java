@@ -12,6 +12,13 @@ import com.eghm.vo.member.MemberScoreVO;
 public interface MemberScoreLogService {
 
     /**
+     * 分页查询用户积分列表
+     * @param request 查询条件
+     * @return 积分列表
+     */
+    PageData<MemberScoreVO> getByPage(MemberScoreQueryDTO request);
+
+    /**
      * 添加积分信息
      * @param scoreLog 积分
      */
@@ -22,11 +29,4 @@ public interface MemberScoreLogService {
      * @return 积分数
      */
     int getSignInScore();
-
-    /**
-     * 分页查询用户积分列表
-     * @param request 查询条件
-     * @return 积分列表
-     */
-    PageData<MemberScoreVO> getByPage(MemberScoreQueryDTO request);
 }

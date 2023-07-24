@@ -29,13 +29,6 @@ public class SysTaskServiceImpl implements SysTaskService {
     private final SysTaskMapper sysTaskMapper;
 
     @Override
-    public List<SysTask> getAvailableList() {
-        LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysTask::getState, true);
-        return sysTaskMapper.selectList(wrapper);
-    }
-
-    @Override
     public Page<SysTask> getByPage(TaskQueryRequest request) {
         LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, SysTask::getState, request.getState());
@@ -44,6 +37,13 @@ public class SysTaskServiceImpl implements SysTaskService {
                         .like(SysTask::getMethodName, request.getQueryName()).or()
                         .like(SysTask::getBeanName, request.getQueryName()));
         return sysTaskMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public List<SysTask> getAvailableList() {
+        LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysTask::getState, true);
+        return sysTaskMapper.selectList(wrapper);
     }
 
     @Override

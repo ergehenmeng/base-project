@@ -27,6 +27,13 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     private final CacheProxyService cacheProxyService;
 
     @Override
+    public Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
+        LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsTemplate::getNid, request.getQueryName());
+        return smsTemplateMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
     public String getTemplate(String nid) {
         return cacheProxyService.getSmsTemplate(nid);
     }
@@ -34,13 +41,6 @@ public class SmsTemplateServiceImpl implements SmsTemplateService {
     @Override
     public SmsTemplate getById(Long id) {
         return smsTemplateMapper.selectById(id);
-    }
-
-    @Override
-    public Page<SmsTemplate> getByPage(SmsTemplateQueryRequest request) {
-        LambdaQueryWrapper<SmsTemplate> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsTemplate::getNid, request.getQueryName());
-        return smsTemplateMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

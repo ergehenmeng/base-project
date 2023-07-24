@@ -29,6 +29,15 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     private final HelpCenterMapper helpCenterMapper;
 
     @Override
+    public Page<HelpCenter> getByPage(HelpQueryRequest request) {
+        LambdaQueryWrapper<HelpCenter> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), HelpCenter::getAsk, request.getQueryName());
+        wrapper.eq(request.getState() != null, HelpCenter::getState, request.getState());
+        wrapper.eq(request.getClassify() != null, HelpCenter::getClassify, request.getClassify());
+        return helpCenterMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
     public void create(HelpAddRequest request) {
         HelpCenter helpCenter = DataUtil.copy(request, HelpCenter.class);
         helpCenterMapper.insert(helpCenter);
@@ -43,15 +52,6 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     @Override
     public void delete(Long id) {
         helpCenterMapper.deleteById(id);
-    }
-
-    @Override
-    public Page<HelpCenter> getByPage(HelpQueryRequest request) {
-        LambdaQueryWrapper<HelpCenter> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), HelpCenter::getAsk, request.getQueryName());
-        wrapper.eq(request.getState() != null, HelpCenter::getState, request.getState());
-        wrapper.eq(request.getClassify() != null, HelpCenter::getClassify, request.getClassify());
-        return helpCenterMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

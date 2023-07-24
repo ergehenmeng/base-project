@@ -22,11 +22,6 @@ public class SysTaskLogServiceImpl implements SysTaskLogService {
     private final SysTaskLogMapper sysTaskLogMapper;
 
     @Override
-    public void addTaskLog(SysTaskLog log) {
-        sysTaskLogMapper.insert(log);
-    }
-
-    @Override
     public Page<SysTaskLog> getByPage(TaskLogQueryRequest request) {
         LambdaQueryWrapper<SysTaskLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getState() != null, SysTaskLog::getState, request.getState());
@@ -35,6 +30,11 @@ public class SysTaskLogServiceImpl implements SysTaskLogService {
                         .like(SysTaskLog::getBeanName, request.getQueryName()).or()
                         .like(SysTaskLog::getIp, request.getQueryName()));
         return sysTaskLogMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public void addTaskLog(SysTaskLog log) {
+        sysTaskLogMapper.insert(log);
     }
 
     @Override

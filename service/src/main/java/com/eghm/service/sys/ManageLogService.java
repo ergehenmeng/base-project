@@ -11,17 +11,17 @@ import com.eghm.dto.log.ManageQueryRequest;
 public interface ManageLogService {
 
     /**
-     * 添加操作日志
-     * @param log 日志
-     */
-    void insertManageLog(ManageLog log);
-
-    /**
      * 根据条件分页查询操作日期信息
      * @param request 查询条件
      * @return 分页列表
      */
     Page<ManageLog> getByPage(ManageQueryRequest request);
+
+    /**
+     * 添加操作日志
+     * @param log 日志
+     */
+    void insertManageLog(ManageLog log);
 
     /**
      * 根据主键查询响应信息

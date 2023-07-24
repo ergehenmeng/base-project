@@ -13,17 +13,17 @@ import com.eghm.vo.feedback.FeedbackVO;
 public interface FeedbackService {
 
     /**
-     * 添加反馈信息
-     * @param request 前台参数
-     */
-    void addFeedback(FeedbackAddDTO request);
-
-    /**
      * 分页查询用户反馈列表
      * @param request 查询条件
      * @return 反馈信息 包含用户基本信息
      */
     Page<FeedbackVO> getByPage(FeedbackQueryRequest request);
+
+    /**
+     * 添加反馈信息
+     * @param request 前台参数
+     */
+    void addFeedback(FeedbackAddDTO request);
 
     /**
      * 反馈信息处理

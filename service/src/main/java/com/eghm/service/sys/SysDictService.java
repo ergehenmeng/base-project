@@ -16,18 +16,18 @@ import java.util.List;
 public interface SysDictService {
 
     /**
-     * 根据nid查询某一类数据字典列表
-     * @param nid 某一类数据字典key
-     * @return 属于该nid的列表
-     */
-    List<SysDict> getDictByNid(String nid);
-
-    /**
      * 根据条件分页查询数据字典信息
      * @param request 前台cax条件
      * @return 分页列表
      */
     Page<SysDict> getByPage(DictQueryRequest request);
+
+    /**
+     * 根据nid查询某一类数据字典列表
+     * @param nid 某一类数据字典key
+     * @return 属于该nid的列表
+     */
+    List<SysDict> getDictByNid(String nid);
 
     /**
      * 添加数据字典

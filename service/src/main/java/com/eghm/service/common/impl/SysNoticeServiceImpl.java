@@ -43,6 +43,15 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     private final SysConfigApi sysConfigApi;
 
     @Override
+    public Page<SysNotice> getByPage(NoticeQueryRequest request) {
+        LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysNotice::getTitle, request.getQueryName());
+        wrapper.eq(request.getClassify() != null, SysNotice::getClassify, request.getClassify());
+        wrapper.last("order by update_time desc, id desc ");
+        return sysNoticeMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
     public List<TopNoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
@@ -70,15 +79,6 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     @Override
     public void delete(Long id) {
         sysNoticeMapper.deleteById(id);
-    }
-
-    @Override
-    public Page<SysNotice> getByPage(NoticeQueryRequest request) {
-        LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysNotice::getTitle, request.getQueryName());
-        wrapper.eq(request.getClassify() != null, SysNotice::getClassify, request.getClassify());
-        wrapper.last("order by update_time desc, id desc ");
-        return sysNoticeMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

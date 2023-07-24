@@ -13,6 +13,13 @@ import java.util.Date;
 public interface SmsLogService {
 
     /**
+     * 根据条件查询短信记录列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<SmsLog> getByPage(SmsLogQueryRequest request);
+
+    /**
      * 添加短信记录
      * @param smsLog smsLog
      */
@@ -28,10 +35,4 @@ public interface SmsLogService {
      */
     int countSms(String smsType, String mobile, Date startTime, Date endTime);
 
-    /**
-     * 根据条件查询短信记录列表
-     * @param request 查询条件
-     * @return 列表
-     */
-    Page<SmsLog> getByPage(SmsLogQueryRequest request);
 }

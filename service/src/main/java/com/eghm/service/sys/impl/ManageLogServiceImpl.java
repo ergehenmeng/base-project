@@ -21,13 +21,13 @@ public class ManageLogServiceImpl implements ManageLogService {
     private final ManageLogMapper manageLogMapper;
 
     @Override
-    public void insertManageLog(ManageLog log) {
-        manageLogMapper.insert(log);
+    public Page<ManageLog> getByPage(ManageQueryRequest request) {
+        return manageLogMapper.getByPage(request.createPage(), request);
     }
 
     @Override
-    public Page<ManageLog> getByPage(ManageQueryRequest request) {
-        return manageLogMapper.getByPage(request.createPage(), request);
+    public void insertManageLog(ManageLog log) {
+        manageLogMapper.insert(log);
     }
 
     @Override

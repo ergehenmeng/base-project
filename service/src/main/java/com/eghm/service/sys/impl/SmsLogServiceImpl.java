@@ -26,6 +26,17 @@ public class SmsLogServiceImpl implements SmsLogService {
 
     private final SmsLogMapper smsLogMapper;
 
+    @Override
+    public Page<SmsLog> getByPage(SmsLogQueryRequest request) {
+        LambdaQueryWrapper<SmsLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsLog::getMobile, request.getQueryName());
+        wrapper.eq(request.getSmsType() != null, SmsLog::getSmsType, request.getSmsType());
+        wrapper.eq(request.getState() != null, SmsLog::getState, request.getState());
+        wrapper.ge(request.getStartTime() != null, SmsLog::getCreateTime, request.getStartTime());
+        wrapper.lt(request.getEndTime() != null, SmsLog::getCreateTime, request.getEndTime());
+        return smsLogMapper.selectPage(request.createPage(), wrapper);
+    }
+
     @Async
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
@@ -36,17 +47,6 @@ public class SmsLogServiceImpl implements SmsLogService {
     @Override
     public int countSms(String smsType, String mobile, Date startTime, Date endTime) {
         return smsLogMapper.countSms(smsType, mobile, startTime, endTime);
-    }
-
-    @Override
-    public Page<SmsLog> getByPage(SmsLogQueryRequest request) {
-        LambdaQueryWrapper<SmsLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SmsLog::getMobile, request.getQueryName());
-        wrapper.eq(request.getSmsType() != null, SmsLog::getSmsType, request.getSmsType());
-        wrapper.eq(request.getState() != null, SmsLog::getState, request.getState());
-        wrapper.ge(request.getStartTime() != null, SmsLog::getCreateTime, request.getStartTime());
-        wrapper.lt(request.getEndTime() != null, SmsLog::getCreateTime, request.getEndTime());
-        return smsLogMapper.selectPage(request.createPage(), wrapper);
     }
 
 }

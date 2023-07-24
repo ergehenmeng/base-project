@@ -29,6 +29,15 @@ public class MemberScoreLogServiceImpl implements MemberScoreLogService {
     private final SysConfigApi sysConfigApi;
 
     @Override
+    public PageData<MemberScoreVO> getByPage(MemberScoreQueryDTO request) {
+        LambdaQueryWrapper<MemberScoreLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(MemberScoreLog::getMemberId, request.getMemberId());
+        wrapper.eq(request.getType() != null, MemberScoreLog::getType, request.getType());
+        Page<MemberScoreLog> page = memberScoreLogMapper.selectPage(request.createPage(), wrapper);
+        return DataUtil.copy(page, MemberScoreVO.class);
+    }
+
+    @Override
     public void insert(MemberScoreLog scoreLog) {
         memberScoreLogMapper.insert(scoreLog);
     }
@@ -38,12 +47,4 @@ public class MemberScoreLogServiceImpl implements MemberScoreLogService {
         return StringUtil.random(1, sysConfigApi.getInt(ConfigConstant.SIGN_IN_SCORE));
     }
 
-    @Override
-    public PageData<MemberScoreVO> getByPage(MemberScoreQueryDTO request) {
-        LambdaQueryWrapper<MemberScoreLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(MemberScoreLog::getMemberId, request.getMemberId());
-        wrapper.eq(request.getType() != null, MemberScoreLog::getType, request.getType());
-        Page<MemberScoreLog> page = memberScoreLogMapper.selectPage(request.createPage(), wrapper);
-        return DataUtil.copy(page, MemberScoreVO.class);
-    }
 }

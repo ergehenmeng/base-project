@@ -14,17 +14,17 @@ import com.eghm.dto.config.ConfigQueryRequest;
 public interface SysConfigService {
 
     /**
-     * 更新系统参数
-     * @param request 待更新的参数对象
-     */
-    void update(ConfigEditRequest request);
-
-    /**
      * 分页查询系统配置信息
      * @param request 查询条件
      * @return 分页结果集
      */
     Page<SysConfig> getByPage(ConfigQueryRequest request);
+
+    /**
+     * 更新系统参数
+     * @param request 待更新的参数对象
+     */
+    void update(ConfigEditRequest request);
 
     /**
      * 根据主键获取系统参数

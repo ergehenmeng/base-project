@@ -17,6 +17,13 @@ import java.util.List;
 public interface HelpCenterService {
 
     /**
+     * 分页获取帮助说明
+     * @param request 前台参数
+     * @return 分页列表
+     */
+    Page<HelpCenter> getByPage(HelpQueryRequest request);
+
+    /**
      * 添加帮助说明
      * @param request 前台参数
      */
@@ -33,13 +40,6 @@ public interface HelpCenterService {
      * @param id id
      */
     void delete(Long id);
-
-    /**
-     * 分页获取帮助说明
-     * @param request 前台参数
-     * @return 分页列表
-     */
-    Page<HelpCenter> getByPage(HelpQueryRequest request);
 
     /**
      * 按分类查询帮助信息

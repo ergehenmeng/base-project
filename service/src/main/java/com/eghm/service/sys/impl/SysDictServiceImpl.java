@@ -43,11 +43,6 @@ public class SysDictServiceImpl implements SysDictService {
     private final CommonService commonService;
 
     @Override
-    public List<SysDict> getDictByNid(String nid) {
-        return cacheProxyService.getDictByNid(nid);
-    }
-
-    @Override
     public Page<SysDict> getByPage(DictQueryRequest request) {
         LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(request.getLocked() != null, SysDict::getLocked, request.getLocked());
@@ -56,6 +51,11 @@ public class SysDictServiceImpl implements SysDictService {
                         .like(SysDict::getNid, request.getQueryName()));
         wrapper.last("order by id desc ");
         return sysDictMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public List<SysDict> getDictByNid(String nid) {
+        return cacheProxyService.getDictByNid(nid);
     }
 
     @Override

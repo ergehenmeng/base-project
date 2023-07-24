@@ -60,6 +60,18 @@ public class SysUserServiceImpl implements SysUserService {
     private final CacheService cacheService;
 
     @Override
+    public Page<SysUser> getByPage(UserQueryRequest request) {
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
+        // 只查询系统用户
+        wrapper.eq(SysUser::getUserType, SysUser.USER_TYPE_1);
+        wrapper.eq(request.getState() != null, SysUser::getState, request.getState());
+        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
+                queryWrapper.like(SysUser::getNickName, request.getQueryName()).or().
+                        like(SysUser::getMobile, request.getQueryName()));
+        return sysUserMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
     public SysUser getByMobile(String mobile) {
         LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysUser::getMobile, mobile);
@@ -90,18 +102,6 @@ public class SysUserServiceImpl implements SysUserService {
         if (!match) {
             throw new BusinessException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
         }
-    }
-
-    @Override
-    public Page<SysUser> getByPage(UserQueryRequest request) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        // 只查询系统用户
-        wrapper.eq(SysUser::getUserType, SysUser.USER_TYPE_1);
-        wrapper.eq(request.getState() != null, SysUser::getState, request.getState());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
-                queryWrapper.like(SysUser::getNickName, request.getQueryName()).or().
-                        like(SysUser::getMobile, request.getQueryName()));
-        return sysUserMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

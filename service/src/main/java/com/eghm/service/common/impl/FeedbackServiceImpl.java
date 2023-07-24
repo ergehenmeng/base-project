@@ -33,14 +33,14 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final MemberNoticeService memberNoticeService;
 
     @Override
-    public void addFeedback(FeedbackAddDTO request) {
-        FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
-        feedbackLogMapper.insert(feedback);
+    public Page<FeedbackVO> getByPage(FeedbackQueryRequest request) {
+        return feedbackLogMapper.getByPage(request.createPage(), request);
     }
 
     @Override
-    public Page<FeedbackVO> getByPage(FeedbackQueryRequest request) {
-        return feedbackLogMapper.getByPage(request.createPage(), request);
+    public void addFeedback(FeedbackAddDTO request) {
+        FeedbackLog feedback = DataUtil.copy(request, FeedbackLog.class);
+        feedbackLogMapper.insert(feedback);
     }
 
     @Override

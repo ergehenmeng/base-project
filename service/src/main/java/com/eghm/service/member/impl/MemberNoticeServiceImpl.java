@@ -74,6 +74,15 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     }
 
     @Override
+    public PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
+        LambdaQueryWrapper<MemberNotice> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(MemberNotice::getMemberId, memberId);
+        wrapper.last(" order by read desc, id desc ");
+        Page<MemberNotice> page = memberNoticeMapper.selectPage(query.createPage(), wrapper);
+        return DataUtil.copy(page, MemberNoticeVO.class);
+    }
+
+    @Override
     public void sendNotice(Long memberId, SendNotice sendNotice) {
         NoticeType mailType = sendNotice.getNoticeType();
         NoticeTemplate template = noticeTemplateService.getTemplate(mailType.getValue());
@@ -117,15 +126,6 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     @Override
     public void sendNotice(List<Long> memberIdList, SendNotice sendNotice) {
         memberIdList.forEach(memberId -> this.sendNotice(memberId, sendNotice));
-    }
-
-    @Override
-    public PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
-        LambdaQueryWrapper<MemberNotice> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(MemberNotice::getMemberId, memberId);
-        wrapper.last(" order by read desc, id desc ");
-        Page<MemberNotice> page = memberNoticeMapper.selectPage(query.createPage(), wrapper);
-        return DataUtil.copy(page, MemberNoticeVO.class);
     }
 
     @Override

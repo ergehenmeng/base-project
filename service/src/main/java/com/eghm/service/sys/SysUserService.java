@@ -15,6 +15,13 @@ import com.eghm.vo.login.LoginResponse;
 public interface SysUserService {
 
     /**
+     * 分页查询系统人员信息
+     * @param request 请求参数
+     * @return 系统人员信息
+     */
+    Page<SysUser> getByPage(UserQueryRequest request);
+
+    /**
      * 根据手机号码查询管理员信息
      * @param mobile 手机号码
      * @return 系统管理人员
@@ -40,13 +47,6 @@ public interface SysUserService {
      * @param rawPassword 用户输入的的密码
      */
     void checkPassword(Long  userId, String rawPassword);
-
-    /**
-     * 分页查询系统人员信息
-     * @param request 请求参数
-     * @return 系统人员信息
-     */
-    Page<SysUser> getByPage(UserQueryRequest request);
 
     /**
      * 添加管理人员 初始密码默认手机号后6位

@@ -15,6 +15,12 @@ import java.util.List;
  */
 public interface SysNoticeService {
 
+    /**
+     * 分页查询公告信息
+     * @param request 查询条件
+     * @return 结果集
+     */
+    Page<SysNotice> getByPage(NoticeQueryRequest request);
 
     /**
      * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制
@@ -39,13 +45,6 @@ public interface SysNoticeService {
      * @param id 公告id
      */
     void delete(Long id);
-
-    /**
-     * 分页查询公告信息
-     * @param request 查询条件
-     * @return 结果集
-     */
-    Page<SysNotice> getByPage(NoticeQueryRequest request);
 
     /**
      * 主键查询公告信息

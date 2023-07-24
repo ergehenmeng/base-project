@@ -14,17 +14,17 @@ import java.util.List;
 public interface SysTaskService {
 
     /**
-     * 获取所有开启的定时任务
-     * @return 定时任务配置列表
-     */
-    List<SysTask> getAvailableList();
-
-    /**
      * 分页查询定时任务列表
      * @param request 查询条件
      * @return 列表
      */
     Page<SysTask> getByPage(TaskQueryRequest request);
+
+    /**
+     * 获取所有开启的定时任务
+     * @return 定时任务配置列表
+     */
+    List<SysTask> getAvailableList();
 
     /**
      * 主键查询
