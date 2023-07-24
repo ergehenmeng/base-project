@@ -30,7 +30,6 @@ public class ItemOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     @Override
     protected void end(OrderVerifyContext context, Order order) {
-        // TODO
         orderMQService.sendOrderCompleteMessage(ExchangeQueue.ITEM_COMPLETE, context.getOrderNo());
     }
 

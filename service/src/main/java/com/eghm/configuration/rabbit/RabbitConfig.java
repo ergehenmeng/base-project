@@ -4,8 +4,6 @@ import com.alibaba.ttl.threadpool.TtlExecutors;
 import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ExchangeQueue;
-import com.eghm.enums.ExchangeType;
-import com.eghm.enums.RoutingKey;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +19,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * mq配置
@@ -50,10 +45,10 @@ public class RabbitConfig {
             }
             Exchange exchange = builder.build();
             amqpAdmin.declareExchange(exchange);
-            for (RoutingKey routingKey : value.getRoutingKeys()) {
-                Queue queue = QueueBuilder.durable(routingKey.getQueue()).build();
+            for (String queueName : value.getQueue()) {
+                Queue queue = QueueBuilder.durable(queueName).build();
                 amqpAdmin.declareQueue(queue);
-                amqpAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(routingKey.getKey()).noargs());
+                amqpAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(value.getRoutingKey()).noargs());
             }
         }
         rabbitTemplate.setBeforePublishPostProcessors(message -> {
