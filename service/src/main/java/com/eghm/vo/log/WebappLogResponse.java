@@ -1,38 +1,20 @@
-package com.eghm.model;
+package com.eghm.vo.log;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 系统异常记录
  * @author 二哥很猛
+ * @since 2023/7/24
  */
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-@Builder
-@TableName("webapp_log")
-public class WebappLog implements Serializable {
+public class WebappLogResponse {
 
-    @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
-    private Long id;
-
-    @ApiModelProperty("用户id")
-    private Long memberId;
+    @ApiModelProperty("用户昵称")
+    private String memberName;
 
     @ApiModelProperty("软件版本号 针对app端,例如 1.2.7")
     private String version;
@@ -70,5 +52,4 @@ public class WebappLog implements Serializable {
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
-
 }

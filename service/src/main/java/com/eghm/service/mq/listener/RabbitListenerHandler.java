@@ -124,7 +124,7 @@ public class RabbitListenerHandler {
     }
     
     /**
-     * 移动端异常日志
+     * 移动端操作日志
      */
     @RabbitListener(queues = QueueConstant.WEBAPP_LOG_QUEUE)
     public void webappLog(WebappLog webappLog, Message message, Channel channel) throws IOException {

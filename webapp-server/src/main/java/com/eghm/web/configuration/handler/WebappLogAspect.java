@@ -1,10 +1,10 @@
 package com.eghm.web.configuration.handler;
 
 
-import com.eghm.enums.ExchangeQueue;
-import com.eghm.model.WebappLog;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
+import com.eghm.enums.ExchangeQueue;
+import com.eghm.model.WebappLog;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
@@ -53,10 +53,10 @@ public class WebappLogAspect {
             long start = System.currentTimeMillis();
             Object proceed = joinPoint.proceed();
             WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
+            webappLog.setElapsedTime(System.currentTimeMillis() - start);
             webappLog.setIp(ip);
             webappLog.setUrl(uri);
             webappLog.setRequestParam(message.getRequestParam());
-            webappLog.setElapsedTime(System.currentTimeMillis() - start);
             rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
             return proceed;
         } catch (Throwable e) {

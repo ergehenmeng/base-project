@@ -1,4 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.WebappLogMapper">
+
+    <select id="getByPage" resultType="com.eghm.vo.log.WebappLogResponse" parameterType="com.eghm.dto.log.WebappQueryRequest">
+       select
+        t.*,
+        r.nick_name as nickName
+       from webapp_log t
+       left join member r on t.member_id = r.id
+       <where>
+           <if test="param.queryName != null and param.queryName != ''">
+               and (r.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                    or t.serial_number like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                    or t.url like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                   )
+           </if>
+           <if test="param.channel != null and param.channel != ''">
+               and t.channel = #{param.channel}
+           </if>
+           <if test="param.ip != null and param.ip != ''">
+               and t.ip = #{param.id}
+           </if>
+       </where>
+    </select>
 </mapper>
