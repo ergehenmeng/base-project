@@ -64,7 +64,7 @@ public interface MemberService {
      * @param memberId 用户id
      * @param state  新状态 true:解冻 false:冻结
      */
-    void updateState(Long memberId,Boolean state);
+    void updateState(Long memberId, Boolean state);
 
     /**
      * 登陆发送验证码
@@ -100,11 +100,18 @@ public interface MemberService {
 
     /**
      * 强制将用户踢下线  (仅适用于移动端用户)
-     * 1.增加一条用户被踢下线的记录
+     * 1.增加一条用户被踢下线的缓存记录
      * 2.清空之前用户登陆的信息
      * @param memberId memberId
      */
     void offline(Long memberId);
+
+    /**
+     * 强制将用户踢下线 (管理后台强制下线用户), 与上面方法区别就是不增加被踢下线的记录
+     * 1.清空之前用户登陆的信息
+     * @param memberId memberId
+     */
+    void forceOffline(Long memberId);
 
     /**
      * 绑定邮箱 发送邮件验证码 (1)

@@ -96,11 +96,6 @@ public class CacheConstant {
     public static final String FORCE_OFFLINE = "force_offline:";
 
     /**
-     * 任务异步结果
-     */
-    public static final String ASYNC_RESPONSE = "async_response:";
-
-    /**
      * 用户登录token
      */
     public static final String ACCESS_TOKEN = "access_token:";
@@ -189,11 +184,6 @@ public class CacheConstant {
      * 奖品总数量
      */
     public static final String LOTTERY_PRIZE_NUM = "lottery_prize_num:";
-
-    /**
-     * 抽奖
-     */
-    public static final String LOTTERY = "lottery:%d:%d";
 
     /**
      * 支付宝支付异步通知锁

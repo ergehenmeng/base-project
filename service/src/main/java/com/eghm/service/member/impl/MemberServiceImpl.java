@@ -98,7 +98,7 @@ public class MemberServiceImpl implements MemberService {
         LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), likeWrapper ->
                 likeWrapper.like(Member::getNickName, request.getQueryName()).or()
-                .like(Member::getMobile, request.getQueryName()));
+                        .like(Member::getMobile, request.getQueryName()));
         wrapper.eq(request.getState() != null, Member::getState, request.getState());
         wrapper.eq(request.getSex() != null, Member::getSex, request.getSex());
         wrapper.eq(StrUtil.isNotBlank(request.getChannel()), Member::getChannel, request.getChannel());
@@ -126,24 +126,15 @@ public class MemberServiceImpl implements MemberService {
         return member;
     }
 
-    /**
-     * 用户注册后置处理
-     *
-     * @param member 用户信息
-     */
-    private void registerPostHandler(Member member, MemberRegister register) {
-        // 执行注册后置链
-        MessageData data = new MessageData();
-        data.setMember(member);
-        data.setMemberRegister(register);
-        handlerChain.execute(data, HandlerEnum.REGISTER);
-    }
-
     @Override
     public LoginTokenVO accountLogin(AccountLoginDTO login) {
         Member member = this.getByAccount(login.getAccount());
         if (member == null || !encoder.match(login.getPwd(), member.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
+        }
+        if (Boolean.FALSE.equals(member.getState())) {
+            log.warn("账号已被封禁,无法登录 [{}] [{}]", member.getId(), login.getAccount());
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }
         RequestMessage request = ApiHolder.get();
         LoginDevice loginLog = loginService.getBySerialNumber(member.getId(), request.getSerialNumber());
@@ -158,40 +149,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         Member member = this.getByAccountRequired(login.getMobile());
+        if (Boolean.FALSE.equals(member.getState())) {
+            log.warn("账号已被封禁,无法登录 [{}] [{}]", member.getId(), login.getMobile());
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
+        }
         smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());
         return this.doLogin(member, login.getIp());
     }
-
-    /**
-     * 移动端登陆系统
-     * 1.清除旧token信息
-     * 2.创建token
-     * 3.添加登陆日志
-     *
-     * @param member 用户id
-     * @param ip   登陆ip
-     * @return token信息
-     */
-    private LoginTokenVO doLogin(Member member, String ip) {
-        // 将原用户踢掉
-        this.offline(member.getId());
-        RequestMessage request = ApiHolder.get();
-        // 创建token
-        MemberToken memberToken = tokenService.createToken(member.getId(), request.getChannel());
-        // 记录登陆日志信息
-        LoginRecord loginRecord = LoginRecord.builder()
-                .ip(NetUtil.ipv4ToLong(ip))
-                .memberId(member.getId())
-                .channel(request.getChannel())
-                .deviceBrand(request.getDeviceBrand())
-                .deviceModel(request.getDeviceModel())
-                .softwareVersion(request.getVersion())
-                .serialNumber(request.getSerialNumber())
-                .build();
-        rabbitMessageService.send(ExchangeQueue.LOGIN_LOG, loginRecord);
-        return LoginTokenVO.builder().token(memberToken.getToken()).refreshToken(memberToken.getRefreshToken()).build();
-    }
-
 
     @Override
     public Member getByAccount(String account) {
@@ -208,8 +172,8 @@ public class MemberServiceImpl implements MemberService {
         member.setId(memberId);
         member.setState(state);
         memberMapper.updateById(member);
-        if (Boolean.FALSE.equals(member.getState())){
-            this.offline(member.getId());
+        if (Boolean.FALSE.equals(member.getState())) {
+            this.forceOffline(member.getId());
         }
     }
 
@@ -255,7 +219,7 @@ public class MemberServiceImpl implements MemberService {
 
 
     @Override
-    public void offline(Long memberId){
+    public void offline(Long memberId) {
         MemberToken memberToken = tokenService.getByMemberId(memberId);
         if (memberToken == null) {
             return;
@@ -264,6 +228,17 @@ public class MemberServiceImpl implements MemberService {
         if (expire > 0) {
             // 缓存踢下线的信息
             tokenService.cacheOfflineToken(memberToken, expire);
+        }
+        tokenService.cleanRefreshToken(memberToken.getRefreshToken());
+        tokenService.cleanToken(memberToken.getToken());
+        tokenService.cleanMemberId(memberId);
+    }
+
+    @Override
+    public void forceOffline(Long memberId) {
+        MemberToken memberToken = tokenService.getByMemberId(memberId);
+        if (memberToken == null) {
+            return;
         }
         tokenService.cleanRefreshToken(memberToken.getRefreshToken());
         tokenService.cleanToken(memberToken.getToken());
@@ -305,6 +280,7 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 查看邮箱是会否被占用
+     *
      * @param email 邮箱号
      */
     @Override
@@ -477,9 +453,10 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 计算用户本月签到的情况
+     * 计算用户本月签到的情况:<br/>
      * 由于签到是从用户注册开始计算,因此需要根据注册时间计算偏移量得到本月签到
-     * @param signKey 用户签到key
+     *
+     * @param signKey      用户签到key
      * @param registerDate 注册日期
      * @return 签到情况 最多31条
      */
@@ -504,9 +481,23 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
+     * 用户注册后置处理
+     *
+     * @param member 用户信息
+     */
+    private void registerPostHandler(Member member, MemberRegister register) {
+        // 执行注册后置链
+        MessageData data = new MessageData();
+        data.setMember(member);
+        data.setMemberRegister(register);
+        handlerChain.execute(data, HandlerEnum.REGISTER);
+    }
+
+    /**
      * 微信公众号用户注册
+     *
      * @param info 微信用户信息
-     * @param ip ip
+     * @param ip   ip
      * @return 用户信息
      */
     private Member doMpRegister(WxOAuth2UserInfo info, String ip) {
@@ -533,5 +524,35 @@ public class MemberServiceImpl implements MemberService {
             log.error("手机号被占用,无法注册用户 [{}]", mobile);
             throw new BusinessException(ErrorCode.MOBILE_REGISTER_REDO);
         }
+    }
+
+    /**
+     * 移动端登陆系统 <br/>
+     * 1.清除旧token信息 <br/>
+     * 2.创建token <br/>
+     * 3.添加登陆日志 <br/>
+     *
+     * @param member 用户id
+     * @param ip     登陆ip
+     * @return token信息
+     */
+    private LoginTokenVO doLogin(Member member, String ip) {
+        // 将原用户踢掉
+        this.offline(member.getId());
+        RequestMessage request = ApiHolder.get();
+        // 创建token
+        MemberToken memberToken = tokenService.createToken(member.getId(), request.getChannel());
+        // 记录登陆日志信息
+        LoginRecord loginRecord = LoginRecord.builder()
+                .ip(NetUtil.ipv4ToLong(ip))
+                .memberId(member.getId())
+                .channel(request.getChannel())
+                .deviceBrand(request.getDeviceBrand())
+                .deviceModel(request.getDeviceModel())
+                .softwareVersion(request.getVersion())
+                .serialNumber(request.getSerialNumber())
+                .build();
+        rabbitMessageService.send(ExchangeQueue.LOGIN_LOG, loginRecord);
+        return LoginTokenVO.builder().token(memberToken.getToken()).refreshToken(memberToken.getRefreshToken()).build();
     }
 }
