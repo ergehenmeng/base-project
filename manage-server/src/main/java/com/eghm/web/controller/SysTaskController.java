@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.task.config.SysTaskRegistrar;
+import com.eghm.dto.task.TaskRunRequest;
 import com.eghm.model.SysTask;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
@@ -46,6 +47,13 @@ public class SysTaskController {
     @ApiOperation("刷新定时任务")
     public RespBody<Void> refresh() {
         sysTaskRegistrar.loadOrRefreshTask();
+        return RespBody.success();
+    }
+
+    @PostMapping("/runTask")
+    @ApiOperation("执行一次任务")
+    public RespBody<Void> runTask(@Validated @RequestBody TaskRunRequest request) {
+        sysTaskService.runTask(request.getId(), request.getArgs());
         return RespBody.success();
     }
 }

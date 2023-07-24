@@ -72,9 +72,9 @@ public class RunnableTask implements Runnable {
         } catch (Exception e) {
             // 异常时记录日志并发送邮件
             log.error("定时任务执行异常 bean:[{}] method: [{}]", task.getBeanName(), task.getMethodName(), e);
-            builder.state(false);
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
+            builder.state(false);
             this.sendExceptionEmail(errorMsg);
         } finally {
             // 每次执行的日志都记入定时任务日志

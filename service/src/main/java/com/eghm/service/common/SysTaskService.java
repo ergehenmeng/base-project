@@ -38,4 +38,11 @@ public interface SysTaskService {
      * @param request 配置信息
      */
     void update(TaskEditRequest request);
+
+    /**
+     * 运行一次定时任务
+     * @param id 任务配置id
+     * @param args 任务参数
+     */
+    void runTask(Long id, String args);
 }

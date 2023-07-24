@@ -185,6 +185,11 @@ public enum ErrorCode {
     TASK_CONFIG_ERROR(1030,"定时任务配置异常"),
 
     /**
+     * 任务未查询到
+     */
+    TASK_NULL_ERROR(1031,"任务未查询到"),
+
+    /**
      * 数据权限不匹配
      */
     DATA_TYPE_ERROR(1033,"数据权限不匹配"),
