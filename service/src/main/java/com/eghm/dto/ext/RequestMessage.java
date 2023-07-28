@@ -56,11 +56,6 @@ public class RequestMessage implements Serializable {
     private Long memberId;
 
     /**
-     * 秘钥
-     */
-    private String  secret;
-
-    /**
      * http请求内容,json格式
      */
     private String requestParam;

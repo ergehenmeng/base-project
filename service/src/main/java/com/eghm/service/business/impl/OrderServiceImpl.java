@@ -28,7 +28,7 @@ import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
@@ -140,7 +140,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         PayType payType = order.getPayType();
         // 订单支付方式和支付方式需要做一层转换
         TradeType tradeType = TradeType.valueOf(payType.name());
-        OrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
+        PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
         return vo.getTradeState();
     }
 

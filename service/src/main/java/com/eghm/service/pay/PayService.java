@@ -3,7 +3,7 @@ package com.eghm.service.pay;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
@@ -38,7 +38,7 @@ public interface PayService {
      * @param outTradeNo 商户订单号
      * @return 订单信息
      */
-    OrderVO queryOrder(String outTradeNo);
+    PayOrderVO queryOrder(String outTradeNo);
 
     /**
      * 关闭订单号

@@ -10,7 +10,7 @@ import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.*;
-import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
 import com.eghm.utils.DateUtil;
@@ -63,7 +63,7 @@ public class AliPayServiceImpl implements PayService {
     }
 
     @Override
-    public OrderVO queryOrder(String outTradeNo) {
+    public PayOrderVO queryOrder(String outTradeNo) {
         AlipayTradeQueryResponse response;
         try {
             response = Factory.Payment.Common().query(outTradeNo);
@@ -76,7 +76,7 @@ public class AliPayServiceImpl implements PayService {
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
 
-        OrderVO vo = new OrderVO();
+        PayOrderVO vo = new PayOrderVO();
         vo.setAttach(response.getBody());
         vo.setPayerId(response.getBuyerUserId());
         vo.setAmount(DecimalUtil.yuanToCent(response.getTotalAmount()));

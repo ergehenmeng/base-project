@@ -7,7 +7,7 @@ import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
 
@@ -55,7 +55,7 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         // 零售订单可能会查询多条 取第一条即可
         Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
-        OrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
+        PayOrderVO vo = aggregatePayService.queryOrder(tradeType, order.getOutTradeNo());
         context.setAmount(vo.getAmount());
         context.setSuccessTime(vo.getSuccessTime());
         context.setTradeType(vo.getTradeType());

@@ -9,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class OrderVO<T> {
+public class OrderCreateVO<T> {
 
     @ApiModelProperty("结果状态 0: 处理中(#) 1: 成功(@) 2: 失败(&:系统异常, 其他则是业务异常)")
     private Integer state;

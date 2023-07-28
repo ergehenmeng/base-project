@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderVO {
+public class PayOrderVO {
 
     @ApiModelProperty("支付id: 微信openId")
     private String payerId;

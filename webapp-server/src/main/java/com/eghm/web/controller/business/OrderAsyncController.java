@@ -6,7 +6,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.cache.CacheService;
-import com.eghm.vo.business.order.OrderVO;
+import com.eghm.vo.business.order.OrderCreateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -31,9 +31,9 @@ public class OrderAsyncController {
     @GetMapping("/result")
     @ApiOperation("异步查询下单结果")
     @ApiImplicitParam(name = "key", value = "查询key", required = true)
-    public RespBody<OrderVO<String>> getResult(@RequestParam("key") String key) {
+    public RespBody<OrderCreateVO<String>> getResult(@RequestParam("key") String key) {
         String hashValue = cacheService.getValue(CacheConstant.MQ_ASYNC_KEY + key);
-        OrderVO<String> vo = new OrderVO<>();
+        OrderCreateVO<String> vo = new OrderCreateVO<>();
         if (hashValue != null && CacheConstant.PLACE_HOLDER.startsWith(hashValue)) {
             this.setProcessResult(key, hashValue, vo);
             return RespBody.success(vo);
@@ -74,7 +74,7 @@ public class OrderAsyncController {
      * @param hashValue  查询的结果
      * @param vo 结果信息存放
      */
-    private void setProcessResult(String key, String hashValue, OrderVO<String> vo) {
+    private void setProcessResult(String key, String hashValue, OrderCreateVO<String> vo) {
         String accessStr = hashValue.replace(CacheConstant.PLACE_HOLDER, "");
         int accessNum = 0;
         if (StrUtil.isNotBlank(accessStr)) {

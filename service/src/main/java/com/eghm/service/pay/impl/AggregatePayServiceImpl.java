@@ -8,7 +8,7 @@ import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.TradeType;
-import com.eghm.service.pay.vo.OrderVO;
+import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     }
 
     @Override
-    public OrderVO queryOrder(TradeType tradeType, String outTradeNo) {
+    public PayOrderVO queryOrder(TradeType tradeType, String outTradeNo) {
         return getPayService(tradeType).queryOrder(outTradeNo);
     }
 

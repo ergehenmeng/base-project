@@ -49,20 +49,21 @@ public class WebappLogAspect {
         String ip = IpUtil.getIpAddress(request);
         String uri = request.getRequestURI();
         RequestMessage message = ApiHolder.get();
+        long elapsedTime = 0L;
         try {
             long start = System.currentTimeMillis();
             Object proceed = joinPoint.proceed();
+            elapsedTime = System.currentTimeMillis() - start;
             WebappLog webappLog = DataUtil.copy(message, WebappLog.class);
-            webappLog.setElapsedTime(System.currentTimeMillis() - start);
+            webappLog.setElapsedTime(elapsedTime);
             webappLog.setIp(ip);
             webappLog.setUrl(uri);
             webappLog.setRequestParam(message.getRequestParam());
             rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
             return proceed;
-        } catch (Throwable e) {
-            log.warn("请求地址:[{}],请求ip:[{}],操作id:[{}],请求参数:[{}],响应参数:[{}],耗时:[{}ms],软件版本:[{}],客户端:[{}],系统版本:[{}],设备厂商:[{}],设备型号:[{}]",
-                    uri, ip,message.getMemberId(), message.getRequestParam(), "接口异常" ,0 , message.getVersion(), message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
-            throw e;
+        } finally {
+            log.info("请求地址:[{}],请求ip:[{}],操作id:[{}],请求参数:[{}],耗时:[{}ms],软件版本:[{}],客户端:[{}],系统版本:[{}],设备厂商:[{}],设备型号:[{}]",
+                    uri, ip, message.getMemberId(), message.getRequestParam(), elapsedTime , message.getVersion(), message.getChannel(), message.getOsVersion(), message.getDeviceBrand(), message.getDeviceModel());
         }
     }
 

@@ -16,7 +16,7 @@ import com.eghm.service.business.handler.access.impl.*;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.order.OrderVO;
+import com.eghm.vo.business.order.OrderCreateVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -50,51 +50,51 @@ public class OrderController {
 
     @PostMapping("/item/create")
     @ApiOperation("零售创建订单")
-    public RespBody<OrderVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO<String>> itemCreate(@RequestBody @Validated ItemOrderCreateDTO dto) {
         ItemOrderCreateContext context = DataUtil.copy(dto, ItemOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         itemAccessHandler.createOrder(context);
-        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
 
     @PostMapping("/ticket/create")
     @ApiOperation("门票创建订单")
-    public RespBody<OrderVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO<String>> ticketCreate(@RequestBody @Validated TicketOrderCreateDTO dto) {
         TicketOrderCreateContext context = DataUtil.copy(dto, TicketOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         ticketAccessHandler.createOrder(context);
-        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
 
     @PostMapping("/homestay/create")
     @ApiOperation("民宿创建订单")
-    public RespBody<OrderVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO<String>> homestayCreate(@RequestBody @Validated HomestayOrderCreateDTO dto) {
         HomestayOrderCreateContext context = DataUtil.copy(dto, HomestayOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         homestayAccessHandler.createOrder(context);
-        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
 
     @PostMapping("/line/create")
     @ApiOperation("线路创建订单")
-    public RespBody<OrderVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO<String>> lineCreate(@RequestBody @Validated LineOrderCreateDTO dto) {
         LineOrderCreateContext context = DataUtil.copy(dto, LineOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         lineAccessHandler.createOrder(context);
-        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
 
     @PostMapping("/restaurant/create")
     @ApiOperation("餐饮创建订单")
-    public RespBody<OrderVO<String>> restaurantCreate(@RequestBody @Validated RestaurantOrderCreateDTO dto) {
+    public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated RestaurantOrderCreateDTO dto) {
         RestaurantOrderCreateContext context = DataUtil.copy(dto, RestaurantOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         restaurantAccessHandler.createOrder(context);
-        OrderVO<String> result = this.generateResult(context, context.getOrderNo());
+        OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());
         return RespBody.success(result);
     }
 
@@ -111,8 +111,8 @@ public class OrderController {
      * @param orderNo 订单编号
      * @return vo
      */
-    private OrderVO<String> generateResult(AsyncKey context, String orderNo) {
-        OrderVO<String> vo = new OrderVO<>();
+    private OrderCreateVO<String> generateResult(AsyncKey context, String orderNo) {
+        OrderCreateVO<String> vo = new OrderCreateVO<>();
         if (StrUtil.isNotBlank(context.getKey())) {
             vo.setState(0);
             vo.setData(context.getKey());
