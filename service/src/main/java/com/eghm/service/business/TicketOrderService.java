@@ -2,8 +2,12 @@ package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.model.TicketOrder;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -30,4 +34,12 @@ public interface TicketOrderService {
      * @return 门票订单信息
      */
     TicketOrder selectByOrderNo(String orderNo);
+
+    /**
+     * 分页查询用户订单列表
+     * @param query 分页信息
+     * @param memberId
+     * @return
+     */
+    List<TicketOrderVO> getList(PagingQuery query, Long memberId);
 }
