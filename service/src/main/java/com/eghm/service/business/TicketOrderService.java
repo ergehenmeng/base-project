@@ -1,8 +1,8 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
-import com.eghm.dto.ext.PagingQuery;
 import com.eghm.model.TicketOrder;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderVO;
@@ -37,9 +37,8 @@ public interface TicketOrderService {
 
     /**
      * 分页查询用户订单列表
-     * @param query 分页信息
-     * @param memberId
-     * @return
+     * @param dto 查询条件
+     * @return 列表
      */
-    List<TicketOrderVO> getList(PagingQuery query, Long memberId);
+    List<TicketOrderVO> getByPage(TicketOrderQueryDTO dto);
 }

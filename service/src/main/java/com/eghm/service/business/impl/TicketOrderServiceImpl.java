@@ -4,14 +4,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -42,4 +46,9 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         return ticketOrderMapper.selectOne(wrapper);
     }
 
+    @Override
+    public List<TicketOrderVO> getByPage(TicketOrderQueryDTO dto) {
+        Page<TicketOrderVO> voPage = ticketOrderMapper.getList(dto.createPage(false), dto);
+        return voPage.getRecords();
+    }
 }

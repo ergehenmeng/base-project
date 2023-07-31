@@ -7,6 +7,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.vo.business.order.OrderCreateVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 二哥很猛
  * @since 2022/9/28
  */
+@AccessToken
 @RestController
 @Api(tags = "订单异步查询")
 @AllArgsConstructor

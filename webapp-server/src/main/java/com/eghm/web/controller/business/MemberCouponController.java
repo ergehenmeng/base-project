@@ -21,6 +21,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/7/18
  */
+@AccessToken
 @RestController
 @Api(tags = "我的优惠券")
 @AllArgsConstructor
@@ -31,7 +32,6 @@ public class MemberCouponController {
 
     @PostMapping("/receive")
     @ApiOperation("优惠券领取")
-    @AccessToken
     public RespBody<Void> receive(@RequestBody @Validated ReceiveCouponDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         memberCouponService.receiveCoupon(dto);
@@ -40,7 +40,6 @@ public class MemberCouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
-    @AccessToken
     public RespBody<List<MemberCouponVO>> listPage(@Validated MemberCouponQueryPageDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         List<MemberCouponVO> voList = memberCouponService.memberCouponPage(dto);
@@ -49,7 +48,6 @@ public class MemberCouponController {
 
     @GetMapping("/choose")
     @ApiOperation("选择优惠券")
-    @AccessToken
     public RespBody<List<MemberCouponBaseVO>> choose(@Validated IdDTO dto) {
         List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), dto.getId());
         return RespBody.success(selectCoupon);

@@ -24,6 +24,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/7/23
  */
+@AccessToken
 @RestController
 @Api(tags = "购物车")
 @AllArgsConstructor
@@ -34,7 +35,6 @@ public class ShoppingCartController {
 
     @PostMapping("/add")
     @ApiOperation("添加购物车")
-    @AccessToken
     public RespBody<Void> add(@RequestBody @Validated AddCartDTO dto) {
         shoppingCartService.add(dto);
         return RespBody.success();
@@ -42,7 +42,6 @@ public class ShoppingCartController {
 
     @GetMapping("/list")
     @ApiOperation("购物车商品列表")
-    @AccessToken
     public RespBody<List<ShoppingCartVO>> list() {
         List<ShoppingCartVO> voList = shoppingCartService.getList(ApiHolder.getMemberId());
         return RespBody.success(voList);
@@ -50,7 +49,6 @@ public class ShoppingCartController {
 
     @PostMapping("/delete")
     @ApiOperation("删除购物车商品")
-    @AccessToken
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         shoppingCartService.delete(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
@@ -58,7 +56,6 @@ public class ShoppingCartController {
 
     @PostMapping("/quantity")
     @ApiOperation("更新商品数量")
-    @AccessToken
     public RespBody<Void> quantity(@RequestBody @Validated CartQuantityDTO dto) {
         shoppingCartService.updateQuantity(dto.getId(), dto.getQuantity(), ApiHolder.getMemberId());
         return RespBody.success();

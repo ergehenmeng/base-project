@@ -14,6 +14,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class TicketOrderQueryDTO extends PagingQuery {
 
+    /**
+     * TODO 定义门票状态值
+     */
     @ApiModelProperty("门票订单状态")
     private Integer orderState;
 

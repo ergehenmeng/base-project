@@ -2,9 +2,11 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.model.TicketOrder;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
+import com.eghm.vo.business.order.ticket.TicketOrderVO;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -24,4 +26,12 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
      * @return 列表
      */
     Page<TicketOrderResponse> getByPage(Page<TicketOrderResponse> page, @Param("param") TicketOrderQueryRequest request);
+
+    /**
+     * 查询用户门票订单列表
+     * @param page 分页信息
+     * @param dto 查询条件
+     * @return 列表
+     */
+    Page<TicketOrderVO> getList(Page<TicketOrderVO> page, @Param("param") TicketOrderQueryDTO dto);
 }

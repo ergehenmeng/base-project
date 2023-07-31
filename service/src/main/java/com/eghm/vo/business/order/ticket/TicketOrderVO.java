@@ -30,13 +30,11 @@ public class TicketOrderVO {
     @ApiModelProperty("购买数量")
     private Integer num;
 
-    @ApiModelProperty("订单联系人")
-    private String mobile;
-
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
     @ApiModelProperty("总付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
+
 }

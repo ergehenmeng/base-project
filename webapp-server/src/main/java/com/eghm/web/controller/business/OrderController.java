@@ -17,6 +17,7 @@ import com.eghm.service.business.handler.context.*;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.OrderCreateVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author wyb
  * @since 2023/5/5
  */
+@AccessToken
 @RestController
 @Api(tags = "订单")
 @AllArgsConstructor
