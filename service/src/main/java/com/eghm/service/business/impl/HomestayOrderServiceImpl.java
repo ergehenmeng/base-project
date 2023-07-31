@@ -27,7 +27,7 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
     }
 
     @Override
-    public HomestayOrder selectByOrderNo(String orderNo) {
+    public HomestayOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<HomestayOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(HomestayOrder::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);

@@ -19,5 +19,5 @@ public interface LineOrderService {
      * @param orderNo 订单编号
      * @return 线路订单
      */
-    LineOrder selectByOrderNo(String orderNo);
+    LineOrder getByOrderNo(String orderNo);
 }

@@ -38,7 +38,7 @@ public class ItemOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
     @Override
     protected void after(Order order) {
-        List<ItemOrder> orderList = itemOrderService.selectByOrderNo(order.getOrderNo());
+        List<ItemOrder> orderList = itemOrderService.getByOrderNo(order.getOrderNo());
         Map<Long, Integer> skuNumMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getSkuId, ItemOrder::getNum));
         itemSkuService.updateStock(skuNumMap);
     }

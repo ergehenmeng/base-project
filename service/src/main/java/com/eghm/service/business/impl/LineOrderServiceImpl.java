@@ -27,7 +27,7 @@ public class LineOrderServiceImpl implements LineOrderService {
     }
 
     @Override
-    public LineOrder selectByOrderNo(String orderNo) {
+    public LineOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<LineOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LineOrder::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);

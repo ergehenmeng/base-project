@@ -32,7 +32,7 @@ public class LineOrderCancelHandler extends AbstractOrderCancelHandler {
     
     @Override
     protected void after(Order order) {
-        LineOrder lineOrder = lineOrderService.selectByOrderNo(order.getOrderNo());
+        LineOrder lineOrder = lineOrderService.getByOrderNo(order.getOrderNo());
         lineConfigService.updateStock(lineOrder.getLineConfigId(), order.getNum());
     }
 

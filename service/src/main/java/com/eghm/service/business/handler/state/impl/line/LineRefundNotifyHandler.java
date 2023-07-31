@@ -43,7 +43,7 @@ public class LineRefundNotifyHandler extends AbstractRefundNotifyHandler {
         super.after(dto, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
-                LineOrder lineOrder = lineOrderService.selectByOrderNo(order.getOrderNo());
+                LineOrder lineOrder = lineOrderService.getByOrderNo(order.getOrderNo());
                 lineConfigService.updateStock(lineOrder.getLineConfigId(), refundLog.getNum());
             } catch (Exception e) {
                 log.error("线路退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);

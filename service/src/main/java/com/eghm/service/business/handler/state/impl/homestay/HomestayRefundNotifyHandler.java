@@ -2,7 +2,6 @@ package com.eghm.service.business.handler.state.impl.homestay;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
-import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.HomestayOrder;
 import com.eghm.model.Order;
@@ -44,7 +43,7 @@ public class HomestayRefundNotifyHandler extends AbstractRefundNotifyHandler {
         super.after(dto, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
-                HomestayOrder homestayOrder = homestayOrderService.selectByOrderNo(order.getOrderNo());
+                HomestayOrder homestayOrder = homestayOrderService.getByOrderNo(order.getOrderNo());
                 // 也就是说民宿订单定4天 不能住两天 然后退两天, 后期需要优化该逻辑
                 homestayRoomConfigService.updateStock(homestayOrder.getRoomId(), homestayOrder.getStartDate(), homestayOrder.getEndDate(), refundLog.getNum());
             } catch (Exception e) {

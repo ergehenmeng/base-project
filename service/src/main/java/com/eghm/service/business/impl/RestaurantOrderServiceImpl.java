@@ -27,7 +27,7 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService {
     }
 
     @Override
-    public RestaurantOrder selectByOrderNo(String orderNo) {
+    public RestaurantOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<RestaurantOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(RestaurantOrder::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);

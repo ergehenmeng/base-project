@@ -33,7 +33,7 @@ public class RestaurantOrderCancelHandler extends AbstractOrderCancelHandler {
 
     @Override
     protected void after(Order order) {
-        RestaurantOrder restaurantOrder = restaurantOrderService.selectByOrderNo(order.getOrderNo());
+        RestaurantOrder restaurantOrder = restaurantOrderService.getByOrderNo(order.getOrderNo());
         restaurantVoucherService.updateStock(restaurantOrder.getVoucherId(), order.getNum());
     }
 

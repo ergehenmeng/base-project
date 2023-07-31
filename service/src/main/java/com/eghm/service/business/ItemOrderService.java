@@ -22,7 +22,7 @@ public interface ItemOrderService {
      * @param orderNo 订单号
      * @return 商品订单(普通商品一个订单存在多商品)
      */
-    List<ItemOrder> selectByOrderNo(String orderNo);
+    List<ItemOrder> getByOrderNo(String orderNo);
 
     /**
      * 批量添加子订单信息

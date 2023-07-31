@@ -33,7 +33,7 @@ public interface TicketOrderService {
      * @param orderNo 订单编号
      * @return 门票订单信息
      */
-    TicketOrder selectByOrderNo(String orderNo);
+    TicketOrder getByOrderNo(String orderNo);
 
     /**
      * 分页查询用户订单列表

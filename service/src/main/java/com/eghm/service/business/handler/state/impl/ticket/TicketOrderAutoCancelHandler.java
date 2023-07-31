@@ -33,7 +33,7 @@ public class TicketOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler
 
     @Override
     protected void after(Order order) {
-        TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(order.getOrderNo());
+        TicketOrder ticketOrder = ticketOrderService.getByOrderNo(order.getOrderNo());
         scenicTicketService.updateStock(ticketOrder.getTicketId(), order.getNum());
     }
 

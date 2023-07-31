@@ -36,7 +36,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public List<ItemOrder> selectByOrderNo(String orderNo) {
+    public List<ItemOrder> getByOrderNo(String orderNo) {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemOrder::getOrderNo, orderNo);
         return itemOrderMapper.selectList(wrapper);

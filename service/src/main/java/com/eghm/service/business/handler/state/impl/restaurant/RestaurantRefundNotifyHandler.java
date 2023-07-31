@@ -43,7 +43,7 @@ public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
         super.after(dto, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
-                RestaurantOrder restaurantOrder = restaurantOrderService.selectByOrderNo(order.getOrderNo());
+                RestaurantOrder restaurantOrder = restaurantOrderService.getByOrderNo(order.getOrderNo());
                 restaurantVoucherService.updateStock(restaurantOrder.getVoucherId(), refundLog.getNum());
             } catch (Exception e) {
                 log.error("餐饮券退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);

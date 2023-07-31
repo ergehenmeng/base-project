@@ -19,7 +19,7 @@ public interface RestaurantOrderService {
      * @param orderNo 订单编号
      * @return 餐饮订单
      */
-    RestaurantOrder selectByOrderNo(String orderNo);
+    RestaurantOrder getByOrderNo(String orderNo);
 
     /**
      * 主键查询

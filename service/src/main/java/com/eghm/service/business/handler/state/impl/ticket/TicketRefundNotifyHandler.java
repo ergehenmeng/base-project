@@ -43,7 +43,7 @@ public class TicketRefundNotifyHandler extends AbstractRefundNotifyHandler {
         super.after(context, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
-                TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(order.getOrderNo());
+                TicketOrder ticketOrder = ticketOrderService.getByOrderNo(order.getOrderNo());
                 scenicTicketService.updateStock(ticketOrder.getScenicId(), refundLog.getNum());
             } catch (Exception e) {
                 log.error("门票退款成功,但更新库存失败 [{}] [{}] ", context, refundLog.getNum(), e);

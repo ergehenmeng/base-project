@@ -34,7 +34,7 @@ public class TicketRefundApplyHandler extends AbstractRefundApplyHandler {
     @Override
     protected void before(RefundApplyContext context, Order order) {
         super.before(context, order);
-        TicketOrder ticketOrder = ticketOrderService.selectByOrderNo(context.getOrderNo());
+        TicketOrder ticketOrder = ticketOrderService.getByOrderNo(context.getOrderNo());
         if (Boolean.TRUE.equals(ticketOrder.getRealBuy()) && context.getNum() != context.getVisitorIds().size()) {
             log.error("退款数量和退款人数不一致 [{}] [{}] [{}]", context.getOrderNo(), context.getNum(), context.getVisitorIds().size());
             throw new BusinessException(ErrorCode.REFUND_VISITOR);

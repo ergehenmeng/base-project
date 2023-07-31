@@ -39,7 +39,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     }
 
     @Override
-    public TicketOrder selectByOrderNo(String orderNo) {
+    public TicketOrder getByOrderNo(String orderNo) {
         LambdaQueryWrapper<TicketOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(TicketOrder::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);

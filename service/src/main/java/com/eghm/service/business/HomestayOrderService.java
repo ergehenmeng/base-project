@@ -19,5 +19,5 @@ public interface HomestayOrderService {
      * @param orderNo 订单编号
      * @return 民宿订单
      */
-    HomestayOrder selectByOrderNo(String orderNo);
+    HomestayOrder getByOrderNo(String orderNo);
 }

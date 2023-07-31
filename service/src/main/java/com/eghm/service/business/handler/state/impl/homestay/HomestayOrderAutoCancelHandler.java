@@ -33,7 +33,7 @@ public class HomestayOrderAutoCancelHandler extends AbstractOrderAutoCancelHandl
 
     @Override
     protected void after(Order order) {
-        HomestayOrder ticketOrder = homestayOrderService.selectByOrderNo(order.getOrderNo());
+        HomestayOrder ticketOrder = homestayOrderService.getByOrderNo(order.getOrderNo());
         homestayRoomConfigService.updateStock(ticketOrder.getRoomId(), ticketOrder.getStartDate(), ticketOrder.getEndDate(), order.getNum());
     }
 
