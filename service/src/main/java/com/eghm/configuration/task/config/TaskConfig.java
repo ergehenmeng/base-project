@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.config;
 
+import com.eghm.mapper.SysTaskMapper;
 import com.eghm.service.common.SysTaskService;
 import org.springframework.boot.task.TaskSchedulerCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -18,8 +19,8 @@ public class TaskConfig implements TaskSchedulerCustomizer {
      * 自定义定时任务bean
      */
     @Bean
-    public SysTaskRegistrar systemTaskRegistrar(SysTaskService taskConfigService, TaskScheduler taskScheduler){
-        return new SysTaskRegistrar(taskConfigService, taskScheduler);
+    public SysTaskRegistrar systemTaskRegistrar(SysTaskMapper sysTaskMapper, TaskScheduler taskScheduler){
+        return new SysTaskRegistrar(sysTaskMapper, taskScheduler);
     }
 
     @Override

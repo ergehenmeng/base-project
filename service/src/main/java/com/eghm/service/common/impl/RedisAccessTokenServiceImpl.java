@@ -1,11 +1,8 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
-import com.eghm.enums.DataType;
 import com.eghm.model.SysUser;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.AccessTokenService;
@@ -39,20 +36,11 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
     @Override
     public Optional<UserToken> parseToken(String token) {
         String key = CacheConstant.USER_REDIS_TOKEN + token;
-        Map<Object, Object> hasMap = cacheService.getHasMap(key);
-        if (CollUtil.isEmpty(hasMap)) {
+        UserToken value = cacheService.getValue(key, UserToken.class);
+        if (value == null) {
             return Optional.empty();
         }
-        UserToken userToken = new UserToken();
-        userToken.setId((long) hasMap.get("id"));
-        userToken.setNickName((String) hasMap.get("nickName"));
-        userToken.setMerchantId((Long) hasMap.get("merchantId"));
-        userToken.setDeptCode((String) hasMap.get("deptCode"));
-        userToken.setUserType((Integer) hasMap.get("userType"));
-        userToken.setDataType(DataType.of(Integer.parseInt(hasMap.get("dataType").toString())));
-        userToken.setDataList(jsonService.fromJsonList(hasMap.get("deptList").toString(), String.class));
-        userToken.setAuthList(jsonService.fromJsonList(hasMap.get("auth").toString(), String.class));
-        return Optional.of(userToken);
+        return Optional.of(value);
     }
 
 
@@ -71,12 +59,13 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         hashMap.put("dataType", user.getDataType().getValue());
         hashMap.put("userType", user.getUserType());
         hashMap.put("deptList", dataList);
-        hashMap.put("auth", authList);
+        hashMap.put("authList", authList);
         hashMap.put("merchantId", merchantId);
         hashMap.put("deptCode", user.getDeptCode());
-        String key = CacheConstant.USER_REDIS_TOKEN + UUID.randomUUID();
-        cacheService.setValue(key, jsonService.toJson(hashMap), expireSeconds * 1000);
-        return key;
+        String token = UUID.randomUUID().toString();
+        String key = CacheConstant.USER_REDIS_TOKEN + token;
+        cacheService.setValue(key, jsonService.toJson(hashMap), expireSeconds);
+        return token;
     }
 
 }

@@ -110,9 +110,9 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setValue(String key, Object value, long expire) {
         if (value instanceof String) {
-            redisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.SECONDS);
         } else {
-            redisTemplate.opsForValue().set(key, jsonService.toJson(value), expire, TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(key, jsonService.toJson(value), expire, TimeUnit.SECONDS);
         }
     }
 
@@ -316,6 +316,11 @@ public class CacheServiceImpl implements CacheService {
     @Override
     public void setExpire(String key, long expire) {
         redisTemplate.expire(key, expire, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void setExpire(String key, long expire, TimeUnit unit) {
+        redisTemplate.expire(key, expire, unit);
     }
 
     /**

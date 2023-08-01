@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 
@@ -248,8 +249,16 @@ public interface CacheService {
     /**
      * 设置过期时间
      * @param key key
-     * @param expire 过期时间,单位:毫秒
+     * @param expire 过期时间,单位:秒
      */
     void setExpire(String key, long expire);
+
+    /**
+     * 设置过期时间
+     * @param key key
+     * @param expire 过期时间
+     * @param unit 过期时间单位
+     */
+    void setExpire(String key, long expire, TimeUnit unit);
 }
 

@@ -1,10 +1,12 @@
 package com.eghm.configuration.task.config;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.SysTaskMapper;
 import com.eghm.model.SysTask;
-import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.LoggerUtil;
 import lombok.AllArgsConstructor;
@@ -29,7 +31,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @AllArgsConstructor
 public class SysTaskRegistrar {
 
-    private final SysTaskService taskConfigService;
+    private final SysTaskMapper sysTaskMapper;
 
     private final TaskScheduler taskScheduler;
 
@@ -53,9 +55,11 @@ public class SysTaskRegistrar {
      */
     @PostConstruct
     public synchronized void loadOrRefreshTask() {
-        List<SysTask> taskConfigs = taskConfigService.getAvailableList();
+        LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysTask::getState, true);
+        List<SysTask> taskConfigList = sysTaskMapper.selectList(wrapper);
         List<SysCronTask> taskList = new ArrayList<>();
-        for (SysTask taskConfig : taskConfigs) {
+        for (SysTask taskConfig : taskConfigList) {
             SysCronTask triggerTask = new SysCronTask(DataUtil.copy(taskConfig, CronTask.class));
             taskList.add(triggerTask);
         }

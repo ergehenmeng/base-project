@@ -5,12 +5,14 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author 二哥很猛
  * @since 2022/11/4
  */
+@Slf4j
 @AllArgsConstructor
 public class PermInterceptor implements InterceptorAdapter {
 
@@ -51,6 +54,7 @@ public class PermInterceptor implements InterceptorAdapter {
         if (permission != null || this.match(request)) {
             return true;
         }
+        log.warn("用户无权限访问该地址 [{}] [{}]", request.getRequestURI(), SecurityHolder.getUserId());
         WebUtil.printJson(response, ErrorCode.ACCESS_DENIED);
         return false;
     }
