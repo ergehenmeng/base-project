@@ -31,6 +31,9 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @ApiModelProperty("门票所属景区(冗余字段)")
     @JsonSerialize(using = ToStringSerializer.class)
     private Long scenicId;
+
+    @ApiModelProperty("景区名称")
+    private String scenicName;
     
     @ApiModelProperty(value = "门票id")
     @JsonSerialize(using = ToStringSerializer.class)

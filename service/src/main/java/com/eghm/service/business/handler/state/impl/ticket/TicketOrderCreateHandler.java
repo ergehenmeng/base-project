@@ -118,10 +118,11 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     protected void next(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
         super.addVisitor(order, context.getVisitorList());
         scenicTicketService.updateStock(payload.getTicket().getId(), -order.getNum());
-        TicketOrder ticketOrder = DataUtil.copy(payload, TicketOrder.class);
+        TicketOrder ticketOrder = DataUtil.copy(payload.getTicket(), TicketOrder.class);
         ticketOrder.setOrderNo(order.getOrderNo());
         ticketOrder.setMobile(context.getMobile());
         ticketOrder.setTicketId(context.getTicketId());
+        ticketOrder.setScenicName(payload.getScenic().getScenicName());
         ticketOrderService.insert(ticketOrder);
     }
 

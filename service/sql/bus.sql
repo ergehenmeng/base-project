@@ -270,7 +270,8 @@ DROP TABLE IF EXISTS `ticket_order`;
 CREATE TABLE `ticket_order`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
-    `scenic_id`         bigint(20)   DEFAULT NULL COMMENT '门票所属景区(冗余字段)',
+    `scenic_id`         bigint(20)   DEFAULT NULL COMMENT '门票所属景区id(冗余字段)',
+    `scenic_name`       varchar(50)   DEFAULT NULL COMMENT '景区名称(冗余字段)',
     `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
     `line_price`        int(10)      DEFAULT NULL DEFAULT NULL COMMENT '划线价',
     `category`          tinyint(2)   DEFAULT NULL COMMENT '门票种类 1: 成人票 2: 老人票 3:儿童票',

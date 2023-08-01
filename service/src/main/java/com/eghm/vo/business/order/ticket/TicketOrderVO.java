@@ -15,6 +15,9 @@ import lombok.Data;
 @Data
 public class TicketOrderVO {
 
+    @ApiModelProperty("图片")
+    private String coverUrl;
+
     @ApiModelProperty("订单编号")
     private String orderNo;
 

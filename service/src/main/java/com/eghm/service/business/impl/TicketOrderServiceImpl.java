@@ -7,8 +7,13 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.mapper.TicketOrderMapper;
+import com.eghm.model.OrderVisitor;
 import com.eghm.model.TicketOrder;
+import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
+import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.order.VisitorVO;
+import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderVO;
 import lombok.AllArgsConstructor;
@@ -27,6 +32,8 @@ import java.util.List;
 public class TicketOrderServiceImpl implements TicketOrderService {
 
     private final TicketOrderMapper ticketOrderMapper;
+
+    private final OrderVisitorService orderVisitorService;
 
     @Override
     public Page<TicketOrderResponse> getByPage(TicketOrderQueryRequest request) {
@@ -50,5 +57,13 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     public List<TicketOrderVO> getByPage(TicketOrderQueryDTO dto) {
         Page<TicketOrderVO> voPage = ticketOrderMapper.getList(dto.createPage(false), dto);
         return voPage.getRecords();
+    }
+
+    @Override
+    public TicketOrderDetailVO getDetail(String orderNo, Long memberId) {
+        TicketOrderDetailVO detail = ticketOrderMapper.getDetail(orderNo, memberId);
+        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
+        detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
+        return detail;
     }
 }
