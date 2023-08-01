@@ -1,7 +1,6 @@
 package com.eghm.configuration.task.config;
 
 import com.eghm.mapper.SysTaskMapper;
-import com.eghm.service.common.SysTaskService;
 import org.springframework.boot.task.TaskSchedulerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.TaskScheduler;
