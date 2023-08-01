@@ -4,7 +4,6 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,7 +18,6 @@ import java.math.BigDecimal;
 public class ScenicListVO {
 
     @ApiModelProperty("景区ID")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("封面图")
@@ -39,7 +37,6 @@ public class ScenicListVO {
     private Integer minPrice;
 
     @ApiModelProperty("距离 单位:m")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal distance;
 
     @ApiModelProperty(value = "经度", hidden = true)

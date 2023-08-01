@@ -1,7 +1,5 @@
 package com.eghm.vo.business.activity;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -13,7 +11,6 @@ import lombok.Data;
 public class ActivityBaseDTO {
 
     @ApiModelProperty("活动id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("活动名称")

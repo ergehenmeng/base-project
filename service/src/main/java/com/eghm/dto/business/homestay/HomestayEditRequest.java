@@ -2,8 +2,6 @@ package com.eghm.dto.business.homestay;
 
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.Phone;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -32,17 +30,14 @@ public class HomestayEditRequest {
     private Integer level;
 
     @ApiModelProperty(value = "省份", required = true)
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "省份不能为空")
     private Long provinceId;
 
     @ApiModelProperty(value = "城市", required = true)
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
     @ApiModelProperty(value = "县区", required = true)
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "县区不能为空")
     private Long countyId;
 

@@ -1,8 +1,6 @@
 package com.eghm.vo.business.line;
 
 import com.eghm.enums.ref.RefundType;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,22 +14,18 @@ import java.util.List;
 public class LineResponse {
 
     @ApiModelProperty("id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "所属旅行社id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long travelAgencyId;
 
     @ApiModelProperty(value = "线路名称")
     private String title;
 
     @ApiModelProperty(value = "出发省份id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long startProvinceId;
 
     @ApiModelProperty(value = "出发城市id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long startCityId;
 
     @ApiModelProperty(value = "封面图片")

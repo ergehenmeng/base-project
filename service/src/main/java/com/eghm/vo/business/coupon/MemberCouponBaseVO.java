@@ -16,7 +16,6 @@ import lombok.Data;
 public class MemberCouponBaseVO {
 
     @ApiModelProperty("id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("优惠券名称")

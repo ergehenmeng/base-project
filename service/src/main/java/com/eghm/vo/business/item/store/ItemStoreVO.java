@@ -1,9 +1,5 @@
 package com.eghm.vo.business.item.store;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,9 +11,7 @@ import lombok.Data;
 @Data
 public class ItemStoreVO {
 
-    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("店铺名称")

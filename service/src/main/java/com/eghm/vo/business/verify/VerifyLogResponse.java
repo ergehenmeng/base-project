@@ -1,8 +1,6 @@
 package com.eghm.vo.business.verify;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,7 +14,6 @@ import java.time.LocalDateTime;
 public class VerifyLogResponse {
 
     @ApiModelProperty(value = "主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "订单编号")

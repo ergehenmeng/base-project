@@ -3,7 +3,6 @@ package com.eghm.vo.business.line;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.RefundType;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,11 +16,9 @@ import java.util.List;
 public class LineVO {
 
     @ApiModelProperty("id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "所属旅行社id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long travelAgencyId;
 
     @ApiModelProperty(value = "线路名称")

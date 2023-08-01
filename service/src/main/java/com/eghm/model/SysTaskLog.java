@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -27,7 +25,6 @@ public class SysTaskLog implements Serializable {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("定时任务bean名称")
@@ -48,8 +45,7 @@ public class SysTaskLog implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
 
-    @ApiModelProperty("执行结束时间")
-    @JsonSerialize(using = ToStringSerializer.class)
+    @ApiModelProperty("任务耗时,单位:ms")
     private Long elapsedTime;
 
     @ApiModelProperty("执行任务的机器ip")

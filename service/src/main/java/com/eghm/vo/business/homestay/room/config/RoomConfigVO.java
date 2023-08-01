@@ -19,7 +19,6 @@ import java.time.LocalDate;
 public class RoomConfigVO {
 
     @ApiModelProperty("某一天的房态id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("状态 false:不可预定 true:可预定")

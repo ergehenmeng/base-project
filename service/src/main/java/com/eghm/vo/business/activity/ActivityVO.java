@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 public class ActivityVO {
 
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "活动名称")

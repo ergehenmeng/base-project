@@ -1,8 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -29,14 +27,12 @@ public class TicketOrder extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("门票所属景区(冗余字段)")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long scenicId;
 
     @ApiModelProperty("景区名称")
     private String scenicName;
     
     @ApiModelProperty(value = "门票id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long ticketId;
 
     @ApiModelProperty(value = "订单号")

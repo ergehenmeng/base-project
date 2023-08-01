@@ -1,10 +1,6 @@
 package com.eghm.vo.business.homestay;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,9 +15,7 @@ import java.util.List;
 @Data
 public class HomestayVO {
 
-    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "民宿名称")
@@ -34,11 +28,9 @@ public class HomestayVO {
     private String detailAddress;
 
     @ApiModelProperty(value = "经度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal longitude;
 
     @ApiModelProperty(value = "纬度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "描述信息")

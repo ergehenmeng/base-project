@@ -1,10 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,9 +14,7 @@ import java.math.BigDecimal;
 @Data
 public class RestaurantVO {
 
-    @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "商家名称")
@@ -51,11 +45,9 @@ public class RestaurantVO {
     private String detailAddress;
 
     @ApiModelProperty(value = "经度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal longitude;
 
     @ApiModelProperty(value = "纬度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "商家热线")

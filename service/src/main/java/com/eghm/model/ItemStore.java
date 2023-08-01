@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -42,7 +40,6 @@ public class ItemStore extends BaseEntity implements Serializable {
     private PlatformState platformState;
 
     @ApiModelProperty(value = "所属商户id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long merchantId;
 
     @ApiModelProperty(value = "店铺logo")
@@ -55,15 +52,12 @@ public class ItemStore extends BaseEntity implements Serializable {
     private String openTime;
 
     @ApiModelProperty(value = "省id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long provinceId;
 
     @ApiModelProperty(value = "城市id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址")

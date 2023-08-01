@@ -1,8 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +17,6 @@ import java.time.LocalDateTime;
 @TableName("login_device")
 public class LoginDevice extends BaseEntity {
 
-    @JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty("用户id")
     private Long memberId;
 

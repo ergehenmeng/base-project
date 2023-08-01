@@ -2,7 +2,6 @@ package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,7 +14,6 @@ import lombok.Data;
 public class TicketBaseVO {
 
     @ApiModelProperty("门票id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "门票名称")

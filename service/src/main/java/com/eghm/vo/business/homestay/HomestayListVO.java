@@ -3,7 +3,6 @@ package com.eghm.vo.business.homestay;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,7 +18,6 @@ import java.util.List;
 public class HomestayListVO {
 
     @ApiModelProperty("id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "民宿名称")
@@ -40,11 +38,9 @@ public class HomestayListVO {
     private String detailAddress;
 
     @ApiModelProperty(value = "经度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal longitude;
 
     @ApiModelProperty(value = "纬度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal latitude;
 
     @ApiModelProperty("距离 单位:m")

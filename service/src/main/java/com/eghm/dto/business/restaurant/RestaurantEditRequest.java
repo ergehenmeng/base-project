@@ -1,7 +1,5 @@
 package com.eghm.dto.business.restaurant;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -39,17 +37,14 @@ public class RestaurantEditRequest {
     private String openTime;
 
     @ApiModelProperty(value = "省份")
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "省份不能为空")
     private Long provinceId;
 
     @ApiModelProperty(value = "城市id")
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
-    @JsonSerialize(using = ToStringSerializer.class)
     @NotNull(message = "县区不能为空")
     private Long countyId;
 

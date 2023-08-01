@@ -1,7 +1,5 @@
 package com.eghm.vo.business.order;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,7 +26,6 @@ public class OrderScanVO {
     private Integer num;
 
     @ApiModelProperty("总付款金额")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal payAmount;
 
     @ApiModelProperty("游客列表")

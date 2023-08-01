@@ -2,20 +2,17 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -35,11 +32,9 @@ public class Line extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "所属旅行社id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long travelAgencyId;
 
     @ApiModelProperty(value = "所属商户id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long merchantId;
 
     @ApiModelProperty(value = "线路名称")
@@ -56,11 +51,9 @@ public class Line extends BaseEntity implements Serializable {
     private Boolean hotSell;
 
     @ApiModelProperty(value = "出发省份id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long startProvinceId;
 
     @ApiModelProperty(value = "出发城市id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long startCityId;
 
     @ApiModelProperty(value = "封面图片")

@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -36,15 +35,12 @@ public class HomestayRoomConfig implements Serializable {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "房型id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long homestayRoomId;
 
     @ApiModelProperty(value = "民宿id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long homestayId;
 
     @ApiModelProperty("状态 false:不可预定 true:可预定")

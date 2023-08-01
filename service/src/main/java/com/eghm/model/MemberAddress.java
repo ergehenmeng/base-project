@@ -1,8 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,28 +26,24 @@ public class MemberAddress extends BaseEntity {
     public static final int STATE_COMMON = 0;
 
     @ApiModelProperty("用户id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long memberId;
 
     @ApiModelProperty("状态 0: 普通地址  1:默认地址")
     private Integer state;
 
     @ApiModelProperty("省份id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long provinceId;
 
     @ApiModelProperty("省份名称")
     private String provinceName;
 
     @ApiModelProperty("城市id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long cityId;
 
     @ApiModelProperty("城市名称")
     private String cityName;
 
     @ApiModelProperty("县区id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long countyId;
 
     @ApiModelProperty("县区")

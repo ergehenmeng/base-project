@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -36,7 +34,6 @@ public class Restaurant extends BaseEntity implements Serializable {
     private String title;
 
     @ApiModelProperty(value = "所属商户")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long merchantId;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
@@ -55,26 +52,21 @@ public class Restaurant extends BaseEntity implements Serializable {
     private String openTime;
 
     @ApiModelProperty(value = "省份")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long provinceId;
 
     @ApiModelProperty(value = "城市id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long cityId;
 
     @ApiModelProperty(value = "县区id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long countyId;
 
     @ApiModelProperty("详细地址")
     private String detailAddress;
 
     @ApiModelProperty(value = "经度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal longitude;
 
     @ApiModelProperty(value = "纬度")
-    @JsonSerialize(using = ToStringSerializer.class)
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "商家热线")

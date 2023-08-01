@@ -2,8 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,7 +15,6 @@ import java.time.LocalDateTime;
 public class SysMenu {
 
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private String id;
 
     @ApiModelProperty("菜单名称")
@@ -27,7 +24,6 @@ public class SysMenu {
     private String code;
 
     @ApiModelProperty("父节点ID,一级菜单默认为0")
-    @JsonSerialize(using = ToStringSerializer.class)
     private String pid;
 
     @ApiModelProperty("菜单地址")

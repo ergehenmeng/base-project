@@ -1,7 +1,5 @@
 package com.eghm.vo.business.shopping;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,7 +17,6 @@ public class ShoppingCartVO {
     private String storeTitle;
 
     @ApiModelProperty("店铺id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long storeId;
 
     @ApiModelProperty("购物车商品列表")

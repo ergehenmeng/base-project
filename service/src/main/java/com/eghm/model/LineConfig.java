@@ -35,7 +35,6 @@ public class LineConfig implements Serializable {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "线路商品id")

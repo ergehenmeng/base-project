@@ -2,7 +2,6 @@ package com.eghm.vo.business.item;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,7 +14,6 @@ import lombok.Data;
 public class ItemSkuResponse {
     
     @ApiModelProperty("id(编辑时不能为空)")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
     
     @ApiModelProperty(value = "二级规格名(单规格为空)")

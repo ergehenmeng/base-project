@@ -6,7 +6,6 @@ import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,11 +23,9 @@ public class ScenicTicketResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("门票id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty(value = "门票所属景区")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long scenicId;
 
     @ApiModelProperty(value = "门票上下架状态 0:待上架 1:已上架")

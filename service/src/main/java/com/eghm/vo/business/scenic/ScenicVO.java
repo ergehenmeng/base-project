@@ -18,7 +18,6 @@ import java.util.List;
 public class ScenicVO {
 
     @ApiModelProperty("景区ID")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("封面图")

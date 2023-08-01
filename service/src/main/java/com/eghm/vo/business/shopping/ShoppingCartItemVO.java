@@ -4,7 +4,6 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.PlatformState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,7 +23,6 @@ public class ShoppingCartItemVO {
     private Long storeId;
 
     @ApiModelProperty("购物车id")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     @ApiModelProperty("商品图片")

@@ -1,8 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +16,6 @@ import lombok.ToString;
 public class FeedbackLog extends BaseEntity {
 
     @ApiModelProperty("用户ID")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long memberId;
 
     @ApiModelProperty("状态: 0:待解决 1:已解决")
