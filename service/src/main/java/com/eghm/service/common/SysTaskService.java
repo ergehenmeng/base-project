@@ -1,11 +1,9 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.SysTask;
 import com.eghm.dto.task.TaskEditRequest;
 import com.eghm.dto.task.TaskQueryRequest;
-
-import java.util.List;
+import com.eghm.model.SysTask;
 
 /**
  * @author 二哥很猛
@@ -19,12 +17,6 @@ public interface SysTaskService {
      * @return 列表
      */
     Page<SysTask> getByPage(TaskQueryRequest request);
-
-    /**
-     * 获取所有开启的定时任务
-     * @return 定时任务配置列表
-     */
-    List<SysTask> getAvailableList();
 
     /**
      * 主键查询

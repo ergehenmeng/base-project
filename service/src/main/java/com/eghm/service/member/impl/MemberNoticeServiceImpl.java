@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.PushNotice;
 import com.eghm.dto.ext.SendNotice;
@@ -74,12 +73,12 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     }
 
     @Override
-    public PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
+    public List<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
         LambdaQueryWrapper<MemberNotice> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(MemberNotice::getMemberId, memberId);
         wrapper.last(" order by read desc, id desc ");
-        Page<MemberNotice> page = memberNoticeMapper.selectPage(query.createPage(), wrapper);
-        return DataUtil.copy(page, MemberNoticeVO.class);
+        Page<MemberNotice> page = memberNoticeMapper.selectPage(query.createPage(false), wrapper);
+        return DataUtil.copy(page.getRecords(), MemberNoticeVO.class);
     }
 
     @Override

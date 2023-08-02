@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.ext.PageData;
 import com.eghm.dto.member.MemberScoreQueryDTO;
 import com.eghm.mapper.MemberScoreLogMapper;
 import com.eghm.model.MemberScoreLog;
@@ -15,6 +14,8 @@ import com.eghm.utils.StringUtil;
 import com.eghm.vo.member.MemberScoreVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -29,12 +30,12 @@ public class MemberScoreLogServiceImpl implements MemberScoreLogService {
     private final SysConfigApi sysConfigApi;
 
     @Override
-    public PageData<MemberScoreVO> getByPage(MemberScoreQueryDTO request) {
+    public List<MemberScoreVO> getByPage(MemberScoreQueryDTO request) {
         LambdaQueryWrapper<MemberScoreLog> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(MemberScoreLog::getMemberId, request.getMemberId());
         wrapper.eq(request.getType() != null, MemberScoreLog::getType, request.getType());
-        Page<MemberScoreLog> page = memberScoreLogMapper.selectPage(request.createPage(), wrapper);
-        return DataUtil.copy(page, MemberScoreVO.class);
+        Page<MemberScoreLog> page = memberScoreLogMapper.selectPage(request.createPage(false), wrapper);
+        return DataUtil.copy(page.getRecords(), MemberScoreVO.class);
     }
 
     @Override

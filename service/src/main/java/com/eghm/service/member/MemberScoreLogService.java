@@ -1,9 +1,10 @@
 package com.eghm.service.member;
 
-import com.eghm.model.MemberScoreLog;
 import com.eghm.dto.member.MemberScoreQueryDTO;
-import com.eghm.dto.ext.PageData;
+import com.eghm.model.MemberScoreLog;
 import com.eghm.vo.member.MemberScoreVO;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -16,7 +17,7 @@ public interface MemberScoreLogService {
      * @param request 查询条件
      * @return 积分列表
      */
-    PageData<MemberScoreVO> getByPage(MemberScoreQueryDTO request);
+    List<MemberScoreVO> getByPage(MemberScoreQueryDTO request);
 
     /**
      * 添加积分信息

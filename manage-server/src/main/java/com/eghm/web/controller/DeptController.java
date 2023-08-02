@@ -1,9 +1,10 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.SysDept;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.SysDept;
 import com.eghm.service.sys.SysDeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,6 +45,13 @@ public class DeptController {
     public RespBody<Void> update(@Validated @RequestBody DeptEditRequest request) {
         sysDeptService.update(request);
         return RespBody.success();
+    }
+
+    @GetMapping("/select")
+    @ApiOperation("查询部门信息")
+    public RespBody<SysDept> select(@Validated IdDTO dto) {
+        SysDept dept = sysDeptService.getById(dto.getId());
+        return RespBody.success(dept);
     }
 
 }

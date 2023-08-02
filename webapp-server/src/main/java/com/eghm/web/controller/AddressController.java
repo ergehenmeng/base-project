@@ -26,6 +26,13 @@ public class AddressController {
 
     private final MemberAddressService memberAddressService;
 
+    @GetMapping("/list")
+    @ApiOperation("用户地址列表")
+    public RespBody<List<AddressVO>> list() {
+        List<AddressVO> voList = memberAddressService.getByMemberId(ApiHolder.getMemberId());
+        return RespBody.success(voList);
+    }
+
     @PostMapping("/save")
     @ApiOperation("添加地址")
     public RespBody<Void> save(@RequestBody @Validated AddressAddDTO request) {
@@ -39,13 +46,6 @@ public class AddressController {
     public RespBody<Void> setDefault(@RequestBody @Validated IdDTO request) {
         memberAddressService.setDefault(request.getId(), ApiHolder.getMemberId());
         return RespBody.success();
-    }
-
-    @GetMapping("/list")
-    @ApiOperation("用户地址列表")
-    public RespBody<List<AddressVO>> list() {
-        List<AddressVO> voList = memberAddressService.getByMemberId(ApiHolder.getMemberId());
-        return RespBody.success(voList);
     }
 
     @PostMapping("/delete")

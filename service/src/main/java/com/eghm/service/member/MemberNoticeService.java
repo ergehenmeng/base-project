@@ -19,7 +19,7 @@ public interface MemberNoticeService {
      * @param memberId 用户id
      * @return 列表
      */
-    PageData<MemberNoticeVO> getByPage(PagingQuery query, Long memberId);
+    List<MemberNoticeVO> getByPage(PagingQuery query, Long memberId);
 
     /**
      * 发送站内信

@@ -20,8 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.support.CronExpression;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author 二哥很猛
  * @date 2019/9/6 15:19
@@ -44,13 +42,6 @@ public class SysTaskServiceImpl implements SysTaskService {
                         .like(SysTask::getMethodName, request.getQueryName()).or()
                         .like(SysTask::getBeanName, request.getQueryName()));
         return sysTaskMapper.selectPage(request.createPage(), wrapper);
-    }
-
-    @Override
-    public List<SysTask> getAvailableList() {
-        LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysTask::getState, true);
-        return sysTaskMapper.selectList(wrapper);
     }
 
     @Override

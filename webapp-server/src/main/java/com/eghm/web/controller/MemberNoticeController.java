@@ -3,16 +3,17 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.ApiHolder;
-import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.member.MemberNoticeVO;
 import com.eghm.service.member.MemberNoticeService;
+import com.eghm.vo.member.MemberNoticeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -27,8 +28,8 @@ public class MemberNoticeController {
 
     @GetMapping("/listPage")
     @ApiOperation("分页查询站内信列表")
-    public RespBody<PageData<MemberNoticeVO>> listPage(PagingQuery query) {
-        PageData<MemberNoticeVO> paging = memberNoticeService.getByPage(query, ApiHolder.getMemberId());
+    public RespBody<List<MemberNoticeVO>> listPage(PagingQuery query) {
+        List<MemberNoticeVO> paging = memberNoticeService.getByPage(query, ApiHolder.getMemberId());
         return RespBody.success(paging);
     }
 
