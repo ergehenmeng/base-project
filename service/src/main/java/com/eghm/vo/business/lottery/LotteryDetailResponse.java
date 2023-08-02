@@ -6,13 +6,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author 二哥很猛
  * @since 2023/8/2
  */
+
 @Data
-public class LotteryResponse {
+public class LotteryDetailResponse {
 
     @ApiModelProperty("id主键")
     private Long id;
@@ -40,7 +42,18 @@ public class LotteryResponse {
     @ApiModelProperty(value = "中奖次数限制")
     private Integer winNum;
 
-    @ApiModelProperty("添加时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
+    @ApiModelProperty(value = "抽奖页面封面图")
+    private String coverUrl;
+
+    @ApiModelProperty(value = "抽奖标题")
+    private String subTitle;
+
+    @ApiModelProperty(value = "抽奖规则")
+    private String rule;
+
+    @ApiModelProperty("奖品列表")
+    private List<LotteryPrizeResponse> prizeList;
+
+    @ApiModelProperty("抽奖配置")
+    private List<LotteryConfigResponse> configList;
 }
