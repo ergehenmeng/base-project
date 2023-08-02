@@ -3,10 +3,12 @@ package com.eghm.service.business.lottery.impl;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryConfigRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
+import com.eghm.dto.business.lottery.LotteryQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.LotteryState;
 import com.eghm.enums.ref.PrizeType;
@@ -22,6 +24,7 @@ import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.lottery.LotteryResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,6 +58,11 @@ public class LotteryServiceImpl implements LotteryService {
     private final LotteryLogService lotteryLogService;
 
     private final List<PrizeHandler> handlerList;
+
+    @Override
+    public Page<LotteryResponse> getByPage(LotteryQueryRequest request) {
+        return lotteryMapper.getByPage(request.createPage(true), request);
+    }
 
     @Override
     public void create(LotteryAddRequest request) {

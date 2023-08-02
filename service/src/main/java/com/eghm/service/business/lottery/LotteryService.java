@@ -1,8 +1,11 @@
 package com.eghm.service.business.lottery;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
+import com.eghm.dto.business.lottery.LotteryQueryRequest;
 import com.eghm.model.Lottery;
+import com.eghm.vo.business.lottery.LotteryResponse;
 
 /**
  * <p>
@@ -13,7 +16,14 @@ import com.eghm.model.Lottery;
  * @since 2023-03-27
  */
 public interface LotteryService {
-    
+
+    /**
+     * 查询抽奖配置列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<LotteryResponse> getByPage(LotteryQueryRequest request);
+
     /**
      * 新增抽奖活动
      * @param request 抽奖配置信息

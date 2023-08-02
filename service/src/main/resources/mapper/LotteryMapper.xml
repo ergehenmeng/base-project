@@ -2,4 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LotteryMapper">
 
+    <select id="getByPage" parameterType="com.eghm.dto.business.lottery.LotteryQueryRequest" resultType="com.eghm.vo.business.lottery.LotteryResponse">
+        select
+            id,
+            title,
+            start_time,
+            end_time,
+            state,
+            lottery_day,
+            lottery_total,
+            win_num
+        from lottery where deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and title concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.state != null">
+            and state = #{param.state}
+        </if>
+        order by state asc, id desc
+    </select>
 </mapper>

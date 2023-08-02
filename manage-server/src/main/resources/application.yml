@@ -44,6 +44,8 @@ mybatis-plus:
   mapper-locations:
     - classpath*:mapper/**/*.xml
   type-aliases-package: com.eghm.model.dto;com.eghm.model.vo
+  configuration:
+    map-underscore-to-camel-case: true
 
 system:
   manage:
