@@ -27,10 +27,9 @@ public interface BlackRosterService {
     void addBlackRoster(BlackRosterAddRequest request);
 
     /**
-     * 黑名单列表
-     * @return 列表 ip与结束时间
+     * 重新加载黑名单列表
      */
-    List<BlackRoster> getAvailableList();
+    void reloadBlackRoster();
 
     /**
      * 是否是需要拦截的ip

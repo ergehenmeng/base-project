@@ -58,7 +58,7 @@ public class CacheConstant {
     /**
      * 黑名单缓存
      */
-    public static final String BLACK_ROSTER = "black_roster:";
+    public static final String BLACK_ROSTER = "black_roster";
 
     /**
      * freemarker模板缓存 主要针对邮件模板

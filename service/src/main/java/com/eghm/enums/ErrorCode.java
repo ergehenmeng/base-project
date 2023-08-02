@@ -255,6 +255,11 @@ public enum ErrorCode {
     ROLE_NAME_REDO(2015, "角色名称重复"),
 
     /**
+     * ip格式错误
+     */
+    IP_ILLEGAL(2030, "ip格式错误"),
+
+    /**
      * 系统配置信息未查询到
      */
     CONFIG_NOT_FOUND_ERROR(3000,"系统配置信息未查询到"),

@@ -1,11 +1,12 @@
 package com.eghm.dto.roster;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.eghm.convertor.IpToLongDecoder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -16,10 +17,14 @@ public class BlackRosterAddRequest implements Serializable {
 
     private static final long serialVersionUID = 8774607401819334344L;
 
-    @ApiModelProperty("ip地址")
-    private String ip;
+    @ApiModelProperty("ip地址开始")
+    @JsonDeserialize(using = IpToLongDecoder.class)
+    @NotNull(message = "开始ip地址不能为空")
+    private Long startIp;
 
-    @ApiModelProperty("黑名单截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime endTime;
+    @ApiModelProperty("ip地址结束")
+    @JsonDeserialize(using = IpToLongDecoder.class)
+    @NotNull(message = "结束ip地址不能为空")
+    private Long endIp;
+
 }
