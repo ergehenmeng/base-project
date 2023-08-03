@@ -23,11 +23,21 @@ public class RedisLockImpl implements RedisLock {
 
     @Override
     public <T> T lock(String key, long lockTime, Supplier<T> supplier) {
-       return this.lock(key, 0, lockTime, supplier);
+       return this.lock(key, 0, lockTime, supplier, null);
     }
 
     @Override
     public <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier) {
+        return this.lock(key, waitTime, lockTime, supplier, null);
+    }
+
+    @Override
+    public <T> T lock(String key, long lockTime, Supplier<T> supplier, Supplier<T> failSupplier) {
+        return this.lock(key, 0, lockTime, supplier, failSupplier);
+    }
+
+    @Override
+    public <T> T lock(String key, long waitTime, long lockTime, Supplier<T> supplier, Supplier<T> failSupplier) {
         RLock lock = redissonClient.getLock(key);
         try {
             if (lock.tryLock(waitTime, lockTime, TimeUnit.MILLISECONDS)) {
@@ -42,24 +52,15 @@ public class RedisLockImpl implements RedisLock {
             Thread.currentThread().interrupt();
         }
         log.error("锁对象获取失败 [{}] [{}] [{}]", key, waitTime, lockTime);
+        if (failSupplier != null) {
+            return failSupplier.get();
+        }
         return null;
     }
 
     @Override
     public void lock(String key, long lockTime) {
         redissonClient.getLock(key).lock(lockTime, TimeUnit.MILLISECONDS);
-    }
-
-    @Override
-    public boolean tryLock(String key, long lockTime) {
-        try {
-            RLock rLock = redissonClient.getLock(key);
-            return rLock.tryLock(lockTime, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            log.error("获取锁失败线程中断");
-            Thread.currentThread().interrupt();
-        }
-        return false;
     }
 
     @Override
