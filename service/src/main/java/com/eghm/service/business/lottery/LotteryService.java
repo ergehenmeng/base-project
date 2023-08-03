@@ -5,7 +5,9 @@ import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
 import com.eghm.dto.business.lottery.LotteryQueryRequest;
 import com.eghm.model.Lottery;
+import com.eghm.vo.business.lottery.LotteryDetailResponse;
 import com.eghm.vo.business.lottery.LotteryResponse;
+import com.eghm.vo.business.lottery.LotteryResultVO;
 
 /**
  * <p>
@@ -41,7 +43,14 @@ public interface LotteryService {
      * @param lotteryId 活动id
      * @param memberId 用户id
      */
-    void lottery(Long lotteryId, Long memberId);
+    LotteryResultVO lottery(Long lotteryId, Long memberId);
+
+    /**
+     * 查询抽奖活动
+     * @param lotteryId 活动id
+     * @return 抽奖信息
+     */
+    Lottery selectById(Long lotteryId);
 
     /**
      * 查询抽奖活动
@@ -49,4 +58,11 @@ public interface LotteryService {
      * @return 抽奖信息
      */
     Lottery selectByIdRequired(Long lotteryId);
+
+    /**
+     * 查询抽奖详情信息
+     * @param lotteryId 抽奖配置ID
+     * @return response
+     */
+    LotteryDetailResponse getDetailById(Long lotteryId);
 }

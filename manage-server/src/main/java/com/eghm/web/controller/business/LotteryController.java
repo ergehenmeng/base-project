@@ -1,12 +1,14 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.lottery.LotteryAddRequest;
 import com.eghm.dto.business.lottery.LotteryEditRequest;
 import com.eghm.dto.business.lottery.LotteryQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.lottery.LotteryService;
+import com.eghm.vo.business.lottery.LotteryDetailResponse;
 import com.eghm.vo.business.lottery.LotteryResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,4 +49,10 @@ public class LotteryController {
         return RespBody.success();
     }
 
+    @GetMapping("/detail")
+    @ApiOperation("更新抽奖配置")
+    public RespBody<LotteryDetailResponse> detail(@Validated IdDTO dto) {
+        LotteryDetailResponse response = lotteryService.getDetailById(dto.getId());
+        return RespBody.success(response);
+    }
 }

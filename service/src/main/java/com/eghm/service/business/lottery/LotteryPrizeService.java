@@ -30,4 +30,18 @@ public interface LotteryPrizeService {
      * @return 奖品id
      */
     List<LotteryPrize> update(Long lotteryId, List<LotteryPrizeRequest> prizeList);
+
+    /**
+     * 查询奖品信息
+     * @param lotteryId 配置id
+     * @return 奖品配置列表
+     */
+    List<LotteryPrize> getList(Long lotteryId);
+
+    /**
+     * 主键查询奖品信息
+     * @param id id
+     * @return 奖品信息
+     */
+    LotteryPrize selectById(Long id);
 }

@@ -14,9 +14,9 @@ import java.util.function.Supplier;
  * @author wyb
  * @date 2023/3/26 16:26
  */
+@Slf4j
 @Service("redisLock")
 @AllArgsConstructor
-@Slf4j
 public class RedisLockImpl implements RedisLock {
 
     private final RedissonClient redissonClient;
@@ -48,6 +48,18 @@ public class RedisLockImpl implements RedisLock {
     @Override
     public void lock(String key, long lockTime) {
         redissonClient.getLock(key).lock(lockTime, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public boolean tryLock(String key, long lockTime) {
+        try {
+            RLock rLock = redissonClient.getLock(key);
+            return rLock.tryLock(lockTime, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            log.error("获取锁失败线程中断");
+            Thread.currentThread().interrupt();
+        }
+        return false;
     }
 
     @Override

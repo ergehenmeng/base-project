@@ -37,6 +37,13 @@ public interface RedisLock {
     void lock(String key, long lockTime);
 
     /**
+     * 加锁
+     * @param key key
+     * @param lockTime 锁定时间
+     */
+    boolean tryLock(String key, long lockTime);
+
+    /**
      * 释放锁
      * @param key key
      */

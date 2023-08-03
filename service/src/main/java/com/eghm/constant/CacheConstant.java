@@ -214,4 +214,9 @@ public class CacheConstant {
      * 缓存
      */
     public static final String USER_REDIS_TOKEN = "user_redis_token:";
+
+    /**
+     * 抽奖
+     */
+    public static final String LOTTERY_LOCK = "lottery_lock:%s:%s";
 }

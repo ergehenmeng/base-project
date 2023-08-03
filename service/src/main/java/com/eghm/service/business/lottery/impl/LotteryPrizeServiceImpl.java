@@ -62,6 +62,18 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
         return this.insert(lotteryId, prizeList);
     }
 
+    @Override
+    public List<LotteryPrize> getList(Long lotteryId) {
+        LambdaQueryWrapper<LotteryPrize> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(LotteryPrize::getLotteryId, lotteryId);
+        return lotteryPrizeMapper.selectList(wrapper);
+    }
+
+    @Override
+    public LotteryPrize selectById(Long id) {
+        return lotteryPrizeMapper.selectById(id);
+    }
+
     /**
      * 设置奖品数量新号量
      * @param prize 奖品信息

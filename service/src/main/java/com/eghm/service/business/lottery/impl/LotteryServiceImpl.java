@@ -24,7 +24,7 @@ import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.service.business.lottery.LotteryService;
 import com.eghm.service.business.lottery.handler.PrizeHandler;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.lottery.LotteryResponse;
+import com.eghm.vo.business.lottery.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -91,8 +91,12 @@ public class LotteryServiceImpl implements LotteryService {
     }
 
     @Override
-    public void lottery(Long lotteryId, Long memberId) {
-        Lottery lottery = this.selectByIdRequired(lotteryId);
+    public LotteryResultVO lottery(Long lotteryId, Long memberId) {
+        Lottery lottery = this.selectById(lotteryId);
+        if (lottery == null) {
+            log.error("抽奖活动可能已删除 [{}]", lotteryId);
+            throw new BusinessException(ErrorCode.LOTTERY_NULL);
+        }
         this.checkLottery(lottery, memberId);
         List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
         LotteryConfig config = this.doLottery(memberId, lottery, configList);
@@ -109,6 +113,19 @@ public class LotteryServiceImpl implements LotteryService {
         lotteryLog.setPrizeId(config.getPrizeId());
         lotteryLog.setWinning(config.getPrizeType() != PrizeType.NONE);
         lotteryLogService.insert(lotteryLog);
+
+        LotteryResultVO vo = new LotteryResultVO();
+        vo.setLocation(config.getLocation());
+        vo.setWinning(lotteryLog.getWinning());
+        LotteryPrize prize = lotteryPrizeService.selectById(lotteryLog.getPrizeId());
+        vo.setCoverUrl(prize.getCoverUrl());
+        vo.setPrizeName(prize.getPrizeName());
+        return vo;
+    }
+
+    @Override
+    public Lottery selectById(Long lotteryId) {
+        return lotteryMapper.selectById(lotteryId);
     }
 
     @Override
@@ -116,11 +133,21 @@ public class LotteryServiceImpl implements LotteryService {
         Lottery lottery = lotteryMapper.selectById(lotteryId);
         if (lottery == null) {
             log.error("抽奖活动可能已删除 [{}]", lotteryId);
-            throw new BusinessException(ErrorCode.LOTTERY_NULL);
+            throw new BusinessException(ErrorCode.LOTTERY_DELETE);
         }
         return lottery;
     }
 
+    @Override
+    public LotteryDetailResponse getDetailById(Long lotteryId) {
+        Lottery lottery = this.selectByIdRequired(lotteryId);
+        LotteryDetailResponse response = DataUtil.copy(lottery, LotteryDetailResponse.class);
+        List<LotteryPrize> prizeList = lotteryPrizeService.getList(lotteryId);
+        response.setPrizeList(DataUtil.copy(prizeList, LotteryPrizeResponse.class));
+        List<LotteryConfig> configList = lotteryConfigService.getList(lottery.getId());
+        response.setConfigList(DataUtil.copy(configList, LotteryConfigResponse.class));
+        return response;
+    }
 
     /**
      * 发放奖品
