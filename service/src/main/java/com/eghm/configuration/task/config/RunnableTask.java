@@ -6,7 +6,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.SysTaskLog;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.SysTaskLogService;
-import com.eghm.service.common.TaskAlarmService;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -43,6 +43,11 @@ public class RunnableTask implements Runnable {
     private SysTaskLogService sysTaskLogService;
 
     /**
+     * 错误通知
+     */
+    private DingTalkService dingTalkService;
+
+    /**
      * 执行任务时说明信息
      */
     private final Task task;
@@ -75,7 +80,7 @@ public class RunnableTask implements Runnable {
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
             builder.state(false);
-            this.sendExceptionEmail(errorMsg);
+            getDingTalkService().sendMsg(errorMsg);
         } finally {
             // 每次执行的日志都记入定时任务日志
             long endTime = System.currentTimeMillis();
@@ -92,13 +97,12 @@ public class RunnableTask implements Runnable {
         return sysTaskLogService;
     }
 
-    /**
-     * 发送异常通知邮件
-     * @param errorMsg msg
-     */
-    private void sendExceptionEmail(String errorMsg) {
-        TaskAlarmService taskAlarmService = (TaskAlarmService) SpringContextUtil.getBean("taskAlarmService");
-        taskAlarmService.noticeAlarm(task, errorMsg);
+    private DingTalkService getDingTalkService() {
+        if (dingTalkService != null) {
+            return dingTalkService;
+        }
+        this.dingTalkService = (DingTalkService) SpringContextUtil.getBean("dingTalkService");
+        return dingTalkService;
     }
 
 }

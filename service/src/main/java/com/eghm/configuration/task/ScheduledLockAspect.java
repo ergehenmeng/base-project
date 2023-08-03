@@ -2,6 +2,7 @@ package com.eghm.configuration.task;
 
 import com.eghm.constant.CommonConstant;
 import com.eghm.service.cache.RedisLock;
+import com.eghm.service.sys.DingTalkService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -22,6 +23,8 @@ public class ScheduledLockAspect {
 
     private final RedisLock redisLock;
 
+    private final DingTalkService dingTalkService;
+
     @Around("@annotation(org.springframework.scheduling.annotation.Scheduled) && within(com.eghm.configuration.task..*)")
     public Object around(@NotNull ProceedingJoinPoint joinPoint) {
         // 类名@方法名
@@ -31,6 +34,7 @@ public class ScheduledLockAspect {
                 return joinPoint.proceed();
             } catch (Throwable e) {
                 log.error("定时任务处理失败", e);
+                dingTalkService.sendMsg(String.format("@Scheduled定时任务处理失败[%s]", lockKey));
             }
             return null;
         });
