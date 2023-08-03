@@ -68,9 +68,10 @@ public class RunnableTask implements Runnable {
     public void run() {
         long startTime = System.currentTimeMillis();
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
+        String key = task.getBeanName() + ":" + task.getMethodName();
         try {
             // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
-            redisLock.lock(task.getBeanName() + ":" + task.getMethodName(), task.getLockTime(), () -> {
+            redisLock.lock(key, task.getLockTime(), () -> {
                 ReflectUtil.invoke(bean, method, task.getArgs());
                 return null;
             });
@@ -80,7 +81,7 @@ public class RunnableTask implements Runnable {
             String errorMsg = ExceptionUtils.getStackTrace(e);
             builder.errorMsg(errorMsg);
             builder.state(false);
-            getDingTalkService().sendMsg(errorMsg);
+            getDingTalkService().sendMsg(String.format("自定义定时任务执行失败[%s]", key));
         } finally {
             // 每次执行的日志都记入定时任务日志
             long endTime = System.currentTimeMillis();
