@@ -6,6 +6,7 @@ import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.model.*;
 import com.eghm.service.pay.enums.MerchantType;
+import com.eghm.vo.business.item.ItemTagResponse;
 
 import java.util.List;
 
@@ -116,4 +117,10 @@ public interface CacheProxyService {
      * @return 配置信息
      */
     AppletPayConfig getPayByNid(MerchantType type);
+
+    /**
+     * 查询标签列表
+     * @return 标签
+     */
+    List<ItemTagResponse> getList();
 }

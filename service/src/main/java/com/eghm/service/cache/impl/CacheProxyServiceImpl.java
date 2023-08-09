@@ -3,15 +3,17 @@ package com.eghm.service.cache.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CacheConstant;
+import com.eghm.dto.banner.BannerAddRequest;
+import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.mapper.*;
 import com.eghm.model.*;
-import com.eghm.dto.banner.BannerAddRequest;
-import com.eghm.dto.banner.BannerEditRequest;
+import com.eghm.service.business.ItemTagService;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.item.ItemTagResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
@@ -53,8 +55,10 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final AppletPayConfigMapper appletPayConfigMapper;
 
+    private final ItemTagService itemTagService;
+
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid" ,cacheManager = "longCacheManager", sync = true)
+    @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid", cacheManager = "longCacheManager", sync = true)
     public List<SysArea> getAreaByPid(Long pid) {
         LambdaQueryWrapper<SysArea> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysArea::getPid, pid);
@@ -173,5 +177,11 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         wrapper.eq(AppletPayConfig::getNid, type.getCode());
         wrapper.last(LIMIT_ONE);
         return appletPayConfigMapper.selectOne(wrapper);
+    }
+
+    @Override
+    @Cacheable(cacheNames = CacheConstant.ITEM_TAG, cacheManager = "longCacheManager")
+    public List<ItemTagResponse> getList() {
+        return itemTagService.getList();
     }
 }

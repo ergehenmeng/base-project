@@ -50,9 +50,9 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
-    @CacheEvict(cacheNames = CacheConstant.BLACK_ROSTER, allEntries = true)
-    public void clearBlackRoster() {
-        log.info("黑名单缓存清除成功");
+    @CacheEvict(cacheNames = CacheConstant.ITEM_TAG, allEntries = true)
+    public void clearItemTag() {
+        log.info("零售标签缓存清除成功");
     }
 
     @Override

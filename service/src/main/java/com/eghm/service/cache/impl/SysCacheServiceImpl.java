@@ -60,8 +60,8 @@ public class SysCacheServiceImpl implements SysCacheService {
                 case CacheConstant.PUSH_TEMPLATE:
                     clearCacheService.clearPushTemplate();
                     break;
-                case CacheConstant.BLACK_ROSTER:
-                    clearCacheService.clearBlackRoster();
+                case CacheConstant.ITEM_TAG:
+                    clearCacheService.clearItemTag();
                     break;
                 case CacheConstant.FREEMARKER_TEMPLATE:
                     clearCacheService.clearFreemarkerTemplate();

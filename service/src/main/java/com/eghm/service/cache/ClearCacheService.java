@@ -27,13 +27,14 @@ public interface ClearCacheService {
     void clearPushTemplate();
 
     /**
-     * 清除黑名单
+     * 零售标签
      */
-    void clearBlackRoster();
+    void clearItemTag();
 
     /**
      * 清除freemarker模板
      */
     void clearFreemarkerTemplate();
+
 }
 
