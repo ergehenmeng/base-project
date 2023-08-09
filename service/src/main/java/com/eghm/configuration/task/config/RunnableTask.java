@@ -1,6 +1,7 @@
 package com.eghm.configuration.task.config;
 
 import cn.hutool.core.util.ReflectUtil;
+import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SysTaskLog;
@@ -68,7 +69,7 @@ public class RunnableTask implements Runnable {
     public void run() {
         long startTime = System.currentTimeMillis();
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
-        String key = task.getBeanName() + ":" + task.getMethodName();
+        String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         try {
             // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
             redisLock.lock(key, task.getLockTime(), () -> {

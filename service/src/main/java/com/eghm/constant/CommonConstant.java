@@ -101,4 +101,9 @@ public class CommonConstant {
      * bitmap最大有效位 此处不使用64位的原因是针对无符号的u64最多只支持63位(最高位是符号位)
      */
     public static final int BITMAP = 32;
+
+    /**
+     * 父节点id
+     */
+    public static final String PARENT = "0";
 }

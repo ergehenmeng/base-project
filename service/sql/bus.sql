@@ -1,3 +1,17 @@
+DROP TABLE IF EXISTS `item_tag`;
+CREATE TABLE item_tag
+(
+    id          VARCHAR(20) NOT NULL COMMENT '主键',
+    pid         VARCHAR(20) DEFAULT '0' COMMENT '父节点id',
+    title       VARCHAR(20) COMMENT '标签名称',
+    icon        VARCHAR(200) COMMENT '标签图标',
+    sort        INT(10) COMMENT '排序',
+    create_time DATETIME    DEFAULT NOW() COMMENT '创建时间',
+    update_time DATETIME    DEFAULT NOW() ON UPDATE NOW() COMMENT '创建时间',
+    deleted     BIT(1)      DEFAULT 0 COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (id)
+) COMMENT '零售标签';
+
 DROP TABLE IF EXISTS `homestay`;
 CREATE TABLE `homestay`
 (
@@ -271,7 +285,7 @@ CREATE TABLE `ticket_order`
 (
     `id`                bigint(20) NOT NULL COMMENT '主键',
     `scenic_id`         bigint(20)   DEFAULT NULL COMMENT '门票所属景区id(冗余字段)',
-    `scenic_name`       varchar(50)   DEFAULT NULL COMMENT '景区名称(冗余字段)',
+    `scenic_name`       varchar(50)  DEFAULT NULL COMMENT '景区名称(冗余字段)',
     `order_no`          varchar(30)  DEFAULT NULL COMMENT '订单编号',
     `line_price`        int(10)      DEFAULT NULL DEFAULT NULL COMMENT '划线价',
     `category`          tinyint(2)   DEFAULT NULL COMMENT '门票种类 1: 成人票 2: 老人票 3:儿童票',

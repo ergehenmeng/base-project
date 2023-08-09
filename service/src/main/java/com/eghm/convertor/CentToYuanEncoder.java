@@ -22,9 +22,9 @@ public class CentToYuanEncoder extends StdSerializer<Object> {
     @Override
     public void serialize(Object value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         if (value instanceof Integer) {
-            int val = (int)value;
+            int val = (int) value;
             if (val == 0) {
-                gen.writeString("0");
+                gen.writeString("0.00");
             } else {
                 gen.writeString(DecimalUtil.centToYuan(val));
             }

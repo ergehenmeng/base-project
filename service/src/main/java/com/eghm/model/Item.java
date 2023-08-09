@@ -64,6 +64,9 @@ public class Item extends BaseEntity implements Serializable {
     
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
+
+    @ApiModelProperty("标签id")
+    private String tagId;
     
     @ApiModelProperty(value = "交付方式 0:无须发货 1:门店自提 2:快递包邮")
     private DeliveryType deliveryType;
