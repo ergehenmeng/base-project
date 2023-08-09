@@ -1170,6 +1170,11 @@ public enum ErrorCode {
     MEMBER_LOGIN_FORBID(3636,"该账号已禁用,请联系客服解封"),
 
     /**
+     * 标签id生成错误
+     */
+    ITEM_TAG_NULL(3646,"标签id生成错误"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

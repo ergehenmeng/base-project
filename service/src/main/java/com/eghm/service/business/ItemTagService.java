@@ -1,5 +1,7 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.item.ItemTagAddRequest;
+import com.eghm.dto.business.item.ItemTagEditRequest;
 import com.eghm.vo.business.item.ItemTagResponse;
 
 import java.util.List;
@@ -13,6 +15,18 @@ import java.util.List;
  * @since 2023-08-08
  */
 public interface ItemTagService {
+
+    /**
+     * 添加标签
+     * @param request 标签信息
+     */
+    void create(ItemTagAddRequest request);
+
+    /**
+     * 更新标签信息
+     * @param request 标签信息
+     */
+    void update(ItemTagEditRequest request);
 
     /**
      * 查询标签列表, 组装成树状结构

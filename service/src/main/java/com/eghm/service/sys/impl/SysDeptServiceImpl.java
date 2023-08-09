@@ -1,5 +1,6 @@
 package com.eghm.service.sys.impl;
 
+import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
@@ -32,11 +33,6 @@ public class SysDeptServiceImpl implements SysDeptService {
      * 部门步长 即:一个部门对多有900个直属部门 100~999
      */
     private static final String STEP = "100";
-
-    /**
-     * 根节点默认 0
-     */
-    private static final String ROOT = "0";
 
     @Override
     public SysDept getById(Long id) {
@@ -79,7 +75,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     private String getNextCode(String code) {
         String maxCode = sysDeptMapper.getMaxCodeChild(code);
         if (maxCode == null) {
-            return ROOT.equals(code) ? STEP :  code + STEP;
+            return CommonConstant.ROOT_NODE.equals(code) ? STEP :  code + STEP;
         }
         // 不校验子部门上限,傻子才会有900个部门
         try {

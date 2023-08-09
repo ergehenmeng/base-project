@@ -3,6 +3,7 @@ package com.eghm.mapper;
 import com.eghm.model.ItemTag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.item.ItemTagResponse;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ import java.util.List;
 public interface ItemTagMapper extends BaseMapper<ItemTag> {
 
     List<ItemTagResponse> getList();
+
+    String getChildMaxId(@Param("pid") String pid);
 }

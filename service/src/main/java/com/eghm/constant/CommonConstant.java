@@ -105,5 +105,5 @@ public class CommonConstant {
     /**
      * 父节点id
      */
-    public static final String PARENT = "0";
+    public static final String ROOT_NODE = "0";
 }
