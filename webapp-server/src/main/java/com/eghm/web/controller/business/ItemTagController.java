@@ -25,7 +25,7 @@ public class ItemTagController {
     private final CacheProxyService cacheProxyService;
 
     @GetMapping("/list")
-    @ApiOperation("标签类别")
+    @ApiOperation("标签列表")
     public RespBody<List<ItemTagResponse>> list() {
         List<ItemTagResponse> serviceList = cacheProxyService.getList();
         return RespBody.success(serviceList);
