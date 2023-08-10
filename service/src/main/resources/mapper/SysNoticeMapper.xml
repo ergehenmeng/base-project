@@ -21,4 +21,8 @@
         order by update_time desc limit #{noticeLimit}
     </select>
 
+    <select id="getList" resultType="com.eghm.vo.notice.NoticeVO">
+
+    </select>
+
 </mapper>

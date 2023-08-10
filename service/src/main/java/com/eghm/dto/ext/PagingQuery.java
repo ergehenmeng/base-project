@@ -22,24 +22,14 @@ public class PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 9015209122071749218L;
 
-    /**
-     * 第几页
-     */
     @ApiModelProperty(value = "第几页", required = true, example = "1")
     private Integer page = 1;
 
-    /**
-     * 页容量
-     */
     @ApiModelProperty(value = "页容量", required = true, example = "10")
     private Integer pageSize = 10;
 
-    /**
-     * 基础查询字段
-     */
     @ApiModelProperty(hidden = true)
     private String queryName;
-
 
     /**
      * 创建分页对象

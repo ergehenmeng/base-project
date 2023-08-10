@@ -920,6 +920,11 @@ public enum ErrorCode {
     NOTICE_NOT_FOUND(3211, "公告信息未查询到"),
 
     /**
+     * 公告信息未查询到
+     */
+    NOTICE_NOT_NULL(3212, "公告信息下架啦~"),
+
+    /**
      * 商家信息不存在
      */
     RESTAURANT_NOT_FOUND(3213, "商家信息不存在"),

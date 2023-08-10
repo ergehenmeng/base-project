@@ -1,11 +1,13 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.model.SysNotice;
 import com.eghm.dto.notice.NoticeAddRequest;
 import com.eghm.dto.notice.NoticeEditRequest;
 import com.eghm.dto.notice.NoticeQueryRequest;
-import com.eghm.vo.notice.TopNoticeVO;
+import com.eghm.vo.notice.NoticeDetailVO;
+import com.eghm.vo.notice.NoticeVO;
 
 import java.util.List;
 
@@ -26,7 +28,14 @@ public interface SysNoticeService {
      * 获取公告前几条标题信息,具体多少条由系统参数notice_limit控制
      * @return 公告列表
      */
-    List<TopNoticeVO> getList();
+    List<NoticeVO> getList();
+
+    /**
+     * 分页查询列表
+     * @param query 分页信息
+     * @return 公告列表
+     */
+    List<NoticeVO> getList(PagingQuery query);
 
     /**
      * 添加公告
@@ -52,6 +61,13 @@ public interface SysNoticeService {
      * @return 公告信息
      */
     SysNotice getById(Long id);
+
+    /**
+     * 查询公告详情
+     * @param id  id
+     * @return 详细信息
+     */
+    NoticeDetailVO detailById(Long id);
 
     /**
      * 主键查询公告信息

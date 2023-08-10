@@ -13,17 +13,11 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel
-public class TopNoticeVO implements Serializable {
+public class NoticeVO implements Serializable {
 
-    /**
-     * 公告id
-     */
     @ApiModelProperty("公告id")
     private Long id;
 
-    /**
-     * 公告标题
-     */
     @ApiModelProperty("公告名称")
     private String title;
 }

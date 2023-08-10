@@ -4,21 +4,23 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
-import com.eghm.mapper.SysNoticeMapper;
-import com.eghm.model.SysNotice;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.notice.NoticeAddRequest;
 import com.eghm.dto.notice.NoticeEditRequest;
 import com.eghm.dto.notice.NoticeQueryRequest;
-import com.eghm.vo.notice.TopNoticeVO;
-import com.eghm.service.common.SysNoticeService;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.SysNoticeMapper;
+import com.eghm.model.SysNotice;
 import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.common.SysNoticeService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.notice.NoticeDetailVO;
+import com.eghm.vo.notice.NoticeVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -52,15 +54,25 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     }
 
     @Override
-    public List<TopNoticeVO> getList() {
+    public List<NoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
         return DataUtil.copy(noticeList, notice -> {
-            TopNoticeVO vo = DataUtil.copy(notice, TopNoticeVO.class);
+            NoticeVO vo = DataUtil.copy(notice, NoticeVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
             vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());
             return vo;
         });
+    }
+
+    @Override
+    public List<NoticeVO> getList(PagingQuery query) {
+        LambdaQueryWrapper<SysNotice> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(SysNotice::getId, SysNotice::getTitle);
+        wrapper.eq(SysNotice::getState, true);
+        wrapper.orderByDesc(SysNotice::getId);
+        Page<SysNotice> selectedPage = sysNoticeMapper.selectPage(query.createPage(false), wrapper);
+        return DataUtil.copy(selectedPage.getRecords(), NoticeVO.class);
     }
 
     @Override
@@ -83,6 +95,18 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     @Override
     public SysNotice getById(Long id) {
         return sysNoticeMapper.selectById(id);
+    }
+
+    @Override
+    public NoticeDetailVO detailById(Long id) {
+        SysNotice notice = sysNoticeMapper.selectById(id);
+        if (notice == null) {
+            log.info("公告信息已删除 [{}]", id);
+            throw new BusinessException(ErrorCode.NOTICE_NOT_NULL);
+        }
+        NoticeDetailVO vo = DataUtil.copy(notice, NoticeDetailVO.class);
+        vo.setClassifyName(sysDictService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()));
+        return vo;
     }
 
     @Override
