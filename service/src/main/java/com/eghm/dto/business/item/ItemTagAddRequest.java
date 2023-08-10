@@ -2,6 +2,7 @@ package com.eghm.dto.business.item;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 
@@ -18,10 +19,10 @@ public class ItemTagAddRequest {
 
     @ApiModelProperty("标签名称")
     @NotBlank(message = "标签名称不能为空")
+    @Length(min = 2, max = 8, message = "标签名称长度应为2~8字符")
     private String title;
 
     @ApiModelProperty(value = "标签图标")
-    @NotBlank(message = "标签icon不能为空")
     private String icon;
 
     @ApiModelProperty("排序id")
