@@ -53,7 +53,6 @@ public class CacheServiceImpl implements CacheService {
      */
     private static final long MUTEX_EXPIRE = 10;
 
-    
     @Override
     public void setValue(String key, Object value) {
         this.setValue(key, value, sysConfigApi.getLong(ConfigConstant.CACHE_EXPIRE));
