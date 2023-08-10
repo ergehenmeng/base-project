@@ -5,22 +5,21 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.Channel;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
-import com.eghm.utils.VersionUtil;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.mapper.AppVersionMapper;
-import com.eghm.model.AppVersion;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.version.VersionAddRequest;
 import com.eghm.dto.version.VersionEditRequest;
 import com.eghm.dto.version.VersionQueryRequest;
-import com.eghm.vo.version.AppVersionVO;
+import com.eghm.enums.Channel;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.AppVersionMapper;
+import com.eghm.model.AppVersion;
 import com.eghm.service.common.AppVersionService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.PageUtil;
+import com.eghm.utils.VersionUtil;
+import com.eghm.vo.version.AppVersionVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,7 +44,7 @@ public class AppVersionServiceImpl implements AppVersionService {
         LambdaQueryWrapper<AppVersion> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), AppVersion::getVersion, request.getQueryName());
         wrapper.eq(StrUtil.isNotBlank(request.getClassify()), AppVersion::getClassify, request.getClassify());
-        return appVersionMapper.selectPage(PageUtil.createPage(request), wrapper);
+        return appVersionMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override

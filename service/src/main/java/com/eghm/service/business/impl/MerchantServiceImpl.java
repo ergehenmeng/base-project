@@ -6,25 +6,24 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.encoder.Encoder;
+import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.merchant.MerchantAddRequest;
+import com.eghm.dto.business.merchant.MerchantEditRequest;
+import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.MerchantRoleMapping;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
-import com.eghm.configuration.encoder.Encoder;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.MerchantMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysUser;
-import com.eghm.dto.business.merchant.MerchantAddRequest;
-import com.eghm.dto.business.merchant.MerchantEditRequest;
-import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.MerchantService;
-import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.SysRoleService;
+import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
-import com.eghm.utils.PageUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -57,7 +56,7 @@ public class MerchantServiceImpl implements MerchantService {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Merchant::getMerchantName, request.getQueryName());
         wrapper.eq(request.getType() != null, Merchant::getType, request.getType());
-        return merchantMapper.selectPage(PageUtil.createPage(request), wrapper);
+        return merchantMapper.selectPage(request.createPage(), wrapper);
     }
     
     @Override
