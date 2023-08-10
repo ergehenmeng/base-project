@@ -22,6 +22,11 @@ public interface ClearCacheService {
     void clearSmsTemplate();
 
     /**
+     * 清除banner缓存
+     */
+    void clearBanner();
+
+    /**
      * 清除推送模板
      */
     void clearPushTemplate();

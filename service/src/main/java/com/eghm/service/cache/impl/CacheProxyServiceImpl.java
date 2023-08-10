@@ -3,8 +3,6 @@ package com.eghm.service.cache.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CacheConstant;
-import com.eghm.dto.banner.BannerAddRequest;
-import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.mapper.*;
@@ -12,7 +10,6 @@ import com.eghm.model.*;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.pay.enums.MerchantType;
-import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.ItemTagResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -75,20 +72,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")
     public List<Banner> getBanner(Channel channel, Integer classify) {
         return bannerMapper.getBannerList(classify, channel.name());
-    }
-
-    @Override
-    @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
-    public void createBanner(BannerAddRequest request) {
-        Banner banner = DataUtil.copy(request, Banner.class);
-        bannerMapper.insert(banner);
-    }
-
-    @Override
-    @CacheEvict(cacheNames = CacheConstant.BANNER, key = "#request.clientType + #request.classify", allEntries = true)
-    public void updateBanner(BannerEditRequest request) {
-        Banner banner = DataUtil.copy(request, Banner.class);
-        bannerMapper.updateById(banner);
     }
 
     @Override

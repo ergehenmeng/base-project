@@ -1,7 +1,5 @@
 package com.eghm.service.cache;
 
-import com.eghm.dto.banner.BannerAddRequest;
-import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.model.*;
@@ -37,18 +35,6 @@ public interface CacheProxyService {
      * @return 轮播图列表
      */
     List<Banner> getBanner(Channel channel, Integer classify);
-
-    /**
-     * 新增轮播图信息
-     * @param request 前台参数
-     */
-    void createBanner(BannerAddRequest request);
-
-    /**
-     * 编辑保存轮播图信息
-     * @param request 前台参数
-     */
-    void updateBanner(BannerEditRequest request);
 
     /**
      * 根据邮件模板code获取

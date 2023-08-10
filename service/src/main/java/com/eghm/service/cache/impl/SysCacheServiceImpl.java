@@ -60,6 +60,9 @@ public class SysCacheServiceImpl implements SysCacheService {
                 case CacheConstant.PUSH_TEMPLATE:
                     clearCacheService.clearPushTemplate();
                     break;
+                case CacheConstant.BANNER:
+                    clearCacheService.clearBanner();
+                    break;
                 case CacheConstant.ITEM_TAG:
                     clearCacheService.clearItemTag();
                     break;

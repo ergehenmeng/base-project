@@ -44,6 +44,12 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
+    @CacheEvict(cacheNames = CacheConstant.BANNER, allEntries = true)
+    public void clearBanner() {
+        log.info("banner缓存清除成功");
+    }
+
+    @Override
     @CacheEvict(cacheNames = CacheConstant.PUSH_TEMPLATE, allEntries = true)
     public void clearPushTemplate() {
         log.info("推送模板缓存清除成功");

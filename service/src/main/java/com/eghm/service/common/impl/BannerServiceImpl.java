@@ -4,14 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.Channel;
-import com.eghm.mapper.BannerMapper;
-import com.eghm.model.Banner;
 import com.eghm.dto.banner.BannerAddRequest;
 import com.eghm.dto.banner.BannerEditRequest;
 import com.eghm.dto.banner.BannerQueryRequest;
+import com.eghm.enums.Channel;
+import com.eghm.mapper.BannerMapper;
+import com.eghm.model.Banner;
 import com.eghm.service.common.BannerService;
-import com.eghm.service.cache.CacheProxyService;
+import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +26,6 @@ import java.util.List;
 public class BannerServiceImpl implements BannerService {
 
     private final BannerMapper bannerMapper;
-
-    private final CacheProxyService cacheProxyService;
 
     @Override
     public Page<Banner> getByPage(BannerQueryRequest request) {
@@ -52,11 +50,13 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public void create(BannerAddRequest request) {
-        cacheProxyService.createBanner(request);
+        Banner banner = DataUtil.copy(request, Banner.class);
+        bannerMapper.insert(banner);
     }
 
     @Override
     public void update(BannerEditRequest request) {
-        cacheProxyService.updateBanner(request);
+        Banner banner = DataUtil.copy(request, Banner.class);
+        bannerMapper.updateById(banner);
     }
 }
