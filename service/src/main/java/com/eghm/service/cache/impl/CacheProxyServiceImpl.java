@@ -13,7 +13,6 @@ import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.vo.business.item.ItemTagResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +68,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER, key = "#channel.name() + #classify", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager",  key = "#channel.name() + #classify", unless = "#result.size() == 0")
     public List<Banner> getBanner(Channel channel, Integer classify) {
         return bannerMapper.getBannerList(classify, channel.name());
     }
@@ -84,7 +83,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", cacheManager = "cacheManager", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.IN_MAIL_TEMPLATE, key = "#p0", cacheManager = "longCacheManager", unless = "#result == null")
     public NoticeTemplate getNoticeTemplate(String code) {
         LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(NoticeTemplate::getCode, code);
@@ -103,27 +102,9 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, cacheManager = "smallCacheManager", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.SYS_NOTICE, cacheManager = "longCacheManager", unless = "#result.size() == 0")
     public List<SysNotice> getNoticeList(int limit) {
         return sysNoticeMapper.getTopList(limit);
-    }
-
-    @Override
-    @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
-    public void publishNotice(Long id) {
-        SysNotice notice = new SysNotice();
-        notice.setState(1);
-        notice.setId(id);
-        sysNoticeMapper.updateById(notice);
-    }
-
-    @Override
-    @CacheEvict(cacheNames = CacheConstant.SYS_NOTICE, beforeInvocation = true)
-    public void cancelPublishNotice(Long id) {
-        SysNotice notice = new SysNotice();
-        notice.setState(SysNotice.STATE_0);
-        notice.setId(id);
-        sysNoticeMapper.updateById(notice);
     }
 
     @Override

@@ -63,6 +63,9 @@ public class SysCacheServiceImpl implements SysCacheService {
                 case CacheConstant.BANNER:
                     clearCacheService.clearBanner();
                     break;
+                case CacheConstant.SYS_NOTICE:
+                    clearCacheService.clearNotice();
+                    break;
                 case CacheConstant.ITEM_TAG:
                     clearCacheService.clearItemTag();
                     break;

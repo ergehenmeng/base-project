@@ -55,11 +55,10 @@ public class SysNoticeServiceImpl implements SysNoticeService {
     public List<TopNoticeVO> getList() {
         int noticeLimit = sysConfigApi.getInt(ConfigConstant.NOTICE_LIMIT);
         List<SysNotice> noticeList = cacheProxyService.getNoticeList(noticeLimit);
-        SysDictService finalProxy = this.sysDictService;
         return DataUtil.copy(noticeList, notice -> {
             TopNoticeVO vo = DataUtil.copy(notice, TopNoticeVO.class);
             // 将公告类型包含到标题中 例如 紧急通知: 中印发生小规模冲突
-            vo.setTitle(finalProxy.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());
+            vo.setTitle(sysDictService.getDictValue(DictConstant.NOTICE_CLASSIFY, notice.getClassify()) + ": " + vo.getTitle());
             return vo;
         });
     }
@@ -98,11 +97,17 @@ public class SysNoticeServiceImpl implements SysNoticeService {
 
     @Override
     public void publish(Long id) {
-        cacheProxyService.publishNotice(id);
+        SysNotice notice = new SysNotice();
+        notice.setState(1);
+        notice.setId(id);
+        sysNoticeMapper.updateById(notice);
     }
 
     @Override
     public void cancelPublish(Long id) {
-        cacheProxyService.cancelPublishNotice(id);
+        SysNotice notice = new SysNotice();
+        notice.setState(SysNotice.STATE_0);
+        notice.setId(id);
+        sysNoticeMapper.updateById(notice);
     }
 }

@@ -3575,6 +3575,7 @@ INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `r
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('9', '零售标签缓存', 'item_tag', '1', '2020-01-03 08:03:36', '零售标签(查询缓存)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('10', '邮件模板缓存', 'mail_template', '1', '2020-01-11 14:39:28', 'freemarker模板缓存');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('11', 'banner缓存', 'banner', '1', '2023-08-11 14:39:28', 'banner广告位缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('12', '系统公告缓存', 'sys_notice', '1', '2023-08-11 15:22:18', '系统公告位缓存');
 
 
 INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', b'0', b'1', '2018-11-27 17:14:49', NULL, NULL);

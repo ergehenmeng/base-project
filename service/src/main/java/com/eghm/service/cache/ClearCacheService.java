@@ -27,6 +27,11 @@ public interface ClearCacheService {
     void clearBanner();
 
     /**
+     * 清除公告缓存
+     */
+    void clearNotice();
+
+    /**
      * 清除推送模板
      */
     void clearPushTemplate();

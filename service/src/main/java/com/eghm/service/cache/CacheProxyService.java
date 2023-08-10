@@ -65,18 +65,6 @@ public interface CacheProxyService {
     List<SysNotice> getNoticeList(int limit);
 
     /**
-     * 发布公告
-     * @param id id主键
-     */
-    void publishNotice(Long id);
-
-    /**
-     * 取消发布
-     * @param id 主键
-     */
-    void cancelPublishNotice(Long id);
-
-    /**
      * 获取短信发送模板
      * @param nid nid
      * @return 短信内容模板
