@@ -26,6 +26,9 @@ public class ItemQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
     private DeliveryType deliveryType;
 
+    @ApiModelProperty("标签id")
+    private String tagId;
+
     @ApiModelProperty("店铺id")
     private Long storeId;
 

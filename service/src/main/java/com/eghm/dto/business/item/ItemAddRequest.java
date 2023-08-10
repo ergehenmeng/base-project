@@ -30,6 +30,9 @@ public class ItemAddRequest {
     @NotNull(message = "店铺id不能为空")
     private Long storeId;
 
+    @ApiModelProperty("标签id")
+    private String tagId;
+
     @ApiModelProperty(value = "商品描述信息")
     @Size(min = 5, max = 40, message = "商品描述信息长度5~40字符")
     @NotBlank(message = "商品描述信息不能为空")

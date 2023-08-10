@@ -737,6 +737,7 @@ CREATE TABLE `item`
     `hot_sell`        bit(1)        DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
     `sort_by`         smallint(4)   DEFAULT '999' COMMENT '商品排序 越小越排在前面',
     `title`           varchar(30)   DEFAULT NULL COMMENT '商品名称',
+    `tag_id`          varchar(30)   DEFAULT NULL COMMENT '标签id',
     `depict`          varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`       varchar(1000) DEFAULT NULL COMMENT '封面图',
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
