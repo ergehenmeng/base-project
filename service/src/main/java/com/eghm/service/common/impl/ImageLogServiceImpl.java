@@ -4,11 +4,11 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.mapper.ImageLogMapper;
-import com.eghm.model.ImageLog;
 import com.eghm.dto.image.ImageAddRequest;
 import com.eghm.dto.image.ImageEditRequest;
 import com.eghm.dto.image.ImageQueryRequest;
+import com.eghm.mapper.ImageLogMapper;
+import com.eghm.model.ImageLog;
 import com.eghm.service.common.ImageLogService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -31,7 +31,7 @@ public class ImageLogServiceImpl implements ImageLogService {
         wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
                 queryWrapper.like(ImageLog::getTitle, request.getQueryName()).or()
                         .like(ImageLog::getRemark, request.getQueryName()));
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(ImageLog::getId);
         return imageLogMapper.selectPage(request.createPage(), wrapper);
     }
 

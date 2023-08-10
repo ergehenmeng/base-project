@@ -5,21 +5,21 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.mapper.ActivityMapper;
-import com.eghm.model.Activity;
 import com.eghm.dto.business.activity.ActivityAddRequest;
 import com.eghm.dto.business.activity.ActivityConfigRequest;
 import com.eghm.dto.business.activity.ActivityDeleteRequest;
 import com.eghm.dto.business.activity.ActivityEditRequest;
-import com.eghm.vo.business.activity.ActivityBaseDTO;
-import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.ActivityMapper;
+import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.activity.ActivityBaseDTO;
+import com.eghm.vo.business.activity.ActivityBaseResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -88,7 +88,7 @@ public class ActivityServiceImpl implements ActivityService {
         wrapper.eq(scenicId != null, Activity::getScenicId, scenicId);
         wrapper.ge(Activity::getNowDate, startDate);
         wrapper.lt(Activity::getNowDate, endDate);
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(Activity::getId);
         List<Activity> selectList = activityMapper.selectList(wrapper);
         int dayOfMonth = startDate.lengthOfMonth();
         List<ActivityBaseResponse> responseList = Lists.newArrayListWithExpectedSize(31);
@@ -132,8 +132,7 @@ public class ActivityServiceImpl implements ActivityService {
         LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Activity::getScenicId, scenicId);
         wrapper.between(Activity::getNowDate, start, start.plusDays(endLimit));
-        wrapper.last(" order by id desc ");
-
+        wrapper.orderByDesc(Activity::getId);
         List<Activity> activityList = activityMapper.selectList(wrapper);
         if (CollUtil.isEmpty(activityList)) {
             return Lists.newArrayListWithCapacity(1);

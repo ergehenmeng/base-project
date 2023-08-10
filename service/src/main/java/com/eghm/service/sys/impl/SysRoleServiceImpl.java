@@ -5,16 +5,16 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.RoleType;
-import com.eghm.exception.BusinessException;
-import com.eghm.mapper.SysUserRoleMapper;
-import com.eghm.mapper.SysRoleMapper;
-import com.eghm.model.SysUserRole;
-import com.eghm.model.SysRole;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
 import com.eghm.dto.role.RoleQueryRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.RoleType;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.SysRoleMapper;
+import com.eghm.mapper.SysUserRoleMapper;
+import com.eghm.model.SysRole;
+import com.eghm.model.SysUserRole;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -42,7 +42,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(SysRole::getId);
         return sysRoleMapper.selectPage(request.createPage(), wrapper);
     }
 

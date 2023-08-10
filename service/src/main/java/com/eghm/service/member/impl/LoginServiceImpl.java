@@ -3,15 +3,15 @@ package com.eghm.service.member.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.utils.DateUtil;
+import com.eghm.dto.ext.LoginRecord;
 import com.eghm.mapper.LoginDeviceMapper;
 import com.eghm.mapper.LoginLogMapper;
 import com.eghm.model.LoginDevice;
 import com.eghm.model.LoginLog;
-import com.eghm.dto.ext.LoginRecord;
-import com.eghm.vo.member.LoginDeviceVO;
 import com.eghm.service.member.LoginService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
+import com.eghm.vo.member.LoginDeviceVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -80,7 +80,7 @@ public class LoginServiceImpl implements LoginService {
     public List<LoginDeviceVO> getByMemberId(Long memberId) {
         LambdaQueryWrapper<LoginDevice> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(LoginDevice::getMemberId, memberId);
-        wrapper.last(" order by id desc ");
+        wrapper.orderByDesc(LoginDevice::getId);
         List<LoginDevice> deviceList = loginDeviceMapper.selectList(wrapper);
 
         return DataUtil.copy(deviceList, device -> {
