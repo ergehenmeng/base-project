@@ -9,4 +9,5 @@
     <select id="getChildMaxId" resultType="string">
         select max(id) from item_tag where deleted = 0 and pid = #{pid}
     </select>
+
 </mapper>

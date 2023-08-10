@@ -71,7 +71,7 @@ public class ItemTagServiceImpl implements ItemTagService {
         if (maxCode == null) {
             return CommonConstant.ROOT_NODE.equals(pid) ? STEP :  pid + STEP;
         }
-        //不能超过900个标签
+        // 不能超过900个标签
         try {
             return String.valueOf(Long.parseLong(maxCode) + 1);
         } catch (NumberFormatException e) {
