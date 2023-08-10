@@ -30,4 +30,5 @@ public class ItemTagController {
         List<ItemTagResponse> serviceList = cacheProxyService.getList();
         return RespBody.success(serviceList);
     }
+
 }
