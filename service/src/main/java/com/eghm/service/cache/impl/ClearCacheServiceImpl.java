@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2019/1/14 13:52
  */
-@Service("clearCacheService")
 @Slf4j
+@Service("clearCacheService")
 public class ClearCacheServiceImpl implements ClearCacheService {
 
     private Configuration configuration;
@@ -69,6 +69,8 @@ public class ClearCacheServiceImpl implements ClearCacheService {
 
     @Override
     public void clearFreemarkerTemplate() {
-        configuration.clearTemplateCache();
+        if (configuration != null) {
+            configuration.clearTemplateCache();
+        }
     }
 }
