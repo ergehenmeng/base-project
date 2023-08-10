@@ -1,8 +1,11 @@
 package com.eghm.vo.sys;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -24,4 +27,10 @@ public class SysAreaVO {
     @ApiModelProperty("地区首字母")
     private String mark;
 
+    @ApiModelProperty("父节点")
+    @JsonIgnore
+    private Long pid;
+
+    @ApiModelProperty("子节点")
+    private List<SysAreaVO> children;
 }

@@ -3,6 +3,7 @@ package com.eghm.service.cache.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CacheConstant;
+import com.eghm.constant.CommonConstant;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.mapper.*;
@@ -10,13 +11,16 @@ import com.eghm.model.*;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.pay.enums.MerchantType;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.ItemTagResponse;
+import com.eghm.vo.sys.SysAreaVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.eghm.constant.CommonConstant.LIMIT_ONE;
 
@@ -59,6 +63,16 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         LambdaQueryWrapper<SysArea> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysArea::getPid, pid);
         return sysAreaMapper.selectList(wrapper);
+    }
+
+    @Override
+    public List<SysAreaVO> getAreaList() {
+        List<SysArea> list = sysAreaMapper.selectList(null);
+        List<SysAreaVO> voList = DataUtil.copy(list, SysAreaVO.class);
+        return voList.stream()
+                .filter(sysAreaVO -> sysAreaVO.getPid() == CommonConstant.ROOT)
+                .peek(sysAreaVO -> this.setChildren(sysAreaVO, voList))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -148,4 +162,17 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     public List<ItemTagResponse> getList() {
         return itemTagService.getList();
     }
+
+    /**
+     * 设置子节点
+     * @param parent 父节点
+     * @param voList 全部列表
+     */
+    private void setChildren(SysAreaVO parent, List<SysAreaVO> voList) {
+        parent.setChildren(voList.stream()
+                .filter(sysAreaVO -> parent.getId().equals(sysAreaVO.getPid()))
+                .peek(sysAreaVO -> this.setChildren(sysAreaVO, voList))
+                .collect(Collectors.toList()));
+    }
+
 }

@@ -17,13 +17,6 @@ public interface SysAreaService {
     void calcInitial();
 
     /**
-     * 查询子级的地址列表
-     * @param pid 当前级地址id
-     * @return list
-     */
-    List<SysAreaVO> getByPid(Long pid);
-
-    /**
      * 主键查询
      * @param id id
      * @return 地区

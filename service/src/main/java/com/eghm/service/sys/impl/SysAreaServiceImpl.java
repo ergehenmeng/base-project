@@ -1,12 +1,10 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.utils.StringUtil;
 import com.eghm.mapper.SysAreaMapper;
 import com.eghm.model.SysArea;
-import com.eghm.vo.sys.SysAreaVO;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.sys.SysAreaService;
-import com.eghm.utils.DataUtil;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,13 +31,6 @@ public class SysAreaServiceImpl implements SysAreaService {
             sysArea.setMark(initial);
             sysAreaMapper.updateById(sysArea);
         });
-    }
-
-    @Override
-    public List<SysAreaVO> getByPid(Long pid) {
-        List<SysArea> selectList = cacheProxyService.getAreaByPid(pid);
-        return DataUtil.copy(selectList, sysArea -> DataUtil.copy(sysArea, SysAreaVO.class));
-
     }
 
     @Override
@@ -83,4 +74,5 @@ public class SysAreaServiceImpl implements SysAreaService {
         }
         return address;
     }
+
 }

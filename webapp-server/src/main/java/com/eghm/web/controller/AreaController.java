@@ -1,8 +1,10 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.SysArea;
+import com.eghm.service.cache.CacheProxyService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.sys.SysAreaVO;
-import com.eghm.service.sys.SysAreaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -25,14 +26,20 @@ import java.util.List;
 @RequestMapping("/webapp/area")
 public class AreaController {
 
-    private final SysAreaService sysAreaService;
+    private final CacheProxyService cacheProxyService;
+
+    @ApiOperation("获取省市区列表")
+    @GetMapping("/getByPid")
+    @ApiImplicitParam(name = "pid", value = "pid", required = true)
+    public RespBody<List<SysAreaVO>> getByPid(@RequestParam(value = "pid") Long pid) {
+        List<SysArea> voList = cacheProxyService.getAreaByPid(pid);
+        return RespBody.success(DataUtil.copy(voList, SysAreaVO.class));
+    }
 
     @ApiOperation("获取省市区列表")
     @GetMapping("/list")
-    @ApiImplicitParam(name = "pid", value = "pid")
-    public RespBody<List<SysAreaVO>> list(@NotNull(message = "pid不能为空") @RequestParam(value = "pid") Long pid) {
-        List<SysAreaVO> voList = sysAreaService.getByPid(pid);
+    public RespBody<List<SysAreaVO>> list() {
+        List<SysAreaVO> voList = cacheProxyService.getAreaList();
         return RespBody.success(voList);
     }
-
 }

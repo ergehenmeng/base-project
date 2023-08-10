@@ -5,6 +5,7 @@ import com.eghm.enums.EmailType;
 import com.eghm.model.*;
 import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.vo.business.item.ItemTagResponse;
+import com.eghm.vo.sys.SysAreaVO;
 
 import java.util.List;
 
@@ -20,6 +21,12 @@ public interface CacheProxyService {
      * @return list
      */
     List<SysArea> getAreaByPid(Long pid);
+
+    /**
+     * 查询地址列表
+     * @return list
+     */
+    List<SysAreaVO> getAreaList();
 
     /**
      * 主键查询
