@@ -5,8 +5,9 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
 import com.eghm.dto.member.SendEmailAuthCodeDTO;
-import com.eghm.vo.member.SignInVO;
 import com.eghm.service.member.MemberService;
+import com.eghm.vo.member.SignInVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  *
  * @author 二哥很猛
  */
+@AccessToken
 @RestController
 @Api(tags = "用户相关接口")
 @AllArgsConstructor
@@ -25,12 +27,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberService memberService;
-
-    @PostMapping("/setPwd")
-    @ApiOperation("设置新密码")
-    public RespBody<Void> setPwd(){
-        return RespBody.success();
-    }
 
     @PostMapping("/sendBindEmailCode")
     @ApiOperation("绑定邮箱发送验证码请求①")

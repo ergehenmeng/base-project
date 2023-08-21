@@ -7,6 +7,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.member.AddressVO;
 import com.eghm.service.member.MemberAddressService;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * @author 殿小二
  */
+@AccessToken
 @RestController
 @Api(tags = "用户地址")
 @AllArgsConstructor

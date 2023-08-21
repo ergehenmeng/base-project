@@ -1172,7 +1172,7 @@ public enum ErrorCode {
     /**
      * 该账号已禁用,请联系客服解封
      */
-    MEMBER_LOGIN_FORBID(3636,"该账号已禁用,请联系客服解封"),
+    MEMBER_LOGIN_FORBID(3636,"账号已禁用,请联系客服解封"),
 
     /**
      * 标签id生成错误

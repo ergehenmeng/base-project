@@ -31,7 +31,7 @@ public class AreaController {
     @ApiOperation("获取省市区列表")
     @GetMapping("/getByPid")
     @ApiImplicitParam(name = "pid", value = "pid", required = true)
-    public RespBody<List<SysAreaVO>> getByPid(@RequestParam(value = "pid") Long pid) {
+    public RespBody<List<SysAreaVO>> getByPid(@RequestParam("pid") Long pid) {
         List<SysArea> voList = cacheProxyService.getAreaByPid(pid);
         return RespBody.success(DataUtil.copy(voList, SysAreaVO.class));
     }

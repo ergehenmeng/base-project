@@ -7,6 +7,7 @@ import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.vo.member.MemberNoticeVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.List;
 /**
  * @author 殿小二
  */
+@AccessToken
 @RestController
 @Api(tags = "站内信")
 @AllArgsConstructor

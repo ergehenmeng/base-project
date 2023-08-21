@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.MemberAddressMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.model.MemberAddress">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="member_id" jdbcType="BIGINT" property="memberId"/>
-        <result column="state" jdbcType="TINYINT" property="state"/>
-        <result column="province_id" jdbcType="BIGINT" property="provinceId"/>
-        <result column="province_name" jdbcType="VARCHAR" property="provinceName"/>
-        <result column="city_id" jdbcType="BIGINT" property="cityId"/>
-        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
-        <result column="county_id" jdbcType="BIGINT" property="countyId"/>
-        <result column="county_name" jdbcType="VARCHAR" property="countyName"/>
-        <result column="detail_address" jdbcType="VARCHAR" property="detailAddress"/>
-        <result column="deleted" jdbcType="BIT" property="deleted"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-    </resultMap>
 
-    <select id="getByMemberId" resultMap="BaseResultMap">
+    <select id="getByMemberId" resultType="com.eghm.model.MemberAddress">
         select
         id, member_id, state, province_id, province_name, city_id, city_name, county_id, county_name, detail_address
         from member_address where member_id = #{memberId} and deleted = false order by state, update_time desc

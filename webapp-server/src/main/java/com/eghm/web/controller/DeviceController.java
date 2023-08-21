@@ -5,6 +5,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.login.DeviceUnbindDTO;
 import com.eghm.vo.member.LoginDeviceVO;
 import com.eghm.service.member.LoginService;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author 殿小二
  * @date 2020/9/5
  */
+@AccessToken
 @RestController
 @Api(tags = "登陆设备")
 @AllArgsConstructor

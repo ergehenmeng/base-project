@@ -5,6 +5,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.MemberScoreQueryDTO;
 import com.eghm.service.member.MemberScoreLogService;
 import com.eghm.vo.member.MemberScoreVO;
+import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ import java.util.List;
  * @author 殿小二
  * @date 2020/9/7
  */
+@AccessToken
 @RestController
 @Api(tags = "用户积分")
 @AllArgsConstructor
