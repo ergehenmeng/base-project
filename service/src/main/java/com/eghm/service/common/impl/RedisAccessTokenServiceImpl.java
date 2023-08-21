@@ -58,7 +58,7 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         hashMap.put("nickName", user.getNickName());
         hashMap.put("dataType", user.getDataType().getValue());
         hashMap.put("userType", user.getUserType());
-        hashMap.put("deptList", dataList);
+        hashMap.put("dataList", dataList);
         hashMap.put("authList", authList);
         hashMap.put("merchantId", merchantId);
         hashMap.put("deptCode", user.getDeptCode());
