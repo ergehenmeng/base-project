@@ -42,6 +42,11 @@ public class AliPayServiceImpl implements PayService {
     private final SystemProperties systemProperties;
 
     @Override
+    public boolean supported(TradeType tradeType) {
+        return TradeType.ALI_PAY == tradeType;
+    }
+
+    @Override
     public PrepayVO createPrepay(PrepayDTO dto) {
         AlipayTradeCreateResponse response;
         try {
