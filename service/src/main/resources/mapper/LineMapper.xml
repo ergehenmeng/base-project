@@ -2,7 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LineMapper">
 
-    <select id="getByPage" parameterType="com.eghm.dto.business.line.LineQueryDTO" resultType="com.eghm.vo.business.line.LineListVO">
+    <select id="listPage" parameterType="com.eghm.dto.business.line.LineQueryRequest" resultType="com.eghm.vo.business.line.LineResponse">
+        select
+            t.id,
+            t.title,
+            r.merchant_name as merchantName,
+            s.title as travelAgencyName,
+            t.state,
+            t.platform_state as platformState,
+            t.start_province_id as startProvinceId,
+            t.start_city_id as startCityId,
+            t.cover_url as coverUrl,
+            t.sale_num as totalNum,
+            t.duration,
+            t.create_time as createTime,
+            t.update_time as updateTime
+        from line t
+        left join merchant r on t.merchant_id = r.id
+        left join travel_agency s on t.travel_agency_id = s.id
+        where t.deleted = 0
+        <if test="param.state != null">
+            and t.state = #{params.state}
+        </if>
+        <if test="param.duration != null">
+            and t.duration = #{params.duration}
+        </if>
+        <if test="param.platformState != null">
+            and t.platform_state = #{params.platformState}
+        </if>
+        <if test = "param.travelAgencyId != null">
+            and t.travel_agency_id = #{params.travelAgencyId}
+        </if>
+        <if test="param.startProvinceId != null">
+            and t.start_province_id = #{params.startProvinceId}
+        </if>
+        <if test="param.startCityId != null">
+            and t.start_city_id = #{params.startCityId}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.title like  concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+                 r.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+        </if>
+        order by t.id desc
+    </select>
+
+    <select id="getByPage" parameterType="com.eghm.dto.business.line.LineQueryDTO" resultType="com.eghm.vo.business.line.LineVO">
         select
         id,
         title,

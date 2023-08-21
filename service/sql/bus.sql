@@ -888,3 +888,27 @@ CREATE TABLE offline_refund_log
     PRIMARY KEY (id)
 ) ENGINE = INNODB
   DEFAULT CHARSET = utf8mb4 COMMENT '线下退款记录表';
+
+DROP TABLE IF EXISTS `travel_agency`;
+CREATE TABLE `travel_agency`
+(
+    `id`             bigint(20) NOT NULL COMMENT '主键',
+    `title`          varchar(50)    DEFAULT NULL COMMENT '旅行社名称',
+    `merchant_id`    bigint(20)     DEFAULT NULL COMMENT '所属商户',
+    `state`          tinyint(2)     DEFAULT -1 COMMENT '状态 -1:初始化 0:待上架 1:已上架',
+    `platform_state` tinyint(2)     DEFAULT NULL COMMENT '支付方式  1 预付2 到付',
+    `province_id`    bigint(20)     DEFAULT NULL COMMENT '省份id',
+    `city_id`        bigint(20)     DEFAULT NULL COMMENT '城市id',
+    `county_id`      bigint(20)     DEFAULT NULL COMMENT '县区id',
+    `detail_address` varchar(200)   DEFAULT NULL COMMENT '详细地址',
+    `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
+    `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `depict`         varchar(200)   DEFAULT NULL COMMENT '旅行社描述信息',
+    `cover_url`      varchar(500)   DEFAULT NULL COMMENT '旅行社图片',
+    `introduce`      longtext COMMENT '旅行社详细介绍信息',
+    `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='旅行社信息表'

@@ -1,12 +1,15 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.line.LineAddRequest;
+import com.eghm.dto.business.line.LineEditRequest;
+import com.eghm.dto.business.line.LineQueryDTO;
+import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
@@ -14,18 +17,15 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
-import com.eghm.dto.business.line.LineAddRequest;
-import com.eghm.dto.business.line.LineEditRequest;
-import com.eghm.dto.business.line.LineQueryDTO;
-import com.eghm.dto.business.line.LineQueryRequest;
-import com.eghm.vo.business.line.LineDayConfigResponse;
-import com.eghm.vo.business.line.LineListVO;
-import com.eghm.vo.business.line.LineVO;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.line.LineDayConfigResponse;
+import com.eghm.vo.business.line.LineDetailVO;
+import com.eghm.vo.business.line.LineResponse;
+import com.eghm.vo.business.line.LineVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,16 +53,8 @@ public class LineServiceImpl implements LineService {
     private final SysAreaService sysAreaService;
 
     @Override
-    public Page<Line> getByPage(LineQueryRequest request) {
-        LambdaQueryWrapper<Line> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getState() != null, Line::getState, request.getState());
-        wrapper.eq(request.getDuration() != null, Line::getDuration, request.getDuration());
-        wrapper.eq(request.getPlatformState() != null, Line::getPlatformState, request.getPlatformState());
-        wrapper.eq(request.getTravelAgencyId() != null, Line::getTravelAgencyId, request.getTravelAgencyId());
-        wrapper.eq(request.getStartProvinceId() != null, Line::getStartProvinceId, request.getStartProvinceId());
-        wrapper.eq(request.getStartCityId() != null, Line::getStartCityId, request.getStartCityId());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Line::getTitle, request.getQueryName());
-        return lineMapper.selectPage(request.createPage(), wrapper);
+    public Page<LineResponse> getByPage(LineQueryRequest request) {
+        return lineMapper.listPage(request.createPage(), request);
     }
 
     @Override
@@ -109,9 +101,9 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
-    public List<LineListVO> getByPage(LineQueryDTO dto) {
-        Page<LineListVO> voPage = lineMapper.getByPage(dto.createPage(false), dto);
-        List<LineListVO> voList = voPage.getRecords();
+    public List<LineVO> getByPage(LineQueryDTO dto) {
+        Page<LineVO> voPage = lineMapper.getByPage(dto.createPage(false), dto);
+        List<LineVO> voList = voPage.getRecords();
         // 转义城市名称
         if (CollUtil.isNotEmpty(voList)) {
             voList.forEach(vo -> vo.setStartCity(sysAreaService.getById(vo.getStartCityId()).getTitle()));
@@ -140,9 +132,9 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
-    public LineVO detailById(Long id) {
+    public LineDetailVO detailById(Long id) {
         Line line = this.selectByIdShelve(id);
-        LineVO vo = DataUtil.copy(line, LineVO.class);
+        LineDetailVO vo = DataUtil.copy(line, LineDetailVO.class);
 
         List<LineDayConfig> dayConfigList = lineDayConfigService.getByLineId(id);
         vo.setDayList(DataUtil.copy(dayConfigList, LineDayConfigResponse.class));

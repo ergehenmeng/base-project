@@ -1,21 +1,22 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.Line;
-import com.eghm.model.LineDayConfig;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.business.line.LineDayConfigResponse;
-import com.eghm.vo.business.line.LineResponse;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.model.Line;
+import com.eghm.model.LineDayConfig;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.line.LineDayConfigResponse;
+import com.eghm.vo.business.line.LineDetailResponse;
+import com.eghm.vo.business.line.LineResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -40,8 +41,8 @@ public class LineController {
 
     @ApiOperation("查询线路列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<Line>> getByPage(LineQueryRequest request) {
-        Page<Line> scenicPage = lineService.getByPage(request);
+    public RespBody<PageData<LineResponse>> getByPage(LineQueryRequest request) {
+        Page<LineResponse> scenicPage = lineService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }
 
@@ -61,9 +62,9 @@ public class LineController {
 
     @GetMapping("/select")
     @ApiOperation("详情")
-    public RespBody<LineResponse> select(@Validated IdDTO request) {
+    public RespBody<LineDetailResponse> select(@Validated IdDTO request) {
         Line line = lineService.selectByIdRequired(request.getId());
-        LineResponse response = DataUtil.copy(line, LineResponse.class);
+        LineDetailResponse response = DataUtil.copy(line, LineDetailResponse.class);
         List<LineDayConfig> dayList = lineDayConfigService.getByLineId(request.getId());
         response.setDayList(DataUtil.copy(dayList, LineDayConfigResponse.class));
         // 虚拟销量需要计算

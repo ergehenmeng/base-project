@@ -5,7 +5,7 @@ import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineService;
-import com.eghm.vo.business.line.LineListVO;
+import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineVO;
 import com.eghm.vo.business.line.config.LineConfigVO;
 import io.swagger.annotations.Api;
@@ -34,15 +34,15 @@ public class LineController {
 
     @GetMapping("/listPage")
     @ApiOperation("线路列表")
-    public RespBody<List<LineListVO>> getByPage(LineQueryDTO dto) {
-        List<LineListVO> byPage = lineService.getByPage(dto);
+    public RespBody<List<LineVO>> getByPage(LineQueryDTO dto) {
+        List<LineVO> byPage = lineService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @ApiOperation("线路详情")
-    public RespBody<LineVO> detail(@Validated IdDTO request) {
-        LineVO detail = lineService.detailById(request.getId());
+    public RespBody<LineDetailVO> detail(@Validated IdDTO request) {
+        LineDetailVO detail = lineService.detailById(request.getId());
         return RespBody.success(detail);
     }
 

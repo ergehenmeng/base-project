@@ -5,7 +5,7 @@
     <select id="getByPage" resultType="com.eghm.vo.business.homestay.HomestayListVO" parameterType="com.eghm.dto.business.homestay.HomestayQueryDTO">
         <choose>
             <when test="param.sortByDistance">
-                <include refid="getByPageSortDistanceSql"/>
+                <include refid="getByPageSortDistanceSql" />
             </when>
             <otherwise>
                 <include refid="getByPageSql"/>
