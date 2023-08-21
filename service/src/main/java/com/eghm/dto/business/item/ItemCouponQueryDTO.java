@@ -31,4 +31,7 @@ public class ItemCouponQueryDTO extends PagingQuery {
 
     @ApiModelProperty(value = "使用范围 1:店铺券 2:商品券", hidden = true)
     private Integer useScope;
+
+    @ApiModelProperty("标签id")
+    private String tagId;
 }

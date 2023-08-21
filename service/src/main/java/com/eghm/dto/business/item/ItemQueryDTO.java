@@ -20,4 +20,7 @@ public class ItemQueryDTO extends PagingQuery {
     @ApiModelProperty("排序规则 1: 按价格排序 2: 按销售量排序 其他:默认推荐排序")
     private Integer sortBy;
 
+    @ApiModelProperty("标签id")
+    private String tagId;
+
 }
