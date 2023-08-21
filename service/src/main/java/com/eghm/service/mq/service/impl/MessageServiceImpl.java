@@ -6,6 +6,7 @@ import com.eghm.dto.ext.AsyncKey;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.mq.service.MessageService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -15,19 +16,15 @@ import org.springframework.stereotype.Service;
 /**
  * @author 二哥很猛 2022/6/10 15:55
  */
-@Service("messageService")
 @Slf4j
+@RequiredArgsConstructor
+@Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
     private RabbitTemplate rabbitTemplate;
 
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
-    
     @Autowired(required = false)
     public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;

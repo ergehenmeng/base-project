@@ -10,6 +10,7 @@ import com.eghm.dto.ext.VerifyEmailCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
 import com.eghm.utils.SpringContextUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -24,18 +25,14 @@ import javax.mail.internet.MimeMessage;
  * @author 二哥很猛
  * @date 2019/7/10 17:00
  */
-@Service("emailService")
 @Slf4j
+@RequiredArgsConstructor
+@Service("emailService")
 public class EmailServiceImpl implements EmailService {
 
     private JavaMailSender javaMailSender;
 
-    private CacheService cacheService;
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
+    private final CacheService cacheService;
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {

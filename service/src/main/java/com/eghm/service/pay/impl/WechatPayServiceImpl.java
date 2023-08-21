@@ -24,6 +24,7 @@ import com.github.binarywang.wxpay.bean.result.enums.TradeTypeEnum;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.v3.util.SignUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,17 +36,18 @@ import java.util.Optional;
 /**
  * @author 二哥很猛
  */
+@RequiredArgsConstructor
 @Service("wechatPayService")
 @Slf4j
 public class WechatPayServiceImpl implements PayService {
 
-    private final WxPayService wxPayService;
+    private WxPayService wxPayService;
 
     private final SystemProperties systemProperties;
 
-    public WechatPayServiceImpl(@Autowired(required = false) WxPayService wxPayService, SystemProperties systemProperties) {
+    @Autowired(required = false)
+    public void setWxPayService(WxPayService wxPayService) {
         this.wxPayService = wxPayService;
-        this.systemProperties = systemProperties;
     }
 
     @Override

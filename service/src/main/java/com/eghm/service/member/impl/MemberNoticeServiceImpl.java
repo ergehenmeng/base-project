@@ -22,6 +22,7 @@ import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.member.MemberNoticeVO;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,43 +34,24 @@ import java.util.Map;
  * @author 殿小二
  * @date 2020/9/11
  */
-@Service("memberNoticeService")
 @Slf4j
+@RequiredArgsConstructor
+@Service("memberNoticeService")
 public class MemberNoticeServiceImpl implements MemberNoticeService {
 
-    private NoticeTemplateService noticeTemplateService;
+    private final NoticeTemplateService noticeTemplateService;
 
-    private MemberNoticeMapper memberNoticeMapper;
+    private final MemberNoticeMapper memberNoticeMapper;
 
-    private TemplateEngine templateEngine;
+    private final TemplateEngine templateEngine;
 
-    private MemberService memberService;
+    private final MemberService memberService;
 
     private PushService pushService;
 
     @Autowired(required = false)
     public void setPushService(PushService pushService) {
         this.pushService = pushService;
-    }
-
-    @Autowired
-    public void setMemberService(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
-    @Autowired
-    public void setNoticeTemplateService(NoticeTemplateService noticeTemplateService) {
-        this.noticeTemplateService = noticeTemplateService;
-    }
-
-    @Autowired
-    public void setMemberNoticeMapper(MemberNoticeMapper memberNoticeMapper) {
-        this.memberNoticeMapper = memberNoticeMapper;
-    }
-
-    @Autowired
-    public void setTemplateEngine(TemplateEngine templateEngine) {
-        this.templateEngine = templateEngine;
     }
 
     @Override

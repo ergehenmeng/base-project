@@ -1,15 +1,15 @@
 package com.eghm.handler.email;
 
+import com.eghm.configuration.template.TemplateEngine;
+import com.eghm.dto.email.SendEmail;
 import com.eghm.enums.EmailType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.configuration.template.TemplateEngine;
 import com.eghm.model.EmailTemplate;
-import com.eghm.dto.email.SendEmail;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.EmailTemplateService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -20,29 +20,15 @@ import java.util.Map;
  * @date 2020/8/28
  */
 @Slf4j
+@RequiredArgsConstructor
 @Component("commonEmailHandler")
 public class BaseEmailHandler {
 
-    private EmailTemplateService emailTemplateService;
+    private final EmailTemplateService emailTemplateService;
 
-    private EmailService emailService;
+    private final EmailService emailService;
 
-    private TemplateEngine templateEngine;
-
-    @Autowired
-    public void setTemplateEngine(TemplateEngine templateEngine) {
-        this.templateEngine = templateEngine;
-    }
-
-    @Autowired
-    public void setEmailTemplateService(EmailTemplateService emailTemplateService) {
-        this.emailTemplateService = emailTemplateService;
-    }
-
-    @Autowired
-    public void setEmailService(EmailService emailService) {
-        this.emailService = emailService;
-    }
+    private final TemplateEngine templateEngine;
 
     /**
      * 发送邮件 (主入口)

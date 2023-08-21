@@ -1,18 +1,18 @@
 package com.eghm.handler.chain.service.impl;
 
 import cn.hutool.core.util.StrUtil;
+import com.eghm.dto.ext.MemberRegister;
+import com.eghm.handler.chain.Handler;
+import com.eghm.handler.chain.HandlerInvoker;
+import com.eghm.handler.chain.MessageData;
 import com.eghm.handler.chain.annotation.HandlerEnum;
 import com.eghm.handler.chain.annotation.HandlerMark;
 import com.eghm.model.Member;
 import com.eghm.model.MemberInviteLog;
-import com.eghm.handler.chain.Handler;
-import com.eghm.handler.chain.HandlerInvoker;
-import com.eghm.handler.chain.MessageData;
-import com.eghm.dto.ext.MemberRegister;
 import com.eghm.service.member.MemberInviteLogService;
 import com.eghm.service.member.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
@@ -25,21 +25,12 @@ import org.springframework.stereotype.Service;
 @Order(30)
 @Slf4j
 @HandlerMark(HandlerEnum.REGISTER)
+@RequiredArgsConstructor
 public class InviteRegisterHandler implements Handler {
 
-    private MemberInviteLogService memberInviteLogService;
+    private final MemberInviteLogService memberInviteLogService;
 
-    private MemberService memberService;
-
-    @Autowired
-    public void setMemberService(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
-    @Autowired
-    public void setMemberInviteLogService(MemberInviteLogService memberInviteLogService) {
-        this.memberInviteLogService = memberInviteLogService;
-    }
+    private final MemberService memberService;
 
     @Override
     public void doHandler(Object messageData, HandlerInvoker invoker) {

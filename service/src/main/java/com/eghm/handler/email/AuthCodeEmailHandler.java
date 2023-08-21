@@ -6,6 +6,7 @@ import com.eghm.model.EmailTemplate;
 import com.eghm.dto.email.SendEmail;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,25 +18,16 @@ import java.util.Map;
  * @date 2020/9/3
  */
 @Component("baseAuthCodeHandler")
+@RequiredArgsConstructor
 public class AuthCodeEmailHandler extends BaseEmailHandler {
 
-    private CacheService cacheService;
+    private final CacheService cacheService;
 
-    private SysConfigApi sysConfigApi;
+    private final SysConfigApi sysConfigApi;
 
     public static final String AUTH_CODE = "authCode";
 
     public static final String EMAIL = "email";
-
-    @Autowired
-    public void setSysConfigApi(SysConfigApi sysConfigApi) {
-        this.sysConfigApi = sysConfigApi;
-    }
-
-    @Autowired
-    public void setCacheService(CacheService cacheService) {
-        this.cacheService = cacheService;
-    }
 
     @Override
     protected Map<String, Object> renderParams(EmailTemplate template, SendEmail email) {
