@@ -911,4 +911,40 @@ CREATE TABLE `travel_agency`
     `deleted`        bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='旅行社信息表'
+  DEFAULT CHARSET = utf8mb4 COMMENT ='旅行社信息表';
+
+DROP TABLE IF EXISTS `item_express_region`;
+CREATE TABLE `item_express_region`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `template_id`     bigint(20)     DEFAULT NULL COMMENT '模板id',
+    `first_part`      decimal(10, 2) DEFAULT NULL COMMENT '首件或首重',
+    `first_price`     int(10)        DEFAULT NULL COMMENT '首件或首重的价格',
+    `next_part`       decimal(10, 2) DEFAULT NULL COMMENT '续重或续件',
+    `next_unit_price` int(10)        DEFAULT NULL COMMENT '续重或续件的单价',
+    `region_code`     text COMMENT '区域编号(逗号分隔)',
+    `region_name`     text COMMENT '区域名称(逗号分隔)',
+    `create_time`     datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    `update_time`     datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+    `deleted`         bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`),
+    KEY `template_idx` (`template_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='快递模板区域';
+
+DROP TABLE IF EXISTS `item_express`;
+CREATE TABLE `item_express`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id` bigint(20)  DEFAULT NULL COMMENT '模板所属商户',
+    `title`       varchar(30) DEFAULT NULL COMMENT '模板名称',
+    `state`       tinyint(1)  DEFAULT '1' COMMENT '状态 0:禁用 1:启用',
+    `charge_mode` tinyint(1)  DEFAULT NULL COMMENT '计费方式 1:按件数 2:按重量',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`),
+    KEY `merchant_idx` (`merchant_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='快递模板表';
+

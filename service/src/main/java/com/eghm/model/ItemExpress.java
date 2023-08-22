@@ -26,13 +26,16 @@ public class ItemExpress extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("商户id")
+    private Long merchantId;
+
     @ApiModelProperty(value = "模板名称")
     private String title;
 
     @ApiModelProperty(value = "状态 0:禁用 1:启用")
-    private Boolean state;
+    private Integer state;
 
     @ApiModelProperty(value = "计费方式 1:按件数 2:按重量")
-    private Boolean chargeMode;
+    private Integer chargeMode;
 
 }
