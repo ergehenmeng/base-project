@@ -762,20 +762,21 @@ DROP TABLE IF EXISTS `item_sku`;
 CREATE TABLE `item_sku`
 (
     `id`                 bigint(20) NOT NULL,
-    `item_id`            bigint(20)   DEFAULT NULL COMMENT '零售id',
-    `primary_spec_value` varchar(30)  DEFAULT NULL COMMENT '一级规格名',
-    `second_spec_value`  varchar(30)  DEFAULT NULL COMMENT '二级规格名',
-    `spec_id`            varchar(100) DEFAULT NULL COMMENT '规格id,多个逗号分隔',
-    `cost_price`         int(10)      DEFAULT NULL COMMENT '成本价',
-    `line_price`         int(10)      DEFAULT NULL COMMENT '划线价',
-    `sale_price`         int(10)      DEFAULT NULL COMMENT '销售价格',
-    `stock`              smallint(4)  DEFAULT '0' COMMENT '库存',
-    `virtual_num`        smallint(4)  DEFAULT '0' COMMENT '虚拟销量',
-    `sale_num`           int(11)      DEFAULT '0' COMMENT '销售量',
-    `sku_pic`            varchar(255) DEFAULT NULL COMMENT 'sku图片(优先级最高)',
-    `create_time`        datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`        datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`            bit(1)       DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
+    `item_id`            bigint(20)     DEFAULT NULL COMMENT '零售id',
+    `primary_spec_value` varchar(30)    DEFAULT NULL COMMENT '一级规格名',
+    `second_spec_value`  varchar(30)    DEFAULT NULL COMMENT '二级规格名',
+    `spec_id`            varchar(100)   DEFAULT NULL COMMENT '规格id,多个逗号分隔',
+    `cost_price`         int(10)        DEFAULT NULL COMMENT '成本价',
+    `line_price`         int(10)        DEFAULT NULL COMMENT '划线价',
+    `sale_price`         int(10)        DEFAULT NULL COMMENT '销售价格',
+    `stock`              smallint(4)    DEFAULT '0' COMMENT '库存',
+    `virtual_num`        smallint(4)    DEFAULT '0' COMMENT '虚拟销量',
+    `sale_num`           int(11)        DEFAULT '0' COMMENT '销售量',
+    `weight`             decimal(10, 2) DEFAULT NULL COMMENT '重量',
+    `sku_pic`            varchar(255)   DEFAULT NULL COMMENT 'sku图片(优先级最高)',
+    `create_time`        datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`        datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`            bit(1)         DEFAULT b'0' COMMENT '是否删除 1:已删除 0:未删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商品sku表';
@@ -917,7 +918,7 @@ DROP TABLE IF EXISTS `item_express_region`;
 CREATE TABLE `item_express_region`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
-    `template_id`     bigint(20)     DEFAULT NULL COMMENT '模板id',
+    `express_id`      bigint(20)     DEFAULT NULL COMMENT '模板id',
     `first_part`      decimal(10, 2) DEFAULT NULL COMMENT '首件或首重',
     `first_price`     int(10)        DEFAULT NULL COMMENT '首件或首重的价格',
     `next_part`       decimal(10, 2) DEFAULT NULL COMMENT '续重或续件',
@@ -928,7 +929,7 @@ CREATE TABLE `item_express_region`
     `update_time`     datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
     `deleted`         bit(1)         DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`),
-    KEY `template_idx` (`template_id`)
+    KEY `express_idx` (`express_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='快递模板区域';
 

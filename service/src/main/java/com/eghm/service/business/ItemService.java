@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
@@ -146,4 +147,10 @@ public interface ItemService {
      * @return 列表
      */
     List<ItemListVO> getCouponScopeByPage(ItemCouponQueryDTO dto);
+
+    /**
+     * 计算商品快递费
+     * @param dtoList 商品列表, 按店铺进行分组
+     */
+    void calcExpressFee(List<ExpressFeeCalcDTO> dtoList);
 }

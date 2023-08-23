@@ -7,8 +7,11 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.item.*;
+import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
+import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
@@ -22,6 +25,7 @@ import com.eghm.model.ItemSpec;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ItemSpecService;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
@@ -35,6 +39,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.ITEM_DOWN;
+import static com.eghm.enums.ErrorCode.ITEM_NOT_STORE;
 
 /**
  * @author 殿小二
@@ -54,6 +59,8 @@ public class ItemServiceImpl implements ItemService {
     private final SysConfigApi sysConfigApi;
     
     private final CouponConfigMapper couponConfigMapper;
+
+    private final DingTalkService dingTalkService;
     
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
@@ -210,7 +217,37 @@ public class ItemServiceImpl implements ItemService {
         dto.setUseScope(coupon.getUseScope());
         return itemMapper.getCouponScopeByPage(dto.createPage(false), dto).getRecords();
     }
-    
+
+    @Override
+    public void calcExpressFee(List<ExpressFeeCalcDTO> dtoList) {
+        this.checkStoreItem(dtoList);
+
+    }
+
+    /**
+     * 校验每个店铺的商品是否确实数据该店铺, 同时将查询到快递模板信息设置ExpressFeeCalcDTO中
+     * @param dtoList 每个店铺的商品
+     */
+    private void checkStoreItem(List<ExpressFeeCalcDTO> dtoList) {
+        for (ExpressFeeCalcDTO dto : dtoList) {
+            LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
+            wrapper.select(Item::getId, Item::getExpressId);
+            // 额外增加门店过滤条件,防止恶意出现多店铺商品时在同一门店下单
+            wrapper.eq(Item::getStoreId, dto.getStoreId());
+            wrapper.in(Item::getId, dto.getItemList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toSet()));
+            List<Item> selectedList = itemMapper.selectList(wrapper);
+
+            if (selectedList.size() != dto.getItemList().size()) {
+                log.error("商品不属于同一家店铺, 可能是恶意下单 [{}] [{}]", ApiHolder.getMemberId(), dto);
+                dingTalkService.sendMsg(String.format("商品不属于同一家店铺, 可能是恶意下单 [%d]", ApiHolder.getMemberId()));
+                throw new BusinessException(ITEM_NOT_STORE);
+            }
+            // 保存映射关系,减少后面数据库访问次数
+            Map<Long, Long> expressMap = selectedList.stream().collect(Collectors.toMap(Item::getId, Item::getExpressId));
+            dto.setItemExpressMap(expressMap);
+        }
+    }
+
     /**
      * 校验规格信息合法性
      * @param multiSpec 是否为多规格

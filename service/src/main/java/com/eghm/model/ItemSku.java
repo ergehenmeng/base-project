@@ -8,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -55,6 +56,9 @@ public class ItemSku extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "销售量")
     private Integer saleNum;
+
+    @ApiModelProperty("重量")
+    private BigDecimal weight;
 
     @ApiModelProperty(value = "sku图片(优先级最高)")
     private String skuPic;

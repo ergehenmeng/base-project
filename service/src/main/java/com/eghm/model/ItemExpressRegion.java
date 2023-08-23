@@ -28,7 +28,7 @@ public class ItemExpressRegion extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "模板id")
-    private Long templateId;
+    private Long expressId;
 
     @ApiModelProperty(value = "首件或首重")
     private BigDecimal firstPart;

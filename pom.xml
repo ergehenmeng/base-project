@@ -62,7 +62,7 @@
         <quartz.version>2.2.3</quartz.version>
         <!--map queue扩展并发包-->
         <jctools.version>2.1.1</jctools.version>
-        <!--common-fileupload上传-->
+        <!--common-file-upload上传-->
         <fileupload.version>1.3.3</fileupload.version>
         <!--spring redis session共享-->
         <redis-session.version>1.2.1.RELEASE</redis-session.version>
@@ -107,7 +107,7 @@
         <!--swagger2版本-->
         <knif4j.version>4.0.0</knif4j.version>
         <!--微信三方sdk包-->
-        <wx-sdk.version>4.3.6.B</wx-sdk.version>
+        <wx-sdk.version>4.5.3.B</wx-sdk.version>
         <!--支付宝sdk-->
         <ali-sdk.version>2.2.2</ali-sdk.version>
         <!--mybatis-plus-->

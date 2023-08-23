@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
 import com.eghm.enums.ErrorCode;
@@ -47,5 +48,10 @@ public class ItemExpressServiceImpl implements ItemExpressService {
         ItemExpress express = DataUtil.copy(request, ItemExpress.class);
         itemExpressMapper.updateById(express);
         itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
+    }
+
+    @Override
+    public Integer calcFee(ExpressFeeCalcDTO dto) {
+        return null;
     }
 }

@@ -16,8 +16,8 @@ public interface ItemExpressRegionService {
 
     /**
      * 新增或更新快递区域运费配置信息
-     * @param templateId 模板id
+     * @param expressId 模板id
      * @param regionList 价格信息
      */
-    void createOrUpdate(Long templateId, List<ItemExpressRegionRequest> regionList);
+    void createOrUpdate(Long expressId, List<ItemExpressRegionRequest> regionList);
 }

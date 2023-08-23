@@ -29,13 +29,13 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
     private final ItemExpressRegionMapper itemExpressRegionMapper;
 
     @Override
-    public void createOrUpdate(Long templateId, List<ItemExpressRegionRequest> regionList) {
+    public void createOrUpdate(Long expressId, List<ItemExpressRegionRequest> regionList) {
         LambdaUpdateWrapper<ItemExpressRegion> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ItemExpressRegion::getTemplateId, templateId);
+        wrapper.eq(ItemExpressRegion::getExpressId, expressId);
         itemExpressRegionMapper.delete(wrapper);
         for (ItemExpressRegionRequest request : regionList) {
             ItemExpressRegion region = DataUtil.copy(request, ItemExpressRegion.class);
-            region.setTemplateId(templateId);
+            region.setExpressId(expressId);
             itemExpressRegionMapper.insert(region);
         }
     }

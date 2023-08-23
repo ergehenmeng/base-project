@@ -1185,6 +1185,11 @@ public enum ErrorCode {
     EXPRESS_NULL(3640,"该快递模板无权限操作"),
 
     /**
+     * 商品不属于同一个店铺
+     */
+    ITEM_NOT_STORE(3644,"商品不属于同一个店铺"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

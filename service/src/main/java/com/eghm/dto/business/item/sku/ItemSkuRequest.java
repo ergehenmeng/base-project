@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * @author 殿小二
@@ -37,6 +38,9 @@ public class ItemSkuRequest {
     @JsonDeserialize(using = YuanToCentDecoder.class)
     @NotNull(message = "销售价不能为空不能为空")
     private Integer salePrice;
+
+    @ApiModelProperty("重量")
+    private BigDecimal weight;
     
     @ApiModelProperty(value = "库存")
     @RangeInt(max = 9999, message = "库存数应为0~9999")
