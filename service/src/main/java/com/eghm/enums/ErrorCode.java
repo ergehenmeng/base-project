@@ -1180,6 +1180,11 @@ public enum ErrorCode {
     ITEM_TAG_NULL(3646,"标签id生成错误"),
 
     /**
+     * 该快递模板无权限操作
+     */
+    EXPRESS_NULL(3640,"该快递模板无权限操作"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

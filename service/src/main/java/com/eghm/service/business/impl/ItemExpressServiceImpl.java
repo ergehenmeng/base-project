@@ -1,6 +1,9 @@
 package com.eghm.service.business.impl;
 
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
+import com.eghm.dto.business.item.express.ItemExpressEditRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemExpressMapper;
 import com.eghm.model.ItemExpress;
 import com.eghm.service.business.ItemExpressRegionService;
@@ -31,6 +34,18 @@ public class ItemExpressServiceImpl implements ItemExpressService {
     public void create(ItemExpressAddRequest request) {
         ItemExpress express = DataUtil.copy(request, ItemExpress.class);
         itemExpressMapper.insert(express);
+        itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
+    }
+
+    @Override
+    public void update(ItemExpressEditRequest request) {
+        ItemExpress selected = itemExpressMapper.selectById(request.getId());
+        if (selected == null || !selected.getMerchantId().equals(request.getMerchantId())) {
+            log.error("查询快递模板不合法 [{}] [{}]", request.getId(), request.getMerchantId());
+            throw new BusinessException(ErrorCode.EXPRESS_NULL);
+        }
+        ItemExpress express = DataUtil.copy(request, ItemExpress.class);
+        itemExpressMapper.updateById(express);
         itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
     }
 }

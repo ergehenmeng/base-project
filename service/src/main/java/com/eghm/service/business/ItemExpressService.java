@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
+import com.eghm.dto.business.item.express.ItemExpressEditRequest;
 
 /**
  * <p>
@@ -17,4 +18,10 @@ public interface ItemExpressService {
      * @param request 模板信息
      */
     void create(ItemExpressAddRequest request);
+
+    /**
+     * 更新快递模板
+     * @param request 模板信息
+     */
+    void update(ItemExpressEditRequest request);
 }
