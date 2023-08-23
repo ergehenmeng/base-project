@@ -1,18 +1,29 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.ChargeMode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemExpressMapper;
+import com.eghm.model.Item;
 import com.eghm.model.ItemExpress;
+import com.eghm.model.ItemExpressRegion;
 import com.eghm.service.business.ItemExpressRegionService;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -38,6 +49,9 @@ public class ItemExpressServiceImpl implements ItemExpressService {
         itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
     }
 
+    /**
+     * @param request 模板信息
+     */
     @Override
     public void update(ItemExpressEditRequest request) {
         ItemExpress selected = itemExpressMapper.selectById(request.getId());
@@ -52,6 +66,35 @@ public class ItemExpressServiceImpl implements ItemExpressService {
 
     @Override
     public Integer calcFee(ExpressFeeCalcDTO dto) {
+        List<Long> expressIds = dto.getItemList().stream().map(Item::getExpressId).filter(Objects::nonNull).collect(Collectors.toList());
+        if (CollUtil.isEmpty(expressIds)) {
+            log.info("所有商品都免邮费 [{}]", dto.getOrderList());
+            return 0;
+        }
+        LambdaQueryWrapper<ItemExpress> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(ItemExpress::getId, ItemExpress::getChargeMode);
+        wrapper.in(ItemExpress::getId, expressIds);
+        List<ItemExpress> expressList = itemExpressMapper.selectList(wrapper);
+        // 按计件或者计重进行分组
+        Map<Integer, List<Long>> chargeMap = expressList.stream().collect(Collectors.groupingBy(ItemExpress::getChargeMode, Collectors.mapping(ItemExpress::getId, Collectors.toList())));
+
+        // 快递总费用
+        int totalFee = 0;
+        // 计件商品快递费用计算
+        List<Long> ids = chargeMap.get(ChargeMode.QUANTITY.getValue());
+        if (CollUtil.isNotEmpty(ids)) {
+            List<ItemExpressRegion> regionList = itemExpressRegionService.getList(ids);
+            if (CollUtil.isNotEmpty(regionList)) {
+
+
+
+            } else {
+                log.info("商品配置的快递模板不存在 [{}]", ids);
+            }
+        }
+
         return null;
     }
+
+
 }

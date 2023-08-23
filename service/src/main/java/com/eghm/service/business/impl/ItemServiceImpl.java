@@ -234,7 +234,7 @@ public class ItemServiceImpl implements ItemService {
             wrapper.select(Item::getId, Item::getExpressId);
             // 额外增加门店过滤条件,防止恶意出现多店铺商品时在同一门店下单
             wrapper.eq(Item::getStoreId, dto.getStoreId());
-            wrapper.in(Item::getId, dto.getItemList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toSet()));
+            wrapper.in(Item::getId, dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toSet()));
             List<Item> selectedList = itemMapper.selectList(wrapper);
 
             if (selectedList.size() != dto.getItemList().size()) {
@@ -243,8 +243,7 @@ public class ItemServiceImpl implements ItemService {
                 throw new BusinessException(ITEM_NOT_STORE);
             }
             // 保存映射关系,减少后面数据库访问次数
-            Map<Long, Long> expressMap = selectedList.stream().collect(Collectors.toMap(Item::getId, Item::getExpressId));
-            dto.setItemExpressMap(expressMap);
+            dto.setItemList(selectedList);
         }
     }
 

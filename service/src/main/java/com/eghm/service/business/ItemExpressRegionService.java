@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ItemExpressRegionRequest;
+import com.eghm.model.ItemExpressRegion;
 
 import java.util.List;
 
@@ -20,4 +21,11 @@ public interface ItemExpressRegionService {
      * @param regionList 价格信息
      */
     void createOrUpdate(Long expressId, List<ItemExpressRegionRequest> regionList);
+
+    /**
+     * 批量查询快递区域价格配置信息
+     * @param expressIds 快递模板id
+     * @return 配置信息
+     */
+    List<ItemExpressRegion> getList(List<Long> expressIds);
 }

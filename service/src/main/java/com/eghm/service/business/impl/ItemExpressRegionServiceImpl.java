@@ -1,5 +1,6 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.business.item.express.ItemExpressRegionRequest;
@@ -38,5 +39,12 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
             region.setExpressId(expressId);
             itemExpressRegionMapper.insert(region);
         }
+    }
+
+    @Override
+    public List<ItemExpressRegion> getList(List<Long> expressIds) {
+        LambdaQueryWrapper<ItemExpressRegion> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(ItemExpressRegion::getExpressId, expressIds);
+        return itemExpressRegionMapper.selectList(wrapper);
     }
 }
