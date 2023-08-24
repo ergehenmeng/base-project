@@ -1,5 +1,6 @@
 package com.eghm.dto.business.item.express;
 
+import com.eghm.annotation.Padding;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -25,4 +26,12 @@ public class ItemCalcDTO {
     @Min(value = 1, message = "购买数量必须大于等于1")
     @NotNull(message = "商品数量不能为空")
     private Integer num;
+
+    @ApiModelProperty(value = "快递id", hidden = true)
+    @Padding
+    private Long expressId;
+
+    @ApiModelProperty(value = "快递计费方式 1:计件 2:计费", hidden = true)
+    @Padding
+    private Integer chargeMode;
 }

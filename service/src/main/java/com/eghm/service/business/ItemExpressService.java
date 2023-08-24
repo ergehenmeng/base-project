@@ -1,10 +1,10 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
+import com.eghm.vo.business.item.express.ItemExpressVO;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -29,9 +29,11 @@ public interface ItemExpressService {
     void update(ItemExpressEditRequest request);
 
     /**
-     * 计算单店铺的快递费
-     * @param dto 店铺商品信息
-     * @return 费用 单位:分
+     * 查询商品对应的快递模板
+     * @param itemIds 商品Id
+     * @param storeId 店铺Id
+     * @return 快递模板
      */
-    Integer calcFee(ExpressFeeCalcDTO dto);
+    List<ItemExpressVO> getExpressList(List<Long> itemIds, Long storeId);
+
 }

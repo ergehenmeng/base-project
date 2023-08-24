@@ -1,7 +1,5 @@
 package com.eghm.dto.business.item.express;
 
-import com.eghm.annotation.Padding;
-import com.eghm.model.Item;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,7 +26,4 @@ public class ExpressFeeCalcDTO {
     @NotEmpty(message = "请选择购买的商品")
     private List<ItemCalcDTO> orderList;
 
-    @ApiModelProperty(value = "商品与模板映射信息", hidden = true)
-    @Padding
-    private List<Item> itemList;
 }

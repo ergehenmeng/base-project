@@ -22,6 +22,7 @@ import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
+import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemService;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.service.business.ItemSpecService;
@@ -30,6 +31,7 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.*;
+import com.eghm.vo.business.item.express.ItemExpressVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,7 +41,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.ITEM_DOWN;
-import static com.eghm.enums.ErrorCode.ITEM_NOT_STORE;
+import static com.eghm.enums.ErrorCode.ITEM_MAY_DOWN;
 
 /**
  * @author 殿小二
@@ -61,6 +63,8 @@ public class ItemServiceImpl implements ItemService {
     private final CouponConfigMapper couponConfigMapper;
 
     private final DingTalkService dingTalkService;
+
+    private ItemExpressService itemExpressService;
     
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
@@ -230,20 +234,23 @@ public class ItemServiceImpl implements ItemService {
      */
     private void checkStoreItem(List<ExpressFeeCalcDTO> dtoList) {
         for (ExpressFeeCalcDTO dto : dtoList) {
-            LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
-            wrapper.select(Item::getId, Item::getExpressId);
-            // 额外增加门店过滤条件,防止恶意出现多店铺商品时在同一门店下单
-            wrapper.eq(Item::getStoreId, dto.getStoreId());
-            wrapper.in(Item::getId, dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toSet()));
-            List<Item> selectedList = itemMapper.selectList(wrapper);
-
-            if (selectedList.size() != dto.getItemList().size()) {
-                log.error("商品不属于同一家店铺, 可能是恶意下单 [{}] [{}]", ApiHolder.getMemberId(), dto);
+            List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
+            List<ItemExpressVO> expressList = itemExpressService.getExpressList(itemIds, dto.getStoreId());
+            // 前端根据店铺进行分组,但是并不一定保证是真实的,此处做二次校验,防止恶意调用接口
+            if (expressList.size() != dto.getOrderList().size()) {
+                log.error("商品不属于同一家店铺或者存在下架的商品, 可能是恶意下单 [{}] [{}]", ApiHolder.getMemberId(), dto);
                 dingTalkService.sendMsg(String.format("商品不属于同一家店铺, 可能是恶意下单 [%d]", ApiHolder.getMemberId()));
-                throw new BusinessException(ITEM_NOT_STORE);
+                throw new BusinessException(ITEM_MAY_DOWN);
             }
             // 保存映射关系,减少后面数据库访问次数
-            dto.setItemList(selectedList);
+            Map<Long, ItemExpressVO> expressMap = expressList.stream().collect(Collectors.toMap(ItemExpressVO::getItemId, Function.identity()));
+            dto.getOrderList().forEach(itemCalcDTO -> {
+                ItemExpressVO vo = expressMap.get(itemCalcDTO.getItemId());
+                if (vo != null) {
+                    itemCalcDTO.setExpressId(vo.getExpressId());
+                    itemCalcDTO.setChargeMode(vo.getChargeMode());
+                }
+            });
         }
     }
 

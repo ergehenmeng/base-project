@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemExpressRegionRequest;
 import com.eghm.model.ItemExpressRegion;
 
@@ -28,4 +29,11 @@ public interface ItemExpressRegionService {
      * @return 配置信息
      */
     List<ItemExpressRegion> getList(List<Long> expressIds);
+
+    /**
+     * 计算单店铺的快递费
+     * @param dto 店铺商品信息
+     * @return 费用 单位:分
+     */
+    Integer calcFee(ExpressFeeCalcDTO dto);
 }

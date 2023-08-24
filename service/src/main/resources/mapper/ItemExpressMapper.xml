@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ItemExpressMapper">
 
+    <select id="getExpressList" resultType="com.eghm.vo.business.item.express.ItemExpressVO">
+        select t.id, t.express_id, r.charge_mode
+        from item t left join item_express r on t.express_id = r.id where t.deleted = false and t.platform_state = 2 and t.store_id = #{storeId}
+        and t.id in
+        <foreach collection="itemIds" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+
 </mapper>
