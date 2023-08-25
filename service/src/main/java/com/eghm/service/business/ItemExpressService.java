@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
+import com.eghm.vo.business.item.express.ItemExpressResponse;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 
 import java.util.List;
@@ -15,6 +16,13 @@ import java.util.List;
  * @since 2023-08-22
  */
 public interface ItemExpressService {
+
+    /**
+     * 查询商户下的物流模板
+     * @param merchantId 商户ID
+     * @return 模板
+     */
+    List<ItemExpressResponse> getList(Long merchantId);
 
     /**
      * 新增快递模板
@@ -36,4 +44,9 @@ public interface ItemExpressService {
      */
     List<ItemExpressVO> getExpressList(List<Long> itemIds, Long storeId);
 
+    /**
+     * 逻辑删除快递模板
+     * @param id 快递id
+     */
+    void deleteById(Long id);
 }

@@ -2,6 +2,7 @@ package com.eghm.mapper;
 
 import com.eghm.model.ItemExpress;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.item.express.ItemExpressResponse;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,11 @@ public interface ItemExpressMapper extends BaseMapper<ItemExpress> {
      * @return 快递模板
      */
     List<ItemExpressVO> getExpressList(@Param("itemIds") List<Long> itemIds, @Param("storeId") Long storeId);
+
+    /**
+     * 查询商户下的物流模板
+     * @param merchantId 商户ID
+     * @return 模板
+     */
+    List<ItemExpressResponse> getList(@Param("merchantId") Long merchantId);
 }

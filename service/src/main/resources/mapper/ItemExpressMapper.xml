@@ -11,4 +11,14 @@
         </foreach>
     </select>
 
+    <select id="getList" resultMap="itemExpressResultMap">
+
+    </select>
+
+    <resultMap id="itemExpressResultMap" type="com.eghm.vo.business.item.express.ItemExpressResponse">
+
+        <collection property="chargeMode" ofType="com.eghm.vo.business.item.express.ItemExpressResponse">
+
+        </collection>
+    </resultMap>
 </mapper>
