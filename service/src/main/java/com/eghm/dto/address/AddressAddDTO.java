@@ -1,6 +1,6 @@
 package com.eghm.dto.address;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class AddressAddDTO {
 
     @ApiModelProperty(hidden = true)
-    @Padding
+    @Assign
     private Long memberId;
 
     @ApiModelProperty("是否为默认地址 0:非默认 1:默认")

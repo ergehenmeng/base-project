@@ -1,6 +1,6 @@
 package com.eghm.dto.member;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class MemberScoreQueryDTO extends PagingQuery {
     @ApiModelProperty("积分类型")
     private Integer type;
 
-    @Padding
+    @Assign
     @ApiModelProperty(hidden = true)
     private Long memberId;
 }

@@ -1,6 +1,6 @@
 package com.eghm.dto.business.item.express;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,6 +32,6 @@ public class ItemExpressAddRequest {
     private List<ItemExpressRegionRequest> regionList;
 
     @ApiModelProperty(hidden = true)
-    @Padding
+    @Assign
     private Long merchantId;
 }

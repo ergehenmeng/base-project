@@ -22,16 +22,15 @@ import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
 import com.eghm.model.ItemSpec;
-import com.eghm.service.business.ItemExpressService;
-import com.eghm.service.business.ItemService;
-import com.eghm.service.business.ItemSkuService;
-import com.eghm.service.business.ItemSpecService;
+import com.eghm.service.business.*;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
+import com.eghm.vo.business.item.express.StoreExpressVO;
+import com.eghm.vo.business.item.express.TotalExpressVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,7 +63,9 @@ public class ItemServiceImpl implements ItemService {
 
     private final DingTalkService dingTalkService;
 
-    private ItemExpressService itemExpressService;
+    private final ItemExpressService itemExpressService;
+
+    private final ItemExpressRegionService itemExpressRegionService;
     
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
@@ -223,16 +224,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void calcExpressFee(List<ExpressFeeCalcDTO> dtoList) {
-        this.checkStoreItem(dtoList);
-
-    }
-
-    /**
-     * 校验每个店铺的商品是否确实数据该店铺, 同时将查询到快递模板信息设置ExpressFeeCalcDTO中
-     * @param dtoList 每个店铺的商品
-     */
-    private void checkStoreItem(List<ExpressFeeCalcDTO> dtoList) {
+    public TotalExpressVO calcExpressFee(List<ExpressFeeCalcDTO> dtoList) {
+        List<StoreExpressVO> storeList = new ArrayList<>();
+        int totalFee = 0;
         for (ExpressFeeCalcDTO dto : dtoList) {
             List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
             List<ItemExpressVO> expressList = itemExpressService.getExpressList(itemIds, dto.getStoreId());
@@ -251,8 +245,16 @@ public class ItemServiceImpl implements ItemService {
                     itemCalcDTO.setChargeMode(vo.getChargeMode());
                 }
             });
+            Integer expressFee = itemExpressRegionService.calcFee(dto);
+            storeList.add(new StoreExpressVO(dto.getStoreId(), expressFee));
+            totalFee += expressFee;
         }
+        TotalExpressVO vo = new TotalExpressVO();
+        vo.setTotalFee(totalFee);
+        vo.setStoreList(storeList);
+        return vo;
     }
+
 
     /**
      * 校验规格信息合法性

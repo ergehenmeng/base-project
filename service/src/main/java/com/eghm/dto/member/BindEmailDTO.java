@@ -1,6 +1,6 @@
 package com.eghm.dto.member;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class BindEmailDTO {
     @Email(message = "邮箱验证码不能为空")
     private String authCode;
 
-    @Padding
+    @Assign
     @ApiModelProperty(hidden = true)
     private Long memberId;
 }

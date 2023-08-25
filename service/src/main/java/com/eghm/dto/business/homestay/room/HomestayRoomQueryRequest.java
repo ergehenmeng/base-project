@@ -1,6 +1,6 @@
 package com.eghm.dto.business.homestay.room;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,6 +22,6 @@ public class HomestayRoomQueryRequest extends PagingQuery {
     private RefundType refundType;
 
     @ApiModelProperty(value = "商户id", hidden = true)
-    @Padding
+    @Assign
     private Long merchantId;
 }

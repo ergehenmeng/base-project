@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,16 +24,16 @@ public class OrderVerifyContext implements Context {
     @ApiModelProperty("核销备注信息")
     private String remark;
 
-    @Padding
+    @Assign
     @ApiModelProperty(value = "当前登录用户ID", hidden = true)
     private Long userId;
 
     @ApiModelProperty(value = "实际核销人数", hidden = true)
-    @Padding
+    @Assign
     private Integer verifyNum;
 
     @ApiModelProperty(value = "商户id", hidden = true)
-    @Padding
+    @Assign
     private Long merchantId;
 
     @ApiModelProperty("源状态")

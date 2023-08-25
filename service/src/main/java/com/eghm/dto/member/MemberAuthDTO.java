@@ -1,6 +1,6 @@
 package com.eghm.dto.member;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.IdCard;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class MemberAuthDTO implements Serializable {
 
     private static final long serialVersionUID = 7766577359309504055L;
 
-    @Padding
+    @Assign
     @ApiModelProperty(hidden = true)
     private Long memberId;
 

@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
@@ -25,7 +25,7 @@ import java.util.List;
 @Setter
 public class LineOrderCreateContext extends AsyncKey implements Context {
 
-    @Padding
+    @Assign
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long memberId;
 
@@ -59,7 +59,7 @@ public class LineOrderCreateContext extends AsyncKey implements Context {
     private LocalDate configDate;
 
     @ApiModelProperty("订单编号")
-    @Padding
+    @Assign
     private String orderNo;
 
     @ApiModelProperty("备注")

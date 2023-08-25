@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.ticket;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,6 +21,6 @@ public class TicketOrderQueryDTO extends PagingQuery {
     private Integer orderState;
 
     @ApiModelProperty("用户id")
-    @Padding
+    @Assign
     private Long memberId;
 }

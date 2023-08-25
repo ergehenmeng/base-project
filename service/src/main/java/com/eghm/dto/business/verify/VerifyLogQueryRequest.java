@@ -1,6 +1,6 @@
 package com.eghm.dto.business.verify;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,6 +26,6 @@ public class VerifyLogQueryRequest extends PagingQuery {
     private LocalDate endDate;
 
     @ApiModelProperty(value = "商户id", hidden = true)
-    @Padding
+    @Assign
     private Long merchantId;
 }

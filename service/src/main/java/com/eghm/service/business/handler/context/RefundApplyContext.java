@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
@@ -49,7 +49,7 @@ public class RefundApplyContext implements Context {
     @ApiModelProperty("退款游客id")
     private List<Long> visitorIds;
 
-    @Padding
+    @Assign
     @ApiModelProperty("用户id")
     private Long memberId;
 

@@ -1,6 +1,6 @@
 package com.eghm.dto.feedback;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -25,23 +25,23 @@ public class FeedbackAddDTO implements Serializable {
     private String content;
 
     @ApiModelProperty(value = "用户id", hidden = true)
-    @Padding
+    @Assign
     private Long memberId;
 
     @ApiModelProperty(value = "设备品牌", hidden = true)
-    @Padding
+    @Assign
     private String deviceBrand;
 
     @ApiModelProperty(value = "设备型号", hidden = true)
-    @Padding
+    @Assign
     private String deviceModel;
 
     @ApiModelProperty(value = "软件版本", hidden = true)
-    @Padding
+    @Assign
     private String version;
 
     @ApiModelProperty(value = "系统版本", hidden = true)
-    @Padding
+    @Assign
     private String systemVersion;
 
 }

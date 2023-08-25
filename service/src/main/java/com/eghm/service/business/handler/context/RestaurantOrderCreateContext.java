@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.Mobile;
@@ -41,7 +41,7 @@ public class RestaurantOrderCreateContext extends AsyncKey implements Context {
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;
 
-    @Padding
+    @Assign
     @ApiModelProperty(hidden = true, value = "用户id")
     private Long memberId;
 

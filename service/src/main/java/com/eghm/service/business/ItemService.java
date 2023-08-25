@@ -13,6 +13,7 @@ import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.vo.business.item.ItemListResponse;
 import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemResponse;
+import com.eghm.vo.business.item.express.TotalExpressVO;
 
 import java.util.List;
 import java.util.Map;
@@ -150,7 +151,13 @@ public interface ItemService {
 
     /**
      * 计算商品快递费
+     * 1. 由于存在购物车下单, 因此需要按店铺计算每个店铺的快递费
+     * 2. 由于同一个店铺可能会多商品同时下单, 因此店铺费用=每个商品的费用相加
+     * 3. 由于同一个商品有多sku, 在计件运费时,需要根据商品分组(防止用户在买同一商品下一个以上sku时,多次收费),即:同一个商品多sku下单时, sku商品的数量相加后再计算费用
+     * 4. 为了防止恶意调用(传入A店铺的storeId, 购买的B调用的itemId), 因此商品查询时会校验参数是否合法
+     * 5. 为了防止恶意调用(传入A商品的itemId, 购买的B商品的skuId), 因此商品sku查询时也会校验
      * @param dtoList 商品列表, 按店铺进行分组
+     * @return 快递费, 按门店进行计算
      */
-    void calcExpressFee(List<ExpressFeeCalcDTO> dtoList);
+    TotalExpressVO calcExpressFee(List<ExpressFeeCalcDTO> dtoList);
 }

@@ -55,10 +55,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     @Override
     public void doAction(ItemOrderCreateContext context) {
         ItemOrderPayload payload = this.getPayload(context);
-
         if (this.isHotSell(payload)) {
             log.info("该商品为热销商品,走MQ队列处理");
-            // 消息队列在事务之外发送减少事务持有时间
             TransactionUtil.afterCommit(() -> this.queueOrder(context));
             return;
         }

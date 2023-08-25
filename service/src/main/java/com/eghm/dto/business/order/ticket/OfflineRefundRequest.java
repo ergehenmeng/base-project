@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.ticket;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -41,7 +41,7 @@ public class OfflineRefundRequest {
     @NotBlank(message = "备注信息不能为空")
     private String remark;
 
-    @Padding
+    @Assign
     @ApiModelProperty(value = "用户id", hidden = true)
     private Long userId;
 

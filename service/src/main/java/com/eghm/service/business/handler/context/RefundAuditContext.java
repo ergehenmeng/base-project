@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.OptionInt;
@@ -45,7 +45,7 @@ public class RefundAuditContext implements Context {
     private String auditRemark;
 
     @ApiModelProperty(value = "审批人id", hidden = true)
-    @Padding
+    @Assign
     private Long auditUserId;
 
     @ApiModelProperty("源状态")

@@ -1,6 +1,6 @@
 package com.eghm.dto.business.item;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.PlatformState;
@@ -33,6 +33,6 @@ public class ItemQueryRequest extends PagingQuery {
     private Long storeId;
 
     @ApiModelProperty(value = "商户id", hidden = true)
-    @Padding
+    @Assign
     private Long merchantId;
 }

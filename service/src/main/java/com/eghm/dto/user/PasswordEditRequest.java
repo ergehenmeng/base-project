@@ -1,6 +1,6 @@
 package com.eghm.dto.user;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,6 +24,6 @@ public class PasswordEditRequest implements Serializable {
     @ApiModelProperty(value = "新密码", required = true)
     private String newPwd;
 
-    @Padding
+    @Assign
     private Long userId;
 }

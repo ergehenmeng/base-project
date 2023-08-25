@@ -1,11 +1,12 @@
 package com.eghm.dto.business.item.express;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 /**
  * @author 二哥很猛
@@ -27,11 +28,16 @@ public class ItemCalcDTO {
     @NotNull(message = "商品数量不能为空")
     private Integer num;
 
+    @Assign
     @ApiModelProperty(value = "快递id", hidden = true)
-    @Padding
     private Long expressId;
 
+    @Assign
     @ApiModelProperty(value = "快递计费方式 1:计件 2:计费", hidden = true)
-    @Padding
     private Integer chargeMode;
+
+    @Assign
+    @ApiModelProperty(value = "重量", hidden = true)
+    private BigDecimal weight;
+
 }

@@ -1,6 +1,6 @@
 package com.eghm.service.business.handler.context;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.state.machine.Context;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class RefundCancelContext implements Context {
 
-    @Padding
+    @Assign
     @ApiModelProperty("用户id")
     private Long memberId;
 

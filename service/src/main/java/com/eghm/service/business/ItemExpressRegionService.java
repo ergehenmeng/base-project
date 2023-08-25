@@ -31,7 +31,12 @@ public interface ItemExpressRegionService {
     List<ItemExpressRegion> getList(List<Long> expressIds);
 
     /**
-     * 计算单店铺的快递费
+     * 计算同一店铺的某个订单快递费
+     * 1. 如果expressId为空表示免快递费
+     * 2. 查询物流模板下所有的区域价格配置信息,并按expressId分组(一次性查询完,减少查询次数)
+     * 3. 将所有商品物流信息按计费方式进行分组(分组计算,减少代码复杂度)
+     * 4. 计重时: 根据skuId查询重量, 然后根据重量计算费用
+     * 5. 计件时: 根据商品itemId分组计算总数量, 然后根据数量计算费用
      * @param dto 店铺商品信息
      * @return 费用 单位:分
      */

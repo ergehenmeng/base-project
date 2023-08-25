@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.ticket;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.OptionInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -49,7 +49,7 @@ public class OnlineRefundRequest {
     @ApiModelProperty(value = "物流单号(退货退款)")
     private String logisticsNo;
 
-    @Padding
+    @Assign
     @ApiModelProperty(value = "用户id", hidden = true)
     private Long userId;
 }

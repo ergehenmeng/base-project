@@ -1,6 +1,6 @@
 package com.eghm.dto.register;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,10 +32,10 @@ public class RegisterMemberDTO implements Serializable {
     private String inviteCode;
 
     @ApiModelProperty(value = "注册渠道", hidden = true)
-    @Padding
+    @Assign
     private String channel;
 
     @ApiModelProperty(value = "注册ip", hidden = true)
-    @Padding
+    @Assign
     private String ip;
 }

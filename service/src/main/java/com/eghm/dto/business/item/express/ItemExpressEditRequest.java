@@ -1,7 +1,6 @@
 package com.eghm.dto.business.item.express;
 
-import com.eghm.annotation.Padding;
-import com.eghm.validation.annotation.OptionInt;
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -27,16 +26,12 @@ public class ItemExpressEditRequest {
     @NotBlank(message = "快递模板名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "计费方式 1:按件数 2:按重量")
-    @OptionInt(value = {1, 2}, message = "计费方式不合法")
-    private Integer chargeMode;
-
     @ApiModelProperty("配送区域")
     @NotEmpty(message = "配送区域不能为空")
     @Size(min = 1, max = 20, message = "配送区域不能超过20个")
     private List<ItemExpressRegionRequest> regionList;
 
-    @Padding
+    @Assign
     @ApiModelProperty(hidden = true, value = "登录人商户ID")
     private Long merchantId;
 }

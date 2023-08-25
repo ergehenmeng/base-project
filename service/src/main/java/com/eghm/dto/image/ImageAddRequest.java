@@ -1,6 +1,6 @@
 package com.eghm.dto.image;
 
-import com.eghm.annotation.Padding;
+import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,11 +28,11 @@ public class ImageAddRequest implements Serializable {
     @ApiModelProperty("备注信息")
     private String remark;
 
-    @Padding
+    @Assign
     @ApiModelProperty("图片大小")
     private Long size;
 
-    @Padding
+    @Assign
     @ApiModelProperty("地址")
     private String path;
 }
