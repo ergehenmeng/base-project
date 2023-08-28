@@ -16,6 +16,7 @@ import com.eghm.model.ItemExpress;
 import com.eghm.service.business.ItemExpressRegionService;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.item.express.ExpressSelectResponse;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import lombok.AllArgsConstructor;
@@ -47,6 +48,17 @@ public class ItemExpressServiceImpl implements ItemExpressService {
     @Override
     public List<ItemExpressResponse> getList(Long merchantId) {
         return itemExpressMapper.getList(merchantId);
+    }
+
+    @Override
+    public List<ExpressSelectResponse> selectList(Long merchantId) {
+        LambdaQueryWrapper<ItemExpress> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(ItemExpress::getId, ItemExpress::getTitle, ItemExpress::getChargeMode);
+        wrapper.eq(ItemExpress::getMerchantId, merchantId);
+        wrapper.eq(ItemExpress::getState, 1);
+        wrapper.orderByDesc(ItemExpress::getId);
+        List<ItemExpress> expressList = itemExpressMapper.selectList(wrapper);
+        return DataUtil.copy(expressList, ExpressSelectResponse.class);
     }
 
     @Override

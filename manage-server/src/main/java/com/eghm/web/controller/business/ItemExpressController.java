@@ -6,6 +6,7 @@ import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemExpressService;
+import com.eghm.vo.business.item.express.ExpressSelectResponse;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,9 +38,9 @@ public class ItemExpressController {
 
     @GetMapping("/selectList")
     @ApiOperation("模板列表(下拉专用)")
-    public RespBody<List<ItemExpressResponse>> selectList() {
-        List<ItemExpressResponse> byPage = itemExpressService.getList(SecurityHolder.getMerchantId());
-        return RespBody.success(byPage);
+    public RespBody<List<ExpressSelectResponse>> selectList() {
+        List<ExpressSelectResponse> selectList = itemExpressService.selectList(SecurityHolder.getMerchantId());
+        return RespBody.success(selectList);
     }
 
     @PostMapping("/create")

@@ -12,13 +12,38 @@
     </select>
 
     <select id="getList" resultMap="itemExpressResultMap">
-
+        select
+        t.id,
+        t.title,
+        t.state,
+        t.charge_mode,
+        t.create_time,
+        t.update_time,
+        r.id as region_id,
+        r.first_part,
+        r.first_price,
+        r.next_part,
+        r.next_unit_price,
+        r.region_name
+        from item_express t left join item_express_region r on t.id = r.express_id where t.deleted = 0 and r.deleted = 0 and t.merchant_id = #{merchantId}
+        order by t.id desc
     </select>
 
     <resultMap id="itemExpressResultMap" type="com.eghm.vo.business.item.express.ItemExpressResponse">
-
-        <collection property="chargeMode" ofType="com.eghm.vo.business.item.express.ItemExpressResponse">
-
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="state" property="state"/>
+        <result column="charge_mode" property="chargeMode"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <collection property="regionList" ofType="com.eghm.vo.business.item.express.ExpressRegionResponse">
+            <id column="region_id" property="regionId"/>
+            <result column="first_part" property="firstPart"/>
+            <result column="first_price" property="firstPrice"/>
+            <result column="next_part" property="nextPart"/>
+            <result column="next_unit_price" property="nextUnitPrice"/>
+            <result column="region_name" property="regionName"/>
         </collection>
     </resultMap>
+
 </mapper>

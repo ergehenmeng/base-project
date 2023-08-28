@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
+import com.eghm.vo.business.item.express.ExpressSelectResponse;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 
@@ -23,6 +24,13 @@ public interface ItemExpressService {
      * @return 模板
      */
     List<ItemExpressResponse> getList(Long merchantId);
+
+    /**
+     * 查询商户下的物流模板(下拉框使用)
+     * @param merchantId 商户ID
+     * @return 列表
+     */
+    List<ExpressSelectResponse> selectList(Long merchantId);
 
     /**
      * 新增快递模板
