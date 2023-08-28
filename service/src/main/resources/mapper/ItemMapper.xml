@@ -20,6 +20,9 @@
         t.update_time as updateTime
         from item t left join item_store r on t.store_id = r.id
         where t.deleted = false
+        <if test="param.expressId != null">
+            and t.express_id = #{param.expressId}
+        </if>
         <if test="param.queryName != null and param.queryName != ''">
             and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')  or r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%'))
         </if>

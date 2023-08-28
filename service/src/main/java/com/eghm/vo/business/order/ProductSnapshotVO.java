@@ -9,6 +9,9 @@ import lombok.Data;
  */
 @Data
 public class ProductSnapshotVO {
+
+    @ApiModelProperty("订单号")
+    private Integer orderNo;
     
     @ApiModelProperty(value = "商品")
     private Long productId;

@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.order.OrderEvaluationDTO;
+import com.eghm.dto.business.order.evaluation.OrderEvaluationDTO;
 
 /**
  * <p>

@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,7 +31,7 @@ public class OrderEvaluation extends BaseEntity implements Serializable {
     private Long orderId;
 
     @ApiModelProperty(value = "商品类型")
-    private Integer productType;
+    private ProductType productType;
 
     @ApiModelProperty(value = "商品")
     private Long productId;

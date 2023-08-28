@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
-import com.eghm.dto.business.order.OrderEvaluationDTO;
+import com.eghm.dto.business.order.evaluation.EvaluationDTO;
+import com.eghm.dto.business.order.evaluation.OrderEvaluationDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ref.ProductType;
@@ -51,15 +52,18 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
     public void evaluate(OrderEvaluationDTO dto) {
         OrderEvaluation evaluation = DataUtil.copy(dto, OrderEvaluation.class);
         evaluation.setState(0);
-        ProductSnapshotVO snapshot = this.getSnapshot(dto.getOrderId(), dto.getProductType());
-        evaluation.setProductId(snapshot.getProductId());
-        evaluation.setProductTitle(snapshot.getProductTitle());
-        evaluation.setProductCover(snapshot.getProductCover());
-        orderEvaluationMapper.insert(evaluation);
-
-        AvgScoreVO score = orderEvaluationMapper.getScore(snapshot.getProductId());
-        ProductScoreVO vo = new ProductScoreVO(snapshot.getProductId(), dto.getProductType(), this.calcAvgScore(score.getNum(), score.getTotalScore()));
-        messageService.send(ExchangeQueue.PRODUCT_SCORE, vo);
+        for (EvaluationDTO eval : dto.getCommentList()) {
+            ProductSnapshotVO snapshot = this.getSnapshot(eval.getOrderId(), dto.getProductType());
+            evaluation.setProductId(snapshot.getProductId());
+            evaluation.setProductTitle(snapshot.getProductTitle());
+            evaluation.setProductCover(snapshot.getProductCover());
+            evaluation.setProductType(dto.getProductType());
+            orderEvaluationMapper.insert(evaluation);
+            // TODO 优化代码
+            AvgScoreVO score = orderEvaluationMapper.getScore(snapshot.getProductId());
+            ProductScoreVO vo = new ProductScoreVO(snapshot.getProductId(), dto.getProductType(), this.calcAvgScore(score.getNum(), score.getTotalScore()));
+            messageService.send(ExchangeQueue.PRODUCT_SCORE, vo);
+        }
     }
 
     /**

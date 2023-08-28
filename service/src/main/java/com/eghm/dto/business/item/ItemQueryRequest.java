@@ -17,6 +17,9 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class ItemQueryRequest extends PagingQuery {
 
+    @ApiModelProperty("快递模板id")
+    private Long expressId;
+
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
 
@@ -32,7 +35,7 @@ public class ItemQueryRequest extends PagingQuery {
     @ApiModelProperty("店铺id")
     private Long storeId;
 
-    @ApiModelProperty(value = "商户id", hidden = true)
     @Assign
+    @ApiModelProperty(value = "商户id", hidden = true)
     private Long merchantId;
 }
