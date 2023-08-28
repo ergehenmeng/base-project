@@ -1,7 +1,6 @@
 package com.eghm.vo.business.line;
 
 import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;

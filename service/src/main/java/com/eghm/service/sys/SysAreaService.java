@@ -1,9 +1,6 @@
 package com.eghm.service.sys;
 
 import com.eghm.model.SysArea;
-import com.eghm.vo.sys.SysAreaVO;
-
-import java.util.List;
 
 /**
  * @author 二哥很猛

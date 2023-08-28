@@ -1,6 +1,7 @@
 package com.eghm.handler.email.service;
 
 import com.eghm.handler.email.AuthCodeEmailHandler;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,5 +10,6 @@ import org.springframework.stereotype.Component;
  * @date 2020/8/29
  */
 @Component("bindEmailHandler")
+@AllArgsConstructor
 public class BindEmailEmailHandler extends AuthCodeEmailHandler {
 }

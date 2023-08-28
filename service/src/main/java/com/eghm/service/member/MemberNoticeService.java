@@ -1,6 +1,5 @@
 package com.eghm.service.member;
 
-import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.vo.member.MemberNoticeVO;
