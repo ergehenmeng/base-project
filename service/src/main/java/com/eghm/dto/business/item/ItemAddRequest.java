@@ -69,7 +69,10 @@ public class ItemAddRequest {
     @ApiModelProperty(value = "商品介绍信息")
     @NotBlank(message = "商品介绍信息不能为空")
     private String introduce;
-    
+
+    @ApiModelProperty("物流模板id(为空表示包邮)")
+    private Long expressId;
+
     @ApiModelProperty("sku列表")
     @NotEmpty(message = "sku不能为空")
     private List<ItemSkuRequest> skuList;

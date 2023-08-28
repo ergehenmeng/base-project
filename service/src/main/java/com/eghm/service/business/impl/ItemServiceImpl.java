@@ -13,15 +13,13 @@ import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
-import com.eghm.model.CouponConfig;
-import com.eghm.model.Item;
-import com.eghm.model.ItemSku;
-import com.eghm.model.ItemSpec;
+import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -39,8 +37,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.enums.ErrorCode.ITEM_DOWN;
-import static com.eghm.enums.ErrorCode.ITEM_MAY_DOWN;
+import static com.eghm.enums.ErrorCode.*;
 
 /**
  * @author 殿小二
@@ -76,7 +73,8 @@ public class ItemServiceImpl implements ItemService {
     public void create(ItemAddRequest request) {
         this.checkSpec(request.getMultiSpec(), request.getSpecList());
         this.titleRedo(request.getTitle(), null, request.getStoreId());
-        
+        this.checkExpress(request.getExpressId(), request.getSkuList());
+
         Item item = DataUtil.copy(request, Item.class);
         this.setMinMaxPrice(item, request.getSkuList());
         // 总销量需要添加虚拟销量
@@ -91,6 +89,7 @@ public class ItemServiceImpl implements ItemService {
     public void update(ItemEditRequest request) {
         this.checkSpec(request.getMultiSpec(), request.getSpecList());
         this.titleRedo(request.getTitle(), request.getId(), request.getStoreId());
+        this.checkExpress(request.getExpressId(), request.getSkuList());
         Item item = DataUtil.copy(request, Item.class);
         itemMapper.updateById(item);
         
@@ -285,7 +284,24 @@ public class ItemServiceImpl implements ItemService {
             throw new BusinessException(ErrorCode.ITEM_TITLE_REDO);
         }
     }
-    
+
+    /**
+     * 针对物流选择计重模板,重量必填
+     * @param expressId 快递模板id
+     * @param skuList skuList
+     */
+    private void checkExpress(Long expressId, List<ItemSkuRequest> skuList) {
+        if (expressId != null) {
+            ItemExpress selected = itemExpressService.selectByIdRequired(expressId);
+            if (selected.getChargeMode() == ChargeMode.WEIGHT.getValue()) {
+                boolean anyMatch = skuList.stream().anyMatch(itemSkuRequest -> itemSkuRequest.getWeight() == null);
+                if (anyMatch) {
+                    throw new BusinessException(EXPRESS_WEIGHT);
+                }
+            }
+        }
+    }
+
     /**
      * 规格值重复校验
      * @param specList 规格信息

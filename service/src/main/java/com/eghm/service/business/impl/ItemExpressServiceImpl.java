@@ -26,6 +26,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.eghm.enums.ErrorCode.EXPRESS_NOT_FOUND;
+
 /**
  * <p>
  * 快递模板表 服务实现类
@@ -70,8 +72,8 @@ public class ItemExpressServiceImpl implements ItemExpressService {
 
     @Override
     public void update(ItemExpressEditRequest request) {
-        ItemExpress selected = itemExpressMapper.selectById(request.getId());
-        if (selected == null || !selected.getMerchantId().equals(request.getMerchantId())) {
+        ItemExpress selected = this.selectByIdRequired(request.getId());
+        if (!selected.getMerchantId().equals(request.getMerchantId())) {
             log.error("查询快递模板不合法 [{}] [{}]", request.getId(), request.getMerchantId());
             throw new BusinessException(ErrorCode.EXPRESS_NULL);
         }
@@ -102,6 +104,16 @@ public class ItemExpressServiceImpl implements ItemExpressService {
         wrapper.eq(ItemExpress::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.eq(ItemExpress::getId, id);
         itemExpressMapper.delete(wrapper);
+    }
+
+    @Override
+    public ItemExpress selectByIdRequired(Long id) {
+        ItemExpress selected = itemExpressMapper.selectById(id);
+        if (selected == null) {
+            log.error("物流模板不存在或已删除 [{}]", id);
+            throw new BusinessException(EXPRESS_NOT_FOUND);
+        }
+        return selected;
     }
 
     /**

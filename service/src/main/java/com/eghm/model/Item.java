@@ -1,5 +1,7 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryType;
@@ -69,6 +71,7 @@ public class Item extends BaseEntity implements Serializable {
     private String tagId;
 
     @ApiModelProperty("物流模板(为空表示包邮)")
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long expressId;
 
     @ApiModelProperty(value = "交付方式 0:无须发货 1:门店自提 2:快递包邮")
