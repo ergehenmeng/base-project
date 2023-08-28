@@ -63,11 +63,17 @@ public class ItemOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "封面图")
     private String skuCoverUrl;
 
+    @ApiModelProperty(value = "销售价格")
+    private Integer salePrice;
+
     @ApiModelProperty(value = "划线价")
     private Integer linePrice;
 
     @ApiModelProperty(value = "成本价")
     private Integer costPrice;
+
+    @ApiModelProperty("快递费")
+    private Integer expressFee;
 
     @ApiModelProperty(value = "购买须知")
     private String purchaseNotes;

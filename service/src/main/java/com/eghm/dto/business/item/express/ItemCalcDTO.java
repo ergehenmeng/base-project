@@ -40,4 +40,10 @@ public class ItemCalcDTO {
     @ApiModelProperty(value = "重量", hidden = true)
     private BigDecimal weight;
 
+    /**
+     * 计算好每个商品的快递费后会填充到该字段上
+     */
+    @Assign
+    @ApiModelProperty(value = "快递费", hidden = true)
+    private Integer expressFee;
 }

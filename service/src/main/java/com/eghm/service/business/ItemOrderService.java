@@ -4,6 +4,7 @@ import com.eghm.model.ItemOrder;
 import com.eghm.service.business.handler.dto.OrderPackage;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -28,8 +29,9 @@ public interface ItemOrderService {
      * 批量添加子订单信息
      * @param orderNo 订单号
      * @param packageList 商品信息
+     * @param skuExpressMap 快递费
      */
-    void insert(String orderNo, List<OrderPackage> packageList);
+    void insert(String orderNo, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap);
 
     /**
      * 查询订单信息

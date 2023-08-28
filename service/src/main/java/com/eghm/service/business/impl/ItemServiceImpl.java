@@ -227,24 +227,7 @@ public class ItemServiceImpl implements ItemService {
         List<StoreExpressVO> storeList = new ArrayList<>();
         int totalFee = 0;
         for (ExpressFeeCalcDTO dto : dtoList) {
-            List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
-            List<ItemExpressVO> expressList = itemExpressService.getExpressList(itemIds, dto.getStoreId());
-            // 前端根据店铺进行分组,但是并不一定保证是真实的,此处做二次校验,防止恶意调用接口
-            if (expressList.size() != dto.getOrderList().size()) {
-                log.error("商品不属于同一家店铺或者存在下架的商品, 可能是恶意下单 [{}] [{}]", ApiHolder.getMemberId(), dto);
-                dingTalkService.sendMsg(String.format("商品不属于同一家店铺, 可能是恶意下单 [%d]", ApiHolder.getMemberId()));
-                throw new BusinessException(ITEM_MAY_DOWN);
-            }
-            // 保存映射关系,减少后面数据库访问次数
-            Map<Long, ItemExpressVO> expressMap = expressList.stream().collect(Collectors.toMap(ItemExpressVO::getItemId, Function.identity()));
-            dto.getOrderList().forEach(itemCalcDTO -> {
-                ItemExpressVO vo = expressMap.get(itemCalcDTO.getItemId());
-                if (vo != null) {
-                    itemCalcDTO.setExpressId(vo.getExpressId());
-                    itemCalcDTO.setChargeMode(vo.getChargeMode());
-                }
-            });
-            Integer expressFee = itemExpressRegionService.calcFee(dto);
+            Integer expressFee = this.calcStoreExpressFee(dto);
             storeList.add(new StoreExpressVO(dto.getStoreId(), expressFee));
             totalFee += expressFee;
         }
@@ -254,6 +237,32 @@ public class ItemServiceImpl implements ItemService {
         return vo;
     }
 
+    /**
+     * 计算单店铺快递费用
+     * @param dto 一个店铺内下单的商品信息
+     * @return 费用 分:
+     */
+    @Override
+    public Integer calcStoreExpressFee(ExpressFeeCalcDTO dto) {
+        List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
+        List<ItemExpressVO> expressList = itemExpressService.getExpressList(itemIds, dto.getStoreId());
+        // 前端根据店铺进行分组,但是并不一定保证是真实的,此处做二次校验,防止恶意调用接口
+        if (expressList.size() != dto.getOrderList().size()) {
+            log.error("商品不属于同一家店铺或者存在下架的商品, 可能是恶意下单 [{}] [{}]", ApiHolder.getMemberId(), dto);
+            dingTalkService.sendMsg(String.format("商品不属于同一家店铺, 可能是恶意下单 [%d]", ApiHolder.getMemberId()));
+            throw new BusinessException(ITEM_MAY_DOWN);
+        }
+        // 保存映射关系,减少后面数据库访问次数
+        Map<Long, ItemExpressVO> expressMap = expressList.stream().collect(Collectors.toMap(ItemExpressVO::getItemId, Function.identity()));
+        dto.getOrderList().forEach(itemCalcDTO -> {
+            ItemExpressVO vo = expressMap.get(itemCalcDTO.getItemId());
+            if (vo != null) {
+                itemCalcDTO.setExpressId(vo.getExpressId());
+                itemCalcDTO.setChargeMode(vo.getChargeMode());
+            }
+        });
+        return itemExpressRegionService.calcFee(dto);
+    }
 
     /**
      * 校验规格信息合法性

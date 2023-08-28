@@ -2,6 +2,8 @@ package com.eghm.service.business.handler.state.impl.item;
 
 import cn.hutool.core.collection.CollUtil;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
+import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
@@ -76,21 +78,23 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         // 是否为多店铺下单
         boolean isMultiple = storeMap.size() > 1;
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
+
+            Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), context.getCountyId(), entry.getValue());
+            String orderNo = ProductType.ITEM.generateOrderNo();
+            itemOrderService.insert(orderNo, entry.getValue(), skuExpressMap);
+
             Map<Long, Integer> skuNumMap = entry.getValue().stream().collect(Collectors.toMap(OrderPackage::getSkuId, aPackage -> -aPackage.getNum()));
-            // 更新库存信息
             itemSkuService.updateStock(skuNumMap);
 
-            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue());
-
-            // 因为entry是按商铺进行分组的,直接取第一个店铺的商户id即可
+            int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
+            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount);
+            order.setOrderNo(orderNo);
+            order.setStoreId(entry.getKey());
+            // 同一家商户merchantId肯定是一样的
             order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
-            // 添加主订单
             orderService.save(order);
-            // 添加商品订单
-            itemOrderService.insert(order.getOrderNo(), entry.getValue());
-            // 支持多笔同时支付
+
             orderList.add(order.getOrderNo());
-            // 添加优惠券(待定)
         }
         // 30分钟过期定时任务
         TransactionUtil.afterCommit(() -> orderList.forEach(orderNo -> orderMQService.sendOrderExpireMessage(ExchangeQueue.ITEM_PAY_EXPIRE, orderNo)));
@@ -119,18 +123,19 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @param memberId 用户ID
      * @param multiple 是否为多笔订单同时支付
      * @param packageList 商品信息
+     * @param expressAmount 快递费
+     * @return 订单信息
      */
-    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList) {
-        String orderNo = ProductType.ITEM.generateOrderNo();
+    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList, int expressAmount) {
         Order order = new Order();
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setMemberId(memberId);
-        order.setOrderNo(orderNo);
         order.setMultiple(multiple);
         order.setRefundType(this.getRefundType(packageList));
         order.setProductType(ProductType.ITEM);
         order.setNum(this.getNum(packageList));
-        order.setPayAmount(this.getPayAmount(packageList));
+        Integer payAmount = this.getPayAmount(packageList);
+        order.setPayAmount(payAmount + expressAmount);
         return order;
     }
 
@@ -202,6 +207,23 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      */
     private Integer getNum(List<OrderPackage> packageList) {
         return packageList.stream().mapToInt(OrderPackage::getNum).sum();
+    }
+
+    /**
+     * 计算每个sku商品快递费用
+     * @param storeId 店铺名称
+     * @param countyId 收货县区
+     * @param itemList 下单商品(单个店铺所有商品)
+     * @return sku-express 单位:分
+     */
+    private Map<Long, Integer> calcExpressFee(Long storeId, Long countyId, List<OrderPackage> itemList) {
+        ExpressFeeCalcDTO dto = new ExpressFeeCalcDTO();
+        List<ItemCalcDTO> dtoList = DataUtil.copy(itemList, ItemCalcDTO.class);
+        dto.setOrderList(dtoList);
+        dto.setStoreId(storeId);
+        dto.setCountyId(countyId);
+        itemService.calcStoreExpressFee(dto);
+        return dtoList.stream().collect(Collectors.toMap(ItemCalcDTO::getSkuId, ItemCalcDTO::getExpressFee));
     }
 
     @Override

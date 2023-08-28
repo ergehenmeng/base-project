@@ -14,10 +14,10 @@ import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.chanjar.weixin.mp.bean.card.Sku;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 二哥很猛
@@ -43,11 +43,12 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public void insert(String orderNo, List<OrderPackage> packageList) {
+    public void insert(String orderNo, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap) {
         for (OrderPackage aPackage : packageList) {
             ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class);
             BeanUtil.copyProperties(aPackage.getSku(), order);
             order.setSkuTitle(this.getSkuTitle(aPackage.getSku()));
+            order.setExpressFee(skuExpressMap.get(order.getSkuId()));
             itemOrderMapper.insert(order);
         }
     }

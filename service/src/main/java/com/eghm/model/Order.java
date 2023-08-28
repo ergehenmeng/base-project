@@ -82,11 +82,14 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
     private CloseType closeType;
 
-    @ApiModelProperty(value = "优惠金额")
+    @ApiModelProperty(value = "总优惠金额")
     private Integer discountAmount;
 
-    @ApiModelProperty(value = "付款金额=单价*数量-优惠金额")
+    @ApiModelProperty(value = "总付款金额=单价*数量+总快递费-总优惠金额")
     private Integer payAmount;
+
+    @ApiModelProperty("总快递费")
+    private Integer expressAmount;
 
     @ApiModelProperty(value = "优惠券id")
     private Long couponId;

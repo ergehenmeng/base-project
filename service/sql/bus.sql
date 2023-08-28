@@ -583,8 +583,9 @@ CREATE TABLE `order`
     `state`           tinyint(2)   DEFAULT '0' COMMENT '订单状态 -1:初始状态 0:待支付 1:支付中 2:支付成功,待使用 3:已核销 4:待发货 5:待收货 6:退款中 7:待评价 8:订单完成 9:已关闭 10:支付异常 11:退款异常',
     `refund_state`    tinyint(1)   DEFAULT NULL COMMENT '退款状态 1:退款申请中 2: 退款中 3: 退款拒绝 4: 退款成功',
     `close_type`      tinyint(1)   DEFAULT NULL COMMENT '关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成',
-    `discount_amount` int(10)      DEFAULT '0' COMMENT '优惠金额',
-    `pay_amount`      int(10)      DEFAULT '0' COMMENT '付款金额=单价*数量-优惠金额',
+    `discount_amount` int(10)      DEFAULT '0' COMMENT '总优惠金额',
+    `express_amount`  int(10)      DEFAULT '0' COMMENT '总快递费',
+    `pay_amount`      int(10)      DEFAULT '0' COMMENT '总付款金额=单价*数量+总快递费-总优惠金额',
     `coupon_id`       bigint(20)   DEFAULT NULL COMMENT '优惠券id',
     `pay_time`        datetime     DEFAULT NULL COMMENT '订单支付时间',
     `complete_time`   datetime     DEFAULT NULL COMMENT '订单完成时间',
@@ -694,7 +695,9 @@ CREATE TABLE `item_order`
     `sku_id`          bigint(20) COMMENT 'skuId',
     `sku_cover_url`   varchar(200) COMMENT '封面图',
     `line_price`      int(10)       DEFAULT NULL COMMENT '划线价',
+    `sale_price`      int(10)       DEFAULT NULL COMMENT '售卖价',
     `cost_price`      int(10)       DEFAULT '0' COMMENT '成本价',
+    `express_fee`     int(10)       DEFAULT '0' COMMENT '快递费',
     `purchase_notes`  varchar(200)  DEFAULT NULL COMMENT '购买须知',
     `quota`           smallint(3)   DEFAULT '1' COMMENT '限购数量',
     `delivery_method` tinyint(1)    DEFAULT NULL COMMENT '交付方式 0:无需发货 1:门店自提 2:快递包邮',
@@ -949,3 +952,27 @@ CREATE TABLE `item_express`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='快递模板表';
 
+DROP TABLE IF EXISTS `order_evaluation`;
+CREATE TABLE `order_evaluation`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `order_id`        bigint(20)   DEFAULT NULL COMMENT '订单子表id',
+    `product_type`    tinyint(2)   DEFAULT NULL COMMENT '商品类型',
+    `product_id`      bigint(20)   DEFAULT NULL COMMENT '商品',
+    `product_title`   varchar(30)  DEFAULT NULL COMMENT '商品名称',
+    `product_cover`   varchar(200) DEFAULT NULL COMMENT '商品图片',
+    `score`           tinyint(1)   DEFAULT '5' COMMENT '综合评分1-5分',
+    `logistics_score` tinyint(1)   DEFAULT '5' COMMENT '物流评审1-5分',
+    `comment`         varchar(200) DEFAULT NULL COMMENT '评论',
+    `comment_pic`     varchar(500) DEFAULT NULL COMMENT '评论图片',
+    `state`           tinyint(1)   DEFAULT '0' COMMENT '审核状态 0:待审核 1:审核通过 2:审核失败',
+    `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `anonymity`       bit(1)       DEFAULT b'0' COMMENT '是否匿名评论 0:非匿名1:匿名',
+    `audit_remark`    varchar(100) DEFAULT NULL COMMENT '审核拒绝原因',
+    `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
+    `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除1:已删除',
+    PRIMARY KEY (`id`),
+    KEY `product_idx` (`product_id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单评价';
