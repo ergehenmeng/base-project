@@ -17,6 +17,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
+import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
@@ -30,6 +31,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -143,6 +145,14 @@ public class LineServiceImpl implements LineService {
         // 最低参考价
         vo.setMinPrice(lineConfigService.getMinPrice(id, LocalDate.now()));
         return vo;
+    }
+
+    @Override
+    public void updateScore(Long productId, BigDecimal score) {
+        LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Line::getId, productId);
+        wrapper.set(Line::getScore, score);
+        lineMapper.update(null, wrapper);
     }
 
     /**

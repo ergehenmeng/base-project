@@ -11,6 +11,7 @@ import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -85,4 +86,11 @@ public interface RestaurantService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 更新商品分数
+     * @param productId 商品信息
+     * @param score 分数
+     */
+    void updateScore(Long productId, BigDecimal score);
 }

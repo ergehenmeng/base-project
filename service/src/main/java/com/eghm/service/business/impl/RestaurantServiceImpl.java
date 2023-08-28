@@ -16,6 +16,7 @@ import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RestaurantMapper;
+import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.CommonService;
@@ -29,6 +30,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -135,7 +137,15 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public void deleteById(Long id) {
         restaurantMapper.deleteById(id);
     }
-    
+
+    @Override
+    public void updateScore(Long productId, BigDecimal score) {
+        LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Restaurant::getId, productId);
+        wrapper.set(Restaurant::getScore, score);
+        restaurantMapper.update(null, wrapper);
+    }
+
     /**
      * 校验餐饮商家名称是否重复
      * @param title 名称

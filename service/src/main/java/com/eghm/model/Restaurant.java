@@ -75,4 +75,7 @@ public class Restaurant extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商家介绍")
     private String introduce;
 
+    @ApiModelProperty("分数")
+    private BigDecimal score;
+
 }

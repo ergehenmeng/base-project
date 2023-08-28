@@ -12,6 +12,7 @@ import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineResponse;
 import com.eghm.vo.business.line.LineVO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -93,4 +94,11 @@ public interface LineService {
      * @return 详细信息 包含行程信息
      */
     LineDetailVO detailById(Long id);
+
+    /**
+     * 更新商品分数
+     * @param productId 商品信息
+     * @param score 分数
+     */
+    void updateScore(Long productId, BigDecimal score);
 }

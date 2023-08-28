@@ -16,6 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -102,6 +103,9 @@ public class Item extends BaseEntity implements Serializable {
     
     @ApiModelProperty("商品排序 越小越排在前面")
     private Integer sortBy;
+
+    @ApiModelProperty("分数")
+    private BigDecimal score;
 
     @ApiModelProperty("是否为热销商品")
     private Boolean hotSell;

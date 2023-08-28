@@ -91,4 +91,7 @@ public class Homestay extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "标签")
     private String tag;
+
+    @ApiModelProperty("分数")
+    private BigDecimal score;
 }

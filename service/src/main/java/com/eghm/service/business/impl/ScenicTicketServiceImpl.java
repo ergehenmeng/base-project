@@ -25,6 +25,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -125,6 +126,14 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public void deleteById(Long id) {
         scenicTicketMapper.deleteById(id);
+    }
+
+    @Override
+    public void updateScore(Long productId, BigDecimal score) {
+        LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ScenicTicket::getId, productId);
+        wrapper.set(ScenicTicket::getScore, score);
+        scenicTicketMapper.update(null, wrapper);
     }
 
     /**

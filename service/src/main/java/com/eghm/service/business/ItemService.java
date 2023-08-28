@@ -11,6 +11,7 @@ import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemResponse;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -163,4 +164,11 @@ public interface ItemService {
      * @return 费用 分:
      */
     Integer calcStoreExpressFee(ExpressFeeCalcDTO dto);
+
+    /**
+     * 更新商品分数
+     * @param itemId 商品信息
+     * @param score 分数
+     */
+    void updateScore(Long itemId, BigDecimal score);
 }

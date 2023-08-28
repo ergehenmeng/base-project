@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -79,4 +80,7 @@ public class Line extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "商品介绍")
     private String introduce;
+
+    @ApiModelProperty("分数")
+    private BigDecimal score;
 }

@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -100,4 +101,7 @@ public class ScenicTicket extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "是否实名购票 0:不实名 1:实名")
     private Boolean realBuy;
+
+    @ApiModelProperty("分数")
+    private BigDecimal score;
 }

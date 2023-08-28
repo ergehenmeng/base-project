@@ -2,4 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.OrderEvaluationMapper">
 
+    <select id="getScore" resultType="com.eghm.vo.business.AvgScoreVO">
+        select count(id) as num, sum(score) as totalScore
+        from order_evaluation where product_id = #{productId} and deleted = 0 and state = 1
+    </select>
+
 </mapper>

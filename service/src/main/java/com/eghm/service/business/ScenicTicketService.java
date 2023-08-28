@@ -11,6 +11,7 @@ import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -92,4 +93,11 @@ public interface ScenicTicketService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 更新商品分数
+     * @param productId 商品信息
+     * @param score 分数
+     */
+    void updateScore(Long productId, BigDecimal score);
 }

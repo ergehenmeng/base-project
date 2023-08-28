@@ -11,6 +11,7 @@ import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.vo.business.homestay.HomestayListVO;
 import com.eghm.vo.business.homestay.HomestayVO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -84,4 +85,11 @@ public interface HomestayService {
      * @return 民宿信息
      */
     HomestayVO detailById(Long homestayId);
+
+    /**
+     * 更新商品分数
+     * @param productId 商品信息
+     * @param score 分数
+     */
+    void updateScore(Long productId, BigDecimal score);
 }

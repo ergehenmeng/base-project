@@ -14,14 +14,15 @@ import com.eghm.exception.BusinessException;
 import com.eghm.model.ManageLog;
 import com.eghm.model.Order;
 import com.eghm.model.WebappLog;
-import com.eghm.service.business.OrderService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.*;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.member.LoginService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
-import com.eghm.service.member.LoginService;
 import com.eghm.state.machine.StateHandler;
+import com.eghm.vo.business.ProductScoreVO;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,16 @@ public class RabbitListenerHandler {
     private final StateHandler stateHandler;
 
     private final OrderService orderService;
+
+    private final ItemService itemService;
+
+    private final ScenicTicketService scenicTicketService;
+
+    private final LineService lineService;
+
+    private final HomestayService homestayService;
+
+    private final RestaurantService restaurantService;
 
     /**
      * 零售商品消息队列订单过期处理
@@ -204,6 +215,37 @@ public class RabbitListenerHandler {
         this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.NONE.getValue(), RestaurantEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
+        });
+    }
+
+    /**
+     * 更新商品分数
+     * @param vo vo
+     */
+    @RabbitListener(queues = QueueConstant.PRODUCT_SCORE_QUEUE)
+    public void updateProductScore(ProductScoreVO vo, Message message, Channel channel) throws IOException {
+        final ProductScoreVO target = vo;
+        processMessageAck(vo, message, channel, msg -> {
+            switch (target.getProductType()) {
+                case TICKET:
+                    scenicTicketService.updateScore(target.getProductId(), target.getScore());
+                    break;
+                case ITEM:
+                    itemService.updateScore(target.getProductId(), target.getScore());
+                    break;
+                case LINE:
+                    lineService.updateScore(target.getProductId(), target.getScore());
+                    break;
+                case HOMESTAY:
+                    homestayService.updateScore(target.getProductId(), target.getScore());
+                    break;
+                case RESTAURANT:
+                    restaurantService.updateScore(target.getProductId(), target.getScore());
+                    break;
+                default:
+                    log.error("非法更新商品分数 [{}]", target);
+                    break;
+            }
         });
     }
 

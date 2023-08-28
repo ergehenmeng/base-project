@@ -64,7 +64,7 @@ public class CommonServiceImpl implements CommonService {
         }
         return tagList;
     }
-    
+
     @Override
     public void checkIllegal(Long merchantId) {
         Long loginMerchantId = SecurityHolder.getMerchantId();

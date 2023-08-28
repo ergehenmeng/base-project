@@ -33,6 +33,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -63,7 +64,9 @@ public class ItemServiceImpl implements ItemService {
     private final ItemExpressService itemExpressService;
 
     private final ItemExpressRegionService itemExpressRegionService;
-    
+
+    private final ItemOrderService itemOrderService;
+
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
         return itemMapper.listPage(request.createPage(), request);
@@ -262,6 +265,14 @@ public class ItemServiceImpl implements ItemService {
             }
         });
         return itemExpressRegionService.calcFee(dto);
+    }
+
+    @Override
+    public void updateScore(Long itemId, BigDecimal score) {
+        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Item::getId, itemId);
+        wrapper.set(Item::getScore, score);
+        itemMapper.update(null, wrapper);
     }
 
     /**

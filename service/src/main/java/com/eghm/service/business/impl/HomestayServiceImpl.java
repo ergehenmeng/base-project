@@ -20,6 +20,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.model.Homestay;
+import com.eghm.model.Line;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysDict;
 import com.eghm.service.business.*;
@@ -33,6 +34,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -176,6 +178,14 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, homestay.getTag()));
         vo.setRecommendRoomList(homestayRoomService.getRecommendRoom(homestayId));
         return vo;
+    }
+
+    @Override
+    public void updateScore(Long productId, BigDecimal score) {
+        LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Homestay::getId, productId);
+        wrapper.set(Homestay::getScore, score);
+        homestayMapper.update(null, wrapper);
     }
 
     /**

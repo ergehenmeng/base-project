@@ -2,16 +2,23 @@ package com.eghm.service.business.impl;
 
 import com.eghm.dto.business.order.OrderEvaluationDTO;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.OrderEvaluation;
 import com.eghm.service.business.*;
+import com.eghm.service.mq.service.MessageService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.AvgScoreVO;
+import com.eghm.vo.business.ProductScoreVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * <p>
@@ -38,6 +45,8 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     private final RestaurantOrderService restaurantOrderService;
 
+    private final MessageService messageService;
+
     @Override
     public void evaluate(OrderEvaluationDTO dto) {
         OrderEvaluation evaluation = DataUtil.copy(dto, OrderEvaluation.class);
@@ -47,6 +56,20 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
         evaluation.setProductTitle(snapshot.getProductTitle());
         evaluation.setProductCover(snapshot.getProductCover());
         orderEvaluationMapper.insert(evaluation);
+
+        AvgScoreVO score = orderEvaluationMapper.getScore(snapshot.getProductId());
+        ProductScoreVO vo = new ProductScoreVO(snapshot.getProductId(), dto.getProductType(), this.calcAvgScore(score.getNum(), score.getTotalScore()));
+        messageService.send(ExchangeQueue.PRODUCT_SCORE, vo);
+    }
+
+    /**
+     * 计算商品评价分数,保留一位小数
+     * @param num 评价数
+     * @param totalScore 总分数
+     * @return 分数
+     */
+    private BigDecimal calcAvgScore(Integer num, Integer totalScore) {
+        return BigDecimal.valueOf(totalScore).divide(BigDecimal.valueOf(num), 1, RoundingMode.HALF_UP);
     }
 
     /**

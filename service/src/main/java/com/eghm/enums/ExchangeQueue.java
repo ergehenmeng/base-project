@@ -109,6 +109,11 @@ public enum ExchangeQueue {
     WEBAPP_LOG("webapp_log_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.WEBAPP_LOG_QUEUE}, "", false),
 
     /**
+     * 移动端异常日志
+     */
+    PRODUCT_SCORE("product_score_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.PRODUCT_SCORE_QUEUE}, "", false),
+
+    /**
      * 测试
      */
     TEST("test_exchange", ExchangeType.DIRECT, new String[]{""}, "", false),
