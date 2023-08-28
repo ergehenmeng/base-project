@@ -6,12 +6,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.OrderVisitor;
 import com.eghm.model.TicketOrder;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
@@ -65,5 +68,20 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         return detail;
+    }
+
+    @Override
+    public TicketOrder selectByIdRequired(Long id) {
+        TicketOrder order = ticketOrderMapper.selectById(id);
+        if (order == null) {
+            log.error("门票订单信息未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.TICKET_ORDER_NULL);
+        }
+        return order;
+    }
+
+    @Override
+    public ProductSnapshotVO getSnapshot(Long orderId) {
+        return ticketOrderMapper.getSnapshot(orderId);
     }
 }

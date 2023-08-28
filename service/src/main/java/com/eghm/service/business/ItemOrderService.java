@@ -2,6 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.model.ItemOrder;
 import com.eghm.service.business.handler.dto.OrderPackage;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 
 import java.util.List;
 import java.util.Map;
@@ -59,4 +60,11 @@ public interface ItemOrderService {
      * @return 总数量
      */
     int getProductNum(String orderNo);
+
+    /**
+     * 查询订单商品快照
+     * @param orderId 订单id
+     * @return 商品基础信息
+     */
+    ProductSnapshotVO getSnapshot(Long orderId);
 }

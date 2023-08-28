@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LineOrderMapper">
 
+    <select id="getSnapshot" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
+        select
+            t.title as productTitle,
+            t.cover_url as productCover,
+            r.line_id as productId
+        from line_order r inner join `order` t on t.order_no = r.order_no
+        where t.id = #{orderId} and t.deleted = false
+    </select>
+
 </mapper>

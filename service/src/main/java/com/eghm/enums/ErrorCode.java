@@ -887,7 +887,7 @@ public enum ErrorCode {
     /**
      * 景区不存在或已删除
      */
-    SCENIC_DELETE(3201, "景区不存在或已删除"),
+    SCENIC_DELETE(3202, "景区不存在或已删除"),
 
     /**
      * 门票名称重复
@@ -908,6 +908,11 @@ public enum ErrorCode {
      * 该民宿尚未提交审核
      */
     HOMESTAY_NOT_UP(3206, "该民宿尚未提交审核"),
+
+    /**
+     * 门票订单未查询到
+     */
+    TICKET_ORDER_NULL(3207, "门票订单未查询到"),
 
     /**
      * 商品类型不匹配
@@ -1228,6 +1233,11 @@ public enum ErrorCode {
      * 物流模板为计重方式,请填写商品重量
      */
     EXPRESS_WEIGHT(3670,"物流模板为计重方式,请填写商品重量"),
+
+    /**
+     * 订单信息未查询到
+     */
+    PRODUCT_SNAPSHOT_NULL(3673,"订单信息未查询到"),
 
     /**
      * 微信公众号尚未配置

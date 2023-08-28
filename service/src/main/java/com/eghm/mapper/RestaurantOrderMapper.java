@@ -2,6 +2,8 @@ package com.eghm.mapper;
 
 import com.eghm.model.RestaurantOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.order.ProductSnapshotVO;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +15,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
 
+    /**
+     * 查询餐饮快照
+     * @param orderId 订单id
+     * @return 商品餐饮快照
+     */
+    ProductSnapshotVO getSnapshot(@Param("orderId") Long orderId);
 }

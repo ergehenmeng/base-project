@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.LineOrder;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 
 /**
  * @author 二哥很猛
@@ -20,4 +21,11 @@ public interface LineOrderService {
      * @return 线路订单
      */
     LineOrder getByOrderNo(String orderNo);
+
+    /**
+     * 查询餐饮快照
+     * @param orderId 订单id
+     * @return 商品餐饮快照
+     */
+    ProductSnapshotVO getSnapshot(Long orderId);
 }

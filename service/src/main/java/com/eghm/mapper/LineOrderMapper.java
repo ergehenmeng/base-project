@@ -2,6 +2,8 @@ package com.eghm.mapper;
 
 import com.eghm.model.LineOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.order.ProductSnapshotVO;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +15,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface LineOrderMapper extends BaseMapper<LineOrder> {
 
+    /**
+     * 查询线路快照
+     * @param orderId 订单id
+     * @return 商品线路快照
+     */
+    ProductSnapshotVO getSnapshot(@Param("orderId") Long orderId);
 }

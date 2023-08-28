@@ -6,6 +6,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.mapper.LineOrderMapper;
 import com.eghm.model.LineOrder;
 import com.eghm.service.business.LineOrderService;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,10 @@ public class LineOrderServiceImpl implements LineOrderService {
         wrapper.eq(LineOrder::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return lineOrderMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public ProductSnapshotVO getSnapshot(Long orderId) {
+        return lineOrderMapper.getSnapshot(orderId);
     }
 }

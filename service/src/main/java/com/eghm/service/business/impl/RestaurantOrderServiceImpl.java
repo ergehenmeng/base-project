@@ -6,6 +6,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.mapper.RestaurantOrderMapper;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,5 +38,10 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService {
     @Override
     public RestaurantOrder selectById(Long id) {
         return restaurantOrderMapper.selectById(id);
+    }
+
+    @Override
+    public ProductSnapshotVO getSnapshot(Long orderId) {
+        return restaurantOrderMapper.getSnapshot(orderId);
     }
 }

@@ -12,6 +12,7 @@ import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,16 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         return itemOrderMapper.getProductNum(orderNo);
     }
 
+    @Override
+    public ProductSnapshotVO getSnapshot(Long orderId) {
+        ItemOrder selected = this.selectByIdRequired(orderId);
+        ProductSnapshotVO vo = new ProductSnapshotVO();
+        vo.setProductId(selected.getItemId());
+        vo.setProductTitle(selected.getTitle());
+        vo.setProductCover(selected.getCoverUrl());
+        return vo;
+    }
+
     /**
      * 拼接sku名称
      * @param sku sku信息
@@ -87,6 +98,6 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         if (StrUtil.isBlank(sku.getSecondSpecValue())) {
             return sku.getPrimarySpecValue();
         }
-        return sku.getPrimarySpecValue() + "/" +sku.getSecondSpecValue();
+        return sku.getPrimarySpecValue() + "/" + sku.getSecondSpecValue();
     }
 }

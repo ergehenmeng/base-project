@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.model.RestaurantOrder;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 
 /**
  * @author 二哥很猛
@@ -27,4 +28,11 @@ public interface RestaurantOrderService {
      * @return 餐饮订单
      */
     RestaurantOrder selectById(Long id);
+
+    /**
+     * 查询餐饮快照
+     * @param orderId 订单id
+     * @return 商品餐饮快照
+     */
+    ProductSnapshotVO getSnapshot(Long orderId);
 }

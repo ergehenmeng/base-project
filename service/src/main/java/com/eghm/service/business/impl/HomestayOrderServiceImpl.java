@@ -6,6 +6,7 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.mapper.HomestayOrderMapper;
 import com.eghm.model.HomestayOrder;
 import com.eghm.service.business.HomestayOrderService;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,5 +33,10 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
         wrapper.eq(HomestayOrder::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return homestayOrderMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public ProductSnapshotVO getSnapshot(Long orderId) {
+        return homestayOrderMapper.getSnapshot(orderId);
     }
 }
