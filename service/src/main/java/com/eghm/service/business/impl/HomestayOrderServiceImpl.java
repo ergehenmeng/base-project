@@ -36,7 +36,7 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
     }
 
     @Override
-    public ProductSnapshotVO getSnapshot(Long orderId) {
-        return homestayOrderMapper.getSnapshot(orderId);
+    public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
+        return homestayOrderMapper.getSnapshot(orderId, orderNo);
     }
 }

@@ -80,9 +80,14 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public ProductSnapshotVO getSnapshot(Long orderId) {
+    public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
         ItemOrder selected = this.selectByIdRequired(orderId);
+        if (!selected.getOrderNo().equals(orderNo)) {
+            log.error("订单号和与订单id不匹配 [{}] [{}]", orderId, orderNo);
+            throw new BusinessException(ErrorCode.ORDER_NOT_MATCH);
+        }
         ProductSnapshotVO vo = new ProductSnapshotVO();
+        vo.setSkuTitle(selected.getSkuTitle());
         vo.setProductId(selected.getItemId());
         vo.setProductTitle(selected.getTitle());
         vo.setProductCover(selected.getCoverUrl());

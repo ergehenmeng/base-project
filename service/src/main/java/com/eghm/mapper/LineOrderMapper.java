@@ -18,7 +18,8 @@ public interface LineOrderMapper extends BaseMapper<LineOrder> {
     /**
      * 查询线路快照
      * @param orderId 订单id
+     * @param orderNo 订单编号
      * @return 商品线路快照
      */
-    ProductSnapshotVO getSnapshot(@Param("orderId") Long orderId);
+    ProductSnapshotVO getSnapshot(@Param("orderId") Long orderId, @Param("orderNo") String orderNo);
 }

@@ -41,7 +41,7 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService {
     }
 
     @Override
-    public ProductSnapshotVO getSnapshot(Long orderId) {
-        return restaurantOrderMapper.getSnapshot(orderId);
+    public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
+        return restaurantOrderMapper.getSnapshot(orderId, orderNo);
     }
 }

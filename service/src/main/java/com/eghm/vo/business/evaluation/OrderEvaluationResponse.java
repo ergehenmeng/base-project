@@ -1,34 +1,21 @@
-package com.eghm.model;
+package com.eghm.vo.business.evaluation;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ProductType;
-import io.swagger.annotations.ApiModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
- * <p>
- * 订单评价
- * </p>
- *
  * @author 二哥很猛
- * @since 2023-08-28
+ * @since 2023/8/29
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("order_evaluation")
-@ApiModel(value="OrderEvaluation对象", description="订单评价")
-public class OrderEvaluation extends BaseEntity implements Serializable {
+public class OrderEvaluationResponse {
 
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "订单子表id")
-    private Long orderId;
+    @ApiModelProperty("id主键")
+    private Long id;
 
     @ApiModelProperty("订单编号")
     private String orderNo;
@@ -63,8 +50,8 @@ public class OrderEvaluation extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "审核状态 0:待审核 1:审核通过 2:审核失败")
     private Integer state;
 
-    @ApiModelProperty(value = "用户id")
-    private Long memberId;
+    @ApiModelProperty(value = "用户昵称")
+    private String nickName;
 
     @ApiModelProperty(value = "是否匿名评论 0:非匿名1:匿名")
     private Boolean anonymity;
@@ -72,7 +59,7 @@ public class OrderEvaluation extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "审核拒绝原因")
     private String auditRemark;
 
-    @ApiModelProperty("审核人id")
-    private Long userId;
-
+    @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 }

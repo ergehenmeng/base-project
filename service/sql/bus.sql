@@ -957,9 +957,11 @@ CREATE TABLE `order_evaluation`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `order_id`        bigint(20)   DEFAULT NULL COMMENT '订单子表id',
+    `order_no`        varchar(30)  DEFAULT NULL COMMENT '订单编号',
     `product_type`    tinyint(2)   DEFAULT NULL COMMENT '商品类型',
     `product_id`      bigint(20)   DEFAULT NULL COMMENT '商品',
-    `product_title`   varchar(30)  DEFAULT NULL COMMENT '商品名称',
+    `product_title`   varchar(50)  DEFAULT NULL COMMENT '商品名称',
+    `sku_title`       varchar(30)  DEFAULT NULL COMMENT '规格名称',
     `product_cover`   varchar(200) DEFAULT NULL COMMENT '商品图片',
     `score`           tinyint(1)   DEFAULT '5' COMMENT '综合评分1-5分',
     `logistics_score` tinyint(1)   DEFAULT '5' COMMENT '物流评审1-5分',

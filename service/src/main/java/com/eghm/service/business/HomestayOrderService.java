@@ -25,7 +25,8 @@ public interface HomestayOrderService {
     /**
      * 查询餐饮快照
      * @param orderId 订单id
+     * @param orderNo 订单编号
      * @return 商品餐饮快照
      */
-    ProductSnapshotVO getSnapshot(Long orderId);
+    ProductSnapshotVO getSnapshot(Long orderId, String orderNo);
 }

@@ -171,7 +171,6 @@ public class StringUtil {
         return firstChar.toUpperCase();
     }
 
-
     /**
      * 汉字所有首字母
      *
@@ -199,7 +198,6 @@ public class StringUtil {
         }
         return builder.toString();
     }
-
 
     /**
      * 获取随机数字

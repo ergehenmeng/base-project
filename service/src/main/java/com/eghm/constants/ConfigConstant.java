@@ -178,4 +178,9 @@ public class ConfigConstant {
      * 首页店铺最大推荐数量
      */
     public static final String STORE_MAX_RECOMMEND = "store_max_recommend";
+
+    /**
+     * 匿名头像图片地址
+     */
+    public static final String ANONYMITY_AVATAR = "anonymity_avatar";
 }

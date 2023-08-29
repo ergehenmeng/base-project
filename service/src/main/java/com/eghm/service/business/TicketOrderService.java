@@ -62,7 +62,8 @@ public interface TicketOrderService {
     /**
      * 查询订单商品快照
      * @param orderId 订单id
+     * @param orderNo 订单编号
      * @return 商品基础信息
      */
-    ProductSnapshotVO getSnapshot(Long orderId);
+    ProductSnapshotVO getSnapshot(Long orderId, String orderNo);
 }

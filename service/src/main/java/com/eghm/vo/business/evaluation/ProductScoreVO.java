@@ -1,4 +1,4 @@
-package com.eghm.vo.business;
+package com.eghm.vo.business.evaluation;
 
 import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;

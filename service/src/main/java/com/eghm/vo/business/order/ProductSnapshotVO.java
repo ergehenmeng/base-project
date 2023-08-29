@@ -19,6 +19,9 @@ public class ProductSnapshotVO {
     @ApiModelProperty(value = "商品名称")
     private String productTitle;
 
+    @ApiModelProperty("规格名称(只有零售商品有该字段)")
+    private String skuTitle;
+
     @ApiModelProperty(value = "商品图片")
     private String productCover;
 }

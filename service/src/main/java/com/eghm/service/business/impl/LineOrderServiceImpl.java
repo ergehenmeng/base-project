@@ -36,7 +36,7 @@ public class LineOrderServiceImpl implements LineOrderService {
     }
 
     @Override
-    public ProductSnapshotVO getSnapshot(Long orderId) {
-        return lineOrderMapper.getSnapshot(orderId);
+    public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
+        return lineOrderMapper.getSnapshot(orderId, orderNo);
     }
 }

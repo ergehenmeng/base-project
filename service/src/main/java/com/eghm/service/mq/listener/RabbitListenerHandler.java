@@ -22,7 +22,7 @@ import com.eghm.service.member.LoginService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
-import com.eghm.vo.business.ProductScoreVO;
+import com.eghm.vo.business.evaluation.ProductScoreVO;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

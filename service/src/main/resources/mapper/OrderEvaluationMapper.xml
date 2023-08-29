@@ -2,9 +2,79 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.OrderEvaluationMapper">
 
-    <select id="getScore" resultType="com.eghm.vo.business.AvgScoreVO">
+    <select id="listPage" parameterType="com.eghm.dto.business.order.evaluation.OrderEvaluationQueryRequest" resultType="com.eghm.vo.business.evaluation.OrderEvaluationResponse">
+        select
+        t.id,
+        t.order_no,
+        t.product_type,
+        t.product_id,
+        t.product_title,
+        t.sku_title,
+        t.score,
+        t.logistics_score,
+        t.comment,
+        t.comment_pic,
+        t.state,
+        t.anonymity,
+        t.audit_remark,
+        t.create_time,
+        r.nick_name
+        from order_evaluation t left join member r on t.member_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.order_no like concat('%', #{param.queryName, , typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                or t.product_title like concat('%', #{param.queryName, , typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                or r.nick_name like concat('%', #{param.queryName, , typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            )
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.productType != null">
+            and t.product_type = #{param.productType}
+        </if>
+        <if test="param.score != null">
+            and t.score = #{param.score}
+        </if>
+        order by t.id desc
+    </select>
+
+    <select id="getScore" resultType="com.eghm.vo.business.evaluation.AvgScoreVO">
         select count(id) as num, sum(score) as totalScore
         from order_evaluation where product_id = #{productId} and deleted = 0 and state = 1
     </select>
 
+    <select id="getByPage" parameterType="com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO" resultType="com.eghm.vo.business.evaluation.OrderEvaluationVO">
+        select
+            t.sku_title,
+            t.score,
+            t.comment,
+            t.comment_pic,
+            t.anonymity,
+            t.create_time,
+            r.nick_name,
+            r.avatar
+        from order_evaluation t left join member r on t.member_id = r.id
+        where t.deleted = false and t.product_id = #{param.productId}
+        <choose>
+            <when test="param.queryType == 1">
+                order by t.id desc
+            </when>
+            <when test="param.queryType == 2">
+                and t.score in (4, 5) order by t.update_time desc
+            </when>
+            <when test="param.queryType == 3">
+                and t.score in (2, 3) order by t.update_time desc
+            </when>
+            <when test="param.queryType == 4">
+                and t.score = 1 order by t.update_time desc
+            </when>
+            <when test="param.queryType == 5">
+                and t.comment_pic is not null order by t.update_time desc
+            </when>
+            <otherwise>
+                order by t.update_time desc
+            </otherwise>
+        </choose>
+    </select>
 </mapper>

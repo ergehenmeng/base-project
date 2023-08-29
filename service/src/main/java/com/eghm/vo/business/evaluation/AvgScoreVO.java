@@ -1,4 +1,4 @@
-package com.eghm.vo.business;
+package com.eghm.vo.business.evaluation;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

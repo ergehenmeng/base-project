@@ -81,7 +81,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     }
 
     @Override
-    public ProductSnapshotVO getSnapshot(Long orderId) {
-        return ticketOrderMapper.getSnapshot(orderId);
+    public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
+        return ticketOrderMapper.getSnapshot(orderId, orderNo);
     }
 }

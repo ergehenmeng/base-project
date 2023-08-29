@@ -8,7 +8,7 @@
         t.cover_url as productCover,
         r.voucher_id as productId
         from restaurant_order r inner join `order` t on t.order_no = r.order_no
-        where t.id = #{orderId} and t.deleted = false
+        where t.id = #{orderId} and r.order_no = #{orderNo} and t.deleted = false
     </select>
 
 </mapper>
