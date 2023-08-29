@@ -64,7 +64,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
     }
 
     @Override
-    public void evaluate(OrderEvaluationDTO dto) {
+    public void create(OrderEvaluationDTO dto) {
         Order order = orderService.getByOrderNo(dto.getOrderNo());
         if (!order.getMemberId().equals(dto.getMemberId())) {
             log.error("订单评价,操作了不属于自己的订单 [{}] [{}]", dto.getMemberId(), dto.getOrderNo());

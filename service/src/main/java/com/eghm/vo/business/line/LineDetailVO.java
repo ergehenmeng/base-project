@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -51,6 +52,9 @@ public class LineDetailVO {
 
     @ApiModelProperty(value = "商品介绍")
     private String introduce;
+
+    @ApiModelProperty("分数")
+    private BigDecimal score;
 
     @ApiModelProperty("线路每日行程")
     private List<LineDayConfigResponse> dayList;

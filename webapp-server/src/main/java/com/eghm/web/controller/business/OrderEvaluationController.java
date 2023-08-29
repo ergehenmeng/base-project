@@ -36,7 +36,7 @@ public class OrderEvaluationController {
     @ApiOperation("订单评论")
     public RespBody<OrderCreateVO<String>> create(@RequestBody @Validated OrderEvaluationDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
-        orderEvaluationService.evaluate(dto);
+        orderEvaluationService.create(dto);
         return RespBody.success();
     }
 

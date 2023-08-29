@@ -33,7 +33,7 @@ public interface OrderEvaluationService {
      * 2. 为了防止订单评价中包含特殊字符和图片,评论默认需要审核,审核通过后方可进行展示, 即使审核不通过也不影响订单状态
      * @param dto 评价信息
      */
-    void evaluate(OrderEvaluationDTO dto);
+    void create(OrderEvaluationDTO dto);
 
     /**
      * 审核评论信息

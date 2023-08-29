@@ -57,6 +57,9 @@ public class HomestayVO {
     @ApiModelProperty(value = "特色服务")
     private String keyService;
 
+    @ApiModelProperty("分数")
+    private BigDecimal score;
+
     @ApiModelProperty(value = "标签")
     private List<String> tagList;
 
