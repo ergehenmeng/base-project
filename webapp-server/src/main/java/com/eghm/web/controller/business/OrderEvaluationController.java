@@ -7,6 +7,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderEvaluationService;
+import com.eghm.vo.business.evaluation.EvaluationGroupVO;
 import com.eghm.vo.business.evaluation.OrderEvaluationVO;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
@@ -15,6 +16,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -29,12 +32,19 @@ public class OrderEvaluationController {
 
     private final OrderEvaluationService orderEvaluationService;
 
-    @PostMapping("/evaluate")
+    @PostMapping("/create")
     @ApiOperation("订单评论")
-    public RespBody<OrderCreateVO<String>> evaluate(@RequestBody @Validated OrderEvaluationDTO dto) {
+    public RespBody<OrderCreateVO<String>> create(@RequestBody @Validated OrderEvaluationDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
         orderEvaluationService.evaluate(dto);
         return RespBody.success();
+    }
+
+    @GetMapping("/count")
+    @ApiOperation("统计商品评论数")
+    public RespBody<EvaluationGroupVO> count(@NotNull(message = "商品id不能为空") @RequestParam("productId") Long productId) {
+        EvaluationGroupVO vo = orderEvaluationService.groupEvaluation(productId);
+        return RespBody.success(vo);
     }
 
     @GetMapping("/listPage")
@@ -43,4 +53,5 @@ public class OrderEvaluationController {
         Page<OrderEvaluationVO> byPage = orderEvaluationService.getByPage(dto);
         return RespBody.success(PageData.toPage(byPage));
     }
+
 }

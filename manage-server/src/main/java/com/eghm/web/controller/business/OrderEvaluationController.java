@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "订单评价")
 @AllArgsConstructor
-@RequestMapping("/webapp/order/evaluation")
+@RequestMapping("/manage/order/evaluation")
 public class OrderEvaluationController {
 
     private final OrderEvaluationService orderEvaluationService;

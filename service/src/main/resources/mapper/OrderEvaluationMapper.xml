@@ -77,4 +77,33 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="evaluationCount" resultType="int">
+        select count(id)
+        from order_evaluation
+        where deleted = false and product_id = #{productId}
+        <if test="queryType != null">
+            <choose>
+                <when test="queryType == 2">
+                    and score in (4, 5)
+                </when>
+                <when test="param.queryType == 3">
+                    and score in (2, 3)
+                </when>
+                <when test="param.queryType == 4">
+                    and score = 1
+                </when>
+                <when test="param.queryType == 5">
+                    and comment_pic is not null
+                </when>
+            </choose>
+        </if>
+    </select>
+
+    <select id="badCount" resultType="int">
+        select count(id)
+        from order_evaluation
+        where deleted = false and score = 1 and product_id = #{productId}
+    </select>
+
 </mapper>

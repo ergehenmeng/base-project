@@ -42,4 +42,19 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
      * @return 列表
      */
     Page<OrderEvaluationVO> getByPage(Page<OrderEvaluationVO> page, @Param("param") OrderEvaluationQueryDTO dto);
+
+    /**
+     * 统计分类数量
+     * @param productId 商品id
+     * @param queryType 2: 好评 3: 中评  4: 差评 5: 有图
+     * @return 数量
+     */
+    int evaluationCount(@Param("productId") Long productId, @Param("queryType") Integer queryType);
+
+    /**
+     * 统计差评数量
+     * @param productId 商品id
+     * @return 数量
+     */
+    int badCount(@Param("productId") Long productId);
 }

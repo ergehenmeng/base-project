@@ -5,6 +5,8 @@ import com.eghm.dto.business.order.evaluation.OrderEvaluationAuditDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryRequest;
+import com.eghm.vo.business.evaluation.ApplauseRateVO;
+import com.eghm.vo.business.evaluation.EvaluationGroupVO;
 import com.eghm.vo.business.evaluation.OrderEvaluationResponse;
 import com.eghm.vo.business.evaluation.OrderEvaluationVO;
 
@@ -45,4 +47,18 @@ public interface OrderEvaluationService {
      * @return 列表
      */
     Page<OrderEvaluationVO> getByPage(OrderEvaluationQueryDTO dto);
+
+    /**
+     * 分组统计商品评论 好评 中评 差评 有图数量
+     * @param productId 商品id
+     * @return 统计数量
+     */
+    EvaluationGroupVO groupEvaluation(Long productId);
+
+    /**
+     * 计算商品好评率
+     * @param productId 商品id
+     * @return 商品好评率
+     */
+    ApplauseRateVO calcApplauseRate(Long productId);
 }

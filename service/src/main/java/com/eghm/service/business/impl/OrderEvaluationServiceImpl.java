@@ -16,10 +16,7 @@ import com.eghm.service.business.*;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.evaluation.OrderEvaluationResponse;
-import com.eghm.vo.business.evaluation.OrderEvaluationVO;
-import com.eghm.vo.business.evaluation.ProductScoreVO;
+import com.eghm.vo.business.evaluation.*;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -123,6 +120,39 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             this.hiddenAnonymity(byPage.getRecords());
         }
         return byPage;
+    }
+
+    @Override
+    public EvaluationGroupVO groupEvaluation(Long productId) {
+        EvaluationGroupVO vo = new EvaluationGroupVO();
+        vo.setHigh(orderEvaluationMapper.evaluationCount(productId, 2));
+        vo.setMedium(orderEvaluationMapper.evaluationCount(productId, 3));
+        vo.setBad(orderEvaluationMapper.evaluationCount(productId, 4));
+        vo.setImg(orderEvaluationMapper.evaluationCount(productId, 5));
+        return vo;
+    }
+
+    @Override
+    public ApplauseRateVO calcApplauseRate(Long productId) {
+        ApplauseRateVO vo = new ApplauseRateVO();
+        int total = orderEvaluationMapper.evaluationCount(productId, null);
+        int bad = orderEvaluationMapper.badCount(productId);
+        vo.setSum(total);
+        vo.setRate(this.getApplauseRate(total, bad));
+        return vo;
+    }
+
+    /**
+     * 计算好评率
+     * @param total 总评价数
+     * @param bad 差评数
+     * @return 好评率
+     */
+    private int getApplauseRate(int total, int bad) {
+        if (total == 0) {
+            return 0;
+        }
+        return BigDecimal.valueOf((total - bad) * 100L).divide(BigDecimal.valueOf(total), 2, RoundingMode.HALF_UP).intValue();
     }
 
     /**
