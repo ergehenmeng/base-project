@@ -151,5 +151,32 @@
         update item t, item_order r set t.sale_num = t.sale_num + r.num, t.total_num = t.total_num + r.num
         where t.id = r.item_id and r.order_no = #{orderNo}
     </update>
-    
+
+    <select id="detailById" resultType="com.eghm.vo.business.item.ItemVO">
+        select
+        t.id,
+        t.store_id,
+        r.logo_url,
+        r.title as storeName,
+        t.state,
+        t.platform_state,
+        t.multi_spec,
+        t.title,
+        t.depict,
+        t.cover_url,
+        t.purchase_notes,
+        t.quota,
+        t.express_id,
+        t.delivery_type,
+        t.refund_type,
+        t.refund_describe,
+        t.min_price,
+        t.total_num,
+        t.introduce,
+        t.score,
+        t.hot_sell
+        from item t left join item_store r on t.store_id = r.id
+        where t.deleted = false and t.id = #{id}
+    </select>
+
 </mapper>

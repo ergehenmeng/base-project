@@ -8,6 +8,7 @@ import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.vo.business.item.ItemListResponse;
 import com.eghm.vo.business.item.ItemListVO;
+import com.eghm.vo.business.item.ItemVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -73,4 +74,11 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param orderNo 订单编号
      */
     void updateSaleNumByOrderNo(@Param("orderNo") String orderNo);
+
+    /**
+     * 查询商品详细信息
+     * @param id id
+     * @return 商品详细信息
+     */
+    ItemVO detailById(@Param("id") Long id);
 }

@@ -137,7 +137,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
         ApplauseRateVO vo = new ApplauseRateVO();
         int total = orderEvaluationMapper.evaluationCount(productId, null);
         int bad = orderEvaluationMapper.badCount(productId);
-        vo.setSum(total);
+        vo.setCommentNum(total);
         vo.setRate(this.getApplauseRate(total, bad));
         return vo;
     }

@@ -25,6 +25,8 @@ import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.evaluation.ApplauseRateVO;
+import com.eghm.vo.business.evaluation.EvaluationGroupVO;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
@@ -65,7 +67,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemExpressRegionService itemExpressRegionService;
 
-    private final ItemOrderService itemOrderService;
+    private final OrderEvaluationService orderEvaluationService;
 
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
@@ -273,6 +275,21 @@ public class ItemServiceImpl implements ItemService {
         wrapper.eq(Item::getId, itemId);
         wrapper.set(Item::getScore, score);
         itemMapper.update(null, wrapper);
+    }
+
+    @Override
+    public ItemVO detailById(Long id) {
+        ItemVO detail = itemMapper.detailById(id);
+        if (detail == null) {
+            log.error("该零售商品已删除啦 [{}]", id);
+            throw new BusinessException(ITEM_DOWN);
+        }
+        // 最终上架状态必须个人和平台同时上架
+        detail.setItemState((detail.getState() == State.SHELVE && detail.getPlatformState() == PlatformState.SHELVE) ? 1 : 0);
+        ApplauseRateVO vo = orderEvaluationService.calcApplauseRate(id);
+        detail.setCommentNum(vo.getCommentNum());
+        detail.setRate(vo.getRate());
+        return detail;
     }
 
     /**

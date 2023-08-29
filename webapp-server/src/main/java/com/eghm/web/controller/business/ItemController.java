@@ -11,6 +11,7 @@ import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.coupon.CouponListVO;
 import com.eghm.vo.business.item.ItemListVO;
+import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,6 +41,13 @@ public class ItemController {
     public RespBody<List<ItemListVO>> listPage(ItemQueryDTO dto) {
         List<ItemListVO> byPage = itemService.getByPage(dto);
         return RespBody.success(byPage);
+    }
+
+    @GetMapping("/detail")
+    @ApiOperation("商品详情")
+    public RespBody<ItemVO> detail(@Validated IdDTO dto) {
+        ItemVO detail = itemService.detailById(dto.getId());
+        return RespBody.success(detail);
     }
 
     @GetMapping("/recommend")

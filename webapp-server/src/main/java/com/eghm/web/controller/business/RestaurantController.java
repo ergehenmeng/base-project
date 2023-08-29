@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2022/6/30
  */
 @RestController
-@Api(tags = "餐饮店")
+@Api(tags = "餐饮门店")
 @AllArgsConstructor
 @RequestMapping("/webapp/restaurant")
 public class RestaurantController {

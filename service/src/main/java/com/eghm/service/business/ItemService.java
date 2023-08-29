@@ -9,6 +9,7 @@ import com.eghm.model.Item;
 import com.eghm.vo.business.item.ItemListResponse;
 import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemResponse;
+import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 
 import java.math.BigDecimal;
@@ -171,4 +172,11 @@ public interface ItemService {
      * @param score 分数
      */
     void updateScore(Long itemId, BigDecimal score);
+
+    /**
+     * 零售商品信息查询
+     * @param id 商品信息
+     * @return 商品信息
+     */
+    ItemVO detailById(Long id);
 }

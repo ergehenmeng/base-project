@@ -11,7 +11,7 @@ import lombok.Data;
 public class ApplauseRateVO {
 
     @ApiModelProperty("评论总数量")
-    private Integer sum;
+    private Integer commentNum;
 
     @ApiModelProperty("好评率百分比")
     private Integer rate;
