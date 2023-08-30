@@ -1,6 +1,8 @@
 package com.eghm.service.business;
 
+import com.eghm.enums.ref.ProductType;
 import com.eghm.model.SysDict;
+import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 
 import java.util.List;
@@ -26,6 +28,13 @@ public interface CommonService {
      * @return 处理类
      */
     <T> T getHandler(String orderNo, Class<T> clsHandler);
+
+    /**
+     * 根据商品类型查询accessHandler
+     * @param productType 商品类型
+     * @return accessHandler
+     */
+    AccessHandler getAccessHandler(ProductType productType);
 
     /**
      * 根据订单编号查询退款处理类

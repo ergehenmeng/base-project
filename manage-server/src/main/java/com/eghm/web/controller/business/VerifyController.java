@@ -8,9 +8,10 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VerifyLogService;
-import com.eghm.service.business.handler.access.impl.*;
+import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.verify.VerifyLogResponse;
@@ -36,15 +37,7 @@ public class VerifyController {
 
     private final VerifyLogService verifyLogService;
 
-    private final ItemAccessHandler itemAccessHandler;
-
-    private final TicketAccessHandler ticketAccessHandler;
-
-    private final HomestayAccessHandler homestayAccessHandler;
-
-    private final LineAccessHandler lineAccessHandler;
-
-    private final RestaurantAccessHandler restaurantAccessHandler;
+    private final CommonService commonService;
 
     private final OrderService orderService;
 
@@ -73,30 +66,21 @@ public class VerifyController {
     @PostMapping("/verify")
     @ApiOperation("核销")
     public RespBody<Integer> verify(@RequestBody @Validated OrderVerifyDTO dto) {
+        ProductType productType = ProductType.prefix(dto.getOrderNo());
+        AccessHandler accessHandler = commonService.getAccessHandler(productType);
+        if (accessHandler == null) {
+            throw new BusinessException(VERIFY_TYPE_ERROR);
+        }
 
         OrderVerifyContext context = new OrderVerifyContext();
         context.setOrderNo(dto.getOrderNo());
         context.setUserId(SecurityHolder.getUserId());
         context.setMerchantId(SecurityHolder.getMerchantId());
-
         context.setRemark(dto.getRemark());
         context.setVisitorList(dto.getVisitorList());
 
-        ProductType productType = ProductType.prefix(dto.getOrderNo());
+        accessHandler.verifyOrder(context);
 
-        if (productType == ProductType.ITEM) {
-            itemAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.HOMESTAY) {
-            homestayAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.LINE) {
-            lineAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.TICKET) {
-            ticketAccessHandler.verifyOrder(context);
-        } else if (productType == ProductType.RESTAURANT) {
-            restaurantAccessHandler.verifyOrder(context);
-        } else {
-            throw new BusinessException(VERIFY_TYPE_ERROR);
-        }
         return RespBody.success(context.getVerifyNum());
     }
 }

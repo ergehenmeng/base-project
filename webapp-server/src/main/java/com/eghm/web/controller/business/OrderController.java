@@ -5,6 +5,10 @@ import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
+import com.eghm.dto.business.order.refund.HomestayRefundApplyDTO;
+import com.eghm.dto.business.order.refund.LineRefundApplyDTO;
+import com.eghm.dto.business.order.refund.RestaurantRefundApplyDTO;
+import com.eghm.dto.business.order.refund.TicketRefundApplyDTO;
 import com.eghm.dto.business.order.restaurant.RestaurantOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
@@ -105,6 +109,46 @@ public class OrderController {
     public RespBody<PrepayVO> pay(@RequestBody @Validated OrderPayDTO dto) {
         PrepayVO vo = orderService.createPrepay(dto.getOrderNo(), dto.getBuyerId(), dto.getTradeType());
         return RespBody.success(vo);
+    }
+
+    @PostMapping("ticket/refundApply")
+    @ApiOperation("门票退款申请")
+    public RespBody<Void> ticketRefundApply(@RequestBody @Validated TicketRefundApplyDTO dto) {
+        RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
+        context.setMemberId(ApiHolder.getMemberId());
+        context.setApplyType(1);
+        ticketAccessHandler.refundApply(context);
+        return RespBody.success();
+    }
+
+    @PostMapping("line/refundApply")
+    @ApiOperation("线路退款申请")
+    public RespBody<Void> lineRefundApply(@RequestBody @Validated LineRefundApplyDTO dto) {
+        RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
+        context.setMemberId(ApiHolder.getMemberId());
+        context.setApplyType(1);
+        lineAccessHandler.refundApply(context);
+        return RespBody.success();
+    }
+
+    @PostMapping("homestay/refundApply")
+    @ApiOperation("民宿退款申请")
+    public RespBody<Void> homestayRefundApply(@RequestBody @Validated HomestayRefundApplyDTO dto) {
+        RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
+        context.setMemberId(ApiHolder.getMemberId());
+        context.setApplyType(1);
+        homestayAccessHandler.refundApply(context);
+        return RespBody.success();
+    }
+
+    @PostMapping("restaurant/refundApply")
+    @ApiOperation("餐饮退款申请")
+    public RespBody<Void> restaurantRefundApply(@RequestBody @Validated RestaurantRefundApplyDTO dto) {
+        RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
+        context.setMemberId(ApiHolder.getMemberId());
+        context.setApplyType(1);
+        restaurantAccessHandler.refundApply(context);
+        return RespBody.success();
     }
 
     /**

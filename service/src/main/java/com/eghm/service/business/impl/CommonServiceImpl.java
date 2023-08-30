@@ -7,6 +7,7 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.SysDict;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.handler.access.AccessHandler;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.SpringContextUtil;
@@ -40,6 +41,11 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public <T> T getHandler(String orderNo, Class<T> clsHandler) {
         return SpringContextUtil.getBean(ProductType.prefix(orderNo).getValue() + clsHandler.getSimpleName(), clsHandler);
+    }
+
+    @Override
+    public AccessHandler getAccessHandler(ProductType productType) {
+        return SpringContextUtil.getBean(productType.getValue() + AccessHandler.class.getSimpleName(), AccessHandler.class);
     }
 
     @Override
