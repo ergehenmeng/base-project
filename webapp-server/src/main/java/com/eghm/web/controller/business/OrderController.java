@@ -5,10 +5,7 @@ import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
-import com.eghm.dto.business.order.refund.HomestayRefundApplyDTO;
-import com.eghm.dto.business.order.refund.LineRefundApplyDTO;
-import com.eghm.dto.business.order.refund.RestaurantRefundApplyDTO;
-import com.eghm.dto.business.order.refund.TicketRefundApplyDTO;
+import com.eghm.dto.business.order.refund.*;
 import com.eghm.dto.business.order.restaurant.RestaurantOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
@@ -147,6 +144,16 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
+        restaurantAccessHandler.refundApply(context);
+        return RespBody.success();
+    }
+
+    @PostMapping("item/refundApply")
+    @ApiOperation("零售退款申请")
+    public RespBody<Void> itemRefundApply(@RequestBody @Validated ItemRefundApplyDTO dto) {
+        RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
+        context.setMemberId(ApiHolder.getMemberId());
+        context.setItemOrderId(dto.getOrderId());
         restaurantAccessHandler.refundApply(context);
         return RespBody.success();
     }
