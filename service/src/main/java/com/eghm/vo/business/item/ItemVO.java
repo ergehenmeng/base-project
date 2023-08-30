@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -93,4 +94,13 @@ public class ItemVO {
 
     @ApiModelProperty("好评率百分比")
     private Integer rate;
+
+    @ApiModelProperty("多规格信息")
+    private List<ItemGroupSpecVO> specList;
+
+    @ApiModelProperty("多规格sku信息")
+    private List<ItemSkuVO> skuList;
+
+    @ApiModelProperty("单规格sku信息")
+    private ItemSkuVO singleSku;
 }

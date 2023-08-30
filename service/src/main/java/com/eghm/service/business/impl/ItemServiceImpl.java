@@ -284,12 +284,39 @@ public class ItemServiceImpl implements ItemService {
             log.error("该零售商品已删除啦 [{}]", id);
             throw new BusinessException(ITEM_DOWN);
         }
+        ApplauseRateVO vo = orderEvaluationService.calcApplauseRate(id);
         // 最终上架状态必须个人和平台同时上架
         detail.setItemState((detail.getState() == State.SHELVE && detail.getPlatformState() == PlatformState.SHELVE) ? 1 : 0);
-        ApplauseRateVO vo = orderEvaluationService.calcApplauseRate(id);
         detail.setCommentNum(vo.getCommentNum());
         detail.setRate(vo.getRate());
+
+        List<ItemSku> skuList = itemSkuService.getByItemId(id);
+        if (Boolean.TRUE.equals(detail.getMultiSpec())) {
+            detail.setSpecList(this.getSpecList(id));
+            detail.setSkuList(DataUtil.copy(skuList, ItemSkuVO.class));
+        } else {
+            detail.setSingleSku(DataUtil.copy(skuList.get(0), ItemSkuVO.class));
+        }
         return detail;
+    }
+
+    /**
+     * 查询多规格商品的规格信息
+     * @param itemId id
+     * @return 规格信息 按规格名分类
+     */
+    private List<ItemGroupSpecVO> getSpecList(Long itemId) {
+        List<ItemSpec> specList = itemSpecService.getByItemId(itemId);
+        Map<String, List<ItemSpec>> specMap = specList.stream().collect(Collectors.groupingBy(ItemSpec::getSpecName,
+                Collectors.collectingAndThen(Collectors.toList(), specs -> specs.stream().sorted(Comparator.comparing(ItemSpec::getSort)).collect(Collectors.toList()))));
+        List<ItemGroupSpecVO> voList = new ArrayList<>();
+        for (Map.Entry<String, List<ItemSpec>> entry : specMap.entrySet()) {
+            ItemGroupSpecVO vo = new ItemGroupSpecVO();
+            vo.setSpecName(entry.getKey());
+            vo.setValueList(DataUtil.copy(entry.getValue(), ItemSpecVO.class));
+            voList.add(vo);
+        }
+        return voList;
     }
 
     /**

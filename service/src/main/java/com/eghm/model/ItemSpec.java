@@ -42,6 +42,6 @@ public class ItemSpec extends BaseEntity implements Serializable {
     private Integer sort;
 
     @ApiModelProperty(value = "标签级别 一级标签 二级标签")
-    private Boolean level;
+    private Integer level;
 
 }
