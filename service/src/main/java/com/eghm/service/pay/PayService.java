@@ -7,7 +7,7 @@ import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 
 import java.util.Map;
@@ -66,7 +66,7 @@ public interface PayService {
      * @param header 头信息(用于校验)
      * @return 解析后的支付信息
      */
-    WxPayOrderNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header);
+    WxPayNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header);
 
     /**
      * 解析退款异步通知

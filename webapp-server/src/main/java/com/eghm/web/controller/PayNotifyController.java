@@ -12,7 +12,7 @@ import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.enums.StepType;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -95,7 +95,7 @@ public class PayNotifyController {
     @ApiOperation("微信支付回调")
     public Map<String, String> weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseHeader(httpHeader);
-        WxPayOrderNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
+        WxPayNotifyV3Result payNotify = wechatPayService.parsePayNotify(requestBody, header);
         payNotifyLogService.insertWechatPayLog(payNotify);
 
         // 不以第三方返回的状态为准, 而是通过接口查询订单状态

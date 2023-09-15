@@ -10,7 +10,7 @@ import com.eghm.model.PayNotifyLog;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.StepType;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
@@ -62,8 +62,8 @@ public class PayNotifyLogServiceImpl implements PayNotifyLogService {
     @Async
     @Override
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
-    public void insertWechatPayLog(WxPayOrderNotifyV3Result result) {
-        WxPayOrderNotifyV3Result.DecryptNotifyResult notifyResult = result.getResult();
+    public void insertWechatPayLog(WxPayNotifyV3Result result) {
+        WxPayNotifyV3Result.DecryptNotifyResult notifyResult = result.getResult();
         PayNotifyLog log = new PayNotifyLog();
         log.setStepType(StepType.PAY);
         log.setPayChannel(PayChannel.WECHAT);

@@ -4,8 +4,8 @@ import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
-import com.eghm.service.sys.BlackRosterService;
 import com.eghm.service.member.LoginService;
+import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
 import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
@@ -122,7 +122,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     @Bean("byteHttpRequestFilter")
     public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter() {
         FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();
-        ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
+        ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter(systemProperties);
         requestFilter.exclude(FILTER_EXCLUDE_URL);
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);

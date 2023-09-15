@@ -414,9 +414,6 @@ public class DateUtil {
         return DateUtils.addDays(date, day);
     }
 
-
-
-
     /**
      * 格式化时间 HH:mm:ss
      *
@@ -435,16 +432,6 @@ public class DateUtil {
      */
     public static String formatHms(LocalDateTime date) {
         return TIMES_FORMAT.format(date);
-    }
-
-
-    /**
-     * 获取系统当前时间戳-秒数
-     *
-     * @return 自 1970 年 1 月 1 日 00:00:00 UTC 以来此日期表示的秒数。
-     */
-    public static long getSeconds() {
-        return System.currentTimeMillis() / 1000;
     }
 
     /**
@@ -467,17 +454,16 @@ public class DateUtil {
     }
 
     /**
-     * 时间戳(秒数)转换为时间
-     *
-     * @param timeStamp 十位数
-     * @return Date类型
+     * 后移一天
+     * @param localDate 日期
+     * @return 天
      */
-    public static Date timeToDate(long timeStamp) {
-        Date date = new Date();
-        date.setTime(timeStamp * 1000);
-        return date;
+    public static LocalDate offsetDay(LocalDate localDate) {
+        if (localDate != null) {
+            return localDate.plusDays(1);
+        }
+        return null;
     }
-
 
     /**
      * 获取指定时间的月的第一天 00:00:00
@@ -563,8 +549,10 @@ public class DateUtil {
         if (minute < 60) {
             return minute + "分钟前";
         }
+
         long day = diffDay(dateTime, nowTime);
-        // 可能会涉及跨天,因此先计算时昨天还是今天
+
+        // 可能会涉及跨天(即12小时前可能已经是昨天)
         if (day < 1) {
             long hour = diffHour(dateTime, nowTime);
             return hour + "小时前";
@@ -573,10 +561,12 @@ public class DateUtil {
         if (month < 1) {
             return day + "天前";
         }
+
         long year = diffYear(dateTime, nowTime);
         if (year < 1) {
             return day + "月前";
         }
+
         return year + "年前";
     }
 

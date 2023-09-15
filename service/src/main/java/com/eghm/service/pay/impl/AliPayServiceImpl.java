@@ -16,7 +16,7 @@ import com.eghm.service.pay.vo.RefundVO;
 import com.eghm.utils.DateUtil;
 import com.eghm.utils.DecimalUtil;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -162,7 +162,7 @@ public class AliPayServiceImpl implements PayService {
     }
 
     @Override
-    public WxPayOrderNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
+    public WxPayNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
         log.error("支付宝支付不支持该方法调用 [{}] [{}]", notifyData, header);
         throw new BusinessException(ErrorCode.NOT_SUPPORTED);
     }

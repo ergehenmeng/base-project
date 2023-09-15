@@ -12,7 +12,7 @@ import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
 import com.eghm.utils.DateUtil;
 import com.github.binarywang.wxpay.bean.notify.SignatureHeader;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 import com.github.binarywang.wxpay.bean.request.WxPayRefundV3Request;
 import com.github.binarywang.wxpay.bean.request.WxPayUnifiedOrderV3Request;
@@ -145,7 +145,7 @@ public class WechatPayServiceImpl implements PayService {
     }
 
     @Override
-    public WxPayOrderNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
+    public WxPayNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
         log.info("微信支付异步通知源数据 [{}] [{}]", notifyData, header);
         try {
             return wxPayService.parseOrderNotifyV3Result(notifyData, header);

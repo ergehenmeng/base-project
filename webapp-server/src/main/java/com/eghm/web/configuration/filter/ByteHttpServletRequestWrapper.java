@@ -1,15 +1,18 @@
 package com.eghm.web.configuration.filter;
 
+import cn.hutool.core.io.IoUtil;
 import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.ParameterException;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author 二哥很猛
@@ -18,65 +21,56 @@ import java.io.*;
 @Slf4j
 public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
-    private final byte[] requestByte;
+    private byte[] body;
 
     ByteHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
-        this.requestByte = this.readByte(request);
-    }
-
-    /**
-     * 将request中数据读取出来以便于重复利用
-     *
-     * @param request request
-     * @return 将请求中数据转换为字节数组
-     */
-    private byte[] readByte(HttpServletRequest request) {
-        try (ServletInputStream inputStream = request.getInputStream();
-             ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[1024];
-            int len;
-            while ((len = inputStream.read(buffer)) != -1) {
-                bos.write(buffer, 0, len);
-            }
-            return bos.toByteArray();
-        } catch (IOException e) {
-            log.error("过滤器解析request数据异常", e);
-            throw new ParameterException(ErrorCode.READ_PARAM_ERROR);
-        }
     }
 
     @Override
-    public BufferedReader getReader() {
+    public BufferedReader getReader() throws IOException {
         return new BufferedReader(new InputStreamReader(getInputStream(), CommonConstant.CHARSET));
     }
 
     @Override
-    public ServletInputStream getInputStream() {
+    public ServletInputStream getInputStream() throws IOException {
 
-        ByteArrayInputStream bos = new ByteArrayInputStream(requestByte);
-
-        return new ServletInputStream() {
-
-            @Override
-            public boolean isFinished() {
-                return bos.available() <= 0;
+        if (super.getHeader("Content-Type") == null) {
+            return super.getInputStream();
+        } else if (super.getHeader("Content-Type").startsWith("multipart/form-data")) {
+            return super.getInputStream();
+        } else {
+            if (this.body == null) {
+                this.body = this.filterBody(IoUtil.read(super.getInputStream(), StandardCharsets.UTF_8)).getBytes();
             }
+            final ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.body);
+            return new ServletInputStream() {
+                @Override
+                public boolean isFinished() {
+                    return false;
+                }
+                @Override
+                public boolean isReady() {
+                    return true;
+                }
+                @Override
+                public void setReadListener(ReadListener listener) {
+                    log.warn("接受到请求啦, ReadListener不为空");
+                }
+                @Override
+                public int read() {
+                    return byteArrayInputStream.read();
+                }
+            };
+        }
+    }
 
-            @Override
-            public boolean isReady() {
-                return true;
-            }
-
-            @Override
-            public void setReadListener(ReadListener listener) {
-                log.warn("接受到请求啦, ReadListener不为空");
-            }
-
-            @Override
-            public int read() {
-                return bos.read();
-            }
-        };
+    /**
+     * 过滤内容
+     * @param content content
+     * @return 默认不处理
+     */
+    protected String filterBody(String content) {
+        return content;
     }
 }

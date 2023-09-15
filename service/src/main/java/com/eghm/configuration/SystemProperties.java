@@ -6,6 +6,9 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 二哥很猛
  * @date 2022/1/29 16:25
@@ -56,6 +59,11 @@ public class SystemProperties {
      * redis配置
      */
     private Redis redis = new Redis();
+
+    /**
+     * xss不检验的地址
+     */
+    private List<String> xssSkip = new ArrayList<>();
 
     /**
      * 极光推送

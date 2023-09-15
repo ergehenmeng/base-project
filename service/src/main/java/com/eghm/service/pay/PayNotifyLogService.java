@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.log.PayLogQueryRequest;
 import com.eghm.model.PayNotifyLog;
 import com.eghm.service.pay.enums.StepType;
-import com.github.binarywang.wxpay.bean.notify.WxPayOrderNotifyV3Result;
+import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 
 import java.util.Map;
@@ -33,7 +33,7 @@ public interface PayNotifyLogService {
      * 添加微信支付异步通知
      * @param result 通知原始数据
      */
-    void insertWechatPayLog(WxPayOrderNotifyV3Result result);
+    void insertWechatPayLog(WxPayNotifyV3Result result);
 
     /**
      * 添加微信退款异步通知
