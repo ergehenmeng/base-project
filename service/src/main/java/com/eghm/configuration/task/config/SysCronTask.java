@@ -1,5 +1,7 @@
 package com.eghm.configuration.task.config;
 
+import com.eghm.constant.CommonConstant;
+
 /**
  * @author 二哥很猛
  * @date 2019/9/6 14:54
@@ -13,7 +15,7 @@ public class SysCronTask extends org.springframework.scheduling.config.CronTask 
 
     SysCronTask(CronTask config) {
         super(new RunnableTask(config), config.getCronExpression());
-        this.nid = config.getBeanName() + "-" + config.getMethodName();
+        this.nid = config.getBeanName() + CommonConstant.SPECIAL_SPLIT + config.getMethodName();
     }
 
     public String getNid() {

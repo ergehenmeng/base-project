@@ -52,7 +52,6 @@ public class WebappMvcConfig extends WebMvcConfig {
         this.cacheService = cacheService;
     }
 
-
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 6);
@@ -99,12 +98,11 @@ public class WebappMvcConfig extends WebMvcConfig {
         return new MessageInterceptor();
     }
 
-
     /**
      * ip黑名单
      */
-    @Bean("ipBlackListFilter")
-    public Filter ipFilter(BlackRosterService blackRosterService) {
+    @Bean
+    public Filter ipBlackListFilter(BlackRosterService blackRosterService) {
         return new IpBlackListFilter(blackRosterService);
     }
 

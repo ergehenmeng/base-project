@@ -138,7 +138,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         simpleModule.addSerializer(BigInteger.class, ToStringSerializer.instance);
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
-
     }
 
     public SystemProperties getSystemProperties() {
