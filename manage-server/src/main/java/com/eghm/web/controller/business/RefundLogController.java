@@ -48,7 +48,7 @@ public class RefundLogController {
     @ApiOperation("退款审核")
     public RespBody<Void> audit(@Validated @RequestBody RefundAuditRequest request) {
         ProductType productType = ProductType.prefix(request.getOrderNo());
-        AccessHandler accessHandler = commonService.getAccessHandler(productType);
+        AccessHandler accessHandler = commonService.getHandler(productType, AccessHandler.class);
         if (accessHandler == null) {
             throw new BusinessException(ORDER_TYPE_MATCH);
         }
@@ -57,7 +57,6 @@ public class RefundLogController {
         context.setAuditUserId(userToken.getId());
         // 备注信息标注是谁审批的 方便快速查看
         context.setAuditRemark(userToken.getNickName() + ":" + request.getAuditRemark());
-
         accessHandler.refundAudit(context);
         return RespBody.success();
     }

@@ -67,7 +67,7 @@ public class VerifyController {
     @ApiOperation("核销")
     public RespBody<Integer> verify(@RequestBody @Validated OrderVerifyDTO dto) {
         ProductType productType = ProductType.prefix(dto.getOrderNo());
-        AccessHandler accessHandler = commonService.getAccessHandler(productType);
+        AccessHandler accessHandler = commonService.getHandler(productType, AccessHandler.class);
         if (accessHandler == null) {
             throw new BusinessException(VERIFY_TYPE_ERROR);
         }
