@@ -1,6 +1,7 @@
 package com.eghm.vo.business.item;
 
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.convertor.NumberParseEncoder;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
@@ -90,6 +91,7 @@ public class ItemVO {
     private Boolean hotSell;
 
     @ApiModelProperty("评论总数量")
+    @JsonSerialize(using = NumberParseEncoder.class)
     private Integer commentNum;
 
     @ApiModelProperty("好评率百分比")

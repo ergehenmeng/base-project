@@ -1,0 +1,37 @@
+package com.eghm.convertor;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
+
+import java.io.IOException;
+
+/**
+ * @author 二哥很猛
+ * @since 2023/9/16
+ */
+public class NumberParseEncoder extends StdSerializer<Integer> {
+
+    protected NumberParseEncoder() {
+        super(Integer.class);
+    }
+
+    @Override
+    public void serialize(Integer value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+        if (value != null) {
+            if (value < 10) {
+                gen.writeString(String.valueOf(value));
+            }
+            if (value < 100) {
+                gen.writeString((value - value % 10) + "+");
+            }
+            if (value < 1000) {
+                gen.writeString((value - value % 100) + "+");
+            }
+            if (value < 10000) {
+                gen.writeString((value - value % 1000) + "+");
+            }
+            gen.writeString(value / 10000 + "万+");
+        }
+    }
+}
