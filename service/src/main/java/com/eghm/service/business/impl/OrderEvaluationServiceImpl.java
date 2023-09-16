@@ -97,6 +97,11 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
     }
 
     @Override
+    public void createDefault(String orderNo) {
+        // TODO 待完成系统评价
+    }
+
+    @Override
     public void audit(OrderEvaluationAuditDTO dto) {
         OrderEvaluation evaluation = orderEvaluationMapper.selectById(dto.getId());
         if (evaluation == null) {

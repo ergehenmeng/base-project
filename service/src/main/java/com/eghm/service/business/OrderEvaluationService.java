@@ -36,6 +36,12 @@ public interface OrderEvaluationService {
     void create(OrderEvaluationDTO dto);
 
     /**
+     * 添加默认评价
+     * @param orderNo 订单编号
+     */
+    void createDefault(String orderNo);
+
+    /**
      * 审核评论信息
      * @param dto 审核信息
      */

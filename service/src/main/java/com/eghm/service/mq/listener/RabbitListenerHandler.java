@@ -69,6 +69,8 @@ public class RabbitListenerHandler {
 
     private final RestaurantService restaurantService;
 
+    private final OrderEvaluationService orderEvaluationService;
+
     /**
      * 零售商品消息队列订单过期处理
      * @param orderNo 订单编号
@@ -249,6 +251,14 @@ public class RabbitListenerHandler {
         });
     }
 
+    /**
+     * 民宿
+     */
+    @RabbitListener(queues = QueueConstant.HOMESTAY_COMPLETE_QUEUE)
+    public void homestayComplete(String orderNo, Message message, Channel channel) throws IOException {
+        processMessageAck(orderNo, message, channel, orderEvaluationService::createDefault);
+    }
+
     @RabbitListener(queues = "test_queue")
     public void test(String msg, Message message, Channel channel) throws IOException {
         processMessageAck(msg, message, channel, s -> log.info("接收到消息 : [{}]", s));
@@ -304,7 +314,6 @@ public class RabbitListenerHandler {
         int accessNum = Integer.parseInt(accessStr);
         return accessNum < CommonConstant.MAX_ACCESS_NUM;
     }
-
 
     /**
      * 处理MQ中消息,并手动确认
