@@ -21,17 +21,15 @@ public class NumberParseEncoder extends StdSerializer<Integer> {
         if (value != null) {
             if (value < 10) {
                 gen.writeString(String.valueOf(value));
-            }
-            if (value < 100) {
+            } else if (value < 100) {
                 gen.writeString((value - value % 10) + "+");
-            }
-            if (value < 1000) {
+            } else if (value < 1000) {
                 gen.writeString((value - value % 100) + "+");
-            }
-            if (value < 10000) {
+            } else if (value < 10000) {
                 gen.writeString((value - value % 1000) + "+");
+            } else {
+                gen.writeString(value / 10000 + "万+");
             }
-            gen.writeString(value / 10000 + "万+");
         }
     }
 }
