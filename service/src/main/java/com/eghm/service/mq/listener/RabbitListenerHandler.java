@@ -252,9 +252,9 @@ public class RabbitListenerHandler {
     }
 
     /**
-     * 民宿
+     * 民宿,零售,线路,门票,餐饮
      */
-    @RabbitListener(queues = QueueConstant.HOMESTAY_COMPLETE_QUEUE)
+    @RabbitListener(queues = {QueueConstant.HOMESTAY_COMPLETE_QUEUE, QueueConstant.LINE_COMPLETE_QUEUE, QueueConstant.ITEM_COMPLETE_QUEUE, QueueConstant.TICKET_COMPLETE_QUEUE, QueueConstant.RESTAURANT_COMPLETE_QUEUE})
     public void homestayComplete(String orderNo, Message message, Channel channel) throws IOException {
         processMessageAck(orderNo, message, channel, orderEvaluationService::createDefault);
     }
