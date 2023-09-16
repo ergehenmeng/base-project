@@ -1,5 +1,6 @@
 package com.eghm.vo.business.order;
 
+import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,6 +10,12 @@ import lombok.Data;
  */
 @Data
 public class ProductSnapshotVO {
+
+    @ApiModelProperty("用户id")
+    private Long memberId;
+
+    @ApiModelProperty("订单id")
+    private Long orderId;
 
     @ApiModelProperty("订单号")
     private Integer orderNo;
@@ -24,4 +31,7 @@ public class ProductSnapshotVO {
 
     @ApiModelProperty(value = "商品图片")
     private String productCover;
+
+    @ApiModelProperty("订单类型")
+    private ProductType productType;
 }

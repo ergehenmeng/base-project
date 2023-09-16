@@ -973,6 +973,7 @@ CREATE TABLE `order_evaluation`
     `comment`         varchar(200) DEFAULT NULL COMMENT '评论',
     `comment_pic`     varchar(500) DEFAULT NULL COMMENT '评论图片',
     `state`           tinyint(1)   DEFAULT '0' COMMENT '审核状态 0:待审核 1:审核通过 2:审核失败',
+    `system_evaluate` bit(1)       DEFAULT '0' COMMENT '是否默认评价 0:不是默认 1:是默认评价',
     `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
     `anonymity`       bit(1)       DEFAULT b'0' COMMENT '是否匿名评论 0:非匿名1:匿名',
     `audit_remark`    varchar(100) DEFAULT NULL COMMENT '审核拒绝原因',

@@ -33,6 +33,7 @@ import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.order.OrderScanVO;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -346,6 +347,23 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         if (order.getState() == OrderState.COMPLETE) {
             order.setCompleteTime(LocalDateTime.now());
         }
+    }
+
+    @Override
+    public List<ProductSnapshotVO> getProductList(String orderNo) {
+        ProductType productType = ProductType.prefix(orderNo);
+        if (productType == ProductType.ITEM) {
+            return baseMapper.getItemList(orderNo);
+        } else if (productType == ProductType.RESTAURANT) {
+            return baseMapper.getRestaurantList(orderNo);
+        } else if (productType == ProductType.TICKET) {
+            return baseMapper.getTicketList(orderNo);
+        } else if (productType == ProductType.LINE) {
+            return baseMapper.getLineList(orderNo);
+        } else if (productType == ProductType.HOMESTAY) {
+            return baseMapper.getHomestayList(orderNo);
+        }
+        return Lists.newArrayList();
     }
 
     /**

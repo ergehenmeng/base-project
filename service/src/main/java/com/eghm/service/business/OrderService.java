@@ -10,6 +10,7 @@ import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.vo.business.order.OrderScanVO;
+import com.eghm.vo.business.order.ProductSnapshotVO;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -169,4 +170,11 @@ public interface OrderService extends IService<Order> {
      * @param closeConsumer 关闭订单的特殊处理
      */
     void orderStateModify(Order order, Consumer<Order> closeConsumer);
+
+    /**
+     * 根据订单号查询订单下的商品信息
+     * @param orderNo 订单号
+     * @return list
+     */
+    List<ProductSnapshotVO> getProductList(String orderNo);
 }

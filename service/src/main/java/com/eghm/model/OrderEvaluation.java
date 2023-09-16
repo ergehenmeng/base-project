@@ -63,6 +63,9 @@ public class OrderEvaluation extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "审核状态 0:待审核 1:审核通过 2:审核失败")
     private Integer state;
 
+    @ApiModelProperty("是否默认评价 0:不是默认 1:是默认评价")
+    private Boolean systemEvaluate;
+
     @ApiModelProperty(value = "用户id")
     private Long memberId;
 

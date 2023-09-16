@@ -1,4 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.OrderMapper">
+
+    <select id="getItemList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
+        select
+        r.id as orderId,
+        t.member_id as memberId,
+        t.order_no as orderNo,
+        r.item_id as productId,
+        t.title as productTitle,
+        r.sku_title as skuTitle,
+        t.cover_url as productCover,
+        t.product_type as productType
+        from `order` t left join item_order r on t.order_no = r.order_no
+        where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
+    </select>
+
+    <select id="getRestaurantList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
+        select
+            r.id as orderId,
+            t.member_id as memberId,
+            t.order_no as orderNo,
+            r.voucher_id as productId,
+            t.title as productTitle,
+            t.cover_url as productCover,
+            t.product_type as productType
+        from `order` t left join restaurant_order r on t.order_no = r.order_no
+        where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
+    </select>
+
+    <select id="getTicketList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
+        select
+            r.id as orderId,
+            t.member_id as memberId,
+            t.order_no as orderNo,
+            r.ticket_id as productId,
+            t.title as productTitle,
+            t.cover_url as productCover,
+            t.product_type as productType
+        from `order` t left join ticket_order r on t.order_no = r.order_no
+        where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
+    </select>
+
+    <select id="getLineList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
+        select
+            r.id as orderId,
+            t.member_id as memberId,
+            t.order_no as orderNo,
+            r.line_id as productId,
+            t.title as productTitle,
+            t.cover_url as productCover,
+            t.product_type as productType
+        from `order` t left join line_order r on t.order_no = r.order_no
+        where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
+    </select>
+
+    <select id="getHomestayList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
+        select
+            r.id as orderId,
+            t.member_id as memberId,
+            t.order_no as orderNo,
+            r.line_id as productId,
+            t.title as productTitle,
+            t.cover_url as productCover,
+            t.product_type as productType
+        from `order` t left join line_order r on t.order_no = r.order_no
+        where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
+    </select>
+
 </mapper>

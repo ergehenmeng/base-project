@@ -87,7 +87,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             evaluation.setProductTitle(snapshot.getProductTitle());
             evaluation.setSkuTitle(snapshot.getSkuTitle());
             evaluation.setProductCover(snapshot.getProductCover());
-            evaluation.setProductType(dto.getProductType());
+            evaluation.setProductType(snapshot.getProductType());
             evaluation.setAnonymity(dto.getAnonymity());
             orderEvaluationMapper.insert(evaluation);
         }
@@ -98,7 +98,25 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     @Override
     public void createDefault(String orderNo) {
-        // TODO 待完成系统评价
+        List<ProductSnapshotVO> voList = orderService.getProductList(orderNo);
+        if (CollUtil.isEmpty(voList)) {
+            return;
+        }
+        for (ProductSnapshotVO vo : voList) {
+            OrderEvaluation evaluation = DataUtil.copy(vo, OrderEvaluation.class);
+            evaluation.setScore(5);
+            evaluation.setLogisticsScore(5);
+            evaluation.setComment("用户未填写评价内容");
+            evaluation.setState(1);
+            evaluation.setAnonymity(true);
+            evaluation.setSystemEvaluate(true);
+            orderEvaluationMapper.insert(evaluation);
+        }
+
+        Order order = orderService.getByOrderNo(orderNo);
+        order.setState(OrderState.COMPLETE);
+        order.setCompleteTime(LocalDateTime.now());
+        orderService.updateById(order);
     }
 
     @Override
@@ -215,6 +233,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             log.error("订单信息未查询,无法评价 [{}] [{}] [{}]", orderId, orderNo, productType);
             throw new BusinessException(ErrorCode.PRODUCT_SNAPSHOT_NULL);
         }
+        vo.setProductType(productType);
         return vo;
     }
 }
