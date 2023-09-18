@@ -73,7 +73,7 @@ public class ActivityController {
 
     @PostMapping("/delete")
     @ApiOperation("删除活动")
-    public RespBody<Void> open(@RequestBody @Validated ActivityDeleteRequest request) {
+    public RespBody<Void> delete(@RequestBody @Validated ActivityDeleteRequest request) {
         activityService.delete(request);
         return RespBody.success();
     }

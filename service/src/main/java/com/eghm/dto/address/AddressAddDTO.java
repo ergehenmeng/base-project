@@ -18,9 +18,6 @@ public class AddressAddDTO {
     @Assign
     private Long memberId;
 
-    @ApiModelProperty("是否为默认地址 0:非默认 1:默认")
-    private Integer state;
-
     @ApiModelProperty(value = "省份id",required = true)
     @NotNull(message = "省份不能为空")
     private Long provinceId;

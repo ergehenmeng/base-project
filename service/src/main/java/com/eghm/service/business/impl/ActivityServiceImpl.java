@@ -119,6 +119,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void delete(ActivityDeleteRequest request) {
+        if (request.getId() == null && StrUtil.isBlank(request.getTitle())) {
+            throw new BusinessException(ErrorCode.ACTIVITY_TITLE_NULL);
+        }
         LambdaUpdateWrapper<Activity> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(StrUtil.isNotBlank(request.getTitle()), Activity::getTitle, request.getTitle());
         wrapper.eq(request.getId() != null, Activity::getId, request.getId());
