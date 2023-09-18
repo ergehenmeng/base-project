@@ -93,7 +93,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             // 同一家商户merchantId肯定是一样的
             order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
             orderService.save(order);
-
             orderList.add(order.getOrderNo());
         }
         // 30分钟过期定时任务
@@ -154,7 +153,6 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @return 商品信息及下单信息
      */
     private ItemOrderPayload getPayload(ItemOrderCreateContext context) {
-
         // 组装数据,减少后面遍历逻辑
         Set<Long> itemIds = context.getItemList().stream().map(ItemDTO::getItemId).collect(Collectors.toSet());
         Map<Long, Item> itemMap = itemService.getByIdShelveMap(itemIds);
