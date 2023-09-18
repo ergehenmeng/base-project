@@ -22,27 +22,27 @@ import java.util.List;
 @Data
 public class CouponConfigAddRequest {
 
-    @ApiModelProperty(value = "优惠券名称")
+    @ApiModelProperty(value = "优惠券名称", required = true)
     @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")
     @NotBlank(message = "优惠券名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "库存(发放数量)")
+    @ApiModelProperty(value = "库存(发放数量)", required = true)
     @RangeInt(min = 1, max = 9999, message = "库存应为1~9999")
     private Integer stock;
 
-    @ApiModelProperty(value = "单人领取限制")
+    @ApiModelProperty(value = "单人领取限制", required = true)
     @RangeInt(min = 1, max = 99, message = "单人领取限制1~99")
     private Integer maxLimit;
 
-    @ApiModelProperty(value = "领取方式 1:页面领取 2: 手动发放")
+    @ApiModelProperty(value = "领取方式 1:页面领取 2: 手动发放", required = true)
     @OptionInt(value = {1, 2}, message = "领取方式非法")
     private Integer mode;
 
-    @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
+    @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券", required = true)
     private CouponType couponType;
 
-    @ApiModelProperty("使用范围  1:店铺通用 2:指定商品")
+    @ApiModelProperty(value = "使用范围  1:店铺通用 2:指定商品", required = true)
     private Integer useScope;
 
     @ApiModelProperty("店铺id")
