@@ -71,7 +71,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             throw new BusinessException(ErrorCode.TICKET_QUOTA.getCode(), String.format(ErrorCode.TICKET_QUOTA.getMsg(), ticket.getQuota()));
         }
         // 待补充用户信息
-        if (Boolean.TRUE.equals(ticket.getRealBuy()) && (CollUtil.isEmpty(context.getVisitorList()) || context.getVisitorList().size() != num)) {
+        if (Boolean.TRUE.equals(ticket.getRealBuy()) && CollUtil.isEmpty(context.getVisitorList())) {
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
@@ -80,7 +80,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     @Override
     protected Order createOrder(TicketOrderCreateContext context, TicketOrderPayload payload) {
         ScenicTicket ticket = payload.getTicket();
-        String orderNo = ProductType.TICKET.generateTradeNo();
+        String orderNo = ProductType.TICKET.generateOrderNo();
         Order order = new Order();
         order.setMerchantId(payload.getScenic().getMerchantId());
         order.setMemberId(context.getMemberId());

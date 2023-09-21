@@ -70,8 +70,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
         List<String> orderNoList = StrUtil.split(orderNo, ',');
+        ProductType productType = ProductType.prefix(orderNoList.get(0));
+        String outTradeNo = productType.generateTradeNo();
+
         List<Order> orderList = this.getUnPay(orderNoList);
-        String outTradeNo = ProductType.ITEM.generateTradeNo();
         StringBuilder builder = new StringBuilder();
         int totalAmount = 0;
         for (Order order : orderList) {

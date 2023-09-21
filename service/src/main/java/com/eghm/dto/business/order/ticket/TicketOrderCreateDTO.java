@@ -33,14 +33,14 @@ public class TicketOrderCreateDTO {
     private LocalDate visitDate;
 
     @ApiModelProperty(value = "游客信息", required = true)
-    @Size(min = 1, max = 100, message = "游客数量最大100人")
+    @Size(min = 1, max = 99, message = "游客数量最大99人")
     @NotEmpty(message = "游客信息不能为空")
     private List<VisitorDTO> visitorList;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("备注")
-    @Size(max = 100, message = "备注最大100字符")
+    @ApiModelProperty("备注信息")
+    @Size(max = 50, message = "备注最大50字符")
     private String remark;
 }
