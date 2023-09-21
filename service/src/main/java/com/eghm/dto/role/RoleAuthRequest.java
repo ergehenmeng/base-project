@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class RoleAuthRequest {
 
-    @ApiModelProperty("角色id")
+    @ApiModelProperty(value = "角色id", required = true)
     @NotNull(message = "角色id不能为空")
     private Long roleId;
 

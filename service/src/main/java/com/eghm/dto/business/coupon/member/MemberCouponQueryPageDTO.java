@@ -2,6 +2,7 @@ package com.eghm.dto.business.coupon.member;
 
 import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,6 +18,7 @@ import lombok.EqualsAndHashCode;
 public class MemberCouponQueryPageDTO extends PagingQuery {
 
     @ApiModelProperty("使用状态 0:未使用 1:已使用 2:已过期 ")
+    @OptionInt(value = {0, 1, 2}, message = "使用状态非法", required = false)
     private Integer state;
 
     @ApiModelProperty("优惠券配置id")

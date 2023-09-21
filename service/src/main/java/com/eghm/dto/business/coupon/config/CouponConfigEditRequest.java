@@ -19,32 +19,35 @@ import java.util.List;
 @Data
 public class CouponConfigEditRequest {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("优惠券名称")
+    @ApiModelProperty(value = "优惠券名称", required = true)
     @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")
     @NotBlank(message = "优惠券名称不能为空")
     private String title;
 
-    @ApiModelProperty(value = "库存(发放数量)")
+    @ApiModelProperty(value = "库存(发放数量)", required = true)
     @RangeInt(max = 9999, message = "库存应为0~9999")
     private Integer stock;
 
-    @ApiModelProperty(value = "单人领取限制")
+    @ApiModelProperty(value = "单人领取限制", required = true)
     @RangeInt(min = 1, max = 99, message = "单人领取限制1~99")
     private Integer maxLimit;
 
     @ApiModelProperty(value = "发放开始时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @NotNull(message = "发放开始时间不能为空")
     private LocalDateTime startTime;
 
     @ApiModelProperty(value = "发放截止时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @NotNull(message = "发放截止时间不能为空")
     private LocalDateTime endTime;
 
     @ApiModelProperty(value = "使用说明")
+    @Size(max = 100, message = "使用说明最大100字符")
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")

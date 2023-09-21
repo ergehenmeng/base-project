@@ -21,25 +21,25 @@ import java.util.List;
 @Data
 public class OnlineRefundRequest {
 
-    @ApiModelProperty("订单编号")
+    @ApiModelProperty(value = "订单编号", required = true)
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty("游客id")
+    @ApiModelProperty(value = "游客id", required = true)
     @NotEmpty(message = "请选择要退款的游客")
     private List<Long> visitorList;
 
-    @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款")
+    @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款", required = true)
     @OptionInt(value = {1, 2}, message = "退款方式不合法")
     private Integer applyType;
 
-    @ApiModelProperty("退款金额")
+    @ApiModelProperty(value = "退款金额", required = true)
     @Min(value = 1, message = "退款金额最少0.01元")
     @NotNull(message = "退款金额不能为空")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer refundAmount;
 
-    @ApiModelProperty("备注信息")
+    @ApiModelProperty(value = "备注信息", required = true)
     @NotBlank(message = "备注信息不能为空")
     private String remark;
 

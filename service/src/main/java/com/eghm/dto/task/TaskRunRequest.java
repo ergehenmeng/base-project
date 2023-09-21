@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class TaskRunRequest {
 
-    @ApiModelProperty("任务id")
+    @ApiModelProperty(value = "任务id", required = true)
     @NotNull(message = "任务id不能为空")
     private Long id;
 

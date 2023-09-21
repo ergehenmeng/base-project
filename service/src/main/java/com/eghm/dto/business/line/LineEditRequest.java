@@ -44,31 +44,31 @@ public class LineEditRequest {
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
 
-    @ApiModelProperty(value = "虚拟销售量")
+    @ApiModelProperty(value = "虚拟销售量", required = true)
     @RangeInt(max = 9999, message = "虚拟销量应为0~9999")
     private Integer virtualNum;
 
-    @ApiModelProperty(value = "1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 十日游 11:十一日游 12:十二日游 13:十三日游 14:十四日游 15:十五日游")
+    @ApiModelProperty(value = "1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 十日游 11:十一日游 12:十二日游 13:十三日游 14:十四日游 15:十五日游", required = true)
     @OptionInt(value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, message = "旅游天数1~15天")
     private Integer duration;
 
-    @ApiModelProperty(value = "提前天数")
+    @ApiModelProperty(value = "提前天数", required = true)
     @RangeInt(max = 30, message = "提前天数应为0~30天")
     private Integer advanceDay;
 
-    @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
+    @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款", required = true)
     @NotNull(message = "退款方式不能为空")
     private RefundType refundType;
 
-    @ApiModelProperty(value = "退款描述")
+    @ApiModelProperty(value = "退款描述", required = true)
     @Size(max = 100, message = "退款描述长度最大100字符")
     private String refundDescribe;
 
-    @ApiModelProperty(value = "商品介绍")
+    @ApiModelProperty(value = "商品介绍", required = true)
     @NotBlank(message = "商品介绍不能为空")
     private String introduce;
 
+    @ApiModelProperty(value = "每日配置信息", required = true)
     @NotEmpty(message = "每日线路配置不能为空")
-    @ApiModelProperty("每日配置信息")
     private List<LineDayConfigRequest> configList;
 }

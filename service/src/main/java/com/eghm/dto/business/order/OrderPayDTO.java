@@ -14,15 +14,15 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderPayDTO {
 
-    @ApiModelProperty("订单编号,多笔订单(购物车订单)逗号分隔")
+    @ApiModelProperty(value = "订单编号,多笔订单(购物车订单)逗号分隔", required = true)
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty("购买人id(openId或者buyerId)")
+    @ApiModelProperty(value = "购买人id(openId或者buyerId)", required = true)
     @NotBlank(message = "购买人id不能为空")
     private String buyerId;
 
-    @ApiModelProperty("支付方式")
+    @ApiModelProperty(value = "支付方式", required = true)
     @NotNull(message = "支付方式不能为空")
     private TradeType tradeType;
 }

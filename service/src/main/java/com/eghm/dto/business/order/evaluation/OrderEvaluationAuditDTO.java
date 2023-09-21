@@ -14,11 +14,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderEvaluationAuditDTO {
 
-    @ApiModelProperty(value = "id", hidden = true)
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("审核状态 1:通过 2:拒绝")
+    @ApiModelProperty(value = "审核状态 1:通过 2:拒绝", required = true)
     @OptionInt(value = {1, 2}, message = "审核状态非法")
     private Integer state;
 

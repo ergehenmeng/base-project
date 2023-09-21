@@ -16,16 +16,16 @@ import java.math.BigDecimal;
 @Data
 public class TravelAgencyEditRequest {
     
-    @ApiModelProperty("id")
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
     
-    @ApiModelProperty(value = "旅行社名称")
+    @ApiModelProperty(value = "旅行社名称", required = true)
     @NotBlank(message = "旅行社名称不能为空")
     @Size(min = 2, max = 20, message = "旅行社名称长度2~20位")
     private String title;
     
-    @ApiModelProperty(value = "省份id")
+    @ApiModelProperty(value = "省份id", required = true)
     @NotNull(message = "请选择省份")
     private Long provinceId;
     

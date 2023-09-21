@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class MpLoginDTO {
 
-    @ApiModelProperty("授权code码")
+    @ApiModelProperty(value = "授权code码", required = true)
     @NotNull(message = "授权码不能为空")
     private String code;
 }

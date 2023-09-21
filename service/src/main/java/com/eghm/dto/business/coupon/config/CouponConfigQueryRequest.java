@@ -15,6 +15,7 @@ import lombok.EqualsAndHashCode;
 public class CouponConfigQueryRequest extends PagingQuery {
 
     @ApiModelProperty("发放状态 0:未开始 1: 进行中 2: 已结束")
+    @OptionInt(value = {0, 1, 2}, message = "发放状态非法", required = false)
     private Integer state;
 
     @ApiModelProperty("发放方式 1:页面领取 2: 系统发放")

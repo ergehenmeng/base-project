@@ -15,11 +15,11 @@ import java.util.List;
 @Data
 public class LotteryEditRatioRequest {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("中奖配置信息")
+    @ApiModelProperty(value = "中奖配置信息", required = true)
     @NotEmpty(message = "中奖配置不能为空")
     @Size(min = 8, max = 8, message = "中奖配置应为8条")
     private List<LotteryRatioConfigRequest> ratioList;

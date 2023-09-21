@@ -22,11 +22,11 @@ public class MemberAuthDTO implements Serializable {
     @ApiModelProperty(hidden = true)
     private Long memberId;
 
-    @ApiModelProperty("姓名")
+    @ApiModelProperty(value = "姓名", required = true)
     @NotEmpty(message = "姓名不能为空")
     private String realName;
 
-    @ApiModelProperty("身份证号码")
+    @ApiModelProperty(value = "身份证号码", required = true)
     @IdCard
     private String idCard;
 }

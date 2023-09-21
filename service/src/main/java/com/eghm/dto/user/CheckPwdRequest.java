@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class CheckPwdRequest {
 
-    @ApiModelProperty("密码")
+    @ApiModelProperty(value = "密码", required = true)
     @NotBlank(message = "密码不能为空")
     private String pwd;
 }

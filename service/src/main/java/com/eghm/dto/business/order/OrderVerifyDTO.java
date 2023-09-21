@@ -14,11 +14,11 @@ import java.util.List;
 @Data
 public class OrderVerifyDTO {
 
-    @ApiModelProperty("订单号")
+    @ApiModelProperty(value = "订单号", required = true)
     @NotBlank(message = "订单号不能为空")
     private String orderNo;
 
-    @ApiModelProperty("待核销的游客id")
+    @ApiModelProperty(value = "待核销的游客id", required = true)
     @NotEmpty(message = "请选择要核销的游客")
     private List<Long> visitorList;
 

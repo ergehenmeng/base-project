@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @Data
 public class ScenicTicketAddRequest {
 
-    @ApiModelProperty(value = "门票所属景区")
+    @ApiModelProperty(value = "门票所属景区", required = true)
     @NotNull(message = "请选择景区")
     private Long scenicId;
 

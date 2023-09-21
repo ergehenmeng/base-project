@@ -13,15 +13,15 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ItemDTO {
 
-    @ApiModelProperty("商品id")
+    @ApiModelProperty(value = "商品id", required = true)
     @NotNull(message = "商品不能为空")
     private Long itemId;
 
     @RangeInt(min = 1, max = 99, message = "购买数量应为1~99")
-    @ApiModelProperty("商品数量,最大99")
+    @ApiModelProperty(value = "商品数量,最大99", required = true)
     private Integer num;
 
-    @ApiModelProperty("商品skuId")
+    @ApiModelProperty(value = "商品skuId", required = true)
     @NotNull(message = "规格信息不能为空")
     private Long skuId;
 }

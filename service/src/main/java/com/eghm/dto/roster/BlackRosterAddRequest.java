@@ -17,12 +17,12 @@ public class BlackRosterAddRequest implements Serializable {
 
     private static final long serialVersionUID = 8774607401819334344L;
 
-    @ApiModelProperty("ip地址开始")
+    @ApiModelProperty(value = "ip地址开始", required = true)
     @JsonDeserialize(using = IpToLongDecoder.class)
     @NotNull(message = "开始ip地址不能为空")
     private Long startIp;
 
-    @ApiModelProperty("ip地址结束")
+    @ApiModelProperty(value = "ip地址结束", required = true)
     @JsonDeserialize(using = IpToLongDecoder.class)
     @NotNull(message = "结束ip地址不能为空")
     private Long endIp;

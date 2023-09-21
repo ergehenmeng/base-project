@@ -11,11 +11,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class IdStateDTO {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty("状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架", required = true)
     @NotNull(message = "状态不能为空")
     private Integer state;
 }

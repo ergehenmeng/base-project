@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ScenicDetailDTO {
 
-    @ApiModelProperty("景区id")
+    @ApiModelProperty(value = "景区id", required = true)
     @NotNull(message = "景区id不能为空")
     private Long scenicId;
 

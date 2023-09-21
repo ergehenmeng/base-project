@@ -13,11 +13,11 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class ItemTagAddRequest {
 
-    @ApiModelProperty("父节点id")
+    @ApiModelProperty(value = "父节点id", required = true)
     @NotBlank(message = "父节点id不能为空")
     private String pid;
 
-    @ApiModelProperty("标签名称")
+    @ApiModelProperty(value = "标签名称", required = true)
     @NotBlank(message = "标签名称不能为空")
     @Length(min = 2, max = 8, message = "标签名称长度应为2~8字符")
     private String title;

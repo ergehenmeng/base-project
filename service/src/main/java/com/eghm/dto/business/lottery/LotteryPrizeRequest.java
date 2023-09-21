@@ -14,20 +14,20 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LotteryPrizeRequest {
     
-    @ApiModelProperty(value = "奖品名称")
+    @ApiModelProperty(value = "奖品名称", required = true)
     @NotBlank(message = "奖品名称不能为空")
     @Length(min = 2, max = 10, message = "奖品名称长度应为2~10字符")
     private String prizeName;
     
-    @ApiModelProperty(value = "奖品类型")
+    @ApiModelProperty(value = "奖品类型", required = true)
     @NotNull(message = "奖品类型不能为空")
     private Integer prizeType;
     
-    @ApiModelProperty(value = "奖品总数量")
+    @ApiModelProperty(value = "奖品总数量", required = true)
     @NotNull(message = "奖品数量不能为空")
     private Integer totalNum;
     
-    @ApiModelProperty(value = "奖品图片")
+    @ApiModelProperty(value = "奖品图片", required = true)
     @NotBlank(message = "奖品图片不能为空")
     private String coverUrl;
     

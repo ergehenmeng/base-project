@@ -19,20 +19,20 @@ import java.util.List;
 @Data
 public class TicketOrderCreateDTO {
 
-    @ApiModelProperty("门票id")
+    @ApiModelProperty(value = "门票id", required = true)
     @NotNull(message = "门票id不能为空")
     private Long ticketId;
 
-    @ApiModelProperty("手机号码")
+    @ApiModelProperty(value = "手机号码", required = true)
     @Mobile
     private String mobile;
 
-    @ApiModelProperty("游玩日期")
+    @ApiModelProperty(value = "游玩日期", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "游玩日期不能为空")
     private LocalDate visitDate;
 
-    @ApiModelProperty("游客信息")
+    @ApiModelProperty(value = "游客信息", required = true)
     @Size(min = 1, max = 100, message = "游客数量最大100人")
     @NotEmpty(message = "游客信息不能为空")
     private List<VisitorDTO> visitorList;

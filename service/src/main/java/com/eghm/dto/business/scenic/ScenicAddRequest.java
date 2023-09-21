@@ -32,7 +32,7 @@ public class ScenicAddRequest {
     @Size(max = 100, message = "营业时间长度2~100位")
     private String openTime;
 
-    @ApiModelProperty("景区电话")
+    @ApiModelProperty(value = "景区电话", required = true)
     @Phone(message = "景区电话格式错误")
     private String phone;
 
