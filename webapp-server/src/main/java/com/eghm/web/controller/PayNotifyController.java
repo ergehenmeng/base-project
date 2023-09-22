@@ -51,7 +51,7 @@ public class PayNotifyController {
 
     private final RedisLock redisLock;
 
-    @PostMapping("${system.ali-pay.pay-notify-url:/notify/ali/pay}")
+    @PostMapping("${system.ali-pay.pay-notify-url:}")
     @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
         Map<String, String> stringMap = parseRequest(request);
@@ -71,7 +71,7 @@ public class PayNotifyController {
         }));
     }
 
-    @PostMapping("${system.ali-pay.refund-notify-url:/notify/ali/refund}")
+    @PostMapping("${system.ali-pay.refund-notify-url:}")
     @ApiOperation("支付宝退款回调")
     public String aliRefund(HttpServletRequest request) {
         Map<String, String> stringMap = parseRequest(request);
@@ -91,7 +91,7 @@ public class PayNotifyController {
         }));
     }
 
-    @PostMapping("${system.wechat.pay-notify-url:/notify/weChat/pay}")
+    @PostMapping("${system.wechat.pay-notify-url:}")
     @ApiOperation("微信支付回调")
     public Map<String, String> weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseHeader(httpHeader);
@@ -110,7 +110,7 @@ public class PayNotifyController {
         }));
     }
 
-    @PostMapping("${system.wechat.refund-notify-url:/notify/weChat/refund}")
+    @PostMapping("${system.wechat.refund-notify-url:}")
     @ApiOperation("微信退款回调")
     public Map<String, String> weChatRefund(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseHeader(httpHeader);

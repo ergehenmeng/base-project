@@ -180,6 +180,11 @@ public enum ErrorCode {
     ENUM_SUPPORTED(1025,"转换器不支持非枚举类"),
 
     /**
+     * 定时任务尚未激活
+     */
+    TASK_CONFIG_NULL(1028,"定时任务尚未激活"),
+
+    /**
      * 定时任务配置异常
      */
     TASK_CONFIG_ERROR(1030,"定时任务配置异常"),
@@ -540,9 +545,9 @@ public enum ErrorCode {
     PAY_ERROR(3111, "支付响应错误"),
 
     /**
-     * 支付下单失败
+     * 支付订单创建失败
      */
-    PAY_ORDER_ERROR(3112, "支付下单失败"),
+    PAY_ORDER_ERROR(3112, "支付订单创建失败"),
 
     /**
      * 退款申请失败

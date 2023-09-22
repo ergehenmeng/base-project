@@ -16,7 +16,9 @@ import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.support.CronExpression;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +28,17 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service("sysTaskService")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SysTaskServiceImpl implements SysTaskService {
 
     private final SysTaskMapper sysTaskMapper;
 
-    private final SysTaskRegistrar sysTaskRegistrar;
+    private SysTaskRegistrar sysTaskRegistrar;
+
+    @Autowired(required = false)
+    public void setSysTaskRegistrar(SysTaskRegistrar sysTaskRegistrar) {
+        this.sysTaskRegistrar = sysTaskRegistrar;
+    }
 
     @Override
     public Page<SysTask> getByPage(TaskQueryRequest request) {
@@ -60,6 +67,11 @@ public class SysTaskServiceImpl implements SysTaskService {
 
     @Override
     public void runTask(Long id, String args) {
+        if (sysTaskRegistrar == null) {
+            log.error("该服务尚未激活定时任务, 请使用@EnableTask激活 [{}] [{}]", id, args);
+            throw new BusinessException(ErrorCode.TASK_CONFIG_NULL);
+        }
+
         SysTask sysTask = sysTaskMapper.selectById(id);
         if (sysTask == null) {
             log.error("定时任务未查询到[{}]", id);
