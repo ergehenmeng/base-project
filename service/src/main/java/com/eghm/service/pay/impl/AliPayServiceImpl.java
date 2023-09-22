@@ -5,6 +5,7 @@ import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.common.models.*;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.enums.ErrorCode;
+import com.eghm.exception.AliPayException;
 import com.eghm.exception.BusinessException;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
@@ -183,7 +184,7 @@ public class AliPayServiceImpl implements PayService {
             log.error("支付宝退款状态查询失败 [{}]", param, e);
         }
         if (!flag) {
-            throw new BusinessException(ErrorCode.NOTIFY_SIGN_ERROR);
+            throw new AliPayException(ErrorCode.NOTIFY_SIGN_ERROR);
         }
     }
 }

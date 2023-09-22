@@ -22,7 +22,6 @@ import com.github.binarywang.wxpay.bean.result.WxPayRefundQueryV3Result;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundV3Result;
 import com.github.binarywang.wxpay.bean.result.WxPayUnifiedOrderV3Result;
 import com.github.binarywang.wxpay.bean.result.enums.TradeTypeEnum;
-import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.v3.util.SignUtils;
 import lombok.RequiredArgsConstructor;
@@ -74,7 +73,7 @@ public class WechatPayServiceImpl implements PayService {
         WxPayUnifiedOrderV3Result result;
         try {
             result = wxPayService.unifiedOrderV3(transferType, request);
-        } catch (WxPayException e) {
+        } catch (Exception e) {
             log.error("微信支付下单失败 [{}]", dto, e);
             throw new BusinessException(ErrorCode.PAY_ORDER_ERROR);
         }
@@ -86,7 +85,7 @@ public class WechatPayServiceImpl implements PayService {
         WxPayOrderQueryV3Result result;
         try {
             result = wxPayService.queryOrderV3(null, outTradeNo);
-        } catch (WxPayException e) {
+        } catch (Exception e) {
             log.error("微信订单查询失败 [{}]", outTradeNo, e);
             throw new BusinessException(ErrorCode.ORDER_QUERY_ERROR);
         }
@@ -105,7 +104,7 @@ public class WechatPayServiceImpl implements PayService {
     public void closeOrder(String outTradeNo) {
         try {
             wxPayService.closeOrderV3(outTradeNo);
-        } catch (WxPayException e) {
+        } catch (Exception e) {
             log.error("微信订单关闭异常 [{}]", outTradeNo, e);
             throw new BusinessException(ErrorCode.ORDER_CLOSE);
         }
@@ -126,7 +125,7 @@ public class WechatPayServiceImpl implements PayService {
         WxPayRefundV3Result result;
         try {
             result = wxPayService.refundV3(request);
-        } catch (WxPayException e) {
+        } catch (Exception e) {
             log.error("微信退款申请失败 [{}]", dto.getOutRefundNo(), e);
             throw new BusinessException(ErrorCode.REFUND_APPLY);
         }
@@ -138,7 +137,7 @@ public class WechatPayServiceImpl implements PayService {
         WxPayRefundQueryV3Result result;
         try {
             result = wxPayService.refundQueryV3(outRefundNo);
-        } catch (WxPayException e) {
+        } catch (Exception e) {
             log.error("微信退款订单信息查询失败 [{}]", outRefundNo, e);
             throw new BusinessException(ErrorCode.REFUND_QUERY);
         }
@@ -150,7 +149,7 @@ public class WechatPayServiceImpl implements PayService {
         log.info("微信支付异步通知源数据 [{}] [{}]", notifyData, header);
         try {
             return wxPayService.parseOrderNotifyV3Result(notifyData, header);
-        } catch (WxPayException e) {
+        } catch (Exception e) {
             log.error("微信支付响应信息解析失败 [{}] [{}]", notifyData, header, e);
             throw new WeChatPayException(ErrorCode.NOTIFY_PAY_PARSE);
         }
@@ -161,7 +160,7 @@ public class WechatPayServiceImpl implements PayService {
         log.info("微信退款异步通知源数据 [{}] [{}]", notifyData, header);
         try {
             return wxPayService.parseRefundNotifyV3Result(notifyData, header);
-        } catch (WxPayException e) {
+        } catch (Exception e) {
             log.error("微信退款响应信息解析失败 [{}] [{}]", notifyData, header, e);
             throw new WeChatPayException(ErrorCode.NOTIFY_REFUND_PARSE);
         }
