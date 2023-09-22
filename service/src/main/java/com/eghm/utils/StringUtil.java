@@ -36,7 +36,7 @@ public class StringUtil {
     /**
      * 进制串
      */
-    private static final String ENCRYPT = "fIn06K3NTrAmwVC4OWd5azvXlsUGB2pbEQLueg1q9ctJ7MxkYZRSyDi8ogHPFh";
+    private static final String ENCRYPT = "IFbH4SyMsPfeEw1CzQV6xtJK5ZUklOcDnYuNGArR9a0dphXiq8jg2mB7W3LTov";
 
     /**
      * 随机数字
@@ -201,6 +201,7 @@ public class StringUtil {
 
     /**
      * 获取随机数字
+     *
      * @param minValue 随机数最小
      * @param maxValue 随机数范围最大值 0~maxValue
      * @return minValue >= x < maxValue
@@ -211,6 +212,7 @@ public class StringUtil {
 
     /**
      * 数字进制 用于基础加密
+     *
      * @param value value
      * @return 可解密
      */
@@ -218,7 +220,7 @@ public class StringUtil {
         StringBuilder builder = new StringBuilder();
         int length = ENCRYPT.length();
         while (value > 0) {
-            builder.append(ENCRYPT.charAt((int)(value % length)));
+            builder.append(ENCRYPT.charAt((int) (value % length)));
             value /= length;
         }
         return builder.toString();
@@ -226,6 +228,7 @@ public class StringUtil {
 
     /**
      * 数字进制 用于基础解密
+     *
      * @param value value
      * @return 可解密
      */
@@ -233,7 +236,7 @@ public class StringUtil {
         int scale = ENCRYPT.length();
         int length = value.length();
         long result = 0L;
-        for (int i = length - 1; i >=0 ; i--) {
+        for (int i = length - 1; i >= 0; i--) {
             int index = ENCRYPT.indexOf(value.charAt(i));
             result = result * scale + index;
         }
@@ -256,4 +259,5 @@ public class StringUtil {
         String insert = "INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `grade`, `sort`) VALUES ('%s', '%s', '%s', '%s', '%d', '%d');";
         return String.format(insert, id, title, encryptNumber(id), pid, grade, sort);
     }
+
 }
