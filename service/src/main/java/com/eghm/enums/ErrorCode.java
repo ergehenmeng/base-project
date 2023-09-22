@@ -25,11 +25,6 @@ public enum ErrorCode {
     ACCESS_DENIED(403,"木有访问的权限"),
 
     /**
-     * 用户登陆已过期(后台系统使用)
-     */
-    LOGIN_EXPIRE(402,"用户登陆已过期"),
-
-    /**
      * 木有找到请求地址
      */
     PAGE_NOT_FOUND(404,"木有找到请求地址"),
@@ -60,9 +55,14 @@ public enum ErrorCode {
     METHOD_NOT_SUPPORTED(505,"该访问地址不支持%s请求"),
 
     /**
-     * 屏幕锁定中
+     * 用户登陆已过期(后台系统使用)
      */
-    LOCK_SCREEN(999, "屏幕锁定中"),
+    USER_LOGIN_TIMEOUT(555,"登陆过期,请重新登陆"),
+
+    /**
+     * 用户超时,请重新登陆(用户token校验失败)
+     */
+    MEMBER_LOGIN_TIMEOUT(666,"登陆过期,请重新登陆"),
 
     /**
      * 数据转换异常
@@ -200,6 +200,11 @@ public enum ErrorCode {
     DATA_TYPE_ERROR(1033,"数据权限不匹配"),
 
     /**
+     * 屏幕锁定中
+     */
+    LOCK_SCREEN(1111, "屏幕锁定中"),
+
+    /**
      * 参数解析异常
      */
     PARAM_VERIFY_ERROR(2000,"%s"),
@@ -298,26 +303,6 @@ public enum ErrorCode {
      * 用户已锁定,请联系管理人员
      */
     USER_LOCKED_ERROR(3006,"用户已锁定,请联系管理人员"),
-
-    /**
-     * 用户超时,请重新登陆
-     */
-    USER_TIMEOUT(3007,"用户超时,请重新登陆"),
-
-    /**
-     * 登陆信息为空,请重新登陆
-     */
-    ACCESS_TOKEN_NULL(3008, "登陆信息为空,请重新登陆"),
-
-    /**
-     * 用户超时,请重新登陆(用户token校验失败)
-     */
-    ACCESS_TOKEN_TIMEOUT(3008,"登陆已过期,请重新登陆"),
-
-    /**
-     * 用户登陆过期,请重新登陆 (获取用户id失败)
-     */
-    MEMBER_LOGIN_TIMEOUT(3009,"用户登陆过期,请重新登陆"),
 
     /**
      * 旧密码输入错误

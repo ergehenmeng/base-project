@@ -3,12 +3,14 @@ package com.eghm.dto.ext;
 import com.alibaba.ttl.TransmittableThreadLocal;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 针对移动端项目用于获取用户token信息的静态类
  * @author 二哥很猛
  * @date 2019/8/22 14:22
  */
+@Slf4j
 public class ApiHolder {
 
     private static final TransmittableThreadLocal<RequestMessage> TOKEN_LOCAL = TransmittableThreadLocal.withInitial(RequestMessage::new);

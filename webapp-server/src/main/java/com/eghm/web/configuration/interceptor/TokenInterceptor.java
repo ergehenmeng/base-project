@@ -6,8 +6,8 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.MemberToken;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.exception.DataException;
-import com.eghm.exception.ParameterException;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.member.LoginService;
 import com.eghm.vo.member.LoginDeviceVO;
@@ -91,7 +91,7 @@ public class TokenInterceptor implements InterceptorAdapter {
             }
             // 如果用户需要登陆,且用户未获取到,则抛异常
             log.warn("用户登录已失效,请重新登陆 token:[{}]", token);
-            throw new ParameterException(ErrorCode.ACCESS_TOKEN_TIMEOUT);
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_TIMEOUT);
         }
     }
 

@@ -26,7 +26,7 @@ import java.util.Date;
  */
 @RestControllerAdvice
 @Slf4j
-public class ControllerAdviceHandler {
+public class ExceptionAdviceHandler {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

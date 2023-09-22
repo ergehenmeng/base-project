@@ -31,7 +31,7 @@ public class SecurityHolder {
     public static UserToken getUserRequired() {
         UserToken userToken = LOCAL.get();
         if (userToken == null) {
-            throw new BusinessException(ErrorCode.LOGIN_EXPIRE);
+            throw new BusinessException(ErrorCode.USER_LOGIN_TIMEOUT);
         }
         return userToken;
     }

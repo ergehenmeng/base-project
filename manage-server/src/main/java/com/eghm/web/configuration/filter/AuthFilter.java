@@ -45,7 +45,7 @@ public class AuthFilter extends AbstractIgnoreFilter {
                 return;
             }
         }
-        WebUtil.printJson(response, RespBody.error(ErrorCode.LOGIN_EXPIRE));
+        WebUtil.printJson(response, RespBody.error(ErrorCode.USER_LOGIN_TIMEOUT));
     }
 
 }
