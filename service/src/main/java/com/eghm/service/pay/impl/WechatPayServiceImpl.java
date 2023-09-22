@@ -146,7 +146,6 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public WxPayNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header) {
-        log.info("微信支付异步通知源数据 [{}] [{}]", notifyData, header);
         try {
             return wxPayService.parseOrderNotifyV3Result(notifyData, header);
         } catch (Exception e) {
@@ -157,7 +156,6 @@ public class WechatPayServiceImpl implements PayService {
 
     @Override
     public WxPayRefundNotifyV3Result parseRefundNotify(String notifyData, SignatureHeader header) {
-        log.info("微信退款异步通知源数据 [{}] [{}]", notifyData, header);
         try {
             return wxPayService.parseRefundNotifyV3Result(notifyData, header);
         } catch (Exception e) {

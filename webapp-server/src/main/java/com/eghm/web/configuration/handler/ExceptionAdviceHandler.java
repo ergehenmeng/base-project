@@ -144,7 +144,7 @@ public class ExceptionAdviceHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> weChatPayException(HttpServletRequest request, WeChatPayException e) {
         log.error("微信异步通知异常 [{}]", request.getRequestURI());
-        Map<String, String> map = Maps.newLinkedHashMapWithExpectedSize(2);
+        Map<String, String> map = Maps.newHashMapWithExpectedSize(2);
         map.put("code", "FAIL");
         map.put("message", e.getMessage());
         return map;

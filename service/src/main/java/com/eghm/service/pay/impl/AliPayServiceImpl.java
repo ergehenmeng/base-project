@@ -178,7 +178,6 @@ public class AliPayServiceImpl implements PayService {
     public void verifyNotify(Map<String, String> param) {
         boolean flag = false;
         try {
-            log.info("支付宝验签原参数 [{}]", param);
             flag = Factory.Payment.Common().verifyNotify(param);
         } catch (Exception e) {
             log.error("支付宝退款状态查询失败 [{}]", param, e);
