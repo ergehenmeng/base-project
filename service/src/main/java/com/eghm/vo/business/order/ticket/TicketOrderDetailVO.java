@@ -89,6 +89,9 @@ public class TicketOrderDetailVO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate visitDate;
 
+    @ApiModelProperty("核销码")
+    private String verifyCode;
+
     @ApiModelProperty("订单备注信息")
     private String remark;
 }

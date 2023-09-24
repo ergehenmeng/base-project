@@ -795,6 +795,11 @@ public enum ErrorCode {
     ORDER_STATE_MATCH(3170, "订单状态不匹配"),
 
     /**
+     * 订单状态不匹配,无法核销
+     */
+    ORDER_NOT_VERIFY(3172, "订单状态不匹配,无法核销"),
+
+    /**
      * 该房型已下架
      */
     HOMESTAY_ROOM_NULL(3173, "该房型已下架"),

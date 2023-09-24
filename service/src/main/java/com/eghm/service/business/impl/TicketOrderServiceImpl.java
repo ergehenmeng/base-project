@@ -11,6 +11,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.TicketOrderMapper;
 import com.eghm.model.OrderVisitor;
 import com.eghm.model.TicketOrder;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.utils.DataUtil;
@@ -37,6 +38,8 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     private final TicketOrderMapper ticketOrderMapper;
 
     private final OrderVisitorService orderVisitorService;
+
+    private final OrderService orderService;
 
     @Override
     public Page<TicketOrderResponse> getByPage(TicketOrderQueryRequest request) {
@@ -67,6 +70,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         TicketOrderDetailVO detail = ticketOrderMapper.getDetail(orderNo, memberId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
+        detail.setVerifyCode(orderService.encryptVerifyNo(orderNo));
         return detail;
     }
 
