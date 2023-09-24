@@ -84,7 +84,7 @@ public class ManageLogAspect {
         if (logSwitch) {
             rabbitMessageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
         } else {
-            log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],操作id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
+            log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],用户id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
         }
         return proceed;
     }
