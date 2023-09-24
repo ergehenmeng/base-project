@@ -109,7 +109,7 @@ public interface OrderService extends IService<Order> {
      * @param newState 新状态
      * @param oldState 旧状态
      */
-    void updateState(List<String> orderNoList, OrderState newState, OrderState... oldState);
+    void updateState(List<String> orderNoList, OrderState newState, Object... oldState);
 
     /**
      * 更新订单状态, 注意更新订单状态时,订单当前状态必须在旧状态中- 重载方法
@@ -117,7 +117,7 @@ public interface OrderService extends IService<Order> {
      * @param newState 新状态
      * @param oldState 旧状态
      */
-    void updateState(String orderNo, OrderState newState, OrderState... oldState);
+    void updateState(String orderNo, OrderState newState, Object... oldState);
 
     /**
      * 核销码解码

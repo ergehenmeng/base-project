@@ -201,13 +201,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void updateState(List<String> orderNoList, OrderState newState, OrderState... oldState) {
+    public void updateState(List<String> orderNoList, OrderState newState, Object... oldState) {
         if (CollUtil.isEmpty(orderNoList)) {
             log.error("订单号为空, 无法更新订单状态 [{}]", newState);
         }
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
         wrapper.in(Order::getOrderNo, orderNoList);
-        wrapper.eq(oldState.length > 0, Order::getState, oldState);
+        wrapper.in(oldState.length > 0, Order::getState, oldState);
         wrapper.set(Order::getState, newState);
         int update = baseMapper.update(null, wrapper);
         if (update != orderNoList.size()) {
@@ -216,7 +216,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void updateState(String orderNo, OrderState newState, OrderState... oldState) {
+    public void updateState(String orderNo, OrderState newState, Object... oldState) {
         this.updateState(Lists.newArrayList(orderNo), newState, oldState);
     }
 
