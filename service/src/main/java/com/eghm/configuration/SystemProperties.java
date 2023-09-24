@@ -61,9 +61,9 @@ public class SystemProperties {
     private Redis redis = new Redis();
 
     /**
-     * xss不检验的地址
+     * 需要进行xss校验的url
      */
-    private List<String> xssSkip = new ArrayList<>();
+    private List<String> xssUrl = new ArrayList<>();
 
     /**
      * 极光推送

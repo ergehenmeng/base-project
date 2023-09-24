@@ -1,6 +1,6 @@
 package com.eghm.web.configuration.filter;
 
-import cn.hutool.http.HtmlUtil;
+import com.eghm.utils.XssHtmlFilter;
 import jodd.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +14,8 @@ import java.util.Map;
  */
 @Slf4j
 public class XssHttServletRequestWrapper extends ByteHttpServletRequestWrapper  {
+
+    private static final XssHtmlFilter FILTER = new XssHtmlFilter();
 
     public XssHttServletRequestWrapper(HttpServletRequest request) {
         super(request);
@@ -71,6 +73,6 @@ public class XssHttServletRequestWrapper extends ByteHttpServletRequestWrapper  
         if (html == null) {
             return null;
         }
-        return HtmlUtil.filter(html);
+        return FILTER.filter(html);
     }
 }

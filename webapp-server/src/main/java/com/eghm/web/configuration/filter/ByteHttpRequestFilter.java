@@ -27,14 +27,14 @@ public class ByteHttpRequestFilter extends AbstractIgnoreFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        List<String> xssSkip = systemProperties.getXssSkip();
-        if (super.anyMatch(xssSkip, request)) {
-            // 需要包装字节对象方便多次读写
-            ServletRequestWrapper wrapper = new ByteHttpServletRequestWrapper(request);
-            filterChain.doFilter(wrapper, response);
-        } else {
+        List<String> xssUrl = systemProperties.getXssUrl();
+        if (super.anyMatch(xssUrl, request)) {
             // 解析后需要做xss过滤
             ServletRequestWrapper wrapper = new XssHttServletRequestWrapper(request);
+            filterChain.doFilter(wrapper, response);
+        } else {
+            // 需要包装字节对象方便多次读写
+            ServletRequestWrapper wrapper = new ByteHttpServletRequestWrapper(request);
             filterChain.doFilter(wrapper, response);
         }
     }
