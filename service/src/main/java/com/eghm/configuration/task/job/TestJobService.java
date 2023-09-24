@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.job;
 
+import com.eghm.configuration.annotation.CronMark;
 import com.eghm.utils.DateUtil;
 import com.eghm.configuration.task.config.OnceTask;
 import com.eghm.configuration.task.config.SysTaskRegistrar;
@@ -24,6 +25,7 @@ public class TestJobService {
     }
 
 
+    @CronMark
     public void execute(String args) {
         log.error("我是个数据库配置的Job, 我的作用是触发一次性任务 [{}] [{}]", args, DateUtil.formatLong(DateUtil.getNow()));
         OnceTask onceDetail = new OnceTask();

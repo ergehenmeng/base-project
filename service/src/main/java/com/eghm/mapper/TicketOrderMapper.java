@@ -9,7 +9,10 @@ import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderVO;
+import com.eghm.vo.business.order.ticket.TicketVerifyVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -51,4 +54,10 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
      * @return 订单信息
      */
     ProductSnapshotVO getSnapshot(@Param("orderId") Long orderId, @Param("orderNo") String orderNo);
+
+    /**
+     * 查询未核销的订单列表
+     * @return list
+     */
+    List<TicketVerifyVO> getUnVerifyList();
 }

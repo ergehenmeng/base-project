@@ -20,6 +20,7 @@ import com.eghm.vo.business.order.VisitorVO;
 import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderVO;
+import com.eghm.vo.business.order.ticket.TicketVerifyVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -87,5 +88,10 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     @Override
     public ProductSnapshotVO getSnapshot(Long orderId, String orderNo) {
         return ticketOrderMapper.getSnapshot(orderId, orderNo);
+    }
+
+    @Override
+    public List<TicketVerifyVO> getUnVerifyList() {
+        return ticketOrderMapper.getUnVerifyList();
     }
 }

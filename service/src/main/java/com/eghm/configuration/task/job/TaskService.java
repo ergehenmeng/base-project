@@ -1,5 +1,6 @@
 package com.eghm.configuration.task.job;
 
+import com.eghm.configuration.annotation.CronMark;
 import com.eghm.model.Order;
 import com.eghm.dto.ext.OrderRefund;
 import com.eghm.service.business.OrderRefundLogService;
@@ -26,6 +27,7 @@ public class TaskService {
     /**
      * 定时任务处理: 支付中的订单
      */
+    @CronMark
     public void payProcess(String param) {
         log.info("门票支付定时任务开始执行 [{}]", param);
         List<Order> processList = orderService.getProcessList();
@@ -36,6 +38,7 @@ public class TaskService {
     /**
      * 门票退款定时任务
      */
+    @CronMark
     public void refundProcess(String param) {
         List<OrderRefund> refundList = orderRefundLogService.getRefundProcess();
         // TODO 待完成
