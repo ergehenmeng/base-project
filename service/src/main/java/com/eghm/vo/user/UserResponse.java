@@ -26,7 +26,7 @@ public class UserResponse {
     private String deptCode;
 
     @ApiModelProperty("权限类型")
-    private Integer permissionType;
+    private Integer dataType;
 
     @ApiModelProperty("备注信息")
     private String remark;

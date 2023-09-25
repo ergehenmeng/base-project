@@ -66,9 +66,6 @@ public class SysUser extends BaseEntity {
     @ApiModelProperty("部门编号")
     private String deptCode;
 
-    @ApiModelProperty("权限类型")
-    private Integer permissionType;
-
     @ApiModelProperty("备注信息")
     private String remark;
 

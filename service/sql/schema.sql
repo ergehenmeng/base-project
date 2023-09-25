@@ -472,7 +472,6 @@ CREATE TABLE `sys_user`
     `pwd`             varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',
     `init_pwd`        varchar(256)        DEFAULT NULL COMMENT '初始密码',
     `dept_code`       varchar(20)         DEFAULT NULL COMMENT '所属部门编号',
-    `permission_type` tinyint(1)          DEFAULT '1' COMMENT '数据权限类型 1:自己的权限 2:自己部门权限 3:自己部门及子部门 4: 自定义权限 5 全部',
     `deleted`         bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
     `create_time`     datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
