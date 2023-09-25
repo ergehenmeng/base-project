@@ -304,8 +304,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public OrderScanVO getScanResult(String orderNo) {
+    public OrderScanVO getScanResult(String orderNo, Long merchantId) {
         Order order = this.getByOrderNo(orderNo);
+        if ((merchantId != null && !merchantId.equals(order.getMerchantId())) || (merchantId == null && order.getMerchantId() != null)) {
+            log.warn("核销码不属于当前商户下的订单 [{}] [{}] [{}]", orderNo, merchantId, order.getMerchantId());
+            throw new BusinessException(ErrorCode.VERIFY_ACCESS_DENIED);
+        }
         OrderScanVO vo = DataUtil.copy(order, OrderScanVO.class);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);

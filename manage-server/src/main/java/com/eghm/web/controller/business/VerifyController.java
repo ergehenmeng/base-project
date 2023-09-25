@@ -55,8 +55,8 @@ public class VerifyController {
     public RespBody<OrderScanVO> scan(@RequestParam("verifyNo") String verifyNo) {
         String orderNo = orderService.decryptVerifyNo(verifyNo);
         ProductType productType = ProductType.prefix(orderNo);
-        if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET) {
-            OrderScanVO vo = orderService.getScanResult(orderNo);
+        if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET || productType == ProductType.RESTAURANT) {
+            OrderScanVO vo = orderService.getScanResult(orderNo, SecurityHolder.getMerchantId());
             return RespBody.success(vo);
         } else {
             return RespBody.error(VERIFY_ORDER_ERROR);

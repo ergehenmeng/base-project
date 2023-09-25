@@ -1110,6 +1110,11 @@ public enum ErrorCode {
     VISITOR_VERIFY_ERROR(3426, "用户[%s]无法核销"),
 
     /**
+     * 核销码不属于该商户,无法核销
+     */
+    VERIFY_ACCESS_DENIED(3427, "核销码不属于该商户,无法核销"),
+
+    /**
      * 订单退款处理中,无法核销
      */
     ORDER_REFUND_PROCESS(3428, "订单退款处理中,无法核销"),

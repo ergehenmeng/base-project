@@ -154,9 +154,10 @@ public interface OrderService extends IService<Order> {
     /**
      * 查询扫码后的订单结果
      * @param orderNo 订单编号
+     * @param merchantId 商户ID
      * @return 订单及游客信息
      */
-    OrderScanVO getScanResult(String orderNo);
+    OrderScanVO getScanResult(String orderNo, Long merchantId);
 
     /**
      * 订单状态变更处理, 注意:只有订单状态变动时才需要调用该方法
