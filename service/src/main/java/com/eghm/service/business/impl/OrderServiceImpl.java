@@ -368,6 +368,21 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return Lists.newArrayList();
     }
 
+    @Override
+    public String refreshVerifyCode(Long id, Long memberId) {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(Order::getId, Order::getOrderNo);
+        wrapper.eq(Order::getMemberId, memberId);
+        wrapper.eq(Order::getId, id);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        Order order = baseMapper.selectOne(wrapper);
+        if (order == null) {
+            log.error("刷新核销码, 订单信息未查询到 [{}] [{}]", id, memberId);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        return this.encryptVerifyNo(order.getOrderNo());
+    }
+
     /**
      * 获取待退款的订单信息
      * @param orderNo 订单信息

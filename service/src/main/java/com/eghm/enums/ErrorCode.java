@@ -1100,9 +1100,9 @@ public enum ErrorCode {
     ORDER_ERROR(3420, "商品太火爆啦,请稍后再试"),
 
     /**
-     * 核销信息已变更, 请重新扫码
+     * 核销码已过期, 请重新扫码
      */
-    VERIFY_EXPIRE_ERROR(3425, "核销信息已变更, 请重新扫码"),
+    VERIFY_EXPIRE_ERROR(3425, "核销码已过期, 请重新扫码"),
 
     /**
      * 用户[%s]状态异常,无法核销

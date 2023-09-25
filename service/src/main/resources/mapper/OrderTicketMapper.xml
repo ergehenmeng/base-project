@@ -96,7 +96,7 @@
             t.merchant_id as merchantId
         from ticket_order r
         inner join `order` t on t.order_no = r.order_no
-        where t.deleted = false and r.deleted = false and t.state = 2 and r.verification_type = 2
+        where t.deleted = false and r.deleted = false and t.state = 2 and r.verification_type = 2 and r.visit_date &lt; curdate()
     </select>
 
 </mapper>

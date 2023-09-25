@@ -1,4 +1,4 @@
-package com.eghm.configuration.task;
+package com.eghm.configuration.task.config;
 
 import com.eghm.constant.CommonConstant;
 import com.eghm.service.cache.RedisLock;

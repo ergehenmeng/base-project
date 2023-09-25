@@ -178,4 +178,11 @@ public interface OrderService extends IService<Order> {
      */
     List<ProductSnapshotVO> getProductList(String orderNo);
 
+    /**
+     * 刷新核销码
+     * @param id  订单ID
+     * @param memberId 用户ID
+     * @return 核销码
+     */
+    String refreshVerifyCode(Long id, Long memberId);
 }

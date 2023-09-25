@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import cn.hutool.core.util.StrUtil;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
@@ -23,10 +24,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wyb
@@ -156,6 +154,13 @@ public class OrderController {
         context.setItemOrderId(dto.getOrderId());
         restaurantAccessHandler.refundApply(context);
         return RespBody.success();
+    }
+
+    @GetMapping("refresh")
+    @ApiOperation("刷新核销码")
+    public RespBody<String> refresh(@Validated IdDTO dto) {
+        String verifyCode = orderService.refreshVerifyCode(dto.getId(), ApiHolder.getMemberId());
+        return RespBody.success(verifyCode);
     }
 
     /**
