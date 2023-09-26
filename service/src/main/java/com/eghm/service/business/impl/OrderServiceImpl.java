@@ -67,6 +67,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     private final OrderMQService orderMQService;
 
+    private final CommonService commonService;
+
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
         List<String> orderNoList = StrUtil.split(orderNo, ',');
@@ -306,7 +308,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public OrderScanVO getScanResult(String orderNo, Long merchantId) {
         Order order = this.getByOrderNo(orderNo);
-        if ((merchantId != null && !merchantId.equals(order.getMerchantId())) || (merchantId == null && order.getMerchantId() != null)) {
+        if (commonService.checkIsIllegal(merchantId)) {
             log.warn("核销码不属于当前商户下的订单 [{}] [{}] [{}]", orderNo, merchantId, order.getMerchantId());
             throw new BusinessException(ErrorCode.VERIFY_ACCESS_DENIED);
         }

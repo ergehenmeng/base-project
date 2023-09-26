@@ -120,5 +120,11 @@ public interface SysUserService {
      */
     LoginResponse login(String userName , String password);
 
+    /**
+     * 更新用户信息
+     * @param user user
+     */
+    void updateById(SysUser user);
+
 }
 

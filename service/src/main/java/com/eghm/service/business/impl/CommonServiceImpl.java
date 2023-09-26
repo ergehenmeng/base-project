@@ -72,12 +72,22 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public void checkIllegal(Long merchantId) {
-        Long loginMerchantId = SecurityHolder.getMerchantId();
-        // 该接口是商家和平台共用, 商家只能查看自己的商户信息
-        if (merchantId != null && !merchantId.equals(loginMerchantId)) {
-            log.error("商户访问了非自己的数据 [{}] [{}]", merchantId, loginMerchantId);
+        if (this.checkIsIllegal(merchantId)) {
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
         }
     }
 
+    @Override
+    public boolean checkIsIllegal(Long merchantId) {
+        Long loginMerchantId = SecurityHolder.getMerchantId();
+        if (loginMerchantId == null && merchantId == null) {
+            return false;
+        }
+        if (merchantId == null || !merchantId.equals(loginMerchantId)) {
+            // loginMerchantId或merchantId一定有一个是不为空或者两个都不为空的
+            log.error("商户访问了非自己的数据 [{}] [{}]", loginMerchantId, merchantId);
+            return true;
+        }
+        return false;
+    }
 }

@@ -16,9 +16,11 @@ import com.eghm.enums.DataType;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
+import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
 import com.eghm.model.SysUser;
+import com.eghm.service.business.MerchantUserService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.sys.SysDataDeptService;
@@ -46,6 +48,8 @@ public class SysUserServiceImpl implements SysUserService {
     private final SysUserMapper sysUserMapper;
 
     private final MerchantMapper merchantMapper;
+
+    private final MerchantUserMapper merchantUserMapper;
 
     private final Encoder encoder;
 
@@ -148,7 +152,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser user = DataUtil.copy(request, SysUser.class);
         sysUserMapper.updateById(user);
         // 数据权限, 在新增系统用户时,可以手动指定数据权限,此处既是将用户与其所拥有的的部门权限做关联,方便后续进行数据权限分组
-        if (request.getDataType() == DataType.CUSTOM.getValue()) {
+        if (request.getDataType() != null && request.getDataType() == DataType.CUSTOM.getValue()) {
             // 删除旧数据权限
             sysDataDeptService.deleteByUserId(user.getId());
             // 添加新数据权限
@@ -237,6 +241,12 @@ public class SysUserServiceImpl implements SysUserService {
         return response;
     }
 
+    @Override
+    public void updateById(SysUser user) {
+        this.redoMobile(user.getMobile(), user.getId());
+        sysUserMapper.updateById(user);
+    }
+
     /**
      * 查询用户关联的商户id, 只针对普通商户
      * @param userId userId
@@ -249,6 +259,12 @@ public class SysUserServiceImpl implements SysUserService {
             merchantId = merchantMapper.getByUserId(userId);
             if (merchantId == null) {
                 log.error("商户信息未查询到 [{}]", userId);
+                throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
+            }
+        } else if (userType == SysUser.USER_TYPE_3) {
+            merchantId = merchantUserMapper.getByUserId(userId);
+            if (merchantId == null) {
+                log.error("商户普通用户信息未查询到 [{}]", userId);
                 throw new BusinessException(ErrorCode.MERCHANT_NOT_FOUND);
             }
         }

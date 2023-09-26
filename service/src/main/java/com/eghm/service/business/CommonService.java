@@ -59,4 +59,10 @@ public interface CommonService {
      */
     void checkIllegal(Long merchantId);
 
+    /**
+     * 检查当前登陆用户是否为指定的商户id, 注意:如果登陆用户商户号(表示是管理员)为空则不校验
+     * @param merchantId 商户号
+     * @return true:非法 false:合法
+     */
+    boolean checkIsIllegal(Long merchantId);
 }

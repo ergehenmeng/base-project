@@ -1255,6 +1255,11 @@ public enum ErrorCode {
     EVALUATION_NULL(3677,"评论信息未查询到"),
 
     /**
+     * 商户用户未查询到
+     */
+    MERCHANT_USER_NULL(3680,"商户用户未查询到"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

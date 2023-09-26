@@ -34,9 +34,14 @@ public class SysUser extends BaseEntity {
     public static final int USER_TYPE_1 = 1;
 
     /**
-     * 商户用户
+     * 商户管理员
      */
     public static final int USER_TYPE_2 = 2;
+
+    /**
+     * 商户普通用户
+     */
+    public static final int USER_TYPE_3 = 3;
 
     @ApiModelProperty("用户姓名")
     @TableField(typeHandler = LikeTypeHandler.class)
@@ -46,7 +51,7 @@ public class SysUser extends BaseEntity {
     @TableField(typeHandler = LikeTypeHandler.class)
     private String mobile;
 
-    @ApiModelProperty("用户类型 1: 系统用户 2: 商户用户")
+    @ApiModelProperty("用户类型 1: 系统用户 2: 商户管理员 3: 商户普通用户")
     private Integer userType;
 
     @ApiModelProperty("数据权限 只针对系统用户有效")

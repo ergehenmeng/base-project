@@ -47,6 +47,10 @@ public enum RoleType {
      */
     LINE("line", "线路商户"),
 
+    /**
+     * 商家普通用户
+     */
+    MERCHANT("merchant", "商家普通用户"),
     ;
 
     /**
