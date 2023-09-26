@@ -98,7 +98,7 @@ public interface SysUserService {
      * 删除用户
      * @param id userId
      */
-    void delete(Long id);
+    void deleteById(Long id);
 
     /**
      * 锁定用户

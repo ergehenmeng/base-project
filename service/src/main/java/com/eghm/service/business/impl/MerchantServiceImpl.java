@@ -85,6 +85,10 @@ public class MerchantServiceImpl implements MerchantService {
     public void update(MerchantEditRequest request) {
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         merchantMapper.updateById(merchant);
+        SysUser user = new SysUser();
+        user.setMobile(request.getMobile());
+        user.setNickName(request.getNickName());
+        sysUserService.updateById(user);
         sysRoleService.authRole(merchant.getId(), MerchantRoleMapping.parseRoleType(request.getType()));
     }
 

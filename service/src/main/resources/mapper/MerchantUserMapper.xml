@@ -6,4 +6,24 @@
         select merchant_id from merchant_user where user_id = #{userId} and deleted = false
     </select>
 
+    <select id="getByPage" resultType="com.eghm.vo.business.merchant.MerchantUserResponse" parameterType="com.eghm.dto.business.merchant.MerchantUserQueryRequest">
+        select
+        t.id,
+        t.nick_name,
+        t.mobile,
+        r.state,
+        t.create_time,
+        t.update_time
+        from merchant_user t left join sys_user r on t.user_id = r.id
+        where t.deleted = false and t.merchant_id = #{param.merchantId}
+        <if test="param.state != null">
+            and r.state = #{param.state}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and (t.nick_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+                or t.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+        </if>
+        order by t.id desc
+    </select>
+
 </mapper>

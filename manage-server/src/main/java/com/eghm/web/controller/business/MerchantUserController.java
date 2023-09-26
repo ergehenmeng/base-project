@@ -1,0 +1,74 @@
+package com.eghm.web.controller.business;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.merchant.MerchantUserAddRequest;
+import com.eghm.dto.business.merchant.MerchantUserEditRequest;
+import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
+import com.eghm.dto.ext.PageData;
+import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.MerchantUserService;
+import com.eghm.vo.business.merchant.MerchantUserResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * @author 二哥很猛 2023/8/24 19:34
+ */
+@RestController
+@Api(tags = "商户用户管理")
+@AllArgsConstructor
+@RequestMapping("/manage/merchant/user")
+public class MerchantUserController {
+
+    private final MerchantUserService merchantUserService;
+
+    @GetMapping("/listPage")
+    @ApiOperation("用户列表")
+    public RespBody<PageData<MerchantUserResponse>> listPage(@Validated MerchantUserQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        Page<MerchantUserResponse> merchantPage = merchantUserService.getByPage(request);
+        return RespBody.success(PageData.toPage(merchantPage));
+    }
+
+    @PostMapping("/create")
+    @ApiOperation("创建用户")
+    public RespBody<Void> create(@RequestBody @Validated MerchantUserAddRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        merchantUserService.create(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/update")
+    @ApiOperation("更新用户")
+    public RespBody<Void> update(@RequestBody @Validated MerchantUserEditRequest request) {
+        merchantUserService.update(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/lock")
+    @ApiOperation("账号锁定")
+    public RespBody<Void> lock(@RequestBody @Validated IdDTO dto) {
+        merchantUserService.lockUser(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/unlock")
+    @ApiOperation("账号解锁")
+    public RespBody<Void> unlock(@RequestBody @Validated IdDTO dto) {
+        merchantUserService.unlockUser(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除用户")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        merchantUserService.deleteById(dto.getId());
+        return RespBody.success();
+    }
+
+}

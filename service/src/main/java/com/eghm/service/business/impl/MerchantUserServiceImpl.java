@@ -1,9 +1,11 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.crypto.digest.MD5;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.dto.business.merchant.MerchantUserAddRequest;
 import com.eghm.dto.business.merchant.MerchantUserEditRequest;
+import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
@@ -15,6 +17,7 @@ import com.eghm.service.business.MerchantUserService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.merchant.MerchantUserResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +43,11 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     private final CommonService commonService;
 
     @Override
+    public Page<MerchantUserResponse> getByPage(MerchantUserQueryRequest request) {
+        return merchantUserMapper.getByPage(request.createPage(), request);
+    }
+
+    @Override
     public void create(MerchantUserAddRequest request) {
         SysUser user = new SysUser();
         user.setUserType(SysUser.USER_TYPE_3);
@@ -56,12 +64,8 @@ public class MerchantUserServiceImpl implements MerchantUserService {
 
     @Override
     public void update(MerchantUserEditRequest request) {
-        MerchantUser merchant = merchantUserMapper.selectById(request.getId());
-        if (merchant == null) {
-            log.warn("编辑用户, 商户用户未查询到 [{}]", request.getId());
-            throw new BusinessException(ErrorCode.MERCHANT_USER_NULL);
-        }
-        commonService.checkIllegal(merchant.getMerchantId());
+        MerchantUser merchant = this.getMerchantUser(request.getId());
+
         SysUser user = new SysUser();
         user.setId(merchant.getUserId());
         user.setNickName(request.getNickName());
@@ -75,4 +79,37 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         merchantUserMapper.updateById(merchant);
     }
 
+    @Override
+    public void deleteById(Long id) {
+        MerchantUser merchant = this.getMerchantUser(id);
+        sysUserService.deleteById(merchant.getUserId());
+        merchantUserMapper.deleteById(id);
+    }
+
+    @Override
+    public void lockUser(Long id) {
+        MerchantUser merchant = this.getMerchantUser(id);
+        sysUserService.lockUser(merchant.getUserId());
+    }
+
+    @Override
+    public void unlockUser(Long id) {
+        MerchantUser merchant = this.getMerchantUser(id);
+        sysUserService.unlockUser(merchant.getUserId());
+    }
+
+    /**
+     * 查询商户用户信息,并校验是否合法操作
+     * @param id id
+     * @return 商户用户信息
+     */
+    private MerchantUser getMerchantUser(Long id) {
+        MerchantUser merchant = merchantUserMapper.selectById(id);
+        if (merchant == null) {
+            log.warn("编辑用户, 商户用户未查询到 [{}]", id);
+            throw new BusinessException(ErrorCode.MERCHANT_USER_NULL);
+        }
+        commonService.checkIllegal(merchant.getMerchantId());
+        return merchant;
+    }
 }

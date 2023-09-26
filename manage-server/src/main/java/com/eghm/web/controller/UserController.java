@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PostMapping("/changePwd")
-    @ApiOperation("修改管理人员密码")
+    @ApiOperation("修改登录人的密码")
     public RespBody<Void> changePwd(@Validated @RequestBody PasswordEditRequest request) {
         request.setUserId(SecurityHolder.getUserId());
         sysUserService.updateLoginPassword(request);
@@ -116,7 +116,7 @@ public class UserController {
     @PostMapping("/delete")
     @ApiOperation("删除用户")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
-        sysUserService.delete(request.getId());
+        sysUserService.deleteById(request.getId());
         return RespBody.success();
     }
 
