@@ -28,7 +28,7 @@ import static com.eghm.enums.ErrorCode.ORDER_TYPE_MATCH;
  * @since 2023/6/7
  */
 @RestController
-@Api(tags = "售后管理")
+@Api(tags = "退款管理")
 @AllArgsConstructor
 @RequestMapping("/manage/refund/log")
 public class RefundLogController {

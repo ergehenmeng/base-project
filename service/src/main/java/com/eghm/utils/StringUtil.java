@@ -244,15 +244,18 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        int pid = 101212;
-        log.info(sql(pid, "", 1011, 1, 130));
+        int pid = 101019;
+        StringBuilder builder = new StringBuilder();
+        builder.append("\r\n");
+        builder.append(sql(pid, "", 1010, 1, 10)).append("\r\n");
 
         int start = Integer.parseInt(pid + "10");
         int index = 1;
         for (int i = start; i <= start + 20; i++) {
-            log.info(sql(i, "替换", pid, 2, index * 10));
+            builder.append(sql(i, "替换", pid, 2, index * 10)).append("\r\n");
             index++;
         }
+        log.info(builder.toString());
     }
 
     public static String sql(int id, String title, int pid, int grade, int sort) {

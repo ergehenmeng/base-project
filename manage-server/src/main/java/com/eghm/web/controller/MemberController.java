@@ -32,14 +32,14 @@ public class MemberController {
     }
 
     @PostMapping("/freeze")
-    @ApiOperation("冻结用户")
+    @ApiOperation("冻结")
     public RespBody<Void> freeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), false);
         return RespBody.success();
     }
 
     @PostMapping("/unfreeze")
-    @ApiOperation("解冻用户")
+    @ApiOperation("解冻")
     public RespBody<Void> unfreeze(@Validated @RequestBody IdDTO dto) {
         memberService.updateState(dto.getId(), true);
         return RespBody.success();

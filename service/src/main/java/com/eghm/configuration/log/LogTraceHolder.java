@@ -40,11 +40,11 @@ public class LogTraceHolder {
         }
     };
 
-    public static void put(String value) {
+    public static void putTraceId(String value) {
         TTL_MDC.get().put(CommonConstant.TRACE_ID, value);
     }
 
-    public static String get() {
+    public static String getTraceId() {
         return TTL_MDC.get().get(CommonConstant.TRACE_ID);
     }
 

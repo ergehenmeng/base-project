@@ -66,7 +66,7 @@ public class SysTaskServiceImpl implements SysTaskService {
     }
 
     @Override
-    public void runTask(Long id, String args) {
+    public void execute(Long id, String args) {
         if (sysTaskRegistrar == null) {
             log.error("该服务尚未激活定时任务, 请使用@EnableTask激活 [{}] [{}]", id, args);
             throw new BusinessException(ErrorCode.TASK_CONFIG_NULL);

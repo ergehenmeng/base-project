@@ -1,5 +1,7 @@
 package com.eghm.web.configuration.handler;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
+import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.dto.ext.RespBody;
@@ -8,13 +10,13 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.*;
 import com.eghm.model.WebappLog;
 import com.eghm.service.mq.service.MessageService;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -37,6 +39,8 @@ import java.util.Map;
 public class ExceptionAdviceHandler {
 
     private final MessageService rabbitMessageService;
+
+    private final DingTalkService dingTalkService;
 
     /**
      * 特殊业务异常统一拦截
@@ -91,7 +95,8 @@ public class ExceptionAdviceHandler {
         webappLog.setIp(IpUtil.getIpAddress(request));
         webappLog.setMemberId(ApiHolder.tryGetMemberId());
         webappLog.setRequestParam(ApiHolder.getRequestParam());
-        webappLog.setErrorMsg(ExceptionUtils.getStackTrace(e));
+        webappLog.setTraceId(LogTraceHolder.getTraceId());
+        webappLog.setErrorMsg(ExceptionUtil.stacktraceToString(e));
         rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }

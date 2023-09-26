@@ -56,7 +56,7 @@ public class RabbitConfig {
         }
         rabbitTemplate.setBeforePublishPostProcessors(message -> {
             MessageProperties properties = message.getMessageProperties();
-            properties.setHeader(CommonConstant.TRACE_ID, LogTraceHolder.get());
+            properties.setHeader(CommonConstant.TRACE_ID, LogTraceHolder.getTraceId());
             return message;
         });
         rabbitTemplate.setReturnsCallback(returned -> {
@@ -83,7 +83,7 @@ public class RabbitConfig {
             MessageProperties properties = message.getMessageProperties();
             String traceId = properties.getHeader(CommonConstant.TRACE_ID);
             MDC.put(CommonConstant.TRACE_ID, traceId);
-            LogTraceHolder.put(traceId);
+            LogTraceHolder.putTraceId(traceId);
             return message;
         });
         factory.setTaskExecutor(TtlExecutors.getTtlExecutor(new SimpleAsyncTaskExecutor("@RabbitListener线程-")));

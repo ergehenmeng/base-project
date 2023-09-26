@@ -61,6 +61,9 @@ public class WebappLog implements Serializable {
     @ApiModelProperty("请求参数(json)")
     private String requestParam;
 
+    @ApiModelProperty("请求堆栈id")
+    private String traceId;
+
     @ApiModelProperty("错误日志")
     private String errorMsg;
 

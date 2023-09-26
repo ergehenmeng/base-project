@@ -50,10 +50,10 @@ public class SysTaskController {
         return RespBody.success();
     }
 
-    @PostMapping("/runTask")
+    @PostMapping("/execute")
     @ApiOperation("执行一次任务")
-    public RespBody<Void> runTask(@Validated @RequestBody TaskRunRequest request) {
-        sysTaskService.runTask(request.getId(), request.getArgs());
+    public RespBody<Void> execute(@Validated @RequestBody TaskRunRequest request) {
+        sysTaskService.execute(request.getId(), request.getArgs());
         return RespBody.success();
     }
 }

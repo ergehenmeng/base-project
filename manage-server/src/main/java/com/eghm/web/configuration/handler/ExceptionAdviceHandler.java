@@ -1,12 +1,15 @@
 package com.eghm.web.configuration.handler;
 
+import cn.hutool.core.exceptions.ExceptionUtil;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
 import com.eghm.configuration.DatePropertyEditor;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -24,9 +27,13 @@ import java.util.Date;
  * @author 二哥很猛
  * @date 2018/11/29 15:03
  */
-@RestControllerAdvice
+
 @Slf4j
+@AllArgsConstructor
+@RestControllerAdvice
 public class ExceptionAdviceHandler {
+
+    private final DingTalkService dingTalkService;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -59,6 +66,7 @@ public class ExceptionAdviceHandler {
             BusinessException exception = (BusinessException) e.getCause().getCause();
             return RespBody.error(exception.getCode(), exception.getMessage());
         }
+        dingTalkService.sendMsg(ExceptionUtil.stacktraceToString(e));
         return RespBody.error(ErrorCode.SYSTEM_ERROR);
     }
 

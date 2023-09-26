@@ -36,5 +36,5 @@ public interface SysTaskService {
      * @param id 任务配置id
      * @param args 任务参数
      */
-    void runTask(Long id, String args);
+    void execute(Long id, String args);
 }

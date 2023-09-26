@@ -24,7 +24,7 @@ public class LogTraceFilter extends OncePerRequestFilter {
         try {
             String traceId = StringUtil.randomLowerCase(16);
             MDC.put(CommonConstant.TRACE_ID, traceId);
-            LogTraceHolder.put(traceId);
+            LogTraceHolder.putTraceId(traceId);
             filterChain.doFilter(request, response);
         } finally {
             MDC.clear();

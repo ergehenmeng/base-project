@@ -33,7 +33,7 @@ public class Member extends BaseEntity implements Serializable {
     @ApiModelProperty("登陆密码")
     private String pwd;
 
-    @ApiModelProperty("状态 0:注销 1正常")
+    @ApiModelProperty("状态 0:冻结 1正常")
     private Boolean state;
 
     @ApiModelProperty("总积分数")
