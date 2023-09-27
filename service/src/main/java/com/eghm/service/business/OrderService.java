@@ -186,4 +186,5 @@ public interface OrderService extends IService<Order> {
      * @return 核销码
      */
     String refreshVerifyCode(Long id, Long memberId);
+
 }

@@ -6,10 +6,7 @@ import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.model.TicketOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
-import com.eghm.vo.business.order.ticket.TicketOrderResponse;
-import com.eghm.vo.business.order.ticket.TicketOrderVO;
-import com.eghm.vo.business.order.ticket.TicketVerifyVO;
+import com.eghm.vo.business.order.ticket.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -60,4 +57,12 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
      * @return list
      */
     List<TicketVerifyVO> getUnVerifyList();
+
+    /**
+     * 查询门票订单详细信息
+     *
+     * @param orderNo 订单编号
+     * @return 订单详情
+     */
+    TicketOrderDetailResponse detailByOrderNo(@Param("orderNo") String orderNo);
 }

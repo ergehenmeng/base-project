@@ -99,4 +99,38 @@
         where t.deleted = false and r.deleted = false and t.state = 2 and r.verification_type = 2 and r.visit_date &lt; curdate()
     </select>
 
+    <select id="detailByOrderNo" resultType="com.eghm.vo.business.order.ticket.TicketOrderDetailResponse">
+        select
+            t.order_no,
+            r.cover_url,
+            r.title,
+            t.scenic_id,
+            t.scenic_name,
+            t.category,
+            r.out_trade_no,
+            t.verification_type,
+            t.visit_date,
+            r.pay_type,
+            r.num,
+            r.refund_type,
+            r.refund_state,
+            r.price,
+            r.discount_amount,
+            r.pay_amount,
+            r.create_time,
+            r.pay_time,
+            r.complete_time,
+            t.mobile,
+            r.state,
+            r.refund_state,
+            r.close_time,
+            r.close_type,
+            t.use_time,
+            t.real_buy,
+            r.remark
+        from `order` r
+        inner join ticket_order t on t.order_no = r.order_no
+        where t.deleted = false and r.order_no = #{orderNo}
+    </select>
+
 </mapper>

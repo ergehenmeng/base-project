@@ -5,10 +5,8 @@ import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.model.TicketOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
-import com.eghm.vo.business.order.ticket.TicketOrderResponse;
-import com.eghm.vo.business.order.ticket.TicketOrderVO;
-import com.eghm.vo.business.order.ticket.TicketVerifyVO;
+import com.eghm.vo.business.order.ticket.*;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -73,4 +71,12 @@ public interface TicketOrderService {
      * @return list
      */
     List<TicketVerifyVO> getUnVerifyList();
+
+    /**
+     * 查询门票订单详情
+     *
+     * @param orderNo 订单编号
+     * @return 订单详细信息
+     */
+    TicketOrderDetailResponse detail(@RequestParam("orderNo") String orderNo);
 }

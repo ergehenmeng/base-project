@@ -2,7 +2,6 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CacheConstant;
-import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
 import com.eghm.dto.business.order.ticket.OnlineRefundRequest;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
@@ -11,8 +10,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.TicketOrderService;
 import com.eghm.service.cache.RedisLock;
+import com.eghm.vo.business.order.ticket.TicketOrderDetailResponse;
 import com.eghm.vo.business.order.ticket.TicketOrderResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -63,8 +64,9 @@ public class TicketOrderController {
 
     @GetMapping("/detail")
     @ApiOperation("订单详情")
-    public RespBody<Void> detail(@Validated IdDTO dto) {
-        // TODO 待完善
-        return RespBody.success();
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<TicketOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
+        TicketOrderDetailResponse detail = ticketOrderService.detail(orderNo);
+        return RespBody.success(detail);
     }
 }
