@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Api(tags = "支付日志")
 @AllArgsConstructor
-@RequestMapping("/manage/pay/log/")
+@RequestMapping("/manage/pay/log")
 public class PayLogController {
 
     private final PayRequestLogService payRequestLogService;

@@ -42,7 +42,7 @@ public abstract class BaseTest {
     protected final Map<String, Object> params = Maps.newHashMapWithExpectedSize(10);
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
+    protected WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
 
@@ -60,7 +60,7 @@ public abstract class BaseTest {
         AuthFilter filter = new AuthFilter(systemProperties.getManage(), accessTokenService);
         filter.exclude(systemProperties.getManage().getSecurity().getSkipAuth());
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(filter).build();
-        this.mockLogin("13000000000", "123456");
+        //this.mockLogin("13000000000", "123456");
     }
 
     public void mockLogin(String userName, String password) {

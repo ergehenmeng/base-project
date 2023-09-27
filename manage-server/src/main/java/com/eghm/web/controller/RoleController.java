@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PageData;
@@ -42,6 +43,7 @@ public class RoleController {
 
     @PostMapping("/list")
     @ApiOperation("角色列表(不分页)")
+    @SkipPerm
     public RespBody<List<CheckBox>> list() {
         List<SysRole> list = sysRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为CheckBox对象
