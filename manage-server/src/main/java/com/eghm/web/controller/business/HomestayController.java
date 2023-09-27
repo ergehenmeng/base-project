@@ -11,7 +11,6 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
-import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +28,6 @@ import org.springframework.web.bind.annotation.*;
 public class HomestayController {
 
     private final HomestayService homestayService;
-    
-    private final CommonService commonService;
 
     @GetMapping("/listPage")
     @ApiOperation("民宿列表")
@@ -94,7 +91,6 @@ public class HomestayController {
     @ApiOperation("详情")
     public RespBody<Homestay> select(@Validated IdDTO dto) {
         Homestay homestay = homestayService.selectByIdRequired(dto.getId());
-        commonService.checkIllegal(homestay.getMerchantId());
         return RespBody.success(homestay);
     }
 

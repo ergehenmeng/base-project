@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CacheConstant;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
 import com.eghm.dto.business.order.ticket.OnlineRefundRequest;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
@@ -57,6 +58,13 @@ public class TicketOrderController {
             orderService.onlineRefund(request);
             return null;
         });
+        return RespBody.success();
+    }
+
+    @GetMapping("/detail")
+    @ApiOperation("订单详情")
+    public RespBody<Void> detail(@Validated IdDTO dto) {
+        // TODO 待完善
         return RespBody.success();
     }
 }

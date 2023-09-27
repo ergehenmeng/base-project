@@ -23,7 +23,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
      * @param roleId 角色id
      * @return 菜单menuIds
      */
-    List<Long> getRoleMenu(@Param("roleId") Long roleId);
+    List<String> getRoleMenu(@Param("roleId") Long roleId);
 
     /**
      * 删除角色菜单关联信息 物理删除

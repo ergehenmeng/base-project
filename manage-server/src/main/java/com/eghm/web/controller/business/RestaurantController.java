@@ -2,26 +2,21 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.Restaurant;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.CommonService;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.model.Restaurant;
 import com.eghm.service.business.RestaurantService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
@@ -34,8 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
-    
-    private final CommonService commonService;
 
     @GetMapping("/listPage")
     @ApiOperation("商家列表")
@@ -94,7 +87,6 @@ public class RestaurantController {
     @ApiOperation("详情")
     public RespBody<Restaurant> select(@Validated IdDTO dto) {
         Restaurant restaurant = restaurantService.selectByIdRequired(dto.getId());
-        commonService.checkIllegal(restaurant.getMerchantId());
         return RespBody.success(restaurant);
     }
     

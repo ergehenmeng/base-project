@@ -1,23 +1,18 @@
 package com.eghm.web.controller;
 
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.IdStateDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
-import com.eghm.vo.menu.MenuResponse;
 import com.eghm.service.sys.SysMenuService;
+import com.eghm.vo.menu.MenuResponse;
 import com.eghm.web.configuration.interceptor.PermInterceptor;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,10 +30,17 @@ public class MenuController {
 
     private final PermInterceptor permInterceptor;
 
-    @GetMapping("/list")
+    @GetMapping("/systemList")
+    @ApiOperation("菜单列表(系统菜单)")
+    public RespBody<List<MenuResponse>> systemList() {
+        List<MenuResponse> responseList = sysMenuService.getSystemList();
+        return RespBody.success(responseList);
+    }
+
+    @GetMapping("/merchantList")
     @ApiOperation("菜单列表(不分页)")
-    public RespBody<List<MenuResponse>> list() {
-        List<MenuResponse> responseList = sysMenuService.getList(SecurityHolder.getUserId());
+    public RespBody<List<MenuResponse>> merchantList() {
+        List<MenuResponse> responseList = sysMenuService.getMerchantList();
         return RespBody.success(responseList);
     }
 

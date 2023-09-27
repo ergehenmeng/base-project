@@ -73,6 +73,13 @@ public class RoleController {
         return RespBody.success();
     }
 
+    @GetMapping("/menu")
+    @ApiOperation("查询角色关联菜单列表")
+    public RespBody<List<String>> menu(@Validated IdDTO dto) {
+        List<String> menuIds = sysRoleService.getRoleMenu(dto.getId());
+        return RespBody.success(menuIds);
+    }
+
     @PostMapping("/auth")
     @ApiOperation("角色菜单授权")
     public RespBody<Void> authRole(@Validated @RequestBody RoleAuthRequest request) {

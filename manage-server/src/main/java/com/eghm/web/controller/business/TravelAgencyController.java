@@ -10,7 +10,6 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
-import com.eghm.service.business.CommonService;
 import com.eghm.service.business.TravelAgencyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +28,6 @@ import org.springframework.web.bind.annotation.*;
 public class TravelAgencyController {
     
     private final TravelAgencyService travelAgencyService;
-    
-    private final CommonService commonService;
     
     @GetMapping("/listPage")
     @ApiOperation("旅行社列表")
@@ -85,7 +82,6 @@ public class TravelAgencyController {
     @ApiOperation("详情")
     public RespBody<TravelAgency> select(@Validated IdDTO dto) {
         TravelAgency travelAgency = travelAgencyService.selectByIdRequired(dto.getId());
-        commonService.checkIllegal(travelAgency.getMerchantId());
         return RespBody.success(travelAgency);
     }
     

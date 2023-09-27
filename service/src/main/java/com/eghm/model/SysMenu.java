@@ -44,6 +44,9 @@ public class SysMenu {
     @ApiModelProperty("该菜单包含的子url以分号做分割")
     private String subPath;
 
+    @ApiModelProperty("显示状态 1:商户显示(该菜单或按钮只对商户开放) 2:系统显示(该菜单或按钮只对系统人员开放)  3:全部显示(该菜单或按钮对商户和系统人员都开放)")
+    private Integer displayState;
+
     @ApiModelProperty("添加日期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

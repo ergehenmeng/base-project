@@ -16,7 +16,16 @@
     <select id="getAdminMenuList" resultType="com.eghm.vo.menu.MenuResponse">
         SELECT
         t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
-        from sys_menu t where t.state = true
+        from sys_menu t where t.state = true and (t.display_state &amp; 2) = 2
+        <if test="grade != null">
+            and t.grade = #{grade}
+        </if>
+    </select>
+
+    <select id="getMerchantMenuList" resultType="com.eghm.vo.menu.MenuResponse">
+        SELECT
+        t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
+        from sys_menu t where t.state = true and (t.display_state &amp; 1) = 1
         <if test="grade != null">
             and t.grade = #{grade}
         </if>

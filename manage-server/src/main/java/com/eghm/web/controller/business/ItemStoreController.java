@@ -11,7 +11,6 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
-import com.eghm.service.business.CommonService;
 import com.eghm.service.business.ItemStoreService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -31,8 +30,6 @@ import org.springframework.web.bind.annotation.*;
 public class ItemStoreController {
 
     private final ItemStoreService itemStoreService;
-    
-    private final CommonService commonService;
 
     @GetMapping("/listPage")
     @ApiOperation("店铺列表")
@@ -61,7 +58,6 @@ public class ItemStoreController {
     @ApiImplicitParam(name = "id", value = "店铺id", required = true)
     public RespBody<ItemStore> select(@RequestParam("id") Long id) {
         ItemStore store = itemStoreService.selectByIdRequired(id);
-        commonService.checkIllegal(store.getMerchantId());
         return RespBody.success(store);
     }
 

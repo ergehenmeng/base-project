@@ -65,7 +65,7 @@ public interface SysRoleService {
      * @param roleId 角色
      * @return 菜单列表
      */
-    List<Long> getRoleMenu(Long roleId);
+    List<String> getRoleMenu(Long roleId);
 
     /**
      * 角色菜单关联关系保存

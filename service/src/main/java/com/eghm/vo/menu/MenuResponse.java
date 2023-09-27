@@ -32,6 +32,9 @@ public class MenuResponse {
     @ApiModelProperty("子菜单")
     private List<MenuResponse> children;
 
+    @ApiModelProperty("显示状态 1:商户显示 2:系统用户显示 3:全部显示")
+    private Integer displayState;
+
     @ApiModelProperty("排序")
     @JsonIgnore
     private Integer sort;

@@ -27,11 +27,16 @@ public interface SysMenuService {
     List<MenuResponse> getAdminLeftMenuList();
 
     /**
-     * 获取用户所拥有的导航菜单列表,按钮, 注意:超管的话查询超管全部菜单(不含对超管隐藏的菜单)
-     * @param userId 用户id
+     * 获取系统所有导航菜单列表,按钮
      * @return 菜单列表
      */
-    List<MenuResponse> getList(Long userId);
+    List<MenuResponse> getSystemList();
+
+    /**
+     * 获取商户所有导航菜单列表,按钮
+     * @return 菜单列表
+     */
+    List<MenuResponse> getMerchantList();
 
     /**
      * 获取所有可用的菜单+按钮菜单
@@ -72,10 +77,10 @@ public interface SysMenuService {
 
     /**
      * 查询用户的菜单权限标识符
-     * @param user 用户id
+     * @param userId 用户id
      * @return 菜单标示符
      */
-    List<String> getPermCode(Long user);
+    List<String> getPermCode(Long userId);
 
     /**
      * 查询所有菜单权限

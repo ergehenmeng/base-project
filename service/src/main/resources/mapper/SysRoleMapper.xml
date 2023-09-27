@@ -21,7 +21,7 @@
           and t.deleted = false order by r.id desc
     </select>
 
-    <select id="getRoleMenu" resultType="long">
+    <select id="getRoleMenu" resultType="string">
         select menu_id
         from sys_role_menu
         where role_id = #{roleId}

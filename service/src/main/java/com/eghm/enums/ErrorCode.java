@@ -175,6 +175,11 @@ public enum ErrorCode {
     ILLEGAL_OPERATION(1020,"非法操作"),
 
     /**
+     * 非管理员,无权限进行授权操作
+     */
+    ADMIN_AUTH(1022,"非管理员,无权限进行授权操作"),
+
+    /**
      * 转换器不支持非枚举类
      */
     ENUM_SUPPORTED(1025,"转换器不支持非枚举类"),

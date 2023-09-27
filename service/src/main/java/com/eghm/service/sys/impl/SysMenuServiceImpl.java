@@ -63,15 +63,14 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<MenuResponse> getList(Long userId) {
-        boolean adminRole = sysRoleService.isAdminRole(userId);
-        List<MenuResponse> responseList;
-        if (adminRole) {
-            // adminHide = true, 部分菜单时商户独有菜单,不对超管进行开放
-            responseList = sysMenuMapper.getAdminMenuList(null);
-        } else {
-            responseList = sysMenuMapper.getMenuList(userId, null);
-        }
+    public List<MenuResponse> getSystemList() {
+        List<MenuResponse> responseList = sysMenuMapper.getAdminMenuList(null);
+        return this.treeBin(responseList);
+    }
+
+    @Override
+    public List<MenuResponse> getMerchantList() {
+        List<MenuResponse> responseList = sysMenuMapper.getMerchantMenuList(null);
         return this.treeBin(responseList);
     }
 
@@ -117,8 +116,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<String> getPermCode(Long user) {
-        List<MenuResponse> menuList = sysMenuMapper.getMenuList(user, 2);
+    public List<String> getPermCode(Long userId) {
+        List<MenuResponse> menuList = sysMenuMapper.getMenuList(userId, 2);
         return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 

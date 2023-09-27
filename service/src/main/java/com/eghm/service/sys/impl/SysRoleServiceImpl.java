@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
 import com.eghm.dto.role.RoleQueryRequest;
@@ -89,12 +90,17 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<Long> getRoleMenu(Long roleId) {
+    public List<String> getRoleMenu(Long roleId) {
         return sysRoleMapper.getRoleMenu(roleId);
     }
 
     @Override
     public void authMenu(Long roleId, String menuIds) {
+        Long userId = SecurityHolder.getUserId();
+        if (!this.isAdminRole(userId)) {
+            log.warn("非超级管理员,无法进行菜单授权操作 [{}]", userId);
+            throw new BusinessException(ErrorCode.ADMIN_AUTH);
+        }
         sysRoleMapper.deleteRoleMenu(roleId);
         if (StrUtil.isNotBlank(menuIds)) {
             List<Long> menuIdList = StrUtil.split(menuIds, ",").stream().mapToLong(Long::parseLong)
