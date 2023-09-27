@@ -421,10 +421,10 @@ CREATE TABLE `sys_holiday`
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
-    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`       varchar(20)         NOT NULL COMMENT '菜单名称',
-    `code`        varchar(50)         NOT NULL COMMENT '菜单标示符(自动生成)',
-    `pid`         bigint(20) unsigned NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+    `id`          varchar(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title`       varchar(20) NOT NULL COMMENT '菜单名称',
+    `code`        varchar(50) NOT NULL COMMENT '菜单标示符(自动生成)',
+    `pid`         varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
     `path`        varchar(200)        DEFAULT NULL COMMENT '菜单地址',
     `sub_path`    varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
     `grade`       tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:导航菜单 2:按钮菜单',
@@ -526,7 +526,7 @@ CREATE TABLE `sys_role_menu`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `role_id`     bigint(20) unsigned NOT NULL COMMENT '角色Id',
-    `menu_id`     bigint(20) unsigned NOT NULL COMMENT '菜单Id',
+    `menu_id`     varchar(20)         NOT NULL COMMENT '菜单Id',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `role_id_index` (`role_id`) USING BTREE,
