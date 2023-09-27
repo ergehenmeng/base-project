@@ -96,7 +96,7 @@ public class RunnableTask implements Runnable {
         return sysTaskLogService;
     }
 
-    private DingTalkService getDingTalkService() {
+    private synchronized DingTalkService getDingTalkService() {
         if (dingTalkService != null) {
             return dingTalkService;
         }

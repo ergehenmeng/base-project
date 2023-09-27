@@ -1,6 +1,7 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.roster.BlackRosterAddRequest;
@@ -26,16 +27,23 @@ public class BlackRosterController {
     private final BlackRosterService blackRosterService;
 
     @GetMapping("/listPage")
-    @ApiOperation("黑名单列表")
+    @ApiOperation("列表")
     public RespBody<PageData<BlackRoster>> listPage(BlackRosterQueryRequest request) {
         Page<BlackRoster> listByPage = blackRosterService.getByPage(request);
         return RespBody.success(PageData.toPage(listByPage));
     }
 
     @PostMapping("/create")
-    @ApiOperation("新增黑名单")
+    @ApiOperation("新增")
     public RespBody<Void> create(@RequestBody @Validated BlackRosterAddRequest request) {
         blackRosterService.addBlackRoster(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        blackRosterService.deleteById(dto.getId());
         return RespBody.success();
     }
 

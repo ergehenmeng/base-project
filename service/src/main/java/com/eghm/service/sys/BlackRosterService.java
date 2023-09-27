@@ -25,6 +25,13 @@ public interface BlackRosterService {
     void addBlackRoster(BlackRosterAddRequest request);
 
     /**
+     * 删除黑名单
+     *
+     * @param id id
+     */
+    void deleteById(Long id);
+
+    /**
      * 重新加载黑名单列表
      */
     void reloadBlackRoster();

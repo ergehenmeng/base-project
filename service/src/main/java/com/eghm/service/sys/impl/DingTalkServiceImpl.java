@@ -59,8 +59,7 @@ public class DingTalkServiceImpl implements DingTalkService {
         msg.setMsgType("text");
         DingTalkMsg.Text text = new DingTalkMsg.Text();
         String appName = SpringContextUtil.getApplicationContext().getEnvironment().getProperty("spring.application.name");
-        content = String.format("[traceId]: %s \n[服务名]: %s \n[信息]: %s", LogTraceHolder.getTraceId(), appName, content);
-        text.setContent(content);
+        text.setContent(String.format("[traceId]: %s \n[服务名]: %s \n[信息]: %s", LogTraceHolder.getTraceId(), appName, content));
         msg.setText(text);
         return jsonService.toJson(msg);
     }

@@ -57,6 +57,12 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        blackRosterMapper.deleteById(id);
+        reloadBlackRoster();
+    }
+
+    @Override
     public void reloadBlackRoster() {
         List<BlackRoster> rosterList = blackRosterMapper.selectList(null);
         if (CollUtil.isEmpty(rosterList)) {
