@@ -1,0 +1,12 @@
+GET http://localhost:8080/manage/menu/list
+token: {{token}}
+
+###
+
+GET http://localhost:8080/manage/menu/merchantList
+token: {{token}}
+
+###
+
+GET http://localhost:8080/manage/menu/systemList
+token: {{token}}
