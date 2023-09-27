@@ -14,8 +14,6 @@ import java.io.Serializable;
 @Data
 public class MenuEditRequest implements Serializable {
 
-    private static final long serialVersionUID = 6714241304584747778L;
-
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id名称不能为空")
     private String id;
@@ -36,6 +34,9 @@ public class MenuEditRequest implements Serializable {
 
     @ApiModelProperty(value = "排序(小-大)")
     private Integer sort;
+
+    @ApiModelProperty(value = "状态 true:启用 false:禁用")
+    private Boolean state;
 
     @ApiModelProperty("显示状态 1:商户显示(该菜单或按钮只对商户开放) 2:系统显示(该菜单或按钮只对系统人员开放)  3:全部显示(该菜单或按钮对商户和系统人员都开放)")
     private Integer displayState;

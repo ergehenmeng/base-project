@@ -1,9 +1,9 @@
 package com.eghm.web.controller;
 
-import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.menu.MenuResponse;
 import com.eghm.vo.sys.MenuExportVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +32,7 @@ public class ExportController {
     @GetMapping("/exportMenu")
     @ApiOperation("导出菜单列表")
     public void exportMenu(HttpServletResponse response) {
-        List<SysMenu> menuList = sysMenuService.getList();
+        List<MenuResponse> menuList = sysMenuService.getList();
         Random random = ThreadLocalRandom.current();
         List<MenuExportVO> voList = DataUtil.copy(menuList, sysMenu -> {
             MenuExportVO vo = DataUtil.copy(sysMenu, MenuExportVO.class);

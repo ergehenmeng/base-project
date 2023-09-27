@@ -1,7 +1,6 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.IdStateDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.menu.MenuAddRequest;
 import com.eghm.dto.menu.MenuEditRequest;
@@ -30,6 +29,13 @@ public class MenuController {
 
     private final PermInterceptor permInterceptor;
 
+    @GetMapping("/list")
+    @ApiOperation("全部菜单")
+    public RespBody<List<MenuResponse>> list() {
+        List<MenuResponse> responseList = sysMenuService.getList();
+        return RespBody.success(responseList);
+    }
+
     @GetMapping("/systemList")
     @ApiOperation("菜单列表(系统菜单)")
     public RespBody<List<MenuResponse>> systemList() {
@@ -56,14 +62,6 @@ public class MenuController {
     @ApiOperation("修改菜单")
     public RespBody<Void> update(@Validated @RequestBody MenuEditRequest request) {
         sysMenuService.update(request);
-        permInterceptor.refresh();
-        return RespBody.success();
-    }
-
-    @PostMapping("/updateState")
-    @ApiOperation("更新菜单状态")
-    public RespBody<Void> updateState(@Validated @RequestBody IdStateDTO dto) {
-        sysMenuService.updateState(String.valueOf(dto.getId()), dto.getState());
         permInterceptor.refresh();
         return RespBody.success();
     }

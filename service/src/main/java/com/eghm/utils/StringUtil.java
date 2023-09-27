@@ -244,10 +244,10 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        int pid = 10131013;
+        int pid = 10101013;
         StringBuilder builder = new StringBuilder();
         builder.append("\r\n");
-        builder.append(sql(pid, "", 101310, 1, 40)).append("\r\n");
+        builder.append(sql(pid, "", 101010, 1, 4)).append("\r\n");
 
         int start = Integer.parseInt(pid + "10");
         int index = 1;

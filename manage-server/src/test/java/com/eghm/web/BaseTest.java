@@ -1,5 +1,6 @@
 package com.eghm.web;
 
+import cn.hutool.crypto.digest.MD5;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.vo.login.LoginResponse;
@@ -60,7 +61,7 @@ public abstract class BaseTest {
         AuthFilter filter = new AuthFilter(systemProperties.getManage(), accessTokenService);
         filter.exclude(systemProperties.getManage().getSecurity().getSkipAuth());
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).addFilters(filter).build();
-        //this.mockLogin("13000000000", "123456");
+        this.mockLogin("13000000000", MD5.create().digestHex("123456"));
     }
 
     public void mockLogin(String userName, String password) {

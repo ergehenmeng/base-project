@@ -42,7 +42,7 @@ public interface SysMenuService {
      * 获取所有可用的菜单+按钮菜单
      * @return 菜单列表
      */
-    List<SysMenu> getList();
+    List<MenuResponse> getList();
 
     /**
      * 获取所有可用的按钮菜单

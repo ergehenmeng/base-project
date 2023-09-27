@@ -35,6 +35,12 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
     List<MenuResponse> getMerchantMenuList(@Param("state") Integer grade);
 
     /**
+     * 查询所有菜单
+     * @return 菜单列表
+     */
+    List<MenuResponse> getList();
+
+    /**
      * 查询某个菜单下的最大子菜单id
      * @param pid pid
      * @return 最大子菜单id

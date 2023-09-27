@@ -14,7 +14,6 @@ import java.util.List;
 public class MenuResponse {
 
     @ApiModelProperty("id主键")
-    @JsonIgnore
     private Long id;
 
     @ApiModelProperty("菜单名称")
@@ -27,13 +26,10 @@ public class MenuResponse {
     private String path;
     
     @ApiModelProperty("菜单级别 1:导航 2:按钮")
-    private Integer state;
+    private Integer grade;
     
     @ApiModelProperty("子菜单")
     private List<MenuResponse> children;
-
-    @ApiModelProperty("显示状态 1:商户显示 2:系统用户显示 3:全部显示")
-    private Integer displayState;
 
     @ApiModelProperty("排序")
     @JsonIgnore

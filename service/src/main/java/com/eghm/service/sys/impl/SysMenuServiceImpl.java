@@ -12,7 +12,6 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysMenuMapper;
 import com.eghm.model.SysMenu;
 import com.eghm.service.sys.SysMenuService;
-import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.menu.MenuResponse;
@@ -36,8 +35,6 @@ public class SysMenuServiceImpl implements SysMenuService {
     private final SysMenuMapper sysMenuMapper;
 
     private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
-    
-    private final SysRoleService sysRoleService;
 
     /**
      * 步长默认2位数即 10~99
@@ -75,8 +72,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<SysMenu> getList() {
-        return sysMenuMapper.selectList(null);
+    public List<MenuResponse> getList() {
+        List<MenuResponse> responseList = sysMenuMapper.getList();
+        return this.treeBin(responseList);
     }
 
     @Override
