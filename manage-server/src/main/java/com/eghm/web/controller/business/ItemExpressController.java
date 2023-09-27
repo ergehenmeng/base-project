@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
@@ -38,6 +39,7 @@ public class ItemExpressController {
 
     @GetMapping("/selectList")
     @ApiOperation("模板列表(下拉专用)")
+    @SkipPerm
     public RespBody<List<ExpressSelectResponse>> selectList() {
         List<ExpressSelectResponse> selectList = itemExpressService.selectList(SecurityHolder.getMerchantId());
         return RespBody.success(selectList);
@@ -52,7 +54,7 @@ public class ItemExpressController {
     }
 
     @PostMapping("/update")
-    @ApiOperation("更新商品")
+    @ApiOperation("更新模板")
     public RespBody<Void> update(@Validated @RequestBody ItemExpressEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
         itemExpressService.update(request);

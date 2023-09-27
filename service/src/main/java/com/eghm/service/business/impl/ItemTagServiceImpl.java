@@ -51,6 +51,11 @@ public class ItemTagServiceImpl implements ItemTagService {
     }
 
     @Override
+    public void deleteById(Long id) {
+
+    }
+
+    @Override
     public List<ItemTagResponse> getList() {
         List<ItemTagResponse> responseList = itemTagMapper.getList();
         return responseList

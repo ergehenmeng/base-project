@@ -1,26 +1,22 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.TravelAgency;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.model.TravelAgency;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.TravelAgencyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 殿小二
@@ -44,17 +40,14 @@ public class TravelAgencyController {
     }
     
     @PostMapping("/create")
-    @ApiOperation("新增商家")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody TravelAgencyAddRequest request) {
         travelAgencyService.create(request);
         return RespBody.success();
     }
-    
-    /**
-     * 对于注册的商户来说, 首次编辑商家信息即为开通商户
-     */
+
     @PostMapping("/update")
-    @ApiOperation("更新商家")
+    @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody TravelAgencyEditRequest request) {
         travelAgencyService.update(request);
         return RespBody.success();
@@ -76,7 +69,7 @@ public class TravelAgencyController {
     
     @PostMapping("/platformAudit")
     @ApiOperation("平台上架审核")
-    public RespBody<Void> updateState(@RequestBody @Validated IdDTO dto) {
+    public RespBody<Void> platformAudit(@RequestBody @Validated IdDTO dto) {
         travelAgencyService.updateAuditState(dto.getId(), PlatformState.SHELVE);
         return RespBody.success();
     }

@@ -29,7 +29,7 @@ public class LotteryController {
     private final LotteryService lotteryService;
 
     @GetMapping("/listPage")
-    @ApiOperation("商户列表")
+    @ApiOperation("抽奖列表")
     public RespBody<PageData<LotteryResponse>> listPage(@Validated LotteryQueryRequest request) {
         Page<LotteryResponse> merchantPage = lotteryService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));

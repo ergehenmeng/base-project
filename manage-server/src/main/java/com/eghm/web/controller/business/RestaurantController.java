@@ -78,7 +78,7 @@ public class RestaurantController {
 
     @PostMapping("/platformAudit")
     @ApiOperation("平台上架审核")
-    public RespBody<Void> updateState(@RequestBody @Validated IdDTO dto) {
+    public RespBody<Void> platformAudit(@RequestBody @Validated IdDTO dto) {
         restaurantService.updateAuditState(dto.getId(), PlatformState.SHELVE);
         return RespBody.success();
     }

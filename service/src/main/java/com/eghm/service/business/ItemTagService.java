@@ -29,6 +29,14 @@ public interface ItemTagService {
     void update(ItemTagEditRequest request);
 
     /**
+     * 删除标签<br/>
+     * 如果标签已经被产品使用,则不会删除
+     *
+     * @param id id
+     */
+    void deleteById(Long id);
+
+    /**
      * 查询标签列表, 组装成树状结构
      * @return 标签列表
      */

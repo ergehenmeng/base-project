@@ -1,6 +1,9 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.configuration.annotation.SkipPerm;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.item.ItemTagAddRequest;
+import com.eghm.dto.business.item.ItemTagEditRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.vo.business.item.ItemTagResponse;
@@ -26,6 +29,7 @@ public class ItemTagController {
 
     @GetMapping("/list")
     @ApiOperation("标签列表")
+    @SkipPerm
     public RespBody<List<ItemTagResponse>> list() {
         List<ItemTagResponse> serviceList = itemTagService.getList();
         return RespBody.success(serviceList);
@@ -40,8 +44,15 @@ public class ItemTagController {
 
     @PostMapping("/update")
     @ApiOperation("编辑标签")
-    public RespBody<Void> update(@Validated @RequestBody ItemTagAddRequest request) {
-        itemTagService.create(request);
+    public RespBody<Void> update(@Validated @RequestBody ItemTagEditRequest request) {
+        itemTagService.update(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除标签")
+    public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
+        itemTagService.deleteById(dto.getId());
         return RespBody.success();
     }
 
