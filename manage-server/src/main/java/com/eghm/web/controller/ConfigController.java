@@ -1,6 +1,5 @@
 package com.eghm.web.controller;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.SysConfig;
 import com.eghm.dto.config.ConfigEditRequest;

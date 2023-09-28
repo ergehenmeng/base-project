@@ -5,6 +5,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysConfigMapper;
 import com.eghm.model.SysConfig;
 import com.eghm.dto.config.ConfigEditRequest;
@@ -39,8 +41,11 @@ public class SysConfigServiceImpl implements SysConfigService {
 
     @Override
     public void update(ConfigEditRequest request) {
-        SysConfig config = DataUtil.copy(request, SysConfig.class);
-        sysConfigMapper.updateById(config);
+        SysConfig config = sysConfigMapper.selectById(request.getId());
+        if (Boolean.TRUE.equals(config.getLocked())) {
+            throw new BusinessException(ErrorCode.CONFIG_LOCK_ERROR);
+        }
+        sysConfigMapper.updateById(DataUtil.copy(request, SysConfig.class));
     }
 
     @Override

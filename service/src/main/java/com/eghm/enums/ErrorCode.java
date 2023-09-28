@@ -310,6 +310,11 @@ public enum ErrorCode {
     USER_LOCKED_ERROR(3006,"用户已锁定,请联系管理人员"),
 
     /**
+     * 系统参数已锁定
+     */
+    CONFIG_LOCK_ERROR(3007,"系统参数已锁定"),
+
+    /**
      * 旧密码输入错误
      */
     USER_PASSWORD_ERROR(3010,"旧密码输入错误"),

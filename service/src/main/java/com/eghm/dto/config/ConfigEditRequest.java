@@ -33,7 +33,4 @@ public class ConfigEditRequest {
     @ApiModelProperty(value = "备注信息")
     private String remark;
 
-    @ApiModelProperty(value = "锁定状态 false未锁定 true锁定无法编辑")
-    private Boolean locked;
-
 }

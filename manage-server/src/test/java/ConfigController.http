@@ -1,0 +1,14 @@
+GET http://localhost:8080/manage/config/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+
+GET http://localhost:8080/manage/config/update?page=1&pageSize=10
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 13,
+
+
+}
