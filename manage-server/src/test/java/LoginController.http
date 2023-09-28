@@ -7,3 +7,13 @@ Content-Type: application/json
   "verifyCode": "123"
 }
 
+###
+
+POST localhost:8080/manage/login
+Content-Type: application/json
+
+{
+"userName": "13136113359",
+"pwd": "4b01c4718779b2a97ca3fa97c18b54e5",
+"verifyCode": "123"
+}

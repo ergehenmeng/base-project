@@ -600,9 +600,9 @@ public enum ErrorCode {
     CONVERT_ERROR(3128, "非int或long格式无法转换"),
 
     /**
-     * 商户账户名被占用
+     * 商户名称重复啦~
      */
-    MERCHANT_REDO(3129, "商户账户名被占用"),
+    MERCHANT_REDO(3129, "商户名称重复啦~"),
 
     /**
      * 商户手机号被占用

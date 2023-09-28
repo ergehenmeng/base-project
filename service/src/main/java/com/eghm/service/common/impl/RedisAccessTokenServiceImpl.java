@@ -1,5 +1,6 @@
 package com.eghm.service.common.impl;
 
+import cn.hutool.core.lang.UUID;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
@@ -10,7 +11,11 @@ import com.eghm.service.common.JsonService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 
 /**
  * 默认实现
@@ -56,13 +61,15 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", user.getId());
         hashMap.put("nickName", user.getNickName());
-        hashMap.put("dataType", user.getDataType().getValue());
+        if (user.getDataType() != null) {
+            hashMap.put("dataType", user.getDataType().getValue());
+        }
         hashMap.put("userType", user.getUserType());
         hashMap.put("dataList", dataList);
         hashMap.put("authList", authList);
         hashMap.put("merchantId", merchantId);
         hashMap.put("deptCode", user.getDeptCode());
-        String token = UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString(true);
         String key = CacheConstant.USER_REDIS_TOKEN + token;
         cacheService.setValue(key, jsonService.toJson(hashMap), expireSeconds);
         return token;

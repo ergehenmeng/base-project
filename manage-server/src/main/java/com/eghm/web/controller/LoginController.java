@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 @Api(tags = "登陆")
 @AllArgsConstructor
 @RequestMapping("/manage")
-public class ManageLoginController {
+public class LoginController {
 
     private final CacheService cacheService;
 

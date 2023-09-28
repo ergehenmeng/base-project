@@ -61,7 +61,8 @@ public class MerchantServiceImpl implements MerchantService {
     
     @Override
     public void create(MerchantAddRequest request) {
-        this.checkMobileRedo(request.getMobile());
+        this.checkMerchantRedo(request.getMerchantName(), null);
+        this.checkMobileRedo(request.getMobile(), null);
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         SysUser user = new SysUser();
@@ -83,6 +84,8 @@ public class MerchantServiceImpl implements MerchantService {
     
     @Override
     public void update(MerchantEditRequest request) {
+        this.checkMerchantRedo(request.getMerchantName(), request.getId());
+        this.checkMobileRedo(request.getMobile(), request.getId());
         Merchant merchant = DataUtil.copy(request, Merchant.class);
         merchantMapper.updateById(merchant);
         SysUser user = new SysUser();
@@ -119,12 +122,30 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     /**
+     * 校验商户名称是否被占用
+     * @param merchantName 商户名称
+     * @param id id
+     */
+    private void checkMerchantRedo(String merchantName, Long id) {
+        LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Merchant::getMerchantName, merchantName);
+        wrapper.eq(id != null, Merchant::getId, id);
+        Long count = merchantMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.error("商户名称被占用 [{}]", merchantName);
+            throw new BusinessException(ErrorCode.MERCHANT_REDO);
+        }
+    }
+
+    /**
      * 校验手机号是否被占用
      * @param mobile 用户名
+     * @param id 用户
      */
-    private void checkMobileRedo(String mobile) {
+    private void checkMobileRedo(String mobile, Long id) {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Merchant::getMobile, mobile);
+        wrapper.eq(id != null, Merchant::getId, id);
         Long count = merchantMapper.selectCount(wrapper);
         if (count > 0) {
             log.error("商户手机号被占用 [{}]", mobile);

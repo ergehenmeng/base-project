@@ -1,6 +1,7 @@
 package com.eghm.web.configuration.handler;
 
 
+import com.eghm.configuration.log.LogTraceHolder;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ExchangeQueue;
@@ -58,6 +59,7 @@ public class WebappLogAspect {
             webappLog.setElapsedTime(elapsedTime);
             webappLog.setIp(ip);
             webappLog.setUrl(uri);
+            webappLog.setTraceId(LogTraceHolder.getTraceId());
             webappLog.setRequestParam(message.getRequestParam());
             rabbitMessageService.send(ExchangeQueue.WEBAPP_LOG, webappLog);
             return proceed;

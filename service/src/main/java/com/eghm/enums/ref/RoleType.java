@@ -48,9 +48,9 @@ public enum RoleType {
     LINE("line", "线路商户"),
 
     /**
-     * 商家普通用户
+     * 核销员
      */
-    MERCHANT("merchant", "商家普通用户"),
+    VERIFIER("verifier", "核销员"),
     ;
 
     /**

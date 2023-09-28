@@ -48,7 +48,7 @@ public class MemberResponse {
     @ApiModelProperty("性别 性别 0:未知 1:男 2:女 ")
     private Integer sex;
 
-    @ApiModelProperty("注册渠道 pc,android,ios,h5,other")
+    @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,OTHER")
     private String channel;
 
     @ApiModelProperty("头像")

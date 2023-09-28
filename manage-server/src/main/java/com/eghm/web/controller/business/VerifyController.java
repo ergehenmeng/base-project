@@ -41,7 +41,7 @@ public class VerifyController {
 
     private final OrderService orderService;
 
-    @GetMapping("listPage")
+    @GetMapping("/listPage")
     @ApiOperation("核销记录列表")
     public RespBody<PageData<VerifyLogResponse>> listPage(VerifyLogQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());

@@ -35,7 +35,7 @@ public class ApiHolder {
 
     /**
      * 前后端分离方式:获取访问来源
-     * @return android ios h5 pc
+     * @return ANDROID IOS H5 PC
      */
     public static String getChannel(){
         return get().getChannel();
