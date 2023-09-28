@@ -1,16 +1,15 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.SysNotice;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.notice.NoticeAddRequest;
 import com.eghm.dto.notice.NoticeEditRequest;
 import com.eghm.dto.notice.NoticeQueryRequest;
+import com.eghm.model.SysNotice;
 import com.eghm.service.common.SysNoticeService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -43,10 +42,9 @@ public class SysNoticeController {
     }
 
     @GetMapping("/select")
-    @ApiImplicitParam(name = "id", value = "id", required = true)
     @ApiOperation("查看")
-    public RespBody<SysNotice> select(@RequestParam("id") Long id) {
-        SysNotice notice = sysNoticeService.getByIdRequired(id);
+    public RespBody<SysNotice> select(@Validated IdDTO dto) {
+        SysNotice notice = sysNoticeService.getByIdRequired(dto.getId());
         return RespBody.success(notice);
     }
 

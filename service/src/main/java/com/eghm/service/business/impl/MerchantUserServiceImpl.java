@@ -59,7 +59,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         MerchantUser merchant = DataUtil.copy(request, MerchantUser.class);
         merchant.setUserId(user.getId());
         merchantUserMapper.insert(merchant);
-        sysRoleService.authRole(merchant.getId(), Lists.newArrayList(RoleType.MERCHANT));
+        sysRoleService.authRole(merchant.getId(), Lists.newArrayList(RoleType.VERIFIER));
     }
 
     @Override

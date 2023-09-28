@@ -18,7 +18,7 @@ public class VersionAddRequest implements Serializable {
     private static final long serialVersionUID = 4277066521664563340L;
     
     @ApiModelProperty(required = true, value = "上架平台 ANDROID, IOS")
-    @OptionString({"ANDROID", "IOS"})
+    @OptionString(value = {"ANDROID", "IOS"}, message = "上架平台参数非法")
     private String classify;
     
     @ApiModelProperty(required = true, value = "上架状态 0:待上架 1:已上架")

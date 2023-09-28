@@ -2,19 +2,18 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.HomestayRoom;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomEditRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
+import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
+import com.eghm.model.HomestayRoom;
 import com.eghm.service.business.HomestayRoomService;
+import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -55,9 +54,8 @@ public class HomestayRoomController {
 
     @GetMapping("/select")
     @ApiOperation("查询房型")
-    @ApiImplicitParam(name = "id", value = "店铺id", required = true)
-    public RespBody<HomestayRoom> select(@RequestParam("id") Long id) {
-        HomestayRoom homestayRoom = homestayRoomService.selectById(id);
+    public RespBody<HomestayRoom> select(@Validated IdDTO dto) {
+        HomestayRoom homestayRoom = homestayRoomService.selectById(dto.getId());
         return RespBody.success(homestayRoom);
     }
 

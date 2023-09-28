@@ -28,28 +28,28 @@ public class DictController {
     private final SysDictService sysDictService;
 
     @GetMapping("/listPage")
-    @ApiOperation("数据字典列表(分页)")
+    @ApiOperation("列表")
     public RespBody<PageData<SysDict>> listPage(DictQueryRequest request) {
         Page<SysDict> byPage = sysDictService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @PostMapping("/create")
-    @ApiOperation("增加字典项")
+    @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody DictAddRequest request) {
         sysDictService.create(request);
         return RespBody.success();
     }
 
     @PostMapping("/update")
-    @ApiOperation("编辑字典项")
+    @ApiOperation("编辑")
     public RespBody<Void> update(@Validated @RequestBody DictEditRequest request) {
         sysDictService.update(request);
         return RespBody.success();
     }
 
     @PostMapping("/delete")
-    @ApiOperation("删除数据字典")
+    @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysDictService.delete(dto.getId());
         return RespBody.success();

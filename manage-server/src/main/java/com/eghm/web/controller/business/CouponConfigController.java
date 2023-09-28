@@ -13,7 +13,6 @@ import com.eghm.model.CouponConfig;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.MemberCouponService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -56,9 +55,8 @@ public class CouponConfigController {
 
     @GetMapping("/select")
     @ApiOperation("查询优惠券")
-    @ApiImplicitParam(name = "id", value = "id", required = true)
-    public RespBody<CouponConfig> select(@RequestParam("id") Long id) {
-        CouponConfig config = couponConfigService.selectById(id);
+    public RespBody<CouponConfig> select(@Validated IdDTO dto) {
+        CouponConfig config = couponConfigService.selectById(dto.getId());
         return RespBody.success(config);
     }
 

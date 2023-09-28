@@ -13,7 +13,6 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.ItemStore;
 import com.eghm.service.business.ItemStoreService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -55,9 +54,8 @@ public class ItemStoreController {
 
     @GetMapping("/select")
     @ApiOperation("查询店铺")
-    @ApiImplicitParam(name = "id", value = "店铺id", required = true)
-    public RespBody<ItemStore> select(@RequestParam("id") Long id) {
-        ItemStore store = itemStoreService.selectByIdRequired(id);
+    public RespBody<ItemStore> select(@Validated IdDTO dto) {
+        ItemStore store = itemStoreService.selectByIdRequired(dto.getId());
         return RespBody.success(store);
     }
 

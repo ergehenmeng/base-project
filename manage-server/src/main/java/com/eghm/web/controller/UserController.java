@@ -65,11 +65,10 @@ public class UserController {
 
     @GetMapping("/select")
     @ApiOperation("查询系统用户信息")
-    @ApiImplicitParam(name = "id", value = "id主键", required = true)
-    public RespBody<UserResponse> select(@RequestParam("id") Long id) {
-        SysUser user = sysUserService.getById(id);
+    public RespBody<UserResponse> select(@Validated IdDTO dto) {
+        SysUser user = sysUserService.getById(dto.getId());
         UserResponse response = DataUtil.copy(user, UserResponse.class);
-        List<Long> roleList = sysRoleService.getByUserId(id);
+        List<Long> roleList = sysRoleService.getByUserId(dto.getId());
         response.setRoleIds(Joiner.on(",").join(roleList));
         return RespBody.success(response);
     }

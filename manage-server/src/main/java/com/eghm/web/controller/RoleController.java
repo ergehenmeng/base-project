@@ -14,7 +14,6 @@ import com.eghm.model.SysRole;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -60,7 +59,6 @@ public class RoleController {
 
     @PostMapping("/delete")
     @ApiOperation("编辑角色")
-    @ApiImplicitParam(name = "id", value = "id主键", required = true)
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysRoleService.delete(dto.getId());
         return RespBody.success();

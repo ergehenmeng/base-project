@@ -1,0 +1,17 @@
+GET localhost:8080/manage/version/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/version/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "classify": "IOS",
+  "state": 0,
+  "version": "9.23",
+  "forceUpdate": false,
+  "url": "http://localhost:8080/manage/manage/download",
+  "remark": "版本备注信息"
+}

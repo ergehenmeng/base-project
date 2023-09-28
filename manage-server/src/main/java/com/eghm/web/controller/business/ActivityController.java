@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.activity.ActivityAddRequest;
 import com.eghm.dto.business.activity.ActivityConfigRequest;
 import com.eghm.dto.business.activity.ActivityDeleteRequest;
@@ -65,9 +66,8 @@ public class ActivityController {
 
     @GetMapping("/select")
     @ApiOperation("查询活动")
-    @ApiImplicitParam(name = "id", value = "id", required = true)
-    public RespBody<Activity> select(@RequestParam("id") Long id) {
-        Activity activity = activityService.selectById(id);
+    public RespBody<Activity> select(@RequestBody IdDTO dto) {
+        Activity activity = activityService.selectById(dto.getId());
         return RespBody.success(activity);
     }
 

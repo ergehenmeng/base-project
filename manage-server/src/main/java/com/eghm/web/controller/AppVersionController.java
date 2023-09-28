@@ -1,16 +1,15 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.AppVersion;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.version.VersionAddRequest;
 import com.eghm.dto.version.VersionEditRequest;
 import com.eghm.dto.version.VersionQueryRequest;
+import com.eghm.model.AppVersion;
 import com.eghm.service.common.AppVersionService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -51,7 +50,6 @@ public class AppVersionController {
 
     @PostMapping("/delete")
     @ApiOperation("删除版本信息")
-    @ApiImplicitParam(name = "id", value = "id", required = true)
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         appVersionService.delete(dto.getId());
         return RespBody.success();
