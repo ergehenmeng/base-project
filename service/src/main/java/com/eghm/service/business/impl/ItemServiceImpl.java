@@ -51,22 +51,22 @@ import static com.eghm.enums.ErrorCode.*;
 public class ItemServiceImpl implements ItemService {
     
     private final ItemMapper itemMapper;
-    
-    private final ItemSkuService itemSkuService;
-    
-    private final ItemSpecService itemSpecService;
-    
+
     private final SysConfigApi sysConfigApi;
-    
-    private final CouponConfigMapper couponConfigMapper;
+
+    private final ItemSkuService itemSkuService;
+
+    private final ItemSpecService itemSpecService;
 
     private final DingTalkService dingTalkService;
 
     private final ItemExpressService itemExpressService;
 
-    private final ItemExpressRegionService itemExpressRegionService;
+    private final CouponConfigMapper couponConfigMapper;
 
     private final OrderEvaluationService orderEvaluationService;
+
+    private final ItemExpressRegionService itemExpressRegionService;
 
     @Override
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
