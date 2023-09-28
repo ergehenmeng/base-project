@@ -103,4 +103,11 @@ public class ItemController {
         itemService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        itemService.deleteById(dto.getId());
+        return RespBody.success();
+    }
 }

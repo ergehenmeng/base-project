@@ -26,7 +26,6 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.evaluation.ApplauseRateVO;
-import com.eghm.vo.business.evaluation.EvaluationGroupVO;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
@@ -298,6 +297,11 @@ public class ItemServiceImpl implements ItemService {
             detail.setSingleSku(DataUtil.copy(skuList.get(0), ItemSkuVO.class));
         }
         return detail;
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        itemMapper.deleteById(id);
     }
 
     /**

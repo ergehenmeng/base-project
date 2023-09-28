@@ -179,4 +179,10 @@ public interface ItemService {
      * @return 商品信息
      */
     ItemVO detailById(Long id);
+
+    /**
+     * 删除零售商品
+     * @param id id
+     */
+    void deleteById(Long id);
 }

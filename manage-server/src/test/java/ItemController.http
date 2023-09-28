@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/product/listPage?page=1&pageSize=10
+GET http://localhost:8080/manage/item/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/product/create
+POST http://localhost:8080/manage/item/create
 token: {{token}}
 Content-Type: application/json
 
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/product/update
+POST http://localhost:8080/manage/item/update
 token: {{token}}
 Content-Type: application/json
 
@@ -66,21 +66,12 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/manage/product/select?id=1608738767752790017
+GET http://localhost:8080/manage/item/select?id=1608738767752790017
 token: {{token}}
 
 ###
 
-POST http://localhost:8080/manage/product/shelves
-token: {{token}}
-Content-Type: application/json
-
-{
-  "id": 1608738767752790017
-}
-###
-
-POST http://localhost:8080/manage/product/unShelves
+POST http://localhost:8080/manage/item/shelves
 token: {{token}}
 Content-Type: application/json
 
@@ -89,7 +80,7 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:8080/manage/product/platformAudit
+POST http://localhost:8080/manage/item/unShelves
 token: {{token}}
 Content-Type: application/json
 
@@ -98,7 +89,16 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:8080/manage/product/platformUnShelves
+POST http://localhost:8080/manage/item/platformAudit
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1608738767752790017
+}
+###
+
+POST http://localhost:8080/manage/item/platformUnShelves
 token: {{token}}
 Content-Type: application/json
 
@@ -107,7 +107,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/product/delete
+POST http://localhost:8080/manage/item/delete
 token: {{token}}
 Content-Type: application/json
 
