@@ -3881,8 +3881,8 @@ INSERT INTO `sys_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥
 INSERT INTO `sys_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市余杭区中泰街道338号', b'0', NULL, '2018-02-08 14:40:01', NULL);
 INSERT INTO `sys_config` VALUES ('4', 'enterprise_phone', '企业电话', '0571-00000000', b'0', NULL, '2018-02-08 14:40:46', NULL);
 INSERT INTO `sys_config` VALUES ('5', 'enterprise_email', '企业邮箱', '664956140@qq.com', b'0', NULL, '2018-02-08 14:41:22', NULL);
-INSERT INTO `sys_config` VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:03', NULL);
-INSERT INTO `sys_config` VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x', '2018-09-28 10:50:41', NULL);
+INSERT INTO `sys_config` VALUES ('6', 'ios_latest_version', 'ios最新版本号', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:03', NULL);
+INSERT INTO `sys_config` VALUES ('7', 'android_latest_version', 'android最新版本', '1.2.3', b'0', '最新版本号,格式必须为x.x.x(版本必须已经上传)', '2018-09-28 10:50:41', NULL);
 INSERT INTO `sys_config` VALUES ('11', 'sys_domain', '前台系统域名', 'http://www.eghm.top', b'0', '前台提供服务的域名', '2018-11-25 21:02:17', NULL);
 INSERT INTO `sys_config` VALUES ('12', 'sys_ip', '前台系统IP', 'http://127.0.0.1:8080', b'0', '前台提供服务的ip', '2018-11-25 21:03:13', NULL);
 INSERT INTO `sys_config` VALUES ('13', 'manage_domain', '后台系统域名', 'http://www.baidu.com', b'0', NULL, '2018-11-29 16:41:04', NULL);
