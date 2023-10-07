@@ -5,10 +5,7 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.HomestayEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
-import com.eghm.service.business.OrderMQService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.VerifyLogService;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.OrderVerifyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderVerifyHandler;
 import com.eghm.service.common.JsonService;
@@ -23,8 +20,9 @@ public class HomestayOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final OrderMQService orderMQService;
 
-    public HomestayOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService, JsonService jsonService, OrderMQService orderMQService) {
-        super(orderVisitorService, orderService, verifyLogService, jsonService);
+    public HomestayOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
+                                      JsonService jsonService, OrderMQService orderMQService, CommonService commonService) {
+        super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
         this.orderMQService = orderMQService;
     }
 
