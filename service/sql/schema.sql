@@ -156,7 +156,7 @@ CREATE TABLE `help_center`
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `classify`    tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
     `state`       tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
-    `ask`         varchar(50)         DEFAULT NULL COMMENT '问',
+    `ask`         varchar(100)        DEFAULT NULL COMMENT '问',
     `answer`      varchar(500)        DEFAULT NULL COMMENT '答',
     `sort`        tinyint(4)          DEFAULT '0' COMMENT '排序(小<->大)',
     `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:不删除(正常) 1:已删除',
@@ -421,18 +421,19 @@ CREATE TABLE `sys_holiday`
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
-    `id`          varchar(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`       varchar(20) NOT NULL COMMENT '菜单名称',
-    `code`        varchar(50) NOT NULL COMMENT '菜单标示符(自动生成)',
-    `pid`         varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
-    `path`        varchar(200)        DEFAULT NULL COMMENT '菜单地址',
-    `sub_path`    varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
-    `grade`       tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:导航菜单 2:按钮菜单',
-    `sort`        int(10)             DEFAULT '0' COMMENT '排序规则 小的排在前面',
-    `state`       bit(1)              DEFAULT b'1' COMMENT '状态: 1:启用 0:禁用',
-    `remark`      varchar(200)        DEFAULT NULL COMMENT '备注信息',
-    `create_time` datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `id`            varchar(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title`         varchar(20) NOT NULL COMMENT '菜单名称',
+    `code`          varchar(50) NOT NULL COMMENT '菜单标示符(自动生成)',
+    `pid`           varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
+    `path`          varchar(200)        DEFAULT NULL COMMENT '菜单地址',
+    `sub_path`      varchar(500)        DEFAULT NULL COMMENT '权限拦截路径',
+    `grade`         tinyint(1) unsigned DEFAULT '1' COMMENT '菜单级别 1:导航菜单 2:按钮菜单',
+    `sort`          int(10)             DEFAULT '0' COMMENT '排序规则 小的排在前面',
+    `state`         bit(1)              DEFAULT b'1' COMMENT '状态: 1:启用 0:禁用',
+    `remark`        varchar(200)        DEFAULT NULL COMMENT '备注信息',
+    `display_state` tinyint(1)          DEFAULT NULL COMMENT '显示状态 1:商户显示(该菜单或按钮只对商户开放) 2:系统显示(该菜单或按钮只对系统人员开放)  3:全部显示(该菜单或按钮对商户和系统人员都开放)',
+    `create_time`   datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `pid_index` (`pid`) USING BTREE
 ) ENGINE = InnoDB
@@ -467,7 +468,7 @@ CREATE TABLE `sys_user`
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `nick_name`   varchar(20)         NOT NULL COMMENT '用户名称',
     `mobile`      char(11)            NOT NULL COMMENT '手机号码(登陆账户)',
-    `user_type`   tinyint(2)          DEFAULT 1 COMMENT '用户类型 1:系统用户 2: 商户用户',
+    `user_type`   tinyint(2)          DEFAULT 1 COMMENT '用户类型 1:系统用户 2: 商户管理员 3:商户普通用户',
     `data_type`   tinyint(2)          DEFAULT 1 COMMENT '数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义),只针对系统用户',
     `state`       tinyint(1) unsigned DEFAULT '1' COMMENT '用户状态:0:锁定,1:正常',
     `pwd`         varchar(256)        DEFAULT NULL COMMENT '登陆密码MD5',
@@ -603,7 +604,6 @@ CREATE TABLE `member`
 (
     `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `avatar`      varchar(200) DEFAULT NULL COMMENT '头像路径',
-
     `mobile`      char(11)     DEFAULT NULL COMMENT '手机号码',
     `open_id`     varchar(64)  DEFAULT NULL COMMENT '微信小程序openId',
     `nick_name`   varchar(40)  DEFAULT '' COMMENT '昵称',

@@ -26,7 +26,6 @@
     <select id="getByPage" parameterType="com.eghm.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
         select
         t.id,
-        t.member_id,
         t.state,
         t.classify,
         t.version,

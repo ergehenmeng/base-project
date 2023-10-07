@@ -19,7 +19,7 @@
                and t.channel = #{param.channel}
            </if>
            <if test="param.ip != null and param.ip != ''">
-               and t.ip = #{param.id}
+               and t.ip = #{param.ip}
            </if>
        </where>
     </select>
