@@ -7,6 +7,7 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.VerifyLog;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.VerifyLogService;
@@ -33,6 +34,8 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
 
     private final JsonService jsonService;
 
+    private final CommonService commonService;
+
     @Override
     public void doAction(OrderVerifyContext context) {
         Order order = orderService.getByOrderNo(context.getOrderNo());
@@ -48,8 +51,7 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
      */
     protected void before(OrderVerifyContext context, Order order) {
         log.info("开始核销订单[{}] [{}]", this.getStateMachineType(), jsonService.toJson(context));
-        // 登陆人或订单的merchantId都可能为空,因此需要交叉判断(为空时表示自营商铺或者自营商铺的核销员)
-        boolean match = (context.getMerchantId() != null && !context.getMerchantId().equals(order.getMerchantId())) || (order.getMerchantId() != null && !order.getMerchantId().equals(context.getMerchantId()));
+        boolean match = commonService.checkIsIllegal(order.getMerchantId(), context.getMerchantId());
         if (match) {
             log.error("无法核销其他店铺的订单 [{}] [{}]", context.getMerchantId(), order.getMerchantId());
             throw new BusinessException(ErrorCode.ILLEGAL_VERIFY);
@@ -86,7 +88,6 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
         verifyLog.setUserId(context.getUserId());
         verifyLog.setNum(visited);
         verifyLogService.insert(verifyLog);
-
         context.setVerifyNum(visited);
     }
 

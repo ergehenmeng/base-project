@@ -79,7 +79,11 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public boolean checkIsIllegal(Long merchantId) {
-        Long loginMerchantId = SecurityHolder.getMerchantId();
+        return this.checkIsIllegal(merchantId, SecurityHolder.getMerchantId());
+    }
+
+    @Override
+    public boolean checkIsIllegal(Long merchantId, Long loginMerchantId) {
         if (loginMerchantId == null && merchantId == null) {
             return false;
         }

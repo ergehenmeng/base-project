@@ -3,15 +3,12 @@ package com.eghm.service.business.handler.state.impl.line;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.LineEvent;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
-import com.eghm.service.business.LineConfigService;
-import com.eghm.service.business.LineOrderService;
-import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
@@ -29,19 +26,24 @@ public class LineRefundNotifyHandler extends AbstractRefundNotifyHandler {
     private final LineOrderService lineOrderService;
     
     private final LineConfigService lineConfigService;
+
+    private final OrderVisitorService orderVisitorService;
     
     public LineRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-            AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-            LineOrderService lineOrderService, LineConfigService lineConfigService) {
+                                   AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
+                                   LineOrderService lineOrderService, LineConfigService lineConfigService,
+                                   OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.lineOrderService = lineOrderService;
         this.lineConfigService = lineConfigService;
+        this.orderVisitorService = orderVisitorService;
     }
     
     @Override
     protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         super.after(dto, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
+            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
             try {
                 LineOrder lineOrder = lineOrderService.getByOrderNo(order.getOrderNo());
                 lineConfigService.updateStock(lineOrder.getLineConfigId(), refundLog.getNum());
