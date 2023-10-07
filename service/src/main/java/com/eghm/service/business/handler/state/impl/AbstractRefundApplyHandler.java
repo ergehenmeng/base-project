@@ -57,8 +57,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      */
     protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
-        LocalDateTime now = LocalDateTime.now();
-        refundLog.setApplyTime(now);
+        refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setState(0);
         if (order.getRefundType() == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
@@ -84,11 +83,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      */
     protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
         log.info("订单退款申请成功 [{}] [{}] [{}]", context, order.getState(), order.getRefundState());
-        if (order.getRefundType() == RefundType.AUDIT_REFUND) {
-            orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING);
-        } else {
-            orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUND);
-        }
+        orderVisitorService.lockVisitor(order.getProductType(), context.getOrderNo(), refundLog.getId(), context.getVisitorIds(), VisitorState.REFUNDING);
     }
 
     /**

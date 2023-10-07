@@ -46,8 +46,6 @@ public abstract class AbstractRefundAuditHandler implements RefundAuditHandler {
         this.before(context, order, refundLog);
 
         this.doProcess(context, order, refundLog);
-
-        this.after(context, order, refundLog);
     }
 
     /**
@@ -61,8 +59,10 @@ public abstract class AbstractRefundAuditHandler implements RefundAuditHandler {
         refundLog.setAuditTime(LocalDateTime.now());
         if (context.getState() == AuditState.PASS.getValue()) {
             this.doPass(context, order, refundLog);
+            this.passAfter(context, order, refundLog);
         } else {
             this.doRefuse(context, order, refundLog);
+            this.refuseAfter(context, order, refundLog);
         }
     }
 
@@ -105,18 +105,26 @@ public abstract class AbstractRefundAuditHandler implements RefundAuditHandler {
     }
 
     /**
-     * 审核后置处理
-     * 如果审核拒绝则解锁用户,审核通过则将退款中改为已退款
+     * 退款审核通过后置处理
+     *
      * @param context 退款信息
      * @param order 订单信息
      * @param refundLog 退款记录
      */
-    private void after(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
-        if (context.getState() == AuditState.REFUSE.getValue()) {
-            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.PAID);
-        } else {
-            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
-        }
+    protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
+        log.info("退款审核通过后置处理 [{}] [{}] [{}]", context.getAuditRemark(), order.getOrderNo(), refundLog.getId());
+    }
+
+    /**
+     * 退款审核拒绝后置处理
+     *
+     * @param context 退款信息
+     * @param order 订单信息
+     * @param refundLog 退款记录
+     */
+    protected void refuseAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
+        log.info("退款审核拒绝, 释放游客 [{}]", context.getOrderNo());
+        orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.PAID);
     }
 
     /**

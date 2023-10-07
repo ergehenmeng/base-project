@@ -3,15 +3,12 @@ package com.eghm.service.business.handler.state.impl.ticket;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.TicketEvent;
 import com.eghm.enums.ref.ProductType;
+import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.TicketOrder;
+import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
-import com.eghm.service.business.OrderRefundLogService;
-import com.eghm.service.business.OrderService;
-import com.eghm.service.business.ScenicTicketService;
-import com.eghm.service.business.TicketOrderService;
-import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.enums.RefundStatus;
@@ -29,19 +26,24 @@ public class TicketRefundNotifyHandler extends AbstractRefundNotifyHandler {
     private final TicketOrderService ticketOrderService;
     
     private final ScenicTicketService scenicTicketService;
+
+    private final OrderVisitorService orderVisitorService;
     
     public TicketRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-            AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-            TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService) {
+                                     AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
+                                     TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService,
+                                     OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.ticketOrderService = ticketOrderService;
         this.scenicTicketService = scenicTicketService;
+        this.orderVisitorService = orderVisitorService;
     }
     
     @Override
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         super.after(context, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
+            orderVisitorService.refundVisitor(order.getOrderNo(), refundLog.getId(), VisitorState.REFUND);
             try {
                 TicketOrder ticketOrder = ticketOrderService.getByOrderNo(order.getOrderNo());
                 scenicTicketService.updateStock(ticketOrder.getScenicId(), refundLog.getNum());
