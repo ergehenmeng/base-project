@@ -64,16 +64,13 @@ public class ManageLogAspect {
             return joinPoint.proceed();
         }
         ManageLog sy = new ManageLog();
-
         sy.setUserId(user.getId());
         sy.setIp(IpUtil.getIpAddress(request));
-
+        sy.setUrl(request.getRequestURI());
         Object[] args = joinPoint.getArgs();
         if (args != null && args.length > 0) {
             sy.setRequest(this.formatRequest(args));
         }
-
-        sy.setUrl(request.getRequestURI());
         long start = System.currentTimeMillis();
         Object proceed = joinPoint.proceed();
         sy.setBusinessTime(System.currentTimeMillis() - start);
@@ -84,7 +81,7 @@ public class ManageLogAspect {
         if (logSwitch) {
             rabbitMessageService.send(ExchangeQueue.MANAGE_OP_LOG, sy);
         } else {
-            log.info("请求地址:[{}],请求参数:[{}],响应参数:[{}],请求ip:[{}],用户id:[{}],耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
+            log.info("请求地址:[{}], 请求参数:[{}], 响应参数:[{}], 请求ip:[{}], 用户id:[{}], 耗时:[{}]", sy.getUrl(), sy.getRequest(), sy.getResponse(), sy.getIp(), sy.getUserId(), sy.getBusinessTime());
         }
         return proceed;
     }

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotBlank;
 public class LineDayConfigRequest {
 
     @ApiModelProperty(value = "行程排序(第几天)")
-    @OptionInt(value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}, message = "行程排序不合法")
+    @OptionInt(value = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, message = "行程排序不合法")
     private Integer routeIndex;
 
     @ApiModelProperty(value = "出发地点")

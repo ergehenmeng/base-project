@@ -857,7 +857,12 @@ public enum ErrorCode {
     /**
      * 线路库存不足
      */
-    LINE_STOCK(3185, "线路库存不足"),
+    LINE_STOCK(3183, "线路库存不足"),
+
+    /**
+     * 该日期不可预定
+     */
+    LINE_NOT_ORDER(3184, "该日期不可预定"),
 
     /**
      * 商品订单未查询到
@@ -873,6 +878,11 @@ public enum ErrorCode {
      * 该商品已申请退款
      */
     ORDER_REFUND_APPLY(3187, "该商品已申请退款"),
+
+    /**
+     * 线路库存不足
+     */
+    LINE_NULL(3188, "线路库存不足"),
 
     /**
      * 商品退款数量不匹配
