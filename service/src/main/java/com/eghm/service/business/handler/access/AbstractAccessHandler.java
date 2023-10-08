@@ -5,20 +5,24 @@ import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.PayNotifyContext;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.pay.AggregatePayService;
+import com.eghm.service.pay.enums.RefundStatus;
 import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.RefundVO;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-import static com.eghm.service.pay.enums.RefundStatus.REFUND_SUCCESS;
-import static com.eghm.service.pay.enums.RefundStatus.SUCCESS;
+import static com.eghm.service.pay.enums.RefundStatus.*;
+import static com.eghm.service.pay.enums.TradeState.PAY_ERROR;
+import static com.eghm.service.pay.enums.TradeState.TRADE_CLOSED;
 
 /**
  * @author wyb
  * @since 2023/5/5
  */
 
+@Slf4j
 @AllArgsConstructor
 public abstract class AbstractAccessHandler implements AccessHandler {
 
@@ -28,22 +32,34 @@ public abstract class AbstractAccessHandler implements AccessHandler {
 
     @Override
     public void payNotify(PayNotifyContext context) {
-        boolean paySuccess = this.checkPaySuccess(context);
-        if (paySuccess) {
+        TradeState paySuccess = this.checkPaySuccess(context);
+        if (paySuccess == TradeState.SUCCESS || paySuccess == TradeState.TRADE_SUCCESS || paySuccess == TradeState.TRADE_FINISHED) {
+            log.info("订单支付成功,开始执行业务逻辑 [{}] [{}]", context.getOrderNo(), paySuccess);
             this.paySuccess(context);
-        } else {
-            this.payFail(context);
+            return;
         }
+        if (paySuccess == TradeState.CLOSED || paySuccess == TradeState.NOT_PAY || paySuccess == PAY_ERROR || paySuccess == TRADE_CLOSED) {
+            log.info("订单支付失败,开始执行业务逻辑 [{}] [{}]", context.getOrderNo(), paySuccess);
+            this.payFail(context);
+            return;
+        }
+        log.warn("订单支付状态处理中,不做业务处理 [{}] [{}]", context.getOrderNo(), paySuccess);
     }
 
     @Override
     public void refundNotify(RefundNotifyContext context) {
-        boolean refundSuccess = this.checkRefundSuccess(context);
-        if (refundSuccess) {
+        RefundStatus refundSuccess = this.checkRefundSuccess(context);
+        if (refundSuccess == REFUND_SUCCESS || refundSuccess == SUCCESS) {
+            log.info("订单退款支付成功,开始执行业务逻辑 [{}] [{}]", context.getOutTradeNo(), refundSuccess);
             this.refundSuccess(context);
-        } else {
-            this.refundFail(context);
+            return;
         }
+        if (refundSuccess == ABNORMAL || refundSuccess == CLOSED) {
+            log.info("订单退款失败成功,开始执行业务逻辑 [{}] [{}]", context.getOutTradeNo(), refundSuccess);
+            this.refundFail(context);
+            return;
+        }
+        log.warn("订单退款状态处理中,不做业务处理 [{}]", context.getOutTradeNo());
     }
 
     /**
@@ -51,7 +67,7 @@ public abstract class AbstractAccessHandler implements AccessHandler {
      * @param context 订单异步回调信息
      * @return true: 成功 false:失败
      */
-    public boolean checkPaySuccess(PayNotifyContext context) {
+    public TradeState checkPaySuccess(PayNotifyContext context) {
         // 零售订单可能会查询多条 取第一条即可
         Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
@@ -60,7 +76,7 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         context.setSuccessTime(vo.getSuccessTime());
         context.setTradeType(vo.getTradeType());
         context.setFrom(order.getState().getValue());
-        return  vo.getTradeState() == TradeState.SUCCESS || vo.getTradeState() == TradeState.TRADE_SUCCESS;
+        return  vo.getTradeState();
     }
 
     /**
@@ -68,14 +84,14 @@ public abstract class AbstractAccessHandler implements AccessHandler {
      * @param context 订单异步回调信息
      * @return true: 成功 false:失败
      */
-    public boolean checkRefundSuccess(RefundNotifyContext context) {
+    public RefundStatus checkRefundSuccess(RefundNotifyContext context) {
         Order order = orderService.selectByOutTradeNo(context.getOutTradeNo());
         TradeType tradeType = TradeType.valueOf(order.getPayType().name());
         RefundVO vo = aggregatePayService.queryRefund(tradeType, context.getOutTradeNo(), context.getOutRefundNo());
         context.setAmount(vo.getAmount());
         context.setSuccessTime(vo.getSuccessTime());
         context.setFrom(order.getState().getValue());
-        return vo.getState() == REFUND_SUCCESS || vo.getState() == SUCCESS;
+        return vo.getState();
     }
 
     /**

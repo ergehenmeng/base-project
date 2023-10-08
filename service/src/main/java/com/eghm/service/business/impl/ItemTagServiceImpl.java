@@ -1,11 +1,15 @@
 package com.eghm.service.business.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.item.ItemTagAddRequest;
 import com.eghm.dto.business.item.ItemTagEditRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemTagMapper;
+import com.eghm.model.Item;
 import com.eghm.model.ItemTag;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.utils.DataUtil;
@@ -32,6 +36,8 @@ public class ItemTagServiceImpl implements ItemTagService {
 
     private final ItemTagMapper itemTagMapper;
 
+    private final ItemMapper itemMapper;
+
     /**
      * 部门步长 即:一个部门对多有900个直属部门 100~999
      */
@@ -52,7 +58,14 @@ public class ItemTagServiceImpl implements ItemTagService {
 
     @Override
     public void deleteById(Long id) {
-
+        LambdaQueryWrapper<Item> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Item::getTagId, id);
+        Long count = itemMapper.selectCount(wrapper);
+        if (count > 0) {
+            log.info("标签已被零售商品占用, 无法直接删除 [{}]", id);
+            throw new BusinessException(ErrorCode.TAG_USED);
+        }
+        itemTagMapper.deleteById(id);
     }
 
     @Override

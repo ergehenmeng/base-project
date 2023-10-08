@@ -185,7 +185,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public List<Order> getProcessList() {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(Order::getOrderNo, Order::getProductType);
+        wrapper.select(Order::getOrderNo, Order::getProductType, Order::getOutTradeNo, Order::getPayType);
         wrapper.eq(Order::getState, OrderState.PROGRESS);
         return baseMapper.selectList(wrapper);
     }
