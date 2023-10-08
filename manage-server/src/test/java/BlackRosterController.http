@@ -8,8 +8,8 @@ token: {{token}}
 Content-Type: application/json; charset=utf-8
 
 {
-  "startIp": "101.70.126.206",
-  "endIp": "101.70.126.207"
+  "startIp": "127.0.0.1",
+  "endIp": "127.0.0.1"
 }
 
 ###

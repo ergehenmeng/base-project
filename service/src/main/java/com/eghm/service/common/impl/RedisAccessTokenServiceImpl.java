@@ -34,13 +34,15 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
 
     @Override
     public String createToken(SysUser user, Long merchantId, List<String> authList, List<String> dataList) {
-        SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
-        return token.getPrefix() + this.doCreateToken(user, merchantId, token.getExpire(), authList, dataList);
+        SystemProperties.ManageProperties.Token tokenConfig = systemProperties.getManage().getToken();
+        String token = this.doCreateToken(user, merchantId, tokenConfig.getExpire(), authList, dataList);
+        this.clearSetToken(user.getId(), token);
+        return tokenConfig.getPrefix() + token;
     }
 
     @Override
     public Optional<UserToken> parseToken(String token) {
-        String key = CacheConstant.USER_REDIS_TOKEN + token;
+        String key = CacheConstant.USER_TOKEN + token;
         UserToken value = cacheService.getValue(key, UserToken.class);
         if (value == null) {
             return Optional.empty();
@@ -70,9 +72,22 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         hashMap.put("merchantId", merchantId);
         hashMap.put("deptCode", user.getDeptCode());
         String token = UUID.randomUUID().toString(true);
-        String key = CacheConstant.USER_REDIS_TOKEN + token;
+        String key = CacheConstant.USER_TOKEN + token;
         cacheService.setValue(key, jsonService.toJson(hashMap), expireSeconds);
         return token;
     }
 
+    /**
+     * 由于每次登录都会生成新的token, 因此为了防止产生过多的token以至于占用过多内存, 需要在登录时清除旧的token, 同时保存新的
+     *
+     * @param userId 用户id
+     * @param token 新token
+     */
+    private void clearSetToken(Long userId, String token) {
+        String oldToken = cacheService.getHashValue(CacheConstant.USER_TOKEN_MAPPING, String.valueOf(userId));
+        if (oldToken != null) {
+            cacheService.delete(CacheConstant.USER_TOKEN + oldToken);
+        }
+        cacheService.setHashValue(CacheConstant.USER_TOKEN_MAPPING, String.valueOf(userId), token);
+    }
 }

@@ -218,10 +218,16 @@ public class CacheConstant {
     /**
      * 缓存
      */
-    public static final String USER_REDIS_TOKEN = "user_redis_token:";
+    public static final String USER_TOKEN = "user_token:";
+
+    /**
+     * 用户token映射
+     */
+    public static final String USER_TOKEN_MAPPING = "user_token_mapping";
 
     /**
      * 抽奖
      */
     public static final String LOTTERY_LOCK = "lottery_lock:%s:%s";
+
 }
