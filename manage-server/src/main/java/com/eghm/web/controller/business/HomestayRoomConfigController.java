@@ -32,7 +32,7 @@ public class HomestayRoomConfigController {
     @PostMapping("/setup")
     @ApiOperation("设置房态")
     public RespBody<Void> setup(@Validated @RequestBody RoomConfigRequest request) {
-        HomestayRoom room = homestayRoomService.selectByIdShelve(request.getRoomId());
+        HomestayRoom room = homestayRoomService.selectById(request.getRoomId());
         request.setHomestayId(room.getHomestayId());
         homestayRoomConfigService.setup(request);
         return RespBody.success();

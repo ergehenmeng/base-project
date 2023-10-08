@@ -29,7 +29,8 @@
         t.detail_address as detailAddress,
         t.cover_url as coverUrl,
         t.phone,
-        t.tag as tagIds
+        t.tag as tagIds,
+        count(r.id) as num
         from homestay t
         left join homestay_room_config r on t.id = r.homestay_id
         where t.state = 1 and t.platform_state = 2 and t.deleted = false and r.config_date between #{param.startDate} and #{param.endDate}
@@ -39,7 +40,7 @@
         <if test="param.level != null">
             and t.`level` = #{param.level}
         </if>
-
+        GROUP BY t.id having count(r.id) = datediff(#{param.endDate}, #{param.startDate})
         order by id desc
     </sql>
     <!--有距离排序-->
