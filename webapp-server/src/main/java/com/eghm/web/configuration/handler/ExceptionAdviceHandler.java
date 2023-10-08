@@ -10,7 +10,6 @@ import com.eghm.enums.ExchangeQueue;
 import com.eghm.exception.*;
 import com.eghm.model.WebappLog;
 import com.eghm.service.mq.service.MessageService;
-import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
@@ -39,8 +38,6 @@ import java.util.Map;
 public class ExceptionAdviceHandler {
 
     private final MessageService rabbitMessageService;
-
-    private final DingTalkService dingTalkService;
 
     /**
      * 特殊业务异常统一拦截
@@ -127,7 +124,7 @@ public class ExceptionAdviceHandler {
      */
     @ExceptionHandler(BindException.class)
     public RespBody<Void> exception(HttpServletRequest request, BindException e) {
-        log.error("数据绑定异常, 接口[{}]", request.getRequestURI());
+        log.error("数据绑定异常, 接口[{}]", request.getRequestURI(), e);
         return WebUtil.fieldError(e.getBindingResult());
     }
 

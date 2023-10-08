@@ -1,6 +1,5 @@
 package com.eghm.service.sys.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.PatternPool;
 import cn.hutool.core.net.Ipv4Util;
 import cn.hutool.core.util.StrUtil;
@@ -59,15 +58,13 @@ public class BlackRosterServiceImpl implements BlackRosterService {
     @Override
     public void deleteById(Long id) {
         blackRosterMapper.deleteById(id);
-        reloadBlackRoster();
+        this.reloadBlackRoster();
     }
 
     @Override
     public void reloadBlackRoster() {
+        cacheService.delete(CacheConstant.BLACK_ROSTER);
         List<BlackRoster> rosterList = blackRosterMapper.selectList(null);
-        if (CollUtil.isEmpty(rosterList)) {
-            return;
-        }
         for (BlackRoster roster : rosterList) {
             long max = roster.getEndIp() - roster.getStartIp();
             for (int i = 0; i <= max ; i++) {

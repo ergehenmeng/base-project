@@ -1022,7 +1022,7 @@ public enum ErrorCode {
     /**
      * 开启定位后方可按距离排序
      */
-    POSITION_NO(3258, "开启定位后方可按距离排序"),
+    POSITION_NO(3258, "请开启定位"),
 
     /**
      * 该民宿已下架

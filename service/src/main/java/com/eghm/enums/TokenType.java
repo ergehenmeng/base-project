@@ -12,12 +12,12 @@ import lombok.Getter;
 public enum TokenType {
 
     /**
-     * JWT
+     * JWT 支持同一用户多浏览器登录
      */
     JWT,
 
     /**
-     * REDIS
+     * REDIS 只支持同一用户单浏览器登录
      */
     REDIS
 }

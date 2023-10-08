@@ -5,6 +5,7 @@ import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.constants.SystemConstant;
+import com.eghm.convertor.YuanToCentAnnotationFormatterFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -23,6 +24,7 @@ import org.springframework.boot.task.TaskExecutorCustomizer;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskDecorator;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -158,6 +160,11 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
     @Bean
     public static BeanPostProcessor springFoxBeanPostProcessor() {
         return new SpringFoxBeanPostProcessor();
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatterForFieldAnnotation(new YuanToCentAnnotationFormatterFactory());
     }
 
     /**
