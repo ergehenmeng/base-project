@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX;
+import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
 
 /**
  * 退款申请默认实现
@@ -63,7 +63,6 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
             refundLog.setAuditState(AuditState.APPLY);
             order.setRefundState(RefundState.APPLY);
         } else {
-            this.checkRefund(context, order);
             refundLog.setAuditState(AuditState.PASS);
             refundLog.setAuditRemark("系统自动审核");
             refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
@@ -108,6 +107,7 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
             log.error("订单退款状态非法 [{}] [{}]", context.getOrderNo(), order.getRefundState());
             throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
         }
+        this.checkRefund(context, order);
     }
 
     /**
@@ -117,10 +117,21 @@ public abstract class AbstractRefundApplyHandler implements RefundApplyHandler {
      */
     protected void checkRefund(RefundApplyContext context, Order order) {
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);
-        if ((refundNum + context.getNum()) > order.getNum()) {
-            log.error("累计退款金额(含本次)大于总支付金额 [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, context.getNum());
-            throw new BusinessException(TOTAL_REFUND_MAX);
+        int useNum = this.getVerifyNum(order);
+        // 已核销+已退款+本次退款应该小于等于下单数量
+        if (order.getNum() < (refundNum + useNum + context.getNum())) {
+            log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}] [{}] [{}]", order.getOrderNo(), order.getNum(), refundNum, context.getNum(), useNum);
+            throw new BusinessException(TOTAL_REFUND_MAX_NUM);
         }
+    }
+
+    /**
+     * 查询订单已核销数量
+     *
+     * @param order 订单信息
+     */
+    protected int getVerifyNum(Order order) {
+        return 0;
     }
 
 }

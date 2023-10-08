@@ -36,6 +36,9 @@ public class RestaurantOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
+    @ApiModelProperty("已核销数量")
+    private Integer useNum;
+
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
 
