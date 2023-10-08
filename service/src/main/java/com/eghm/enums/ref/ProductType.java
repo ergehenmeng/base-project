@@ -78,7 +78,7 @@ public enum ProductType {
      */
     private final OrderState[] stateDefine;
 
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static ProductType of(String value) {
         return Arrays.stream(ProductType.values()).filter(productType -> productType.getValue().equals(value))
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.PRODUCT_TYPE_MATCH));

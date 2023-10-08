@@ -40,7 +40,7 @@ public enum RefundType {
 
     private final String name;
 
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static RefundType of(Integer value) {
         if (value == null) {
             return null;

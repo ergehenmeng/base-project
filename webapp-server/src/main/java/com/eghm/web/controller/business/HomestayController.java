@@ -30,7 +30,7 @@ public class HomestayController {
 
     @GetMapping("/listPage")
     @ApiOperation("民宿列表")
-    public RespBody<List<HomestayListVO>> listPage(HomestayQueryDTO dto) {
+    public RespBody<List<HomestayListVO>> listPage(@Validated HomestayQueryDTO dto) {
         List<HomestayListVO> byPage = homestayService.getByPage(dto);
         return RespBody.success(byPage);
     }

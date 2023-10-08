@@ -39,7 +39,7 @@ public enum CouponType {
      */
     private final String name;
 
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CouponType of(Integer value) {
         if (value == null) {
             return null;

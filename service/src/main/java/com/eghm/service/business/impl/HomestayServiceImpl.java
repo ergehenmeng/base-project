@@ -147,6 +147,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
             log.info("民宿列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
             throw new BusinessException(ErrorCode.POSITION_NO);
         }
+        // 离店日期不含当天
+        dto.setEndDate(dto.getEndDate().minusDays(1));
         // 分页查询
         Page<HomestayListVO> page = homestayMapper.getByPage(dto.createPage(false), dto);
 

@@ -90,7 +90,7 @@ public enum OrderState {
      */
     private final String name;
 
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static OrderState of(Integer value) {
         if (value == null) {
             return null;

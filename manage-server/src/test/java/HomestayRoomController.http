@@ -7,7 +7,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "homestayId": 1607659894533513218,
+  "homestayId": 1710940638564323330,
   "title": "商务套房",
   "room": 1,
   "hall": 1,

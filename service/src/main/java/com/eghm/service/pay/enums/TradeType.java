@@ -65,7 +65,7 @@ public enum TradeType {
      */
     private final String name;
 
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static TradeType of(String tradeType) {
         return Stream.of(TradeType.values()).filter(type -> type.getCode().equals(tradeType)).findFirst().orElseThrow(() -> new BusinessException(ErrorCode.UNKNOWN_PAY_TYPE));
     }

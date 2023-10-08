@@ -16,27 +16,30 @@
     <!--无距离排序,不进行子查询-->
     <sql id="getByPageSql">
         select
-        id,
-        title,
-        longitude,
-        latitude,
+        t.id,
+        t.title,
+        t.longitude,
+        t.latitude,
         <if test="param.longitude != null and param.latitude != null">
-            st_distance_sphere(point(longitude, latitude), point(#{param.longitude}, #{param.latitude})) as distance,
+            st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
         </if>
-        `level`,
-        city_id as cityId,
-        county_id as countyId,
-        detail_address as detailAddress,
-        cover_url as coverUrl,
-        phone,
-        tag as tagIds
-        from homestay where state = 1 and platform_state = 2 and deleted = false
+        t.`level`,
+        t.city_id as cityId,
+        t.county_id as countyId,
+        t.detail_address as detailAddress,
+        t.cover_url as coverUrl,
+        t.phone,
+        t.tag as tagIds
+        from homestay t
+        left join homestay_room_config r on t.id = r.homestay_id
+        where t.state = 1 and t.platform_state = 2 and t.deleted = false and r.config_date between #{param.startDate} and #{param.endDate}
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.level != null">
-            and `level` = #{param.level}
+            and t.`level` = #{param.level}
         </if>
+
         order by id desc
     </sql>
     <!--有距离排序-->

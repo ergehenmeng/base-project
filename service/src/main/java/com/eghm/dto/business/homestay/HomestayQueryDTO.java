@@ -1,6 +1,5 @@
 package com.eghm.dto.business.homestay;
 
-import com.eghm.configuration.annotation.YuanToCenterFormat;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +7,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -34,21 +33,13 @@ public class HomestayQueryDTO extends PagingQuery {
     @OptionInt(value = {0, 3, 4, 5}, message = "星级参数非法")
     private Integer level;
 
-    @ApiModelProperty("最低金额")
-    @YuanToCenterFormat
-    @Min(value = 0, message = "最低金额不能小于0元")
-    private Integer minPrice;
-
-    @ApiModelProperty("最大金额")
-    @YuanToCenterFormat
-    @Min(value = 0, message = "最高金额不能小于0元")
-    private Integer maxPrice;
-
     @ApiModelProperty("开始日期(含)")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "入住日期不能为空")
     private LocalDate startDate;
 
     @ApiModelProperty("截止日期(不含)")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "离店日期不能为空")
     private LocalDate endDate;
 }

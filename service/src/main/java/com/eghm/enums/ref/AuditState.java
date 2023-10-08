@@ -52,7 +52,7 @@ public enum AuditState {
      */
     private final String name;
 
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static AuditState of(Integer value) {
         if (value == null) {
             return null;

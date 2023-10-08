@@ -34,7 +34,7 @@ public enum PrizeType {
 
     private final String name;
 
-    @JsonCreator
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static PrizeType of(Integer value) {
         if (value == null) {
             return null;
