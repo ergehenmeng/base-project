@@ -64,7 +64,7 @@ public class HomestayRoomEditRequest {
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
 
-    @ApiModelProperty(value = "基础设施")
+    @ApiModelProperty(value = "屋内设施")
     private String infrastructure;
 
     @ApiModelProperty(value = "详细介绍")

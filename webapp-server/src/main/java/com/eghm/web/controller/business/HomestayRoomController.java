@@ -33,7 +33,7 @@ public class HomestayRoomController {
 
     @GetMapping("/listPage")
     @ApiOperation("房型列表")
-    public RespBody<List<HomestayRoomListVO>> listPage(HomestayRoomQueryDTO request) {
+    public RespBody<List<HomestayRoomListVO>> listPage(@Validated HomestayRoomQueryDTO request) {
         List<HomestayRoomListVO> listPage = homestayRoomService.listPage(request);
         return RespBody.success(listPage);
     }

@@ -50,7 +50,7 @@ public class HomestayRoomVO {
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "基础设施")
+    @ApiModelProperty(value = "屋内设施")
     private String infrastructure;
 
     @ApiModelProperty(value = "详细介绍")

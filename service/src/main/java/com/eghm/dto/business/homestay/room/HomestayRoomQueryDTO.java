@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author 二哥很猛
  * @date 2022/6/29
@@ -14,6 +16,7 @@ import lombok.EqualsAndHashCode;
 public class HomestayRoomQueryDTO extends PagingQuery {
 
     @ApiModelProperty("民宿id")
+    @NotNull(message = "请选择民宿")
     private Long homestayId;
 
     @ApiModelProperty(value = "房型类型 1:整租 2:单间 3:合租")
