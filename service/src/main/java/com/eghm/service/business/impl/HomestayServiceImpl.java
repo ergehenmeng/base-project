@@ -36,9 +36,12 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.eghm.enums.ErrorCode.HOMESTAY_SEARCH_MAX;
 
 /**
  * @author 二哥很猛 2022/6/25
@@ -147,20 +150,25 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
             log.info("民宿列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
             throw new BusinessException(ErrorCode.POSITION_NO);
         }
+        int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_MAX_RESERVE_DAY, 30);
+        long stayNum = ChronoUnit.DAYS.between(dto.getStartDate(), dto.getEndDate());
+        if (stayNum > maxDay) {
+            log.info("民宿预定日期搜索超过最大预定天数 [{}]", stayNum);
+            throw new BusinessException(HOMESTAY_SEARCH_MAX.getCode(), String.format(HOMESTAY_SEARCH_MAX.getMsg(), maxDay));
+        }
+        // 入住天数
+        dto.setStayNum(stayNum);
         // 离店日期不含当天
         dto.setEndDate(dto.getEndDate().minusDays(1));
         // 分页查询
         Page<HomestayListVO> page = homestayMapper.getByPage(dto.createPage(false), dto);
-
         List<HomestayListVO> voList = page.getRecords();
         if (CollUtil.isEmpty(voList)) {
             return voList;
         }
+        // 最低价格/标签/地址等字段填充
         List<Long> homestayIds = voList.stream().map(HomestayListVO::getId).collect(Collectors.toList());
-        int maxDay = sysConfigApi.getInt(ConfigConstant.HOMESTAY_MAX_RESERVE_DAY, 30);
-        LocalDate startDate = LocalDate.now();
-        // 查询酒店最近一个月(由系统参数配置)的最低价
-        Map<Long, Integer> priceMap = homestayRoomConfigService.getHomestayMinPrice(homestayIds, startDate, startDate.plusDays(maxDay));
+        Map<Long, Integer> priceMap = homestayRoomConfigService.getHomestayMinPrice(homestayIds, dto.getStartDate(), dto.getEndDate());
         // 查询数据字典,匹配标签列表
         List<SysDict> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
         // 针对针对标签,位置和最低价进行赋值或解析

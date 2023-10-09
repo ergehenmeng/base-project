@@ -1025,6 +1025,11 @@ public enum ErrorCode {
     POSITION_NO(3258, "请开启定位"),
 
     /**
+     * 最大预定间隔不能超过%d天
+     */
+    HOMESTAY_SEARCH_MAX(3259, "最大预定间隔不能超过%d天"),
+
+    /**
      * 该民宿已下架
      */
     HOMESTAY_NULL(3263, "该民宿已下架"),

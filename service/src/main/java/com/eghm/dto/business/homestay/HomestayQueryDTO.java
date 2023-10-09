@@ -1,5 +1,6 @@
 package com.eghm.dto.business.homestay;
 
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,8 +27,11 @@ public class HomestayQueryDTO extends PagingQuery {
     @ApiModelProperty("纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty("是否按距离排序")
-    private Boolean sortByDistance = false;
+    @ApiModelProperty("是否按距离排序(正序)")
+    private Boolean sortByDistance;
+
+    @ApiModelProperty("按价格排序(正序)")
+    private Boolean sortByPrice;
 
     @ApiModelProperty("星级 5:五星级 4:四星级 3:三星级 0: 其他, 空查询全部")
     @OptionInt(value = {0, 3, 4, 5}, message = "星级参数非法")
@@ -42,4 +46,8 @@ public class HomestayQueryDTO extends PagingQuery {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "离店日期不能为空")
     private LocalDate endDate;
+
+    @ApiModelProperty(value = "入住天数", hidden = true)
+    @Assign
+    private Long stayNum;
 }

@@ -4,8 +4,8 @@
 
     <select id="getByPage" resultType="com.eghm.vo.business.homestay.HomestayListVO" parameterType="com.eghm.dto.business.homestay.HomestayQueryDTO">
         <choose>
-            <when test="param.sortByDistance">
-                <include refid="getByPageSortDistanceSql" />
+            <when test="param.sortByDistance != null or param.sortByPrice != null">
+                <include refid="getByPageSortSql" />
             </when>
             <otherwise>
                 <include refid="getByPageSql"/>
@@ -30,42 +30,53 @@
         t.cover_url as coverUrl,
         t.phone,
         t.tag as tagIds,
-        count(r.id) as num
+        r.salePrice
         from homestay t
-        left join homestay_room_config r on t.id = r.homestay_id
-        where t.state = 1 and t.platform_state = 2 and t.deleted = false and r.config_date between #{param.startDate} and #{param.endDate}
+        inner join (select homestay_id, count(1) as staynum, min(sale_price) as salePrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
+        and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
+        where t.state = 1 and t.platform_state = 2 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.level != null">
             and t.`level` = #{param.level}
         </if>
-        GROUP BY t.id having count(r.id) = datediff(#{param.endDate}, #{param.startDate})
-        order by id desc
+        order by t.id desc
     </sql>
     <!--有距离排序-->
-    <sql id="getByPageSortDistanceSql">
+    <sql id="getByPageSortSql">
         select s.* from ( select
-        id,
-        title,
-        longitude,
-        latitude,
-        st_distance_sphere(point(longitude, latitude),point(#{param.longitude}, #{param.latitude})) as distance,
-        `level`,
-        city_id as cityId,
-        county_id as countyId,
-        detail_address as detailAddress,
-        cover_url as coverUrl,
-        phone,
-        tag as tagIds
-        from homestay where state = 1 and platform_state = 2 and deleted = false
+        t.id,
+        t.title,
+        t.longitude,
+        t.latitude,
+        st_distance_sphere(point(t.longitude, t.latitude),point(#{param.longitude}, #{param.latitude})) as distance,
+        t.`level`,
+        t.city_id as cityId,
+        t.county_id as countyId,
+        t.detail_address as detailAddress,
+        t.cover_url as coverUrl,
+        t.phone,
+        t.tag as tagIds,
+        r.salePrice
+        from homestay t
+        inner join (select homestay_id, count(1) as staynum, min(sale_price) as salePrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
+        and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
+        where t.state = 1 and t.platform_state = 2 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.level != null">
-            and `level` = #{param.level}
+            and t.`level` = #{param.level}
         </if>
         ) s
-        order by s.distance, s.id desc
+        <choose>
+            <when test="param.sortByDistance">
+                order by s.distance, s.id desc
+            </when>
+            <otherwise>
+                order by r.salePrice, s.id desc
+            </otherwise>
+        </choose>
     </sql>
 </mapper>
