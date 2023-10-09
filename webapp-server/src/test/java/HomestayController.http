@@ -1,2 +1,2 @@
-GET http://localhost:9090/webapp/homestay/listPage?page=1&pageSize=10&longitude=120.332212&latitude=30.322123&minPrice=0.02
+GET http://localhost:9090/webapp/homestay/listPage?page=1&pageSize=10&longitude=120.332212&latitude=30.322123&sortByPrice=1&startDate=2023-10-09&endDate=2023-10-13
 Channel: {{Channel}}

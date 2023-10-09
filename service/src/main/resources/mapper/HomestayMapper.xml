@@ -50,7 +50,7 @@
         t.title,
         t.longitude,
         t.latitude,
-        st_distance_sphere(point(t.longitude, t.latitude),point(#{param.longitude}, #{param.latitude})) as distance,
+        st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
         t.`level`,
         t.city_id as cityId,
         t.county_id as countyId,
@@ -75,7 +75,7 @@
                 order by s.distance, s.id desc
             </when>
             <otherwise>
-                order by r.salePrice, s.id desc
+                order by s.salePrice, s.id desc
             </otherwise>
         </choose>
     </sql>

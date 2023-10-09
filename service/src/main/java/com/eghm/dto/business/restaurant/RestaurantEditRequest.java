@@ -3,9 +3,7 @@ package com.eghm.dto.business.restaurant;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 /**
@@ -55,10 +53,14 @@ public class RestaurantEditRequest {
 
     @ApiModelProperty(value = "经度", required = true)
     @NotNull(message = "经度不能为空")
+    @DecimalMin(value = "-180", message = "经度应(-180, 180]范围内", inclusive = false)
+    @DecimalMax(value = "180", message = "经度应(-180, 180]范围内")
     private BigDecimal longitude;
 
     @ApiModelProperty(value = "纬度", required = true)
     @NotNull(message = "纬度不能为空")
+    @DecimalMin(value = "-90", message = "纬度应[-90, 90]范围内")
+    @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
     @ApiModelProperty(value = "商家热线", required = true)
