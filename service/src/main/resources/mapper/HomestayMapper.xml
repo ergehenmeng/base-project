@@ -71,7 +71,7 @@
         </if>
         ) s
         <choose>
-            <when test="param.sortByDistance">
+            <when test="param.sortByDistance != null">
                 order by s.distance, s.id desc
             </when>
             <otherwise>

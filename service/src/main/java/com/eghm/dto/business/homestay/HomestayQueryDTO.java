@@ -28,10 +28,10 @@ public class HomestayQueryDTO extends PagingQuery {
     private BigDecimal latitude;
 
     @ApiModelProperty("是否按距离排序(正序)")
-    private Boolean sortByDistance;
+    private Integer sortByDistance;
 
     @ApiModelProperty("按价格排序(正序)")
-    private Boolean sortByPrice;
+    private Integer sortByPrice;
 
     @ApiModelProperty("星级 5:五星级 4:四星级 3:三星级 0: 其他, 空查询全部")
     @OptionInt(value = {0, 3, 4, 5}, message = "星级参数非法")
