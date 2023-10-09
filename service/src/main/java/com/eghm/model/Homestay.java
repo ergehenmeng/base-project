@@ -77,15 +77,6 @@ public class Homestay extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "联系电话")
     private String phone;
 
-    @ApiModelProperty(value = "基础设施")
-    private String infrastructure;
-
-    @ApiModelProperty(value = "卫浴设施")
-    private String bathroom;
-
-    @ApiModelProperty(value = "厨房设施")
-    private String kitchen;
-
     @ApiModelProperty(value = "特色服务")
     private String keyService;
 

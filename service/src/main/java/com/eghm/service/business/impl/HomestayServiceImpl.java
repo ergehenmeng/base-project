@@ -20,10 +20,12 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.model.Homestay;
-import com.eghm.model.Line;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysDict;
-import com.eghm.service.business.*;
+import com.eghm.service.business.CommonService;
+import com.eghm.service.business.HomestayRoomService;
+import com.eghm.service.business.HomestayService;
+import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -35,11 +37,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.eghm.enums.ErrorCode.HOMESTAY_SEARCH_MAX;
 
@@ -60,8 +59,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     private final SysAreaService sysAreaService;
 
     private final SysConfigApi sysConfigApi;
-
-    private final HomestayRoomConfigService homestayRoomConfigService;
 
     private final HomestayRoomService homestayRoomService;
 
@@ -145,7 +142,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     @Override
     public List<HomestayListVO> getByPage(HomestayQueryDTO dto) {
-        boolean getDistance = Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null);
+        boolean getDistance = dto.getSortByDistance() != null && (dto.getLongitude() == null || dto.getLatitude() == null);
         if (getDistance) {
             log.info("民宿列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
             throw new BusinessException(ErrorCode.POSITION_NO);
@@ -166,16 +163,13 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         if (CollUtil.isEmpty(voList)) {
             return voList;
         }
-        // 最低价格/标签/地址等字段填充
-        List<Long> homestayIds = voList.stream().map(HomestayListVO::getId).collect(Collectors.toList());
-        Map<Long, Integer> priceMap = homestayRoomConfigService.getHomestayMinPrice(homestayIds, dto.getStartDate(), dto.getEndDate());
+        // 标签/地址等字段填充
         // 查询数据字典,匹配标签列表
         List<SysDict> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
         // 针对针对标签,位置和最低价进行赋值或解析
         for (HomestayListVO vo : voList) {
             vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));
             vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId()) + vo.getDetailAddress());
-            vo.setMinPrice(priceMap.getOrDefault(vo.getId(), 0));
         }
         return voList;
     }

@@ -74,6 +74,9 @@ public class HomestayRoom extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
 
+    @ApiModelProperty(value = "基础设施")
+    private String infrastructure;
+
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
 
