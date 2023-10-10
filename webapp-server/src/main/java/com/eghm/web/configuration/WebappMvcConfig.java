@@ -127,7 +127,7 @@ public class WebappMvcConfig extends WebMvcConfig {
     @Bean("byteHttpRequestFilter")
     public FilterRegistrationBean<ByteHttpRequestFilter> byteHttpRequestFilter() {
         FilterRegistrationBean<ByteHttpRequestFilter> registrationBean = new FilterRegistrationBean<>();
-        ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter(systemProperties);
+        ByteHttpRequestFilter requestFilter = new ByteHttpRequestFilter();
         requestFilter.exclude(FILTER_EXCLUDE_URL);
         registrationBean.setFilter(requestFilter);
         registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
