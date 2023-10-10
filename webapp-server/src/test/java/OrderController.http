@@ -1,0 +1,136 @@
+POST http://localhost:9090/webapp/order/item/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+
+}
+
+###
+POST http://localhost:9090/webapp/order/ticket/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+
+}
+
+###
+
+POST http://localhost:9090/webapp/order/homestay/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+
+}
+
+###
+
+POST http://localhost:9090/webapp/order/line/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+
+}
+
+###
+
+POST http://localhost:9090/webapp/order/restaurant/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+
+}
+
+###
+
+POST http://localhost:9090/webapp/order/pay
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "orderNo": "",
+  "buyerId": "",
+  "tradeType": ""
+}
+
+###
+
+POST http://localhost:9090/webapp/order/ticket/refundApply
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "orderNo": "",
+  "buyerId": "",
+  "tradeType": ""
+}
+
+###
+
+POST http://localhost:9090/webapp/order/line/refundApply
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "orderNo": "",
+  "buyerId": "",
+  "tradeType": ""
+}
+
+###
+
+POST http://localhost:9090/webapp/order/homestay/refundApply
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "orderNo": "",
+  "buyerId": "",
+  "tradeType": ""
+}
+
+###
+
+POST http://localhost:9090/webapp/order/restaurant/refundApply
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "orderNo": "",
+  "buyerId": "",
+  "tradeType": ""
+}
+
+###
+
+POST http://localhost:9090/webapp/order/item/refundApply
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "orderNo": "",
+  "buyerId": "",
+  "tradeType": ""
+}
+
+###
+GET http://localhost:9090/webapp/order/refresh?id=
+Channel: {{Channel}}
+
+
+###

@@ -55,12 +55,4 @@ public class AppHeader {
      */
     public static final String SIGNATURE = "Signature";
 
-    /**
-     * 签名参数 请求时间戳
-     */
-    public static final String TIMESTAMP = "Timestamp";
-
-
-
-
 }

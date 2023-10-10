@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
@@ -16,8 +17,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @author 二哥很猛
@@ -42,8 +41,8 @@ public class OrderEvaluationController {
 
     @GetMapping("/count")
     @ApiOperation("统计商品评论数")
-    public RespBody<EvaluationGroupVO> count(@NotNull(message = "商品id不能为空") @RequestParam("productId") Long productId) {
-        EvaluationGroupVO vo = orderEvaluationService.groupEvaluation(productId);
+    public RespBody<EvaluationGroupVO> count(@Validated IdDTO dto) {
+        EvaluationGroupVO vo = orderEvaluationService.groupEvaluation(dto.getId());
         return RespBody.success(vo);
     }
 

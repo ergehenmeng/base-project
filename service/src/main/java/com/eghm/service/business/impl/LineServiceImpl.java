@@ -107,9 +107,7 @@ public class LineServiceImpl implements LineService {
         Page<LineVO> voPage = lineMapper.getByPage(dto.createPage(false), dto);
         List<LineVO> voList = voPage.getRecords();
         // 转义城市名称
-        if (CollUtil.isNotEmpty(voList)) {
-            voList.forEach(vo -> vo.setStartCity(sysAreaService.getById(vo.getStartCityId()).getTitle()));
-        }
+        voList.forEach(vo -> vo.setStartCity(sysAreaService.getById(vo.getStartCityId()).getTitle()));
         return voList;
     }
 

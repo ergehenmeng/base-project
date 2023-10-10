@@ -1,0 +1,7 @@
+http://localhost:9090/webapp/store/home?id=
+Channel: {{Channel}}
+
+###
+
+http://localhost:9090/webapp/store/recommend
+Channel: {{Channel}}

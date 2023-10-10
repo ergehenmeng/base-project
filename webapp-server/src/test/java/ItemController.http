@@ -1,0 +1,33 @@
+http://localhost:9090/webapp/item/listPage?page=1&pageSize=10
+Channel: {{Channel}}
+
+###
+http://localhost:9090/webapp/item/detail?id=xx
+Channel: {{Channel}}
+
+###
+http://localhost:9090/webapp/item/recommend
+Channel: {{Channel}}
+
+###
+http://localhost:9090/webapp/item/coupon?id=xxxxxxxx
+Channel: {{Channel}}
+
+###
+http://localhost:9090/webapp/item/couponScope?page=1&pageSize=10&deliveryType=1&sortBy=&couponId=&storeId=&useScope=&tagId=
+Channel: {{Channel}}
+
+###
+POST http://localhost:9090/webapp/item/calcExpress
+Channel: {{Channel}}
+Content-Type: application/json
+
+[{
+  "storeId": "",
+  "countyId": "",
+  "orderList": [{
+    "itemId": "",
+    "skuId": "",
+    "num": 1
+  }]
+}]

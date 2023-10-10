@@ -1,8 +1,10 @@
 GET http://localhost:9090/webapp/line/price/list?lineId=1611287570074824706
+Channel: {{Channel}}
 
 ###
 
 GET http://localhost:9090/webapp/line/detail?id=1611287570074824706
+Channel: {{Channel}}
 
 ###
 

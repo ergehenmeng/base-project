@@ -35,7 +35,7 @@ public class LotteryController {
     @ApiOperation("抽奖")
     public RespBody<LotteryResultVO> handle(@RequestBody @Validated IdDTO dto) {
         String key = String.format(CacheConstant.LOTTERY_LOCK, dto.getId(), ApiHolder.getMemberId());
-        return redisLock.lock(key, 300,
+        return redisLock.lock(key, 30,
                 () -> RespBody.success(lotteryService.lottery(dto.getId(), ApiHolder.getMemberId())),
                 () -> RespBody.error(ErrorCode.LOTTERY_EXECUTE));
     }

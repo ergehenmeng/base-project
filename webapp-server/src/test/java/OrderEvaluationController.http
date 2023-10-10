@@ -1,0 +1,19 @@
+http://localhost:9090/webapp/order/evaluation/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{}
+###
+
+http://localhost:9090/webapp/order/evaluation/count?id=xxx
+Channel: {{Channel}}
+
+
+###
+
+http://localhost:9090/webapp/order/evaluation/listPage?page=1&pageSize=10&productId=x&queryType=3
+Channel: {{Channel}}
+
+
+###

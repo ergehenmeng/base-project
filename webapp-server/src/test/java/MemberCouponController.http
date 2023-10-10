@@ -1,0 +1,18 @@
+POST http://localhost:9090/webapp/member/coupon/receive
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "couponConfigId": "",
+}
+
+###
+GET http://localhost:9090/webapp/member/coupon/listPage?page=1&pageSize=10&state=1&couponConfigId=xx
+Channel: {{Channel}}
+Token: {{Token}}
+
+###
+GET http://localhost:9090/webapp/member/coupon/choose?id=
+Channel: {{Channel}}
+Token: {{Token}}
