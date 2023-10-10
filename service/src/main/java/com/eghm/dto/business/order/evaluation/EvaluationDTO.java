@@ -1,5 +1,7 @@
 package com.eghm.dto.business.order.evaluation;
 
+import com.eghm.convertor.XssFilterDecoder;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,10 +18,14 @@ public class EvaluationDTO {
     @ApiModelProperty(value = "综合评分1-5分")
     private Integer score;
 
+    @ApiModelProperty("店铺平分1-5个")
+    private Integer storeScore;
+
     @ApiModelProperty(value = "物流评审1-5分")
     private Integer logisticsScore;
 
     @ApiModelProperty(value = "评论")
+    @JsonDeserialize(using = XssFilterDecoder.class)
     private String comment;
 
     @ApiModelProperty(value = "评论图片")

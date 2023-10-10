@@ -969,6 +969,7 @@ CREATE TABLE `order_evaluation`
     `product_cover`   varchar(200) DEFAULT NULL COMMENT '商品图片',
     `score`           tinyint(1)   DEFAULT '5' COMMENT '综合评分1-5分',
     `logistics_score` tinyint(1)   DEFAULT '5' COMMENT '物流评审1-5分',
+    `store_score`     tinyint(1)   DEFAULT '5' COMMENT '店铺评审1-5分',
     `comment`         varchar(200) DEFAULT NULL COMMENT '评论',
     `comment_pic`     varchar(500) DEFAULT NULL COMMENT '评论图片',
     `state`           tinyint(1)   DEFAULT '0' COMMENT '审核状态 0:待审核 1:审核通过 2:审核失败',
