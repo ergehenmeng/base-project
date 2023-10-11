@@ -12,7 +12,7 @@ import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.MerchantRoleMapping;
+import com.eghm.enums.RoleMapping;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantMapper;
@@ -77,7 +77,7 @@ public class MerchantServiceImpl implements MerchantService {
         // 系统用户和商户关联
         merchant.setUserId(user.getId());
         merchantMapper.insert(merchant);
-        List<RoleType> roleTypes = MerchantRoleMapping.parseRoleType(request.getType());
+        List<RoleType> roleTypes = RoleMapping.parseRoleType(request.getType());
         sysRoleService.authRole(merchant.getId(), roleTypes);
         this.initStore(merchant, roleTypes);
     }
@@ -92,7 +92,7 @@ public class MerchantServiceImpl implements MerchantService {
         user.setMobile(request.getMobile());
         user.setNickName(request.getNickName());
         sysUserService.updateById(user);
-        sysRoleService.authRole(merchant.getId(), MerchantRoleMapping.parseRoleType(request.getType()));
+        sysRoleService.authRole(merchant.getId(), RoleMapping.parseRoleType(request.getType()));
     }
 
     @Override

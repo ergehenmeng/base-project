@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 @AllArgsConstructor
 @Getter
-public enum MerchantRoleMapping {
+public enum RoleMapping {
 
     /**
      * 景区
@@ -60,9 +60,9 @@ public enum MerchantRoleMapping {
      * @return 角色列表
      */
     public static List<RoleType> parseRoleType(Integer merchantType) {
-        return Arrays.stream(MerchantRoleMapping.values())
+        return Arrays.stream(RoleMapping.values())
                 .filter(map -> (map.getMerchantType() & merchantType) == map.getMerchantType())
-                .map(MerchantRoleMapping::getRoleType).collect(Collectors.toList());
+                .map(RoleMapping::getRoleType).collect(Collectors.toList());
     }
 
 }
