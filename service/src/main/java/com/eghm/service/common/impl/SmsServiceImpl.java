@@ -64,7 +64,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Override
     public String getSmsCode(SmsType smsType, String mobile) {
-        return cacheService.getValue(CacheConstant.SMS_PREFIX + smsType + mobile);
+        return cacheService.getValue(CacheConstant.SMS_PREFIX + smsType.getValue() + mobile);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class SmsServiceImpl implements SmsService {
      * @param mobile 手机号码
      */
     private void cleanSmsCode(SmsType smsType, String mobile) {
-        cacheService.getValue(CacheConstant.SMS_PREFIX + smsType + mobile);
+        cacheService.delete(CacheConstant.SMS_PREFIX + smsType.getValue() + mobile);
     }
 
     /**

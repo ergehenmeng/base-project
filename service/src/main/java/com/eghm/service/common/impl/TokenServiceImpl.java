@@ -1,6 +1,7 @@
 package com.eghm.service.common.impl;
 
 
+import cn.hutool.core.lang.UUID;
 import com.eghm.constant.CacheConstant;
 import com.eghm.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
@@ -28,8 +29,8 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public MemberToken createToken(Long memberId, String channel) {
-        String refreshToken = StringUtil.random(32);
-        String accessToken = StringUtil.random(64);
+        String refreshToken = UUID.randomUUID().toString(true);
+        String accessToken = StringUtil.randomLowerCase(64);
         MemberToken memberToken = MemberToken.builder().token(accessToken).memberId(memberId).channel(channel).refreshToken(refreshToken).build();
         this.cacheToken(memberToken);
         return memberToken;
