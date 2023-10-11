@@ -3,7 +3,7 @@ package com.eghm.vo.sys;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.eghm.annotation.ExcelDict;
 import com.eghm.annotation.ExcelValue;
-import com.eghm.convertor.EnumConverter;
+import com.eghm.convertor.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -45,7 +45,7 @@ public class MenuExportVO extends ExcelStyle {
     private Integer grade;
 
     @ApiModelProperty("模拟枚举字段")
-    @ExcelProperty(value = "枚举", converter = EnumConverter.class)
+    @ExcelProperty(value = "枚举", converter = EnumExcelConverter.class)
     private MockEnum mock;
 
     @Getter

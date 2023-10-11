@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2023/3/30
  */
 @Slf4j
-public class EnumConverter implements Converter<Object> {
+public class EnumExcelConverter implements Converter<Object> {
 
     private static final Map<Class<?>, Field> FIELD_MAP = new ConcurrentHashMap<>(32);
 

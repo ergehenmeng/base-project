@@ -120,12 +120,12 @@ public class ExceptionAdviceHandler {
     }
 
     /**
-     * 参数校验失败
+     * 参数绑定失败
      */
     @ExceptionHandler(BindException.class)
     public RespBody<Void> exception(HttpServletRequest request, BindException e) {
         log.error("数据绑定异常, 接口[{}]", request.getRequestURI(), e);
-        return WebUtil.fieldError(e.getBindingResult());
+        return WebUtil.fieldBind(e.getBindingResult());
     }
 
     /**
@@ -134,7 +134,7 @@ public class ExceptionAdviceHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public RespBody<Void> exception(HttpServletRequest request, MethodArgumentNotValidException e) {
         log.error("参数校验异常, 接口[{}]", request.getRequestURI());
-        return WebUtil.fieldError(e.getBindingResult());
+        return WebUtil.fieldValid(e.getBindingResult());
     }
 
     /**
