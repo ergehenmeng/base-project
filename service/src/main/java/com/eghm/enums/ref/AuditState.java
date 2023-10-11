@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,7 +18,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum AuditState {
+public enum AuditState implements EnumBinder {
 
     /**
      * 默认

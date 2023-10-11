@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum CouponMode {
+public enum CouponMode implements EnumBinder {
 
     /**
      * 页面领取

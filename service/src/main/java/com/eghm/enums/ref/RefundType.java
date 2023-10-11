@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -16,7 +17,7 @@ import java.util.Arrays;
  */
 @Getter
 @AllArgsConstructor
-public enum RefundType {
+public enum RefundType implements EnumBinder {
 
     /**
      * 不支持退款

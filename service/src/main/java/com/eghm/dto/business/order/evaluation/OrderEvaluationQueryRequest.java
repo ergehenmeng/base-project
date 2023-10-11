@@ -1,7 +1,6 @@
 package com.eghm.dto.business.order.evaluation;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.ProductType;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -19,7 +18,7 @@ public class OrderEvaluationQueryRequest extends PagingQuery {
     private Integer state;
 
     @ApiModelProperty("商品分类")
-    private ProductType productType;
+    private String productType;
 
     @ApiModelProperty("分数")
     @OptionInt(value = {1, 2, 3, 4, 5}, required = false, message = "分数格式非法")

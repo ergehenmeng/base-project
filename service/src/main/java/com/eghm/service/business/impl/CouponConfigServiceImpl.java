@@ -6,22 +6,21 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.CouponMode;
-import com.eghm.exception.BusinessException;
-import com.eghm.mapper.CouponConfigMapper;
-import com.eghm.mapper.ItemMapper;
-import com.eghm.model.CouponConfig;
-import com.eghm.model.Item;
 import com.eghm.dto.business.coupon.config.CouponConfigAddRequest;
 import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
-import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.CouponConfigMapper;
+import com.eghm.mapper.ItemMapper;
+import com.eghm.model.CouponConfig;
+import com.eghm.model.Item;
 import com.eghm.service.business.CouponConfigService;
 import com.eghm.service.business.CouponProductService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.coupon.CouponListVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -66,7 +65,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
         wrapper.gt(Boolean.TRUE.equals(request.getInStock()), CouponConfig::getStock, 0);
         // mybatisPlus value值没有懒校验模式, 需要外层判断request.getMode是否为空, 否则CouponMode.valueOf会空指针
         if (request.getMode() != null) {
-            wrapper.eq(CouponConfig::getMode, CouponMode.of(request.getMode()));
+            wrapper.eq(CouponConfig::getMode, request.getMode());
         }
         wrapper.last(" order by state desc, id desc ");
         return couponConfigMapper.selectPage(request.createPage(), wrapper);
