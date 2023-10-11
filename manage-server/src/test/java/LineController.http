@@ -74,7 +74,7 @@ token: {{token}}
 ###
 POST http://localhost:8080/manage/line/platformUnShelves
 Content-Type: application/json
-token: {{token}}
+token: {{adminToken}}
 
 {
   "id": 1607290976547602434
@@ -83,7 +83,7 @@ token: {{token}}
 ###
 POST http://localhost:8080/manage/line/platformAudit
 Content-Type: application/json
-token: {{token}}
+token: {{adminToken}}
 
 {
   "id": 1611287570074824706
