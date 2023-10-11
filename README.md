@@ -38,8 +38,9 @@
 * `FileService` 文件上传工具类
 * `PushService` 极光推送工具类(未测试)
 * `SmsService` 短信发送工具类(未接入)
-* `HandlerExecute` 精简版责任链工具类(有点鸡肋,没想到适用的场景),通过实现 `Handler` 接口并标注 `HandlerMark` 注解
+* `HandlerChain` 精简版责任链工具类(有点鸡肋,没想到适用的场景),通过实现 `Handler` 接口并标注 `HandlerMark` 注解
 * 后台用户新增 默认密码手机号码后6位
+* `ExcelUtil` 工具类是针对 `easyexcel` 的二次封装, 如果导出的excel有枚举, 且可以通过枚举做类型转换, 则可以在枚举字段上添加 `@ExcelProperty(converter = EnumExcelConverter.class)`, 且枚举需要返回前端的字段上添加 `@ExcelValue` 注解, 具体可参考 `MenuExportVO` 类
 
 ## 移动端
 
@@ -90,3 +91,6 @@
 * `CacheProxyService` 缓存代理层 增加该类的原因: 由于@Cacheable等注解是基于动态代理实现的, 在同一个类中调用另一个方法则换成不会生效, 因此统一归集到该类中, 即:所有使用SpringCache注解的方法都建议维护到该类中
 * `CacheService` 缓存类封装, 建议所有手动设置查询的缓存走该接口, 方便后期维护
 * `SystemProperties` 所有本地化配置参数必须强制在该类中定义,方便统一维护, 禁止使用 `@Value`,
+* 如果返回前端的数据中有枚举, 需要指定字段作为返回值时, 使用 `@JsonValue` 注解
+* POST请求, 如果后端采用枚举作为参数接受时, 使用 `@JsonCreator` 注解
+* GET请求, 如果后端采用枚举作为参数接收时, 枚举类型需要继承 `EnumBinder` 接口 (注意该接口默认前端传递是数字且非下标映射), 具体例子查看 `webapp/item/couponScope` 接口

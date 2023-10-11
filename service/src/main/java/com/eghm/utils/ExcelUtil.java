@@ -31,11 +31,11 @@ public class ExcelUtil {
     public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     /**
-     * 导出xlsx表格 (统一表格样式)
+     * 导出xlsx表格 (统一表格样式),
      * @param response httpResponse
      * @param fileName 文件名
      * @param rowValues 导出excel表格
-     * @param cls 类型
+     * @param cls 类型, 该类需要继承 ExcelStyle 接口 来保持风格统一
      * @param <T> 泛型
      */
     public static <T extends ExcelStyle> void exportBeauty(HttpServletResponse response, String fileName, List<T> rowValues, Class<T> cls) {
