@@ -182,6 +182,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     
     @Override
     public boolean support(List<RoleType> roleTypes) {
-        return roleTypes.contains(RoleType.SPECIALTY);
+        return roleTypes.contains(RoleType.ITEM);
     }
 }

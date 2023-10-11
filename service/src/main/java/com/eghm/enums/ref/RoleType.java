@@ -38,9 +38,9 @@ public enum RoleType {
     RESTAURANT("restaurant", "餐饮商户"),
 
     /**
-     * 特产商户
+     * 零售特产
      */
-    SPECIALTY("specialty", "特产商户"),
+    ITEM("item", "零售特产"),
 
     /**
      * 线路商户

@@ -7,7 +7,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "scenicId": 1608668364569292801,
+  "scenicId": 1712007661226627074,
   "title": "全票",
   "category": 1,
   "coverUrl": "http://localhost:8080/ticket/coverUrl.png",

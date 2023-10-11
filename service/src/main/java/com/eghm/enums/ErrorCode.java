@@ -20,9 +20,9 @@ public enum ErrorCode {
     SUBMIT_FREQUENTLY(400, "操作太快啦~~"),
 
     /**
-     * 木有访问的权限
+     * 亲~ 暂时没有访问权限哦
      */
-    ACCESS_DENIED(403,"木有访问的权限"),
+    ACCESS_DENIED(403,"亲~ 暂时没有访问权限哦"),
 
     /**
      * 木有找到请求地址

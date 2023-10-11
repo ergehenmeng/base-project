@@ -33,9 +33,9 @@ public enum RoleMapping {
     RESTAURANT(4, RoleType.RESTAURANT),
 
     /**
-     * 特产
+     * 零售特产
      */
-    SPECIALTY(8, RoleType.SPECIALTY),
+    ITEM(8, RoleType.ITEM),
 
     /**
      * 线路

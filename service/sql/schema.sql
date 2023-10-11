@@ -530,11 +530,13 @@ CREATE TABLE `sys_role_menu`
     `menu_id`     varchar(20)         NOT NULL COMMENT '菜单Id',
     `create_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `r_m_idx` (`role_id`, `menu_id`),
     KEY `role_id_index` (`role_id`) USING BTREE,
     KEY `menu_id_index` (`menu_id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 975
+  AUTO_INCREMENT = 156
   DEFAULT CHARSET = utf8mb4 COMMENT ='角色与菜单关系表';
+
 
 -- ----------------------------
 -- Table structure for tag_view
