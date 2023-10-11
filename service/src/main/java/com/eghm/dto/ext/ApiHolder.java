@@ -64,7 +64,7 @@ public class ApiHolder {
     private static Long getMemberId(boolean needLogin) {
         Long memberId = get().getMemberId();
         if (needLogin && memberId == null) {
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_TIMEOUT);
+            throw new BusinessException(ErrorCode.LOGIN_TIMEOUT);
         }
         return memberId;
     }

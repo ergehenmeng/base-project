@@ -180,6 +180,10 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void sendLoginSms(String mobile) {
         Member member = this.getByAccountRequired(mobile);
+        if (Boolean.FALSE.equals(member.getState())) {
+            log.warn("账号已被封禁,无法登录 [{}] [{}]", member.getId(), mobile);
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
+        }
         smsService.sendSmsCode(SmsType.LOGIN, member.getMobile());
     }
 

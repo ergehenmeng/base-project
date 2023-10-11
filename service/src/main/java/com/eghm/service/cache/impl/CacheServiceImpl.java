@@ -108,10 +108,15 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void setValue(String key, Object value, long expire) {
+        this.setValue(key, value, expire, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void setValue(String key, Object value, long expire, TimeUnit unit) {
         if (value instanceof String) {
-            redisTemplate.opsForValue().set(key, (String)value, expire, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key, (String) value, expire, unit);
         } else {
-            redisTemplate.opsForValue().set(key, jsonService.toJson(value), expire, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key, jsonService.toJson(value), expire, unit);
         }
     }
 

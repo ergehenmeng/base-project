@@ -91,7 +91,7 @@ public class TokenInterceptor implements InterceptorAdapter {
             }
             // 如果用户需要登陆,且用户未获取到,则抛异常
             log.warn("用户登录已失效,请重新登陆 token:[{}]", token);
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_TIMEOUT);
+            throw new BusinessException(ErrorCode.LOGIN_TIMEOUT);
         }
     }
 

@@ -6,6 +6,7 @@ import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.service.cache.CacheService;
+import com.eghm.utils.IpUtil;
 import com.eghm.utils.WebUtil;
 import com.eghm.web.annotation.SubmitInterval;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.lang.NonNull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 殿小二
@@ -33,16 +35,22 @@ public class SubmitIntervalInterceptor implements InterceptorAdapter {
         if (!HttpMethod.POST.matches(request.getMethod())) {
             return true;
         }
-        Long memberId = ApiHolder.getMemberId();
+        Long memberId = ApiHolder.tryGetMemberId();
         String uri = request.getRequestURI();
-        String key = String.format(CacheConstant.SUBMIT_LIMIT, memberId, uri);
+        String key;
+        // 如果用户未登录则以ip作为过滤维度,否则以用户作为维度
+        if (memberId == null) {
+            key = String.format(CacheConstant.SUBMIT_LIMIT, IpUtil.getIpAddress(request), uri);
+        } else {
+            key = String.format(CacheConstant.SUBMIT_LIMIT, memberId, uri);
+        }
         if (cacheService.exist(key)) {
             WebUtil.printJson(response, ErrorCode.SUBMIT_FREQUENTLY);
             return false;
         }
         SubmitInterval annotation = this.getAnnotation(handler, SubmitInterval.class);
         if (annotation != null) {
-            cacheService.setValue(key, true, annotation.value());
+            cacheService.setValue(key, true, annotation.value(), TimeUnit.MILLISECONDS);
         } else {
             cacheService.setValue(key, true, systemProperties.getSubmitInterval());
         }

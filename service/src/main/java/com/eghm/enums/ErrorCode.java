@@ -55,14 +55,9 @@ public enum ErrorCode {
     METHOD_NOT_SUPPORTED(505,"该访问地址不支持%s请求"),
 
     /**
-     * 用户登陆已过期(后台系统使用)
+     * 用户登陆已过期
      */
-    USER_LOGIN_TIMEOUT(555,"登陆过期,请重新登陆"),
-
-    /**
-     * 用户超时,请重新登陆(用户token校验失败)
-     */
-    MEMBER_LOGIN_TIMEOUT(666,"登陆过期,请重新登陆"),
+    LOGIN_TIMEOUT(600,"登陆过期,请重新登陆"),
 
     /**
      * 数据转换异常
@@ -350,9 +345,9 @@ public enum ErrorCode {
     MULTIPLE_CLIENT_LOGIN(3016,"用户已在其他设备上登陆"),
 
     /**
-     * 用户不存在或已冻结
+     * 用户不存在
      */
-    MEMBER_NOT_FOUND(3017,"用户不存在或已冻结"),
+    MEMBER_NOT_FOUND(3017,"用户不存在"),
 
     /**
      * 账号或密码错误

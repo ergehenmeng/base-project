@@ -3876,7 +3876,7 @@ INSERT INTO `pay_bank` VALUES ('252', 'OTHERS', '其他(银行卡以外)', '2021
 
 update sys_user set pwd = '$2a$10$WIfMgLnfKf7NERTun09ahuD0lHupFO7AZ.n8cgGZBf7zAYOo7y5Ga' where id = 1;
 
-INSERT INTO `sys_config` VALUES ('1', 'application_name', '后台系统名称', '后台管理系统', b'0', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
+NSERT INTO `sys_config` VALUES ('1', 'application_name', '后台系统名称', '后台管理系统', b'0', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
 INSERT INTO `sys_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', b'0', NULL, '2018-02-08 14:38:59', NULL);
 INSERT INTO `sys_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市余杭区中泰街道338号', b'0', NULL, '2018-02-08 14:40:01', NULL);
 INSERT INTO `sys_config` VALUES ('4', 'enterprise_phone', '企业电话', '0571-00000000', b'0', NULL, '2018-02-08 14:40:46', NULL);
@@ -3919,7 +3919,10 @@ INSERT INTO `sys_config` VALUES ('56', 'homestay_room_max_recommend', '民宿房
 INSERT INTO `sys_config` VALUES ('57', 'item_max_recommend', '商品最大推荐数量', '10', b'0', '默认推荐10件商品', '2023-01-29 14:20:39', '2023-01-29 14:20:39');
 INSERT INTO `sys_config` VALUES ('58', 'store_item_max_recommend', '店铺商品最大推荐数量', '10', b'0', '单个店铺默认推荐商品数量', '2023-01-29 14:21:43', '2023-02-10 13:02:30');
 INSERT INTO `sys_config` VALUES ('59', 'store_max_recommend', '店铺最大推荐数量', '6', b'0', '店铺默认推荐数量', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
-
+INSERT INTO `sys_config` VALUES ('60', 'sms_type_hour_limit', '类型短信单小时次数限制', '6', b'0', '单手机号一个小时某一类型最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('61', 'sms_type_day_limit', '类型短信单天次数限制', '10', b'0', '单手机号一天某一类型的短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('62', 'sms_day_limit', '短信单天次数限制', '10', b'0', '单手机号一天短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+I
 
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('1010', '系统管理', 'Vz', '0', NULL, NULL, '1', '1', b'1', '', '2', '2018-01-24 08:13:54', '2023-09-27 14:39:17');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('101010', '菜单管理', 'EQU', '1010', NULL, NULL, '1', '1', b'1', '', '2', '2018-01-24 08:14:01', '2023-09-27 14:39:17');

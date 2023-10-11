@@ -45,9 +45,19 @@ public interface CacheService {
      *
      * @param key    key
      * @param value  value
-     * @param expire 过期时间 单位毫秒
+     * @param expire 过期时间 单位:秒
      */
     void setValue(String key, Object value, long expire);
+
+    /**
+     * 缓存对象
+     *
+     * @param key    key
+     * @param value  value
+     * @param expire 过期时间
+     * @param unit 单位时间
+     */
+    void setValue(String key, Object value, long expire, TimeUnit unit);
 
     /**
      * 是否存在指定key的缓存
