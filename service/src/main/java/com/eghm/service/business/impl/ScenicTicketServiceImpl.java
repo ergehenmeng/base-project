@@ -47,16 +47,17 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public void createTicket(ScenicTicketAddRequest request) {
-        this.redoTitle(request.getTitle(), null);
+        Long merchantId = SecurityHolder.getMerchantId();
+        this.redoTitle(request.getTitle(), merchantId,null);
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
-        ticket.setMerchantId(SecurityHolder.getMerchantId());
+        ticket.setMerchantId(merchantId);
         scenicTicketMapper.insert(ticket);
     }
 
     @Override
     public void updateTicket(ScenicTicketEditRequest request) {
-        this.redoTitle(request.getTitle(), request.getId());
+        this.redoTitle(request.getTitle(), SecurityHolder.getMerchantId(), request.getId());
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         scenicTicketMapper.updateById(ticket);
@@ -141,9 +142,10 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
      * @param title 门票
      * @param id id
      */
-    private void redoTitle(String title, Long id) {
+    private void redoTitle(String title, Long merchantId, Long id) {
         LambdaQueryWrapper<ScenicTicket> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ScenicTicket::getTitle, title);
+        wrapper.eq(ScenicTicket::getMerchantId, merchantId);
         wrapper.ne(id != null, ScenicTicket::getId, id);
         Long count = scenicTicketMapper.selectCount(wrapper);
         if (count > 0) {

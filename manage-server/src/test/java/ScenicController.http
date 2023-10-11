@@ -8,7 +8,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "scenicName": "西湖博物馆",
+  "scenicName": "西湖文化博物馆",
   "level": 3,
   "openTime": "09:00~12:00",
   "phone": "0573-62943991",
@@ -43,8 +43,8 @@ Content-Type: application/json
   "cityId": 120300,
   "countyId": 120322,
   "detailAddress": "详细地址",
-  "longitude": "30.973762",
-  "latitude": "120.386113",
+  "longitude": "120.386113",
+  "latitude": "30.973762",
   "depict": "一句话描述",
   "coverUrl": "http://localhost:8080/coverUrl.png",
   "introduce": "详细简介",

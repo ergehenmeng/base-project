@@ -23,10 +23,7 @@
         r.scenic_name as scenicName
         from scenic_ticket t
         left join scenic r on t.scenic_id = r.id
-        where t.deleted = false
-        <if test="param.merchantId != null">
-            and r.merchant_id = #{param.merchantId}
-        </if>
+        where t.deleted = false and r.merchant_id = #{param.merchantId}
         <if test="param.scenicId != null">
             and t.scenic_id = #{param.scenicId}
         </if>

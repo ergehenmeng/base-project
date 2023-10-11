@@ -3589,7 +3589,8 @@ INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `del
 
 INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', 8, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 
-INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES ('5', '1', '1');
+## 超管角色初始化
+INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES ('1', '1', '1');
 
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', NULL);
@@ -4309,3 +4310,9 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('145', '1707298744621969414', '10122016', '2023-10-11 17:07:02');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('146', '1707298744621969414', '10122017', '2023-10-11 17:07:02');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('147', '1707298744621969414', '10122018', '2023-10-11 17:07:02');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('156', '1707298744621969410', '1012', '2023-10-11 17:38:18');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('157', '1707298744621969410', '1013', '2023-10-11 17:38:28');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('158', '1707298744621969411', '1012', '2023-10-11 17:39:26');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('159', '1707298744621969412', '1012', '2023-10-11 17:40:01');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('160', '1707298744621969413', '1012', '2023-10-11 17:40:15');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('161', '1707298744621969414', '1012', '2023-10-11 17:40:29');
