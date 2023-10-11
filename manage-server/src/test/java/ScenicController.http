@@ -63,7 +63,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1608668364569292801
+  "id": 1712041763678035970
 }
 ###
 
@@ -79,7 +79,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/manage/scenic/platformAudit
-token: {{token}}
+token: {{adminToken}}
 Content-Type: application/json
 
 {
@@ -90,11 +90,11 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/manage/scenic/platformUnShelves
-token: {{token}}
+token: {{adminToken}}
 Content-Type: application/json
 
 {
-  "id": 1608668364569292801
+  "id": 1712041763678035970
 }
 
 ###
@@ -104,5 +104,5 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1608668364569292801
+  "id": 1712041763678035970
 }
