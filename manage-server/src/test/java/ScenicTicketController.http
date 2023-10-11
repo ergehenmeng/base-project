@@ -61,7 +61,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1608697527963467777
+  "id": 1712044044993486850
 }
 
 ###
@@ -74,8 +74,17 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8080/manage/scenic/ticket/platformAudit
+token: {{adminToken}}
+Content-Type: application/json
+
+{
+  "id": 1712044044993486850
+}
+
+###
 POST http://localhost:8080/manage/scenic/ticket/platformUnShelves
-token: {{token}}
+token: {{adminToken}}
 Content-Type: application/json
 
 {
