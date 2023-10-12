@@ -2,7 +2,6 @@ package com.eghm.web;
 
 
 import com.eghm.configuration.annotation.EnableTask;
-import com.eghm.configuration.rabbit.RabbitConfig;
 import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -12,13 +11,11 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -27,11 +24,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * 排除RabbitConfig是因为管理后台暂不使用mq
  * @author 二哥很猛
  */
-@SpringBootApplication
-@ComponentScan(value = "com.eghm", excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = {RabbitAutoConfiguration.class, RabbitConfig.class}))
+@SpringBootApplication(exclude = {RabbitAutoConfiguration.class})
+@ComponentScan("com.eghm")
 @EnableAsync
 @EnableAspectJAutoProxy
-@ServletComponentScan(basePackages = "com.eghm.configuration.listener")
 @MapperScan(basePackages = "com.eghm.mapper")
 @EnableTask
 @Slf4j
