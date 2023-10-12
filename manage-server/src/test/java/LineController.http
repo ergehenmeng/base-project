@@ -81,15 +81,6 @@ token: {{adminToken}}
 }
 
 ###
-POST http://localhost:8080/manage/line/platformAudit
-Content-Type: application/json
-token: {{adminToken}}
-
-{
-  "id": 1611287570074824706
-}
-
-###
 POST http://localhost:8080/manage/line/unShelves
 Content-Type: application/json
 token: {{token}}

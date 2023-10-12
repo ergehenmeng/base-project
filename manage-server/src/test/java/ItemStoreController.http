@@ -71,15 +71,6 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/item/store/platformAudit
-token: {{adminToken}}
-Content-Type: application/json
-
-{
-  "id": 1608726046030311425
-}
-
-###
 POST http://localhost:8080/manage/item/store/delete
 token: {{token}}
 Content-Type: application/json

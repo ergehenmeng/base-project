@@ -78,17 +78,6 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/manage/scenic/platformAudit
-token: {{adminToken}}
-Content-Type: application/json
-
-{
-  "id": 1712041763678035970
-}
-
-
-###
-
 POST http://localhost:8080/manage/scenic/platformUnShelves
 token: {{adminToken}}
 Content-Type: application/json

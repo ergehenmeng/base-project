@@ -89,14 +89,6 @@ Content-Type: application/json
 }
 ###
 
-POST http://localhost:8080/manage/item/platformAudit
-token: {{adminToken}}
-Content-Type: application/json
-
-{
-  "id": 1608738767752790017
-}
-###
 
 POST http://localhost:8080/manage/item/platformUnShelves
 token: {{adminToken}}

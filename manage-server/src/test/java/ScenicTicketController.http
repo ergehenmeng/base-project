@@ -74,15 +74,6 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/manage/scenic/ticket/platformAudit
-token: {{adminToken}}
-Content-Type: application/json
-
-{
-  "id": 1712044044993486850
-}
-
-###
 POST http://localhost:8080/manage/scenic/ticket/platformUnShelves
 token: {{adminToken}}
 Content-Type: application/json
