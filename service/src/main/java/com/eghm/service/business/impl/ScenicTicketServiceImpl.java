@@ -12,10 +12,10 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.ScenicMapper;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
+import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
@@ -38,7 +38,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     private final ScenicTicketMapper scenicTicketMapper;
 
-    private final ScenicMapper scenicMapper;
+    private final ScenicService scenicService;
 
     @Override
     public Page<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request) {
@@ -53,6 +53,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         ticket.setMerchantId(merchantId);
         scenicTicketMapper.insert(ticket);
+        scenicService.updatePrice(request.getScenicId());
     }
 
     @Override
@@ -61,6 +62,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         scenicTicketMapper.updateById(ticket);
+        scenicService.updatePrice(request.getScenicId());
     }
 
     @Override
@@ -126,7 +128,11 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public void deleteById(Long id) {
-        scenicTicketMapper.deleteById(id);
+        ScenicTicket ticket = scenicTicketMapper.selectById(id);
+        if (ticket != null) {
+            scenicTicketMapper.deleteById(id);
+            scenicService.updatePrice(ticket.getScenicId());
+        }
     }
 
     @Override
@@ -158,7 +164,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
      * @param id 景区id
      */
     private void checkScenic(Long id) {
-        Scenic scenic = scenicMapper.selectById(id);
+        Scenic scenic = scenicService.selectById(id);
         if (scenic == null) {
             log.info("门票绑定的景区不存在或已被删除 [{}]", id);
             throw new BusinessException(ErrorCode.SCENIC_DELETE);

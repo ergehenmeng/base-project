@@ -20,10 +20,10 @@ import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScenicMapper;
+import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.ScenicService;
-import com.eghm.service.business.ScenicTicketService;
 import com.eghm.service.sys.GeoService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
@@ -33,6 +33,7 @@ import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.scenic.ScenicListVO;
 import com.eghm.vo.business.scenic.ScenicVO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
+import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -58,11 +59,11 @@ public class ScenicServiceImpl implements ScenicService {
 
     private final SysAreaService sysAreaService;
 
-    private final ScenicTicketService scenicTicketService;
-
     private final ActivityService activityService;
 
     private final SysDictService sysDictService;
+
+    private final ScenicTicketMapper scenicTicketMapper;
 
     @Override
     public Page<Scenic> getByPage(ScenicQueryRequest request) {
@@ -169,7 +170,7 @@ public class ScenicServiceImpl implements ScenicService {
         // 景区标签
         vo.setTagList(sysDictService.getTags(DictConstant.SCENIC_TAG, scenic.getTag()));
         // 景区门票
-        List<TicketBaseVO> ticketList = scenicTicketService.getTicketList(id);
+        List<TicketBaseVO> ticketList = scenicTicketMapper.getTicketList(id);
         vo.setTicketList(ticketList);
         // 景区关联的活动
         List<ActivityBaseDTO> activityList = activityService.scenicActivityList(id);
@@ -181,6 +182,16 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public void deleteById(Long id) {
         scenicMapper.deleteById(id);
+    }
+
+    @Override
+    public void updatePrice(Long id) {
+        TicketPriceVO vo = scenicTicketMapper.calcPrice(id);
+        LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(Scenic::getMinPrice, vo.getMinPrice());
+        wrapper.set(Scenic::getMaxPrice, vo.getMaxPrice());
+        wrapper.eq(Scenic::getId, id);
+        scenicMapper.update(null, wrapper);
     }
 
     /**

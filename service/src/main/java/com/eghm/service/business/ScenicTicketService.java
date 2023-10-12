@@ -100,4 +100,5 @@ public interface ScenicTicketService {
      * @param score 分数
      */
     void updateScore(Long productId, BigDecimal score);
+
 }

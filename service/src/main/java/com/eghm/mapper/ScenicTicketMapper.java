@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
+import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -41,4 +42,11 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @param num 数量 负数-库存 正数+库存
      */
     int updateStock(@Param("id") Long id, @Param("num") int num);
+
+    /**
+     * 计算景区最低价和最高价
+     * @param scenicId 景区id
+     * @return 最高价,最低价
+     */
+    TicketPriceVO calcPrice(@Param("scenicId") Long scenicId);
 }

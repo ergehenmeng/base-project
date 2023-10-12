@@ -95,4 +95,11 @@ public interface ScenicService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 更新景区价格(最低价,最高价)
+     *
+     * @param id 景区id
+     */
+    void updatePrice(Long id);
 }
