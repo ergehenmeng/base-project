@@ -11,7 +11,6 @@ import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -57,7 +56,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), ItemStore::getTitle, request.getQueryName());
         wrapper.eq(request.getState() != null, ItemStore::getState , request.getState());
-        wrapper.eq(request.getPlatformState() != null, ItemStore::getPlatformState, request.getPlatformState());
         wrapper.eq(request.getMerchantId() != null, ItemStore::getMerchantId, request.getMerchantId());
         return itemStoreMapper.selectPage(request.createPage(), wrapper);
     }
@@ -98,7 +96,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     @Override
     public ItemStore selectByIdShelve(Long id) {
         ItemStore store = this.selectByIdRequired(id);
-        if (store.getPlatformState() != PlatformState.SHELVE) {
+        if (store.getState() != State.SHELVE) {
             log.error("零售店铺已下架 [{}]", id);
             throw new BusinessException(ErrorCode.SHOP_DOWN);
         }
@@ -109,7 +107,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     public Map<Long, ItemStore> selectByIdShelveMap(List<Long> ids) {
         LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
         wrapper.in(ItemStore::getId, ids);
-        wrapper.eq(ItemStore::getPlatformState, PlatformState.SHELVE);
+        wrapper.eq(ItemStore::getState, State.SHELVE);
         List<ItemStore> storeList = itemStoreMapper.selectBatchIds(ids);
         if (storeList.size() != ids.size()) {
             log.error("存在已删除零售店铺 {}", ids);
@@ -123,14 +121,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
         wrapper.set(ItemStore::getState, state);
-        itemStoreMapper.update(null, wrapper);
-    }
-
-    @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ItemStore::getId, id);
-        wrapper.set(ItemStore::getPlatformState, state);
         itemStoreMapper.update(null, wrapper);
     }
 

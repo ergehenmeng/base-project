@@ -1,13 +1,12 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.Scenic;
 import com.eghm.dto.business.scenic.ScenicAddRequest;
 import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
+import com.eghm.enums.ref.State;
+import com.eghm.model.Scenic;
 import com.eghm.vo.business.scenic.ScenicListVO;
 import com.eghm.vo.business.scenic.ScenicVO;
 
@@ -68,13 +67,6 @@ public interface ScenicService {
     void updateState(Long id, State state);
 
     /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
-
-    /**
      * 景区列表查询
      * @param dto 查询条件
      * @return 列表 不含分页信息
@@ -102,4 +94,5 @@ public interface ScenicService {
      * @param id 景区id
      */
     void updatePrice(Long id);
+
 }

@@ -1,6 +1,5 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -11,13 +10,11 @@ import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
-import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
@@ -81,14 +78,6 @@ public class LineServiceImpl implements LineService {
         LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Line::getId, id);
         wrapper.set(Line::getState, state);
-        lineMapper.update(null, wrapper);
-    }
-
-    @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Line::getId, id);
-        wrapper.set(Line::getPlatformState, state);
         lineMapper.update(null, wrapper);
     }
 

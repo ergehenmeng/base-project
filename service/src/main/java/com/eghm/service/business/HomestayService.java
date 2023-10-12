@@ -1,13 +1,12 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.Homestay;
 import com.eghm.dto.business.homestay.HomestayAddRequest;
 import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
+import com.eghm.enums.ref.State;
+import com.eghm.model.Homestay;
 import com.eghm.vo.business.homestay.HomestayListVO;
 import com.eghm.vo.business.homestay.HomestayVO;
 
@@ -44,13 +43,6 @@ public interface HomestayService {
      * @param state 状态
      */
     void updateState(Long id, State state);
-
-    /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
 
     /**
      * 删除民宿

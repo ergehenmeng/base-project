@@ -5,7 +5,6 @@ import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.business.line.LineQueryRequest;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Line;
 import com.eghm.vo.business.line.LineDetailVO;
@@ -46,13 +45,6 @@ public interface LineService {
      * @param state 状态
      */
     void updateState(Long id, State state);
-
-    /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
 
     /**
      * 主键查询线路信息, 为空则抛异常

@@ -1,12 +1,11 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.ItemStore;
 import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
+import com.eghm.enums.ref.State;
+import com.eghm.model.ItemStore;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 
@@ -65,13 +64,6 @@ public interface ItemStoreService {
      * @param state 状态
      */
     void updateState(Long id, State state);
-
-    /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
 
     /**
      * 店铺首页详情

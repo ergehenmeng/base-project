@@ -9,7 +9,6 @@ import com.eghm.dto.business.item.ItemEditRequest;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.item.ItemListResponse;
@@ -76,17 +75,10 @@ public class ItemController {
         return RespBody.success();
     }
 
-    @PostMapping("/platformAudit")
-    @ApiOperation("平台上架审核")
-    public RespBody<Void> platformAudit(@RequestBody @Validated IdDTO dto) {
-        itemService.updateAuditState(dto.getId(), PlatformState.SHELVE);
-        return RespBody.success();
-    }
-
     @PostMapping("/platformUnShelves")
     @ApiOperation("平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
-        itemService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
+        itemService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 

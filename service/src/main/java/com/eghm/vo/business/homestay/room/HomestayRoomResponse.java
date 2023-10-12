@@ -1,6 +1,5 @@
 package com.eghm.vo.business.homestay.room;
 
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,9 +23,6 @@ public class HomestayRoomResponse {
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "几室")
     private Integer room;

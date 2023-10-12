@@ -5,17 +5,16 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.travel.TravelAgencyAddRequest;
+import com.eghm.dto.business.travel.TravelAgencyEditRequest;
+import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.TravelAgency;
-import com.eghm.dto.business.travel.TravelAgencyAddRequest;
-import com.eghm.dto.business.travel.TravelAgencyEditRequest;
-import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.TravelAgencyService;
@@ -54,7 +53,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         this.redoTitle(request.getTitle(), null);
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         agency.setState(State.UN_SHELVE);
-        agency.setPlatformState(PlatformState.SHELVE);
         travelAgencyMapper.insert(agency);
     }
     
@@ -76,14 +74,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(TravelAgency::getId, id);
         wrapper.set(TravelAgency::getState, state);
-        travelAgencyMapper.update(null, wrapper);
-    }
-    
-    @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(TravelAgency::getId, id);
-        wrapper.set(TravelAgency::getPlatformState, state);
         travelAgencyMapper.update(null, wrapper);
     }
     
@@ -117,7 +107,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         TravelAgency agency = new TravelAgency();
         agency.setMerchantId(merchant.getId());
         agency.setState(State.INIT);
-        agency.setPlatformState(PlatformState.SHELVE);
         travelAgencyMapper.insert(agency);
     }
     

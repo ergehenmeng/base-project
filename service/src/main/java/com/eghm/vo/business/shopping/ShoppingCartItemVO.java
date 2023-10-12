@@ -1,7 +1,6 @@
 package com.eghm.vo.business.shopping;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.PlatformState;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,7 +52,4 @@ public class ShoppingCartItemVO {
 
     @ApiModelProperty("sku状态 true:已下架 false:已上架")
     private Boolean skuState;
-
-    @ApiModelProperty("商品状态 2:已上架 其他下架")
-    private PlatformState platformState;
 }

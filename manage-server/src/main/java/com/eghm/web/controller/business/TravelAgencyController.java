@@ -7,7 +7,6 @@ import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.TravelAgencyService;
@@ -63,18 +62,11 @@ public class TravelAgencyController {
         travelAgencyService.updateState(dto.getId(), State.UN_SHELVE);
         return RespBody.success();
     }
-    
-    @PostMapping("/platformAudit")
-    @ApiOperation("平台上架审核")
-    public RespBody<Void> platformAudit(@RequestBody @Validated IdDTO dto) {
-        travelAgencyService.updateAuditState(dto.getId(), PlatformState.SHELVE);
-        return RespBody.success();
-    }
-    
+
     @PostMapping("/platformUnShelves")
     @ApiOperation("平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
-        travelAgencyService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
+        travelAgencyService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
     

@@ -5,24 +5,23 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.mapper.HomestayRoomMapper;
-import com.eghm.model.HomestayRoom;
 import com.eghm.dto.business.homestay.room.HomestayRoomAddRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomEditRequest;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryDTO;
 import com.eghm.dto.business.homestay.room.HomestayRoomQueryRequest;
-import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
-import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
-import com.eghm.vo.business.homestay.room.HomestayRoomVO;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.State;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.HomestayRoomMapper;
+import com.eghm.model.HomestayRoom;
 import com.eghm.service.business.HomestayRoomConfigService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
+import com.eghm.vo.business.homestay.room.HomestayRoomResponse;
+import com.eghm.vo.business.homestay.room.HomestayRoomVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -81,7 +80,7 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     @Override
     public HomestayRoom selectByIdShelve(Long id) {
         HomestayRoom room = this.selectByIdRequired(id);
-        if (room.getPlatformState() != PlatformState.SHELVE) {
+        if (room.getState() != State.SHELVE) {
             log.info("房型系统未上架 [{}]", id);
             throw new BusinessException(ErrorCode.HOMESTAY_ROOM_NULL);
         }
@@ -93,14 +92,6 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
         LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(HomestayRoom::getId, id);
         wrapper.set(HomestayRoom::getState, state);
-        homestayRoomMapper.update(null, wrapper);
-    }
-
-    @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        LambdaUpdateWrapper<HomestayRoom> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(HomestayRoom::getId, id);
-        wrapper.set(HomestayRoom::getPlatformState, state);
         homestayRoomMapper.update(null, wrapper);
     }
 

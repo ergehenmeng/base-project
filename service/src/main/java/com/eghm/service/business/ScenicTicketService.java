@@ -1,18 +1,15 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
-import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/15
@@ -58,21 +55,6 @@ public interface ScenicTicketService {
      * @param state 状态
      */
     void updateState(Long id, State state);
-
-    /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
-
-    /**
-     * 查询景区下的在售门票的基本信息
-     * 售罄,删除,未上架,已过销售期的门票都不显示
-     * @param scenicId 景区id
-     * @return 门票
-     */
-    List<TicketBaseVO> getTicketList(Long scenicId);
 
     /**
      * 查询门票详细信息

@@ -1,6 +1,5 @@
 package com.eghm.vo.business.line;
 
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -35,9 +34,6 @@ public class LineResponse {
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "出发省份id")
     private Long startProvinceId;

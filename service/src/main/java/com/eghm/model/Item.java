@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -41,11 +40,8 @@ public class Item extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "所属商户id")
     private Long merchantId;
     
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
-    
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "是否为推荐商品 true:是 false:否")
     private Boolean recommend;

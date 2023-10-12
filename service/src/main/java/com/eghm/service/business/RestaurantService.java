@@ -1,13 +1,12 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.Restaurant;
 import com.eghm.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
+import com.eghm.enums.ref.State;
+import com.eghm.model.Restaurant;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 
@@ -45,13 +44,6 @@ public interface RestaurantService {
      * @param state 状态
      */
     void updateState(Long id, State state);
-
-    /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
 
     /**
      * 主键查询餐饮商家

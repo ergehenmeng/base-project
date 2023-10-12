@@ -3,7 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.enums.ref.PlatformState;
+import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.ShoppingCartMapper;
@@ -117,7 +117,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             throw new BusinessException(ILLEGAL_OPERATION);
         }
         Item item = itemService.selectByIdRequired(shoppingCart.getItemId());
-        if (item.getPlatformState() != PlatformState.SHELVE) {
+        if (item.getState() != State.SHELVE) {
             log.error("商品已下架, 无法更新购物车数量 [{}]", shoppingCart.getItemId());
             throw new BusinessException(ITEM_DOWN);
         }
@@ -144,8 +144,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     private ItemSku checkAndGetSku(AddCartDTO dto, int quantity) {
         Item item = itemService.selectByIdRequired(dto.getItemId());
-        if (item.getPlatformState() != PlatformState.SHELVE) {
-            log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getItemId(), item.getPlatformState());
+        if (item.getState() != State.SHELVE) {
+            log.error("商品已下架,无法添加到购物车 [{}] [{}]", dto.getItemId(), item.getState());
             throw new BusinessException(ITEM_DOWN);
         }
         ItemSku itemSku = itemSkuService.selectByIdRequired(dto.getSkuId());

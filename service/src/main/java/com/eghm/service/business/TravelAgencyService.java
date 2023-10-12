@@ -1,12 +1,11 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.enums.ref.PlatformState;
-import com.eghm.enums.ref.State;
-import com.eghm.model.TravelAgency;
 import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
+import com.eghm.enums.ref.State;
+import com.eghm.model.TravelAgency;
 
 /**
  * @author 殿小二
@@ -39,14 +38,7 @@ public interface TravelAgencyService {
      * @param state 状态
      */
     void updateState(Long id, State state);
-    
-    /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
-    
+
     /**
      * 主键查询旅行社商家
      * @param id id

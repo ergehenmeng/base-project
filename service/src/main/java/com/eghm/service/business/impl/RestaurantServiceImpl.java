@@ -11,12 +11,10 @@ import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RestaurantMapper;
-import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.CommonService;
@@ -89,14 +87,6 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     }
 
     @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Restaurant::getId, id);
-        wrapper.set(Restaurant::getPlatformState, state);
-        restaurantMapper.update(null, wrapper);
-    }
-
-    @Override
     public Restaurant selectByIdRequired(Long id) {
         Restaurant restaurant = restaurantMapper.selectById(id);
         if (restaurant == null) {
@@ -109,8 +99,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     @Override
     public Restaurant selectByIdShelve(Long id) {
         Restaurant restaurant = this.selectByIdRequired(id);
-        if (restaurant.getPlatformState() != PlatformState.SHELVE) {
-            log.info("餐饮商家信息已下架 [{}] [{}]", id, restaurant.getPlatformState());
+        if (restaurant.getState() != State.SHELVE) {
+            log.info("餐饮商家信息已下架 [{}] [{}]", id, restaurant.getState());
             throw new BusinessException(ErrorCode.RESTAURANT_DOWN);
         }
         return restaurant;

@@ -20,14 +20,19 @@ public enum State implements EnumBinder {
     INIT(-1, "初始化"),
     
     /**
-     * 待上架
+     * 下架
      */
-    UN_SHELVE(0, "待上架"),
+    UN_SHELVE(0, "下架"),
 
     /**
      * 已上架
      */
     SHELVE(1, "已上架"),
+
+    /**
+     * 平台下架
+     */
+    FORCE_UN_SHELVE(2, "平台下架"),
     ;
 
     /**
@@ -42,4 +47,9 @@ public enum State implements EnumBinder {
      */
     private final String name;
 
+
+    @Override
+    public String toString() {
+        return name +  ":" + value;
+    }
 }

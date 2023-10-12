@@ -14,7 +14,6 @@ import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -103,19 +102,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     }
 
     @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        Homestay homestay = homestayMapper.selectById(id);
-        if (homestay.getState() != State.SHELVE) {
-            log.info("民宿尚未提交审核 [{}]", id);
-            throw new BusinessException(ErrorCode.HOMESTAY_NOT_UP);
-        }
-        LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Homestay::getId, id);
-        wrapper.set(Homestay::getPlatformState, state);
-        homestayMapper.update(null, wrapper);
-    }
-
-    @Override
     public void deleteById(Long id) {
         homestayMapper.deleteById(id);
     }
@@ -133,7 +119,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     @Override
     public Homestay selectByIdShelve(Long id) {
         Homestay homestay = this.selectByIdRequired(id);
-        if (homestay.getPlatformState() != PlatformState.SHELVE) {
+        if (homestay.getState() != State.SHELVE) {
             log.error("该民宿已下架 [{}]", id);
             throw new BusinessException(ErrorCode.HOMESTAY_DOWN);
         }

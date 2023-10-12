@@ -1,7 +1,6 @@
 package com.eghm.dto.business.line;
 
 import com.eghm.dto.ext.PagingQuery;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.validation.annotation.OptionInt;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,11 +18,8 @@ public class LineQueryRequest extends PagingQuery {
     @ApiModelProperty(value = "所属旅行社id")
     private Long travelAgencyId;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "出发省份id")
     private Long startProvinceId;

@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModel;
@@ -38,9 +37,6 @@ public class Restaurant extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty("商家logo")
     private String logoUrl;

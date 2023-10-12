@@ -1,7 +1,6 @@
 package com.eghm.vo.business.scenic.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -30,9 +29,6 @@ public class ScenicTicketResponse implements Serializable {
 
     @ApiModelProperty(value = "门票上下架状态 0:待上架 1:已上架")
     private State state;
-
-    @ApiModelProperty("门票平台核销状态")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "门票名称")
     private String title;

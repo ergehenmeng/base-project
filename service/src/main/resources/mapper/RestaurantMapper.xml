@@ -28,7 +28,7 @@
         cover_url as coverUrl,
         logo_url as logoUrl,
         phone
-        from restaurant where state = 1 and platform_state = 2 and deleted = false
+        from restaurant where state = 1 and deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
@@ -46,7 +46,7 @@
         cover_url as coverUrl,
         logo_url as logoUrl,
         phone
-        from restaurant where state = 1 and platform_state = 2 and deleted = false
+        from restaurant where state = 1 and deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>

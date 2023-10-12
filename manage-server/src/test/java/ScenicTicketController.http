@@ -31,8 +31,8 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1608697527963467777,
-  "scenicId": 1608668364569292801,
+  "id": 1712044044993486850,
+  "scenicId": 1712041763678035970,
   "title": "联票",
   "category": 1,
   "coverUrl": "http://localhost:8080/ticket/coverUrl.png",
@@ -41,7 +41,7 @@ Content-Type: application/json
   "advanceDay": 1,
   "quota": 1,
   "startDate": "2022-12-20",
-  "endDate": "2023-03-31",
+  "endDate": "2024-03-31",
   "stock": 100,
   "introduce": "门票详细介绍-门票包含XX编辑",
   "useScope": 31,

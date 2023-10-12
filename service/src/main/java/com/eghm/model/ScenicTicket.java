@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -43,9 +42,6 @@ public class ScenicTicket extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架")
     private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票")
     private Integer category;

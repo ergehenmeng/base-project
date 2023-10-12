@@ -8,7 +8,6 @@ import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ScenicTicketService;
@@ -74,17 +73,10 @@ public class ScenicTickController {
         return RespBody.success();
     }
 
-    @PostMapping("/platformAudit")
-    @ApiOperation("平台上架审核")
-    public RespBody<Void> platformAudit(@RequestBody @Validated IdDTO dto) {
-        scenicTicketService.updateAuditState(dto.getId(), PlatformState.SHELVE);
-        return RespBody.success();
-    }
-
     @PostMapping("/platformUnShelves")
     @ApiOperation("平台下架")
     public RespBody<Void> platformUnShelves(@RequestBody @Validated IdDTO dto) {
-        scenicTicketService.updateAuditState(dto.getId(), PlatformState.UN_SHELVE);
+        scenicTicketService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
 

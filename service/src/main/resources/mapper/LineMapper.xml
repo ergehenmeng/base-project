@@ -9,7 +9,6 @@
             r.merchant_name as merchantName,
             s.title as travelAgencyName,
             t.state,
-            t.platform_state as platformState,
             t.start_province_id as startProvinceId,
             t.start_city_id as startCityId,
             t.cover_url as coverUrl,
@@ -26,9 +25,6 @@
         </if>
         <if test="param.duration != null">
             and t.duration = #{params.duration}
-        </if>
-        <if test="param.platformState != null">
-            and t.platform_state = #{params.platformState}
         </if>
         <if test = "param.travelAgencyId != null">
             and t.travel_agency_id = #{params.travelAgencyId}
@@ -54,7 +50,7 @@
         cover_url as coverUrl,
         total_num as totalNum,
         duration
-        from line where deleted = false and state = 2 and platform_state = 2
+        from line where deleted = false and state = 1
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>

@@ -14,7 +14,6 @@ import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
@@ -140,15 +139,7 @@ public class ItemServiceImpl implements ItemService {
         wrapper.set(Item::getState, state);
         itemMapper.update(null, wrapper);
     }
-    
-    @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getId, id);
-        wrapper.set(Item::getPlatformState, state);
-        itemMapper.update(null, wrapper);
-    }
-    
+
     @Override
     public void setRecommend(Long id) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
@@ -169,7 +160,7 @@ public class ItemServiceImpl implements ItemService {
     public Map<Long, Item> getByIdShelveMap(Set<Long> ids) {
         LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
         wrapper.in(Item::getId, ids);
-        wrapper.eq(Item::getPlatformState, PlatformState.SHELVE);
+        wrapper.eq(Item::getState, State.SHELVE);
         List<Item> itemList = itemMapper.selectList(wrapper);
         if (itemList.size() != ids.size()) {
             log.info("存在已下架的商品 {}", ids);
@@ -285,7 +276,7 @@ public class ItemServiceImpl implements ItemService {
         }
         ApplauseRateVO vo = orderEvaluationService.calcApplauseRate(id);
         // 最终上架状态必须个人和平台同时上架
-        detail.setItemState((detail.getState() == State.SHELVE && detail.getPlatformState() == PlatformState.SHELVE) ? 1 : 0);
+        detail.setItemState((detail.getState() == State.SHELVE) ? 1 : 0);
         detail.setCommentNum(vo.getCommentNum());
         detail.setRate(vo.getRate());
 

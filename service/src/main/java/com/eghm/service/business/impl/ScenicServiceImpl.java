@@ -16,7 +16,6 @@ import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScenicMapper;
@@ -106,7 +105,7 @@ public class ScenicServiceImpl implements ScenicService {
     @Override
     public Scenic selectByIdShelve(Long id) {
         Scenic scenic = scenicMapper.selectById(id);
-        if (scenic == null || scenic.getPlatformState() != PlatformState.SHELVE) {
+        if (scenic == null || scenic.getState() != State.SHELVE) {
             log.warn("查询景区详情失败, 景区可能已下架 [{}]", id);
             throw new BusinessException(ErrorCode.SCENIC_DOWN);
         }
@@ -118,19 +117,6 @@ public class ScenicServiceImpl implements ScenicService {
         LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Scenic::getId, id);
         wrapper.set(Scenic::getState, state);
-        scenicMapper.update(null, wrapper);
-    }
-
-    @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        Scenic scenic = scenicMapper.selectById(id);
-        if (scenic.getState() != State.SHELVE) {
-            log.info("景区商户尚未提交");
-            throw new BusinessException(ErrorCode.SCENIC_NOT_UP);
-        }
-        LambdaUpdateWrapper<Scenic> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Scenic::getId, id);
-        wrapper.set(Scenic::getPlatformState, state);
         scenicMapper.update(null, wrapper);
     }
 

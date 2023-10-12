@@ -3,7 +3,6 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
 import com.eghm.vo.business.item.ItemListResponse;
@@ -69,14 +68,7 @@ public interface ItemService {
      * @param state 状态
      */
     void updateState(Long id, State state);
-    
-    /**
-     * 更新审核状态
-     * @param id 房型id
-     * @param state 新状态
-     */
-    void updateAuditState(Long id, PlatformState state);
-    
+
     /**
      * 设置商品为推荐商品
      * @param id 商品id

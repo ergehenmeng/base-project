@@ -8,7 +8,6 @@
         t.title,
         r.title as homestayTitle,
         t.state,
-        t.platform_state as platformState,
         t.room,
         t.hall,
         t.kitchen,
@@ -44,7 +43,7 @@
         cover_url as coverUrl,
         room_type as roomType
         from homestay_room
-        where state = 1 and platform_state = 2 and deleted = false and homestay_id = #{param.homestayId}
+        where state = 1 and deleted = false and homestay_id = #{param.homestayId}
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
@@ -70,7 +69,7 @@
             cover_url as coverUrl,
             room_type as roomType
         from homestay_room
-        where state = 1 and platform_state = 2 and deleted = false and homestay_id = #{homestayId}
+        where state = 1 and deleted = false and homestay_id = #{homestayId}
         order by recommend desc, id limit #{limit}
     </select>
 

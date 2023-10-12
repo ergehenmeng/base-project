@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModel;
@@ -40,9 +39,6 @@ public class TravelAgency extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "状态 -1:初始化 0:待上架 1:已上架")
     private State state;
-
-    @ApiModelProperty(value = "审核状态 0:初始  1:未上架 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "省份id")
     private Long provinceId;

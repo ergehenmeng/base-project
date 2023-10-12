@@ -10,7 +10,6 @@ import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.RestaurantVoucherMapper;
@@ -71,14 +70,6 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
     }
 
     @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        LambdaUpdateWrapper<RestaurantVoucher> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(RestaurantVoucher::getId, id);
-        wrapper.set(RestaurantVoucher::getPlatformState, state);
-        restaurantVoucherMapper.update(null, wrapper);
-    }
-
-    @Override
     public RestaurantVoucher selectById(Long id) {
         return restaurantVoucherMapper.selectById(id);
     }
@@ -96,8 +87,8 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
     @Override
     public RestaurantVoucher selectByIdShelve(Long id) {
         RestaurantVoucher voucher = this.selectByIdRequired(id);
-        if (voucher.getPlatformState() != PlatformState.SHELVE) {
-            log.error("餐饮券未上架 [{}] [{}]", id, voucher.getPlatformState());
+        if (voucher.getState() != State.SHELVE) {
+            log.error("餐饮券未上架 [{}] [{}]", id, voucher.getState());
             throw new BusinessException(ErrorCode.VOUCHER_DOWN);
         }
         return voucher;

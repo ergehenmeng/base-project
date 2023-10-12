@@ -9,7 +9,6 @@ import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScenicTicketMapper;
@@ -19,14 +18,12 @@ import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
-import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author 二哥很猛 2022/6/15
@@ -78,7 +75,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public ScenicTicket selectByIdShelve(Long id) {
         ScenicTicket ticket = this.selectByIdRequired(id);
-        if (ticket.getPlatformState() != PlatformState.SHELVE) {
+        if (ticket.getState() != State.SHELVE) {
             log.info("景区门票已下架 [{}]", id);
             throw new BusinessException(ErrorCode.TICKET_DOWN);
         }
@@ -91,24 +88,6 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
         wrapper.eq(ScenicTicket::getId, id);
         wrapper.set(ScenicTicket::getState, state);
         scenicTicketMapper.update(null, wrapper);
-    }
-
-    @Override
-    public void updateAuditState(Long id, PlatformState state) {
-        ScenicTicket ticket = scenicTicketMapper.selectById(id);
-        if (ticket.getState() != State.SHELVE) {
-            log.info("门票尚未提交审核 [{}]", id);
-            throw new BusinessException(ErrorCode.SCENIC_TICKET_NOT_UP);
-        }
-        LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ScenicTicket::getId, id);
-        wrapper.set(ScenicTicket::getPlatformState, state);
-        scenicTicketMapper.update(null, wrapper);
-    }
-
-    @Override
-    public List<TicketBaseVO> getTicketList(Long scenicId) {
-        return scenicTicketMapper.getTicketList(scenicId);
     }
 
     @Override

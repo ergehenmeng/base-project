@@ -2,7 +2,6 @@ package com.eghm.vo.business.item;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -28,11 +27,8 @@ public class ItemListResponse {
     @ApiModelProperty("店铺名称")
     private String shopName;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2: 强制下架")
     private State state;
-
-    @ApiModelProperty(value = "平台状态 0:初始 1:待审核 2:已上架")
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "商品名称")
     private String title;

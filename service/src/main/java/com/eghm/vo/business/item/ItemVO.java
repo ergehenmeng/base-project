@@ -3,7 +3,6 @@ package com.eghm.vo.business.item;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.convertor.NumberParseEncoder;
 import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.PlatformState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,10 +38,6 @@ public class ItemVO {
     @ApiModelProperty("商品上下架状态")
     @JsonIgnore
     private State state;
-
-    @ApiModelProperty("平台上下架状态")
-    @JsonIgnore
-    private PlatformState platformState;
 
     @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是")
     private Boolean multiSpec;
