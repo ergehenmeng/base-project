@@ -49,7 +49,7 @@ public class Scenic extends BaseEntity implements Serializable {
     @ApiModelProperty("景区所属商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty(value = "景区排序(小<->大)")

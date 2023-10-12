@@ -35,7 +35,7 @@ public class ItemVO {
     @ApiModelProperty(value = "商品状态 0:下架 1:上架")
     private Integer itemState;
 
-    @ApiModelProperty("商品上下架状态")
+    @ApiModelProperty("商品状态 0:待上架 1:已上架 2: 强制下架")
     @JsonIgnore
     private State state;
 

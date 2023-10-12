@@ -32,7 +32,7 @@ public class ItemStore extends BaseEntity implements Serializable {
     @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty(value = "所属商户id")

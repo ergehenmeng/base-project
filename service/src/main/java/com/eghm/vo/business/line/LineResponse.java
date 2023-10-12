@@ -32,7 +32,7 @@ public class LineResponse {
     @ApiModelProperty(value = "线路名称")
     private String title;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2: 强制下架")
     private State state;
 
     @ApiModelProperty(value = "出发省份id")

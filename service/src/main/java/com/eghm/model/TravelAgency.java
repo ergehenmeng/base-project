@@ -37,7 +37,7 @@ public class TravelAgency extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "旅行社所属商户")
     private Long merchantId;
 
-    @ApiModelProperty(value = "状态 -1:初始化 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty(value = "省份id")

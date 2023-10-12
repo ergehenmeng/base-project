@@ -37,7 +37,7 @@ public class HomestayRoom extends BaseEntity implements Serializable {
     @ApiModelProperty("房型名称")
     private String title;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty("是否为推荐房型 true:是 false:不是")

@@ -27,7 +27,7 @@ public class ScenicTicketResponse implements Serializable {
     @ApiModelProperty(value = "门票所属景区")
     private Long scenicId;
 
-    @ApiModelProperty(value = "门票上下架状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "门票状态 0:待上架 1:已上架 2: 强制下架")
     private State state;
 
     @ApiModelProperty(value = "门票名称")

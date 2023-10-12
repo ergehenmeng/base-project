@@ -35,7 +35,7 @@ public class RestaurantVoucher extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "所属商户id")
     private Long merchantId;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty("是否为热销商品 true:是 false:不是")

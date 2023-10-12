@@ -40,7 +40,7 @@ public class Homestay extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他")
     private Integer level;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty(value = "省份")

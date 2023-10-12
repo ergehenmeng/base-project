@@ -35,7 +35,7 @@ public class Restaurant extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "所属商户")
     private Long merchantId;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty("商家logo")

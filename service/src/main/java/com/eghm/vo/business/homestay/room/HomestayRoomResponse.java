@@ -21,7 +21,7 @@ public class HomestayRoomResponse {
     @ApiModelProperty("民宿名称")
     private String homestayTitle;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架")
+    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
     @ApiModelProperty(value = "几室")
