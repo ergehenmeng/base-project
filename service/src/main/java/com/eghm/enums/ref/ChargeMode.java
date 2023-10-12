@@ -39,4 +39,8 @@ public enum ChargeMode {
      */
     private final String name;
 
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

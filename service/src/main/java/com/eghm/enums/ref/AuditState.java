@@ -61,4 +61,9 @@ public enum AuditState implements EnumBinder {
         return Arrays.stream(AuditState.values()).filter(auditState -> auditState.value == value)
                 .findFirst().orElseThrow(() -> new BusinessException(ErrorCode.VERIFY_STATE_ERROR));
     }
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

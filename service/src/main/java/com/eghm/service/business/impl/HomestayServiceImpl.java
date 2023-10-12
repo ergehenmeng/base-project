@@ -86,10 +86,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         commonService.checkIllegal(required.getMerchantId());
     
         Homestay homestay = DataUtil.copy(request, Homestay.class);
-        // 商户在进行注册时默认会初始化一条零售店铺(未激活状态), 更新时自动变更为激活后的状态,即:待上架
-        if (required.getState() == State.INIT) {
-            homestay.setState(State.UN_SHELVE);
-        }
         homestayMapper.updateById(homestay);
     }
 
@@ -198,7 +194,6 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     public void init(Merchant merchant) {
         Homestay homestay = new Homestay();
         homestay.setMerchantId(merchant.getId());
-        homestay.setState(State.INIT);
         homestayMapper.insert(homestay);
     }
     

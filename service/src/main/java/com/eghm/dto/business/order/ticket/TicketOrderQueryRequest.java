@@ -21,5 +21,5 @@ public class TicketOrderQueryRequest extends PagingQuery {
     private String mobile;
 
     @ApiModelProperty("订单状态")
-    private OrderState orderState;
+    private OrderState state;
 }

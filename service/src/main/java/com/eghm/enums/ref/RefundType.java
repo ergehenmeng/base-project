@@ -48,4 +48,10 @@ public enum RefundType implements EnumBinder {
         }
         return Arrays.stream(RefundType.values()).filter(type -> value == type.value).findFirst().orElseThrow(() -> new BusinessException(ErrorCode.REFUND_TYPE_NOT_MATCH));
     }
+
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

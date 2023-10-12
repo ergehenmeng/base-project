@@ -50,6 +50,6 @@ public enum State implements EnumBinder {
 
     @Override
     public String toString() {
-        return name +  ":" + value;
+        return value +  ":" + name;
     }
 }

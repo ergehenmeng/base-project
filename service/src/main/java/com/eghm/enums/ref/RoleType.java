@@ -65,4 +65,9 @@ public enum RoleType {
      */
     private final String name;
 
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

@@ -45,4 +45,9 @@ public enum FeedbackType {
         return Arrays.stream(FeedbackType.values()).filter(feedbackType -> feedbackType.getValue() == type).findFirst().orElse(OTHER);
     }
 
+
+    @Override
+    public String toString() {
+        return value + ":" + msg;
+    }
 }

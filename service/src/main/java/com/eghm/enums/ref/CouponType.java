@@ -46,4 +46,9 @@ public enum CouponType {
         }
         return Arrays.stream(CouponType.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(DEDUCTION);
     }
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

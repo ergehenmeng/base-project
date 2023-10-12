@@ -45,4 +45,9 @@ public enum CouponMode implements EnumBinder {
         }
         return Arrays.stream(CouponMode.values()).filter(couponMode -> couponMode.value == value).findFirst().orElse(PAGE_RECEIVE);
     }
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

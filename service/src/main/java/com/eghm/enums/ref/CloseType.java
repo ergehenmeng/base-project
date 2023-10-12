@@ -42,4 +42,8 @@ public enum CloseType {
      */
     private final String name;
 
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

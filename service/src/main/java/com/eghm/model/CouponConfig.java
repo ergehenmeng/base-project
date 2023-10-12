@@ -53,10 +53,10 @@ public class CouponConfig extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "单人领取限制")
     private Integer maxLimit;
 
-    @ApiModelProperty(value = "领取方式 1:页面领取 2: 手动发放")
+    @ApiModelProperty(value = "领取方式")
     private CouponMode mode;
 
-    @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券")
+    @ApiModelProperty(value = "优惠券类型")
     private CouponType couponType;
 
     @ApiModelProperty("使用范围  1:店铺通用(只针对零售) 2:指定商品")

@@ -41,4 +41,10 @@ public enum PrizeType {
         }
         return Arrays.stream(PrizeType.values()).filter(prizeType -> prizeType.value == value).findFirst().orElse(null);
     }
+
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

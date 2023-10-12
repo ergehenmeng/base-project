@@ -19,7 +19,7 @@ public class CouponConfigQueryRequest extends PagingQuery {
     @OptionInt(value = {0, 1, 2}, message = "发放状态非法", required = false)
     private Integer state;
 
-    @ApiModelProperty("发放方式 1:页面领取 2: 系统发放")
+    @ApiModelProperty("领取方式")
     private CouponMode mode;
 
     @ApiModelProperty(value = "是否只查询有库存的优惠券 true:是 false:查询全部", hidden = true)

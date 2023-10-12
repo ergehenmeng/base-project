@@ -98,4 +98,10 @@ public enum OrderState implements EnumBinder {
         }
         return Arrays.stream(OrderState.values()).filter(state -> state.value == value).findFirst().orElse(NONE);
     }
+
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

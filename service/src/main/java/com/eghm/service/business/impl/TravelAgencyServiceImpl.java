@@ -63,9 +63,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         commonService.checkIllegal(travelAgency.getMerchantId());
         
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
-        if (travelAgency.getState() == State.INIT) {
-            agency.setState(State.UN_SHELVE);
-        }
         travelAgencyMapper.updateById(agency);
     }
     
@@ -106,7 +103,6 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     public void init(Merchant merchant) {
         TravelAgency agency = new TravelAgency();
         agency.setMerchantId(merchant.getId());
-        agency.setState(State.INIT);
         travelAgencyMapper.insert(agency);
     }
     

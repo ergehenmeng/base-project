@@ -1,5 +1,6 @@
 package com.eghm.dto.user;
 
+import com.eghm.enums.DataType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -32,8 +33,8 @@ public class UserAddRequest implements Serializable {
     @NotNull(message = "所属角色不能为空")
     private String roleIds;
 
-    @ApiModelProperty("数据权限(1:本人,2:本部门,4:本部门及子部门 8:全部 16:自定义)")
-    private Integer dataType;
+    @ApiModelProperty("数据权限")
+    private DataType dataType;
 
     @ApiModelProperty("数据权限部门id,逗号分割")
     private String deptIds;

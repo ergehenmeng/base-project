@@ -61,4 +61,10 @@ public enum RefundState {
      * 名称
      */
     private final String name;
+
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

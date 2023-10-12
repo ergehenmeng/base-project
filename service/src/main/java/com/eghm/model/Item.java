@@ -71,10 +71,10 @@ public class Item extends BaseEntity implements Serializable {
     @TableField(updateStrategy = FieldStrategy.IGNORED)
     private Long expressId;
 
-    @ApiModelProperty(value = "交付方式 0:无须发货 1:门店自提 2:快递包邮")
+    @ApiModelProperty(value = "交付方式")
     private DeliveryType deliveryType;
     
-    @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
+    @ApiModelProperty(value = "退款方式")
     private RefundType refundType;
     
     @ApiModelProperty("退款描述信息")

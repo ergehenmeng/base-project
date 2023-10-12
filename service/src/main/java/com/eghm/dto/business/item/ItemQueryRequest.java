@@ -19,10 +19,10 @@ public class ItemQueryRequest extends PagingQuery {
     @ApiModelProperty("快递模板id")
     private Long expressId;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
+    @ApiModelProperty(value = "状态")
     private State state;
 
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
+    @ApiModelProperty(value = "交付方式")
     private DeliveryType deliveryType;
 
     @ApiModelProperty("标签id")

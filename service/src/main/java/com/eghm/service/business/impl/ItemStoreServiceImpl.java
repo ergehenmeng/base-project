@@ -76,10 +76,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         commonService.checkIllegal(itemStore.getMerchantId());
         
         ItemStore shop = DataUtil.copy(request, ItemStore.class);
-        // 商户在进行注册时默认会初始化一条零售店铺(未激活状态), 更新时自动变更为激活后的状态,即:待上架
-        if (itemStore.getState() == State.INIT) {
-            shop.setState(State.UN_SHELVE);
-        }
         itemStoreMapper.updateById(shop);
     }
 
@@ -166,7 +162,6 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     public void init(Merchant merchant) {
         ItemStore shop = new ItemStore();
         shop.setMerchantId(merchant.getId());
-        shop.setState(State.INIT);
         itemStoreMapper.insert(shop);
     }
     

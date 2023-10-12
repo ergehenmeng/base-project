@@ -26,8 +26,8 @@
         <if test="param.mobile != null and param.mobile != '' ">
             and t.mobile like concat('%', #{param.mobile, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
-        <if test="param.orderState != null">
-            and r.state = #{param.orderState}
+        <if test="param.state != null">
+            and r.state = #{param.state}
         </if>
         order by t.id desc
     </select>

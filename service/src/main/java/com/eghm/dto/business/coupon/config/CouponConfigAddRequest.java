@@ -39,7 +39,7 @@ public class CouponConfigAddRequest {
     @OptionInt(value = {1, 2}, message = "领取方式非法")
     private Integer mode;
 
-    @ApiModelProperty(value = "优惠券类型 1:抵扣券 2:折扣券", required = true)
+    @ApiModelProperty(value = "优惠券类型", required = true)
     private CouponType couponType;
 
     @ApiModelProperty(value = "使用范围  1:店铺通用 2:指定商品", required = true)

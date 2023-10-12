@@ -112,4 +112,10 @@ public enum ProductType {
     public String generateOrderNo() {
         return prefix + IdWorker.getIdStr();
     }
+
+
+    @Override
+    public String toString() {
+        return value + ":" + name;
+    }
 }

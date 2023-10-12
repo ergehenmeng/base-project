@@ -121,7 +121,7 @@ public class SysUserServiceImpl implements SysUserService {
         // 角色权限
         sysRoleService.authRole(user.getId(), request.getRoleIds());
         // 数据权限
-        if (request.getDataType() == DataType.CUSTOM.getValue()) {
+        if (request.getDataType() == DataType.CUSTOM) {
             List<String> roleStringList = StrUtil.split(request.getDeptIds(), ',');
             roleStringList.forEach(s -> sysDataDeptService.insert(new SysDataDept(user.getId(), s)));
         }

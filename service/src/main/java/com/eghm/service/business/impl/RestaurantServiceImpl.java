@@ -71,10 +71,6 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         commonService.checkIllegal(required.getMerchantId());
         
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
-        // 商户在进行注册时默认会初始化一条餐饮店(未激活状态), 更新时自动变更为激活后的状态,即:待上架
-        if (required.getState() == State.INIT) {
-            restaurant.setState(State.UN_SHELVE);
-        }
         restaurantMapper.updateById(restaurant);
     }
 
@@ -161,7 +157,6 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     public void init(Merchant merchant) {
         Restaurant restaurant = new Restaurant();
         restaurant.setMerchantId(merchant.getId());
-        restaurant.setState(State.INIT);
         restaurantMapper.insert(restaurant);
     }
 }
