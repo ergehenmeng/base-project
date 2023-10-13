@@ -51,11 +51,14 @@ public class OrderEvaluation extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "综合评分1-5分")
     private Integer score;
 
-    @ApiModelProperty(value = "物流评审1-5分")
+    @ApiModelProperty(value = "物流评分1-5分")
     private Integer logisticsScore;
 
-    @ApiModelProperty(value = "店铺评级1-5分")
+    @ApiModelProperty(value = "店铺评分1-5分")
     private Integer storeScore;
+
+    @ApiModelProperty("景区评分1-5分")
+    private Integer scenicScore;
 
     @ApiModelProperty(value = "评论")
     private String comment;

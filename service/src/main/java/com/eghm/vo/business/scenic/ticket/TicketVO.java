@@ -57,9 +57,6 @@ public class TicketVO {
     @ApiModelProperty(value = "门票介绍")
     private String introduce;
 
-    @ApiModelProperty(value = "使用范围: 1:周一 2:周二 4:周三 8:周四 16:周五 32:周六 64:周日")
-    private Integer useScope;
-
     @ApiModelProperty(value = "退款方式 0:不支持退款 1:直接退款 2: 审核后退款")
     private RefundType refundType;
 
