@@ -16,11 +16,6 @@ import java.util.List;
 @Data
 public class ItemOrderCreateDTO {
 
-    @ApiModelProperty(value = "商品信息", required = true)
-    @Size(min = 1, max = 99, message = "商品不能超过99种")
-    @NotEmpty(message = "请选择商品")
-    private List<ItemDTO> itemList;
-
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
@@ -43,4 +38,8 @@ public class ItemOrderCreateDTO {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
+    @ApiModelProperty(value = "商品信息", required = true)
+    @Size(min = 1, max = 99, message = "商品不能超过99种")
+    @NotEmpty(message = "请选择商品")
+    private List<ItemDTO> itemList;
 }
