@@ -1,5 +1,0 @@
-GET http://localhost:9090/webapp/product/listPage?page=1&pageSize=12
-
-###
-
-GET http://localhost:9090/webapp/product/recommend
