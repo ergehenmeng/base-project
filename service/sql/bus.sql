@@ -228,14 +228,15 @@ CREATE TABLE `scenic`
     `detail_address` varchar(100)   DEFAULT NULL COMMENT '详细地址',
     `longitude`      decimal(10, 7) DEFAULT NULL COMMENT '经度',
     `latitude`       decimal(10, 7) DEFAULT NULL COMMENT '纬度',
+    `min_price`      int(10)        DEFAULT '0' COMMENT '景区最低票价',
+    `max_price`      int(10)        DEFAULT '0' COMMENT '景区最高票价',
+    `score`          decimal(2, 1)  DEFAULT '5' COMMENT '景区评分',
     `depict`         varchar(100)   DEFAULT NULL COMMENT '景区描述信息',
     `cover_url`      varchar(1000)  DEFAULT NULL COMMENT '景区图片',
     `introduce`      longtext COMMENT '景区详细介绍信息',
     `create_time`    datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`    datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)         DEFAULT b'0' COMMENT '是否删除 0:未删除 1:已删除',
-    `min_price`      int(10)        DEFAULT '0' COMMENT '景区最低票价',
-    `max_price`      int(10)        DEFAULT '0' COMMENT '景区最高票价',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='景区信息表';

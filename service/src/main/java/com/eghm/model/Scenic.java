@@ -89,4 +89,7 @@ public class Scenic extends BaseEntity implements Serializable {
     @ApiModelProperty("最高票价")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer maxPrice;
+
+    @ApiModelProperty("景区评分")
+    private Integer score;
 }
