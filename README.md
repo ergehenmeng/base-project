@@ -93,7 +93,7 @@
 * `SystemProperties` 所有本地化配置参数必须强制在该类中定义,方便统一维护, 禁止使用 `@Value`,
 * 如果返回前端的数据中有枚举, 需要指定字段作为返回值时, 使用 `@JsonValue` 注解
 * POST请求, 如果后端采用枚举作为参数接受时, 使用 `@JsonCreator` 注解
-* GET请求, 如果后端采用枚举作为参数接收时, 枚举类型需要继承 `EnumBinder` 接口 (注意该接口默认前端传递是数字且非下标映射), 具体例子查看 `webapp/item/couponScope` 接口
+* GET请求, 如果后端采用枚举作为参数接收时, 枚举类型需要继承 `EnumBinder` 接口, 如果希望使用swagger在线调试, 需要重写 `toString` (`value` + `:` + `desc`) (注意该接口默认前端传递是数字且非下标映射), 具体例子查看 `webapp/item/couponScope` 接口
 * `StopWatch` 打印某段程序耗时的工具
 * `TransactionUtil` 事务工具类,防止耗时业务影响事务持有时间(第三方请求等)
 * `LoggerUtil` 规范日志打印

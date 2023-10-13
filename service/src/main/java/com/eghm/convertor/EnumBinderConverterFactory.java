@@ -36,6 +36,8 @@ public class EnumBinderConverterFactory implements ConverterFactory<String, Enum
             if (value.isEmpty()) {
                 return null;
             }
+            // knife4j-doc枚举类型是通过toString展示的, 因此如果正常展示需要重写枚举的toString方法,即: value + ":" + desc, 同时调试入参也是通过toString作为参数传递给后端
+            value = value.split(":")[0];
             if (EnumBinder.class.isAssignableFrom(enumType)) {
                 T[] enums = enumType.getEnumConstants();
                 int v = Integer.parseInt(value);
