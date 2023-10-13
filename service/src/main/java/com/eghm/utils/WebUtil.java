@@ -99,7 +99,7 @@ public class WebUtil {
         if (error == null) {
             return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), "参数格式不合法");
         } else {
-            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), String.format("[%s] 字段参数不合法", error.getField().trim()));
+            return RespBody.error(ErrorCode.PARAM_VERIFY_ERROR.getCode(), String.format("[%s]字段参数不合法", error.getField().trim()));
         }
     }
 }

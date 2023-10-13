@@ -11,7 +11,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +28,7 @@ public class NoticeController {
 
     private final SysNoticeService sysNoticeService;
 
-    @GetMapping("/list")
+    @GetMapping("/limit")
     @ApiOperation("首页公告Top-N")
     public RespBody<List<NoticeVO>> list() {
         List<NoticeVO> list = sysNoticeService.getList();
@@ -45,7 +44,7 @@ public class NoticeController {
 
     @GetMapping("/detail")
     @ApiOperation("公告详细信息")
-    public RespBody<NoticeDetailVO> detail(@RequestBody @Validated IdDTO dto) {
+    public RespBody<NoticeDetailVO> detail(@Validated IdDTO dto) {
         NoticeDetailVO detailed = sysNoticeService.detailById(dto.getId());
         return RespBody.success(detailed);
     }

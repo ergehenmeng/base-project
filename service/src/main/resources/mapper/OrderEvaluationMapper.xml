@@ -87,13 +87,13 @@
                 <when test="queryType == 2">
                     and score in (4, 5)
                 </when>
-                <when test="param.queryType == 3">
+                <when test="queryType == 3">
                     and score in (2, 3)
                 </when>
-                <when test="param.queryType == 4">
+                <when test="queryType == 4">
                     and score = 1
                 </when>
-                <when test="param.queryType == 5">
+                <when test="queryType == 5">
                     and comment_pic is not null
                 </when>
             </choose>

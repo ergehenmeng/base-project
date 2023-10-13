@@ -50,9 +50,9 @@ public enum ErrorCode {
     SPRING_ON_LOADING(505,"Spring上下文尚未完全启动"),
 
     /**
-     * 该访问地址不支持%s请求
+     * 地址不支持%s请求
      */
-    METHOD_NOT_SUPPORTED(505,"该访问地址不支持%s请求"),
+    METHOD_NOT_SUPPORTED(505,"地址不支持%s请求"),
 
     /**
      * 用户登陆已过期

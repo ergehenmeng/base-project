@@ -66,7 +66,7 @@ public class ActivityController {
 
     @GetMapping("/select")
     @ApiOperation("查询活动")
-    public RespBody<Activity> select(@RequestBody IdDTO dto) {
+    public RespBody<Activity> select(@Validated IdDTO dto) {
         Activity activity = activityService.selectById(dto.getId());
         return RespBody.success(activity);
     }

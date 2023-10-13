@@ -1,4 +1,4 @@
-http://localhost:9090/webapp/order/evaluation/create
+POST http://localhost:9090/webapp/order/evaluation/create
 Channel: {{Channel}}
 Content-Type: application/json
 Token: {{Token}}
@@ -6,13 +6,13 @@ Token: {{Token}}
 {}
 ###
 
-http://localhost:9090/webapp/order/evaluation/count?id=xxx
+http://localhost:9090/webapp/order/evaluation/count?id=12
 Channel: {{Channel}}
 
 
 ###
 
-http://localhost:9090/webapp/order/evaluation/listPage?page=1&pageSize=10&productId=x&queryType=3
+http://localhost:9090/webapp/order/evaluation/listPage?page=1&pageSize=10&productId=12&queryType=3
 Channel: {{Channel}}
 
 

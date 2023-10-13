@@ -22,7 +22,7 @@ import java.math.BigDecimal;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("restaurant")
+@TableName("`restaurant`")
 @ApiModel(value = "Restaurant对象", description = "餐饮商家信息表")
 public class Restaurant extends BaseEntity implements Serializable {
 

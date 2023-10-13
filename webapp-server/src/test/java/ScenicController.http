@@ -5,6 +5,7 @@ Channel: {{Channel}}
 GET http://localhost:9090/webapp/scenic/detail?scenicId=1712041763678035970
 Channel: {{Channel}}
 
+
 ###
 
 GET http://localhost:9090/webapp/scenic/ticket/detail?id=1712044044993486850
