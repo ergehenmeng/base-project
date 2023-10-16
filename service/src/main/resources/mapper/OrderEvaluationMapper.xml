@@ -12,6 +12,7 @@
         t.sku_title,
         t.score,
         t.logistics_score,
+        t.store_score
         t.comment,
         t.comment_pic,
         t.state,

@@ -1,10 +1,11 @@
 package com.eghm.dto.business.order.evaluation;
 
 import com.eghm.annotation.Assign;
-import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -15,15 +16,14 @@ import java.util.List;
 public class OrderEvaluationDTO {
 
     @ApiModelProperty("订单编号")
+    @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "商品类型")
-    private ProductType productType;
-
     @ApiModelProperty(value = "是否匿名评论 0:非匿名1:匿名")
-    private Boolean anonymity;
+    private Boolean anonymity = false;
 
     @ApiModelProperty("评价信息")
+    @NotEmpty(message = "评价信息不能为空")
     private List<EvaluationDTO> commentList;
 
     @Assign

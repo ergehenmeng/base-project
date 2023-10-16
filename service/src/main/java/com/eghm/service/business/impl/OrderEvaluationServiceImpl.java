@@ -79,7 +79,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
             throw new BusinessException(ErrorCode.ORDER_STATE_MATCH);
         }
         for (EvaluationDTO eval : dto.getCommentList()) {
-            ProductSnapshotVO snapshot = this.getSnapshot(eval.getOrderId(), dto.getOrderNo(), dto.getProductType());
+            ProductSnapshotVO snapshot = this.getSnapshot(eval.getOrderId(), dto.getOrderNo(), ProductType.prefix(dto.getOrderNo()));
             OrderEvaluation evaluation = DataUtil.copy(eval, OrderEvaluation.class);
             evaluation.setState(0);
             evaluation.setOrderNo(dto.getOrderNo());
