@@ -47,7 +47,7 @@ public class SmsServiceImpl implements SmsService {
         this.doSendSms(mobile, content, smsType);
         this.saveSmsCode(smsType.getValue(), mobile, smsCode);
         long expire = sysConfigApi.getLong(ConfigConstant.SMS_TYPE_INTERVAL);
-        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType.getValue() + mobile, expire);
+        cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType.getValue() + mobile, true, expire);
     }
 
 

@@ -14,6 +14,13 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
+    SUCCESS(200, "请求成功"),
+
+    /**
+     * 用户登陆已过期
+     */
+    LOGIN_TIMEOUT(8848,"登陆过期,请重新登陆"),
+
     /**
      * 点击太快啦~~
      */
@@ -53,11 +60,6 @@ public enum ErrorCode {
      * 地址不支持%s请求
      */
     METHOD_NOT_SUPPORTED(505,"地址不支持%s请求"),
-
-    /**
-     * 用户登陆已过期
-     */
-    LOGIN_TIMEOUT(600,"登陆过期,请重新登陆"),
 
     /**
      * 数据转换异常
