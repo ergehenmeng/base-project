@@ -1,3 +1,18 @@
+POST http://localhost:9090/webapp/order/ticket/create
+Channel: {{Channel}}
+Content-Type: application/json
+Token: {{Token}}
+
+{
+  "ticketId": 1713787820047183874,
+  "mobile": "13136113294",
+  "num": 1,
+  "visitDate": "2023-12-12",
+  "remark": "少点套路"
+}
+
+###
+
 POST http://localhost:9090/webapp/order/item/create
 Channel: {{Channel}}
 Content-Type: application/json
@@ -7,15 +22,7 @@ Token: {{Token}}
 
 }
 
-###
-POST http://localhost:9090/webapp/order/ticket/create
-Channel: {{Channel}}
-Content-Type: application/json
-Token: {{Token}}
 
-{
-
-}
 
 ###
 
@@ -114,6 +121,7 @@ Token: {{Token}}
   "buyerId": "",
   "tradeType": ""
 }
+
 
 ###
 

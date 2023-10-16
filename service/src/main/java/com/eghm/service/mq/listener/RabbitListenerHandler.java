@@ -303,7 +303,7 @@ public class RabbitListenerHandler {
     private boolean canConsumer(String asyncKey) {
         String hasValue = cacheService.getValue(CacheConstant.MQ_ASYNC_KEY + asyncKey);
         // 可能key过期了
-        if (StrUtil.isNotBlank(hasValue)) {
+        if (StrUtil.isBlank(hasValue)) {
             return false;
         }
         String accessStr = hasValue.replace(CacheConstant.PLACE_HOLDER, "");

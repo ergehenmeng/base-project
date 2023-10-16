@@ -48,11 +48,11 @@ public class OrderAsyncController {
         }
         if (!CacheConstant.ERROR_PLACE_HOLDER.equals(hashValue)) {
             vo.setState(2);
-            vo.setErrorMsg(hashValue);
+            vo.setMsg(hashValue);
             return RespBody.success(vo);
         }
         vo.setState(2);
-        vo.setErrorMsg(ErrorCode.ORDER_ERROR.getMsg());
+        vo.setMsg(ErrorCode.ORDER_ERROR.getMsg());
         return RespBody.success(vo);
     }
 
@@ -84,7 +84,7 @@ public class OrderAsyncController {
             // 超过最大请求次数, 订单还在队列中处理,默认直接提示商品火爆
             if (accessNum >= CommonConstant.MAX_ACCESS_NUM) {
                 vo.setState(2);
-                vo.setErrorMsg(ErrorCode.ORDER_ERROR.getMsg());
+                vo.setMsg(ErrorCode.ORDER_ERROR.getMsg());
                 return;
             }
         }

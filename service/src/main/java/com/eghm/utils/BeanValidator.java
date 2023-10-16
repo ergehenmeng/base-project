@@ -6,7 +6,6 @@ import com.eghm.exception.BusinessException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.HibernateValidator;
-import org.hibernate.validator.HibernateValidatorConfiguration;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -23,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BeanValidator {
     
-    private static final ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().addProperty(HibernateValidatorConfiguration.FAIL_FAST, "true").buildValidatorFactory();
+    private static final ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory();
     
     public static <T> void validate(T t, Class<?>... groups) {
         Validator validator = validatorFactory.getValidator();

@@ -75,6 +75,10 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
             log.error("实名制购票录入游客信息不匹配 [{}]", ticket.getId());
             throw new BusinessException(ErrorCode.TICKET_VISITOR);
         }
+        if (!context.getVisitorList().isEmpty() && context.getVisitorList().size() != context.getNum()) {
+            log.error("实名制购票录入游客信息与数量不匹配 [{}] [{}] [{}]", ticket.getId(), context.getNum(), context.getVisitorList());
+            throw new BusinessException(ErrorCode.TICKET_VISITOR);
+        }
     }
 
     @Override
@@ -91,9 +95,8 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setOrderNo(orderNo);
         order.setRemark(context.getRemark());
         order.setPrice(ticket.getSalePrice());
-        order.setNum(context.getVisitorList().size());
-        order.setPayAmount(order.getNum() * ticket.getSalePrice());
-
+        order.setNum(context.getNum());
+        order.setPayAmount(context.getNum() * ticket.getSalePrice());
         order.setMultiple(false);
         order.setRefundType(ticket.getRefundType());
         order.setRefundDescribe(ticket.getRefundDescribe());
@@ -118,12 +121,14 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
     protected void next(TicketOrderCreateContext context, TicketOrderPayload payload, Order order) {
         super.addVisitor(order, context.getVisitorList());
         scenicTicketService.updateStock(payload.getTicket().getId(), -order.getNum());
-        TicketOrder ticketOrder = DataUtil.copy(payload.getTicket(), TicketOrder.class);
+        TicketOrder ticketOrder = DataUtil.copy(payload.getTicket(), TicketOrder.class, "id");
         ticketOrder.setOrderNo(order.getOrderNo());
         ticketOrder.setMobile(context.getMobile());
         ticketOrder.setTicketId(context.getTicketId());
+        ticketOrder.setVisitDate(context.getVisitDate());
         ticketOrder.setScenicName(payload.getScenic().getScenicName());
         ticketOrderService.insert(ticketOrder);
+        context.setOrderNo(order.getOrderNo());
     }
 
     @Override

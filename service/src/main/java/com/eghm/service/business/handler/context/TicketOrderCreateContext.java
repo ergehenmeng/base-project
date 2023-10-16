@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,9 @@ public class TicketOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("游玩日期")
     private LocalDate visitDate;
+
+    @ApiModelProperty("购票数量")
+    private Integer num;
 
     @ApiModelProperty("游客信息")
     private List<VisitorDTO> visitorList;

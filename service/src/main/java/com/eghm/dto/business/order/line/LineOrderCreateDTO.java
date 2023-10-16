@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,8 +42,8 @@ public class LineOrderCreateDTO {
     private String nickName;
 
     @ApiModelProperty(value = "线路人数列表", required = true)
-    @Size(min = 1, max = 99, message = "人数不能超过99人")
-    private List<VisitorDTO> visitorList;
+    @Size(max = 99, message = "人数不能超过99人")
+    private List<VisitorDTO> visitorList = new ArrayList<>();
 
     @ApiModelProperty(value = "游玩日期", required = true)
     @JsonFormat(pattern = "yyyy-MM-dd")

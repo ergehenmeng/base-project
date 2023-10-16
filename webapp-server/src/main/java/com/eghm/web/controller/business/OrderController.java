@@ -183,7 +183,7 @@ public class OrderController {
         }
         // 极端情况, mq发送失败时会发生
         vo.setState(2);
-        vo.setErrorMsg(ErrorCode.ORDER_ERROR.getMsg());
+        vo.setMsg(ErrorCode.ORDER_ERROR.getMsg());
         return vo;
     }
 

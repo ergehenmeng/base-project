@@ -134,6 +134,7 @@ public class HomestayOrderCreateQueueHandler extends AbstractOrderCreateHandler<
         homestayOrder.setRoomId(context.getRoomId());
         homestayOrderService.insert(homestayOrder);
         homestayOrderSnapshotService.orderSnapshot(order.getOrderNo(), payload.getConfigList());
+        context.setOrderNo(order.getOrderNo());
     }
 
     @Override

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -35,8 +36,9 @@ public class HomestayOrderCreateDTO {
     @NotBlank(message = "联系人姓名不能为空")
     private String nickName;
 
-    @ApiModelProperty(value = "入园信息列表", required = true)
-    @Size(min = 1, max = 99, message = "入园人数不能超过99人")
+    @ApiModelProperty(value = "入住人员信息列表", required = true)
+    @Size(min = 1, max = 99, message = "入住人数不能超过99人")
+    @NotEmpty(message = "住房人信息不能为空")
     private List<VisitorDTO> visitorList;
 
     @ApiModelProperty(value = "入店日期(含晚上)", required = true)

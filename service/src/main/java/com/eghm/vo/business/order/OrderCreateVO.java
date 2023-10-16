@@ -15,7 +15,7 @@ public class OrderCreateVO<T> {
     private Integer state;
 
     @ApiModelProperty("错误信息")
-    private String errorMsg;
+    private String msg;
 
     private T data;
 }

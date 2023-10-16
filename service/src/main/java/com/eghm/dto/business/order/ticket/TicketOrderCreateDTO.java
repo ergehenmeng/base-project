@@ -2,14 +2,15 @@ package com.eghm.dto.business.order.ticket;
 
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
+import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,10 +33,13 @@ public class TicketOrderCreateDTO {
     @NotNull(message = "游玩日期不能为空")
     private LocalDate visitDate;
 
+    @ApiModelProperty("购票数量")
+    @RangeInt(min = 1, max = 99, message = "购票数量最大99张")
+    private Integer num;
+
     @ApiModelProperty(value = "游客信息", required = true)
-    @Size(min = 1, max = 99, message = "游客数量最大99人")
-    @NotEmpty(message = "游客信息不能为空")
-    private List<VisitorDTO> visitorList;
+    @Size(max = 99, message = "游客数量最大99人")
+    private List<VisitorDTO> visitorList = new ArrayList<>();
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
