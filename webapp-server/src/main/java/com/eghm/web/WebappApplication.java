@@ -1,5 +1,6 @@
 package com.eghm.web;
 
+import com.eghm.configuration.rabbit.RabbitConfig;
 import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +12,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 前后端分离
@@ -21,12 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 二哥很猛
  * @date
  */
-@SpringBootApplication(scanBasePackages = "com.eghm")
+@Slf4j
 @EnableAsync
 @EnableAspectJAutoProxy
+@Import(RabbitConfig.class)
 @MapperScan("com.eghm.mapper")
-@Slf4j
-@RestController
+@SpringBootApplication(scanBasePackages = "com.eghm")
 public class WebappApplication implements ApplicationListener<ContextRefreshedEvent> {
 
     public static void main(String[] args) {

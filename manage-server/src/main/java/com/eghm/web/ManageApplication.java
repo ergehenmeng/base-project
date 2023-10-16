@@ -24,13 +24,13 @@ import org.springframework.scheduling.annotation.EnableAsync;
  * 排除RabbitConfig是因为管理后台暂不使用mq
  * @author 二哥很猛
  */
-@SpringBootApplication(exclude = {RabbitAutoConfiguration.class})
-@ComponentScan("com.eghm")
+@Slf4j
+@EnableTask
 @EnableAsync
 @EnableAspectJAutoProxy
+@ComponentScan("com.eghm")
 @MapperScan(basePackages = "com.eghm.mapper")
-@EnableTask
-@Slf4j
+@SpringBootApplication(exclude = RabbitAutoConfiguration.class)
 public class ManageApplication implements ApplicationContextAware {
 
     public static void main(String[] args) {
