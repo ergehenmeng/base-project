@@ -112,17 +112,17 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     @Override
     public void deleteNotice(Long id, Long memberId) {
         LambdaUpdateWrapper<MemberNotice> wrapper = Wrappers.lambdaUpdate();
-        wrapper.set(MemberNotice::getId, id);
-        wrapper.set(MemberNotice::getMemberId, memberId);
+        wrapper.eq(MemberNotice::getId, id);
+        wrapper.eq(MemberNotice::getMemberId, memberId);
         memberNoticeMapper.delete(wrapper);
     }
 
     @Override
     public void setNoticeRead(Long id, Long memberId) {
-        MemberNotice notice = new MemberNotice();
-        notice.setId(id);
-        notice.setMemberId(memberId);
-        notice.setIsRead(true);
-        memberNoticeMapper.updateById(notice);
+        LambdaUpdateWrapper<MemberNotice> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(MemberNotice::getMemberId, memberId);
+        wrapper.eq(MemberNotice::getId, id);
+        wrapper.set(MemberNotice::getIsRead, true);
+        memberNoticeMapper.update(null, wrapper);
     }
 }
