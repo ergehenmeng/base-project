@@ -15,9 +15,6 @@ public class EvaluationDTO {
     @ApiModelProperty(value = "订单子表id")
     private Long orderId;
 
-    @ApiModelProperty("景区评分1-5分")
-    private Integer scenicScore;
-
     @ApiModelProperty("店铺评分1-5分(零售,线路,餐饮,民宿)")
     private Integer storeScore;
 

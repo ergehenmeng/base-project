@@ -261,7 +261,6 @@ CREATE TABLE `scenic_ticket`
     `end_date`          date                DEFAULT NULL COMMENT '截止预订时间',
     `stock`             int(10)             DEFAULT '0' COMMENT '剩余库存',
     `sale_num`          int(10)             DEFAULT '0' COMMENT '真实销售数量',
-    `score`             decimal(2, 1)       DEFAULT NULL COMMENT '分数',
     `total_num`         int(10)             DEFAULT '0' COMMENT '总销量=实际销量+虚拟销量',
     `introduce`         longtext COMMENT '门票介绍',
     `verification_type` tinyint(2)          DEFAULT NULL COMMENT '核销方式 1:手动核销 2:自动核销 (凌晨自动核销)',
