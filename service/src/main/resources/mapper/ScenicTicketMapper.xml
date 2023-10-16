@@ -57,4 +57,8 @@
     <select id="calcPrice" resultType="com.eghm.vo.business.scenic.ticket.TicketPriceVO">
         select IFNULL(min(sale_price),0) as minPrice, IFNULL(max(sale_price),0) as maxPrice from scenic_ticket where scenic_id = #{scenicId} and deleted = false
     </select>
+
+    <update id="updateScore">
+        update scenic_ticket t, scenic r set r.score = #{score} where t.scenic_id = r.id and t.id = #{id}
+    </update>
 </mapper>

@@ -76,7 +76,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         RestaurantVoucher voucher = payload.getRestaurantVoucher();
         String orderNo = ProductType.RESTAURANT.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
-        order.setCoverUrl(super.getFirstCoverUrl(voucher.getCoverUrl()));
+        order.setCoverUrl(voucher.getCoverUrl());
         order.setMerchantId(payload.getRestaurant().getMerchantId());
         order.setState(OrderState.UN_PAY);
         order.setMemberId(context.getMemberId());

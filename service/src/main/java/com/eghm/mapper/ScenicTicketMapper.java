@@ -9,6 +9,7 @@ import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -49,4 +50,11 @@ public interface ScenicTicketMapper extends BaseMapper<ScenicTicket> {
      * @return 最高价,最低价
      */
     TicketPriceVO calcPrice(@Param("scenicId") Long scenicId);
+
+    /**
+     * 根据门票id更新所属景区的评分
+     * @param id 门票id
+     * @param score 景区评分
+     */
+    void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 }

@@ -77,8 +77,8 @@ public interface ScenicTicketService {
     void deleteById(Long id);
 
     /**
-     * 更新商品分数
-     * @param productId 商品信息
+     * 更新景区评分
+     * @param productId 门票id
      * @param score 分数
      */
     void updateScore(Long productId, BigDecimal score);

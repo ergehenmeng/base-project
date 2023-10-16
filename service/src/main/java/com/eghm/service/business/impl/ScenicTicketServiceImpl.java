@@ -116,10 +116,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     @Override
     public void updateScore(Long productId, BigDecimal score) {
-        LambdaUpdateWrapper<ScenicTicket> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ScenicTicket::getId, productId);
-        wrapper.set(ScenicTicket::getScore, score);
-        scenicTicketMapper.update(null, wrapper);
+        // 直接更新,防止门票被删除
+        scenicTicketMapper.updateScore(productId, score);
     }
 
     /**

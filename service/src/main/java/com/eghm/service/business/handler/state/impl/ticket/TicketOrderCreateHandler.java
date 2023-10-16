@@ -87,7 +87,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setTitle(ticket.getTitle());
         order.setState(OrderState.UN_PAY);
         order.setProductType(ProductType.TICKET);
-        order.setCoverUrl(super.getFirstCoverUrl(ticket.getCoverUrl()));
+        order.setCoverUrl(ticket.getCoverUrl());
         order.setOrderNo(orderNo);
         order.setRemark(context.getRemark());
         order.setPrice(ticket.getSalePrice());
