@@ -12,21 +12,12 @@ import lombok.Data;
 @ApiModel
 public class HelpCenterVO {
 
-    /**
-     * 帮助分类
-     */
     @ApiModelProperty("帮助分类")
     private Integer classify;
 
-    /**
-     * 问题标题
-     */
     @ApiModelProperty("问题标题")
     private String ask;
 
-    /**
-     * 回答
-     */
     @ApiModelProperty("回答")
     private String answer;
 }

@@ -22,15 +22,9 @@ public class LoginTokenVO implements Serializable {
 
     private static final long serialVersionUID = 5945495590088977331L;
 
-    /**
-     * token
-     */
     @ApiModelProperty("登陆token")
     private String token;
 
-    /**
-     * refreshToken
-     */
     @ApiModelProperty("刷新token")
     private String refreshToken;
 }
