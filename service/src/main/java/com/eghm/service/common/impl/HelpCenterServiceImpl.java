@@ -4,15 +4,15 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.mapper.HelpCenterMapper;
-import com.eghm.model.HelpCenter;
 import com.eghm.dto.help.HelpAddRequest;
 import com.eghm.dto.help.HelpEditRequest;
 import com.eghm.dto.help.HelpQueryDTO;
 import com.eghm.dto.help.HelpQueryRequest;
-import com.eghm.vo.help.HelpCenterVO;
+import com.eghm.mapper.HelpCenterMapper;
+import com.eghm.model.HelpCenter;
 import com.eghm.service.common.HelpCenterService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.help.HelpCenterVO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +57,6 @@ public class HelpCenterServiceImpl implements HelpCenterService {
     @Override
     public List<HelpCenterVO> list(HelpQueryDTO dto) {
         List<HelpCenter> list = helpCenterMapper.getListSorted(dto.getClassify(), dto.getQueryName());
-        return DataUtil.copy(list, helpCenter -> DataUtil.copy(helpCenter, HelpCenterVO.class));
+        return DataUtil.copy(list, HelpCenterVO.class);
     }
 }

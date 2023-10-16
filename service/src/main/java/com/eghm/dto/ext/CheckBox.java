@@ -1,5 +1,6 @@
 package com.eghm.dto.ext;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,14 +20,10 @@ import java.io.Serializable;
 public class CheckBox implements Serializable {
     private static final long serialVersionUID = -9147788551948904950L;
 
-    /**
-     * 隐藏值
-     */
-    private Long hide;
+    @ApiModelProperty("实际值")
+    private Long value;
 
-    /**
-     * 显示值
-     */
-    private String show;
+    @ApiModelProperty("显示值")
+    private String desc;
 
 }

@@ -46,7 +46,7 @@ public class RoleController {
     public RespBody<List<CheckBox>> list() {
         List<SysRole> list = sysRoleService.getList();
         //将角色列表转换为checkBox所能识别的列表同时封装为CheckBox对象
-        List<CheckBox> boxList = DataUtil.copy(list, sysRole -> CheckBox.builder().hide(sysRole.getId()).show(sysRole.getRoleName()).build());
+        List<CheckBox> boxList = DataUtil.copy(list, sysRole -> CheckBox.builder().value(sysRole.getId()).desc(sysRole.getRoleName()).build());
         return RespBody.success(boxList);
     }
 

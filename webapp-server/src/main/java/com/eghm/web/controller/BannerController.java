@@ -36,7 +36,7 @@ public class BannerController {
     @ApiImplicitParam(name = "classify", value = "轮播图分类id")
     public RespBody<List<BannerVO>> list(@NotNull(message = "轮播图类型不能为空") @RequestParam("classify") Integer classify) {
         List<Banner> bannerList = cacheProxyService.getBanner(Channel.valueOf(ApiHolder.getChannel()), classify);
-        return RespBody.success(DataUtil.copy(bannerList, banner -> DataUtil.copy(banner, BannerVO.class)));
+        return RespBody.success(DataUtil.copy(bannerList, BannerVO.class));
     }
 
 }
