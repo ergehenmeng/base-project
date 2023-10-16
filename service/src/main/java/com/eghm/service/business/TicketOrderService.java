@@ -6,7 +6,6 @@ import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
 import com.eghm.model.TicketOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.ticket.*;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -78,5 +77,5 @@ public interface TicketOrderService {
      * @param orderNo 订单编号
      * @return 订单详细信息
      */
-    TicketOrderDetailResponse detail(@RequestParam("orderNo") String orderNo);
+    TicketOrderDetailResponse detail(String orderNo);
 }

@@ -1,11 +1,11 @@
 package com.eghm.web.configuration.handler;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
+import com.eghm.configuration.DatePropertyEditor;
+import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
-import com.eghm.configuration.DatePropertyEditor;
-import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.utils.WebUtil;
 import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
@@ -15,6 +15,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -107,6 +108,12 @@ public class ExceptionAdviceHandler {
     public RespBody<Void> exception(HttpServletRequest request, BindException e) {
         log.error("数据绑定异常, 接口[{}]", request.getRequestURI());
         return WebUtil.fieldBind(e.getBindingResult());
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public RespBody<Void> notNullException(HttpServletRequest request, MissingServletRequestParameterException e) {
+        log.error("参数校验为空, 接口[{}]", request.getRequestURI());
+        return RespBody.error(ErrorCode.PARAM_NULL_ERROR.getCode(), String.format(ErrorCode.PARAM_NULL_ERROR.getMsg(), e.getParameterName()));
     }
 
 }

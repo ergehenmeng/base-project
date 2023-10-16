@@ -58,7 +58,7 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
     public List<MemberNoticeVO> getByPage(PagingQuery query, Long memberId) {
         LambdaQueryWrapper<MemberNotice> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(MemberNotice::getMemberId, memberId);
-        wrapper.last(" order by read desc, id desc ");
+        wrapper.last(" order by is_read desc, id desc ");
         Page<MemberNotice> page = memberNoticeMapper.selectPage(query.createPage(false), wrapper);
         return DataUtil.copy(page.getRecords(), MemberNoticeVO.class);
     }
@@ -122,7 +122,7 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
         MemberNotice notice = new MemberNotice();
         notice.setId(id);
         notice.setMemberId(memberId);
-        notice.setRead(true);
+        notice.setIsRead(true);
         memberNoticeMapper.updateById(notice);
     }
 }

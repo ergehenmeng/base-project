@@ -29,6 +29,6 @@ public class MemberNotice extends BaseEntity {
     private String classify;
 
     @ApiModelProperty("状态 0:未读 1:已读")
-    private Boolean read;
+    private Boolean isRead;
 
 }

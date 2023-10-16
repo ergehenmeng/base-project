@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -161,5 +162,9 @@ public class ExceptionAdviceHandler {
         return "FAIL";
     }
 
-
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public RespBody<Void> notNullException(HttpServletRequest request, MissingServletRequestParameterException e) {
+        log.error("参数校验为空, 接口[{}]", request.getRequestURI());
+        return RespBody.error(ErrorCode.PARAM_NULL_ERROR.getCode(), String.format(ErrorCode.PARAM_NULL_ERROR.getMsg(), e.getParameterName()));
+    }
 }

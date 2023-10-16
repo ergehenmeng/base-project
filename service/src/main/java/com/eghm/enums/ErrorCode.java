@@ -212,6 +212,11 @@ public enum ErrorCode {
     PARAM_VERIFY_ERROR(2000,"%s"),
 
     /**
+     * 参数解析异常
+     */
+    PARAM_NULL_ERROR(2000,"%s参数不能为空"),
+
+    /**
      * 身份证格式错误
      */
     ID_CARD_ERROR(2001,"身份证格式错误"),
