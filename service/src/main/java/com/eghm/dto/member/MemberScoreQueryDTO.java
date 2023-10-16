@@ -20,6 +20,6 @@ public class MemberScoreQueryDTO extends PagingQuery {
     private Integer type;
 
     @Assign
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(value = "登录人id", hidden = true)
     private Long memberId;
 }

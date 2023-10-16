@@ -15,21 +15,12 @@ import java.util.Date;
 @ApiModel
 public class MemberScoreVO {
 
-    /**
-     * 积分
-     */
     @ApiModelProperty("积分值")
     private Integer score;
 
-    /**
-     * 积分类型
-     */
     @ApiModelProperty("积分类型")
     private Integer type;
 
-    /**
-     * 时间
-     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty("积分发放或消费时间")
     private Date createTime;
