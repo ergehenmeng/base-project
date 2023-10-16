@@ -1,14 +1,15 @@
 package com.eghm.service.common.impl;
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
-import com.eghm.utils.DateUtil;
+import cn.hutool.core.util.IdUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.SystemConstant;
 import com.eghm.dto.ext.FilePath;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.service.common.FileService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.utils.DateUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,6 @@ import javax.validation.constraints.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -163,7 +163,7 @@ public class FileServiceImpl implements FileService {
             originalFileName = "default.png";
         }
         // fileName:3e1be532-4862-49f4-b053-2a2e594ba187.png
-        String fileName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
+        String fileName = IdUtil.fastSimpleUUID() + originalFileName.substring(originalFileName.lastIndexOf("."));
         return SystemConstant.DEFAULT_PATTERN + folderName + File.separator + DateUtil.formatShortLimit(DateUtil.getNow()) + File.separator + fileName;
     }
 

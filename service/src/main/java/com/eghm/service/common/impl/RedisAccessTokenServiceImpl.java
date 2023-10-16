@@ -1,6 +1,6 @@
 package com.eghm.service.common.impl;
 
-import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.IdUtil;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.constant.CacheConstant;
 import com.eghm.dto.ext.UserToken;
@@ -71,7 +71,7 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
         hashMap.put("authList", authList);
         hashMap.put("merchantId", merchantId);
         hashMap.put("deptCode", user.getDeptCode());
-        String token = UUID.randomUUID().toString(true);
+        String token = IdUtil.fastSimpleUUID();
         String key = CacheConstant.USER_TOKEN + token;
         cacheService.setValue(key, jsonService.toJson(hashMap), expireSeconds);
         return token;

@@ -2,11 +2,10 @@ package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.eghm.constant.CacheConstant;
+import com.eghm.constants.ConfigConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.SmsType;
 import com.eghm.exception.BusinessException;
-import com.eghm.utils.StringUtil;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.model.SmsLog;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.SendSmsService;
@@ -14,6 +13,7 @@ import com.eghm.service.common.SmsService;
 import com.eghm.service.sys.SmsLogService;
 import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -77,7 +77,7 @@ public class SmsServiceImpl implements SmsService {
             throw new BusinessException(ErrorCode.LOGIN_SMS_CODE_ERROR);
         }
         this.cleanSmsCode(smsType, mobile);
-        String uuid = IdUtil.fastUUID();
+        String uuid = IdUtil.fastSimpleUUID();
         cacheService.setValue(CacheConstant.VERIFY_PREFIX + uuid, true, 300);
         cacheService.setValue(CacheConstant.VERIFY_MOBILE_PREFIX + uuid, mobile, 300);
         return uuid;

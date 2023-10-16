@@ -1,6 +1,7 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.IdUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.AsyncKey;
 import com.eghm.enums.ExchangeQueue;
@@ -31,7 +32,7 @@ public class OrderMQServiceImpl implements OrderMQService {
 
     @Override
     public void sendOrderCreateMessage(ExchangeQueue exchangeQueue, AsyncKey context) {
-        context.setKey(UUID.fastUUID().toString(true));
+        context.setKey(IdUtil.fastSimpleUUID());
         rabbitService.sendAsync(exchangeQueue, context);
     }
 

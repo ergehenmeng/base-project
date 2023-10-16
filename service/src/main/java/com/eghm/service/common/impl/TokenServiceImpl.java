@@ -1,15 +1,15 @@
 package com.eghm.service.common.impl;
 
 
-import cn.hutool.core.lang.UUID;
+import cn.hutool.core.util.IdUtil;
 import com.eghm.constant.CacheConstant;
-import com.eghm.utils.StringUtil;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.ext.MemberToken;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.JsonService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public MemberToken createToken(Long memberId, String channel) {
-        String refreshToken = UUID.randomUUID().toString(true);
+        String refreshToken = IdUtil.fastSimpleUUID();
         String accessToken = StringUtil.randomLowerCase(64);
         MemberToken memberToken = MemberToken.builder().token(accessToken).memberId(memberId).channel(channel).refreshToken(refreshToken).build();
         this.cacheToken(memberToken);
