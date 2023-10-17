@@ -1,6 +1,5 @@
 package com.eghm.vo.login;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +16,6 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel
 public class LoginTokenVO implements Serializable {
 
     private static final long serialVersionUID = 5945495590088977331L;

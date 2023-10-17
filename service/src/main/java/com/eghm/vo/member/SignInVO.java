@@ -1,6 +1,5 @@
 package com.eghm.vo.member;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,7 +10,6 @@ import java.util.List;
  * @date 2020/9/7
  */
 @Data
-@ApiModel
 public class SignInVO {
 
     @ApiModelProperty("今日是否签到 true:已签到 false:未签到")

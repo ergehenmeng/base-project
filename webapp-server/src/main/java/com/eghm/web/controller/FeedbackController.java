@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "问题反馈")
 @AllArgsConstructor
 @RequestMapping("/webapp/feedback")
-public class FeedbackController{
+public class FeedbackController {
 
     private final FeedbackService feedbackService;
 

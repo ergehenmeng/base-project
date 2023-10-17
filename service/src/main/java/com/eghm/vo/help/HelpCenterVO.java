@@ -1,6 +1,5 @@
 package com.eghm.vo.help;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,7 +8,6 @@ import lombok.Data;
  * @date 2020/11/12
  */
 @Data
-@ApiModel
 public class HelpCenterVO {
 
     @ApiModelProperty("帮助分类")

@@ -3,7 +3,6 @@ package com.eghm.vo.member;
 import com.eghm.convertor.LongToIpEncoder;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,7 +11,6 @@ import lombok.Data;
  */
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel
 public class LoginDeviceVO {
 
 	@ApiModelProperty("上次登陆时间 MM-dd HH:mm:ss")

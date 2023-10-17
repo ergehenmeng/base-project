@@ -1,7 +1,6 @@
 package com.eghm.vo.member;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,7 +11,6 @@ import java.util.Date;
  * @date 2020/9/12
  */
 @Data
-@ApiModel
 public class MemberNoticeVO {
 
     @ApiModelProperty(value = "通知id", required = true)
