@@ -74,14 +74,15 @@ public interface MemberService {
     /**
      * 登陆发送验证码
      * @param mobile 手机号码
+     * @param ip  ip地址
      */
-    void sendLoginSms(String mobile);
+    void sendLoginSms(String mobile, String ip);
 
     /**
      * 忘记密码发送验证码
      * @param mobile 手机号码
      */
-    void sendForgetSms(String mobile);
+    void sendForgetSms(String mobile, String ip);
 
     /**
      * 根据账号查询用户信息(如果不存在,则抛异常)
@@ -94,7 +95,7 @@ public interface MemberService {
      * 注册发送验证码
      * @param mobile 手机号码
      */
-    void registerSendSms(String mobile);
+    void registerSendSms(String mobile, String ip);
 
     /**
      * 手机号+验证码注册
@@ -160,8 +161,9 @@ public interface MemberService {
     /**
      * 更新邮箱发送短信验证码
      * @param memberId memberId
+     * @param ip       ip
      */
-    void sendChangeEmailSms(Long memberId);
+    void sendChangeEmailSms(Long memberId, String ip);
 
     /**
      * 发送更换邮箱的邮件信息(邮件内容为验证码)

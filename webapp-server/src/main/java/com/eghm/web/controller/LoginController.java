@@ -38,8 +38,8 @@ public class LoginController {
 
     @ApiOperation("发送登陆验证码①")
     @PostMapping("/login/sendSms")
-    public RespBody<Void> loginSendSms(@RequestBody @Validated SendSmsDTO request) {
-        memberService.sendLoginSms(request.getMobile());
+    public RespBody<Void> loginSendSms(@RequestBody @Validated SendSmsDTO dto, HttpServletRequest request) {
+        memberService.sendLoginSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 
@@ -60,8 +60,8 @@ public class LoginController {
 
     @ApiOperation("忘记密码发送验证码①")
     @PostMapping("/forget/sendSms")
-    public RespBody<Void> forgetSendSms(@RequestBody @Validated SendSmsDTO request) {
-        memberService.sendForgetSms(request.getMobile());
+    public RespBody<Void> forgetSendSms(@RequestBody @Validated SendSmsDTO dto , HttpServletRequest request) {
+        memberService.sendForgetSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 

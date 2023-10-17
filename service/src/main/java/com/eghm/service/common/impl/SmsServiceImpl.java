@@ -15,6 +15,7 @@ import com.eghm.service.sys.SmsTemplateService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.StringUtil;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2019/8/16 18:46
  */
+@Slf4j
 @Service("smsService")
 @AllArgsConstructor
 public class SmsServiceImpl implements SmsService {
@@ -50,6 +52,11 @@ public class SmsServiceImpl implements SmsService {
         cacheService.setValue(CacheConstant.SMS_TYPE_INTERVAL + smsType.getValue() + mobile, true, expire);
     }
 
+    @Override
+    public void sendSmsCode(SmsType smsType, String mobile, String ip) {
+        this.smsIpLimitCheck(ip);
+        this.sendSmsCode(smsType, mobile);
+    }
 
     /**
      * 根据模板和参数填充数据
@@ -172,6 +179,21 @@ public class SmsServiceImpl implements SmsService {
         //当天手机号限制
         limit = cacheService.limit(CacheConstant.SMS_DAY + mobile, smsDay, 86400);
         if (limit) {
+            throw new BusinessException(ErrorCode.MOBILE_DAY_LIMIT);
+        }
+    }
+
+    /**
+     * 校验ip地址短信是否上限
+     *
+     * @param ip ip地址
+     */
+    private void smsIpLimitCheck(String ip) {
+        int ipLimit = sysConfigApi.getInt(ConfigConstant.SMS_IP_LIMIT);
+        //短信时间间隔判断
+        boolean limit = cacheService.limit(CacheConstant.SMS_IP_LIMIT + ip, ipLimit, 86400);
+        if (limit) {
+            log.info("ip限制短信发送量已达上限 [{}]", ip);
             throw new BusinessException(ErrorCode.MOBILE_DAY_LIMIT);
         }
     }

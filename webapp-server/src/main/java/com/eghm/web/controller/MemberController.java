@@ -6,6 +6,7 @@ import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
 import com.eghm.dto.member.SendEmailAuthCodeDTO;
 import com.eghm.service.member.MemberService;
+import com.eghm.utils.IpUtil;
 import com.eghm.vo.member.SignInVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
@@ -13,6 +14,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 用户相关信息
@@ -45,8 +48,8 @@ public class MemberController {
 
     @PostMapping("/sendChangeEmailSms")
     @ApiOperation("发送换绑邮箱的短信验证码①")
-    public RespBody<Void> sendChangeEmailSms() {
-        memberService.sendChangeEmailSms(ApiHolder.getMemberId());
+    public RespBody<Void> sendChangeEmailSms(HttpServletRequest request) {
+        memberService.sendChangeEmailSms(ApiHolder.getMemberId(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 

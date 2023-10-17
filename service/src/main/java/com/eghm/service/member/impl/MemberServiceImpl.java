@@ -178,19 +178,19 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void sendLoginSms(String mobile) {
+    public void sendLoginSms(String mobile, String ip) {
         Member member = this.getByAccountRequired(mobile);
         if (Boolean.FALSE.equals(member.getState())) {
             log.warn("账号已被封禁,无法登录 [{}] [{}]", member.getId(), mobile);
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }
-        smsService.sendSmsCode(SmsType.LOGIN, member.getMobile());
+        smsService.sendSmsCode(SmsType.LOGIN, member.getMobile(), ip);
     }
 
     @Override
-    public void sendForgetSms(String mobile) {
+    public void sendForgetSms(String mobile, String ip) {
         Member member = this.getByAccountRequired(mobile);
-        smsService.sendSmsCode(SmsType.FORGET, member.getMobile());
+        smsService.sendSmsCode(SmsType.FORGET, member.getMobile(), ip);
     }
 
     @Override
@@ -203,9 +203,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void registerSendSms(String mobile) {
+    public void registerSendSms(String mobile, String ip) {
         this.registerRedoVerify(mobile);
-        smsService.sendSmsCode(SmsType.REGISTER, mobile);
+        smsService.sendSmsCode(SmsType.REGISTER, mobile, ip);
     }
 
     @Override
@@ -315,13 +315,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void sendChangeEmailSms(Long memberId) {
+    public void sendChangeEmailSms(Long memberId, String ip) {
         Member member = memberMapper.selectById(memberId);
         if (StrUtil.isBlank(member.getMobile())) {
             log.warn("未绑定手机号,无法发送邮箱验证短信 memberId:[{}]", memberId);
             throw new BusinessException(ErrorCode.MOBILE_NOT_BIND);
         }
-        smsService.sendSmsCode(SmsType.CHANGE_EMAIL, member.getMobile());
+        smsService.sendSmsCode(SmsType.CHANGE_EMAIL, member.getMobile(), ip);
     }
 
     @Override

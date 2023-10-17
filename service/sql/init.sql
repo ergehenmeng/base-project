@@ -3891,9 +3891,6 @@ INSERT INTO `sys_config` VALUES ('14', 'operation_log_switch', '操作日志开�
 INSERT INTO `sys_config` VALUES ('19', 'single_client_login', '是否开启单设备单点登录', 'true', b'0', 'false:不开启 true:开启', '2019-08-13 15:45:39', '2020-07-23 13:55:48');
 INSERT INTO `sys_config` VALUES ('20', 'nick_name_prefix', '默认昵称前缀', 'eghm_', b'0', '昵称为空时会自动生成以此为前缀的昵称', '2019-08-19 16:06:04', '2019-08-19 16:06:04');
 INSERT INTO `sys_config` VALUES ('21', 'sms_type_interval', '同一类型短信发送间隔', '60', b'0', '单位秒', '2019-08-20 17:18:53', '2019-08-20 17:18:53');
-INSERT INTO `sys_config` VALUES ('22', 'sms_type_hour', '同一类型短信单小时总次数', '10', b'0', '一小时同一类型最多发送次数', '2019-08-20 17:21:51', '2019-08-20 17:21:51');
-INSERT INTO `sys_config` VALUES ('23', 'sms_type_day', '同一类型短信一天总次数', '20', b'0', '一天内同一类型最多发送次数', '2019-08-20 17:23:50', '2019-08-20 17:23:50');
-INSERT INTO `sys_config` VALUES ('24', 'sms_day', '同一天同手机号最大次数', '50', b'0', '一个手机号一天内最多发送次数', '2019-08-20 17:26:02', '2019-08-20 17:26:02');
 INSERT INTO `sys_config` VALUES ('25', 'notice_limit', '公告显示多少条', '5', b'0', '首页公告轮播条数', '2019-08-22 11:53:19', '2019-08-22 11:53:19');
 INSERT INTO `sys_config` VALUES ('27', 'file_server_address', '文件服务器地址', 'http://127.0.0.1:8080', b'0', NULL, '2019-08-28 17:25:14', '2019-11-15 16:44:51');
 INSERT INTO `sys_config` VALUES ('32', 'single_max_file_size', '单文件最大上传限制', '5242880', b'0', '单位 byte 默认200M', '2019-11-15 16:44:28', '2020-07-23 14:46:31');
@@ -3920,11 +3917,12 @@ INSERT INTO `sys_config` VALUES ('56', 'homestay_room_max_recommend', '民宿房
 INSERT INTO `sys_config` VALUES ('57', 'item_max_recommend', '商品最大推荐数量', '10', b'0', '默认推荐10件商品', '2023-01-29 14:20:39', '2023-01-29 14:20:39');
 INSERT INTO `sys_config` VALUES ('58', 'store_item_max_recommend', '店铺商品最大推荐数量', '10', b'0', '单个店铺默认推荐商品数量', '2023-01-29 14:21:43', '2023-02-10 13:02:30');
 INSERT INTO `sys_config` VALUES ('59', 'store_max_recommend', '店铺最大推荐数量', '6', b'0', '店铺默认推荐数量', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
-INSERT INTO `sys_config` VALUES ('60', 'sms_type_hour_limit', '类型短信单小时次数限制', '6', b'0', '单手机号一个小时某一类型最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
-INSERT INTO `sys_config` VALUES ('61', 'sms_type_day_limit', '类型短信单天次数限制', '10', b'0', '单手机号一天某一类型的短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
-INSERT INTO `sys_config` VALUES ('62', 'sms_day_limit', '短信单天次数限制', '10', b'0', '单手机号一天短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('60', 'sms_type_hour_limit', '短信单小时次数限制(短信类型)', '6', b'0', '单手机号一个小时某一类型最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('61', 'sms_type_day_limit', '短信单天次数限制(短信类型)', '10', b'0', '单手机号一天某一类型的短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('62', 'sms_day_limit', '短信单天次数限制(手机号)', '10', b'0', '单手机号一天短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('63', 'refresh_token_expire', '刷新token过期时间', '2592000', b'0', '默认30天内免登录', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('64', 'member_address_max', '收货地址最大数量', '10', b'0', '会员自己能添加多少个收货地址', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('65', 'sms_ip_limit', 'ip短信数量限制', '100', b'0', '单个ip一天发送多少条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 
 
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('1010', '系统管理', 'Vz', '0', NULL, NULL, '1', '1', b'1', '', '2', '2018-01-24 08:13:54', '2023-09-27 14:39:17');

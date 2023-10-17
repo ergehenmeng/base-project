@@ -40,6 +40,11 @@ public class ConfigConstant {
     public static final String SMS_DAY_LIMIT = "sms_day_limit";
 
     /**
+     * 短信ip限制
+     */
+    public static final String SMS_IP_LIMIT = "sms_ip_limit";
+
+    /**
      * 公告显示个数限制
      */
     public static final String NOTICE_LIMIT = "notice_limit";

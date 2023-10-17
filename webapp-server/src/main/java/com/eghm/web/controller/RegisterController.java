@@ -34,8 +34,8 @@ public class RegisterController {
 
     @PostMapping("/sendSms")
     @ApiOperation("注册发送验证码①")
-    public RespBody<Void> sendSms(@RequestBody @Validated RegisterSendSmsDTO request) {
-        memberService.registerSendSms(request.getMobile());
+    public RespBody<Void> sendSms(@RequestBody @Validated RegisterSendSmsDTO dto, HttpServletRequest request) {
+        memberService.registerSendSms(dto.getMobile(), IpUtil.getIpAddress(request));
         return RespBody.success();
     }
 

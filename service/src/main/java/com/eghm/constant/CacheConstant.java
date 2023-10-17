@@ -121,6 +121,11 @@ public class CacheConstant {
     public static final String SMS_TYPE_DAY_LIMIT = "sms_type_day_limit:";
 
     /**
+     * 同一天ip发送的短信数量 sms_type_day_limit:ip
+     */
+    public static final String SMS_IP_LIMIT = "sms_ip_limit:";
+
+    /**
      * 同一天同手机号最大次数 sms_day::mobile
      */
     public static final String SMS_DAY = "sms_day:";
