@@ -3924,6 +3924,7 @@ INSERT INTO `sys_config` VALUES ('60', 'sms_type_hour_limit', '类型短信单�
 INSERT INTO `sys_config` VALUES ('61', 'sms_type_day_limit', '类型短信单天次数限制', '10', b'0', '单手机号一天某一类型的短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('62', 'sms_day_limit', '短信单天次数限制', '10', b'0', '单手机号一天短信最多发送几条短信', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 INSERT INTO `sys_config` VALUES ('63', 'refresh_token_expire', '刷新token过期时间', '2592000', b'0', '默认30天内免登录', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
+INSERT INTO `sys_config` VALUES ('64', 'member_address_max', '收货地址最大数量', '10', b'0', '会员自己能添加多少个收货地址', '2023-01-29 14:22:38', '2023-02-10 13:02:34');
 
 
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('1010', '系统管理', 'Vz', '0', NULL, NULL, '1', '1', b'1', '', '2', '2018-01-24 08:13:54', '2023-09-27 14:39:17');

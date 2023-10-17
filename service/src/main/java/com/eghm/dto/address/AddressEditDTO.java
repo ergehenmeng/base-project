@@ -32,7 +32,7 @@ public class AddressEditDTO {
 
     @ApiModelProperty(value = "县区id",required = true)
     @NotNull(message = "县区不能为空")
-    private Integer countyId;
+    private Long countyId;
 
     @ApiModelProperty(value = "详细地址",required = true)
     @NotEmpty(message = "详细地址不能为空")

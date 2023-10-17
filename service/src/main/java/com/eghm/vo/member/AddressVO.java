@@ -12,6 +12,9 @@ import lombok.Data;
 @ApiModel
 public class AddressVO {
 
+    @ApiModelProperty("id")
+    private Long id;
+
     @ApiModelProperty("省份id")
     private Long provinceId;
 

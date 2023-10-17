@@ -1,0 +1,54 @@
+http://localhost:9090/webapp/member/address/list
+Channel: {{Channel}}
+Token: {{Token}}
+
+###
+
+POST http://localhost:9090/webapp/member/address/create
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "provinceId": 410000,
+  "cityId": 411600,
+  "countyId": 411621,
+  "detailAddress": "韭园镇小王庄村"
+}
+
+
+###
+
+POST http://localhost:9090/webapp/member/address/update
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "id": 1714200841781370882,
+  "provinceId": 410000,
+  "cityId": 411600,
+  "countyId": 411621,
+  "detailAddress": "韭园镇小王庄村"
+}
+
+###
+
+POST http://localhost:9090/webapp/member/address/default
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "id": 1714200841781370882
+}
+###
+
+POST http://localhost:9090/webapp/member/address/delete
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json; charset=utf-8
+
+{
+  "id": 1714200841781370882
+}

@@ -74,6 +74,7 @@ public class MemberAddressServiceImpl implements MemberAddressService {
             memberAddressMapper.updateState(dto.getMemberId(), MemberAddress.STATE_COMMON);
         }
         MemberAddress address = DataUtil.copy(dto, MemberAddress.class);
+        this.fillAreaName(address);
         memberAddressMapper.updateByMemberId(address);
     }
 
@@ -117,7 +118,7 @@ public class MemberAddressServiceImpl implements MemberAddressService {
         if (sysArea == null || sysArea.getClassify() != SysArea.CLASSIFY_COUNTY) {
             throw new ParameterException(ErrorCode.COUNTY_ERROR);
         }
-        address.setCityName(sysArea.getTitle());
+        address.setCountyName(sysArea.getTitle());
     }
 
 }

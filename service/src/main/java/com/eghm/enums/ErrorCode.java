@@ -1017,9 +1017,9 @@ public enum ErrorCode {
     ACTIVITY_TITLE_NULL(3251, "活动名称或ID不能为空"),
 
     /**
-     * 活动提前结束啦~
+     * 活动已经结束啦~
      */
-    ACTIVITY_DELETE(3254, "活动提前结束啦~"),
+    ACTIVITY_DELETE(3254, "活动已经结束啦~"),
 
     /**
      * 开启定位后方可按距离排序

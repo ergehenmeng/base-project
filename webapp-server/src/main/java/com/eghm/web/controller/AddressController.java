@@ -35,33 +35,33 @@ public class AddressController {
         return RespBody.success(voList);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/create")
     @ApiOperation("添加地址")
-    public RespBody<Void> save(@RequestBody @Validated AddressAddDTO request) {
-        request.setMemberId(ApiHolder.getMemberId());
-        memberAddressService.addAddress(request);
+    public RespBody<Void> create(@RequestBody @Validated AddressAddDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        memberAddressService.addAddress(dto);
         return RespBody.success();
     }
 
     @PostMapping("/default")
     @ApiOperation("设置默认地址")
-    public RespBody<Void> setDefault(@RequestBody @Validated IdDTO request) {
-        memberAddressService.setDefault(request.getId(), ApiHolder.getMemberId());
+    public RespBody<Void> setDefault(@RequestBody @Validated IdDTO dto) {
+        memberAddressService.setDefault(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
     @PostMapping("/delete")
     @ApiOperation("设置默认地址")
-    public RespBody<Void> delete(@RequestBody @Validated IdDTO request) {
-        memberAddressService.deleteAddress(request.getId(), ApiHolder.getMemberId());
+    public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
+        memberAddressService.deleteAddress(dto.getId(), ApiHolder.getMemberId());
         return RespBody.success();
     }
 
     @PostMapping("/update")
     @ApiOperation("编辑地址")
-    public RespBody<Void> update(@RequestBody @Validated AddressEditDTO request) {
-        request.setMemberId(ApiHolder.getMemberId());
-        memberAddressService.updateAddress(request);
+    public RespBody<Void> update(@RequestBody @Validated AddressEditDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        memberAddressService.updateAddress(dto);
         return RespBody.success();
     }
 
