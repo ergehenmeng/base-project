@@ -15,8 +15,8 @@
 
     <insert id="insertOrUpdateSelective" parameterType="com.eghm.model.LoginDevice">
         insert into login_device(member_id, serial_number, device_model, login_time, ip)
-        values (#{memberId}, #{serialNumber}, #{deviceModel}, now(), ip) on duplicate key
-        update login_time = now()
+        values (#{memberId}, #{serialNumber}, #{deviceModel}, now(), #{ip}) on duplicate key
+        update login_time = now(), ip = #{ip}
     </insert>
 
     <select id="getBySerialNumber" resultMap="BaseResultMap">
@@ -26,10 +26,7 @@
     </select>
 
     <delete id="deleteLoginDevice">
-        delete
-        from login_device
-        where member_id = #{memberId}
-          and serial_number = #{serialNumber}
+        delete from login_device where member_id = #{memberId} and id = #{id}
     </delete>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.eghm.vo.sys;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Data
 @ApiModel
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SysAreaVO {
 
     @ApiModelProperty("区域id(唯一)")

@@ -1,5 +1,7 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -15,7 +17,11 @@ import java.time.LocalDateTime;
 @Setter
 @ToString(callSuper = true)
 @TableName("login_device")
-public class LoginDevice extends BaseEntity {
+public class LoginDevice {
+
+    @TableId(type = IdType.ASSIGN_ID)
+    @ApiModelProperty("id主键")
+    private Long id;
 
     @ApiModelProperty("用户id")
     private Long memberId;

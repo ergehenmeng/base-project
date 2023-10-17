@@ -1,7 +1,6 @@
 package com.eghm.service.member.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.dto.ext.LoginRecord;
 import com.eghm.mapper.LoginDeviceMapper;
@@ -50,25 +49,8 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void deleteLoginLog(Long memberId, String serialNumber) {
-        LambdaUpdateWrapper<LoginLog> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(LoginLog::getMemberId, memberId);
-        wrapper.eq(LoginLog::getSerialNumber, serialNumber);
-        loginLogMapper.delete(wrapper);
-    }
-
-    @Override
-    public void insertOrUpdateSelective(LoginDevice device) {
-        loginDeviceMapper.insertOrUpdateSelective(device);
-    }
-
-    @Override
-    public void deleteLoginDevice(Long memberId, String serialNumber) {
-        loginDeviceMapper.deleteLoginDevice(memberId, serialNumber);
-        LambdaUpdateWrapper<LoginLog> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(LoginLog::getMemberId, memberId);
-        wrapper.eq(LoginLog::getSerialNumber, serialNumber);
-        loginLogMapper.delete(wrapper);
+    public void deleteLoginDevice(Long memberId, Long id) {
+        loginDeviceMapper.deleteLoginDevice(memberId, id);
     }
 
     @Override

@@ -25,9 +25,9 @@ public interface LoginDeviceMapper extends BaseMapper<LoginDevice> {
     /**
      * 物理删除登陆设备信息(减少不必要的垃圾数据)
      * @param memberId memberId
-     * @param serialNumber 设备唯一识别号
+     * @param id id
      * @return 1
      */
-    int deleteLoginDevice(@Param("memberId")Long memberId, @Param("serialNumber") String serialNumber);
+    int deleteLoginDevice(@Param("memberId")Long memberId, @Param("id") Long id);
 
 }

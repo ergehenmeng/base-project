@@ -133,7 +133,7 @@ public class MemberServiceImpl implements MemberService {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
         if (Boolean.FALSE.equals(member.getState())) {
-            log.warn("账号已被封禁,无法登录 [{}] [{}]", member.getId(), login.getAccount());
+            log.warn("该账号已被封禁,无法登录 [{}] [{}]", member.getId(), login.getAccount());
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }
         RequestMessage request = ApiHolder.get();
@@ -150,7 +150,7 @@ public class MemberServiceImpl implements MemberService {
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         Member member = this.getByAccountRequired(login.getMobile());
         if (Boolean.FALSE.equals(member.getState())) {
-            log.warn("账号已被封禁,无法登录 [{}] [{}]", member.getId(), login.getMobile());
+            log.warn("账号已被封禁,无法发送短信 [{}] [{}]", member.getId(), login.getMobile());
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
         }
         smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());

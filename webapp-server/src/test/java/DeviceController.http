@@ -1,0 +1,14 @@
+GET http://localhost:9090/webapp/member/device/list
+Channel: {{Channel}}
+Token: {{Token}}
+
+###
+
+GET http://localhost:9090/webapp/member/device/unbind
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "id": ""
+}

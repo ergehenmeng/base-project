@@ -1,7 +1,7 @@
 package com.eghm.service.member;
 
-import com.eghm.model.LoginDevice;
 import com.eghm.dto.ext.LoginRecord;
+import com.eghm.model.LoginDevice;
 import com.eghm.vo.member.LoginDeviceVO;
 
 import java.util.List;
@@ -26,24 +26,11 @@ public interface LoginService {
     LoginDeviceVO getLastLogin(Long memberId);
 
     /**
-     * 逻辑删除用户登陆信息
-     * @param memberId 用户id
-     * @param serialNumber 设备号
-     */
-    void deleteLoginLog(Long memberId, String serialNumber);
-
-    /**
-     * 插入或更新,更新或插入字段中必须包含唯一性约束条件
-     * @param device device
-     */
-    void insertOrUpdateSelective(LoginDevice device);
-
-    /**
      * 删除用户的登陆设备(物理删除登陆设备信息表,逻辑删除登陆日志信息)
      * @param memberId 用户id
-     * @param serialNumber 设备号
+     * @param id    id
      */
-    void deleteLoginDevice(Long memberId, String serialNumber);
+    void deleteLoginDevice(Long memberId, Long id);
 
     /**
      * 查找指定设备是否有登陆日志
