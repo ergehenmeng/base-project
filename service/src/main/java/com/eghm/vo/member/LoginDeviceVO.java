@@ -1,6 +1,8 @@
 package com.eghm.vo.member;
 
+import com.eghm.convertor.LongToIpEncoder;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -23,5 +25,6 @@ public class LoginDeviceVO {
 	private String serialNumber;
 
 	@ApiModelProperty("登陆ip")
-	private String loginIp;
+	@JsonSerialize(using = LongToIpEncoder.class)
+	private Long ip;
 }

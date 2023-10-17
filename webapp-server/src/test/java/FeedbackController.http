@@ -1,0 +1,13 @@
+POST http://localhost:9090/webapp/feedback/submit
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "classify": 1,
+  "content": "demoData",
+  "deviceBrand": "demoData",
+  "deviceModel": "demoData",
+  "version": "demoData",
+  "systemVersion": "demoData"
+}

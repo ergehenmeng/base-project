@@ -1,11 +1,8 @@
 package com.eghm.dto.feedback;
 
 import com.eghm.annotation.Assign;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * 手机反馈新增
@@ -13,10 +10,7 @@ import java.io.Serializable;
  * @date 2019/8/28 10:47
  */
 @Data
-@ApiModel
-public class FeedbackAddDTO implements Serializable {
-
-    private static final long serialVersionUID = -1472450823258477249L;
+public class FeedbackAddDTO {
 
     @ApiModelProperty(value = "反馈内容分类",required = true)
     private Integer classify;
