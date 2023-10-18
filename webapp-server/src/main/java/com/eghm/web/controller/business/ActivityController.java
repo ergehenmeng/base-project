@@ -1,12 +1,13 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.IdDTO;
+import com.eghm.dto.business.activity.ActivityQueryRequest;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Activity;
-import com.eghm.dto.IdDTO;
-import com.eghm.vo.business.activity.ActivityBaseResponse;
-import com.eghm.vo.business.activity.ActivityVO;
 import com.eghm.service.business.ActivityService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.vo.business.activity.ActivityVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +36,9 @@ public class ActivityController {
     @ApiImplicitParam(name = "month", value = "月份yyyy-MM", required = true)
     @ApiOperation("查询月活动")
     public RespBody<List<ActivityBaseResponse>> month(@RequestParam("month") String month) {
-        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(month, null);
+        ActivityQueryRequest request = new ActivityQueryRequest();
+        request.setMonth(month);
+        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(request);
         return RespBody.success(monthActivity);
     }
 

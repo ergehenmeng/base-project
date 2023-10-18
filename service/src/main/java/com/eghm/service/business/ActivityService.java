@@ -1,10 +1,7 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.activity.*;
 import com.eghm.model.Activity;
-import com.eghm.dto.business.activity.ActivityAddRequest;
-import com.eghm.dto.business.activity.ActivityConfigRequest;
-import com.eghm.dto.business.activity.ActivityDeleteRequest;
-import com.eghm.dto.business.activity.ActivityEditRequest;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
 import com.eghm.vo.business.activity.ActivityBaseResponse;
 
@@ -36,11 +33,10 @@ public interface ActivityService {
 
     /**
      * 查询某一月的活动信息
-     * @param month 月份 yyyy-MM
-     * @param scenicId 景区id 可以为空
+     * @param request 查询条件
      * @return 该月的活动信息
      */
-    List<ActivityBaseResponse> getMonthActivity(String month, Long scenicId);
+    List<ActivityBaseResponse> getMonthActivity(ActivityQueryRequest request);
 
     /**
      * 主键查询活动

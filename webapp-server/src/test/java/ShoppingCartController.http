@@ -3,4 +3,37 @@ Content-Type: application/json
 Channel: {{Channel}}
 Token: {{Token}}
 
-{}
+{
+  "quantity": 1,
+  "skuId": 1212,
+  "itemId": 1212,
+  "salePrice": 1213
+}
+###
+
+GET http://localhost:9090/webapp/shopping/cart/list
+Channel: {{Channel}}
+Token: {{Token}}
+
+###
+
+POST http://localhost:9090/webapp/shopping/cart/delete
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "id": 1212
+}
+###
+
+POST http://localhost:9090/webapp/shopping/cart/quantity
+Channel: {{Channel}}
+Token: {{Token}}
+Content-Type: application/json
+
+{
+  "id": 1212,
+  "quantity": 1
+}
+###

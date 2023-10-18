@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constants.ConfigConstant;
-import com.eghm.dto.business.activity.ActivityAddRequest;
-import com.eghm.dto.business.activity.ActivityConfigRequest;
-import com.eghm.dto.business.activity.ActivityDeleteRequest;
-import com.eghm.dto.business.activity.ActivityEditRequest;
+import com.eghm.dto.business.activity.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ActivityMapper;
@@ -80,12 +77,12 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<ActivityBaseResponse> getMonthActivity(String month, Long scenicId) {
-        LocalDate startDate = LocalDate.parse(month + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    public List<ActivityBaseResponse> getMonthActivity(ActivityQueryRequest request) {
+        LocalDate startDate = LocalDate.parse(request.getMonth() + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate endDate = startDate.plusMonths(1);
         LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
-        wrapper.isNull(scenicId == null, Activity::getScenicId);
-        wrapper.eq(scenicId != null, Activity::getScenicId, scenicId);
+        wrapper.isNull(request.getScenicId() == null, Activity::getScenicId);
+        wrapper.eq(request.getScenicId() != null, Activity::getScenicId, request.getScenicId());
         wrapper.ge(Activity::getNowDate, startDate);
         wrapper.lt(Activity::getNowDate, endDate);
         wrapper.orderByDesc(Activity::getId);

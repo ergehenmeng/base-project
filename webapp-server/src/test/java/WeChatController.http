@@ -1,0 +1,7 @@
+POST http://localhost:9090/webapp/wechat/mp/login
+Channel: {{Channel}}
+Content-Type: application/json
+
+{
+  "code": "jsCode"
+}

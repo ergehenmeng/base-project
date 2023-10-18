@@ -1,10 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.business.activity.ActivityAddRequest;
-import com.eghm.dto.business.activity.ActivityConfigRequest;
-import com.eghm.dto.business.activity.ActivityDeleteRequest;
-import com.eghm.dto.business.activity.ActivityEditRequest;
+import com.eghm.dto.business.activity.*;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
@@ -37,9 +34,8 @@ public class ActivityController {
         @ApiImplicitParam(name = "scenicId", value = "景区id")
     })
     @ApiOperation("查询月活动")
-    public RespBody<List<ActivityBaseResponse>> month(@RequestParam("month") String month,
-                                             @RequestParam(value = "scenicId", required = false) Long scenicId) {
-        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(month, scenicId);
+    public RespBody<List<ActivityBaseResponse>> month(@Validated ActivityQueryRequest request) {
+        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(request);
         return RespBody.success(monthActivity);
     }
 
