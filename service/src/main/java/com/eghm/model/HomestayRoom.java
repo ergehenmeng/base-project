@@ -3,7 +3,6 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +22,6 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("homestay_room")
-@ApiModel(value="HomestayRoom对象", description="房型信息表")
 public class HomestayRoom extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

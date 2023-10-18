@@ -2,7 +2,6 @@ package com.eghm.dto.ext;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * @date 2018/1/18 15:35
  */
 @Data
-@ApiModel("分页响应基础参数")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PageData<T> {
 

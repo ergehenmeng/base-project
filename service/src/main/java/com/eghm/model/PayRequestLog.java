@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.StepType;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +24,6 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("pay_request_log")
-@ApiModel(value="PayRequestLog对象", description="支付或退款请求记录表")
 public class PayRequestLog extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")

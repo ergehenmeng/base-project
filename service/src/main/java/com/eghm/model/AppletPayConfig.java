@@ -2,14 +2,12 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("applet_pay_config")
+@EqualsAndHashCode(callSuper = true)
 public class AppletPayConfig extends BaseEntity {
 
     @ApiModelProperty("唯一标识符")

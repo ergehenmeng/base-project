@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,7 +27,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("homestay_room_config")
-@ApiModel(value="HomestayRoomConfig对象", description="房间价格配置表")
 public class HomestayRoomConfig implements Serializable {
 
     private static final long serialVersionUID = 1L;

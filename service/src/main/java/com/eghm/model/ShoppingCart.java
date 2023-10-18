@@ -1,7 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +18,6 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("shopping_cart")
-@ApiModel(value="ShoppingCart对象", description="购物车表")
 public class ShoppingCart extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

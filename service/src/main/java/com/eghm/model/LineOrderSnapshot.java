@@ -1,15 +1,15 @@
 package com.eghm.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -23,7 +23,6 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("line_order_snapshot")
-@ApiModel(value="LineOrderSnapshot对象", description="线路订单每日行程配置快照表")
 public class LineOrderSnapshot implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.AuditState;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +20,6 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("order_refund_log")
-@ApiModel(value="OrderRefundLog对象", description="订单退款记录表")
 public class OrderRefundLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

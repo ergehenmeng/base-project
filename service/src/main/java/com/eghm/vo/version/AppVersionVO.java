@@ -1,6 +1,5 @@
 package com.eghm.vo.version;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,7 +17,6 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel
 public class AppVersionVO implements Serializable {
 
     private static final long serialVersionUID = -1238037314236966606L;

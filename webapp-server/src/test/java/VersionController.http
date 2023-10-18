@@ -1,0 +1,3 @@
+http://localhost:9090/webapp/version/latest
+Token: {{Token}}
+Channel: {{Channel}}

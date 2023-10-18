@@ -6,7 +6,6 @@ import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +24,6 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("scenic")
-@ApiModel(value="Scenic对象", description="景区信息表")
 public class Scenic extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

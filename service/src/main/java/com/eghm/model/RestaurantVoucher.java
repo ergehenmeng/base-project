@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +23,6 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("restaurant_voucher")
-@ApiModel(value="RestaurantVoucher对象", description="餐饮代金券")
 public class RestaurantVoucher extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

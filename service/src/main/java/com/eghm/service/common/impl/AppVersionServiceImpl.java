@@ -71,7 +71,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
         String version = ApiHolder.getVersion();
         // 未找到最新版本,或者用户版本大于等于已上架版本
-        if (VersionUtil.gte(version, latestVersion)) {
+        if (version == null || VersionUtil.gte(version, latestVersion)) {
             return AppVersionVO.builder().latest(true).build();
         }
         AppVersion mapperVersion = appVersionMapper.getVersion(channel, latestVersion);

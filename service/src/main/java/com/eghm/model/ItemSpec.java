@@ -1,7 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +20,6 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("item_spec")
-@ApiModel(value="ItemSpec对象", description="商品规格配置表")
 public class ItemSpec extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

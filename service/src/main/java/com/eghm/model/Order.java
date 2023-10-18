@@ -2,7 +2,6 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.*;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +22,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("`order`")
-@ApiModel(value="Order对象", description="订单表")
 public class Order extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

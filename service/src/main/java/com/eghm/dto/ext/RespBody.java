@@ -2,7 +2,6 @@ package com.eghm.dto.ext;
 
 import com.eghm.enums.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -12,7 +11,6 @@ import io.swagger.annotations.ApiModelProperty;
  * @date 2018/1/12 17:41
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel("响应基础对象")
 public class RespBody<T> {
 
     /**

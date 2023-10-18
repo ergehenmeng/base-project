@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.eghm.service.pay.enums.PayChannel;
 import com.eghm.service.pay.enums.StepType;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +22,6 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("pay_notify_log")
-@ApiModel(value="PayNotifyLog对象", description="支付异步通知记录表")
 public class PayNotifyLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,7 +1,6 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +21,6 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("item_express_region")
-@ApiModel(value="ItemExpressRegion对象", description="快递模板区域")
 public class ItemExpressRegion extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

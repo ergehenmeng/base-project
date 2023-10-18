@@ -1,7 +1,6 @@
 package com.eghm.vo.notice;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
  * @date 2019/11/25 15:30
  */
 @Data
-@ApiModel
 public class NoticeDetailVO implements Serializable {
 
     @ApiModelProperty("公告id")

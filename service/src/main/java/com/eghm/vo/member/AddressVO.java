@@ -1,6 +1,5 @@
 package com.eghm.vo.member;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,7 +8,6 @@ import lombok.Data;
  * @date 2020/9/8
  */
 @Data
-@ApiModel
 public class AddressVO {
 
     @ApiModelProperty("id")

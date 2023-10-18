@@ -9,7 +9,6 @@ import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,7 +27,6 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("coupon_config")
-@ApiModel(value="CouponConfig对象", description="优惠券配置表")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CouponConfig extends BaseEntity implements Serializable {
 

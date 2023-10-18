@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,7 +25,6 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("line")
-@ApiModel(value="Line对象", description="线路商品信息表")
 public class Line extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

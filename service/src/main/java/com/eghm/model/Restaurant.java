@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.State;
 import com.eghm.handler.mysql.LikeTypeHandler;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +22,6 @@ import java.math.BigDecimal;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("`restaurant`")
-@ApiModel(value = "Restaurant对象", description = "餐饮商家信息表")
 public class Restaurant extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

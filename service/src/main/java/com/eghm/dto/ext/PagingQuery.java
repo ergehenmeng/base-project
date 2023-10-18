@@ -2,7 +2,6 @@ package com.eghm.dto.ext;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +16,6 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@ApiModel("分页请求基础参数")
 public class PagingQuery implements Serializable {
 
     private static final long serialVersionUID = 9015209122071749218L;

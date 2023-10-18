@@ -3,7 +3,6 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,7 +20,6 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("merchant")
-@ApiModel(value="Merchant对象", description="商家信息表")
 public class Merchant extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,6 +1,5 @@
 package com.eghm.vo.notice;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,7 +11,6 @@ import java.io.Serializable;
  * @date 2019/11/25 15:30
  */
 @Data
-@ApiModel
 public class NoticeVO implements Serializable {
 
     @ApiModelProperty("公告id")

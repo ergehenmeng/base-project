@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -24,7 +23,6 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @TableName("homestay_order_snapshot")
-@ApiModel(value="HomestayOrderSnapshot对象", description="房态快照表")
 public class HomestayOrderSnapshot implements Serializable {
 
     @TableId(type = IdType.ASSIGN_ID)

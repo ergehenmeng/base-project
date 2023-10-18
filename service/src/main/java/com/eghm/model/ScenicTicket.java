@@ -6,7 +6,6 @@ import com.eghm.enums.ref.RefundType;
 import com.eghm.enums.ref.State;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +24,6 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("scenic_ticket")
-@ApiModel(value="ScenicTicket对象", description="景区门票信息表")
 public class ScenicTicket extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
