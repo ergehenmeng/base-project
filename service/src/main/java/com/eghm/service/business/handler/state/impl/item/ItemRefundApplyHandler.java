@@ -87,7 +87,7 @@ public class ItemRefundApplyHandler extends AbstractRefundApplyHandler {
 
     @Override
     public IEvent getEvent() {
-        return ItemEvent.REFUND_PASS;
+        return ItemEvent.REFUND_APPLY;
     }
 
     @Override

@@ -36,6 +36,10 @@ public class StateHandler {
     @PostConstruct
     public void init() {
         this.registerStateMachine(ProductType.TICKET);
+        this.registerStateMachine(ProductType.HOMESTAY);
+        this.registerStateMachine(ProductType.LINE);
+        this.registerStateMachine(ProductType.ITEM);
+        this.registerStateMachine(ProductType.RESTAURANT);
     }
 
     /**

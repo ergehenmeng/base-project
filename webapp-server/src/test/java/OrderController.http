@@ -32,7 +32,22 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-
+  "roomId": 1710945465285529602,
+  "mobile": "13136113453",
+  "nickName": "二哥",
+  "startDate": "2023-10-22",
+  "endDate": "2023-10-24",
+  "remark": "备注信息",
+  "visitorList": [{
+    "idCard": "620622196011141794",
+    "memberName": "山邦家"
+  },{
+    "idCard": "150301196310204723",
+    "memberName": "吕佳园"
+  },{
+    "idCard": "211422197202046042",
+    "memberName": "从君菁"
+  }]
 }
 
 ###
