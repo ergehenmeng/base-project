@@ -16,8 +16,8 @@ import java.io.Serializable;
  * @since 2022-07-23
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("shopping_cart")
+@EqualsAndHashCode(callSuper = true)
 public class ShoppingCart extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

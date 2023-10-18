@@ -5,9 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
@@ -15,10 +14,9 @@ import java.time.LocalDateTime;
  * 后台系统操作日志
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("manage_log")
+@EqualsAndHashCode(callSuper = true)
 public class ManageLog extends BaseEntity {
 
     @TableId(type = IdType.ASSIGN_ID)

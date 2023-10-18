@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,7 +20,6 @@ import java.time.LocalDateTime;
  * @since 2022-08-25
  */
 @Data
-@Accessors(chain = true)
 @TableName("homestay_order_snapshot")
 public class HomestayOrderSnapshot implements Serializable {
 

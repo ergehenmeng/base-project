@@ -16,8 +16,8 @@ import java.io.Serializable;
  * @since 2022-05-27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("merchant_user")
+@EqualsAndHashCode(callSuper = true)
 public class MerchantUser extends BaseEntity implements Serializable {
 
     @ApiModelProperty("商户ID")

@@ -5,7 +5,6 @@ import com.eghm.enums.ref.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,9 +18,8 @@ import java.time.LocalDateTime;
  * @since 2022-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("`order`")
+@EqualsAndHashCode(callSuper = true)
 public class Order extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

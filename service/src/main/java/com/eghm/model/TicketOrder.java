@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
  * @since 2022-07-12
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("ticket_order")
+@EqualsAndHashCode(callSuper = true)
 public class TicketOrder extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

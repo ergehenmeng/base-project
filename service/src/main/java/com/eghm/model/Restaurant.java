@@ -20,8 +20,8 @@ import java.math.BigDecimal;
  * @since 2022-06-30
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@TableName("`restaurant`")
+@TableName("restaurant")
+@EqualsAndHashCode(callSuper = true)
 public class Restaurant extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

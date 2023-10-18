@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -22,8 +20,6 @@ import java.time.LocalDateTime;
  * @since 2022-08-26
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("line_config")
 public class LineConfig implements Serializable {
 

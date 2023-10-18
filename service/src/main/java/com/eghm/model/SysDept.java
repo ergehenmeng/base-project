@@ -2,18 +2,16 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 部门信息表
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("sys_dept")
+@EqualsAndHashCode(callSuper = true)
 public class SysDept extends BaseEntity {
 
     @ApiModelProperty("父级编号")

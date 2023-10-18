@@ -5,18 +5,14 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("member_score_log")
 public class MemberScoreLog {
 

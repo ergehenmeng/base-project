@@ -20,8 +20,8 @@ import java.io.Serializable;
  * @since 2022-07-26
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("pay_notify_log")
+@EqualsAndHashCode(callSuper = true)
 public class PayNotifyLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

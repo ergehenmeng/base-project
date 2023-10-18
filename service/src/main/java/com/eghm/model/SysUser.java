@@ -7,15 +7,15 @@ import com.eghm.enums.DataType;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author 二哥很猛
  */
-@Getter
-@Setter
+@Data
 @TableName("sys_user")
+@EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 
     /**

@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -20,8 +18,6 @@ import java.time.LocalDateTime;
  * @since 2023-06-01
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("order_visitor_refund")
 public class OrderVisitorRefund implements Serializable {
 

@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -24,8 +22,6 @@ import java.time.LocalDateTime;
  * @since 2022-06-25
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("homestay_room_config")
 public class HomestayRoomConfig implements Serializable {
 

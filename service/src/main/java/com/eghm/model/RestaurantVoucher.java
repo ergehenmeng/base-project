@@ -21,8 +21,8 @@ import java.time.LocalDate;
  * @since 2022-06-30
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("restaurant_voucher")
+@EqualsAndHashCode(callSuper = true)
 public class RestaurantVoucher extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

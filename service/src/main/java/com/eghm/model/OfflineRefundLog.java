@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -17,9 +16,8 @@ import java.io.Serializable;
  * @since 2023-06-14
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("offline_refund_log")
+@EqualsAndHashCode(callSuper = true)
 public class OfflineRefundLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

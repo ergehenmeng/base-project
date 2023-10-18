@@ -20,8 +20,8 @@ import java.math.BigDecimal;
  * @since 2022-07-01
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("item_store")
+@EqualsAndHashCode(callSuper = true)
 public class ItemStore extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

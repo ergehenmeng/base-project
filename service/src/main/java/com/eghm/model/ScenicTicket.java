@@ -22,8 +22,8 @@ import java.time.LocalDate;
  * @since 2022-05-27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("scenic_ticket")
+@EqualsAndHashCode(callSuper = true)
 public class ScenicTicket extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

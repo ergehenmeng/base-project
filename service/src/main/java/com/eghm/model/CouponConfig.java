@@ -25,8 +25,8 @@ import java.time.LocalDateTime;
  * @since 2022-07-13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("coupon_config")
+@EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CouponConfig extends BaseEntity implements Serializable {
 

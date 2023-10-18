@@ -8,7 +8,6 @@ import com.eghm.service.pay.enums.StepType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -21,9 +20,8 @@ import java.io.Serializable;
  * @since 2023-06-13
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("pay_request_log")
+@EqualsAndHashCode(callSuper = true)
 public class PayRequestLog extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")

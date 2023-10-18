@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,9 +17,8 @@ import java.math.BigDecimal;
  * @since 2023-03-06
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("item_sku")
+@EqualsAndHashCode(callSuper = true)
 public class ItemSku extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

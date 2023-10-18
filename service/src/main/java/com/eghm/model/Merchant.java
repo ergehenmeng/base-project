@@ -18,8 +18,8 @@ import java.io.Serializable;
  * @since 2022-05-27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("merchant")
+@EqualsAndHashCode(callSuper = true)
 public class Merchant extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

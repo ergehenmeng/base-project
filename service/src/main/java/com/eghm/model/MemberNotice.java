@@ -2,18 +2,16 @@ package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 用户站内信
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("member_notice")
+@EqualsAndHashCode(callSuper = true)
 public class MemberNotice extends BaseEntity {
 
     @ApiModelProperty("用户id")

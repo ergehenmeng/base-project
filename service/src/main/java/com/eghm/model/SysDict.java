@@ -4,17 +4,15 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("sys_dict")
+@EqualsAndHashCode(callSuper = true)
 public class SysDict extends BaseEntity {
 
     @ApiModelProperty("字典中文名称")

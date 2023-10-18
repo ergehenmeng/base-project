@@ -17,10 +17,10 @@ import java.time.LocalDateTime;
  * 系统异常记录
  * @author 二哥很猛
  */
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @TableName("webapp_log")
 public class WebappLog implements Serializable {
 

@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -17,9 +16,8 @@ import java.io.Serializable;
  * @since 2023-04-03
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("lottery_log")
+@EqualsAndHashCode(callSuper = true)
 public class LotteryLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

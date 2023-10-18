@@ -5,9 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
@@ -15,10 +14,9 @@ import java.time.LocalDateTime;
  * 轮播图管理
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("banner")
+@EqualsAndHashCode(callSuper = true)
 public class Banner extends BaseEntity {
 
     @ApiModelProperty("标题")

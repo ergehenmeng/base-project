@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -15,8 +18,7 @@ import java.time.LocalDateTime;
 /**
  * @author 二哥很猛
  */
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

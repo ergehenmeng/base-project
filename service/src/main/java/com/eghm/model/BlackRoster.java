@@ -4,17 +4,15 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.convertor.LongToIpEncoder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("black_roster")
+@EqualsAndHashCode(callSuper = true)
 public class BlackRoster extends BaseEntity {
 
     @ApiModelProperty("访问ip")

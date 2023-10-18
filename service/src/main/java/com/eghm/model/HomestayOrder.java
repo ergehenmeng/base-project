@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -18,9 +17,8 @@ import java.time.LocalDate;
  * @since 2022-08-17
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("homestay_order")
+@EqualsAndHashCode(callSuper = false)
 public class HomestayOrder extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

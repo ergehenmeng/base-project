@@ -5,18 +5,16 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 角色
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("sys_role")
+@EqualsAndHashCode(callSuper = true)
 public class SysRole extends BaseEntity {
 
     @ApiModelProperty("角色名称")

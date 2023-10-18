@@ -5,7 +5,6 @@ import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -18,9 +17,8 @@ import java.io.Serializable;
  * @since 2023-08-28
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("order_evaluation")
+@EqualsAndHashCode(callSuper = true)
 public class OrderEvaluation extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

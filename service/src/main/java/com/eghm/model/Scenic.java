@@ -22,8 +22,8 @@ import java.math.BigDecimal;
  * @since 2022-05-27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("scenic")
+@EqualsAndHashCode(callSuper = true)
 public class Scenic extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

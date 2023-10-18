@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
  * @since 2022-08-01
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
 @TableName("order_refund_log")
+@EqualsAndHashCode(callSuper = true)
 public class OrderRefundLog extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

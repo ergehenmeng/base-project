@@ -6,7 +6,6 @@ import com.eghm.enums.ref.VisitorState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -19,9 +18,8 @@ import java.io.Serializable;
  * @since 2022-07-27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("order_visitor")
+@EqualsAndHashCode(callSuper = true)
 public class OrderVisitor extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

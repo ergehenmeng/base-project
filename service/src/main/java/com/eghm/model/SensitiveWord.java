@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -16,10 +15,9 @@ import lombok.experimental.Accessors;
  * @since 2021-12-04
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("sensitive_word")
 @NoArgsConstructor
+@TableName("sensitive_word")
+@EqualsAndHashCode(callSuper = true)
 public class SensitiveWord extends BaseEntity {
 
     @ApiModelProperty("敏感字")

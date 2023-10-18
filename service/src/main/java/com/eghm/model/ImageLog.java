@@ -4,18 +4,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.handler.mysql.LikeTypeHandler;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 图片上传记录表
  * @author 二哥很猛
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
+@Data
 @TableName("image_log")
+@EqualsAndHashCode(callSuper = true)
 public class ImageLog extends BaseEntity {
 
     @ApiModelProperty("文件名称")

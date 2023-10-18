@@ -5,7 +5,6 @@ import com.eghm.enums.ref.PrizeType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -18,9 +17,8 @@ import java.io.Serializable;
  * @since 2023-03-27
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("lottery_config")
+@EqualsAndHashCode(callSuper = true)
 public class LotteryConfig extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
