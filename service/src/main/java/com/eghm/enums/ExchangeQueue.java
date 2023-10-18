@@ -113,10 +113,6 @@ public enum ExchangeQueue {
      */
     PRODUCT_SCORE("product_score_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.PRODUCT_SCORE_QUEUE}, "", false),
 
-    /**
-     * 测试
-     */
-    TEST("test_exchange", ExchangeType.DIRECT, new String[]{""}, "", false),
 
     ;
 

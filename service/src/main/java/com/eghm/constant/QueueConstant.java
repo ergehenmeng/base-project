@@ -72,7 +72,7 @@ public class QueueConstant {
     /**
      * 民宿订单队列
      */
-    public static final String HOMESTAY_ORDER_QUEUE = "voucher_order_queue";
+    public static final String HOMESTAY_ORDER_QUEUE = "homestay_order_queue";
 
     /**
      * 商品订单队列

@@ -5,7 +5,6 @@ import com.eghm.dto.ext.AsyncKey;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.state.machine.Context;
 import com.eghm.validation.annotation.Mobile;
-import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -32,10 +31,6 @@ public class HomestayOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("商品id")
     @NotNull(message = "商品不能为空")
     private Long roomId;
-
-    @RangeInt(min = 1, max = 9, message = "购买数量应为1~9张")
-    @ApiModelProperty("门票数量")
-    private Integer num;
 
     @ApiModelProperty("优惠券id")
     private Long couponId;

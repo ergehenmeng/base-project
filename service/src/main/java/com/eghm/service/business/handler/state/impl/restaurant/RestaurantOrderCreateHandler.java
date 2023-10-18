@@ -109,7 +109,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     @Override
     protected void next(RestaurantOrderCreateContext context, RestaurantOrderPayload payload, Order order) {
         restaurantVoucherService.updateStock(context.getVoucherId(), -context.getNum());
-        RestaurantOrder restaurantOrder = DataUtil.copy(payload, RestaurantOrder.class);
+        RestaurantOrder restaurantOrder = DataUtil.copy(payload, RestaurantOrder.class, "id");
         restaurantOrder.setOrderNo(order.getOrderNo());
         restaurantOrder.setVoucherId(context.getVoucherId());
         restaurantOrderService.insert(restaurantOrder);

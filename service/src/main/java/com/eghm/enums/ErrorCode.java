@@ -202,6 +202,11 @@ public enum ErrorCode {
     DATA_TYPE_ERROR(1033,"数据权限不匹配"),
 
     /**
+     * 缓存不能为空
+     */
+    CACHE_VALUE_NULL(1035,"缓存不能为空"),
+
+    /**
      * 屏幕锁定中
      */
     LOCK_SCREEN(1111, "屏幕锁定中"),

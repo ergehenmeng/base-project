@@ -47,7 +47,7 @@ public interface HomestayRoomConfigService {
      * 查询指定房型的房态信息
      * @param roomId 房型id
      * @param startDate 开始时间(含)
-     * @param endDate 结束时间(含)
+     * @param endDate 结束时间(不含)
      * @return 房态列表
      */
     List<HomestayRoomConfig> getList(Long roomId, LocalDate startDate, LocalDate endDate);
@@ -56,7 +56,7 @@ public interface HomestayRoomConfigService {
      * 更新库存信息
      * @param roomId 房型id
      * @param startDate 开始时间 包含
-     * @param endDate 截止时间 包含
+     * @param endDate 截止时间 不含
      * @param num 正数+库存,负数-库存
      */
     void updateStock(Long roomId, LocalDate startDate, LocalDate endDate, Integer num);

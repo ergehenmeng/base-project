@@ -1,14 +1,14 @@
-GET http://localhost:9090/webapp/homestay/room/listPage?page=1&pageSize=10&homestayId=1710940638564323330
+GET http://localhost:9090/webapp/homestay/room/listPage?page=1&pageSize=10&homestayId=1714564341569486850
 Channel: {{Channel}}
 
 ###
 
-GET http://localhost:9090/webapp/homestay/room/detail?id=1710945465285529602
+GET http://localhost:9090/webapp/homestay/room/detail?id=1714565181759881218
 Channel: {{Channel}}
 
 ###
 
-GET http://localhost:9090/webapp/homestay/room/priceList?id=1710945465285529602
+GET http://localhost:9090/webapp/homestay/room/priceList?id=1714565181759881218
 Channel: {{Channel}}
 
 ###

@@ -46,8 +46,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public void insert(String orderNo, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap) {
         for (OrderPackage aPackage : packageList) {
-            ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class);
-            BeanUtil.copyProperties(aPackage.getSku(), order);
+            ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class, "id");
+            BeanUtil.copyProperties(aPackage.getSku(), order, "id");
             order.setSkuTitle(this.getSkuTitle(aPackage.getSku()));
             order.setExpressFee(skuExpressMap.get(order.getSkuId()));
             itemOrderMapper.insert(order);

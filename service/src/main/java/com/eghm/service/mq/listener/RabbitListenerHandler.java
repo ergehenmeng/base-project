@@ -259,11 +259,6 @@ public class RabbitListenerHandler {
         processMessageAck(orderNo, message, channel, orderEvaluationService::createDefault);
     }
 
-    @RabbitListener(queues = "test_queue")
-    public void test(String msg, Message message, Channel channel) throws IOException {
-        processMessageAck(msg, message, channel, s -> log.info("接收到消息 : [{}]", s));
-    }
-
     /**
      * 处理MQ中消息,并手动确认,并将结果放入缓存方便客户端查询
      * @param msg 消息
@@ -297,6 +292,7 @@ public class RabbitListenerHandler {
      * 1. 消息在队列长达30分钟, 肯定不允许下单成功
      * 2. 如果前端一直轮训获取结果,到上限后会直接提示商品太火爆,因此如果下单还在队列中,则不允许下单
      * 3. 只有前端轮训没有上限(100)
+     * 4.
      * @param asyncKey key
      * @return 是否允许下单
      */

@@ -3,6 +3,8 @@ package com.eghm.service.cache.impl;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.service.common.JsonService;
@@ -113,6 +115,10 @@ public class CacheServiceImpl implements CacheService {
 
     @Override
     public void setValue(String key, Object value, long expire, TimeUnit unit) {
+        if (value == null) {
+            log.error("缓存值不能为空 [{}]", key);
+            throw new BusinessException(ErrorCode.CACHE_VALUE_NULL);
+        }
         if (value instanceof String) {
             redisTemplate.opsForValue().set(key, (String) value, expire, unit);
         } else {

@@ -1,7 +1,7 @@
 package com.eghm.web.controller;
 
-import com.eghm.enums.ExchangeQueue;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.mq.service.MessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -33,14 +33,6 @@ public class MessageController {
     })
     public RespBody<Void> sendDelayMsg(@RequestParam("msg") String msg, @RequestParam(value = "delay", defaultValue = "10") Integer delay) {
         messageService.sendDelay(ExchangeQueue.ITEM_PAY_EXPIRE, msg, delay);
-        return RespBody.success();
-    }
-
-    @GetMapping("/sendMsg")
-    @ApiOperation("发送消息")
-    @ApiImplicitParam(name = "msg",  value= "消息", required = true)
-    public RespBody<Void> sendMsg(@RequestParam("msg") String msg) {
-        messageService.send(ExchangeQueue.TEST, msg);
         return RespBody.success();
     }
 

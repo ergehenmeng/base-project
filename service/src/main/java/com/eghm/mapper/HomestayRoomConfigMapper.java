@@ -29,7 +29,7 @@ public interface HomestayRoomConfigMapper extends BaseMapper<HomestayRoomConfig>
      * 更新指定时间段内房态的库存信息
      * @param roomId 房型id
      * @param startDate 开始时间 包含
-     * @param endDate 截止时间 包含
+     * @param endDate 截止时间 不含
      * @param num 正数+库存,负数-库存
      * @return 1
      */
