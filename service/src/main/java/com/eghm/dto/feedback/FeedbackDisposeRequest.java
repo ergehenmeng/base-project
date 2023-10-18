@@ -1,6 +1,7 @@
 package com.eghm.dto.feedback;
 
 import com.eghm.dto.ext.ActionRecord;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,8 +24,9 @@ public class FeedbackDisposeRequest extends ActionRecord {
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "备注信息", required = true)
-    @NotBlank(message = "备注信息不能为空")
+    @ApiModelProperty(value = "回复信息", required = true)
+    @NotBlank(message = "回复信息不能为空")
+    @WordChecker(message = "回复信息存在敏感字")
     private String remark;
 
 }

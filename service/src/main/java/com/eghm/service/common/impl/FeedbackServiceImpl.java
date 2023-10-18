@@ -54,6 +54,7 @@ public class FeedbackServiceImpl implements FeedbackService {
         Map<String, Object> params = new HashMap<>();
         params.put("classify", FeedbackType.getType(log.getClassify()).getMsg());
         params.put("content", StrUtil.maxLength(log.getContent(), 20));
+        params.put("reply", request.getRemark());
         notice.setParams(params);
         memberNoticeService.sendNotice(log.getMemberId(), notice);
     }

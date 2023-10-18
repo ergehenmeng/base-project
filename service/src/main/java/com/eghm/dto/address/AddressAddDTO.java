@@ -33,7 +33,7 @@ public class AddressAddDTO {
 
     @ApiModelProperty(value = "详细地址",required = true)
     @NotEmpty(message = "详细地址不能为空")
-    @WordChecker
+    @WordChecker(message = "详细地址存在敏感字")
     private String detailAddress;
 
 }

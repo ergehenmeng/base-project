@@ -17,7 +17,7 @@ public class FeedbackAddDTO {
     private Integer classify;
 
     @ApiModelProperty(value = "反馈内容",required = true)
-    @WordChecker
+    @WordChecker(message = "反馈内容存在敏感字")
     private String content;
 
     @ApiModelProperty(value = "用户id", hidden = true)

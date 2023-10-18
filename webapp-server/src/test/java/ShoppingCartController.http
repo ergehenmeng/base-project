@@ -1,0 +1,6 @@
+POST http://localhost:9090/webapp/shopping/cart/add
+Content-Type: application/json
+Channel: {{Channel}}
+Token: {{Token}}
+
+{}
