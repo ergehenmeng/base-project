@@ -7,8 +7,6 @@ import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
 import com.eghm.vo.business.activity.ActivityBaseResponse;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -29,10 +27,6 @@ public class ActivityController {
     private final ActivityService activityService;
 
     @GetMapping("/month")
-    @ApiImplicitParams({
-        @ApiImplicitParam(name = "month", value = "月份yyyy-MM", required = true),
-        @ApiImplicitParam(name = "scenicId", value = "景区id")
-    })
     @ApiOperation("查询月活动")
     public RespBody<List<ActivityBaseResponse>> month(@Validated ActivityQueryRequest request) {
         List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(request);

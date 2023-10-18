@@ -30,9 +30,9 @@
         t.cover_url as coverUrl,
         t.phone,
         t.tag as tagIds,
-        r.salePrice
+        r.minPrice
         from homestay t
-        inner join (select homestay_id, count(1) as staynum, min(sale_price) as salePrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
+        inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
         and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
         where t.state = 1 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
@@ -58,9 +58,9 @@
         t.cover_url as coverUrl,
         t.phone,
         t.tag as tagIds,
-        r.salePrice
+        r.minPrice
         from homestay t
-        inner join (select homestay_id, count(1) as staynum, min(sale_price) as salePrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
+        inner join (select homestay_id, count(1) as staynum, min(sale_price) as minPrice from homestay_room_config where config_date between #{param.startDate} and #{param.endDate}
         and stock > 0 and state = true group by homestay_id, homestay_room_id having count(homestay_room_id) = #{param.stayNum}) r on t.id = r.homestay_id
         where t.state = 1 and t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
@@ -71,11 +71,17 @@
         </if>
         ) s
         <choose>
-            <when test="param.sortByDistance != null">
+            <when test="param.sortByDistance == 1">
                 order by s.distance, s.id desc
             </when>
+            <when test="param.sortByDistance == 2">
+                order by s.distance desc, s.id desc
+            </when>
+            <when test="param.sortByPrice == 1">
+                order by s.minPrice, s.id desc
+            </when>
             <otherwise>
-                order by s.salePrice, s.id desc
+                order by s.minPrice desc, s.id desc
             </otherwise>
         </choose>
     </sql>

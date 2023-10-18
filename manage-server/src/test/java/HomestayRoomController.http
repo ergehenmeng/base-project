@@ -7,8 +7,8 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "homestayId": 1710940638564323330,
-  "title": "商务套房",
+  "homestayId": 1714564341569486850,
+  "title": "商务套房A",
   "room": 1,
   "hall": 1,
   "kitchen": 1,
@@ -52,5 +52,5 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1607665031129849858
+  "id": 1714565181759881218
 }

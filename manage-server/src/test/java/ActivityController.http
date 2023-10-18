@@ -1,16 +1,16 @@
-GET http://localhost:8080/manage/activity/month?month=2022-12
-token: {{token}}
+GET http://localhost:8080/manage/activity/month?month=2023-12
+token: {{adminToken}}
 
 ###
 
 POST http://localhost:8080/manage/activity/config
-token: {{token}}
+token: {{adminToken}}
 Content-Type: application/json
 
 {
   "title": "正月逛花灯",
-  "startDate": "2023-01-01",
-  "endDate": "2023-01-21",
+  "startDate": "2023-10-01",
+  "endDate": "2023-12-21",
   "week": [1,2,3,4,5],
   "startTime": "9:00",
   "endTime": "12:00",
@@ -22,12 +22,12 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/manage/activity/create
-token: {{token}}
+token: {{adminToken}}
 Content-Type: application/json
 
 {
   "title": "正月逛花灯二期",
-  "nowDate": "2022-12-02",
+  "nowDate": "2023-12-12",
   "startTime": "9:00",
   "endTime": "12:00",
   "address": "周口屋檐山景区",
@@ -38,13 +38,12 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/manage/activity/update
-token: {{token}}
+token: {{adminToken}}
 Content-Type: application/json
 
 {
-  "id": "1610878868465340418",
+  "id": 1714560316983803905,
   "title": "正月逛花灯三期",
-  "nowDate": "2022-12-02",
   "startTime": "9:00",
   "endTime": "12:00",
   "address": "周口屋檐山景区",
@@ -59,10 +58,10 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1610876638395871233"
+  "id": 1714560316983803905
 }
 
 ###
 
-GET http://localhost:8080/manage/activity/select?id=1610878868465340418
-token: {{token}}
+GET http://localhost:8080/manage/activity/select?id=1714560316983803905
+token: {{adminToken}}

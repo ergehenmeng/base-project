@@ -8,14 +8,14 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "title": "民宿名称",
+  "title": "非自营民宿名称",
   "level": 3,
   "provinceId": 110000,
   "cityId": 111000,
   "countyId": 111003,
   "detailAddress": "民宿详细地址",
-  "longitude": 30.123434,
-  "latitude": 120.7328431,
+  "longitude": 120.123434,
+  "latitude": 30.7328431,
   "intro": "一句话简介..",
   "coverUrl": "https://localhost:8080/converUrl.png",
   "introduce": "民宿详细描述",
@@ -60,7 +60,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1607659894533513218"
+  "id": 1714564341569486850
 }
 
 ###
@@ -70,5 +70,5 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": "1607659894533513218"
+  "id": 1714564341569486850
 }

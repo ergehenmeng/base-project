@@ -33,10 +33,10 @@ public class HomestayQueryDTO extends PagingQuery {
     @DecimalMax(value = "90", message = "纬度应[-90, 90]范围内")
     private BigDecimal latitude;
 
-    @ApiModelProperty("是否按距离排序(正序)")
+    @ApiModelProperty("按距离排序 1:正序 2:倒序")
     private Integer sortByDistance;
 
-    @ApiModelProperty("按价格排序(正序)")
+    @ApiModelProperty("按价格排序 1:正序 2:倒序")
     private Integer sortByPrice;
 
     @ApiModelProperty("星级 5:五星级 4:四星级 3:三星级 0: 其他, 空查询全部")
