@@ -209,7 +209,7 @@ public enum ErrorCode {
     /**
      * 参数解析异常
      */
-    PARAM_VERIFY_ERROR(2000,"%s"),
+    PARAM_VERIFY_ERROR(2000,"%s:%s"),
 
     /**
      * 参数解析异常

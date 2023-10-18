@@ -3,6 +3,7 @@ package com.eghm.dto.business.line;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -30,6 +31,7 @@ public class LineEditRequest {
     @ApiModelProperty(value = "线路名称", required = true)
     @Size(min = 2, max = 20, message = "线路名称长度2~20字符")
     @NotBlank(message = "线路名称不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "出发省份id", required = true)
@@ -62,10 +64,12 @@ public class LineEditRequest {
 
     @ApiModelProperty(value = "退款描述", required = true)
     @Size(max = 100, message = "退款描述长度最大100字符")
+    @WordChecker
     private String refundDescribe;
 
     @ApiModelProperty(value = "商品介绍", required = true)
     @NotBlank(message = "商品介绍不能为空")
+    @WordChecker
     private String introduce;
 
     @ApiModelProperty(value = "每日配置信息", required = true)

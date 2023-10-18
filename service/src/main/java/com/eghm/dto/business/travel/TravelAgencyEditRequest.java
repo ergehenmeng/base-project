@@ -1,5 +1,6 @@
 package com.eghm.dto.business.travel;
 
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class TravelAgencyEditRequest {
     @ApiModelProperty(value = "旅行社名称", required = true)
     @NotBlank(message = "旅行社名称不能为空")
     @Size(min = 2, max = 20, message = "旅行社名称长度2~20位")
+    @WordChecker
     private String title;
     
     @ApiModelProperty(value = "省份id", required = true)
@@ -38,6 +40,7 @@ public class TravelAgencyEditRequest {
     @ApiModelProperty(value = "详细地址", required = true)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 100, message = "详细地址长度1~100位")
+    @WordChecker
     private String detailAddress;
     
     @ApiModelProperty(value = "经度", required = true)
@@ -55,6 +58,7 @@ public class TravelAgencyEditRequest {
     @ApiModelProperty(value = "旅行社描述信息", required = true)
     @NotBlank(message = "旅行社描述信息不能为空")
     @Size(max = 50, message = "旅行社描述信息最大50位")
+    @WordChecker
     private String depict;
     
     @ApiModelProperty(value = "旅行社图片", required = true)
@@ -63,5 +67,6 @@ public class TravelAgencyEditRequest {
     
     @ApiModelProperty(value = "旅行社详细介绍信息", required = true)
     @NotBlank(message = "旅行社详细介绍不能为空")
+    @WordChecker
     private String introduce;
 }

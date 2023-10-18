@@ -5,6 +5,7 @@ import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -33,6 +34,7 @@ public class ItemEditRequest {
     @ApiModelProperty(value = "商品名称", required = true)
     @Size(min = 2, max = 20, message = "商品名称长度2~20位")
     @NotBlank(message = "商品名称不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty("标签id")
@@ -48,6 +50,7 @@ public class ItemEditRequest {
 
     @ApiModelProperty(value = "购买须知", required = true)
     @NotBlank(message = "购买须知不能为空")
+    @WordChecker
     private String purchaseNotes;
 
     @ApiModelProperty(value = "限购数量", required = true)
@@ -64,6 +67,7 @@ public class ItemEditRequest {
 
     @ApiModelProperty(value = "退款描述信息", required = true)
     @Size(max = 100, message = "退款描述信息最大100字符")
+    @WordChecker
     private String refundDescribe;
 
     @ApiModelProperty(value = "虚拟销量", required = true)
@@ -73,6 +77,7 @@ public class ItemEditRequest {
 
     @ApiModelProperty(value = "商品介绍信息", required = true)
     @NotBlank(message = "商品介绍信息不能为空")
+    @WordChecker
     private String introduce;
 
     @ApiModelProperty("物流模板id(为空表示包邮)")

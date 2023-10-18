@@ -2,6 +2,7 @@ package com.eghm.dto.banner;
 
 import com.eghm.enums.Channel;
 import com.eghm.validation.annotation.OptionString;
+import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class BannerAddRequest implements Serializable {
 
     @ApiModelProperty(value = "标题名称", required = true)
     @NotBlank(message = "标题不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "轮博图类型(数据字典)", required = true)
@@ -60,6 +62,7 @@ public class BannerAddRequest implements Serializable {
     private Boolean click;
 
     @ApiModelProperty(value = "备注信息")
+    @WordChecker
     private String remark;
 
 }

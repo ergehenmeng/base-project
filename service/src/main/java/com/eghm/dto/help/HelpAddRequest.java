@@ -1,6 +1,7 @@
 package com.eghm.dto.help;
 
 import com.eghm.validation.annotation.OptionInt;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -27,10 +28,12 @@ public class HelpAddRequest implements Serializable {
 
     @ApiModelProperty(value = "问", required = true)
     @NotBlank(message = "\"问\"不能为空")
+    @WordChecker
     private String ask;
 
     @ApiModelProperty(value = "答", required = true)
     @NotBlank(message = "\"答\"不能为空")
+    @WordChecker
     private String answer;
 
 }

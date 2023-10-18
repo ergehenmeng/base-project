@@ -1,6 +1,7 @@
 package com.eghm.dto.business.homestay.room;
 
 import com.eghm.enums.ref.RefundType;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -22,6 +23,7 @@ public class HomestayRoomAddRequest {
     @ApiModelProperty("房型名称")
     @Size(min = 2, max = 20, message = "房型名称应为2~20位")
     @NotBlank(message = "房型名称不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "几室")
@@ -61,10 +63,12 @@ public class HomestayRoomAddRequest {
     private String coverUrl;
 
     @ApiModelProperty(value = "屋内设施")
+    @WordChecker
     private String infrastructure;
 
     @ApiModelProperty(value = "详细介绍")
     @NotBlank(message = "详细介绍不能为空")
+    @WordChecker
     private String introduce;
 
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
@@ -72,5 +76,6 @@ public class HomestayRoomAddRequest {
     private RefundType refundType;
 
     @ApiModelProperty(value = "退款描述")
+    @WordChecker
     private String refundDescribe;
 }

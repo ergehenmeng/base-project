@@ -1,6 +1,7 @@
 package com.eghm.dto.feedback;
 
 import com.eghm.annotation.Assign;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,6 +17,7 @@ public class FeedbackAddDTO {
     private Integer classify;
 
     @ApiModelProperty(value = "反馈内容",required = true)
+    @WordChecker
     private String content;
 
     @ApiModelProperty(value = "用户id", hidden = true)

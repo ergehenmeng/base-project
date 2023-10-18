@@ -1,6 +1,7 @@
 package com.eghm.dto.business.lottery;
 
 import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -59,11 +60,13 @@ public class LotteryEditRequest {
     @ApiModelProperty(value = "抽奖标题", required = true)
     @NotBlank(message = "抽奖标题不能为空")
     @Length(min = 2, max = 10, message = "抽奖标题长度应为2~10字符")
+    @WordChecker
     private String subTitle;
     
     @ApiModelProperty(value = "抽奖规则", required = true)
     @NotBlank(message = "抽奖规则不能为空")
     @Length(min = 10, max = 1000, message = "抽奖规则长度为10~1000字符")
+    @WordChecker
     private String rule;
     
     @NotEmpty(message = "奖品列表不能为空")

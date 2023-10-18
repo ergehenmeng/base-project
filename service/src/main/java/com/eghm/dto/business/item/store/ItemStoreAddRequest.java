@@ -1,6 +1,7 @@
 package com.eghm.dto.business.item.store;
 
 import com.eghm.validation.annotation.Phone;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class ItemStoreAddRequest {
     @ApiModelProperty("店铺名称")
     @Size(min = 2, max = 20, message = "店铺名称长度2~20位")
     @NotBlank(message = "店铺名称不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "店铺logo")
@@ -45,6 +47,7 @@ public class ItemStoreAddRequest {
 
     @ApiModelProperty(value = "详细地址")
     @NotBlank(message = "详细地址不能为空")
+    @WordChecker
     private String detailAddress;
 
     @ApiModelProperty(value = "经度")
@@ -63,6 +66,7 @@ public class ItemStoreAddRequest {
 
     @ApiModelProperty(value = "商家介绍")
     @NotBlank(message = "商家介绍不能为空")
+    @WordChecker
     private String introduce;
 
 }

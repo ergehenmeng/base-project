@@ -1,6 +1,7 @@
 package com.eghm.dto.version;
 
 import com.eghm.validation.annotation.OptionString;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -38,5 +39,6 @@ public class VersionAddRequest implements Serializable {
     private String url;
     
     @ApiModelProperty(required = true, value = "备注信息:版本更新的东西或解决的问题")
+    @WordChecker
     private String remark;
 }

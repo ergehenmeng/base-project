@@ -1,6 +1,7 @@
 package com.eghm.dto.business.line;
 
 import com.eghm.validation.annotation.OptionInt;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -36,5 +37,6 @@ public class LineDayConfigRequest {
 
     @ApiModelProperty(value = "详细描述信息")
     @NotBlank(message = "详细信息不能为空")
+    @WordChecker
     private String depict;
 }

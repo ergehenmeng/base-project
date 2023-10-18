@@ -5,6 +5,7 @@ import com.eghm.enums.ref.CouponType;
 import com.eghm.dto.business.coupon.product.CouponProductRequest;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,6 +26,7 @@ public class CouponConfigAddRequest {
     @ApiModelProperty(value = "优惠券名称", required = true)
     @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")
     @NotBlank(message = "优惠券名称不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "库存(发放数量)", required = true)
@@ -77,6 +79,7 @@ public class CouponConfigAddRequest {
     private LocalDateTime useEndTime;
 
     @ApiModelProperty(value = "使用说明")
+    @WordChecker
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")

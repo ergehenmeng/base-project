@@ -1,6 +1,7 @@
 package com.eghm.dto.business.item.sku;
 
 import com.eghm.validation.annotation.OptionInt;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,11 +22,13 @@ public class ItemSpecRequest {
     @ApiModelProperty(value = "规格名")
     @Size(min = 1, max = 20, message = "规格名长度1~20位")
     @NotBlank(message = "规格名不能为空")
+    @WordChecker
     private String specName;
     
     @ApiModelProperty(value = "规格值")
     @Size(min = 1, max = 20, message = "规格值长度1~20位")
     @NotBlank(message = "规格值不能为空")
+    @WordChecker
     private String specValue;
     
     @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低")

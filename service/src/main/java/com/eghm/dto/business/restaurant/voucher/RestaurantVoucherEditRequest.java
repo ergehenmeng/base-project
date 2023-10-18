@@ -2,6 +2,7 @@ package com.eghm.dto.business.restaurant.voucher;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.enums.ref.RefundType;
+import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class RestaurantVoucherEditRequest {
     @ApiModelProperty(value = "商品名称", required = true)
     @Size(min = 2, max = 20, message = "餐饮券名称应为2~20字符")
     @NotBlank(message = "餐饮券名称不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "封面图片", required = true)
@@ -56,6 +58,7 @@ public class RestaurantVoucherEditRequest {
 
     @ApiModelProperty(value = "购买说明", required = true)
     @NotNull(message = "购买说明不能为空")
+    @WordChecker
     private String depict;
 
     @ApiModelProperty(value = "限购数量", required = true)
@@ -85,9 +88,11 @@ public class RestaurantVoucherEditRequest {
 
     @ApiModelProperty("退款描述信息")
     @Size(max = 100, message = "退款描述信息最大100字符")
+    @WordChecker
     private String refundDescribe;
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "退订规则不能为空")
+    @WordChecker
     private String introduce;
 }

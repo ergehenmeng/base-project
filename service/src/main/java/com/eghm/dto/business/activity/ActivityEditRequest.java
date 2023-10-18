@@ -1,5 +1,6 @@
 package com.eghm.dto.business.activity;
 
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class ActivityEditRequest {
     @ApiModelProperty(value = "活动名称", required = true)
     @Size(min = 2, max = 20, message = "活动名称长度2~20位")
     @NotBlank(message = "活动名称不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "开始时间HH:mm", required = true)
@@ -33,6 +35,7 @@ public class ActivityEditRequest {
 
     @ApiModelProperty(value = "活动地点", required = true)
     @NotNull(message = "活动地点不能为空")
+    @WordChecker
     private String address;
 
     @ApiModelProperty(value = "活动封面图片", required = true)
@@ -41,6 +44,7 @@ public class ActivityEditRequest {
 
     @ApiModelProperty(value = "活动详细介绍", required = true)
     @NotNull(message = "活动详细介绍不能为空")
+    @WordChecker
     private String introduce;
 
     @ApiModelProperty("活动关联的景区id")

@@ -2,6 +2,7 @@ package com.eghm.dto.business.item.sku;
 
 import com.eghm.convertor.YuanToCentDecoder;
 import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -20,9 +21,11 @@ public class ItemSkuRequest {
     private Long id;
     
     @ApiModelProperty(value = "一级规格名(单规格为空)")
+    @WordChecker
     private String primarySpecValue;
     
     @ApiModelProperty(value = "二级规格名(单规格为空)")
+    @WordChecker
     private String secondSpecValue;
     
     @ApiModelProperty(value = "成本价")

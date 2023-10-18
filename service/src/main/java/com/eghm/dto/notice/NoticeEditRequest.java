@@ -1,5 +1,6 @@
 package com.eghm.dto.notice;
 
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class NoticeEditRequest implements Serializable {
 
     @ApiModelProperty(value = "公告标题", required = true)
     @NotNull(message = "标题不能为空")
+    @WordChecker
     private String title;
 
     @ApiModelProperty(value = "公告类型(数据字典表sys_notice_type)", required = true)
@@ -28,6 +30,7 @@ public class NoticeEditRequest implements Serializable {
 
     @ApiModelProperty(value = "公告内容(富文本)", required = true)
     @NotNull(message = "公告内容不能为空")
+    @WordChecker
     private String content;
 
 }
