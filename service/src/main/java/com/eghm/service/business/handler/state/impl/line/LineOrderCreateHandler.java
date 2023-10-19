@@ -105,6 +105,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getLineId());
         orderService.save(order);
+        context.setOrderNo(order.getOrderNo());
         return order;
     }
 
@@ -123,6 +124,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         super.addVisitor(order, context.getVisitorList());
         lineConfigService.updateStock(payload.getConfig().getId(), -order.getNum());
         LineOrder lineOrder = DataUtil.copy(payload.getLine(), LineOrder.class, "id");
+        lineOrder.setLineId(payload.getLine().getId());
         lineOrder.setOrderNo(order.getOrderNo());
         lineOrder.setLineConfigId(payload.getConfig().getId());
         lineOrder.setLinePrice(payload.getConfig().getLinePrice());

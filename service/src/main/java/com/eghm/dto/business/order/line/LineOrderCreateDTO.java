@@ -3,6 +3,7 @@ package com.eghm.dto.business.order.line;
 import com.eghm.annotation.Assign;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
+import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -31,6 +32,10 @@ public class LineOrderCreateDTO {
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
+
+    @RangeInt(min = 1, max = 99, message = "购买数量应为1~99张")
+    @ApiModelProperty("数量")
+    private Integer num;
 
     @ApiModelProperty(value = "联系人电话", required = true)
     @Mobile(message = "联系人手机号格式错误")

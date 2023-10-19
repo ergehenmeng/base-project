@@ -862,11 +862,6 @@ public enum ErrorCode {
     LINE_DOWN(3182, "该线路商品已下架"),
 
     /**
-     * 线路所属旅行社下架啦
-     */
-    TRAVEL_AGENCY_DOWN(3182, "线路所属旅行社下架啦"),
-
-    /**
      * 线路库存不足
      */
     LINE_STOCK(3183, "线路库存不足"),
@@ -900,6 +895,16 @@ public enum ErrorCode {
      * 商品退款数量不匹配
      */
     REFUND_MUM_MATCH(3189, "商品退款数量不匹配"),
+
+    /**
+     * 线路商品不存在
+     */
+    LINE_DELETE(3192, "线路商品不存在"),
+
+    /**
+     * 线路所属旅行社下架啦
+     */
+    TRAVEL_AGENCY_DOWN(3194, "线路所属旅行社下架啦"),
 
     /**
      * 状态机[%s]未注册

@@ -1,4 +1,4 @@
-GET http://localhost:8080/manage/line/config/month?lineId=1607290976547602434&month=2022-12
+GET http://localhost:8080/manage/line/config/month?lineId=1714916427083575297&month=2023-10
 token: {{token}}
 
 ###
@@ -7,9 +7,9 @@ Content-Type: application/json
 token: {{token}}
 
 {
-  "lineId": 1611287570074824706,
-  "startDate": "2022-12-01",
-  "endDate": "2023-01-20",
+  "lineId": 1714916427083575297,
+  "startDate": "2023-10-11",
+  "endDate": "2023-12-20",
   "week": [1,2,3,4,5],
   "state": true,
   "stock": 10,

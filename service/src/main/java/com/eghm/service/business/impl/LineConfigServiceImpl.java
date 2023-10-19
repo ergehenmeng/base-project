@@ -5,24 +5,25 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
+import com.eghm.constants.ConfigConstant;
+import com.eghm.dto.business.line.config.LineConfigOneRequest;
+import com.eghm.dto.business.line.config.LineConfigQueryRequest;
+import com.eghm.dto.business.line.config.LineConfigRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.utils.DateUtil;
-import com.eghm.constants.ConfigConstant;
 import com.eghm.mapper.LineConfigMapper;
 import com.eghm.mapper.LineMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineConfig;
-import com.eghm.dto.business.line.config.LineConfigOneRequest;
-import com.eghm.dto.business.line.config.LineConfigQueryRequest;
-import com.eghm.dto.business.line.config.LineConfigRequest;
-import com.eghm.vo.business.line.config.LineConfigResponse;
-import com.eghm.vo.business.line.config.LineConfigVO;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DateUtil;
+import com.eghm.vo.business.line.config.LineConfigResponse;
+import com.eghm.vo.business.line.config.LineConfigVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.eghm.enums.ErrorCode.LINE_DELETE;
 
 /**
  * @author 二哥很猛
@@ -52,9 +55,9 @@ public class LineConfigServiceImpl implements LineConfigService {
 
     @Override
     public void setup(LineConfigRequest request) {
+        this.checkLine(request.getLineId());
         long between = ChronoUnit.DAYS.between(request.getStartDate(), request.getEndDate());
         commonService.checkMaxDay(ConfigConstant.LINE_CONFIG_MAX_DAY, between);
-
         List<Integer> week = request.getWeek();
         for (int i = 0; i <= between; i++) {
             LocalDate localDate = request.getStartDate().plusDays(i);
@@ -70,6 +73,7 @@ public class LineConfigServiceImpl implements LineConfigService {
 
     @Override
     public void setDay(LineConfigOneRequest request) {
+        this.checkLine(request.getLineId());
         LineConfig config = this.getConfig(request.getLineId(), request.getConfigDate());
         if (config == null) {
             config = DataUtil.copy(request, LineConfig.class);
@@ -106,7 +110,6 @@ public class LineConfigServiceImpl implements LineConfigService {
         if (CollUtil.isEmpty(configList)) {
             return responseList;
         }
-
 
         for (int i = 0; i < max; i++) {
             LocalDate configDate = now.plusDays(i);
@@ -167,5 +170,21 @@ public class LineConfigServiceImpl implements LineConfigService {
         wrapper.ge(LineConfig::getConfigDate, month);
         wrapper.lt(LineConfig::getConfigDate, endDate);
         return lineConfigMapper.selectList(wrapper);
+    }
+
+    /**
+     * 校验线路是否合法
+     * @param lineId 线路Id
+     */
+    private void checkLine(Long lineId) {
+        Line select = lineMapper.selectById(lineId);
+        if (select == null) {
+            log.error("该线路商品不存在 [{}]", lineId);
+            throw new BusinessException(LINE_DELETE);
+        }
+        if (commonService.checkIsIllegal(select.getMerchantId())) {
+            log.info("线路不属于当前操作人 [{}] [{}]", select.getMerchantId(), SecurityHolder.getMerchantId());
+            throw new BusinessException(ErrorCode.LINE_DELETE);
+        }
     }
 }

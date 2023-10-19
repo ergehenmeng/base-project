@@ -58,9 +58,23 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-
+  "lineId": 1714916427083575297,
+  "mobile": "13322231231",
+  "nickName": "二哥很猛",
+  "configDate": "2023-12-04",
+  "num": 3,
+  "visitorList": [{
+    "memberName": "xxs",
+    "idCard": "350522196302141849"
+  }, {
+    "memberName": "xxs",
+    "idCard": "610825198401208947"
+  }, {
+    "memberName": "xxs",
+    "idCard": "53082219660409737X"
+  }],
+  "remark": "备注信息"
 }
-
 ###
 
 POST http://localhost:9090/webapp/order/restaurant/create

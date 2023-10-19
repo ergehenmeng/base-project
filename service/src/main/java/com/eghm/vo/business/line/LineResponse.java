@@ -24,7 +24,7 @@ public class LineResponse {
     private Long id;
 
     @ApiModelProperty(value = "所属旅行社名称")
-    private Long travelAgencyName;
+    private String travelAgencyName;
 
     @ApiModelProperty(value = "所属商户名称")
     private String merchantName;

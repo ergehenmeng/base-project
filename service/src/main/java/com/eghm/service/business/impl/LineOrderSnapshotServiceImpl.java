@@ -25,7 +25,7 @@ public class LineOrderSnapshotServiceImpl implements LineOrderSnapshotService {
     @Override
     public void insert(Long lineId, String orderNo, List<LineDayConfig> configList) {
         for (LineDayConfig config : configList) {
-            LineOrderSnapshot snapshot = DataUtil.copy(config, LineOrderSnapshot.class);
+            LineOrderSnapshot snapshot = DataUtil.copy(config, LineOrderSnapshot.class, "id");
             snapshot.setLineId(lineId);
             snapshot.setOrderNo(orderNo);
             lineOrderSnapshotMapper.insert(snapshot);
