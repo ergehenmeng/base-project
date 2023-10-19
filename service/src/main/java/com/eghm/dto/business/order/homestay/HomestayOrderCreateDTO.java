@@ -1,10 +1,12 @@
 package com.eghm.dto.business.order.homestay;
 
+import com.eghm.dto.ext.DateComparator;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -18,7 +20,8 @@ import java.util.List;
  * @since 2023/5/8
  */
 @Data
-public class HomestayOrderCreateDTO {
+@EqualsAndHashCode(callSuper = true)
+public class HomestayOrderCreateDTO extends DateComparator {
 
     @ApiModelProperty(value = "商品id", required = true)
     @NotNull(message = "商品不能为空")
@@ -54,4 +57,5 @@ public class HomestayOrderCreateDTO {
     @ApiModelProperty("备注")
     @Size(max = 100, message = "备注最大100字符")
     private String remark;
+
 }
