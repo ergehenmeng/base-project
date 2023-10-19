@@ -87,6 +87,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         String orderNo = ProductType.TICKET.generateOrderNo();
         Order order = new Order();
         order.setMerchantId(payload.getScenic().getMerchantId());
+        order.setStoreId(payload.getScenic().getId());
         order.setMemberId(context.getMemberId());
         order.setTitle(ticket.getTitle());
         order.setState(OrderState.UN_PAY);
