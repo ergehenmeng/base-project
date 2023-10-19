@@ -98,4 +98,4 @@
 * `LoggerUtil` 规范日志打印
 * `BeanValidator` 校验某个pojo是否满足其注解要求 (`NotEmpty`, `NotNull` 等)
 * `DataUtil` 对象copy工具类
-* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@DateCompare` 日期比较, 需要 pojo 继承 `DateComparator`, 或者在 pojo定义以便于实现特殊提示语. `@WordChecker` 是敏感词校验注解
+* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@DateCompare` 日期比较, 需要 pojo 继承 `DateComparator` 或者 `DatePagingComparator` (一个带分页,一个不带分页), 或者在 pojo定义以便于实现特殊提示语. `@WordChecker` 是敏感词校验注解

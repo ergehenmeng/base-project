@@ -1,7 +1,7 @@
 package com.eghm.dto.business.verify;
 
 import com.eghm.annotation.Assign;
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.dto.ext.DatePagingComparator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -15,7 +15,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class VerifyLogQueryRequest extends PagingQuery {
+public class VerifyLogQueryRequest extends DatePagingComparator {
 
     @ApiModelProperty("开始时间 yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

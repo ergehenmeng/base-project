@@ -1,9 +1,11 @@
 package com.eghm.dto.business.activity;
 
+import com.eghm.dto.ext.DateComparator;
 import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -18,7 +20,8 @@ import java.util.List;
  * @date 2022/7/23
  */
 @Data
-public class ActivityConfigRequest {
+@EqualsAndHashCode(callSuper = false)
+public class ActivityConfigRequest extends DateComparator {
 
     @ApiModelProperty(value = "活动名称", required = true)
     @Size(min = 2, max = 20, message = "活动名称长度2~20位")

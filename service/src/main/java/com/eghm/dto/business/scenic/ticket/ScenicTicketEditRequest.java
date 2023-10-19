@@ -1,6 +1,7 @@
 package com.eghm.dto.business.scenic.ticket;
 
 import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.dto.ext.DateComparator;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.WordChecker;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,8 @@ import java.time.LocalDate;
  * @author 二哥很猛 2022/6/15 21:13
  */
 @Data
-public class ScenicTicketEditRequest {
+@EqualsAndHashCode(callSuper = false)
+public class ScenicTicketEditRequest extends DateComparator {
 
     @ApiModelProperty(value = "景区id", required = true)
     @NotNull(message = "景区id不能为空")

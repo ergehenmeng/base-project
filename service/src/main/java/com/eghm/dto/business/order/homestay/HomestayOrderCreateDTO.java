@@ -20,7 +20,7 @@ import java.util.List;
  * @since 2023/5/8
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 public class HomestayOrderCreateDTO extends DateComparator {
 
     @ApiModelProperty(value = "商品id", required = true)

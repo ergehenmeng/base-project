@@ -1,11 +1,13 @@
 package com.eghm.dto.business.line.config;
 
 import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.dto.ext.DateComparator;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,7 +19,8 @@ import java.util.List;
  * @date 2022/8/30
  */
 @Data
-public class LineConfigRequest {
+@EqualsAndHashCode(callSuper = false)
+public class LineConfigRequest extends DateComparator {
 
     @ApiModelProperty("线路ID")
     @NotNull(message = "线路id不能为空")

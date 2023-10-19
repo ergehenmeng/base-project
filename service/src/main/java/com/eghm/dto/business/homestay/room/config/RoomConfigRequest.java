@@ -1,10 +1,12 @@
 package com.eghm.dto.business.homestay.room.config;
 
 import com.eghm.convertor.YuanToCentDecoder;
+import com.eghm.dto.ext.DateComparator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
@@ -16,7 +18,8 @@ import java.util.List;
  * @date 2022/6/29
  */
 @Data
-public class RoomConfigRequest {
+@EqualsAndHashCode(callSuper = false)
+public class RoomConfigRequest extends DateComparator {
 
     @ApiModelProperty("房型id")
     @NotNull(message = "房型id不能为空")
