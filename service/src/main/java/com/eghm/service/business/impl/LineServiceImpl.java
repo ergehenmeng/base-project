@@ -15,9 +15,8 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
-import com.eghm.service.business.LineConfigService;
-import com.eghm.service.business.LineDayConfigService;
-import com.eghm.service.business.LineService;
+import com.eghm.model.TravelAgency;
+import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.line.LineDayConfigResponse;
@@ -51,6 +50,10 @@ public class LineServiceImpl implements LineService {
 
     private final SysAreaService sysAreaService;
 
+    private final TravelAgencyService travelAgencyService;
+
+    private final CommonService commonService;
+
     @Override
     public Page<LineResponse> getByPage(LineQueryRequest request) {
         return lineMapper.listPage(request.createPage(), request);
@@ -59,8 +62,11 @@ public class LineServiceImpl implements LineService {
     @Override
     public void create(LineAddRequest request) {
         this.titleRedo(request.getTitle(), request.getTravelAgencyId(), null);
+        Long merchantId = SecurityHolder.getMerchantId();
+        this.checkTravelAgency(request.getTravelAgencyId(), merchantId);
+
         Line line = DataUtil.copy(request, Line.class);
-        line.setMerchantId(SecurityHolder.getMerchantId());
+        line.setMerchantId(merchantId);
         lineMapper.insert(line);
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
     }
@@ -68,6 +74,9 @@ public class LineServiceImpl implements LineService {
     @Override
     public void update(LineEditRequest request) {
         this.titleRedo(request.getTitle(), request.getTravelAgencyId(), request.getId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        this.checkTravelAgency(request.getTravelAgencyId(), merchantId);
+
         Line line = DataUtil.copy(request, Line.class);
         lineMapper.updateById(line);
         lineDayConfigService.insertOrUpdate(line.getId(), request.getConfigList());
@@ -159,4 +168,13 @@ public class LineServiceImpl implements LineService {
             throw new BusinessException(ErrorCode.LINE_TITLE_REDO);
         }
     }
+
+    private void checkTravelAgency(Long travelAgencyId, Long merchantId) {
+        TravelAgency travelAgency = travelAgencyService.selectByIdRequired(travelAgencyId);
+        if (commonService.checkIsIllegal(travelAgency.getMerchantId(), merchantId)) {
+            log.info("选择的旅行社不属于自己的 [{}] [{}]", travelAgencyId, merchantId);
+            throw new BusinessException(ErrorCode.TRAVEL_AGENCY_NOT_FOUND);
+        }
+    }
+
 }

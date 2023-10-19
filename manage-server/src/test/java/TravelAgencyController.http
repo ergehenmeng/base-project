@@ -1,2 +1,53 @@
 GET http://localhost:8080/manage/travel/listPage?page=1&pageSize=10
 token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/travel/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "二哥旅行社",
+  "provinceId": 410000,
+  "cityId": 411600,
+  "countyId": 411621,
+  "detailAddress": "韭园镇小王庄村",
+  "longitude": 120.333122,
+  "latitude": 30.2312313,
+  "depict": "demoData",
+  "coverUrl": "demoData.png",
+  "introduce": "demoData"
+}
+
+###
+
+POST http://localhost:8080/manage/travel/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1714920214586322945,
+  "title": "二哥旅行社V2",
+  "provinceId": 410000,
+  "cityId": 411600,
+  "countyId": 411621,
+  "detailAddress": "韭园镇小王庄村",
+  "longitude": 120.333122,
+  "latitude": 30.2312313,
+  "depict": "demoData",
+  "coverUrl": "demoData.png",
+  "introduce": "demoData"
+}
+
+###
+
+POST http://localhost:8080/manage/travel/shelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1714920214586322945
+}
+
+###

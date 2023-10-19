@@ -1,8 +1,10 @@
 package com.eghm.validation;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.SensitiveUtil;
 import com.eghm.validation.annotation.WordChecker;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -12,6 +14,7 @@ import javax.validation.ConstraintValidatorContext;
  * @author 二哥很猛
  * @date 2018/8/14 11:04
  */
+@Slf4j
 public class WordCheckerDefine implements ConstraintValidator<WordChecker, String> {
 
     @Override
@@ -19,6 +22,11 @@ public class WordCheckerDefine implements ConstraintValidator<WordChecker, Strin
         if (StrUtil.isBlank(value)) {
             return true;
         }
-        return !SensitiveUtil.containsSensitive(value);
+        FoundWord sensitive = SensitiveUtil.getFoundFirstSensitive(value);
+        if (sensitive == null) {
+            return true;
+        }
+        log.warn("检测到敏感词 [{}] [{}]", value, sensitive.getFoundWord());
+        return false;
     }
 }

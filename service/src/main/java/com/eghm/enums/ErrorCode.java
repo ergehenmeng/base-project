@@ -827,9 +827,9 @@ public enum ErrorCode {
     HOMESTAY_ROOM_NULL(3173, "该房型已下架"),
 
     /**
-     * 该时间段不合法
+     * 房间库存不足, 请刷新页面
      */
-    HOMESTAY_CONFIG_NULL(3175, "该时间段不合法"),
+    HOMESTAY_CONFIG_NULL(3175, "房间库存不足,请刷新页面"),
 
     /**
      * 房间已预订满

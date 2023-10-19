@@ -12,7 +12,7 @@
             t.start_province_id as startProvinceId,
             t.start_city_id as startCityId,
             t.cover_url as coverUrl,
-            t.sale_num as totalNum,
+            t.sale_num as saleNum,
             t.duration,
             t.create_time as createTime,
             t.update_time as updateTime
