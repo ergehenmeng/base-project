@@ -1,8 +1,10 @@
 package com.eghm.web.controller;
 
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.service.mq.service.MessageService;
+import com.eghm.web.annotation.SignCheck;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -10,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,4 +39,10 @@ public class MessageController {
         return RespBody.success();
     }
 
+    @GetMapping("/signCheck")
+    @ApiOperation("签名信息校验")
+    @SignCheck
+    public RespBody<IdDTO> signCheck(@RequestBody IdDTO dto) {
+        return RespBody.success(dto);
+    }
 }
