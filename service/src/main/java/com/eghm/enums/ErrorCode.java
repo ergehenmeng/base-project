@@ -1307,6 +1307,11 @@ public enum ErrorCode {
     MERCHANT_USER_NULL(3680,"商户用户未查询到"),
 
     /**
+     * 单位名称重复啦
+     */
+    AUTH_TITLE_REDO(3683,"单位名称重复啦"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
