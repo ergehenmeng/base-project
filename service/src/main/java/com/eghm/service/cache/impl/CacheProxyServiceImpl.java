@@ -12,6 +12,7 @@ import com.eghm.service.business.ItemTagService;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
 import lombok.AllArgsConstructor;
@@ -57,8 +58,10 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final ItemTagService itemTagService;
 
+    private final AuthConfigMapper authConfigMapper;
+
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#pid", cacheManager = "longCacheManager", sync = true)
+    @Cacheable(cacheNames = CacheConstant.SYS_AREA_PID, key = "#pid", cacheManager = "longCacheManager", sync = true)
     public List<SysArea> getAreaByPid(Long pid) {
         LambdaQueryWrapper<SysArea> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysArea::getPid, pid);
@@ -66,6 +69,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
+    @Cacheable(cacheNames = CacheConstant.SYS_AREA, sync = true)
     public List<SysAreaVO> getAreaList() {
         List<SysArea> list = sysAreaMapper.selectList(null);
         List<SysAreaVO> voList = DataUtil.copy(list, SysAreaVO.class);
@@ -76,7 +80,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_ADDRESS, key = "#id", unless = "#result == null")
+    @Cacheable(cacheNames = CacheConstant.SYS_AREA_ID, key = "#id", unless = "#result == null")
     public SysArea getAreaById(Long id) {
         return sysAreaMapper.selectById(id);
     }
@@ -161,6 +165,12 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Cacheable(cacheNames = CacheConstant.ITEM_TAG, cacheManager = "longCacheManager")
     public List<ItemTagResponse> getList() {
         return itemTagService.getList();
+    }
+
+    @Override
+    @Cacheable(cacheNames = CacheConstant.AUTH_CONFIG, key = "#appKey", unless = "#result == null")
+    public AuthConfigVO getByAppKey(String appKey) {
+        return authConfigMapper.getByAppKey(appKey);
     }
 
     /**

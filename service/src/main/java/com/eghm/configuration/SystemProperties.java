@@ -211,12 +211,12 @@ public class SystemProperties {
         /**
          * 支付异步通知地址
          */
-        private String payNotifyUrl = "/notify/ali/pay";
+        private String payNotifyUrl = "/webapp/notify/ali/pay";
 
         /**
          * 退款异步通知地址
          */
-        private String refundNotifyUrl = "/notify/ali/refund";
+        private String refundNotifyUrl = "/webapp/notify/ali/refund";
 
         /**
          * AES密钥（可选）
@@ -285,12 +285,12 @@ public class SystemProperties {
         /**
          * 支付异步通知地址
          */
-        private String payNotifyUrl = "/notify/weChat/pay";
+        private String payNotifyUrl = "/webapp/notify/weChat/pay";
 
         /**
          * 退款异步通知地址
          */
-        private String refundNotifyUrl = "/notify/weChat/refund";
+        private String refundNotifyUrl = "/webapp/notify/weChat/refund";
     }
 
     @Data

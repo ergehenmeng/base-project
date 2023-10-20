@@ -25,8 +25,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 
-import static com.eghm.constant.CommonConstant.WEBAPP_PREFIX;
-
 /**
  * mvc全局配置,继承WebMvcConfigurerAdapter无需@EnableWebMvc
  *
@@ -47,6 +45,8 @@ public class WebappMvcConfig extends WebMvcConfig {
 
     private final CacheService cacheService;
 
+
+
     public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginService loginService, CacheService cacheService) {
         super(objectMapper, systemProperties);
         this.tokenService = tokenService;
@@ -57,10 +57,10 @@ public class WebappMvcConfig extends WebMvcConfig {
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         String[] notifyUrl = new String[] {
-                WEBAPP_PREFIX + systemProperties.getWechat().getPayNotifyUrl(),
-                WEBAPP_PREFIX + systemProperties.getWechat().getRefundNotifyUrl(),
-                WEBAPP_PREFIX + systemProperties.getAliPay().getPayNotifyUrl(),
-                WEBAPP_PREFIX + systemProperties.getAliPay().getRefundNotifyUrl()};
+                systemProperties.getWechat().getPayNotifyUrl(),
+                systemProperties.getWechat().getRefundNotifyUrl(),
+                systemProperties.getAliPay().getPayNotifyUrl(),
+                systemProperties.getAliPay().getRefundNotifyUrl()};
         registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 6);
         registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);

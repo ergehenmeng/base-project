@@ -56,17 +56,18 @@ public class RequestMessage implements Serializable {
     private Long memberId;
 
     /**
+     * appKey(第三方)
+     */
+    private String appKey;
+
+    /**
+     * 签名信息(第三方)
+     */
+    private String signature;
+
+    /**
      * http请求内容,json格式
      */
     private String requestParam;
 
-    /**
-     * 时间戳
-     */
-    private String timestamp;
-
-    /**
-     * 签名信息
-     */
-    private String signature;
 }

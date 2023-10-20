@@ -56,6 +56,12 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
+    @CacheEvict(cacheNames = {CacheConstant.SYS_AREA_ID,  CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_PID}, allEntries = true)
+    public void clearSysArea() {
+        log.info("省市区缓存清除成功");
+    }
+
+    @Override
     @CacheEvict(cacheNames = CacheConstant.PUSH_TEMPLATE, allEntries = true)
     public void clearPushTemplate() {
         log.info("推送模板缓存清除成功");
@@ -65,6 +71,12 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     @CacheEvict(cacheNames = CacheConstant.ITEM_TAG, allEntries = true)
     public void clearItemTag() {
         log.info("零售标签缓存清除成功");
+    }
+
+    @Override
+    @CacheEvict(cacheNames = CacheConstant.AUTH_CONFIG, allEntries = true)
+    public void clearAuthConfig() {
+        log.info("第三方授权配置缓存清除成功");
     }
 
     @Override

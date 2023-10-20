@@ -4,6 +4,7 @@ import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.model.*;
 import com.eghm.service.pay.enums.MerchantType;
+import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
 
@@ -104,4 +105,11 @@ public interface CacheProxyService {
      * @return 标签
      */
     List<ItemTagResponse> getList();
+
+    /**
+     * 根据appKey查询第三方配置信息
+     * @param appKey appKey
+     * @return 配置信息
+     */
+    AuthConfigVO getByAppKey(String appKey);
 }

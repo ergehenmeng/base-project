@@ -72,6 +72,12 @@ public class SysCacheServiceImpl implements SysCacheService {
                 case CacheConstant.FREEMARKER_TEMPLATE:
                     clearCacheService.clearFreemarkerTemplate();
                     break;
+                case CacheConstant.SYS_AREA:
+                    clearCacheService.clearSysArea();
+                    break;
+                case CacheConstant.AUTH_CONFIG:
+                    clearCacheService.clearAuthConfig();
+                    break;
                 default:
                     break;
             }

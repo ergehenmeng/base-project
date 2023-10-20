@@ -54,7 +54,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
             config.setPublicKey(rsa.getPublicKeyBase64());
             config.setPrivateKey(rsa.getPrivateKeyBase64());
         } else {
-            config.setPublicKey(StringUtil.random(64));
+            config.setPrivateKey(StringUtil.random(64));
         }
         // 不填,默认有效期一年
         if (config.getExpireDate() == null) {

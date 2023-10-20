@@ -43,15 +43,18 @@ public class MessageInterceptor implements InterceptorAdapter {
         String osVersion = request.getHeader(AppHeader.OS_VERSION);
         String deviceBrand = request.getHeader(AppHeader.DEVICE_BRAND);
         String deviceModel = request.getHeader(AppHeader.DEVICE_MODEL);
-        String signature = request.getHeader(AppHeader.SIGNATURE);
         String serialNumber = request.getHeader(AppHeader.SERIAL_NUMBER);
+        String appKey = request.getHeader(AppHeader.APP_KEY);
+        String signature = request.getHeader(AppHeader.SIGNATURE);
         if (checkHeaderLength(channel)
                 || checkHeaderLength(version)
                 || checkHeaderLength(osVersion)
                 || checkHeaderLength(deviceBrand)
                 || checkHeaderLength(deviceModel)
+                || checkHeaderLength(serialNumber)
+                || checkHeaderLength(appKey)
                 || checkHeaderLength(signature)
-                || checkHeaderLength(serialNumber)) {
+        ) {
             // 该信息会保存在Thread中,会占用一定内存,防止恶意攻击做此判断
             WebUtil.printJson(response, ErrorCode.REQUEST_PARAM_ILLEGAL);
             return false;
@@ -62,8 +65,9 @@ public class MessageInterceptor implements InterceptorAdapter {
         message.setOsVersion(osVersion);
         message.setDeviceBrand(deviceBrand);
         message.setDeviceModel(deviceModel);
-        message.setSignature(signature);
         message.setSerialNumber(serialNumber);
+        message.setSignature(signature);
+        message.setAppKey(appKey);
         message.setRequestParam(this.parseRequestParam(request, handler));
         return true;
     }

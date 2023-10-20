@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.SignType;
 import com.eghm.handler.mysql.LikeTypeHandler;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,17 +28,18 @@ public class AuthConfig extends BaseEntity {
     @ApiModelProperty("appKey")
     private String appKey;
 
-    @ApiModelProperty("公钥")
+    @ApiModelProperty("公钥(不对外暴露)")
+    @JsonIgnore
     private String publicKey;
 
-    @ApiModelProperty("私钥(不对外暴露)")
-    @JsonIgnore
+    @ApiModelProperty("私钥")
     public String privateKey;
 
     @ApiModelProperty("签名方式")
     private SignType signType;
 
     @ApiModelProperty("过期时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate expireDate;
 
     @ApiModelProperty("备注信息")

@@ -30,11 +30,7 @@ system:
   # 支付宝支付配置
   ali-pay:
     notify-host: https://localhost:8080
-    pay-notify-url: /notify/ali/pay
-    refund-notify-url: /notify/ali/refund
   # 微信小程序 公众号 微信支付配置
   wechat:
     notify-host: https://localhost:8080
-    pay-notify-url: /notify/weChat/pay
-    refund-notify-url: /notify/weChat/refund
   env: dev

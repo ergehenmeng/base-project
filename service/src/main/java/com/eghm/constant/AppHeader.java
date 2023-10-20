@@ -51,8 +51,13 @@ public class AppHeader {
     public static final String REFRESH_TOKEN = "Refresh-Token";
 
     /**
-     * 签名参数 签名
+     * 签名 (第三方使用)
      */
-    public static final String SIGNATURE = "Signature";
+    public static final String SIGNATURE = "signature";
+
+    /**
+     * 签名Key (第三方使用)
+     */
+    public static final String APP_KEY = "appKey";
 
 }

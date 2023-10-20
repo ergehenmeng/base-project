@@ -32,14 +32,24 @@ public interface ClearCacheService {
     void clearNotice();
 
     /**
+     * 清除省市区缓存
+     */
+    void clearSysArea();
+
+    /**
      * 清除推送模板
      */
     void clearPushTemplate();
 
     /**
-     * 零售标签
+     * 零售标签缓存清除
      */
     void clearItemTag();
+
+    /**
+     * 清除授权配置缓存
+     */
+    void clearAuthConfig();
 
     /**
      * 清除freemarker模板
