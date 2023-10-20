@@ -1,0 +1,9 @@
+POST localhost:8080/manage/auth/create
+Content-Type: application/json
+Token: {{adminToken}}
+
+{
+  "title": "测试公司签名",
+  "signType": "MD5",
+  "remark": "备注信息"
+}

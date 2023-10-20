@@ -11,10 +11,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 二哥很猛
@@ -39,7 +36,7 @@ public class MessageController {
         return RespBody.success();
     }
 
-    @GetMapping("/signCheck")
+    @PostMapping("/signCheck")
     @ApiOperation("签名信息校验")
     @SignCheck
     public RespBody<IdDTO> signCheck(@RequestBody IdDTO dto) {
