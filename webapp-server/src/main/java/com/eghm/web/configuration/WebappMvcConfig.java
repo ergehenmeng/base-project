@@ -2,14 +2,15 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
+import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.member.LoginService;
 import com.eghm.service.sys.BlackRosterService;
 import com.eghm.web.configuration.filter.ByteHttpRequestFilter;
 import com.eghm.web.configuration.filter.IpBlackListFilter;
-import com.eghm.web.configuration.interceptor.ClientTypeInterceptor;
 import com.eghm.web.configuration.interceptor.MessageInterceptor;
+import com.eghm.web.configuration.interceptor.SignCheckInterceptor;
 import com.eghm.web.configuration.interceptor.SubmitIntervalInterceptor;
 import com.eghm.web.configuration.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,13 +46,14 @@ public class WebappMvcConfig extends WebMvcConfig {
 
     private final CacheService cacheService;
 
+    private final CacheProxyService cacheProxyService;
 
-
-    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginService loginService, CacheService cacheService) {
+    public WebappMvcConfig(ObjectMapper objectMapper, SystemProperties systemProperties, TokenService tokenService, LoginService loginService, CacheService cacheService, CacheProxyService cacheProxyService) {
         super(objectMapper, systemProperties);
         this.tokenService = tokenService;
         this.loginService = loginService;
         this.cacheService = cacheService;
+        this.cacheProxyService = cacheProxyService;
     }
 
     @Override
@@ -61,8 +63,8 @@ public class WebappMvcConfig extends WebMvcConfig {
                 systemProperties.getWechat().getRefundNotifyUrl(),
                 systemProperties.getAliPay().getPayNotifyUrl(),
                 systemProperties.getAliPay().getRefundNotifyUrl()};
-        registry.addInterceptor(clientTypeInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 6);
-        registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 10);
+        registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 5);
+        registry.addInterceptor(signCheckInterceptor()).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
         registry.addInterceptor(submitIntervalInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 30);
     }
@@ -89,11 +91,12 @@ public class WebappMvcConfig extends WebMvcConfig {
     }
 
     /**
-     * 客户端类型拦截器
+     * 请求基础信息收集拦截器
+     *
      */
     @Bean
-    public HandlerInterceptor clientTypeInterceptor() {
-        return new ClientTypeInterceptor();
+    public HandlerInterceptor messageInterceptor() {
+        return new MessageInterceptor();
     }
 
     /**
@@ -101,8 +104,8 @@ public class WebappMvcConfig extends WebMvcConfig {
      *
      */
     @Bean
-    public HandlerInterceptor messageInterceptor() {
-        return new MessageInterceptor();
+    public HandlerInterceptor signCheckInterceptor() {
+        return new SignCheckInterceptor(cacheProxyService);
     }
 
     /**

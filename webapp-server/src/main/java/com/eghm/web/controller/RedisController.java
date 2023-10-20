@@ -1,10 +1,8 @@
 package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
-import com.eghm.enums.Channel;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.SensitiveWordService;
-import com.eghm.web.annotation.ClientType;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -51,7 +49,6 @@ public class RedisController {
             @ApiImplicitParam(name = "maxLimit", value = "maxLimit", required = true),
             @ApiImplicitParam(name = "maxTtl", value = "maxTtl", required = true),
     })
-    @ClientType(Channel.WECHAT)
     public RespBody<Boolean> setLimit(@RequestParam("key") String key, @RequestParam("maxLimit") Integer maxLimit, @RequestParam("maxTtl") Long maxTtl) {
         boolean absent = cacheService.limit(key, maxLimit, maxTtl);
         return RespBody.success(absent);
@@ -63,7 +60,6 @@ public class RedisController {
             @ApiImplicitParam(name = "key", value = "key", required = true),
             @ApiImplicitParam(name = "offset", value = "offset", required = true)
     })
-    @ClientType(Channel.WECHAT)
     public RespBody<Long> getBitmap32(@RequestParam("key") String key, @RequestParam("offset") Long offset) {
         long absent = cacheService.getBitmapOffset(key, offset);
         return RespBody.success(absent);
@@ -75,7 +71,6 @@ public class RedisController {
             @ApiImplicitParam(name = "key", value = "key", required = true),
             @ApiImplicitParam(name = "offset", value = "offset", required = true)
     })
-    @ClientType(Channel.WECHAT)
     public RespBody<Void> setBitmap(@RequestParam("key") String key, @RequestParam("offset") Long offset) {
         cacheService.setBitmap(key, offset, true);
         return RespBody.success();
@@ -84,7 +79,6 @@ public class RedisController {
     @GetMapping("/match")
     @ApiOperation("匹配")
     @ApiImplicitParam(name = "keyword", value = "keyword", required = true)
-    @ClientType(Channel.WECHAT)
     public RespBody<Boolean> match(@RequestParam("keyword") String keyword) {
         boolean checkSerial = sensitiveWordService.match(keyword);
         return RespBody.success(checkSerial);
@@ -96,7 +90,6 @@ public class RedisController {
             @ApiImplicitParam(name = "key", value = "key", required = true),
             @ApiImplicitParam(name = "localDate", value = "localDate", required = true)
     })
-    @ClientType(Channel.WECHAT)
     public RespBody<Boolean> signIn(@RequestParam("key") String key, @DateTimeFormat(pattern = "yyyy-MM-dd") @RequestParam("localDate") LocalDate localDate) {
         LocalDate registerDate = LocalDate.of(2023, 5, 3);
         long day = ChronoUnit.DAYS.between(registerDate, localDate);

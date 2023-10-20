@@ -75,7 +75,6 @@
 * `swagger` 地址会在服务启动时打印出来地址,访问地址 `http://host:ip/doc.html`
 * 表 `black_roster` 为ip黑名单 可限制某些用户访问
 * 默认所有的接口不登录即可访问,如果某个接口需要登陆校验则方法上添加 `@AccessToken`
-* 所以接口默认均支持android和ios访问,如果不想某类设备访问,方法上添加 `@ClientType`
 * 所有接口的请求响应日志均会记录到日志文件中,如果不想记录则添加 `@SkipLogger`
 * 除配置文件中约定路径,其他任何路径均会有权限校验, 如果特殊接口不需要权限校验可通过 `@SkipPerm` 屏蔽
 * 后台获取用户id方法 `ApiHolder.getMemberId()` , 同理获取其他相关属性也可以通过该类,也可在 `@RequestMapping` 所在的方法上声明一个RequestMessage对象,该对象会自动被注入
