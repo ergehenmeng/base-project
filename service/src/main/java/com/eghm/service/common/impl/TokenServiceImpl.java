@@ -43,12 +43,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public MemberToken getByMemberId(Long memberId) {
-        return cacheService.getValue(CacheConstant.ACCESS_TOKEN + memberId, MemberToken.class);
-    }
-
-    @Override
-    public long getTokenExpire(Long memberId) {
-        return cacheService.getExpire(CacheConstant.ACCESS_TOKEN + memberId);
+        return cacheService.getHashValue(CacheConstant.MEMBER_TOKEN_MAPPING, String.valueOf(memberId), MemberToken.class);
     }
 
     @Override
@@ -63,7 +58,7 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void cleanMemberId(Long memberId) {
-        cacheService.delete(CacheConstant.ACCESS_TOKEN + memberId);
+        cacheService.deleteHashKey(CacheConstant.MEMBER_TOKEN_MAPPING, String.valueOf(memberId));
     }
 
     @Override
@@ -78,22 +73,8 @@ public class TokenServiceImpl implements TokenService {
         // 注意:假如token_expire设置7天,refresh_token_expire为30天时,在第7~30天的时间里,账号重新登陆,
         // refresh_token_expire缓存的用户信息将会无效且不会被立即删除(无法通过memberId定位到该缓存数据),
         // 因此:此处过期时间与refresh_token_expire保持一致,在登陆的时候可通过memberId定位登陆信息,仅仅方便删除无用缓存,方便强制下线
-        cacheService.setValue(CacheConstant.ACCESS_TOKEN + memberToken.getMemberId(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
+        cacheService.setHashValue(CacheConstant.MEMBER_TOKEN_MAPPING, String.valueOf(memberToken.getMemberId()), tokenJson);
         cacheService.setValue(CacheConstant.REFRESH_TOKEN + memberToken.getRefreshToken(), tokenJson, sysConfigApi.getLong(ConfigConstant.REFRESH_TOKEN_EXPIRE));
     }
 
-    @Override
-    public void cacheOfflineToken(MemberToken memberToken, long expire) {
-        cacheService.setValue(CacheConstant.FORCE_OFFLINE + memberToken.getToken(), jsonService.toJson(memberToken), expire);
-    }
-
-    @Override
-    public MemberToken getOfflineToken(String accessToken) {
-        return cacheService.getValue(CacheConstant.FORCE_OFFLINE + accessToken, MemberToken.class);
-    }
-
-    @Override
-    public void cleanOfflineToken(String offlineToken) {
-        cacheService.delete(CacheConstant.FORCE_OFFLINE + offlineToken);
-    }
 }

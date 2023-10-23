@@ -33,13 +33,6 @@ public interface TokenService {
     MemberToken getByMemberId(Long memberId);
 
     /**
-     * 获取token剩余过期时间
-     * @param memberId memberId
-     * @return 过期时间 小于0表示key没有过期时间或者已经清楚
-     */
-    long getTokenExpire(Long memberId);
-
-    /**
      * 根据刷新token信息获取用户登陆信息
      * @param refreshToken 刷新token
      * @return 用户登陆信息
@@ -71,24 +64,5 @@ public interface TokenService {
      */
     void cacheToken(MemberToken memberToken);
 
-    /**
-     * 缓存强制下线token信息
-     * @param memberToken token
-     * @param expire 过期时间
-     */
-    void cacheOfflineToken(MemberToken memberToken, long expire);
-
-    /**
-     * 获取用户强制被踢下线时保留的token信息
-     * @param accessToken key
-     * @return token信息
-     */
-    MemberToken getOfflineToken(String accessToken);
-
-    /**
-     * 清除被踢下线的token
-     * @param offlineToken token
-     */
-    void cleanOfflineToken(String offlineToken);
 }
 

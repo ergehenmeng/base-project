@@ -113,13 +113,6 @@ public interface MemberService {
     void offline(Long memberId);
 
     /**
-     * 强制将用户踢下线 (管理后台强制下线用户), 与上面方法区别就是不增加被踢下线的记录
-     * 1.清空之前用户登陆的信息
-     * @param memberId memberId
-     */
-    void forceOffline(Long memberId);
-
-    /**
      * 绑定邮箱 发送邮件验证码 (1)
      * @param email  邮箱
      * @param memberId 用户id

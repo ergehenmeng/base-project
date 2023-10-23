@@ -106,14 +106,14 @@ public class CacheConstant {
     public static final String LOCK_SCREEN = "lock_screen:";
 
     /**
-     * 账号被踢下线
-     */
-    public static final String FORCE_OFFLINE = "force_offline:";
-
-    /**
      * 用户登录token
      */
     public static final String ACCESS_TOKEN = "access_token:";
+
+    /**
+     * 会员token映射
+     */
+    public static final String MEMBER_TOKEN_MAPPING = "member_token_mapping";
 
     /**
      * 用户登陆刷新token

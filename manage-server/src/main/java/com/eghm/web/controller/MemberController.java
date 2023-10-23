@@ -48,7 +48,7 @@ public class MemberController {
     @PostMapping("/offline")
     @ApiOperation("强制下线")
     public RespBody<Void> offline(@Validated @RequestBody IdDTO dto) {
-        memberService.forceOffline(dto.getId());
+        memberService.offline(dto.getId());
         return RespBody.success();
     }
 }

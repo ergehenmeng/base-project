@@ -173,7 +173,7 @@ public class MemberServiceImpl implements MemberService {
         member.setState(state);
         memberMapper.updateById(member);
         if (Boolean.FALSE.equals(member.getState())) {
-            this.forceOffline(member.getId());
+            this.offline(member.getId());
         }
     }
 
@@ -224,22 +224,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void offline(Long memberId) {
-        MemberToken memberToken = tokenService.getByMemberId(memberId);
-        if (memberToken == null) {
-            return;
-        }
-        long expire = tokenService.getTokenExpire(memberId);
-        if (expire > 0) {
-            // 缓存踢下线的信息
-            tokenService.cacheOfflineToken(memberToken, expire);
-        }
-        tokenService.cleanRefreshToken(memberToken.getRefreshToken());
-        tokenService.cleanToken(memberToken.getToken());
-        tokenService.cleanMemberId(memberId);
-    }
-
-    @Override
-    public void forceOffline(Long memberId) {
         MemberToken memberToken = tokenService.getByMemberId(memberId);
         if (memberToken == null) {
             return;

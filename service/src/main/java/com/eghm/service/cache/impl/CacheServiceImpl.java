@@ -240,6 +240,15 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public <T> T getHashValue(String key, String hKey, Class<T> type) {
+        String value = this.getHashValue(key, hKey);
+        if (value != null) {
+            return jsonService.fromJson(value, type);
+        }
+        return null;
+    }
+
+    @Override
     public boolean hasHashKey(String key, String hKey) {
         Boolean hasKey = redisTemplate.opsForHash().hasKey(key, hKey);
         return Boolean.TRUE.equals(hasKey);

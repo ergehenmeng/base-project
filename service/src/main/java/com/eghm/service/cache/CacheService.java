@@ -197,6 +197,14 @@ public interface CacheService {
      * @param hKey hashKey
      * @return hValue
      */
+    <T> T getHashValue(String key, String hKey, Class<T> type);
+
+    /**
+     * 获取hash中的值
+     * @param key key
+     * @param hKey hashKey
+     * @return hValue
+     */
     boolean hasHashKey(String key, String hKey);
 
     /**

@@ -7,10 +7,8 @@ import com.eghm.dto.ext.MemberToken;
 import com.eghm.dto.ext.RequestMessage;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.exception.DataException;
 import com.eghm.service.common.TokenService;
 import com.eghm.service.member.LoginService;
-import com.eghm.vo.member.LoginDeviceVO;
 import com.eghm.web.annotation.AccessToken;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -81,28 +79,10 @@ public class TokenInterceptor implements InterceptorAdapter {
      */
     private void accessTokenCheck(RequestMessage message, String token, Object handler) {
         if (message.getMemberId() == null && this.hasAccessToken(handler)) {
-            MemberToken memberToken = tokenService.getOfflineToken(token);
-            // 如果redisToken不为空, 表示用户是被别人强制挤下线的
-            if (memberToken != null) {
-                log.warn("用户已在其他设备登陆,accessToken:[{}],memberId:[{}]", token, memberToken.getMemberId());
-                tokenService.cleanOfflineToken(token);
-                // 异常接口捎带一些额外信息方便移动端提醒用户
-                throw this.createOfflineException(memberToken.getMemberId());
-            }
             // 如果用户需要登陆,且用户未获取到,则抛异常
             log.warn("用户登录已失效,请重新登陆 token:[{}]", token);
             throw new BusinessException(ErrorCode.LOGIN_TIMEOUT);
         }
-    }
-
-    /**
-     * 给予用户被其他设备登陆的提示信息
-     * @param memberId memberId
-     * @return exception
-     */
-    private DataException createOfflineException(Long memberId) {
-        LoginDeviceVO vo = loginService.getLastLogin(memberId);
-        return new DataException(ErrorCode.KICK_OFF_LINE, vo);
     }
 
     /**
