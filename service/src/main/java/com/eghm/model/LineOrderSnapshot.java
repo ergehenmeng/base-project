@@ -43,7 +43,7 @@ public class LineOrderSnapshot implements Serializable {
     private String endPoint;
 
     @ApiModelProperty(value = "交通方式 1:飞机 2:汽车 3:轮船 4:火车 5:其他")
-    private Boolean trafficType;
+    private Integer trafficType;
 
     @ApiModelProperty(value = "包含就餐 1:早餐 2:午餐 4:晚餐")
     private Integer repast;
