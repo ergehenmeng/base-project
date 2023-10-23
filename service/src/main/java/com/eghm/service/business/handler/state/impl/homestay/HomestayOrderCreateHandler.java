@@ -54,7 +54,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         this.orderMQService = orderMQService;
     }
 
-
     @Override
     protected void before(HomestayOrderCreateContext context, HomestayOrderPayload payload) {
         List<HomestayRoomConfig> configList = payload.getConfigList();
@@ -107,11 +106,8 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         order.setState(OrderState.UN_PAY);
         order.setMerchantId(payload.getHomestay().getMerchantId());
         order.setStoreId(payload.getHomestay().getId());
-        order.setMemberId(context.getMemberId());
         order.setCoverUrl(payload.getHomestayRoom().getCoverUrl());
         order.setOrderNo(orderNo);
-        order.setRemark(context.getRemark());
-        order.setNum(context.getVisitorList().size());
         order.setTitle(payload.getHomestayRoom().getTitle());
         // 将每天的价格相加=总单价
         int salePrice = payload.getConfigList().stream().mapToInt(HomestayRoomConfig::getSalePrice).sum();
@@ -124,7 +120,6 @@ public class HomestayOrderCreateHandler extends AbstractOrderCreateHandler<Homes
         orderService.save(order);
         return order;
     }
-
 
     @Override
     protected void next(HomestayOrderCreateContext context, HomestayOrderPayload payload, Order order) {

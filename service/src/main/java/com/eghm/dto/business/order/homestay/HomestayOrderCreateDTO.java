@@ -39,8 +39,12 @@ public class HomestayOrderCreateDTO extends DateComparator {
     @NotBlank(message = "联系人姓名不能为空")
     private String nickName;
 
+    @ApiModelProperty(value = "房间数量", required = true)
+    @Size(min = 1, max = 9, message = "房间不能超过9间")
+    private Integer num;
+
     @ApiModelProperty(value = "入住人员信息列表", required = true)
-    @Size(min = 1, max = 99, message = "入住人数不能超过99人")
+    @Size(min = 1, max = 9, message = "入住人数不能超过9人")
     @NotEmpty(message = "住房人信息不能为空")
     private List<VisitorDTO> visitorList;
 
