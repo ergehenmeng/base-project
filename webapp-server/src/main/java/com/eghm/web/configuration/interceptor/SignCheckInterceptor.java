@@ -65,7 +65,7 @@ public class SignCheckInterceptor implements InterceptorAdapter {
             WebUtil.printJson(response, ErrorCode.SIGNATURE_VERIFY_ERROR);
             return false;
         }
-        if (config.getExpireDate() == null || config.getExpireDate().isAfter(LocalDate.now())) {
+        if (config.getExpireDate() == null || LocalDate.now().isAfter(config.getExpireDate())) {
             log.warn("签名信息已过有效期 [{}] [{}]", message.getAppKey(), config.getExpireDate());
             WebUtil.printJson(response, ErrorCode.SIGNATURE_TIMESTAMP_ERROR);
             return false;
