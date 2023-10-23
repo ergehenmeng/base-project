@@ -66,6 +66,11 @@ public class RequestMessage implements Serializable {
     private String signature;
 
     /**
+     * 时间戳
+     */
+    private String timestamp;
+
+    /**
      * http请求内容,json格式
      */
     private String requestParam;

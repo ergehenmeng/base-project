@@ -88,6 +88,11 @@ public class CommonConstant {
     public static final int MAX_VERIFY_NO_EXPIRE = 60_000;
 
     /**
+     * 签名过期时间 60秒
+     */
+    public static final long MAX_SIGN_EXPIRE = 60_000;
+
+    /**
      * 最大锁屏时间 1天
      */
     public static final long MAX_LOCK_SCREEN = 86_400;
@@ -121,4 +126,9 @@ public class CommonConstant {
      * 签名key
      */
     public static final String DATA = "data";
+
+    /**
+     * 时间戳
+     */
+    public static final String TIMESTAMP = "timestamp";
 }

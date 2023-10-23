@@ -1,9 +1,7 @@
 POST http://localhost:9090/signCheck
 Channel: {{Channel}}
 Content-Type: application/json
-signature: xxxx
-appKey: xxxxxx
+signature: c21760c7a08715aa50cc9d11b689936c
+appKey: 54a5472cf233400588c7ba3bd8d21c30
 
-{
-  "id": 123123123123
-}
+{"id": 123123123123}

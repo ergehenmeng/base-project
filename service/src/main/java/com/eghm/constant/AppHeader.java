@@ -60,4 +60,9 @@ public class AppHeader {
      */
     public static final String APP_KEY = "appKey";
 
+    /**
+     * 时间戳 (第三方使用)
+     */
+    public static final String TIMESTAMP = "timestamp";
+
 }

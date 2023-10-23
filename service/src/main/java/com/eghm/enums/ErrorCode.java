@@ -144,67 +144,72 @@ public enum ErrorCode {
     /**
      * 签名信息为空
      */
-    SIGNATURE_ERROR(1016,"签名信息为空"),
+    SIGNATURE_ERROR(1018,"签名信息为空"),
 
     /**
      * 时间戳为空
      */
-    SIGNATURE_TIMESTAMP_NULL(1016,"数字签名为空"),
+    SIGNATURE_TIMESTAMP_NULL(1020,"数字签名为空"),
+
+    /**
+     * 签名信息已过期
+     */
+    SIGNATURE_EXPIRE(1023,"签名信息已过期"),
 
     /**
      * 请求已过期
      */
-    SIGNATURE_TIMESTAMP_ERROR(1017,"请求已过期"),
+    SIGNATURE_TIMESTAMP_ERROR(1025,"签名信息已过有效期"),
 
     /**
      * 签名校验异常
      */
-    SIGNATURE_VERIFY_ERROR(1018,"签名校验失败"),
+    SIGNATURE_VERIFY_ERROR(1031,"签名校验失败"),
 
     /**
      * 读取请求参数异常
      */
-    READ_PARAM_ERROR(1019,"读取请求参数异常"),
+    READ_PARAM_ERROR(1033,"读取请求参数异常"),
 
     /**
      * 非法操作 操作了不属于自己的数据
      */
-    ILLEGAL_OPERATION(1020,"非法操作"),
+    ILLEGAL_OPERATION(1035,"非法操作"),
 
     /**
      * 非管理员,无权限进行授权操作
      */
-    ADMIN_AUTH(1022,"非管理员,无权限进行授权操作"),
+    ADMIN_AUTH(1043,"非管理员,无权限进行授权操作"),
 
     /**
      * 转换器不支持非枚举类
      */
-    ENUM_SUPPORTED(1025,"转换器不支持非枚举类"),
+    ENUM_SUPPORTED(1045,"转换器不支持非枚举类"),
 
     /**
      * 定时任务尚未激活
      */
-    TASK_CONFIG_NULL(1028,"定时任务尚未激活"),
+    TASK_CONFIG_NULL(1046,"定时任务尚未激活"),
 
     /**
      * 定时任务配置异常
      */
-    TASK_CONFIG_ERROR(1030,"定时任务配置异常"),
+    TASK_CONFIG_ERROR(1050,"定时任务配置异常"),
 
     /**
      * 任务未查询到
      */
-    TASK_NULL_ERROR(1031,"任务未查询到"),
+    TASK_NULL_ERROR(1057,"任务未查询到"),
 
     /**
      * 数据权限不匹配
      */
-    DATA_TYPE_ERROR(1033,"数据权限不匹配"),
+    DATA_TYPE_ERROR(1059,"数据权限不匹配"),
 
     /**
      * 缓存不能为空
      */
-    CACHE_VALUE_NULL(1035,"缓存不能为空"),
+    CACHE_VALUE_NULL(1101,"缓存不能为空"),
 
     /**
      * 屏幕锁定中
