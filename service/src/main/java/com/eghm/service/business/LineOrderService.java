@@ -1,13 +1,25 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.model.LineOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.line.LineOrderDetailVO;
+import com.eghm.vo.business.order.line.LineOrderVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
  * @date 2022/9/1
  */
 public interface LineOrderService {
+
+    /**
+     * 分页查询线路订单
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<LineOrderVO> getByPage(LineOrderQueryDTO dto);
 
     /**
      * 插入线路订单
@@ -29,4 +41,12 @@ public interface LineOrderService {
      * @return 商品餐饮快照
      */
     ProductSnapshotVO getSnapshot(Long orderId, String orderNo);
+
+    /**
+     * 查询线路订单详情
+     * @param orderNo 订单编号
+     * @param memberId 会员id
+     * @return 订单详情
+     */
+    LineOrderDetailVO getDetail(String orderNo, Long memberId);
 }

@@ -1,11 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
+import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.TicketOrderService;
-import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
-import com.eghm.vo.business.order.ticket.TicketOrderVO;
+import com.eghm.service.business.LineOrderService;
+import com.eghm.vo.business.order.line.LineOrderDetailVO;
+import com.eghm.vo.business.order.line.LineOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,26 +25,26 @@ import java.util.List;
  */
 @AccessToken
 @RestController
-@Api(tags = "门票订单")
+@Api(tags = "线路订单")
 @AllArgsConstructor
-@RequestMapping("/webapp/ticket/order")
-public class TicketOrderController {
+@RequestMapping("/webapp/line/order")
+public class LineOrderController {
 
-    private final TicketOrderService ticketOrderService;
+    private final LineOrderService lineOrderService;
 
     @GetMapping("/listPage")
-    @ApiOperation("门票订单列表")
-    public RespBody<List<TicketOrderVO>> listPage(@Validated TicketOrderQueryDTO dto) {
+    @ApiOperation("线路订单列表")
+    public RespBody<List<LineOrderVO>> listPage(@Validated LineOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
-        List<TicketOrderVO> voList = ticketOrderService.getByPage(dto);
+        List<LineOrderVO> voList = lineOrderService.getByPage(dto);
         return RespBody.success(voList);
     }
 
     @GetMapping("/detail")
-    @ApiOperation("门票订单详情")
+    @ApiOperation("线路订单详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<TicketOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
-        TicketOrderDetailVO detail = ticketOrderService.getDetail(orderNo, ApiHolder.getMemberId());
+    public RespBody<LineOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
+        LineOrderDetailVO detail = lineOrderService.getDetail(orderNo, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 }

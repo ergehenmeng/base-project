@@ -133,6 +133,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineOrder.setLinePrice(payload.getConfig().getLinePrice());
         lineOrder.setMobile(context.getMobile());
         lineOrder.setNickName(context.getNickName());
+        lineOrder.setVisitDate(payload.getConfig().getConfigDate());
         lineOrderService.insert(lineOrder);
         lineOrderSnapshotService.insert(payload.getLine().getId(), order.getOrderNo(), payload.getDayList());
     }

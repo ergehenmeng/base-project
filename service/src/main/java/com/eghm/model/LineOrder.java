@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * <p>
@@ -40,6 +41,9 @@ public class LineOrder implements Serializable {
 
     @ApiModelProperty("联系电话")
     private String mobile;
+
+    @ApiModelProperty("游玩日期")
+    private LocalDate visitDate;
 
     @ApiModelProperty(value = "所属旅行社id")
     private Long travelAgencyId;

@@ -11,4 +11,53 @@
         where t.id = #{orderId} and r.order_no = #{orderNo} and t.deleted = false
     </select>
 
+    <select id="getList" parameterType="com.eghm.dto.business.order.line.LineOrderQueryDTO" resultType="com.eghm.vo.business.order.line.LineOrderVO">
+        select
+        t.order_no as orderNo,
+        r.cover_url as coverUrl,
+        r.title,
+        t.duration,
+        r.pay_type as payType,
+        r.num,
+        r.state,
+        r.pay_amount as payAmount
+        from `order` r
+        inner join line_order t on t.order_no = r.order_no
+        where t.deleted = false and r.member_id = #{param.memberId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.orderState != null">
+            and r.state = #{param.orderState}
+        </if>
+        order by t.id desc
+    </select>
+
+    <select id="getDetail" resultType="com.eghm.vo.business.order.line.LineOrderDetailVO">
+        select
+        t.order_no as orderNo,
+        r.cover_url as coverUrl,
+        r.title,
+        t.duration,
+        r.pay_type as payType,
+        r.refund_type as refundType,
+        r.refund_state as refundState,
+        r.price,
+        r.discount_amount as discountAmount,
+        r.num,
+        r.state,
+        r.pay_amount as payAmount,
+        r.create_time as createTime,
+        r.pay_time as payTime,
+        t.mobile,
+        t.nick_name as nickName,
+        r.complete_time as completeTime,
+        t.visit_date as visitDate,
+        t.duration,
+        r.remark
+        from `order` r
+        inner join line_order t on t.order_no = r.order_no
+        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+    </select>
+
 </mapper>

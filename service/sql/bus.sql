@@ -646,6 +646,7 @@ CREATE TABLE `line_order`
     `order_no`          varchar(30)   DEFAULT NULL COMMENT '订单编号',
     `nick_name`         varchar(20)   DEFAULT NULL COMMENT '昵称',
     `mobile`            varchar(20)   DEFAULT NULL COMMENT '联系电话',
+    `visit_date`        date          DEFAULT NULL COMMENT '游玩日期',
     `travel_agency_id`  bigint(20)    DEFAULT NULL COMMENT '所属旅行社id',
     `start_province_id` bigint(20)    DEFAULT NULL COMMENT '出发省份id',
     `start_city_id`     bigint(20)    DEFAULT NULL COMMENT '出发城市id',
