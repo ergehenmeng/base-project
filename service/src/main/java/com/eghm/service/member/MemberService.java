@@ -11,8 +11,6 @@ import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.SignInVO;
 
-import java.time.LocalDateTime;
-
 /**
  * @author 二哥很猛
  * @date 2019/8/19 15:50
@@ -175,14 +173,6 @@ public interface MemberService {
      * @param memberId 用户id
      */
     void signIn(Long memberId);
-
-    /**
-     * 判断用户今日签到状态
-     * @param memberId  用户id
-     * @param registerTime 时间
-     * @return true 已签到 false 未签到
-     */
-    Boolean isSignInToday(Long memberId, LocalDateTime registerTime);
 
     /**
      * 获取用户签到信息 只显示当月签到信息

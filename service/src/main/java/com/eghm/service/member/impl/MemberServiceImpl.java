@@ -53,7 +53,6 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
@@ -350,12 +349,6 @@ public class MemberServiceImpl implements MemberService {
         memberScoreLogService.insert(log);
         member.setScore(member.getScore() + score);
         memberMapper.updateById(member);
-    }
-
-    @Override
-    public Boolean isSignInToday(Long memberId, LocalDateTime registerTime) {
-        long day = ChronoUnit.DAYS.between(registerTime.toLocalDate(), LocalDateTime.now());
-        return cacheService.getBitmap(CacheConstant.MEMBER_SIGN_IN + memberId, day);
     }
 
     @Override
