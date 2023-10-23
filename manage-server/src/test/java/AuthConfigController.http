@@ -1,4 +1,4 @@
-POST localhost:8080/manage/auth/create
+POST http://localhost:8080/manage/auth/create
 Content-Type: application/json
 Token: {{adminToken}}
 
@@ -6,4 +6,32 @@ Token: {{adminToken}}
   "title": "测试公司签名",
   "signType": "MD5",
   "remark": "备注信息"
+}
+
+###
+
+GET http://localhost:8080/manage/auth/listPage?page=1&pageSize=10
+Token: {{adminToken}}
+
+
+###
+
+POST http://localhost:8080/manage/auth/update
+Content-Type: application/json
+Token: {{adminToken}}
+
+{
+  "id": 1716339745426780162,
+  "title": "测试公司签名信息",
+  "signType": "MD5",
+  "remark": "备注信息修改"
+}
+###
+
+POST http://localhost:8080/manage/auth/delete
+Content-Type: application/json
+Token: {{adminToken}}
+
+{
+  "id": 1716340632719208450
 }

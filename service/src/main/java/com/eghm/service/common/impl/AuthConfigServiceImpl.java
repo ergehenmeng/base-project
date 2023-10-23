@@ -49,7 +49,7 @@ public class AuthConfigServiceImpl implements AuthConfigService {
         this.redoTitle(request.getTitle(), null);
         AuthConfig config = DataUtil.copy(request, AuthConfig.class);
         config.setAppKey(IdUtil.fastSimpleUUID());
-        if (request.getSignType() == SignType.MD5) {
+        if (request.getSignType() == SignType.RSA) {
             RSA rsa = SecureUtil.rsa();
             config.setPublicKey(rsa.getPublicKeyBase64());
             config.setPrivateKey(rsa.getPrivateKeyBase64());

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
@@ -24,7 +25,7 @@ public class AuthConfigAddRequest {
     private String title;
 
     @ApiModelProperty("签名方式")
-    @NotBlank(message = "签名方式不能为空")
+    @NotNull(message = "签名方式不能为空")
     private SignType signType;
 
     @ApiModelProperty("过期时间")

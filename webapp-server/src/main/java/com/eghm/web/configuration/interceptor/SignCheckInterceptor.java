@@ -94,7 +94,7 @@ public class SignCheckInterceptor implements InterceptorAdapter {
      */
     private static void rsaSignVerify(String privateKey, String publicKey, String requestBody, String signature) {
         Sign sign = SignUtil.sign(SignAlgorithm.SHA256withRSA, privateKey, publicKey);
-        boolean verify = sign.verify(StrUtil.bytes(requestBody), signature.getBytes(StandardCharsets.UTF_8));
+        boolean verify = sign.verify(Base64Encoder.encode(requestBody).getBytes(StandardCharsets.UTF_8), signature.getBytes(StandardCharsets.UTF_8));
         if (!verify) {
             log.warn("rsa签名信息验证失败 [{}] [{}] [{}] [{}]", privateKey, publicKey, requestBody, signature);
             throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
