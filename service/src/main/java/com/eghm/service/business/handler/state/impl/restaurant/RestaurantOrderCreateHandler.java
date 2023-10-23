@@ -89,6 +89,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         order.setPayAmount(order.getNum() * order.getPrice());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
+        order.setProductType(ProductType.RESTAURANT);
         order.setRefundType(voucher.getRefundType());
         order.setRefundDescribe(voucher.getRefundDescribe());
         // 使用优惠券

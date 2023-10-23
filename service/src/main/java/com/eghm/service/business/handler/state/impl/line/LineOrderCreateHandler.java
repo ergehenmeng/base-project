@@ -89,7 +89,10 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
     protected Order createOrder(LineOrderCreateContext context, LineOrderPayload payload) {
         String orderNo = ProductType.LINE.generateOrderNo();
         Order order = new Order();
+        order.setRefundType(payload.getLine().getRefundType());
+        order.setRefundDescribe(payload.getLine().getRefundDescribe());
         order.setState(OrderState.UN_PAY);
+        order.setProductType(ProductType.LINE);
         order.setMemberId(context.getMemberId());
         order.setMerchantId(payload.getTravelAgency().getMerchantId());
         order.setStoreId(payload.getTravelAgency().getId());
