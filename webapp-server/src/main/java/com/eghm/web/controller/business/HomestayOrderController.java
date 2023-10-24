@@ -1,11 +1,11 @@
 package com.eghm.web.controller.business;
 
-import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
+import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.TicketOrderService;
-import com.eghm.vo.business.order.ticket.TicketOrderDetailVO;
-import com.eghm.vo.business.order.ticket.TicketOrderVO;
+import com.eghm.service.business.HomestayOrderService;
+import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
+import com.eghm.vo.business.order.homestay.HomestayOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,21 +30,21 @@ import java.util.List;
 @RequestMapping("/webapp/homestay/order")
 public class HomestayOrderController {
 
-    private final TicketOrderService ticketOrderService;
+    private final HomestayOrderService homestayOrderService;
 
     @GetMapping("/listPage")
     @ApiOperation("民宿订单列表")
-    public RespBody<List<TicketOrderVO>> listPage(@Validated TicketOrderQueryDTO dto) {
+    public RespBody<List<HomestayOrderVO>> listPage(@Validated HomestayOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
-        List<TicketOrderVO> voList = ticketOrderService.getByPage(dto);
+        List<HomestayOrderVO> voList = homestayOrderService.getByPage(dto);
         return RespBody.success(voList);
     }
 
     @GetMapping("/detail")
     @ApiOperation("民宿订单详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<TicketOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
-        TicketOrderDetailVO detail = ticketOrderService.getDetail(orderNo, ApiHolder.getMemberId());
+    public RespBody<HomestayOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
+        HomestayOrderDetailVO detail = homestayOrderService.getDetail(orderNo, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 }

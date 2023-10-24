@@ -120,6 +120,15 @@ public interface OrderService extends IService<Order> {
     void updateState(String orderNo, OrderState newState, Object... oldState);
 
     /**
+     * 支付成功, 更新订单状态,生成核销码
+     * @param orderNo 订单编号
+     * @param verifyNo 核销码
+     * @param newState 成功状态
+     * @param oldState 上一个节点的状态
+     */
+    void paySuccess(String orderNo, String verifyNo,OrderState newState, Object... oldState);
+
+    /**
      * 核销码解码
      * @param verifyNo 核销码
      * @return 订单号

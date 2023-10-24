@@ -22,7 +22,7 @@ import java.util.Arrays;
 public enum ProductType {
 
     /**
-     * 景区门票
+     * 门票
      */
     TICKET("ticket", "门票", "MP", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.UN_USED, OrderState.APPRAISE, OrderState.COMPLETE, OrderState.CLOSE
@@ -43,9 +43,9 @@ public enum ProductType {
     }),
 
     /**
-     * 商品(文创/特产)
+     * 零售
      */
-    ITEM("item", "商品", "SP", new OrderState[]{
+    ITEM("item", "零售", "LS", new OrderState[]{
             OrderState.NONE, OrderState.UN_PAY, OrderState.PROGRESS, OrderState.WAIT_DELIVERY, OrderState.WAIT_RECEIVE, OrderState.APPRAISE, OrderState.COMPLETE, OrderState.CLOSE
     }),
 
@@ -113,6 +113,15 @@ public enum ProductType {
         return prefix + IdWorker.getIdStr();
     }
 
+
+    /**
+     * 生成核销码
+     *
+     * @return 交易单号
+     */
+    public String generateVerifyNo() {
+        return prefix + DateUtil.formatShortLimit(LocalDate.now()) + IdWorker.getIdStr();
+    }
 
     @Override
     public String toString() {

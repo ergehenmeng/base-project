@@ -223,6 +223,19 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
+    public void paySuccess(String orderNo, String verifyNo, OrderState newState, Object... oldState) {
+        LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Order::getOrderNo, orderNo);
+        wrapper.in(oldState.length > 0, Order::getState, oldState);
+        wrapper.set(Order::getState, newState);
+        wrapper.set(Order::getVerifyNo, verifyNo);
+        int update = baseMapper.update(null, wrapper);
+        if (update != 1) {
+            log.warn("订单状态更新数据不一致 [{}] [{}] [{}]", orderNo, newState, oldState);
+        }
+    }
+
+    @Override
     public String decryptVerifyNo(String verifyNo) {
         AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
         String decryptStr;

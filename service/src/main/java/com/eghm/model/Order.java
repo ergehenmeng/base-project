@@ -111,6 +111,9 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
+    @ApiModelProperty("核销码")
+    private String verifyNo;
+
     @ApiModelProperty("订单备注信息")
     private String remark;
 }

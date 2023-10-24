@@ -589,6 +589,7 @@ CREATE TABLE `order`
     `county_id`       bigint(20)   DEFAULT NULL COMMENT '县区id',
     `detail_address`  varchar(100) DEFAULT NULL COMMENT '详细地址',
     `close_time`      datetime     DEFAULT NULL COMMENT '订单关闭时间',
+    `verify_no`       varchar(50)  DEFAULT NULL COMMENT '核销码',
     `remark`          varchar(200) DEFAULT NULL COMMENT '备注信息',
     `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

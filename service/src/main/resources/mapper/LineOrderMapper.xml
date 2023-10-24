@@ -16,13 +16,15 @@
         t.order_no as orderNo,
         r.cover_url as coverUrl,
         r.title,
-        t.duration,
+        m.title as travelName,
+        t.travel_agency_id as travelAgencyId,
         r.pay_type as payType,
         r.num,
         r.state,
         r.pay_amount as payAmount
         from `order` r
         inner join line_order t on t.order_no = r.order_no
+        left join travel_agency m on t.travel_agency_id = m.id
         where t.deleted = false and r.member_id = #{param.memberId}
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
