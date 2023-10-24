@@ -322,14 +322,14 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public OrderScanVO getScanResult(String orderNo, Long merchantId) {
-        Order order = this.getByOrderNo(orderNo);
+    public OrderScanVO getScanResult(String verifyNo, Long merchantId) {
+        Order order = this.getByVerifyNo(verifyNo);
         if (commonService.checkIsIllegal(merchantId)) {
-            log.warn("核销码不属于当前商户下的订单 [{}] [{}] [{}]", orderNo, merchantId, order.getMerchantId());
+            log.warn("核销码不属于当前商户下的订单 [{}] [{}] [{}]", verifyNo, merchantId, order.getMerchantId());
             throw new BusinessException(ErrorCode.VERIFY_ACCESS_DENIED);
         }
         OrderScanVO vo = DataUtil.copy(order, OrderScanVO.class);
-        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
+        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(order.getOrderNo());
         List<VisitorVO> voList = DataUtil.copy(visitorList, VisitorVO.class);
         vo.setVisitorList(voList);
         return vo;
@@ -391,18 +391,31 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public String refreshVerifyCode(Long id, Long memberId) {
+    public String refreshVerifyCode(String orderNo, Long memberId) {
         LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(Order::getId, Order::getOrderNo);
+        wrapper.select(Order::getId, Order::getVerifyNo);
         wrapper.eq(Order::getMemberId, memberId);
-        wrapper.eq(Order::getId, id);
+        wrapper.eq(Order::getOrderNo, orderNo);
         wrapper.last(CommonConstant.LIMIT_ONE);
         Order order = baseMapper.selectOne(wrapper);
         if (order == null) {
-            log.error("刷新核销码, 订单信息未查询到 [{}] [{}]", id, memberId);
+            log.error("刷新核销码, 订单信息未查询到 [{}] [{}]", orderNo, memberId);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
-        return this.encryptVerifyNo(order.getOrderNo());
+        return this.encryptVerifyNo(order.getVerifyNo());
+    }
+
+    @Override
+    public Order getByVerifyNo(String verifyNo) {
+        LambdaQueryWrapper<Order> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Order::getVerifyNo, verifyNo);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        Order order = baseMapper.selectOne(wrapper);
+        if (order == null) {
+            log.error("根据核销码查询订单信息为空 [{}]", verifyNo);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        return order;
     }
 
     /**

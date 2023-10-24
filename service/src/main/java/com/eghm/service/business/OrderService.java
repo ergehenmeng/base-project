@@ -162,11 +162,11 @@ public interface OrderService extends IService<Order> {
 
     /**
      * 查询扫码后的订单结果
-     * @param orderNo 订单编号
+     * @param verifyNo 核销码
      * @param merchantId 商户ID
      * @return 订单及游客信息
      */
-    OrderScanVO getScanResult(String orderNo, Long merchantId);
+    OrderScanVO getScanResult(String verifyNo, Long merchantId);
 
     /**
      * 订单状态变更处理, 注意:只有订单状态变动时才需要调用该方法
@@ -190,10 +190,16 @@ public interface OrderService extends IService<Order> {
 
     /**
      * 刷新核销码
-     * @param id  订单ID
+     * @param orderNo  订单编号
      * @param memberId 用户ID
      * @return 核销码
      */
-    String refreshVerifyCode(Long id, Long memberId);
+    String refreshVerifyCode(String orderNo, Long memberId);
 
+    /**
+     * 根据核销码查询订单
+     * @param verifyNo 核销码
+     * @return 订单信息
+     */
+    Order getByVerifyNo(String verifyNo);
 }

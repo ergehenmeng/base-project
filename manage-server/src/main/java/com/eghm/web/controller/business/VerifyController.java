@@ -53,10 +53,10 @@ public class VerifyController {
     @ApiOperation("查询扫码结果")
     @ApiImplicitParam(name = "verifyNo", value = "核销码", required = true)
     public RespBody<OrderScanVO> scan(@RequestParam("verifyNo") String verifyNo) {
-        String orderNo = orderService.decryptVerifyNo(verifyNo);
-        ProductType productType = ProductType.prefix(orderNo);
+        verifyNo = orderService.decryptVerifyNo(verifyNo);
+        ProductType productType = ProductType.prefix(verifyNo);
         if (productType == ProductType.HOMESTAY || productType == ProductType.LINE || productType == ProductType.TICKET || productType == ProductType.RESTAURANT) {
-            OrderScanVO vo = orderService.getScanResult(orderNo, SecurityHolder.getMerchantId());
+            OrderScanVO vo = orderService.getScanResult(verifyNo, SecurityHolder.getMerchantId());
             return RespBody.success(vo);
         } else {
             return RespBody.error(VERIFY_ORDER_ERROR);

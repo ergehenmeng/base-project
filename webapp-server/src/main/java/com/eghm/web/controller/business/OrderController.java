@@ -21,6 +21,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.OrderCreateVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -158,8 +159,9 @@ public class OrderController {
 
     @GetMapping("refresh")
     @ApiOperation("刷新核销码")
-    public RespBody<String> refresh(@Validated IdDTO dto) {
-        String verifyCode = orderService.refreshVerifyCode(dto.getId(), ApiHolder.getMemberId());
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<String> refresh(@RequestParam("orderNo") String orderNo) {
+        String verifyCode = orderService.refreshVerifyCode(orderNo, ApiHolder.getMemberId());
         return RespBody.success(verifyCode);
     }
 
