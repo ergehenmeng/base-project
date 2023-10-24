@@ -1,11 +1,16 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.enums.ref.State;
 import com.eghm.model.RestaurantVoucher;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
+import com.eghm.vo.business.restaurant.VoucherDetailVO;
+import com.eghm.vo.business.restaurant.VoucherVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -72,4 +77,19 @@ public interface RestaurantVoucherService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 分页查询餐饮券
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<VoucherVO> getByPage(VoucherQueryDTO dto);
+
+    /**
+     * 查询餐饮券详细信息
+     *
+     * @param id id
+     * @return 详细信息
+     */
+    VoucherDetailVO getDetail(Long id);
 }

@@ -3,11 +3,21 @@ token: {{token}}
 
 ###
 
+POST http://localhost:8080/manage/restaurant/voucher/shelves
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1716688620773548034
+}
+###
+
 POST http://localhost:8080/manage/restaurant/voucher/create
 token: {{token}}
 Content-Type: application/json
 
 {
+  "restaurantId": 1716687615256272898,
   "title": "麦当娜20元抵扣券",
   "coverUrl": "http://localhost:8080/coverUrl.png",
   "linePrice": 20,

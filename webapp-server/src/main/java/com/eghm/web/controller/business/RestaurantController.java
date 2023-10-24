@@ -2,10 +2,14 @@ package com.eghm.web.controller.business;
 
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
+import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.RestaurantService;
+import com.eghm.service.business.RestaurantVoucherService;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
-import com.eghm.service.business.RestaurantService;
+import com.eghm.vo.business.restaurant.VoucherDetailVO;
+import com.eghm.vo.business.restaurant.VoucherVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,6 +32,8 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
+    private final RestaurantVoucherService restaurantVoucherService;
+
     @GetMapping("/listPage")
     @ApiOperation("商家列表")
     public RespBody<List<RestaurantListVO>> listPage(RestaurantQueryDTO dto) {
@@ -39,6 +45,20 @@ public class RestaurantController {
     @ApiOperation("店铺详情")
     public RespBody<RestaurantVO> detail(@Validated IdDTO dto) {
         RestaurantVO detail = restaurantService.detailById(dto.getId());
+        return RespBody.success(detail);
+    }
+
+    @GetMapping("/voucher/listPage")
+    @ApiOperation("店铺餐饮券列表")
+    public RespBody<List<VoucherVO>> voucherListPage(@Validated VoucherQueryDTO dto) {
+        List<VoucherVO> voList = restaurantVoucherService.getByPage(dto);
+        return RespBody.success(voList);
+    }
+
+    @GetMapping("/voucher/detail")
+    @ApiOperation("餐饮券详情")
+    public RespBody<VoucherDetailVO> voucherDetail(@Validated IdDTO dto) {
+        VoucherDetailVO detail = restaurantVoucherService.getDetail(dto.getId());
         return RespBody.success(detail);
     }
 }

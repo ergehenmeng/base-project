@@ -9,6 +9,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
+import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -16,9 +17,13 @@ import com.eghm.mapper.RestaurantVoucherMapper;
 import com.eghm.model.RestaurantVoucher;
 import com.eghm.service.business.RestaurantVoucherService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.restaurant.VoucherDetailVO;
+import com.eghm.vo.business.restaurant.VoucherVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -106,6 +111,18 @@ public class RestaurantVoucherServiceImpl implements RestaurantVoucherService {
     @Override
     public void deleteById(Long id) {
         restaurantVoucherMapper.deleteById(id);
+    }
+
+    @Override
+    public List<VoucherVO> getByPage(VoucherQueryDTO dto) {
+        Page<VoucherVO> voPage = restaurantVoucherMapper.getList(dto.createPage(false), dto);
+        return voPage.getRecords();
+    }
+
+    @Override
+    public VoucherDetailVO getDetail(Long id) {
+        RestaurantVoucher voucher = this.selectByIdShelve(id);
+        return DataUtil.copy(voucher, VoucherDetailVO.class);
     }
 
     /**
