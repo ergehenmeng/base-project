@@ -68,7 +68,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
         TicketOrderDetailVO detail = ticketOrderMapper.getDetail(orderNo, memberId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
-        detail.setVerifyCode(orderService.encryptVerifyNo(orderNo));
+        detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
         return detail;
     }
 

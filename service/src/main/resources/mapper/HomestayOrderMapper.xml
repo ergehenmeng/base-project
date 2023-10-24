@@ -40,6 +40,7 @@
             t.order_no as orderNo,
             r.cover_url as coverUrl,
             r.title,
+            r.verify_no as verifyNo,
             m.title as homestayName,
             t.homestay_id as homestayId,
             r.pay_type as payType,

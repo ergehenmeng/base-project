@@ -90,7 +90,7 @@ public class TicketOrderDetailVO {
     private LocalDate visitDate;
 
     @ApiModelProperty("核销码")
-    private String verifyCode;
+    private String verifyNo;
 
     @ApiModelProperty("订单备注信息")
     private String remark;

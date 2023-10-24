@@ -254,9 +254,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public String encryptVerifyNo(String orderNo) {
+    public String encryptVerifyNo(String verifyNo) {
+        if (verifyNo == null) {
+            return null;
+        }
         AES aes = SecureUtil.aes(systemProperties.getApi().getSecretKey().getBytes(StandardCharsets.UTF_8));
-        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + orderNo);
+        return aes.encryptHex(System.currentTimeMillis() + CommonConstant.SPECIAL_SPLIT + verifyNo);
     }
 
     @Override

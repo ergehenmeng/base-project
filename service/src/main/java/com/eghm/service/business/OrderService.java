@@ -137,10 +137,10 @@ public interface OrderService extends IService<Order> {
 
     /**
      * 加密订单号
-     * @param orderNo 订单号
+     * @param verifyNo 核销码
      * @return 核销码
      */
-    String encryptVerifyNo(String orderNo);
+    String encryptVerifyNo(String verifyNo);
 
     /**
      * 门票下线退款

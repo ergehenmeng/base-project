@@ -5,7 +5,6 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
 import com.eghm.enums.ref.RefundType;
-import com.eghm.model.OrderVisitor;
 import com.eghm.vo.business.order.VisitorVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -85,7 +84,7 @@ public class LineOrderDetailVO {
     private Integer duration;
 
     @ApiModelProperty("核销码")
-    private String verifyCode;
+    private String verifyNo;
 
     @ApiModelProperty("游客信息")
     private List<VisitorVO> visitorList;
