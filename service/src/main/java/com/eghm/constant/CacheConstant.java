@@ -41,6 +41,11 @@ public class CacheConstant {
     public static final String SMS_TEMPLATE = "sms_template";
 
     /**
+     * 敏感词
+     */
+    public static final String SENSITIVE_WORD = "sensitive_word";
+
+    /**
      * 轮播图
      */
     public static final String BANNER = "banner";

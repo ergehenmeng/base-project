@@ -22,6 +22,11 @@ public interface ClearCacheService {
     void clearSmsTemplate();
 
     /**
+     * 重新加载敏感词
+     */
+    void clearSensitiveWord();
+
+    /**
      * 清除banner缓存
      */
     void clearBanner();

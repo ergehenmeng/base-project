@@ -3571,6 +3571,7 @@ INSERT INTO `sys_area` VALUES ('820108', '聖方濟各堂區', '820100', '999078
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('1', '系统参数缓存', 'sys_config', '1', '2020-01-03 08:03:36', '全局系统参数缓存(查询缓存)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('2', '数据字典缓存', 'sys_dict', '1', '2020-01-03 08:03:36', '全局数据字典缓存(查询缓存)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('5', '签名配置缓存', 'auth_config', '1', '2023-08-11 15:22:18', '第三方请求签名配置缓存');
+INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('6', '敏感词缓存', 'sensitive_word', '1', '2023-10-11 19:32:28', '敏感词缓存(重新加载)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('7', '短信模板缓存', 'sms_template', '1', '2020-01-03 08:03:36', '全局短信模板缓存(查询缓存)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('8', '推送模板缓存', 'push_template', '1', '2020-01-03 08:03:36', '全局消息推送模板缓存(查询缓存)');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('9', '零售标签缓存', 'item_tag', '1', '2020-01-03 08:03:36', '零售标签(查询缓存)');

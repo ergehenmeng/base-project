@@ -2,7 +2,9 @@ package com.eghm.service.cache.impl;
 
 import com.eghm.constant.CacheConstant;
 import com.eghm.service.cache.ClearCacheService;
+import com.eghm.service.common.SensitiveWordService;
 import freemarker.template.Configuration;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -16,9 +18,12 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service("clearCacheService")
+@RequiredArgsConstructor
 public class ClearCacheServiceImpl implements ClearCacheService {
 
     private Configuration configuration;
+
+    private final SensitiveWordService sensitiveWordService;
 
     @Autowired(required = false)
     public void setConfiguration(Configuration configuration) {
@@ -41,6 +46,12 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     @CacheEvict(cacheNames = CacheConstant.SMS_TEMPLATE, allEntries = true)
     public void clearSmsTemplate() {
         log.info("短信模板缓存清除成功");
+    }
+
+    @Override
+    public void clearSensitiveWord() {
+        sensitiveWordService.reloadLexicon();
+        log.info("敏感词缓存清除成功");
     }
 
     @Override

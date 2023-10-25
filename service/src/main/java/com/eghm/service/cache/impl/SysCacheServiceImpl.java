@@ -57,6 +57,9 @@ public class SysCacheServiceImpl implements SysCacheService {
                 case CacheConstant.SMS_TEMPLATE:
                     clearCacheService.clearSmsTemplate();
                     break;
+                case CacheConstant.SENSITIVE_WORD:
+                    clearCacheService.clearSensitiveWord();
+                    break;
                 case CacheConstant.PUSH_TEMPLATE:
                     clearCacheService.clearPushTemplate();
                     break;
