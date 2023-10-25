@@ -31,8 +31,6 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.function.Consumer;
 
 import static com.eghm.constant.CacheConstant.ERROR_PLACE_HOLDER;
@@ -331,14 +329,4 @@ public class RabbitListenerHandler {
         }
     }
 
-
-    /**
-     * 计算商品评价分数,保留一位小数
-     * @param num 评价数
-     * @param totalScore 总分数
-     * @return 分数
-     */
-    private BigDecimal calcAvgScore(Integer num, Integer totalScore) {
-        return BigDecimal.valueOf(totalScore).divide(BigDecimal.valueOf(num), 1, RoundingMode.HALF_UP);
-    }
 }
