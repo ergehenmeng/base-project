@@ -10,8 +10,6 @@ import com.eghm.vo.business.evaluation.OrderEvaluationResponse;
 import com.eghm.vo.business.evaluation.OrderEvaluationVO;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 /**
  * <p>
  * 订单评价 Mapper 接口
