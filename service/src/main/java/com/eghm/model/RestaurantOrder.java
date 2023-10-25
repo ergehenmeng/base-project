@@ -71,4 +71,6 @@ public class RestaurantOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "联系人电话")
     private String mobile;
 
+    @ApiModelProperty(value = "昵称")
+    private String nickName;
 }

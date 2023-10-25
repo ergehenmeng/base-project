@@ -45,6 +45,8 @@
             r.pay_type as payType,
             r.refund_type as refundType,
             r.refund_state as refundState,
+            m.title as restaurantName,
+            t.restaurant_id as restaurantId,
             r.price,
             r.discount_amount as discountAmount,
             r.num,
@@ -53,6 +55,12 @@
             r.create_time as createTime,
             r.pay_time as payTime,
             t.mobile,
+            t.nick_name as nickName,
+            t.valid_days as validDays,
+            t.effect_date as effectDate,
+            t.expire_date as expireDate,
+            t.effect_time as effectTime,
+            t.expire_time as expireTime,
             r.complete_time as completeTime,
             r.remark
         from `order` r

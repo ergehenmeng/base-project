@@ -114,6 +114,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         RestaurantOrder restaurantOrder = DataUtil.copy(payload.getRestaurantVoucher(), RestaurantOrder.class, "id");
         restaurantOrder.setOrderNo(order.getOrderNo());
         restaurantOrder.setMobile(context.getMobile());
+        restaurantOrder.setNickName(context.getNickName());
         restaurantOrder.setVoucherId(context.getVoucherId());
         restaurantOrderService.insert(restaurantOrder);
         context.setOrderNo(order.getOrderNo());

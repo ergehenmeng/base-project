@@ -74,17 +74,27 @@ public class RestaurantOrderDetailVO {
     @ApiModelProperty(value = "联系人手机号")
     private String mobile;
 
+    @ApiModelProperty(value = "昵称")
+    private String nickName;
+
     @ApiModelProperty("完成时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime completeTime;
 
-    @ApiModelProperty("入住日期")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate starDate;
+    @ApiModelProperty(value = "有效期购买之日起")
+    private Integer validDays;
 
-    @ApiModelProperty("离店日期")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate endDate;
+    @ApiModelProperty(value = "生效时间(包含)")
+    private LocalDate effectDate;
+
+    @ApiModelProperty(value = "失效日期(包含)")
+    private LocalDate expireDate;
+
+    @ApiModelProperty(value = "使用开始时间")
+    private String effectTime;
+
+    @ApiModelProperty(value = "使用截止时间")
+    private String expireTime;
 
     @ApiModelProperty("核销码")
     private String verifyNo;
