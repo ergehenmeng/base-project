@@ -83,7 +83,11 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-
+  "voucherId": 1716688620773548034,
+  "num": 1,
+  "nickName": "恩格尔",
+  "mobile": "13433212312",
+  "remark": "备注信息"
 }
 
 ###

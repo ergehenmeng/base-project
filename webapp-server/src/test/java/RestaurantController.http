@@ -5,3 +5,12 @@ Channel: {{Channel}}
 GET http://localhost:9090/webapp/restaurant/detail?id=1716687615256272898
 Channel: {{Channel}}
 
+###
+
+GET http://localhost:9090/webapp/restaurant/voucher/listPage?page=1&pageSize=10&restaurantId=1716687615256272898
+###
+
+
+GET http://localhost:9090/webapp/restaurant/voucher/detail?id=1716688620773548034
+Channel: {{Channel}}
+###

@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * @author 二哥很猛
  * @date 2022/6/30 22:03
@@ -15,6 +17,7 @@ import lombok.EqualsAndHashCode;
 public class VoucherQueryDTO extends PagingQuery {
 
     @ApiModelProperty(value = "餐饮商家id", required = true)
+    @NotNull(message = "商家id不能为空")
     private Long restaurantId;
 
     @ApiModelProperty("按售价排序(1:正序 2:倒序)")

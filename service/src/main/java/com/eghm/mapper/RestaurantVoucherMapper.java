@@ -33,7 +33,7 @@ public interface RestaurantVoucherMapper extends BaseMapper<RestaurantVoucher> {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<VoucherVO> getList(Page<VoucherVO> page, VoucherQueryDTO dto);
+    Page<VoucherVO> getList(Page<VoucherVO> page, @Param("param") VoucherQueryDTO dto);
 
     /**
      * 更新评分
