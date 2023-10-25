@@ -88,6 +88,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         }
         ProductSnapshotVO vo = new ProductSnapshotVO();
         vo.setSkuTitle(selected.getSkuTitle());
+        vo.setStoreId(selected.getStoreId());
         vo.setProductId(selected.getItemId());
         vo.setProductTitle(selected.getTitle());
         vo.setProductCover(selected.getCoverUrl());

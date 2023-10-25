@@ -36,4 +36,8 @@
             </otherwise>
         </choose>
     </select>
+
+    <update id="updateScore">
+        update restaurant_voucher set score = #{score} where id = #{id}
+    </update>
 </mapper>

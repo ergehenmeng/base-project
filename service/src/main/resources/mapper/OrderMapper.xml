@@ -7,6 +7,7 @@
         r.id as orderId,
         t.member_id as memberId,
         t.order_no as orderNo,
+        t.store_id as storeId,
         r.item_id as productId,
         t.title as productTitle,
         r.sku_title as skuTitle,
@@ -20,6 +21,7 @@
         select
             r.id as orderId,
             t.member_id as memberId,
+            t.store_id as storeId,
             t.order_no as orderNo,
             r.voucher_id as productId,
             t.title as productTitle,
@@ -33,6 +35,7 @@
         select
             r.id as orderId,
             t.member_id as memberId,
+            t.store_id as storeId,
             t.order_no as orderNo,
             r.ticket_id as productId,
             t.title as productTitle,
@@ -46,6 +49,7 @@
         select
             r.id as orderId,
             t.member_id as memberId,
+            t.store_id as storeId,
             t.order_no as orderNo,
             r.line_id as productId,
             t.title as productTitle,
@@ -59,6 +63,7 @@
         select
             r.id as orderId,
             t.member_id as memberId,
+            t.store_id as storeId,
             t.order_no as orderNo,
             r.line_id as productId,
             t.title as productTitle,

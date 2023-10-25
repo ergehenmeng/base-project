@@ -75,4 +75,7 @@
         </if>
     </select>
 
+    <update id="updateScore">
+        update line set score = #{score} where id = #{id}
+    </update>
 </mapper>

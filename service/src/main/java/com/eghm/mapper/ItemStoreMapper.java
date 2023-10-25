@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,4 +24,12 @@ public interface ItemStoreMapper extends BaseMapper<ItemStore> {
      * @return 列表
      */
     List<ItemStoreVO> getRecommend(@Param("limit") int limit);
+
+    /**
+     * 更新评分
+     *
+     * @param id id
+     * @param score 评分
+     */
+    void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 }

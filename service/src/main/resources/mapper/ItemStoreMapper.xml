@@ -13,4 +13,8 @@
         from item_store where state = 1 and deleted = false order by recommend desc limit #{limit}
     </select>
 
+    <update id="updateScore">
+        update item_store set score = #{score} where id = #{id}
+    </update>
+
 </mapper>

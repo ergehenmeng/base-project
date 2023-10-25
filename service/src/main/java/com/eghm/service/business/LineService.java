@@ -5,6 +5,7 @@ import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.business.line.LineQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Line;
 import com.eghm.vo.business.line.LineDetailVO;
@@ -88,9 +89,8 @@ public interface LineService {
     LineDetailVO detailById(Long id);
 
     /**
-     * 更新商品分数
-     * @param productId 商品信息
-     * @param score 分数
+     * 更新线路和旅行社评分
+     * @param vo 线路id和旅行社id
      */
-    void updateScore(Long productId, BigDecimal score);
+    void updateScore(CalcStatistics vo);
 }

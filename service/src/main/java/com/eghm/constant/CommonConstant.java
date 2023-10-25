@@ -108,6 +108,11 @@ public class CommonConstant {
     public static final long SCHEDULED_MAX_LOCK_TIME = 60;
 
     /**
+     * 最小评分数量
+     */
+    public static final long MIN_SCORE_NUM = 5;
+
+    /**
      * bitmap最大有效位 此处不使用64位的原因是针对无符号的u64最多只支持63位(最高位是符号位)
      */
     public static final int BITMAP = 32;

@@ -5,20 +5,26 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
 import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.business.line.LineQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
+import com.eghm.mapper.OrderEvaluationMapper;
+import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Line;
 import com.eghm.model.LineDayConfig;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineResponse;
@@ -27,7 +33,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -44,15 +49,19 @@ public class LineServiceImpl implements LineService {
 
     private final LineMapper lineMapper;
 
-    private final LineDayConfigService lineDayConfigService;
-
-    private final LineConfigService lineConfigService;
+    private final CommonService commonService;
 
     private final SysAreaService sysAreaService;
 
+    private final LineConfigService lineConfigService;
+
+    private final TravelAgencyMapper travelAgencyMapper;
+
     private final TravelAgencyService travelAgencyService;
 
-    private final CommonService commonService;
+    private final LineDayConfigService lineDayConfigService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<LineResponse> getByPage(LineQueryRequest request) {
@@ -144,11 +153,21 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
-    public void updateScore(Long productId, BigDecimal score) {
-        LambdaUpdateWrapper<Line> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Line::getId, productId);
-        wrapper.set(Line::getScore, score);
-        lineMapper.update(null, wrapper);
+    public void updateScore(CalcStatistics vo) {
+        AvgScoreVO storeScore = orderEvaluationMapper.getStoreScore(vo.getStoreId());
+        if (storeScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示旅行社评分 [{}]", vo.getStoreId());
+            return;
+        }
+
+        travelAgencyMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
+
+        AvgScoreVO productScore = orderEvaluationMapper.getProductScore(vo.getProductId());
+        if (productScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示线路商品评分 [{}]", vo.getProductId());
+            return;
+        }
+        lineMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
     }
 
     /**

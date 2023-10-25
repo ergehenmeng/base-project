@@ -5,6 +5,7 @@ import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constant.QueueConstant;
 import com.eghm.dto.ext.AsyncKey;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.dto.ext.LoginRecord;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.*;
@@ -22,7 +23,6 @@ import com.eghm.service.member.LoginService;
 import com.eghm.service.sys.ManageLogService;
 import com.eghm.service.sys.WebappLogService;
 import com.eghm.state.machine.StateHandler;
-import com.eghm.vo.business.evaluation.ProductScoreVO;
 import com.rabbitmq.client.Channel;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +31,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.function.Consumer;
 
 import static com.eghm.constant.CacheConstant.ERROR_PLACE_HOLDER;
@@ -221,31 +223,30 @@ public class RabbitListenerHandler {
     }
 
     /**
-     * 更新商品分数
+     * 更新分数
      * @param vo vo
      */
     @RabbitListener(queues = QueueConstant.PRODUCT_SCORE_QUEUE)
-    public void updateProductScore(ProductScoreVO vo, Message message, Channel channel) throws IOException {
-        final ProductScoreVO target = vo;
+    public void updateProductScore(CalcStatistics vo, Message message, Channel channel) throws IOException {
         processMessageAck(vo, message, channel, msg -> {
-            switch (target.getProductType()) {
+            switch (vo.getProductType()) {
                 case TICKET:
-                    scenicTicketService.updateScore(target.getProductId(), target.getScore());
+                    scenicTicketService.updateScore(vo);
                     break;
                 case ITEM:
-                    itemService.updateScore(target.getProductId(), target.getScore());
+                    itemService.updateScore(vo);
                     break;
                 case LINE:
-                    lineService.updateScore(target.getProductId(), target.getScore());
+                    lineService.updateScore(vo);
                     break;
                 case HOMESTAY:
-                    homestayService.updateScore(target.getProductId(), target.getScore());
+                    homestayService.updateScore(vo);
                     break;
                 case RESTAURANT:
-                    restaurantService.updateScore(target.getProductId(), target.getScore());
+                    restaurantService.updateScore(vo);
                     break;
                 default:
-                    log.error("非法更新商品分数 [{}]", target);
+                    log.error("非法更新商品分数 [{}]", vo);
                     break;
             }
         });
@@ -328,5 +329,16 @@ public class RabbitListenerHandler {
         } finally {
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
+    }
+
+
+    /**
+     * 计算商品评价分数,保留一位小数
+     * @param num 评价数
+     * @param totalScore 总分数
+     * @return 分数
+     */
+    private BigDecimal calcAvgScore(Integer num, Integer totalScore) {
+        return BigDecimal.valueOf(totalScore).divide(BigDecimal.valueOf(num), 1, RoundingMode.HALF_UP);
     }
 }

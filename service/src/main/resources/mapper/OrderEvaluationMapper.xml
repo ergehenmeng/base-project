@@ -40,9 +40,14 @@
         order by t.id desc
     </select>
 
-    <select id="getScore" resultType="com.eghm.vo.business.evaluation.AvgScoreVO">
+    <select id="getProductScore" resultType="com.eghm.vo.business.evaluation.AvgScoreVO">
         select count(id) as num, sum(score) as totalScore
         from order_evaluation where product_id = #{productId} and deleted = 0 and state = 1
+    </select>
+
+    <select id="getStoreScore" resultType="com.eghm.vo.business.evaluation.AvgScoreVO">
+        select count(id) as num, sum(store_score) as totalScore
+        from order_evaluation where store_id = #{storeId} and deleted = 0 and state = 1
     </select>
 
     <select id="getByPage" parameterType="com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO" resultType="com.eghm.vo.business.evaluation.OrderEvaluationVO">

@@ -85,6 +85,7 @@
     <select id="getSnapshot" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
         t.title as productTitle,
+        t.store_id as storeId,
         t.cover_url as productCover,
         r.ticket_id as productId
         from ticket_order r inner join `order` t on t.order_no = r.order_no

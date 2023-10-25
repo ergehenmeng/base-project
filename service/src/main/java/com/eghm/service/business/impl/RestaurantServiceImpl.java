@@ -6,15 +6,19 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.RestaurantMapper;
+import com.eghm.mapper.RestaurantVoucherMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.CommonService;
@@ -22,13 +26,14 @@ import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -45,6 +50,10 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     private final SysAreaService sysAreaService;
     
     private final CommonService commonService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
+
+    private final RestaurantVoucherMapper restaurantVoucherMapper;
 
     @Override
     public Page<Restaurant> getByPage(RestaurantQueryRequest request) {
@@ -125,11 +134,19 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     }
 
     @Override
-    public void updateScore(Long productId, BigDecimal score) {
-        LambdaUpdateWrapper<Restaurant> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Restaurant::getId, productId);
-        wrapper.set(Restaurant::getScore, score);
-        restaurantMapper.update(null, wrapper);
+    public void updateScore(CalcStatistics vo) {
+        AvgScoreVO storeScore = orderEvaluationMapper.getStoreScore(vo.getStoreId());
+        if (storeScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示餐饮商家评分 [{}]", vo.getStoreId());
+            return;
+        }
+        restaurantMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
+        AvgScoreVO productScore = orderEvaluationMapper.getProductScore(vo.getProductId());
+        if (productScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示餐饮券商品评分 [{}]", vo.getProductId());
+            return;
+        }
+        restaurantVoucherMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
     }
 
     /**

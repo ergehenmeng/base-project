@@ -7,6 +7,8 @@ import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 餐饮商家信息表 Mapper 接口
@@ -24,4 +26,12 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
      * @return 列表
      */
     Page<RestaurantListVO> getByPage(Page<RestaurantListVO> page, @Param("param") RestaurantQueryDTO dto);
+
+    /**
+     * 更新评分
+     *
+     * @param id id
+     * @param score 评分
+     */
+    void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 }

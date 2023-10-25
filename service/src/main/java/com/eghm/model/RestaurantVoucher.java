@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -60,6 +61,9 @@ public class RestaurantVoucher extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "总销量=虚拟销量+真实销量")
     private Integer totalNum;
+
+    @ApiModelProperty("评分")
+    private BigDecimal score;
 
     @ApiModelProperty(value = "购买说明")
     private String depict;

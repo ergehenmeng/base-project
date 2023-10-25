@@ -85,4 +85,10 @@
             </otherwise>
         </choose>
     </sql>
+
+
+    <update id="updateScore">
+        update homestay set score = #{score} where id = #{id}
+    </update>
+
 </mapper>

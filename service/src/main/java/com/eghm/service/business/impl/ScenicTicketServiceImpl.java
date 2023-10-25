@@ -5,25 +5,28 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketEditRequest;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
+import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.model.ScenicTicket;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.scenic.ticket.ScenicTicketResponse;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 /**
  * @author 二哥很猛 2022/6/15
@@ -36,6 +39,8 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     private final ScenicTicketMapper scenicTicketMapper;
 
     private final ScenicService scenicService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<ScenicTicketResponse> getByPage(ScenicTicketQueryRequest request) {
@@ -115,9 +120,13 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     }
 
     @Override
-    public void updateScore(Long productId, BigDecimal score) {
-        // 直接更新,防止门票被删除
-        scenicTicketMapper.updateScore(productId, score);
+    public void updateScore(CalcStatistics vo) {
+        AvgScoreVO score = orderEvaluationMapper.getProductScore(vo.getProductId());
+        if (score.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示景区评分 [{}]", vo.getProductId());
+            return;
+        }
+        scenicTicketMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(score.getTotalScore(), score.getNum()));
     }
 
     /**

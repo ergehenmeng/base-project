@@ -7,17 +7,20 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.constants.DictConstant;
 import com.eghm.dto.business.homestay.HomestayAddRequest;
 import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.HomestayMapper;
+import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysDict;
@@ -29,13 +32,14 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
+import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.homestay.HomestayListVO;
 import com.eghm.vo.business.homestay.HomestayVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -60,6 +64,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     private final SysConfigApi sysConfigApi;
 
     private final HomestayRoomService homestayRoomService;
+
+    private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
     public Page<Homestay> getByPage(HomestayQueryRequest request) {
@@ -167,11 +173,13 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     }
 
     @Override
-    public void updateScore(Long productId, BigDecimal score) {
-        LambdaUpdateWrapper<Homestay> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Homestay::getId, productId);
-        wrapper.set(Homestay::getScore, score);
-        homestayMapper.update(null, wrapper);
+    public void updateScore(CalcStatistics vo) {
+        AvgScoreVO storeScore = orderEvaluationMapper.getStoreScore(vo.getStoreId());
+        if (storeScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示民宿评分 [{}]", vo.getStoreId());
+            return;
+        }
+        homestayMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
     }
 
     /**

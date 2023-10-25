@@ -10,6 +10,8 @@ import com.eghm.vo.business.evaluation.OrderEvaluationResponse;
 import com.eghm.vo.business.evaluation.OrderEvaluationVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 订单评价 Mapper 接口
@@ -29,11 +31,17 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
     Page<OrderEvaluationResponse> listPage(Page<OrderEvaluationResponse> page, @Param("param") OrderEvaluationQueryRequest request);
 
     /**
-     * 统计订单总分数
+     * 统计商品总分数
      * @param productId 商品信息
      * @return 总分数
      */
-    AvgScoreVO getScore(@Param("productId") Long productId);
+    AvgScoreVO getProductScore(@Param("productId") Long productId);
+
+    /**
+     * 统计店铺总评分
+     * @return 评分数
+     */
+    AvgScoreVO getStoreScore(@Param("storeId") Long storeId);
 
     /**
      * 查询商品评论信息

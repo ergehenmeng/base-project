@@ -11,6 +11,7 @@ import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -81,4 +82,12 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @return 商品详细信息
      */
     ItemVO detailById(@Param("id") Long id);
+
+    /**
+     * 更新评分
+     *
+     * @param id id
+     * @param score 评分
+     */
+    void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 }

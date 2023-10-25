@@ -1,9 +1,12 @@
 package com.eghm.vo.business.evaluation;
 
+import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 /**
  * @author 二哥很猛
@@ -12,14 +15,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AvgScoreVO {
+public class StoreScoreVO {
 
-    @ApiModelProperty("订单数量")
-    private Integer num;
+    @ApiModelProperty("店铺Id")
+    private Long storeId;
+
+    @ApiModelProperty("商品类型")
+    private ProductType productType;
 
     @ApiModelProperty("分数")
-    private Integer totalScore;
-
-    @ApiModelProperty("店铺id")
-    private Long storeId;
+    private BigDecimal score;
 }

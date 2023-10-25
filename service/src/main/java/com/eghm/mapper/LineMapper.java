@@ -9,6 +9,8 @@ import com.eghm.vo.business.line.LineResponse;
 import com.eghm.vo.business.line.LineVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
+
 /**
  * <p>
  * 线路商品信息表 Mapper 接口
@@ -34,4 +36,12 @@ public interface LineMapper extends BaseMapper<Line> {
      * @return 线路列表
      */
     Page<LineVO> getByPage(Page<LineVO> page, @Param("param") LineQueryDTO dto);
+
+    /**
+     * 更新评分
+     *
+     * @param id id
+     * @param score 评分
+     */
+    void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 }

@@ -174,4 +174,8 @@
         where t.deleted = false and t.id = #{id}
     </select>
 
+    <update id="updateScore">
+        update item set score = #{score} where id = #{id}
+    </update>
+
 </mapper>

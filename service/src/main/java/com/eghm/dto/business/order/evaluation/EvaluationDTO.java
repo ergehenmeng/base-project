@@ -25,7 +25,7 @@ public class EvaluationDTO {
     @RangeInt(min = 1, max = 5, message = "物流评分不合法", required = false)
     private Integer logisticsScore;
 
-    @ApiModelProperty(value = "综合评分1-5分")
+    @ApiModelProperty(value = "综合评分1-5分(零售,线路,餐饮,门票)")
     @RangeInt(min = 1, max = 5, message = "综合评分不合法", required = false)
     private Integer score;
 

@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.evaluation.*;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.dto.ext.SendNotice;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
@@ -19,6 +20,7 @@ import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.evaluation.*;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import lombok.AllArgsConstructor;
@@ -139,13 +141,14 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
         orderEvaluationMapper.updateById(evaluation);
         // 审核通过会更新评论信息, 审核失败发送站内信
         if (dto.getState() == 1) {
-            AvgScoreVO score = orderEvaluationMapper.getScore(evaluation.getProductId());
-            if (score.getNum() >= 5) {
-                ProductScoreVO vo = new ProductScoreVO(evaluation.getProductId(), evaluation.getProductType(), this.calcAvgScore(score.getNum(), score.getTotalScore()));
-                messageService.send(ExchangeQueue.PRODUCT_SCORE, vo);
-            } else {
-                log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示评分 [{}]", evaluation.getProductId());
-            }
+            // 此处是为了防止消息发送后当前事务还没提交mq就已经消费的情况发生
+            TransactionUtil.afterCommit(() -> {
+                CalcStatistics statistics = new CalcStatistics();
+                statistics.setStoreId(evaluation.getStoreId());
+                statistics.setProductId(evaluation.getProductId());
+                statistics.setProductType(evaluation.getProductType());
+                messageService.send(ExchangeQueue.PRODUCT_SCORE, statistics);
+            });
         } else {
             SendNotice notice = new SendNotice();
             notice.setNoticeType(NoticeType.EVALUATION_REFUSE);
@@ -187,6 +190,16 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
         return vo;
     }
 
+    @Override
+    public AvgScoreVO getProductScore(Long productId) {
+        return orderEvaluationMapper.getProductScore(productId);
+    }
+
+    @Override
+    public AvgScoreVO getStoreScore(Long storeId) {
+        return orderEvaluationMapper.getStoreScore(storeId);
+    }
+
     /**
      * 计算好评率
      * @param total 总评价数
@@ -211,16 +224,6 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
                 vo.setNickName("匿名");
             }
         });
-    }
-
-    /**
-     * 计算商品评价分数,保留一位小数
-     * @param num 评价数
-     * @param totalScore 总分数
-     * @return 分数
-     */
-    private BigDecimal calcAvgScore(Integer num, Integer totalScore) {
-        return BigDecimal.valueOf(totalScore).divide(BigDecimal.valueOf(num), 1, RoundingMode.HALF_UP);
     }
 
     /**

@@ -5,6 +5,7 @@ import com.eghm.dto.business.restaurant.RestaurantAddRequest;
 import com.eghm.dto.business.restaurant.RestaurantEditRequest;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
@@ -81,8 +82,7 @@ public interface RestaurantService {
 
     /**
      * 更新商品分数
-     * @param productId 商品信息
-     * @param score 分数
+     * @param vo 店铺和商品信息
      */
-    void updateScore(Long productId, BigDecimal score);
+    void updateScore(CalcStatistics vo);
 }

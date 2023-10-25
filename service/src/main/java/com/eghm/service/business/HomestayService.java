@@ -5,6 +5,7 @@ import com.eghm.dto.business.homestay.HomestayAddRequest;
 import com.eghm.dto.business.homestay.HomestayEditRequest;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.vo.business.homestay.HomestayListVO;
@@ -79,9 +80,8 @@ public interface HomestayService {
     HomestayVO detailById(Long homestayId);
 
     /**
-     * 更新商品分数
-     * @param productId 商品信息
-     * @param score 分数
+     * 更新民宿和房型分数
+     * @param vo 商品信息
      */
-    void updateScore(Long productId, BigDecimal score);
+    void updateScore(CalcStatistics vo);
 }

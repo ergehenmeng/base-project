@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
@@ -12,19 +13,23 @@ import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
+import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.evaluation.ApplauseRateVO;
+import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
@@ -33,7 +38,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -54,6 +58,8 @@ public class ItemServiceImpl implements ItemService {
     private final SysConfigApi sysConfigApi;
 
     private final ItemSkuService itemSkuService;
+
+    private final ItemStoreMapper itemStoreMapper;
 
     private final ItemSpecService itemSpecService;
 
@@ -260,11 +266,21 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void updateScore(Long itemId, BigDecimal score) {
-        LambdaUpdateWrapper<Item> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Item::getId, itemId);
-        wrapper.set(Item::getScore, score);
-        itemMapper.update(null, wrapper);
+    public void updateScore(CalcStatistics vo) {
+        AvgScoreVO storeScore = orderEvaluationService.getStoreScore(vo.getStoreId());
+        if (storeScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示零售店铺评分 [{}]", vo.getStoreId());
+            return;
+        }
+
+        itemStoreMapper.updateScore(vo.getStoreId(), DecimalUtil.calcAvgScore(storeScore.getTotalScore(), storeScore.getNum()));
+
+        AvgScoreVO productScore = orderEvaluationService.getProductScore(vo.getProductId());
+        if (productScore.getNum() < CommonConstant.MIN_SCORE_NUM) {
+            log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示零售商品评分 [{}]", vo.getProductId());
+            return;
+        }
+        itemMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
     }
 
     @Override

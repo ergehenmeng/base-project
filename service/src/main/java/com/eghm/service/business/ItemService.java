@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.item.*;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
 import com.eghm.vo.business.item.ItemListResponse;
@@ -159,11 +160,10 @@ public interface ItemService {
     Integer calcStoreExpressFee(ExpressFeeCalcDTO dto);
 
     /**
-     * 更新商品分数
-     * @param itemId 商品信息
-     * @param score 分数
+     * 更新商品和门店评分
+     * @param vo 商品和门店信息
      */
-    void updateScore(Long itemId, BigDecimal score);
+    void updateScore(CalcStatistics vo);
 
     /**
      * 零售商品信息查询

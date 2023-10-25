@@ -29,6 +29,9 @@ public class OrderEvaluation extends BaseEntity implements Serializable {
     @ApiModelProperty("订单编号")
     private String orderNo;
 
+    @ApiModelProperty("店铺id")
+    private Long storeId;
+
     @ApiModelProperty(value = "商品类型")
     private ProductType productType;
 

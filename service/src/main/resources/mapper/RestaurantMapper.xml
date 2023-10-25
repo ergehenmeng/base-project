@@ -53,5 +53,7 @@
         ) s
         order by s.distance, s.id desc
     </sql>
-
+    <update id="updateScore">
+        update restaurant set score = #{score} where id = #{id}
+    </update>
 </mapper>

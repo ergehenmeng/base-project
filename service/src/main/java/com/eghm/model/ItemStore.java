@@ -71,4 +71,7 @@ public class ItemStore extends BaseEntity implements Serializable {
 
     @ApiModelProperty("是否为推荐店铺 true:是 false:不是")
     private Boolean recommend;
+
+    @ApiModelProperty("评分")
+    private BigDecimal score;
 }

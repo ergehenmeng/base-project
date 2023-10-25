@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.ScenicTicket;
 import com.eghm.dto.business.scenic.ticket.ScenicTicketAddRequest;
@@ -78,9 +79,8 @@ public interface ScenicTicketService {
 
     /**
      * 更新景区评分
-     * @param productId 门票id
-     * @param score 分数
+     * @param vo 评分信息
      */
-    void updateScore(Long productId, BigDecimal score);
+    void updateScore(CalcStatistics vo);
 
 }

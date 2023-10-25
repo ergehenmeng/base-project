@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.restaurant.VoucherVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -34,4 +35,12 @@ public interface RestaurantVoucherMapper extends BaseMapper<RestaurantVoucher> {
      * @return 列表
      */
     Page<VoucherVO> getList(Page<VoucherVO> page, VoucherQueryDTO dto);
+
+    /**
+     * 更新评分
+     *
+     * @param id id
+     * @param score 评分
+     */
+    void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 }
