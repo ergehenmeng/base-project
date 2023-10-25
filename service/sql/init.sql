@@ -3614,7 +3614,8 @@ INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VAL
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('2', 'register', '您正在注册EGHM平台，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:43:18', '注册短信验证码');
 INSERT INTO `sms_template` (`id`, `nid`, `content`, `update_time`, `remark`) VALUES ('3', 'change_email', '您正在更换EGHM平台账号的邮箱，短信验证码：{0}。如非本人操作，请忽略此短信', '2020-09-02 17:44:19', NULL);
 
-INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('1', 'FEEDBACK_PROCESS', '反馈结果', '您反馈的${classify} "${content}"问题，我们已接收。后期会根据需要进行优化，感谢您的支持与理解！', '2020-09-14 15:54:18');
+INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('1', 'feedback_process', '反馈结果', '您反馈的${classify} "${content}"问题，我们已接收。后期会根据需要进行优化，感谢您的支持与理解！', '2020-09-14 15:54:18');
+INSERT INTO `notice_template` (`id`, `code`, `title`, `content`, `update_time`) VALUES ('2', 'evaluation_refuse', '订单评价内容不合规', '您购买的${productTitle}商品, 单号:${orderNo},评价内容不合规, 原因:${remark}, 我们已做屏蔽处理', '2020-09-14 15:54:18');
 
 INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('3', 'bind_email', '绑定邮箱', '您正在使用该邮箱绑定EGHM平台账号，验证码为：${authCode}。如非本人操作，请忽略该邮件！', '2020-09-16 18:57:03', NULL);
 INSERT INTO `email_template` (`id`, `nid`, `title`, `content`, `update_time`, `remark`) VALUES ('4', 'change_email', '更换邮箱', '您正在更换EGHM账号的邮箱，验证码为：${authCode}。如非本人操作，请忽略该邮件！', '2020-09-16 18:57:10', NULL);

@@ -14,12 +14,18 @@ public enum NoticeType {
     /**
      * 通用类通知
      */
-    COMMON("COMMON", "通用类通知", false, "memberNotice"),
+    COMMON("common", "通用类通知", false, ""),
 
     /**
      * 用户反馈结果处理的通知
      */
-    FEEDBACK_PROCESS("FEEDBACK_PROCESS", "反馈处理", true, "memberNotice");
+    FEEDBACK_PROCESS("feedback_process", "反馈处理", true, ""),
+
+    /**
+     * 用户反馈结果处理的通知
+     */
+    EVALUATION_REFUSE("evaluation_refuse", "订单评价内容不合规", false, "");
+    ;
 
     /**
      * 分类

@@ -4,8 +4,10 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.order.evaluation.*;
+import com.eghm.dto.ext.SendNotice;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.NoticeType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
@@ -13,6 +15,7 @@ import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Order;
 import com.eghm.model.OrderEvaluation;
 import com.eghm.service.business.*;
+import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
@@ -25,7 +28,9 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -57,6 +62,8 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
     private final OrderService orderService;
 
     private final SysConfigApi sysConfigApi;
+
+    private final MemberNoticeService memberNoticeService;
 
     @Override
     public Page<OrderEvaluationResponse> listPage(OrderEvaluationQueryRequest request) {
@@ -130,10 +137,25 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
         evaluation.setUserId(dto.getUserId());
         evaluation.setAuditRemark(dto.getAuditRemark());
         orderEvaluationMapper.updateById(evaluation);
-
-        AvgScoreVO score = orderEvaluationMapper.getScore(evaluation.getProductId());
-        ProductScoreVO vo = new ProductScoreVO(evaluation.getProductId(), evaluation.getProductType(), this.calcAvgScore(score.getNum(), score.getTotalScore()));
-        messageService.send(ExchangeQueue.PRODUCT_SCORE, vo);
+        // 审核通过会更新评论信息, 审核失败发送站内信
+        if (dto.getState() == 1) {
+            AvgScoreVO score = orderEvaluationMapper.getScore(evaluation.getProductId());
+            if (score.getNum() >= 5) {
+                ProductScoreVO vo = new ProductScoreVO(evaluation.getProductId(), evaluation.getProductType(), this.calcAvgScore(score.getNum(), score.getTotalScore()));
+                messageService.send(ExchangeQueue.PRODUCT_SCORE, vo);
+            } else {
+                log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示评分 [{}]", evaluation.getProductId());
+            }
+        } else {
+            SendNotice notice = new SendNotice();
+            notice.setNoticeType(NoticeType.EVALUATION_REFUSE);
+            Map<String, Object> params = new HashMap<>(4);
+            params.put("orderNo", evaluation.getOrderNo());
+            params.put("productTitle", evaluation.getProductTitle());
+            params.put("remark", evaluation.getAuditRemark());
+            notice.setParams(params);
+            memberNoticeService.sendNotice(evaluation.getMemberId(), notice);
+        }
     }
 
     @Override
