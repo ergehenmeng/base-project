@@ -11,7 +11,6 @@ import com.eghm.model.Homestay;
 import com.eghm.vo.business.homestay.HomestayListVO;
 import com.eghm.vo.business.homestay.HomestayVO;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
