@@ -12,4 +12,53 @@
         where t.id = #{orderId} and r.order_no = #{orderNo} and t.deleted = false
     </select>
 
+    <select id="getList" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderVO" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO">
+        select
+        t.order_no as orderNo,
+        r.cover_url as coverUrl,
+        r.title,
+        m.title as restaurantName,
+        t.restaurant_id as restaurantId,
+        r.pay_type as payType,
+        r.num,
+        r.state,
+        r.pay_amount as payAmount
+        from `order` r
+        inner join restaurant_order t on t.order_no = r.order_no
+        left join restaurant m on t.restaurant_id = m.id
+        where t.deleted = false and r.member_id = #{param.memberId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.orderState != null">
+            and r.state = #{param.orderState}
+        </if>
+        order by t.id desc
+    </select>
+
+    <select id="getDetail" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO">
+        select
+            t.order_no as orderNo,
+            r.cover_url as coverUrl,
+            r.title,
+            r.verify_no as verifyNo,
+            r.pay_type as payType,
+            r.refund_type as refundType,
+            r.refund_state as refundState,
+            r.price,
+            r.discount_amount as discountAmount,
+            r.num,
+            r.state,
+            r.pay_amount as payAmount,
+            r.create_time as createTime,
+            r.pay_time as payTime,
+            t.mobile,
+            r.complete_time as completeTime,
+            r.remark
+        from `order` r
+        inner join restaurant_order t on t.order_no = r.order_no
+        left join restaurant m on t.restaurant_id = m.id
+        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+    </select>
+
 </mapper>

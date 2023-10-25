@@ -1,13 +1,26 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO;
+import com.eghm.vo.business.order.restaurant.RestaurantOrderVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
  * @date 2022/8/23
  */
 public interface RestaurantOrderService {
+
+    /**
+     * 分页查询餐饮订单列表
+     *
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<RestaurantOrderVO> getByPage(VoucherOrderQueryDTO dto);
 
     /**
      * 插入餐饮订单
@@ -36,4 +49,13 @@ public interface RestaurantOrderService {
      * @return 商品餐饮快照
      */
     ProductSnapshotVO getSnapshot(Long orderId, String orderNo);
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderNo 订单编号
+     * @param memberId 用户id
+     * @return 订单详情
+     */
+    RestaurantOrderDetailVO getDetail(String orderNo, Long memberId);
 }

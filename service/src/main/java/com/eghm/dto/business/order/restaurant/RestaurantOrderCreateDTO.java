@@ -5,7 +5,6 @@ import com.eghm.validation.annotation.RangeInt;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -26,11 +25,6 @@ public class RestaurantOrderCreateDTO {
 
     @ApiModelProperty("优惠券id")
     private Long couponId;
-
-    @ApiModelProperty(value = "联系人姓名", required = true)
-    @Size(min = 2, max = 10, message = "联系人姓名应为2~10字符")
-    @NotBlank(message = "联系人姓名不能为空")
-    private String nickName;
 
     @ApiModelProperty(value = "联系人电话", required = true)
     @Mobile(message = "联系人手机号格式错误")
