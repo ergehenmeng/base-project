@@ -751,3 +751,15 @@ CREATE TABLE `sys_notice`
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='系统公告';
+
+DROP TABLE IF EXISTS `sensitive_word`;
+CREATE TABLE `sensitive_word`
+(
+    `id`          varchar(64) NOT NULL COMMENT '主键',
+    `keyword`     varchar(200)         DEFAULT NULL COMMENT '敏感字',
+    `create_time` datetime             DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime             DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)      NOT NULL DEFAULT b'0' COMMENT '删除状态: 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='敏感词库';
