@@ -23,6 +23,11 @@ public enum DeliveryType implements EnumBinder {
      * 快递包邮
      */
     EXPRESS(1, "快递包邮"),
+
+    /**
+     * 门店自提
+     */
+    SELF_PICK(2, "门店自提"),
     ;
 
     @JsonValue

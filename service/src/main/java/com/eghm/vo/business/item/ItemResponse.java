@@ -1,5 +1,6 @@
 package com.eghm.vo.business.item;
 
+import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.RefundType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -36,8 +37,8 @@ public class ItemResponse {
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
     
-    @ApiModelProperty(value = "交付方式 1:门店自提 2:快递包邮")
-    private Integer deliveryMethod;
+    @ApiModelProperty(value = "交付方式 1:快递包邮 2:门店自提 ")
+    private DeliveryType deliveryType;
     
     @ApiModelProperty(value = "退款方式 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;

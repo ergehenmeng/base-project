@@ -9,13 +9,15 @@ Content-Type: application/json
 
 {
   "title": "火腿肠5包",
-  "storeId": "1608726046030311425",
+  "storeId": 1717388362096668673,
   "depict": "商品描述信息",
   "coverUrl": "http://localhost:8080/coverUrl.png",
   "purchaseNotes": "购买须知",
   "quota": 10,
-  "deliveryMethod": 1,
+  "deliveryType": 1,
+  "multiSpec": false,
   "refundType": 1,
+  "refundDescribe": "直接退款",
   "virtualNum": 10,
   "introduce": "详细介绍",
   "skuList": [{
@@ -42,7 +44,7 @@ Content-Type: application/json
   "coverUrl": "http://localhost:8080/coverUrl.png",
   "purchaseNotes": "购买须知",
   "quota": 10,
-  "deliveryMethod": 1,
+  "deliveryType": 1,
   "refundType": 1,
   "refundDescribe": "我是退款描述",
   "virtualNum": 10,
@@ -76,7 +78,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1608738767752790017
+  "id": 1717389387411066882
 }
 ###
 

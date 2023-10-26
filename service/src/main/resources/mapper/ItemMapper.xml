@@ -7,7 +7,7 @@
         t.id,
         t.store_id as storeId,
         t.title,
-        r.title as shopName,
+        r.title as storeName,
         t.sale_num as saleNum,
         t.state,
         t.quota,

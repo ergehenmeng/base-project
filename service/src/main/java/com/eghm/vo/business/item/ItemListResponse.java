@@ -25,7 +25,7 @@ public class ItemListResponse {
     private Long storeId;
 
     @ApiModelProperty("店铺名称")
-    private String shopName;
+    private String storeName;
 
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2: 强制下架")
     private State state;

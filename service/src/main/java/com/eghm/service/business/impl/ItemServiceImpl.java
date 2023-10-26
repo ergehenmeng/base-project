@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.item.*;
@@ -85,9 +86,10 @@ public class ItemServiceImpl implements ItemService {
         this.checkExpress(request.getExpressId(), request.getSkuList());
 
         Item item = DataUtil.copy(request, Item.class);
+        item.setMerchantId(SecurityHolder.getMerchantId());
         this.setMinMaxPrice(item, request.getSkuList());
         // 总销量需要添加虚拟销量
-        item.setTotalNum(request.getSkuList().stream().mapToInt(ItemSkuRequest::getVirtualNum).sum());
+        item.setTotalNum(request.getSkuList().stream().filter(itemSkuRequest -> itemSkuRequest.getVirtualNum() != null).mapToInt(ItemSkuRequest::getVirtualNum).sum());
         itemMapper.insert(item);
         
         Map<String, Long> specMap = itemSpecService.insert(item, request.getSpecList());

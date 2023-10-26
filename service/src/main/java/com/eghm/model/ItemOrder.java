@@ -78,7 +78,7 @@ public class ItemOrder extends BaseEntity implements Serializable {
     private Integer quota;
 
     @ApiModelProperty(value = "交付方式 0:无需发货 1:门店自提 2:快递包邮")
-    private Boolean deliveryMethod;
+    private Integer deliveryType;
 
     @ApiModelProperty(value = "商品介绍信息")
     private String introduce;
