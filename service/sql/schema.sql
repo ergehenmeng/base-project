@@ -421,7 +421,7 @@ CREATE TABLE `sys_holiday`
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu`
 (
-    `id`            varchar(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `id`            varchar(20) NOT NULL COMMENT '主键',
     `title`         varchar(20) NOT NULL COMMENT '菜单名称',
     `code`          varchar(50) NOT NULL COMMENT '菜单标示符(自动生成)',
     `pid`           varchar(20) NOT NULL COMMENT '父节点ID,一级菜单默认为0',
