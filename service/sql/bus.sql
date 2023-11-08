@@ -563,7 +563,7 @@ CREATE TABLE `order`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `merchant_id`     bigint(20) NOT NULL COMMENT '订单所属商户id',
-    `title`           varchar(50)  DEFAULT NULL COMMENT '商品名称',
+    `title`           varchar(200)  DEFAULT NULL COMMENT '商品名称',
     `cover_url`       varchar(200) DEFAULT NULL COMMENT '商品封面图(第一张)',
     `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
     `multiple`        bit(1)       default b'0' comment '是否为多订单,普通商品且购物车购买才可能是多订单,即一个订单对应多个商品',

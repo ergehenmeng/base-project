@@ -49,6 +49,17 @@ public class ItemOrderServiceImpl implements ItemOrderService {
             ItemOrder order = DataUtil.copy(aPackage.getItem(), ItemOrder.class, "id");
             BeanUtil.copyProperties(aPackage.getSku(), order, "id");
             order.setSkuTitle(this.getSkuTitle(aPackage.getSku()));
+            order.setCoverUrl(aPackage.getItem().getCoverUrl());
+            order.setOrderNo(orderNo);
+            order.setSkuId(aPackage.getSkuId());
+            String skuPic = aPackage.getSku().getSkuPic();
+            if (skuPic != null) {
+                order.setCoverUrl(skuPic);
+            } else {
+                order.setCoverUrl(aPackage.getItem().getCoverUrl());
+            }
+            order.setNum(aPackage.getNum());
+            order.setDeliveryType(aPackage.getItem().getDeliveryType());
             order.setExpressFee(skuExpressMap.get(order.getSkuId()));
             itemOrderMapper.insert(order);
         }

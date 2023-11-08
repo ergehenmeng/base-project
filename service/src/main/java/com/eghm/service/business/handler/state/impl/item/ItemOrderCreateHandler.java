@@ -129,6 +129,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList, int expressAmount, ItemOrderPayload payload) {
         Order order = DataUtil.copy(payload, Order.class);
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
+        order.setTitle(this.getTitle(packageList));
         order.setMemberId(memberId);
         order.setMultiple(multiple);
         order.setRefundType(this.getRefundType(packageList));
@@ -140,12 +141,34 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     }
 
     /**
-     * 获取sku封面图
+     * 生成订单商品标题(快照), 由于可以购物车下单,因此多个商品同时下单时标题拼接在一起可能会过长, 需要截取
+     * @param packageList 商品列表
+     * @return 标题信息 逗号分割
+     */
+    private String getTitle(List<OrderPackage> packageList) {
+        String collect = packageList.stream().map(orderPackage -> orderPackage.getItem().getTitle()).collect(Collectors.joining(CommonConstant.DOT_SPLIT));
+        if (collect.length() > 100) {
+            return collect.substring(0, 100) + "等";
+        }
+        return collect;
+    }
+
+    /**
+     * 获取sku封面图, 注意:单规格sku由于没有封面图,默认取商品的第一张作为封面图
      * @param packageList 下单的商品列表
      * @return skuPic 多张逗号分隔
      */
     private String getFirstCoverUrl(List<OrderPackage> packageList) {
-        return packageList.stream().map(orderPackage -> orderPackage.getSku().getSkuPic()).collect(Collectors.joining(CommonConstant.DOT_SPLIT));
+        List<String> coverList = new ArrayList<>(8);
+        for (OrderPackage aPackage : packageList) {
+            String skuPic = aPackage.getSku().getSkuPic();
+            if (skuPic != null) {
+                coverList.add(skuPic);
+            } else {
+                coverList.add(aPackage.getItem().getCoverUrl().split(CommonConstant.DOT_SPLIT)[0]);
+            }
+        }
+        return CollUtil.join(coverList, CommonConstant.DOT_SPLIT);
     }
 
     /**

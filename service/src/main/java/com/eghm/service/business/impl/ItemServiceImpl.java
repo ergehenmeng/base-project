@@ -13,7 +13,6 @@ import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemCalcDTO;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
-import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
@@ -24,7 +23,6 @@ import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.*;
 import com.eghm.service.business.*;
-import com.eghm.service.sys.DingTalkService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.BeanValidator;
 import com.eghm.utils.DataUtil;
@@ -44,7 +42,8 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.eghm.enums.ErrorCode.*;
+import static com.eghm.enums.ErrorCode.EXPRESS_WEIGHT;
+import static com.eghm.enums.ErrorCode.ITEM_DOWN;
 
 /**
  * @author 殿小二
@@ -64,8 +63,6 @@ public class ItemServiceImpl implements ItemService {
     private final ItemStoreMapper itemStoreMapper;
 
     private final ItemSpecService itemSpecService;
-
-    private final DingTalkService dingTalkService;
 
     private final ItemExpressService itemExpressService;
 
@@ -250,11 +247,9 @@ public class ItemServiceImpl implements ItemService {
     public Integer calcStoreExpressFee(ExpressFeeCalcDTO dto) {
         List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
         List<ItemExpressVO> expressList = itemExpressService.getExpressList(itemIds, dto.getStoreId());
-        // 前端根据店铺进行分组,但是并不一定保证是真实的,此处做二次校验,防止恶意调用接口
-        if (expressList.size() != dto.getOrderList().size()) {
-            log.error("商品不属于同一家店铺或者存在下架的商品, 可能是恶意下单 [{}] [{}]", ApiHolder.getMemberId(), dto);
-            dingTalkService.sendMsg(String.format("商品不属于同一家店铺, 可能是恶意下单 [%d]", ApiHolder.getMemberId()));
-            throw new BusinessException(ITEM_MAY_DOWN);
+        // 商品没有查询到快递信息,默认都是免邮
+        if (CollUtil.isEmpty(expressList)) {
+            return 0;
         }
         // 保存映射关系,减少后面数据库访问次数
         Map<Long, ItemExpressVO> expressMap = expressList.stream().collect(Collectors.toMap(ItemExpressVO::getItemId, Function.identity()));

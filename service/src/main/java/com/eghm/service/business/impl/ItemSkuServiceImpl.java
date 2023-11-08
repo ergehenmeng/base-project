@@ -133,6 +133,9 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         Long primaryId = specMap.get(request.getPrimarySpecValue());
         Long secondId = specMap.get(request.getSecondSpecValue());
         if (secondId == null) {
+            if (primaryId == null) {
+                return null;
+            }
             return String.valueOf(primaryId);
         }
         return primaryId + "," + secondId;
