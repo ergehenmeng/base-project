@@ -29,4 +29,10 @@ public class ItemListVO {
 
     @ApiModelProperty(value = "销售数量(所有规格销售总量)")
     private Integer saleNum;
+
+    @ApiModelProperty("店铺名称")
+    private String storeName;
+
+    @ApiModelProperty("店铺id")
+    private Long storeId;
 }

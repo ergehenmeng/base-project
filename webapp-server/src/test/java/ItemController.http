@@ -2,7 +2,7 @@ http://localhost:9090/webapp/item/listPage?page=1&pageSize=10
 Channel: {{Channel}}
 
 ###
-http://localhost:9090/webapp/item/detail?id=xx
+http://localhost:9090/webapp/item/detail?id=1717389387411066882
 Channel: {{Channel}}
 
 ###

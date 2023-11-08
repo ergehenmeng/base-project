@@ -780,7 +780,7 @@ CREATE TABLE `item_sku`
     `stock`              smallint(4)    DEFAULT '0' COMMENT '库存',
     `virtual_num`        smallint(4)    DEFAULT '0' COMMENT '虚拟销量',
     `sale_num`           int(11)        DEFAULT '0' COMMENT '销售量',
-    `weight`             decimal(10, 2) DEFAULT NULL COMMENT '重量',
+    `weight`             decimal(10, 2) DEFAULT NULL COMMENT '重量kg',
     `sku_pic`            varchar(255)   DEFAULT NULL COMMENT 'sku图片(优先级最高)',
     `create_time`        datetime       DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`        datetime       DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

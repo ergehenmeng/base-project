@@ -35,6 +35,7 @@ import com.eghm.vo.business.item.*;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import com.eghm.vo.business.item.express.StoreExpressVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -303,7 +304,7 @@ public class ItemServiceImpl implements ItemService {
             detail.setSpecList(this.getSpecList(id));
             detail.setSkuList(DataUtil.copy(skuList, ItemSkuVO.class));
         } else {
-            detail.setSingleSku(DataUtil.copy(skuList.get(0), ItemSkuVO.class));
+            detail.setSkuList(Lists.newArrayList(DataUtil.copy(skuList.get(0), ItemSkuVO.class)));
         }
         return detail;
     }

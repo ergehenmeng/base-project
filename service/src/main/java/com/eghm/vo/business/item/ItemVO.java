@@ -95,9 +95,7 @@ public class ItemVO {
     @ApiModelProperty("多规格信息")
     private List<ItemGroupSpecVO> specList;
 
-    @ApiModelProperty("多规格sku信息")
+    @ApiModelProperty("规格sku信息(单规格只有一条)")
     private List<ItemSkuVO> skuList;
 
-    @ApiModelProperty("单规格sku信息")
-    private ItemSkuVO singleSku;
 }
