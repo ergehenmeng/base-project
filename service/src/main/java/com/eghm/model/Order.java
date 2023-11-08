@@ -43,7 +43,7 @@ public class Order extends BaseEntity implements Serializable {
     private Long storeId;
 
     /**
-     * 零售由于可能是多商品同时下单, 因此该字段会为空
+     * 零售由于可能是多商品同时下单, 该字段没有意义, 因此会为空
      */
     @ApiModelProperty(value = "单价")
     private Integer price;
