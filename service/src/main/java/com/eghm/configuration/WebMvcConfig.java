@@ -110,13 +110,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
     @PostConstruct
     public void jsonNullToString() {
 
-        JsonSerializer<Object> serializer = new JsonSerializer<Object>() {
-            @Override
-            public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-                gen.writeString("");
-            }
-        };
-
         JsonSerializer<Object> arraySerializer = new JsonSerializer<Object>() {
             @Override
             public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -132,8 +125,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
                     JavaType javaType = writer.getType();
                     if (javaType.isArrayType() || javaType.isCollectionLikeType()) {
                         writer.assignNullSerializer(arraySerializer);
-                    } else if (javaType.hasRawClass(String.class)) {
-                        writer.assignNullSerializer(serializer);
                     }
                 }
                 return beanProperties;

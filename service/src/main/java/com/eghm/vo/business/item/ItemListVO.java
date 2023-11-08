@@ -11,7 +11,7 @@ import lombok.Data;
  * @since 2022/12/30
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class ItemListVO {
 
     @ApiModelProperty(value = "商品id")
