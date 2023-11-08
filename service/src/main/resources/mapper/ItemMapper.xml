@@ -48,7 +48,7 @@
         id,
         title,
         cover_url as coverUrl,
-        sale_num as saleNum,
+        total_num as saleNum,
         min_price as minPrice
         from item where deleted = false and state = 1
         <if test="shopId != null">
@@ -62,7 +62,7 @@
             id,
             title,
             cover_url as coverUrl,
-            sale_num as saleNum,
+            total_num as saleNum,
             min_price as minPrice
         from item where deleted = false and state = 1
         order by min_price &gt; 0, recommend desc, id limit #{limit}
@@ -73,7 +73,7 @@
         t.id,
         t.title,
         t.cover_url as coverUrl,
-        t.sale_num as saleNum,
+        t.total_num as saleNum,
         t.min_price as minPrice,
         r.title as storeName,
         t.store_id as storeId
