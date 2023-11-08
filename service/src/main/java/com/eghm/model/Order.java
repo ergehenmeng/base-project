@@ -42,6 +42,9 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty("商品所属店铺")
     private Long storeId;
 
+    /**
+     * 零售由于可能是多商品同时下单, 因此该字段会为空
+     */
     @ApiModelProperty(value = "单价")
     private Integer price;
 
