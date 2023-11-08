@@ -9,16 +9,14 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.enums.ref.RefundType;
-import com.eghm.model.Item;
-import com.eghm.model.ItemSku;
-import com.eghm.model.ItemStore;
-import com.eghm.model.Order;
+import com.eghm.model.*;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.ItemOrderCreateContext;
 import com.eghm.service.business.handler.dto.ItemDTO;
 import com.eghm.service.business.handler.dto.ItemOrderPayload;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.business.handler.state.OrderCreateHandler;
+import com.eghm.service.member.MemberAddressService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
@@ -48,6 +46,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     private final OrderService orderService;
 
     private final OrderMQService orderMQService;
+
+    private final MemberAddressService memberAddressService;
 
     /**
      * 普通订单下单处理逻辑
@@ -79,7 +79,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         boolean isMultiple = storeMap.size() > 1;
         for (Map.Entry<Long, List<OrderPackage>> entry : storeMap.entrySet()) {
 
-            Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), context.getCountyId(), entry.getValue());
+            Map<Long, Integer> skuExpressMap = this.calcExpressFee(entry.getKey(), payload.getCountyId(), entry.getValue());
             String orderNo = ProductType.ITEM.generateOrderNo();
             itemOrderService.insert(orderNo, entry.getValue(), skuExpressMap);
 
@@ -87,9 +87,10 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
             itemSkuService.updateStock(skuNumMap);
 
             int expressAmount = skuExpressMap.values().stream().reduce(Integer::sum).orElse(0);
-            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount);
+            Order order = this.generateOrder(context.getMemberId(), isMultiple, entry.getValue(), expressAmount, payload);
             order.setOrderNo(orderNo);
             order.setStoreId(entry.getKey());
+            order.setRemark(context.getRemark());
             // 同一家商户merchantId肯定是一样的
             order.setMerchantId(entry.getValue().get(0).getItemStore().getMerchantId());
             orderService.save(order);
@@ -125,8 +126,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @param expressAmount 快递费
      * @return 订单信息
      */
-    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList, int expressAmount) {
-        Order order = new Order();
+    private Order generateOrder(Long memberId, boolean multiple, List<OrderPackage> packageList, int expressAmount, ItemOrderPayload payload) {
+        Order order = DataUtil.copy(payload, Order.class);
         order.setCoverUrl(this.getFirstCoverUrl(packageList));
         order.setMemberId(memberId);
         order.setMultiple(multiple);
@@ -153,6 +154,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * @return 商品信息及下单信息
      */
     private ItemOrderPayload getPayload(ItemOrderCreateContext context) {
+        MemberAddress memberAddress = memberAddressService.getById(context.getAddressId(), context.getMemberId());
         // 组装数据,减少后面遍历逻辑
         Set<Long> itemIds = context.getItemList().stream().map(ItemDTO::getItemId).collect(Collectors.toSet());
         Map<Long, Item> itemMap = itemService.getByIdShelveMap(itemIds);
@@ -176,6 +178,11 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         }
         ItemOrderPayload orderDTO = DataUtil.copy(context, ItemOrderPayload.class);
         orderDTO.setPackageList(packageList);
+        orderDTO.setProvinceId(memberAddress.getProvinceId());
+        orderDTO.setCityId(memberAddress.getCityId());
+        orderDTO.setCountyId(memberAddress.getCountyId());
+        orderDTO.setDetailAddress(memberAddress.getDetailAddress());
+        orderDTO.setNickName(memberAddress.getCityName());
         return orderDTO;
     }
 

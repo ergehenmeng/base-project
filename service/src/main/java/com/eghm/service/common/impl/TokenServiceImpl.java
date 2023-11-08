@@ -30,7 +30,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public MemberToken createToken(Long memberId, String channel) {
         String refreshToken = IdUtil.fastSimpleUUID();
-        String accessToken = StringUtil.randomLowerCase(64);
+        String accessToken = IdUtil.fastSimpleUUID();
         MemberToken memberToken = MemberToken.builder().token(accessToken).memberId(memberId).channel(channel).refreshToken(refreshToken).build();
         this.cacheToken(memberToken);
         return memberToken;

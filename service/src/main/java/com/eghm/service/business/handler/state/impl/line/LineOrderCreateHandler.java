@@ -105,6 +105,8 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         order.setPayAmount(order.getNum() * order.getPrice());
         order.setDeliveryType(DeliveryType.NO_SHIPMENT);
         order.setMultiple(false);
+        order.setMobile(context.getMobile());
+        order.setNickName(context.getNickName());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), context.getLineId());
         orderService.save(order);
@@ -131,8 +133,6 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
         lineOrder.setOrderNo(order.getOrderNo());
         lineOrder.setLineConfigId(payload.getConfig().getId());
         lineOrder.setLinePrice(payload.getConfig().getLinePrice());
-        lineOrder.setMobile(context.getMobile());
-        lineOrder.setNickName(context.getNickName());
         lineOrder.setVisitDate(payload.getConfig().getConfigDate());
         lineOrderService.insert(lineOrder);
         lineOrderSnapshotService.insert(payload.getLine().getId(), order.getOrderNo(), payload.getDayList());

@@ -592,6 +592,11 @@ public enum ErrorCode {
     ADDRESS_MAX(3118, "收货地址太多啦~"),
 
     /**
+     * 收货地址不见啦~
+     */
+    ADDRESS_NULL(3119, "收货地址不见啦~"),
+
+    /**
      * 版本号格式错误
      */
     VERSION_ERROR(3120, "版本号格式错误"),

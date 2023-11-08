@@ -99,6 +99,12 @@ public class Order extends BaseEntity implements Serializable {
     @ApiModelProperty("订单关闭时间")
     private LocalDateTime closeTime;
 
+    @ApiModelProperty("收货人姓名")
+    private String nickName;
+
+    @ApiModelProperty("收货人手机号")
+    private String mobile;
+
     @ApiModelProperty(value = "省份id")
     private Long provinceId;
 

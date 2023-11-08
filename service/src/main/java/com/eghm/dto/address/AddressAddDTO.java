@@ -1,12 +1,15 @@
 package com.eghm.dto.address;
 
 import com.eghm.annotation.Assign;
+import com.eghm.validation.annotation.Mobile;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author 殿小二
@@ -18,6 +21,15 @@ public class AddressAddDTO {
     @ApiModelProperty(hidden = true)
     @Assign
     private Long memberId;
+
+    @ApiModelProperty("收货人姓名")
+    @Size(max = 10, message = "收货人姓名最大10字符")
+    @NotBlank(message = "收货人姓名不能为空")
+    private String nickName;
+
+    @ApiModelProperty("收货人手机号")
+    @Mobile(message = "收货人手机号格式错误")
+    private String mobile;
 
     @ApiModelProperty(value = "省份id",required = true)
     @NotNull(message = "省份不能为空")

@@ -2,6 +2,7 @@ package com.eghm.service.member;
 
 import com.eghm.dto.address.AddressAddDTO;
 import com.eghm.dto.address.AddressEditDTO;
+import com.eghm.model.MemberAddress;
 import com.eghm.vo.member.AddressVO;
 
 import java.util.List;
@@ -43,4 +44,12 @@ public interface MemberAddressService {
      * @return 列表
      */
     List<AddressVO> getByMemberId(Long memberId);
+
+    /**
+     * 查询用户自己的收货地址
+     * @param id 收货地址id
+     * @param memberId 用户id
+     * @return 收货地址
+     */
+    MemberAddress getById(Long id, Long memberId);
 }

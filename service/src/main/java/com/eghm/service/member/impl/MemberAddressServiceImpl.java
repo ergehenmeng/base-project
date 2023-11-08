@@ -84,6 +84,19 @@ public class MemberAddressServiceImpl implements MemberAddressService {
         return DataUtil.copy(addressList, address -> DataUtil.copy(address, AddressVO.class));
     }
 
+    @Override
+    public MemberAddress getById(Long id, Long memberId) {
+        LambdaQueryWrapper<MemberAddress> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(MemberAddress::getMemberId, memberId);
+        wrapper.eq(MemberAddress::getId, id);
+        MemberAddress selectOne = memberAddressMapper.selectOne(wrapper);
+        if (selectOne == null) {
+            log.info("未查询到用户自己的收货地址 [{}] [{}]", id, memberId);
+            throw new ParameterException(ErrorCode.ADDRESS_NULL);
+        }
+        return selectOne;
+    }
+
     /**
      * 校验用户录入的最大收货地址数
      * @param memberId 用户id

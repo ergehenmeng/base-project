@@ -10,6 +10,8 @@ Token: {{Token}}
 Content-Type: application/json; charset=utf-8
 
 {
+  "nickName": "二哥很猛",
+  "mobile": "13323233332",
   "provinceId": 410000,
   "cityId": 411600,
   "countyId": 411621,

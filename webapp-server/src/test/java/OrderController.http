@@ -19,7 +19,8 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-
+  "addressId": 1722175064609751041,
+  "remark": "订单备注",
 }
 
 

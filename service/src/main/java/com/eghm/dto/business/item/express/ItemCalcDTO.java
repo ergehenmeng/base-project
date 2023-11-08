@@ -29,7 +29,7 @@ public class ItemCalcDTO {
     private Integer num;
 
     @Assign
-    @ApiModelProperty(value = "快递id", hidden = true)
+    @ApiModelProperty(value = "物流模板id", hidden = true)
     private Long expressId;
 
     @Assign

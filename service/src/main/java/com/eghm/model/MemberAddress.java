@@ -29,6 +29,12 @@ public class MemberAddress extends BaseEntity {
     @ApiModelProperty("状态 0: 普通地址  1:默认地址")
     private Integer state;
 
+    @ApiModelProperty("收货人姓名")
+    private String nickName;
+
+    @ApiModelProperty("收货人手机号")
+    private String mobile;
+
     @ApiModelProperty("省份id")
     private Long provinceId;
 

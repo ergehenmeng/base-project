@@ -30,23 +30,8 @@ public class ItemOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("联系人电话")
-    private String mobile;
-
-    @ApiModelProperty("自提点Id")
-    private Long pickUpId;
-
-    @ApiModelProperty(value = "省份id")
-    private Long provinceId;
-
-    @ApiModelProperty(value = "城市id")
-    private Long cityId;
-
-    @ApiModelProperty(value = "县区id")
-    private Long countyId;
-
-    @ApiModelProperty(value = "详细地址")
-    private String detailAddress;
+    @ApiModelProperty("收货地址id")
+    private Long addressId;
 
     @ApiModelProperty("订单编号")
     private String orderNo;

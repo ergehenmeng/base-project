@@ -639,6 +639,8 @@ CREATE TABLE `member_address`
 (
     `id`             bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `member_id`      bigint(20)   DEFAULT NULL COMMENT '用户id',
+    `nick_name`      varchar(10)  DEFAULT NULL COMMENT '昵称',
+    `mobile`         varchar(11)  DEFAULT NULL COMMENT '手机号码',
     `state`          tinyint(1)   DEFAULT '0' COMMENT '状态 0: 普通地址  1:默认地址',
     `province_id`    bigint(20)   DEFAULT NULL COMMENT '省份id',
     `province_name`  varchar(50)  DEFAULT NULL COMMENT '省份名称',
@@ -653,7 +655,7 @@ CREATE TABLE `member_address`
     PRIMARY KEY (`id`),
     KEY `idx_member_id` (`member_id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='用户地址表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='用户收货地址表';
 
 -- ----------------------------
 -- Table structure for member_invite_log
