@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
@@ -13,6 +15,7 @@ import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.item.ItemOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -104,6 +107,12 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         vo.setProductTitle(selected.getTitle());
         vo.setProductCover(selected.getCoverUrl());
         return vo;
+    }
+
+    @Override
+    public List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto) {
+        Page<ItemOrderVO> voPage = itemOrderMapper.getList(dto.createPage(false), dto);
+        return voPage.getRecords();
     }
 
     /**

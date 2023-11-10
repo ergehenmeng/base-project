@@ -9,6 +9,7 @@ import com.eghm.dto.register.RegisterMemberDTO;
 import com.eghm.model.Member;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
+import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;
 
 /**
@@ -217,4 +218,11 @@ public interface MemberService {
      * @return true: 连续签到 false:不连续签到
      */
     boolean checkSeriesSign(Long memberId, int signDay);
+
+    /**
+     * 用户个人中心
+     * @param memberId memberId
+     * @return 个人基本信息
+     */
+    MemberVO memberHome(Long memberId);
 }

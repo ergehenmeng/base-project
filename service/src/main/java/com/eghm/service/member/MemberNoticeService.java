@@ -47,4 +47,11 @@ public interface MemberNoticeService {
      * @param memberId memberId
      */
     void setNoticeRead(Long id, Long memberId);
+
+    /**
+     * 统计用户未读消息数量
+     * @param memberId memberId
+     * @return 数量
+     */
+    Long countUnRead(Long memberId);
 }

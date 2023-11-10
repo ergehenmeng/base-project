@@ -5,4 +5,28 @@
     <select id="getProductNum" resultType="int">
         select ifnull(sum(num), 0) from item_order where order_no = #{orderNo} and deleted = false
     </select>
+
+    <select id="getList" parameterType="com.eghm.dto.business.order.item.ItemOrderQueryDTO" resultType="com.eghm.vo.business.order.item.ItemOrderVO">
+        select
+        r.order_no as orderNo,
+        r.cover_url as coverUrl,
+        r.title,
+        r.store_id as storeId,
+        t.title as storeName,
+        r.pay_type as payType,
+        r.num,
+        r.state,
+        r.pay_amount as payAmount
+        from `order` r
+        left join item_store t on t.id = r.store_id
+        where t.deleted = false and r.member_id = #{param.memberId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.orderState != null">
+            and r.state = #{param.orderState}
+        </if>
+        order by t.id desc
+    </select>
+
 </mapper>

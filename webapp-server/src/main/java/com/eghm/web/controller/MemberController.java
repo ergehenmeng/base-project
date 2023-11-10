@@ -5,8 +5,10 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
 import com.eghm.dto.member.SendEmailAuthCodeDTO;
+import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
+import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
@@ -30,6 +32,8 @@ import javax.servlet.http.HttpServletRequest;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final MemberNoticeService memberNoticeService;
 
     @PostMapping("/sendBindEmailCode")
     @ApiOperation("绑定邮箱发送验证码请求①")
@@ -81,4 +85,12 @@ public class MemberController {
         return RespBody.success(signIn);
     }
 
+    @GetMapping("/my")
+    @ApiOperation("我的")
+    public RespBody<MemberVO> my() {
+        MemberVO vo = memberService.memberHome(ApiHolder.getMemberId());
+        Long unRead = memberNoticeService.countUnRead(ApiHolder.getMemberId());
+        vo.setUnRead(unRead);
+        return RespBody.success(vo);
+    }
 }

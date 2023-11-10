@@ -145,6 +145,9 @@ public class StringUtil {
      * @return 137****1234
      */
     public static String hiddenMobile(String mobile) {
+        if (mobile == null) {
+            return null;
+        }
         return mobile.replaceAll(HIDDEN_REGEXP_MOBILE, RegExpUtil.HIDDEN_REGEXP_VALUE);
     }
 

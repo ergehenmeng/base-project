@@ -1,8 +1,11 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.model.ItemOrder;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.item.ItemOrderDetailVO;
+import com.eghm.vo.business.order.item.ItemOrderVO;
 
 import java.util.List;
 import java.util.Map;
@@ -68,4 +71,13 @@ public interface ItemOrderService {
      * @return 商品基础信息
      */
     ProductSnapshotVO getSnapshot(Long orderId, String orderNo);
+
+    /**
+     * 分页查询用户订单列表
+     * @param dto 查询条件
+     * @return 列表
+     */
+    List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto);
+
+    ItemOrderDetailVO detail(String orderNo);
 }

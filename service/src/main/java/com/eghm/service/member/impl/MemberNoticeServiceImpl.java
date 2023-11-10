@@ -125,4 +125,12 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
         wrapper.set(MemberNotice::getIsRead, true);
         memberNoticeMapper.update(null, wrapper);
     }
+
+    @Override
+    public Long countUnRead(Long memberId) {
+        LambdaQueryWrapper<MemberNotice> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(MemberNotice::getMemberId, memberId);
+        wrapper.eq(MemberNotice::getIsRead, false);
+        return memberNoticeMapper.selectCount(wrapper);
+    }
 }

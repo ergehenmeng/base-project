@@ -44,6 +44,7 @@ import com.eghm.utils.RegExpUtil;
 import com.eghm.utils.StringUtil;
 import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
+import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -431,6 +432,20 @@ public class MemberServiceImpl implements MemberService {
             signNumber >>= 1;
         }
         return true;
+    }
+
+    @Override
+    public MemberVO memberHome(Long memberId) {
+        Member member = memberMapper.selectById(memberId);
+        MemberVO vo = DataUtil.copy(member, MemberVO.class);
+        // 从注册之日起将签到信息放到缓存中
+        LocalDate endDate = LocalDate.now();
+        LocalDate registerDate = member.getCreateTime().toLocalDate();
+        long registerDays = ChronoUnit.DAYS.between(registerDate, endDate);
+        String signKey = CacheConstant.MEMBER_SIGN_IN + memberId;
+        vo.setSigned(cacheService.getBitmap(signKey, registerDays));
+        vo.setMobile(StringUtil.hiddenMobile(vo.getMobile()));
+        return vo;
     }
 
     /**

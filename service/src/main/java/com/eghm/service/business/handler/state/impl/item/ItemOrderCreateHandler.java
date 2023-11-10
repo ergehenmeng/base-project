@@ -67,6 +67,13 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 创建零售订单
+     * 1. 多店铺多商品进行下单时,需要将商品按店铺进行分组
+     * 2. 依次对每个店铺的商品进行下单(含单规格下单逻辑)
+     *    2.1: 计算快递费
+     *    2.2: 生成零售订单
+     *    2.3: 扣减sku库存
+     *    2.4: 生成主订单信息
+     * 3. 拼接订单并拉起支付
      * @param context 下单信息
      * @param payload 商品信息
      */
@@ -205,7 +212,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
         orderDTO.setCityId(memberAddress.getCityId());
         orderDTO.setCountyId(memberAddress.getCountyId());
         orderDTO.setDetailAddress(memberAddress.getDetailAddress());
-        orderDTO.setNickName(memberAddress.getCityName());
+        orderDTO.setNickName(memberAddress.getNickName());
+        orderDTO.setMobile(memberAddress.getMobile());
         return orderDTO;
     }
 
