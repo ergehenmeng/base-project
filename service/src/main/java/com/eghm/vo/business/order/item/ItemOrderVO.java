@@ -24,6 +24,9 @@ public class ItemOrderVO {
     @ApiModelProperty("店铺id")
     private String storeId;
 
+    @ApiModelProperty("图片")
+    private String coverUrl;
+
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")
     private PayType payType;
 

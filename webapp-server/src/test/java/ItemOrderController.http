@@ -1,0 +1,9 @@
+
+http://localhost:9090/webapp/item/order/listPage?page=1&pageSize=10
+Channel: {{Channel}}
+Token: {{Token}}
+
+###
+http://localhost:9090/webapp/item/order/detail?orderNo=LS1722193497422397441
+Channel: {{Channel}}
+Token: {{Token}}

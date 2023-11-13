@@ -6,6 +6,7 @@ import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.util.List;
  * @since 2023/7/31
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemOrderDetailVO {
 
     @ApiModelProperty("订单编号")

@@ -25,10 +25,16 @@ public class ItemSpec extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "商品id")
     private Long itemId;
 
-    @ApiModelProperty(value = "规格名")
+    /**
+     * 颜色
+     */
+    @ApiModelProperty(value = "规格名(多规格时,名一样值不一样)")
     private String specName;
 
-    @ApiModelProperty(value = "规格名称")
+    /**
+     * 红色 黑色
+     */
+    @ApiModelProperty(value = "规格值")
     private String specValue;
 
     @ApiModelProperty(value = "规格图片(一级规格必填), 优先级比sku_pic低")
