@@ -44,6 +44,7 @@ public class ItemOrderController {
     @ApiOperation("订单详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<ItemOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
-        return RespBody.success();
+        ItemOrderDetailVO detail = itemOrderService.detail(orderNo, ApiHolder.getMemberId());
+        return RespBody.success(detail);
     }
 }

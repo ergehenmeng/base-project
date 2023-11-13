@@ -10,7 +10,7 @@ import lombok.Data;
  */
 
 @Data
-public class ItemVO {
+public class ItemOrderListVO {
 
     @ApiModelProperty("商品id")
     private Long itemId;

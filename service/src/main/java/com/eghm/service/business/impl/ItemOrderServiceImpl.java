@@ -15,6 +15,8 @@ import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.item.ItemOrderDetailVO;
+import com.eghm.vo.business.order.item.ItemOrderListVO;
 import com.eghm.vo.business.order.item.ItemOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -113,6 +115,17 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     public List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto) {
         Page<ItemOrderVO> voPage = itemOrderMapper.getList(dto.createPage(false), dto);
         return voPage.getRecords();
+    }
+
+    @Override
+    public ItemOrderDetailVO detail(String orderNo, Long memberId) {
+        ItemOrderDetailVO detail = itemOrderMapper.getDetail(orderNo, memberId);
+        if (detail == null) {
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
+        detail.setItemList(itemList);
+        return detail;
     }
 
     /**

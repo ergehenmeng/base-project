@@ -29,4 +29,41 @@
         order by t.id desc
     </select>
 
+    <select id="getDetail"  resultType="com.eghm.vo.business.order.item.ItemOrderDetailVO">
+        select
+        r.order_no as orderNo,
+        r.store_id as storeId,
+        t.title as storeName,
+        r.pay_type as payType,
+        r.state,
+        r.pay_amount as payAmount,
+        r.refund_state as refundState,
+        r.discount_amount as discountAmount,
+        r.create_time as createTime,
+        r.pay_time as payTime,
+        r.remark,
+        r.complete_time as completeTime,
+        r.close_time as closeTime,
+        r.nick_name as nickName,
+        r.mobile,
+        r.province_id as providerId,
+        r.city_id as cityId,
+        r.county_id as countyId,
+        r.detail_address as detailAddress
+        from `order` r
+        left join item_store t on t.id = r.store_id
+        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+    </select>
+
+    <select id="getItemList" resultType="com.eghm.vo.business.order.item.ItemOrderListVO">
+        select
+        item_id,
+        title,
+        refund_state,
+        num,
+        cover_url,
+        sku_title,
+        sale_price
+        from item_order where order_no = #{orderNo} and deleted = false
+    </select>
 </mapper>

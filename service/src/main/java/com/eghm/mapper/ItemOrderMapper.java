@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.model.ItemOrder;
+import com.eghm.vo.business.order.item.ItemOrderDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderVO;
+import com.eghm.vo.business.order.item.ItemOrderListVO;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -31,4 +35,20 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @return 列表
      */
     Page<ItemOrderVO> getList(Page<ItemOrderVO> page, @Param("param") ItemOrderQueryDTO dto);
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderNo 订单编号
+     * @param memberId 用户id
+     * @return 订单详情
+     */
+    ItemOrderDetailVO getDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
+
+    /**
+     * 查询订单商品列表
+     * @param orderNo 订单编号
+     * @return 商品信息
+     */
+    List<ItemOrderListVO> getItemList(@Param("orderNo") String orderNo);
 }

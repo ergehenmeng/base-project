@@ -32,9 +32,6 @@ public class ItemOrderDetailVO {
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")
     private PayType payType;
 
-    @ApiModelProperty("总购买数量")
-    private Integer totalNum;
-
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
@@ -61,6 +58,10 @@ public class ItemOrderDetailVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime completeTime;
 
+    @ApiModelProperty("关闭时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime closeTime;
+
     @ApiModelProperty("订单备注信息")
     private String remark;
 
@@ -86,5 +87,5 @@ public class ItemOrderDetailVO {
     private String detailAddress;
 
     @ApiModelProperty("订单商品详情")
-    private List<ItemVO> itemList;
+    private List<ItemOrderListVO> itemList;
 }

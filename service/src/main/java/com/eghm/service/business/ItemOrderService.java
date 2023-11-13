@@ -79,5 +79,11 @@ public interface ItemOrderService {
      */
     List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto);
 
-    ItemOrderDetailVO detail(String orderNo);
+    /**
+     * 查询订单详情
+     * @param orderNo 订单号
+     * @param memberId 订单id
+     * @return 订单信息
+     */
+    ItemOrderDetailVO detail(String orderNo, Long memberId);
 }
