@@ -1,9 +1,13 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
+import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.model.HomestayOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
+import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderVO;
 
 import java.util.List;
@@ -15,7 +19,14 @@ import java.util.List;
 public interface HomestayOrderService {
 
     /**
-     * 分页查询用户民宿订单
+     * 分页查询用户民宿订单 (管理后台)
+     * @param request (查询条件)
+     * @return 列表
+     */
+    Page<HomestayOrderResponse> listPage(HomestayOrderQueryRequest request);
+
+    /**
+     * 分页查询用户民宿订单 (用户自己的)
      * @param dto 查询条件
      * @return 列表
      */
@@ -47,7 +58,15 @@ public interface HomestayOrderService {
      *
      * @param orderNo 订单编号
      * @param memberId 会员id
-     * @return 民宿详情
+     * @return 民宿订单详情
      */
     HomestayOrderDetailVO getDetail(String orderNo, Long memberId);
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderNo 订单编号
+     * @return 民宿订单详情
+     */
+    HomestayOrderDetailResponse detail(String orderNo);
 }

@@ -1,9 +1,14 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
+import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
+import com.eghm.dto.ext.PageData;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO;
+import com.eghm.vo.business.order.restaurant.RestaurantOrderResponse;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderVO;
 
 import java.util.List;
@@ -15,7 +20,15 @@ import java.util.List;
 public interface RestaurantOrderService {
 
     /**
-     * 分页查询餐饮订单列表
+     * 分页查询餐饮订单列表 (管理后台)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<RestaurantOrderResponse> listPage(VoucherOrderQueryRequest request);
+
+    /**
+     * 分页查询餐饮订单列表 移动端(自己)
      *
      * @param dto 查询条件
      * @return 列表
@@ -58,4 +71,12 @@ public interface RestaurantOrderService {
      * @return 订单详情
      */
     RestaurantOrderDetailVO getDetail(String orderNo, Long memberId);
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderNo 订单编号
+     * @return 订单详情
+     */
+    RestaurantOrderDetailResponse detail(String orderNo);
 }

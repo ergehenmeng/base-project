@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.RestaurantOrderMapper">
 
+    <select id="listPage" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderResponse" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest">
+        select
+        t.order_no as orderNo,
+        r.cover_url as coverUrl,
+        r.title,
+        m.title as restaurantName,
+        t.restaurant_id as restaurantId,
+        r.pay_type as payType,
+        r.num,
+        r.state,
+        r.pay_amount as payAmount
+        from `order` r
+        inner join restaurant_order t on t.order_no = r.order_no
+        left join restaurant m on t.restaurant_id = m.id
+        where t.deleted = false and r.member_id = #{param.memberId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.orderState != null">
+            and r.state = #{param.orderState}
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="getSnapshot" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
         t.title as productTitle,
@@ -69,4 +93,36 @@
         where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
     </select>
 
+    <select id="detail" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse">
+        select
+            t.order_no as orderNo,
+            r.cover_url as coverUrl,
+            r.title,
+            r.verify_no as verifyNo,
+            r.pay_type as payType,
+            r.refund_type as refundType,
+            r.refund_state as refundState,
+            m.title as restaurantName,
+            t.restaurant_id as restaurantId,
+            r.price,
+            r.discount_amount as discountAmount,
+            r.num,
+            r.state,
+            r.pay_amount as payAmount,
+            r.create_time as createTime,
+            r.pay_time as payTime,
+            t.mobile,
+            t.nick_name as nickName,
+            t.valid_days as validDays,
+            t.effect_date as effectDate,
+            t.expire_date as expireDate,
+            t.effect_time as effectTime,
+            t.expire_time as expireTime,
+            r.complete_time as completeTime,
+            r.remark
+        from `order` r
+                 inner join restaurant_order t on t.order_no = r.order_no
+                 left join restaurant m on t.restaurant_id = m.id
+        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+    </select>
 </mapper>

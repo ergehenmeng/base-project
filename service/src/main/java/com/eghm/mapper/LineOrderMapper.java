@@ -3,9 +3,12 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
+import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.model.LineOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.line.LineOrderDetailResponse;
 import com.eghm.vo.business.order.line.LineOrderDetailVO;
+import com.eghm.vo.business.order.line.LineOrderResponse;
 import com.eghm.vo.business.order.line.LineOrderVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +21,14 @@ import org.apache.ibatis.annotations.Param;
  * @since 2022-09-01
  */
 public interface LineOrderMapper extends BaseMapper<LineOrder> {
+
+    /**
+     * 分页查询门票订单
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<LineOrderResponse> listPage(Page<LineOrderResponse> page, @Param("param") LineOrderQueryRequest request);
 
     /**
      * 查询线路快照
@@ -42,4 +53,11 @@ public interface LineOrderMapper extends BaseMapper<LineOrder> {
      * @return 订单信息
      */
     LineOrderDetailVO getDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
+
+    /**
+     * 查询线路订单详情
+     * @param orderNo 订单编号
+     * @return 订单信息
+     */
+    LineOrderDetailResponse detail(@Param("orderNo") String orderNo);
 }

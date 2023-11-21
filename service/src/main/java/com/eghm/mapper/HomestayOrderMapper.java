@@ -1,11 +1,14 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
+import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.model.HomestayOrder;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
+import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +21,14 @@ import org.apache.ibatis.annotations.Param;
  * @since 2022-08-17
  */
 public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
+
+    /**
+     * 分页查询门票订单
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<HomestayOrderResponse> listPage(Page<HomestayOrderResponse> page, @Param("param") HomestayOrderQueryRequest request);
 
     /**
      * 查询用户民宿订单
@@ -43,4 +54,11 @@ public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
      * @return 订单详情
      */
     HomestayOrderDetailVO getDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
+
+    /**
+     * 查询民宿订单
+     * @param orderNo 订单编号
+     * @return 订单详情
+     */
+    HomestayOrderDetailResponse detail(@Param("orderNo") String orderNo);
 }

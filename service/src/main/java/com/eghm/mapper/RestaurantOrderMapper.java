@@ -3,9 +3,12 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
+import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO;
+import com.eghm.vo.business.order.restaurant.RestaurantOrderResponse;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +21,14 @@ import org.apache.ibatis.annotations.Param;
  * @since 2022-08-23
  */
 public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
+
+    /**
+     * 分页查询门票订单
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<RestaurantOrderResponse> listPage(Page<RestaurantOrderResponse> page, @Param("param") VoucherOrderQueryRequest request);
 
     /**
      * 查询餐饮快照
@@ -42,4 +53,11 @@ public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
      * @return 订单信息
      */
     RestaurantOrderDetailVO getDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
+
+    /**
+     * 查询餐饮订单详情
+     * @param orderNo 订单编号
+     * @return 订单信息
+     */
+    RestaurantOrderDetailResponse detail(@Param("orderNo") String orderNo);
 }

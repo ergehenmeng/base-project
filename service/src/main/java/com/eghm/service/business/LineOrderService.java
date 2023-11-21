@@ -1,9 +1,13 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
+import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.model.LineOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.line.LineOrderDetailResponse;
 import com.eghm.vo.business.order.line.LineOrderDetailVO;
+import com.eghm.vo.business.order.line.LineOrderResponse;
 import com.eghm.vo.business.order.line.LineOrderVO;
 
 import java.util.List;
@@ -13,6 +17,13 @@ import java.util.List;
  * @date 2022/9/1
  */
 public interface LineOrderService {
+
+    /**
+     * 分页查询线路订单
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<LineOrderResponse> listPage(LineOrderQueryRequest request);
 
     /**
      * 分页查询线路订单
@@ -49,4 +60,11 @@ public interface LineOrderService {
      * @return 订单详情
      */
     LineOrderDetailVO getDetail(String orderNo, Long memberId);
+
+    /**
+     * 查询线路订单详情
+     * @param orderNo 订单编号
+     * @return 订单详情
+     */
+    LineOrderDetailResponse detail(String orderNo);
 }

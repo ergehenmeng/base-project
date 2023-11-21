@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
+import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
@@ -15,9 +16,7 @@ import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.item.ItemOrderDetailVO;
-import com.eghm.vo.business.order.item.ItemOrderListVO;
-import com.eghm.vo.business.order.item.ItemOrderVO;
+import com.eghm.vo.business.order.item.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -35,6 +34,11 @@ import java.util.Map;
 public class ItemOrderServiceImpl implements ItemOrderService {
 
     private final ItemOrderMapper itemOrderMapper;
+
+    @Override
+    public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
+        return itemOrderMapper.listPage(request.createPage(), request);
+    }
 
     @Override
     public void insert(ItemOrder order) {
@@ -118,8 +122,19 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
-    public ItemOrderDetailVO detail(String orderNo, Long memberId) {
+    public ItemOrderDetailVO getDetail(String orderNo, Long memberId) {
         ItemOrderDetailVO detail = itemOrderMapper.getDetail(orderNo, memberId);
+        if (detail == null) {
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
+        List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
+        detail.setItemList(itemList);
+        return detail;
+    }
+
+    @Override
+    public ItemOrderDetailResponse detail(String orderNo) {
+        ItemOrderDetailResponse detail = itemOrderMapper.detail(orderNo);
         if (detail == null) {
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }

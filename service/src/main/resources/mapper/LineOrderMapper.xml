@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.LineOrderMapper">
 
+    <select id="listPage" parameterType="com.eghm.dto.business.order.line.LineOrderQueryRequest" resultType="com.eghm.vo.business.order.line.LineOrderResponse">
+        select
+        t.order_no as orderNo,
+        r.cover_url as coverUrl,
+        r.title,
+        m.title as travelName,
+        t.travel_agency_id as travelAgencyId,
+        r.pay_type as payType,
+        r.num,
+        r.state,
+        r.pay_amount as payAmount
+        from `order` r
+        inner join line_order t on t.order_no = r.order_no
+        left join travel_agency m on t.travel_agency_id = m.id
+        where t.deleted = false and r.member_id = #{param.memberId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.orderState != null">
+            and r.state = #{param.orderState}
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="getSnapshot" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
             t.title as productTitle,
@@ -59,6 +83,34 @@
         t.visit_date as visitDate,
         t.duration,
         r.remark
+        from `order` r
+        inner join line_order t on t.order_no = r.order_no
+        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+    </select>
+
+    <select id="detail" resultType="com.eghm.vo.business.order.line.LineOrderDetailResponse">
+        select
+            t.order_no as orderNo,
+            r.cover_url as coverUrl,
+            r.title,
+            r.verify_no as verifyNo,
+            t.duration,
+            r.pay_type as payType,
+            r.refund_type as refundType,
+            r.refund_state as refundState,
+            r.price,
+            r.discount_amount as discountAmount,
+            r.num,
+            r.state,
+            r.pay_amount as payAmount,
+            r.create_time as createTime,
+            r.pay_time as payTime,
+            t.mobile,
+            t.nick_name as nickName,
+            r.complete_time as completeTime,
+            t.visit_date as visitDate,
+            t.duration,
+            r.remark
         from `order` r
         inner join line_order t on t.order_no = r.order_no
         where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}

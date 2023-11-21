@@ -1,10 +1,14 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
+import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.model.ItemOrder;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderDetailVO;
+import com.eghm.vo.business.order.item.ItemOrderResponse;
 import com.eghm.vo.business.order.item.ItemOrderVO;
 
 import java.util.List;
@@ -15,6 +19,13 @@ import java.util.Map;
  * @date 2022/9/5
  */
 public interface ItemOrderService {
+
+    /**
+     * 分页查询用户订单列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request);
 
     /**
      * 订单插入
@@ -85,5 +96,12 @@ public interface ItemOrderService {
      * @param memberId 订单id
      * @return 订单信息
      */
-    ItemOrderDetailVO detail(String orderNo, Long memberId);
+    ItemOrderDetailVO getDetail(String orderNo, Long memberId);
+
+    /**
+     * 查询订单详情
+     * @param orderNo 订单号
+     * @return 订单信息
+     */
+    ItemOrderDetailResponse detail(String orderNo);
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
+import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.mapper.LineOrderMapper;
 import com.eghm.model.LineOrder;
 import com.eghm.model.OrderVisitor;
@@ -14,7 +15,9 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
+import com.eghm.vo.business.order.line.LineOrderDetailResponse;
 import com.eghm.vo.business.order.line.LineOrderDetailVO;
+import com.eghm.vo.business.order.line.LineOrderResponse;
 import com.eghm.vo.business.order.line.LineOrderVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +39,11 @@ public class LineOrderServiceImpl implements LineOrderService {
     private final OrderVisitorService orderVisitorService;
 
     private final OrderService orderService;
+
+    @Override
+    public Page<LineOrderResponse> listPage(LineOrderQueryRequest request) {
+        return lineOrderMapper.listPage(request.createPage(), request);
+    }
 
     @Override
     public List<LineOrderVO> getByPage(LineOrderQueryDTO dto) {
@@ -67,6 +75,14 @@ public class LineOrderServiceImpl implements LineOrderService {
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
+        return detail;
+    }
+
+    @Override
+    public LineOrderDetailResponse detail(String orderNo) {
+        LineOrderDetailResponse detail = lineOrderMapper.detail(orderNo);
+        List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
+        detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         return detail;
     }
 }

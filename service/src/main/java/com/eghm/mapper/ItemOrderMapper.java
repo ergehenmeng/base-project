@@ -3,10 +3,9 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
+import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.model.ItemOrder;
-import com.eghm.vo.business.order.item.ItemOrderDetailVO;
-import com.eghm.vo.business.order.item.ItemOrderVO;
-import com.eghm.vo.business.order.item.ItemOrderListVO;
+import com.eghm.vo.business.order.item.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -20,6 +19,14 @@ import java.util.List;
  * @since 2022-09-05
  */
 public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
+
+    /**
+     * 查询用户零售订单列表
+     * @param page 分页信息
+     * @param dto 查询条件
+     * @return 列表
+     */
+    Page<ItemOrderResponse> listPage(Page<ItemOrderResponse> page, @Param("param") ItemOrderQueryRequest dto);
 
     /**
      * 查询订单下所有商品的总数量
@@ -51,4 +58,12 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @return 商品信息
      */
     List<ItemOrderListVO> getItemList(@Param("orderNo") String orderNo);
+
+    /**
+     * 查询订单详情
+     *
+     * @param orderNo 订单编号
+     * @return 订单详情
+     */
+    ItemOrderDetailResponse detail(@Param("orderNo") String orderNo);
 }
