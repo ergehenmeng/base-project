@@ -33,6 +33,9 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService {
 
     @Override
     public Page<RestaurantOrderResponse> listPage(VoucherOrderQueryRequest request) {
+        if (request.getEndDate() != null) {
+            request.setEndDate(request.getEndDate().plusDays(1));
+        }
         return restaurantOrderMapper.listPage(request.createPage(), request);
     }
 

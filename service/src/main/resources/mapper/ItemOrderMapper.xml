@@ -15,7 +15,7 @@
         r.pay_amount as payAmount
         from `order` r
         left join item_store t on t.id = r.store_id
-        where t.deleted = false and r.member_id = #{param.memberId}
+        where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>

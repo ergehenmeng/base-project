@@ -16,7 +16,7 @@
         from `order` r
         inner join line_order t on t.order_no = r.order_no
         left join travel_agency m on t.travel_agency_id = m.id
-        where t.deleted = false and r.member_id = #{param.memberId}
+        where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>

@@ -1,10 +1,12 @@
 package com.eghm.dto.business.order.restaurant;
 
-import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
@@ -17,7 +19,14 @@ public class VoucherOrderQueryRequest extends PagingQuery {
     @ApiModelProperty("餐饮订单状态")
     private Integer orderState;
 
-    @ApiModelProperty("用户id")
-    @Assign
-    private Long memberId;
+    @ApiModelProperty("开始日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+
+    @ApiModelProperty("截止日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
+
+    @ApiModelProperty("是否使用优惠券")
+    private Boolean isVoucher;
 }

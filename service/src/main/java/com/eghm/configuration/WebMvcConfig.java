@@ -5,6 +5,7 @@ import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.constants.SystemConstant;
+import com.eghm.convertor.DateAnnotationFormatterFactory;
 import com.eghm.convertor.EnumBinderConverterFactory;
 import com.eghm.convertor.YuanToCentAnnotationFormatterFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -162,6 +163,7 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverterFactory(new EnumBinderConverterFactory());
         registry.addFormatterForFieldAnnotation(new YuanToCentAnnotationFormatterFactory());
+        registry.addFormatterForFieldAnnotation(new DateAnnotationFormatterFactory());
     }
 
     /**
