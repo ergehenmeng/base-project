@@ -1,6 +1,8 @@
 package com.eghm.dto.business.order.restaurant;
 
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.annotation.Assign;
+import com.eghm.annotation.DateFormatter;
+import com.eghm.dto.ext.DatePagingComparator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,7 +16,7 @@ import java.time.LocalDate;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class VoucherOrderQueryRequest extends PagingQuery {
+public class VoucherOrderQueryRequest extends DatePagingComparator {
 
     @ApiModelProperty("餐饮订单状态")
     private Integer orderState;
@@ -24,9 +26,13 @@ public class VoucherOrderQueryRequest extends PagingQuery {
     private LocalDate startDate;
 
     @ApiModelProperty("截止日期")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 
     @ApiModelProperty("是否使用优惠券")
     private Boolean isVoucher;
+
+    @Assign
+    @ApiModelProperty(hidden = true, value = "商户ID")
+    private Long merchantId;
 }

@@ -11,7 +11,7 @@ import java.time.LocalDate;
  */
 
 @Data
-public class DateCompare {
+public class LocalDateCompare {
 
     @ApiModelProperty("开始日期")
     private LocalDate startDate;

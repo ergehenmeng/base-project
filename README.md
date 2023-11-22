@@ -86,6 +86,7 @@
 
 
 ## 其他开发说明
+* `DateFormatter` 日期格式化注解与 `DateTimeFormat` 类似, 支持 `LocalDate` `LocalDateTime` `LocalTime`类型, 在GET请求时, 前端传递日期格式为范围  `yyyy-MM-dd` 时, 例如: 查询 `2023-11-11` 到 `2023-11-11`的日期, 实际上查询的是 `2023-11-11` 到 `2023-11-11 23:59:59`,因此需要在前端传递 `2023-11-11`, 后端则会自动转换为 `2023-11-11` 到 `2023-11-12`
 * `CacheProxyService` 缓存代理层 增加该类的原因: 由于@Cacheable等注解是基于动态代理实现的, 在同一个类中调用另一个方法则换成不会生效, 因此统一归集到该类中, 即:所有使用SpringCache注解的方法都建议维护到该类中
 * `CacheService` 缓存类封装, 建议所有手动设置查询的缓存走该接口, 方便后期维护
 * `SystemProperties` 所有本地化配置参数必须强制在该类中定义,方便统一维护, 禁止使用 `@Value`,
@@ -97,7 +98,8 @@
 * `LoggerUtil` 规范日志打印
 * `BeanValidator` 校验某个pojo是否满足其注解要求 (`NotEmpty`, `NotNull` 等)
 * `DataUtil` 对象copy工具类
-* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@DateCompare` 日期比较, 需要 pojo 继承 `DateComparator` 或者 `DatePagingComparator` (一个带分页,一个不带分页), 或者在 pojo定义以便于实现特殊提示语. `@WordChecker` 是敏感词校验注解
-* 提供给第三方的接口签名时,支持 `MD5` `RSA` 两种, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appKey` 和 `appSecret` 给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段. 目前 `@SignCheck` 只支持 `POST` 请求, 可在 `SignCheckInterceptor` 拦截器中进行二次扩展:
+* `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@DateCompare` 日期比较, 需要 pojo 继承 `DateComparator` 或者 `DatePagingComparator` (一个带分页,一个不带分页), 或者在 pojo定义以便于实现特殊提示语. 
+* `@WordChecker` 是敏感词校验注解
+* 签名功能, 目前支持 `MD5` `RSA` 两种, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appKey` 和 `appSecret` 给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段. 目前 `@SignCheck` 只支持 `POST` 请求, 可在 `SignCheckInterceptor` 拦截器中进行二次扩展:
   * `MD5` **`signature`=MD5(appSecret=`appSecret`&data=(Base64(`requestBody`))&timestamp=`timestamp`)** 其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). 注意:即使请求体为空也需要带上 `data` 字段
   * `RSA` **`signature`=SHA256withRSA(data=Base64(`requestBody`)&timestamp=`timestamp`)** 其中 `requestBody` 是 post请求体中的数据, `timestamp` 是当前时间(毫秒). `appSecret` 是 `RSA` 的私钥, 采用 `SHA256withRSA` 方式进行签名

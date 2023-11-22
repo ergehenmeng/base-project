@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
@@ -31,6 +32,7 @@ public class RestaurantOrderController {
     @GetMapping("/listPage")
     @ApiOperation("订单列表")
     public RespBody<PageData<RestaurantOrderResponse>> listPage(VoucherOrderQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<RestaurantOrderResponse> byPage = restaurantOrderService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }

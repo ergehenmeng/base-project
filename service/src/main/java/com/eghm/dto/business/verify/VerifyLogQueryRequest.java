@@ -1,6 +1,7 @@
 package com.eghm.dto.business.verify;
 
 import com.eghm.annotation.Assign;
+import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DatePagingComparator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -22,7 +23,7 @@ public class VerifyLogQueryRequest extends DatePagingComparator {
     private LocalDate startDate;
 
     @ApiModelProperty("截止时间 yyyy-MM-dd")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
     private LocalDate endDate;
 
     @ApiModelProperty(value = "商户id", hidden = true)

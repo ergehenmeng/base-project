@@ -1,5 +1,7 @@
 package com.eghm.dto.ext;
 
+import com.eghm.validation.annotation.DateCompare;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -9,10 +11,10 @@ import java.time.LocalDate;
  */
 public abstract class DateComparator implements Serializable {
 
-    private final transient DateCompare dateCompare = new DateCompare();
+    private final transient LocalDateCompare dateCompare = new LocalDateCompare();
 
-    @com.eghm.validation.annotation.DateCompare
-    public DateCompare getDateCompare() {
+    @DateCompare
+    public LocalDateCompare getDateCompare() {
         dateCompare.setStartDate(this.getStartDate());
         dateCompare.setEndDate(this.getEndDate());
         return dateCompare;

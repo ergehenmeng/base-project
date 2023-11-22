@@ -23,9 +23,6 @@ public class VerifyLogServiceImpl implements VerifyLogService {
 
     @Override
     public Page<VerifyLogResponse> getByPage(VerifyLogQueryRequest request) {
-        if (request.getEndDate() != null) {
-            request.setEndDate(request.getEndDate().plusDays(1));
-        }
         return verifyLogMapper.getByPage(request.createPage(), request);
     }
 

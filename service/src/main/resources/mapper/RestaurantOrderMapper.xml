@@ -17,6 +17,9 @@
         inner join restaurant_order t on t.order_no = r.order_no
         left join restaurant m on t.restaurant_id = m.id
         where t.deleted = false
+        <if test="param.merchantId != null">
+            and r.merchant_id = #{param.merchantId}
+        </if>
         <if test="param.queryName != null and param.queryName != ''">
             and (r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
                  r.order_no like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
@@ -25,9 +28,6 @@
         </if>
         <if test="param.orderState != null">
             and r.state = #{param.orderState}
-        </if>
-        <if test="param.restaurantId != null">
-            and t.restaurant_id = #{param.restaurantId}
         </if>
         <if test="param.isVoucher != null">
             <if test="param.isVoucher">

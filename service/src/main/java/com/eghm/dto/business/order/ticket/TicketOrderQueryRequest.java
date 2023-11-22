@@ -1,10 +1,15 @@
 package com.eghm.dto.business.order.ticket;
 
-import com.eghm.dto.ext.PagingQuery;
+import com.eghm.annotation.Assign;
+import com.eghm.annotation.DateFormatter;
+import com.eghm.dto.ext.DatePagingComparator;
 import com.eghm.enums.ref.OrderState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 /**
  * @author wyb
@@ -12,14 +17,23 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TicketOrderQueryRequest extends PagingQuery {
-
-    @ApiModelProperty("景区名称")
-    private String scenicName;
-
-    @ApiModelProperty("联系人手机号")
-    private String mobile;
+public class TicketOrderQueryRequest extends DatePagingComparator {
 
     @ApiModelProperty("订单状态")
     private OrderState state;
+
+    @ApiModelProperty("开始日期")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startDate;
+
+    @ApiModelProperty("截止日期")
+    @DateFormatter(pattern = "yyyy-MM-dd", offset = 1)
+    private LocalDate endDate;
+
+    @ApiModelProperty("是否使用优惠券")
+    private Boolean isVoucher;
+
+    @Assign
+    @ApiModelProperty(hidden = true, value = "商户ID")
+    private Long merchantId;
 }

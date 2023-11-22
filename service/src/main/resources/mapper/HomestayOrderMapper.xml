@@ -18,11 +18,25 @@
         inner join homestay_order t on t.order_no = r.order_no
         left join homestay m on t.homestay_id = m.id
         where t.deleted = false
+        <if test="param.merchantId != null">
+            and r.merchant_id = #{param.merchantId}
+        </if>
         <if test="param.queryName != null and param.queryName != ''">
             and r.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.orderState != null">
             and r.state = #{param.orderState}
+        </if>
+        <if test="param.isVoucher != null">
+            <if test="param.isVoucher">
+                and r.coupon_id is not null
+            </if>
+            <if test="!param.isVoucher">
+                and r.coupon_id is null
+            </if>
+        </if>
+        <if test="param.createDate != null and param.endDate != null">
+            and r.pay_time between #{param.createDate} and #{param.endDate}
         </if>
         order by t.id desc
     </select>
