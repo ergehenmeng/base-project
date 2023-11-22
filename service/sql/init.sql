@@ -3595,6 +3595,7 @@ INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`,
 ## 超管角色初始化
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`) VALUES ('1', '1', '1');
 
+
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1', '超级管理员', 'administrator', '2018-01-29 13:45:49', '2019-01-15 15:30:07', b'0', '');
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969410', '景区商户', 'scenic', '2022-12-27 16:03:35', '2023-09-28 15:38:42', b'0', NULL);
 INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_time`, `deleted`, `remark`) VALUES ('1707298744621969411', '民宿商户', 'homestay', '2022-12-27 16:03:50', '2023-09-28 15:38:48', b'0', NULL);
@@ -4314,3 +4315,29 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES (
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('159', '1707298744621969412', '1012', '2023-10-11 17:40:01');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('160', '1707298744621969413', '1012', '2023-10-11 17:40:15');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('161', '1707298744621969414', '1012', '2023-10-11 17:40:29');
+
+
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('162', '1707298744621969413', '101314', '2023-11-22 14:07:02');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('163', '1707298744621969413', '10131410', '2023-11-22 14:07:03');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('164', '1707298744621969413', '10131411', '2023-11-22 14:07:04');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('165', '1707298744621969413', '10131412', '2023-11-22 14:07:05');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('166', '1707298744621969413', '10131413', '2023-11-22 14:07:05');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('167', '1707298744621969413', '10131414', '2023-11-22 14:07:06');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('168', '1707298744621969411', '101315', '2023-11-22 14:04:40');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('169', '1707298744621969411', '10131510', '2023-11-22 14:05:05');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('170', '1707298744621969411', '10131511', '2023-11-22 14:05:05');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('171', '1707298744621969411', '10131512', '2023-11-22 14:05:05');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('172', '1707298744621969411', '10131513', '2023-11-22 14:05:05');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('173', '1707298744621969411', '10131514', '2023-11-22 14:05:05');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('174', '1707298744621969412', '101317', '2023-11-22 14:10:50');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('175', '1707298744621969412', '10131710', '2023-11-22 14:10:48');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('176', '1707298744621969412', '10131711', '2023-11-22 14:10:48');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('177', '1707298744621969412', '10131712', '2023-11-22 14:10:48');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('178', '1707298744621969412', '10131713', '2023-11-22 14:10:48');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('179', '1707298744621969412', '10131714', '2023-11-22 14:10:48');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('180', '1707298744621969414', '101316', '2023-11-22 14:07:43');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('181', '1707298744621969414', '10131610', '2023-11-22 14:08:34');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('183', '1707298744621969414', '10131611', '2023-11-22 14:09:34');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('184', '1707298744621969414', '10131612', '2023-11-22 14:09:56');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('185', '1707298744621969414', '10131613', '2023-11-22 14:10:17');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('186', '1707298744621969414', '10131614', '2023-11-22 14:10:27');
