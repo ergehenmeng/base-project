@@ -1,0 +1,9 @@
+GET http://localhost:8080/manage/line/order/listPage?page=1&pageSize=10&endDate=2023-11-11
+Token: {{token}}
+
+###
+
+GET http://localhost:8080/manage/line/order/detail?orderNo=CY1717124853345591298
+Token: {{token}}
+
+###

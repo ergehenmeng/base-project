@@ -3,9 +3,12 @@ package com.eghm.vo.business.order.restaurant;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * 门票订单列表vo
@@ -27,9 +30,6 @@ public class RestaurantOrderResponse {
     @ApiModelProperty("餐饮店名称")
     private String restaurantName;
 
-    @ApiModelProperty("餐饮店id")
-    private Long restaurantId;
-
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")
     private PayType payType;
 
@@ -39,8 +39,20 @@ public class RestaurantOrderResponse {
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
+    @ApiModelProperty("支付时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime payTime;
+
+    @ApiModelProperty("总优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer discountAmount;
+
     @ApiModelProperty("总付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
+
+    @ApiModelProperty("创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 
 }

@@ -5,6 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.enums.ErrorCode;
@@ -134,7 +135,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     @Override
     public ItemOrderDetailResponse detail(String orderNo) {
-        ItemOrderDetailResponse detail = itemOrderMapper.detail(orderNo);
+        ItemOrderDetailResponse detail = itemOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
         if (detail == null) {
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }

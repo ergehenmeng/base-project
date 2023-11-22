@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
@@ -72,6 +73,6 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService {
 
     @Override
     public RestaurantOrderDetailResponse detail(String orderNo) {
-        return restaurantOrderMapper.detail(orderNo);
+        return restaurantOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
     }
 }

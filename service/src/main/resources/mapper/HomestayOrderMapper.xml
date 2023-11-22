@@ -130,6 +130,9 @@
         from `order` r
                  inner join homestay_order t on t.order_no = r.order_no
                  left join homestay m on t.homestay_id = m.id
-        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+        where t.deleted = false and r.order_no = #{orderNo}
+        <if test="merchantId != null">
+            and r.merchant_id = #{merchantId}
+        </if>
     </select>
 </mapper>

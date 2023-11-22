@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
@@ -80,7 +81,7 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
 
     @Override
     public HomestayOrderDetailResponse detail(String orderNo) {
-        HomestayOrderDetailResponse detail = homestayOrderMapper.detail(orderNo);
+        HomestayOrderDetailResponse detail = homestayOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         return detail;

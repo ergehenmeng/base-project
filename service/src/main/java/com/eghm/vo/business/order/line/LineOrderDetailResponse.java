@@ -7,6 +7,7 @@ import com.eghm.enums.ref.RefundState;
 import com.eghm.enums.ref.RefundType;
 import com.eghm.vo.business.order.VisitorVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -83,8 +84,16 @@ public class LineOrderDetailResponse {
     @ApiModelProperty("几日游 1:一日游 2:二日游 3:三日游 4:四日游 5:五日游 6:六日游 7:七日游 8:八日游 9:九日游 10: 10日游 11:11日游 12:十二日游")
     private Integer duration;
 
-    @ApiModelProperty("核销码")
-    private String verifyNo;
+    @ApiModelProperty("出发省份")
+    @JsonIgnore
+    private Long startProvinceId;
+
+    @ApiModelProperty("出发城市")
+    @JsonIgnore
+    private Long startCityId;
+
+    @ApiModelProperty("出发省份城市")
+    private String startProvinceCity;
 
     @ApiModelProperty("游客信息")
     private List<VisitorVO> visitorList;

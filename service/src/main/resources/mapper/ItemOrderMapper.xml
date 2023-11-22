@@ -127,7 +127,10 @@
             r.detail_address as detailAddress
         from `order` r
                  left join item_store t on t.id = r.store_id
-        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+        where t.deleted = false and r.order_no = #{orderNo}
+        <if test="merchantId != null">
+            and r.merchant_id = #{merchantId}
+        </if>
     </select>
 
 </mapper>

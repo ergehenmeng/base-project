@@ -57,7 +57,8 @@ public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
     /**
      * 查询餐饮订单详情
      * @param orderNo 订单编号
+     * @param merchantId 商户ID
      * @return 订单信息
      */
-    RestaurantOrderDetailResponse detail(@Param("orderNo") String orderNo);
+    RestaurantOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
 }

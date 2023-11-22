@@ -58,7 +58,8 @@ public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
     /**
      * 查询民宿订单
      * @param orderNo 订单编号
+     * @param merchantId 商户ID
      * @return 订单详情
      */
-    HomestayOrderDetailResponse detail(@Param("orderNo") String orderNo);
+    HomestayOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
 }

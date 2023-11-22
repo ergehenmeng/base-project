@@ -8,10 +8,12 @@
         r.cover_url as coverUrl,
         r.title,
         m.title as travelName,
-        t.travel_agency_id as travelAgencyId,
         r.pay_type as payType,
+        r.pay_time,
+        r.create_time,
         r.num,
         r.state,
+        r.discount_amount,
         r.pay_amount as payAmount
         from `order` r
         inner join line_order t on t.order_no = r.order_no
@@ -113,6 +115,8 @@
             r.refund_type as refundType,
             r.refund_state as refundState,
             r.price,
+            t.start_province_id,
+            t.start_city_id,
             r.discount_amount as discountAmount,
             r.num,
             r.state,

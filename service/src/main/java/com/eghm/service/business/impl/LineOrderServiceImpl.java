@@ -6,12 +6,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineOrderMapper;
 import com.eghm.model.LineOrder;
 import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
@@ -39,6 +42,8 @@ public class LineOrderServiceImpl implements LineOrderService {
     private final OrderVisitorService orderVisitorService;
 
     private final OrderService orderService;
+
+    private final SysAreaService sysAreaService;
 
     @Override
     public Page<LineOrderResponse> listPage(LineOrderQueryRequest request) {
@@ -81,8 +86,13 @@ public class LineOrderServiceImpl implements LineOrderService {
     @Override
     public LineOrderDetailResponse detail(String orderNo) {
         LineOrderDetailResponse detail = lineOrderMapper.detail(orderNo);
+        if (detail == null) {
+            log.warn("线路订单信息查询为空 [{}]", orderNo);
+            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+        }
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
+        detail.setStartProvinceCity(sysAreaService.parseProvinceCity(detail.getStartProvinceId(), detail.getStartCityId()));
         return detail;
     }
 }

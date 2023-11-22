@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderQueryRequest;
@@ -94,7 +95,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 
     @Override
     public TicketOrderDetailResponse detail(String orderNo) {
-        TicketOrderDetailResponse detail = ticketOrderMapper.detailByOrderNo(orderNo);
+        TicketOrderDetailResponse detail = ticketOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
         if (detail == null) {
             log.warn("门票订单信息查询为空 [{}]", orderNo);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);

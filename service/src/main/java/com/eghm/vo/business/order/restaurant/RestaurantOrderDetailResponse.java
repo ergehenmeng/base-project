@@ -42,6 +42,9 @@ public class RestaurantOrderDetailResponse {
     @ApiModelProperty("购买数量")
     private Integer num;
 
+    @ApiModelProperty("已使用数量")
+    private Integer useNum;
+
     @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
 
@@ -95,9 +98,6 @@ public class RestaurantOrderDetailResponse {
 
     @ApiModelProperty(value = "使用截止时间")
     private String expireTime;
-
-    @ApiModelProperty("核销码")
-    private String verifyNo;
 
     @ApiModelProperty("订单备注信息")
     private String remark;

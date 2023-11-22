@@ -8,10 +8,12 @@
         r.cover_url as coverUrl,
         r.title,
         m.title as restaurantName,
-        t.restaurant_id as restaurantId,
         r.pay_type as payType,
+        r.pay_time,
+        r.create_time,
         r.num,
         r.state,
+        r.discount_amount,
         r.pay_amount as payAmount
         from `order` r
         inner join restaurant_order t on t.order_no = r.order_no
@@ -115,7 +117,6 @@
             t.order_no as orderNo,
             r.cover_url as coverUrl,
             r.title,
-            r.verify_no as verifyNo,
             r.pay_type as payType,
             r.refund_type as refundType,
             r.refund_state as refundState,
@@ -124,6 +125,7 @@
             r.price,
             r.discount_amount as discountAmount,
             r.num,
+            t.use_num,
             r.state,
             r.pay_amount as payAmount,
             r.create_time as createTime,
@@ -138,8 +140,11 @@
             r.complete_time as completeTime,
             r.remark
         from `order` r
-                 inner join restaurant_order t on t.order_no = r.order_no
-                 left join restaurant m on t.restaurant_id = m.id
-        where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
+        inner join restaurant_order t on t.order_no = r.order_no
+        left join restaurant m on t.restaurant_id = m.id
+        where t.deleted = false and r.order_no = #{orderNo}
+        <if test="merchantId != null">
+            and r.merchant_id = #{merchantId}
+        </if>
     </select>
 </mapper>

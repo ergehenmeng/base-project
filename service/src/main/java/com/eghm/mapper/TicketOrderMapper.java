@@ -62,7 +62,8 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
      * 查询门票订单详细信息
      *
      * @param orderNo 订单编号
+     * @param merchantId 商户ID
      * @return 订单详情
      */
-    TicketOrderDetailResponse detailByOrderNo(@Param("orderNo") String orderNo);
+    TicketOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
 }
