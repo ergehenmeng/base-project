@@ -11,10 +11,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wyb
@@ -41,5 +38,13 @@ public class ItemOrderController {
     public RespBody<ItemOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         ItemOrderDetailResponse detail = itemOrderService.detail(orderNo);
         return RespBody.success(detail);
+    }
+
+    @PostMapping("/sipping")
+    @ApiOperation("发货")
+    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
+    public RespBody<Void> sipping(@RequestParam("orderNo") String orderNo) {
+        // TODo 待补全
+        return RespBody.success();
     }
 }

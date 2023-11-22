@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Api(tags = "门票订单")
 @AllArgsConstructor
-@RequestMapping("/manage/scenic/ticket/order")
+@RequestMapping("/manage/ticket/order")
 public class TicketOrderController {
 
     private final OrderService orderService;
