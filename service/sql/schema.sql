@@ -494,7 +494,7 @@ CREATE TABLE `sys_user_role`
 (
     `id`      bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
     `user_id` bigint(20) unsigned NOT NULL COMMENT '用户id',
-    `role_id` bigint(10) unsigned NOT NULL COMMENT '角色id',
+    `role_id` bigint(20) unsigned NOT NULL COMMENT '角色id',
     PRIMARY KEY (`id`) USING BTREE,
     KEY `user_role_idx` (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB

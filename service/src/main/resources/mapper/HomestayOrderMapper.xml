@@ -35,8 +35,8 @@
                 and r.coupon_id is null
             </if>
         </if>
-        <if test="param.createDate != null and param.endDate != null">
-            and r.pay_time between #{param.createDate} and #{param.endDate}
+        <if test="param.startDate != null and param.endDate != null">
+            and r.pay_time between #{param.startDate} and #{param.endDate}
         </if>
         order by t.id desc
     </select>
