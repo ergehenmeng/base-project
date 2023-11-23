@@ -7,13 +7,16 @@
         r.order_no as orderNo,
         r.cover_url as coverUrl,
         r.title,
-        r.store_id as storeId,
         t.title as storeName,
         r.pay_type as payType,
         r.num,
         r.state,
         r.create_time,
+        r.nick_name,
+        r.mobile,
         r.pay_time,
+        r.discount_amount,
+        r.delivery_type,
         r.pay_amount as payAmount
         from `order` r
         left join item_store t on t.id = r.store_id
@@ -26,6 +29,12 @@
         </if>
         <if test="param.orderState != null">
             and r.state = #{param.orderState}
+        </if>
+        <if test="param.refundState != null">
+            and r.refund_state = #{param.refundState}
+        </if>
+        <if test="param.deliveryType!= null">
+            and r.delivery_type = #{param.deliveryType}
         </if>
         <if test="param.isVoucher != null">
             <if test="param.isVoucher">
@@ -117,6 +126,7 @@
             r.refund_state as refundState,
             r.discount_amount as discountAmount,
             r.create_time as createTime,
+            r.close_type,
             r.pay_time as payTime,
             r.remark,
             r.complete_time as completeTime,
@@ -128,7 +138,7 @@
             r.county_id as countyId,
             r.detail_address as detailAddress
         from `order` r
-                 left join item_store t on t.id = r.store_id
+        left join item_store t on t.id = r.store_id
         where t.deleted = false and r.order_no = #{orderNo}
         <if test="merchantId != null">
             and r.merchant_id = #{merchantId}

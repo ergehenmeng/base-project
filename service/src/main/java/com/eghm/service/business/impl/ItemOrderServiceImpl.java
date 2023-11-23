@@ -15,6 +15,7 @@ import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.*;
@@ -35,6 +36,8 @@ import java.util.Map;
 public class ItemOrderServiceImpl implements ItemOrderService {
 
     private final ItemOrderMapper itemOrderMapper;
+
+    private final SysAreaService sysAreaService;
 
     @Override
     public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
@@ -129,6 +132,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
+        detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
         return detail;
     }
@@ -140,6 +144,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
+        detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
         return detail;
     }

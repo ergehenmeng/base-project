@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.item;
 
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.eghm.enums.ref.RefundState;
@@ -63,6 +64,9 @@ public class ItemOrderDetailResponse {
     @ApiModelProperty("关闭时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime closeTime;
+
+    @ApiModelProperty("订单关闭类型 1:过期自动取消 2:用户取消 3:")
+    private CloseType closeType;
 
     @ApiModelProperty("订单备注信息")
     private String remark;

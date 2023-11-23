@@ -24,9 +24,6 @@ public class ItemOrderResponse {
     @ApiModelProperty("店铺名称")
     private String storeName;
 
-    @ApiModelProperty("店铺id")
-    private String storeId;
-
     @ApiModelProperty("图片")
     private String coverUrl;
 
@@ -39,9 +36,19 @@ public class ItemOrderResponse {
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
+    @ApiModelProperty("收货人姓名")
+    private String nickName;
+
+    @ApiModelProperty("收货人电话")
+    private String mobile;
+
     @ApiModelProperty("总付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
+
+    @ApiModelProperty("优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer discountAmount;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

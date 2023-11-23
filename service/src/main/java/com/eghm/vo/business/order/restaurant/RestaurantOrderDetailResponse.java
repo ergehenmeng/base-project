@@ -74,11 +74,11 @@ public class RestaurantOrderDetailResponse {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime payTime;
 
-    @ApiModelProperty(value = "联系人手机号")
-    private String mobile;
-
     @ApiModelProperty(value = "昵称")
     private String nickName;
+
+    @ApiModelProperty(value = "联系人手机号")
+    private String mobile;
 
     @ApiModelProperty("完成时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
