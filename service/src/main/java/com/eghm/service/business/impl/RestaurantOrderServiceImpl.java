@@ -10,6 +10,7 @@ import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
 import com.eghm.mapper.RestaurantOrderMapper;
 import com.eghm.model.RestaurantOrder;
 import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.utils.AssertUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO;
@@ -68,11 +69,16 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService {
 
     @Override
     public RestaurantOrderDetailVO getDetail(String orderNo, Long memberId) {
-        return restaurantOrderMapper.getDetail(orderNo, memberId);
+        RestaurantOrderDetailVO detail = restaurantOrderMapper.getDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
+        return detail;
     }
 
     @Override
     public RestaurantOrderDetailResponse detail(String orderNo) {
-        return restaurantOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        RestaurantOrderDetailResponse detail = restaurantOrderMapper.detail(orderNo, merchantId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
+        return detail;
     }
 }

@@ -7,8 +7,6 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineOrderMapper;
 import com.eghm.model.LineOrder;
 import com.eghm.model.OrderVisitor;
@@ -16,6 +14,7 @@ import com.eghm.service.business.LineOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
@@ -78,6 +77,7 @@ public class LineOrderServiceImpl implements LineOrderService {
     @Override
     public LineOrderDetailVO getDetail(String orderNo, Long memberId) {
         LineOrderDetailVO detail = lineOrderMapper.getDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
@@ -86,11 +86,9 @@ public class LineOrderServiceImpl implements LineOrderService {
 
     @Override
     public LineOrderDetailResponse detail(String orderNo) {
-        LineOrderDetailResponse detail = lineOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
-        if (detail == null) {
-            log.warn("线路订单信息查询为空 [{}]", orderNo);
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
+        Long merchantId = SecurityHolder.getMerchantId();
+        LineOrderDetailResponse detail = lineOrderMapper.detail(orderNo, merchantId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         detail.setStartProvinceCity(sysAreaService.parseProvinceCity(detail.getStartProvinceId(), detail.getStartCityId()));

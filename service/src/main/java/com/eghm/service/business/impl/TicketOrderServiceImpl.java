@@ -15,6 +15,7 @@ import com.eghm.model.TicketOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.TicketOrderService;
+import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
@@ -67,6 +68,7 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     @Override
     public TicketOrderDetailVO getDetail(String orderNo, Long memberId) {
         TicketOrderDetailVO detail = ticketOrderMapper.getDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
@@ -95,11 +97,9 @@ public class TicketOrderServiceImpl implements TicketOrderService {
 
     @Override
     public TicketOrderDetailResponse detail(String orderNo) {
-        TicketOrderDetailResponse detail = ticketOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
-        if (detail == null) {
-            log.warn("门票订单信息查询为空 [{}]", orderNo);
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
+        Long merchantId = SecurityHolder.getMerchantId();
+        TicketOrderDetailResponse detail = ticketOrderMapper.detail(orderNo, merchantId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
         if (Boolean.TRUE.equals(detail.getRealBuy())) {
             List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
             detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));

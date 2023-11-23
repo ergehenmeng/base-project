@@ -13,6 +13,7 @@ import com.eghm.model.OrderVisitor;
 import com.eghm.service.business.HomestayOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
+import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
@@ -73,6 +74,7 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
     @Override
     public HomestayOrderDetailVO getDetail(String orderNo, Long memberId) {
         HomestayOrderDetailVO detail = homestayOrderMapper.getDetail(orderNo, memberId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         detail.setVerifyNo(orderService.encryptVerifyNo(detail.getVerifyNo()));
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
@@ -81,7 +83,9 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
 
     @Override
     public HomestayOrderDetailResponse detail(String orderNo) {
-        HomestayOrderDetailResponse detail = homestayOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
+        Long merchantId = SecurityHolder.getMerchantId();
+        HomestayOrderDetailResponse detail = homestayOrderMapper.detail(orderNo, merchantId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
         List<OrderVisitor> visitorList = orderVisitorService.getByOrderNo(orderNo);
         detail.setVisitorList(DataUtil.copy(visitorList, VisitorVO.class));
         return detail;

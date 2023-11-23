@@ -16,6 +16,7 @@ import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.*;
@@ -128,9 +129,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public ItemOrderDetailVO getDetail(String orderNo, Long memberId) {
         ItemOrderDetailVO detail = itemOrderMapper.getDetail(orderNo, memberId);
-        if (detail == null) {
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
+        AssertUtil.assertOrderNotNull(detail, orderNo, memberId);
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
@@ -139,10 +138,9 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     @Override
     public ItemOrderDetailResponse detail(String orderNo) {
-        ItemOrderDetailResponse detail = itemOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
-        if (detail == null) {
-            throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
-        }
+        Long merchantId = SecurityHolder.getMerchantId();
+        ItemOrderDetailResponse detail = itemOrderMapper.detail(orderNo, merchantId);
+        AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
