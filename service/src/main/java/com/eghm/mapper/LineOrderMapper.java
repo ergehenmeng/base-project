@@ -57,7 +57,8 @@ public interface LineOrderMapper extends BaseMapper<LineOrder> {
     /**
      * 查询线路订单详情
      * @param orderNo 订单编号
+     * @param merchantId 商户id
      * @return 订单信息
      */
-    LineOrderDetailResponse detail(@Param("orderNo") String orderNo);
+    LineOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
 }

@@ -12,6 +12,8 @@
         r.pay_type as payType,
         r.num,
         r.state,
+        r.create_time,
+        r.pay_time,
         r.pay_amount as payAmount
         from `order` r
         left join item_store t on t.id = r.store_id

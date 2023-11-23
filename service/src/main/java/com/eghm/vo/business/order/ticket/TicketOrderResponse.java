@@ -5,7 +5,6 @@ import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -45,11 +44,9 @@ public class TicketOrderResponse {
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime payTime;
 
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 }

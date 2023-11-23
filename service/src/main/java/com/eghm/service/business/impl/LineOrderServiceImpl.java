@@ -3,6 +3,7 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
@@ -85,7 +86,7 @@ public class LineOrderServiceImpl implements LineOrderService {
 
     @Override
     public LineOrderDetailResponse detail(String orderNo) {
-        LineOrderDetailResponse detail = lineOrderMapper.detail(orderNo);
+        LineOrderDetailResponse detail = lineOrderMapper.detail(orderNo, SecurityHolder.getMerchantId());
         if (detail == null) {
             log.warn("线路订单信息查询为空 [{}]", orderNo);
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);

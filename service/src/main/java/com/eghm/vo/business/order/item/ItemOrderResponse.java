@@ -3,9 +3,12 @@ package com.eghm.vo.business.order.item;
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
+import java.time.LocalDateTime;
 
 /**
  * 门票订单列表vo
@@ -40,4 +43,11 @@ public class ItemOrderResponse {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
+    @ApiModelProperty("支付时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime payTime;
+
+    @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createTime;
 }
