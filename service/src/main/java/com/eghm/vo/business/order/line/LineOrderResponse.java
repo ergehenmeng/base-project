@@ -30,9 +30,6 @@ public class LineOrderResponse {
     @ApiModelProperty("旅行社名称")
     private String travelName;
 
-    @ApiModelProperty("旅行社id")
-    private Long travelAgencyId;
-
     @ApiModelProperty("支付方式(支付成功才会有支付方式)")
     private PayType payType;
 

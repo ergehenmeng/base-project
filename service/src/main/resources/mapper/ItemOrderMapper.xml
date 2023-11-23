@@ -117,26 +117,26 @@
 
     <select id="detail"  resultType="com.eghm.vo.business.order.item.ItemOrderDetailResponse">
         select
-            r.order_no as orderNo,
-            r.store_id as storeId,
+            r.order_no,
+            r.store_id,
             t.title as storeName,
-            r.pay_type as payType,
+            r.pay_type,
             r.state,
-            r.pay_amount as payAmount,
-            r.refund_state as refundState,
-            r.discount_amount as discountAmount,
-            r.create_time as createTime,
+            r.pay_amount,
+            r.refund_state,
+            r.discount_amount,
+            r.create_time,
             r.close_type,
-            r.pay_time as payTime,
+            r.pay_time,
             r.remark,
-            r.complete_time as completeTime,
-            r.close_time as closeTime,
-            r.nick_name as nickName,
+            r.complete_time,
+            r.close_time,
+            r.nick_name,
             r.mobile,
-            r.province_id as providerId,
-            r.city_id as cityId,
-            r.county_id as countyId,
-            r.detail_address as detailAddress
+            r.province_id,
+            r.city_id,
+            r.county_id,
+            r.detail_address
         from `order` r
         left join item_store t on t.id = r.store_id
         where t.deleted = false and r.order_no = #{orderNo}

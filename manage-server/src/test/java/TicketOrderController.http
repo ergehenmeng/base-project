@@ -1,2 +1,6 @@
-GET http://localhost:8080/manage/scenic/ticket/order/listPage?page=1&pageSize=10
+GET http://localhost:8080/manage/ticket/order/listPage?page=1&pageSize=10
+token: {{token}}
+###
+
+GET http://localhost:8080/manage/ticket/order/detail?orderNo=CY1717124853345591298
 token: {{token}}
