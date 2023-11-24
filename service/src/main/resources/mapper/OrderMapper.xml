@@ -5,14 +5,14 @@
     <select id="getItemList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
         r.id as orderId,
-        t.member_id as memberId,
-        t.order_no as orderNo,
-        t.store_id as storeId,
+        t.member_id,
+        t.order_no,
+        t.store_id,
         r.item_id as productId,
         t.title as productTitle,
-        r.sku_title as skuTitle,
+        r.sku_title,
         t.cover_url as productCover,
-        t.product_type as productType
+        t.product_type
         from `order` t left join item_order r on t.order_no = r.order_no
         where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
     </select>
@@ -20,13 +20,13 @@
     <select id="getRestaurantList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
             r.id as orderId,
-            t.member_id as memberId,
-            t.store_id as storeId,
-            t.order_no as orderNo,
+            t.member_id,
+            t.store_id,
+            t.order_no,
             r.voucher_id as productId,
             t.title as productTitle,
             t.cover_url as productCover,
-            t.product_type as productType
+            t.product_type
         from `order` t left join restaurant_order r on t.order_no = r.order_no
         where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
     </select>
@@ -34,13 +34,13 @@
     <select id="getTicketList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
             r.id as orderId,
-            t.member_id as memberId,
-            t.store_id as storeId,
-            t.order_no as orderNo,
+            t.member_id,
+            t.store_id,
+            t.order_no,
             r.ticket_id as productId,
             t.title as productTitle,
             t.cover_url as productCover,
-            t.product_type as productType
+            t.product_type
         from `order` t left join ticket_order r on t.order_no = r.order_no
         where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
     </select>
@@ -48,13 +48,13 @@
     <select id="getLineList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
             r.id as orderId,
-            t.member_id as memberId,
-            t.store_id as storeId,
-            t.order_no as orderNo,
+            t.member_id,
+            t.store_id,
+            t.order_no,
             r.line_id as productId,
             t.title as productTitle,
             t.cover_url as productCover,
-            t.product_type as productType
+            t.product_type
         from `order` t left join line_order r on t.order_no = r.order_no
         where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
     </select>
@@ -62,13 +62,13 @@
     <select id="getHomestayList" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
             r.id as orderId,
-            t.member_id as memberId,
-            t.store_id as storeId,
-            t.order_no as orderNo,
+            t.member_id,
+            t.store_id,
+            t.order_no,
             r.line_id as productId,
             t.title as productTitle,
             t.cover_url as productCover,
-            t.product_type as productType
+            t.product_type
         from `order` t left join line_order r on t.order_no = r.order_no
         where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
     </select>

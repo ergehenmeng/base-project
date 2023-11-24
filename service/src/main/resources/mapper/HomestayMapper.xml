@@ -24,10 +24,10 @@
             st_distance_sphere(point(t.longitude, t.latitude), point(#{param.longitude}, #{param.latitude})) as distance,
         </if>
         t.`level`,
-        t.city_id as cityId,
-        t.county_id as countyId,
-        t.detail_address as detailAddress,
-        t.cover_url as coverUrl,
+        t.city_id,
+        t.county_id,
+        t.detail_address,
+        t.cover_url,
         t.phone,
         t.tag as tagIds,
         r.minPrice

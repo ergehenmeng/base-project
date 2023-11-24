@@ -11,12 +11,12 @@
         r.pay_type,
         r.pay_time,
         r.create_time,
-        t.nick_name,
-        t.mobile,
+        r.nick_name,
+        r.mobile,
         r.num,
         r.state,
         r.discount_amount,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         inner join restaurant_order t on t.order_no = r.order_no
         left join restaurant m on t.restaurant_id = m.id
@@ -51,7 +51,7 @@
         select
         t.title as productTitle,
         t.cover_url as productCover,
-        t.store_id as storeId,
+        t.store_id,
         r.voucher_id as productId
         from restaurant_order r inner join `order` t on t.order_no = r.order_no
         where t.id = #{orderId} and r.order_no = #{orderNo} and t.deleted = false
@@ -99,8 +99,8 @@
             r.pay_amount,
             r.create_time,
             r.pay_time,
-            t.mobile,
-            t.nick_name,
+            r.mobile,
+            r.nick_name,
             t.valid_days,
             t.effect_date,
             t.expire_date,
@@ -132,8 +132,8 @@
             r.pay_amount,
             r.create_time,
             r.pay_time,
-            t.mobile,
-            t.nick_name,
+            r.mobile,
+            r.nick_name,
             t.valid_days,
             t.effect_date,
             t.expire_date,

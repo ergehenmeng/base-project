@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.FeedbackLogMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.model.FeedbackLog">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="member_id" jdbcType="BIGINT" property="memberId"/>
-        <result column="state" jdbcType="TINYINT" property="state"/>
-        <result column="classify" jdbcType="TINYINT" property="classify"/>
-        <result column="version" jdbcType="VARCHAR" property="version"/>
-        <result column="system_version" jdbcType="VARCHAR" property="systemVersion"/>
-        <result column="content" jdbcType="VARCHAR" property="content"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="device_brand" jdbcType="VARCHAR" property="deviceBrand"/>
-        <result column="device_model" jdbcType="VARCHAR" property="deviceModel"/>
-    </resultMap>
 
-    <resultMap id="ListResultMap" type="com.eghm.vo.feedback.FeedbackVO" extends="BaseResultMap">
-        <result column="nick_name" jdbcType="CHAR" property="nickName"/>
-        <result column="mobile" jdbcType="CHAR" property="mobile"/>
-    </resultMap>
-
-    <select id="getByPage" parameterType="com.eghm.dto.feedback.FeedbackQueryRequest" resultMap="ListResultMap">
+    <select id="getByPage" parameterType="com.eghm.dto.feedback.FeedbackQueryRequest" resultType="com.eghm.model.FeedbackLog">
         select
         t.id,
         t.state,

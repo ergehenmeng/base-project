@@ -5,15 +5,17 @@
 
     <select id="listPage" resultType="com.eghm.vo.business.order.homestay.HomestayOrderResponse" parameterType="com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest">
         select
-        t.order_no as orderNo,
-        r.cover_url as coverUrl,
+        t.order_no,
+        r.cover_url,
         r.title,
         m.title as homestayName,
-        t.homestay_id as homestayId,
-        r.pay_type as payType,
+        t.homestay_id,
+        r.pay_type,
+        r.nick_name,
+        r.mobile,
         r.num,
         r.state,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         inner join homestay_order t on t.order_no = r.order_no
         left join homestay m on t.homestay_id = m.id
@@ -53,15 +55,15 @@
 
     <select id="getList" resultType="com.eghm.vo.business.order.homestay.HomestayOrderVO" parameterType="com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO">
         select
-        t.order_no as orderNo,
-        r.cover_url as coverUrl,
+        t.order_no,
+        r.cover_url,
         r.title,
         m.title as homestayName,
-        t.homestay_id as homestayId,
-        r.pay_type as payType,
+        t.homestay_id,
+        r.pay_type,
         r.num,
         r.state,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         inner join homestay_order t on t.order_no = r.order_no
         left join homestay m on t.homestay_id = m.id
@@ -77,26 +79,26 @@
 
     <select id="getDetail" resultType="com.eghm.vo.business.order.homestay.HomestayOrderDetailVO">
         select
-            t.order_no as orderNo,
-            r.cover_url as coverUrl,
+            t.order_no,
+            r.cover_url,
             r.title,
-            r.verify_no as verifyNo,
+            r.verify_no,
             m.title as homestayName,
-            t.homestay_id as homestayId,
-            r.pay_type as payType,
-            r.refund_type as refundType,
-            r.refund_state as refundState,
+            t.homestay_id,
+            r.pay_type,
+            r.refund_type,
+            r.refund_state,
             r.price,
-            r.discount_amount as discountAmount,
+            r.discount_amount,
             r.num,
             r.state,
-            r.pay_amount as payAmount,
-            r.create_time as createTime,
-            r.pay_time as payTime,
+            r.pay_amount,
+            r.create_time,
+            r.pay_time,
             t.mobile,
-            r.complete_time as completeTime,
-            t.start_date as startDate,
-            t.end_date as endDate,
+            r.complete_time,
+            t.start_date,
+            t.end_date,
             r.remark
         from `order` r
         inner join homestay_order t on t.order_no = r.order_no
@@ -106,26 +108,26 @@
 
     <select id="detail" resultType="com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse">
         select
-            t.order_no as orderNo,
-            r.cover_url as coverUrl,
+            t.order_no,
+            r.cover_url,
             r.title,
-            r.verify_no as verifyNo,
+            r.verify_no,
             m.title as homestayName,
-            t.homestay_id as homestayId,
-            r.pay_type as payType,
-            r.refund_type as refundType,
-            r.refund_state as refundState,
+            t.homestay_id,
+            r.pay_type,
+            r.refund_type,
+            r.refund_state,
             r.price,
-            r.discount_amount as discountAmount,
+            r.discount_amount,
             r.num,
             r.state,
-            r.pay_amount as payAmount,
-            r.create_time as createTime,
-            r.pay_time as payTime,
+            r.pay_amount,
+            r.create_time,
+            r.pay_time,
             t.mobile,
-            r.complete_time as completeTime,
-            t.start_date as startDate,
-            t.end_date as endDate,
+            r.complete_time,
+            t.start_date,
+            t.end_date,
             r.remark
         from `order` r
         inner join homestay_order t on t.order_no = r.order_no

@@ -4,11 +4,11 @@
 
     <select id="listPage" parameterType="com.eghm.dto.business.order.item.ItemOrderQueryRequest" resultType="com.eghm.vo.business.order.item.ItemOrderResponse">
         select
-        r.order_no as orderNo,
-        r.cover_url as coverUrl,
+        r.order_no,
+        r.cover_url,
         r.title,
         t.title as storeName,
-        r.pay_type as payType,
+        r.pay_type,
         r.num,
         r.state,
         r.create_time,
@@ -17,7 +17,7 @@
         r.pay_time,
         r.discount_amount,
         r.delivery_type,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         left join item_store t on t.id = r.store_id
         where t.deleted = false
@@ -56,15 +56,15 @@
 
     <select id="getList" parameterType="com.eghm.dto.business.order.item.ItemOrderQueryDTO" resultType="com.eghm.vo.business.order.item.ItemOrderVO">
         select
-        r.order_no as orderNo,
-        r.cover_url as coverUrl,
+        r.order_no,
+        r.cover_url,
         r.title,
-        r.store_id as storeId,
+        r.store_id,
         t.title as storeName,
-        r.pay_type as payType,
+        r.pay_type,
         r.num,
         r.state,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         left join item_store t on t.id = r.store_id
         where t.deleted = false and r.member_id = #{param.memberId}
@@ -79,25 +79,25 @@
 
     <select id="getDetail"  resultType="com.eghm.vo.business.order.item.ItemOrderDetailVO">
         select
-        r.order_no as orderNo,
-        r.store_id as storeId,
+        r.order_no,
+        r.store_id,
         t.title as storeName,
-        r.pay_type as payType,
+        r.pay_type,
         r.state,
-        r.pay_amount as payAmount,
-        r.refund_state as refundState,
-        r.discount_amount as discountAmount,
-        r.create_time as createTime,
-        r.pay_time as payTime,
+        r.pay_amount,
+        r.refund_state,
+        r.discount_amount,
+        r.create_time,
+        r.pay_time,
         r.remark,
-        r.complete_time as completeTime,
-        r.close_time as closeTime,
-        r.nick_name as nickName,
+        r.complete_time,
+        r.close_time,
+        r.nick_name,
         r.mobile,
-        r.province_id as providerId,
-        r.city_id as cityId,
-        r.county_id as countyId,
-        r.detail_address as detailAddress
+        r.province_id,
+        r.city_id,
+        r.county_id,
+        r.detail_address
         from `order` r
         left join item_store t on t.id = r.store_id
         where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}

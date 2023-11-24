@@ -5,13 +5,13 @@
     <select id="getByPage" resultType="com.eghm.vo.business.scenic.ScenicListVO" parameterType="com.eghm.dto.business.scenic.ScenicQueryDTO">
         select
         id,
-        scenic_name as scenicName,
-        cover_url as coverUrl,
+        scenic_name,
+        cover_url,
         depict,
         longitude,
         latitude,
         `level`,
-        min_price as minPrice
+        min_price
         from scenic where deleted = false and state = 1
         <if test="param.queryName != null and param.queryName != '' ">
             and scenic_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler} ,'%')

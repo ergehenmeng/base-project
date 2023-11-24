@@ -92,6 +92,8 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         order.setProductType(ProductType.RESTAURANT);
         order.setRefundType(voucher.getRefundType());
         order.setRefundDescribe(voucher.getRefundDescribe());
+        order.setNickName(context.getNickName());
+        order.setMobile(context.getMobile());
         // 使用优惠券
         this.useDiscount(order, context.getMemberId(), context.getCouponId(), voucher.getId());
         orderService.save(order);
@@ -113,8 +115,6 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
         restaurantVoucherService.updateStock(context.getVoucherId(), -context.getNum());
         RestaurantOrder restaurantOrder = DataUtil.copy(payload.getRestaurantVoucher(), RestaurantOrder.class, "id");
         restaurantOrder.setOrderNo(order.getOrderNo());
-        restaurantOrder.setMobile(context.getMobile());
-        restaurantOrder.setNickName(context.getNickName());
         restaurantOrder.setVoucherId(context.getVoucherId());
         restaurantOrderService.insert(restaurantOrder);
         context.setOrderNo(order.getOrderNo());

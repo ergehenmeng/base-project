@@ -12,13 +12,13 @@
         select
         id,
         title,
-        max_limit as maxLimit,
-        coupon_type as couponType,
-        deduction_value as deductionValue,
-        discount_value as discountValue,
-        use_threshold as useThreshold,
-        use_start_time as useStartTime,
-        use_end_time as useEndTime,
+        max_limit,
+        coupon_type,
+        deduction_value,
+        discount_value,
+        use_threshold,
+        use_start_time,
+        use_end_time,
         instruction
         from coupon_config where deleted = false and stock &gt; 0 and state = 1 and `mode` = 1
         and now() between start_time and end_time
@@ -28,13 +28,13 @@
         select
             r.id,
             r.title,
-            r.max_limit as maxLimit,
-            r.coupon_type as couponType,
-            r.deduction_value as deductionValue,
-            r.discount_value as discountValue,
-            r.use_threshold as useThreshold,
-            r.use_start_time as useStartTime,
-            r.use_end_time as useEndTime,
+            r.max_limit,
+            r.coupon_type,
+            r.deduction_value,
+            r.discount_value,
+            r.use_threshold,
+            r.use_start_time,
+            r.use_end_time,
             r.instruction
         from coupon_config r left join coupon_item t on t.coupon_config_id = r.id
         where r.deleted = false and r.stock &gt; 0 and r.state = 1 and r.`mode` = 1

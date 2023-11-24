@@ -36,6 +36,12 @@ public class LineOrderResponse {
     @ApiModelProperty("购买数量")
     private Integer num;
 
+    @ApiModelProperty("昵称")
+    private String nickName;
+
+    @ApiModelProperty("手机号")
+    private String mobile;
+
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 

@@ -1,27 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.BannerMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.model.Banner">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
-        <result column="classify" jdbcType="TINYINT" property="classify"/>
-        <result column="client_type" jdbcType="VARCHAR" property="clientType"/>
-        <result column="img_url" jdbcType="VARCHAR" property="imgUrl"/>
-        <result column="jump_url" jdbcType="VARCHAR" property="jumpUrl"/>
-        <result column="sort" jdbcType="TINYINT" property="sort"/>
-        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
-        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
-        <result column="click" jdbcType="BIT" property="click"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="deleted" jdbcType="BIT" property="deleted"/>
-    </resultMap>
 
-    <select id="getBannerList" resultMap="BaseResultMap">
+    <select id="getBannerList" resultType="com.eghm.model.Banner">
         select
         id,title, classify, client_type, img_url, jump_url, sort, start_time, end_time, click, remark
         from banner where

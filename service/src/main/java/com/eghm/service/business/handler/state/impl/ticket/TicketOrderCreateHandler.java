@@ -94,6 +94,7 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         order.setProductType(ProductType.TICKET);
         order.setCoverUrl(ticket.getCoverUrl());
         order.setOrderNo(orderNo);
+        order.setMobile(context.getMobile());
         order.setRemark(context.getRemark());
         order.setPrice(ticket.getSalePrice());
         order.setNum(context.getNum());
@@ -124,7 +125,6 @@ public class TicketOrderCreateHandler extends AbstractOrderCreateHandler<TicketO
         scenicTicketService.updateStock(payload.getTicket().getId(), -order.getNum());
         TicketOrder ticketOrder = DataUtil.copy(payload.getTicket(), TicketOrder.class, "id");
         ticketOrder.setOrderNo(order.getOrderNo());
-        ticketOrder.setMobile(context.getMobile());
         ticketOrder.setTicketId(context.getTicketId());
         ticketOrder.setVisitDate(context.getVisitDate());
         ticketOrder.setScenicName(payload.getScenic().getScenicName());

@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysRoleMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.model.SysRole">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
-        <result column="role_type" jdbcType="VARCHAR" property="roleType"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="deleted" jdbcType="BIT" property="deleted"/>
-        <result column="remark" jdbcType="VARCHAR" property="remark"/>
-    </resultMap>
-    <select id="getRoleList" resultMap="BaseResultMap">
+    <select id="getRoleList" resultType="com.eghm.model.SysRole">
         select t.id, t.role_name, t.role_type, t.remark
         from sys_role t
         left join sys_user_role r on t.id = r.role_id

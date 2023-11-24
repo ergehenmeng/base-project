@@ -18,9 +18,9 @@
     
     <select id="getRefundProcess" resultType="com.eghm.dto.ext.OrderRefund">
         select
-             t.out_refund_no as outRefundNo,
-             r.out_trade_no as outTradeNo,
-             r.order_no as orderNo
+             t.out_refund_no,
+             r.out_trade_no,
+             r.order_no
         from
         order_refund_log t
         inner join `order` r on t.order_no = r.order_no
@@ -31,14 +31,14 @@
         select
             t.id,
             r.title,
-            r.cover_url as coverUrl,
-            t.order_no as orderNo
+            r.cover_url,
+            t.order_no
             t.num,
-            t.apply_amount as applyAmount
+            t.apply_amount
             t.reason,
             t.state,
-            t.audit_state as auditState,
-            t.apply_time as applyTime
+            t.audit_state,
+            t.apply_time
         from
         order_refund_log t
         inner join `order` r on t.order_no = r.order_no

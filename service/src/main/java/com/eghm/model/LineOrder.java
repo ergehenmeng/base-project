@@ -36,12 +36,6 @@ public class LineOrder implements Serializable {
     @ApiModelProperty(value = "订单编号")
     private String orderNo;
 
-    @ApiModelProperty("昵称")
-    private String nickName;
-
-    @ApiModelProperty("联系电话")
-    private String mobile;
-
     @ApiModelProperty("游玩日期")
     private LocalDate visitDate;
 

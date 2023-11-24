@@ -5,7 +5,7 @@
     <select id="getByPage" resultType="com.eghm.vo.log.WebappLogResponse" parameterType="com.eghm.dto.log.WebappQueryRequest">
        select
         t.*,
-        r.nick_name as nickName
+        r.nick_name
        from webapp_log t
        left join member r on t.member_id = r.id
        <where>

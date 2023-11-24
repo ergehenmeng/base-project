@@ -26,6 +26,10 @@ public class RestaurantOrderCreateDTO {
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
+    @ApiModelProperty("联系人姓名")
+    @Size(max = 10, message = "联系人姓名最大10字符")
+    private String nickName;
+
     @ApiModelProperty(value = "联系人电话", required = true)
     @Mobile(message = "联系人手机号格式错误")
     private String mobile;

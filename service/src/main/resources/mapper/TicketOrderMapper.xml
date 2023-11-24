@@ -9,7 +9,7 @@
             t.scenic_name,
             r.pay_type,
             r.num,
-            t.mobile,
+            r.mobile,
             r.state,
             r.close_time,
             r.discount_amount,
@@ -50,14 +50,14 @@
     </select>
     <select id="getList" parameterType="com.eghm.dto.business.order.ticket.TicketOrderQueryDTO" resultType="com.eghm.vo.business.order.ticket.TicketOrderVO">
         select
-            t.order_no as orderNo,
-            r.cover_url as coverUrl,
+            t.order_no,
+            r.cover_url,
             r.title,
-            t.scenic_name as scenicName,
-            r.pay_type as payType,
+            t.scenic_name,
+            r.pay_type,
             r.num,
             r.state,
-            r.pay_amount as payAmount
+            r.pay_amount
         from `order` r
             inner join ticket_order t on t.order_no = r.order_no
         where t.deleted = false and r.member_id = #{param.memberId}
@@ -76,25 +76,25 @@
 
     <select id="getDetail" resultType="com.eghm.vo.business.order.ticket.TicketOrderDetailVO">
         select
-            t.order_no as orderNo,
-            r.cover_url as coverUrl,
+            t.order_no,
+            r.cover_url,
             r.title,
-            r.verify_no as verifyNo,
-            t.scenic_id as scenicId,
-            t.scenic_name as scenicName,
+            r.verify_no,
+            t.scenic_id,
+            t.scenic_name,
             t.category,
-            r.pay_type as payType,
+            r.pay_type,
             r.num,
-            r.refund_type as refundType,
-            r.refund_state as refundState,
+            r.refund_type,
+            r.refund_state,
             r.price,
-            r.discount_amount as discountAmount,
-            r.pay_amount as payAmount,
-            r.create_time as createTime,
-            r.pay_time as payTime,
-            r.complete_time as completeTime,
-            t.visit_date as visitDate,
-            t.mobile,
+            r.discount_amount,
+            r.pay_amount,
+            r.create_time,
+            r.pay_time,
+            r.complete_time,
+            t.visit_date,
+            r.mobile,
             r.state,
             r.remark
         from `order` r
@@ -105,7 +105,7 @@
     <select id="getSnapshot" resultType="com.eghm.vo.business.order.ProductSnapshotVO">
         select
         t.title as productTitle,
-        t.store_id as storeId,
+        t.store_id,
         t.cover_url as productCover,
         r.ticket_id as productId
         from ticket_order r inner join `order` t on t.order_no = r.order_no
@@ -114,8 +114,8 @@
 
     <select id="getUnVerifyList" resultType="com.eghm.vo.business.order.ticket.TicketVerifyVO">
         select
-            t.order_no as orderNo,
-            t.merchant_id as merchantId
+            t.order_no,
+            t.merchant_id
         from ticket_order r
         inner join `order` t on t.order_no = r.order_no
         where t.deleted = false and r.deleted = false and t.state = 2 and r.verification_type = 2 and r.visit_date &lt; curdate()
@@ -142,7 +142,7 @@
             r.create_time,
             r.pay_time,
             r.complete_time,
-            t.mobile,
+            r.mobile,
             r.state,
             r.refund_state,
             r.close_time,

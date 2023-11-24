@@ -67,8 +67,4 @@ public class HomestayOrder extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
-
-    @ApiModelProperty(value = "联系人手机号")
-    private String mobile;
-
 }

@@ -6,8 +6,8 @@
         select
         id,
         title,
-        logo_url as logoUrl,
-        cover_url as coverUrl,
+        logo_url,
+        cover_url,
         telephone,
         introduce
         from item_store where state = 1 and deleted = false order by recommend desc limit #{limit}

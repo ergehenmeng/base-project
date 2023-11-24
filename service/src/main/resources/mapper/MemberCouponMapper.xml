@@ -6,9 +6,9 @@
         select
         t.id,
         t.state,
-        t.receive_time as receiveTime,
-        t.use_time as useTime,
-        r.nick_name as nickName,
+        t.receive_time,
+        t.use_time,
+        r.nick_name,
         r.mobile
         from member_coupon t
         left join `member` r on t.member_id = r.id
@@ -30,12 +30,12 @@
         t.id,
         t.state,
         r.title,
-        r.coupon_type as couponType,
-        r.deduction_value as deductionValue,
-        r.discount_value as discountValue,
-        r.use_threshold as useThreshold,
-        r.use_start_time as useStartTime,
-        r.use_end_time as useEndTime,
+        r.coupon_type,
+        r.deduction_value,
+        r.discount_value,
+        r.use_threshold,
+        r.use_start_time,
+        r.use_end_time,
         r.instruction
         from member_coupon t
         left join coupon_config r on t.coupon_config_id = r.id
@@ -50,10 +50,10 @@
         select
         t.id,
         r.title,
-        r.coupon_type as couponType,
-        r.deduction_value as deductionValue,
-        r.discount_value as discountValue,
-        r.use_threshold as useThreshold
+        r.coupon_type,
+        r.deduction_value,
+        r.discount_value,
+        r.use_threshold
         from member_coupon t
         left join coupon_config r on r.id = t.coupon_config_id
         inner join coupon_item s on t.coupon_config_id = s.coupon_config_id

@@ -4,17 +4,19 @@
 
     <select id="listPage" parameterType="com.eghm.dto.business.order.line.LineOrderQueryRequest" resultType="com.eghm.vo.business.order.line.LineOrderResponse">
         select
-        t.order_no as orderNo,
-        r.cover_url as coverUrl,
+        t.order_no,
+        r.cover_url
         r.title,
         m.title as travelName,
-        r.pay_type as payType,
+        r.pay_type,
         r.pay_time,
         r.create_time,
+        r.nick_name,
+        r.mobile,
         r.num,
         r.state,
         r.discount_amount,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         inner join line_order t on t.order_no = r.order_no
         left join travel_agency m on t.travel_agency_id = m.id
@@ -54,15 +56,15 @@
 
     <select id="getList" parameterType="com.eghm.dto.business.order.line.LineOrderQueryDTO" resultType="com.eghm.vo.business.order.line.LineOrderVO">
         select
-        t.order_no as orderNo,
-        r.cover_url as coverUrl,
+        t.order_no,
+        r.cover_url,
         r.title,
         m.title as travelName,
-        t.travel_agency_id as travelAgencyId,
-        r.pay_type as payType,
+        t.travel_agency_id,
+        r.pay_type,
         r.num,
         r.state,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         inner join line_order t on t.order_no = r.order_no
         left join travel_agency m on t.travel_agency_id = m.id
@@ -78,25 +80,25 @@
 
     <select id="getDetail" resultType="com.eghm.vo.business.order.line.LineOrderDetailVO">
         select
-        t.order_no as orderNo,
-        r.cover_url as coverUrl,
+        t.order_no,
+        r.cover_url,
         r.title,
-        r.verify_no as verifyNo,
+        r.verify_no,
         t.duration,
-        r.pay_type as payType,
-        r.refund_type as refundType,
-        r.refund_state as refundState,
+        r.pay_type,
+        r.refund_type,
+        r.refund_state,
         r.price,
-        r.discount_amount as discountAmount,
+        r.discount_amount,
         r.num,
         r.state,
-        r.pay_amount as payAmount,
-        r.create_time as createTime,
-        r.pay_time as payTime,
-        t.mobile,
-        t.nick_name as nickName,
-        r.complete_time as completeTime,
-        t.visit_date as visitDate,
+        r.pay_amount,
+        r.create_time,
+        r.pay_time,
+        r.mobile,
+        r.nick_name,
+        r.complete_time,
+        t.visit_date,
         t.duration,
         r.remark
         from `order` r
@@ -106,27 +108,27 @@
 
     <select id="detail" resultType="com.eghm.vo.business.order.line.LineOrderDetailResponse">
         select
-            t.order_no as orderNo,
-            r.cover_url as coverUrl,
+            t.order_no,
+            r.cover_url,
             r.title,
-            r.verify_no as verifyNo,
+            r.verify_no,
             t.duration,
-            r.pay_type as payType,
-            r.refund_type as refundType,
-            r.refund_state as refundState,
+            r.pay_type,
+            r.refund_type,
+            r.refund_state,
             r.price,
             t.start_province_id,
             t.start_city_id,
-            r.discount_amount as discountAmount,
+            r.discount_amount,
             r.num,
             r.state,
-            r.pay_amount as payAmount,
-            r.create_time as createTime,
-            r.pay_time as payTime,
-            t.mobile,
-            t.nick_name as nickName,
-            r.complete_time as completeTime,
-            t.visit_date as visitDate,
+            r.pay_amount,
+            r.create_time,
+            r.pay_time,
+            r.mobile,
+            r.nick_name,
+            r.complete_time,
+            t.visit_date,
             t.duration,
             r.remark
         from `order` r

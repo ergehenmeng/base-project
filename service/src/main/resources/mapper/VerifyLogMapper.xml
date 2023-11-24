@@ -9,10 +9,10 @@
     <select id="getByPage" parameterType="com.eghm.dto.business.verify.VerifyLogQueryRequest" resultType="com.eghm.vo.business.verify.VerifyLogResponse">
         select
         t.id,
-        t.order_no as orderNo,
+        t.order_no,
         t.num,
         t.remark,
-        t.create_time as createTime,
+        t.create_time,
         r.nick_name as verifyName
         from verify_log t
         left join sys_user r on t.user_id = r.id where t.merchant_id = #{param.merchantId}

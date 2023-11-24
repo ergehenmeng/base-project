@@ -6,20 +6,20 @@
         select
         t.id,
         t.title,
-        t.scenic_id as scenicId,
+        t.scenic_id,
         t.state,
         t.category,
-        t.line_price as linePrice,
-        t.sale_price as salePrice,
-        t.advance_day as advanceDay,
+        t.line_price,
+        t.sale_price,
+        t.advance_day,
         t.quota,
-        t.start_date as startDate,
-        t.end_date as endDate,
+        t.start_date,
+        t.end_date,
         t.stock,
-        t.verification_type as verificationType,
-        t.refund_type as refundType,
-        t.real_buy as realBuy,
-        r.scenic_name as scenicName
+        t.verification_type,
+        t.refund_type,
+        t.real_buy,
+        r.scenic_name
         from scenic_ticket t
         left join scenic r on t.scenic_id = r.id
         where t.deleted = false and r.merchant_id = #{param.merchantId}
@@ -43,8 +43,8 @@
         id,
         title,
         stock,
-        line_price as linePrice,
-        sale_price as salePrice
+        line_price,
+        sale_price
         from scenic_ticket where deleted = false and end_date &gt; now()
         and scenic_id = #{scenicId} order by id desc
     </select>

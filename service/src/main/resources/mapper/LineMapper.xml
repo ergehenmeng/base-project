@@ -6,16 +6,16 @@
         select
             t.id,
             t.title,
-            r.merchant_name as merchantName,
+            r.merchant_name,
             s.title as travelAgencyName,
             t.state,
-            t.start_province_id as startProvinceId,
-            t.start_city_id as startCityId,
-            t.cover_url as coverUrl,
-            t.sale_num as saleNum,
+            t.start_province_id,
+            t.start_city_id,
+            t.cover_url,
+            t.sale_num,
             t.duration,
-            t.create_time as createTime,
-            t.update_time as updateTime
+            t.create_time,
+            t.update_time
         from line t
         left join merchant r on t.merchant_id = r.id
         left join travel_agency s on t.travel_agency_id = s.id
@@ -46,9 +46,9 @@
         select
         id,
         title,
-        start_city_id as startCityId,
-        cover_url as coverUrl,
-        total_num as totalNum,
+        start_city_id,
+        cover_url,
+        total_num,
         duration
         from line where deleted = false and state = 1
         <if test="param.queryName != null and param.queryName != ''">

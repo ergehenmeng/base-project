@@ -5,18 +5,18 @@
     <select id="listPage" resultType="com.eghm.vo.business.item.ItemListResponse" parameterType="com.eghm.dto.business.item.ItemQueryRequest">
         select
         t.id,
-        t.store_id as storeId,
+        t.store_id,
         t.title,
         r.title as storeName,
-        t.sale_num as saleNum,
+        t.sale_num,
         t.state,
         t.quota,
-        t.delivery_type as deliveryType,
-        t.refund_type as refundType,
-        t.max_price as maxPrice,
-        t.min_price as minPrice,
-        t.create_time as createTime,
-        t.update_time as updateTime
+        t.delivery_type,
+        t.refund_type,
+        t.max_price,
+        t.min_price,
+        t.create_time,
+        t.update_time
         from item t left join item_store r on t.store_id = r.id
         where t.deleted = false
         <if test="param.expressId != null">
@@ -47,9 +47,9 @@
         select
         id,
         title,
-        cover_url as coverUrl,
+        cover_url,
         total_num as saleNum,
-        min_price as minPrice
+        min_price
         from item where deleted = false and state = 1
         <if test="shopId != null">
             and store_id = #{shopId}
@@ -61,9 +61,9 @@
         select
             id,
             title,
-            cover_url as coverUrl,
+            cover_url,
             total_num as saleNum,
-            min_price as minPrice
+            min_price
         from item where deleted = false and state = 1
         order by min_price &gt; 0, recommend desc, id limit #{limit}
     </select>
@@ -72,11 +72,11 @@
         select
         t.id,
         t.title,
-        t.cover_url as coverUrl,
+        t.cover_url,
         t.total_num as saleNum,
-        t.min_price as minPrice,
+        t.min_price,
         r.title as storeName,
-        t.store_id as storeId
+        t.store_id
         from item t inner join item_store r on t.store_id = r.id
         where t.deleted = false and t.state = 1 and t.min_price &gt; 0 and r.state = 1 and r.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
@@ -107,9 +107,9 @@
         select
         t.id,
         t.title,
-        t.cover_url as coverUrl,
+        t.cover_url,
         t.sale_num as saleNum,
-        t.min_price as minPrice
+        t.min_price
         from item t where t.deleted = false and t.state = 1 and t.min_price &gt; 0
         and t.store_id = #{storeId}
         <if test="param.useScope == 2">

@@ -15,8 +15,8 @@
         t.dimension,
         t.resident,
         t.bed,
-        t.room_type as roomType,
-        t.refund_type as refundType
+        t.room_type,
+        t.refund_type
         from homestay_room t
         left join homestay r on t.homestay_id = r.id
         where t.deleted = false and r.deleted = false
@@ -40,8 +40,8 @@
         select
         id,
         title,
-        cover_url as coverUrl,
-        room_type as roomType
+        cover_url,
+        room_type
         from homestay_room
         where state = 1 and deleted = false and homestay_id = #{param.homestayId}
         <if test="param.queryName != null and param.queryName != ''">
@@ -66,8 +66,8 @@
         select
             id,
             title,
-            cover_url as coverUrl,
-            room_type as roomType
+            cover_url,
+            room_type
         from homestay_room
         where state = 1 and deleted = false and homestay_id = #{homestayId}
         order by recommend desc, id limit #{limit}

@@ -54,9 +54,6 @@ public class TicketOrder extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "门票介绍")
     private String introduce;
 
-    @ApiModelProperty(value = "联系人手机号")
-    private String mobile;
-
     @ApiModelProperty("门票核销时间")
     private LocalDateTime useTime;
 }

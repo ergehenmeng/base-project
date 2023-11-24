@@ -617,7 +617,6 @@ CREATE TABLE `restaurant_order`
     `depict`        varchar(200) DEFAULT NULL COMMENT '购买说明',
     `quota`         int(10)      DEFAULT '1' COMMENT '限购数量',
     `use_num`       int(10)      DEFAULT '0' COMMENT '已使用数量',
-    `mobile`        varchar(20)  DEFAULT NULL COMMENT '联系人电话',
     `valid_days`    smallint(3)  DEFAULT NULL COMMENT '有效期购买之日起',
     `effect_date`   date         DEFAULT NULL COMMENT '生效时间(包含)',
     `expire_date`   date         DEFAULT NULL COMMENT '失效日期(包含)',

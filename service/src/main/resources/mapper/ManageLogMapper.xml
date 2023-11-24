@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ManageLogMapper">
-    <resultMap id="BaseResultMap" type="com.eghm.model.ManageLog">
-        <!--
-          @create by mybatis
-        -->
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="url" jdbcType="VARCHAR" property="url"/>
-        <result column="user_id" jdbcType="BIGINT" property="userId"/>
-        <result column="request" jdbcType="VARCHAR" property="request"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="ip" jdbcType="BIGINT" property="ip"/>
-        <result column="business_time" jdbcType="BIGINT" property="businessTime"/>
-    </resultMap>
 
-    <resultMap id="ExtBaseResultMap" type="com.eghm.model.ManageLog" extends="BaseResultMap">
-        <result column="nick_name" jdbcType="VARCHAR" property="userName"/>
-    </resultMap>
-
-    <select id="getByPage" parameterType="com.eghm.dto.log.ManageQueryRequest" resultMap="ExtBaseResultMap">
+    <select id="getByPage" parameterType="com.eghm.dto.log.ManageQueryRequest" resultType="com.eghm.model.ManageLog">
         select t.id, t.url, t.user_id, t.request, t.create_time, t.ip, t.business_time,r.nick_name
         from manage_log t inner join sys_user r on t.user_id = r.id
         <where>

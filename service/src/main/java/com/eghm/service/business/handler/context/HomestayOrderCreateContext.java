@@ -30,11 +30,11 @@ public class HomestayOrderCreateContext extends AsyncKey implements Context {
     @ApiModelProperty("优惠券id")
     private Long couponId;
 
-    @ApiModelProperty("联系人电话")
-    private String mobile;
-
     @ApiModelProperty("联系人姓名")
     private String nickName;
+
+    @ApiModelProperty("联系人电话")
+    private String mobile;
 
     @ApiModelProperty("房间数")
     private Integer num;
