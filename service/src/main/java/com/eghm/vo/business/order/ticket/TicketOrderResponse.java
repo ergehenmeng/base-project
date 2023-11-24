@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.ticket;
 
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -37,6 +38,9 @@ public class TicketOrderResponse {
 
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
+
+    @ApiModelProperty(value = "订单关闭方式")
+    private CloseType closeType;
 
     @ApiModelProperty("付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)

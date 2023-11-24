@@ -28,11 +28,11 @@
         <if test="param.orderState != null">
             and r.state = #{param.orderState}
         </if>
-        <if test="param.isVoucher != null">
-            <if test="param.isVoucher">
+        <if test="param.useVoucher != null">
+            <if test="param.useVoucher">
                 and r.coupon_id is not null
             </if>
-            <if test="!param.isVoucher">
+            <if test="!param.useVoucher">
                 and r.coupon_id is null
             </if>
         </if>

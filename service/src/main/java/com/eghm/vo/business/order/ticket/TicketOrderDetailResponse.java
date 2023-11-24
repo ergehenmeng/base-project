@@ -77,12 +77,15 @@ public class TicketOrderDetailResponse {
     private Integer discountAmount;
 
     @ApiModelProperty("门票核销时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useTime;
 
     @ApiModelProperty("完成时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime completeTime;
 
     @ApiModelProperty("订单关闭时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime closeTime;
 
     @ApiModelProperty("支付时间")

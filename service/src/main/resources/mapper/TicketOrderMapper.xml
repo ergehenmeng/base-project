@@ -4,16 +4,17 @@
 
     <select id="getByPage" parameterType="com.eghm.dto.business.order.ticket.TicketOrderQueryRequest" resultType="com.eghm.vo.business.order.ticket.TicketOrderResponse">
         select
-            t.order_no as orderNo,
+            t.order_no,
             r.title,
-            t.scenic_name as scenicName,
-            r.pay_type as payType,
+            t.scenic_name,
+            r.pay_type,
             r.num,
             t.mobile,
             r.state,
-            r.pay_amount as payAmount,
-            r.pay_time as payTime,
-            r.create_time as createTime
+            r.close_type,
+            r.pay_amount,
+            r.pay_time,
+            r.create_time
         from ticket_order t inner join `order` r on t.order_no = r.order_no
         where t.deleted = false
         <if test="param.merchantId != null">
@@ -29,16 +30,19 @@
         <if test="param.state != null">
             and r.state = #{param.state}
         </if>
-        <if test="param.isVoucher != null">
-            <if test="param.isVoucher">
+        <if test="param.useVoucher != null">
+            <if test="param.useVoucher">
                 and r.coupon_id is not null
             </if>
-            <if test="!param.isVoucher">
+            <if test="!param.useVoucher">
                 and r.coupon_id is null
             </if>
         </if>
         <if test="param.startDate != null and param.endDate != null">
             and r.pay_time between #{param.startDate} and #{param.endDate}
+        </if>
+        <if test="param.closeType != null">
+            and r.close_type = #{param.closeType}
         </if>
         order by t.id desc
     </select>
@@ -61,14 +65,6 @@
         </if>
         <if test="param.orderState != null">
             and r.state = #{param.orderState}
-        </if>
-        <if test="param.isVoucher != null">
-            <if test="param.isVoucher">
-                and r.coupon_id is not null
-            </if>
-            <if test="!param.isVoucher">
-                and r.coupon_id is null
-            </if>
         </if>
         <if test="param.startDate != null and param.endDate != null">
             and r.pay_time between #{param.startDate} and #{param.endDate}

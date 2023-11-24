@@ -1,6 +1,7 @@
 package com.eghm.vo.business.order.restaurant;
 
 import com.eghm.convertor.CentToYuanEncoder;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.enums.ref.PayType;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -42,6 +43,17 @@ public class RestaurantOrderResponse {
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime payTime;
+
+    @ApiModelProperty("完成时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime completeTime;
+
+    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
+    private CloseType closeType;
+
+    @ApiModelProperty("订单关闭时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime closeTime;
 
     @ApiModelProperty("总优惠金额")
     @JsonSerialize(using = CentToYuanEncoder.class)

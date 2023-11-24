@@ -30,7 +30,7 @@ public class VoucherOrderQueryRequest extends DatePagingComparator {
     private LocalDate endDate;
 
     @ApiModelProperty("是否使用优惠券")
-    private Boolean isVoucher;
+    private Boolean useVoucher;
 
     @Assign
     @ApiModelProperty(hidden = true, value = "商户ID")

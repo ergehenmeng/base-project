@@ -36,11 +36,11 @@
         <if test="param.deliveryType!= null">
             and r.delivery_type = #{param.deliveryType}
         </if>
-        <if test="param.isVoucher != null">
-            <if test="param.isVoucher">
+        <if test="param.useVoucher != null">
+            <if test="param.useVoucher">
                 and r.coupon_id is not null
             </if>
-            <if test="!param.isVoucher">
+            <if test="!param.useVoucher">
                 and r.coupon_id is null
             </if>
         </if>

@@ -3,6 +3,7 @@ package com.eghm.dto.business.order.ticket;
 import com.eghm.annotation.Assign;
 import com.eghm.annotation.DateFormatter;
 import com.eghm.dto.ext.DatePagingComparator;
+import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -31,7 +32,10 @@ public class TicketOrderQueryRequest extends DatePagingComparator {
     private LocalDate endDate;
 
     @ApiModelProperty("是否使用优惠券")
-    private Boolean isVoucher;
+    private Boolean useVoucher;
+
+    @ApiModelProperty("关闭类型 1:过期自动关闭 2:用户取消 3: 退款完成")
+    private CloseType closeType;
 
     @Assign
     @ApiModelProperty(hidden = true, value = "商户ID")
