@@ -1,8 +1,10 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
-import com.eghm.dto.business.order.ticket.OnlineRefundRequest;
+import com.eghm.dto.business.order.OfflineRefundRequest;
+import com.eghm.dto.business.order.OnlineRefundRequest;
+import com.eghm.dto.business.order.item.ItemOfflineRefundRequest;
+import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -143,7 +145,7 @@ public interface OrderService extends IService<Order> {
     String encryptVerifyNo(String verifyNo);
 
     /**
-     * 门票下线退款
+     * 下线退款
      * @param request 退款金额
      */
     void offlineRefund(OfflineRefundRequest request);
@@ -159,6 +161,24 @@ public interface OrderService extends IService<Order> {
      * @param request 退款金额
      */
     void onlineRefund(OnlineRefundRequest request);
+
+    /**
+     * 零售下线退款
+     * @param request 退款金额
+     */
+    void itemOfflineRefund(ItemOfflineRefundRequest request);
+
+    /**
+     * 零售线上退款
+     * 1. 如果只有未完成或未关闭的订单才能退款
+     * 2. 如果已经线下退款货线下退款中则不能退款
+     * 3. 添加强制退款记录
+     * 4. 锁定游客信息
+     * 5. 更新主订单状态
+     * 6. 发起退款
+     * @param request 退款金额
+     */
+    void itemOnlineRefund(ItemOnlineRefundRequest request);
 
     /**
      * 查询扫码后的订单结果

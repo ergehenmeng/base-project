@@ -3,7 +3,7 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
+import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.mapper.OfflineRefundLogMapper;
 import com.eghm.model.OfflineRefundLog;
 import com.eghm.service.business.OfflineRefundLogService;

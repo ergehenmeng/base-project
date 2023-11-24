@@ -12,8 +12,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
-import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
-import com.eghm.dto.business.order.ticket.OnlineRefundRequest;
+import com.eghm.dto.business.order.OfflineRefundRequest;
+import com.eghm.dto.business.order.OnlineRefundRequest;
+import com.eghm.dto.business.order.item.ItemOfflineRefundRequest;
+import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ref.*;
@@ -319,6 +321,22 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 发起退款
         TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
         baseMapper.updateById(order);
+    }
+
+    @Override
+    public void itemOfflineRefund(ItemOfflineRefundRequest request) {
+        Order order = this.getRefuningOrder(request.getOrderNo());
+        List<Long> refundVisitorIds = offlineRefundLogService.getRefundLog(order.getOrderNo());
+        boolean anyMatch = request.getItemList().stream().anyMatch(refundVisitorIds::contains);
+        if (anyMatch) {
+            log.info("退款商品中存在已经退款的商品 [{}]", request.getItemList());
+            throw new BusinessException(ErrorCode.ITEM_HAS_REFUNDING);
+        }
+    }
+
+    @Override
+    public void itemOnlineRefund(ItemOnlineRefundRequest request) {
+        // TODO 待完成
     }
 
     @Override

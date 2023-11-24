@@ -1,6 +1,6 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.order.ticket.OfflineRefundRequest;
+import com.eghm.dto.business.order.OfflineRefundRequest;
 
 import java.util.List;
 

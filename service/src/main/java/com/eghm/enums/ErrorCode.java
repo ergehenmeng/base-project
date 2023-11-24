@@ -1227,6 +1227,11 @@ public enum ErrorCode {
     MEMBER_HAS_REFUNDING(3615, "存在退款中的游客,不支持线下退款"),
 
     /**
+     * 存在退款中的商品,不支持线下退款
+     */
+    ITEM_HAS_REFUNDING(3616, "存在退款中的商品,不支持线下退款"),
+
+    /**
      * 存在退款中的游客,不支持线下退款
      */
     MEMBER_REFUNDING(3618, "存在退款中的游客,请稍后再试"),
