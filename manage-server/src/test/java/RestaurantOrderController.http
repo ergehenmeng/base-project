@@ -3,7 +3,7 @@ Token: {{token}}
 
 ###
 
-GET http://localhost:8080/manage/restaurant/order/detail?orderNo=CY1727951394039955458
+GET http://localhost:8080/manage/restaurant/order/detail?orderNo=CY1727964517874581506
 Token: {{token}}
 
 ###

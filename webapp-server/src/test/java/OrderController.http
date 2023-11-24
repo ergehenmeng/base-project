@@ -8,11 +8,7 @@ Token: {{Token}}
   "mobile": "13136113294",
   "num": 1,
   "visitDate": "2023-12-12",
-  "remark": "少点套路",
-  "visitorList": [{
-    "idCard": "620622196011141794",
-    "memberName": "山邦家"
-  }]
+  "remark": "少点套路"
 }
 
 ###
@@ -43,10 +39,11 @@ Token: {{Token}}
 
 {
   "roomId": 1714565181759881218,
+  "num": 1,
   "mobile": "13136113453",
   "nickName": "二哥",
-  "startDate": "2023-11-03",
-  "endDate": "2023-11-05",
+  "startDate": "2023-11-25",
+  "endDate": "2023-11-26",
   "remark": "备注信息",
   "visitorList": [{
     "idCard": "620622196011141794",

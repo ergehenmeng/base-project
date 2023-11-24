@@ -20,11 +20,14 @@ public class HomestayOrderResponse {
     @ApiModelProperty("订单编号")
     private String orderNo;
 
-    @ApiModelProperty("门票名称")
+    @ApiModelProperty("封面")
+    private String coverUrl;
+
+    @ApiModelProperty("房型名称")
     private String title;
 
     @ApiModelProperty("景区名称")
-    private String scenicName;
+    private String homestayName;
 
     @ApiModelProperty("支付方式")
     private PayType payType;
@@ -32,7 +35,10 @@ public class HomestayOrderResponse {
     @ApiModelProperty("购买数量")
     private Integer num;
 
-    @ApiModelProperty("订单联系人")
+    @ApiModelProperty("联系人姓名")
+    private String nickName;
+
+    @ApiModelProperty("联系人手机号")
     private String mobile;
 
     @ApiModelProperty(value = "订单状态")
@@ -41,6 +47,10 @@ public class HomestayOrderResponse {
     @ApiModelProperty("付款金额")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
+
+    @ApiModelProperty("优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer discountAmount;
 
     @ApiModelProperty("支付时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

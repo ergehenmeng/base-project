@@ -5,7 +5,7 @@
     <select id="listPage" parameterType="com.eghm.dto.business.order.line.LineOrderQueryRequest" resultType="com.eghm.vo.business.order.line.LineOrderResponse">
         select
         t.order_no,
-        r.cover_url
+        r.cover_url,
         r.title,
         m.title as travelName,
         r.pay_type,

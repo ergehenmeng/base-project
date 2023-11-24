@@ -9,13 +9,15 @@
         r.cover_url,
         r.title,
         m.title as homestayName,
-        t.homestay_id,
         r.pay_type,
         r.nick_name,
         r.mobile,
         r.num,
         r.state,
-        r.pay_amount
+        r.pay_time,
+        r.pay_amount,
+        r.discount_amount,
+        r.create_time
         from `order` r
         inner join homestay_order t on t.order_no = r.order_no
         left join homestay m on t.homestay_id = m.id

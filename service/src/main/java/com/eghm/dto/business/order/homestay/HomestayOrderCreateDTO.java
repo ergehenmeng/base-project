@@ -3,6 +3,7 @@ package com.eghm.dto.business.order.homestay;
 import com.eghm.dto.ext.DateComparator;
 import com.eghm.service.business.handler.dto.VisitorDTO;
 import com.eghm.validation.annotation.Mobile;
+import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,7 +41,7 @@ public class HomestayOrderCreateDTO extends DateComparator {
     private String nickName;
 
     @ApiModelProperty(value = "房间数量", required = true)
-    @Size(min = 1, max = 9, message = "房间不能超过9间")
+    @RangeInt(min = 1, max = 9, message = "房间不能超过9间")
     private Integer num;
 
     @ApiModelProperty(value = "入住人员信息列表", required = true)

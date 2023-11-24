@@ -1,9 +1,9 @@
-GET http://localhost:8080/manage/item/order/listPage?page=1&pageSize=10&endDate=2023-11-11
+GET http://localhost:8080/manage/item/order/listPage?page=1&pageSize=10
 Token: {{token}}
 
 ###
 
-GET http://localhost:8080/manage/item/order/detail?orderNo=LS1722193497422397441
+GET http://localhost:8080/manage/item/order/detail?orderNo=LS1727963229233426433
 Token: {{token}}
 
 ###

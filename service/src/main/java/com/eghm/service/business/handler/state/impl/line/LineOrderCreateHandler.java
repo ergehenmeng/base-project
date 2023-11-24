@@ -140,7 +140,7 @@ public class LineOrderCreateHandler extends AbstractOrderCreateHandler<LineOrder
 
     @Override
     protected void end(LineOrderCreateContext context, LineOrderPayload payload, Order order) {
-        orderMQService.sendOrderExpireMessage(ExchangeQueue.TICKET_PAY_EXPIRE, order.getOrderNo());
+        orderMQService.sendOrderExpireMessage(ExchangeQueue.LINE_PAY_EXPIRE, order.getOrderNo());
     }
 
     @Override
