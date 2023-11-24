@@ -63,6 +63,12 @@ public class RestaurantOrderResponse {
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer payAmount;
 
+    @ApiModelProperty("购买人昵称")
+    private String nickName;
+
+    @ApiModelProperty("购买人手机号")
+    private String mobile;
+
     @ApiModelProperty("创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

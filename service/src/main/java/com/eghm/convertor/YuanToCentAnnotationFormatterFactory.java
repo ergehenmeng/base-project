@@ -1,6 +1,6 @@
 package com.eghm.convertor;
 
-import com.eghm.configuration.annotation.YuanToCenterFormat;
+import com.eghm.configuration.annotation.YuanToCentFormat;
 import com.eghm.utils.DecimalUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.support.EmbeddedValueResolutionSupport;
@@ -20,7 +20,7 @@ import java.util.Set;
  * @author 二哥很猛
  * @since 2023/10/8
  */
-public class YuanToCentAnnotationFormatterFactory extends EmbeddedValueResolutionSupport implements AnnotationFormatterFactory<YuanToCenterFormat> {
+public class YuanToCentAnnotationFormatterFactory extends EmbeddedValueResolutionSupport implements AnnotationFormatterFactory<YuanToCentFormat> {
 
     private static final Set<Class<?>> FIELD_TYPES;
 
@@ -40,13 +40,13 @@ public class YuanToCentAnnotationFormatterFactory extends EmbeddedValueResolutio
 
     @Override
     @NonNull
-    public Printer<?> getPrinter(@NonNull YuanToCenterFormat annotation, @NonNull Class<?> fieldType) {
+    public Printer<?> getPrinter(@NonNull YuanToCentFormat annotation, @NonNull Class<?> fieldType) {
         return new YuanToCentFormatter();
     }
 
     @NonNull
     @Override
-    public Parser<?> getParser(@NonNull YuanToCenterFormat annotation, @NonNull Class<?> fieldType) {
+    public Parser<?> getParser(@NonNull YuanToCentFormat annotation, @NonNull Class<?> fieldType) {
         return new YuanToCentFormatter();
     }
 

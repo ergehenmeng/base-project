@@ -4,13 +4,15 @@
 
     <select id="listPage" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderResponse" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest">
         select
-        t.order_no as orderNo,
-        r.cover_url as coverUrl,
+        t.order_no,
+        r.cover_url,
         r.title,
         m.title as restaurantName,
-        r.pay_type as payType,
+        r.pay_type,
         r.pay_time,
         r.create_time,
+        t.nick_name,
+        t.mobile,
         r.num,
         r.state,
         r.discount_amount,
@@ -57,15 +59,15 @@
 
     <select id="getList" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderVO" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO">
         select
-        t.order_no as orderNo,
-        r.cover_url as coverUrl,
+        t.order_no,
+        r.cover_url,
         r.title,
         m.title as restaurantName,
-        t.restaurant_id as restaurantId,
-        r.pay_type as payType,
+        t.restaurant_id,
+        r.pay_type,
         r.num,
         r.state,
-        r.pay_amount as payAmount
+        r.pay_amount
         from `order` r
         inner join restaurant_order t on t.order_no = r.order_no
         left join restaurant m on t.restaurant_id = m.id
@@ -81,30 +83,30 @@
 
     <select id="getDetail" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO">
         select
-            t.order_no as orderNo,
-            r.cover_url as coverUrl,
+            t.order_no,
+            r.cover_url,
             r.title,
-            r.verify_no as verifyNo,
-            r.pay_type as payType,
-            r.refund_type as refundType,
-            r.refund_state as refundState,
+            r.verify_no,
+            r.pay_type,
+            r.refund_type,
+            r.refund_state,
             m.title as restaurantName,
-            t.restaurant_id as restaurantId,
+            t.restaurant_id,
             r.price,
-            r.discount_amount as discountAmount,
+            r.discount_amount,
             r.num,
             r.state,
-            r.pay_amount as payAmount,
-            r.create_time as createTime,
-            r.pay_time as payTime,
+            r.pay_amount,
+            r.create_time,
+            r.pay_time,
             t.mobile,
-            t.nick_name as nickName,
-            t.valid_days as validDays,
-            t.effect_date as effectDate,
-            t.expire_date as expireDate,
-            t.effect_time as effectTime,
-            t.expire_time as expireTime,
-            r.complete_time as completeTime,
+            t.nick_name,
+            t.valid_days,
+            t.effect_date,
+            t.expire_date,
+            t.effect_time,
+            t.expire_time,
+            r.complete_time,
             r.remark
         from `order` r
         inner join restaurant_order t on t.order_no = r.order_no
@@ -114,30 +116,30 @@
 
     <select id="detail" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse">
         select
-            t.order_no as orderNo,
-            r.cover_url as coverUrl,
+            t.order_no,
+            r.cover_url,
             r.title,
-            r.pay_type as payType,
-            r.refund_type as refundType,
-            r.refund_state as refundState,
+            r.pay_type,
+            r.refund_type,
+            r.refund_state,
             m.title as restaurantName,
-            t.restaurant_id as restaurantId,
+            t.restaurant_id,
             r.price,
-            r.discount_amount as discountAmount,
+            r.discount_amount,
             r.num,
             t.use_num,
             r.state,
-            r.pay_amount as payAmount,
-            r.create_time as createTime,
-            r.pay_time as payTime,
+            r.pay_amount,
+            r.create_time,
+            r.pay_time,
             t.mobile,
-            t.nick_name as nickName,
-            t.valid_days as validDays,
-            t.effect_date as effectDate,
-            t.expire_date as expireDate,
-            t.effect_time as effectTime,
-            t.expire_time as expireTime,
-            r.complete_time as completeTime,
+            t.nick_name,
+            t.valid_days,
+            t.effect_date,
+            t.expire_date,
+            t.effect_time,
+            t.expire_time,
+            r.complete_time,
             r.remark
         from `order` r
         inner join restaurant_order t on t.order_no = r.order_no

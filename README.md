@@ -86,18 +86,25 @@
 
 
 ## 其他开发说明
+* 数据库涉及金额的字段, 统一使用 `INT` 类型, 避免浮点数精度丢失
+  * POST请求时: 后台可通过 `@JsonDeserialize(using = YuanToCentDecoder.class)` 自动转为分, 同样后端的分也可以通过 `@JsonSerialize(using = CentToYuanEncoder.class)` 自动转为元返回给前端
+  * GET请求时: 前端传递金额格式为元,后端通过 `@YuanToCentFormat` 注解自动转为分.
 * `DateFormatter` 日期格式化注解与 `DateTimeFormat` 类似, 支持 `LocalDate` `LocalDateTime` `LocalTime`类型, 在GET请求时, 前端传递日期格式为范围  `yyyy-MM-dd` 时, 例如: 查询 `2023-11-11` 到 `2023-11-11`的日期, 实际上查询的是 `2023-11-11` 到 `2023-11-11 23:59:59`,因此需要在前端传递 `2023-11-11`, 后端则会自动转换为 `2023-11-11` 到 `2023-11-12`
+* `LongToIpEncoder` `IpToLongDecoder` 前后端IP转换工具类
 * `CacheProxyService` 缓存代理层 增加该类的原因: 由于@Cacheable等注解是基于动态代理实现的, 在同一个类中调用另一个方法则换成不会生效, 因此统一归集到该类中, 即:所有使用SpringCache注解的方法都建议维护到该类中
 * `CacheService` 缓存类封装, 建议所有手动设置查询的缓存走该接口, 方便后期维护
 * `SystemProperties` 所有本地化配置参数必须强制在该类中定义,方便统一维护, 禁止使用 `@Value`,
 * 如果返回前端的数据中有枚举, 需要指定字段作为返回值时, 使用 `@JsonValue` 注解
 * POST请求, 如果后端采用枚举作为参数接受时, 使用 `@JsonCreator` 注解
+* `NumberParseEncoder` 后端数量等字段模糊化传递给前端
 * GET请求, 如果后端采用枚举作为参数接收时, 枚举类型需要继承 `EnumBinder` 接口, 如果希望使用swagger在线调试, 需要重写 `toString` (`value` + `:` + `desc`) (注意该接口默认前端传递是数字且非下标映射), 具体例子查看 `webapp/item/couponScope` 接口
 * `StopWatch` 打印某段程序耗时的工具
 * `TransactionUtil` 事务工具类,防止耗时业务影响事务持有时间(第三方请求等)
 * `LoggerUtil` 规范日志打印
 * `BeanValidator` 校验某个pojo是否满足其注解要求 (`NotEmpty`, `NotNull` 等)
 * `DataUtil` 对象copy工具类
+* `@ExcelDict` 导出Excel时, 如果数据库保存的字段为数据字典,则可以通过该自动自动转换为格式化好的文本 (前提:数据字典必须已定义)
+* `XssEncoder` xss过滤工具, 防止xss攻击,使用方式: 在需要过滤xss的字段上添加 `@JsonDeserialize(using = XssEncoder.class)`
 * `com.eghm.validation.annotation` 包有自定义校验注解, 可根据实际场景使用. **注意:** `@DateCompare` 日期比较, 需要 pojo 继承 `DateComparator` 或者 `DatePagingComparator` (一个带分页,一个不带分页), 或者在 pojo定义以便于实现特殊提示语. 
 * `@WordChecker` 是敏感词校验注解
 * 签名功能, 目前支持 `MD5` `RSA` 两种, 在管理后台 `授权管理` 增加第三方商户信息, 同时将生成的 `appKey` 和 `appSecret` 给第三方, 第三方在请求接口时,需要在请求头带上 `appKey` 、 `signature` `timestmap` 三个字段. 目前 `@SignCheck` 只支持 `POST` 请求, 可在 `SignCheckInterceptor` 拦截器中进行二次扩展:

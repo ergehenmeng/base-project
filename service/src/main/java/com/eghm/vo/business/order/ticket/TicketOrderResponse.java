@@ -39,6 +39,14 @@ public class TicketOrderResponse {
     @ApiModelProperty(value = "订单状态")
     private OrderState state;
 
+    @ApiModelProperty("总优惠金额")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer discountAmount;
+
+    @ApiModelProperty("订单关闭时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime closeTime;
+
     @ApiModelProperty(value = "订单关闭方式")
     private CloseType closeType;
 

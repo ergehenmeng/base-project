@@ -1,6 +1,6 @@
 package com.eghm.dto.business.order.evaluation;
 
-import com.eghm.convertor.XssFilterDecoder;
+import com.eghm.convertor.XssEncoder;
 import com.eghm.validation.annotation.RangeInt;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import io.swagger.annotations.ApiModelProperty;
@@ -30,7 +30,7 @@ public class EvaluationDTO {
     private Integer score;
 
     @ApiModelProperty(value = "评论")
-    @JsonDeserialize(using = XssFilterDecoder.class)
+    @JsonDeserialize(using = XssEncoder.class)
     @Length(min = 5, max = 200, message = "评论信息应在5~200字符之间")
     private String comment;
 

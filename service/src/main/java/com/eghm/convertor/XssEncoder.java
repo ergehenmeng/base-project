@@ -9,12 +9,14 @@ import com.fasterxml.jackson.databind.deser.std.StdScalarDeserializer;
 import java.io.IOException;
 
 /**
+ * 针对前端传递过来的数据进行xss过滤
+ *
  * @author 二哥很猛
  * @since 2023/10/10
  */
-public class XssFilterDecoder extends StdScalarDeserializer<String> {
+public class XssEncoder extends StdScalarDeserializer<String> {
 
-    public XssFilterDecoder() {
+    public XssEncoder() {
         super(String.class);
     }
 

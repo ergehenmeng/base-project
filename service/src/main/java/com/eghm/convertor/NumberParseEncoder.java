@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
+ * 特殊处理数字的序列化
+ *
  * @author 二哥很猛
  * @since 2023/9/16
  */
