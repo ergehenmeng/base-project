@@ -3,6 +3,7 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
+import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.model.ItemOrder;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.vo.business.order.ProductSnapshotVO;
@@ -39,6 +40,14 @@ public interface ItemOrderService {
      * @return 商品订单(普通商品一个订单存在多商品)
      */
     List<ItemOrder> getByOrderNo(String orderNo);
+
+    /**
+     * 零售退款
+     * @param orderNo 订单号
+     * @param itemList 退款商品及数量
+     * @return 零售信息
+     */
+    List<ItemOrder> refund(String orderNo, List<ItemRefundDTO> itemList);
 
     /**
      * 批量添加子订单信息

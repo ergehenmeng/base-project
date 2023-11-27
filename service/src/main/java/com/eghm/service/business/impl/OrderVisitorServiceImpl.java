@@ -70,7 +70,7 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
         wrapper.eq(OrderVisitor::getOrderNo, orderNo);
         wrapper.eq(OrderVisitor::getProductType, productType);
         wrapper.in(OrderVisitor::getId, visitorList);
-        wrapper.eq(OrderVisitor::getState, VisitorState.UN_PAY);
+        wrapper.eq(OrderVisitor::getState, VisitorState.PAID);
         wrapper.set(OrderVisitor::getState, state);
         int update = orderVisitorMapper.update(null, wrapper);
 

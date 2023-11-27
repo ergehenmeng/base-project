@@ -61,7 +61,7 @@ public class ItemRefundApplyHandler extends AbstractRefundApplyHandler {
             log.error("商品总退款数量大于下单数量 [{}] [{}] [{}] [{}] [{}]", context.getOrderNo(), context.getItemOrderId(), itemOrder.getNum(), context.getNum(), refundNum);
             throw new BusinessException(ErrorCode.REFUND_MUM_MATCH);
         }
-        itemOrder.setRefundState(totalRefund == itemOrder.getNum() ? ItemRefundState.REFUND : ItemRefundState.REBATE);
+        itemOrder.setRefundState(totalRefund == itemOrder.getNum() ? ItemRefundState.REFUND : ItemRefundState.PARTIAL_REFUND);
 
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setItemOrderId(itemOrder.getId());

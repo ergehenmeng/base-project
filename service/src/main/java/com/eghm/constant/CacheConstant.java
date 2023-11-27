@@ -241,6 +241,11 @@ public class CacheConstant {
     public static final String MANUAL_REFUND_LOCK = "manual_refund_lock:";
 
     /**
+     * 发货
+     */
+    public static final String SIPPING_LOCK = "sipping_lock:";
+
+    /**
      * 缓存
      */
     public static final String USER_TOKEN = "user_token:";

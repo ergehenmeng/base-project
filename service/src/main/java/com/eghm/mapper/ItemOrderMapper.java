@@ -67,4 +67,5 @@ public interface ItemOrderMapper extends BaseMapper<ItemOrder> {
      * @return 订单详情
      */
     ItemOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
+
 }

@@ -30,7 +30,8 @@ public interface OrderVisitorService {
     List<OrderVisitor> getByOrderNo(String orderNo);
 
     /**
-     * 锁定游客信息,防止在退款中进行核销
+     * 1. 增加退款记录与游客信息关联信息
+     * 2. 锁定游客信息,防止在退款中进行核销
      * @param productType 商品类型
      * @param orderNo 订单编号
      * @param refundId 退款id

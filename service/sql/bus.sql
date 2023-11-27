@@ -690,6 +690,7 @@ CREATE TABLE `item_order`
     `title`          varchar(50) comment '商品名称',
     `order_no`       varchar(30) COMMENT '订单编号',
     `num`            smallint(4) COMMENT '订单数量',
+    `refund_num`     smallint(4)   default '0' COMMENT '已退款数量(含退款中)',
     `refund_state`   tinyint(1)    DEFAULT '0' COMMENT '退款状态 0: 初始状态 1:已退款 2:部分退款',
     `store_id`       bigint(20)    DEFAULT NULL COMMENT '商品所属店铺',
     `depict`         varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
@@ -1000,3 +1001,18 @@ CREATE TABLE `merchant_user`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin COMMENT ='商户用户表';
+
+CREATE TABLE `item_order_express`
+(
+    `id`            bigint(20)   DEFAULT NULL COMMENT '主键',
+    `item_order_id` bigint(20)   DEFAULT NULL COMMENT '零售订单id',
+    `order_no`      varchar(30)  DEFAULT NULL COMMENT '订单号',
+    `express_code`  varchar(20)  DEFAULT NULL COMMENT '物流公司code',
+    `express_no`    varchar(30)  DEFAULT NULL COMMENT '快递单号',
+    `content`       text COMMENT '物流信息(json)',
+    `remark`        varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单快递信息表';

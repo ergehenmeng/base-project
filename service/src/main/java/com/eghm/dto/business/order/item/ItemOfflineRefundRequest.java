@@ -23,7 +23,7 @@ public class ItemOfflineRefundRequest {
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "商品id", required = true)
+    @ApiModelProperty(value = "商品订单ID", required = true)
     @NotEmpty(message = "请选择要退款的商品")
     private List<Long> itemList;
 

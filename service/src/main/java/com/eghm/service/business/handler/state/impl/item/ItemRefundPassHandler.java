@@ -42,7 +42,7 @@ public class ItemRefundPassHandler extends AbstractRefundAuditHandler {
         int refundNum = orderRefundLogService.getTotalRefundNum(order.getOrderNo(), refundLog.getItemOrderId());
         if (refundNum > 0) {
             // 审批拒绝后一定是部分退款
-            itemOrder.setRefundState(ItemRefundState.REBATE);
+            itemOrder.setRefundState(ItemRefundState.PARTIAL_REFUND);
         } else {
             itemOrder.setRefundState(ItemRefundState.INIT);
         }

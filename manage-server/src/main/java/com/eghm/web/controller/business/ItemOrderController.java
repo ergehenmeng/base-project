@@ -3,9 +3,9 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
-import com.eghm.dto.business.order.OfflineRefundRequest;
-import com.eghm.dto.business.order.OnlineRefundRequest;
+import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
+import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemOrderService;
@@ -52,21 +52,11 @@ public class ItemOrderController {
         return RespBody.success(detail);
     }
 
-    @PostMapping("/offlineRefund")
-    @ApiOperation("线下退款")
-    public RespBody<Void> offlineRefund(@RequestBody @Validated OfflineRefundRequest request) {
-        redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
-            orderService.offlineRefund(request);
-            return null;
-        });
-        return RespBody.success();
-    }
-
     @PostMapping("/onlineRefund")
     @ApiOperation("线上退款")
-    public RespBody<Void> onlineRefund(@RequestBody @Validated OnlineRefundRequest request) {
+    public RespBody<Void> onlineRefund(@RequestBody @Validated ItemOnlineRefundRequest request) {
         redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
-            orderService.onlineRefund(request);
+            orderService.itemOnlineRefund(request);
             return null;
         });
         return RespBody.success();
@@ -75,8 +65,11 @@ public class ItemOrderController {
     @PostMapping("/sipping")
     @ApiOperation("发货")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<Void> sipping(@RequestParam("orderNo") String orderNo) {
-        // TODo 待补全
+    public RespBody<Void> sipping(@RequestBody @Validated ItemSippingRequest request) {
+        redisLock.lock(CacheConstant.SIPPING_LOCK + request.getOrderNo(), 10_000, () -> {
+            orderService.sipping(request);
+            return null;
+        });
         return RespBody.success();
     }
 }

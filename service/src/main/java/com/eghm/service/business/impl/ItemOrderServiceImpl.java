@@ -8,7 +8,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
+import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.ItemRefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
 import com.eghm.model.ItemOrder;
@@ -26,6 +28,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author 二哥很猛
@@ -55,6 +59,30 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemOrder::getOrderNo, orderNo);
         return itemOrderMapper.selectList(wrapper);
+    }
+
+    @Override
+    public List<ItemOrder> refund(String orderNo, List<ItemRefundDTO> itemList) {
+        LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(ItemOrder::getId, ItemOrder::getOrderNo, ItemOrder::getNum, ItemOrder::getRefundState, ItemOrder::getRefundNum);
+        wrapper.eq(ItemOrder::getOrderNo, orderNo);
+        List<ItemOrder> orderList = itemOrderMapper.selectList(wrapper);
+        Map<Long, ItemOrder> orderMap = orderList.stream().collect(Collectors.toMap(ItemOrder::getId, Function.identity()));
+        for (ItemRefundDTO item : itemList) {
+            ItemOrder order = orderMap.get(item.getItemOrderId());
+            if (order == null) {
+                log.info("零售退款时,订单不存在 [{}] [{}]", orderNo, item.getItemOrderId());
+                throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
+            }
+            order.setRefundNum(order.getRefundNum() + item.getNum());
+            if (order.getRefundNum() >= order.getNum()) {
+                order.setRefundState(ItemRefundState.REFUND);
+            } else {
+                order.setRefundState(ItemRefundState.PARTIAL_REFUND);
+            }
+            itemOrderMapper.updateById(order);
+        }
+        return orderList;
     }
 
     @Override

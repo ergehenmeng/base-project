@@ -5,6 +5,7 @@ import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
+import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
@@ -154,19 +155,13 @@ public interface OrderService extends IService<Order> {
      * 线上退款
      * 1. 如果只有未完成或未关闭的订单才能退款
      * 2. 如果已经线下退款货线下退款中则不能退款
-     * 3. 添加强制退款记录
-     * 4. 锁定游客信息
+     * 3. 添加退款记录
+     * 4. 将退款数量更新到订单中
      * 5. 更新主订单状态
      * 6. 发起退款
      * @param request 退款金额
      */
     void onlineRefund(OnlineRefundRequest request);
-
-    /**
-     * 零售下线退款
-     * @param request 退款金额
-     */
-    void itemOfflineRefund(ItemOfflineRefundRequest request);
 
     /**
      * 零售线上退款
@@ -222,4 +217,11 @@ public interface OrderService extends IService<Order> {
      * @return 订单信息
      */
     Order getByVerifyNo(String verifyNo);
+
+    /**
+     * 零售发货
+     *
+     * @param request 发货信息
+     */
+    void sipping(ItemSippingRequest request);
 }

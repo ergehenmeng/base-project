@@ -14,13 +14,15 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OnlineRefundRequest;
-import com.eghm.dto.business.order.item.ItemOfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
+import com.eghm.dto.business.order.item.ItemRefundDTO;
+import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
 import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
+import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
 import com.eghm.model.OrderVisitor;
@@ -70,6 +72,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final OrderMQService orderMQService;
 
     private final CommonService commonService;
+
+    private final ItemOrderService itemOrderService;
+
+    private final ItemOrderExpressService itemOrderExpressService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -295,24 +301,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new BusinessException(ErrorCode.MEMBER_REFUNDING);
         }
         this.checkHasRefund(request.getVisitorList(), request.getOrderNo());
-        orderVisitorService.updateRefund(request.getVisitorList(), request.getOrderNo());
 
-        OrderRefundLog refundLog = new OrderRefundLog();
+        OrderRefundLog refundLog = this.createRefundLog(order, request.getRefundAmount(), request.getVisitorList().size());
 
-        refundLog.setId(IdWorker.getId());
-        refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
-        refundLog.setMemberId(order.getMemberId());
-        refundLog.setRefundAmount(request.getRefundAmount());
-        refundLog.setApplyAmount(request.getRefundAmount());
-        refundLog.setAuditUserId(SecurityHolder.getUserId());
-        LocalDateTime now = LocalDateTime.now();
-        refundLog.setApplyTime(now);
-        refundLog.setAuditTime(now);
-        refundLog.setAuditState(AuditState.PASS);
-        refundLog.setNum(request.getVisitorList().size());
-        refundLog.setOrderNo(refundLog.getOrderNo());
-        refundLog.setState(0);
-        orderRefundLogService.insert(refundLog);
         orderVisitorService.lockVisitor(order.getProductType(), request.getOrderNo(), refundLog.getId(), request.getVisitorList(), VisitorState.REFUNDING);
         // 计算主订单状态
         OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
@@ -324,19 +315,26 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void itemOfflineRefund(ItemOfflineRefundRequest request) {
+    public void itemOnlineRefund(ItemOnlineRefundRequest request) {
         Order order = this.getRefuningOrder(request.getOrderNo());
-        List<Long> refundVisitorIds = offlineRefundLogService.getRefundLog(order.getOrderNo());
-        boolean anyMatch = request.getItemList().stream().anyMatch(refundVisitorIds::contains);
+        List<Long> refundOrderIds = offlineRefundLogService.getRefundLog(order.getOrderNo());
+        boolean anyMatch = request.getItemList().stream().map(ItemRefundDTO::getItemOrderId).anyMatch(refundOrderIds::contains);
         if (anyMatch) {
             log.info("退款商品中存在已经退款的商品 [{}]", request.getItemList());
             throw new BusinessException(ErrorCode.ITEM_HAS_REFUNDING);
         }
-    }
+        List<ItemOrder> orderList = itemOrderService.refund(request.getOrderNo(), request.getItemList());
 
-    @Override
-    public void itemOnlineRefund(ItemOnlineRefundRequest request) {
-        // TODO 待完成
+        OrderRefundLog refundLog = this.createRefundLog(order, request.getRefundAmount(), request.getItemList().size());
+
+        boolean match = orderList.stream().anyMatch(itemOrder -> itemOrder.getRefundState() == ItemRefundState.PARTIAL_REFUND || itemOrder.getRefundState() == ItemRefundState.INIT);
+        if (!match) {
+            order.setState(OrderState.CLOSE);
+        }
+        this.orderStateModify(order, mainOrder -> mainOrder.setCloseType(CloseType.REFUND));
+        // 发起退款
+        TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
+        baseMapper.updateById(order);
     }
 
     @Override
@@ -434,6 +432,38 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             throw new BusinessException(ErrorCode.ORDER_NOT_FOUND);
         }
         return order;
+    }
+
+    @Override
+    public void sipping(ItemSippingRequest request) {
+        // TODO 待完成
+    }
+
+    /**
+     * 生成退款记录
+     *
+     * @param order 原订单信息
+     * @param refundAmount 退款金额
+     * @param num 退款数量
+     * @return 退款信息
+     */
+    private OrderRefundLog createRefundLog(Order order, Integer refundAmount, Integer num) {
+        OrderRefundLog refundLog = new OrderRefundLog();
+        refundLog.setId(IdWorker.getId());
+        refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
+        refundLog.setMemberId(order.getMemberId());
+        refundLog.setRefundAmount(refundAmount);
+        refundLog.setApplyAmount(refundAmount);
+        refundLog.setAuditUserId(SecurityHolder.getUserId());
+        LocalDateTime now = LocalDateTime.now();
+        refundLog.setApplyTime(now);
+        refundLog.setAuditTime(now);
+        refundLog.setAuditState(AuditState.PASS);
+        refundLog.setNum(num);
+        refundLog.setOrderNo(refundLog.getOrderNo());
+        refundLog.setState(0);
+        orderRefundLogService.insert(refundLog);
+        return refundLog;
     }
 
     /**

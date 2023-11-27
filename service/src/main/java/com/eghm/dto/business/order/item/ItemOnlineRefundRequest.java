@@ -25,9 +25,9 @@ public class ItemOnlineRefundRequest {
     @NotBlank(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "商品id", required = true)
+    @ApiModelProperty(value = "商品订单id", required = true)
     @NotEmpty(message = "请选择要退款的商品")
-    private List<Long> itemList;
+    private List<ItemRefundDTO> itemList;
 
     @ApiModelProperty(value = "申请方式 1:仅退款 2:退货退款", required = true)
     @OptionInt(value = {1, 2}, message = "退款方式不合法")
@@ -52,4 +52,5 @@ public class ItemOnlineRefundRequest {
     @Assign
     @ApiModelProperty(value = "用户id", hidden = true)
     private Long userId;
+
 }
