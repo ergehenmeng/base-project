@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 public class ItemOrderExpress extends BaseEntity {
 
     @ApiModelProperty("零售订单id")
-    private String itemOrderId;
+    private Long itemOrderId;
 
     @ApiModelProperty("订单号")
     private String orderNo;

@@ -3,7 +3,6 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.eghm.dto.business.order.OfflineRefundRequest;
 import com.eghm.dto.business.order.OnlineRefundRequest;
-import com.eghm.dto.business.order.item.ItemOfflineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.enums.ref.OrderState;
@@ -220,7 +219,10 @@ public interface OrderService extends IService<Order> {
 
     /**
      * 零售发货
-     *
+     * 1. 校验商品订单必须是待发货的
+     * 2. 更新商品订单状态
+     * 3. 增加订单与商品关联表
+     * 4. 更新主订单状态
      * @param request 发货信息
      */
     void sipping(ItemSippingRequest request);

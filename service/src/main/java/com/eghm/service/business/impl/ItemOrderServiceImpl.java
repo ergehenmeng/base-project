@@ -10,6 +10,7 @@ import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
@@ -59,6 +60,15 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemOrder::getOrderNo, orderNo);
         return itemOrderMapper.selectList(wrapper);
+    }
+
+    @Override
+    public Long countWaitDelivery(String orderNo) {
+        LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(ItemOrder::getOrderNo, orderNo);
+        wrapper.eq(ItemOrder::getDeliveryState, DeliveryState.WAIT_DELIVERY);
+        wrapper.ne(ItemOrder::getRefundState, ItemRefundState.REFUND);
+        return itemOrderMapper.selectCount(wrapper);
     }
 
     @Override
@@ -173,6 +183,23 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
         return detail;
+    }
+
+    @Override
+    public List<ItemOrder> getByIds(List<Long> ids) {
+        LambdaQueryWrapper<ItemOrder> wrapper = Wrappers.lambdaQuery();
+
+        wrapper.select(ItemOrder::getItemId, ItemOrder::getOrderNo, ItemOrder::getId,
+                ItemOrder::getNum, ItemOrder::getRefundNum, ItemOrder::getRefundState,
+                ItemOrder::getDeliveryType, ItemOrder::getDeliveryState);
+
+        wrapper.in(ItemOrder::getId, ids);
+        return itemOrderMapper.selectList(wrapper);
+    }
+
+    @Override
+    public void updateBatchById(List<ItemOrder> list) {
+        list.forEach(itemOrderMapper::updateById);
     }
 
     /**

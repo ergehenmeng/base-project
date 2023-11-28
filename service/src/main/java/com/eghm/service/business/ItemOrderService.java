@@ -42,6 +42,13 @@ public interface ItemOrderService {
     List<ItemOrder> getByOrderNo(String orderNo);
 
     /**
+     * 统计待发货的零售订单数量
+     * @param orderNo 订单号
+     * @return 数量
+     */
+    Long countWaitDelivery(String orderNo);
+
+    /**
      * 零售退款
      * @param orderNo 订单号
      * @param itemList 退款商品及数量
@@ -113,4 +120,18 @@ public interface ItemOrderService {
      * @return 订单信息
      */
     ItemOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 根据主键查询零售订单信息
+     * @param ids 订单id
+     * @return list
+     */
+    List<ItemOrder> getByIds(List<Long> ids);
+
+    /**
+     * 批量更新商品订单信息
+     *
+     * @param list list
+     */
+    void updateBatchById(List<ItemOrder> list);
 }

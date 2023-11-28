@@ -62,9 +62,12 @@ public class ItemOrderController {
         return RespBody.success();
     }
 
+    /**
+     * 1. 前端需要提醒各个商品发货的数量等信息(防止重复发货/退款发货)
+     * 2. 针对不需要发货的商品, 商品无法勾选发货
+     */
     @PostMapping("/sipping")
     @ApiOperation("发货")
-    @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<Void> sipping(@RequestBody @Validated ItemSippingRequest request) {
         redisLock.lock(CacheConstant.SIPPING_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.sipping(request);

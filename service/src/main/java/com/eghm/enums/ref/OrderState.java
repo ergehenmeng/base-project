@@ -44,39 +44,44 @@ public enum OrderState implements EnumBinder {
     WAIT_DELIVERY(3, "待发货"),
 
     /**
+     * 部分发货(已发货了一部分)
+     */
+    PARTIAL_DELIVERY(4, "部分发货"),
+
+    /**
      * 待收货(需要发货的商品)
      */
-    WAIT_RECEIVE(4, "待收货"),
+    WAIT_RECEIVE(5, "待收货"),
 
     /**
      * 退款中
      */
-    REFUND(5, "退款中"),
+    REFUND(6, "退款中"),
 
     /**
      * 待评价, 注意: 针对核销类商品直接由待使用到待评价
      */
-    APPRAISE(6, "待评价"),
+    APPRAISE(7, "待评价"),
 
     /**
      * 订单完成
      */
-    COMPLETE(7, "订单完成"),
+    COMPLETE(8, "订单完成"),
 
     /**
      * 已关闭
      */
-    CLOSE(8, "已关闭"),
+    CLOSE(9, "已关闭"),
 
     /**
      * 支付异常
      */
-    PAY_ERROR(9, "支付异常"),
+    PAY_ERROR(10, "支付异常"),
 
     /**
      * 退款异常
      */
-    REFUND_ERROR(10, "退款异常"),
+    REFUND_ERROR(11, "退款异常"),
 
     ;
     /**

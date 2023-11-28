@@ -436,7 +436,42 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public void sipping(ItemSippingRequest request) {
-        // TODO 待完成
+        Order order = this.getByOrderNo(request.getOrderNo());
+        if (order.getState() != OrderState.WAIT_DELIVERY && order.getState() != OrderState.PARTIAL_DELIVERY) {
+            log.error("订单状态已发生变化,不支持发货 [{}] [{}]", request.getOrderNo(), order.getState());
+            throw new BusinessException(ErrorCode.ORDER_PAID);
+        }
+        List<ItemOrder> orderList = itemOrderService.getByIds(request.getOrderIds());
+        if (orderList.isEmpty()) {
+            log.error("发货订单信息查询为空 [{}]", request.getOrderIds());
+            throw new BusinessException(ErrorCode.ORDER_ITEM_CHOOSE);
+        }
+        boolean anyMatch = orderList.stream().anyMatch(itemOrder -> itemOrder.getRefundState() == ItemRefundState.REFUND);
+        if (anyMatch) {
+            log.error("发货订单中存在已退款的订单 [{}]", request.getOrderIds());
+            throw new BusinessException(ErrorCode.CHOOSE_NO_REFUND);
+        }
+        anyMatch = orderList.stream().anyMatch(itemOrder -> itemOrder.getDeliveryState() == DeliveryState.WAIT_DELIVERY);
+        if (anyMatch) {
+            log.error("发货订单中存在已发货的订单 [{}]", request.getOrderIds());
+            throw new BusinessException(ErrorCode.CHOOSE_NO_DELIVERY);
+        }
+        anyMatch = orderList.stream().anyMatch(itemOrder -> itemOrder.getDeliveryType() != DeliveryType.EXPRESS);
+        if (anyMatch) {
+            log.error("发货订单中存在无需发货的订单 [{}]", request.getOrderIds());
+            throw new BusinessException(ErrorCode.CHOOSE_EXPRESS);
+        }
+        orderList.forEach(itemOrder -> itemOrder.setDeliveryState(DeliveryState.WAIT_TAKE));
+        itemOrderService.updateBatchById(orderList);
+        itemOrderExpressService.insert(request);
+
+        Long count = itemOrderService.countWaitDelivery(request.getOrderNo());
+        if (count == 0) {
+            order.setState(OrderState.WAIT_RECEIVE);
+        } else {
+            order.setState(OrderState.PARTIAL_DELIVERY);
+        }
+        baseMapper.updateById(order);
     }
 
     /**

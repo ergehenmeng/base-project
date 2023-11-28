@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.ItemRefundState;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,6 +33,9 @@ public class ItemOrder extends BaseEntity implements Serializable {
 
     @ApiModelProperty("退款状态")
     private ItemRefundState refundState;
+
+    @ApiModelProperty("配送状态 0: 初始 1:待发货 2: 待收货 3:已收货")
+    private DeliveryState deliveryState;
 
     @ApiModelProperty("数量")
     private Integer num;
