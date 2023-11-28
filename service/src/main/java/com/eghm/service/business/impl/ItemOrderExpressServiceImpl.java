@@ -5,6 +5,7 @@ import com.eghm.mapper.ItemOrderExpressMapper;
 import com.eghm.model.ItemOrderExpress;
 import com.eghm.service.business.ItemOrderExpressService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.order.item.FirstExpressVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,11 @@ public class ItemOrderExpressServiceImpl implements ItemOrderExpressService {
             express.setItemOrderId(orderId);
             itemOrderExpressMapper.insert(express);
         }
+    }
+
+    @Override
+    public List<FirstExpressVO> getFirstExpressList(String orderNo) {
+        // TODO 待完成
+        return null;
     }
 }

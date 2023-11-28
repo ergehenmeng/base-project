@@ -1,5 +1,6 @@
 package com.eghm.model;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,6 +10,7 @@ import lombok.EqualsAndHashCode;
  * @since 2023/11/27
  */
 @Data
+@TableName("item_order_express")
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrderExpress extends BaseEntity {
 

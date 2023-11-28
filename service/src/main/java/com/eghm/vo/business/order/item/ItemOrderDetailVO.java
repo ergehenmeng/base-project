@@ -90,4 +90,7 @@ public class ItemOrderDetailVO {
 
     @ApiModelProperty("订单商品详情")
     private List<ItemOrderListVO> itemList;
+
+    @ApiModelProperty("物流信息(可能存在多包裹)")
+    private List<FirstExpressVO> expressList;
 }
