@@ -1347,6 +1347,11 @@ public enum ErrorCode {
     AUTH_TITLE_REDO(3683,"单位名称重复啦"),
 
     /**
+     * 快递信息未查询到
+     */
+    EXPRESS_SELECT_NULL(3686,"快递信息未查询到"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

@@ -13,6 +13,7 @@ import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
+import com.eghm.vo.business.order.item.ExpressDetailVO;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -226,4 +227,11 @@ public interface OrderService extends IService<Order> {
      * @param request 发货信息
      */
     void sipping(ItemSippingRequest request);
+
+    /**
+     * 查询订单物流信息
+     * @param id id
+     * @return vo
+     */
+    ExpressDetailVO expressDetail(Long id);
 }

@@ -1,9 +1,12 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.item.ItemOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemOrderService;
+import com.eghm.service.business.OrderService;
+import com.eghm.vo.business.order.item.ExpressDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderDetailVO;
 import com.eghm.vo.business.order.item.ItemOrderVO;
 import com.eghm.web.annotation.AccessToken;
@@ -32,6 +35,8 @@ public class ItemOrderController {
 
     private final ItemOrderService itemOrderService;
 
+    private final OrderService orderService;
+
     @GetMapping("/listPage")
     @ApiOperation("订单列表")
     public RespBody<List<ItemOrderVO>> listPage(@Validated ItemOrderQueryDTO dto) {
@@ -45,6 +50,13 @@ public class ItemOrderController {
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
     public RespBody<ItemOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
         ItemOrderDetailVO detail = itemOrderService.getDetail(orderNo, ApiHolder.getMemberId());
+        return RespBody.success(detail);
+    }
+
+    @GetMapping("/express")
+    @ApiOperation("快递信息详情")
+    public RespBody<ExpressDetailVO> express(@Validated IdDTO dto) {
+        ExpressDetailVO detail = orderService.expressDetail(dto.getId());
         return RespBody.success(detail);
     }
 }

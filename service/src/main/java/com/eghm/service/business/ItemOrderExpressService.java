@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.order.item.ItemSippingRequest;
+import com.eghm.model.ItemOrderExpress;
 import com.eghm.vo.business.order.item.FirstExpressVO;
 
 import java.util.List;
@@ -25,4 +26,11 @@ public interface ItemOrderExpressService {
      * @return 物流信息
      */
     List<FirstExpressVO> getFirstExpressList(String orderNo);
+
+    /**
+     * 快递查询
+     * @param id id
+     * @return 物流信息
+     */
+    ItemOrderExpress selectById(Long id);
 }

@@ -19,14 +19,13 @@ import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;
+import com.eghm.enums.ExpressType;
 import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderMapper;
-import com.eghm.model.ItemOrder;
-import com.eghm.model.Order;
-import com.eghm.model.OrderRefundLog;
-import com.eghm.model.OrderVisitor;
+import com.eghm.model.*;
 import com.eghm.service.business.*;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.pay.AggregatePayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -34,11 +33,14 @@ import com.eghm.service.pay.enums.TradeState;
 import com.eghm.service.pay.enums.TradeType;
 import com.eghm.service.pay.vo.PayOrderVO;
 import com.eghm.service.pay.vo.PrepayVO;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.TransactionUtil;
 import com.eghm.vo.business.order.OrderScanVO;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
+import com.eghm.vo.business.order.item.ExpressDetailVO;
+import com.eghm.vo.business.order.item.ExpressVO;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,6 +78,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final ItemOrderService itemOrderService;
 
     private final ItemOrderExpressService itemOrderExpressService;
+
+    private final JsonService jsonService;
+
+    private final SysAreaService sysAreaService;
 
     @Override
     public PrepayVO createPrepay(String orderNo, String buyerId, TradeType tradeType) {
@@ -472,6 +478,25 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
             order.setState(OrderState.PARTIAL_DELIVERY);
         }
         baseMapper.updateById(order);
+    }
+
+    @Override
+    public ExpressDetailVO expressDetail(Long id) {
+        ItemOrderExpress express = itemOrderExpressService.selectById(id);
+        if (express == null) {
+            log.info("未查询到快递信息 [{}]", id);
+            throw new BusinessException(ErrorCode.EXPRESS_SELECT_NULL);
+        }
+        Order order = this.getByOrderNo(express.getOrderNo());
+
+        ExpressDetailVO vo = new ExpressDetailVO();
+        vo.setExpressNo(express.getExpressNo());
+        vo.setExpressName(ExpressType.of(express.getExpressCode()).getName());
+        vo.setExpressList(jsonService.fromJsonList(express.getContent(), ExpressVO.class));
+        vo.setNickName(order.getNickName());
+        vo.setMobile(order.getMobile());
+        vo.setDetailAddress(sysAreaService.parseArea(order.getProvinceId(), order.getCityId(), order.getCountyId()) + order.getDetailAddress());
+        return vo;
     }
 
     /**
