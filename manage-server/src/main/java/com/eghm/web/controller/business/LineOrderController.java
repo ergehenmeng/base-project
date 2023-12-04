@@ -8,7 +8,6 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LineOrderService;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.line.LineOrderDetailResponse;
-import com.eghm.vo.business.order.line.LineOrderExport;
 import com.eghm.vo.business.order.line.LineOrderResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -54,7 +53,7 @@ public class LineOrderController {
     @ApiOperation("订单列表导出")
     public void export(HttpServletResponse response, LineOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        List<LineOrderExport> byPage = lineOrderService.getExportList(request);
-        ExcelUtil.export(response, "线路订单", byPage, LineOrderExport.class);
+        List<LineOrderResponse> byPage = lineOrderService.getList(request);
+        ExcelUtil.export(response, "线路订单", byPage, LineOrderResponse.class);
     }
 }

@@ -47,6 +47,12 @@ public class TicketOrderServiceImpl implements TicketOrderService {
     }
 
     @Override
+    public List<TicketOrderResponse> getList(TicketOrderQueryRequest request) {
+        Page<TicketOrderResponse> responsePage = ticketOrderMapper.getByPage(request.createPage(false), request);
+        return responsePage.getRecords();
+    }
+
+    @Override
     public void insert(TicketOrder order) {
         ticketOrderMapper.insert(order);
     }

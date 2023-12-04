@@ -27,7 +27,7 @@ public interface LineOrderService {
      * @param request 查询条件
      * @return 列表
      */
-    List<LineOrderExport> getExportList(LineOrderQueryRequest request);
+    List<LineOrderResponse> getList(LineOrderQueryRequest request);
 
     /**
      * 分页查询线路订单

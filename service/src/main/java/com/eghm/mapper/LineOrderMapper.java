@@ -30,14 +30,6 @@ public interface LineOrderMapper extends BaseMapper<LineOrder> {
     Page<LineOrderResponse> listPage(Page<LineOrderResponse> page, @Param("param") LineOrderQueryRequest request);
 
     /**
-     * 分页查询门票订单
-     * @param page 分页信息
-     * @param request 查询条件
-     * @return 列表
-     */
-    List<LineOrderExport> getExportList(Page<LineOrderResponse> page, @Param("param") LineOrderQueryRequest request);
-
-    /**
      * 查询线路快照
      * @param orderId 订单id
      * @param orderNo 订单编号

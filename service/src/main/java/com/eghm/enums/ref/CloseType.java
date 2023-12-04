@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.annotation.ExcelValue;
 import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,7 @@ public enum CloseType implements EnumBinder {
     /**
      * 名称
      */
+    @ExcelValue
     private final String name;
 
     @Override

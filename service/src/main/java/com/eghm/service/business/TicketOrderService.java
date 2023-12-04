@@ -23,6 +23,13 @@ public interface TicketOrderService {
     Page<TicketOrderResponse> getByPage(TicketOrderQueryRequest request);
 
     /**
+     * 分页查询门票订单列表 导出使用
+     * @param request 查询条件
+     * @return 订单列表
+     */
+    List<TicketOrderResponse> getList(TicketOrderQueryRequest request);
+
+    /**
      * 插入门票订单信息
      * @param order 门票订单
      */
