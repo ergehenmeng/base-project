@@ -29,6 +29,13 @@ public interface ItemOrderService {
     Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request);
 
     /**
+     * 分页查询用户订单列表 (导出)
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<ItemOrderResponse> getList(ItemOrderQueryRequest request);
+
+    /**
      * 订单插入
      * @param order 商品订单
      */

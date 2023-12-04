@@ -48,6 +48,12 @@ public class HomestayOrderServiceImpl implements HomestayOrderService {
     }
 
     @Override
+    public List<HomestayOrderResponse> getList(HomestayOrderQueryRequest request) {
+        Page<HomestayOrderResponse> listPage = homestayOrderMapper.listPage(request.createPage(false), request);
+        return listPage.getRecords();
+    }
+
+    @Override
     public List<HomestayOrderVO> getByPage(HomestayOrderQueryDTO dto) {
         Page<HomestayOrderVO> voPage = homestayOrderMapper.getList(dto.createPage(false), dto);
         return voPage.getRecords();

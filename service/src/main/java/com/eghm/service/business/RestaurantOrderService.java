@@ -28,6 +28,14 @@ public interface RestaurantOrderService {
     Page<RestaurantOrderResponse> listPage(VoucherOrderQueryRequest request);
 
     /**
+     * 分页查询餐饮订单列表 导出使用 (管理后台)
+     *
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<RestaurantOrderResponse> getList(VoucherOrderQueryRequest request);
+
+    /**
      * 分页查询餐饮订单列表 移动端(自己)
      *
      * @param dto 查询条件

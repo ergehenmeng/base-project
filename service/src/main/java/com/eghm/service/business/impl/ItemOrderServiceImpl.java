@@ -54,6 +54,12 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     }
 
     @Override
+    public List<ItemOrderResponse> getList(ItemOrderQueryRequest request) {
+        Page<ItemOrderResponse> listPage = itemOrderMapper.listPage(request.createPage(false), request);
+        return listPage.getRecords();
+    }
+
+    @Override
     public void insert(ItemOrder order) {
         itemOrderMapper.insert(order);
     }

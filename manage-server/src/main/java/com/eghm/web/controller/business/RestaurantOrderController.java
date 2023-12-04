@@ -6,6 +6,7 @@ import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse;
 import com.eghm.vo.business.order.restaurant.RestaurantOrderResponse;
 import io.swagger.annotations.Api;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author wyb
@@ -43,5 +47,13 @@ public class RestaurantOrderController {
     public RespBody<RestaurantOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         RestaurantOrderDetailResponse detail = restaurantOrderService.detail(orderNo);
         return RespBody.success(detail);
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出Excel")
+    public void export(HttpServletResponse response, VoucherOrderQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<RestaurantOrderResponse> byPage = restaurantOrderService.getList(request);
+        ExcelUtil.export(response, "餐饮订单", byPage, RestaurantOrderResponse.class);
     }
 }

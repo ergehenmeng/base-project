@@ -6,6 +6,7 @@ import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.HomestayOrderService;
+import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailResponse;
 import com.eghm.vo.business.order.homestay.HomestayOrderResponse;
 import io.swagger.annotations.Api;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author wyb
@@ -43,5 +47,13 @@ public class HomestayOrderController {
     public RespBody<HomestayOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         HomestayOrderDetailResponse detail = homestayOrderService.detail(orderNo);
         return RespBody.success(detail);
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出Excel")
+    public void export(HttpServletResponse response, HomestayOrderQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<HomestayOrderResponse> byPage = homestayOrderService.getList(request);
+        ExcelUtil.export(response, "民宿订单", byPage, HomestayOrderResponse.class);
     }
 }

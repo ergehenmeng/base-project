@@ -82,6 +82,6 @@ public class TicketOrderResponse extends ExcelStyle {
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat("yyyy-MM-dd HH:mm:ss")
-    @ExcelProperty(value = "添加时间", index = 12)
+    @ExcelProperty(value = "订单创建时间", index = 12)
     private LocalDateTime createTime;
 }

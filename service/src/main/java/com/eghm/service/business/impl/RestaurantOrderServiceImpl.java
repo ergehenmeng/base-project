@@ -39,6 +39,12 @@ public class RestaurantOrderServiceImpl implements RestaurantOrderService {
     }
 
     @Override
+    public List<RestaurantOrderResponse> getList(VoucherOrderQueryRequest request) {
+        Page<RestaurantOrderResponse> responsePage = restaurantOrderMapper.listPage(request.createPage(false), request);
+        return responsePage.getRecords();
+    }
+
+    @Override
     public List<RestaurantOrderVO> getByPage(VoucherOrderQueryDTO dto) {
         Page<RestaurantOrderVO> voPage = restaurantOrderMapper.getList(dto.createPage(false), dto);
         return voPage.getRecords();

@@ -11,6 +11,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.cache.RedisLock;
+import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
 import com.eghm.vo.business.order.item.ItemOrderResponse;
 import io.swagger.annotations.Api;
@@ -19,6 +20,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author wyb
@@ -75,4 +79,13 @@ public class ItemOrderController {
         });
         return RespBody.success();
     }
+
+    @GetMapping("/export")
+    @ApiOperation("导出Excel")
+    public void export(HttpServletResponse response, ItemOrderQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<ItemOrderResponse> byPage = itemOrderService.getList(request);
+        ExcelUtil.export(response, "零售订单", byPage, ItemOrderResponse.class);
+    }
+
 }

@@ -26,6 +26,13 @@ public interface HomestayOrderService {
     Page<HomestayOrderResponse> listPage(HomestayOrderQueryRequest request);
 
     /**
+     * 分页查询用户民宿订单 (管理后台)
+     * @param request (查询条件)
+     * @return 列表
+     */
+    List<HomestayOrderResponse> getList(HomestayOrderQueryRequest request);
+
+    /**
      * 分页查询用户民宿订单 (用户自己的)
      * @param dto 查询条件
      * @return 列表
