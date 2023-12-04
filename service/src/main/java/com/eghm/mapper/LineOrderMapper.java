@@ -6,11 +6,10 @@ import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.model.LineOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.line.LineOrderDetailResponse;
-import com.eghm.vo.business.order.line.LineOrderDetailVO;
-import com.eghm.vo.business.order.line.LineOrderResponse;
-import com.eghm.vo.business.order.line.LineOrderVO;
+import com.eghm.vo.business.order.line.*;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -29,6 +28,14 @@ public interface LineOrderMapper extends BaseMapper<LineOrder> {
      * @return 列表
      */
     Page<LineOrderResponse> listPage(Page<LineOrderResponse> page, @Param("param") LineOrderQueryRequest request);
+
+    /**
+     * 分页查询门票订单
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<LineOrderExport> getExportList(Page<LineOrderResponse> page, @Param("param") LineOrderQueryRequest request);
 
     /**
      * 查询线路快照

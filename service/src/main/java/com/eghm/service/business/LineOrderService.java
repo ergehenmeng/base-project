@@ -5,10 +5,7 @@ import com.eghm.dto.business.order.line.LineOrderQueryDTO;
 import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.model.LineOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.line.LineOrderDetailResponse;
-import com.eghm.vo.business.order.line.LineOrderDetailVO;
-import com.eghm.vo.business.order.line.LineOrderResponse;
-import com.eghm.vo.business.order.line.LineOrderVO;
+import com.eghm.vo.business.order.line.*;
 
 import java.util.List;
 
@@ -24,6 +21,13 @@ public interface LineOrderService {
      * @return 列表
      */
     Page<LineOrderResponse> listPage(LineOrderQueryRequest request);
+
+    /**
+     * 查询线路订单
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<LineOrderExport> getExportList(LineOrderQueryRequest request);
 
     /**
      * 分页查询线路订单

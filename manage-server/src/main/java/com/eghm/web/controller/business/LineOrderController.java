@@ -6,7 +6,9 @@ import com.eghm.dto.business.order.line.LineOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.LineOrderService;
+import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.line.LineOrderDetailResponse;
+import com.eghm.vo.business.order.line.LineOrderExport;
 import com.eghm.vo.business.order.line.LineOrderResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author wyb
@@ -43,5 +48,13 @@ public class LineOrderController {
     public RespBody<LineOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
         LineOrderDetailResponse detail = lineOrderService.detail(orderNo);
         return RespBody.success(detail);
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("订单列表导出")
+    public void export(HttpServletResponse response, LineOrderQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<LineOrderExport> byPage = lineOrderService.getExportList(request);
+        ExcelUtil.export(response, "线路订单", byPage, LineOrderExport.class);
     }
 }

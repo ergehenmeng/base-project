@@ -18,10 +18,7 @@ import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.VisitorVO;
-import com.eghm.vo.business.order.line.LineOrderDetailResponse;
-import com.eghm.vo.business.order.line.LineOrderDetailVO;
-import com.eghm.vo.business.order.line.LineOrderResponse;
-import com.eghm.vo.business.order.line.LineOrderVO;
+import com.eghm.vo.business.order.line.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -48,6 +45,11 @@ public class LineOrderServiceImpl implements LineOrderService {
     @Override
     public Page<LineOrderResponse> listPage(LineOrderQueryRequest request) {
         return lineOrderMapper.listPage(request.createPage(), request);
+    }
+
+    @Override
+    public List<LineOrderExport> getExportList(LineOrderQueryRequest request) {
+        return lineOrderMapper.getExportList(request.createPage(false), request);
     }
 
     @Override
