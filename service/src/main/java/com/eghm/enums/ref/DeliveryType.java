@@ -1,6 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.eghm.annotation.ExcelValue;
 import com.eghm.enums.EnumBinder;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public enum DeliveryType implements EnumBinder {
     @EnumValue
     private final int value;
 
+    @ExcelValue
     private final String name;
 
     @Override

@@ -11,11 +11,16 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.service.business.HomestayService;
+import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.homestay.HomestayResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -84,6 +89,14 @@ public class HomestayController {
     public RespBody<Homestay> select(@Validated IdDTO dto) {
         Homestay homestay = homestayService.selectByIdRequired(dto.getId());
         return RespBody.success(homestay);
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("民宿导出")
+    public void export(HttpServletResponse response, HomestayQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<HomestayResponse> byPage = homestayService.getList(request);
+        ExcelUtil.export(response, "民宿信息", byPage, HomestayResponse.class);
     }
 
 }

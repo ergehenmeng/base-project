@@ -76,7 +76,13 @@ public class ItemServiceImpl implements ItemService {
     public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
         return itemMapper.listPage(request.createPage(), request);
     }
-    
+
+    @Override
+    public List<ItemListResponse> getList(ItemQueryRequest request) {
+        Page<ItemListResponse> listPage = itemMapper.listPage(request.createPage(false), request);
+        return listPage.getRecords();
+    }
+
     @Override
     public void create(ItemAddRequest request) {
         this.checkSpec(request.getMultiSpec(), request.getSpecList());

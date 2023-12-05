@@ -28,7 +28,14 @@ public interface ItemService {
      * @return 商品列表
      */
     Page<ItemListResponse> getByPage(ItemQueryRequest request);
-    
+
+    /**
+     * 分页查询商品信息 (导出)
+     * @param request 分页信息及查询条件
+     * @return 商品列表
+     */
+    List<ItemListResponse> getList(ItemQueryRequest request);
+
     /**
      * 创建零售商品
      * @param request 商品信息

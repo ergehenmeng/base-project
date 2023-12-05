@@ -40,7 +40,7 @@ public class ItemRefundNotifyHandler extends AbstractRefundNotifyHandler {
     protected void refundSuccessSetState(Order order, OrderRefundLog refundLog) {
         int successNum = orderRefundLogService.getRefundSuccessNum(order.getOrderNo(), refundLog.getItemOrderId());
         int productNum = itemOrderService.getProductNum(order.getOrderNo());
-        if (successNum  + refundLog.getNum() >= productNum) {
+        if (successNum + refundLog.getNum() >= productNum) {
             order.setState(OrderState.CLOSE);
             order.setCloseType(CloseType.REFUND);
         }

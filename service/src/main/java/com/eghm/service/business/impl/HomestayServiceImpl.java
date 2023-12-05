@@ -35,6 +35,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.homestay.HomestayListVO;
+import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,6 +75,12 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         wrapper.eq(request.getState() != null, Homestay::getState, request.getState());
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Homestay::getTitle, request.getQueryName());
         return homestayMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public List<HomestayResponse> getList(HomestayQueryRequest request) {
+        Page<HomestayResponse> listPage = homestayMapper.listPage(request.createPage(false), request);
+        return listPage.getRecords();
     }
 
     @Override

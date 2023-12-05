@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.HomestayMapper">
 
+    <select id="listPage" resultType="com.eghm.vo.business.homestay.HomestayResponse" parameterType="com.eghm.dto.business.homestay.HomestayQueryRequest">
+        select
+        t.title,
+        r.merchant_name,
+        t.`level`,
+        t.state,
+        t.detail_address,
+        t.phone,
+        t.score,
+        t.create_time
+        from homestay t
+        left join merchant r on t.merchant_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.state!= null">
+            and t.state = #{param.state}
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="getByPage" resultType="com.eghm.vo.business.homestay.HomestayListVO" parameterType="com.eghm.dto.business.homestay.HomestayQueryDTO">
         <choose>
             <when test="param.sortByDistance != null or param.sortByPrice != null">

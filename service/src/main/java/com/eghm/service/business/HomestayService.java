@@ -9,6 +9,7 @@ import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
 import com.eghm.vo.business.homestay.HomestayListVO;
+import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
 
 import java.util.List;
@@ -24,6 +25,13 @@ public interface HomestayService {
      * @return 列表
      */
     Page<Homestay> getByPage(HomestayQueryRequest request);
+
+    /**
+     * 分页查询民宿列表
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<HomestayResponse> getList(HomestayQueryRequest request);
 
     /**
      * 新增民宿

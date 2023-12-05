@@ -11,6 +11,7 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.service.business.ItemService;
+import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.item.ItemListResponse;
 import com.eghm.vo.business.item.ItemResponse;
 import io.swagger.annotations.Api;
@@ -18,6 +19,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -101,5 +105,13 @@ public class ItemController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         itemService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, ItemQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<ItemListResponse> byPage = itemService.getList(request);
+        ExcelUtil.export(response, "零售信息", byPage, ItemListResponse.class);
     }
 }
