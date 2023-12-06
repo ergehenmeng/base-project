@@ -4,12 +4,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
-import com.eghm.model.RestaurantOrder;
+import com.eghm.model.VoucherOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderResponse;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderVO;
+import com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse;
+import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
+import com.eghm.vo.business.order.restaurant.VoucherOrderResponse;
+import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -20,7 +20,7 @@ import org.apache.ibatis.annotations.Param;
  * @author 二哥很猛
  * @since 2022-08-23
  */
-public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
+public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
 
     /**
      * 分页查询门票订单
@@ -28,7 +28,7 @@ public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<RestaurantOrderResponse> listPage(Page<RestaurantOrderResponse> page, @Param("param") VoucherOrderQueryRequest request);
+    Page<VoucherOrderResponse> listPage(Page<VoucherOrderResponse> page, @Param("param") VoucherOrderQueryRequest request);
 
     /**
      * 查询餐饮快照
@@ -44,7 +44,7 @@ public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<RestaurantOrderVO> getList(Page<RestaurantOrderVO> page, @Param("param") VoucherOrderQueryDTO dto);
+    Page<VoucherOrderVO> getList(Page<VoucherOrderVO> page, @Param("param") VoucherOrderQueryDTO dto);
 
     /**
      * 查询餐饮订单详情
@@ -52,7 +52,7 @@ public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
      * @param memberId 会员id
      * @return 订单信息
      */
-    RestaurantOrderDetailVO getDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
+    VoucherOrderDetailVO getDetail(@Param("orderNo") String orderNo, @Param("memberId") Long memberId);
 
     /**
      * 查询餐饮订单详情
@@ -60,5 +60,5 @@ public interface RestaurantOrderMapper extends BaseMapper<RestaurantOrder> {
      * @param merchantId 商户ID
      * @return 订单信息
      */
-    RestaurantOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
+    VoucherOrderDetailResponse detail(@Param("orderNo") String orderNo, @Param("merchantId") Long merchantId);
 }

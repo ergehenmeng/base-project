@@ -57,7 +57,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     private final LineOrderService lineOrderService;
 
-    private final RestaurantOrderService restaurantOrderService;
+    private final VoucherOrderService voucherOrderService;
 
     private final MessageService messageService;
 
@@ -248,7 +248,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
                 vo = homestayOrderService.getSnapshot(orderId, orderNo);
                 break;
             case RESTAURANT:
-                vo = restaurantOrderService.getSnapshot(orderId, orderNo);
+                vo = voucherOrderService.getSnapshot(orderId, orderNo);
                 break;
             default:
                 vo = null;

@@ -4,11 +4,11 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
-import com.eghm.model.RestaurantOrder;
+import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.OrderVisitorService;
-import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.service.business.VoucherOrderService;
 import com.eghm.service.business.handler.state.impl.AbstractRefundApplyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,18 +21,18 @@ import org.springframework.stereotype.Service;
 @Service("restaurantApplyRefundHandler")
 public class RestaurantRefundApplyHandler extends AbstractRefundApplyHandler {
 
-    private final RestaurantOrderService restaurantOrderService;
+    private final VoucherOrderService voucherOrderService;
 
     public RestaurantRefundApplyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService,
-                                        RestaurantOrderService restaurantOrderService) {
+                                        VoucherOrderService voucherOrderService) {
         super(orderService, orderRefundLogService, orderVisitorService);
-        this.restaurantOrderService = restaurantOrderService;
+        this.voucherOrderService = voucherOrderService;
     }
 
     @Override
     protected int getVerifyNum(Order order) {
-        RestaurantOrder restaurantOrder = restaurantOrderService.getByOrderNo(order.getOrderNo());
-        return restaurantOrder.getUseNum();
+        VoucherOrder voucherOrder = voucherOrderService.getByOrderNo(order.getOrderNo());
+        return voucherOrder.getUseNum();
     }
 
     @Override

@@ -602,8 +602,8 @@ CREATE TABLE `order`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单表';
 
-DROP TABLE IF EXISTS `restaurant_order`;
-CREATE TABLE `restaurant_order`
+DROP TABLE IF EXISTS `voucher_order`;
+CREATE TABLE `voucher_order`
 (
     `id`            bigint(20) NOT NULL COMMENT '主键',
     `restaurant_id` bigint(20)   DEFAULT NULL COMMENT '餐饮商家id(冗余)',

@@ -27,7 +27,7 @@
             t.title as productTitle,
             t.cover_url as productCover,
             t.product_type
-        from `order` t left join restaurant_order r on t.order_no = r.order_no
+        from `order` t left join voucher_order r on t.order_no = r.order_no
         where t.deleted = false and t.order_no = #{orderNo} and t.state = 7
     </select>
 

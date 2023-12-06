@@ -71,7 +71,7 @@ public enum ExchangeQueue {
     /**
      * 餐饮订单队列
      */
-    RESTAURANT_ORDER("restaurant_order_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.RESTAURANT_ORDER_QUEUE}, "", false),
+    VOUCHER_ORDER("voucher_order_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.VOUCHER_ORDER_QUEUE}, "", false),
 
     /**
      * 民宿订单队列

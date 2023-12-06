@@ -4,9 +4,9 @@ import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
-import com.eghm.model.RestaurantOrder;
+import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.service.business.VoucherOrderService;
 import com.eghm.service.business.MealVoucherService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
@@ -21,20 +21,20 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class RestaurantOrderAutoCancelHandler extends AbstractOrderAutoCancelHandler {
 
-    private final RestaurantOrderService restaurantOrderService;
+    private final VoucherOrderService voucherOrderService;
 
     private final MealVoucherService mealVoucherService;
 
-    public RestaurantOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, RestaurantOrderService restaurantOrderService, MealVoucherService mealVoucherService) {
+    public RestaurantOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, MealVoucherService mealVoucherService) {
         super(orderService, memberCouponService);
-        this.restaurantOrderService = restaurantOrderService;
+        this.voucherOrderService = voucherOrderService;
         this.mealVoucherService = mealVoucherService;
     }
 
     @Override
     protected void after(Order order) {
-        RestaurantOrder restaurantOrder = restaurantOrderService.getByOrderNo(order.getOrderNo());
-        mealVoucherService.updateStock(restaurantOrder.getVoucherId(), order.getNum());
+        VoucherOrder voucherOrder = voucherOrderService.getByOrderNo(order.getOrderNo());
+        mealVoucherService.updateStock(voucherOrder.getVoucherId(), order.getNum());
     }
 
     @Override

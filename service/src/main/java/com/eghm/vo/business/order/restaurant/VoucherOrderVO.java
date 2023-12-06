@@ -13,7 +13,7 @@ import lombok.Data;
  * @since 2023/7/28
  */
 @Data
-public class RestaurantOrderVO {
+public class VoucherOrderVO {
 
     @ApiModelProperty("图片")
     private String coverUrl;

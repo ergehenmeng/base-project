@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
  * @since 2023/7/28
  */
 @Data
-public class RestaurantOrderDetailVO {
+public class VoucherOrderDetailResponse {
 
     @ApiModelProperty("图片")
     private String coverUrl;
@@ -41,6 +41,9 @@ public class RestaurantOrderDetailVO {
 
     @ApiModelProperty("购买数量")
     private Integer num;
+
+    @ApiModelProperty("已使用数量")
+    private Integer useNum;
 
     @ApiModelProperty(value = "是否支持退款 0:不支持 1:直接退款 2:审核后退款")
     private RefundType refundType;
@@ -71,11 +74,11 @@ public class RestaurantOrderDetailVO {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime payTime;
 
-    @ApiModelProperty(value = "联系人手机号")
-    private String mobile;
-
     @ApiModelProperty(value = "昵称")
     private String nickName;
+
+    @ApiModelProperty(value = "联系人手机号")
+    private String mobile;
 
     @ApiModelProperty("完成时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -95,9 +98,6 @@ public class RestaurantOrderDetailVO {
 
     @ApiModelProperty(value = "使用截止时间")
     private String expireTime;
-
-    @ApiModelProperty("核销码")
-    private String verifyNo;
 
     @ApiModelProperty("订单备注信息")
     private String remark;

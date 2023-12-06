@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RestaurantOrderResponse extends ExcelStyle {
+public class VoucherOrderResponse extends ExcelStyle {
 
     @ApiModelProperty("图片")
     private String coverUrl;

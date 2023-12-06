@@ -5,10 +5,10 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.service.business.VoucherOrderService;
 import com.eghm.utils.ExcelUtil;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderResponse;
+import com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse;
+import com.eghm.vo.business.order.restaurant.VoucherOrderResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -28,24 +28,24 @@ import java.util.List;
 @RestController
 @Api(tags = "餐饮订单")
 @AllArgsConstructor
-@RequestMapping("/manage/restaurant/order")
-public class RestaurantOrderController {
+@RequestMapping("/manage/voucher/order")
+public class VoucherOrderController {
 
-    private final RestaurantOrderService restaurantOrderService;
+    private final VoucherOrderService voucherOrderService;
 
     @GetMapping("/listPage")
     @ApiOperation("订单列表")
-    public RespBody<PageData<RestaurantOrderResponse>> listPage(VoucherOrderQueryRequest request) {
+    public RespBody<PageData<VoucherOrderResponse>> listPage(VoucherOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<RestaurantOrderResponse> byPage = restaurantOrderService.listPage(request);
+        Page<VoucherOrderResponse> byPage = voucherOrderService.listPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
     @GetMapping("/detail")
     @ApiOperation("订单详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<RestaurantOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
-        RestaurantOrderDetailResponse detail = restaurantOrderService.detail(orderNo);
+    public RespBody<VoucherOrderDetailResponse> detail(@RequestParam("orderNo") String orderNo) {
+        VoucherOrderDetailResponse detail = voucherOrderService.detail(orderNo);
         return RespBody.success(detail);
     }
 
@@ -53,7 +53,7 @@ public class RestaurantOrderController {
     @ApiOperation("导出Excel")
     public void export(HttpServletResponse response, VoucherOrderQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        List<RestaurantOrderResponse> byPage = restaurantOrderService.getList(request);
-        ExcelUtil.export(response, "餐饮订单", byPage, RestaurantOrderResponse.class);
+        List<VoucherOrderResponse> byPage = voucherOrderService.getList(request);
+        ExcelUtil.export(response, "餐饮订单", byPage, VoucherOrderResponse.class);
     }
 }

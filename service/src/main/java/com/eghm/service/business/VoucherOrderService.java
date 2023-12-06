@@ -3,13 +3,12 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest;
-import com.eghm.dto.ext.PageData;
-import com.eghm.model.RestaurantOrder;
+import com.eghm.model.VoucherOrder;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderResponse;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderVO;
+import com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse;
+import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
+import com.eghm.vo.business.order.restaurant.VoucherOrderResponse;
+import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/8/23
  */
-public interface RestaurantOrderService {
+public interface VoucherOrderService {
 
     /**
      * 分页查询餐饮订单列表 (管理后台)
@@ -25,7 +24,7 @@ public interface RestaurantOrderService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<RestaurantOrderResponse> listPage(VoucherOrderQueryRequest request);
+    Page<VoucherOrderResponse> listPage(VoucherOrderQueryRequest request);
 
     /**
      * 分页查询餐饮订单列表 导出使用 (管理后台)
@@ -33,7 +32,7 @@ public interface RestaurantOrderService {
      * @param request 查询条件
      * @return 列表
      */
-    List<RestaurantOrderResponse> getList(VoucherOrderQueryRequest request);
+    List<VoucherOrderResponse> getList(VoucherOrderQueryRequest request);
 
     /**
      * 分页查询餐饮订单列表 移动端(自己)
@@ -41,27 +40,27 @@ public interface RestaurantOrderService {
      * @param dto 查询条件
      * @return 列表
      */
-    List<RestaurantOrderVO> getByPage(VoucherOrderQueryDTO dto);
+    List<VoucherOrderVO> getByPage(VoucherOrderQueryDTO dto);
 
     /**
      * 插入餐饮订单
      * @param order 订单信息
      */
-    void insert(RestaurantOrder order);
+    void insert(VoucherOrder order);
 
     /**
      * 根据订单编号查询餐饮订单
      * @param orderNo 订单编号
      * @return 餐饮订单
      */
-    RestaurantOrder getByOrderNo(String orderNo);
+    VoucherOrder getByOrderNo(String orderNo);
 
     /**
      * 主键查询
      * @param id id
      * @return 餐饮订单
      */
-    RestaurantOrder selectById(Long id);
+    VoucherOrder selectById(Long id);
 
     /**
      * 查询餐饮快照
@@ -78,7 +77,7 @@ public interface RestaurantOrderService {
      * @param memberId 用户id
      * @return 订单详情
      */
-    RestaurantOrderDetailVO getDetail(String orderNo, Long memberId);
+    VoucherOrderDetailVO getDetail(String orderNo, Long memberId);
 
     /**
      * 查询订单详情
@@ -86,5 +85,5 @@ public interface RestaurantOrderService {
      * @param orderNo 订单编号
      * @return 订单详情
      */
-    RestaurantOrderDetailResponse detail(String orderNo);
+    VoucherOrderDetailResponse detail(String orderNo);
 }

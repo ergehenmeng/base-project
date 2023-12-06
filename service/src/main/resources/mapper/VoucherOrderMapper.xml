@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.mapper.RestaurantOrderMapper">
+<mapper namespace="com.eghm.mapper.VoucherOrderMapper">
 
-    <select id="listPage" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderResponse" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest">
+    <select id="listPage" resultType="com.eghm.vo.business.order.restaurant.VoucherOrderResponse" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryRequest">
         select
         t.order_no,
         r.cover_url,
@@ -20,7 +20,7 @@
         r.discount_amount,
         r.pay_amount
         from `order` r
-        inner join restaurant_order t on t.order_no = r.order_no
+        inner join voucher_order t on t.order_no = r.order_no
         left join restaurant m on t.restaurant_id = m.id
         where t.deleted = false
         <if test="param.merchantId != null">
@@ -55,11 +55,11 @@
         t.cover_url as productCover,
         t.store_id,
         r.voucher_id as productId
-        from restaurant_order r inner join `order` t on t.order_no = r.order_no
+        from voucher_order r inner join `order` t on t.order_no = r.order_no
         where t.id = #{orderId} and r.order_no = #{orderNo} and t.deleted = false
     </select>
 
-    <select id="getList" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderVO" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO">
+    <select id="getList" resultType="com.eghm.vo.business.order.restaurant.VoucherOrderVO" parameterType="com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO">
         select
         t.order_no,
         r.cover_url,
@@ -71,7 +71,7 @@
         r.state,
         r.pay_amount
         from `order` r
-        inner join restaurant_order t on t.order_no = r.order_no
+        inner join voucher_order t on t.order_no = r.order_no
         left join restaurant m on t.restaurant_id = m.id
         where t.deleted = false and r.member_id = #{param.memberId}
         <if test="param.queryName != null and param.queryName != ''">
@@ -83,7 +83,7 @@
         order by t.id desc
     </select>
 
-    <select id="getDetail" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO">
+    <select id="getDetail" resultType="com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO">
         select
             t.order_no,
             r.cover_url,
@@ -111,12 +111,12 @@
             r.complete_time,
             r.remark
         from `order` r
-        inner join restaurant_order t on t.order_no = r.order_no
+        inner join voucher_order t on t.order_no = r.order_no
         left join restaurant m on t.restaurant_id = m.id
         where t.deleted = false and r.member_id = #{memberId} and r.order_no = #{orderNo}
     </select>
 
-    <select id="detail" resultType="com.eghm.vo.business.order.restaurant.RestaurantOrderDetailResponse">
+    <select id="detail" resultType="com.eghm.vo.business.order.restaurant.VoucherOrderDetailResponse">
         select
             t.order_no,
             r.cover_url,
@@ -144,7 +144,7 @@
             r.complete_time,
             r.remark
         from `order` r
-        inner join restaurant_order t on t.order_no = r.order_no
+        inner join voucher_order t on t.order_no = r.order_no
         left join restaurant m on t.restaurant_id = m.id
         where t.deleted = false and r.order_no = #{orderNo}
         <if test="merchantId != null">

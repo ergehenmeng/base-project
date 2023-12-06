@@ -3,9 +3,9 @@ package com.eghm.web.controller.business;
 import com.eghm.dto.business.order.restaurant.VoucherOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.RestaurantOrderService;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderDetailVO;
-import com.eghm.vo.business.order.restaurant.RestaurantOrderVO;
+import com.eghm.service.business.VoucherOrderService;
+import com.eghm.vo.business.order.restaurant.VoucherOrderDetailVO;
+import com.eghm.vo.business.order.restaurant.VoucherOrderVO;
 import com.eghm.web.annotation.AccessToken;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,21 +30,21 @@ import java.util.List;
 @RequestMapping("/webapp/voucher/order")
 public class VoucherOrderController {
 
-    private final RestaurantOrderService restaurantOrderService;
+    private final VoucherOrderService voucherOrderService;
 
     @GetMapping("/listPage")
     @ApiOperation("餐饮订单列表")
-    public RespBody<List<RestaurantOrderVO>> listPage(@Validated VoucherOrderQueryDTO dto) {
+    public RespBody<List<VoucherOrderVO>> listPage(@Validated VoucherOrderQueryDTO dto) {
         dto.setMemberId(ApiHolder.getMemberId());
-        List<RestaurantOrderVO> voList = restaurantOrderService.getByPage(dto);
+        List<VoucherOrderVO> voList = voucherOrderService.getByPage(dto);
         return RespBody.success(voList);
     }
 
     @GetMapping("/detail")
     @ApiOperation("餐饮订单详情")
     @ApiImplicitParam(name = "orderNo", value = "订单编号", required = true)
-    public RespBody<RestaurantOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
-        RestaurantOrderDetailVO detail = restaurantOrderService.getDetail(orderNo, ApiHolder.getMemberId());
+    public RespBody<VoucherOrderDetailVO> detail(@RequestParam("orderNo") String orderNo) {
+        VoucherOrderDetailVO detail = voucherOrderService.getDetail(orderNo, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
 }

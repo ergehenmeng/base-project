@@ -67,7 +67,7 @@ public class QueueConstant {
     /**
      * 餐饮订单队列
      */
-    public static final String RESTAURANT_ORDER_QUEUE = "restaurant_order_queue";
+    public static final String VOUCHER_ORDER_QUEUE = "voucher_order_queue";
 
     /**
      * 民宿订单队列

@@ -10,7 +10,7 @@ import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
 import com.eghm.model.Restaurant;
-import com.eghm.model.RestaurantOrder;
+import com.eghm.model.VoucherOrder;
 import com.eghm.model.MealVoucher;
 import com.eghm.service.business.*;
 import com.eghm.service.business.handler.context.RestaurantOrderCreateContext;
@@ -32,17 +32,17 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     private final RestaurantService restaurantService;
 
-    private final RestaurantOrderService restaurantOrderService;
+    private final VoucherOrderService voucherOrderService;
 
     private final OrderService orderService;
 
     private final OrderMQService orderMQService;
 
-    public RestaurantOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, MealVoucherService mealVoucherService, RestaurantOrderService restaurantOrderService) {
+    public RestaurantOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, MealVoucherService mealVoucherService, VoucherOrderService voucherOrderService) {
         super(memberCouponService, orderVisitorService);
         this.restaurantService = restaurantService;
         this.mealVoucherService = mealVoucherService;
-        this.restaurantOrderService = restaurantOrderService;
+        this.voucherOrderService = voucherOrderService;
         this.orderService = orderService;
         this.orderMQService = orderMQService;
     }
@@ -107,16 +107,16 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     @Override
     protected void queueOrder(RestaurantOrderCreateContext context) {
-        orderMQService.sendOrderCreateMessage(ExchangeQueue.RESTAURANT_ORDER, context);
+        orderMQService.sendOrderCreateMessage(ExchangeQueue.VOUCHER_ORDER, context);
     }
 
     @Override
     protected void next(RestaurantOrderCreateContext context, RestaurantOrderPayload payload, Order order) {
         mealVoucherService.updateStock(context.getVoucherId(), -context.getNum());
-        RestaurantOrder restaurantOrder = DataUtil.copy(payload.getMealVoucher(), RestaurantOrder.class, "id");
-        restaurantOrder.setOrderNo(order.getOrderNo());
-        restaurantOrder.setVoucherId(context.getVoucherId());
-        restaurantOrderService.insert(restaurantOrder);
+        VoucherOrder voucherOrder = DataUtil.copy(payload.getMealVoucher(), VoucherOrder.class, "id");
+        voucherOrder.setOrderNo(order.getOrderNo());
+        voucherOrder.setVoucherId(context.getVoucherId());
+        voucherOrderService.insert(voucherOrder);
         context.setOrderNo(order.getOrderNo());
     }
 

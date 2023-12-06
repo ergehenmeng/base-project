@@ -5,11 +5,11 @@ import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.model.Order;
 import com.eghm.model.OrderRefundLog;
-import com.eghm.model.RestaurantOrder;
+import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
-import com.eghm.service.business.RestaurantOrderService;
+import com.eghm.service.business.VoucherOrderService;
 import com.eghm.service.business.MealVoucherService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
@@ -28,14 +28,14 @@ public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
     
     private final MealVoucherService mealVoucherService;
     
-    private final RestaurantOrderService restaurantOrderService;
+    private final VoucherOrderService voucherOrderService;
     
     public RestaurantRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                          AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-                                         MealVoucherService mealVoucherService, RestaurantOrderService restaurantOrderService) {
+                                         MealVoucherService mealVoucherService, VoucherOrderService voucherOrderService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
         this.mealVoucherService = mealVoucherService;
-        this.restaurantOrderService = restaurantOrderService;
+        this.voucherOrderService = voucherOrderService;
     }
     
     @Override
@@ -43,8 +43,8 @@ public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
         super.after(dto, order, refundLog, refundStatus);
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
-                RestaurantOrder restaurantOrder = restaurantOrderService.getByOrderNo(order.getOrderNo());
-                mealVoucherService.updateStock(restaurantOrder.getVoucherId(), refundLog.getNum());
+                VoucherOrder voucherOrder = voucherOrderService.getByOrderNo(order.getOrderNo());
+                mealVoucherService.updateStock(voucherOrder.getVoucherId(), refundLog.getNum());
             } catch (Exception e) {
                 log.error("餐饮券退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }
