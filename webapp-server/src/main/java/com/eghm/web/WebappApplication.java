@@ -1,6 +1,7 @@
 package com.eghm.web;
 
 import com.eghm.configuration.rabbit.RabbitConfig;
+import com.eghm.configuration.rabbit.RabbitInitConfig;
 import com.eghm.utils.LoggerUtil;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @Slf4j
 @EnableAsync
 @EnableAspectJAutoProxy
-@Import(RabbitConfig.class)
+@Import({RabbitConfig.class, RabbitInitConfig.class})
 @MapperScan("com.eghm.mapper")
 @SpringBootApplication(scanBasePackages = "com.eghm")
 public class WebappApplication implements ApplicationListener<ContextRefreshedEvent> {
