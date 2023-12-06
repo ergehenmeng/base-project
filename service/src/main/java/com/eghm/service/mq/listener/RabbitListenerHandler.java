@@ -213,7 +213,7 @@ public class RabbitListenerHandler {
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.VOUCHER_ORDER_QUEUE)
-    public void restaurantOrder(VoucherOrderCreateContext context, Message message, Channel channel) throws IOException {
+    public void voucherOrder(VoucherOrderCreateContext context, Message message, Channel channel) throws IOException {
         this.processMessageAckAsync(context, message, channel, order -> {
             stateHandler.fireEvent(ProductType.RESTAURANT, OrderState.NONE.getValue(), RestaurantEvent.CREATE_QUEUE, context);
             cacheService.setValue(CacheConstant.MQ_ASYNC_DATA_KEY + context.getKey(), context.getOrderNo());
