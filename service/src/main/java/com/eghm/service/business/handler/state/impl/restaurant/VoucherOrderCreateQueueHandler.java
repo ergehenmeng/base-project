@@ -3,8 +3,8 @@ package com.eghm.service.business.handler.state.impl.restaurant;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.RestaurantEvent;
 import com.eghm.service.business.*;
-import com.eghm.service.business.handler.context.RestaurantOrderCreateContext;
-import com.eghm.service.business.handler.dto.RestaurantOrderPayload;
+import com.eghm.service.business.handler.context.VoucherOrderCreateContext;
+import com.eghm.service.business.handler.dto.VoucherOrderPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
  */
 @Service("restaurantOrderCreateQueueHandler")
 @Slf4j
-public class RestaurantOrderCreateQueueHandler extends RestaurantOrderCreateHandler {
+public class VoucherOrderCreateQueueHandler extends VoucherOrderCreateHandler {
 
-    public RestaurantOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, MealVoucherService mealVoucherService, VoucherOrderService voucherOrderService) {
+    public VoucherOrderCreateQueueHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, MealVoucherService mealVoucherService, VoucherOrderService voucherOrderService) {
         super(orderService, memberCouponService, orderVisitorService, restaurantService, orderMQService, mealVoucherService, voucherOrderService);
     }
 
@@ -26,7 +26,7 @@ public class RestaurantOrderCreateQueueHandler extends RestaurantOrderCreateHand
     }
 
     @Override
-    public boolean isHotSell(RestaurantOrderCreateContext context, RestaurantOrderPayload payload) {
+    public boolean isHotSell(VoucherOrderCreateContext context, VoucherOrderPayload payload) {
         return false;
     }
 }

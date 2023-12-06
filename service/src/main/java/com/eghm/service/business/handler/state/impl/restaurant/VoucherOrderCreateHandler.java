@@ -13,8 +13,8 @@ import com.eghm.model.Restaurant;
 import com.eghm.model.VoucherOrder;
 import com.eghm.model.MealVoucher;
 import com.eghm.service.business.*;
-import com.eghm.service.business.handler.context.RestaurantOrderCreateContext;
-import com.eghm.service.business.handler.dto.RestaurantOrderPayload;
+import com.eghm.service.business.handler.context.VoucherOrderCreateContext;
+import com.eghm.service.business.handler.dto.VoucherOrderPayload;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCreateHandler;
 import com.eghm.utils.DataUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -24,9 +24,9 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2022/8/24
  */
-@Service("restaurantOrderCreateHandler")
+@Service("voucherOrderCreateHandler")
 @Slf4j
-public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<RestaurantOrderCreateContext, RestaurantOrderPayload> {
+public class VoucherOrderCreateHandler extends AbstractOrderCreateHandler<VoucherOrderCreateContext, VoucherOrderPayload> {
 
     private final MealVoucherService mealVoucherService;
 
@@ -38,7 +38,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
 
     private final OrderMQService orderMQService;
 
-    public RestaurantOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, MealVoucherService mealVoucherService, VoucherOrderService voucherOrderService) {
+    public VoucherOrderCreateHandler(OrderService orderService, MemberCouponService memberCouponService, OrderVisitorService orderVisitorService, RestaurantService restaurantService, OrderMQService orderMQService, MealVoucherService mealVoucherService, VoucherOrderService voucherOrderService) {
         super(memberCouponService, orderVisitorService);
         this.restaurantService = restaurantService;
         this.mealVoucherService = mealVoucherService;
@@ -48,17 +48,17 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected RestaurantOrderPayload getPayload(RestaurantOrderCreateContext context) {
+    protected VoucherOrderPayload getPayload(VoucherOrderCreateContext context) {
         MealVoucher voucher = mealVoucherService.selectByIdShelve(context.getVoucherId());
         Restaurant restaurant = restaurantService.selectByIdShelve(voucher.getRestaurantId());
-        RestaurantOrderPayload payload = new RestaurantOrderPayload();
+        VoucherOrderPayload payload = new VoucherOrderPayload();
         payload.setMealVoucher(voucher);
         payload.setRestaurant(restaurant);
         return payload;
     }
 
     @Override
-    protected void before(RestaurantOrderCreateContext context, RestaurantOrderPayload payload) {
+    protected void before(VoucherOrderCreateContext context, VoucherOrderPayload payload) {
         Integer num = context.getNum();
         MealVoucher voucher = payload.getMealVoucher();
         if (voucher.getStock() - num < 0) {
@@ -72,7 +72,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected Order createOrder(RestaurantOrderCreateContext context, RestaurantOrderPayload payload) {
+    protected Order createOrder(VoucherOrderCreateContext context, VoucherOrderPayload payload) {
         MealVoucher voucher = payload.getMealVoucher();
         String orderNo = ProductType.RESTAURANT.generateOrderNo();
         Order order = DataUtil.copy(context, Order.class);
@@ -101,17 +101,17 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    public boolean isHotSell(RestaurantOrderCreateContext context, RestaurantOrderPayload payload) {
+    public boolean isHotSell(VoucherOrderCreateContext context, VoucherOrderPayload payload) {
         return payload.getMealVoucher().getHotSell();
     }
 
     @Override
-    protected void queueOrder(RestaurantOrderCreateContext context) {
+    protected void queueOrder(VoucherOrderCreateContext context) {
         orderMQService.sendOrderCreateMessage(ExchangeQueue.VOUCHER_ORDER, context);
     }
 
     @Override
-    protected void next(RestaurantOrderCreateContext context, RestaurantOrderPayload payload, Order order) {
+    protected void next(VoucherOrderCreateContext context, VoucherOrderPayload payload, Order order) {
         mealVoucherService.updateStock(context.getVoucherId(), -context.getNum());
         VoucherOrder voucherOrder = DataUtil.copy(payload.getMealVoucher(), VoucherOrder.class, "id");
         voucherOrder.setOrderNo(order.getOrderNo());
@@ -121,7 +121,7 @@ public class RestaurantOrderCreateHandler extends AbstractOrderCreateHandler<Res
     }
 
     @Override
-    protected void end(RestaurantOrderCreateContext context, RestaurantOrderPayload payload, Order order) {
+    protected void end(VoucherOrderCreateContext context, VoucherOrderPayload payload, Order order) {
         orderMQService.sendOrderExpireMessage(ExchangeQueue.RESTAURANT_PAY_EXPIRE, order.getOrderNo());
     }
 

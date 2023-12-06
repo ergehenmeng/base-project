@@ -6,7 +6,7 @@ import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
 import com.eghm.dto.business.order.line.LineOrderCreateDTO;
 import com.eghm.dto.business.order.refund.*;
-import com.eghm.dto.business.order.restaurant.RestaurantOrderCreateDTO;
+import com.eghm.dto.business.order.restaurant.VoucherOrderCreateDTO;
 import com.eghm.dto.business.order.ticket.TicketOrderCreateDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.AsyncKey;
@@ -91,8 +91,8 @@ public class OrderController {
 
     @PostMapping("/restaurant/create")
     @ApiOperation("餐饮创建订单")
-    public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated RestaurantOrderCreateDTO dto) {
-        RestaurantOrderCreateContext context = DataUtil.copy(dto, RestaurantOrderCreateContext.class);
+    public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
+        VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         restaurantAccessHandler.createOrder(context);
         OrderCreateVO<String> result = this.generateResult(context, context.getOrderNo());

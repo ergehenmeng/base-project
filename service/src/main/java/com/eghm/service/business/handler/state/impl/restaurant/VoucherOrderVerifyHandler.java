@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
  * @author wyb
  * @since 2023/5/30
  */
-@Service("restaurantOrderVerifyHandler")
-public class RestaurantOrderVerifyHandler extends AbstractOrderVerifyHandler {
+@Service("voucherOrderVerifyHandler")
+public class VoucherOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final OrderMQService orderMQService;
 
@@ -26,8 +26,8 @@ public class RestaurantOrderVerifyHandler extends AbstractOrderVerifyHandler {
 
     private final VerifyLogService verifyLogService;
 
-    public RestaurantOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
-                                        JsonService jsonService, OrderMQService orderMQService, CommonService commonService) {
+    public VoucherOrderVerifyHandler(OrderVisitorService orderVisitorService, OrderService orderService, VerifyLogService verifyLogService,
+                                     JsonService jsonService, OrderMQService orderMQService, CommonService commonService) {
         super(orderVisitorService, orderService, verifyLogService, jsonService, commonService);
         this.orderMQService = orderMQService;
         this.orderService = orderService;

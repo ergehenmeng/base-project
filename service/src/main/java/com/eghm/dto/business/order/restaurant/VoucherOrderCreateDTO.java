@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
  * @since 2023/5/8
  */
 @Data
-public class RestaurantOrderCreateDTO {
+public class VoucherOrderCreateDTO {
 
     @ApiModelProperty(value = "餐饮券id", required = true)
     @NotNull(message = "餐饮券不能为空")

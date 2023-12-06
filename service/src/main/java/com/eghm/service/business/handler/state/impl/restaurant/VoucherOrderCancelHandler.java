@@ -17,15 +17,15 @@ import org.springframework.stereotype.Service;
  * @author 二哥很猛
  * @date 2022/8/25
  */
-@Service("restaurantOrderCancelHandler")
+@Service("voucherOrderCancelHandler")
 @Slf4j
-public class RestaurantOrderCancelHandler extends AbstractOrderCancelHandler {
+public class VoucherOrderCancelHandler extends AbstractOrderCancelHandler {
 
     private final VoucherOrderService voucherOrderService;
 
     private final MealVoucherService mealVoucherService;
 
-    public RestaurantOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, MealVoucherService mealVoucherService) {
+    public VoucherOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, MealVoucherService mealVoucherService) {
         super(orderService, memberCouponService);
         this.voucherOrderService = voucherOrderService;
         this.mealVoucherService = mealVoucherService;

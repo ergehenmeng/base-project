@@ -9,7 +9,7 @@ import lombok.Data;
  * @since 2023/6/13
  */
 @Data
-public class RestaurantOrderPayload {
+public class VoucherOrderPayload {
 
     /**
      * 餐饮券信息

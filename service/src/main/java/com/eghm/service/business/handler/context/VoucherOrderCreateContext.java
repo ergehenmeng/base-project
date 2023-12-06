@@ -13,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class RestaurantOrderCreateContext extends AsyncKey implements Context {
+public class VoucherOrderCreateContext extends AsyncKey implements Context {
 
     @ApiModelProperty("餐饮券id")
     private Long voucherId;
