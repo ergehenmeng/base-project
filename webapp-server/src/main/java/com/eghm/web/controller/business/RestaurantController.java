@@ -5,7 +5,7 @@ import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.RestaurantService;
-import com.eghm.service.business.RestaurantVoucherService;
+import com.eghm.service.business.MealVoucherService;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
@@ -32,7 +32,7 @@ public class RestaurantController {
 
     private final RestaurantService restaurantService;
 
-    private final RestaurantVoucherService restaurantVoucherService;
+    private final MealVoucherService mealVoucherService;
 
     @GetMapping("/listPage")
     @ApiOperation("商家列表")
@@ -51,14 +51,14 @@ public class RestaurantController {
     @GetMapping("/voucher/listPage")
     @ApiOperation("店铺餐饮券列表")
     public RespBody<List<VoucherVO>> voucherListPage(@Validated VoucherQueryDTO dto) {
-        List<VoucherVO> voList = restaurantVoucherService.getByPage(dto);
+        List<VoucherVO> voList = mealVoucherService.getByPage(dto);
         return RespBody.success(voList);
     }
 
     @GetMapping("/voucher/detail")
     @ApiOperation("餐饮券详情")
     public RespBody<VoucherDetailVO> voucherDetail(@Validated IdDTO dto) {
-        VoucherDetailVO detail = restaurantVoucherService.getDetail(dto.getId());
+        VoucherDetailVO detail = mealVoucherService.getDetail(dto.getId());
         return RespBody.success(detail);
     }
 }

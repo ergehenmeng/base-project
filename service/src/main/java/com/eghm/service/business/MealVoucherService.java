@@ -3,11 +3,12 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.enums.ref.State;
-import com.eghm.model.RestaurantVoucher;
-import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherAddRequest;
-import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherEditRequest;
-import com.eghm.dto.business.restaurant.voucher.RestaurantVoucherQueryRequest;
+import com.eghm.model.MealVoucher;
+import com.eghm.dto.business.restaurant.voucher.MealVoucherAddRequest;
+import com.eghm.dto.business.restaurant.voucher.MealVoucherEditRequest;
+import com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
+import com.eghm.vo.business.restaurant.VoucherResponse;
 import com.eghm.vo.business.restaurant.VoucherVO;
 
 import java.util.List;
@@ -16,26 +17,33 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/6/30
  */
-public interface RestaurantVoucherService {
+public interface MealVoucherService {
 
     /**
      * 分页查询餐饮券信息
      * @param request 查询条件
      * @return 列表
      */
-    Page<RestaurantVoucher> getByPage(RestaurantVoucherQueryRequest request);
+    Page<MealVoucher> getByPage(VoucherQueryRequest request);
+
+    /**
+     * 分页查询餐饮券信息 导出使用
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<VoucherResponse> getList(VoucherQueryRequest request);
 
     /**
      * 创建餐饮券
      * @param request 餐饮券信息
      */
-    void create(RestaurantVoucherAddRequest request);
+    void create(MealVoucherAddRequest request);
 
     /**
      * 更新餐饮券
      * @param request 餐饮券信息
      */
-    void update(RestaurantVoucherEditRequest request);
+    void update(MealVoucherEditRequest request);
 
     /**
      * 更新上下架状态
@@ -49,21 +57,21 @@ public interface RestaurantVoucherService {
      * @param id id
      * @return 餐饮券
      */
-    RestaurantVoucher selectById(Long id);
+    MealVoucher selectById(Long id);
 
     /**
      * 主键查询餐饮券,不存在抛异常
      * @param id id
      * @return 餐饮券
      */
-    RestaurantVoucher selectByIdRequired(Long id);
+    MealVoucher selectByIdRequired(Long id);
 
     /**
      * 主键查询餐饮券,不是上架中的抛异常
      * @param id id
      * @return 餐饮券
      */
-    RestaurantVoucher selectByIdShelve(Long id);
+    MealVoucher selectByIdShelve(Long id);
 
     /**
      * 更新库存信息

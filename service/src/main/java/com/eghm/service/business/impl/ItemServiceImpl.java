@@ -73,13 +73,13 @@ public class ItemServiceImpl implements ItemService {
     private final ItemExpressRegionService itemExpressRegionService;
 
     @Override
-    public Page<ItemListResponse> getByPage(ItemQueryRequest request) {
+    public Page<ItemResponse> getByPage(ItemQueryRequest request) {
         return itemMapper.listPage(request.createPage(), request);
     }
 
     @Override
-    public List<ItemListResponse> getList(ItemQueryRequest request) {
-        Page<ItemListResponse> listPage = itemMapper.listPage(request.createPage(false), request);
+    public List<ItemResponse> getList(ItemQueryRequest request) {
+        Page<ItemResponse> listPage = itemMapper.listPage(request.createPage(false), request);
         return listPage.getRecords();
     }
 
@@ -113,9 +113,9 @@ public class ItemServiceImpl implements ItemService {
     }
     
     @Override
-    public ItemResponse getDetailById(Long itemId) {
+    public ItemDetailResponse getDetailById(Long itemId) {
         Item item = this.selectByIdRequired(itemId);
-        ItemResponse response = DataUtil.copy(item, ItemResponse.class);
+        ItemDetailResponse response = DataUtil.copy(item, ItemDetailResponse.class);
         // 多规格才会保存规格配置信息
         if (Boolean.TRUE.equals(item.getMultiSpec())) {
             List<ItemSpec> spec = itemSpecService.getByItemId(itemId);

@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class RestaurantVoucherQueryRequest extends PagingQuery {
+public class VoucherQueryRequest extends PagingQuery {
 
     @ApiModelProperty("状态 0:待上架 1:已上架")
     private Integer state;

@@ -18,27 +18,23 @@ import java.time.LocalDate;
  * @date 2022/6/30 22:03
  */
 @Data
-public class RestaurantVoucherEditRequest {
+public class MealVoucherAddRequest {
 
-    @ApiModelProperty(value = "id", required = true)
-    @NotNull(message = "id不能为空")
-    private Long id;
-
-    @ApiModelProperty(value = "餐饮店铺", required = true)
-    @NotNull(message = "店铺id不能为空")
-    private Long restaurantId;
-
-    @ApiModelProperty(value = "商品名称", required = true)
+    @ApiModelProperty(value = "餐饮券名称", required = true)
     @Size(min = 2, max = 20, message = "餐饮券名称应为2~20字符")
     @NotBlank(message = "餐饮券名称不能为空")
     @WordChecker
     private String title;
 
+    @ApiModelProperty(value = "餐饮店铺", required = true)
+    @NotNull(message = "店铺id不能为空")
+    private Long restaurantId;
+
     @ApiModelProperty(value = "封面图片", required = true)
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
 
-    @ApiModelProperty(value = "划线价", required = true)
+    @ApiModelProperty(value = "划线价")
     @JsonDeserialize(using = YuanToCentDecoder.class)
     private Integer linePrice;
 
@@ -54,7 +50,7 @@ public class RestaurantVoucherEditRequest {
     @ApiModelProperty(value = "虚拟销量", required = true)
     @Min(value = 0, message = "虚拟销量不能小于0")
     @NotNull(message = "虚拟销量不能为空")
-    private Integer virtualNum;
+    private Integer virtualNum = 0;
 
     @ApiModelProperty(value = "购买说明", required = true)
     @NotNull(message = "购买说明不能为空")
@@ -74,11 +70,11 @@ public class RestaurantVoucherEditRequest {
     @ApiModelProperty(value = "失效日期(包含)")
     private LocalDate expireDate;
 
-    @ApiModelProperty(value = "使用开始时段", required = true)
+    @ApiModelProperty(value = "使用开始时间", required = true)
     @NotBlank(message = "开始使用时段不能为空")
     private String effectTime;
 
-    @ApiModelProperty(value = "使用截止时段", required = true)
+    @ApiModelProperty(value = "使用截止时间", required = true)
     @NotBlank(message = "结束使用时段不能为空")
     private String expireTime;
 

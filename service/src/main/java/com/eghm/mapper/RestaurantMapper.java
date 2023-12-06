@@ -2,12 +2,15 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.model.Restaurant;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
+import com.eghm.vo.business.restaurant.RestaurantResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -18,6 +21,15 @@ import java.math.BigDecimal;
  * @since 2022-06-30
  */
 public interface RestaurantMapper extends BaseMapper<Restaurant> {
+
+    /**
+     * 分页查询餐饮店列表
+     *
+     * @param page 分页
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<RestaurantResponse> getList(Page<RestaurantResponse> page, @Param("param") RestaurantQueryRequest request);
 
     /**
      * 分页查询餐饮店列表

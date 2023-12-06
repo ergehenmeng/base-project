@@ -6,9 +6,9 @@ import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
-import com.eghm.vo.business.item.ItemListResponse;
-import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemResponse;
+import com.eghm.vo.business.item.ItemListVO;
+import com.eghm.vo.business.item.ItemDetailResponse;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 
@@ -27,14 +27,14 @@ public interface ItemService {
      * @param request 分页信息及查询条件
      * @return 商品列表
      */
-    Page<ItemListResponse> getByPage(ItemQueryRequest request);
+    Page<ItemResponse> getByPage(ItemQueryRequest request);
 
     /**
      * 分页查询商品信息 (导出)
      * @param request 分页信息及查询条件
      * @return 商品列表
      */
-    List<ItemListResponse> getList(ItemQueryRequest request);
+    List<ItemResponse> getList(ItemQueryRequest request);
 
     /**
      * 创建零售商品
@@ -53,7 +53,7 @@ public interface ItemService {
      * @param itemId 商品id
      * @return 详情 包含sku spec等信息
      */
-    ItemResponse getDetailById(Long itemId);
+    ItemDetailResponse getDetailById(Long itemId);
     
     /**
      * 主键查询零售商品

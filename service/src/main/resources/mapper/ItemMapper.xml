@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ItemMapper">
     
-    <select id="listPage" resultType="com.eghm.vo.business.item.ItemListResponse" parameterType="com.eghm.dto.business.item.ItemQueryRequest">
+    <select id="listPage" resultType="com.eghm.vo.business.item.ItemResponse" parameterType="com.eghm.dto.business.item.ItemQueryRequest">
         select
         t.id,
         t.store_id,

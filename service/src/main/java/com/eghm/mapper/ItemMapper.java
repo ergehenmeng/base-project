@@ -6,7 +6,7 @@ import com.eghm.model.Item;
 import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.ItemQueryRequest;
-import com.eghm.vo.business.item.ItemListResponse;
+import com.eghm.vo.business.item.ItemResponse;
 import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemVO;
 import org.apache.ibatis.annotations.Param;
@@ -30,7 +30,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param request 查询条件
      * @return 商品列表
      */
-    Page<ItemListResponse> listPage(Page<ItemListResponse> page, @Param("param") ItemQueryRequest request);
+    Page<ItemResponse> listPage(Page<ItemResponse> page, @Param("param") ItemQueryRequest request);
     
     /**
      * 查询店铺首页下推荐的商品列表, 不含下架的商品

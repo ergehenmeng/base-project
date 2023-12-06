@@ -3,7 +3,9 @@ package com.eghm.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
-import com.eghm.model.RestaurantVoucher;
+import com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest;
+import com.eghm.model.MealVoucher;
+import com.eghm.vo.business.restaurant.VoucherResponse;
 import com.eghm.vo.business.restaurant.VoucherVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,7 +19,15 @@ import java.math.BigDecimal;
  * @author 二哥很猛
  * @since 2022-06-30
  */
-public interface RestaurantVoucherMapper extends BaseMapper<RestaurantVoucher> {
+public interface MealVoucherMapper extends BaseMapper<MealVoucher> {
+
+    /**
+     * 分页查询餐饮券列表
+     * @param page 分页参数
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<VoucherResponse> listPage(Page<VoucherResponse> page, @Param("param") VoucherQueryRequest request);
 
     /**
      * 更新库存

@@ -18,7 +18,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.RestaurantMapper;
-import com.eghm.mapper.RestaurantVoucherMapper;
+import com.eghm.mapper.MealVoucherMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.CommonService;
@@ -29,6 +29,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
 import com.eghm.vo.business.restaurant.RestaurantListVO;
+import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     private final OrderEvaluationMapper orderEvaluationMapper;
 
-    private final RestaurantVoucherMapper restaurantVoucherMapper;
+    private final MealVoucherMapper mealVoucherMapper;
 
     @Override
     public Page<Restaurant> getByPage(RestaurantQueryRequest request) {
@@ -62,6 +63,12 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Restaurant::getTitle, request.getQueryName());
         wrapper.eq(request.getMerchantId() != null, Restaurant::getMerchantId, request.getMerchantId());
         return restaurantMapper.selectPage(request.createPage(), wrapper);
+    }
+
+    @Override
+    public List<RestaurantResponse> getList(RestaurantQueryRequest request) {
+        Page<RestaurantResponse> responsePage = restaurantMapper.getList(request.createPage(false), request);
+        return responsePage.getRecords();
     }
 
     @Override
@@ -146,7 +153,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
             log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示餐饮券商品评分 [{}]", vo.getProductId());
             return;
         }
-        restaurantVoucherMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
+        mealVoucherMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
     }
 
     /**

@@ -12,8 +12,8 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.service.business.ItemService;
 import com.eghm.utils.ExcelUtil;
-import com.eghm.vo.business.item.ItemListResponse;
 import com.eghm.vo.business.item.ItemResponse;
+import com.eghm.vo.business.item.ItemDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -38,9 +38,9 @@ public class ItemController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public RespBody<PageData<ItemListResponse>> listPage(ItemQueryRequest request) {
+    public RespBody<PageData<ItemResponse>> listPage(ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<ItemListResponse> byPage = itemService.getByPage(request);
+        Page<ItemResponse> byPage = itemService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
@@ -60,8 +60,8 @@ public class ItemController {
 
     @GetMapping("/select")
     @ApiOperation("查询商品")
-    public RespBody<ItemResponse> select(@Validated IdDTO dto) {
-        ItemResponse detail = itemService.getDetailById(dto.getId());
+    public RespBody<ItemDetailResponse> select(@Validated IdDTO dto) {
+        ItemDetailResponse detail = itemService.getDetailById(dto.getId());
         return RespBody.success(detail);
     }
 
@@ -111,7 +111,7 @@ public class ItemController {
     @ApiOperation("导出")
     public void export(HttpServletResponse response, ItemQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        List<ItemListResponse> byPage = itemService.getList(request);
-        ExcelUtil.export(response, "零售信息", byPage, ItemListResponse.class);
+        List<ItemResponse> byPage = itemService.getList(request);
+        ExcelUtil.export(response, "零售信息", byPage, ItemResponse.class);
     }
 }

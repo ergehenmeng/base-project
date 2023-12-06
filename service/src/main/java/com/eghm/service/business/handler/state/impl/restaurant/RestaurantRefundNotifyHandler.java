@@ -10,7 +10,7 @@ import com.eghm.service.business.handler.context.RefundNotifyContext;
 import com.eghm.service.business.OrderRefundLogService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.RestaurantOrderService;
-import com.eghm.service.business.RestaurantVoucherService;
+import com.eghm.service.business.MealVoucherService;
 import com.eghm.service.business.VerifyLogService;
 import com.eghm.service.business.handler.state.impl.AbstractRefundNotifyHandler;
 import com.eghm.service.pay.AggregatePayService;
@@ -26,15 +26,15 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
     
-    private final RestaurantVoucherService restaurantVoucherService;
+    private final MealVoucherService mealVoucherService;
     
     private final RestaurantOrderService restaurantOrderService;
     
     public RestaurantRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
-            AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
-            RestaurantVoucherService restaurantVoucherService, RestaurantOrderService restaurantOrderService) {
+                                         AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
+                                         MealVoucherService mealVoucherService, RestaurantOrderService restaurantOrderService) {
         super(orderService, orderRefundLogService, aggregatePayService, verifyLogService);
-        this.restaurantVoucherService = restaurantVoucherService;
+        this.mealVoucherService = mealVoucherService;
         this.restaurantOrderService = restaurantOrderService;
     }
     
@@ -44,7 +44,7 @@ public class RestaurantRefundNotifyHandler extends AbstractRefundNotifyHandler {
         if (refundStatus == RefundStatus.SUCCESS || refundStatus == RefundStatus.REFUND_SUCCESS) {
             try {
                 RestaurantOrder restaurantOrder = restaurantOrderService.getByOrderNo(order.getOrderNo());
-                restaurantVoucherService.updateStock(restaurantOrder.getVoucherId(), refundLog.getNum());
+                mealVoucherService.updateStock(restaurantOrder.getVoucherId(), refundLog.getNum());
             } catch (Exception e) {
                 log.error("餐饮券退款成功,但更新库存失败 [{}] [{}] ", dto, refundLog.getNum(), e);
             }

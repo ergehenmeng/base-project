@@ -11,11 +11,16 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.RestaurantService;
+import com.eghm.utils.ExcelUtil;
+import com.eghm.vo.business.restaurant.RestaurantResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -91,5 +96,12 @@ public class RestaurantController {
         restaurantService.deleteById(dto.getId());
         return RespBody.success();
     }
-    
+
+    @GetMapping("/export")
+    @ApiOperation("导出")
+    public void export(HttpServletResponse response, RestaurantQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<RestaurantResponse> byPage = restaurantService.getList(request);
+        ExcelUtil.export(response, "餐饮店铺", byPage, RestaurantResponse.class);
+    }
 }

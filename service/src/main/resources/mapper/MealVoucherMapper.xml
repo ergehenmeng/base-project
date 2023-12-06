@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eghm.mapper.MealVoucherMapper">
+
+    <select id="listPage" resultType="com.eghm.vo.business.restaurant.VoucherResponse" parameterType="com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest">
+        select
+        t.title,
+        r.title as restaurant_name,
+        t.state,
+        t.hot_sell,
+        t.sale_price,
+        t.sale_num,
+        t.score,
+        t.quota,
+        t.refund_type,
+        t.depict,
+        t.create_time
+        from meal_voucher t left join restaurant r on t.restaurant_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <choose>
+            <when test="param.sortByPrice == 1">
+                order by t.sale_price, t.id desc
+            </when>
+            <when test="param.sortByPrice == 2">
+                order by t.sale_price desc, t.id desc
+            </when>
+            <when test="param.sortBySale == 1">
+                order by t.total_num, t.id desc
+            </when>
+            <otherwise>
+                order by t.total_num desc, t.id desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <update id="updateStock">
+        update meal_voucher set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
+        where id = #{id} and deleted = false and stock + #{num} > 0
+    </update>
+
+    <select id="getList" resultType="com.eghm.vo.business.restaurant.VoucherVO" parameterType="com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO">
+        select
+        id,
+        title,
+        cover_url,
+        hot_sell,
+        line_price,
+        sale_price,
+        stock,
+        total_num
+        from meal_voucher where state = 1 and deleted = false and restaurant_id = #{param.restaurantId}
+        <if test="param.queryName != null and param.queryName != ''">
+            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <choose>
+            <when test="param.sortByPrice == 1">
+                order by sale_price, id desc
+            </when>
+            <when test="param.sortByPrice == 2">
+                order by sale_price desc, id desc
+            </when>
+            <when test="param.sortBySale == 1">
+                order by total_num, id desc
+            </when>
+            <otherwise>
+                order by total_num desc, id desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <update id="updateScore">
+        update meal_voucher set score = #{score} where id = #{id}
+    </update>
+</mapper>

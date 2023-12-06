@@ -1,7 +1,7 @@
 package com.eghm.service.business.handler.dto;
 
 import com.eghm.model.Restaurant;
-import com.eghm.model.RestaurantVoucher;
+import com.eghm.model.MealVoucher;
 import lombok.Data;
 
 /**
@@ -14,7 +14,7 @@ public class RestaurantOrderPayload {
     /**
      * 餐饮券信息
      */
-    private RestaurantVoucher restaurantVoucher;
+    private MealVoucher mealVoucher;
 
     /**
      * 餐厅信息

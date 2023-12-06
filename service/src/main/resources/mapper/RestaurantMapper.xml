@@ -2,6 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.RestaurantMapper">
 
+    <select id="getList" resultType="com.eghm.vo.business.restaurant.RestaurantResponse" parameterType="com.eghm.dto.business.restaurant.RestaurantQueryRequest">
+        select
+        r.merchant_name,
+        t.title,
+        t.state,
+        t.open_time,
+        t.detail_address,
+        t.phone,
+        t.score,
+        t.create_time
+        from restaurant t
+        left join merchant r on t.merchant_id = r.id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.merchantId != null">
+            and t.merchant_id = #{param.merchantId}
+        </if>
+        order by t.id desc
+    </select>
+
     <select id="getByPage" resultType="com.eghm.vo.business.restaurant.RestaurantListVO"
             parameterType="com.eghm.dto.business.restaurant.RestaurantQueryDTO">
         <choose>
