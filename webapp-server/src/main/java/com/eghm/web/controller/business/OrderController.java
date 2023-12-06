@@ -89,7 +89,7 @@ public class OrderController {
         return RespBody.success(result);
     }
 
-    @PostMapping("/restaurant/create")
+    @PostMapping("/voucher/create")
     @ApiOperation("餐饮创建订单")
     public RespBody<OrderCreateVO<String>> restaurantCreate(@RequestBody @Validated VoucherOrderCreateDTO dto) {
         VoucherOrderCreateContext context = DataUtil.copy(dto, VoucherOrderCreateContext.class);

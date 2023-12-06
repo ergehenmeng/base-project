@@ -29,7 +29,7 @@ import java.util.List;
 @RestController
 @Api(tags = "餐饮券")
 @AllArgsConstructor
-@RequestMapping("/manage/meal/voucher")
+@RequestMapping("/manage/restaurant/voucher")
 public class MealVoucherController {
 
     private final MealVoucherService mealVoucherService;
