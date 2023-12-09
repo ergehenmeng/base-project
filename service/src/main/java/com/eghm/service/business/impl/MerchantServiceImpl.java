@@ -24,6 +24,7 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.merchant.MerchantResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,13 @@ public class MerchantServiceImpl implements MerchantService {
         wrapper.eq(request.getType() != null, Merchant::getType, request.getType());
         return merchantMapper.selectPage(request.createPage(), wrapper);
     }
-    
+
+    @Override
+    public List<MerchantResponse> getList(MerchantQueryRequest request) {
+        Page<MerchantResponse> listPage = merchantMapper.listPage(request.createPage(false), request);
+        return listPage.getRecords();
+    }
+
     @Override
     public void create(MerchantAddRequest request) {
         this.checkMerchantRedo(request.getMerchantName(), null);

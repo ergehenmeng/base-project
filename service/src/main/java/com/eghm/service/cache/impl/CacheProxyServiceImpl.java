@@ -10,7 +10,6 @@ import com.eghm.mapper.*;
 import com.eghm.model.*;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.service.cache.CacheProxyService;
-import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.business.item.ItemTagResponse;
@@ -53,8 +52,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     private final SysConfigMapper sysConfigMapper;
 
     private final SysDictMapper sysDictMapper;
-
-    private final AppletPayConfigMapper appletPayConfigMapper;
 
     private final ItemTagService itemTagService;
 
@@ -150,15 +147,6 @@ public class CacheProxyServiceImpl implements CacheProxyService {
         LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysDict::getNid, nid);
         return sysDictMapper.selectList(wrapper);
-    }
-
-    @Override
-    @Cacheable(cacheNames = CacheConstant.APPLET_PAY_CONFIG, cacheManager = "longCacheManager", key = "#type.code")
-    public AppletPayConfig getPayByNid(MerchantType type) {
-        LambdaQueryWrapper<AppletPayConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(AppletPayConfig::getNid, type.getCode());
-        wrapper.last(LIMIT_ONE);
-        return appletPayConfigMapper.selectOne(wrapper);
     }
 
     @Override

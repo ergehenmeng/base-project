@@ -3,7 +3,6 @@ package com.eghm.service.cache;
 import com.eghm.enums.Channel;
 import com.eghm.enums.EmailType;
 import com.eghm.model.*;
-import com.eghm.service.pay.enums.MerchantType;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
@@ -92,13 +91,6 @@ public interface CacheProxyService {
      * @return 属于该nid的列表
      */
     List<SysDict> getDictByNid(String nid);
-
-    /**
-     * 根据商户code查询小程序配置消息
-     * @param type type
-     * @return 配置信息
-     */
-    AppletPayConfig getPayByNid(MerchantType type);
 
     /**
      * 查询标签列表

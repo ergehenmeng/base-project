@@ -5,6 +5,9 @@ import com.eghm.model.Merchant;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
+import com.eghm.vo.business.merchant.MerchantResponse;
+
+import java.util.List;
 
 /**
  * @author 殿小二
@@ -18,6 +21,13 @@ public interface MerchantService {
      * @return 列表
      */
     Page<Merchant> getByPage(MerchantQueryRequest request);
+
+    /**
+     * 分页查询
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<MerchantResponse> getList(MerchantQueryRequest request);
     
     /**
      * 创建系统商户账号
