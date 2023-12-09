@@ -1,19 +1,19 @@
-package com.eghm.convertor;
+package com.eghm.convertor.excel;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.eghm.enums.MerchantType;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import com.eghm.utils.DecimalUtil;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author 二哥很猛
- * @since 2023/12/9
+ * excel导出金额转换器
+ * @author wyb
+ * @since 2023/3/30
  */
-public class MerchantTypeConverter implements Converter<Integer> {
+@Slf4j
+public class CentToYuanConverter implements Converter<Integer> {
 
     @Override
     public Class<?> supportJavaTypeKey() {
@@ -25,8 +25,7 @@ public class MerchantTypeConverter implements Converter<Integer> {
         if (value == null) {
             return new WriteCellData<>("");
         }
-        String merchantName = Arrays.stream(MerchantType.values()).filter(map -> (map.getValue() & value) == map.getValue()).map(MerchantType::getName).collect(Collectors.joining(","));
-        return new WriteCellData<>(merchantName);
+        return new WriteCellData<>(DecimalUtil.centToYuan(value));
     }
 
 }

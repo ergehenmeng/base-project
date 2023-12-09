@@ -3,7 +3,7 @@ package com.eghm.vo.sys;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.eghm.annotation.ExcelDict;
 import com.eghm.annotation.ExcelValue;
-import com.eghm.convertor.EnumExcelConverter;
+import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package com.eghm.vo.business.merchant;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.DateTimeFormat;
-import com.eghm.convertor.MerchantTypeConverter;
+import com.eghm.convertor.excel.MerchantTypeConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
