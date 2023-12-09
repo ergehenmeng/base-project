@@ -9,7 +9,6 @@ import com.eghm.annotation.ExcelDict;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * 替换原生的Integer转换器
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
  * @since 2023/3/31
  */
 @Slf4j
-@Component
 public class DictConverter implements Converter<Integer> {
 
     @Override

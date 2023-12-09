@@ -28,6 +28,13 @@ public interface LineService {
     Page<LineResponse> getByPage(LineQueryRequest request);
 
     /**
+     * 分页查询线路新
+     * @param request 查询条件
+     * @return 线路列表
+     */
+    List<LineResponse> getList(LineQueryRequest request);
+
+    /**
      * 新增线路信息
      * @param request 线路信息
      */

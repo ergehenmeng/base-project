@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.line.LineAddRequest;
 import com.eghm.dto.business.line.LineEditRequest;
@@ -13,6 +14,7 @@ import com.eghm.model.LineDayConfig;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.service.business.LineService;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.line.LineDayConfigResponse;
 import com.eghm.vo.business.line.LineDetailResponse;
 import com.eghm.vo.business.line.LineResponse;
@@ -22,6 +24,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -41,6 +44,7 @@ public class LineController {
     @ApiOperation("查询线路列表")
     @GetMapping("/listPage")
     public RespBody<PageData<LineResponse>> getByPage(LineQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<LineResponse> scenicPage = lineService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }
@@ -97,5 +101,13 @@ public class LineController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         lineService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @ApiOperation("导出")
+    @GetMapping("/export")
+    public void export(HttpServletResponse response, LineQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        List<LineResponse> byPage = lineService.getList(request);
+        ExcelUtil.export(response, "线路信息", byPage, LineResponse.class);
     }
 }

@@ -69,6 +69,12 @@ public class LineServiceImpl implements LineService {
     }
 
     @Override
+    public List<LineResponse> getList(LineQueryRequest request) {
+        Page<LineResponse> listPage = lineMapper.listPage(request.createPage(false), request);
+        return listPage.getRecords();
+    }
+
+    @Override
     public void create(LineAddRequest request) {
         this.titleRedo(request.getTitle(), request.getTravelAgencyId(), null);
         Long merchantId = SecurityHolder.getMerchantId();
