@@ -26,6 +26,13 @@ public interface HomestayRoomService {
     Page<HomestayRoomResponse> getByPage(HomestayRoomQueryRequest request);
 
     /**
+     * 分页查询房型信息 分页查询
+     * @param request 查询条件
+     * @return 房型信息
+     */
+    List<HomestayRoomResponse> getList(HomestayRoomQueryRequest request);
+
+    /**
      * 新增房型
      * @param request 房型信息
      */

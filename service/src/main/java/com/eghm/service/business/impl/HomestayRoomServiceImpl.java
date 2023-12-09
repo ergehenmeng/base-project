@@ -48,6 +48,12 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
     }
 
     @Override
+    public List<HomestayRoomResponse> getList(HomestayRoomQueryRequest request) {
+        Page<HomestayRoomResponse> byPage = homestayRoomMapper.listPage(request.createPage(false), request);
+        return byPage.getRecords();
+    }
+
+    @Override
     public void create(HomestayRoomAddRequest request) {
         this.titleRedo(request.getTitle(), null, request.getHomestayId());
         HomestayRoom room = DataUtil.copy(request, HomestayRoom.class);
