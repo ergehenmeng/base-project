@@ -2,4 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.MemberMapper">
 
+    <select id="listPage" resultType="com.eghm.vo.member.MemberResponse" parameterType="com.eghm.dto.member.MemberQueryRequest">
+        select
+        id,
+        nick_name,
+        mobile,
+        email,
+        state,
+        score,
+        invite_code,
+        real_name,
+        birthday,
+        sex,
+        channel,
+        avatar,
+        create_time
+        from member where deleted = false
+        <if test="param.queryName != null and param.queryName != ''">
+            and (
+                nick_name like concat('%', #{param.queryName}, '%') or
+                mobile like concat('%', #{param.queryName}, '%')
+            )
+        </if>
+        <if test="param.state != null">
+            and state = #{param.state}
+        </if>
+
+        <if test="param.sex!= null">
+            and state = #{param.sex}
+        </if>
+        <if test="param.channel != null and param.channel != ''">
+            and channel = #{param.channel}
+        </if>
+        order by id desc
+    </select>
 </mapper>

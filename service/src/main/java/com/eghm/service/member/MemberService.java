@@ -1,7 +1,7 @@
 package com.eghm.service.member;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.MemberRegister;
-import com.eghm.dto.ext.PageData;
 import com.eghm.dto.login.AccountLoginDTO;
 import com.eghm.dto.login.SmsLoginDTO;
 import com.eghm.dto.member.*;
@@ -11,6 +11,8 @@ import com.eghm.vo.login.LoginTokenVO;
 import com.eghm.vo.member.MemberResponse;
 import com.eghm.vo.member.MemberVO;
 import com.eghm.vo.member.SignInVO;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -23,7 +25,14 @@ public interface MemberService {
      * @param request 查询条件
      * @return 列表
      */
-    PageData<MemberResponse> getByPage(MemberQueryRequest request);
+    Page<MemberResponse> getByPage(MemberQueryRequest request);
+
+    /**
+     * 分页查询会员信息 导出
+     * @param request 查询条件
+     * @return 列表
+     */
+    List<MemberResponse> getList(MemberQueryRequest request);
 
     /**
      * 主键查询

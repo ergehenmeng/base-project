@@ -24,9 +24,6 @@ public class MemberResponse {
     @ApiModelProperty("手机号码")
     private String mobile;
 
-    @ApiModelProperty("微信openId")
-    private String openId;
-
     @ApiModelProperty("电子邮箱")
     private String email;
 

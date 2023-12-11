@@ -94,18 +94,14 @@ public class MemberServiceImpl implements MemberService {
     private final MessageService rabbitMessageService;
 
     @Override
-    public PageData<MemberResponse> getByPage(MemberQueryRequest request) {
-        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), likeWrapper ->
-                likeWrapper.like(Member::getNickName, request.getQueryName()).or()
-                        .like(Member::getMobile, request.getQueryName()));
-        wrapper.eq(request.getState() != null, Member::getState, request.getState());
-        wrapper.eq(request.getSex() != null, Member::getSex, request.getSex());
-        wrapper.eq(StrUtil.isNotBlank(request.getChannel()), Member::getChannel, request.getChannel());
+    public Page<MemberResponse> getByPage(MemberQueryRequest request) {
+        return memberMapper.listPage(request.createPage(), request);
+    }
 
-        Page<Member> selectPage = memberMapper.selectPage(request.createPage(), wrapper);
-
-        return DataUtil.copy(selectPage, MemberResponse.class);
+    @Override
+    public List<MemberResponse> getList(MemberQueryRequest request) {
+        Page<MemberResponse> listPage = memberMapper.listPage(request.createPage(false), request);
+        return listPage.getRecords();
     }
 
     @Override
