@@ -1,7 +1,7 @@
 package com.eghm.enums.ref;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.eghm.annotation.ExcelValue;
+import com.eghm.annotation.ExcelDesc;
 import com.eghm.enums.EnumBinder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -40,7 +40,7 @@ public enum RefundType implements EnumBinder {
     @JsonValue
     private final int value;
 
-    @ExcelValue
+    @ExcelDesc
     private final String name;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)

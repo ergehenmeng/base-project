@@ -1,6 +1,6 @@
 package com.eghm.enums.ref;
 
-import com.eghm.annotation.ExcelValue;
+import com.eghm.annotation.ExcelDesc;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -42,6 +42,6 @@ public enum PayType {
      */
     ALI_PAY("支付宝");
 
-    @ExcelValue
+    @ExcelDesc
     private final String name;
 }

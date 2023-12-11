@@ -39,7 +39,7 @@
 * `SmsService` 短信发送工具类(未接入)
 * `HandlerChain` 精简版责任链工具类(有点鸡肋,没想到适用的场景),通过实现 `Handler` 接口并标注 `HandlerMark` 注解
 * 后台用户新增 默认密码手机号码后6位
-* `ExcelUtil` 工具类是针对 `easyexcel` 的二次封装, 如果导出的excel有枚举, 且可以通过枚举做类型转换, 则可以在枚举字段上添加 `@ExcelProperty(converter = EnumExcelConverter.class)`, 且枚举需要返回前端的字段上添加 `@ExcelValue` 注解, 具体可参考 `MenuExportVO` 类
+* `ExcelUtil` 工具类是针对 `easyexcel` 的二次封装, 如果导出的excel有枚举, 且可以通过枚举做类型转换, 则可以在枚举字段上添加 `@ExcelProperty(converter = EnumExcelConverter.class)`, 且枚举需要返回前端的字段上添加 `@ExcelDesc` 注解, 具体可参考 `MenuExportVO` 类
 
 ## 移动端
 

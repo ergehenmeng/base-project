@@ -11,6 +11,6 @@ public class SqlFormatter implements MessageFormattingStrategy {
 
     @Override
     public String formatMessage(int connectionId, String now, long elapsed, String category, String prepared, String sql, String url) {
-        return StrUtil.isNotBlank(sql) ? sql.replaceAll("[\\s]+", " ") + "\n" : "";
+        return StrUtil.isNotBlank(sql) ? sql.replaceAll("\\s+", " ") + "\n" : "";
     }
 }

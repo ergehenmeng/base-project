@@ -5,7 +5,7 @@ import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.eghm.annotation.ExcelValue;
+import com.eghm.annotation.ExcelDesc;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
@@ -38,14 +38,14 @@ public class EnumExcelConverter implements Converter<Object> {
         }
         Field valueAs = this.getAnnotationField(contentProperty);
         if (valueAs == null) {
-            log.error("枚举类请使用@ExcelValue标注解释字段 [{}]", value.getClass());
+            log.error("枚举类请使用@ExcelDesc标注解释字段 [{}]", value.getClass());
             throw new BusinessException(ErrorCode.ENUM_SUPPORTED);
         }
         return new WriteCellData<>(ReflectUtil.getFieldValue(value, valueAs).toString());
     }
 
     /**
-     * 获取带有@ExcelValue注解的属性
+     * 获取带有@ExcelDesc注解的属性
      * @param contentProperty 原导出excel的字段
      * @return Field
      */
@@ -54,8 +54,8 @@ public class EnumExcelConverter implements Converter<Object> {
         Class<?> fieldType = contentProperty.getField().getType();
         return FIELD_MAP.computeIfAbsent(fieldType, aClass -> {
             for (Field field : contentProperty.getField().getType().getDeclaredFields()) {
-                ExcelValue excelValue = field.getAnnotation(ExcelValue.class);
-                if (excelValue != null) {
+                ExcelDesc excelDesc = field.getAnnotation(ExcelDesc.class);
+                if (excelDesc != null) {
                     return field;
                 }
             }
