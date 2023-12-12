@@ -4,6 +4,7 @@ import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.BindEmailDTO;
 import com.eghm.dto.member.ChangeEmailDTO;
+import com.eghm.dto.member.MemberDTO;
 import com.eghm.dto.member.SendEmailAuthCodeDTO;
 import com.eghm.service.member.MemberNoticeService;
 import com.eghm.service.member.MemberService;
@@ -92,5 +93,12 @@ public class MemberController {
         Long unRead = memberNoticeService.countUnRead(ApiHolder.getMemberId());
         vo.setUnRead(unRead);
         return RespBody.success(vo);
+    }
+
+    @GetMapping("/edit")
+    @ApiOperation("编辑保存会员信息")
+    public RespBody<Void> edit(@RequestBody @Validated MemberDTO dto) {
+        memberService.edit(ApiHolder.getMemberId(), dto);
+        return RespBody.success();
     }
 }

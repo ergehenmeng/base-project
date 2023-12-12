@@ -462,6 +462,13 @@ public class MemberServiceImpl implements MemberService {
         return vo;
     }
 
+    @Override
+    public void edit(Long memberId, MemberDTO dto) {
+        Member member = DataUtil.copy(dto, Member.class);
+        member.setId(memberId);
+        memberMapper.updateById(member);
+    }
+
     /**
      * 计算用户本月签到的情况:<br/>
      * 由于签到是从用户注册开始计算,因此需要根据注册时间计算偏移量得到本月签到

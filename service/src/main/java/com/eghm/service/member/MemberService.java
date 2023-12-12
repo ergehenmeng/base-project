@@ -243,4 +243,11 @@ public interface MemberService {
      * @return 个人基本信息
      */
     MemberVO memberHome(Long memberId);
+
+    /**
+     * 更新会员信息
+     * @param memberId 会员id
+     * @param dto 会员基础信息
+     */
+    void edit(Long memberId, MemberDTO dto);
 }
