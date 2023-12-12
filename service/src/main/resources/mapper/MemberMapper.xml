@@ -27,7 +27,6 @@
         <if test="param.state != null">
             and state = #{param.state}
         </if>
-
         <if test="param.sex!= null">
             and state = #{param.sex}
         </if>

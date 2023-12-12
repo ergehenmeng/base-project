@@ -721,24 +721,6 @@ CREATE TABLE `pay_bank`
   AUTO_INCREMENT = 253
   DEFAULT CHARSET = utf8mb4 COMMENT ='微信支付银行卡类型表';
 
-
-DROP TABLE IF EXISTS `applet_pay_config`;
-CREATE TABLE `applet_pay_config`
-(
-    `id`           int(10) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`          varchar(20)  DEFAULT NULL COMMENT '唯一标识符',
-    `app_id`       varchar(128) DEFAULT NULL COMMENT '微信小程序支付appId',
-    `merchant_id`  varchar(128) DEFAULT NULL COMMENT '商户号',
-    `expire_time`  smallint(6)  DEFAULT NULL COMMENT '订单过期时间 单位:秒',
-    `notify_url`   varchar(512) DEFAULT NULL COMMENT '订单支付异步通知地址',
-    `order_prefix` char(4)      DEFAULT NULL COMMENT '订单号前缀(限英文)',
-    `create_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`  datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `nid` (`nid`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='小程序支付配置表';
-
 DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE `sys_notice`
 (

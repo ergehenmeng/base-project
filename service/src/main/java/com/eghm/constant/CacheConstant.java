@@ -161,11 +161,6 @@ public class CacheConstant {
     public static final String SUBMIT_LIMIT = "submit_limit:%s_%s";
 
     /**
-     * 小程序配置信息
-     */
-    public static final String APPLET_PAY_CONFIG = "applet_pay_config";
-
-    /**
      * 零售标签
      */
     public static final String ITEM_TAG = "item_tag";
