@@ -20,7 +20,6 @@ import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.mapper.SysUserMapper;
 import com.eghm.model.SysDataDept;
 import com.eghm.model.SysUser;
-import com.eghm.service.business.MerchantUserService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.AccessTokenService;
 import com.eghm.service.sys.SysDataDeptService;
@@ -30,6 +29,7 @@ import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.login.LoginResponse;
 import com.eghm.vo.menu.MenuResponse;
+import com.eghm.vo.user.SysUserResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -64,15 +64,9 @@ public class SysUserServiceImpl implements SysUserService {
     private final CacheService cacheService;
 
     @Override
-    public Page<SysUser> getByPage(UserQueryRequest request) {
-        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();
-        // 只查询系统用户
-        wrapper.eq(SysUser::getUserType, SysUser.USER_TYPE_1);
-        wrapper.eq(request.getState() != null, SysUser::getState, request.getState());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper ->
-                queryWrapper.like(SysUser::getNickName, request.getQueryName()).or().
-                        like(SysUser::getMobile, request.getQueryName()));
-        return sysUserMapper.selectPage(request.createPage(), wrapper);
+    public Page<SysUserResponse> getByPage(UserQueryRequest request) {
+        request.setUserType(SysUser.USER_TYPE_1);
+        return sysUserMapper.listPage(request.createPage(), request);
     }
 
     @Override

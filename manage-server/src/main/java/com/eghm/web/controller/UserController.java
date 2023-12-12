@@ -14,6 +14,7 @@ import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.user.SysUserResponse;
 import com.eghm.vo.user.UserResponse;
 import com.google.common.base.Joiner;
 import io.swagger.annotations.Api;
@@ -43,8 +44,8 @@ public class UserController {
 
     @GetMapping("/listPage")
     @ApiOperation("管理后台用户列表")
-    public RespBody<PageData<SysUser>> listPage(UserQueryRequest request) {
-        Page<SysUser> page = sysUserService.getByPage(request);
+    public RespBody<PageData<SysUserResponse>> listPage(UserQueryRequest request) {
+        Page<SysUserResponse> page = sysUserService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }
 

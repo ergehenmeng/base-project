@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysUserMapper">
+
+    <select id="listPage" resultType="com.eghm.vo.user.SysUserResponse" parameterType="com.eghm.dto.user.UserQueryRequest">
+        select
+        t.id,
+        t.nick_name,
+        r.title as deptName,
+        t.mobile,
+        t.user_type,
+        t.data_type,
+        t.state,
+        t.remark,
+        t.create_time,
+        t.update_time
+        from sys_user t
+        left join sys_dept r on t.dept_code = r.code where t.deleted = false
+        <if test="request.queryName != null and request.queryName != ''">
+            and (
+                t.nick_name like concat('%', #{request.queryName}, '%') or
+                t.mobile like concat('%', #{request.queryName}, '%')
+            )
+        </if>
+        <if test="param.state != null">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.userType != null">
+            and t.user_type = #{param.userType}
+        </if>
+        order by t.id desc
+    </select>
 </mapper>
