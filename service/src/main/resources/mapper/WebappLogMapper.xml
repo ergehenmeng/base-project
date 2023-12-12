@@ -4,7 +4,20 @@
 
     <select id="getByPage" resultType="com.eghm.vo.log.WebappLogResponse" parameterType="com.eghm.dto.log.WebappQueryRequest">
        select
-        t.*,
+        t.id,
+        t.url,
+        t.request_param,
+        t.error_msg,
+        t.version,
+        t.channel,
+        t.os_version,
+        t.device_brand,
+        t.device_model,
+        t.serial_number,
+        t.ip
+        t.trace_id
+        t.elapsed_time,
+        t.create_time,
         r.nick_name
        from webapp_log t
        left join member r on t.member_id = r.id
