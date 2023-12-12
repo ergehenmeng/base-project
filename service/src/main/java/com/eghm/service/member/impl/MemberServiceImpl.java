@@ -38,6 +38,7 @@ import com.eghm.service.member.MemberScoreLogService;
 import com.eghm.service.member.MemberService;
 import com.eghm.service.mq.service.MessageService;
 import com.eghm.service.sys.impl.SysConfigApi;
+import com.eghm.service.wechat.WeChatMiniService;
 import com.eghm.service.wechat.WeChatMpService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.RegExpUtil;
@@ -90,6 +91,8 @@ public class MemberServiceImpl implements MemberService {
     private final HandlerChain handlerChain;
 
     private final WeChatMpService weChatMpService;
+
+    private final WeChatMiniService weChatMiniService;
 
     private final MessageService rabbitMessageService;
 
@@ -387,6 +390,21 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    public LoginTokenVO maLogin(String jsCode, String openId, String ip) {
+        String mobile = weChatMiniService.authMobile(jsCode);
+        Member member = this.getByMobile(mobile);
+        if (member != null && Boolean.FALSE.equals(member.getState())) {
+            log.warn("账号已被封禁,无法登录 [{}]", member.getId());
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
+        }
+        // 为空用户算新增
+        if (member == null) {
+            member = this.doMaRegister(mobile, openId, ip);
+        }
+        return this.doLogin(member, ip);
+    }
+
+    @Override
     public Member getByOpenId(String openId) {
         LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(Member::getOpenId, openId);
@@ -499,6 +517,23 @@ public class MemberServiceImpl implements MemberService {
         register.setOpenId(info.getOpenid());
         register.setSex(info.getSex());
         register.setAvatar(info.getHeadImgUrl());
+        register.setChannel(Channel.WECHAT.name());
+        return this.doRegister(register);
+    }
+
+    /**
+     * 小程序用户用户注册
+     *
+     * @param mobile 手机号
+     * @param openId openId
+     * @param ip   ip
+     * @return 用户信息
+     */
+    private Member doMaRegister(String mobile, String openId, String ip) {
+        MemberRegister register = new MemberRegister();
+        register.setRegisterIp(ip);
+        register.setMobile(mobile);
+        register.setOpenId(openId);
         register.setChannel(Channel.WECHAT.name());
         return this.doRegister(register);
     }

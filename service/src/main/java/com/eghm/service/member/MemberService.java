@@ -207,6 +207,15 @@ public interface MemberService {
     LoginTokenVO mpLogin(String jsCode, String ip);
 
     /**
+     * 微信小程序授权登陆
+     * @param jsCode jsCode
+     * @param openId openId
+     * @param ip     ip
+     * @return 登陆成功的信息
+     */
+    LoginTokenVO maLogin(String jsCode, String openId, String ip);
+
+    /**
      * 根据openId查询用户信息
      * @param openId openId
      * @return 用户信息

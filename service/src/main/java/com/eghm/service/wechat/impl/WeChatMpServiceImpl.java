@@ -38,7 +38,6 @@ public class WeChatMpServiceImpl implements WeChatMpService {
         }
     }
 
-
     /**
      * 校验微信公众号是否配置完整
      */
