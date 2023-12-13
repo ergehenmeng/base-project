@@ -20,7 +20,7 @@ public class WeChatMiniServiceImpl implements WeChatMiniService {
 
     private WxMaService wxMaService;
 
-    @Autowired
+    @Autowired(required = false)
     public void setWxMaService(WxMaService wxMaService) {
         this.wxMaService = wxMaService;
     }
