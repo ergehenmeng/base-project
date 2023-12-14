@@ -31,6 +31,9 @@ public class FeedbackLog extends BaseEntity {
     @ApiModelProperty("反馈内容")
     private String content;
 
+    @ApiModelProperty("图片url")
+    private String imageUrl;
+
     @ApiModelProperty("设备类型")
     private String deviceBrand;
 

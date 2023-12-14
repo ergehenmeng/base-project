@@ -137,6 +137,7 @@ CREATE TABLE `feedback_log`
     `create_time`    datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '反馈时间',
     `update_time`    datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`        bit(1)              DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `image_url`      varchar(500)        DEFAULT NULL COMMENT '图片地址',
     `device_brand`   varchar(50)         DEFAULT NULL COMMENT '设备厂商',
     `device_model`   varchar(50)         DEFAULT NULL COMMENT '设备型号',
     `user_id`        bigint(20) unsigned DEFAULT NULL COMMENT '处理人id',

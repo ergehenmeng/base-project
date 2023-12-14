@@ -20,6 +20,9 @@ public class FeedbackAddDTO {
     @WordChecker(message = "反馈内容存在敏感字")
     private String content;
 
+    @ApiModelProperty("图片地址")
+    private String imageUrl;
+
     @ApiModelProperty(value = "用户id", hidden = true)
     @Assign
     private Long memberId;

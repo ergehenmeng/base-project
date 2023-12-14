@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.FeedbackLogMapper">
 
-    <select id="getByPage" parameterType="com.eghm.dto.feedback.FeedbackQueryRequest" resultType="com.eghm.model.FeedbackLog">
+    <select id="getByPage" parameterType="com.eghm.dto.feedback.FeedbackQueryRequest" resultType="com.eghm.vo.feedback.FeedbackVO">
         select
         t.id,
         t.state,
@@ -10,6 +10,7 @@
         t.version,
         t.system_version,
         t.content,
+        t.image_url,
         t.create_time,
         t.update_time,
         t.device_brand,

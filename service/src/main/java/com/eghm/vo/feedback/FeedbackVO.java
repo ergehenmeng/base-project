@@ -37,6 +37,9 @@ public class FeedbackVO implements Serializable {
     @ApiModelProperty("反馈内容")
     private String content;
 
+    @ApiModelProperty("图片地址")
+    private String imageUrl;
+
     @ApiModelProperty("反馈时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

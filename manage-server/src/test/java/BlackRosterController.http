@@ -19,5 +19,5 @@ token: {{token}}
 Content-Type: application/json; charset=utf-8
 
 {
-  "id": "1710890529927483394"
+  "id": 1710890529927483394
 }
