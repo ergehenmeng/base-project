@@ -13,10 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author 殿小二
@@ -37,21 +34,21 @@ public class HelpCenterController {
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @GetMapping("/create")
+    @PostMapping("/create")
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody HelpAddRequest request) {
        helpCenterService.create(request);
         return RespBody.success();
     }
 
-    @GetMapping("/update")
+    @PostMapping("/update")
     @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody HelpEditRequest request) {
         helpCenterService.update(request);
         return RespBody.success();
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
         helpCenterService.delete(request.getId());
