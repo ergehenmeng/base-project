@@ -15,3 +15,20 @@ Content-Type: application/json
   "url": "http://localhost:8080/manage/manage/download",
   "remark": "版本备注信息"
 }
+
+
+###
+
+POST http://localhost:8080/manage/version/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1707305217112469506,
+  "classify": "IOS",
+  "state": 0,
+  "version": "9.24",
+  "forceUpdate": false,
+  "url": "http://localhost:8080/manage/manage/download",
+  "remark": "版本备注"
+}
