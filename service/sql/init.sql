@@ -3882,7 +3882,7 @@ INSERT INTO `pay_bank` VALUES ('252', 'OTHERS', '其他(银行卡以外)', '2021
 
 update sys_user set pwd = '$2a$10$WIfMgLnfKf7NERTun09ahuD0lHupFO7AZ.n8cgGZBf7zAYOo7y5Ga' where id = 1;
 
-INSERT INTO `sys_config` VALUES ('1', 'application_name', '后台系统名称', '后台管理系统', b'0', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
+INSERT INTO `sys_config` VALUES ('1', 'system_name', '后台系统名称', '后台管理系统', b'0', '', '2018-01-12 10:01:04', '2019-01-22 17:37:12');
 INSERT INTO `sys_config` VALUES ('2', 'enterprise_name', '企业名称', '二哥很猛', b'0', NULL, '2018-02-08 14:38:59', NULL);
 INSERT INTO `sys_config` VALUES ('3', 'enterprise_address', '企业地址', '浙江省杭州市余杭区中泰街道338号', b'0', NULL, '2018-02-08 14:40:01', NULL);
 INSERT INTO `sys_config` VALUES ('4', 'enterprise_phone', '企业电话', '0571-00000000', b'0', NULL, '2018-02-08 14:40:46', NULL);

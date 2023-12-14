@@ -79,7 +79,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/manage/scenic/platformUnShelves
-token: {{adminToken}}
+token: {{token}}
 Content-Type: application/json
 
 {

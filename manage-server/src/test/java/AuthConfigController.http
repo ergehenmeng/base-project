@@ -1,6 +1,6 @@
 POST http://localhost:8080/manage/auth/create
 Content-Type: application/json
-Token: {{adminToken}}
+Token: {{token}}
 
 {
   "title": "测试公司签名",
@@ -11,14 +11,14 @@ Token: {{adminToken}}
 ###
 
 GET http://localhost:8080/manage/auth/listPage?page=1&pageSize=10
-Token: {{adminToken}}
+Token: {{token}}
 
 
 ###
 
 POST http://localhost:8080/manage/auth/update
 Content-Type: application/json
-Token: {{adminToken}}
+Token: {{token}}
 
 {
   "id": 1716339745426780162,
@@ -30,7 +30,7 @@ Token: {{adminToken}}
 
 POST http://localhost:8080/manage/auth/delete
 Content-Type: application/json
-Token: {{adminToken}}
+Token: {{token}}
 
 {
   "id": 1716340632719208450

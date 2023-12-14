@@ -74,7 +74,7 @@ token: {{token}}
 ###
 POST http://localhost:8080/manage/line/platformUnShelves
 Content-Type: application/json
-token: {{adminToken}}
+token: {{token}}
 
 {
   "id": 1607290976547602434

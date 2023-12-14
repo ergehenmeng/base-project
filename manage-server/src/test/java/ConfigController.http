@@ -3,4 +3,15 @@ token: {{token}}
 
 ###
 
+POST http://localhost:8080/manage/config/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "管理名称",
+  "content": "未来之家管理系统",
+  "remark": "左上角系统名称"
+}
+
 

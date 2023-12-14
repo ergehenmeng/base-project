@@ -1,10 +1,10 @@
 GET http://localhost:8080/manage/activity/month?month=2023-12
-token: {{adminToken}}
+token: {{token}}
 
 ###
 
 POST http://localhost:8080/manage/activity/config
-token: {{adminToken}}
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -22,7 +22,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/manage/activity/create
-token: {{adminToken}}
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -38,7 +38,7 @@ Content-Type: application/json
 ###
 
 POST http://localhost:8080/manage/activity/update
-token: {{adminToken}}
+token: {{token}}
 Content-Type: application/json
 
 {
@@ -63,5 +63,5 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:8080/manage/activity/select?id=1714560316983803905
-token: {{adminToken}}
+GET http://localhost:8080/manage/activity/select?id=1714560001303707659
+token: {{token}}
