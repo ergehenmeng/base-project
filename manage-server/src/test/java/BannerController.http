@@ -1,0 +1,48 @@
+GET http://localhost:8080/manage/banner/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+POST http://localhost:8080/manage/banner/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "demoData",
+  "classify": 1,
+  "clientType": "IOS",
+  "imgUrl": "imgUrl",
+  "jumpUrl": "jumpUrl",
+  "sort": 1,
+  "startTime": "2023-12-14 13:27:19",
+  "endTime": "2024-12-14 13:27:19",
+  "click": true,
+  "remark": "x"
+}
+
+###
+POST http://localhost:8080/manage/banner/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1735169988037722113,
+  "title": "轮播图标题",
+  "classify": 1,
+  "clientType": "IOS",
+  "imgUrl": "imgUrl",
+  "jumpUrl": "jumpUrl",
+  "sort": 1,
+  "startTime": "2023-12-14 13:27:19",
+  "endTime": "2024-12-14 13:27:19",
+  "click": true,
+  "remark": "x"
+}
+
+###
+POST http://localhost:8080/manage/banner/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1735169988037722113
+}

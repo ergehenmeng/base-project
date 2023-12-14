@@ -19,8 +19,6 @@ import java.time.LocalDateTime;
 @Data
 public class BannerAddRequest implements Serializable {
 
-    private static final long serialVersionUID = -591183099267469325L;
-
     @ApiModelProperty(value = "标题名称", required = true)
     @NotBlank(message = "标题不能为空")
     @WordChecker

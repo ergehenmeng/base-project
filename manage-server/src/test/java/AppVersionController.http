@@ -32,3 +32,12 @@ Content-Type: application/json
   "url": "http://localhost:8080/manage/manage/download",
   "remark": "版本备注"
 }
+###
+
+POST http://localhost:8080/manage/version/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1707305217112469506
+}

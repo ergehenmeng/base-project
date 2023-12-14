@@ -48,5 +48,11 @@ public interface BannerService {
      * @param request 前台参数
      */
     void update(BannerEditRequest request);
+
+    /**
+     * 删除轮播图信息
+     * @param id id
+     */
+    void deleteById(Long id);
 }
 

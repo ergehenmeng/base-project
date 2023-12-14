@@ -59,4 +59,9 @@ public class BannerServiceImpl implements BannerService {
         Banner banner = DataUtil.copy(request, Banner.class);
         bannerMapper.updateById(banner);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        bannerMapper.deleteById(id);
+    }
 }
