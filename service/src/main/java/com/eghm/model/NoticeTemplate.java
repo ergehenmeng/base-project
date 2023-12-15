@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -27,5 +28,8 @@ public class NoticeTemplate implements Serializable {
 
     @ApiModelProperty("通知内容")
     private String content;
+
+    @ApiModelProperty("更新日期")
+    private LocalDateTime updateTime;
 
 }
