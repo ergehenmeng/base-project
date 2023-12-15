@@ -1,6 +1,5 @@
 package com.eghm.dto.image;
 
-import com.eghm.annotation.Assign;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -25,14 +24,12 @@ public class ImageAddRequest implements Serializable {
     @NotNull(message = "图片类型不能为空")
     private Integer classify;
 
-    @ApiModelProperty("备注信息")
-    private String remark;
-
-    @Assign
     @ApiModelProperty("图片大小")
     private Long size;
 
-    @Assign
     @ApiModelProperty("地址")
     private String path;
+
+    @ApiModelProperty("备注信息")
+    private String remark;
 }

@@ -1,0 +1,38 @@
+GET http://localhost:8080/manage/image/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+POST http://localhost:8080/manage/image/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "标题",
+  "classify": 1,
+  "size": 1222,
+  "path": "imgUrl",
+  "remark": "x"
+}
+
+###
+POST http://localhost:8080/manage/image/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1735492730637336578,
+  "title": "标题",
+  "classify": 1,
+  "size": 1222,
+  "path": "imgUrl2",
+  "remark": "xxx"
+}
+
+###
+POST http://localhost:8080/manage/image/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1735492730637336578
+}
