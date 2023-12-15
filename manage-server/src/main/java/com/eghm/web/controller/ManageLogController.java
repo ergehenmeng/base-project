@@ -1,7 +1,6 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
@@ -36,7 +35,6 @@ public class ManageLogController {
     }
 
     @GetMapping("/select")
-    @SkipPerm
     @ApiOperation("日志详细信息")
     public RespBody<String> select(@Validated IdDTO dto) {
         String response = manageLogService.getResponseById(dto.getId());

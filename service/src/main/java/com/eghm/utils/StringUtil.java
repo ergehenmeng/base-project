@@ -247,11 +247,10 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(encryptNumber(1L));
-        int pid = 10112515;
+        int pid = 10101711;
         StringBuilder builder = new StringBuilder();
         builder.append("\r\n");
-        builder.append(sql(pid, "替换", 101125, 2, 60)).append("\r\n");
+        builder.append(sql(pid, "替换", 101017, 2, 10)).append("\r\n");
 
         int start = Integer.parseInt(pid + "10");
         int index = 1;
