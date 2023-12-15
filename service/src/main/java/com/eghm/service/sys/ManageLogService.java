@@ -3,6 +3,7 @@ package com.eghm.service.sys;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.ManageLog;
 import com.eghm.dto.log.ManageQueryRequest;
+import com.eghm.vo.log.ManageLogResponse;
 
 /**
  * @author 二哥很猛
@@ -15,7 +16,7 @@ public interface ManageLogService {
      * @param request 查询条件
      * @return 分页列表
      */
-    Page<ManageLog> getByPage(ManageQueryRequest request);
+    Page<ManageLogResponse> getByPage(ManageQueryRequest request);
 
     /**
      * 添加操作日志

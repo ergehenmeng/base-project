@@ -16,8 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("manage_log")
-@EqualsAndHashCode(callSuper = true)
-public class ManageLog extends BaseEntity {
+public class ManageLog  {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

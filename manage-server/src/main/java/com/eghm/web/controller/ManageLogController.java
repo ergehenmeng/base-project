@@ -6,8 +6,8 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.log.ManageQueryRequest;
-import com.eghm.model.ManageLog;
 import com.eghm.service.sys.ManageLogService;
+import com.eghm.vo.log.ManageLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,8 +30,8 @@ public class ManageLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("日志列表")
-    public RespBody<PageData<ManageLog>> listPage(ManageQueryRequest request) {
-        Page<ManageLog> byPage = manageLogService.getByPage(request);
+    public RespBody<PageData<ManageLogResponse>> listPage(ManageQueryRequest request) {
+        Page<ManageLogResponse> byPage = manageLogService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

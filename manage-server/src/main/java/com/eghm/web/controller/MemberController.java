@@ -5,6 +5,9 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.member.MemberQueryRequest;
+import com.eghm.dto.member.log.LoginLogQueryRequest;
+import com.eghm.model.LoginLog;
+import com.eghm.service.member.LoginService;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.member.MemberResponse;
@@ -28,6 +31,8 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final LoginService loginService;
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
@@ -62,5 +67,12 @@ public class MemberController {
     public void export(HttpServletResponse response, MemberQueryRequest request) {
         List<MemberResponse> byPage = memberService.getList(request);
         ExcelUtil.export(response, "会员信息", byPage, MemberResponse.class);
+    }
+
+    @GetMapping("/loginPage")
+    @ApiOperation("登录日志列表")
+    public RespBody<PageData<LoginLog>> loginPage(LoginLogQueryRequest request) {
+        Page<LoginLog> byPage = loginService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
     }
 }

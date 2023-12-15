@@ -1,7 +1,10 @@
 package com.eghm.service.member;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.LoginRecord;
+import com.eghm.dto.member.log.LoginLogQueryRequest;
 import com.eghm.model.LoginDevice;
+import com.eghm.model.LoginLog;
 import com.eghm.vo.member.LoginDeviceVO;
 
 import java.util.List;
@@ -13,7 +16,15 @@ import java.util.List;
 public interface LoginService {
 
     /**
+     * 分页查询登陆日志
+     * @param request 分页查询参数
+     * @return 登录日志
+     */
+    Page<LoginLog> getByPage(LoginLogQueryRequest request);
+
+    /**
      * 添加登陆日志
+     * 更新设备登录日志
      * @param loginRecord 登陆日志
      */
     void insertLoginLog(LoginRecord loginRecord);

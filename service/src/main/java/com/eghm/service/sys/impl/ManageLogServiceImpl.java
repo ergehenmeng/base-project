@@ -5,6 +5,7 @@ import com.eghm.mapper.ManageLogMapper;
 import com.eghm.model.ManageLog;
 import com.eghm.dto.log.ManageQueryRequest;
 import com.eghm.service.sys.ManageLogService;
+import com.eghm.vo.log.ManageLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class ManageLogServiceImpl implements ManageLogService {
     private final ManageLogMapper manageLogMapper;
 
     @Override
-    public Page<ManageLog> getByPage(ManageQueryRequest request) {
+    public Page<ManageLogResponse> getByPage(ManageQueryRequest request) {
         return manageLogMapper.getByPage(request.createPage(), request);
     }
 

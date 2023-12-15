@@ -4223,6 +4223,7 @@ INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10131612', '导出', 'ydD0', '101316', NULL, '/manage/line/order/export', '2', '30', b'1', NULL, '3', '2023-11-22 11:24:07', '2023-12-09 16:21:01');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10131712', '导出', 'ppD0', '101317', NULL, '/manage/voucher/order/export', '2', '30', b'1', NULL, '3', '2023-11-22 11:40:26', '2023-12-09 16:27:06');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10112514', '导出', '4hU0', '101125', NULL, '/manage/member/export', '2', '50', b'1', NULL, '2', '2023-12-11 15:27:41', '2023-12-11 15:28:34');
+INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10112515', '登录日志', 'ShU0', '101125', NULL, '/manage/member/loginPage', '2', '60', b'1', NULL, '3', '2023-12-15 14:05:58', '2023-12-15 14:05:58');
 
 
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('1', '1707298744621969410', '101210', '2023-10-11 15:51:45');

@@ -2,7 +2,9 @@ package com.eghm.service.member.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.LoginRecord;
+import com.eghm.dto.member.log.LoginLogQueryRequest;
 import com.eghm.mapper.LoginDeviceMapper;
 import com.eghm.mapper.LoginLogMapper;
 import com.eghm.model.LoginDevice;
@@ -27,6 +29,15 @@ public class LoginServiceImpl implements LoginService {
     private final LoginDeviceMapper loginDeviceMapper;
 
     private final LoginLogMapper loginLogMapper;
+
+    @Override
+    public Page<LoginLog> getByPage(LoginLogQueryRequest request) {
+        LambdaQueryWrapper<LoginLog> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(LoginLog::getMemberId, request.getMemberId());
+        wrapper.eq(request.getChannel() != null, LoginLog::getChannel, request.getChannel());
+        wrapper.last(" order by id desc ");
+        return loginLogMapper.selectPage(request.createPage(), wrapper);
+    }
 
     @Override
     public void insertLoginLog(LoginRecord loginRecord) {

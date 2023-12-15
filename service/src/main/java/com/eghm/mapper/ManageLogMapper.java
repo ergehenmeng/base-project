@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.model.ManageLog;
 import com.eghm.dto.log.ManageQueryRequest;
+import com.eghm.vo.log.ManageLogResponse;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -17,7 +18,7 @@ public interface ManageLogMapper extends BaseMapper<ManageLog> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<ManageLog> getByPage(Page<ManageLog> page, @Param("param") ManageQueryRequest request);
+    Page<ManageLogResponse> getByPage(Page<ManageLog> page, @Param("param") ManageQueryRequest request);
 
     /**
      * 根据id查询响应信息
