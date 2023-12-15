@@ -84,11 +84,11 @@ DROP TABLE IF EXISTS `email_template`;
 CREATE TABLE `email_template`
 (
     `id`          bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `nid`         varchar(30)   DEFAULT NULL COMMENT '模板唯一编码',
-    `title`       varchar(50)   DEFAULT NULL COMMENT '模板标题',
-    `content`     varchar(1000) DEFAULT NULL COMMENT '模板内容',
-    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `remark`      varchar(200)  DEFAULT NULL COMMENT '备注信息',
+    `nid`         varchar(30)  DEFAULT NULL COMMENT '模板唯一编码',
+    `title`       varchar(50)  DEFAULT NULL COMMENT '模板标题',
+    `content`     text COMMENT '模板内容',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`),
     KEY `idx_nid` (`nid`)
 ) ENGINE = InnoDB

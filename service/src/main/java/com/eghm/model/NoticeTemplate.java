@@ -3,6 +3,7 @@ package com.eghm.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,7 +30,11 @@ public class NoticeTemplate implements Serializable {
     @ApiModelProperty("通知内容")
     private String content;
 
+    @ApiModelProperty("备注信息")
+    private String remark;
+
     @ApiModelProperty("更新日期")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
 }

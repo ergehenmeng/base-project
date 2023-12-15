@@ -1,5 +1,7 @@
 package com.eghm.service.common.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.template.NoticeTemplateRequest;
@@ -25,7 +27,9 @@ public class NoticeTemplateServiceImpl implements NoticeTemplateService {
 
     @Override
     public Page<NoticeTemplate> getByPage(PagingQuery query) {
-        return noticeTemplateMapper.selectPage(query.createPage(), null);
+        LambdaQueryWrapper<NoticeTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.last(" order by id desc ");
+        return noticeTemplateMapper.selectPage(query.createPage(), wrapper);
     }
 
     @Override
