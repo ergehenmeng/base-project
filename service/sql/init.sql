@@ -3607,7 +3607,7 @@ INSERT INTO `sys_role` (`id`, `role_name`, `role_type`, `create_time`, `update_t
 
 INSERT INTO `sys_task` (`id`, `title`, `bean_name`, `method_name`, `args`, `cron_expression`, `alarm_email`, `state`, `update_time`, `remark`) VALUES ('2', '门票支付处理中的订单处理', 'taskService', 'ticketPaying', NULL, '0 0/30 * * * ?', '664956140@qq.com', '0', '2022-08-08 19:51:42', NULL);
 
-INSERT INTO `member` (`id`, `mobile`, `open_id`, `nick_name`, `email`, `pwd`, `state`, `channel`, `register_ip`, `create_time`, `update_time`, `avatar`) VALUES ('1', '13136113636', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', '0', '0', '2019-10-25 15:59:22', '2019-10-25 16:01:16', NULL);
+INSERT INTO `member` (`id`, `avatar`, `mobile`, `open_id`, `nick_name`, `email`, `pwd`, `state`, `real_name`, `id_card`, `birthday`, `invite_code`, `sex`, `score`, `channel`, `register_ip`, `create_time`, `update_time`, `deleted`) VALUES ('1', 'http://localhost:9002/cover.png', '13136113695', NULL, '二哥真的很猛', '664956140@qq.com', NULL, b'1', NULL, NULL, NULL, 'F', '2', '0', '0', '0', '2019-10-25 15:59:22', '2023-12-15 14:25:06', b'0');
 
 
 

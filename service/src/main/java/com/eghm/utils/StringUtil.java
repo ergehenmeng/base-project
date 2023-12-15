@@ -247,6 +247,7 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
+        System.out.println(encryptNumber(1L));
         int pid = 10112515;
         StringBuilder builder = new StringBuilder();
         builder.append("\r\n");
