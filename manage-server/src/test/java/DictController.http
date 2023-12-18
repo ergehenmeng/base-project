@@ -1,0 +1,38 @@
+GET http://localhost:8080/manage/dict/listPage?page=0&pageSize=10
+token: {{token}}
+
+###
+GET http://localhost:8080/manage/dict/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "demoData",
+  "hiddenValue": 1,
+  "showValue": "demoData",
+  "locked": true,
+  "remark": "demoData"
+}
+
+###
+GET http://localhost:8080/manage/dict/update
+token: {{token}}
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "性别",
+    "code": "sex",
+    "description": "性别",
+    "sort": 1,
+    "status": 1
+}
+
+###
+GET http://localhost:8080/manage/dict/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 12
+}

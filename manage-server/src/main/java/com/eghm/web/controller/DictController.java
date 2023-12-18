@@ -9,6 +9,7 @@ import com.eghm.dto.dict.DictQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
+import com.eghm.vo.sys.DictResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,8 +30,8 @@ public class DictController {
 
     @GetMapping("/listPage")
     @ApiOperation("列表")
-    public RespBody<PageData<SysDict>> listPage(DictQueryRequest request) {
-        Page<SysDict> byPage = sysDictService.getByPage(request);
+    public RespBody<PageData<DictResponse>> listPage(DictQueryRequest request) {
+        Page<DictResponse> byPage = sysDictService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

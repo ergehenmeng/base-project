@@ -1,4 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.SysDictMapper">
+
+    <select id="getByPage" resultMap="pageList" parameterType="com.eghm.dto.dict.DictQueryRequest">
+        select t.id, t.title, t.nid, t.locked, t.remark, t.create_time, r.id as rid, r.show_value, r.hidden_value
+        from sys_dict t
+        left join sys_dict_item r on t.nid = r.nid
+        where t.deleted = false and r.deleted = false
+        <if test="param.locked != null">
+            and t.locked = #{param.locked}
+        </if>
+        <if test="param.queryName != null and t.queryName != '' ">
+            and (t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')  or
+                 t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%'))
+        </if>
+        order by t.id desc, r.hidden_value
+    </select>
+
+    <resultMap id="pageList" type="com.eghm.vo.sys.DictResponse">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="nid" column="nid"/>
+        <result property="locked" column="locked"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="itemList" ofType="com.eghm.vo.sys.DictItemResponse">
+            <id property="id" column="rid"/>
+            <result property="hiddenValue" column="hidden_value"/>
+            <result property="showValue" column="show_value"/>
+        </collection>
+    </resultMap>
 </mapper>

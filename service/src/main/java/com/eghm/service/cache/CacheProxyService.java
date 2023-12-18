@@ -90,7 +90,7 @@ public interface CacheProxyService {
      * @param nid 某一类数据字典key
      * @return 属于该nid的列表
      */
-    List<SysDict> getDictByNid(String nid);
+    List<SysDictItem> getDictByNid(String nid);
 
     /**
      * 查询标签列表

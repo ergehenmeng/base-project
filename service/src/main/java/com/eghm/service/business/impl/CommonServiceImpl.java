@@ -5,7 +5,7 @@ import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.exception.BusinessException;
-import com.eghm.model.SysDict;
+import com.eghm.model.SysDictItem;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -54,7 +54,7 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public List<String> parseTags(List<SysDict> dictList, String tagIds) {
+    public List<String> parseTags(List<SysDictItem> dictList, String tagIds) {
         List<String> tagList = Lists.newArrayListWithCapacity(4);
         if (CollUtil.isEmpty(dictList)) {
             log.error("数据字典为空,不做解析 [{}]", tagIds);
@@ -64,7 +64,7 @@ public class CommonServiceImpl implements CommonService {
         String[] split = tagIds.split(",");
         for (String tagId : split) {
             dictList.stream().filter(sysDict -> sysDict.getHiddenValue() == Integer.parseInt(tagId))
-                    .map(SysDict::getShowValue)
+                    .map(SysDictItem::getShowValue)
                     .findFirst().ifPresent(tagList::add);
         }
         return tagList;

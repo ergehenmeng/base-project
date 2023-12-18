@@ -5,6 +5,8 @@ import com.eghm.model.SysDict;
 import com.eghm.dto.dict.DictAddRequest;
 import com.eghm.dto.dict.DictEditRequest;
 import com.eghm.dto.dict.DictQueryRequest;
+import com.eghm.model.SysDictItem;
+import com.eghm.vo.sys.DictResponse;
 
 import java.util.List;
 
@@ -20,14 +22,14 @@ public interface SysDictService {
      * @param request 前台cax条件
      * @return 分页列表
      */
-    Page<SysDict> getByPage(DictQueryRequest request);
+    Page<DictResponse> getByPage(DictQueryRequest request);
 
     /**
      * 根据nid查询某一类数据字典列表
      * @param nid 某一类数据字典key
      * @return 属于该nid的列表
      */
-    List<SysDict> getDictByNid(String nid);
+    List<SysDictItem> getDictByNid(String nid);
 
     /**
      * 添加数据字典

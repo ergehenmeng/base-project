@@ -14,9 +14,6 @@ import java.io.Serializable;
 @Data
 public class DictEditRequest implements Serializable {
 
-    private static final long serialVersionUID = 2506674696822623145L;
-
-
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
@@ -24,18 +21,6 @@ public class DictEditRequest implements Serializable {
     @ApiModelProperty(value = "数据字典名称", required = true)
     @NotBlank(message = "名称不能为空")
     private String title;
-
-    @ApiModelProperty(value = "数据字典隐藏值", required = true)
-    @NotNull(message = "隐藏值不能为空")
-    private Integer hiddenValue;
-
-    @ApiModelProperty(value = "显示值", required = true)
-    @NotBlank(message = "显示值不能为空")
-    private String  showValue;
-
-    @ApiModelProperty(value = "是否锁定 true:锁定 false:不锁定", required = true)
-    @NotNull(message = "锁定状态不能为空")
-    private Boolean locked;
 
     @ApiModelProperty(value = "备注信息")
     private String remark;

@@ -51,7 +51,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final SysConfigMapper sysConfigMapper;
 
-    private final SysDictMapper sysDictMapper;
+    private final SysDictItemMapper sysDictItemMapper;
 
     private final ItemTagService itemTagService;
 
@@ -143,10 +143,10 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_DICT, key = "#p0", unless = "#result.size() == 0")
-    public List<SysDict> getDictByNid(String nid) {
-        LambdaQueryWrapper<SysDict> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(SysDict::getNid, nid);
-        return sysDictMapper.selectList(wrapper);
+    public List<SysDictItem> getDictByNid(String nid) {
+        LambdaQueryWrapper<SysDictItem> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysDictItem::getNid, nid);
+        return sysDictItemMapper.selectList(wrapper);
     }
 
     @Override

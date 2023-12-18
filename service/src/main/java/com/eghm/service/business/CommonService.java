@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.enums.ref.ProductType;
-import com.eghm.model.SysDict;
+import com.eghm.model.SysDictItem;
 import com.eghm.service.business.handler.state.RefundNotifyHandler;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public interface CommonService {
      * @param tagIds 标签id 逗号分割
      * @return 标签名称
      */
-    List<String> parseTags(List<SysDict> dictList, String tagIds);
+    List<String> parseTags(List<SysDictItem> dictList, String tagIds);
 
     /**
      * 检查当前登陆用户是否为指定的商户id, 注意:如果登陆用户商户号(表示是管理员)为空则不校验

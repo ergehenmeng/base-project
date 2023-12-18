@@ -23,7 +23,7 @@ import com.eghm.mapper.HomestayMapper;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
-import com.eghm.model.SysDict;
+import com.eghm.model.SysDictItem;
 import com.eghm.service.business.CommonService;
 import com.eghm.service.business.HomestayRoomService;
 import com.eghm.service.business.HomestayService;
@@ -160,7 +160,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         }
         // 标签/地址等字段填充
         // 查询数据字典,匹配标签列表
-        List<SysDict> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
+        List<SysDictItem> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
         // 针对针对标签,位置和最低价进行赋值或解析
         for (HomestayListVO vo : voList) {
             vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));

@@ -19,17 +19,11 @@ public class SysDict extends BaseEntity {
     @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
-    @ApiModelProperty("数据字典nid(英文名称)")
+    @ApiModelProperty("字典编码")
     @TableField(typeHandler = LikeTypeHandler.class)
     private String nid;
 
-    @ApiModelProperty("数据字典隐藏值")
-    private Integer hiddenValue;
-
-    @ApiModelProperty("显示值")
-    private String showValue;
-
-    @ApiModelProperty("锁定状态(禁止编辑):0:未锁定 1:锁定")
+    @ApiModelProperty("锁定状态(禁止删除):0:未锁定 1:锁定")
     private Boolean locked;
 
     @ApiModelProperty("备注信息")
