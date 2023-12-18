@@ -1,0 +1,61 @@
+GET http://localhost:8080/manage/notice/listPage?page=0&pageSize=10
+token: {{token}}
+
+###
+
+POST http://localhost:8080/manage/notice/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "公告标题",
+  "classify": 1,
+  "content": "公告详情信息"
+}
+
+###
+
+POST http://localhost:8080/manage/notice/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1736677658498437121,
+  "title": "公告标题",
+  "classify": 1,
+  "content": "公告详情信息编辑"
+}
+
+###
+
+POST http://localhost:8080/manage/notice/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1736677658498437121
+}
+
+###
+
+POST http://localhost:8080/manage/notice/publish
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1736677658498437121
+}
+
+###
+
+POST http://localhost:8080/manage/notice/cancel
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1736677658498437121
+}
+###
+
+GET http://localhost:8080/manage/notice/select?id=1736677658498437121
+token: {{token}}

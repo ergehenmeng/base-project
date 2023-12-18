@@ -14,14 +14,12 @@ import java.io.Serializable;
 @Data
 public class NoticeAddRequest implements Serializable {
 
-    private static final long serialVersionUID = 3360468576576094581L;
-
     @ApiModelProperty(value = "公告标题", required = true)
     @NotBlank(message = "标题不能为空")
     @WordChecker
     private String title;
 
-    @ApiModelProperty(value = "公告类型(数据字典表sys_notice_type)", required = true)
+    @ApiModelProperty(value = "公告类型(数据字典表notice_classify)", required = true)
     private Integer classify;
 
     @ApiModelProperty(value = "公告内容(富文本)", required = true)
