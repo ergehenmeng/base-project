@@ -386,20 +386,34 @@ CREATE TABLE `sys_dept`
 DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict`
 (
+    `id`          bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title`       varchar(50)  DEFAULT NULL COMMENT '字典中文名称',
+    `nid`         varchar(50)  DEFAULT NULL COMMENT '字典编码',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
+    `locked`      bit(1)       DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
+    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 15
+  DEFAULT CHARSET = utf8mb4 COMMENT ='数据字典表';
+
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict_item`
+(
     `id`           bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `title`        varchar(50)         DEFAULT NULL COMMENT '字典中文名称',
-    `nid`          varchar(50)         DEFAULT NULL COMMENT '数据字典nid(英文名称)',
+    `nid`          bigint(50)          DEFAULT NULL COMMENT '字典编号',
     `hidden_value` tinyint(2) unsigned DEFAULT NULL COMMENT '数据字典隐藏值 1~∞',
     `show_value`   varchar(50)         DEFAULT NULL COMMENT '显示值',
     `deleted`      bit(1)              DEFAULT b'0' COMMENT '删除状态 0:正常,1:已删除',
-    `locked`       bit(1)              DEFAULT b'0' COMMENT '锁定状态(禁止编辑):0:未锁定 1:锁定',
     `create_time`  datetime            DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`  datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-    `remark`       varchar(200)        DEFAULT NULL COMMENT '备注信息',
     PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 10
-  DEFAULT CHARSET = utf8mb4 COMMENT ='系统数据字典表';
+  AUTO_INCREMENT = 15
+  DEFAULT CHARSET = utf8mb4 COMMENT ='数据字典选项表';
+
 
 -- ----------------------------
 -- Table structure for sys_holiday

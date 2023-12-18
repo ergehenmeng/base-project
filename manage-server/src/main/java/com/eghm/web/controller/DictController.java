@@ -1,11 +1,8 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.SysDict;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.dict.DictAddRequest;
-import com.eghm.dto.dict.DictEditRequest;
-import com.eghm.dto.dict.DictQueryRequest;
+import com.eghm.dto.dict.*;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.sys.SysDictService;
@@ -53,6 +50,27 @@ public class DictController {
     @ApiOperation("删除")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysDictService.delete(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/item/create")
+    @ApiOperation("选项新增")
+    public RespBody<Void> itemCreate(@Validated @RequestBody DictItemAddRequest request) {
+        sysDictService.itemCreate(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/item/update")
+    @ApiOperation("选项编辑")
+    public RespBody<Void> itemUpdate(@Validated @RequestBody DictItemEditRequest request) {
+        sysDictService.itemUpdate(request);
+        return RespBody.success();
+    }
+
+    @PostMapping("/item/delete")
+    @ApiOperation("选项删除")
+    public RespBody<Void> itemDelete(@Validated @RequestBody IdDTO dto) {
+        sysDictService.itemDelete(dto.getId());
         return RespBody.success();
     }
 

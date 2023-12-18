@@ -5,9 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.dict.DictAddRequest;
-import com.eghm.dto.dict.DictEditRequest;
-import com.eghm.dto.dict.DictQueryRequest;
+import com.eghm.dto.dict.*;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.SysDictItemMapper;
@@ -77,6 +75,23 @@ public class SysDictServiceImpl implements SysDictService {
         if (i != 1) {
             throw new BusinessException(ErrorCode.DICT_LOCKED_ERROR);
         }
+    }
+
+    @Override
+    public void itemCreate(DictItemAddRequest request) {
+        SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
+        sysDictItemMapper.insert(dictItem);
+    }
+
+    @Override
+    public void itemUpdate(DictItemEditRequest request) {
+        SysDictItem dictItem = DataUtil.copy(request, SysDictItem.class);
+        sysDictItemMapper.updateById(dictItem);
+    }
+
+    @Override
+    public void itemDelete(Long id) {
+        sysDictItemMapper.deleteById(id);
     }
 
     @Override

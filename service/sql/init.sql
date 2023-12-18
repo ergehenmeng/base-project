@@ -3580,15 +3580,26 @@ INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `r
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('12', '系统公告缓存', 'sys_notice', '1', '2023-08-11 15:22:18', '系统公告位缓存');
 INSERT INTO `sys_cache` (`id`, `title`, `cache_name`, `state`, `update_time`, `remark`) VALUES ('13', '省市区缓存', 'sys_area', '1', '2023-08-11 15:22:18', '省市区所有缓存');
 
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_classify', b'0', b'0', '2023-12-18 16:08:49', '2023-12-18 16:08:56', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('2', '系统参数类型', 'config_classify', b'0', b'0', '2023-12-18 16:09:11', '2023-12-18 16:09:14', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('3', '轮播图分类', 'banner_classify', b'0', b'0', '2023-12-18 16:09:39', '2023-12-18 16:09:41', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('4', '公告类型', 'notice_classify', b'0', b'0', '2023-12-18 16:10:00', '2023-12-18 16:10:02', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('5', '民宿标签', 'homestay_tag', b'0', b'0', '2023-12-18 16:10:22', '2023-12-18 16:10:25', NULL);
+INSERT INTO `sys_dict` (`id`, `title`, `nid`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('6', '菜单分类', 'menu_grade', b'0', b'0', '2023-12-18 16:10:41', '2023-12-18 16:10:46', NULL);
 
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('1', '图片分类', 'image_classify', '1', 'pc首页', b'0', b'1', '2018-11-27 17:14:49', NULL, NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('2', '图片分类', 'image_classify', '2', 'app首页', b'0', b'1', '2018-11-27 17:15:33', NULL, NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('3', '图片分类', 'image_classify', '3', 'h5首页', b'0', b'1', '2018-11-27 17:15:55', NULL, NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('4', '系统参数分类', 'config_classify', '1', '业务参数', b'0', b'1', '2019-01-11 11:02:39', '2019-01-15 10:11:36', '');
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('5', '系统参数分类', 'config_classify', '2', '系统参数', b'0', b'1', '2019-01-11 11:03:00', '2019-01-15 10:11:57', '是东方闪电2131');
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('6', '轮播图类型', 'banner_classify', '1', '首页轮播', b'0', b'0', '2019-08-23 16:09:53', '2019-08-30 11:46:03', NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('8', '公告分类', 'notice_classify', '1', '科普', b'0', b'0', '2019-11-25 16:13:43', '2019-11-27 11:39:52', NULL);
-INSERT INTO `sys_dict` (`id`, `title`, `nid`, `hidden_value`, `show_value`, `deleted`, `locked`, `create_time`, `update_time`, `remark`) VALUES ('9', '公告分类', 'notice_classify', '2', '通知', b'0', b'0', '2019-11-25 16:14:10', '2019-11-27 11:39:54', NULL);
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('1', 'image_classify', '1', 'pc首页', b'0', '2018-11-27 17:14:49', NULL);
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('2', 'image_classify', '2', 'app首页', b'0', '2018-11-27 17:15:33', NULL);
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('3', 'image_classify', '3', 'h5首页', b'0', '2018-11-27 17:15:55', NULL);
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('4', 'config_classify', '1', '业务参数', b'0', '2019-01-11 11:02:39', '2019-01-15 10:11:36');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('5', 'config_classify', '2', '系统参数', b'0', '2019-01-11 11:03:00', '2019-01-15 10:11:57');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('6', 'banner_classify', '1', '首页轮播', b'0', '2019-08-23 16:09:53', '2019-08-30 11:46:03');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('8', 'notice_classify', '1', '科普', b'0', '2019-11-25 16:13:43', '2019-11-27 11:39:52');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('9', 'notice_classify', '2', '通知', b'0', '2019-11-25 16:14:10', '2019-11-27 11:39:54');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('10', 'homestay_tag', '1', '经济实惠', b'0', '2023-01-10 16:27:24', '2023-01-10 16:28:07');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('11', 'homestay_tag', '2', '入住有礼', b'0', '2023-01-10 16:28:05', '2023-01-10 16:28:49');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('12', 'homestay_tag', '3', '免费早餐', b'0', '2023-01-10 16:28:42', '2023-01-10 17:29:54');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('13', 'menu_grade', '1', '导航菜单', b'0', '2023-04-04 14:50:55', '2023-04-04 14:51:00');
+INSERT INTO `sys_dict_item` (`id`, `nid`, `hidden_value`, `show_value`, `deleted`, `create_time`, `update_time`) VALUES ('14', 'menu_grade', '2', '按钮菜单', b'0', '2023-04-04 14:51:13', '2023-04-04 14:51:13');
 
 INSERT INTO `sys_user` (`id`, `nick_name`, `mobile`, `state`, `pwd`, `init_pwd`, `dept_code`, `data_type`, `deleted`, `create_time`, `update_time`, `remark`) VALUES ('1', '超管', '13000000000', '1', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '$2a$10$dbkuL8izh8m30Ea5yMuSbeKVqIfehQt97DfjKkOXUmlh4UstnQZj6', '0', 8, b'0', '2018-01-26 10:38:20', '2019-07-19 15:41:56', '');
 

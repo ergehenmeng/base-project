@@ -1,10 +1,8 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.dict.*;
 import com.eghm.model.SysDict;
-import com.eghm.dto.dict.DictAddRequest;
-import com.eghm.dto.dict.DictEditRequest;
-import com.eghm.dto.dict.DictQueryRequest;
 import com.eghm.model.SysDictItem;
 import com.eghm.vo.sys.DictResponse;
 
@@ -48,6 +46,24 @@ public interface SysDictService {
      * @param id 主键
      */
     void delete(Long id);
+
+    /**
+     * 添加数据字典子选项
+     * @param request 前台参数
+     */
+    void itemCreate(DictItemAddRequest request);
+
+    /**
+     * 编辑数据字典子选项
+     * @param request 前台参数
+     */
+    void itemUpdate(DictItemEditRequest request);
+
+    /**
+     * 删除数据字典子选项
+     * @param id 主键
+     */
+    void itemDelete(Long id);
 
     /**
      * 根据主键查询
