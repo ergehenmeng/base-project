@@ -5,7 +5,6 @@ import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.SysCache;
 import com.eghm.service.cache.SysCacheService;
-import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -40,18 +39,9 @@ public class CacheController {
 
     @GetMapping("/clear")
     @ApiOperation("清除缓存")
-    @ApiImplicitParam(name = "cacheName", value = "缓存名称", required = true)
-    public RespBody<Void> clear(@RequestParam("cacheNames") String cacheName) {
-        List<String> cacheList = Lists.newArrayList(cacheName);
-        sysCacheService.clearCache(cacheList);
-        return RespBody.success();
-    }
-
-    @GetMapping("/batchClear")
-    @ApiOperation("批量清除缓存")
     @ApiImplicitParam(name = "cacheNames", value = "缓存名称,逗号分割", required = true)
-    public RespBody<Void> batchClear(@RequestParam("cacheNames") String cacheName) {
-        List<String> cacheList = StrUtil.split(cacheName, ',');
+    public RespBody<Void> clear(@RequestParam("cacheNames") String cacheNames) {
+        List<String> cacheList = StrUtil.split(cacheNames, ',');
         sysCacheService.clearCache(cacheList);
         return RespBody.success();
     }

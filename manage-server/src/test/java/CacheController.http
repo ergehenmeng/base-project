@@ -1,0 +1,11 @@
+GET http://localhost:8080/manage/cache/list
+token: {{token}}
+
+###
+
+GET http://localhost:8080/manage/cache/clear?cacheName=sys_config
+token: {{token}}
+
+###
+GET http://localhost:8080/manage/cache/batchClear?cacheNames=sys_config
+token: {{token}}
