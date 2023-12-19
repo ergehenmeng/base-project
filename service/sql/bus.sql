@@ -922,8 +922,8 @@ CREATE TABLE `travel_agency`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='旅行社信息表';
 
-DROP TABLE IF EXISTS `item_express_region`;
-CREATE TABLE `item_express_region`
+DROP TABLE IF EXISTS `express_template_region`;
+CREATE TABLE `express_template_region`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `express_id`      bigint(20)     DEFAULT NULL COMMENT '模板id',
@@ -941,8 +941,8 @@ CREATE TABLE `item_express_region`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='快递模板区域';
 
-DROP TABLE IF EXISTS `item_express`;
-CREATE TABLE `item_express`
+DROP TABLE IF EXISTS `express_template`;
+CREATE TABLE `express_template`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
     `merchant_id` bigint(20)  DEFAULT NULL COMMENT '模板所属商户',

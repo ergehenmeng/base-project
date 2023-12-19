@@ -1,6 +1,6 @@
 package com.eghm.mapper;
 
-import com.eghm.model.ItemExpressRegion;
+import com.eghm.model.ExpressTemplateRegion;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author 二哥很猛
  * @since 2023-08-22
  */
-public interface ItemExpressRegionMapper extends BaseMapper<ItemExpressRegion> {
+public interface ExpressTemplateRegionMapper extends BaseMapper<ExpressTemplateRegion> {
 
 }

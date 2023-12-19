@@ -10,8 +10,8 @@ import com.eghm.dto.business.item.express.ItemExpressRegionRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.ItemExpressRegionMapper;
-import com.eghm.model.ItemExpressRegion;
+import com.eghm.mapper.ExpressTemplateRegionMapper;
+import com.eghm.model.ExpressTemplateRegion;
 import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemExpressRegionService;
 import com.eghm.service.business.ItemSkuService;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 @Service("itemExpressRegionService")
 public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
 
-    private final ItemExpressRegionMapper itemExpressRegionMapper;
+    private final ExpressTemplateRegionMapper expressTemplateRegionMapper;
 
     private final JsonService jsonService;
 
@@ -48,21 +48,21 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
 
     @Override
     public void createOrUpdate(Long expressId, List<ItemExpressRegionRequest> regionList) {
-        LambdaUpdateWrapper<ItemExpressRegion> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(ItemExpressRegion::getExpressId, expressId);
-        itemExpressRegionMapper.delete(wrapper);
+        LambdaUpdateWrapper<ExpressTemplateRegion> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ExpressTemplateRegion::getExpressId, expressId);
+        expressTemplateRegionMapper.delete(wrapper);
         for (ItemExpressRegionRequest request : regionList) {
-            ItemExpressRegion region = DataUtil.copy(request, ItemExpressRegion.class);
+            ExpressTemplateRegion region = DataUtil.copy(request, ExpressTemplateRegion.class);
             region.setExpressId(expressId);
-            itemExpressRegionMapper.insert(region);
+            expressTemplateRegionMapper.insert(region);
         }
     }
 
     @Override
-    public List<ItemExpressRegion> getList(List<Long> expressIds) {
-        LambdaQueryWrapper<ItemExpressRegion> wrapper = Wrappers.lambdaQuery();
-        wrapper.in(ItemExpressRegion::getExpressId, expressIds);
-        return itemExpressRegionMapper.selectList(wrapper);
+    public List<ExpressTemplateRegion> getList(List<Long> expressIds) {
+        LambdaQueryWrapper<ExpressTemplateRegion> wrapper = Wrappers.lambdaQuery();
+        wrapper.in(ExpressTemplateRegion::getExpressId, expressIds);
+        return expressTemplateRegionMapper.selectList(wrapper);
     }
 
     @Override
@@ -76,9 +76,9 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
 
         List<Long> expressIds = filterList.stream().map(ItemCalcDTO::getExpressId).collect(Collectors.toList());
         // 查询所有的物流信息,并按模板进行划分
-        List<ItemExpressRegion> allRegionList = this.getList(expressIds);
+        List<ExpressTemplateRegion> allRegionList = this.getList(expressIds);
 
-        Map<Long, List<ItemExpressRegion>> expressRegionMap = allRegionList.stream().collect(Collectors.groupingBy(ItemExpressRegion::getExpressId, Collectors.toList()));
+        Map<Long, List<ExpressTemplateRegion>> expressRegionMap = allRegionList.stream().collect(Collectors.groupingBy(ExpressTemplateRegion::getExpressId, Collectors.toList()));
 
         // 按计件还是计费进行分组, 因为两套计算逻辑不一样
         Map<Integer, List<ItemCalcDTO>> chargeMap = filterList.stream().collect(Collectors.groupingBy(ItemCalcDTO::getChargeMode, Collectors.toList()));
@@ -91,7 +91,7 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
             Map<Long, ItemSku> skuMap = itemSkuService.getByIdShelveMap(weightList.stream().map(ItemCalcDTO::getSkuId).collect(Collectors.toSet()));
             this.checkSkuItemMapping(skuMap, weightList);
             for (ItemCalcDTO calcDTO : weightList) {
-                List<ItemExpressRegion> regionList = expressRegionMap.get(calcDTO.getExpressId());
+                List<ExpressTemplateRegion> regionList = expressRegionMap.get(calcDTO.getExpressId());
                 int expressFee = this.calcExpressWeight(calcDTO.getItemId(), calcDTO.getWeight(), dto.getCountyId(), regionList);
                 calcDTO.setExpressFee(expressFee);
                 totalFee += expressFee;
@@ -103,7 +103,7 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
         if (CollUtil.isNotEmpty(quantityList)) {
             log.info("存在计件商品, 开始进行运费计算 [{}]", jsonService.toJson(quantityList));
             for (ItemCalcDTO calcDTO : quantityList) {
-                List<ItemExpressRegion> regionList = expressRegionMap.get(calcDTO.getExpressId());
+                List<ExpressTemplateRegion> regionList = expressRegionMap.get(calcDTO.getExpressId());
                 int expressFee = this.calcExpressQuantity(calcDTO.getItemId(), calcDTO.getNum(), dto.getCountyId(), regionList);
                 calcDTO.setExpressFee(expressFee);
                 totalFee += expressFee;
@@ -136,8 +136,8 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
      * @param regionList 价格配置
      * @return 运费
      */
-    private int calcExpressWeight(Long itemId, BigDecimal weight, Long countyId, List<ItemExpressRegion> regionList) {
-        ItemExpressRegion region = this.matchRegion(countyId, regionList, itemId);
+    private int calcExpressWeight(Long itemId, BigDecimal weight, Long countyId, List<ExpressTemplateRegion> regionList) {
+        ExpressTemplateRegion region = this.matchRegion(countyId, regionList, itemId);
         BigDecimal firstPart = region.getFirstPart();
         // 数量不超过首件
         if (weight.compareTo(firstPart) <= 0) {
@@ -166,8 +166,8 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
      * @param regionList 价格配置
      * @return 运费
      */
-    private int calcExpressQuantity(Long itemId, Integer num, Long countyId, List<ItemExpressRegion> regionList) {
-        ItemExpressRegion region = this.matchRegion(countyId, regionList, itemId);
+    private int calcExpressQuantity(Long itemId, Integer num, Long countyId, List<ExpressTemplateRegion> regionList) {
+        ExpressTemplateRegion region = this.matchRegion(countyId, regionList, itemId);
         int firstPart = region.getFirstPart().intValue();
         // 数量不超过首件
         if (num <= firstPart) {
@@ -181,8 +181,8 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
         return region.getFirstPrice() + nextNum * region.getNextUnitPrice();
     }
 
-    private ItemExpressRegion matchRegion(Long countyId, List<ItemExpressRegion> regionList, Long itemId) {
-        return regionList.stream().filter(itemExpressRegion -> itemExpressRegion.getRegionCode().contains(String.valueOf(countyId))).findFirst()
+    private ExpressTemplateRegion matchRegion(Long countyId, List<ExpressTemplateRegion> regionList, Long itemId) {
+        return regionList.stream().filter(expressTemplateRegion -> expressTemplateRegion.getRegionCode().contains(String.valueOf(countyId))).findFirst()
                 .orElseThrow(() -> {
                     log.error("该地区未配置快递模板, 不支持配送 [{}] [{}]", itemId, countyId);
                     return new BusinessException(ErrorCode.EXPRESS_NOT_SUPPORT);

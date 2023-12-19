@@ -16,9 +16,9 @@ import java.io.Serializable;
  * @since 2023-08-22
  */
 @Data
-@TableName("item_express")
+@TableName("express_template")
 @EqualsAndHashCode(callSuper = true)
-public class ItemExpress extends BaseEntity implements Serializable {
+public class ExpressTemplate extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

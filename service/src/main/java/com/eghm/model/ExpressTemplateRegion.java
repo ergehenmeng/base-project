@@ -17,9 +17,9 @@ import java.math.BigDecimal;
  * @since 2023-08-22
  */
 @Data
-@TableName("item_express_region")
+@TableName("express_template_region")
 @EqualsAndHashCode(callSuper = true)
-public class ItemExpressRegion extends BaseEntity implements Serializable {
+public class ExpressTemplateRegion extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

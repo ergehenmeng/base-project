@@ -2,7 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.business.item.express.ItemExpressRegionRequest;
-import com.eghm.model.ItemExpressRegion;
+import com.eghm.model.ExpressTemplateRegion;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public interface ItemExpressRegionService {
      * @param expressIds 快递模板id
      * @return 配置信息
      */
-    List<ItemExpressRegion> getList(List<Long> expressIds);
+    List<ExpressTemplateRegion> getList(List<Long> expressIds);
 
     /**
      * 计算同一店铺的某个订单快递费

@@ -1,6 +1,6 @@
 package com.eghm.mapper;
 
-import com.eghm.model.ItemExpress;
+import com.eghm.model.ExpressTemplate;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
 import com.eghm.vo.business.item.express.ItemExpressVO;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2023-08-22
  */
-public interface ItemExpressMapper extends BaseMapper<ItemExpress> {
+public interface ExpressTemplateMapper extends BaseMapper<ExpressTemplate> {
 
     /**
      * 查询同一店铺下的商品对应的快递模板

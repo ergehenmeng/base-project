@@ -9,12 +9,12 @@ import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.ItemExpressMapper;
+import com.eghm.mapper.ExpressTemplateMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.Item;
-import com.eghm.model.ItemExpress;
+import com.eghm.model.ExpressTemplate;
 import com.eghm.service.business.ItemExpressRegionService;
-import com.eghm.service.business.ItemExpressService;
+import com.eghm.service.business.ExpressTemplateService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.express.ExpressSelectResponse;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
@@ -38,10 +38,10 @@ import static com.eghm.enums.ErrorCode.EXPRESS_NOT_FOUND;
  */
 @Slf4j
 @AllArgsConstructor
-@Service("itemExpressService")
-public class ItemExpressServiceImpl implements ItemExpressService {
+@Service("expressTemplateService")
+public class ExpressTemplateServiceImpl implements ExpressTemplateService {
 
-    private final ItemExpressMapper itemExpressMapper;
+    private final ExpressTemplateMapper expressTemplateMapper;
 
     private final ItemExpressRegionService itemExpressRegionService;
 
@@ -49,30 +49,30 @@ public class ItemExpressServiceImpl implements ItemExpressService {
 
     @Override
     public List<ItemExpressResponse> getList(Long merchantId) {
-        return itemExpressMapper.getList(merchantId);
+        return expressTemplateMapper.getList(merchantId);
     }
 
     @Override
     public List<ExpressSelectResponse> selectList(Long merchantId) {
-        LambdaQueryWrapper<ItemExpress> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(ItemExpress::getId, ItemExpress::getTitle, ItemExpress::getChargeMode);
-        wrapper.eq(ItemExpress::getMerchantId, merchantId);
-        wrapper.eq(ItemExpress::getState, 1);
-        wrapper.orderByDesc(ItemExpress::getId);
-        List<ItemExpress> expressList = itemExpressMapper.selectList(wrapper);
+        LambdaQueryWrapper<ExpressTemplate> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(ExpressTemplate::getId, ExpressTemplate::getTitle, ExpressTemplate::getChargeMode);
+        wrapper.eq(ExpressTemplate::getMerchantId, merchantId);
+        wrapper.eq(ExpressTemplate::getState, 1);
+        wrapper.orderByDesc(ExpressTemplate::getId);
+        List<ExpressTemplate> expressList = expressTemplateMapper.selectList(wrapper);
         return DataUtil.copy(expressList, ExpressSelectResponse.class);
     }
 
     @Override
     public void create(ItemExpressAddRequest request) {
-        ItemExpress express = DataUtil.copy(request, ItemExpress.class);
-        itemExpressMapper.insert(express);
+        ExpressTemplate express = DataUtil.copy(request, ExpressTemplate.class);
+        expressTemplateMapper.insert(express);
         itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
     }
 
     @Override
     public void update(ItemExpressEditRequest request) {
-        ItemExpress selected = this.selectByIdRequired(request.getId());
+        ExpressTemplate selected = this.selectByIdRequired(request.getId());
         if (!selected.getMerchantId().equals(request.getMerchantId())) {
             log.error("查询快递模板不合法 [{}] [{}]", request.getId(), request.getMerchantId());
             throw new BusinessException(ErrorCode.EXPRESS_NULL);
@@ -80,8 +80,8 @@ public class ItemExpressServiceImpl implements ItemExpressService {
         if (!selected.getChargeMode().equals(request.getChargeMode()) && this.itemCount(request.getId()) > 0) {
             throw new BusinessException(ErrorCode.EXPRESS_CHARGE_MODE);
         }
-        ItemExpress express = DataUtil.copy(request, ItemExpress.class);
-        itemExpressMapper.updateById(express);
+        ExpressTemplate express = DataUtil.copy(request, ExpressTemplate.class);
+        expressTemplateMapper.updateById(express);
         itemExpressRegionService.createOrUpdate(express.getId(), request.getRegionList());
     }
 
@@ -90,7 +90,7 @@ public class ItemExpressServiceImpl implements ItemExpressService {
         if (CollUtil.isEmpty(itemIds)) {
             return Lists.newArrayList();
         }
-        return itemExpressMapper.getExpressList(itemIds, storeId);
+        return expressTemplateMapper.getExpressList(itemIds, storeId);
     }
 
     @Override
@@ -99,16 +99,16 @@ public class ItemExpressServiceImpl implements ItemExpressService {
         if (count > 0) {
             throw new BusinessException(ErrorCode.EXPRESS_NOT_DELETE);
         }
-        LambdaUpdateWrapper<ItemExpress> wrapper = Wrappers.lambdaUpdate();
+        LambdaUpdateWrapper<ExpressTemplate> wrapper = Wrappers.lambdaUpdate();
         // 防止误删除其他人的信息
-        wrapper.eq(ItemExpress::getMerchantId, SecurityHolder.getMerchantId());
-        wrapper.eq(ItemExpress::getId, id);
-        itemExpressMapper.delete(wrapper);
+        wrapper.eq(ExpressTemplate::getMerchantId, SecurityHolder.getMerchantId());
+        wrapper.eq(ExpressTemplate::getId, id);
+        expressTemplateMapper.delete(wrapper);
     }
 
     @Override
-    public ItemExpress selectByIdRequired(Long id) {
-        ItemExpress selected = itemExpressMapper.selectById(id);
+    public ExpressTemplate selectByIdRequired(Long id) {
+        ExpressTemplate selected = expressTemplateMapper.selectById(id);
         if (selected == null) {
             log.error("物流模板不存在或已删除 [{}]", id);
             throw new BusinessException(EXPRESS_NOT_FOUND);

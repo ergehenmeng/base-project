@@ -38,6 +38,9 @@ public class SysTaskLogController {
     @ApiOperation("日志详情")
     public RespBody<String> select(@Validated IdDTO dto) {
         String errorMsg = sysTaskLogService.getErrorMsg(dto.getId());
+        if (errorMsg == null) {
+            return RespBody.success("暂无错误信息");
+        }
         return RespBody.success(errorMsg);
     }
 }

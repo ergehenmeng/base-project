@@ -6,7 +6,7 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.service.business.ItemExpressService;
+import com.eghm.service.business.ExpressTemplateService;
 import com.eghm.vo.business.item.express.ExpressSelectResponse;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
 import io.swagger.annotations.Api;
@@ -25,15 +25,15 @@ import java.util.List;
 @RestController
 @Api(tags = "快递模板")
 @AllArgsConstructor
-@RequestMapping("/manage/item/express")
+@RequestMapping("/manage/express/template")
 public class ItemExpressController {
 
-    private final ItemExpressService itemExpressService;
+    private final ExpressTemplateService expressTemplateService;
 
     @GetMapping("/list")
     @ApiOperation("模板列表")
     public RespBody<List<ItemExpressResponse>> list() {
-        List<ItemExpressResponse> byPage = itemExpressService.getList(SecurityHolder.getMerchantId());
+        List<ItemExpressResponse> byPage = expressTemplateService.getList(SecurityHolder.getMerchantId());
         return RespBody.success(byPage);
     }
 
@@ -41,7 +41,7 @@ public class ItemExpressController {
     @ApiOperation("模板列表(下拉专用)")
     @SkipPerm
     public RespBody<List<ExpressSelectResponse>> selectList() {
-        List<ExpressSelectResponse> selectList = itemExpressService.selectList(SecurityHolder.getMerchantId());
+        List<ExpressSelectResponse> selectList = expressTemplateService.selectList(SecurityHolder.getMerchantId());
         return RespBody.success(selectList);
     }
 
@@ -49,7 +49,7 @@ public class ItemExpressController {
     @ApiOperation("新增模板")
     public RespBody<Void> create(@Validated @RequestBody ItemExpressAddRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        itemExpressService.create(request);
+        expressTemplateService.create(request);
         return RespBody.success();
     }
 
@@ -57,14 +57,14 @@ public class ItemExpressController {
     @ApiOperation("更新模板")
     public RespBody<Void> update(@Validated @RequestBody ItemExpressEditRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        itemExpressService.update(request);
+        expressTemplateService.update(request);
         return RespBody.success();
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除模板")
     public RespBody<Void> recommend(@RequestBody @Validated IdDTO dto) {
-        itemExpressService.deleteById(dto.getId());
+        expressTemplateService.deleteById(dto.getId());
         return RespBody.success();
     }
 

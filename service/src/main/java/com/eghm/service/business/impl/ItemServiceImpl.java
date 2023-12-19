@@ -64,7 +64,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemSpecService itemSpecService;
 
-    private final ItemExpressService itemExpressService;
+    private final ExpressTemplateService expressTemplateService;
 
     private final CouponConfigMapper couponConfigMapper;
 
@@ -252,7 +252,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Integer calcStoreExpressFee(ExpressFeeCalcDTO dto) {
         List<Long> itemIds = dto.getOrderList().stream().map(ItemCalcDTO::getItemId).collect(Collectors.toList());
-        List<ItemExpressVO> expressList = itemExpressService.getExpressList(itemIds, dto.getStoreId());
+        List<ItemExpressVO> expressList = expressTemplateService.getExpressList(itemIds, dto.getStoreId());
         // 商品没有查询到快递信息,默认都是免邮
         if (CollUtil.isEmpty(expressList)) {
             return 0;
@@ -371,7 +371,7 @@ public class ItemServiceImpl implements ItemService {
      */
     private void checkExpress(Long expressId, List<ItemSkuRequest> skuList) {
         if (expressId != null) {
-            ItemExpress selected = itemExpressService.selectByIdRequired(expressId);
+            ExpressTemplate selected = expressTemplateService.selectByIdRequired(expressId);
             if (selected.getChargeMode() == ChargeMode.WEIGHT.getValue()) {
                 boolean anyMatch = skuList.stream().anyMatch(itemSkuRequest -> itemSkuRequest.getWeight() == null);
                 if (anyMatch) {

@@ -2,7 +2,7 @@ package com.eghm.service.business;
 
 import com.eghm.dto.business.item.express.ItemExpressAddRequest;
 import com.eghm.dto.business.item.express.ItemExpressEditRequest;
-import com.eghm.model.ItemExpress;
+import com.eghm.model.ExpressTemplate;
 import com.eghm.vo.business.item.express.ExpressSelectResponse;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
 import com.eghm.vo.business.item.express.ItemExpressVO;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2023-08-22
  */
-public interface ItemExpressService {
+public interface ExpressTemplateService {
 
     /**
      * 查询商户下的物流模板
@@ -63,5 +63,5 @@ public interface ItemExpressService {
      * 主键查询快递模板
      * @param id id
      */
-    ItemExpress selectByIdRequired(Long id);
+    ExpressTemplate selectByIdRequired(Long id);
 }
