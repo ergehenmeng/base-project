@@ -16,7 +16,7 @@ import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
-import com.eghm.service.business.ItemOrderExpressService;
+import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.service.sys.SysAreaService;
@@ -46,7 +46,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     private final SysAreaService sysAreaService;
 
-    private final ItemOrderExpressService itemOrderExpressService;
+    private final ItemExpressService itemExpressService;
 
     @Override
     public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
@@ -180,7 +180,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
-        List<FirstExpressVO> expressList = itemOrderExpressService.getFirstExpressList(orderNo);
+        List<FirstExpressVO> expressList = itemExpressService.getFirstExpressList(orderNo);
         detail.setExpressList(expressList);
         return detail;
     }

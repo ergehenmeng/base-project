@@ -31,7 +31,4 @@ public class ItemSippingRequest {
     @NotBlank(message = "快递单号不能为空")
     @Size(max = 20, message = "快递单号长度最大20位")
     private String expressNo;
-
-    @ApiModelProperty("备注")
-    private String remark;
 }

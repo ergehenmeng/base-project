@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
@@ -15,23 +16,19 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("item_order_express")
-public class ItemOrderExpress {
+@EqualsAndHashCode(callSuper = true)
+public class ItemExpress extends BaseEntity {
 
-    @TableId(type = IdType.ASSIGN_ID)
-    @ApiModelProperty("id主键")
-    private Long id;
+    @ApiModelProperty("快递单号")
+    private String expressNo;
 
-    @ApiModelProperty("零售订单id")
-    private Long itemOrderId;
+    @ApiModelProperty("快递公司编码")
+    private String expressCode;
 
-    @ApiModelProperty("快递信息id")
-    private Long expressId;
+    @ApiModelProperty("物流信息(json)")
+    private String content;
 
     @ApiModelProperty("订单号")
     private String orderNo;
-
-    @ApiModelProperty("添加时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createTime;
 
 }

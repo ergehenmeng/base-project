@@ -1,7 +1,7 @@
 package com.eghm.service.business;
 
 import com.eghm.dto.business.order.item.ItemSippingRequest;
-import com.eghm.model.ItemOrderExpress;
+import com.eghm.model.ItemExpress;
 import com.eghm.vo.business.order.item.FirstExpressVO;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2023/11/27
  */
-public interface ItemOrderExpressService {
+public interface ItemExpressService {
 
     /**
      * 插入订单物流信息
@@ -32,5 +32,5 @@ public interface ItemOrderExpressService {
      * @param id id
      * @return 物流信息
      */
-    ItemOrderExpress selectById(Long id);
+    ItemExpress selectById(Long id);
 }

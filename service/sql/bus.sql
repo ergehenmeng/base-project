@@ -1003,18 +1003,27 @@ CREATE TABLE `merchant_user`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_bin COMMENT ='商户用户表';
 
-DROP TABLE IF EXISTS `item_order_express`;
+DROP TABLE IF EXISTS `item_express`;
+CREATE TABLE `item_express`
+(
+    `id`           bigint(20)  DEFAULT NULL COMMENT '主键',
+    `order_no`     varchar(30) DEFAULT NULL COMMENT '订单号',
+    `express_code` varchar(20) DEFAULT NULL COMMENT '物流公司code',
+    `express_no`   varchar(30) DEFAULT NULL COMMENT '快递单号',
+    `content`      text COMMENT '物流信息(json)',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='快递信息表';
+
+DROP TABLE IF EXISTS item_order_express;
 CREATE TABLE `item_order_express`
 (
-    `id`            bigint(20)   DEFAULT NULL COMMENT '主键',
-    `item_order_id` bigint(20)   DEFAULT NULL COMMENT '零售订单id',
-    `order_no`      varchar(30)  DEFAULT NULL COMMENT '订单号',
-    `express_code`  varchar(20)  DEFAULT NULL COMMENT '物流公司code',
-    `express_no`    varchar(30)  DEFAULT NULL COMMENT '快递单号',
-    `content`       text COMMENT '物流信息(json)',
-    `remark`        varchar(200) DEFAULT NULL COMMENT '备注信息',
-    `create_time`   datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`       bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除'
+    `id`            bigint(20)  DEFAULT NULL COMMENT '主键',
+    `item_order_id` varchar(30) DEFAULT NULL COMMENT '零售订单id',
+    `order_no`      varchar(30) DEFAULT NULL COMMENT '订单号(冗余)',
+    `express_id`    bigint(20) comment '快递信息id',
+    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='订单快递信息表';
+  DEFAULT CHARSET = utf8mb4 COMMENT ='订单与快递关联表';

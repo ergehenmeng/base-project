@@ -73,11 +73,10 @@ public class ItemOrderController {
     @PostMapping("/sipping")
     @ApiOperation("发货")
     public RespBody<Void> sipping(@RequestBody @Validated ItemSippingRequest request) {
-        redisLock.lock(CacheConstant.SIPPING_LOCK + request.getOrderNo(), 10_000, () -> {
+        return redisLock.lock(CacheConstant.SIPPING_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.sipping(request);
-            return null;
+            return RespBody.success();
         });
-        return RespBody.success();
     }
 
     @GetMapping("/export")
