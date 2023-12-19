@@ -19,6 +19,7 @@ import com.eghm.model.ItemSku;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
+import com.eghm.service.common.JsonService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.AssertUtil;
 import com.eghm.utils.DataUtil;
@@ -47,6 +48,8 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     private final SysAreaService sysAreaService;
 
     private final ItemExpressService itemExpressService;
+
+    private final JsonService jsonService;
 
     @Override
     public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
@@ -188,11 +191,17 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     @Override
     public ItemOrderDetailResponse detail(String orderNo) {
         Long merchantId = SecurityHolder.getMerchantId();
+        // 订单信息
         ItemOrderDetailResponse detail = itemOrderMapper.detail(orderNo, merchantId);
         AssertUtil.assertOrderNotNull(detail, orderNo, merchantId);
+        // 商品信息
         List<ItemOrderListVO> itemList = itemOrderMapper.getItemList(orderNo);
         detail.setDetailAddress(sysAreaService.parseArea(detail.getProvinceId(), detail.getCityId(), detail.getCountyId()) + detail.getDetailAddress());
         detail.setItemList(itemList);
+        // 发货信息
+        List<ItemShippedResponse> shippedList = itemOrderMapper.getShippedList(orderNo);
+        shippedList.forEach(response -> response.setExpressList(jsonService.fromJsonList(response.getContent(), ExpressVO.class)));
+        detail.setShippedList(shippedList);
         return detail;
     }
 

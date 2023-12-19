@@ -114,7 +114,7 @@ public interface ItemOrderService {
     List<ItemOrderVO> getByPage(ItemOrderQueryDTO dto);
 
     /**
-     * 查询订单详情
+     * 查询订单详情 (移动端)
      * @param orderNo 订单号
      * @param memberId 订单id
      * @return 订单信息
@@ -122,7 +122,7 @@ public interface ItemOrderService {
     ItemOrderDetailVO getDetail(String orderNo, Long memberId);
 
     /**
-     * 查询订单详情
+     * 查询订单详情 (管理后台)
      * @param orderNo 订单号
      * @return 订单信息
      */

@@ -2,7 +2,9 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.dto.business.order.item.ItemExpressRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.mapper.ItemExpressMapper;
 import com.eghm.mapper.ItemOrderExpressMapper;
@@ -49,6 +51,18 @@ public class ItemExpressServiceImpl implements ItemExpressService {
             express.setItemOrderId(orderId);
             itemOrderExpressMapper.insert(express);
         }
+    }
+
+    @Override
+    public void update(ItemExpressRequest request) {
+        LambdaUpdateWrapper<ItemExpress> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(ItemExpress::getId, request.getId());
+        // 尽量防止更新的订单不是自己商品下的
+        wrapper.eq(ItemExpress::getOrderNo, request.getOrderNo());
+        wrapper.set(ItemExpress::getExpressNo, request.getExpressNo());
+        wrapper.set(ItemExpress::getExpressCode, request.getExpressCode());
+        wrapper.set(ItemExpress::getContent, null);
+        itemExpressMapper.update(null, wrapper);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.order.item.ItemExpressRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.model.ItemExpress;
 import com.eghm.vo.business.order.item.FirstExpressVO;
@@ -18,6 +19,12 @@ public interface ItemExpressService {
      * @param request request
      */
     void insert(ItemSippingRequest request);
+
+    /**
+     * 更新物流单号
+     * @param request 物流信息
+     */
+    void update(ItemExpressRequest request);
 
     /**
      * 获取订单物流信息

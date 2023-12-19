@@ -92,6 +92,9 @@ public class ItemOrderDetailResponse {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
-    @ApiModelProperty("订单商品详情")
+    @ApiModelProperty("订单商品")
     private List<ItemOrderListVO> itemList;
+
+    @ApiModelProperty("已发货商品信息")
+    private List<ItemShippedResponse> shippedList;
 }

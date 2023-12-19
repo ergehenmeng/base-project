@@ -3,11 +3,13 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.constant.CacheConstant;
+import com.eghm.dto.business.order.item.ItemExpressRequest;
 import com.eghm.dto.business.order.item.ItemOnlineRefundRequest;
 import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.cache.RedisLock;
@@ -33,6 +35,8 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/manage/item/order")
 public class ItemOrderController {
+
+    private final ItemExpressService itemExpressService;
 
     private final ItemOrderService itemOrderService;
 
@@ -77,6 +81,13 @@ public class ItemOrderController {
             orderService.sipping(request);
             return RespBody.success();
         });
+    }
+
+    @PostMapping("/updateExpress")
+    @ApiOperation("更新快递单号")
+    public RespBody<Void> updateExpress(@RequestBody @Validated ItemExpressRequest request) {
+        itemExpressService.update(request);
+        return RespBody.success();
     }
 
     @GetMapping("/export")
