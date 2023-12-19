@@ -46,7 +46,7 @@ public class SysTaskController {
     @PostMapping("/refresh")
     @ApiOperation("刷新定时任务")
     public RespBody<Void> refresh() {
-        sysTaskRegistrar.loadOrRefreshTask();
+        sysTaskRegistrar.reloadTask();
         return RespBody.success();
     }
 

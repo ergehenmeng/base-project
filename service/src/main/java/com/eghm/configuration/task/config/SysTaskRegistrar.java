@@ -54,7 +54,7 @@ public class SysTaskRegistrar {
      * 加载或刷新系统中配置的定时任务
      */
     @PostConstruct
-    public synchronized void loadOrRefreshTask() {
+    public synchronized void reloadTask() {
         LambdaQueryWrapper<SysTask> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(SysTask::getState, true);
         List<SysTask> taskConfigList = sysTaskMapper.selectList(wrapper);

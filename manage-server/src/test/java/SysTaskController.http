@@ -1,0 +1,35 @@
+GET http://localhost:8080/manage/task/listPage?page=0&pageSize=10
+token: {{token}}
+
+
+###
+
+POST http://localhost:8080/manage/task/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 2,
+  "args": null,
+  "cronExpression": "0 0/30 * * *?",
+  "state": false,
+  "alarmEmail": "664956140@qq.com",
+  "lockTime": "30000"
+}
+
+###
+
+POST http://localhost:8080/manage/task/refresh
+token: {{token}}
+
+
+###
+
+POST http://localhost:8080/manage/task/execute
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 2,
+  "args": ""
+}

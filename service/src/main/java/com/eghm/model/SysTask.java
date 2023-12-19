@@ -43,7 +43,7 @@ public class SysTask {
     @ApiModelProperty("报警邮箱地址")
     private String alarmEmail;
 
-    @ApiModelProperty("")
+    @ApiModelProperty("锁持有时间,毫秒")
     private Long lockTime;
 
     @ApiModelProperty("更新时间")
