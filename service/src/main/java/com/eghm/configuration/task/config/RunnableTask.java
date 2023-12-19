@@ -15,6 +15,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.aop.support.AopUtils;
 
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 /**
  * @author 二哥很猛
@@ -70,6 +71,7 @@ public class RunnableTask implements Runnable {
         long startTime = System.currentTimeMillis();
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
+        LocalDateTime start = LocalDateTime.now();
         try {
             // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
             redisLock.lock(key, task.getLockTime(), () -> ReflectUtil.invoke(bean, method, task.getArgs()));
@@ -84,6 +86,7 @@ public class RunnableTask implements Runnable {
             // 每次执行的日志都记入定时任务日志
             long endTime = System.currentTimeMillis();
             builder.elapsedTime(endTime - startTime);
+            builder.startTime(start);
             taskLogService().addTaskLog(builder.build());
         }
     }
