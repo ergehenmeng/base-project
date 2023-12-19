@@ -4247,7 +4247,8 @@ INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10101516', '子项删除', '0mK0', '101015', NULL, '/manage/dict/item/delete', '2', '70', b'1', NULL, '2', '2023-12-18 16:55:17', '2023-12-18 16:56:50');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10131415', '修改物流', '7RD0', '101314', NULL, '/manage/item/order/updateExpress', '2', '60', b'1', '更新物流单号', '3', '2023-11-22 10:48:16', '2023-12-09 16:48:19');
 INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10131416', '导出', 'LRD0', '101314', NULL, '/manage/item/order/export', '2', '70', b'1', NULL, '3', '2023-12-19 15:58:15', '2023-12-19 15:58:15');
-
+INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('101411', '购物车管理', 'aKU', '1014', NULL, NULL, '1', '20', b'1', NULL, '3', '2023-12-19 17:11:28', '2023-12-19 17:11:54');
+INSERT INTO `sys_menu` (`id`, `title`, `code`, `pid`, `path`, `sub_path`, `grade`, `sort`, `state`, `remark`, `display_state`, `create_time`, `update_time`) VALUES ('10141110', '列表', 'Vfu0', '101411', NULL, '/manage/shopping/cart/listPage', '2', '10', b'1', NULL, '3', '2023-12-19 17:11:28', '2023-12-19 17:11:28');
 
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('1', '1707298744621969410', '101210', '2023-10-11 15:51:45');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('2', '1707298744621969410', '10121010', '2023-10-11 15:51:45');
