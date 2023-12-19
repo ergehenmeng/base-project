@@ -68,10 +68,10 @@ public class RunnableTask implements Runnable {
 
     @Override
     public void run() {
-        long startTime = System.currentTimeMillis();
         SysTaskLog.SysTaskLogBuilder builder = SysTaskLog.builder().beanName(task.getBeanName()).methodName(task.getMethodName()).args(task.getArgs()).ip(IpUtil.getLocalIp());
         String key = task.getBeanName() + CommonConstant.SPECIAL_SPLIT + task.getMethodName();
         LocalDateTime start = LocalDateTime.now();
+        long startTime = System.currentTimeMillis();
         try {
             // 外层加锁防止多实例运行时有并发执行问题, 幂等由业务进行控制
             redisLock.lock(key, task.getLockTime(), () -> ReflectUtil.invoke(bean, method, task.getArgs()));
