@@ -1,6 +1,7 @@
 package com.eghm.dto.business.item;
 
 import com.eghm.annotation.Assign;
+import com.eghm.configuration.annotation.YuanToCentFormat;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.DeliveryType;
 import com.eghm.enums.ref.State;
@@ -30,6 +31,14 @@ public class ItemQueryRequest extends PagingQuery {
 
     @ApiModelProperty("店铺id")
     private Long storeId;
+
+    @ApiModelProperty("最低价格")
+    @YuanToCentFormat
+    private Integer minPrice;
+
+    @ApiModelProperty("最高价格")
+    @YuanToCentFormat
+    private Integer maxPrice;
 
     @Assign
     @ApiModelProperty(value = "商户id", hidden = true)

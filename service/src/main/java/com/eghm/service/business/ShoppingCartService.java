@@ -1,6 +1,9 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.shopping.AddCartDTO;
+import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
+import com.eghm.vo.business.shopping.ShoppingCartResponse;
 import com.eghm.vo.business.shopping.ShoppingCartVO;
 
 import java.util.List;
@@ -10,6 +13,13 @@ import java.util.List;
  * @date 2022/7/23
  */
 public interface ShoppingCartService {
+
+    /**
+     * 分页查询购物车商品
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<ShoppingCartResponse> getByPage(ShoppingCartQueryRequest request);
 
     /**
      * 添加购物车

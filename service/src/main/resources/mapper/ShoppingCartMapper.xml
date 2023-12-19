@@ -2,6 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.ShoppingCartMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.business.shopping.ShoppingCartResponse" parameterType="com.eghm.dto.business.shopping.ShoppingCartQueryRequest">
+        select
+        t.id as itemId,
+        t.title,
+        t.cover_url,
+        t.min_price,
+        t.max_price,
+        t.hot_sell,
+        t.state,
+        t.sale_num,
+        s.quantity
+        from item t
+        inner join (select item_id, sum(quantity) as quantity from shopping_cart where deleted = false group by item_id) s on t.id = s.item_id
+        where t.deleted = false
+        <if test="param.queryName != null and param.queryName != '' ">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        <if test="param.hotSell != null ">
+            and t.hot_sell = #{param.hotSell}
+        </if>
+        <if test="param.state != null ">
+            and t.state = #{param.state}
+        </if>
+        <if test="param.minPrice != null">
+            and t.min_price &gt;= #{param.minPrice}
+        </if>
+        <if test="param.maxPrice != null">
+            and t.min_price &lt;= #{param.maxPrice}
+        </if>
+        order by s.quantity desc
+    </select>
+
     <select id="getList" resultType="com.eghm.vo.business.shopping.ShoppingCartItemVO">
         select
         t.id,
