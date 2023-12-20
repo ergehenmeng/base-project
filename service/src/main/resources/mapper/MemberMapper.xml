@@ -4,35 +4,38 @@
 
     <select id="listPage" resultType="com.eghm.vo.member.MemberResponse" parameterType="com.eghm.dto.member.MemberQueryRequest">
         select
-        id,
-        nick_name,
-        mobile,
-        email,
-        state,
-        score,
-        invite_code,
-        real_name,
-        birthday,
-        sex,
-        channel,
-        avatar,
-        create_time
-        from member where deleted = false
+        t.id,
+        t.nick_name,
+        t.mobile,
+        t.email,
+        t.state,
+        t.score,
+        t.invite_code,
+        t.real_name,
+        t.birthday,
+        t.sex,
+        t.channel,
+        t.avatar,
+        t.create_time
+        from member t where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (
-                nick_name like concat('%', #{param.queryName}, '%') or
-                mobile like concat('%', #{param.queryName}, '%')
+                t.nick_name like concat('%', #{param.queryName}, '%') or
+                t.mobile like concat('%', #{param.queryName}, '%')
             )
         </if>
+        <if test="param.mobile != null and param.mobile != '' ">
+            and exists (select 1 from member_invite_log s, member m where m.id = s.member_id  and  s.invite_member_id = t.id and m.mobile = #{param.mobile})
+        </if>
         <if test="param.state != null">
-            and state = #{param.state}
+            and t.state = #{param.state}
         </if>
         <if test="param.sex!= null">
-            and state = #{param.sex}
+            and t.sex = #{param.sex}
         </if>
         <if test="param.channel != null and param.channel != ''">
-            and channel = #{param.channel}
+            and t.channel = #{param.channel}
         </if>
-        order by id desc
+        order by t.id desc
     </select>
 </mapper>

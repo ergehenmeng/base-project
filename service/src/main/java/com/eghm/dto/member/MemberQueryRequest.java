@@ -23,4 +23,10 @@ public class MemberQueryRequest extends PagingQuery {
 
     @ApiModelProperty("注册渠道 PC,ANDROID,IOS,H5,WECHAT,ALIPAY")
     private String channel;
+
+    /**
+     * 用来查看该手机号邀请的下级会员
+     */
+    @ApiModelProperty("邀请人手机号")
+    private String mobile;
 }

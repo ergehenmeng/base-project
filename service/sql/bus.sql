@@ -692,7 +692,7 @@ CREATE TABLE `item_order`
     `num`            smallint(4) COMMENT '订单数量',
     `refund_num`     smallint(4)   default '0' COMMENT '已退款数量(含退款中)',
     `refund_state`   tinyint(1)    DEFAULT '0' COMMENT '退款状态 0: 初始状态 1:已退款 2:部分退款',
-    `delivery_state` tinyint(1)    DEFAULT '0' COMMENT '配送状态 0: 初始 1:待发货 2:  待收货 3:已收货',
+    `delivery_state` tinyint(1)    DEFAULT '0' COMMENT '配送状态 0: 初始 1:待发货 2:待收货 3:已收货',
     `store_id`       bigint(20)    DEFAULT NULL COMMENT '商品所属店铺',
     `depict`         varchar(50)   DEFAULT NULL COMMENT '商品描述信息',
     `cover_url`      varchar(1000) DEFAULT NULL COMMENT '封面图',
