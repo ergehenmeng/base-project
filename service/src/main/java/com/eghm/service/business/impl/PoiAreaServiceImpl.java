@@ -1,9 +1,14 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.poi.PoiAreaAddRequest;
 import com.eghm.dto.poi.PoiAreaEditRequest;
+import com.eghm.dto.poi.StateRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.PoiAreaMapper;
@@ -30,6 +35,16 @@ public class PoiAreaServiceImpl implements PoiAreaService {
     private final PoiAreaMapper poiAreaMapper;
 
     @Override
+    public Page<PoiArea> getByPage(PagingQuery query) {
+        LambdaQueryWrapper<PoiArea> wrapper = Wrappers.lambdaQuery();
+        wrapper.and(StrUtil.isNotBlank(query.getQueryName()), queryWrapper ->
+                queryWrapper.like(PoiArea::getTitle, query.getQueryName())
+                        .or().like(PoiArea::getCode, query.getQueryName()));
+        wrapper.last(" order by id desc ");
+        return poiAreaMapper.selectPage(query.createPage(), wrapper);
+    }
+
+    @Override
     public void create(PoiAreaAddRequest request) {
         this.redoTitle(request.getTitle(), null);
         this.redoCode(request.getCode(), null);
@@ -43,6 +58,14 @@ public class PoiAreaServiceImpl implements PoiAreaService {
         this.redoCode(request.getCode(), request.getId());
         PoiArea poiArea = DataUtil.copy(request, PoiArea.class);
         poiAreaMapper.updateById(poiArea);
+    }
+
+    @Override
+    public void updateState(StateRequest request) {
+        LambdaUpdateWrapper<PoiArea> wrapper = Wrappers.lambdaUpdate();
+        wrapper.set(PoiArea::getState, request.getState());
+        wrapper.eq(PoiArea::getId, request.getId());
+        poiAreaMapper.update(null, wrapper);
     }
 
     @Override
