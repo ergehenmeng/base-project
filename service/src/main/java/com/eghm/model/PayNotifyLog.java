@@ -43,7 +43,7 @@ public class PayNotifyLog extends BaseEntity implements Serializable {
     @TableField(typeHandler = LikeTypeHandler.class)
     private String outRefundNo;
 
-    @ApiModelProperty(value = "退款通知原始参数")
+    @ApiModelProperty(value = "通知原始参数")
     private String params;
 
 }

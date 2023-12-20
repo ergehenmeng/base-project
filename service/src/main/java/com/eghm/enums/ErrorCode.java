@@ -1352,6 +1352,16 @@ public enum ErrorCode {
     EXPRESS_SELECT_NULL(3686,"快递信息未查询到"),
 
     /**
+     * 区域名称重复
+     */
+    AREA_TITLE_REDO(3688,"区域名称重复"),
+
+    /**
+     * 区域编号重复
+     */
+    AREA_CODE_REDO(3690,"区域编号重复"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
