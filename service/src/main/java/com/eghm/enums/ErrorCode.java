@@ -1372,6 +1372,11 @@ public enum ErrorCode {
     TYPE_POINT_OCCUPY(3693,"POI类型已被使用"),
 
     /**
+     * 点位名称重复
+     */
+    AREA_POINT_REDO(3695,"点位名称重复"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

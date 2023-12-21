@@ -5,10 +5,10 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.dto.poi.PoiTypeAddRequest;
-import com.eghm.dto.poi.PoiTypeEditRequest;
-import com.eghm.model.PoiType;
-import com.eghm.service.business.PoiTypeService;
+import com.eghm.dto.poi.PoiPointAddRequest;
+import com.eghm.dto.poi.PoiPointEditRequest;
+import com.eghm.model.PoiPoint;
+import com.eghm.service.business.PoiPointService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -20,38 +20,38 @@ import org.springframework.web.bind.annotation.*;
  * @since 2023/12/20
  */
 @RestController
-@Api(tags = "poi类型信息")
+@Api(tags = "poi点位信息")
 @AllArgsConstructor
-@RequestMapping("/manage/poi/type")
-public class PoiTypeController {
+@RequestMapping("/manage/poi/point")
+public class PoiPointController {
 
-    private final PoiTypeService poiTypeService;
+    private final PoiPointService poiPointService;
 
     @ApiOperation("列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiType>> getByPage(PagingQuery request) {
-        Page<PoiType> byPage = poiTypeService.getByPage(request);
+    public RespBody<PageData<PoiPoint>> getByPage(PagingQuery request) {
+        Page<PoiPoint> byPage = poiPointService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @ApiOperation("创建poi类型")
+    @ApiOperation("创建")
     @PostMapping("/create")
-    public RespBody<Void> create(@Validated @RequestBody PoiTypeAddRequest request) {
-        poiTypeService.create(request);
+    public RespBody<Void> create(@Validated @RequestBody PoiPointAddRequest request) {
+        poiPointService.create(request);
         return RespBody.success();
     }
 
     @PostMapping("/update")
-    @ApiOperation("更新poi类型")
-    public RespBody<Void> update(@Validated @RequestBody PoiTypeEditRequest request) {
-        poiTypeService.update(request);
+    @ApiOperation("更新")
+    public RespBody<Void> update(@Validated @RequestBody PoiPointEditRequest request) {
+        poiPointService.update(request);
         return RespBody.success();
     }
 
     @PostMapping("/delete")
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
-        poiTypeService.deleteById(dto.getId());
+        poiPointService.deleteById(dto.getId());
         return RespBody.success();
     }
 }

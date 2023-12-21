@@ -31,8 +31,8 @@ public class PoiAreaController {
     @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<PoiArea>> getByPage(PagingQuery request) {
-        Page<PoiArea> scenicPage = poiAreaService.getByPage(request);
-        return RespBody.success(PageData.toPage(scenicPage));
+        Page<PoiArea> byPage = poiAreaService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
     }
 
     @ApiOperation("创建区域")
