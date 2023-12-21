@@ -1362,6 +1362,16 @@ public enum ErrorCode {
     AREA_CODE_REDO(3690,"区域编号重复"),
 
     /**
+     * POI类型重复
+     */
+    TYPE_CODE_REDO(3690,"POI类型重复"),
+
+    /**
+     * POI类型已被使用
+     */
+    TYPE_POINT_OCCUPY(3693,"POI类型已被使用"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
