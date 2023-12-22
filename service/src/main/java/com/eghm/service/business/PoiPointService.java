@@ -4,7 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.poi.PoiPointAddRequest;
 import com.eghm.dto.poi.PoiPointEditRequest;
-import com.eghm.model.PoiPoint;
+import com.eghm.dto.poi.PoiPointQueryRequest;
+import com.eghm.vo.poi.PoiPointResponse;
 
 /**
  * <p>
@@ -21,7 +22,7 @@ public interface PoiPointService {
      * @param query 查询条件
      * @return 列表
      */
-    Page<PoiPoint> getByPage(PagingQuery query);
+    Page<PoiPointResponse> getByPage(PoiPointQueryRequest query);
 
     /**
      * 新增poi点位信息

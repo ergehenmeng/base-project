@@ -5,10 +5,12 @@ import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.dto.poi.PoiLineQueryRequest;
 import com.eghm.dto.poi.PoiPointAddRequest;
 import com.eghm.dto.poi.PoiPointEditRequest;
 import com.eghm.model.PoiPoint;
 import com.eghm.service.business.PoiPointService;
+import com.eghm.vo.poi.PoiPointResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,8 +31,8 @@ public class PoiPointController {
 
     @ApiOperation("列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiPoint>> getByPage(PagingQuery request) {
-        Page<PoiPoint> byPage = poiPointService.getByPage(request);
+    public RespBody<PageData<PoiPointResponse>> getByPage(PoiLineQueryRequest request) {
+        Page<PoiPointResponse> byPage = poiPointService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

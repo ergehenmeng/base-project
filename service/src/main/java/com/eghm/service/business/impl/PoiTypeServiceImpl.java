@@ -1,12 +1,11 @@
 package com.eghm.service.business.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.poi.PoiTypeAddRequest;
 import com.eghm.dto.poi.PoiTypeEditRequest;
+import com.eghm.dto.poi.PoiTypeQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.PoiPointMapper;
@@ -15,6 +14,7 @@ import com.eghm.model.PoiPoint;
 import com.eghm.model.PoiType;
 import com.eghm.service.business.PoiTypeService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.poi.PoiTypeResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,11 +37,8 @@ public class PoiTypeServiceImpl implements PoiTypeService {
     private final PoiPointMapper poiPointMapper;
 
     @Override
-    public Page<PoiType> getByPage(PagingQuery query) {
-        LambdaQueryWrapper<PoiType> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(query.getQueryName()), PoiType::getTitle, query.getQueryName());
-        wrapper.last(" order by id desc ");
-        return poiTypeMapper.selectPage(query.createPage(), wrapper);
+    public Page<PoiTypeResponse> getByPage(PoiTypeQueryRequest query) {
+        return poiTypeMapper.getByPage(query.createPage(), query);
     }
 
     @Override

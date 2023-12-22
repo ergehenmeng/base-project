@@ -2,4 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.PoiLineMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.poi.PoiLineResponse" parameterType="com.eghm.dto.poi.PoiLineQueryRequest">
+        select
+        t.id,
+        t.title,
+        t.area_code,
+        t.play_time,
+        r.title as areaTitle,
+        t.create_time,
+        t.update_time
+        from poi_line t left join poi_area r on t.area_code = r.code
+        where t.deleted = false
+        <if test="param.areaCode != null">
+            and t.area_code = #{param.areaCode}
+        </if>
+        <if test="param.queryName != null and param.queryName != '' ">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        order by id desc
+    </select>
+
 </mapper>

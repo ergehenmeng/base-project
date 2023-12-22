@@ -2,4 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.PoiPointMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.poi.PoiPointResponse" parameterType="com.eghm.dto.poi.PoiPointQueryRequest">
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        t.area_code,
+        r.title as areaTitle,
+        t.detail_address,
+        t.latitude,
+        t.longitude,
+        t.create_time,
+        t.update_time,
+        s.title as typeTitle
+        from poi_point t left join poi_area r on t.area_code = r.code
+        left join poi_type s on t.type_id = s.id
+        where t.deleted = false
+        <if test="param.areaCode != null">
+            and t.area_code = #{param.areaCode}
+        </if>
+        <if test="param.queryName != null and param.queryName != '' ">
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        order by id desc
+    </select>
+
 </mapper>

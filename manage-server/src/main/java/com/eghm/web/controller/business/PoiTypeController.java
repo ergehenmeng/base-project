@@ -3,12 +3,12 @@ package com.eghm.web.controller.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.PageData;
-import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.poi.PoiTypeAddRequest;
 import com.eghm.dto.poi.PoiTypeEditRequest;
-import com.eghm.model.PoiType;
+import com.eghm.dto.poi.PoiTypeQueryRequest;
 import com.eghm.service.business.PoiTypeService;
+import com.eghm.vo.poi.PoiTypeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -29,8 +29,8 @@ public class PoiTypeController {
 
     @ApiOperation("列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<PoiType>> getByPage(PagingQuery request) {
-        Page<PoiType> byPage = poiTypeService.getByPage(request);
+    public RespBody<PageData<PoiTypeResponse>> getByPage(PoiTypeQueryRequest request) {
+        Page<PoiTypeResponse> byPage = poiTypeService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

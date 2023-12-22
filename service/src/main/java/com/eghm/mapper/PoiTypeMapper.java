@@ -1,7 +1,11 @@
 package com.eghm.mapper;
 
-import com.eghm.model.PoiType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.poi.PoiTypeQueryRequest;
+import com.eghm.model.PoiType;
+import com.eghm.vo.poi.PoiTypeResponse;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +17,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PoiTypeMapper extends BaseMapper<PoiType> {
 
+    /**
+     * 分页查询
+     * @param page 分页参数
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<PoiTypeResponse> getByPage(Page<PoiTypeResponse> page, @Param("param") PoiTypeQueryRequest request);
 }

@@ -2,14 +2,17 @@ package com.eghm.service.business.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.poi.PoiLineAddRequest;
 import com.eghm.dto.poi.PoiLineEditRequest;
+import com.eghm.dto.poi.PoiLineQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.PoiLineMapper;
 import com.eghm.model.PoiLine;
 import com.eghm.service.business.PoiLineService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.poi.PoiLineResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,11 @@ import org.springframework.stereotype.Service;
 public class PoiLineServiceImpl implements PoiLineService {
 
     private final PoiLineMapper poiLineMapper;
+
+    @Override
+    public Page<PoiLineResponse> getByPage(PoiLineQueryRequest request) {
+        return poiLineMapper.getByPage(request.createPage(), request);
+    }
 
     @Override
     public void create(PoiLineAddRequest request) {

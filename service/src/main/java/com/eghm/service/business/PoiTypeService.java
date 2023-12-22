@@ -4,7 +4,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.poi.PoiTypeAddRequest;
 import com.eghm.dto.poi.PoiTypeEditRequest;
+import com.eghm.dto.poi.PoiTypeQueryRequest;
 import com.eghm.model.PoiType;
+import com.eghm.vo.poi.PoiPointResponse;
+import com.eghm.vo.poi.PoiTypeResponse;
 
 /**
  * <p>
@@ -21,7 +24,7 @@ public interface PoiTypeService {
      * @param query 查询条件
      * @return 列表
      */
-    Page<PoiType> getByPage(PagingQuery query);
+    Page<PoiTypeResponse> getByPage(PoiTypeQueryRequest query);
 
     /**
      * 创建poi类型
