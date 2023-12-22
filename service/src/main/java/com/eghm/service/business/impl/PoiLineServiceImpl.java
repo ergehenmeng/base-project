@@ -1,21 +1,31 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.poi.LinePointBindRequest;
 import com.eghm.dto.poi.PoiLineAddRequest;
 import com.eghm.dto.poi.PoiLineEditRequest;
 import com.eghm.dto.poi.PoiLineQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.PoiLineMapper;
+import com.eghm.mapper.PoiLinePointMapper;
 import com.eghm.model.PoiLine;
+import com.eghm.model.PoiLinePoint;
 import com.eghm.service.business.PoiLineService;
+import com.eghm.service.business.PoiPointService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.poi.BasePointResponse;
+import com.eghm.vo.poi.LinePointResponse;
 import com.eghm.vo.poi.PoiLineResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -32,6 +42,10 @@ import org.springframework.stereotype.Service;
 public class PoiLineServiceImpl implements PoiLineService {
 
     private final PoiLineMapper poiLineMapper;
+
+    private final PoiLinePointMapper poiLinePointMapper;
+
+    private final PoiPointService poiPointService;
 
     @Override
     public Page<PoiLineResponse> getByPage(PoiLineQueryRequest request) {
@@ -55,6 +69,37 @@ public class PoiLineServiceImpl implements PoiLineService {
     @Override
     public void deleteById(Long id) {
         poiLineMapper.deleteById(id);
+    }
+
+    @Override
+    public void bindPoint(LinePointBindRequest request) {
+        LambdaUpdateWrapper<PoiLinePoint> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(PoiLinePoint::getLineId, request.getLineId());
+        poiLinePointMapper.delete(wrapper);
+        if (CollUtil.isNotEmpty(request.getPointIds())) {
+            int i = 0;
+            for (Long pointId : request.getPointIds()) {
+                PoiLinePoint poiLinePoint = new PoiLinePoint();
+                poiLinePoint.setLineId(request.getLineId());
+                poiLinePoint.setPointId(pointId);
+                poiLinePoint.setSort(i++);
+                poiLinePointMapper.insert(poiLinePoint);
+            }
+        }
+    }
+
+    @Override
+    public LinePointResponse getLinePoint(Long id) {
+        PoiLine poiLine = poiLineMapper.selectById(id);
+        if (poiLine == null) {
+            throw new BusinessException(ErrorCode.POI_LINE_NULL);
+        }
+        LinePointResponse response = new LinePointResponse();
+        List<BasePointResponse> pointList = poiPointService.getList(poiLine.getAreaCode());
+        response.setPointList(pointList);
+        List<Long> checkedList = poiLinePointMapper.getList(id);
+        response.setCheckedList(checkedList);
+        return response;
     }
 
     /**

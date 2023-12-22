@@ -1382,6 +1382,11 @@ public enum ErrorCode {
     POI_LINE_REDO(3700,"线路名称重复"),
 
     /**
+     * 线路信息不存在
+     */
+    POI_LINE_NULL(3703,"线路信息不存在"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

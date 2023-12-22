@@ -1,9 +1,11 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.poi.LinePointBindRequest;
 import com.eghm.dto.poi.PoiLineAddRequest;
 import com.eghm.dto.poi.PoiLineEditRequest;
 import com.eghm.dto.poi.PoiLineQueryRequest;
+import com.eghm.vo.poi.LinePointResponse;
 import com.eghm.vo.poi.PoiLineResponse;
 
 /**
@@ -40,4 +42,17 @@ public interface PoiLineService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 线路关联点位信息
+     * @param request 线路及点位
+     */
+    void bindPoint(LinePointBindRequest request);
+
+    /**
+     * 查询线路关联点位绑定情况
+     * @param id id
+     * @return 点位及绑定情况
+     */
+    LinePointResponse getLinePoint(Long id);
 }

@@ -12,10 +12,13 @@ import com.eghm.mapper.PoiPointMapper;
 import com.eghm.model.PoiPoint;
 import com.eghm.service.business.PoiPointService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.poi.BasePointResponse;
 import com.eghm.vo.poi.PoiPointResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -54,6 +57,11 @@ public class PoiPointServiceImpl implements PoiPointService {
     @Override
     public void deleteById(Long id) {
         poiPointMapper.deleteById(id);
+    }
+
+    @Override
+    public List<BasePointResponse> getList(String areaCode) {
+        return poiPointMapper.getList(areaCode);
     }
 
     /**
