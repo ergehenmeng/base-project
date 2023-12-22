@@ -5,6 +5,7 @@ import com.eghm.dto.poi.LinePointBindRequest;
 import com.eghm.dto.poi.PoiLineAddRequest;
 import com.eghm.dto.poi.PoiLineEditRequest;
 import com.eghm.dto.poi.PoiLineQueryRequest;
+import com.eghm.model.PoiLine;
 import com.eghm.vo.poi.LinePointResponse;
 import com.eghm.vo.poi.PoiLineResponse;
 
@@ -55,4 +56,11 @@ public interface PoiLineService {
      * @return 点位及绑定情况
      */
     LinePointResponse getLinePoint(Long id);
+
+    /**
+     * 根据id查询poi线路
+     * @param id id
+     * @return poi线路
+     */
+    PoiLine selectByIdRequired(Long id);
 }

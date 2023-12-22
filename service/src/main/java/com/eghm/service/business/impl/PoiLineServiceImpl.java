@@ -90,16 +90,22 @@ public class PoiLineServiceImpl implements PoiLineService {
 
     @Override
     public LinePointResponse getLinePoint(Long id) {
-        PoiLine poiLine = poiLineMapper.selectById(id);
-        if (poiLine == null) {
-            throw new BusinessException(ErrorCode.POI_LINE_NULL);
-        }
+        PoiLine poiLine = this.selectByIdRequired(id);
         LinePointResponse response = new LinePointResponse();
         List<BasePointResponse> pointList = poiPointService.getList(poiLine.getAreaCode());
         response.setPointList(pointList);
         List<Long> checkedList = poiLinePointMapper.getList(id);
         response.setCheckedList(checkedList);
         return response;
+    }
+
+    @Override
+    public PoiLine selectByIdRequired(Long id) {
+        PoiLine poiLine = poiLineMapper.selectById(id);
+        if (poiLine == null) {
+            throw new BusinessException(ErrorCode.POI_LINE_NULL);
+        }
+        return poiLine;
     }
 
     /**

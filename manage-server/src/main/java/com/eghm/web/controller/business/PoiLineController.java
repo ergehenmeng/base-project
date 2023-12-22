@@ -8,7 +8,9 @@ import com.eghm.dto.poi.LinePointBindRequest;
 import com.eghm.dto.poi.PoiLineAddRequest;
 import com.eghm.dto.poi.PoiLineEditRequest;
 import com.eghm.dto.poi.PoiLineQueryRequest;
+import com.eghm.model.PoiLine;
 import com.eghm.service.business.PoiLineService;
+import com.eghm.vo.poi.LinePointResponse;
 import com.eghm.vo.poi.PoiLineResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -63,5 +65,18 @@ public class PoiLineController {
         return RespBody.success();
     }
 
+    @GetMapping("/bindDetail")
+    @ApiOperation("绑定详情")
+    public RespBody<LinePointResponse> bindDetail(@Validated IdDTO dto) {
+        LinePointResponse response = poiLineService.getLinePoint(dto.getId());
+        return RespBody.success(response);
+    }
+
+    @GetMapping("/select")
+    @ApiOperation("详情")
+    public RespBody<PoiLine> select(@Validated IdDTO dto) {
+        PoiLine poiLine = poiLineService.selectByIdRequired(dto.getId());
+        return RespBody.success(poiLine);
+    }
 
 }

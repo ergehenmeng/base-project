@@ -7,6 +7,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.poi.PoiPointAddRequest;
 import com.eghm.dto.poi.PoiPointEditRequest;
 import com.eghm.dto.poi.PoiPointQueryRequest;
+import com.eghm.model.PoiPoint;
 import com.eghm.service.business.PoiPointService;
 import com.eghm.vo.poi.PoiPointResponse;
 import io.swagger.annotations.Api;
@@ -53,5 +54,12 @@ public class PoiPointController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         poiPointService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/select")
+    @ApiOperation("详情")
+    public RespBody<PoiPoint> select(@Validated IdDTO dto) {
+        PoiPoint poiPoint = poiPointService.selectByIdRequired(dto.getId());
+        return RespBody.success(poiPoint);
     }
 }

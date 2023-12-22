@@ -1377,6 +1377,11 @@ public enum ErrorCode {
     AREA_POINT_REDO(3695,"点位名称重复"),
 
     /**
+     * POI点位信息不存在
+     */
+    AREA_POINT_NULL(3696,"POI点位信息不存在"),
+
+    /**
      * 线路名称重复
      */
     POI_LINE_REDO(3700,"线路名称重复"),

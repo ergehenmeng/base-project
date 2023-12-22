@@ -60,6 +60,15 @@ public class PoiPointServiceImpl implements PoiPointService {
     }
 
     @Override
+    public PoiPoint selectByIdRequired(Long id) {
+        PoiPoint poiPoint = poiPointMapper.selectById(id);
+        if (poiPoint == null) {
+            throw new BusinessException(ErrorCode.AREA_POINT_NULL);
+        }
+        return poiPoint;
+    }
+
+    @Override
     public List<BasePointResponse> getList(String areaCode) {
         return poiPointMapper.getList(areaCode);
     }

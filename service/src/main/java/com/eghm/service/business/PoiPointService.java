@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.poi.PoiPointAddRequest;
 import com.eghm.dto.poi.PoiPointEditRequest;
 import com.eghm.dto.poi.PoiPointQueryRequest;
+import com.eghm.model.PoiPoint;
 import com.eghm.vo.poi.BasePointResponse;
 import com.eghm.vo.poi.PoiPointResponse;
 
@@ -43,6 +44,13 @@ public interface PoiPointService {
      * @param id poi点位信息id
      */
     void deleteById(Long id);
+
+    /**
+     * 详细信息
+     * @param id id
+     * @return 点位信息
+     */
+    PoiPoint selectByIdRequired(Long id);
 
     /**
      * 根据区域查询点位列表

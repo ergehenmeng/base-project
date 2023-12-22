@@ -49,4 +49,5 @@ public interface PoiTypeService {
      * @return 列表
      */
     List<PoiTypeResponse> getList(String areaCode);
+
 }
