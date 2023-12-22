@@ -22,4 +22,12 @@
         </if>
         order by id desc
     </select>
+
+    <select id="getList" resultType="com.eghm.vo.poi.PoiTypeResponse">
+        select
+        id,
+        title
+        from poi_type where deleted = false and area_code = #{areaCode} order by id desc
+    </select>
+
 </mapper>

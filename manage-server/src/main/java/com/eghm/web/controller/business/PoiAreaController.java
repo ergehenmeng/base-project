@@ -31,14 +31,14 @@ public class PoiAreaController {
 
     private final PoiAreaService poiAreaService;
 
-    @ApiOperation("分页列表")
+    @ApiOperation("列表")
     @GetMapping("/listPage")
     public RespBody<PageData<PoiArea>> getByPage(PagingQuery request) {
         Page<PoiArea> byPage = poiAreaService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 
-    @ApiOperation("创建区域")
+    @ApiOperation("创建")
     @PostMapping("/create")
     public RespBody<Void> create(@Validated @RequestBody PoiAreaAddRequest request) {
         poiAreaService.create(request);
@@ -46,7 +46,7 @@ public class PoiAreaController {
     }
 
     @PostMapping("/update")
-    @ApiOperation("更新区域")
+    @ApiOperation("更新")
     public RespBody<Void> update(@Validated @RequestBody PoiAreaEditRequest request) {
         poiAreaService.update(request);
         return RespBody.success();
@@ -66,8 +66,8 @@ public class PoiAreaController {
         return RespBody.success();
     }
 
-    @ApiOperation("列表")
     @GetMapping("/list")
+    @ApiOperation("全部")
     public RespBody<List<PoiAreaResponse>> list() {
         List<PoiAreaResponse> byPage = poiAreaService.getList();
         return RespBody.success(byPage);

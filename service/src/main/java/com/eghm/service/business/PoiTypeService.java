@@ -1,13 +1,12 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.ext.PagingQuery;
 import com.eghm.dto.poi.PoiTypeAddRequest;
 import com.eghm.dto.poi.PoiTypeEditRequest;
 import com.eghm.dto.poi.PoiTypeQueryRequest;
-import com.eghm.model.PoiType;
-import com.eghm.vo.poi.PoiPointResponse;
 import com.eghm.vo.poi.PoiTypeResponse;
+
+import java.util.List;
 
 /**
  * <p>
@@ -43,4 +42,11 @@ public interface PoiTypeService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 根据区域查询poi类型
+     * @param areaCode 区域
+     * @return 列表
+     */
+    List<PoiTypeResponse> getList(String areaCode);
 }

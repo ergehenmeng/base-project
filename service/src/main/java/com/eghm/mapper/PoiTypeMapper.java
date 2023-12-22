@@ -7,6 +7,8 @@ import com.eghm.model.PoiType;
 import com.eghm.vo.poi.PoiTypeResponse;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * poi类型表 Mapper 接口
@@ -24,4 +26,11 @@ public interface PoiTypeMapper extends BaseMapper<PoiType> {
      * @return 列表
      */
     Page<PoiTypeResponse> getByPage(Page<PoiTypeResponse> page, @Param("param") PoiTypeQueryRequest request);
+
+    /**
+     * 根据区域查询
+     * @param areaCode 区域编号
+     * @return 列表
+     */
+    List<PoiTypeResponse> getList(@Param("areaCode") String areaCode);
 }

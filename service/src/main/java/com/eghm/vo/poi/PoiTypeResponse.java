@@ -1,6 +1,7 @@
 package com.eghm.vo.poi;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
  * @since 2023-12-20
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PoiTypeResponse {
 
     @ApiModelProperty("id主键")

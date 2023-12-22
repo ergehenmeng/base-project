@@ -19,6 +19,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * poi类型表 服务实现类
@@ -64,6 +66,11 @@ public class PoiTypeServiceImpl implements PoiTypeService {
             throw new BusinessException(ErrorCode.TYPE_POINT_OCCUPY);
         }
         poiTypeMapper.deleteById(id);
+    }
+
+    @Override
+    public List<PoiTypeResponse> getList(String areaCode) {
+        return poiTypeMapper.getList(areaCode);
     }
 
     /**

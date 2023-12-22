@@ -10,10 +10,13 @@ import com.eghm.dto.poi.PoiTypeQueryRequest;
 import com.eghm.service.business.PoiTypeService;
 import com.eghm.vo.poi.PoiTypeResponse;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -53,5 +56,13 @@ public class PoiTypeController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         poiTypeService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("全部")
+    @ApiImplicitParam(name = "areaCode", value = "区域编码", required = true)
+    public RespBody<List<PoiTypeResponse>> list(@RequestParam("areaCode") String areaCode) {
+        List<PoiTypeResponse> serviceList = poiTypeService.getList(areaCode);
+        return RespBody.success(serviceList);
     }
 }
