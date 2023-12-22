@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.interceptor.InterceptorAdapter;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.UserToken;
 import com.eghm.enums.ErrorCode;
 import com.eghm.model.SysMenu;
@@ -14,6 +13,7 @@ import com.eghm.utils.WebUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
@@ -41,7 +41,7 @@ public class PermInterceptor implements InterceptorAdapter {
         PERM_MAP.clear();
         for (SysMenu menu : selectList) {
             if (StrUtil.isNotBlank(menu.getSubPath())) {
-                for (String subUrl : StrUtil.splitToArray(menu.getSubPath(), ',')) {
+                for (String subUrl : StringUtils.tokenizeToStringArray(menu.getSubPath(), ",; ")) {
                     PERM_MAP.put(subUrl, menu.getCode());
                 }
             }
