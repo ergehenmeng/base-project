@@ -1377,6 +1377,11 @@ public enum ErrorCode {
     AREA_POINT_REDO(3695,"点位名称重复"),
 
     /**
+     * 线路名称重复
+     */
+    POI_LINE_REDO(3700,"线路名称重复"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),
