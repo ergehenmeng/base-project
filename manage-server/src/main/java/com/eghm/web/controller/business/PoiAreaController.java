@@ -10,11 +10,14 @@ import com.eghm.dto.poi.PoiAreaEditRequest;
 import com.eghm.dto.poi.StateRequest;
 import com.eghm.model.PoiArea;
 import com.eghm.service.business.PoiAreaService;
+import com.eghm.vo.poi.PoiAreaResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -28,7 +31,7 @@ public class PoiAreaController {
 
     private final PoiAreaService poiAreaService;
 
-    @ApiOperation("列表")
+    @ApiOperation("分页列表")
     @GetMapping("/listPage")
     public RespBody<PageData<PoiArea>> getByPage(PagingQuery request) {
         Page<PoiArea> byPage = poiAreaService.getByPage(request);
@@ -61,5 +64,12 @@ public class PoiAreaController {
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         poiAreaService.deleteById(dto.getId());
         return RespBody.success();
+    }
+
+    @ApiOperation("列表")
+    @GetMapping("/list")
+    public RespBody<List<PoiAreaResponse>> list() {
+        List<PoiAreaResponse> byPage = poiAreaService.getList();
+        return RespBody.success(byPage);
     }
 }

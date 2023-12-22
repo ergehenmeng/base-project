@@ -15,9 +15,12 @@ import com.eghm.mapper.PoiAreaMapper;
 import com.eghm.model.PoiArea;
 import com.eghm.service.business.PoiAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.poi.PoiAreaResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -42,6 +45,11 @@ public class PoiAreaServiceImpl implements PoiAreaService {
                         .or().like(PoiArea::getCode, query.getQueryName()));
         wrapper.last(" order by id desc ");
         return poiAreaMapper.selectPage(query.createPage(), wrapper);
+    }
+
+    @Override
+    public List<PoiAreaResponse> getList() {
+        return poiAreaMapper.getList();
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.eghm.mapper;
 
 import com.eghm.model.PoiArea;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.poi.PoiAreaResponse;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PoiAreaMapper extends BaseMapper<PoiArea> {
 
+    /**
+     * 全部列表
+     *
+     * @return 列表
+     */
+    List<PoiAreaResponse> getList();
 }
