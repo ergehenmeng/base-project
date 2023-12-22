@@ -8,6 +8,9 @@ import com.eghm.dto.poi.PoiLineQueryRequest;
 import com.eghm.model.PoiLine;
 import com.eghm.vo.poi.LinePointResponse;
 import com.eghm.vo.poi.PoiLineResponse;
+import com.eghm.vo.poi.PoiLineVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -63,4 +66,11 @@ public interface PoiLineService {
      * @return poi线路
      */
     PoiLine selectByIdRequired(Long id);
+
+    /**
+     * 查询所有线路
+     * @param areaCode 区域编号
+     * @return 列表
+     */
+    List<PoiLineVO> getList(String areaCode);
 }

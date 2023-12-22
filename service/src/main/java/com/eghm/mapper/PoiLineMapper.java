@@ -5,6 +5,10 @@ import com.eghm.dto.poi.PoiLineQueryRequest;
 import com.eghm.model.PoiLine;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.poi.PoiLineResponse;
+import com.eghm.vo.poi.PoiLineVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,4 +27,11 @@ public interface PoiLineMapper extends BaseMapper<PoiLine> {
      * @return 列表
      */
     Page<PoiLineResponse> getByPage(Page<PoiLineResponse> page, PoiLineQueryRequest request);
+
+    /**
+     * 查询线路列表
+     * @param areaCode 区域编码
+     * @return 线路列表
+     */
+    List<PoiLineVO> getList(@Param("areaCode") String areaCode);
 }

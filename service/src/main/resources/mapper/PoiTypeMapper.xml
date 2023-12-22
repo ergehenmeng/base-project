@@ -20,14 +20,15 @@
         <if test="param.queryName != null and param.queryName != '' ">
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
-        order by id desc
+        order by sort, id desc
     </select>
 
     <select id="getList" resultType="com.eghm.vo.poi.PoiTypeResponse">
         select
         id,
+        icon,
         title
-        from poi_type where deleted = false and area_code = #{areaCode} order by id desc
+        from poi_type where deleted = false and area_code = #{areaCode} order by sort, id desc
     </select>
 
 </mapper>

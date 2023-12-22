@@ -7,6 +7,8 @@ import com.eghm.dto.poi.PoiPointQueryRequest;
 import com.eghm.model.PoiPoint;
 import com.eghm.vo.poi.BasePointResponse;
 import com.eghm.vo.poi.PoiPointResponse;
+import com.eghm.vo.poi.PoiPointVO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -58,4 +60,11 @@ public interface PoiPointService {
      * @return 点位信息
      */
     List<BasePointResponse> getList(String areaCode);
+
+    /**
+     * 根据类型查询点位列表
+     * @param typeId 类型id
+     * @return 点位列表
+     */
+    List<PoiPointVO> pointList(Long typeId);
 }

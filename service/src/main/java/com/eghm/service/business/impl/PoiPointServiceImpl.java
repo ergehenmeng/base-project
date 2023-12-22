@@ -14,6 +14,7 @@ import com.eghm.service.business.PoiPointService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.poi.BasePointResponse;
 import com.eghm.vo.poi.PoiPointResponse;
+import com.eghm.vo.poi.PoiPointVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -71,6 +72,11 @@ public class PoiPointServiceImpl implements PoiPointService {
     @Override
     public List<BasePointResponse> getList(String areaCode) {
         return poiPointMapper.getList(areaCode);
+    }
+
+    @Override
+    public List<PoiPointVO> pointList(Long typeId) {
+        return poiPointMapper.pointList(typeId);
     }
 
     /**

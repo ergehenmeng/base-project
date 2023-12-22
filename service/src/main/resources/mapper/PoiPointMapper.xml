@@ -39,4 +39,15 @@
         where t.deleted = false and t.area_code = #{param.areaCode} order by id desc
     </select>
 
+    <select id="pointList" resultType="com.eghm.vo.poi.PoiPointVO" >
+        select
+        id,
+        title,
+        cover_url,
+        latitude,
+        longitude,
+        detail_address
+        from poi_point
+        where deleted = false and type_id = #{typeId} order by id desc
+    </select>
 </mapper>

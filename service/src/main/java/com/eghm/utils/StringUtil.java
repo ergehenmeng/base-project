@@ -247,10 +247,10 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        int pid = 101411;
+        int pid = 101513;
         StringBuilder builder = new StringBuilder();
         builder.append("\r\n");
-        builder.append(sql(pid, "替换", 1014, 1, 20)).append("\r\n");
+        builder.append(sql(pid, "替换", 101513, 1, 10)).append("\r\n");
 
         int start = Integer.parseInt(pid + "10");
         int index = 1;

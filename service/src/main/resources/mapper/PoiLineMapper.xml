@@ -22,4 +22,39 @@
         order by id desc
     </select>
 
+    <select id="getList" resultMap="lineResultMap" >
+        select
+        t.id,
+        t.title,
+        t.cover_url,
+        t.play_time,
+        p.id as pointId,
+        p.cover_url,
+        p.title as pointTitle,
+        p.longitude,
+        p.latitude,
+        p.detail_address
+        from poi_line t
+        inner join poi_line_point r on t.id = r.line_id
+        left join poi_point p on r.point_id = p.id
+        where t.deleted = false and r.deleted = false and t.area_code = #{areaCode}
+        order by t.id desc, r.sort
+    </select>
+
+    <resultMap id="lineResultMap" type="com.eghm.vo.poi.PoiLineVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="coverUrl" column="cover_url"/>
+        <result property="playTime" column="play_time"/>
+
+        <collection property="pointList" ofType="com.eghm.vo.poi.PoiPointVO">
+            <id property="id" column="pointId"/>
+            <result property="coverUrl" column="cover_url"/>
+            <result property="title" column="pointTitle"/>
+            <result property="longitude" column="longitude"/>
+            <result property="latitude" column="latitude"/>
+            <result property="detailAddress" column="detail_address"/>
+        </collection>
+    </resultMap>
+
 </mapper>

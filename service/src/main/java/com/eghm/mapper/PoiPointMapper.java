@@ -6,6 +6,7 @@ import com.eghm.dto.poi.PoiPointQueryRequest;
 import com.eghm.model.PoiPoint;
 import com.eghm.vo.poi.BasePointResponse;
 import com.eghm.vo.poi.PoiPointResponse;
+import com.eghm.vo.poi.PoiPointVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -34,4 +35,11 @@ public interface PoiPointMapper extends BaseMapper<PoiPoint> {
      * @return 点位信息
      */
     List<BasePointResponse> getList(@Param("areaCode") String areaCode);
+
+    /**
+     * 根据类型查询点位列表
+     * @param typeId 类型id
+     * @return 点位列表
+     */
+    List<PoiPointVO> pointList(Long typeId);
 }

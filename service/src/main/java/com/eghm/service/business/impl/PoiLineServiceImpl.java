@@ -21,6 +21,7 @@ import com.eghm.utils.DataUtil;
 import com.eghm.vo.poi.BasePointResponse;
 import com.eghm.vo.poi.LinePointResponse;
 import com.eghm.vo.poi.PoiLineResponse;
+import com.eghm.vo.poi.PoiLineVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -106,6 +107,11 @@ public class PoiLineServiceImpl implements PoiLineService {
             throw new BusinessException(ErrorCode.POI_LINE_NULL);
         }
         return poiLine;
+    }
+
+    @Override
+    public List<PoiLineVO> getList(String areaCode) {
+        return poiLineMapper.getList(areaCode);
     }
 
     /**
