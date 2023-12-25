@@ -56,7 +56,7 @@ public class CouponConfigController {
     @GetMapping("/select")
     @ApiOperation("查询优惠券")
     public RespBody<CouponConfig> select(@Validated IdDTO dto) {
-        CouponConfig config = couponConfigService.selectById(dto.getId());
+        CouponConfig config = couponConfigService.selectByIdRequired(dto.getId());
         return RespBody.success(config);
     }
 

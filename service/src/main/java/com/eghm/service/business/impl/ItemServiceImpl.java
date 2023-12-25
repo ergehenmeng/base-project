@@ -18,7 +18,6 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.*;
@@ -66,7 +65,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final ExpressTemplateService expressTemplateService;
 
-    private final CouponConfigMapper couponConfigMapper;
+    private final CouponConfigService couponConfigService;
 
     private final OrderEvaluationService orderEvaluationService;
 
@@ -218,11 +217,7 @@ public class ItemServiceImpl implements ItemService {
     
     @Override
     public List<ItemListVO> getCouponScopeByPage(ItemCouponQueryDTO dto) {
-        CouponConfig coupon = couponConfigMapper.selectById(dto.getCouponId());
-        if (coupon == null) {
-            log.error("优惠券不存在 [{}]", dto.getCouponId());
-            throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
-        }
+        CouponConfig coupon = couponConfigService.selectByIdRequired(dto.getCouponId());
         // 增加过滤条件,提高查询效率
         dto.setStoreId(coupon.getStoreId());
         dto.setUseScope(coupon.getUseScope());

@@ -11,6 +11,7 @@ import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
 import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
+import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.CouponConfigMapper;
 import com.eghm.mapper.ItemMapper;
@@ -96,6 +97,16 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     @Override
     public CouponConfig selectById(Long id) {
         return couponConfigMapper.selectById(id);
+    }
+
+    @Override
+    public CouponConfig selectByIdRequired(Long id) {
+        CouponConfig config = this.selectById(id);
+        if (config == null) {
+            log.error("优惠券不存在 [{}]", id);
+            throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
+        }
+        return config;
     }
 
     @Override
