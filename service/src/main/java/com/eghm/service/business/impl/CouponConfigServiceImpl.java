@@ -18,7 +18,7 @@ import com.eghm.mapper.ItemMapper;
 import com.eghm.model.CouponConfig;
 import com.eghm.model.Item;
 import com.eghm.service.business.CouponConfigService;
-import com.eghm.service.business.CouponProductService;
+import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.coupon.CouponListVO;
@@ -44,7 +44,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
 
     private final CouponConfigMapper couponConfigMapper;
 
-    private final CouponProductService couponProductService;
+    private final CouponScopeService couponScopeService;
 
     private final MemberCouponService memberCouponService;
 
@@ -76,14 +76,14 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     public void create(CouponConfigAddRequest request) {
         CouponConfig config = DataUtil.copy(request, CouponConfig.class);
         couponConfigMapper.insert(config);
-        couponProductService.insert(config.getId(), request.getItemList());
+        couponScopeService.insert(config.getId(), request.getItemList());
     }
 
     @Override
     public void update(CouponConfigEditRequest request) {
         CouponConfig config = DataUtil.copy(request, CouponConfig.class);
         couponConfigMapper.updateById(config);
-        couponProductService.insertWithDelete(config.getId(), request.getItemList());
+        couponScopeService.insertWithDelete(config.getId(), request.getItemList());
     }
 
     @Override

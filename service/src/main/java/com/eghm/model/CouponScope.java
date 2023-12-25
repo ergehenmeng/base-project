@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.eghm.enums.ref.ProductType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -22,9 +21,8 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
-@TableName("coupon_product")
-@EqualsAndHashCode(callSuper = false)
-public class CouponProduct implements Serializable {
+@TableName("coupon_scope")
+public class CouponScope implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,7 +42,7 @@ public class CouponProduct implements Serializable {
     @ApiModelProperty(value = "添加时间")
     private LocalDateTime createTime;
 
-    public CouponProduct(Long couponConfigId, ProductType productType, Long productId) {
+    public CouponScope(Long couponConfigId, ProductType productType, Long productId) {
         this.couponConfigId = couponConfigId;
         this.productType = productType;
         this.productId = productId;
