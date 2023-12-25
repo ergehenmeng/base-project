@@ -79,6 +79,11 @@ public class PoiPointServiceImpl implements PoiPointService {
         return poiPointMapper.pointList(typeId);
     }
 
+    @Override
+    public List<PoiPointVO> searchPointList(String areaCode, String queryName) {
+        return poiPointMapper.queryList(areaCode, queryName);
+    }
+
     /**
      * 校验区域点位是否重复
      *

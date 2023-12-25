@@ -50,4 +50,22 @@
         from poi_point
         where deleted = false and type_id = #{typeId} order by id desc
     </select>
+
+
+    <select id="queryList" resultType="com.eghm.vo.poi.PoiPointVO" >
+        select
+            id,
+            title,
+            cover_url,
+            latitude,
+            longitude,
+            detail_address
+        from poi_point
+        where deleted = false and area_code = #{areaCode}
+        <if test="queryName != null and queryName!= '' ">
+            and title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        order by id desc
+    </select>
+
 </mapper>

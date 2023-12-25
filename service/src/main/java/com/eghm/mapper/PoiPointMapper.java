@@ -42,4 +42,12 @@ public interface PoiPointMapper extends BaseMapper<PoiPoint> {
      * @return 点位列表
      */
     List<PoiPointVO> pointList(Long typeId);
+
+    /**
+     * 根据区域查询点位列表
+     * @param areaCode  区域编号
+     * @param queryName 查询名称
+     * @return 点位列表
+     */
+    List<PoiPointVO> queryList(@Param("areaCode") String areaCode, @Param("queryName") String queryName);
 }

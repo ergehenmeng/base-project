@@ -1,16 +1,21 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.IdDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.PoiLine;
 import com.eghm.service.business.PoiLineService;
 import com.eghm.service.business.PoiPointService;
 import com.eghm.service.business.PoiTypeService;
+import com.eghm.utils.DataUtil;
 import com.eghm.vo.poi.PoiLineVO;
 import com.eghm.vo.poi.PoiPointVO;
 import com.eghm.vo.poi.PoiTypeResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +43,7 @@ public class PoiController {
     @GetMapping("/typeList")
     @ApiOperation("poi类型列表")
     @ApiImplicitParam(name = "areaCode", value = "区域编码", required = true)
-    public RespBody<List<PoiTypeResponse>> list(@RequestParam("areaCode") String areaCode) {
+    public RespBody<List<PoiTypeResponse>> typeList(@RequestParam("areaCode") String areaCode) {
         List<PoiTypeResponse> serviceList = poiTypeService.getList(areaCode);
         return RespBody.success(serviceList);
     }
@@ -46,7 +51,7 @@ public class PoiController {
     @GetMapping("/pointList")
     @ApiOperation("poi点位列表")
     @ApiImplicitParam(name = "typeId", value = "区域类型id", required = true)
-    public RespBody<List<PoiPointVO>> list(@RequestParam("typeId") Long typeId) {
+    public RespBody<List<PoiPointVO>> pointList(@RequestParam("typeId") Long typeId) {
         List<PoiPointVO> pointList = poiPointService.pointList(typeId);
         return RespBody.success(pointList);
     }
@@ -57,5 +62,23 @@ public class PoiController {
     public RespBody<List<PoiLineVO>> lineList(@RequestParam("areaCode") String areaCode) {
         List<PoiLineVO> pointList = poiLineService.getList(areaCode);
         return RespBody.success(pointList);
+    }
+
+    @GetMapping("/pointSearch")
+    @ApiOperation("poi点位列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "areaCode", value = "区域编号", required = true),
+            @ApiImplicitParam(name = "queryName", value = "搜索条件", required = true)
+    })
+    public RespBody<List<PoiPointVO>> pointSearch(@RequestParam("areaCode") String areaCode, @RequestParam("areaCode") String queryName) {
+        List<PoiPointVO> pointList = poiPointService.searchPointList(areaCode, queryName);
+        return RespBody.success(pointList);
+    }
+
+    @GetMapping("/pointDetail")
+    @ApiOperation("点位详情")
+    public RespBody<PoiLineVO> pointDetail(@Validated IdDTO dto) {
+        PoiLine point = poiLineService.selectByIdRequired(dto.getId());
+        return RespBody.success(DataUtil.copy(point, PoiLineVO.class));
     }
 }

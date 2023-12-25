@@ -34,4 +34,6 @@ public class PoiPointVO {
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
 
+    @ApiModelProperty(value = "介绍")
+    private String introduce;
 }
