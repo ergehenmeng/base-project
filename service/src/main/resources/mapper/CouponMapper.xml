@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.mapper.CouponConfigMapper">
+<mapper namespace="com.eghm.mapper.CouponMapper">
 
     <update id="updateStock" >
-        update coupon_config set stock = stock + #{num}, receive_num = receive_num - #{num}
+        update coupon set stock = stock + #{num}, receive_num = receive_num - #{num}
         where id = #{id} and stock + #{num} &gt;= 0 and deleted = false and state = true
     </update>
 
@@ -20,7 +20,7 @@
         use_start_time,
         use_end_time,
         instruction
-        from coupon_config where deleted = false and stock &gt; 0 and state = 1 and `mode` = 1
+        from coupon where deleted = false and stock &gt; 0 and state = 1 and `mode` = 1
         and now() between start_time and end_time
     </select>
 
@@ -36,7 +36,7 @@
             r.use_start_time,
             r.use_end_time,
             r.instruction
-        from coupon_config r left join coupon_item t on t.coupon_config_id = r.id
+        from coupon r left join coupon_scope t on t.coupon_id = r.id
         where r.deleted = false and r.stock &gt; 0 and r.state = 1 and r.`mode` = 1
         <!-- 商品券或店铺券都过滤 注意 storeId为空时 默认查询自营商品的优惠券 -->
         and ((t.product_id = #{productId} and r.use_scope = 2)  or (r.use_scope = 1 and r.store_id = #{storeId}))

@@ -119,7 +119,7 @@
         from item t where t.deleted = false and t.state = 1 and t.min_price &gt; 0
         and t.store_id = #{storeId}
         <if test="param.useScope == 2">
-            and exists (select 1 from coupon_item r where t.id  = r.product_id and r.coupon_config_id = #{couponId} )
+            and exists (select 1 from coupon_scope r where t.id  = r.product_id and r.coupon_id = #{couponId} )
         </if>
         <if test="param.tagId != null and param.tagId != ''">
             t.tag_id like concat(#{param.tagId} ,'%')

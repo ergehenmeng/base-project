@@ -24,7 +24,7 @@ public class GrantCouponDTO {
 
     @ApiModelProperty("优惠券id")
     @NotNull(message = "优惠券id不能为空")
-    private Long couponConfigId;
+    private Long couponId;
 
     @ApiModelProperty("发放数量")
     @RangeInt(min = 1, max = 99, message = "发放数量1~99")

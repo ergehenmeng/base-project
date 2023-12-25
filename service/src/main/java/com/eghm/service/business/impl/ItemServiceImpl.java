@@ -65,7 +65,7 @@ public class ItemServiceImpl implements ItemService {
 
     private final ExpressTemplateService expressTemplateService;
 
-    private final CouponConfigService couponConfigService;
+    private final CouponService couponService;
 
     private final OrderEvaluationService orderEvaluationService;
 
@@ -217,7 +217,7 @@ public class ItemServiceImpl implements ItemService {
     
     @Override
     public List<ItemListVO> getCouponScopeByPage(ItemCouponQueryDTO dto) {
-        CouponConfig coupon = couponConfigService.selectByIdRequired(dto.getCouponId());
+        Coupon coupon = couponService.selectByIdRequired(dto.getCouponId());
         // 增加过滤条件,提高查询效率
         dto.setStoreId(coupon.getStoreId());
         dto.setUseScope(coupon.getUseScope());

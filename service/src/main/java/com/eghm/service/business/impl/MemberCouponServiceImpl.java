@@ -10,9 +10,9 @@ import com.eghm.enums.ref.CouponMode;
 import com.eghm.enums.ref.CouponState;
 import com.eghm.enums.ref.CouponType;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.CouponConfigMapper;
+import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.MemberCouponMapper;
-import com.eghm.model.CouponConfig;
+import com.eghm.model.Coupon;
 import com.eghm.model.MemberCoupon;
 import com.eghm.dto.business.coupon.member.GrantCouponDTO;
 import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
@@ -47,7 +47,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
 
     private final MemberCouponMapper memberCouponMapper;
 
-    private final CouponConfigMapper couponConfigMapper;
+    private final CouponMapper couponMapper;
 
     private final CouponScopeService couponScopeService;
 
@@ -67,7 +67,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.SUPPORTS)
     public void grantCoupon(GrantCouponDTO dto) {
         ReceiveCouponDTO coupon = new ReceiveCouponDTO();
-        coupon.setCouponConfigId(dto.getCouponConfigId());
+        coupon.setCouponId(dto.getCouponId());
         coupon.setNum(dto.getNum());
         coupon.setMode(CouponMode.GRANT);
         for (Long memberId : dto.getMemberIdList()) {
@@ -79,7 +79,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     @Override
     public int receiveCount(Long couponId, Long memberId) {
         LambdaQueryWrapper<MemberCoupon> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(MemberCoupon::getCouponConfigId, couponId);
+        wrapper.eq(MemberCoupon::getCouponId, couponId);
         wrapper.eq(MemberCoupon::getMemberId, memberId);
         Long count = memberCouponMapper.selectCount(wrapper);
         return count != null ? count.intValue() : 0;
@@ -113,12 +113,12 @@ public class MemberCouponServiceImpl implements MemberCouponService {
             throw new BusinessException(ErrorCode.COUPON_USE_ERROR);
         }
 
-        boolean match = couponScopeService.match(coupon.getCouponConfigId(), productId);
+        boolean match = couponScopeService.match(coupon.getCouponId(), productId);
         if (!match) {
             log.error("商品无法匹配该优惠券 [{}] [{}]", couponId, productId);
             throw new BusinessException(ErrorCode.COUPON_MATCH);
         }
-        CouponConfig config = couponConfigMapper.selectById(coupon.getCouponConfigId());
+        Coupon config = couponMapper.selectById(coupon.getCouponId());
         LocalDateTime now = LocalDateTime.now();
         if (config.getUseStartTime().isAfter(now) || config.getUseEndTime().isBefore(now)) {
             log.error("优惠券不在有效期 [{}] [{}] [{}]", couponId, config.getStartTime(), config.getUseEndTime());
@@ -156,7 +156,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
             log.warn("该优惠券未使用,不需要释放 [{}]", id);
             return;
         }
-        CouponConfig config = couponConfigMapper.selectById(coupon.getCouponConfigId());
+        Coupon config = couponMapper.selectById(coupon.getCouponId());
         LocalDateTime now = LocalDateTime.now();
         // 优惠券在有效期则改为未使用,否则改为已过期
         if (config.getUseStartTime().isBefore(now) && config.getUseEndTime().isAfter(now)) {
@@ -182,17 +182,17 @@ public class MemberCouponServiceImpl implements MemberCouponService {
      * @param dto 发放信息
      */
     private void doGrantCoupon(ReceiveCouponDTO dto) {
-        CouponConfig config = couponConfigMapper.selectById(dto.getCouponConfigId());
+        Coupon config = couponMapper.selectById(dto.getCouponId());
         this.checkCoupon(config, dto);
         MemberCoupon coupon = new MemberCoupon();
         coupon.setMemberId(dto.getMemberId());
-        coupon.setCouponConfigId(dto.getCouponConfigId());
+        coupon.setCouponId(dto.getCouponId());
         coupon.setState(CouponState.UNUSED);
         coupon.setReceiveTime(LocalDateTime.now());
         memberCouponMapper.insert(coupon);
-        int stock = couponConfigMapper.updateStock(dto.getCouponConfigId(), -1);
+        int stock = couponMapper.updateStock(dto.getCouponId(), -1);
         if (stock != 1) {
-            log.error("优惠券库存更新异常 [{}]", dto.getCouponConfigId());
+            log.error("优惠券库存更新异常 [{}]", dto.getCouponId());
             throw new BusinessException(ErrorCode.COUPON_EMPTY);
         }
     }
@@ -202,7 +202,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
      * @param config 优惠券配置信息
      * @param dto  领取信息
      */
-    private void checkCoupon(CouponConfig config, ReceiveCouponDTO dto) {
+    private void checkCoupon(Coupon config, ReceiveCouponDTO dto) {
 
         if (config == null || config.getState() != 1 || (config.getStock() - dto.getNum()) <= 0) {
             log.error("领取优惠券失败, 优惠券可能库存不足 [{}] [{}]", config != null ? config.getState() : -1, config != null ? config.getStock() : -1);

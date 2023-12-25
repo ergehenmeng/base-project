@@ -8,7 +8,7 @@ Token: {{Token}}
 }
 
 ###
-GET http://localhost:9090/webapp/member/coupon/listPage?page=1&pageSize=10&state=1&couponConfigId=xx
+GET http://localhost:9090/webapp/member/coupon/listPage?page=1&pageSize=10&state=1&couponId=xx
 Channel: {{Channel}}
 Token: {{Token}}
 

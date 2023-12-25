@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CouponConfigQueryRequest extends PagingQuery {
+public class CouponQueryRequest extends PagingQuery {
 
     @ApiModelProperty("发放状态 0:未开始 1: 进行中 2: 已结束")
     @OptionInt(value = {0, 1, 2}, message = "发放状态非法", required = false)

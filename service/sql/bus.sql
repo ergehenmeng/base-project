@@ -341,8 +341,8 @@ CREATE TABLE `merchant`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
 
-DROP TABLE IF EXISTS `coupon_config`;
-CREATE TABLE `coupon_config`
+DROP TABLE IF EXISTS `coupon`;
+CREATE TABLE `coupon`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `title`           varchar(30)  DEFAULT NULL COMMENT '优惠券名称',
@@ -375,7 +375,7 @@ DROP TABLE IF EXISTS `coupon_scope`;
 CREATE TABLE `coupon_scope`
 (
     `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `coupon_config_id` bigint(20)  DEFAULT NULL COMMENT '优惠券配置id',
+    `coupon_id` bigint(20)  DEFAULT NULL COMMENT '优惠券id',
     `product_type`     varchar(20) DEFAULT NULL COMMENT '商品类型',
     `product_id`       bigint(20)  DEFAULT NULL COMMENT '商品id',
     `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -388,7 +388,7 @@ DROP TABLE IF EXISTS `member_coupon`;
 CREATE TABLE `member_coupon`
 (
     `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `coupon_config_id` bigint(20) DEFAULT NULL COMMENT '优惠券配置id',
+    `coupon_id` bigint(20) DEFAULT NULL COMMENT '优惠券id',
     `member_id`        bigint(20) DEFAULT NULL COMMENT '用户id',
     `state`            tinyint(1) DEFAULT '0' COMMENT '使用状态 0:未使用 1:已使用 2:已过期',
     `receive_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '领取时间',

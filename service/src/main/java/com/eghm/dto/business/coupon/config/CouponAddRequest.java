@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2022/7/13
  */
 @Data
-public class CouponConfigAddRequest {
+public class CouponAddRequest {
 
     @ApiModelProperty(value = "优惠券名称", required = true)
     @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")

@@ -30,8 +30,8 @@ public class CouponScope implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
-    @ApiModelProperty(value = "优惠券配置id")
-    private Long couponConfigId;
+    @ApiModelProperty(value = "优惠券id")
+    private Long couponId;
 
     @ApiModelProperty(value = "商品类型")
     private ProductType productType;
@@ -42,8 +42,8 @@ public class CouponScope implements Serializable {
     @ApiModelProperty(value = "添加时间")
     private LocalDateTime createTime;
 
-    public CouponScope(Long couponConfigId, ProductType productType, Long productId) {
-        this.couponConfigId = couponConfigId;
+    public CouponScope(Long couponId, ProductType productType, Long productId) {
+        this.couponId = couponId;
         this.productType = productType;
         this.productId = productId;
     }

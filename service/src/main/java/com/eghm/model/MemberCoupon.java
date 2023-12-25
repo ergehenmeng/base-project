@@ -26,8 +26,8 @@ public class MemberCoupon extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "优惠券配置id")
-    private Long couponConfigId;
+    @ApiModelProperty(value = "优惠券id")
+    private Long couponId;
 
     @ApiModelProperty(value = "用户id")
     private Long memberId;

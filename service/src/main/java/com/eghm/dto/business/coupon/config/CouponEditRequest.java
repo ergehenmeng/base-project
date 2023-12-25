@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2022/7/13
  */
 @Data
-public class CouponConfigEditRequest {
+public class CouponEditRequest {
 
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")

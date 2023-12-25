@@ -25,10 +25,10 @@ import java.time.LocalDateTime;
  * @since 2022-07-13
  */
 @Data
-@TableName("coupon_config")
+@TableName("coupon")
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CouponConfig extends BaseEntity implements Serializable {
+public class Coupon extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

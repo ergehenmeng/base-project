@@ -16,7 +16,7 @@ public class ReceiveCouponDTO {
 
     @ApiModelProperty("优惠券id")
     @NotNull(message = "优惠券id不能为空")
-    private Long couponConfigId;
+    private Long couponId;
 
     @ApiModelProperty(hidden = true, value = "用户id")
     @Assign

@@ -2,7 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.CouponConfig;
+import com.eghm.model.Coupon;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.vo.business.coupon.CouponListVO;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +17,7 @@ import java.util.List;
  * @author 二哥很猛
  * @since 2022-07-13
  */
-public interface CouponConfigMapper extends BaseMapper<CouponConfig> {
+public interface CouponMapper extends BaseMapper<Coupon> {
 
     /**
      * 更新优惠券库存及领取数量

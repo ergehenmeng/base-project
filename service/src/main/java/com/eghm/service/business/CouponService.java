@@ -1,10 +1,10 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.CouponConfig;
-import com.eghm.dto.business.coupon.config.CouponConfigAddRequest;
-import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
-import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.model.Coupon;
+import com.eghm.dto.business.coupon.config.CouponAddRequest;
+import com.eghm.dto.business.coupon.config.CouponEditRequest;
+import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.vo.business.coupon.CouponListVO;
 
@@ -14,26 +14,26 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/7/13
  */
-public interface CouponConfigService {
+public interface CouponService {
 
     /**
      * 分页查询优惠券配置列表
      * @param request 查询条件
      * @return 列表
      */
-    Page<CouponConfig> getByPage(CouponConfigQueryRequest request);
+    Page<Coupon> getByPage(CouponQueryRequest request);
 
     /**
      * 创建优惠券配置信息
      * @param request 优惠券配置信息
      */
-    void create(CouponConfigAddRequest request);
+    void create(CouponAddRequest request);
 
     /**
      * 更新优惠券配置信息
      * @param request 优惠券配置
      */
-    void update(CouponConfigEditRequest request);
+    void update(CouponEditRequest request);
 
     /**
      * 更新优惠券配置状态
@@ -47,14 +47,14 @@ public interface CouponConfigService {
      * @param id id
      * @return 优惠券
      */
-    CouponConfig selectById(Long id);
+    Coupon selectById(Long id);
 
     /**
      * 主键查询
      * @param id id
      * @return 优惠券
      */
-    CouponConfig selectByIdRequired(Long id);
+    Coupon selectByIdRequired(Long id);
 
     /**
      * 分页查询可以领取的优惠券列表  注意如果当前用户已的登陆, 则会根据用户是否领取过该优惠券来返回是否能领取状态

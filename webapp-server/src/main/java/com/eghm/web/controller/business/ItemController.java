@@ -7,7 +7,7 @@ import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.express.ExpressFeeCalcDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ErrorCode;
-import com.eghm.service.business.CouponConfigService;
+import com.eghm.service.business.CouponService;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.coupon.CouponListVO;
 import com.eghm.vo.business.item.ItemListVO;
@@ -34,7 +34,7 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    private final CouponConfigService couponConfigService;
+    private final CouponService couponService;
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
@@ -60,7 +60,7 @@ public class ItemController {
     @GetMapping("/coupon")
     @ApiOperation("商品页可以领取的优惠券")
     public RespBody<List<CouponListVO>> item(@Validated IdDTO dto) {
-        List<CouponListVO> voList = couponConfigService.getItemCoupon(dto.getId());
+        List<CouponListVO> voList = couponService.getItemCoupon(dto.getId());
         return RespBody.success(voList);
     }
 

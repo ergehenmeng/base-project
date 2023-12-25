@@ -24,27 +24,27 @@ public class CouponScopeServiceImpl implements CouponScopeService {
     private final CouponScopeMapper couponScopeMapper;
 
     @Override
-    public void insert(Long couponConfigId, List<CouponScopeRequest> itemList) {
+    public void insert(Long couponId, List<CouponScopeRequest> itemList) {
         if (CollUtil.isEmpty(itemList)) {
             return;
         }
         itemList.forEach(request -> request.getProductIds().forEach(itemId -> couponScopeMapper
-                .insert(new CouponScope(couponConfigId, request.getProductType(), itemId))));
+                .insert(new CouponScope(couponId, request.getProductType(), itemId))));
     }
 
     @Override
-    public void insertWithDelete(Long couponConfigId, List<CouponScopeRequest> productList) {
+    public void insertWithDelete(Long couponId, List<CouponScopeRequest> productList) {
         LambdaUpdateWrapper<CouponScope> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(CouponScope::getCouponConfigId, couponConfigId);
+        wrapper.eq(CouponScope::getCouponId, couponId);
         couponScopeMapper.delete(wrapper);
-        this.insert(couponConfigId, productList);
+        this.insert(couponId, productList);
     }
 
     @Override
-    public boolean match(Long couponConfigId, Long productId) {
+    public boolean match(Long couponId, Long productId) {
         LambdaQueryWrapper<CouponScope> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(CouponScope::getProductId, productId);
-        wrapper.eq(CouponScope::getCouponConfigId, couponConfigId);
+        wrapper.eq(CouponScope::getCouponId, couponId);
         Long count = couponScopeMapper.selectCount(wrapper);
         return count > 0;
     }

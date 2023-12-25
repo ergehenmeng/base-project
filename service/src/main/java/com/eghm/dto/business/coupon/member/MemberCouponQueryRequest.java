@@ -20,7 +20,7 @@ public class MemberCouponQueryRequest extends PagingQuery {
     @OptionInt(value = {0, 1, 2}, message = "使用状态非法", required = false)
     private Integer state;
 
-    @ApiModelProperty("优惠券配置id")
-    private Long couponConfigId;
+    @ApiModelProperty("优惠券id")
+    private Long couponId;
 
 }

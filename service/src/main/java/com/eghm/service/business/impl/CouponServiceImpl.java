@@ -6,18 +6,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.business.coupon.config.CouponConfigAddRequest;
-import com.eghm.dto.business.coupon.config.CouponConfigEditRequest;
-import com.eghm.dto.business.coupon.config.CouponConfigQueryRequest;
+import com.eghm.dto.business.coupon.config.CouponAddRequest;
+import com.eghm.dto.business.coupon.config.CouponEditRequest;
+import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.CouponConfigMapper;
+import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.ItemMapper;
-import com.eghm.model.CouponConfig;
+import com.eghm.model.Coupon;
 import com.eghm.model.Item;
-import com.eghm.service.business.CouponConfigService;
+import com.eghm.service.business.CouponService;
 import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
@@ -37,12 +37,12 @@ import static com.eghm.enums.ErrorCode.ITEM_DOWN;
  * @author 二哥很猛
  * @date 2022/7/13
  */
-@Service("couponConfigService")
+@Service("couponService")
 @AllArgsConstructor
 @Slf4j
-public class CouponConfigServiceImpl implements CouponConfigService {
+public class CouponServiceImpl implements CouponService {
 
-    private final CouponConfigMapper couponConfigMapper;
+    private final CouponMapper couponMapper;
 
     private final CouponScopeService couponScopeService;
 
@@ -51,57 +51,57 @@ public class CouponConfigServiceImpl implements CouponConfigService {
     private final ItemMapper itemMapper;
 
     @Override
-    public Page<CouponConfig> getByPage(CouponConfigQueryRequest request) {
-        LambdaQueryWrapper<CouponConfig> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), CouponConfig::getTitle, request.getQueryName());
+    public Page<Coupon> getByPage(CouponQueryRequest request) {
+        LambdaQueryWrapper<Coupon> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Coupon::getTitle, request.getQueryName());
         if (request.getState() != null) {
-            wrapper.gt( request.getState() == 0, CouponConfig::getStartTime, LocalDateTime.now());
+            wrapper.gt( request.getState() == 0, Coupon::getStartTime, LocalDateTime.now());
             wrapper.and(request.getState() == 1, queryWrapper -> {
                 LocalDateTime now = LocalDateTime.now();
-                queryWrapper.ge(CouponConfig::getStartTime, now);
-                queryWrapper.le(CouponConfig::getEndTime, now);
+                queryWrapper.ge(Coupon::getStartTime, now);
+                queryWrapper.le(Coupon::getEndTime, now);
             });
-            wrapper.lt(request.getState() == 2, CouponConfig::getEndTime, LocalDateTime.now());
+            wrapper.lt(request.getState() == 2, Coupon::getEndTime, LocalDateTime.now());
         }
-        wrapper.gt(Boolean.TRUE.equals(request.getInStock()), CouponConfig::getStock, 0);
+        wrapper.gt(Boolean.TRUE.equals(request.getInStock()), Coupon::getStock, 0);
         // mybatisPlus value值没有懒校验模式, 需要外层判断request.getMode是否为空, 否则CouponMode.valueOf会空指针
         if (request.getMode() != null) {
-            wrapper.eq(CouponConfig::getMode, request.getMode());
+            wrapper.eq(Coupon::getMode, request.getMode());
         }
         wrapper.last(" order by state desc, id desc ");
-        return couponConfigMapper.selectPage(request.createPage(), wrapper);
+        return couponMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
-    public void create(CouponConfigAddRequest request) {
-        CouponConfig config = DataUtil.copy(request, CouponConfig.class);
-        couponConfigMapper.insert(config);
+    public void create(CouponAddRequest request) {
+        Coupon config = DataUtil.copy(request, Coupon.class);
+        couponMapper.insert(config);
         couponScopeService.insert(config.getId(), request.getItemList());
     }
 
     @Override
-    public void update(CouponConfigEditRequest request) {
-        CouponConfig config = DataUtil.copy(request, CouponConfig.class);
-        couponConfigMapper.updateById(config);
+    public void update(CouponEditRequest request) {
+        Coupon config = DataUtil.copy(request, Coupon.class);
+        couponMapper.updateById(config);
         couponScopeService.insertWithDelete(config.getId(), request.getItemList());
     }
 
     @Override
     public void updateState(Long id, Integer state) {
-        LambdaUpdateWrapper<CouponConfig> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(CouponConfig::getId, id);
-        wrapper.set(CouponConfig::getState, state);
-        couponConfigMapper.update(null, wrapper);
+        LambdaUpdateWrapper<Coupon> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Coupon::getId, id);
+        wrapper.set(Coupon::getState, state);
+        couponMapper.update(null, wrapper);
     }
 
     @Override
-    public CouponConfig selectById(Long id) {
-        return couponConfigMapper.selectById(id);
+    public Coupon selectById(Long id) {
+        return couponMapper.selectById(id);
     }
 
     @Override
-    public CouponConfig selectByIdRequired(Long id) {
-        CouponConfig config = this.selectById(id);
+    public Coupon selectByIdRequired(Long id) {
+        Coupon config = this.selectById(id);
         if (config == null) {
             log.error("优惠券不存在 [{}]", id);
             throw new BusinessException(ErrorCode.COUPON_NOT_FOUND);
@@ -111,7 +111,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
 
     @Override
     public List<CouponListVO> getByPage(CouponQueryDTO dto) {
-        Page<CouponListVO> voPage = couponConfigMapper.getByPage(dto.createPage(false), dto);
+        Page<CouponListVO> voPage = couponMapper.getByPage(dto.createPage(false), dto);
         List<CouponListVO> voList = voPage.getRecords();
         this.fillAttribute(voList);
         return voList;
@@ -125,7 +125,7 @@ public class CouponConfigServiceImpl implements CouponConfigService {
             throw new BusinessException(ITEM_DOWN);
         }
         // 优惠券有店铺券或商品券之分
-        List<CouponListVO> couponList = couponConfigMapper.getItemCoupon(itemId, item.getStoreId());
+        List<CouponListVO> couponList = couponMapper.getItemCoupon(itemId, item.getStoreId());
         this.fillAttribute(couponList);
         return couponList;
     }

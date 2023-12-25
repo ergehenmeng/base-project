@@ -32,7 +32,7 @@ public class CouponPrizeHandler implements PrizeHandler {
         log.info("抽中优惠券啦 [{}] [{}]", memberId, lottery);
         GrantCouponDTO dto = new GrantCouponDTO();
         dto.setNum(1);
-        dto.setCouponConfigId(config.getPrizeId());
+        dto.setcouponId(config.getPrizeId());
         dto.setMemberIdList(Lists.newArrayList(memberId));
         memberCouponService.grantCoupon(dto);
     }

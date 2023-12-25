@@ -13,8 +13,8 @@
         from member_coupon t
         left join `member` r on t.member_id = r.id
         where t.deleted = false
-        <if test="param.couponConfigId != null">
-            and t.coupon_config_id = #{param.couponConfigId}
+        <if test="param.couponId != null">
+            and t.coupon_id = #{param.couponId}
         </if>
         <if test="param.state != null">
             and t.state = #{param.state}
@@ -38,7 +38,7 @@
         r.use_end_time,
         r.instruction
         from member_coupon t
-        left join coupon_config r on t.coupon_config_id = r.id
+        left join coupon r on t.coupon_id = r.id
         where t.deleted = false and t.member_id = #{param.memberId}
         <if test="param.state != null" >
             and t.state = #{param.state}
@@ -55,8 +55,8 @@
         r.discount_value,
         r.use_threshold
         from member_coupon t
-        left join coupon_config r on r.id = t.coupon_config_id
-        inner join coupon_item s on t.coupon_config_id = s.coupon_config_id
+        left join coupon r on r.id = t.coupon_id
+        inner join coupon_item s on t.coupon_id = s.coupon_id
         where
         t.deleted = false and t.state = 0 and t.member_id = #{memberId} and s.product_id = #{productId}
         and r.use_start_time &lt;= now() and r.use_end_time &lt;= now()
@@ -66,11 +66,11 @@
     <select id="countMemberReceived" resultType="com.eghm.vo.business.coupon.MemberCouponCountVO">
         select
         count(id) as num,
-        coupon_config_id as couponId
-        from member_coupon where member_id = #{memberId} and deleted = false and coupon_config_id in
+        coupon_id as couponId
+        from member_coupon where member_id = #{memberId} and deleted = false and coupon_id in
         <foreach collection="couponIds" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
-        group by coupon_config_id
+        group by coupon_id
     </select>
 </mapper>
