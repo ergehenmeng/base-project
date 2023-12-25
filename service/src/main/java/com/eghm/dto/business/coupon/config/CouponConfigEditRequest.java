@@ -3,17 +3,15 @@ package com.eghm.dto.business.coupon.config;
 import com.eghm.dto.business.coupon.product.CouponProductRequest;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
+ * 优惠券编辑时,部分字段不支持修改
  * @author 二哥很猛
  * @date 2022/7/13
  */
@@ -24,12 +22,6 @@ public class CouponConfigEditRequest {
     @NotNull(message = "id不能为空")
     private Long id;
 
-    @ApiModelProperty(value = "优惠券名称", required = true)
-    @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")
-    @NotBlank(message = "优惠券名称不能为空")
-    @WordChecker
-    private String title;
-
     @ApiModelProperty(value = "库存(发放数量)", required = true)
     @RangeInt(max = 9999, message = "库存应为0~9999")
     private Integer stock;
@@ -37,16 +29,6 @@ public class CouponConfigEditRequest {
     @ApiModelProperty(value = "单人领取限制", required = true)
     @RangeInt(min = 1, max = 99, message = "单人领取限制1~99")
     private Integer maxLimit;
-
-    @ApiModelProperty(value = "发放开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @NotNull(message = "发放开始时间不能为空")
-    private LocalDateTime startTime;
-
-    @ApiModelProperty(value = "发放截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @NotNull(message = "发放截止时间不能为空")
-    private LocalDateTime endTime;
 
     @ApiModelProperty(value = "使用说明")
     @Size(max = 100, message = "使用说明最大100字符")
