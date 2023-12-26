@@ -27,7 +27,7 @@
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.mode != null">
-            and t.mode = #{mode}
+            and t.mode = #{param.mode}
         </if>
         <if test="param.inStock == true">
             and t.stock &gt; 0
