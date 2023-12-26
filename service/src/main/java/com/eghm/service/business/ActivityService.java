@@ -3,7 +3,7 @@ package com.eghm.service.business;
 import com.eghm.dto.business.activity.*;
 import com.eghm.model.Activity;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
-import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.vo.business.activity.ActivityResponse;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public interface ActivityService {
      * @param request 查询条件
      * @return 该月的活动信息
      */
-    List<ActivityBaseResponse> getMonthActivity(ActivityQueryRequest request);
+    List<ActivityResponse> getMonthActivity(ActivityQueryRequest request);
 
     /**
      * 主键查询活动

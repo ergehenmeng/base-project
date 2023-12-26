@@ -16,7 +16,7 @@ import com.eghm.service.business.CommonService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
-import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.vo.business.activity.ActivityResponse;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -77,7 +77,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public List<ActivityBaseResponse> getMonthActivity(ActivityQueryRequest request) {
+    public List<ActivityResponse> getMonthActivity(ActivityQueryRequest request) {
         LocalDate startDate = LocalDate.parse(request.getMonth() + "-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         LocalDate endDate = startDate.plusMonths(1);
         LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
@@ -88,10 +88,10 @@ public class ActivityServiceImpl implements ActivityService {
         wrapper.orderByDesc(Activity::getId);
         List<Activity> selectList = activityMapper.selectList(wrapper);
         int dayOfMonth = startDate.lengthOfMonth();
-        List<ActivityBaseResponse> responseList = Lists.newArrayListWithExpectedSize(31);
+        List<ActivityResponse> responseList = Lists.newArrayListWithExpectedSize(31);
 
         for (int i = 0; i < dayOfMonth; i++) {
-            ActivityBaseResponse response = new ActivityBaseResponse();
+            ActivityResponse response = new ActivityResponse();
             response.setNowDate(startDate.plusDays(i));
             response.setActivityList(this.filterDateActivity(selectList, response.getNowDate()));
             responseList.add(response);

@@ -6,7 +6,7 @@ import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
 import com.eghm.utils.DataUtil;
-import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.vo.business.activity.ActivityResponse;
 import com.eghm.vo.business.activity.ActivityVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,10 +35,10 @@ public class ActivityController {
     @GetMapping("/month")
     @ApiImplicitParam(name = "month", value = "月份yyyy-MM", required = true)
     @ApiOperation("查询月活动")
-    public RespBody<List<ActivityBaseResponse>> month(@RequestParam("month") String month) {
+    public RespBody<List<ActivityResponse>> month(@RequestParam("month") String month) {
         ActivityQueryRequest request = new ActivityQueryRequest();
         request.setMonth(month);
-        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(request);
+        List<ActivityResponse> monthActivity = activityService.getMonthActivity(request);
         return RespBody.success(monthActivity);
     }
 

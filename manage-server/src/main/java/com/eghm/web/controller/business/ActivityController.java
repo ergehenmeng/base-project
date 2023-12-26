@@ -5,7 +5,7 @@ import com.eghm.dto.business.activity.*;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.model.Activity;
 import com.eghm.service.business.ActivityService;
-import com.eghm.vo.business.activity.ActivityBaseResponse;
+import com.eghm.vo.business.activity.ActivityResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -28,8 +28,8 @@ public class ActivityController {
 
     @GetMapping("/month")
     @ApiOperation("查询月活动")
-    public RespBody<List<ActivityBaseResponse>> month(@Validated ActivityQueryRequest request) {
-        List<ActivityBaseResponse> monthActivity = activityService.getMonthActivity(request);
+    public RespBody<List<ActivityResponse>> month(@Validated ActivityQueryRequest request) {
+        List<ActivityResponse> monthActivity = activityService.getMonthActivity(request);
         return RespBody.success(monthActivity);
     }
 

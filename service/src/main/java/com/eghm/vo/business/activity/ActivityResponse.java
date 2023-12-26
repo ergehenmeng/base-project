@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2022/7/23
  */
 @Data
-public class ActivityBaseResponse {
+public class ActivityResponse {
 
     @ApiModelProperty("日期")
     private LocalDate nowDate;
