@@ -5,9 +5,9 @@
         SELECT
         t.id, t.title, t.code, t.pid, t.path, t.sort, t.grade
         from sys_menu t
-        LEFT JOIN sys_role_menu s on t.id = s.menu_id
-        LEFT JOIN sys_user_role o on s.role_id = o.role_id
-        where t.state = true and o.user_id = #{userId}
+        where t.state = true and exists (
+        select 1 from sys_role_menu s, sys_user_role o
+        where s.role_id = o.role_id and t.id = s.menu_id and o.user_id = #{userId})
         <if test="grade != null">
             and t.grade = #{grade}
         </if>

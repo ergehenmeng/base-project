@@ -14,14 +14,13 @@ Content-Type: application/json
   "mode": 1,
   "couponType": 1,
   "deductionValue": 30,
-  "discountValue": 0,
   "useThreshold": 100,
   "useScope": 2,
   "storeId": 1717388362096668673,
   "startTime": "2022-01-01 00:00",
-  "endTime": "2023-01-18 00:00",
+  "endTime": "2024-01-18 00:00",
   "useStartTime": "2023-01-01 00:00",
-  "useEndTime": "2023-01-21 00:00",
+  "useEndTime": "2024-01-21 00:00",
   "instruction": "优惠券不折现,如果涉及退款,优惠券不返还. 部分退款时,按比例使用",
   "itemIds": [1717389387411066882]
 }

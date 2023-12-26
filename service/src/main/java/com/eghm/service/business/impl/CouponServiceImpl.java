@@ -3,9 +3,9 @@ package com.eghm.service.business.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
@@ -17,6 +17,7 @@ import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.Coupon;
 import com.eghm.model.Item;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.business.CouponScopeService;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
@@ -50,6 +51,8 @@ public class CouponServiceImpl implements CouponService {
 
     private final ItemMapper itemMapper;
 
+    private final CommonService commonService;
+
     @Override
     public Page<Coupon> getByPage(CouponQueryRequest request) {
         LambdaQueryWrapper<Coupon> wrapper = Wrappers.lambdaQuery();
@@ -75,12 +78,15 @@ public class CouponServiceImpl implements CouponService {
     @Override
     public void create(CouponAddRequest request) {
         Coupon config = DataUtil.copy(request, Coupon.class);
+        config.setMerchantId(SecurityHolder.getMerchantId());
         couponMapper.insert(config);
         couponScopeService.insert(config.getId(), request.getItemIds());
     }
 
     @Override
     public void update(CouponEditRequest request) {
+        Coupon coupon = this.selectByIdRequired(request.getId());
+        commonService.checkIllegal(coupon.getMerchantId());
         Coupon config = DataUtil.copy(request, Coupon.class);
         couponMapper.updateById(config);
         couponScopeService.insertWithDelete(config.getId(), request.getItemIds());
@@ -88,10 +94,10 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public void updateState(Long id, Integer state) {
-        LambdaUpdateWrapper<Coupon> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Coupon::getId, id);
-        wrapper.set(Coupon::getState, state);
-        couponMapper.update(null, wrapper);
+        Coupon coupon = this.selectByIdRequired(id);
+        commonService.checkIllegal(coupon.getMerchantId());
+        coupon.setState(state);
+        couponMapper.updateById(coupon);
     }
 
     @Override

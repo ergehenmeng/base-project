@@ -36,6 +36,9 @@ public class Coupon extends BaseEntity implements Serializable {
     @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
 
+    @ApiModelProperty("优惠券所属商户id")
+    private Long merchantId;
+
     @ApiModelProperty("状态 0:未启用 1:已启用 ")
     private Integer state;
 
