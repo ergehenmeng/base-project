@@ -1,5 +1,7 @@
 package com.eghm.service.cache;
 
+import com.eghm.enums.ErrorCode;
+
 import java.util.function.Supplier;
 
 /**
@@ -39,6 +41,17 @@ public interface RedisLock {
      * @return T
      */
     <T> T lock(String key, long lockTime, Supplier<T> supplier, Supplier<T> failSupplier);
+
+    /**
+     * 获取锁后执行指定逻辑,如果获取失败则执行失败策略
+     * @param key key
+     * @param lockTime 锁最大持续时间,单位:毫秒
+     * @param supplier 获取成功后执行业务
+     * @param error 获取失败时直接抛出指定的异常
+     * @param <T> T
+     * @return T
+     */
+    <T> T lock(String key, long lockTime, Supplier<T> supplier, ErrorCode error);
 
     /**
      * 获取锁后执行指定逻辑
