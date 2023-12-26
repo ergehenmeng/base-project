@@ -2,6 +2,7 @@ package com.eghm.vo.business.coupon;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.CouponType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -39,9 +40,11 @@ public class MemberCouponVO {
     private Integer useThreshold;
 
     @ApiModelProperty("有效期开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useStartTime;
 
     @ApiModelProperty("有效期截止时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime useEndTime;
 
     @ApiModelProperty("使用说明")

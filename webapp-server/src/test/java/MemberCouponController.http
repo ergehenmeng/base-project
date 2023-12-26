@@ -4,11 +4,11 @@ Content-Type: application/json
 Token: {{Token}}
 
 {
-
+  "couponId": 1739535660503101442
 }
 
 ###
-GET http://localhost:9090/webapp/member/coupon/listPage?page=1&pageSize=10&state=1&couponId=xx
+GET http://localhost:9090/webapp/member/coupon/listPage?page=1&pageSize=10
 Channel: {{Channel}}
 Token: {{Token}}
 
