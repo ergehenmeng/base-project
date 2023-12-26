@@ -1,5 +1,6 @@
 package com.eghm.dto.poi;
 
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class PoiLineAddRequest {
     @ApiModelProperty(value = "线路名称")
     @NotBlank(message = "线路名称不能为空")
     @Size(max = 20, message = "线路名称最大20字符")
+    @WordChecker(message = "线路名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "所属区域编号")
@@ -33,5 +35,6 @@ public class PoiLineAddRequest {
 
     @ApiModelProperty(value = "详细介绍")
     @NotBlank(message = "详细介绍不能为空")
+    @WordChecker(message = "详细介绍存在敏感词")
     private String introduce;
 }

@@ -1,6 +1,7 @@
 package com.eghm.dto.business.merchant;
 
 import com.eghm.validation.annotation.RangeInt;
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class MerchantAddRequest {
     @ApiModelProperty(value = "商家名称",required = true)
     @NotBlank(message = "商家名称不能为空")
     @Size(min = 2, max = 20, message = "商家名称长度2~20位")
+    @WordChecker(message = "商家名称包含敏感词")
     private String merchantName;
 
     @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路, 多选时数字相加", required = true)

@@ -1,5 +1,6 @@
 package com.eghm.dto.poi;
 
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class PoiPointEditRequest {
     @ApiModelProperty(value = "点位名称", required = true)
     @Size(max = 20, message = "点位名称最大20字符")
     @NotBlank(message = "点位名称不能为空")
+    @WordChecker(message = "点位名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "区域", required = true)
@@ -50,9 +52,11 @@ public class PoiPointEditRequest {
     @ApiModelProperty(value = "详细地址", required = true)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 50, message = "详细地址最大50字符")
+    @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;
 
     @ApiModelProperty(value = "详细介绍", required = true)
     @NotBlank(message = "详细介绍不能为空")
+    @WordChecker(message = "详细介绍存在敏感词")
     private String introduce;
 }

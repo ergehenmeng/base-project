@@ -1,7 +1,6 @@
 package com.eghm.dto.auth;
 
 import com.eghm.enums.ref.SignType;
-import com.eghm.validation.annotation.WordChecker;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,7 +20,6 @@ public class AuthConfigAddRequest {
     @ApiModelProperty("单位名称")
     @Size(min = 2, max = 20, message = "单位名称长度2~20位")
     @NotBlank(message = "单位名称称不能为空")
-    @WordChecker(message = "单位名称存在敏感词")
     private String title;
 
     @ApiModelProperty("签名方式")

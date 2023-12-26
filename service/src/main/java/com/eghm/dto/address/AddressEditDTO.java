@@ -2,7 +2,6 @@ package com.eghm.dto.address;
 
 import com.eghm.annotation.Assign;
 import com.eghm.validation.annotation.Mobile;
-import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -49,7 +48,6 @@ public class AddressEditDTO {
 
     @ApiModelProperty(value = "详细地址",required = true)
     @NotEmpty(message = "详细地址不能为空")
-    @WordChecker(message = "详细地址存在敏感字")
     private String detailAddress;
 
     @ApiModelProperty(value = "是否为默认地址 true:是 false:不是")

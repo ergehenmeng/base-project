@@ -1,5 +1,6 @@
 package com.eghm.dto.poi;
 
+import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -17,6 +18,7 @@ public class PoiTypeAddRequest {
     @ApiModelProperty(value = "类型名称", required = true)
     @Size(max = 20, message = "类型名称最大20字符")
     @NotBlank(message = "类型名称不能为空")
+    @WordChecker(message = "类型名称包含敏感词")
     private String title;
 
     @ApiModelProperty(value = "区域", required = true)
