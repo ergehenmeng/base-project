@@ -59,7 +59,7 @@
         inner join coupon_scope s on t.coupon_id = s.coupon_id
         where
         t.deleted = false and t.state = 0 and t.member_id = #{memberId} and s.product_id = #{productId}
-        and r.use_start_time &lt;= now() and r.use_end_time &lt;= now()
+        and r.use_start_time &lt;= now() and r.use_end_time &gt;= now()
         order by t.id desc
     </select>
 

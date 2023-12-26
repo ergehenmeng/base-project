@@ -14,6 +14,7 @@ import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -57,10 +58,21 @@ public class ItemController {
         return RespBody.success(recommend);
     }
 
-    @GetMapping("/coupon")
+    @PostMapping("/calcExpress")
+    @ApiOperation("计算快递费")
+    public RespBody<TotalExpressVO> calcExpress(@RequestBody @Validated List<ExpressFeeCalcDTO> dtoList) {
+        if (CollUtil.isEmpty(dtoList)) {
+            return RespBody.error(ErrorCode.ORDER_ITEM_NULL);
+        }
+        TotalExpressVO expressFee = itemService.calcExpressFee(dtoList);
+        return RespBody.success(expressFee);
+    }
+
+    @GetMapping("/couponList")
     @ApiOperation("商品页可以领取的优惠券")
-    public RespBody<List<CouponListVO>> item(@Validated IdDTO dto) {
-        List<CouponListVO> voList = couponService.getItemCoupon(dto.getId());
+    @ApiImplicitParam(name = "productId", value = "商品id", required = true)
+    public RespBody<List<CouponListVO>> couponList(@RequestParam("productId") Long productId) {
+        List<CouponListVO> voList = couponService.getItemCoupon(productId);
         return RespBody.success(voList);
     }
 
@@ -71,13 +83,4 @@ public class ItemController {
         return RespBody.success(voList);
     }
 
-    @PostMapping("/calcExpress")
-    @ApiOperation("计算快递费")
-    public RespBody<TotalExpressVO> calcExpress(@RequestBody @Validated List<ExpressFeeCalcDTO> dtoList) {
-        if (CollUtil.isEmpty(dtoList)) {
-            return RespBody.error(ErrorCode.ORDER_ITEM_NULL);
-        }
-        TotalExpressVO expressFee = itemService.calcExpressFee(dtoList);
-        return RespBody.success(expressFee);
-    }
 }

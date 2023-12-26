@@ -1,15 +1,21 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
+import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
+import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
+import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.CouponService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.MemberCouponBaseVO;
+import com.eghm.vo.business.coupon.MemberCouponVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,18 +24,43 @@ import java.util.List;
  * @date 2022/7/18
  */
 @RestController
-@Api(tags = "优惠券中心")
+@Api(tags = "优惠券")
 @AllArgsConstructor
 @RequestMapping("/webapp/coupon")
 public class CouponController {
 
     private final CouponService couponService;
 
+    private final MemberCouponService memberCouponService;
+
     @GetMapping("/listPage")
-    @ApiOperation("优惠券列表")
+    @ApiOperation("列表")
     public RespBody<List<CouponListVO>> listPage(CouponQueryDTO dto) {
         List<CouponListVO> byPage = couponService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
+    @PostMapping("/member/receive")
+    @ApiOperation("领取优惠券")
+    public RespBody<Void> receive(@RequestBody @Validated ReceiveCouponDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        memberCouponService.receiveCoupon(dto);
+        return RespBody.success();
+    }
+
+    @GetMapping("/member/listPage")
+    @ApiOperation("我的优惠券列表")
+    public RespBody<List<MemberCouponVO>> listPage(@Validated MemberCouponQueryPageDTO dto) {
+        dto.setMemberId(ApiHolder.getMemberId());
+        List<MemberCouponVO> voList = memberCouponService.memberCouponPage(dto);
+        return RespBody.success(voList);
+    }
+
+    @GetMapping("/member/choose")
+    @ApiOperation("选择商品可以使用的优惠券")
+    @ApiImplicitParam(name = "productId", value = "商品id", required = true)
+    public RespBody<List<MemberCouponBaseVO>> choose(@RequestParam("productId") Long productId) {
+        List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), productId);
+        return RespBody.success(selectCoupon);
+    }
 }
