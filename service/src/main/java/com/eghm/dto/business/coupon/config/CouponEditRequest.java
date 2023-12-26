@@ -32,7 +32,7 @@ public class CouponEditRequest {
 
     @ApiModelProperty(value = "使用说明")
     @Size(max = 100, message = "使用说明最大100字符")
-    @WordChecker
+    @WordChecker(message = "使用说明存在敏感词")
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")

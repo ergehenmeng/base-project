@@ -30,7 +30,7 @@ public class ScenicTicketAddRequest extends DateComparator {
     @ApiModelProperty(value = "门票名称", required = true)
     @NotBlank(message = "门票名称不能为空")
     @Size(min = 2, max = 20, message = "门票名称长度2~20位")
-    @WordChecker
+    @WordChecker(message = "门票名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "门票种类 1: 成人票 2: 老人票 3:儿童票", required = true)
@@ -72,7 +72,7 @@ public class ScenicTicketAddRequest extends DateComparator {
 
     @ApiModelProperty(value = "门票介绍", required = true)
     @NotBlank(message = "门票介绍不能为空")
-    @WordChecker
+    @WordChecker(message = "门票介绍存在敏感词")
     private String introduce;
 
     @ApiModelProperty(value = "核销方式 1:手动核销 2:自动核销 (凌晨自动核销)", required = true)
@@ -85,7 +85,7 @@ public class ScenicTicketAddRequest extends DateComparator {
 
     @ApiModelProperty("退款描述信息")
     @Size(max = 100, message = "退款描述信息最大100字符")
-    @WordChecker
+    @WordChecker(message = "退款描述信息存在敏感词")
     private String refundDescribe;
 
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名", required = true)

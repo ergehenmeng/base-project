@@ -22,7 +22,7 @@ public class HomestayEditRequest {
     @ApiModelProperty(value = "民宿名称", required = true)
     @Size(min = 2, max = 20,message = "民宿名称长度2~20位")
     @NotBlank(message = "民宿名称不能为空")
-    @WordChecker
+    @WordChecker(message = "民宿名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他", required = true)
@@ -44,7 +44,7 @@ public class HomestayEditRequest {
     @ApiModelProperty(value = "详细地址", required = true)
     @Size(min = 2, max = 20,message = "详细地址长度2~50位")
     @NotBlank(message = "详细地址不能为空")
-    @WordChecker
+    @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;
 
     @ApiModelProperty(value = "经度", required = true)
@@ -62,7 +62,7 @@ public class HomestayEditRequest {
     @ApiModelProperty(value = "描述信息", required = true)
     @NotBlank(message = "描述信息不能为空")
     @Size(min = 2, max = 50, message = "描述信息长度2~50位")
-    @WordChecker
+    @WordChecker(message = "描述信息存在敏感词")
     private String intro;
 
     @ApiModelProperty(value = "封面图片,逗号分隔")
@@ -71,7 +71,7 @@ public class HomestayEditRequest {
 
     @ApiModelProperty(value = "详细介绍")
     @NotBlank(message = "详细介绍不能为空")
-    @WordChecker
+    @WordChecker(message = "详细介绍存在敏感词")
     private String introduce;
 
     @ApiModelProperty(value = "联系电话")

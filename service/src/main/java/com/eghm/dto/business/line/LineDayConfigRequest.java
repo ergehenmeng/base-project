@@ -37,6 +37,6 @@ public class LineDayConfigRequest {
 
     @ApiModelProperty(value = "详细描述信息")
     @NotBlank(message = "详细信息不能为空")
-    @WordChecker
+    @WordChecker(message = "详细信息存在敏感词")
     private String depict;
 }

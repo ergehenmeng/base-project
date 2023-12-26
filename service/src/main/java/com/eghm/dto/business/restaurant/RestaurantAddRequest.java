@@ -17,7 +17,7 @@ public class RestaurantAddRequest {
     @ApiModelProperty(value = "商家名称", required = true)
     @Size(min = 2, max = 20, message = "商家名称长度应为2~20位")
     @NotBlank(message = "商家名称不能为空")
-    @WordChecker
+    @WordChecker(message = "商家名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "商家logo", required = true)
@@ -47,7 +47,7 @@ public class RestaurantAddRequest {
     @ApiModelProperty(value = "详细地址", required = true)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 20, message = "详细地址长度2~20字符")
-    @WordChecker
+    @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;
 
     @ApiModelProperty(value = "经度", required = true)

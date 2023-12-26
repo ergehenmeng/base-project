@@ -26,7 +26,7 @@ public class CouponAddRequest {
     @ApiModelProperty(value = "优惠券名称", required = true)
     @Size(min = 2, max = 20, message = "优惠券名称长度2~20位")
     @NotBlank(message = "优惠券名称不能为空")
-    @WordChecker
+    @WordChecker(message = "优惠券名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "库存(发放数量)", required = true)
@@ -79,7 +79,7 @@ public class CouponAddRequest {
     private LocalDateTime useEndTime;
 
     @ApiModelProperty(value = "使用说明")
-    @WordChecker
+    @WordChecker(message = "使用说明存在敏感词")
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")

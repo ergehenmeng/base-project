@@ -21,7 +21,7 @@ public class RestaurantEditRequest {
     @ApiModelProperty(value = "商家名称", required = true)
     @Size(min = 2, max = 20, message = "商家名称长度应为2~20位")
     @NotBlank(message = "商家名称不能为空")
-    @WordChecker
+    @WordChecker(message = "商家名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "商家logo", required = true)

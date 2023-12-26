@@ -31,7 +31,7 @@ public class MealVoucherEditRequest {
     @ApiModelProperty(value = "商品名称", required = true)
     @Size(min = 2, max = 20, message = "餐饮券名称应为2~20字符")
     @NotBlank(message = "餐饮券名称不能为空")
-    @WordChecker
+    @WordChecker(message = "餐饮券名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "封面图片", required = true)

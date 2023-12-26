@@ -21,11 +21,11 @@ public class ItemSkuRequest {
     private Long id;
     
     @ApiModelProperty(value = "一级规格名(单规格为空)")
-    @WordChecker
+    @WordChecker(message = "一级规格存在敏感词")
     private String primarySpecValue;
     
     @ApiModelProperty(value = "二级规格名(单规格为空)")
-    @WordChecker
+    @WordChecker(message = "二级规格存在敏感词")
     private String secondSpecValue;
     
     @ApiModelProperty(value = "成本价")

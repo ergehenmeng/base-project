@@ -39,6 +39,6 @@ public class VersionAddRequest implements Serializable {
     private String url;
     
     @ApiModelProperty(required = true, value = "备注信息:版本更新的东西或解决的问题")
-    @WordChecker
+    @WordChecker(message = "备注信息存在敏感词")
     private String remark;
 }

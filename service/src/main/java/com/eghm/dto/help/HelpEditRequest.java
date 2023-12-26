@@ -32,12 +32,12 @@ public class HelpEditRequest implements Serializable {
 
     @ApiModelProperty(value = "问", required = true)
     @NotBlank(message = "\"问\"不能为空")
-    @WordChecker
+    @WordChecker(message = "\"问\"存在敏感词")
     private String ask;
 
     @ApiModelProperty(value = "答", required = true)
     @NotBlank(message = "\"答\"不能为空")
-    @WordChecker
+    @WordChecker(message = "\"答\"存在敏感词")
     private String answer;
 
 }

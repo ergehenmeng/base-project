@@ -18,7 +18,7 @@ public class ItemStoreAddRequest {
     @ApiModelProperty("店铺名称")
     @Size(min = 2, max = 20, message = "店铺名称长度2~20位")
     @NotBlank(message = "店铺名称不能为空")
-    @WordChecker
+    @WordChecker(message = "店铺名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "店铺logo")
@@ -47,7 +47,7 @@ public class ItemStoreAddRequest {
 
     @ApiModelProperty(value = "详细地址")
     @NotBlank(message = "详细地址不能为空")
-    @WordChecker
+    @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;
 
     @ApiModelProperty(value = "经度")
@@ -66,7 +66,7 @@ public class ItemStoreAddRequest {
 
     @ApiModelProperty(value = "商家介绍")
     @NotBlank(message = "商家介绍不能为空")
-    @WordChecker
+    @WordChecker(message = "商家介绍存在敏感词")
     private String introduce;
 
 }

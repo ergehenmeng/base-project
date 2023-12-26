@@ -21,7 +21,7 @@ public class ItemTagAddRequest {
     @ApiModelProperty(value = "标签名称", required = true)
     @NotBlank(message = "标签名称不能为空")
     @Length(min = 2, max = 8, message = "标签名称长度应为2~8字符")
-    @WordChecker
+    @WordChecker(message = "标签名称存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "标签图标")

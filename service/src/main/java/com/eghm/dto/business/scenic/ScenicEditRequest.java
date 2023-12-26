@@ -23,7 +23,7 @@ public class ScenicEditRequest {
     @ApiModelProperty(value = "景区名称", required = true)
     @NotBlank(message = "景区名称不能为空")
     @Size(min = 2, max = 20, message = "景区名称长度2~20位")
-    @WordChecker
+    @WordChecker(message = "景区名称存在敏感词")
     private String scenicName;
 
     @ApiModelProperty(value = "景区等级 5: 5A 4: 4A 3:3A 2:2A 1:A 0:其他", required = true)
@@ -40,7 +40,7 @@ public class ScenicEditRequest {
     private String phone;
 
     @ApiModelProperty("景区标签")
-    @WordChecker
+    @WordChecker(message = "景区标签存在敏感词")
     private String tag;
 
     @ApiModelProperty(value = "省份id", required = true)
@@ -58,7 +58,7 @@ public class ScenicEditRequest {
     @ApiModelProperty(value = "详细地址", required = true)
     @NotBlank(message = "详细地址不能为空")
     @Size(max = 100, message = "详细地址长度1~100位")
-    @WordChecker
+    @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;
 
     @ApiModelProperty(value = "经度", required = true)
@@ -76,7 +76,7 @@ public class ScenicEditRequest {
     @ApiModelProperty(value = "景区描述信息", required = true)
     @NotBlank(message = "景区描述信息不能为空")
     @Size(max = 50, message = "景区描述信息最大50位")
-    @WordChecker
+    @WordChecker(message = "景区描述信息存在敏感词")
     private String depict;
 
     @ApiModelProperty(value = "景区图片", required = true)
@@ -85,7 +85,7 @@ public class ScenicEditRequest {
 
     @ApiModelProperty(value = "景区详细介绍信息", required = true)
     @NotBlank(message = "景区详细介绍不能为空")
-    @WordChecker
+    @WordChecker(message = "景区详细介绍存在敏感词")
     private String introduce;
 
 }

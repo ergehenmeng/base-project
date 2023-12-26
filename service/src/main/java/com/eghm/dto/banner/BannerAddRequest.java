@@ -21,7 +21,7 @@ public class BannerAddRequest implements Serializable {
 
     @ApiModelProperty(value = "标题名称", required = true)
     @NotBlank(message = "标题不能为空")
-    @WordChecker
+    @WordChecker(message = "标题存在敏感词")
     private String title;
 
     @ApiModelProperty(value = "轮博图类型(数据字典)", required = true)
@@ -60,7 +60,7 @@ public class BannerAddRequest implements Serializable {
     private Boolean click;
 
     @ApiModelProperty(value = "备注信息")
-    @WordChecker
+    @WordChecker(message = "备注信息存在敏感词")
     private String remark;
 
 }
