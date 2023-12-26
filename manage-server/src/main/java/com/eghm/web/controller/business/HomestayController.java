@@ -35,9 +35,9 @@ public class HomestayController {
 
     @GetMapping("/listPage")
     @ApiOperation("民宿列表")
-    public RespBody<PageData<Homestay>> listPage(HomestayQueryRequest request) {
+    public RespBody<PageData<HomestayResponse>> listPage(HomestayQueryRequest request) {
         request.setMerchantId(SecurityHolder.getMerchantId());
-        Page<Homestay> byPage = homestayService.getByPage(request);
+        Page<HomestayResponse> byPage = homestayService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
 

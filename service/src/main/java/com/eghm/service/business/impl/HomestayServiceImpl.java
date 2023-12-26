@@ -69,12 +69,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     private final OrderEvaluationMapper orderEvaluationMapper;
 
     @Override
-    public Page<Homestay> getByPage(HomestayQueryRequest request) {
-        LambdaQueryWrapper<Homestay> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getMerchantId() != null, Homestay::getMerchantId, request.getMerchantId());
-        wrapper.eq(request.getState() != null, Homestay::getState, request.getState());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Homestay::getTitle, request.getQueryName());
-        return homestayMapper.selectPage(request.createPage(), wrapper);
+    public Page<HomestayResponse> getByPage(HomestayQueryRequest request) {
+        return homestayMapper.listPage(request.createPage(), request);
     }
 
     @Override

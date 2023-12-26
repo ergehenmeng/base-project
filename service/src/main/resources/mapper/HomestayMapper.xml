@@ -4,6 +4,7 @@
 
     <select id="listPage" resultType="com.eghm.vo.business.homestay.HomestayResponse" parameterType="com.eghm.dto.business.homestay.HomestayQueryRequest">
         select
+        t.id,
         t.title,
         r.merchant_name,
         t.`level`,

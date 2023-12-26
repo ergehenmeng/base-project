@@ -20,6 +20,9 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class HomestayResponse extends ExcelStyle {
 
+    @ApiModelProperty(value = "民宿ID")
+    private Long id;
+
     @ApiModelProperty(value = "民宿名称")
     @ExcelProperty(value = "民宿名称", index = 0)
     private String title;

@@ -24,7 +24,7 @@ public interface HomestayService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<Homestay> getByPage(HomestayQueryRequest request);
+    Page<HomestayResponse> getByPage(HomestayQueryRequest request);
 
     /**
      * 分页查询民宿列表
