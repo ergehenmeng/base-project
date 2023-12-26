@@ -83,5 +83,5 @@ public class CouponAddRequest {
     private String instruction;
 
     @ApiModelProperty("关联的商品列表")
-    private List<CouponScopeRequest> itemList;
+    private List<Long> itemIds;
 }

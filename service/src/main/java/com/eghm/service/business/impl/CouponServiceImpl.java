@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
-import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
+import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
@@ -17,8 +17,8 @@ import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.ItemMapper;
 import com.eghm.model.Coupon;
 import com.eghm.model.Item;
-import com.eghm.service.business.CouponService;
 import com.eghm.service.business.CouponScopeService;
+import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.coupon.CouponListVO;
@@ -76,14 +76,14 @@ public class CouponServiceImpl implements CouponService {
     public void create(CouponAddRequest request) {
         Coupon config = DataUtil.copy(request, Coupon.class);
         couponMapper.insert(config);
-        couponScopeService.insert(config.getId(), request.getItemList());
+        couponScopeService.insert(config.getId(), request.getItemIds());
     }
 
     @Override
     public void update(CouponEditRequest request) {
         Coupon config = DataUtil.copy(request, Coupon.class);
         couponMapper.updateById(config);
-        couponScopeService.insertWithDelete(config.getId(), request.getItemList());
+        couponScopeService.insertWithDelete(config.getId(), request.getItemIds());
     }
 
     @Override
