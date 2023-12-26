@@ -70,9 +70,9 @@ public class ItemController {
 
     @GetMapping("/couponList")
     @ApiOperation("商品页可以领取的优惠券")
-    @ApiImplicitParam(name = "productId", value = "商品id", required = true)
-    public RespBody<List<CouponListVO>> couponList(@RequestParam("productId") Long productId) {
-        List<CouponListVO> voList = couponService.getItemCoupon(productId);
+    @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
+    public RespBody<List<CouponListVO>> couponList(@RequestParam("itemId") Long itemId) {
+        List<CouponListVO> voList = couponService.getItemCoupon(itemId);
         return RespBody.success(voList);
     }
 

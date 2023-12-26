@@ -10,8 +10,9 @@ http://localhost:9090/webapp/item/recommend
 Channel: {{Channel}}
 
 ###
-http://localhost:9090/webapp/item/coupon?id=1717389387411066882
+http://localhost:9090/webapp/item/couponList?itemId=1717389387411066882
 Channel: {{Channel}}
+Token: {{Token}}
 
 ###
 http://localhost:9090/webapp/item/couponScope?page=1&pageSize=10&deliveryType=1&sortBy=&couponId=1212&storeId=&useScope=&tagId=

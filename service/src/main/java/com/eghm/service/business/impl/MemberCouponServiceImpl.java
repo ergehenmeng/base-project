@@ -92,8 +92,8 @@ public class MemberCouponServiceImpl implements MemberCouponService {
     }
 
     @Override
-    public List<MemberCouponBaseVO> selectCoupon(Long memberId, Long productId) {
-        return memberCouponMapper.selectCoupon(memberId, productId);
+    public List<MemberCouponBaseVO> selectCoupon(Long memberId, Long itemId) {
+        return memberCouponMapper.selectCoupon(memberId, itemId);
     }
 
     @Override

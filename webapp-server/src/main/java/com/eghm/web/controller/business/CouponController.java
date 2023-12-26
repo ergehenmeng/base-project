@@ -58,9 +58,9 @@ public class CouponController {
 
     @GetMapping("/member/choose")
     @ApiOperation("选择商品可以使用的优惠券")
-    @ApiImplicitParam(name = "productId", value = "商品id", required = true)
-    public RespBody<List<MemberCouponBaseVO>> choose(@RequestParam("productId") Long productId) {
-        List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), productId);
+    @ApiImplicitParam(name = "itemId", value = "商品id", required = true)
+    public RespBody<List<MemberCouponBaseVO>> choose(@RequestParam("itemId") Long itemId) {
+        List<MemberCouponBaseVO> selectCoupon = memberCouponService.selectCoupon(ApiHolder.getMemberId(), itemId);
         return RespBody.success(selectCoupon);
     }
 }

@@ -55,10 +55,10 @@ public interface MemberCouponService {
     /**
      * 选择产品可以使用的优惠券
      * @param memberId 用户id
-     * @param productId 产品id
+     * @param itemId 产品id
      * @return 优惠券列表
      */
-    List<MemberCouponBaseVO> selectCoupon(Long memberId, Long productId);
+    List<MemberCouponBaseVO> selectCoupon(Long memberId, Long itemId);
 
     /**
      * 获取优惠券优惠的金额(校验优惠券是否符合使用条件)
