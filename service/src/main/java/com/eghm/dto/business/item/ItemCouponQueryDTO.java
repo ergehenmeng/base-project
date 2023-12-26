@@ -1,7 +1,8 @@
 package com.eghm.dto.business.item;
 
-import com.eghm.enums.ref.DeliveryType;
+import com.eghm.annotation.Assign;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.enums.ref.DeliveryType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,12 +27,14 @@ public class ItemCouponQueryDTO extends PagingQuery {
     @NotNull(message = "优惠券id不能为空")
     private Long couponId;
 
+    @ApiModelProperty("标签id")
+    private String tagId;
+
     @ApiModelProperty(value = "店铺id", hidden = true)
+    @Assign
     private Long storeId;
 
     @ApiModelProperty(value = "使用范围 1:店铺券 2:商品券", hidden = true)
+    @Assign
     private Integer useScope;
-
-    @ApiModelProperty("标签id")
-    private String tagId;
 }

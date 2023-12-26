@@ -15,8 +15,9 @@ Channel: {{Channel}}
 Token: {{Token}}
 
 ###
-http://localhost:9090/webapp/item/couponScope?page=1&pageSize=10&deliveryType=1&sortBy=&couponId=1212&storeId=&useScope=&tagId=
+http://localhost:9090/webapp/item/couponScope?page=1&pageSize=10&sortBy=&couponId=1739535660503101442
 Channel: {{Channel}}
+Token: {{Token}}
 
 ###
 POST http://localhost:9090/webapp/item/calcExpress
