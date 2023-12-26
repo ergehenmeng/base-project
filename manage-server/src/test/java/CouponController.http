@@ -52,12 +52,12 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1610178152813809666
+  "id": 1739535660503101442
 }
 
 ###
 
-GET http://localhost:8080/manage/coupon/select?id=1610178152813809666
+GET http://localhost:8080/manage/coupon/select?id=1739535660503101442
 token: {{token}}
 
 ###
@@ -67,7 +67,7 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 1610178152813809666
+  "id": 1739535660503101442
 }
 
 ###

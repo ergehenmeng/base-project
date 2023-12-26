@@ -346,6 +346,7 @@ CREATE TABLE `coupon`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `title`           varchar(30)  DEFAULT NULL COMMENT '优惠券名称',
+    `merchant_id`     bigint(20)   DEFAULT NULL COMMENT '商户id',
     `state`           tinyint(1)   DEFAULT '0' COMMENT '状态 0:未启用 1:启用',
     `stock`           smallint(4)  DEFAULT '1' COMMENT '库存',
     `receive_num`     smallint(6)  DEFAULT '0' COMMENT '已领取数量',
@@ -374,11 +375,11 @@ CREATE TABLE `coupon`
 DROP TABLE IF EXISTS `coupon_scope`;
 CREATE TABLE `coupon_scope`
 (
-    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `coupon_id` bigint(20)  DEFAULT NULL COMMENT '优惠券id',
-    `product_type`     varchar(20) DEFAULT NULL COMMENT '商品类型',
-    `product_id`       bigint(20)  DEFAULT NULL COMMENT '商品id',
-    `create_time`      datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `coupon_id`    bigint(20)  DEFAULT NULL COMMENT '优惠券id',
+    `product_type` varchar(20) DEFAULT NULL COMMENT '商品类型',
+    `product_id`   bigint(20)  DEFAULT NULL COMMENT '商品id',
+    `create_time`  datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='优惠券商品关联表';
@@ -387,15 +388,15 @@ CREATE TABLE `coupon_scope`
 DROP TABLE IF EXISTS `member_coupon`;
 CREATE TABLE `member_coupon`
 (
-    `id`               bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `coupon_id` bigint(20) DEFAULT NULL COMMENT '优惠券id',
-    `member_id`        bigint(20) DEFAULT NULL COMMENT '用户id',
-    `state`            tinyint(1) DEFAULT '0' COMMENT '使用状态 0:未使用 1:已使用 2:已过期',
-    `receive_time`     datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '领取时间',
-    `use_time`         datetime   DEFAULT NULL COMMENT '使用时间',
-    `create_time`      datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`      datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`          bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `id`           bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `coupon_id`    bigint(20) DEFAULT NULL COMMENT '优惠券id',
+    `member_id`    bigint(20) DEFAULT NULL COMMENT '用户id',
+    `state`        tinyint(1) DEFAULT '0' COMMENT '使用状态 0:未使用 1:已使用 2:已过期',
+    `receive_time` datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '领取时间',
+    `use_time`     datetime   DEFAULT NULL COMMENT '使用时间',
+    `create_time`  datetime   DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)     DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='用户优惠券表';

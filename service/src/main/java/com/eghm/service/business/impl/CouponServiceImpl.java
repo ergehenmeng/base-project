@@ -1,9 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.coupon.config.CouponAddRequest;
@@ -23,11 +20,11 @@ import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -54,25 +51,8 @@ public class CouponServiceImpl implements CouponService {
     private final CommonService commonService;
 
     @Override
-    public Page<Coupon> getByPage(CouponQueryRequest request) {
-        LambdaQueryWrapper<Coupon> wrapper = Wrappers.lambdaQuery();
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Coupon::getTitle, request.getQueryName());
-        if (request.getState() != null) {
-            wrapper.gt( request.getState() == 0, Coupon::getStartTime, LocalDateTime.now());
-            wrapper.and(request.getState() == 1, queryWrapper -> {
-                LocalDateTime now = LocalDateTime.now();
-                queryWrapper.ge(Coupon::getStartTime, now);
-                queryWrapper.le(Coupon::getEndTime, now);
-            });
-            wrapper.lt(request.getState() == 2, Coupon::getEndTime, LocalDateTime.now());
-        }
-        wrapper.gt(Boolean.TRUE.equals(request.getInStock()), Coupon::getStock, 0);
-        // mybatisPlus value值没有懒校验模式, 需要外层判断request.getMode是否为空, 否则CouponMode.valueOf会空指针
-        if (request.getMode() != null) {
-            wrapper.eq(Coupon::getMode, request.getMode());
-        }
-        wrapper.last(" order by state desc, id desc ");
-        return couponMapper.selectPage(request.createPage(), wrapper);
+    public Page<CouponResponse> getByPage(CouponQueryRequest request) {
+        return couponMapper.listPage(request.createPage(), request);
     }
 
     @Override

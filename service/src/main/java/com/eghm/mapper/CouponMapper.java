@@ -2,9 +2,11 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.model.Coupon;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,6 +20,14 @@ import java.util.List;
  * @since 2022-07-13
  */
 public interface CouponMapper extends BaseMapper<Coupon> {
+
+    /**
+     * 分页查询优惠券列表
+     * @param page 分页信息
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<CouponResponse> listPage(Page<CouponResponse> page, @Param("param") CouponQueryRequest request);
 
     /**
      * 更新优惠券库存及领取数量

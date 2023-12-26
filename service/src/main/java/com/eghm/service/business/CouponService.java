@@ -7,6 +7,7 @@ import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryDTO;
 import com.eghm.vo.business.coupon.CouponListVO;
+import com.eghm.vo.business.coupon.CouponResponse;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface CouponService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<Coupon> getByPage(CouponQueryRequest request);
+    Page<CouponResponse> getByPage(CouponQueryRequest request);
 
     /**
      * 创建优惠券配置信息

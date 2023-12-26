@@ -12,6 +12,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.model.Coupon;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
+import com.eghm.vo.business.coupon.CouponResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -34,8 +35,8 @@ public class CouponController {
 
     @GetMapping("/listPage")
     @ApiOperation("优惠券列表")
-    public RespBody<PageData<Coupon>> listPage(@Validated CouponQueryRequest request) {
-        Page<Coupon> configPage = couponService.getByPage(request);
+    public RespBody<PageData<CouponResponse>> listPage(@Validated CouponQueryRequest request) {
+        Page<CouponResponse> configPage = couponService.getByPage(request);
         return RespBody.success(PageData.toPage(configPage));
     }
 
