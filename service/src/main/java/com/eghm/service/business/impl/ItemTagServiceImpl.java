@@ -71,11 +71,7 @@ public class ItemTagServiceImpl implements ItemTagService {
     @Override
     public List<ItemTagResponse> getList() {
         List<ItemTagResponse> responseList = itemTagMapper.getList();
-        return responseList
-                .stream()
-                .filter(response -> CommonConstant.ROOT_NODE.equals(response.getPid()))
-                .peek(response -> this.setChildren(response, responseList))
-                .collect(Collectors.toList());
+        return this.treeBin(CommonConstant.ROOT_NODE, responseList);
     }
 
     /**
@@ -99,14 +95,14 @@ public class ItemTagServiceImpl implements ItemTagService {
 
     /**
      * 递归设置子节点信息
-     * @param parent 父节点
+     * @param pid  pid
      * @param responseList 所有节点
      */
-    private void setChildren(ItemTagResponse parent, List<ItemTagResponse> responseList) {
-        parent.setChildren(responseList.stream()
-                .filter(response -> parent.getId().equals(response.getPid()))
-                .peek(response -> this.setChildren(response, responseList))
-                .collect(Collectors.toList()));
+    private List<ItemTagResponse> treeBin(String pid, List<ItemTagResponse> responseList) {
+        return responseList.stream()
+                .filter(response -> pid.equals(response.getPid()))
+                .peek(response -> response.setChildren(this.treeBin(response.getId(), responseList)))
+                .collect(Collectors.toList());
     }
 
 }

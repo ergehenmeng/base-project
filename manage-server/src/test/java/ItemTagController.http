@@ -8,8 +8,8 @@ Token: {{token}}
 Content-Type: application/json
 
 {
-  "pid": "0",
-  "title": "动物",
+  "pid": "100",
+  "title": "猫粮",
   "icon": "icon",
   "sort": 1
 }

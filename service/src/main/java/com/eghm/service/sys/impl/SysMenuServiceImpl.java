@@ -50,31 +50,31 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {
         List<MenuResponse> list = sysMenuMapper.getMenuList(userId, 1);
-        return this.treeBin(list);
+        return this.treeBin(CommonConstant.ROOT, list);
     }
 
     @Override
     public List<MenuResponse> getAdminLeftMenuList() {
         List<MenuResponse> list = sysMenuMapper.getAdminMenuList(1);
-        return this.treeBin(list);
+        return this.treeBin(CommonConstant.ROOT, list);
     }
 
     @Override
     public List<MenuResponse> getSystemList() {
         List<MenuResponse> responseList = sysMenuMapper.getAdminMenuList(null);
-        return this.treeBin(responseList);
+        return this.treeBin(CommonConstant.ROOT, responseList);
     }
 
     @Override
     public List<MenuResponse> getMerchantList() {
         List<MenuResponse> responseList = sysMenuMapper.getMerchantMenuList(null);
-        return this.treeBin(responseList);
+        return this.treeBin(CommonConstant.ROOT, responseList);
     }
 
     @Override
     public List<MenuResponse> getList() {
         List<MenuResponse> responseList = sysMenuMapper.getList();
-        return this.treeBin(responseList);
+        return this.treeBin(CommonConstant.ROOT, responseList);
     }
 
     @Override
@@ -146,30 +146,15 @@ public class SysMenuServiceImpl implements SysMenuService {
         return Long.parseLong(maxId) + 1;
     }
 
-
-    /**
-     * 设置子菜单列表
-     * 注意:此方法有一定性能问题, 菜单被匹配后并未从list移除,会导致更多迭代次数
-     * @param parent 当前菜单
-     * @param list   所有用户可操作的菜单
-     */
-    private void setChild(MenuResponse parent, List<MenuResponse> list) {
-        List<MenuResponse> childList = list.stream()
-                .filter(item -> parent.getId().equals(item.getPid()))
-                .peek(item -> setChild(item, list))
-                .sorted(comparator).collect(Collectors.toList());
-        parent.setChildren(childList);
-    }
-
     /**
      * 将菜单列表树化
      * @param menuList 菜单列表
      * @return 菜单列表 树状结构
      */
-    private List<MenuResponse> treeBin(List<MenuResponse> menuList) {
+    private List<MenuResponse> treeBin(Long pid, List<MenuResponse> menuList) {
         return menuList.stream()
-                .filter(parent -> CommonConstant.ROOT == parent.getPid())
-                .peek(parent -> setChild(parent, menuList))
+                .filter(parent -> pid.equals(parent.getPid()))
+                .peek(parent -> parent.setChildren(this.treeBin(parent.getId(), menuList)))
                 .sorted(comparator).collect(Collectors.toList());
     }
 
