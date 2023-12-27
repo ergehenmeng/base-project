@@ -13,3 +13,12 @@ Content-Type: application/json
   "icon": "icon",
   "sort": 1
 }
+
+###
+POST http://localhost:8080/manage/item/tag/delete
+Token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 100100
+}
