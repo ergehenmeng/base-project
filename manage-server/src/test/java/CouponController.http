@@ -81,3 +81,7 @@ Content-Type: application/json
   "couponId": 1610178152813809666,
   "num": 1
 }
+
+###
+GET http://localhost:8080/manage/coupon/receivePage?page=1&pageSize=10&couponId=1739535660503101442
+token: {{token}}

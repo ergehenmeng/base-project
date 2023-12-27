@@ -6,6 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 用户优惠券中心列表查询
  * @author 二哥很猛
@@ -20,7 +22,8 @@ public class MemberCouponQueryRequest extends PagingQuery {
     @OptionInt(value = {0, 1, 2}, message = "使用状态非法", required = false)
     private Integer state;
 
-    @ApiModelProperty("优惠券id")
+    @ApiModelProperty(value = "优惠券id", required = true)
+    @NotNull(message = "优惠券id不能为空")
     private Long couponId;
 
 }

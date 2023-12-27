@@ -4277,6 +4277,7 @@ INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sor
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10151314','设置线路','BjG0','101513',null,'/manage/poi/line/bind',2,50,1,null,3,'2023-12-22 16:23:50','2023-12-22 16:25:28');
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10151315','线路详情','7jG0','101513',null,'/manage/poi/line/bindDetail',2,60,1,null,3,'2023-12-22 16:23:50','2023-12-22 16:25:28');
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10151316','删除','WjG0','101513',null,'/manage/poi/line/delete',2,70,1,null,3,'2023-12-22 16:23:50','2023-12-22 16:25:28');
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10111917','领取详情','kNU0','101119',null,'/manage/coupon/receivePage',2,80,1,null,3,'2023-12-27 15:36:25','2023-12-27 15:37:02');
 
 
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `create_time`) VALUES ('1', '1707298744621969410', '101210', '2023-10-11 15:51:45');

@@ -6,6 +6,7 @@ import com.eghm.dto.business.coupon.config.CouponAddRequest;
 import com.eghm.dto.business.coupon.config.CouponEditRequest;
 import com.eghm.dto.business.coupon.config.CouponQueryRequest;
 import com.eghm.dto.business.coupon.member.GrantCouponDTO;
+import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.enums.ref.State;
@@ -13,6 +14,7 @@ import com.eghm.model.Coupon;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.vo.business.coupon.CouponResponse;
+import com.eghm.vo.business.coupon.MemberCouponResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -80,5 +82,12 @@ public class CouponController {
     public RespBody<Void> grant(@RequestBody @Validated GrantCouponDTO dto) {
         memberCouponService.grantCoupon(dto);
         return RespBody.success();
+    }
+
+    @GetMapping("/receivePage")
+    @ApiOperation("领取详情")
+    public RespBody<PageData<MemberCouponResponse>> receivePage(@Validated MemberCouponQueryRequest request) {
+        Page<MemberCouponResponse> byPage = memberCouponService.getByPage(request);
+        return RespBody.success(PageData.toPage(byPage));
     }
 }
