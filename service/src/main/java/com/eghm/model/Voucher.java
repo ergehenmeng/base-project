@@ -22,9 +22,9 @@ import java.time.LocalDate;
  * @since 2022-06-30
  */
 @Data
-@TableName("meal_voucher")
+@TableName("voucher")
 @EqualsAndHashCode(callSuper = true)
-public class MealVoucher extends BaseEntity implements Serializable {
+public class Voucher extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -3,9 +3,9 @@ package com.eghm.service.business;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.enums.ref.State;
-import com.eghm.model.MealVoucher;
-import com.eghm.dto.business.restaurant.voucher.MealVoucherAddRequest;
-import com.eghm.dto.business.restaurant.voucher.MealVoucherEditRequest;
+import com.eghm.model.Voucher;
+import com.eghm.dto.business.restaurant.voucher.VoucherAddRequest;
+import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
 import com.eghm.vo.business.restaurant.VoucherResponse;
@@ -17,14 +17,14 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/6/30
  */
-public interface MealVoucherService {
+public interface VoucherService {
 
     /**
      * 分页查询餐饮券信息
      * @param request 查询条件
      * @return 列表
      */
-    Page<MealVoucher> getByPage(VoucherQueryRequest request);
+    Page<Voucher> getByPage(VoucherQueryRequest request);
 
     /**
      * 分页查询餐饮券信息 导出使用
@@ -37,13 +37,13 @@ public interface MealVoucherService {
      * 创建餐饮券
      * @param request 餐饮券信息
      */
-    void create(MealVoucherAddRequest request);
+    void create(VoucherAddRequest request);
 
     /**
      * 更新餐饮券
      * @param request 餐饮券信息
      */
-    void update(MealVoucherEditRequest request);
+    void update(VoucherEditRequest request);
 
     /**
      * 更新上下架状态
@@ -57,21 +57,21 @@ public interface MealVoucherService {
      * @param id id
      * @return 餐饮券
      */
-    MealVoucher selectById(Long id);
+    Voucher selectById(Long id);
 
     /**
      * 主键查询餐饮券,不存在抛异常
      * @param id id
      * @return 餐饮券
      */
-    MealVoucher selectByIdRequired(Long id);
+    Voucher selectByIdRequired(Long id);
 
     /**
      * 主键查询餐饮券,不是上架中的抛异常
      * @param id id
      * @return 餐饮券
      */
-    MealVoucher selectByIdShelve(Long id);
+    Voucher selectByIdShelve(Long id);
 
     /**
      * 更新库存信息

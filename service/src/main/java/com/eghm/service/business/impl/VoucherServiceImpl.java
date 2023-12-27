@@ -6,16 +6,16 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.restaurant.voucher.MealVoucherAddRequest;
-import com.eghm.dto.business.restaurant.voucher.MealVoucherEditRequest;
+import com.eghm.dto.business.restaurant.voucher.VoucherAddRequest;
+import com.eghm.dto.business.restaurant.voucher.VoucherEditRequest;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryDTO;
 import com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
-import com.eghm.mapper.MealVoucherMapper;
-import com.eghm.model.MealVoucher;
-import com.eghm.service.business.MealVoucherService;
+import com.eghm.mapper.VoucherMapper;
+import com.eghm.model.Voucher;
+import com.eghm.service.business.VoucherService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.restaurant.VoucherDetailVO;
 import com.eghm.vo.business.restaurant.VoucherResponse;
@@ -30,65 +30,65 @@ import java.util.List;
  * @author 二哥很猛
  * @date 2022/6/30
  */
-@Service("mealVoucherService")
+@Service("voucherService")
 @AllArgsConstructor
 @Slf4j
-public class MealVoucherServiceImpl implements MealVoucherService {
+public class VoucherServiceImpl implements VoucherService {
 
-    private final MealVoucherMapper mealVoucherMapper;
+    private final VoucherMapper voucherMapper;
 
     @Override
-    public Page<MealVoucher> getByPage(VoucherQueryRequest request) {
-        LambdaQueryWrapper<MealVoucher> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getMerchantId() != null, MealVoucher::getMerchantId, request.getRestaurantId());
-        wrapper.eq(request.getRestaurantId() != null, MealVoucher::getRestaurantId, request.getRestaurantId());
-        wrapper.eq(request.getState() != null, MealVoucher::getState, request.getState());
-        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), MealVoucher::getTitle, request.getQueryName());
-        return mealVoucherMapper.selectPage(request.createPage(), wrapper);
+    public Page<Voucher> getByPage(VoucherQueryRequest request) {
+        LambdaQueryWrapper<Voucher> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(request.getMerchantId() != null, Voucher::getMerchantId, request.getRestaurantId());
+        wrapper.eq(request.getRestaurantId() != null, Voucher::getRestaurantId, request.getRestaurantId());
+        wrapper.eq(request.getState() != null, Voucher::getState, request.getState());
+        wrapper.like(StrUtil.isNotBlank(request.getQueryName()), Voucher::getTitle, request.getQueryName());
+        return voucherMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
     public List<VoucherResponse> getList(VoucherQueryRequest request) {
-        Page<VoucherResponse> listPage = mealVoucherMapper.listPage(request.createPage(false), request);
+        Page<VoucherResponse> listPage = voucherMapper.listPage(request.createPage(false), request);
         return listPage.getRecords();
     }
 
     @Override
-    public void create(MealVoucherAddRequest request) {
+    public void create(VoucherAddRequest request) {
         this.redoTitle(request.getTitle(), null, request.getRestaurantId());
-        MealVoucher voucher = DataUtil.copy(request, MealVoucher.class);
+        Voucher voucher = DataUtil.copy(request, Voucher.class);
         voucher.setTotalNum(request.getVirtualNum());
         voucher.setMerchantId(SecurityHolder.getMerchantId());
-        mealVoucherMapper.insert(voucher);
+        voucherMapper.insert(voucher);
     }
 
     @Override
-    public void update(MealVoucherEditRequest request) {
+    public void update(VoucherEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId(), request.getRestaurantId());
         
-        MealVoucher select = mealVoucherMapper.selectById(request.getId());
-        MealVoucher voucher = DataUtil.copy(request, MealVoucher.class);
+        Voucher select = voucherMapper.selectById(request.getId());
+        Voucher voucher = DataUtil.copy(request, Voucher.class);
         // 总销量要根据真实销量计算
         voucher.setTotalNum(request.getVirtualNum() + select.getSaleNum());
-        mealVoucherMapper.updateById(voucher);
+        voucherMapper.updateById(voucher);
     }
 
     @Override
     public void updateState(Long id, State state) {
-        LambdaUpdateWrapper<MealVoucher> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(MealVoucher::getId, id);
-        wrapper.set(MealVoucher::getState, state);
-        mealVoucherMapper.update(null, wrapper);
+        LambdaUpdateWrapper<Voucher> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(Voucher::getId, id);
+        wrapper.set(Voucher::getState, state);
+        voucherMapper.update(null, wrapper);
     }
 
     @Override
-    public MealVoucher selectById(Long id) {
-        return mealVoucherMapper.selectById(id);
+    public Voucher selectById(Long id) {
+        return voucherMapper.selectById(id);
     }
 
     @Override
-    public MealVoucher selectByIdRequired(Long id) {
-        MealVoucher voucher = this.selectById(id);
+    public Voucher selectByIdRequired(Long id) {
+        Voucher voucher = this.selectById(id);
         if (voucher == null) {
             log.error("餐饮券信息不存在 [{}]", id);
             throw new BusinessException(ErrorCode.VOUCHER_DOWN);
@@ -97,8 +97,8 @@ public class MealVoucherServiceImpl implements MealVoucherService {
     }
 
     @Override
-    public MealVoucher selectByIdShelve(Long id) {
-        MealVoucher voucher = this.selectByIdRequired(id);
+    public Voucher selectByIdShelve(Long id) {
+        Voucher voucher = this.selectByIdRequired(id);
         if (voucher.getState() != State.SHELVE) {
             log.error("餐饮券未上架 [{}] [{}]", id, voucher.getState());
             throw new BusinessException(ErrorCode.VOUCHER_DOWN);
@@ -108,7 +108,7 @@ public class MealVoucherServiceImpl implements MealVoucherService {
 
     @Override
     public void updateStock(Long id, Integer num) {
-        int stock = mealVoucherMapper.updateStock(id, num);
+        int stock = voucherMapper.updateStock(id, num);
         if (stock != 1) {
             log.error("餐饮券更新库存失败 [{}] [{}] [{}]", id, num, stock);
             throw new BusinessException(ErrorCode.VOUCHER_STOCK);
@@ -117,18 +117,18 @@ public class MealVoucherServiceImpl implements MealVoucherService {
 
     @Override
     public void deleteById(Long id) {
-        mealVoucherMapper.deleteById(id);
+        voucherMapper.deleteById(id);
     }
 
     @Override
     public List<VoucherVO> getByPage(VoucherQueryDTO dto) {
-        Page<VoucherVO> voPage = mealVoucherMapper.getList(dto.createPage(false), dto);
+        Page<VoucherVO> voPage = voucherMapper.getList(dto.createPage(false), dto);
         return voPage.getRecords();
     }
 
     @Override
     public VoucherDetailVO getDetail(Long id) {
-        MealVoucher voucher = this.selectByIdShelve(id);
+        Voucher voucher = this.selectByIdShelve(id);
         return DataUtil.copy(voucher, VoucherDetailVO.class);
     }
 
@@ -139,11 +139,11 @@ public class MealVoucherServiceImpl implements MealVoucherService {
      * @param restaurantId 所属餐厅
      */
     public void redoTitle(String title, Long id, Long restaurantId) {
-        LambdaQueryWrapper<MealVoucher> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(MealVoucher::getTitle, title);
-        wrapper.ne(id != null, MealVoucher::getId, id);
-        wrapper.eq(MealVoucher::getRestaurantId, restaurantId);
-        Long count = mealVoucherMapper.selectCount(wrapper);
+        LambdaQueryWrapper<Voucher> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Voucher::getTitle, title);
+        wrapper.ne(id != null, Voucher::getId, id);
+        wrapper.eq(Voucher::getRestaurantId, restaurantId);
+        Long count = voucherMapper.selectCount(wrapper);
         if (count > 0) {
             log.info("餐饮券名称重复 [{}] [{}] [{}]", title, id, restaurantId);
             throw new BusinessException(ErrorCode.VOUCHER_TITLE_REDO);

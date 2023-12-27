@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eghm.mapper.MealVoucherMapper">
+<mapper namespace="com.eghm.mapper.VoucherMapper">
 
     <select id="listPage" resultType="com.eghm.vo.business.restaurant.VoucherResponse" parameterType="com.eghm.dto.business.restaurant.voucher.VoucherQueryRequest">
         select
@@ -15,7 +15,7 @@
         t.refund_type,
         t.depict,
         t.create_time
-        from meal_voucher t left join restaurant r on t.restaurant_id = r.id
+        from voucher t left join restaurant r on t.restaurant_id = r.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
@@ -37,7 +37,7 @@
     </select>
 
     <update id="updateStock">
-        update meal_voucher set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
+        update voucher set stock = stock + #{num}, sale_num = sale_num - #{num}, total_num = total_num - #{num}
         where id = #{id} and deleted = false and stock + #{num} > 0
     </update>
 
@@ -51,7 +51,7 @@
         sale_price,
         stock,
         total_num
-        from meal_voucher where state = 1 and deleted = false and restaurant_id = #{param.restaurantId}
+        from voucher where state = 1 and deleted = false and restaurant_id = #{param.restaurantId}
         <if test="param.queryName != null and param.queryName != ''">
             and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
@@ -72,6 +72,6 @@
     </select>
 
     <update id="updateScore">
-        update meal_voucher set score = #{score} where id = #{id}
+        update voucher set score = #{score} where id = #{id}
     </update>
 </mapper>

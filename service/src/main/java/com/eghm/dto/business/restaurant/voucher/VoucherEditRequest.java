@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * @date 2022/6/30 22:03
  */
 @Data
-public class MealVoucherEditRequest {
+public class VoucherEditRequest {
 
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")

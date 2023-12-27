@@ -29,7 +29,7 @@ import java.util.List;
 @Api(tags = "角色管理")
 @AllArgsConstructor
 @RequestMapping("/manage/role")
-public class RoleController {
+public class SysRoleController {
 
     private final SysRoleService sysRoleService;
 

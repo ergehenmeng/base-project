@@ -18,7 +18,7 @@ import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.mapper.RestaurantMapper;
-import com.eghm.mapper.MealVoucherMapper;
+import com.eghm.mapper.VoucherMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.CommonService;
@@ -54,7 +54,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     private final OrderEvaluationMapper orderEvaluationMapper;
 
-    private final MealVoucherMapper mealVoucherMapper;
+    private final VoucherMapper voucherMapper;
 
     @Override
     public Page<Restaurant> getByPage(RestaurantQueryRequest request) {
@@ -153,7 +153,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
             log.info("为保证评分系统的公平性, 评价数量小于5条时默认不展示餐饮券商品评分 [{}]", vo.getProductId());
             return;
         }
-        mealVoucherMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
+        voucherMapper.updateScore(vo.getProductId(), DecimalUtil.calcAvgScore(productScore.getTotalScore(), productScore.getNum()));
     }
 
     /**

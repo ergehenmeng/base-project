@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * @date 2022/6/30 22:03
  */
 @Data
-public class MealVoucherAddRequest {
+public class VoucherAddRequest {
 
     @ApiModelProperty(value = "餐饮券名称", required = true)
     @Size(min = 2, max = 20, message = "餐饮券名称应为2~20字符")

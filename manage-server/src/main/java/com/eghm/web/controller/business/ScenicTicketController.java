@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "景区门票")
 @AllArgsConstructor
 @RequestMapping("/manage/scenic/ticket")
-public class ScenicTickController {
+public class ScenicTicketController {
 
     private final ScenicTicketService scenicTicketService;
 

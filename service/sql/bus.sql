@@ -178,8 +178,8 @@ CREATE TABLE `restaurant`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='餐饮商家信息表';
 
-DROP TABLE IF EXISTS `meal_voucher`;
-CREATE TABLE `meal_voucher`
+DROP TABLE IF EXISTS `voucher`;
+CREATE TABLE `voucher`
 (
     `id`              bigint(20) NOT NULL COMMENT '主键',
     `restaurant_id`   bigint(20)    DEFAULT NULL COMMENT '餐饮商家id',

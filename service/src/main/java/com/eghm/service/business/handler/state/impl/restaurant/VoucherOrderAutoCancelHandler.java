@@ -7,7 +7,7 @@ import com.eghm.model.Order;
 import com.eghm.model.VoucherOrder;
 import com.eghm.service.business.OrderService;
 import com.eghm.service.business.VoucherOrderService;
-import com.eghm.service.business.MealVoucherService;
+import com.eghm.service.business.VoucherService;
 import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderAutoCancelHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -23,18 +23,18 @@ public class VoucherOrderAutoCancelHandler extends AbstractOrderAutoCancelHandle
 
     private final VoucherOrderService voucherOrderService;
 
-    private final MealVoucherService mealVoucherService;
+    private final VoucherService voucherService;
 
-    public VoucherOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, MealVoucherService mealVoucherService) {
+    public VoucherOrderAutoCancelHandler(OrderService orderService, MemberCouponService memberCouponService, VoucherOrderService voucherOrderService, VoucherService voucherService) {
         super(orderService, memberCouponService);
         this.voucherOrderService = voucherOrderService;
-        this.mealVoucherService = mealVoucherService;
+        this.voucherService = voucherService;
     }
 
     @Override
     protected void after(Order order) {
         VoucherOrder voucherOrder = voucherOrderService.getByOrderNo(order.getOrderNo());
-        mealVoucherService.updateStock(voucherOrder.getVoucherId(), order.getNum());
+        voucherService.updateStock(voucherOrder.getVoucherId(), order.getNum());
     }
 
     @Override
