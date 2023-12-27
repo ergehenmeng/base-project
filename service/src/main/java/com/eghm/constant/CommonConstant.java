@@ -13,11 +13,6 @@ public class CommonConstant {
     }
 
     /**
-     * 移动端接口前缀
-     */
-    public static final String WEBAPP_PREFIX = "/webapp";
-
-    /**
      * 根节点
      */
     public static final long ROOT = 0;

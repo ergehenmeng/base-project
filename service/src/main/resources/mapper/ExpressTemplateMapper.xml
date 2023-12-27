@@ -23,6 +23,7 @@
                r.first_price,
                r.next_part,
                r.next_unit_price,
+               r.region_code,
                r.region_name
         from express_template t
         left join express_template_region r on t.id = r.express_id
@@ -45,6 +46,7 @@
             <result column="first_price" property="firstPrice"/>
             <result column="next_part" property="nextPart"/>
             <result column="next_unit_price" property="nextUnitPrice"/>
+            <result column="region_code" property="regionCode"/>
             <result column="region_name" property="regionName"/>
         </collection>
     </resultMap>
