@@ -16,8 +16,8 @@ import java.util.List;
  * @date 2020/11/4 19:12
  */
 @Slf4j
-@Service("SensitiveWordService")
 @AllArgsConstructor
+@Service("sensitiveWordService")
 public class SensitiveWordServiceImpl implements SensitiveWordService {
 
     private final SensitiveWordMapper sensitiveWordMapper;

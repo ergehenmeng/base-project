@@ -4,7 +4,7 @@
 
     <select id="getExpressList" resultType="com.eghm.vo.business.item.express.ItemExpressVO">
         select t.id, t.express_id, r.charge_mode
-        from item t inner join item_express r on t.express_id = r.id where t.deleted = false and t.store_id = #{storeId}
+        from item t inner join express_template r on t.express_id = r.id where t.deleted = false and t.store_id = #{storeId}
         and t.id in
         <foreach collection="itemIds" item="item" separator="," open="(" close=")">
             #{item}
@@ -12,20 +12,23 @@
     </select>
 
     <select id="getList" resultMap="itemExpressResultMap">
-        select
-        t.id,
-        t.title,
-        t.state,
-        t.charge_mode,
-        t.create_time,
-        t.update_time,
-        r.id as region_id,
-        r.first_part,
-        r.first_price,
-        r.next_part,
-        r.next_unit_price,
-        r.region_name
-        from item_express t left join item_express_region r on t.id = r.express_id where t.deleted = 0 and r.deleted = 0 and t.merchant_id = #{merchantId}
+        select t.id,
+               t.title,
+               t.state,
+               t.charge_mode,
+               t.create_time,
+               t.update_time,
+               r.id as region_id,
+               r.first_part,
+               r.first_price,
+               r.next_part,
+               r.next_unit_price,
+               r.region_name
+        from express_template t
+        left join express_template_region r on t.id = r.express_id
+        where t.deleted = 0
+          and r.deleted = 0
+          and t.merchant_id = #{merchantId}
         order by t.id desc
     </select>
 

@@ -1,15 +1,10 @@
 package com.eghm.convertor.excel;
 
-import cn.hutool.core.util.ReflectUtil;
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
-
-import java.lang.reflect.Field;
 
 /**
  * easy excel转化枚举类

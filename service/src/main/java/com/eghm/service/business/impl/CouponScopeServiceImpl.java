@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.enums.ref.ProductType;
 import com.eghm.mapper.CouponScopeMapper;
 import com.eghm.model.CouponScope;
-import com.eghm.dto.business.coupon.product.CouponScopeRequest;
 import com.eghm.service.business.CouponScopeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

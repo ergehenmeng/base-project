@@ -2,15 +2,14 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.Homestay;
-import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.vo.business.homestay.HomestayListVO;
 import com.eghm.vo.business.homestay.HomestayResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * <p>

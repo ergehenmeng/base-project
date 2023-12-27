@@ -1,7 +1,5 @@
 package com.eghm.service.business;
 
-import com.eghm.dto.business.coupon.product.CouponScopeRequest;
-
 import java.util.List;
 
 /**
