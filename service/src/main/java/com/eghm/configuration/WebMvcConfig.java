@@ -3,6 +3,7 @@ package com.eghm.configuration;
 import com.alibaba.ttl.TtlRunnable;
 import com.eghm.configuration.encoder.BcEncoder;
 import com.eghm.configuration.encoder.Encoder;
+import com.eghm.configuration.jackson.DesensitizationAnnotationInterceptor;
 import com.eghm.configuration.log.LogTraceFilter;
 import com.eghm.constants.SystemConstant;
 import com.eghm.convertor.DateAnnotationFormatterFactory;
@@ -10,6 +11,7 @@ import com.eghm.convertor.EnumBinderConverterFactory;
 import com.eghm.convertor.YuanToCentAnnotationFormatterFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.introspect.AnnotationIntrospectorPair;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
@@ -137,6 +139,9 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         simpleModule.addSerializer(BigInteger.class, ToStringSerializer.instance);
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
+        AnnotationIntrospector ai = objectMapper.getSerializationConfig().getAnnotationIntrospector();
+        AnnotationIntrospector newAi = AnnotationIntrospectorPair.pair(ai, new DesensitizationAnnotationInterceptor());
+        objectMapper.setAnnotationIntrospector(newAi);
     }
 
     public SystemProperties getSystemProperties() {

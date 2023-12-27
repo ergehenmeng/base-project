@@ -217,6 +217,11 @@ public enum ErrorCode {
     LOCK_SCREEN(1111, "屏幕锁定中"),
 
     /**
+     * 该字段类型不支持脱敏
+     */
+    FIELD_NOT_SUPPORTED(1122, "该字段类型不支持脱敏"),
+
+    /**
      * 参数解析异常
      */
     PARAM_VERIFY_ERROR(2000,"%s"),

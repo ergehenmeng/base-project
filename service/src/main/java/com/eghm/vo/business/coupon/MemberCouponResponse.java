@@ -1,5 +1,7 @@
 package com.eghm.vo.business.coupon;
 
+import com.eghm.annotation.Desensitization;
+import com.eghm.enums.FieldType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,6 +23,7 @@ public class MemberCouponResponse {
     private String nickName;
 
     @ApiModelProperty("手机号")
+    @Desensitization(FieldType.MOBILE_PHONE)
     private String mobile;
 
     @ApiModelProperty("使用状态 0:未使用 1:已使用 2:已过期")
