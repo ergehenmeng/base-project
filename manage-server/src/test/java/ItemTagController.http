@@ -1,0 +1,15 @@
+GET http://localhost:8080/manage/item/tag/list
+Token: {{token}}
+
+
+###
+POST http://localhost:8080/manage/item/tag/create
+Token: {{token}}
+Content-Type: application/json
+
+{
+  "pid": "0",
+  "title": "动物",
+  "icon": "icon",
+  "sort": 1
+}
