@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alipay.easysdk.factory.Factory;
 import com.alipay.easysdk.payment.common.models.*;
 import com.eghm.configuration.SystemProperties;
+import com.eghm.constant.CommonConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.AliPayException;
 import com.eghm.exception.BusinessException;
@@ -52,7 +53,7 @@ public class AliPayServiceImpl implements PayService {
         AlipayTradeCreateResponse response;
         try {
             SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
-            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + aliPay.getPayNotifyUrl())
+            response = Factory.Payment.Common().optional("body", dto.getAttach()).asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_PAY_NOTIFY_URL)
                     .create(dto.getDescription(), dto.getOutTradeNo(), DecimalUtil.centToYuan(dto.getAmount()), dto.getBuyerId());
         } catch (Exception e) {
             log.error("支付宝创建支付订单失败 [{}]", dto, e);
@@ -114,7 +115,7 @@ public class AliPayServiceImpl implements PayService {
         try {
             SystemProperties.AliPayProperties aliPay = systemProperties.getAliPay();
             response = Factory.Payment.Common()
-                    .asyncNotify(aliPay.getNotifyHost() + aliPay.getRefundNotifyUrl())
+                    .asyncNotify(aliPay.getNotifyHost() + CommonConstant.ALI_REFUND_NOTIFY_URL)
                     .optional("out_request_no", dto.getOutRefundNo())
                     .optional("refund_reason", dto.getReason())
                     .refund(dto.getOutTradeNo(), DecimalUtil.centToYuan(dto.getAmount()));

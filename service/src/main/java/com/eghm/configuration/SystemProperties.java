@@ -209,16 +209,6 @@ public class SystemProperties {
         private String notifyHost;
 
         /**
-         * 支付异步通知地址
-         */
-        private String payNotifyUrl = "/webapp/notify/ali/pay";
-
-        /**
-         * 退款异步通知地址
-         */
-        private String refundNotifyUrl = "/webapp/notify/ali/refund";
-
-        /**
          * AES密钥（可选）
          */
         private String encryptKey;
@@ -282,15 +272,6 @@ public class SystemProperties {
          */
         private String notifyHost;
 
-        /**
-         * 支付异步通知地址
-         */
-        private String payNotifyUrl = "/webapp/notify/weChat/pay";
-
-        /**
-         * 退款异步通知地址
-         */
-        private String refundNotifyUrl = "/webapp/notify/weChat/refund";
     }
 
     @Data

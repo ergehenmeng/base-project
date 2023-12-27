@@ -30,8 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.eghm.constant.CommonConstant.ALI_PAY_FAIL;
-import static com.eghm.constant.CommonConstant.ALI_PAY_SUCCESS;
+import static com.eghm.constant.CommonConstant.*;
 
 /**
  * @author 二哥很猛
@@ -53,7 +52,7 @@ public class PayNotifyController {
 
     private final RedisLock redisLock;
 
-    @PostMapping("${system.ali-pay.pay-notify-url:/webapp/notify/ali/pay}")
+    @PostMapping(ALI_PAY_NOTIFY_URL)
     @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
         Map<String, String> stringMap = parseRequest(request);
@@ -73,7 +72,7 @@ public class PayNotifyController {
         }));
     }
 
-    @PostMapping("${system.ali-pay.refund-notify-url:/webapp/notify/ali/refund}")
+    @PostMapping(ALI_REFUND_NOTIFY_URL)
     @ApiOperation("支付宝退款回调")
     public String aliRefund(HttpServletRequest request) {
         Map<String, String> stringMap = parseRequest(request);
@@ -93,7 +92,7 @@ public class PayNotifyController {
         }));
     }
 
-    @PostMapping("${system.wechat.pay-notify-url:/webapp/notify/weChat/pay}")
+    @PostMapping(WECHAT_PAY_NOTIFY_URL)
     @ApiOperation("微信支付回调")
     public Map<String, String> weChatPay(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseHeader(httpHeader);
@@ -112,7 +111,7 @@ public class PayNotifyController {
         }));
     }
 
-    @PostMapping("${system.wechat.refund-notify-url:/webapp/notify/weChat/refund}")
+    @PostMapping(WECHAT_REFUND_NOTIFY_URL)
     @ApiOperation("微信退款回调")
     public Map<String, String> weChatRefund(@RequestHeader HttpHeaders httpHeader, @RequestBody String requestBody, HttpServletResponse response) {
         SignatureHeader header = this.parseHeader(httpHeader);

@@ -136,4 +136,24 @@ public class CommonConstant {
      * 时间戳
      */
     public static final String TIMESTAMP = "timestamp";
+
+    /**
+     * 阿里退款异步回调
+     */
+    public static final String ALI_REFUND_NOTIFY_URL = "/webapp/notify/ali/refund";
+
+    /**
+     * 阿里支付异步回调
+     */
+    public static final String ALI_PAY_NOTIFY_URL = "/webapp/notify/ali/pay";
+
+    /**
+     * 微信退款异步回调
+     */
+    public static final String WECHAT_REFUND_NOTIFY_URL = "/webapp/notify/weChat/refund";
+
+    /**
+     * 微信支付异步回调
+     */
+    public static final String WECHAT_PAY_NOTIFY_URL = "/webapp/notify/weChat/pay";
 }

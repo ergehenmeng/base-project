@@ -2,6 +2,7 @@ package com.eghm.web.configuration;
 
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.WebMvcConfig;
+import com.eghm.constant.CommonConstant;
 import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.TokenService;
@@ -58,11 +59,7 @@ public class WebappMvcConfig extends WebMvcConfig {
 
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
-        String[] notifyUrl = new String[] {
-                systemProperties.getWechat().getPayNotifyUrl(),
-                systemProperties.getWechat().getRefundNotifyUrl(),
-                systemProperties.getAliPay().getPayNotifyUrl(),
-                systemProperties.getAliPay().getRefundNotifyUrl()};
+        String[] notifyUrl = new String[] {CommonConstant.ALI_PAY_NOTIFY_URL, CommonConstant.ALI_REFUND_NOTIFY_URL, CommonConstant.WECHAT_PAY_NOTIFY_URL, CommonConstant.WECHAT_REFUND_NOTIFY_URL};
         registry.addInterceptor(messageInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).order(Integer.MIN_VALUE + 5);
         registry.addInterceptor(signCheckInterceptor()).order(Integer.MIN_VALUE + 10);
         registry.addInterceptor(tokenInterceptor()).excludePathPatterns(FILTER_EXCLUDE_URL).excludePathPatterns(notifyUrl).order(Integer.MIN_VALUE + 15);
