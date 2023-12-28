@@ -1,7 +1,11 @@
 package com.eghm.mapper;
 
-import com.eghm.model.PayNotifyLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.log.PayLogQueryRequest;
+import com.eghm.model.PayNotifyLog;
+import com.eghm.vo.business.log.PayNotifyLogResponse;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +17,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface PayNotifyLogMapper extends BaseMapper<PayNotifyLog> {
 
+    /**
+     * 分页查询
+     * @param page 分页
+     * @param request 查询条件
+     * @return 列表
+     */
+    Page<PayNotifyLogResponse> getByPage(Page<PayNotifyLogResponse> page, @Param("param") PayLogQueryRequest request);
 }

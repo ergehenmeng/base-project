@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.log.PayLogQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
-import com.eghm.model.PayNotifyLog;
-import com.eghm.model.PayRequestLog;
 import com.eghm.service.pay.PayNotifyLogService;
 import com.eghm.service.pay.PayRequestLogService;
+import com.eghm.vo.business.log.PayNotifyLogResponse;
+import com.eghm.vo.business.log.PayRequestLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -31,15 +31,15 @@ public class PayLogController {
 
     @GetMapping("/sync/listPage")
     @ApiOperation("支付同步请求日志列表")
-    public RespBody<PageData<PayRequestLog>> syncListPage(PayLogQueryRequest request) {
-        Page<PayRequestLog> merchantPage = payRequestLogService.getByPage(request);
+    public RespBody<PageData<PayRequestLogResponse>> syncListPage(PayLogQueryRequest request) {
+        Page<PayRequestLogResponse> merchantPage = payRequestLogService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }
 
     @GetMapping("/notify/listPage")
     @ApiOperation("支付异步响应日志列表")
-    public RespBody<PageData<PayNotifyLog>> notifyListPage(PayLogQueryRequest request) {
-        Page<PayNotifyLog> merchantPage = payNotifyLogService.getByPage(request);
+    public RespBody<PageData<PayNotifyLogResponse>> notifyListPage(PayLogQueryRequest request) {
+        Page<PayNotifyLogResponse> merchantPage = payNotifyLogService.getByPage(request);
         return RespBody.success(PageData.toPage(merchantPage));
     }
 

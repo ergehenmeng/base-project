@@ -1,19 +1,17 @@
 package com.eghm.service.pay.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.log.PayLogQueryRequest;
 import com.eghm.mapper.PayRequestLogMapper;
 import com.eghm.model.PayRequestLog;
-import com.eghm.service.pay.PayRequestLogService;
 import com.eghm.service.common.JsonService;
+import com.eghm.service.pay.PayRequestLogService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.enums.StepType;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
+import com.eghm.vo.business.log.PayRequestLogResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -37,17 +35,8 @@ public class PayRequestLogServiceImpl implements PayRequestLogService {
     private final JsonService jsonService;
 
     @Override
-    public Page<PayRequestLog> getByPage(PayLogQueryRequest request) {
-        LambdaQueryWrapper<PayRequestLog> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(request.getPayChannel() != null, PayRequestLog::getPayChannel, request.getPayChannel());
-        wrapper.eq(request.getStepType() != null, PayRequestLog::getStepType, request.getPayChannel());
-        wrapper.and(StrUtil.isNotBlank(request.getQueryName()), queryWrapper -> queryWrapper
-                .like(PayRequestLog::getOrderNo, request.getQueryName())
-                .or()
-                .like(PayRequestLog::getOutTradeNo, request.getQueryName())
-                .or()
-                .like(PayRequestLog::getOutRefundNo, request.getQueryName()));
-        return payRequestLogMapper.selectPage(request.createPage(), wrapper);
+    public Page<PayRequestLogResponse> getByPage(PayLogQueryRequest request) {
+        return payRequestLogMapper.getByPage(request.createPage(), request);
     }
 
     @Async

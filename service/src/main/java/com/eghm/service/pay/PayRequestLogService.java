@@ -7,6 +7,7 @@ import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.vo.PrepayVO;
 import com.eghm.service.pay.vo.RefundVO;
+import com.eghm.vo.business.log.PayRequestLogResponse;
 
 /**
  * <p>
@@ -23,7 +24,7 @@ public interface PayRequestLogService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<PayRequestLog> getByPage(PayLogQueryRequest request);
+    Page<PayRequestLogResponse> getByPage(PayLogQueryRequest request);
 
     /**
      * 添加请求支付的日志

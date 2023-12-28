@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.log.PayLogQueryRequest;
 import com.eghm.model.PayNotifyLog;
 import com.eghm.service.pay.enums.StepType;
+import com.eghm.vo.business.log.PayNotifyLogResponse;
 import com.github.binarywang.wxpay.bean.notify.WxPayNotifyV3Result;
 import com.github.binarywang.wxpay.bean.notify.WxPayRefundNotifyV3Result;
 
@@ -20,7 +21,7 @@ public interface PayNotifyLogService {
      * @param request 查询条件
      * @return 列表
      */
-    Page<PayNotifyLog> getByPage(PayLogQueryRequest request);
+    Page<PayNotifyLogResponse> getByPage(PayLogQueryRequest request);
 
     /**
      * 添加支付宝异步通知日志

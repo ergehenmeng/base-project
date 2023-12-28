@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.PayNotifyLogMapper">
-
+    <select id="getByPage" resultType="com.eghm.vo.business.log.PayNotifyLogResponse" parameterType="com.eghm.dto.business.order.log.PayLogQueryRequest">
+        select
+        pay_channel,
+        notify_id,
+        step_type,
+        out_trade_no,
+        out_refund_no,
+        params,
+        create_time
+        from pay_notify_log where deleted = false
+        <if test="param.payChannel != null">
+            and pay_channel = #{param.payChannel}
+        </if>
+        <if test="param.stepType != null">
+            and step_type = #{param.stepType}
+        </if>
+        <if test="param.queryName != null and param.queryName != ''">
+            and (out_trade_no like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%') or
+                out_refund_no like concat('%',#{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler},'%'))
+        </if>
+        order by id desc
+    </select>
 </mapper>
