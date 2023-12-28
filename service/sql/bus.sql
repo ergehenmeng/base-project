@@ -980,6 +980,7 @@ CREATE TABLE `order_evaluation`
     `member_id`       bigint(20)   DEFAULT NULL COMMENT '用户id',
     `anonymity`       bit(1)       DEFAULT b'0' COMMENT '是否匿名评论 0:非匿名1:匿名',
     `audit_remark`    varchar(100) DEFAULT NULL COMMENT '审核拒绝原因',
+    `user_id`         bigint(20)   DEFAULT NULL COMMENT '审核人',
     `create_time`     datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '添加时间',
     `update_time`     datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`         bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除1:已删除',

@@ -62,6 +62,9 @@ public class OrderEvaluationResponse {
     @ApiModelProperty(value = "审核拒绝原因")
     private String auditRemark;
 
+    @ApiModelProperty("审核人姓名")
+    private String auditName;
+
     @ApiModelProperty("添加时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

@@ -12,15 +12,18 @@
         t.sku_title,
         t.score,
         t.logistics_score,
-        t.store_score
+        t.store_score,
         t.comment,
         t.comment_pic,
         t.state,
         t.anonymity,
         t.audit_remark,
         t.create_time,
-        r.nick_name
-        from order_evaluation t left join member r on t.member_id = r.id
+        r.nick_name,
+        s.nick_name as auditName
+        from order_evaluation t
+        left join member r on t.member_id = r.id
+        left join sys_user s on t.user_id = s.id
         where t.deleted = false
         <if test="param.queryName != null and param.queryName != ''">
             and (t.order_no like concat('%', #{param.queryName, , typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
