@@ -1,6 +1,7 @@
 package com.eghm.dto.business.merchant;
 
 import com.eghm.validation.annotation.Mobile;
+import com.eghm.validation.annotation.Password;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,8 +30,10 @@ public class MerchantUserEditRequest {
     private String mobile;
 
     @ApiModelProperty("密码")
-    @NotBlank(message = "密码不能为空")
-    @Size(min = 8, max = 16, message = "密码长度8~16位")
+    @Password
     private String password;
 
+    @ApiModelProperty("备注信息")
+    @Size(max = 100, message = "备注信息最大100字符")
+    private String remark;
 }

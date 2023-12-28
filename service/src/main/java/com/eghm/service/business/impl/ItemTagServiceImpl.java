@@ -43,10 +43,20 @@ public class ItemTagServiceImpl implements ItemTagService {
      */
     private static final String STEP = "100";
 
+    /**
+     * 最大层级是5级, 每一级三位长度的数字
+     */
+    private static final int MAX_TAG_DEPTH = 15;
+
     @Override
     public void create(ItemTagAddRequest request) {
+        String nextId = this.getNextId(request.getPid());
+        if (nextId.length() > MAX_TAG_DEPTH) {
+            log.warn("标签层级太深,无法继续创建 [{}] [{}]", nextId, MAX_TAG_DEPTH);
+            throw new BusinessException(ErrorCode.TAG_DEPTH);
+        }
         ItemTag tag = DataUtil.copy(request, ItemTag.class);
-        tag.setId(this.getNextId(request.getPid()));
+        tag.setId(nextId);
         itemTagMapper.insert(tag);
     }
 

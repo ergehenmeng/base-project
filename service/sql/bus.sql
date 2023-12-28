@@ -992,13 +992,14 @@ DROP TABLE IF EXISTS `merchant_user`;
 CREATE TABLE `merchant_user`
 (
     `id`          bigint(20) NOT NULL COMMENT '主键',
-    `nick_name`   varchar(10) DEFAULT NULL COMMENT '昵称',
-    `mobile`      varchar(11) DEFAULT NULL COMMENT '手机号',
-    `merchant_id` bigint(20)  DEFAULT NULL COMMENT '所属商户id',
-    `user_id`     bigint(20)  DEFAULT NULL COMMENT '关联的系统用户ID',
-    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`     bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `nick_name`   varchar(10)  DEFAULT NULL COMMENT '昵称',
+    `mobile`      varchar(11)  DEFAULT NULL COMMENT '手机号',
+    `merchant_id` bigint(20)   DEFAULT NULL COMMENT '所属商户id',
+    `user_id`     bigint(20)   DEFAULT NULL COMMENT '关联的系统用户ID',
+    `remark`      varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

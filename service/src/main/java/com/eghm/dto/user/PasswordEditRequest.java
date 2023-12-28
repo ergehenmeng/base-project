@@ -1,6 +1,7 @@
 package com.eghm.dto.user;
 
 import com.eghm.annotation.Assign;
+import com.eghm.validation.annotation.Password;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -20,8 +21,8 @@ public class PasswordEditRequest implements Serializable {
     @NotNull(message = "原密码不能为空")
     private String oldPwd;
 
-    @NotNull(message = "新密码不能为空")
     @ApiModelProperty(value = "新密码", required = true)
+    @Password(message = "新密码必须包含英文字符、数字、@#&_")
     private String newPwd;
 
     @Assign

@@ -23,6 +23,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 /**
  * @author 二哥很猛
  * @since 2023/9/25
@@ -74,9 +76,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         user.setInitPwd(user.getPwd());
         sysUserService.updateById(user);
 
-        merchant.setNickName(request.getNickName());
-        merchant.setMobile(request.getMobile());
-        merchantUserMapper.updateById(merchant);
+        merchantUserMapper.updateById(DataUtil.copy(request, MerchantUser.class));
     }
 
     @Override
@@ -90,12 +90,16 @@ public class MerchantUserServiceImpl implements MerchantUserService {
     public void lockUser(Long id) {
         MerchantUser merchant = this.getMerchantUser(id);
         sysUserService.lockUser(merchant.getUserId());
+        merchant.setUpdateTime(LocalDateTime.now());
+        merchantUserMapper.updateById(merchant);
     }
 
     @Override
     public void unlockUser(Long id) {
         MerchantUser merchant = this.getMerchantUser(id);
         sysUserService.unlockUser(merchant.getUserId());
+        merchant.setUpdateTime(LocalDateTime.now());
+        merchantUserMapper.updateById(merchant);
     }
 
     /**

@@ -12,6 +12,7 @@
         t.nick_name,
         t.mobile,
         r.state,
+        t.remark,
         t.create_time,
         t.update_time
         from merchant_user t left join sys_user r on t.user_id = r.id

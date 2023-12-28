@@ -31,4 +31,7 @@ public class MerchantUser extends BaseEntity implements Serializable {
 
     @ApiModelProperty("关联的系统用户id")
     private Long userId;
+
+    @ApiModelProperty("备注信息")
+    private String remark;
 }

@@ -1,5 +1,6 @@
 package com.eghm.dto.login;
 
+import com.eghm.validation.annotation.Password;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class SetPasswordDTO {
     @NotBlank(message = "请求ID不能为空")
     private String requestId;
 
-    @ApiModelProperty(value = "新密码", required = true)
-    @NotBlank(message = "密码不能为空")
+    @ApiModelProperty(value = "密码", required = true)
+    @Password
     private String password;
 }
