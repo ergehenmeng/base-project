@@ -8,8 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 商品订单表
@@ -23,7 +21,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = true)
 public class ItemOrder extends BaseEntity {
 
-    couponId    @ApiModelProperty(value = "商品id")
+    @ApiModelProperty(value = "商品id")
     private Long itemId;
 
     @ApiModelProperty(value = "商品名称")

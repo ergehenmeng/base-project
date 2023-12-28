@@ -8,8 +8,6 @@ import com.eghm.enums.ErrorCode;
  */
 public class BusinessException extends SystemException {
 
-    private static final long serialVersionUID = 860110039545282195L;
-
     public BusinessException(ErrorCode error) {
         super(error);
     }

@@ -19,8 +19,6 @@ import javax.validation.constraints.NotNull;
 @ToString(callSuper = true)
 public class DeptAddRequest extends ActionRecord {
 
-    private static final long serialVersionUID = -4129318805129787627L;
-
     @ApiModelProperty(value = "父节点code", required = true)
     @NotNull(message = "父节点code不能为空")
     private String parentCode;

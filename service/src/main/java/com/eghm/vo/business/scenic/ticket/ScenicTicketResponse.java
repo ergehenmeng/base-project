@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -19,7 +18,7 @@ import java.time.LocalDate;
 @Data
 public class ScenicTicketResponse {
 
-    couponId    @ApiModelProperty("门票id")
+    @ApiModelProperty("门票id")
     private Long id;
 
     @ApiModelProperty(value = "门票所属景区")

@@ -18,8 +18,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class BannerQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = -7234026470157744373L;
-
     @ApiModelProperty("轮播图类型")
     private Integer classify;
 

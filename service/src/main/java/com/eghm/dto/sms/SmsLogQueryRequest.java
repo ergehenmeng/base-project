@@ -18,8 +18,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class SmsLogQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = -3461922717720251514L;
-
     @ApiModelProperty("开始时间 yyyy-MM-dd HH:mm")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime startTime;

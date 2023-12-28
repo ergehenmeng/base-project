@@ -12,6 +12,4 @@ import lombok.Setter;
 @Getter
 public class BlackRosterQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = -3242726199792945020L;
-
 }

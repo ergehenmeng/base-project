@@ -13,8 +13,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class NoticeQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = -6968777991245814063L;
-
     @ApiModelProperty("公告类型")
     private Integer classify;
 

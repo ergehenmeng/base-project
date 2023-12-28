@@ -13,8 +13,6 @@ import lombok.Setter;
 @Getter
 public class TaskQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = -7264160100372337195L;
-
     @ApiModelProperty("状态 false:未开启 true:已开启")
     private Boolean state;
 }

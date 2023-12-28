@@ -9,8 +9,6 @@ import com.eghm.enums.ErrorCode;
  */
 public class SystemException extends RuntimeException {
 
-    private static final long serialVersionUID = -2155208136300969093L;
-
     private final int code;
 
     /**

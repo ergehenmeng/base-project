@@ -9,8 +9,6 @@ import com.eghm.enums.ErrorCode;
  */
 public class ParameterException extends SystemException {
 
-    private static final long serialVersionUID = -8344713188735190270L;
-
     public ParameterException(ErrorCode error) {
         super(error);
     }

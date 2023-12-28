@@ -14,6 +14,4 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class SmsTemplateQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = -1036182177988776422L;
-
 }

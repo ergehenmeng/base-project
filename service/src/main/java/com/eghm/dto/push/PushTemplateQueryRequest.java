@@ -14,8 +14,6 @@ import lombok.Setter;
 @Setter
 public class PushTemplateQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = 2652554259813794315L;
-
     @ApiModelProperty("0:关闭 1:开启")
     @OptionInt(value = {0, 1}, required = false)
     private Integer state;

@@ -18,8 +18,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class FeedbackDisposeRequest extends ActionRecord {
 
-    private static final long serialVersionUID = -7275206427146713271L;
-
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;

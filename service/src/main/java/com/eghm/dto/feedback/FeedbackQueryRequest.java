@@ -15,8 +15,6 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = true)
 public class FeedbackQueryRequest extends PagingQuery {
 
-    private static final long serialVersionUID = 1054408796616316094L;
-
     @ApiModelProperty("分类信息(数据字典)")
     private Integer classify;
 
