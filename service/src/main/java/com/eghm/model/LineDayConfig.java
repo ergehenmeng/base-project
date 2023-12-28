@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -20,9 +19,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("line_day_config")
-public class LineDayConfig implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class LineDayConfig {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

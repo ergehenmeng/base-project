@@ -4,15 +4,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * 省市县三级地址
  * @author 二哥很猛
  */
 @Data
 @TableName("sys_area")
-public class SysArea implements Serializable {
+public class SysArea {
 
     /**
      * 省级

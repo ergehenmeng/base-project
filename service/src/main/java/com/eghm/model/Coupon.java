@@ -13,7 +13,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -28,9 +27,7 @@ import java.time.LocalDateTime;
 @TableName("coupon")
 @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Coupon extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Coupon extends BaseEntity {
 
     @ApiModelProperty(value = "优惠券名称")
     @TableField(typeHandler = LikeTypeHandler.class)

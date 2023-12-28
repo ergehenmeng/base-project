@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 订单评价
@@ -19,9 +17,7 @@ import java.io.Serializable;
 @Data
 @TableName("order_evaluation")
 @EqualsAndHashCode(callSuper = true)
-public class OrderEvaluation extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class OrderEvaluation extends BaseEntity {
 
     @ApiModelProperty(value = "订单子表id")
     private Long orderId;

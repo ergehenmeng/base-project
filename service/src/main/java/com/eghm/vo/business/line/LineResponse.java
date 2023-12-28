@@ -27,8 +27,6 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class LineResponse extends ExcelStyle {
 
-    private static final long serialVersionUID = 1L;
-
     @ApiModelProperty("id主键")
     private Long id;
 

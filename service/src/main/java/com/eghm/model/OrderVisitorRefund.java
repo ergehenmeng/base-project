@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -19,9 +18,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("order_visitor_refund")
-public class OrderVisitorRefund implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class OrderVisitorRefund {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 /**
  * 基础类请求参数 如需分页操作需要继承该方法
  *
@@ -16,9 +14,7 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-public class PagingQuery implements Serializable {
-
-    private static final long serialVersionUID = 9015209122071749218L;
+public class PagingQuery {
 
     @ApiModelProperty(value = "第几页", required = true, example = "1")
     private Integer page = 1;

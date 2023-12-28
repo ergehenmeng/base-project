@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * 用户信息表
  * @author 二哥很猛
@@ -14,7 +12,7 @@ import java.io.Serializable;
 @Data
 @TableName("member")
 @EqualsAndHashCode(callSuper = true)
-public class Member extends BaseEntity implements Serializable {
+public class Member extends BaseEntity {
 
     @ApiModelProperty("昵称")
     private String nickName;

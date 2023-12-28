@@ -7,16 +7,13 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2019/8/19 16:55
  */
 @Data
-public class AccountLoginDTO implements Serializable {
-
-    private static final long serialVersionUID = 2897260194026380794L;
+public class AccountLoginDTO {
 
     @NotEmpty(message = "登陆账号不能为空")
     @ApiModelProperty(value = "手机号或邮箱",required = true)

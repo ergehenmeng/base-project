@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -15,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class ManageQueryRequest extends PagingQuery implements Serializable {
+public class ManageQueryRequest extends PagingQuery {
 
     private static final long serialVersionUID = 7717698795068820383L;
 

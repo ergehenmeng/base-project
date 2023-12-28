@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 抽奖位置配置表
@@ -19,9 +17,7 @@ import java.io.Serializable;
 @Data
 @TableName("lottery_config")
 @EqualsAndHashCode(callSuper = true)
-public class LotteryConfig extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class LotteryConfig extends BaseEntity {
 
     @ApiModelProperty(value = "商户id")
     private Long merchantId;

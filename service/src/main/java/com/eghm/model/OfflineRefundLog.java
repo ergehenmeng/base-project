@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 线下退款记录表
@@ -18,9 +16,7 @@ import java.io.Serializable;
 @Data
 @TableName("offline_refund_log")
 @EqualsAndHashCode(callSuper = true)
-public class OfflineRefundLog extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class OfflineRefundLog extends BaseEntity {
 
     @ApiModelProperty(value = "订单编号")
     private String orderNo;

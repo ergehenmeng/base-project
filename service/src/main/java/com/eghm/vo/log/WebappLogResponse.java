@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class WebappLogResponse {
 
     @ApiModelProperty("用户昵称")
-    private String memberName;
+    private String nickName;
 
     @ApiModelProperty("软件版本号 针对app端,例如 1.2.7")
     private String version;

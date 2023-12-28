@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 快递模板表
@@ -18,9 +16,7 @@ import java.io.Serializable;
 @Data
 @TableName("express_template")
 @EqualsAndHashCode(callSuper = true)
-public class ExpressTemplate extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ExpressTemplate extends BaseEntity {
 
     @ApiModelProperty("商户id")
     private Long merchantId;

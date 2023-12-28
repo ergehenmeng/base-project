@@ -5,14 +5,13 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2019/1/14 11:40
  */
 @Data
-public class DictAddRequest implements Serializable {
+public class DictAddRequest {
 
     @ApiModelProperty(value = "数据字典名称", required = true)
     @NotBlank(message = "名称不能为空")

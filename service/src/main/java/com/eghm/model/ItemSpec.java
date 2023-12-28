@@ -18,9 +18,7 @@ import java.io.Serializable;
 @Data
 @TableName("item_spec")
 @EqualsAndHashCode(callSuper = true)
-public class ItemSpec extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ItemSpec extends BaseEntity {
 
     @ApiModelProperty(value = "商品id")
     private Long itemId;

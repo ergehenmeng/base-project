@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -20,9 +19,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName("lottery")
 @EqualsAndHashCode(callSuper = true)
-public class Lottery extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Lottery extends BaseEntity {
 
     @ApiModelProperty(value = "活动名称")
     private String title;

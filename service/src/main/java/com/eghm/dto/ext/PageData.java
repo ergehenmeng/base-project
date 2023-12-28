@@ -16,7 +16,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PageData<T> {
 
-    private static final long serialVersionUID = 9015209122071749218L;
     /**
      * 总条数
      */

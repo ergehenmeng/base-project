@@ -21,11 +21,9 @@ import java.io.Serializable;
 @Data
 @TableName("item_order")
 @EqualsAndHashCode(callSuper = true)
-public class ItemOrder extends BaseEntity implements Serializable {
+public class ItemOrder extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "商品id")
+    couponId    @ApiModelProperty(value = "商品id")
     private Long itemId;
 
     @ApiModelProperty(value = "商品名称")

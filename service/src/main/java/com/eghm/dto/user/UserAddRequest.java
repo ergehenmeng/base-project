@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * 管理人员 添加
@@ -13,9 +12,7 @@ import java.io.Serializable;
  * @date 2018/11/30 15:43
  */
 @Data
-public class UserAddRequest implements Serializable {
-
-    private static final long serialVersionUID = 6228244128468433700L;
+public class UserAddRequest {
 
     @ApiModelProperty(value = "用户名称", required = true)
     @NotNull(message = "用户名称不能为空")

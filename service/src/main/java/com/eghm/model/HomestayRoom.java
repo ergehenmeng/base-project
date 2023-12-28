@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 房型信息表
@@ -20,9 +18,7 @@ import java.io.Serializable;
 @Data
 @TableName("homestay_room")
 @EqualsAndHashCode(callSuper = true)
-public class HomestayRoom extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class HomestayRoom extends BaseEntity {
 
     @ApiModelProperty(value = "民宿id")
     private Long homestayId;

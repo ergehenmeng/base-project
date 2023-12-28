@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 支付或退款请求记录表
@@ -22,7 +20,7 @@ import java.io.Serializable;
 @Data
 @TableName("pay_request_log")
 @EqualsAndHashCode(callSuper = true)
-public class PayRequestLog extends BaseEntity implements Serializable {
+public class PayRequestLog extends BaseEntity {
 
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")
     private PayChannel payChannel;

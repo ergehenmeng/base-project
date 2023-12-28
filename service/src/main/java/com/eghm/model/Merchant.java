@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 商家信息表
@@ -20,10 +18,8 @@ import java.io.Serializable;
 @Data
 @TableName("merchant")
 @EqualsAndHashCode(callSuper = true)
-public class Merchant extends BaseEntity implements Serializable {
+public class Merchant extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
-    
     @ApiModelProperty(value = "商家名称")
     @TableField(typeHandler = LikeTypeHandler.class)
     private String merchantName;

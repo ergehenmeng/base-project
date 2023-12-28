@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -19,9 +18,7 @@ import java.math.BigDecimal;
 @Data
 @TableName("express_template_region")
 @EqualsAndHashCode(callSuper = true)
-public class ExpressTemplateRegion extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ExpressTemplateRegion extends BaseEntity {
 
     @ApiModelProperty(value = "模板id")
     private Long expressId;

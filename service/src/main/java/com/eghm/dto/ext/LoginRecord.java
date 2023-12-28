@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * 登陆信息记录
  * @author 二哥很猛
@@ -17,9 +15,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginRecord implements Serializable {
-
-    private static final long serialVersionUID = -8379974755063972428L;
+public class LoginRecord {
 
     @ApiModelProperty("用户id")
     private Long memberId;

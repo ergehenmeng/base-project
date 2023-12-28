@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -24,9 +23,7 @@ import java.time.LocalDate;
 @Data
 @TableName("voucher")
 @EqualsAndHashCode(callSuper = true)
-public class Voucher extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Voucher extends BaseEntity {
 
     @ApiModelProperty(value = "餐饮商家id")
     private Long restaurantId;

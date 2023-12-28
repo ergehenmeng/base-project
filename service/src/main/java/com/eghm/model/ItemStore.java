@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -22,9 +21,7 @@ import java.math.BigDecimal;
 @Data
 @TableName("item_store")
 @EqualsAndHashCode(callSuper = true)
-public class ItemStore extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ItemStore extends BaseEntity {
 
     @ApiModelProperty("店铺名称")
     @TableField(typeHandler = LikeTypeHandler.class)

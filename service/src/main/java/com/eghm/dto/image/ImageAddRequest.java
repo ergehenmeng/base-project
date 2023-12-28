@@ -5,16 +5,13 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/28 17:33
  */
 @Data
-public class ImageAddRequest implements Serializable {
-
-    private static final long serialVersionUID = 3775459871066834161L;
+public class ImageAddRequest {
 
     @ApiModelProperty(value = "图片名称", required = true)
     @NotBlank(message = "图片名称不能为空")

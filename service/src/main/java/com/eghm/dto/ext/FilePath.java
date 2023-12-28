@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -19,9 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FilePath implements Serializable {
-
-    private static final long serialVersionUID = -8140748928381521323L;
+public class FilePath {
 
     @ApiModelProperty("文件相对路径")
     private String path;

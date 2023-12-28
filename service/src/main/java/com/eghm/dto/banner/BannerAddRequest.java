@@ -9,7 +9,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
  * @date 2019/8/22 19:49
  */
 @Data
-public class BannerAddRequest implements Serializable {
+public class BannerAddRequest {
 
     @ApiModelProperty(value = "标题名称", required = true)
     @NotBlank(message = "标题不能为空")

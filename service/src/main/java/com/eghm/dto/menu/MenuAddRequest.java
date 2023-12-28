@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 /**
  * 菜单添加
@@ -13,9 +12,7 @@ import java.io.Serializable;
  * @date  2018/1/30 11:36
  */
 @Data
-public class MenuAddRequest implements Serializable {
-
-    private static final long serialVersionUID = 8515421119279590820L;
+public class MenuAddRequest {
 
     @ApiModelProperty(value = "菜单名称", required = true)
     @NotBlank(message = "菜单名称不能为空")

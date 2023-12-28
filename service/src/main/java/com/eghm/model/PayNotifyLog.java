@@ -9,8 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 支付异步通知记录表
@@ -22,9 +20,7 @@ import java.io.Serializable;
 @Data
 @TableName("pay_notify_log")
 @EqualsAndHashCode(callSuper = true)
-public class PayNotifyLog extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class PayNotifyLog extends BaseEntity {
 
     @ApiModelProperty(value = "交易方式 WECHAT:微信 ALIPAY:支付宝")
     private PayChannel payChannel;

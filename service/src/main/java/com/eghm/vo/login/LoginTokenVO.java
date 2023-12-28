@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * @author 二哥很猛
  * @date 2019/8/29 10:05
@@ -16,9 +14,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginTokenVO implements Serializable {
-
-    private static final long serialVersionUID = 5945495590088977331L;
+public class LoginTokenVO {
 
     @ApiModelProperty("登陆token")
     private String token;

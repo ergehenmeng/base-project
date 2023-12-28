@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * token令牌
  * @author 二哥很猛
@@ -16,9 +14,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberToken implements Serializable {
-
-    private static final long serialVersionUID = -539686478899884844L;
+public class MemberToken {
 
     /**
      * token 保持登陆信息

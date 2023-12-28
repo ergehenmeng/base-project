@@ -5,14 +5,13 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2019/1/14 11:50
  */
 @Data
-public class DictEditRequest implements Serializable {
+public class DictEditRequest {
 
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")

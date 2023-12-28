@@ -4,8 +4,6 @@ import com.eghm.dto.ext.PagingQuery;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * 角色查询
  * @author 二哥很猛
@@ -13,8 +11,6 @@ import java.io.Serializable;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class RoleQueryRequest extends PagingQuery implements Serializable {
-
-    private static final long serialVersionUID = 2824485497219254015L;
+public class RoleQueryRequest extends PagingQuery {
 
 }

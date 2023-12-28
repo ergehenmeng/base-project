@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * 复选框下拉列表
  * @author 二哥很猛
@@ -17,8 +15,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CheckBox implements Serializable {
-    private static final long serialVersionUID = -9147788551948904950L;
+public class CheckBox {
 
     @ApiModelProperty("实际值")
     private Long value;

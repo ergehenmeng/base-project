@@ -6,16 +6,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2019/9/9 13:53
  */
 @Data
-public class BlackRosterAddRequest implements Serializable {
-
-    private static final long serialVersionUID = 8774607401819334344L;
+public class BlackRosterAddRequest {
 
     @ApiModelProperty(value = "ip地址开始", required = true)
     @JsonDeserialize(using = IpToLongDecoder.class)

@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -19,9 +18,7 @@ import java.time.LocalDate;
 @Data
 @TableName("activity")
 @EqualsAndHashCode(callSuper = false)
-public class Activity extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Activity extends BaseEntity {
 
     @ApiModelProperty(value = "活动名称")
     private String title;

@@ -7,8 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * 返回移动端版本的更新信息
  * @author 二哥很猛
@@ -19,9 +17,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AppVersionVO implements Serializable {
-
-    private static final long serialVersionUID = -1238037314236966606L;
+public class AppVersionVO {
 
     @ApiModelProperty(value = "是否为最新版本 true:是 false:否")
     private Boolean latest;

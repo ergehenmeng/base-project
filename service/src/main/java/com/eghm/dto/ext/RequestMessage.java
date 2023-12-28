@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-
 /**
  * 用户请求信息
  * @author 二哥很猛
@@ -16,9 +14,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestMessage implements Serializable {
-
-    private static final long serialVersionUID = 1588228430420375286L;
+public class RequestMessage {
 
     /**
      * 软件版本号 针对app端,例如 1.2.7

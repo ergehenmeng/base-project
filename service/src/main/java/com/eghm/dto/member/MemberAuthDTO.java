@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
 
 /**
  * 实名制认证
@@ -14,9 +13,7 @@ import java.io.Serializable;
  * @date 2019/8/28 16:29
  */
 @Data
-public class MemberAuthDTO implements Serializable {
-
-    private static final long serialVersionUID = 7766577359309504055L;
+public class MemberAuthDTO {
 
     @Assign
     @ApiModelProperty(hidden = true)

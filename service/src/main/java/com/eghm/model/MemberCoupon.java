@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,9 +21,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName("member_coupon")
 @EqualsAndHashCode(callSuper = true)
-public class MemberCoupon extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class MemberCoupon extends BaseEntity {
 
     @ApiModelProperty(value = "优惠券id")
     private Long couponId;

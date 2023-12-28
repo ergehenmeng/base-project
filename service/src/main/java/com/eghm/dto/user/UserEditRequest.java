@@ -4,15 +4,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/30 16:37
  */
 @Data
-public class UserEditRequest implements Serializable {
-    private static final long serialVersionUID = 2695362882925858038L;
+public class UserEditRequest {
 
     @ApiModelProperty(value = "id主键", required = true)
     @NotNull(message = "id不能为空")

@@ -7,7 +7,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 
 /**
  * 用户注册 密码注册(3步)或验证码注册(2)
@@ -15,9 +14,7 @@ import java.io.Serializable;
  * @date 2019/9/3 16:32
  */
 @Data
-public class RegisterMemberDTO implements Serializable {
-
-    private static final long serialVersionUID = 2984281019794650407L;
+public class RegisterMemberDTO {
 
     @Mobile
     @ApiModelProperty(value = "手机号码",required = true)

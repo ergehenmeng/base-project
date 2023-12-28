@@ -7,17 +7,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * @author 二哥很猛
  * @date 2018/11/26 17:12
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class UserQueryRequest extends PagingQuery implements Serializable {
-
-    private static final long serialVersionUID = 6710255160163962722L;
+public class UserQueryRequest extends PagingQuery {
 
     @ApiModelProperty("锁定状态 0: 锁定 1:正常")
     @OptionInt(value = {0, 1}, required = false)

@@ -4,14 +4,12 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * @author 二哥很猛
  */
 @Data
 @TableName("tag_view")
-public class TagView implements Serializable {
+public class TagView {
 
     @ApiModelProperty("主键")
     private Long id;

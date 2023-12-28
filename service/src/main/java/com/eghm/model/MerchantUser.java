@@ -5,8 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 商家信息表
@@ -18,7 +16,7 @@ import java.io.Serializable;
 @Data
 @TableName("merchant_user")
 @EqualsAndHashCode(callSuper = true)
-public class MerchantUser extends BaseEntity implements Serializable {
+public class MerchantUser extends BaseEntity {
 
     @ApiModelProperty("商户ID")
     private Long merchantId;

@@ -5,7 +5,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * 编辑角色信息
@@ -13,9 +12,7 @@ import java.io.Serializable;
  * @date 2018/11/26 16:08
  */
 @Data
-public class RoleEditRequest implements Serializable {
-
-    private static final long serialVersionUID = -4613884225645951474L;
+public class RoleEditRequest {
 
     @ApiModelProperty(value = "主键id", required = true)
     @NotNull(message = "id不能为空")

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("sms_template")
-public class SmsTemplate implements Serializable {
+public class SmsTemplate {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

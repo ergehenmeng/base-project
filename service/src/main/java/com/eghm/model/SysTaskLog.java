@@ -12,7 +12,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -23,7 +22,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sys_task_log")
-public class SysTaskLog implements Serializable {
+public class SysTaskLog {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

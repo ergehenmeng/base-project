@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -12,9 +11,7 @@ import java.time.LocalDateTime;
  * @date 2019/8/28 14:01
  */
 @Data
-public class FeedbackVO implements Serializable {
-
-    private static final long serialVersionUID = -434393367856882980L;
+public class FeedbackVO {
 
     @ApiModelProperty("id")
     private Long id;

@@ -5,14 +5,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/20 19:15
  */
 @Data
-public class NoticeAddRequest implements Serializable {
+public class NoticeAddRequest {
 
     @ApiModelProperty(value = "公告标题", required = true)
     @NotBlank(message = "标题不能为空")

@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
@@ -23,9 +22,7 @@ import java.math.BigDecimal;
 @Data
 @TableName("line")
 @EqualsAndHashCode(callSuper = true)
-public class Line extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Line extends BaseEntity {
 
     @ApiModelProperty(value = "所属旅行社id")
     private Long travelAgencyId;

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
  * @date 2019/11/25 15:30
  */
 @Data
-public class NoticeDetailVO implements Serializable {
+public class NoticeDetailVO {
 
     @ApiModelProperty("公告id")
     private Long id;

@@ -5,14 +5,13 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2019/11/25 10:21
  */
 @Data
-public class SmsTemplateEditRequest implements Serializable {
+public class SmsTemplateEditRequest {
 
     @ApiModelProperty(value = "id主键", required = true)
     @NotNull(message = "id不能为空")

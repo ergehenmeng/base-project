@@ -4,7 +4,7 @@
 
     <select id="getByPage" resultType="com.eghm.vo.log.WebappLogResponse" parameterType="com.eghm.dto.log.WebappQueryRequest">
        select
-        t.id,
+        r.nick_name,
         t.url,
         t.request_param,
         t.error_msg,
@@ -14,11 +14,10 @@
         t.device_brand,
         t.device_model,
         t.serial_number,
-        t.ip
-        t.trace_id
+        t.ip,
+        t.trace_id,
         t.elapsed_time,
-        t.create_time,
-        r.nick_name
+        t.create_time
        from webapp_log t
        left join member r on t.member_id = r.id
        <where>
@@ -35,5 +34,6 @@
                and t.ip = #{param.ip}
            </if>
        </where>
+       order by t.id desc
     </select>
 </mapper>

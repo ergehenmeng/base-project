@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -16,9 +15,7 @@ import java.time.LocalDateTime;
  * @date 2019/8/22 19:58
  */
 @Data
-public class BannerEditRequest implements Serializable {
-
-    private static final long serialVersionUID = -6001565267553951736L;
+public class BannerEditRequest {
 
     @ApiModelProperty(value = "id不能为空", required = true)
     @NotNull(message = "id不能为空")

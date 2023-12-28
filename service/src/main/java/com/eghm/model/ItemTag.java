@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,9 +21,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("item_tag")
-public class ItemTag implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ItemTag {
 
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.AUTO)

@@ -10,7 +10,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -22,7 +21,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("webapp_log")
-public class WebappLog implements Serializable {
+public class WebappLog {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

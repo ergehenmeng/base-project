@@ -2,7 +2,6 @@ package com.eghm.service.pay;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.order.log.PayLogQueryRequest;
-import com.eghm.model.PayRequestLog;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
 import com.eghm.service.pay.vo.PrepayVO;

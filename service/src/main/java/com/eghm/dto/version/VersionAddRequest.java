@@ -7,17 +7,14 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2019/8/22 14:57
  */
 @Data
-public class VersionAddRequest implements Serializable {
+public class VersionAddRequest {
 
-    private static final long serialVersionUID = 4277066521664563340L;
-    
     @ApiModelProperty(required = true, value = "上架平台 ANDROID, IOS")
     @OptionString(value = {"ANDROID", "IOS"}, message = "上架平台参数非法")
     private String classify;

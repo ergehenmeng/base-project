@@ -17,11 +17,9 @@ import java.time.LocalDate;
  * @since 2022-05-27
  */
 @Data
-public class ScenicTicketResponse implements Serializable {
+public class ScenicTicketResponse {
 
-    private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty("门票id")
+    couponId    @ApiModelProperty("门票id")
     private Long id;
 
     @ApiModelProperty(value = "门票所属景区")

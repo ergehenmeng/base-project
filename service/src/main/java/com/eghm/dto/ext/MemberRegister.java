@@ -2,17 +2,12 @@ package com.eghm.dto.ext;
 
 import lombok.Data;
 
-import java.io.Serializable;
-
 /**
  * @author 二哥很猛
  * @date 2019/8/19 15:52
  */
 @Data
-public class MemberRegister implements Serializable {
-
-    private static final long serialVersionUID = 1211247555372353757L;
-
+public class MemberRegister {
 
     /**
      * 微信openId

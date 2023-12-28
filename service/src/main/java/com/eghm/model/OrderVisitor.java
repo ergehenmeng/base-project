@@ -7,8 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 订单游客信息表
@@ -20,9 +18,7 @@ import java.io.Serializable;
 @Data
 @TableName("order_visitor")
 @EqualsAndHashCode(callSuper = true)
-public class OrderVisitor extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class OrderVisitor extends BaseEntity {
 
     @ApiModelProperty(value = "商品类型")
     private ProductType productType;

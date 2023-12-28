@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -20,9 +19,7 @@ import java.time.LocalDateTime;
 @Data
 @TableName("ticket_order")
 @EqualsAndHashCode(callSuper = true)
-public class TicketOrder extends BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class TicketOrder extends BaseEntity {
 
     @ApiModelProperty("门票所属景区(冗余字段)")
     private Long scenicId;

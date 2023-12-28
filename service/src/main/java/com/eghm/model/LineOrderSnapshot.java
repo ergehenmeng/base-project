@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -19,9 +18,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("line_order_snapshot")
-public class LineOrderSnapshot implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class LineOrderSnapshot {
 
     @ApiModelProperty(value = "主键")
     @TableId(value = "id", type = IdType.ASSIGN_ID)

@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -23,9 +22,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("homestay_room_config")
-public class HomestayRoomConfig implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class HomestayRoomConfig {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

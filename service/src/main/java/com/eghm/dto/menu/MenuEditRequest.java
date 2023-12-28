@@ -6,13 +6,12 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  */
 @Data
-public class MenuEditRequest implements Serializable {
+public class MenuEditRequest {
 
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id名称不能为空")

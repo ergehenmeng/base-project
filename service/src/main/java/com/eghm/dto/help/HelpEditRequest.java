@@ -7,16 +7,13 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 /**
  * @author 二哥很猛
  * @date 2018/11/20 20:30
  */
 @Data
-public class HelpEditRequest implements Serializable {
-
-    private static final long serialVersionUID = 3415746590445570716L;
+public class HelpEditRequest {
 
     @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
