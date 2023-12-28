@@ -47,11 +47,11 @@ public class DeptController {
         return RespBody.success();
     }
 
-    @GetMapping("/select")
-    @ApiOperation("查询部门信息")
-    public RespBody<SysDept> select(@Validated IdDTO dto) {
-        SysDept dept = sysDeptService.getById(dto.getId());
-        return RespBody.success(dept);
+    @PostMapping("/delete")
+    @ApiOperation("删除")
+    public RespBody<Void> delete(@Validated @RequestBody IdDTO request) {
+        sysDeptService.deleteById(request.getId());
+        return RespBody.success();
     }
 
 }
