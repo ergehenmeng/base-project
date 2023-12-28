@@ -3,6 +3,7 @@
 <mapper namespace="com.eghm.mapper.PayNotifyLogMapper">
     <select id="getByPage" resultType="com.eghm.vo.business.log.PayNotifyLogResponse" parameterType="com.eghm.dto.business.order.log.PayLogQueryRequest">
         select
+        id,
         pay_channel,
         notify_id,
         step_type,

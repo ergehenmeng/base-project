@@ -1,0 +1,15 @@
+GET http://localhost:8080/manage/refund/log/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+POST http://localhost:8080/manage/refund/log/audit
+token: {{token}}
+Content-Type: application/json
+
+{
+  "orderNo": "MP123123123",
+  "refundId": 1,
+  "state": 1,
+  "refundAmount": 1,
+  "auditRemark": "demoData"
+}

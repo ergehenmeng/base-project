@@ -4,6 +4,7 @@
 
     <select id="getByPage" resultType="com.eghm.vo.business.log.PayRequestLogResponse" parameterType="com.eghm.dto.business.order.log.PayLogQueryRequest">
         select
+        id,
         pay_channel,
         order_no,
         step_type ,
