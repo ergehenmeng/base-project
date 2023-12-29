@@ -1,7 +1,13 @@
 package com.eghm.service.business;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.news.config.NewsConfigAddRequest;
 import com.eghm.dto.business.news.config.NewsConfigEditRequest;
+import com.eghm.dto.ext.PagingQuery;
+import com.eghm.model.NewsConfig;
+import com.eghm.vo.business.news.NewsConfigResponse;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,6 +18,19 @@ import com.eghm.dto.business.news.config.NewsConfigEditRequest;
  * @since 2023-12-29
  */
 public interface NewsConfigService {
+
+    /**
+     * 分页查询资讯配置
+     * @param query 分页查询参数
+     * @return 列表
+     */
+    Page<NewsConfig> getByPage(PagingQuery query);
+
+    /**
+     * 查询资讯配置 (所有)
+     * @return 列表
+     */
+    List<NewsConfigResponse> getList();
 
     /**
      * 新增资讯配置
@@ -30,4 +49,5 @@ public interface NewsConfigService {
      * @param id id
      */
     void deleteById(Long id);
+
 }

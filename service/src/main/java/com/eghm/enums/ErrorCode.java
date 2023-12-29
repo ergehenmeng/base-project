@@ -1428,6 +1428,16 @@ public enum ErrorCode {
     NEWS_CONFIG_TITLE_REDO(3805,"分类名称重复啦"),
 
     /**
+     * 分类编号重复啦
+     */
+    NEWS_CONFIG_CODE_REDO(3806,"分类编号重复啦"),
+
+    /**
+     * 文章从地球上消失啦~
+     */
+    NEWS_NULL(3808,"文章从地球上消失啦~"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

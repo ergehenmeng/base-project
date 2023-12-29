@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.NewsMapper">
 
-</mapper>
+    <select id="getByPage" resultType="com.eghm.vo.business.news.NewsVO">
+        select 
+           id,
+           title,
+           depict,
+           image,
+           give_like,
+           update_time
+        from news where deleted = false
+        <if test="queryName != null and queryName != ''">
+            and title like concat('%', #{queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+        </if>
+        order by sort, id desc
+    </select>
+
+    <update id="updateGiveLike">
+        update news set give_like = give_like + #{giveLike} where id = #{id}
+    </update>
+</mapper>   

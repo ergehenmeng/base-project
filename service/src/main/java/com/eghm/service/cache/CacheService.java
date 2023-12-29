@@ -181,7 +181,7 @@ public interface CacheService {
      * @param hKey hKey
      * @param hValue hValue
      */
-    void setHashValue(String key, long expire,String hKey, String hValue);
+    void setHashValue(String key, long expire, String hKey, String hValue);
 
     /**
      * 获取hash中的值

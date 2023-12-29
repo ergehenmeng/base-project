@@ -255,4 +255,9 @@ public class CacheConstant {
      */
     public static final String LOTTERY_LOCK = "lottery_lock:%s:%s";
 
+    /**
+     * 文章点赞
+     */
+    public static final String NEWS_GIVE_LIKE = "news_give_like:";
+
 }

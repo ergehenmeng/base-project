@@ -1,17 +1,24 @@
 package com.eghm.service.business.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.news.config.NewsConfigAddRequest;
 import com.eghm.dto.business.news.config.NewsConfigEditRequest;
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.NewsConfigMapper;
 import com.eghm.model.NewsConfig;
 import com.eghm.service.business.NewsConfigService;
+import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.news.NewsConfigResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -29,18 +36,37 @@ public class NewsConfigServiceImpl implements NewsConfigService {
     private final NewsConfigMapper newsConfigMapper;
 
     @Override
-    public void create(NewsConfigAddRequest request) {
+    public Page<NewsConfig> getByPage(PagingQuery query) {
+        LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.like(StrUtil.isNotBlank(query.getQueryName()), NewsConfig::getTitle, query.getQueryName());
+        wrapper.last(" order by sort, id desc ");
+        return newsConfigMapper.selectPage(query.createPage(), wrapper);
+    }
 
+    @Override
+    public List<NewsConfigResponse> getList() {
+        return newsConfigMapper.getList();
+    }
+
+    @Override
+    public void create(NewsConfigAddRequest request) {
+        this.redoTitle(request.getTitle(), null);
+        this.redoCode(request.getCode(), null);
+        NewsConfig config = DataUtil.copy(request, NewsConfig.class);
+        this.newsConfigMapper.insert(config);
     }
 
     @Override
     public void update(NewsConfigEditRequest request) {
-
+        this.redoTitle(request.getTitle(), request.getId());
+        this.redoCode(request.getCode(), request.getId());
+        NewsConfig config = DataUtil.copy(request, NewsConfig.class);
+        newsConfigMapper.updateById(config);
     }
 
     @Override
     public void deleteById(Long id) {
-
+        newsConfigMapper.deleteById(id);
     }
 
     /**
@@ -54,7 +80,22 @@ public class NewsConfigServiceImpl implements NewsConfigService {
         wrapper.ne(id != null, NewsConfig::getId, id);
         Long count = this.newsConfigMapper.selectCount(wrapper);
         if (count > 0) {
-            throw new BusinessException(ErrorCode.NEWS_TITLE_REDO);
+            throw new BusinessException(ErrorCode.NEWS_CONFIG_TITLE_REDO);
+        }
+    }
+
+    /**
+     * 检查编号是否重复
+     * @param code 编号
+     * @param id id
+     */
+    private void redoCode(String code, Long id) {
+        LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(NewsConfig::getCode, code);
+        wrapper.ne(id != null, NewsConfig::getId, id);
+        Long count = this.newsConfigMapper.selectCount(wrapper);
+        if (count > 0) {
+            throw new BusinessException(ErrorCode.NEWS_CONFIG_CODE_REDO);
         }
     }
 }

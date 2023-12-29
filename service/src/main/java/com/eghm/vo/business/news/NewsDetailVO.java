@@ -1,28 +1,23 @@
-package com.eghm.model;
+package com.eghm.vo.business.news;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
- * <p>
- * 资讯信息表
- * </p>
- *
  * @author 二哥很猛
- * @since 2023-12-29
+ * @since 2023/12/29
  */
+
 @Data
-@EqualsAndHashCode(callSuper = true)
-@TableName("news")
-public class News extends BaseEntity {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class NewsDetailVO {
 
     @ApiModelProperty(value = "资讯标题")
     private String title;
-
-    @ApiModelProperty(value = "资讯编码")
-    private String code;
 
     @ApiModelProperty(value = "一句话描述信息")
     private String depict;
@@ -36,10 +31,13 @@ public class News extends BaseEntity {
     @ApiModelProperty(value = "视频")
     private String video;
 
-    @ApiModelProperty(value = "排序")
-    private Integer sort;
-
     @ApiModelProperty("点赞数量")
     private Integer giveLike;
 
+    @ApiModelProperty("更新时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime updateTime;
+
+    @ApiModelProperty("是否已点赞")
+    private Boolean isLiked;
 }
