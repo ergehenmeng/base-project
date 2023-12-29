@@ -2,6 +2,7 @@ package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
+import com.eghm.dto.SortByDTO;
 import com.eghm.dto.business.news.NewsAddRequest;
 import com.eghm.dto.business.news.NewsEditRequest;
 import com.eghm.dto.business.news.NewsQueryRequest;
@@ -66,6 +67,13 @@ public class NewsController {
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {
         newsService.deleteById(dto.getId());
+        return RespBody.success();
+    }
+
+    @PostMapping("/sort")
+    @ApiOperation("排序")
+    public RespBody<Void> sort(@RequestBody @Validated SortByDTO dto) {
+        newsService.sortBy(dto.getId(), dto.getSortBy());
         return RespBody.success();
     }
 }

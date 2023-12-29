@@ -1030,3 +1030,40 @@ CREATE TABLE `item_order_express`
     `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='订单与快递关联表';
+
+DROP TABLE IF EXISTS news;
+CREATE TABLE `news`
+(
+    `id`          bigint(20) NOT NULL COMMENT '主键',
+    `title`       varchar(30)   DEFAULT NULL COMMENT '资讯标题',
+    `code`        varchar(20)   DEFAULT NULL COMMENT '资讯编码',
+    `depict`      varchar(200)  DEFAULT NULL COMMENT '一句话描述信息',
+    `image`       varchar(1000) DEFAULT NULL COMMENT '图集',
+    `content`     longtext COMMENT '详细信息',
+    `video`       varchar(200)  DEFAULT NULL COMMENT '视频',
+    `create_time` datetime      DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`     bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    `sort`        smallint(6)   DEFAULT '999' COMMENT '排序',
+    `give_like`   int(10)       DEFAULT '0' COMMENT '点赞数',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='资讯信息表';
+
+DROP TABLE IF EXISTS news_config;
+CREATE TABLE `news_config`
+(
+    `id`              bigint(20) NOT NULL COMMENT '主键',
+    `title`           varchar(30) DEFAULT NULL COMMENT '分类标题',
+    `code`            varchar(20) DEFAULT NULL COMMENT '资讯编码',
+    `include_title`   bit(1)      DEFAULT b'1' COMMENT '是否包含标题',
+    `include_depict`  bit(1)      DEFAULT b'0' COMMENT '是否包含描述信息',
+    `include_image`   bit(1)      DEFAULT b'0' COMMENT '是否包含图集',
+    `include_content` bit(1)      DEFAULT b'1' COMMENT '是否包含详细信息',
+    `include_video`   bit(1)      DEFAULT b'0' COMMENT '是否包含视频',
+    `create_time`     datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`     datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`         bit(1)      DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='资讯配置';

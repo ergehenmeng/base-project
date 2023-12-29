@@ -1,0 +1,52 @@
+GET http://localhost:8080/manage/news/listPage?page=0&pageSize=10
+token: {{token}}
+
+###
+GET http://localhost:8080/manage/news/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "demoData",
+  "code": "demoData",
+  "depict": "demoData",
+  "image": "demoData",
+  "content": "demoData",
+  "video": "demoData",
+  "sort": 1
+}
+
+###
+GET http://localhost:8080/manage/news/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1,
+  "title": "demoData",
+  "code": "demoData",
+  "depict": "demoData",
+  "image": "demoData",
+  "content": "demoData",
+  "video": "demoData",
+  "sort": 1
+}
+
+###
+GET http://localhost:8080/manage/news/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 12
+}
+
+
+###
+GET http://localhost:8080/manage/news/config/sort
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 12
+}

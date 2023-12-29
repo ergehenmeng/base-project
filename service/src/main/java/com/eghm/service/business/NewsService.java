@@ -65,4 +65,11 @@ public interface NewsService {
      * @param id id
      */
     void giveLike(Long id);
+
+    /**
+     * 排序
+     * @param id id
+     * @param sortBy 排序 最大999
+     */
+    void sortBy(Long id, Integer sortBy);
 }

@@ -2,6 +2,7 @@ package com.eghm.service.business.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CacheConstant;
@@ -102,6 +103,14 @@ public class NewsServiceImpl implements NewsService {
             cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
             newsMapper.updateGiveLike(id, 1);
         }
+    }
+
+    @Override
+    public void sortBy(Long id, Integer sortBy) {
+        LambdaUpdateWrapper<News> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(News::getId, id);
+        wrapper.set(News::getSort, sortBy);
+        newsMapper.update(null, wrapper);
     }
 
     /**
