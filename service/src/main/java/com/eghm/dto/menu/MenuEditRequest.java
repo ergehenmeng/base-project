@@ -25,6 +25,10 @@ public class MenuEditRequest {
     @OptionInt(value = {1, 2}, message = "菜单等级不合法")
     private Integer grade;
 
+    @ApiModelProperty(value = "父菜单id", required = true)
+    @NotBlank(message = "父菜单id不能为空")
+    private String pid;
+
     @ApiModelProperty(value = "菜单url")
     private String path;
 

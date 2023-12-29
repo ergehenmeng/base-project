@@ -1,5 +1,6 @@
 package com.eghm.dto.business.shopping;
 
+import com.eghm.annotation.Assign;
 import com.eghm.configuration.annotation.YuanToCentFormat;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.State;
@@ -28,4 +29,8 @@ public class ShoppingCartQueryRequest extends PagingQuery {
     @ApiModelProperty("最高价格")
     @YuanToCentFormat
     private Integer maxPrice;
+
+    @ApiModelProperty(value = "商户id", hidden = true)
+    @Assign
+    private Long merchantId;
 }

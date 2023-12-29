@@ -307,6 +307,22 @@ public enum ErrorCode {
     UPDATE_MENU_ERROR(3002,"菜单信息更新失败"),
 
     /**
+     * 父菜单不存在
+     */
+    PID_MENU_NULL(3402,"父菜单不存在"),
+
+
+    /**
+     * 菜单名称重复啦
+     */
+    MENU_TITLE_REDO(3403,"菜单名称重复啦"),
+
+    /**
+     * 菜单显示状态与父菜单不匹配
+     */
+    PID_MENU_STATE(3404,"菜单显示状态与父菜单不匹配"),
+
+    /**
      * 验证码输入错误
      */
     IMAGE_CODE_ERROR(3003,"验证码输入错误"),
@@ -414,7 +430,7 @@ public enum ErrorCode {
     /**
      * 版本号重复
      */
-    VERSION_REDO(3025,"版本号重复"),
+    VERSION_REDO(3325,"版本号重复"),
 
     /**
      * 该手机号已注册

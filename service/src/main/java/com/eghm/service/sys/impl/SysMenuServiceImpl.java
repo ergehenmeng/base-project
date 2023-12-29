@@ -87,6 +87,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void create(MenuAddRequest request) {
+        this.redoTitle(request.getTitle(), null);
+        this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setId(String.valueOf(this.generateNextId(request.getPid())));
         copy.setCode(StringUtil.encryptNumber(Long.parseLong(copy.getId())));
@@ -95,6 +97,8 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public void update(MenuEditRequest request) {
+        this.redoTitle(request.getTitle(), request.getId());
+        this.checkDisplayState(request.getPid(), request.getDisplayState());
         SysMenu copy = DataUtil.copy(request, SysMenu.class);
         copy.setCode(StringUtil.encryptNumber(Long.parseLong(copy.getId())));
         sysMenuMapper.updateById(copy);
@@ -123,6 +127,41 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<String> getAdminPermCode() {
         List<MenuResponse> menuList = sysMenuMapper.getAdminMenuList( 2);
         return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
+    }
+
+    /**
+     * 校验菜单名称是否重复
+     * @param title 菜单名称
+     * @param id 菜单id
+     */
+    private void redoTitle(String title, String id) {
+        LambdaQueryWrapper<SysMenu> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(SysMenu::getTitle, title);
+        wrapper.ne(id != null, SysMenu::getId, id);
+        Long count = sysMenuMapper.selectCount(wrapper);
+        if (count > 0) {
+            throw new BusinessException(ErrorCode.MENU_TITLE_REDO);
+        }
+    }
+
+    /**
+     * 校验节点显示状态是否满足要求,
+     * 例如: 父节点是商户显示,子节点只能是商户显示
+     * 例如: 父节点是平台显示,子节点只能是平台显示
+     * 例如: 父节点是全部显示,子节点可以是任意状态
+     * @param pid 父节点
+     * @param displayState 当前节点的显示状态
+     */
+    private void checkDisplayState(String pid, Integer displayState) {
+        SysMenu sysMenu = sysMenuMapper.selectById(pid);
+        if (sysMenu == null) {
+            log.warn("父菜单节点不存在 [{}]", pid);
+            throw new BusinessException(ErrorCode.PID_MENU_NULL);
+        }
+        if (sysMenu.getDisplayState() != 3 && !sysMenu.getDisplayState().equals(displayState)) {
+            log.warn("菜单节点显示状态不满足要求 [{}] [{}] [{}]", pid, sysMenu.getDisplayState(), displayState);
+            throw new BusinessException(ErrorCode.PID_MENU_STATE);
+        }
     }
 
     /**

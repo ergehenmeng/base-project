@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.business.shopping.ShoppingCartQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
@@ -28,6 +29,7 @@ public class ShoppingCartController {
     @GetMapping("/listPage")
     @ApiOperation("列表")
     public RespBody<PageData<ShoppingCartResponse>> listPage(ShoppingCartQueryRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         Page<ShoppingCartResponse> byPage = shoppingCartService.getByPage(request);
         return RespBody.success(PageData.toPage(byPage));
     }
