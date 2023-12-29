@@ -8,7 +8,7 @@
         from banner where
         <!-- 非实时性数据,直接取数据库时间,结束时间 <= now或者没有结束时间 开始时间大于当前时间, 由于移动端使用了缓存,因此在更新时需要刷新缓存 -->
         (end_time &lt;= now() or end_time is null) and start_time &gt;= now()
-        and client_type = #{clientType} and classify = #{classify} order by sort desc
+        and client_type = #{clientType} and classify = #{classify} order by sort
     </select>
 
 </mapper>
