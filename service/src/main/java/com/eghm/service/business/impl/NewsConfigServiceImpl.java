@@ -39,7 +39,7 @@ public class NewsConfigServiceImpl implements NewsConfigService {
     public Page<NewsConfig> getByPage(PagingQuery query) {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(query.getQueryName()), NewsConfig::getTitle, query.getQueryName());
-        wrapper.last(" order by sort, id desc ");
+        wrapper.last(" order by id desc ");
         return newsConfigMapper.selectPage(query.createPage(), wrapper);
     }
 

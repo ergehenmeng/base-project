@@ -32,7 +32,7 @@ public class PagingQuery {
      * @return 分页对象
      */
     public <T> Page<T> createPage() {
-        return new Page<>(page, this.getPageSize());
+        return new Page<>(this.getPage(), this.getPageSize());
     }
 
     /**
@@ -43,7 +43,7 @@ public class PagingQuery {
      * @return 分页对象
      */
     public <T> Page<T> createPage(boolean count) {
-        return new Page<>(page, this.getPageSize(), count);
+        return new Page<>(this.getPage(), this.getPageSize(), count);
     }
 
     /**
@@ -53,4 +53,14 @@ public class PagingQuery {
     public Integer getPageSize() {
         return pageSize > CommonConstant.MAX_PAGE_SIZE ? CommonConstant.MAX_PAGE_SIZE : pageSize;
     }
+
+    /**
+     * 默认第一页
+     * @return 1
+     */
+    public Integer getPage() {
+        return page <= 0 ? 1 : page;
+    }
+
+
 }

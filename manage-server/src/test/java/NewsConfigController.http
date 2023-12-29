@@ -1,41 +1,42 @@
-GET http://localhost:8080/manage/news/config/listPage?page=0&pageSize=10
+GET http://localhost:8080/manage/news/config/listPage?page=1&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:8080/manage/news/config/create
+POST http://localhost:8080/manage/news/config/create
 token: {{token}}
 Content-Type: application/json
 
 {
-  "title": "demoData",
-  "code": "demoData",
+  "title": "旅游攻略",
+  "code": "lygl",
   "includeTitle": true,
   "includeDepict": true,
   "includeImage": true,
   "includeContent": true,
-  "includeVideo": true
+  "includeVideo": false
 }
 
 ###
-GET http://localhost:8080/manage/news/config/update
+POST http://localhost:8080/manage/news/config/update
 token: {{token}}
 Content-Type: application/json
 
 {
-  "title": "demoData",
-  "code": "demoData",
+  "id": 1740652775675060226,
+  "title": "旅游攻略",
+  "code": "LYGL",
   "includeTitle": true,
-  "includeDepict": true,
+  "includeDepict": false,
   "includeImage": true,
   "includeContent": true,
-  "includeVideo": true
+  "includeVideo": false
 }
 
 ###
-GET http://localhost:8080/manage/news/config/delete
+POST http://localhost:8080/manage/news/config/delete
 token: {{token}}
 Content-Type: application/json
 
 {
-  "id": 12
+  "id": 1740652775675060226
 }

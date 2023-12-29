@@ -46,6 +46,8 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public Page<News> getByPage(NewsQueryRequest request) {
         LambdaQueryWrapper<News> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(News::getId, News::getTitle, News::getDepict, News::getVideo, News::getGiveLike,
+                News::getSort, News::getCreateTime, News::getUpdateTime, News::getImage);
         wrapper.eq(News::getCode, request.getCode());
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), News::getTitle, request.getQueryName());
         wrapper.last(" order by sort, id desc ");

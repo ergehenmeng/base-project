@@ -1,18 +1,21 @@
-GET http://localhost:8080/manage/news/listPage?page=0&pageSize=10
+GET http://localhost:8080/manage/news/listPage?page=1&pageSize=10&code=LYGL
 token: {{token}}
 
 ###
-GET http://localhost:8080/manage/news/create
+GET http://localhost:8080/manage/news/list
+token: {{token}}
+
+
+###
+POST http://localhost:8080/manage/news/create
 token: {{token}}
 Content-Type: application/json
 
 {
-  "title": "demoData",
-  "code": "demoData",
-  "depict": "demoData",
-  "image": "demoData",
-  "content": "demoData",
-  "video": "demoData",
+  "title": "大明山攻略",
+  "code": "LYGL",
+  "image": "cover.png",
+  "content": "该水电费",
   "sort": 1
 }
 

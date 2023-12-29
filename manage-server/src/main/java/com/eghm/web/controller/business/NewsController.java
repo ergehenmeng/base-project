@@ -37,7 +37,7 @@ public class NewsController {
 
     @ApiOperation("查询列表")
     @GetMapping("/listPage")
-    public RespBody<PageData<News>> getByPage(NewsQueryRequest request) {
+    public RespBody<PageData<News>> getByPage(@Validated NewsQueryRequest request) {
         Page<News> scenicPage = newsService.getByPage(request);
         return RespBody.success(PageData.toPage(scenicPage));
     }

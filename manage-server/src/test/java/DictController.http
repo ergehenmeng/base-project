@@ -2,7 +2,7 @@ GET http://localhost:8080/manage/dict/listPage?page=0&pageSize=10
 token: {{token}}
 
 ###
-GET http://localhost:8080/manage/dict/create
+POST http://localhost:8080/manage/dict/create
 token: {{token}}
 Content-Type: application/json
 
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/manage/dict/update
+POST http://localhost:8080/manage/dict/update
 token: {{token}}
 Content-Type: application/json
 
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/manage/dict/delete
+POST http://localhost:8080/manage/dict/delete
 token: {{token}}
 Content-Type: application/json
 
