@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -34,7 +33,7 @@ public class BannerController {
     @GetMapping("/list")
     @ApiOperation("查询可用的轮播图列表")
     @ApiImplicitParam(name = "classify", value = "轮播图分类id")
-    public RespBody<List<BannerVO>> list(@NotNull(message = "轮播图类型不能为空") @RequestParam("classify") Integer classify) {
+    public RespBody<List<BannerVO>> list(@RequestParam("classify") Integer classify) {
         List<Banner> bannerList = cacheProxyService.getBanner(Channel.valueOf(ApiHolder.getChannel()), classify);
         return RespBody.success(DataUtil.copy(bannerList, BannerVO.class));
     }
