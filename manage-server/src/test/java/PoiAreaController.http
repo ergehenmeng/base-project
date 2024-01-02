@@ -7,15 +7,11 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "title": "周口",
-  "code": "WYS",
-  "longitude": 130.121211,
-  "latitude": 30.332421,
-  "provinceId": 110000,
-  "cityId": 110100,
-  "countyId": 110101,
-  "detailAddress": "详细地址",
-  "remark": "demoData"
+  "title": "demoData",
+  "areaCode": "WYS",
+  "coverUrl": "demoData",
+  "playTime": 2.2,
+  "introduce": "demoData"
 }
 
 ###

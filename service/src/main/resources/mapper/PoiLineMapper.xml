@@ -6,13 +6,14 @@
         select
         t.id,
         t.title,
+        t.cover_url,
         t.area_code,
         t.play_time,
         r.title as areaTitle,
         t.create_time,
         t.update_time
         from poi_line t left join poi_area r on t.area_code = r.code
-        where t.deleted = false
+        where t.deleted = false and r.deleted = false
         <if test="param.areaCode != null">
             and t.area_code = #{param.areaCode}
         </if>
@@ -36,7 +37,7 @@
         p.detail_address
         from poi_line t
         inner join poi_line_point r on t.id = r.line_id
-        left join poi_point p on r.point_id = p.id
+        inner join poi_point p on r.point_id = p.id
         where t.deleted = false and r.deleted = false and t.area_code = #{areaCode}
         order by t.id desc, r.sort
     </select>

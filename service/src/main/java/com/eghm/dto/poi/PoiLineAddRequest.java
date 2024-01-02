@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
@@ -30,7 +31,7 @@ public class PoiLineAddRequest {
     private String coverUrl;
 
     @ApiModelProperty(value = "预计游玩时间")
-    @NotBlank(message = "预计游玩时间不能为空")
+    @NotNull(message = "预计游玩时间不能为空")
     private BigDecimal playTime;
 
     @ApiModelProperty(value = "详细介绍")

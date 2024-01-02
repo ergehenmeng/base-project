@@ -3,7 +3,7 @@
 <mapper namespace="com.eghm.mapper.PoiLinePointMapper">
 
     <select id="getList" resultType="long">
-        SELECT point_id FROM poi_line_point WHERE line_id = #{poiLineId} and deleted = false ORDER BY sort
+        SELECT point_id FROM poi_line_point WHERE line_id = #{lineId} and deleted = false order by sort
     </select>
 
 </mapper>

@@ -1,0 +1,43 @@
+GET http://localhost:8080/manage/poi/line/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+POST http://localhost:8080/manage/poi/line/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "一条龙",
+  "areaCode": "WYS",
+  "coverUrl": "cover.png",
+  "playTime": "2.2",
+  "introduce": "xxxxx"
+}
+
+###
+POST http://localhost:8080/manage/poi/line/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1742022701443121154,
+  "title": "三条龙",
+  "areaCode": "WYS",
+  "coverUrl": "cover.png",
+  "playTime": "2.2",
+  "introduce": "xxxxx"
+}
+
+###
+POST http://localhost:8080/manage/poi/line/bind
+token: {{token}}
+Content-Type: application/json
+
+{
+  "lineId": 1742022701443121154,
+  "pointIds": [1742024629149495297]
+}
+
+###
+GET http://localhost:8080/manage/poi/line/bindDetail?id=1742022701443121154
+token: {{token}}

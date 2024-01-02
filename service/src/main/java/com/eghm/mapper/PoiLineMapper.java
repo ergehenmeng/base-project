@@ -26,7 +26,7 @@ public interface PoiLineMapper extends BaseMapper<PoiLine> {
      * @param request 查询参数
      * @return 列表
      */
-    Page<PoiLineResponse> getByPage(Page<PoiLineResponse> page, PoiLineQueryRequest request);
+    Page<PoiLineResponse> getByPage(Page<PoiLineResponse> page, @Param("param") PoiLineQueryRequest request);
 
     /**
      * 查询线路列表
