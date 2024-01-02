@@ -23,7 +23,7 @@ public class PoiTypeAddRequest {
 
     @ApiModelProperty(value = "区域", required = true)
     @NotBlank(message = "请选择区域")
-    private String code;
+    private String areaCode;
 
     @ApiModelProperty(value = "icon", required = true)
     @NotBlank(message = "icon不能为空")

@@ -1,0 +1,31 @@
+GET http://localhost:8080/manage/poi/type/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+POST http://localhost:8080/manage/poi/type/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "民宿",
+  "areaCode": "WYS",
+  "icon": "icon.png",
+  "sort": 1
+}
+
+###
+POST http://localhost:8080/manage/poi/type/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1742013039595442177,
+  "title": "民宿",
+  "areaCode": "WYS",
+  "icon": "icon2.png",
+  "sort": 1
+}
+
+###
+GET http://localhost:8080/manage/poi/type/list?areaCode=WYS
+token: {{token}}
