@@ -51,21 +51,19 @@ public class TicketOrderController {
     @PostMapping("/offlineRefund")
     @ApiOperation("线下退款")
     public RespBody<Void> offlineRefund(@RequestBody @Validated OfflineRefundRequest request) {
-        redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
+        return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.offlineRefund(request);
-            return null;
+            return RespBody.success();
         });
-        return RespBody.success();
     }
 
     @PostMapping("/onlineRefund")
     @ApiOperation("线上退款")
     public RespBody<Void> onlineRefund(@RequestBody @Validated OnlineRefundRequest request) {
-        redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
+        return redisLock.lock(CacheConstant.MANUAL_REFUND_LOCK + request.getOrderNo(), 10_000, () -> {
             orderService.onlineRefund(request);
-            return null;
+            return RespBody.success();
         });
-        return RespBody.success();
     }
 
     @GetMapping("/detail")
