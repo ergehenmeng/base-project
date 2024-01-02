@@ -40,7 +40,7 @@ public enum TicketEvent implements IEvent {
     /**
      * 退款申请
      */
-    REFUND_APPLY(Lists.newArrayList(OrderState.PROGRESS.getValue()), OrderState.UN_USED.getValue()),
+    REFUND_APPLY(Lists.newArrayList(OrderState.UN_USED.getValue()), OrderState.REFUND.getValue()),
 
     /**
      * 核销
