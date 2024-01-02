@@ -498,7 +498,7 @@ CREATE TABLE `order_refund_log`
     `member_id`         bigint(20)   DEFAULT NULL COMMENT '退款人id',
     `out_refund_no`     varchar(50)  DEFAULT NULL COMMENT '退款流水号',
     `num`               smallint(2)  DEFAULT '1' COMMENT '退款数量',
-    `item_order_id`     bigint(20)   DEFAULT '1' COMMENT '零售退款订单id',
+    `item_order_id`     bigint(20)   DEFAULT NULL COMMENT '零售退款订单id',
     `apply_amount`      int(10)      DEFAULT '0' COMMENT '申请退款金额',
     `refund_amount`     int(10)      DEFAULT '0' COMMENT '实际退款金额',
     `reason`            varchar(200) DEFAULT NULL COMMENT '退款原因',
