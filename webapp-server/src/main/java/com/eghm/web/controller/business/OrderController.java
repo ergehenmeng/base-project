@@ -1,6 +1,7 @@
 package com.eghm.web.controller.business;
 
 import cn.hutool.core.util.StrUtil;
+import com.eghm.dto.business.order.OrderDTO;
 import com.eghm.dto.business.order.OrderPayDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderCreateDTO;
 import com.eghm.dto.business.order.item.ItemOrderCreateDTO;
@@ -162,6 +163,13 @@ public class OrderController {
     public RespBody<String> refresh(@RequestParam("orderNo") String orderNo) {
         String verifyCode = orderService.refreshVerifyCode(orderNo, ApiHolder.getMemberId());
         return RespBody.success(verifyCode);
+    }
+
+    @PostMapping("/delete")
+    @ApiOperation("删除订单")
+    public RespBody<Void> delete(@Validated @RequestBody OrderDTO dto) {
+        orderService.deleteOrder(dto.getOrderNo(), ApiHolder.getMemberId());
+        return RespBody.success();
     }
 
     /**

@@ -49,7 +49,6 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 /**
@@ -188,9 +187,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void deleteOrder(Long orderId, Long memberId) {
+    public void deleteOrder(String orderNo, Long memberId) {
         LambdaUpdateWrapper<Order> wrapper = Wrappers.lambdaUpdate();
-        wrapper.eq(Order::getId, orderId);
+        wrapper.eq(Order::getOrderNo, orderNo);
         wrapper.eq(Order::getState, OrderState.CLOSE);
         wrapper.eq(Order::getMemberId, memberId);
         baseMapper.delete(wrapper);
@@ -294,7 +293,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 计算主订单状态
         OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
         order.setState(orderState);
-        this.orderStateModify(order, mainOrder -> mainOrder.setCloseType(CloseType.REFUND));
+        if (order.getState() == OrderState.CLOSE) {
+            order.setCloseType(CloseType.REFUND);
+        }
+        this.orderStateModify(order);
         baseMapper.updateById(order);
     }
 
@@ -314,7 +316,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         // 计算主订单状态
         OrderState orderState = orderVisitorService.getOrderState(order.getOrderNo());
         order.setState(orderState);
-        this.orderStateModify(order, mainOrder -> mainOrder.setCloseType(CloseType.REFUND));
+        if (order.getState() == OrderState.CLOSE) {
+            order.setCloseType(CloseType.REFUND);
+        }
+        this.orderStateModify(order);
         // 发起退款
         TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
         baseMapper.updateById(order);
@@ -336,8 +341,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         boolean match = orderList.stream().anyMatch(itemOrder -> itemOrder.getRefundState() == ItemRefundState.PARTIAL_REFUND || itemOrder.getRefundState() == ItemRefundState.INIT);
         if (!match) {
             order.setState(OrderState.CLOSE);
+            order.setCloseType(CloseType.REFUND);
         }
-        this.orderStateModify(order, mainOrder -> mainOrder.setCloseType(CloseType.REFUND));
+        this.orderStateModify(order);
         // 发起退款
         TransactionUtil.afterCommit(() -> this.startRefund(refundLog, order));
         baseMapper.updateById(order);
@@ -359,11 +365,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Override
     public void orderStateModify(Order order) {
-        this.orderStateModify(order, null);
-    }
-
-    @Override
-    public void orderStateModify(Order order, Consumer<Order> closeConsumer) {
         Order databaseOrder = this.getByOrderNo(order.getOrderNo());
         if (databaseOrder.getState() == order.getState()) {
             log.warn("订单状态未发生改变,不做处理 [{}]", order.getOrderNo());
@@ -371,9 +372,6 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         }
         if (order.getState() == OrderState.CLOSE) {
             order.setCloseTime(LocalDateTime.now());
-            if (closeConsumer != null) {
-                closeConsumer.accept(order);
-            }
         }
         if (order.getState() == OrderState.APPRAISE) {
             TransactionUtil.afterCommit(() -> {

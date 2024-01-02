@@ -16,7 +16,6 @@ import com.eghm.vo.business.order.ProductSnapshotVO;
 import com.eghm.vo.business.order.item.ExpressDetailVO;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * @author 二哥很猛
@@ -88,10 +87,10 @@ public interface OrderService extends IService<Order> {
     /**
      * 订单删除
      * 已取消或者已关闭的订单才能删除
-     * @param orderId 订单id
+     * @param orderNo 订单号
      * @param memberId  用户id
      */
-    void deleteOrder(Long orderId, Long memberId);
+    void deleteOrder(String orderNo, Long memberId);
 
     /**
      * 查询支付处理中的订单列表
@@ -188,13 +187,6 @@ public interface OrderService extends IService<Order> {
      * @param order 订单信息
      */
     void orderStateModify(Order order);
-
-    /**
-     * 订单状态变更时所做的字段变更, 注意:只有订单状态变动时才需要调用该方法
-     * @param order 订单信息
-     * @param closeConsumer 关闭订单的特殊处理
-     */
-    void orderStateModify(Order order, Consumer<Order> closeConsumer);
 
     /**
      * 根据订单号查询订单下的商品信息
