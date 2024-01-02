@@ -1,6 +1,6 @@
 SET FOREIGN_KEY_CHECKS=0;
 
-INSERT INTO `sys_area` VALUES ('100665', '兰州新区', '620100', '730000', 'L', '3');
+INSERT INTO `sys_area` VALUES ('620124', '兰州新区', '620100', '730000', 'L', '3');
 INSERT INTO `sys_area` VALUES ('110000', '北京', '0', null, 'B', '1');
 INSERT INTO `sys_area` VALUES ('110100', '市辖区', '110000', null, 'S', '2');
 INSERT INTO `sys_area` VALUES ('110101', '东城区', '110100', '100000', 'D', '3');

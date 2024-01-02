@@ -1,0 +1,60 @@
+GET http://localhost:8080/manage/poi/area/listPage?page=1&pageSize=10
+token: {{token}}
+
+###
+POST http://localhost:8080/manage/poi/area/create
+token: {{token}}
+Content-Type: application/json
+
+{
+  "title": "周口",
+  "code": "WYS",
+  "longitude": 130.121211,
+  "latitude": 30.332421,
+  "provinceId": 110000,
+  "cityId": 110100,
+  "countyId": 110101,
+  "detailAddress": "详细地址",
+  "remark": "demoData"
+}
+
+###
+POST http://localhost:8080/manage/poi/area/update
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1742009711671058433,
+  "title": "周口",
+  "code": "WYS",
+  "longitude": 130.121211,
+  "latitude": 30.332421,
+  "provinceId": 110000,
+  "cityId": 110100,
+  "countyId": 110101,
+  "detailAddress": "详细地址",
+  "remark": "demoDataxx"
+}
+
+###
+POST http://localhost:8080/manage/poi/area/updateState
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1742009711671058433,
+  "state": 1
+}
+
+###
+POST http://localhost:8080/manage/poi/area/delete
+token: {{token}}
+Content-Type: application/json
+
+{
+  "id": 1742008197758001153
+}
+
+###
+GET http://localhost:8080/manage/poi/area/list
+token: {{token}}
