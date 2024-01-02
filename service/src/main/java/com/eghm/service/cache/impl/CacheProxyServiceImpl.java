@@ -10,7 +10,6 @@ import com.eghm.mapper.*;
 import com.eghm.model.*;
 import com.eghm.service.business.ItemTagService;
 import com.eghm.service.cache.CacheProxyService;
-import com.eghm.utils.DataUtil;
 import com.eghm.vo.auth.AuthConfigVO;
 import com.eghm.vo.business.item.ItemTagResponse;
 import com.eghm.vo.sys.SysAreaVO;
@@ -68,12 +67,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_AREA, sync = true)
     public List<SysAreaVO> getAreaList() {
-        List<SysArea> list = sysAreaMapper.selectList(null);
-        List<SysAreaVO> voList = DataUtil.copy(list, SysAreaVO.class);
-        return voList.stream()
-                .filter(sysAreaVO -> sysAreaVO.getPid() == CommonConstant.ROOT)
-                .peek(sysAreaVO -> this.setChildren(sysAreaVO, voList))
-                .collect(Collectors.toList());
+        List<SysAreaVO> voList = sysAreaMapper.getList();
+        return this.treeBin(CommonConstant.ROOT, voList);
     }
 
     @Override
@@ -163,14 +158,15 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     /**
      * 设置子节点
-     * @param parent 父节点
+     * @param pid  父节点
      * @param voList 全部列表
+     * @return list
      */
-    private void setChildren(SysAreaVO parent, List<SysAreaVO> voList) {
-        parent.setChildren(voList.stream()
-                .filter(sysAreaVO -> parent.getId().equals(sysAreaVO.getPid()))
-                .peek(sysAreaVO -> this.setChildren(sysAreaVO, voList))
-                .collect(Collectors.toList()));
+    private List<SysAreaVO> treeBin(Long pid, List<SysAreaVO> voList) {
+        return voList.stream()
+                .filter(parent -> pid.equals(parent.getPid()))
+                .peek(parent -> parent.setChildren(this.treeBin(parent.getId(), voList)))
+                .collect(Collectors.toList());
     }
 
 }
