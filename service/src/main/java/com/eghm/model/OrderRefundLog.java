@@ -27,6 +27,9 @@ public class OrderRefundLog extends BaseEntity {
     @ApiModelProperty(value = "退款人id")
     private Long memberId;
 
+    @ApiModelProperty("商户id")
+    private Long merchantId;
+
     @ApiModelProperty(value = "退款流水号")
     private String outRefundNo;
 

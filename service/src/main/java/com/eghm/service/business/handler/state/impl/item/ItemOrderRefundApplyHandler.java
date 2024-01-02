@@ -65,6 +65,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
 
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setItemOrderId(itemOrder.getId());
+        refundLog.setMerchantId(order.getMerchantId());
         LocalDateTime now = LocalDateTime.now();
         refundLog.setApplyTime(now);
         refundLog.setState(0);

@@ -508,6 +508,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private OrderRefundLog createRefundLog(Order order, Integer refundAmount, Integer num) {
         OrderRefundLog refundLog = new OrderRefundLog();
         refundLog.setId(IdWorker.getId());
+        refundLog.setMerchantId(order.getMerchantId());
         refundLog.setOutRefundNo(order.getProductType().generateTradeNo());
         refundLog.setMemberId(order.getMemberId());
         refundLog.setRefundAmount(refundAmount);

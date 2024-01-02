@@ -58,6 +58,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
     protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setApplyTime(LocalDateTime.now());
+        refundLog.setMerchantId(order.getMerchantId());
         refundLog.setState(0);
         if (order.getRefundType() == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
