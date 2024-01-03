@@ -7,9 +7,9 @@ token: {{token}}
 Content-Type: application/json
 
 {
-  "orderNo": "MP123123123",
-  "refundId": 1,
+  "orderNo": "MP1742099655827591170",
+  "refundId": 1742115517737418753,
   "state": 1,
-  "refundAmount": 1,
-  "auditRemark": "demoData"
+  "refundAmount": 60,
+  "auditRemark": "备注"
 }
