@@ -113,7 +113,6 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
-        context.setNum(dto.getVisitorIds().size());
         ticketAccessHandler.refundApply(context);
         return RespBody.success();
     }
@@ -142,7 +141,7 @@ public class OrderController {
 
     @PostMapping("voucher/refundApply")
     @ApiOperation("餐饮退款申请")
-    public RespBody<Void> voucherRefundApply(@RequestBody @Validated RestaurantRefundApplyDTO dto) {
+    public RespBody<Void> voucherRefundApply(@RequestBody @Validated VoucherRefundApplyDTO dto) {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);

@@ -11,6 +11,7 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.RefundApplyHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
 import com.eghm.utils.TransactionUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
+import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
 import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
 
 /**
@@ -104,7 +106,10 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             log.error("订单状态不是待使用,无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }
-
+        int totalAmount = order.getPrice() * context.getNum();
+        if (totalAmount < context.getApplyAmount()) {
+            throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));
+        }
         this.checkRefund(context, order);
     }
 

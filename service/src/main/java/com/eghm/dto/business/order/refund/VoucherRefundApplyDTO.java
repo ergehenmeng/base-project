@@ -7,14 +7,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * @author 二哥很猛
  * @since 2023/8/30
  */
 @Data
-public class RestaurantRefundApplyDTO {
+public class VoucherRefundApplyDTO {
 
     @ApiModelProperty(value = "订单编号", required = true)
     @NotNull(message = "订单编号不能为空")
@@ -31,7 +30,4 @@ public class RestaurantRefundApplyDTO {
 
     @ApiModelProperty(value = "退款原因", required = true)
     private String reason;
-
-    @ApiModelProperty("退款游客id")
-    private List<Long> visitorIds;
 }
