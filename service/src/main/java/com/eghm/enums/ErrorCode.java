@@ -803,9 +803,9 @@ public enum ErrorCode {
     STATE_NOT_REFUND(3161, "该订单状态不支持退款"),
 
     /**
-     * 订单退款状态不合法
+     * 订单退款中,请稍后再申请
      */
-    REFUND_STATE_INVALID(3162, "订单退款状态不合法"),
+    REFUND_STATE_INVALID(3162, "订单退款中,请稍后再申请"),
 
     /**
      * 退款人数和数量不一致
@@ -1436,6 +1436,11 @@ public enum ErrorCode {
      * 文章从地球上消失啦~
      */
     NEWS_NULL(3808,"文章从地球上消失啦~"),
+
+    /**
+     * 退款金额不能超过%s元
+     */
+    REFUND_AMOUNT_MAX(3810,"退款金额不能超过%s元"),
 
     /**
      * 微信公众号尚未配置

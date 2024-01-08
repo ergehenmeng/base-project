@@ -113,6 +113,7 @@ public class OrderController {
         RefundApplyContext context = DataUtil.copy(dto, RefundApplyContext.class);
         context.setMemberId(ApiHolder.getMemberId());
         context.setApplyType(1);
+        context.setNum(dto.getVisitorIds().size());
         ticketAccessHandler.refundApply(context);
         return RespBody.success();
     }

@@ -131,6 +131,14 @@ public class OrderVisitorServiceImpl implements OrderVisitorService {
     }
 
     @Override
+    public long getVerify(String orderNo) {
+        LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(OrderVisitor::getOrderNo, orderNo);
+        wrapper.eq(OrderVisitor::getState, VisitorState.USED);
+        return orderVisitorMapper.selectCount(wrapper);
+    }
+
+    @Override
     public List<OrderVisitor> getByIds(List<Long> ids, String orderNo) {
         LambdaQueryWrapper<OrderVisitor> wrapper = Wrappers.lambdaQuery();
         wrapper.in(OrderVisitor::getId, ids);

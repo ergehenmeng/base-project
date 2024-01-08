@@ -71,6 +71,13 @@ public interface OrderVisitorService {
     long getUnVerify(String orderNo);
 
     /**
+     * 根据订单号统计已核销的游客数量
+     * @param orderNo 订单编号
+     * @return 数量
+     */
+    long getVerify(String orderNo);
+
+    /**
      * 根据id列表查询游客信息
      * @param ids ids
      * @param orderNo 额外过滤条件

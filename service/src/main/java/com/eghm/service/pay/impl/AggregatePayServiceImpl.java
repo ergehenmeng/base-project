@@ -2,8 +2,8 @@ package com.eghm.service.pay.impl;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.service.pay.PayRequestLogService;
 import com.eghm.service.pay.AggregatePayService;
+import com.eghm.service.pay.PayRequestLogService;
 import com.eghm.service.pay.PayService;
 import com.eghm.service.pay.dto.PrepayDTO;
 import com.eghm.service.pay.dto.RefundDTO;
@@ -52,14 +52,13 @@ public class AggregatePayServiceImpl implements AggregatePayService {
     }
 
     @Override
-    public RefundVO applyRefund(RefundDTO dto) {
+    public void applyRefund(RefundDTO dto) {
         RefundVO vo = null;
         try {
             vo = getPayService(dto.getTradeType()).applyRefund(dto);
         } finally {
             payRequestLogService.insertRefundLog(dto, vo);
         }
-        return vo;
     }
 
     @Override

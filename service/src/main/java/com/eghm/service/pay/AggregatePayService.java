@@ -37,9 +37,8 @@ public interface AggregatePayService {
     /**
      * 申请退款
      * @param dto 退款信息
-     * @return 退款相应信息
      */
-    RefundVO applyRefund(RefundDTO dto);
+    void applyRefund(RefundDTO dto);
 
     /**
      * 查询退款单号

@@ -104,13 +104,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             log.error("订单状态不是待使用,无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }
-        if (order.getRefundState() == RefundState.OFFLINE
-                || order.getRefundState() == RefundState.SUCCESS
-                || order.getRefundState() == RefundState.APPLY
-                || order.getRefundState() == RefundState.PROGRESS) {
-            log.error("订单退款状态非法 [{}] [{}]", context.getOrderNo(), order.getRefundState());
-            throw new BusinessException(ErrorCode.REFUND_STATE_INVALID);
-        }
+
         this.checkRefund(context, order);
     }
 
