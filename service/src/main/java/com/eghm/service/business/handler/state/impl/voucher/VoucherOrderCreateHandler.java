@@ -1,4 +1,4 @@
-package com.eghm.service.business.handler.state.impl.restaurant;
+package com.eghm.service.business.handler.state.impl.voucher;
 
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ExchangeQueue;

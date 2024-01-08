@@ -20,10 +20,6 @@ public class LineRefundApplyDTO {
     @NotNull(message = "订单编号不能为空")
     private String orderNo;
 
-    @ApiModelProperty(value = "退款数量", required = true)
-    @RangeInt(min = 1, max = 99, message = "退款数量应为1~99")
-    private Integer num;
-
     @ApiModelProperty(value = "申请退款金额", required = true)
     @RangeInt(min = 1, max = 9999999, message = "退款金额不合法")
     @JsonDeserialize(using = YuanToCentDecoder.class)

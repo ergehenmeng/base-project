@@ -1,4 +1,4 @@
-package com.eghm.service.business.handler.state.impl.restaurant;
+package com.eghm.service.business.handler.state.impl.voucher;
 
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.RestaurantEvent;
@@ -13,16 +13,16 @@ import org.springframework.stereotype.Service;
  * @author wyb
  * @since 2023/5/16
  */
-@Service("voucherOrderRefundRefuseHandler")
-public class VoucherOrderRefundRefuseHandler extends AbstractOrderRefundAuditHandler {
+@Service("voucherOrderRefundPassHandler")
+public class VoucherOrderRefundPassHandler extends AbstractOrderRefundAuditHandler {
 
-    public VoucherOrderRefundRefuseHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
+    public VoucherOrderRefundPassHandler(OrderService orderService, OrderRefundLogService orderRefundLogService, OrderVisitorService orderVisitorService) {
         super(orderService, orderRefundLogService, orderVisitorService);
     }
 
     @Override
     public IEvent getEvent() {
-        return RestaurantEvent.REFUND_REFUSE;
+        return RestaurantEvent.REFUND_PASS;
     }
 
     @Override

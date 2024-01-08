@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 import static com.eghm.enums.ErrorCode.REFUND_AUDITED;
-import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX;
+import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
 
 /**
  * 默认退款拒绝
@@ -149,7 +149,7 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
         int refundNum = orderRefundLogService.getRefundSuccessNum(context.getOrderNo(), null);
         if ((refundNum + refundLog.getNum()) > order.getNum()) {
             log.error("累计退款数量(含本次)大于总支付数量 [{}] [{}] [{}]", order.getNum(), refundNum, refundLog.getNum());
-            throw new BusinessException(TOTAL_REFUND_MAX);
+            throw new BusinessException(TOTAL_REFUND_MAX_NUM);
         }
     }
 
