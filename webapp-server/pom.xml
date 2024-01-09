@@ -39,10 +39,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-        </dependency>
         <!--验证码-->
         <dependency>
             <groupId>com.github.penggle</groupId>
@@ -57,6 +53,7 @@
     </dependencies>
 
     <build>
+        <finalName>webapp-server</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
