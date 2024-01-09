@@ -1448,6 +1448,11 @@ public enum ErrorCode {
     ORDER_CONFIRM(3813,"该订单已确认"),
 
     /**
+     * 订单已发货,请退货退款
+     */
+    REFUND_DELIVERY(3815,"订单已发货,请退货退款"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

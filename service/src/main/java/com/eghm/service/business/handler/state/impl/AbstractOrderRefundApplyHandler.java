@@ -58,6 +58,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * @return 退款记录
      */
     protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
+        this.checkRefundAmount(context, order);
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setMerchantId(order.getMerchantId());
@@ -115,11 +116,23 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             log.error("订单状态不是待使用,无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }
+        if (order.getRefundState()!= RefundState.APPLY) {
+            log.error("订单状态不是申请退款,无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
+            throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
+        }
+        this.checkRefund(context, order);
+    }
+
+    /**
+     * 校验可退款金额
+     * @param context 退款信息
+     * @param order 订单信息
+     */
+    protected void checkRefundAmount(RefundApplyContext context, Order order) {
         int totalAmount = order.getPrice() * context.getNum();
         if (totalAmount < context.getApplyAmount()) {
             throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(totalAmount)));
         }
-        this.checkRefund(context, order);
     }
 
     /**

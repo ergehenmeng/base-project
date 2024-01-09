@@ -3,10 +3,7 @@ package com.eghm.service.business.handler.state.impl.item;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.event.IEvent;
 import com.eghm.enums.event.impl.ItemEvent;
-import com.eghm.enums.ref.AuditState;
-import com.eghm.enums.ref.ItemRefundState;
-import com.eghm.enums.ref.ProductType;
-import com.eghm.enums.ref.RefundState;
+import com.eghm.enums.ref.*;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.Order;
@@ -18,10 +15,14 @@ import com.eghm.service.business.OrderVisitorService;
 import com.eghm.service.business.handler.context.RefundApplyContext;
 import com.eghm.service.business.handler.state.impl.AbstractOrderRefundApplyHandler;
 import com.eghm.utils.DataUtil;
+import com.eghm.utils.DecimalUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+
+import static com.eghm.enums.ErrorCode.REFUND_AMOUNT_MAX;
+import static com.eghm.enums.ErrorCode.REFUND_DELIVERY;
 
 /**
  * @author 二哥很猛
@@ -55,6 +56,19 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         if (refundNum >= itemOrder.getNum()) {
             log.error("该商品已全部申请退款, 无须再次申请 [{}] [{}]", context.getOrderNo(), context.getItemOrderId());
             throw new BusinessException(ErrorCode.ORDER_REFUND_APPLY);
+        }
+        // 如果是未发货,则退款金额=商品金额+快递费, 如果是已发货则退款金额=商品金额
+        int expressFee = 0;
+        if (itemOrder.getDeliveryState() == DeliveryState.WAIT_TAKE || itemOrder.getDeliveryState() == DeliveryState.CONFIRM_TASK) {
+            if (context.getApplyType() == 1) {
+                throw new BusinessException(REFUND_DELIVERY);
+            }
+        } else {
+            expressFee = itemOrder.getExpressFee();
+        }
+        int totalAmount = order.getPrice() * context.getNum();
+        if ((totalAmount + expressFee) < context.getApplyAmount()) {
+            throw new BusinessException(REFUND_AMOUNT_MAX.getCode(), String.format(REFUND_AMOUNT_MAX.getMsg(), DecimalUtil.centToYuan(context.getApplyAmount())));
         }
         int totalRefund = context.getNum() + refundNum;
         if (totalRefund > itemOrder.getNum()) {
