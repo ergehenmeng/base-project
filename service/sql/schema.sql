@@ -158,7 +158,7 @@ CREATE TABLE `help_center`
     `classify`    tinyint(2) unsigned DEFAULT NULL COMMENT '帮助分类取system_dict表中help_classify字段',
     `state`       tinyint(1) unsigned DEFAULT '1' COMMENT '状态 0:不显示 1:显示',
     `ask`         varchar(100)        DEFAULT NULL COMMENT '问',
-    `answer`      varchar(500)        DEFAULT NULL COMMENT '答',
+    `answer`      text                DEFAULT NULL COMMENT '答',
     `sort`        tinyint(4)          DEFAULT '0' COMMENT '排序(小<->大)',
     `deleted`     bit(1)              DEFAULT b'0' COMMENT '删除状态 0:不删除(正常) 1:已删除',
     `update_time` datetime            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
