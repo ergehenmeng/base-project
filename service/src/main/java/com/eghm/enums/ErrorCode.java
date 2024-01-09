@@ -1443,6 +1443,11 @@ public enum ErrorCode {
     REFUND_AMOUNT_MAX(3810,"退款金额不能超过%s元"),
 
     /**
+     * 该订单已确认
+     */
+    ORDER_CONFIRM(3813,"该订单已确认"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

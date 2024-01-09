@@ -1,6 +1,7 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryRequest;
 import com.eghm.model.HomestayOrder;
@@ -76,4 +77,10 @@ public interface HomestayOrderService {
      * @return 民宿订单详情
      */
     HomestayOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 确认是否有房
+     * @param request 确认状态
+     */
+    void confirm(HomestayOrderConfirmRequest request);
 }

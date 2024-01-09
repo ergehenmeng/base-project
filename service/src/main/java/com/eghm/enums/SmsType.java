@@ -36,6 +36,11 @@ public enum SmsType {
      */
     CHANGE_EMAIL("change_email", "更换邮箱发送短信验证码"),
 
+    /**
+     * 确认无房,发送通知短信
+     */
+    CONFIRM_NO_ROOM("confirm_no_room", "确认无房,发送通知短信"),
+
     ;
     private final String value;
 

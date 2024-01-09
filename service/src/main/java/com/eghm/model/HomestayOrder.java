@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.ConfirmState;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +29,9 @@ public class HomestayOrder extends BaseEntity {
 
     @ApiModelProperty(value = "房型id")
     private Long roomId;
+
+    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房 3:自动确认有房")
+    private ConfirmState confirmState;
 
     @ApiModelProperty(value = "入住开始时间(含)")
     private LocalDate startDate;
@@ -64,4 +68,7 @@ public class HomestayOrder extends BaseEntity {
 
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
+
+    @ApiModelProperty("确认备注信息")
+    private String remark;
 }

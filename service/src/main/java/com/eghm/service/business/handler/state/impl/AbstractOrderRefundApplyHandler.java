@@ -62,7 +62,8 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
         refundLog.setApplyTime(LocalDateTime.now());
         refundLog.setMerchantId(order.getMerchantId());
         refundLog.setState(0);
-        if (order.getRefundType() == RefundType.AUDIT_REFUND) {
+        RefundType refundType = this.getRefundType(order);
+        if (refundType == RefundType.AUDIT_REFUND) {
             refundLog.setAuditState(AuditState.APPLY);
             order.setRefundState(RefundState.APPLY);
         } else {
@@ -77,6 +78,14 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
         return refundLog;
     }
 
+    /**
+     * 获取退款方式
+     * @param order 订单信息
+     * @return 退款方式
+     */
+    protected RefundType getRefundType(Order order) {
+        return order.getRefundType();
+    }
     /**
      * 退款申请成功的后置处理
      * @param context 请求参数
@@ -98,7 +107,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             log.error("订单不属于当前用户,无法退款 [{}] [{}] [{}]", context.getOrderNo(), order.getMemberId(), context.getMemberId());
             throw new BusinessException(ErrorCode.ILLEGAL_OPERATION);
         }
-        if (order.getRefundType() == RefundType.NOT_SUPPORTED) {
+        if (this.getRefundType(order) == RefundType.NOT_SUPPORTED) {
             log.error("该订单不支持退款 [{}]", context.getOrderNo());
             throw new BusinessException(ErrorCode.REFUND_NOT_SUPPORTED);
         }

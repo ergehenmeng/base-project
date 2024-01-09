@@ -1,5 +1,6 @@
 package com.eghm.web.controller.business;
 
+import com.eghm.dto.business.order.homestay.HomestayOrderConfirmRequest;
 import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
@@ -12,10 +13,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,4 +45,12 @@ public class HomestayOrderController {
         HomestayOrderDetailVO detail = homestayOrderService.getDetail(orderNo, ApiHolder.getMemberId());
         return RespBody.success(detail);
     }
+
+    @PostMapping("/confirm")
+    @ApiOperation("确认订单")
+    public RespBody<Void> confirm(@RequestBody @Validated HomestayOrderConfirmRequest request) {
+        homestayOrderService.confirm(request);
+        return RespBody.success();
+    }
+
 }

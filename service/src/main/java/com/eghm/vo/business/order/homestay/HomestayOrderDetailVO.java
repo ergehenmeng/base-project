@@ -1,10 +1,7 @@
 package com.eghm.vo.business.order.homestay;
 
 import com.eghm.convertor.CentToYuanEncoder;
-import com.eghm.enums.ref.OrderState;
-import com.eghm.enums.ref.PayType;
-import com.eghm.enums.ref.RefundState;
-import com.eghm.enums.ref.RefundType;
+import com.eghm.enums.ref.*;
 import com.eghm.vo.business.order.VisitorVO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -77,6 +74,12 @@ public class HomestayOrderDetailVO {
 
     @ApiModelProperty("游客列表")
     private List<VisitorVO> visitorList;
+
+    @ApiModelProperty("确认状态 0:待确认 1:确认有房 2:确认无房")
+    private ConfirmState confirmState;
+
+    @ApiModelProperty("确认无房备注信息")
+    private String confirmRemark;
 
     @ApiModelProperty("完成时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
