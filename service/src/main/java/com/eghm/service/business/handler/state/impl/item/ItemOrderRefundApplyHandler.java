@@ -78,6 +78,7 @@ public class ItemOrderRefundApplyHandler extends AbstractOrderRefundApplyHandler
         itemOrder.setRefundState(totalRefund == itemOrder.getNum() ? ItemRefundState.REFUND : ItemRefundState.PARTIAL_REFUND);
 
         OrderRefundLog refundLog = DataUtil.copy(context, OrderRefundLog.class);
+        refundLog.setExpressFee(expressFee);
         refundLog.setItemOrderId(itemOrder.getId());
         refundLog.setMerchantId(order.getMerchantId());
         LocalDateTime now = LocalDateTime.now();

@@ -35,6 +35,7 @@
             t.order_no,
             t.num,
             t.apply_amount,
+            t.express_fee,
             t.reason,
             t.state,
             t.audit_state,

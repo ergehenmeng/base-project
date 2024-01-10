@@ -9,6 +9,7 @@ import com.eghm.vo.log.WebappLogResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ public class WebappLogController {
 
     @GetMapping("/listPage")
     @ApiOperation("用户日志列表")
-    public RespBody<PageData<WebappLogResponse>> listPage(WebappQueryRequest request) {
+    public RespBody<PageData<WebappLogResponse>> listPage(@Validated WebappQueryRequest request) {
         Page<WebappLogResponse> page = webappLogService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
     }

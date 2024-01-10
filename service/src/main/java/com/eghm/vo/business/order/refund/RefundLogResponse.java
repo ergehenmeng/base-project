@@ -1,6 +1,8 @@
 package com.eghm.vo.business.order.refund;
 
+import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.AuditState;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,8 +30,13 @@ public class RefundLogResponse {
     @ApiModelProperty(value = "退款数量")
     private Integer num;
 
-    @ApiModelProperty(value = "申请退款金额")
+    @ApiModelProperty(value = "申请退款金额(含快递费)")
+    @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer applyAmount;
+
+    @ApiModelProperty("退款快递费")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer expressFee;
 
     @ApiModelProperty(value = "退款原因")
     private String reason;
