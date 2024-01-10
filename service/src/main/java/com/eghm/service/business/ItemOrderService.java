@@ -7,10 +7,7 @@ import com.eghm.dto.business.order.item.ItemRefundDTO;
 import com.eghm.model.ItemOrder;
 import com.eghm.service.business.handler.dto.OrderPackage;
 import com.eghm.vo.business.order.ProductSnapshotVO;
-import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
-import com.eghm.vo.business.order.item.ItemOrderDetailVO;
-import com.eghm.vo.business.order.item.ItemOrderResponse;
-import com.eghm.vo.business.order.item.ItemOrderVO;
+import com.eghm.vo.business.order.item.*;
 
 import java.util.List;
 import java.util.Map;
@@ -127,6 +124,13 @@ public interface ItemOrderService {
      * @return 订单信息
      */
     ItemOrderDetailResponse detail(String orderNo);
+
+    /**
+     * 查询退款订单详情 (管理后台)
+     * @param orderNo 订单信息
+     * @return 订单信息
+     */
+    ItemOrderRefundDetailResponse refundDetail(String orderNo);
 
     /**
      * 根据主键查询零售订单信息

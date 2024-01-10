@@ -44,10 +44,10 @@ public class ItemOnlineRefundRequest {
     private String remark;
 
     @ApiModelProperty(value = "物流公司(退货退款)")
-    private String logisticsCompany;
+    private String expressCode;
 
     @ApiModelProperty(value = "物流单号(退货退款)")
-    private String logisticsNo;
+    private String expressNo;
 
     @Assign
     @ApiModelProperty(value = "用户id", hidden = true)

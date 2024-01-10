@@ -76,4 +76,30 @@
             #{item}
         </foreach>
     </select>
+
+    <select id="getItemRefundLog" resultType="com.eghm.vo.business.order.item.ItemRefundResponse">
+        select
+            t.id,
+            r.title,
+            r.cover_url,
+            t.order_no,
+            t.num,
+            t.apply_amount,
+            t.express_fee,
+            t.refund_amount,
+            t.reason,
+            t.state,
+            t.audit_state,
+            t.audit_time,
+            t.audit_remark,
+            t.apply_time,
+            t.express_code,
+            t.express_no,
+            m.nick_name as auditName
+        from
+        order_refund_log t
+        left join item_order r on t.item_order_id = r.id
+        left join sys_user m on t.audit_user_id = m.id
+        where t.order_no = #{orderNo} order by t.id desc
+    </select>
 </mapper>

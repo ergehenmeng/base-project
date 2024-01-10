@@ -41,10 +41,10 @@ public class RefundApplyContext implements Context {
     private Integer applyType;
 
     @ApiModelProperty(value = "物流公司(退货退款)")
-    private String logisticsCompany;
+    private String expressCode;
 
     @ApiModelProperty(value = "物流单号(退货退款)")
-    private String logisticsNo;
+    private String expressNo;
 
     @ApiModelProperty("退款游客id")
     private List<Long> visitorIds;

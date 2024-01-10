@@ -5,6 +5,7 @@ import com.eghm.dto.business.order.refund.RefundLogQueryRequest;
 import com.eghm.model.OrderRefundLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.dto.ext.OrderRefund;
+import com.eghm.vo.business.order.item.ItemRefundResponse;
 import com.eghm.vo.business.order.refund.RefundLogResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -60,4 +61,11 @@ public interface OrderRefundLogMapper extends BaseMapper<OrderRefundLog> {
      * @return 数量
      */
     int getRefundSuccess(@Param("orderNo") String orderNo, @Param("visitorList") List<Long> visitorList);
+
+    /**
+     * 查询零售订单退款记录
+     * @param orderNo 订单号
+     * @return 退款记录列表
+     */
+    List<ItemRefundResponse> getItemRefundLog(@Param("orderNo") String orderNo);
 }

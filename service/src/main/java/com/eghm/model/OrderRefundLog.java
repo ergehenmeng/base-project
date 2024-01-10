@@ -73,9 +73,9 @@ public class OrderRefundLog extends BaseEntity {
     private LocalDateTime applyTime;
 
     @ApiModelProperty(value = "物流公司(退货退款)")
-    private String logisticsCompany;
+    private String expressCode;
 
     @ApiModelProperty(value = "物流单号(退货退款)")
-    private String logisticsNo;
+    private String expressNo;
 
 }

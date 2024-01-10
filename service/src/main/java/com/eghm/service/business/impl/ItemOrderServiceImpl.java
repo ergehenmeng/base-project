@@ -14,8 +14,10 @@ import com.eghm.enums.ref.DeliveryState;
 import com.eghm.enums.ref.ItemRefundState;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemOrderMapper;
+import com.eghm.mapper.OrderRefundLogMapper;
 import com.eghm.model.ItemOrder;
 import com.eghm.model.ItemSku;
+import com.eghm.service.business.ExpressService;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.handler.dto.OrderPackage;
@@ -50,6 +52,10 @@ public class ItemOrderServiceImpl implements ItemOrderService {
     private final ItemExpressService itemExpressService;
 
     private final JsonService jsonService;
+
+    private final OrderRefundLogMapper orderRefundLogMapper;
+
+    private final ExpressService expressService;
 
     @Override
     public Page<ItemOrderResponse> listPage(ItemOrderQueryRequest request) {
@@ -203,6 +209,19 @@ public class ItemOrderServiceImpl implements ItemOrderService {
         shippedList.forEach(response -> response.setExpressList(jsonService.fromJsonList(response.getContent(), ExpressVO.class)));
         detail.setShippedList(shippedList);
         return detail;
+    }
+
+    @Override
+    public ItemOrderRefundDetailResponse refundDetail(String orderNo) {
+        // 订单+商品信息+发货信息
+        ItemOrderDetailResponse detail = this.detail(orderNo);
+        ItemOrderRefundDetailResponse response = DataUtil.copy(detail, ItemOrderRefundDetailResponse.class);
+        // 退款申请记录
+        List<ItemRefundResponse> refundLog = orderRefundLogMapper.getItemRefundLog(orderNo);
+        // 退款物流信息
+        refundLog.forEach(itemRefundResponse -> itemRefundResponse.setExpressList(expressService.getExpressList(itemRefundResponse.getExpressNo(), itemRefundResponse.getExpressCode())));
+        response.setRefundList(refundLog);
+        return response;
     }
 
     @Override
