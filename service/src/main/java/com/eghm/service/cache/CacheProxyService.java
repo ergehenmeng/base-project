@@ -16,6 +16,12 @@ import java.util.List;
 public interface CacheProxyService {
 
     /**
+     * 获取所有快递信息
+     * @return list
+     */
+    List<Express> getExpressList();
+
+    /**
      * 查询子级的地址列表
      * @param pid 当前级地址id
      * @return list

@@ -12,9 +12,6 @@ import lombok.Data;
 @Data
 public class ExpressVO {
 
-    @ApiModelProperty("节点状态")
-    private Integer state;
-
     @ApiModelProperty("时间")
     private String time;
 

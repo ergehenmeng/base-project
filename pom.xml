@@ -45,7 +45,7 @@
         <!--common-编码工具类-->
         <commons.codec.version>1.10</commons.codec.version>
         <!--json工具类版本-->
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson.version>2.0.42</fastjson.version>
         <!--打包跳过测试-->
         <skipTests>true</skipTests>
         <!--netty-->
@@ -119,9 +119,10 @@
         <!--异步线程变量-->
         <transmittable.version>2.14.2</transmittable.version>
         <!--excel导出-->
-        <easyexcel.version>3.2.0</easyexcel.version>
+        <easyexcel.version>3.3.2</easyexcel.version>
         <!--jackson 1.8日期格式序列号兼容包-->
         <jackson-ext.version>2.13.4</jackson-ext.version>
+        <kuaidi-version>1.0.12</kuaidi-version>
     </properties>
 
     <!--定义依赖包,需要子modules显式添加依赖,不需要版本即可-->
@@ -321,6 +322,11 @@
                 <groupId>com.warrenstrange</groupId>
                 <artifactId>googleauth</artifactId>
                 <version>${totp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.kuaidi100-api</groupId>
+                <artifactId>sdk</artifactId>
+                <version>${kuaidi-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

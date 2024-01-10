@@ -56,6 +56,16 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     private final AuthConfigMapper authConfigMapper;
 
+    private final ExpressMapper expressMapper;
+
+    @Override
+    @Cacheable(cacheNames = CacheConstant.EXPRESS, sync = true)
+    public List<Express> getExpressList() {
+        LambdaQueryWrapper<Express> wrapper = Wrappers.lambdaQuery();
+        wrapper.select(Express::getExpressCode, Express::getExpressName);
+        return expressMapper.selectList(wrapper);
+    }
+
     @Override
     @Cacheable(cacheNames = CacheConstant.SYS_AREA_PID, key = "#pid", cacheManager = "longCacheManager", sync = true)
     public List<SysArea> getAreaByPid(Long pid) {

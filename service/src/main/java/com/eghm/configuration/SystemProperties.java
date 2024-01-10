@@ -75,6 +75,25 @@ public class SystemProperties {
      */
     private DingTalk dingTalk = new DingTalk();
 
+    /**
+     * 快递100配置
+     */
+    private Express100 express = new Express100();
+
+    @Data
+    public static class Express100 {
+
+        /**
+         * 授权码
+         */
+        private String customer;
+
+        /**
+         * 授权key
+         */
+        private String key;
+    }
+
     @Data
     public static class Redis {
 

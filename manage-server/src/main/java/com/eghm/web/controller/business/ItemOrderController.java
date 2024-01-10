@@ -9,9 +9,11 @@ import com.eghm.dto.business.order.item.ItemOrderQueryRequest;
 import com.eghm.dto.business.order.item.ItemSippingRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.Express;
 import com.eghm.service.business.ItemExpressService;
 import com.eghm.service.business.ItemOrderService;
 import com.eghm.service.business.OrderService;
+import com.eghm.service.cache.CacheProxyService;
 import com.eghm.service.cache.RedisLock;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.order.item.ItemOrderDetailResponse;
@@ -43,6 +45,8 @@ public class ItemOrderController {
     private final OrderService orderService;
 
     private final RedisLock redisLock;
+
+    private final CacheProxyService cacheProxyService;
 
     @GetMapping("/listPage")
     @ApiOperation("订单列表")
@@ -80,6 +84,12 @@ public class ItemOrderController {
             orderService.sipping(request);
             return RespBody.success();
         });
+    }
+
+    @GetMapping("/expressList")
+    @ApiOperation("获取快递列表")
+    public RespBody<List<Express>> getExpressList() {
+        return RespBody.success(cacheProxyService.getExpressList());
     }
 
     @PostMapping("/updateExpress")
