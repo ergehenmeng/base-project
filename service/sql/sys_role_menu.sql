@@ -266,3 +266,4 @@ INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`, `create_time`) VALUES ('
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`, `create_time`) VALUES ('330', '1707298744621969415', '10131311', '2023-12-29 11:08:49');
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`, `create_time`) VALUES ('331', '1707298744621969415', '10131312', '2023-12-29 11:08:49');
 INSERT INTO `sys_role_menu`(`id`, `role_id`, `menu_id`, `create_time`) VALUES ('332', '1707298744621969415', '1013', '2023-12-29 11:09:23');
+INSERT INTO sys_role_menu (`id`,`role_id`,`menu_id`,`create_time`) VALUES (333,1707298744621969413,'10131212','2024-01-10T15:25:01');
