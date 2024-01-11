@@ -1082,3 +1082,17 @@ create table express
     deleted      bit(1)      default false comment '删除状态 0:未删除 1:已删除',
     primary key (id)
 ) comment '快递公司';
+
+DROP TABLE IF EXISTS member_collect;
+create table member_collect
+(
+    id           bigint(20) not null comment '主键',
+    member_id    bigint(20) comment '会员id',
+    collect_id   bigint(20) comment '收藏id',
+    collect_type tinyint(2) comment '收藏对象类型',
+    state        tinyint(1) default 1 comment '0:取消收藏, 1:加入收藏',
+    create_time  datetime   default CURRENT_TIMESTAMP comment '创建时间',
+    update_time  datetime   default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP comment '更新时间',
+    deleted      bit(1)     default 0 comment '删除状态 0:未删除 1:已删除',
+    primary key (id)
+) comment '会员收藏记录表';

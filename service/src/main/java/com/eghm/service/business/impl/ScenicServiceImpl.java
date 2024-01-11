@@ -16,12 +16,15 @@ import com.eghm.dto.business.scenic.ScenicEditRequest;
 import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.business.scenic.ScenicQueryRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ScenicMapper;
 import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ActivityService;
+import com.eghm.service.business.MemberCollectService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.sys.GeoService;
 import com.eghm.service.sys.SysAreaService;
@@ -29,8 +32,8 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
-import com.eghm.vo.business.scenic.ScenicListVO;
 import com.eghm.vo.business.scenic.ScenicVO;
+import com.eghm.vo.business.scenic.ScenicDetailVO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
 import lombok.AllArgsConstructor;
@@ -63,6 +66,8 @@ public class ScenicServiceImpl implements ScenicService {
     private final SysDictService sysDictService;
 
     private final ScenicTicketMapper scenicTicketMapper;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<Scenic> getByPage(ScenicQueryRequest request) {
@@ -121,9 +126,9 @@ public class ScenicServiceImpl implements ScenicService {
     }
 
     @Override
-    public List<ScenicListVO> getByPage(ScenicQueryDTO dto) {
-        Page<ScenicListVO> byPage = scenicMapper.getByPage(dto.createPage(false), dto);
-        List<ScenicListVO> voList = byPage.getRecords();
+    public List<ScenicVO> getByPage(ScenicQueryDTO dto) {
+        Page<ScenicVO> byPage = scenicMapper.getByPage(dto.createPage(false), dto);
+        List<ScenicVO> voList = byPage.getRecords();
         if (CollUtil.isEmpty(voList)) {
             return voList;
         }
@@ -134,7 +139,7 @@ public class ScenicServiceImpl implements ScenicService {
         if (containDistance) {
             hashMap = geoService.radius(CacheConstant.GEO_SCENIC_DISTANCE, dto.getLongitude().doubleValue(), dto.getLatitude().doubleValue(), 10);
         }
-        for (ScenicListVO vo : voList) {
+        for (ScenicVO vo : voList) {
             // 封面图默认取第一张
             vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.DOT_SPLIT)[0]);
             vo.setDistance(containDistance ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))): null);
@@ -143,9 +148,9 @@ public class ScenicServiceImpl implements ScenicService {
     }
 
     @Override
-    public ScenicVO detailById(Long id, Double longitude, Double latitude) {
+    public ScenicDetailVO detailById(Long id, Double longitude, Double latitude) {
         Scenic scenic = this.selectByIdShelve(id);
-        ScenicVO vo = DataUtil.copy(scenic, ScenicVO.class, "tag");
+        ScenicDetailVO vo = DataUtil.copy(scenic, ScenicDetailVO.class, "tag");
         // 用户未开启定位, 不查询距离
         if (longitude != null && latitude != null) {
             double distance = geoService.distance(CacheConstant.GEO_SCENIC_DISTANCE, String.valueOf(id), longitude, latitude);
@@ -161,7 +166,8 @@ public class ScenicServiceImpl implements ScenicService {
         // 景区关联的活动
         List<ActivityBaseDTO> activityList = activityService.scenicActivityList(id);
         vo.setActivityList(activityList);
-
+        // 是否加入收藏
+        vo.setCollect(memberCollectService.checkCollect(id, CollectType.SCENIC));
         return vo;
     }
 

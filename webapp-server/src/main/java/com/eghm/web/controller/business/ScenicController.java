@@ -6,8 +6,8 @@ import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.business.ScenicTicketService;
-import com.eghm.vo.business.scenic.ScenicListVO;
 import com.eghm.vo.business.scenic.ScenicVO;
+import com.eghm.vo.business.scenic.ScenicDetailVO;
 import com.eghm.vo.business.scenic.ticket.TicketVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,15 +35,15 @@ public class ScenicController {
 
     @GetMapping("/listPage")
     @ApiOperation("景区列表")
-    public RespBody<List<ScenicListVO>> listPage(ScenicQueryDTO dto) {
-        List<ScenicListVO> byPage = scenicService.getByPage(dto);
+    public RespBody<List<ScenicVO>> listPage(ScenicQueryDTO dto) {
+        List<ScenicVO> byPage = scenicService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @ApiOperation("景区详情")
-    public RespBody<ScenicVO> scenicDetail(@Validated ScenicDetailDTO dto) {
-        ScenicVO detail = scenicService.detailById(dto.getScenicId(), dto.getLongitude(), dto.getLatitude());
+    public RespBody<ScenicDetailVO> scenicDetail(@Validated ScenicDetailDTO dto) {
+        ScenicDetailVO detail = scenicService.detailById(dto.getScenicId(), dto.getLongitude(), dto.getLatitude());
         return RespBody.success(detail);
     }
 
