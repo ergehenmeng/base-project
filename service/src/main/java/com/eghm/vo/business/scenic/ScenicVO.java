@@ -39,6 +39,9 @@ public class ScenicVO {
     @ApiModelProperty("距离 单位:m")
     private BigDecimal distance;
 
+    @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")
+    private Integer state;
+
     @ApiModelProperty(value = "经度", hidden = true)
     @JsonIgnore
     private BigDecimal longitude;

@@ -25,7 +25,7 @@
         order by t.id desc
     </select>
 
-    <select id="getByPage" resultType="com.eghm.vo.business.homestay.HomestayListVO" parameterType="com.eghm.dto.business.homestay.HomestayQueryDTO">
+    <select id="getByPage" resultType="com.eghm.vo.business.homestay.HomestayVO" parameterType="com.eghm.dto.business.homestay.HomestayQueryDTO">
         <choose>
             <when test="param.sortByDistance != null or param.sortByPrice != null">
                 <include refid="getByPageSortSql" />
@@ -34,6 +34,20 @@
                 <include refid="getByPageSql"/>
             </otherwise>
         </choose>
+    </select>
+
+    <select id="getList" resultType="com.eghm.vo.business.homestay.HomestayVO">
+        select
+        t.id,
+        t.title,
+        t.`level`,
+        t.state,
+        t.cover_url as coverUrl
+        from homestay t
+        where t.id in
+        <foreach collection="homestayIds" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 
     <!--无距离排序,不进行子查询-->

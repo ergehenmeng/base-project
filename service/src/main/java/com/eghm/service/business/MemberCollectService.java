@@ -1,6 +1,10 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.CollectType;
+import com.eghm.vo.business.collect.MemberCollectVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +15,13 @@ import com.eghm.enums.ref.CollectType;
  * @since 2024-01-11
  */
 public interface MemberCollectService {
+
+    /**
+     * 分页查询用户收藏记录
+     * @param query 查询条件
+     * @return 收藏记录
+     */
+    List<MemberCollectVO> getByPage(PagingQuery query);
 
     /**
      * 收藏或取消收藏

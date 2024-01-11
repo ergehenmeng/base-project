@@ -1,8 +1,6 @@
 package com.eghm.vo.business.homestay;
 
-import com.eghm.convertor.CentToYuanEncoder;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -11,13 +9,13 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @since 2023/1/9
+ * @since 2023/1/12
  */
 
 @Data
-public class HomestayListVO {
+public class HomestayDetailVO {
 
-    @ApiModelProperty("id")
+    @ApiModelProperty("id主键")
     private Long id;
 
     @ApiModelProperty(value = "民宿名称")
@@ -25,14 +23,6 @@ public class HomestayListVO {
 
     @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他")
     private Integer level;
-
-    @ApiModelProperty(value = "城市")
-    @JsonIgnore
-    private Long cityId;
-
-    @ApiModelProperty(value = "县区")
-    @JsonIgnore
-    private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
@@ -43,24 +33,30 @@ public class HomestayListVO {
     @ApiModelProperty(value = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty("距离 单位:m")
-    private Integer distance;
+    @ApiModelProperty(value = "描述信息")
+    private String intro;
 
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
 
+    @ApiModelProperty(value = "详细介绍")
+    private String introduce;
+
+    @ApiModelProperty("是否收藏")
+    private Boolean collect;
+
     @ApiModelProperty(value = "联系电话")
     private String phone;
 
-    @ApiModelProperty("最低价格")
-    @JsonSerialize(using = CentToYuanEncoder.class)
-    private Integer minPrice;
+    @ApiModelProperty(value = "特色服务")
+    private String keyService;
 
-    @ApiModelProperty("标签")
-    @JsonIgnore
-    private String tagIds;
+    @ApiModelProperty("分数")
+    private BigDecimal score;
 
-    @ApiModelProperty("标签列表")
+    @ApiModelProperty(value = "标签")
     private List<String> tagList;
 
+    @ApiModelProperty("推荐房型列表")
+    private List<HomestayRoomListVO> recommendRoomList;
 }

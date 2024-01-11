@@ -19,4 +19,18 @@
         order by sort
     </select>
 
+    <select id="getList" resultType="com.eghm.vo.business.scenic.ScenicVO">
+        select
+        id,
+        scenic_name,
+        cover_url,
+        depict,
+        state,
+        `level`,
+        min_price
+        from scenic where id in
+        <foreach collection="scenicIds" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

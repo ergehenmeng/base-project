@@ -8,9 +8,9 @@ import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Homestay;
-import com.eghm.vo.business.homestay.HomestayListVO;
-import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
+import com.eghm.vo.business.homestay.HomestayResponse;
+import com.eghm.vo.business.homestay.HomestayDetailVO;
 
 import java.util.List;
 
@@ -77,14 +77,14 @@ public interface HomestayService {
      * @param dto 查询跳进
      * @return 列表
      */
-    List<HomestayListVO> getByPage(HomestayQueryDTO dto);
+    List<HomestayVO> getByPage(HomestayQueryDTO dto);
 
     /**
      * 民宿详细信息查询 包含推荐房型
      * @param homestayId 民宿id
      * @return 民宿信息
      */
-    HomestayVO detailById(Long homestayId);
+    HomestayDetailVO detailById(Long homestayId);
 
     /**
      * 更新民宿和房型分数

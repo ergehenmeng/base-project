@@ -1,7 +1,6 @@
 package com.eghm.service.business.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -32,9 +31,9 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.homestay.HomestayListVO;
-import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayVO;
+import com.eghm.vo.business.homestay.HomestayResponse;
+import com.eghm.vo.business.homestay.HomestayDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -132,7 +131,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     }
 
     @Override
-    public List<HomestayListVO> getByPage(HomestayQueryDTO dto) {
+    public List<HomestayVO> getByPage(HomestayQueryDTO dto) {
         boolean getDistance = dto.getSortByDistance() != null && (dto.getLongitude() == null || dto.getLatitude() == null);
         if (getDistance) {
             log.info("民宿列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
@@ -149,8 +148,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         // 离店日期不含当天
         dto.setEndDate(dto.getEndDate().minusDays(1));
         // 分页查询
-        Page<HomestayListVO> page = homestayMapper.getByPage(dto.createPage(false), dto);
-        List<HomestayListVO> voList = page.getRecords();
+        Page<HomestayVO> page = homestayMapper.getByPage(dto.createPage(false), dto);
+        List<HomestayVO> voList = page.getRecords();
         if (CollUtil.isEmpty(voList)) {
             return voList;
         }
@@ -158,7 +157,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         // 查询数据字典,匹配标签列表
         List<SysDictItem> dictList = sysDictService.getDictByNid(DictConstant.HOMESTAY_TAG);
         // 针对针对标签,位置和最低价进行赋值或解析
-        for (HomestayListVO vo : voList) {
+        for (HomestayVO vo : voList) {
             vo.setTagList(commonService.parseTags(dictList, vo.getTagIds()));
             vo.setDetailAddress(sysAreaService.parseArea(vo.getCityId(), vo.getCountyId()) + vo.getDetailAddress());
         }
@@ -166,9 +165,9 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     }
 
     @Override
-    public HomestayVO detailById(Long homestayId) {
+    public HomestayDetailVO detailById(Long homestayId) {
         Homestay homestay = this.selectByIdShelve(homestayId);
-        HomestayVO vo = DataUtil.copy(homestay, HomestayVO.class);
+        HomestayDetailVO vo = DataUtil.copy(homestay, HomestayDetailVO.class);
         vo.setDetailAddress(sysAreaService.parseArea(homestay.getCityId(), homestay.getCountyId()) + homestay.getDetailAddress());
         vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, homestay.getTag()));
         vo.setRecommendRoomList(homestayRoomService.getRecommendRoom(homestayId));

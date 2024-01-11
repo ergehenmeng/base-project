@@ -162,12 +162,12 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
     }
 
     @Override
-    public Page<OrderEvaluationVO> getByPage(OrderEvaluationQueryDTO dto) {
-        Page<OrderEvaluationVO> byPage = orderEvaluationMapper.getByPage(dto.createPage(), dto);
+    public List<OrderEvaluationVO> getByPage(OrderEvaluationQueryDTO dto) {
+        Page<OrderEvaluationVO> byPage = orderEvaluationMapper.getByPage(dto.createPage(false), dto);
         if (CollUtil.isNotEmpty(byPage.getRecords())) {
             this.hiddenAnonymity(byPage.getRecords());
         }
-        return byPage;
+        return byPage.getRecords();
     }
 
     @Override

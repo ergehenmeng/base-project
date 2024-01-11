@@ -7,6 +7,8 @@ import com.eghm.dto.business.scenic.ScenicQueryDTO;
 import com.eghm.vo.business.scenic.ScenicVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 景区信息表 Mapper 接口
@@ -24,4 +26,11 @@ public interface ScenicMapper extends BaseMapper<Scenic> {
      * @return 列表
      */
     Page<ScenicVO> getByPage(Page<ScenicVO> page, @Param("param") ScenicQueryDTO dto);
+
+    /**
+     * 查询景区列表
+     * @param scenicIds 景区ids
+     * @return 列表
+     */
+    List<ScenicVO> getList(@Param("scenicIds") List<Long> scenicIds);
 }

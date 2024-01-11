@@ -7,6 +7,8 @@ import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryRequest;
 import com.eghm.vo.business.evaluation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 订单评价 服务类
@@ -49,7 +51,7 @@ public interface OrderEvaluationService {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<OrderEvaluationVO> getByPage(OrderEvaluationQueryDTO dto);
+    List<OrderEvaluationVO> getByPage(OrderEvaluationQueryDTO dto);
 
     /**
      * 分组统计商品评论 好评 中评 差评 有图数量

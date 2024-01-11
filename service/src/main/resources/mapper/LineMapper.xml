@@ -56,7 +56,7 @@
         t.duration
         from line t
         left join travel_agency s on t.travel_agency_id = s.id
-        where t.deleted = false and t.state = 2
+        where t.deleted = false and t.state = 1
         <if test="param.queryName != null and param.queryName != ''">
             and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
@@ -107,6 +107,6 @@
         t.introduce,
         t.advance_day
         from line t left join travel_agency s on t.travel_agency_id = s.id
-        where t.deleted = false and t.state = 2 and t.id = #{id}
+        where t.deleted = false and t.state = 1 and t.id = #{id}
     </select>
 </mapper>

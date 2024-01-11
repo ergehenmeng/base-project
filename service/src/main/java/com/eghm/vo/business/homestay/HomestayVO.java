@@ -1,6 +1,9 @@
 package com.eghm.vo.business.homestay;
 
-import com.eghm.vo.business.homestay.room.HomestayRoomListVO;
+import com.eghm.convertor.CentToYuanEncoder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,13 +12,14 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @since 2023/1/12
+ * @since 2023/1/9
  */
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HomestayVO {
 
-    @ApiModelProperty("id主键")
+    @ApiModelProperty("id")
     private Long id;
 
     @ApiModelProperty(value = "民宿名称")
@@ -23,6 +27,14 @@ public class HomestayVO {
 
     @ApiModelProperty(value = "星级 5:五星级 4:四星级 3:三星级 0: 其他")
     private Integer level;
+
+    @ApiModelProperty(value = "城市")
+    @JsonIgnore
+    private Long cityId;
+
+    @ApiModelProperty(value = "县区")
+    @JsonIgnore
+    private Long countyId;
 
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
@@ -33,30 +45,26 @@ public class HomestayVO {
     @ApiModelProperty(value = "纬度")
     private BigDecimal latitude;
 
-    @ApiModelProperty(value = "描述信息")
-    private String intro;
+    @ApiModelProperty("距离 单位:m")
+    private Integer distance;
 
     @ApiModelProperty(value = "封面图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "详细介绍")
-    private String introduce;
-
-    @ApiModelProperty("是否收藏")
-    private Boolean collect;
-
     @ApiModelProperty(value = "联系电话")
     private String phone;
 
-    @ApiModelProperty(value = "特色服务")
-    private String keyService;
+    @ApiModelProperty("最低价格")
+    @JsonSerialize(using = CentToYuanEncoder.class)
+    private Integer minPrice;
 
-    @ApiModelProperty("分数")
-    private BigDecimal score;
+    @ApiModelProperty("标签")
+    @JsonIgnore
+    private String tagIds;
 
-    @ApiModelProperty(value = "标签")
+    @ApiModelProperty("标签列表")
     private List<String> tagList;
 
-    @ApiModelProperty("推荐房型列表")
-    private List<HomestayRoomListVO> recommendRoomList;
+    @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")
+    private Integer state;
 }

@@ -95,7 +95,7 @@ CREATE TABLE `line`
     `travel_agency_id`  bigint(20)    DEFAULT NULL COMMENT '所属旅行社id',
     `merchant_id`       bigint(20)    DEFAULT NULL COMMENT '所属商家',
     `title`             varchar(50)   DEFAULT NULL COMMENT '线路名称',
-    `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:待审核 2:已上架',
+    `state`             tinyint(1)    DEFAULT '0' COMMENT '状态 0:待上架 1:已上架 2:强制下架',
     `hot_sell`          bit(1)        DEFAULT b'0' COMMENT '是否为热销商品 true:是 false:不是',
     `start_province_id` bigint(20)    DEFAULT NULL COMMENT '出发省份id',
     `start_city_id`     bigint(20)    DEFAULT NULL COMMENT '出发城市id',

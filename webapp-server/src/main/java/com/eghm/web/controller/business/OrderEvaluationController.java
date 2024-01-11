@@ -1,11 +1,9 @@
 package com.eghm.web.controller.business;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.IdDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationDTO;
 import com.eghm.dto.business.order.evaluation.OrderEvaluationQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
-import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.OrderEvaluationService;
 import com.eghm.vo.business.evaluation.EvaluationGroupVO;
@@ -17,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -48,9 +48,9 @@ public class OrderEvaluationController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品评论列表")
-    public RespBody<PageData<OrderEvaluationVO>> listPage(@Validated OrderEvaluationQueryDTO dto) {
-        Page<OrderEvaluationVO> byPage = orderEvaluationService.getByPage(dto);
-        return RespBody.success(PageData.toPage(byPage));
+    public RespBody<List<OrderEvaluationVO>> listPage(@Validated OrderEvaluationQueryDTO dto) {
+        List<OrderEvaluationVO> byPage = orderEvaluationService.getByPage(dto);
+        return RespBody.success(byPage);
     }
 
 }
