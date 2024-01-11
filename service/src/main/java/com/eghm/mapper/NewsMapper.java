@@ -1,13 +1,10 @@
 package com.eghm.mapper;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.dto.ext.PagingQuery;
-import com.eghm.model.News;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.model.News;
 import com.eghm.vo.business.news.NewsVO;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * <p>

@@ -10,7 +10,7 @@ import java.time.LocalDate;
  */
 public abstract class DatePagingComparator extends PagingQuery {
 
-    private final transient LocalDateCompare dateCompare = new LocalDateCompare();
+    private final LocalDateCompare dateCompare = new LocalDateCompare();
 
     @DateCompare
     public LocalDateCompare getDateCompare() {
