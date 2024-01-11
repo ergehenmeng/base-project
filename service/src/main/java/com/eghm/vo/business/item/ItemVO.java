@@ -92,7 +92,7 @@ public class ItemVO {
 
     @ApiModelProperty("评论总数量")
     @JsonSerialize(using = NumberParseEncoder.class)
-    private Integer commentNum;
+    private Long commentNum;
 
     @ApiModelProperty("好评率百分比")
     private Integer rate;

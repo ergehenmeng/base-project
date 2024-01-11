@@ -1,6 +1,8 @@
 package com.eghm.vo.business.item.store;
 
+import com.eghm.convertor.NumberParseEncoder;
 import com.eghm.vo.business.item.ItemListVO;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -28,6 +30,10 @@ public class ItemStoreHomeVO {
 
     @ApiModelProperty("是否收藏")
     private Boolean collect;
+
+    @ApiModelProperty("总收藏数量")
+    @JsonSerialize(using = NumberParseEncoder.class)
+    private Long commentNum;
 
     @ApiModelProperty(value = "营业时间")
     private String openTime;

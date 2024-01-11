@@ -87,7 +87,7 @@
         </choose>
     </select>
 
-    <select id="evaluationCount" resultType="int">
+    <select id="evaluationCount" resultType="long">
         select count(id)
         from order_evaluation
         where deleted = false and product_id = #{productId}
@@ -109,7 +109,7 @@
         </if>
     </select>
 
-    <select id="badCount" resultType="int">
+    <select id="badCount" resultType="long">
         select count(id)
         from order_evaluation
         where deleted = false and score = 1 and product_id = #{productId}

@@ -55,12 +55,12 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
      * @param queryType 2: 好评 3: 中评  4: 差评 5: 有图
      * @return 数量
      */
-    int evaluationCount(@Param("productId") Long productId, @Param("queryType") Integer queryType);
+    long evaluationCount(@Param("productId") Long productId, @Param("queryType") Integer queryType);
 
     /**
      * 统计差评数量
      * @param productId 商品id
      * @return 数量
      */
-    int badCount(@Param("productId") Long productId);
+    long badCount(@Param("productId") Long productId);
 }

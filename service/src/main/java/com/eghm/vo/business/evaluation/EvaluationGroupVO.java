@@ -11,14 +11,14 @@ import lombok.Data;
 public class EvaluationGroupVO {
 
     @ApiModelProperty("好评")
-    private Integer high;
+    private Long high;
 
     @ApiModelProperty("中评")
-    private Integer medium;
+    private Long medium;
 
     @ApiModelProperty("差评")
-    private Integer bad;
+    private Long bad;
 
     @ApiModelProperty("有图")
-    private Integer img;
+    private Long img;
 }

@@ -19,6 +19,7 @@ import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.ItemStore;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.*;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static com.eghm.constant.CacheConstant.MEMBER_COLLECT;
 
 /**
  * @author 二哥很猛
@@ -50,6 +53,8 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     private final CommonService commonService;
 
     private final MemberCollectService memberCollectService;
+
+    private final CacheService cacheService;
 
     @Override
     public Page<ItemStore> getByPage(ItemStoreQueryRequest request) {
@@ -126,6 +131,8 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         ItemStoreHomeVO vo = DataUtil.copy(shop, ItemStoreHomeVO.class);
         vo.setItemList(itemService.getPriorityItem(id));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM_STORE));
+        String key = String.format(MEMBER_COLLECT, CollectType.ITEM_STORE.getName().toLowerCase(), id);
+        vo.setCommentNum(cacheService.getHashSize(key));
         return vo;
     }
 

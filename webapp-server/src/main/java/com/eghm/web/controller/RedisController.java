@@ -85,7 +85,7 @@ public class RedisController {
     }
 
     @GetMapping("/size")
-    @ApiOperation("匹配")
+    @ApiOperation("大小")
     @ApiImplicitParam(name = "key", value = "key", required = true)
     public RespBody<Long> size(@RequestParam("key") String key) {
         long checkSerial = cacheService.getHashSize(key);

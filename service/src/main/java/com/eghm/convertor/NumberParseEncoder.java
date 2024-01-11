@@ -12,14 +12,14 @@ import java.io.IOException;
  * @author 二哥很猛
  * @since 2023/9/16
  */
-public class NumberParseEncoder extends StdSerializer<Integer> {
+public class NumberParseEncoder extends StdSerializer<Long> {
 
     protected NumberParseEncoder() {
-        super(Integer.class);
+        super(Long.class);
     }
 
     @Override
-    public void serialize(Integer value, JsonGenerator gen, SerializerProvider provider) throws IOException {
+    public void serialize(Long value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         if (value != null) {
             if (value < 10) {
                 gen.writeString(String.valueOf(value));

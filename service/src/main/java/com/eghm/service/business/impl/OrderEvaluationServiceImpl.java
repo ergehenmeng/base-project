@@ -183,8 +183,8 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
     @Override
     public ApplauseRateVO calcApplauseRate(Long productId) {
         ApplauseRateVO vo = new ApplauseRateVO();
-        int total = orderEvaluationMapper.evaluationCount(productId, null);
-        int bad = orderEvaluationMapper.badCount(productId);
+        long total = orderEvaluationMapper.evaluationCount(productId, null);
+        long bad = orderEvaluationMapper.badCount(productId);
         vo.setCommentNum(total);
         vo.setRate(this.getApplauseRate(total, bad));
         return vo;
@@ -206,7 +206,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
      * @param bad 差评数
      * @return 好评率
      */
-    private int getApplauseRate(int total, int bad) {
+    private int getApplauseRate(long total, long bad) {
         if (total == 0) {
             return 0;
         }
