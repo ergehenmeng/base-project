@@ -2,15 +2,16 @@ package com.eghm.dto.ext;
 
 import com.eghm.validation.annotation.DateCompare;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * @author 二哥很猛
  * @since 2023/10/19
  */
-public abstract class DatePagingComparator extends PagingQuery {
+public abstract class DatePagingComparator extends PagingQuery implements Serializable {
 
-    private final LocalDateCompare dateCompare = new LocalDateCompare();
+    private final transient LocalDateCompare dateCompare = new LocalDateCompare();
 
     @DateCompare
     public LocalDateCompare getDateCompare() {
