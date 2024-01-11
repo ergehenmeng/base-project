@@ -6,7 +6,15 @@
         select
         collect_id,
         collect_type
-        from member_collect where member_id = #{memberId} and deleted = false and state = 1
+        from member_collect where member_id = #{param.memberId} and deleted = false and state = 1
+        <choose>
+            <when test="param.type == 1">
+                and collect_type in (1, 4, 5, 7)
+            </when>
+            <otherwise>
+                and collect_type in (2, 3, 6, 8)
+            </otherwise>
+        </choose>
         order by id desc
     </select>
 

@@ -2,6 +2,7 @@ package com.eghm.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.model.MemberCollect;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import org.apache.ibatis.annotations.Param;
@@ -19,8 +20,8 @@ public interface MemberCollectMapper extends BaseMapper<MemberCollect> {
     /**
      * 分页查询收藏信息
      * @param page 分页条件
-     * @param memberId 会员id
+     * @param dto 收藏信息
      * @return 收藏信息
      */
-    Page<MemberCollectVO> getByPage(Page<MemberCollectVO> page, @Param("memberId") Long memberId);
+    Page<MemberCollectVO> getByPage(Page<MemberCollectVO> page, @Param("param") CollectQueryDTO dto);
 }

@@ -1,5 +1,6 @@
 package com.eghm.service.business;
 
+import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.vo.business.collect.MemberCollectVO;
@@ -21,7 +22,7 @@ public interface MemberCollectService {
      * @param query 查询条件
      * @return 收藏记录
      */
-    List<MemberCollectVO> getByPage(PagingQuery query);
+    List<MemberCollectVO> getByPage(CollectQueryDTO query);
 
     /**
      * 收藏或取消收藏

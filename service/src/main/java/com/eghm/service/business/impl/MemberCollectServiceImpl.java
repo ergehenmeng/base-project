@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.constant.CacheConstant;
 import com.eghm.constant.CommonConstant;
+import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
-import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ref.CollectType;
 import com.eghm.mapper.HomestayMapper;
 import com.eghm.mapper.MemberCollectMapper;
@@ -50,8 +50,8 @@ public class MemberCollectServiceImpl implements MemberCollectService {
     private final HomestayMapper homestayMapper;
 
     @Override
-    public List<MemberCollectVO> getByPage(PagingQuery query) {
-        Page<MemberCollectVO> byPage = memberCollectMapper.getByPage(query.createPage(false), ApiHolder.getMemberId());
+    public List<MemberCollectVO> getByPage(CollectQueryDTO query) {
+        Page<MemberCollectVO> byPage = memberCollectMapper.getByPage(query.createPage(false), query);
         if (CollUtil.isNotEmpty(byPage.getRecords())) {
             Map<CollectType, List<Long>> collectMap = byPage.getRecords().stream().collect(Collectors.groupingBy(MemberCollectVO::getCollectType, Collectors.mapping(MemberCollectVO::getCollectId, Collectors.toList())));
             // TODO 待完善
