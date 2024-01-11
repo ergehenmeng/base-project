@@ -12,9 +12,11 @@ import com.eghm.dto.business.news.NewsQueryRequest;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.PagingQuery;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.NewsMapper;
 import com.eghm.model.News;
+import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.NewsService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.utils.DataUtil;
@@ -42,6 +44,8 @@ public class NewsServiceImpl implements NewsService {
     private final NewsMapper newsMapper;
 
     private final CacheService cacheService;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<News> getByPage(NewsQueryRequest request) {
@@ -90,6 +94,7 @@ public class NewsServiceImpl implements NewsService {
         }
         NewsDetailVO vo = DataUtil.copy(news, NewsDetailVO.class);
         vo.setIsLiked(this.hasGiveLiked(news.getId()));
+        vo.setCollect(memberCollectService.checkCollect(id, CollectType.NEWS));
         return vo;
     }
 

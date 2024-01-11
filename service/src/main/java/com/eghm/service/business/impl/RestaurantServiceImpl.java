@@ -13,6 +13,7 @@ import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -22,15 +23,16 @@ import com.eghm.mapper.VoucherMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.Restaurant;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.RestaurantService;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.restaurant.RestaurantListVO;
-import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantVO;
+import com.eghm.vo.business.restaurant.RestaurantResponse;
+import com.eghm.vo.business.restaurant.RestaurantDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,6 +57,8 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     private final OrderEvaluationMapper orderEvaluationMapper;
 
     private final VoucherMapper voucherMapper;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<Restaurant> getByPage(RestaurantQueryRequest request) {
@@ -119,7 +123,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     }
 
     @Override
-    public List<RestaurantListVO> getByPage(RestaurantQueryDTO dto) {
+    public List<RestaurantVO> getByPage(RestaurantQueryDTO dto) {
         if (Boolean.TRUE.equals(dto.getSortByDistance()) && (dto.getLongitude() == null || dto.getLatitude() == null)) {
             log.info("餐饮列表未获取到用户经纬度, 无法进行距离排序 [{}] [{}]", dto.getLongitude(), dto.getLatitude());
             throw new BusinessException(ErrorCode.POSITION_NO);
@@ -128,10 +132,11 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     }
 
     @Override
-    public RestaurantVO detailById(Long id) {
+    public RestaurantDetailVO detailById(Long id) {
         Restaurant restaurant = this.selectByIdShelve(id);
-        RestaurantVO vo = DataUtil.copy(restaurant, RestaurantVO.class);
+        RestaurantDetailVO vo = DataUtil.copy(restaurant, RestaurantDetailVO.class);
         vo.setDetailAddress(sysAreaService.parseArea(restaurant.getCityId(), restaurant.getCountyId()) + restaurant.getDetailAddress());
+        vo.setCollect(memberCollectService.checkCollect(id, CollectType.VOUCHER_STORE));
         return vo;
     }
     

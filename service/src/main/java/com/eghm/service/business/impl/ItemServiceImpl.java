@@ -16,6 +16,7 @@ import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.ChargeMode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemMapper;
@@ -70,6 +71,8 @@ public class ItemServiceImpl implements ItemService {
     private final OrderEvaluationService orderEvaluationService;
 
     private final ItemExpressRegionService itemExpressRegionService;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<ItemResponse> getByPage(ItemQueryRequest request) {
@@ -302,6 +305,8 @@ public class ItemServiceImpl implements ItemService {
         } else {
             detail.setSkuList(Lists.newArrayList(DataUtil.copy(skuList.get(0), ItemSkuVO.class)));
         }
+        // 是否添加收藏
+        detail.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM));
         return detail;
     }
 

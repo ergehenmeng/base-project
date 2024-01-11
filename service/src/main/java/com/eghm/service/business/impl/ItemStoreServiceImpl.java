@@ -11,16 +11,14 @@ import com.eghm.dto.business.item.store.ItemStoreAddRequest;
 import com.eghm.dto.business.item.store.ItemStoreEditRequest;
 import com.eghm.dto.business.item.store.ItemStoreQueryRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemStoreMapper;
 import com.eghm.model.ItemStore;
 import com.eghm.model.Merchant;
-import com.eghm.service.business.CommonService;
-import com.eghm.service.business.ItemService;
-import com.eghm.service.business.ItemStoreService;
-import com.eghm.service.business.MerchantInitService;
+import com.eghm.service.business.*;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.item.store.ItemStoreHomeVO;
@@ -50,6 +48,8 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     private final SysConfigApi sysConfigApi;
     
     private final CommonService commonService;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<ItemStore> getByPage(ItemStoreQueryRequest request) {
@@ -125,6 +125,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         ItemStore shop = this.selectByIdShelve(id);
         ItemStoreHomeVO vo = DataUtil.copy(shop, ItemStoreHomeVO.class);
         vo.setItemList(itemService.getPriorityItem(id));
+        vo.setCollect(memberCollectService.checkCollect(id, CollectType.ITEM_STORE));
         return vo;
     }
 

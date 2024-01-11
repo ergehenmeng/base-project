@@ -8,9 +8,9 @@ import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Restaurant;
-import com.eghm.vo.business.restaurant.RestaurantListVO;
-import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantVO;
+import com.eghm.vo.business.restaurant.RestaurantResponse;
+import com.eghm.vo.business.restaurant.RestaurantDetailVO;
 
 import java.util.List;
 
@@ -72,14 +72,14 @@ public interface RestaurantService {
      * @param dto 查询条件
      * @return 列表
      */
-    List<RestaurantListVO> getByPage(RestaurantQueryDTO dto);
+    List<RestaurantVO> getByPage(RestaurantQueryDTO dto);
 
     /**
      * 查询餐饮店详情
      * @param id id
      * @return 详细信息
      */
-    RestaurantVO detailById(Long id);
+    RestaurantDetailVO detailById(Long id);
     
     /**
      * 逻辑删除

@@ -12,6 +12,7 @@ import com.eghm.dto.business.line.LineQueryDTO;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.LineMapper;
@@ -63,6 +64,7 @@ public class LineServiceImpl implements LineService {
 
     private final OrderEvaluationMapper orderEvaluationMapper;
 
+    private final MemberCollectService memberCollectService;
     @Override
     public Page<LineResponse> getByPage(LineQueryRequest request) {
         return lineMapper.listPage(request.createPage(), request);
@@ -155,6 +157,7 @@ public class LineServiceImpl implements LineService {
         vo.setStartPoint(sysAreaService.parseProvinceCity(line.getStartProvinceId(), line.getStartCityId()));
         // 最低参考价
         vo.setMinPrice(lineConfigService.getMinPrice(id, LocalDate.now()));
+        vo.setCollect(memberCollectService.checkCollect(id, CollectType.LINE));
         return vo;
     }
 

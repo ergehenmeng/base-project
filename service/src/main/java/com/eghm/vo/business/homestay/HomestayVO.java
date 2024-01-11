@@ -42,6 +42,9 @@ public class HomestayVO {
     @ApiModelProperty(value = "详细介绍")
     private String introduce;
 
+    @ApiModelProperty("是否收藏")
+    private Boolean collect;
+
     @ApiModelProperty(value = "联系电话")
     private String phone;
 

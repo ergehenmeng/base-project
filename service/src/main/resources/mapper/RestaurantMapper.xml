@@ -27,7 +27,7 @@
         order by t.id desc
     </select>
 
-    <select id="getByPage" resultType="com.eghm.vo.business.restaurant.RestaurantListVO"
+    <select id="getByPage" resultType="com.eghm.vo.business.restaurant.RestaurantVO"
             parameterType="com.eghm.dto.business.restaurant.RestaurantQueryDTO">
         <choose>
             <when test="param.sortByDistance">

@@ -37,6 +37,9 @@ public class NewsDetailVO {
     @ApiModelProperty("点赞数量")
     private Integer giveLike;
 
+    @ApiModelProperty("是否收藏")
+    private Boolean collect;
+
     @ApiModelProperty("更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;

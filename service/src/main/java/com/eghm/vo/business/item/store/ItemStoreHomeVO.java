@@ -26,6 +26,9 @@ public class ItemStoreHomeVO {
     @ApiModelProperty("封面图")
     private String coverUrl;
 
+    @ApiModelProperty("是否收藏")
+    private Boolean collect;
+
     @ApiModelProperty(value = "营业时间")
     private String openTime;
 

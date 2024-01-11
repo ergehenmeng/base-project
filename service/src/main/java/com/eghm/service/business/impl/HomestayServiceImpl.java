@@ -16,6 +16,7 @@ import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -24,10 +25,7 @@ import com.eghm.mapper.OrderEvaluationMapper;
 import com.eghm.model.Homestay;
 import com.eghm.model.Merchant;
 import com.eghm.model.SysDictItem;
-import com.eghm.service.business.CommonService;
-import com.eghm.service.business.HomestayRoomService;
-import com.eghm.service.business.HomestayService;
-import com.eghm.service.business.MerchantInitService;
+import com.eghm.service.business.*;
 import com.eghm.service.sys.SysAreaService;
 import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -67,6 +65,8 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
     private final HomestayRoomService homestayRoomService;
 
     private final OrderEvaluationMapper orderEvaluationMapper;
+
+    private final MemberCollectService memberCollectService;
 
     @Override
     public Page<HomestayResponse> getByPage(HomestayQueryRequest request) {
@@ -172,6 +172,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         vo.setDetailAddress(sysAreaService.parseArea(homestay.getCityId(), homestay.getCountyId()) + homestay.getDetailAddress());
         vo.setTagList(sysDictService.getTags(DictConstant.HOMESTAY_TAG, homestay.getTag()));
         vo.setRecommendRoomList(homestayRoomService.getRecommendRoom(homestayId));
+        vo.setCollect(memberCollectService.checkCollect(homestayId, CollectType.HOMESTAY));
         return vo;
     }
 
