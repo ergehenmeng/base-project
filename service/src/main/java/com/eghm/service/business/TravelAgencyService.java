@@ -6,6 +6,7 @@ import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.enums.ref.State;
 import com.eghm.model.TravelAgency;
+import com.eghm.vo.business.line.TravelAgencyDetailVO;
 
 /**
  * @author 殿小二
@@ -58,4 +59,11 @@ public interface TravelAgencyService {
      * @param id id
      */
     void deleteById(Long id);
+
+    /**
+     * 旅行社详情
+     * @param id id
+     * @return 详情
+     */
+    TravelAgencyDetailVO detail(Long id);
 }

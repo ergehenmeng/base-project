@@ -24,6 +24,10 @@ public class TravelAgencyEditRequest {
     @Size(min = 2, max = 20, message = "旅行社名称长度2~20位")
     @WordChecker(message = "旅行社名称存在敏感词")
     private String title;
+
+    @ApiModelProperty(value = "店铺logo", required = true)
+    @NotBlank(message = "店铺logo不能能为空")
+    private String logoUrl;
     
     @ApiModelProperty(value = "省份id", required = true)
     @NotNull(message = "请选择省份")

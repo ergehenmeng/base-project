@@ -84,6 +84,14 @@ public class RedisController {
         return RespBody.success(checkSerial);
     }
 
+    @GetMapping("/size")
+    @ApiOperation("匹配")
+    @ApiImplicitParam(name = "key", value = "key", required = true)
+    public RespBody<Long> size(@RequestParam("key") String key) {
+        long checkSerial = cacheService.getHashSize(key);
+        return RespBody.success(checkSerial);
+    }
+
     @GetMapping("/signIn")
     @ApiOperation("签到")
     @ApiImplicitParams({

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.line.LineQueryRequest;
 import com.eghm.model.Line;
 import com.eghm.dto.business.line.LineQueryDTO;
+import com.eghm.vo.business.line.LineDetailVO;
 import com.eghm.vo.business.line.LineResponse;
 import com.eghm.vo.business.line.LineVO;
 import org.apache.ibatis.annotations.Param;
@@ -44,4 +45,11 @@ public interface LineMapper extends BaseMapper<Line> {
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
+
+    /**
+     * 根据id查询线路详情
+     * @param id id
+     * @return 线路信息
+     */
+    LineDetailVO getById(@Param("id") Long id);
 }

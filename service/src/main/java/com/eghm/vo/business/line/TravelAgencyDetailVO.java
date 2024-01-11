@@ -1,12 +1,9 @@
-package com.eghm.model;
+package com.eghm.vo.business.line;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.eghm.enums.ref.State;
-import com.eghm.handler.mysql.LikeTypeHandler;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
 
@@ -19,34 +16,23 @@ import java.math.BigDecimal;
  * @since 2023-02-18
  */
 @Data
-@TableName("travel_agency")
-@EqualsAndHashCode(callSuper = true)
-public class TravelAgency extends BaseEntity {
+public class TravelAgencyDetailVO {
+
+    @TableId(type = IdType.ASSIGN_ID)
+    @ApiModelProperty("id主键")
+    private Long id;
 
     @ApiModelProperty(value = "旅行社名称")
-    @TableField(typeHandler = LikeTypeHandler.class)
     private String title;
-
-    @ApiModelProperty(value = "旅行社所属商户")
-    private Long merchantId;
 
     @ApiModelProperty("店铺logo")
     private String logoUrl;
 
-    @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
-    private State state;
-
-    @ApiModelProperty(value = "省份id")
-    private Long provinceId;
-
-    @ApiModelProperty(value = "城市id")
-    private Long cityId;
-
-    @ApiModelProperty(value = "县区id")
-    private Long countyId;
-
     @ApiModelProperty(value = "详细地址")
     private String detailAddress;
+
+    @ApiModelProperty("是否收藏")
+    private Boolean collect;
 
     @ApiModelProperty(value = "经度")
     private BigDecimal longitude;

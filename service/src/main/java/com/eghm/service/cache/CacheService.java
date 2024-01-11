@@ -208,6 +208,13 @@ public interface CacheService {
     boolean hasHashKey(String key, String hKey);
 
     /**
+     * 获取hash的长度
+     * @param key key
+     * @return 数量
+     */
+    long getHashSize(String key);
+
+    /**
      * 删除hash中的某个key
      * @param key 主key
      * @param hKeys hKeys

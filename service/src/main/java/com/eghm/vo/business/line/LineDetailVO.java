@@ -2,6 +2,7 @@ package com.eghm.vo.business.line;
 
 import com.eghm.convertor.CentToYuanEncoder;
 import com.eghm.enums.ref.RefundType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,6 +22,12 @@ public class LineDetailVO {
 
     @ApiModelProperty(value = "所属旅行社id")
     private Long travelAgencyId;
+
+    @ApiModelProperty(value = "旅行社logo")
+    private String travelLogoUrl;
+
+    @ApiModelProperty(value = "旅行社名称")
+    private String travelAgencyName;
 
     @ApiModelProperty(value = "线路名称")
     private String title;
@@ -58,6 +65,14 @@ public class LineDetailVO {
 
     @ApiModelProperty("分数")
     private BigDecimal score;
+
+    @ApiModelProperty(value = "出发省份id")
+    @JsonIgnore
+    private Long startProvinceId;
+
+    @ApiModelProperty(value = "出发城市id")
+    @JsonIgnore
+    private Long startCityId;
 
     @ApiModelProperty("线路每日行程")
     private List<LineDayConfigResponse> dayList;

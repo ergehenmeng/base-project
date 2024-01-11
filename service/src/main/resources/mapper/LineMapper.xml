@@ -45,32 +45,40 @@
 
     <select id="getByPage" parameterType="com.eghm.dto.business.line.LineQueryDTO" resultType="com.eghm.vo.business.line.LineVO">
         select
-        id,
-        title,
-        start_city_id,
-        cover_url,
-        total_num,
-        duration
-        from line where deleted = false and state = 1
+        t.id,
+        t.title,
+        t.travel_agency_id,
+        s.logo_url as travelLogoUrl,
+        s.title as travelAgencyName,
+        t.start_city_id,
+        t.cover_url,
+        t.total_num,
+        t.duration
+        from line t
+        left join travel_agency s on t.travel_agency_id = s.id
+        where t.deleted = false and t.state = 2
         <if test="param.queryName != null and param.queryName != ''">
-            and title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            and t.title like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
         </if>
         <if test="param.startProvinceId != null">
-            and start_province_id = #{param.startProvinceId}
+            and t.start_province_id = #{param.startProvinceId}
         </if>
         <if test="param.startCityId != null">
-            and start_city_id = #{param.startCityId}
+            and t.start_city_id = #{param.startCityId}
+        </if>
+        <if test="param.travelAgencyId != null">
+            and t.travel_agency_id = #{param.travelAgencyId}
         </if>
         <if test="param.duration != null">
-            and duration = #{param.duration}
+            and t.duration = #{param.duration}
         </if>
         <if test="param.sortBySale != null">
             <choose>
                 <when test="param.sortBySale">
-                    order by total_num desc
+                    order by t.total_num desc
                 </when>
                 <otherwise>
-                    order by id desc
+                    order by t.id desc
                 </otherwise>
             </choose>
         </if>
@@ -79,4 +87,26 @@
     <update id="updateScore">
         update line set score = #{score} where id = #{id}
     </update>
+
+    <select id="getById" resultType="com.eghm.vo.business.line.LineDetailVO">
+        select
+        t.id,
+        t.title,
+        t.travel_agency_id,
+        s.logo_url as travelLogoUrl,
+        s.title as travelAgencyName,
+        t.hot_sell,
+        t.start_province_id,
+        t.start_city_id,
+        t.cover_url,
+        t.duration,
+        t.refund_type,
+        t.refund_describe,
+        t.score,
+        t.total_num,
+        t.introduce,
+        t.advance_day
+        from line t left join travel_agency s on t.travel_agency_id = s.id
+        where t.deleted = false and t.state = 2 and t.id = #{id}
+    </select>
 </mapper>

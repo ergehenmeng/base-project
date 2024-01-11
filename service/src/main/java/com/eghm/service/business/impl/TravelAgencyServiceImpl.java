@@ -10,6 +10,7 @@ import com.eghm.dto.business.travel.TravelAgencyAddRequest;
 import com.eghm.dto.business.travel.TravelAgencyEditRequest;
 import com.eghm.dto.business.travel.TravelAgencyQueryRequest;
 import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.CollectType;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.enums.ref.State;
 import com.eghm.exception.BusinessException;
@@ -17,9 +18,12 @@ import com.eghm.mapper.TravelAgencyMapper;
 import com.eghm.model.Merchant;
 import com.eghm.model.TravelAgency;
 import com.eghm.service.business.CommonService;
+import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.TravelAgencyService;
+import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
+import com.eghm.vo.business.line.TravelAgencyDetailVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -40,7 +44,11 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     private final TravelAgencyMapper travelAgencyMapper;
     
     private final CommonService commonService;
-    
+
+    private final MemberCollectService memberCollectService;
+
+    private final SysAreaService sysAreaService;
+
     @Override
     public Page<TravelAgency> getByPage(TravelAgencyQueryRequest request) {
         LambdaQueryWrapper<TravelAgency> wrapper = Wrappers.lambdaQuery();
@@ -100,7 +108,16 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
     public void deleteById(Long id) {
         travelAgencyMapper.deleteById(id);
     }
-    
+
+    @Override
+    public TravelAgencyDetailVO detail(Long id) {
+        TravelAgency travelAgency = this.selectByIdShelve(id);
+        TravelAgencyDetailVO vo = DataUtil.copy(travelAgency, TravelAgencyDetailVO.class);
+        vo.setDetailAddress(sysAreaService.parseArea(travelAgency.getCityId(), travelAgency.getCountyId()) + vo.getDetailAddress());
+        vo.setCollect(memberCollectService.checkCollect(id, CollectType.TRAVEL_AGENCY));
+        return vo;
+    }
+
     @Override
     public void init(Merchant merchant) {
         TravelAgency agency = new TravelAgency();

@@ -5,6 +5,7 @@ import com.eghm.dto.business.order.homestay.HomestayOrderQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.service.business.HomestayOrderService;
+import com.eghm.service.business.OrderProxyService;
 import com.eghm.vo.business.order.homestay.HomestayOrderDetailVO;
 import com.eghm.vo.business.order.homestay.HomestayOrderVO;
 import com.eghm.web.annotation.AccessToken;
@@ -30,6 +31,8 @@ public class HomestayOrderController {
 
     private final HomestayOrderService homestayOrderService;
 
+    private final OrderProxyService orderProxyService;
+
     @GetMapping("/listPage")
     @ApiOperation("民宿订单列表")
     public RespBody<List<HomestayOrderVO>> listPage(@Validated HomestayOrderQueryDTO dto) {
@@ -49,7 +52,7 @@ public class HomestayOrderController {
     @PostMapping("/confirm")
     @ApiOperation("确认订单")
     public RespBody<Void> confirm(@RequestBody @Validated HomestayOrderConfirmRequest request) {
-        homestayOrderService.confirm(request);
+        orderProxyService.confirm(request);
         return RespBody.success();
     }
 

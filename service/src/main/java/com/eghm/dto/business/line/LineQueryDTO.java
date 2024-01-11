@@ -26,4 +26,7 @@ public class LineQueryDTO extends PagingQuery {
 
     @ApiModelProperty("是否按销量排序")
     private Integer sortBySale;
+
+    @ApiModelProperty("所属旅行社")
+    private Long travelAgencyId;
 }

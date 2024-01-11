@@ -17,6 +17,15 @@ public class LineVO {
     @ApiModelProperty("线路名称")
     private String title;
 
+    @ApiModelProperty(value = "所属旅行社id")
+    private Long travelAgencyId;
+
+    @ApiModelProperty(value = "旅行社logo")
+    private String travelLogoUrl;
+
+    @ApiModelProperty(value = "旅行社名称")
+    private String travelAgencyName;
+
     @ApiModelProperty("出发城市")
     private String startCity;
 

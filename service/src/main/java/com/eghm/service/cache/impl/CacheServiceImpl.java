@@ -255,6 +255,11 @@ public class CacheServiceImpl implements CacheService {
     }
 
     @Override
+    public long getHashSize(String key) {
+        return redisTemplate.opsForHash().size(key);
+    }
+
+    @Override
     public void deleteHashKey(String key, Object... hKeys) {
         redisTemplate.opsForHash().delete(key, hKeys);
     }

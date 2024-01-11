@@ -148,13 +148,15 @@ public class LineServiceImpl implements LineService {
 
     @Override
     public LineDetailVO detailById(Long id) {
-        Line line = this.selectByIdShelve(id);
-        LineDetailVO vo = DataUtil.copy(line, LineDetailVO.class);
-
+        LineDetailVO vo = lineMapper.getById(id);
+        if (vo == null) {
+            log.error("该线路商品已下架 [{}]", id);
+            throw new BusinessException(LINE_DOWN);
+        }
         List<LineDayConfig> dayConfigList = lineDayConfigService.getByLineId(id);
         vo.setDayList(DataUtil.copy(dayConfigList, LineDayConfigResponse.class));
         // 出发地格式化
-        vo.setStartPoint(sysAreaService.parseProvinceCity(line.getStartProvinceId(), line.getStartCityId()));
+        vo.setStartPoint(sysAreaService.parseProvinceCity(vo.getStartProvinceId(), vo.getStartCityId()));
         // 最低参考价
         vo.setMinPrice(lineConfigService.getMinPrice(id, LocalDate.now()));
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.LINE));
