@@ -10,4 +10,5 @@ package com.eghm.service.business;
  */
 public interface AccountLogService {
 
+
 }

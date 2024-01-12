@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.AccountType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +23,7 @@ public class AccountLog extends BaseEntity {
     private Long merchantId;
 
     @ApiModelProperty(value = "资金变动类型")
-    private Integer accountType;
+    private AccountType accountType;
 
     @ApiModelProperty(value = "变动金额")
     private Integer amount;
