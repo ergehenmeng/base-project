@@ -1,9 +1,13 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.eghm.enums.ref.CommonType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -25,15 +29,18 @@ public class Comment extends BaseEntity {
     private Long commentId;
 
     @ApiModelProperty(value = "评论对象类型")
-    private Integer commentType;
+    private CommonType commentType;
 
     @ApiModelProperty(value = "点赞数量")
-    private Integer giveLike;
+    private Integer likeNum;
 
-    @ApiModelProperty(value = "父评论ID")
-    private Long pid;
+    @ApiModelProperty("回复id")
+    private Long replyId;
 
     @ApiModelProperty(value = "评论信息")
     private String content;
 
+    @ApiModelProperty("添加时间")
+    @JsonFormat(pattern = "MM-dd HH:mm")
+    private LocalDateTime createTime;
 }

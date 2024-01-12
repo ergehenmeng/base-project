@@ -33,7 +33,7 @@ public class NewsVO {
     private LocalDateTime updateTime;
 
     @ApiModelProperty("点赞数量")
-    private Integer giveLike;
+    private Integer likeNum;
 
     @ApiModelProperty("是否已点赞")
     private Boolean isLiked;

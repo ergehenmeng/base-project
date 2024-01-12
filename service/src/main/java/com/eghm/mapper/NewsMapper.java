@@ -29,9 +29,9 @@ public interface NewsMapper extends BaseMapper<News> {
     /**
      * 更新点赞数量
      * @param id id
-     * @param giveLike 点赞数量
+     * @param likeNum 点赞数量
      */
-    void updateGiveLike(@Param("id") Long id, @Param("giveLike") Integer giveLike);
+    void updateLikeNum(@Param("id") Long id, @Param("likeNum") Integer likeNum);
 
     /**
      * 根据id查询资讯

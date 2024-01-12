@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eghm.mapper.CommentMapper">
 
+    <select id="getByPage" resultType="com.eghm.vo.business.comment.CommentVO">
+        select
+        t.id,
+        t.content,
+        t.create_time,
+        t.like_num,
+        t.reply_id,
+        m.nick_name,
+        m.avatar,
+        c.content as reply_content,
+        n.nick_name as reply_member_name,
+        n.avatar as reply_avatar
+        from comment t
+        left join member m on t.member_id = m.id
+        left join comment c on t.reply_id = c.id and c.deleted = false
+        left join member n on c.member_id = n.id
+        where t.deleted = false and t.comment_id = #{commentId}
+        order by t.id desc
+    </select>
+
+    <update id="updateLikeNum">
+        update comment set like_num = like_num + #{likeNum} where id = #{id}
+    </update>
+
 </mapper>

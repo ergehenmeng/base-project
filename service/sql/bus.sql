@@ -1049,7 +1049,7 @@ CREATE TABLE `news`
     `update_time` datetime      DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `deleted`     bit(1)        DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     `sort`        smallint(6)   DEFAULT '999' COMMENT '排序',
-    `give_like`   int(10)       DEFAULT '0' COMMENT '点赞数',
+    `like_num`    int(10)       DEFAULT '0' COMMENT '点赞数',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4 COMMENT ='资讯信息表';
@@ -1097,3 +1097,21 @@ create table member_collect
     deleted      bit(1)     default 0 comment '删除状态 0:未删除 1:已删除',
     primary key (id)
 ) comment '会员收藏记录表';
+
+DROP TABLE IF EXISTS comment;
+
+CREATE TABLE `comment`
+(
+    `id`           bigint(20) NOT NULL COMMENT '主键',
+    `member_id`    bigint(20)   DEFAULT NULL COMMENT '用户ID',
+    `comment_id`   bigint(20)   DEFAULT NULL COMMENT '评论对象ID',
+    `comment_type` tinyint(2)   DEFAULT NULL COMMENT '评论对象类型',
+    `like_num`     int(10)      DEFAULT '0' COMMENT '点赞数量',
+    `reply_id`     bigint(20)   DEFAULT NULL COMMENT '回复id',
+    `content`      varchar(200) DEFAULT NULL COMMENT '评论信息',
+    `create_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='评论记录表'

@@ -42,6 +42,6 @@ public class News extends BaseEntity {
     private Integer sort;
 
     @ApiModelProperty("点赞数量")
-    private Integer giveLike;
+    private Integer likeNum;
 
 }

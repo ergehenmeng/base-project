@@ -541,6 +541,15 @@ public class DateUtil {
      */
     public static String chineseValue(Date date) {
         LocalDateTime dateTime = convertLocalDateTime(date);
+        return chineseValue(dateTime);
+    }
+
+    /**
+     * 将日期格式转换为中文表达
+     * @param dateTime 日期
+     * @return 中文表示
+     */
+    public static String chineseValue(LocalDateTime dateTime) {
         LocalDateTime nowTime = LocalDateTime.now();
         if (diffSecond(dateTime, nowTime) < 60) {
             return "刚刚";
@@ -549,9 +558,7 @@ public class DateUtil {
         if (minute < 60) {
             return minute + "分钟前";
         }
-
         long day = diffDay(dateTime, nowTime);
-
         // 可能会涉及跨天(即12小时前可能已经是昨天)
         if (day < 1) {
             long hour = diffHour(dateTime, nowTime);
@@ -561,14 +568,11 @@ public class DateUtil {
         if (month < 1) {
             return day + "天前";
         }
-
         long year = diffYear(dateTime, nowTime);
         if (year < 1) {
             return day + "月前";
         }
-
         return year + "年前";
     }
-
 
 }

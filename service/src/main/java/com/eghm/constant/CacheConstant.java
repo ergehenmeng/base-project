@@ -269,4 +269,9 @@ public class CacheConstant {
      * 商品收藏=member_collect:collect_type:collect_id
      */
     public static final String MEMBER_COLLECT = "member_collect:%s:%s";
+
+    /**
+     * 留言点赞
+     */
+    public static final String COMMENT_GIVE_LIKE = "comment_give_like:";
 }

@@ -50,7 +50,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public Page<News> getByPage(NewsQueryRequest request) {
         LambdaQueryWrapper<News> wrapper = Wrappers.lambdaQuery();
-        wrapper.select(News::getId, News::getTitle, News::getDepict, News::getVideo, News::getGiveLike,
+        wrapper.select(News::getId, News::getTitle, News::getDepict, News::getVideo, News::getLikeNum,
                 News::getSort, News::getCreateTime, News::getUpdateTime, News::getImage);
         wrapper.eq(News::getCode, request.getCode());
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), News::getTitle, request.getQueryName());
@@ -105,10 +105,10 @@ public class NewsServiceImpl implements NewsService {
         boolean isLiked = cacheService.getHashValue(key, memberId.toString()) != null;
         if (isLiked) {
             cacheService.deleteHashKey(key, memberId.toString());
-            newsMapper.updateGiveLike(id, -1);
+            newsMapper.updateLikeNum(id, -1);
         } else {
             cacheService.setHashValue(key, memberId.toString(), CacheConstant.PLACE_HOLDER);
-            newsMapper.updateGiveLike(id, 1);
+            newsMapper.updateLikeNum(id, 1);
         }
     }
 
