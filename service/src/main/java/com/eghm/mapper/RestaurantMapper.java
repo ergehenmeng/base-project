@@ -10,6 +10,7 @@ import com.eghm.vo.business.restaurant.RestaurantResponse;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -28,7 +29,7 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
      * @param request 查询条件
      * @return 列表
      */
-    Page<RestaurantResponse> getList(Page<RestaurantResponse> page, @Param("param") RestaurantQueryRequest request);
+    Page<RestaurantResponse> listPage(Page<RestaurantResponse> page, @Param("param") RestaurantQueryRequest request);
 
     /**
      * 分页查询餐饮店列表
@@ -45,4 +46,11 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
+
+    /**
+     * 根据id查询列表
+     * @param restaurantIds id列表
+     * @return 列表
+     */
+    List<RestaurantVO> getList(@Param("restaurantIds") List<Long> restaurantIds);
 }

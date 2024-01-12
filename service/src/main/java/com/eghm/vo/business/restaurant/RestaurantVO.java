@@ -1,5 +1,6 @@
 package com.eghm.vo.business.restaurant;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  * @since 2023/1/16
  */
 @Data
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class RestaurantVO {
 
     @ApiModelProperty("id主键")
@@ -38,4 +40,7 @@ public class RestaurantVO {
 
     @ApiModelProperty("距离,单位:m")
     private Integer distance;
+
+    @ApiModelProperty("状态 0:下架 1:上架 2:强制下架")
+    private Integer state;
 }

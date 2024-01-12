@@ -10,8 +10,8 @@ import com.eghm.enums.ErrorCode;
 import com.eghm.service.business.CouponService;
 import com.eghm.service.business.ItemService;
 import com.eghm.vo.business.coupon.CouponListVO;
-import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemVO;
+import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -39,22 +39,22 @@ public class ItemController {
 
     @GetMapping("/listPage")
     @ApiOperation("商品列表")
-    public RespBody<List<ItemListVO>> listPage(ItemQueryDTO dto) {
-        List<ItemListVO> byPage = itemService.getByPage(dto);
+    public RespBody<List<ItemVO>> listPage(ItemQueryDTO dto) {
+        List<ItemVO> byPage = itemService.getByPage(dto);
         return RespBody.success(byPage);
     }
 
     @GetMapping("/detail")
     @ApiOperation("商品详情")
-    public RespBody<ItemVO> detail(@Validated IdDTO dto) {
-        ItemVO detail = itemService.detailById(dto.getId());
+    public RespBody<ItemDetailVO> detail(@Validated IdDTO dto) {
+        ItemDetailVO detail = itemService.detailById(dto.getId());
         return RespBody.success(detail);
     }
 
     @GetMapping("/recommend")
     @ApiOperation("商品推荐列表")
-    public RespBody<List<ItemListVO>> recommend() {
-        List<ItemListVO> recommend = itemService.getRecommend();
+    public RespBody<List<ItemVO>> recommend() {
+        List<ItemVO> recommend = itemService.getRecommend();
         return RespBody.success(recommend);
     }
 
@@ -78,8 +78,8 @@ public class ItemController {
 
     @GetMapping("/couponScope")
     @ApiOperation("优惠券匹配的商品列表")
-    public RespBody<List<ItemListVO>> couponScope(@Validated ItemCouponQueryDTO dto) {
-        List<ItemListVO> voList = itemService.getCouponScopeByPage(dto);
+    public RespBody<List<ItemVO>> couponScope(@Validated ItemCouponQueryDTO dto) {
+        List<ItemVO> voList = itemService.getCouponScopeByPage(dto);
         return RespBody.success(voList);
     }
 

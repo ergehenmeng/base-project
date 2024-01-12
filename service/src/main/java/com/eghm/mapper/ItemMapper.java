@@ -7,8 +7,8 @@ import com.eghm.dto.business.item.ItemCouponQueryDTO;
 import com.eghm.dto.business.item.ItemQueryDTO;
 import com.eghm.dto.business.item.ItemQueryRequest;
 import com.eghm.vo.business.item.ItemResponse;
-import com.eghm.vo.business.item.ItemListVO;
 import com.eghm.vo.business.item.ItemVO;
+import com.eghm.vo.business.item.ItemDetailVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -38,14 +38,14 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param limit 查询多少条
      * @return 商品列表
      */
-    List<ItemListVO> getPriorityItem(@Param("shopId") Long shopId, @Param("limit") Integer limit);
+    List<ItemVO> getPriorityItem(@Param("shopId") Long shopId, @Param("limit") Integer limit);
     
     /**
      * 查询店铺下推荐的商品列表, 不含下架的商品
      * @param limit 查询多少条
      * @return 商品列表
      */
-    List<ItemListVO> getRecommendItem(@Param("limit") Integer limit);
+    List<ItemVO> getRecommendItem(@Param("limit") Integer limit);
     
     /**
      * 分页查询商品列表
@@ -53,7 +53,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param dto 查询条件
      * @return 商品信息
      */
-    Page<ItemListVO> getByPage(Page<ItemListVO> page, @Param("param") ItemQueryDTO dto);
+    Page<ItemVO> getByPage(Page<ItemVO> page, @Param("param") ItemQueryDTO dto);
     
     /**
      * 优惠券所能使用的商品范围, 分页查询
@@ -61,7 +61,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param dto 查询条件
      * @return 列表
      */
-    Page<ItemListVO> getCouponScopeByPage(Page<ItemListVO> page, @Param("param") ItemCouponQueryDTO dto);
+    Page<ItemVO> getCouponScopeByPage(Page<ItemVO> page, @Param("param") ItemCouponQueryDTO dto);
     
     /**
      * 更新销售量
@@ -81,7 +81,7 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param id id
      * @return 商品详细信息
      */
-    ItemVO detailById(@Param("id") Long id);
+    ItemDetailVO detailById(@Param("id") Long id);
 
     /**
      * 更新评分
@@ -90,4 +90,11 @@ public interface ItemMapper extends BaseMapper<Item> {
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
+
+    /**
+     * 查询零售商品信息
+     * @param itemIds 商品id
+     * @return 商品信息
+     */
+    List<ItemVO> getList(@Param("itemIds") List<Long> itemIds);
 }

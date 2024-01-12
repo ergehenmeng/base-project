@@ -7,9 +7,9 @@ import com.eghm.dto.ext.CalcStatistics;
 import com.eghm.enums.ref.State;
 import com.eghm.model.Item;
 import com.eghm.vo.business.item.ItemResponse;
-import com.eghm.vo.business.item.ItemListVO;
-import com.eghm.vo.business.item.ItemDetailResponse;
 import com.eghm.vo.business.item.ItemVO;
+import com.eghm.vo.business.item.ItemDetailResponse;
+import com.eghm.vo.business.item.ItemDetailVO;
 import com.eghm.vo.business.item.express.TotalExpressVO;
 
 import java.util.List;
@@ -122,7 +122,7 @@ public interface ItemService {
      * @param shopId 店铺id
      * @return 推荐商品
      */
-    List<ItemListVO> getPriorityItem(Long shopId);
+    List<ItemVO> getPriorityItem(Long shopId);
     
     /**
      * 查询<b>首页</b>推荐的商品, 注意:
@@ -130,21 +130,21 @@ public interface ItemService {
      * 2. 如果没有推荐默认以最新且上架的商品进行展示
      * @return 推荐商品
      */
-    List<ItemListVO> getRecommend();
+    List<ItemVO> getRecommend();
     
     /**
      * 商品列表查询 移动端
      * @param dto 查询条件
      * @return 列表
      */
-    List<ItemListVO> getByPage(ItemQueryDTO dto);
+    List<ItemVO> getByPage(ItemQueryDTO dto);
     
     /**
      * 优惠券所能使用的商品范围, 分页查询
      * @param dto 查询条件
      * @return 列表
      */
-    List<ItemListVO> getCouponScopeByPage(ItemCouponQueryDTO dto);
+    List<ItemVO> getCouponScopeByPage(ItemCouponQueryDTO dto);
 
     /**
      * 计算商品快递费
@@ -176,7 +176,7 @@ public interface ItemService {
      * @param id 商品信息
      * @return 商品信息
      */
-    ItemVO detailById(Long id);
+    ItemDetailVO detailById(Long id);
 
     /**
      * 删除零售商品

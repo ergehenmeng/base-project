@@ -9,14 +9,18 @@ import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.collect.CollectQueryDTO;
 import com.eghm.dto.ext.ApiHolder;
 import com.eghm.enums.ref.CollectType;
-import com.eghm.mapper.HomestayMapper;
-import com.eghm.mapper.MemberCollectMapper;
-import com.eghm.mapper.ScenicMapper;
+import com.eghm.mapper.*;
 import com.eghm.model.MemberCollect;
 import com.eghm.service.business.MemberCollectService;
 import com.eghm.service.cache.CacheService;
 import com.eghm.vo.business.collect.MemberCollectVO;
 import com.eghm.vo.business.homestay.HomestayVO;
+import com.eghm.vo.business.item.ItemVO;
+import com.eghm.vo.business.item.store.ItemStoreVO;
+import com.eghm.vo.business.line.LineVO;
+import com.eghm.vo.business.line.TravelAgencyVO;
+import com.eghm.vo.business.news.NewsVO;
+import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.scenic.ScenicVO;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
@@ -49,13 +53,52 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     private final HomestayMapper homestayMapper;
 
+    private final ItemStoreMapper itemStoreMapper;
+
+    private final ItemMapper itemMapper;
+
+    private final LineMapper lineMapper;
+
+    private final RestaurantMapper restaurantMapper;
+
+    private final NewsMapper newsMapper;
+
+    private final TravelAgencyMapper travelAgencyMapper;
+
     @Override
     public List<MemberCollectVO> getByPage(CollectQueryDTO query) {
         Page<MemberCollectVO> byPage = memberCollectMapper.getByPage(query.createPage(false), query);
         if (CollUtil.isNotEmpty(byPage.getRecords())) {
             Map<CollectType, List<Long>> collectMap = byPage.getRecords().stream().collect(Collectors.groupingBy(MemberCollectVO::getCollectType, Collectors.mapping(MemberCollectVO::getCollectId, Collectors.toList())));
-            // TODO 待完善
-
+            Map<Long, ScenicVO> scenicMap = this.getScenicList(collectMap.get(CollectType.SCENIC));
+            Map<Long, HomestayVO> homestayMap = this.getHomestayList(collectMap.get(CollectType.HOMESTAY));
+            Map<Long, ItemStoreVO> itemStoreMap = this.getItemStoreList(collectMap.get(CollectType.ITEM_STORE));
+            Map<Long, ItemVO> itemMap = this.getItemList(collectMap.get(CollectType.ITEM));
+            Map<Long, LineVO> lineMap = this.getLineList(collectMap.get(CollectType.LINE));
+            Map<Long, TravelAgencyVO> travelMap = this.getTravelList(collectMap.get(CollectType.TRAVEL_AGENCY));
+            Map<Long, NewsVO> newsMap = this.getNewsList(collectMap.get(CollectType.NEWS));
+            Map<Long, RestaurantVO> restaurantMap = this.getRestaurantList(collectMap.get(CollectType.VOUCHER_STORE));
+            for (MemberCollectVO vo : byPage.getRecords()) {
+                switch (vo.getCollectType()) {
+                    case SCENIC:
+                        vo.setScenic(scenicMap.get(vo.getCollectId())); break;
+                    case HOMESTAY:
+                        vo.setHomestay(homestayMap.get(vo.getCollectId())); break;
+                    case ITEM_STORE:
+                        vo.setItemStore(itemStoreMap.get(vo.getCollectId())); break;
+                    case ITEM:
+                        vo.setItem(itemMap.get(vo.getCollectId())); break;
+                    case LINE:
+                        vo.setLine(lineMap.get(vo.getCollectId())); break;
+                    case TRAVEL_AGENCY:
+                        vo.setTravelAgency(travelMap.get(vo.getCollectId())); break;
+                    case NEWS:
+                        vo.setNews(newsMap.get(vo.getCollectId())); break;
+                    case VOUCHER_STORE:
+                        vo.setRestaurant(restaurantMap.get(vo.getCollectId())); break;
+                    default: break;
+                }
+            }
         }
         return byPage.getRecords();
     }
@@ -94,7 +137,6 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         return cacheService.hasHashKey(key, String.valueOf(memberId));
     }
 
-
     /**
      * 根据景区id查询景区信息
      * @param scenicIds 景区id
@@ -119,6 +161,84 @@ public class MemberCollectServiceImpl implements MemberCollectService {
         }
         List<HomestayVO> voList = homestayMapper.getList(homestayIds);
         return voList.stream().collect(Collectors.toMap(HomestayVO::getId, Function.identity()));
+    }
+
+    /**
+     * 根据零售店铺id查询店铺信息
+     * @param storeIds 店铺id
+     * @return 店铺信息
+     */
+    private Map<Long, ItemStoreVO> getItemStoreList(List<Long> storeIds) {
+        if (CollUtil.isEmpty(storeIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<ItemStoreVO> voList = itemStoreMapper.getList(storeIds);
+        return voList.stream().collect(Collectors.toMap(ItemStoreVO::getId, Function.identity()));
+    }
+
+    /**
+     * 查询零售商品信息
+     * @param itemIds 商品id
+     * @return 商品信息
+     */
+    private Map<Long, ItemVO> getItemList(List<Long> itemIds) {
+        if (CollUtil.isEmpty(itemIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<ItemVO> voList = itemMapper.getList(itemIds);
+        return voList.stream().collect(Collectors.toMap(ItemVO::getId, Function.identity()));
+    }
+
+    /**
+     * 查询线路商品信息
+     * @param lineIds ids
+     * @return 线路信息
+     */
+    private Map<Long, LineVO> getLineList(List<Long> lineIds) {
+        if (CollUtil.isEmpty(lineIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<LineVO> voList = lineMapper.getList(lineIds);
+        return voList.stream().collect(Collectors.toMap(LineVO::getId, Function.identity()));
+    }
+
+    /**
+     * 查询餐饮店信息
+     * @param restaurantIds ids
+     * @return 餐饮店信息
+     */
+    private Map<Long, RestaurantVO> getRestaurantList(List<Long> restaurantIds) {
+        if (CollUtil.isEmpty(restaurantIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<RestaurantVO> voList = restaurantMapper.getList(restaurantIds);
+        return voList.stream().collect(Collectors.toMap(RestaurantVO::getId, Function.identity()));
+    }
+
+    /**
+     * 查询资讯信息
+     * @param newsIds id
+     * @return 资讯信息
+     */
+    private Map<Long, NewsVO> getNewsList(List<Long> newsIds) {
+        if (CollUtil.isEmpty(newsIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<NewsVO> voList = newsMapper.getList(newsIds);
+        return voList.stream().collect(Collectors.toMap(NewsVO::getId, Function.identity()));
+    }
+
+    /**
+     * 查询旅行社信息
+     * @param travelIds id
+     * @return 旅行社信息
+     */
+    private Map<Long, TravelAgencyVO> getTravelList(List<Long> travelIds) {
+        if (CollUtil.isEmpty(travelIds)) {
+            return Maps.newLinkedHashMapWithExpectedSize(4);
+        }
+        List<TravelAgencyVO> voList = travelAgencyMapper.getList(travelIds);
+        return voList.stream().collect(Collectors.toMap(TravelAgencyVO::getId, Function.identity()));
     }
 
     /**

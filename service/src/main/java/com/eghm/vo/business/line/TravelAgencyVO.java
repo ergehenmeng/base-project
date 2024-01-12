@@ -1,5 +1,6 @@
 package com.eghm.vo.business.line;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,7 +15,8 @@ import java.math.BigDecimal;
  * @since 2023-02-18
  */
 @Data
-public class TravelAgencyDetailVO {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class TravelAgencyVO {
 
     @ApiModelProperty("id主键")
     private Long id;
@@ -25,28 +27,15 @@ public class TravelAgencyDetailVO {
     @ApiModelProperty("店铺logo")
     private String logoUrl;
 
-    @ApiModelProperty(value = "详细地址")
-    private String detailAddress;
-
-    @ApiModelProperty("是否收藏")
-    private Boolean collect;
-
-    @ApiModelProperty(value = "经度")
-    private BigDecimal longitude;
-
-    @ApiModelProperty(value = "纬度")
-    private BigDecimal latitude;
-
     @ApiModelProperty(value = "旅行社描述信息")
     private String depict;
 
     @ApiModelProperty(value = "旅行社图片")
     private String coverUrl;
 
-    @ApiModelProperty(value = "旅行社详细介绍信息")
-    private String introduce;
-
     @ApiModelProperty("评分")
     private BigDecimal score;
 
+    @ApiModelProperty("状态 0:下架 1:上架 2:强制下架")
+    private Integer state;
 }

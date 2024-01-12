@@ -20,4 +20,17 @@
     <update id="updateGiveLike">
         update news set give_like = give_like + #{giveLike} where id = #{id}
     </update>
+
+    <select id="getList" resultType="com.eghm.vo.business.news.NewsVO">
+        select
+            id,
+            title,
+            depict,
+            image,
+            deleted
+        from news where id in
+        <foreach collection="newsIds" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>   

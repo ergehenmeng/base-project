@@ -17,4 +17,18 @@
         update item_store set score = #{score} where id = #{id}
     </update>
 
+    <select id="getList" resultType="com.eghm.vo.business.item.store.ItemStoreVO">
+        select
+            id,
+            title,
+            state,
+            logo_url,
+            cover_url,
+            telephone,
+            introduce
+        from item_store where id in
+        <foreach collection="storeIds" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

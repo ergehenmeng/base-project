@@ -6,6 +6,8 @@ import com.eghm.model.News;
 import com.eghm.vo.business.news.NewsVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 资讯信息表 Mapper 接口
@@ -30,4 +32,11 @@ public interface NewsMapper extends BaseMapper<News> {
      * @param giveLike 点赞数量
      */
     void updateGiveLike(@Param("id") Long id, @Param("giveLike") Integer giveLike);
+
+    /**
+     * 根据id查询资讯
+     * @param newsIds 资讯id
+     * @return 列表
+     */
+    List<NewsVO> getList(@Param("newsIds") List<Long> newsIds);
 }

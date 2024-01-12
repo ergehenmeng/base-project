@@ -49,7 +49,7 @@
         order by t.id desc
     </select>
     
-    <select id="getPriorityItem" resultType="com.eghm.vo.business.item.ItemListVO">
+    <select id="getPriorityItem" resultType="com.eghm.vo.business.item.ItemVO">
         select
         id,
         title,
@@ -63,7 +63,7 @@
         order by min_price &gt; 0, sort_by, id limit #{limit}
     </select>
     
-    <select id="getRecommendItem" resultType="com.eghm.vo.business.item.ItemListVO">
+    <select id="getRecommendItem" resultType="com.eghm.vo.business.item.ItemVO">
         select
             id,
             title,
@@ -74,7 +74,7 @@
         order by min_price &gt; 0, recommend desc, id limit #{limit}
     </select>
     
-    <select id="getByPage" parameterType="com.eghm.dto.business.item.ItemQueryDTO" resultType="com.eghm.vo.business.item.ItemListVO">
+    <select id="getByPage" parameterType="com.eghm.dto.business.item.ItemQueryDTO" resultType="com.eghm.vo.business.item.ItemVO">
         select
         t.id,
         t.title,
@@ -109,7 +109,7 @@
         </if>
     </select>
     
-    <select id="getCouponScopeByPage" parameterType="com.eghm.dto.business.item.ItemCouponQueryDTO" resultType="com.eghm.vo.business.item.ItemListVO">
+    <select id="getCouponScopeByPage" parameterType="com.eghm.dto.business.item.ItemCouponQueryDTO" resultType="com.eghm.vo.business.item.ItemVO">
         select
         t.id,
         t.title,
@@ -157,7 +157,7 @@
         where t.id = r.item_id and r.order_no = #{orderNo}
     </update>
 
-    <select id="detailById" resultType="com.eghm.vo.business.item.ItemVO">
+    <select id="detailById" resultType="com.eghm.vo.business.item.ItemDetailVO">
         select
         t.id,
         t.store_id,
@@ -187,4 +187,20 @@
         update item set score = #{score} where id = #{id}
     </update>
 
+    <select id="getList" resultType="com.eghm.vo.business.item.ItemVO">
+        select
+            t.id,
+            t.title,
+            t.cover_url,
+            t.total_num as saleNum,
+            t.min_price,
+            t.state,
+            r.title as storeName,
+            t.store_id
+        from item t inner join item_store r on t.store_id = r.id
+        where t.id in
+        <foreach collection="itemIds" item="item" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

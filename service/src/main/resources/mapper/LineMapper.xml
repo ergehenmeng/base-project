@@ -109,4 +109,20 @@
         from line t left join travel_agency s on t.travel_agency_id = s.id
         where t.deleted = false and t.state = 1 and t.id = #{id}
     </select>
+
+    <select id="getList" resultType="com.eghm.vo.business.line.LineVO">
+        select
+            t.id,
+            t.title,
+            t.start_city_id,
+            t.cover_url,
+            t.total_num,
+            t.duration,
+            t.state
+        from line t
+        where t.id in
+        <foreach collection="lineIds" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

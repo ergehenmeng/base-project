@@ -1,5 +1,6 @@
 package com.eghm.vo.business.item.store;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import lombok.Data;
  */
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemStoreVO {
 
     @ApiModelProperty("id主键")
@@ -28,4 +30,7 @@ public class ItemStoreVO {
 
     @ApiModelProperty(value = "商家介绍")
     private String introduce;
+
+    @ApiModelProperty("状态 0:待上架 1:已上架 2:强制下架")
+    private Integer state;
 }

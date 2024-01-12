@@ -201,25 +201,25 @@ public class ItemServiceImpl implements ItemService {
     }
     
     @Override
-    public List<ItemListVO> getPriorityItem(Long shopId) {
+    public List<ItemVO> getPriorityItem(Long shopId) {
         int max = sysConfigApi.getInt(ConfigConstant.STORE_ITEM_MAX_RECOMMEND, 10);
         return itemMapper.getPriorityItem(shopId, max);
     }
     
     @Override
-    public List<ItemListVO> getRecommend() {
+    public List<ItemVO> getRecommend() {
         int max = sysConfigApi.getInt(ConfigConstant.ITEM_MAX_RECOMMEND, 10);
         return itemMapper.getRecommendItem(max);
     }
     
     @Override
-    public List<ItemListVO> getByPage(ItemQueryDTO dto) {
-        Page<ItemListVO> voPage = itemMapper.getByPage(dto.createPage(false), dto);
+    public List<ItemVO> getByPage(ItemQueryDTO dto) {
+        Page<ItemVO> voPage = itemMapper.getByPage(dto.createPage(false), dto);
         return voPage.getRecords();
     }
     
     @Override
-    public List<ItemListVO> getCouponScopeByPage(ItemCouponQueryDTO dto) {
+    public List<ItemVO> getCouponScopeByPage(ItemCouponQueryDTO dto) {
         Coupon coupon = couponService.selectByIdRequired(dto.getCouponId());
         // 增加过滤条件,提高查询效率
         dto.setStoreId(coupon.getStoreId());
@@ -286,8 +286,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemVO detailById(Long id) {
-        ItemVO detail = itemMapper.detailById(id);
+    public ItemDetailVO detailById(Long id) {
+        ItemDetailVO detail = itemMapper.detailById(id);
         if (detail == null) {
             log.error("该零售商品已删除啦 [{}]", id);
             throw new BusinessException(ITEM_DOWN);

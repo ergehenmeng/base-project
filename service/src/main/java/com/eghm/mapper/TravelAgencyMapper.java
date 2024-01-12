@@ -2,9 +2,11 @@ package com.eghm.mapper;
 
 import com.eghm.model.TravelAgency;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.vo.business.line.TravelAgencyVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -23,4 +25,11 @@ public interface TravelAgencyMapper extends BaseMapper<TravelAgency> {
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
+
+    /**
+     * 根据id获取旅行社信息
+     * @param travelAgencyIds id列表
+     * @return 旅行社信息列表
+     */
+    List<TravelAgencyVO> getList(@Param("travelAgencyIds") List<Long> travelAgencyIds);
 }

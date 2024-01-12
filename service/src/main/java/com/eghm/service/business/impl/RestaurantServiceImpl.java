@@ -71,7 +71,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     @Override
     public List<RestaurantResponse> getList(RestaurantQueryRequest request) {
-        Page<RestaurantResponse> responsePage = restaurantMapper.getList(request.createPage(false), request);
+        Page<RestaurantResponse> responsePage = restaurantMapper.listPage(request.createPage(false), request);
         return responsePage.getRecords();
     }
 

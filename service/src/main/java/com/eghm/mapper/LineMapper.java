@@ -11,6 +11,7 @@ import com.eghm.vo.business.line.LineVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>
@@ -52,4 +53,11 @@ public interface LineMapper extends BaseMapper<Line> {
      * @return 线路信息
      */
     LineDetailVO getById(@Param("id") Long id);
+
+    /**
+     * 查询线路商品信息
+     * @param lineIds id列表
+     * @return 线路信息
+     */
+    List<LineVO> getList(@Param("lineIds") List<Long> lineIds);
 }

@@ -32,4 +32,11 @@ public interface ItemStoreMapper extends BaseMapper<ItemStore> {
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
+
+    /**
+     * 店铺列表查询
+     * @param storeIds 店铺id
+     * @return 列表
+     */
+    List<ItemStoreVO> getList(@Param("storeIds") List<Long> storeIds);
 }

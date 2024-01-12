@@ -5,4 +5,19 @@
     <update id="updateScore">
         update travel_agency set score = #{score} where id = #{id}
     </update>
+
+    <select id="getList" resultType="com.eghm.vo.business.line.TravelAgencyVO">
+        select
+            id,
+            title,
+            cover_url,
+            logo_url,
+            depict,
+            score,
+            state
+        from travel_agency where id in
+        <foreach collection="travelAgencyIds" item="item" separator="," open="(" close=")">
+                  #{item}
+        </foreach>
+    </select>
 </mapper>
