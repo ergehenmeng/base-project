@@ -51,6 +51,11 @@ public enum RoleType {
      * 核销员
      */
     VERIFIER("verifier", "核销员"),
+
+    /**
+     * 商户普通角色
+     */
+    MERCHANT("merchant", "商户普通角色")
     ;
 
     /**

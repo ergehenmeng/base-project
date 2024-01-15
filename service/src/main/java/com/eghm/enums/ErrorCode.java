@@ -292,6 +292,11 @@ public enum ErrorCode {
     ROLE_NAME_REDO(2015, "角色名称重复"),
 
     /**
+     * 角色信息不存在
+     */
+    ROLE_NULL(2016, "角色信息不存在"),
+
+    /**
      * ip格式错误
      */
     IP_ILLEGAL(2030, "ip格式错误"),

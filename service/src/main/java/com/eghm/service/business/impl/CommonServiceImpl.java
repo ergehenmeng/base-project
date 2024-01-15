@@ -84,10 +84,14 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public boolean checkIsIllegal(Long merchantId, Long loginMerchantId) {
+        if (loginMerchantId == null && merchantId == null) {
+            return false;
+        }
         if (loginMerchantId == null || !loginMerchantId.equals(merchantId)) {
             log.error("商户访问了非自己的数据 [{}] [{}]", loginMerchantId, merchantId);
             return true;
         }
         return false;
     }
+
 }

@@ -12,13 +12,6 @@ import java.util.List;
 public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
-     * 查询用户所拥有的角色列表
-     * @param userId 用户id
-     * @return 角色列表
-     */
-    List<SysRole> getRoleList(@Param("userId") Long userId);
-
-    /**
      * 获取角色拥有的菜单列表
      * @param roleId 角色id
      * @return 菜单menuIds

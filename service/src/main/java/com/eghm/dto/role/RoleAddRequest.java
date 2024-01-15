@@ -1,5 +1,6 @@
 package com.eghm.dto.role;
 
+import com.eghm.enums.ref.RoleType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,4 +20,9 @@ public class RoleAddRequest {
     @ApiModelProperty("备注信息")
     private String remark;
 
+    @ApiModelProperty("角色类型")
+    private RoleType roleType;
+
+    @ApiModelProperty(value = "商户id", hidden = true)
+    private Long merchantId;
 }

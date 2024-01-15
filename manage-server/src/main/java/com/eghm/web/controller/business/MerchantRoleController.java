@@ -1,4 +1,4 @@
-package com.eghm.web.controller;
+package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.annotation.SkipPerm;
@@ -24,13 +24,13 @@ import java.util.List;
 
 /**
  * @author 二哥很猛
- * @date 2018/11/26 15:21
+ * @date 2024/1/26
  */
 @RestController
-@Api(tags = "角色管理")
+@Api(tags = "商户角色管理")
 @AllArgsConstructor
-@RequestMapping("/manage/role")
-public class SysRoleController {
+@RequestMapping("/manage/merchant/role")
+public class MerchantRoleController {
 
     private final SysRoleService sysRoleService;
 
@@ -49,9 +49,19 @@ public class SysRoleController {
         return RespBody.success(roleList);
     }
 
+    @PostMapping("/create")
+    @ApiOperation("添加角色")
+    public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
+        request.setRoleType(RoleType.COMMON);
+        sysRoleService.create(request);
+        return RespBody.success();
+    }
+
     @PostMapping("/update")
     @ApiOperation("编辑角色")
     public RespBody<Void> update(@Validated @RequestBody RoleEditRequest request) {
+        request.setMerchantId(SecurityHolder.getMerchantId());
         sysRoleService.update(request);
         return RespBody.success();
     }
@@ -60,14 +70,6 @@ public class SysRoleController {
     @ApiOperation("编辑角色")
     public RespBody<Void> delete(@Validated @RequestBody IdDTO dto) {
         sysRoleService.delete(dto.getId(), SecurityHolder.getMerchantId());
-        return RespBody.success();
-    }
-
-    @PostMapping("/create")
-    @ApiOperation("添加角色")
-    public RespBody<Void> create(@Validated @RequestBody RoleAddRequest request) {
-        request.setRoleType(RoleType.COMMON);
-        sysRoleService.create(request);
         return RespBody.success();
     }
 

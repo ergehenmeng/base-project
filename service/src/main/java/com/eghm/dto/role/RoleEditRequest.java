@@ -25,4 +25,6 @@ public class RoleEditRequest {
     @ApiModelProperty("备注信息")
     private String remark;
 
+    @ApiModelProperty(value = "商户id", hidden = true)
+    private Long merchantId;
 }

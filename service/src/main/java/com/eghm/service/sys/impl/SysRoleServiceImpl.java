@@ -3,9 +3,11 @@ package com.eghm.service.sys.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
 import com.eghm.dto.role.RoleQueryRequest;
@@ -16,6 +18,7 @@ import com.eghm.mapper.SysRoleMapper;
 import com.eghm.mapper.SysUserRoleMapper;
 import com.eghm.model.SysRole;
 import com.eghm.model.SysUserRole;
+import com.eghm.service.business.CommonService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -38,50 +41,60 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     private final SysUserRoleMapper sysUserRoleMapper;
 
+    private final CommonService commonService;
+
     @Override
     public Page<SysRole> getByPage(RoleQueryRequest request) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
+        wrapper.eq(SysRole::getMerchantId, SecurityHolder.getMerchantId());
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), SysRole::getRoleName, request.getQueryName());
         wrapper.orderByDesc(SysRole::getId);
         return sysRoleMapper.selectPage(request.createPage(), wrapper);
     }
 
     @Override
-    public SysRole getById(Long id) {
-        return sysRoleMapper.selectById(id);
-    }
-
-    @Override
     public void update(RoleEditRequest request) {
         this.redoRole(request.getRoleName(), request.getId());
-        SysRole role = DataUtil.copy(request, SysRole.class);
-        sysRoleMapper.updateById(role);
+        LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysRole::getId, request.getId());
+        wrapper.eq(SysRole::getMerchantId, request.getMerchantId());
+        wrapper.set(SysRole::getRoleName, request.getRoleName());
+        wrapper.set(SysRole::getRemark, request.getRemark());
+        sysRoleMapper.update(null, wrapper);
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(Long id, Long merchantId) {
         SysRole sysRole = sysRoleMapper.selectById(id);
-        if (sysRole.getRoleType() != RoleType.COMMON) {
+        if (sysRole == null) {
+            return;
+        }
+        if (sysRole.getRoleType() != RoleType.COMMON && sysRole.getRoleType() != RoleType.MERCHANT) {
             log.info("该角色为系统默认角色,无法删除 [{}] [{}]", id, sysRole.getRoleType());
             throw new BusinessException(ErrorCode.ROLE_FORBID_DELETE);
         }
-        sysRoleMapper.deleteById(id);
+        LambdaUpdateWrapper<SysRole> wrapper = Wrappers.lambdaUpdate();
+        wrapper.eq(SysRole::getId, id);
+        wrapper.eq(SysRole::getMerchantId, merchantId);
+        wrapper.set(SysRole::getDeleted, true);
+        sysRoleMapper.update(null, wrapper);
     }
 
     @Override
     public void create(RoleAddRequest request) {
         this.redoRole(request.getRoleName(), null);
         SysRole role = DataUtil.copy(request, SysRole.class);
-        role.setRoleType(RoleType.COMMON);
         sysRoleMapper.insert(role);
     }
 
     @Override
-    public List<SysRole> getList() {
+    public List<CheckBox> getList() {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.ne(SysRole::getRoleType, RoleType.ADMINISTRATOR);
-        return sysRoleMapper.selectList(wrapper);
+        wrapper.eq(SysRole::getMerchantId, SecurityHolder.getMerchantId());
+        List<SysRole> roleList = sysRoleMapper.selectList(wrapper);
+        return DataUtil.copy(roleList, sysRole -> CheckBox.builder().value(sysRole.getId()).desc(sysRole.getRoleName()).build());
     }
 
     @Override
@@ -101,6 +114,9 @@ public class SysRoleServiceImpl implements SysRoleService {
             log.warn("非超级管理员,无法进行菜单授权操作 [{}]", userId);
             throw new BusinessException(ErrorCode.ADMIN_AUTH);
         }
+        SysRole sysRole = this.selectByIdRequired(roleId);
+        commonService.checkIllegal(sysRole.getMerchantId());
+
         sysRoleMapper.deleteRoleMenu(roleId);
         if (StrUtil.isNotBlank(menuIds)) {
             List<Long> menuIdList = StrUtil.split(menuIds, ",").stream().mapToLong(Long::parseLong)
@@ -135,13 +151,18 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<SysRole> getRoleList(Long userId) {
-        return sysRoleMapper.getRoleList(userId);
+    public boolean isAdminRole(Long userId) {
+        return sysRoleMapper.countByRoleType(userId, RoleType.ADMINISTRATOR.getValue()) > 0;
     }
 
     @Override
-    public boolean isAdminRole(Long userId) {
-        return sysRoleMapper.countByRoleType(userId, RoleType.ADMINISTRATOR.getValue()) > 0;
+    public SysRole selectByIdRequired(Long roleId) {
+        SysRole sysRole = sysRoleMapper.selectById(roleId);
+        if (sysRole == null) {
+            log.warn("角色不存在 [{}]", roleId);
+            throw new BusinessException(ErrorCode.ROLE_NULL);
+        }
+        return sysRole;
     }
 
     /**

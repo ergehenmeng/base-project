@@ -1,6 +1,7 @@
 package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.ext.CheckBox;
 import com.eghm.enums.ref.RoleType;
 import com.eghm.model.SysRole;
 import com.eghm.dto.role.RoleAddRequest;
@@ -23,13 +24,6 @@ public interface SysRoleService {
     Page<SysRole> getByPage(RoleQueryRequest request);
 
     /**
-     * 根据主键查询角色信息
-     * @param id 主键
-     * @return 角色信息
-     */
-    SysRole getById(Long id);
-
-    /**
      * 更新角色信息
      * @param request 前台参数
      */
@@ -39,7 +33,7 @@ public interface SysRoleService {
      * 删除角色信息
      * @param id 主键
      */
-    void delete(Long id);
+    void delete(Long id, Long merchantId);
 
     /**
      * 添加角色信息
@@ -51,7 +45,7 @@ public interface SysRoleService {
      * 获取所有可用的用户角色
      * @return 角色列表
      */
-    List<SysRole> getList();
+    List<CheckBox> getList();
 
     /**
      * 获取管理人员所拥有的角色id
@@ -89,17 +83,17 @@ public interface SysRoleService {
     void authRole(Long userId, List<RoleType> roleList);
 
     /**
-     * 获取用户角色列表
-     * @param userId 用户id
-     * @return 角色列表
-     */
-    List<SysRole> getRoleList(Long userId);
-
-    /**
      * 判断用户是否有超管角色
      * @param userId 用户ID
      * @return true:有管理员角色 false:没有
      */
     boolean isAdminRole(Long userId);
+
+    /**
+     * 根据角色id查询角色信息
+     * @param roleId 角色id
+     * @return 角色信息
+     */
+    SysRole selectByIdRequired(Long roleId);
 }
 
