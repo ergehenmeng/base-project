@@ -1148,4 +1148,24 @@ create table account_log
     primary key (id)
 ) comment '商户资金变动明细表';
 
-
+CREATE TABLE `withdraw_log`
+(
+    `id`           bigint(20) NOT NULL COMMENT '主键',
+    `merchant_id`  bigint(20)   DEFAULT NULL COMMENT '商户id',
+    `state`        tinyint(2)   DEFAULT '0' COMMENT '0:提现中 1:提现成功 2:提现失败',
+    `withdraw_way` tinyint(1)   DEFAULT '0' COMMENT '1:手动提现 2:自动提现',
+    `amount`       int(10)      DEFAULT '0' COMMENT '提现金额',
+    `fee`          int(10)      DEFAULT '0' COMMENT '提现手续费',
+    `trade_no`     varchar(50)  DEFAULT NULL COMMENT '提现流水号',
+    `out_trade_no` varchar(50)  DEFAULT NULL COMMENT '第三方流水号',
+    `payment_time` datetime     DEFAULT NULL COMMENT '到账时间',
+    `real_name`    varchar(20)  DEFAULT NULL COMMENT '银行卡所属用户姓名',
+    `bank_type`    varchar(20)  DEFAULT NULL COMMENT '银行卡类型',
+    `bank_num`     varchar(30)  DEFAULT NULL COMMENT '银行卡号',
+    `remark`       varchar(200) DEFAULT NULL COMMENT '备注信息',
+    `create_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`  datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`      bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4 COMMENT ='商户提现记录'
