@@ -2,6 +2,7 @@ package com.eghm.configuration;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.eghm.configuration.data.permission.DataScopeInterceptor;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ public class MybatisConfig {
         PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor(DbType.MYSQL);
         innerInterceptor.setMaxLimit(20L);
         interceptor.addInnerInterceptor(innerInterceptor);
+        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         return interceptor;
     }
 

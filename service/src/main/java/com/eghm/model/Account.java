@@ -1,6 +1,7 @@
 package com.eghm.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,6 +32,7 @@ public class Account extends BaseEntity {
     private Integer withdrawFreeze;
 
     @ApiModelProperty(value = "版本号")
+    @Version
     private Integer version;
 
 }

@@ -4,12 +4,18 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.eghm.constant.CommonConstant;
 import com.eghm.dto.business.account.AccountDTO;
+import com.eghm.enums.ErrorCode;
+import com.eghm.enums.ref.AccountType;
+import com.eghm.exception.BusinessException;
 import com.eghm.mapper.AccountLogMapper;
 import com.eghm.mapper.AccountMapper;
 import com.eghm.model.Account;
+import com.eghm.model.AccountLog;
 import com.eghm.model.Merchant;
 import com.eghm.service.business.AccountService;
 import com.eghm.service.business.MerchantInitService;
+import com.eghm.service.sys.DingTalkService;
+import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,9 +38,30 @@ public class AccountServiceImpl implements AccountService, MerchantInitService {
 
     private final AccountLogMapper accountLogMapper;
 
+    private final DingTalkService dingTalkService;
+
     @Override
     public void updateAccount(AccountDTO dto) {
-
+        Account account = this.getAccount(dto.getMerchantId());
+        AccountLog accountLog = DataUtil.copy(dto, AccountLog.class);
+        if (dto.getAccountType() == AccountType.PAY_INCOME) {
+            account.setPayFreeze(account.getPayFreeze() + dto.getAmount());
+            accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
+        } else if (dto.getAccountType() == AccountType.REFUND_DISBURSE) {
+            account.setPayFreeze(account.getPayFreeze() - dto.getAmount());
+            accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
+        } else if (dto.getAccountType() == AccountType.WITHDRAW_DISBURSE) {
+            account.setWithdrawAmount(account.getWithdrawAmount() - dto.getAmount());
+            account.setWithdrawFreeze(account.getWithdrawFreeze() + dto.getAmount());
+            accountLog.setSurplusAmount(account.getPayFreeze() + account.getWithdrawAmount());
+        }
+        int update = accountMapper.updateById(account);
+        if (update != 1) {
+            log.error("更新账户信息失败 [{}]", dto);
+            dingTalkService.sendMsg(String.format("更新商户账户失败 [%s]", dto));
+            throw new BusinessException(ErrorCode.ACCOUNT_UPDATE);
+        }
+        accountLogMapper.insert(accountLog);
     }
 
     @Override

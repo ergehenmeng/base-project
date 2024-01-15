@@ -1463,6 +1463,11 @@ public enum ErrorCode {
     REFUND_DELIVERY(3815,"订单已发货,只支持退货退款"),
 
     /**
+     * 商户账户更新失败
+     */
+    ACCOUNT_UPDATE(3818,"商户账户更新失败"),
+
+    /**
      * 微信公众号尚未配置
      */
     MP_NOT_CONFIG(4000, "微信公众号尚未配置"),

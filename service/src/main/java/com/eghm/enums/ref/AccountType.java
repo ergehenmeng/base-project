@@ -22,9 +22,10 @@ public enum AccountType implements EnumBinder {
 
     REFUND_DISBURSE(2, "退款支出"),
 
-    WITHDRAW_DISBURSE(3, "提现支出"),
-
-    WITHDRAW_FEE_DISBURSE(4, "提现手续费支出"),
+    /**
+     * 例如提现提现1000, 手续费5块,则提现冻结1000, 到账995
+     */
+    WITHDRAW_DISBURSE(3, "提现支出")
     ;
     /**
      * 状态值
