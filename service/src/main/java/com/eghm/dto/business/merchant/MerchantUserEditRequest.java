@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author 二哥很猛
@@ -32,6 +33,9 @@ public class MerchantUserEditRequest {
     @ApiModelProperty("密码")
     @Password
     private String password;
+
+    @ApiModelProperty("角色id列表")
+    private List<Long> roleIds;
 
     @ApiModelProperty("备注信息")
     @Size(max = 100, message = "备注信息最大100字符")

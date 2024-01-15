@@ -7,7 +7,6 @@ import com.eghm.dto.business.merchant.MerchantUserAddRequest;
 import com.eghm.dto.business.merchant.MerchantUserEditRequest;
 import com.eghm.dto.business.merchant.MerchantUserQueryRequest;
 import com.eghm.enums.ErrorCode;
-import com.eghm.enums.ref.RoleType;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.MerchantUserMapper;
 import com.eghm.model.MerchantUser;
@@ -18,7 +17,6 @@ import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.merchant.MerchantUserResponse;
-import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -61,7 +59,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         MerchantUser merchant = DataUtil.copy(request, MerchantUser.class);
         merchant.setUserId(user.getId());
         merchantUserMapper.insert(merchant);
-        sysRoleService.authRole(merchant.getId(), Lists.newArrayList(RoleType.VERIFIER));
+        sysRoleService.auth(merchant.getId(), request.getRoleIds());
     }
 
     @Override
@@ -75,8 +73,8 @@ public class MerchantUserServiceImpl implements MerchantUserService {
         user.setPwd(encoder.encode(MD5.create().digestHex(request.getPassword())));
         user.setInitPwd(user.getPwd());
         sysUserService.updateById(user);
-
         merchantUserMapper.updateById(DataUtil.copy(request, MerchantUser.class));
+        sysRoleService.auth(merchant.getId(), request.getRoleIds());
     }
 
     @Override

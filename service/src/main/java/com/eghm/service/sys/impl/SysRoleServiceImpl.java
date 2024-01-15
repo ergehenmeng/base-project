@@ -137,10 +137,10 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Override
     public void authRole(Long userId, List<RoleType> roleList) {
-        if (CollUtil.isEmpty(roleList)) {
-            throw new BusinessException(ErrorCode.MERCHANT_ROLE_NULL);
-        }
         sysUserRoleMapper.deleteByUserId(userId);
+        if (CollUtil.isEmpty(roleList)) {
+            return;
+        }
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();
         wrapper.select(SysRole::getId);
         wrapper.in(SysRole::getRoleType, roleList);
@@ -148,6 +148,12 @@ public class SysRoleServiceImpl implements SysRoleService {
         for (SysRole sysRole : selectList) {
             sysUserRoleMapper.insert(new SysUserRole(userId, sysRole.getId()));
         }
+    }
+
+    @Override
+    public void auth(Long userId, List<Long> roleList) {
+        sysUserRoleMapper.deleteByUserId(userId);
+        roleList.forEach(roleId -> sysUserRoleMapper.insert(new SysUserRole(userId, roleId)));
     }
 
     @Override

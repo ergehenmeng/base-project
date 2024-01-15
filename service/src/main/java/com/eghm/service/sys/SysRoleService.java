@@ -76,11 +76,18 @@ public interface SysRoleService {
     void authRole(Long userId, String roleIds);
 
     /**
-     * 商户角色授权
+     * 商户角色授权 (角色类型)
      * @param userId 商户对应于用户id
      * @param roleList 商户角色code
      */
     void authRole(Long userId, List<RoleType> roleList);
+
+    /**
+     * 商户角色授权 (角色id)
+     * @param userId 商户对应于用户id
+     * @param roleList 角色id
+     */
+    void auth(Long userId, List<Long> roleList);
 
     /**
      * 判断用户是否有超管角色
