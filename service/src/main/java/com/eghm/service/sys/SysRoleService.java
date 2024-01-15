@@ -2,11 +2,11 @@ package com.eghm.service.sys;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.ext.CheckBox;
-import com.eghm.enums.ref.RoleType;
-import com.eghm.model.SysRole;
 import com.eghm.dto.role.RoleAddRequest;
 import com.eghm.dto.role.RoleEditRequest;
 import com.eghm.dto.role.RoleQueryRequest;
+import com.eghm.enums.ref.RoleType;
+import com.eghm.model.SysRole;
 
 import java.util.List;
 
@@ -67,13 +67,6 @@ public interface SysRoleService {
      * @param menuIds 菜单ids
      */
     void authMenu(Long roleId, String menuIds);
-
-    /**
-     * 给用户进行角色授权绑定
-     * @param userId 用户id
-     * @param roleIds 角色id 逗号分隔
-     */
-    void authRole(Long userId, String roleIds);
 
     /**
      * 商户角色授权 (角色类型)

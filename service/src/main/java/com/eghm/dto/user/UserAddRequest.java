@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * 管理人员 添加
@@ -27,8 +29,8 @@ public class UserAddRequest {
     private String deptCode;
 
     @ApiModelProperty(value = "角色编号 逗号分割", required = true)
-    @NotNull(message = "所属角色不能为空")
-    private String roleIds;
+    @Size(message = "所属角色不能为空")
+    private List<Long> roleIds;
 
     @ApiModelProperty("数据权限")
     private DataType dataType;

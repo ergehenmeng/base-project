@@ -126,16 +126,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public void authRole(Long userId, String roleIds) {
-        sysUserRoleMapper.deleteByUserId(userId);
-        if (StrUtil.isNotBlank(roleIds)) {
-            List<String> roleStringList = StrUtil.split(roleIds, ',');
-            //循环插入角色关联信息
-            roleStringList.forEach(s -> sysUserRoleMapper.insert(new SysUserRole(userId, Long.parseLong(s))));
-        }
-    }
-
-    @Override
     public void authRole(Long userId, List<RoleType> roleList) {
         sysUserRoleMapper.deleteByUserId(userId);
         if (CollUtil.isEmpty(roleList)) {
