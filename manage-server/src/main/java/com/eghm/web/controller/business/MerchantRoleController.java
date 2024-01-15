@@ -1,10 +1,8 @@
 package com.eghm.web.controller.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.configuration.annotation.SkipPerm;
 import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.dto.IdDTO;
-import com.eghm.dto.ext.CheckBox;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.role.RoleAddRequest;
@@ -39,14 +37,6 @@ public class MerchantRoleController {
     public RespBody<PageData<SysRole>> listPage(RoleQueryRequest request) {
         Page<SysRole> page = sysRoleService.getByPage(request);
         return RespBody.success(PageData.toPage(page));
-    }
-
-    @PostMapping("/list")
-    @ApiOperation("角色列表(不分页)")
-    @SkipPerm
-    public RespBody<List<CheckBox>> list() {
-        List<CheckBox> roleList = sysRoleService.getList();
-        return RespBody.success(roleList);
     }
 
     @PostMapping("/create")
