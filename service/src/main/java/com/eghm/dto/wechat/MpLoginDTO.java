@@ -3,7 +3,7 @@ package com.eghm.dto.wechat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author 二哥很猛
@@ -13,6 +13,6 @@ import javax.validation.constraints.NotNull;
 public class MpLoginDTO {
 
     @ApiModelProperty(value = "授权code码", required = true)
-    @NotNull(message = "授权码不能为空")
+    @NotBlank(message = "授权码不能为空")
     private String code;
 }

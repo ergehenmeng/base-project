@@ -22,6 +22,11 @@ public enum ErrorCode {
     LOGIN_TIMEOUT(8848,"登陆过期,请重新登陆"),
 
     /**
+     * 表示用户没有注册,需要进行手机号授权注册并登录
+     */
+    MEMBER_REGISTER(8849,"请先授权登录"),
+
+    /**
      * 点击太快啦~~
      */
     SUBMIT_FREQUENTLY(400, "操作太快啦~~"),

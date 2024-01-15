@@ -207,8 +207,9 @@ public interface MemberService {
     LoginTokenVO mpLogin(String jsCode, String ip);
 
     /**
-     * 微信小程序授权登陆
-     * @param jsCode jsCode
+     * 微信小程序授权登陆 (手机号码登录)
+     * 注意: 该接口未获取用户的unionId, 如需获取需要前端调用 wx.login拿到jsCode, 后端调用sns/jscode2session接口获取
+     * @param jsCode jsCode 注意:此jsCode仅仅获取手机号, 与获取unionId和openId的jsCode不同
      * @param openId openId
      * @param ip     ip
      * @return 登陆成功的信息
@@ -216,11 +217,26 @@ public interface MemberService {
     LoginTokenVO maLogin(String jsCode, String openId, String ip);
 
     /**
-     * 根据openId查询用户信息
+     * 微信小程序授权登陆 (openId登录)
      * @param openId openId
+     * @param ip   登录ip
+     * @return 登陆成功的信息
+     */
+    LoginTokenVO maLogin(String openId, String ip);
+
+    /**
+     * 根据openId查询用户信息
+     * @param openId 公众号openId
      * @return 用户信息
      */
-    Member getByOpenId(String openId);
+    Member getByMpOpenId(String openId);
+
+    /**
+     * 根据openId查询用户信息
+     * @param openId 小程序openId
+     * @return 用户信息
+     */
+    Member getByMaOpenId(String openId);
 
     /**
      * 设置新密码

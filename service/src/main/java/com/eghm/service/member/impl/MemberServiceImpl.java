@@ -131,10 +131,7 @@ public class MemberServiceImpl implements MemberService {
         if (member == null || !encoder.match(login.getPwd(), member.getPwd())) {
             throw new BusinessException(ErrorCode.PASSWORD_ERROR);
         }
-        if (Boolean.FALSE.equals(member.getState())) {
-            log.warn("该账号已被封禁,无法登录 [{}] [{}]", member.getId(), login.getAccount());
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
-        }
+        this.checkMemberLock(member);
         RequestMessage request = ApiHolder.get();
         LoginDevice loginLog = loginService.getBySerialNumber(member.getId(), request.getSerialNumber());
         if (loginLog == null && StrUtil.isNotBlank(member.getMobile())) {
@@ -148,10 +145,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO smsLogin(SmsLoginDTO login) {
         Member member = this.getByAccountRequired(login.getMobile());
-        if (Boolean.FALSE.equals(member.getState())) {
-            log.warn("账号已被封禁,无法发送短信 [{}] [{}]", member.getId(), login.getMobile());
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
-        }
+        this.checkMemberLock(member);
         smsService.verifySmsCode(SmsType.LOGIN, login.getMobile(), login.getSmsCode());
         return this.doLogin(member, login.getIp());
     }
@@ -179,10 +173,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void sendLoginSms(String mobile, String ip) {
         Member member = this.getByAccountRequired(mobile);
-        if (Boolean.FALSE.equals(member.getState())) {
-            log.warn("账号已被封禁,无法登录 [{}] [{}]", member.getId(), mobile);
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
-        }
+        this.checkMemberLock(member);
         smsService.sendSmsCode(SmsType.LOGIN, member.getMobile(), ip);
     }
 
@@ -377,11 +368,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public LoginTokenVO mpLogin(String jsCode, String ip) {
         WxOAuth2UserInfo userInfo = weChatMpService.auth2(jsCode);
-        Member member = this.getByOpenId(userInfo.getOpenid());
-        if (member != null && Boolean.FALSE.equals(member.getState())) {
-            log.warn("账号已被封禁,无法登录 [{}]", member.getId());
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
-        }
+        Member member = this.getByMpOpenId(userInfo.getOpenid());
         // 为空用户算新增
         if (member == null) {
             member = this.doMpRegister(userInfo, ip);
@@ -393,10 +380,7 @@ public class MemberServiceImpl implements MemberService {
     public LoginTokenVO maLogin(String jsCode, String openId, String ip) {
         String mobile = weChatMiniService.authMobile(jsCode);
         Member member = this.getByMobile(mobile);
-        if (member != null && Boolean.FALSE.equals(member.getState())) {
-            log.warn("账号已被封禁,无法登录 [{}]", member.getId());
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
-        }
+        this.checkMemberLock(member);
         // 为空用户算新增
         if (member == null) {
             member = this.doMaRegister(mobile, openId, ip);
@@ -405,9 +389,28 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member getByOpenId(String openId) {
+    public LoginTokenVO maLogin(String openId, String ip) {
+        Member member = this.getByMaOpenId(openId);
+        this.checkMemberLock(member);
+        if (member == null) {
+            log.warn("微信小程序openId授权登录失败 [{}]", openId);
+            throw new BusinessException(ErrorCode.MEMBER_REGISTER);
+        }
+        return this.doLogin(member, ip);
+    }
+
+    @Override
+    public Member getByMpOpenId(String openId) {
         LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
-        wrapper.eq(Member::getOpenId, openId);
+        wrapper.eq(Member::getMpOpenId, openId);
+        wrapper.last(CommonConstant.LIMIT_ONE);
+        return memberMapper.selectOne(wrapper);
+    }
+
+    @Override
+    public Member getByMaOpenId(String openId) {
+        LambdaQueryWrapper<Member> wrapper = Wrappers.lambdaQuery();
+        wrapper.eq(Member::getMaOpenId, openId);
         wrapper.last(CommonConstant.LIMIT_ONE);
         return memberMapper.selectOne(wrapper);
     }
@@ -470,6 +473,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
+     * 检查用户是否被封禁
+     * @param member 用户
+     */
+    private void checkMemberLock(Member member) {
+        if (member != null && Boolean.FALSE.equals(member.getState())) {
+            log.warn("账号已被封禁,无法登录 [{}]", member.getId());
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_FORBID);
+        }
+    }
+
+    /**
      * 计算用户本月签到的情况:<br/>
      * 由于签到是从用户注册开始计算,因此需要根据注册时间计算偏移量得到本月签到
      *
@@ -521,8 +535,9 @@ public class MemberServiceImpl implements MemberService {
         MemberRegister register = new MemberRegister();
         register.setRegisterIp(ip);
         register.setNickName(info.getNickname());
-        register.setOpenId(info.getOpenid());
+        register.setMpOpenId(info.getOpenid());
         register.setSex(info.getSex());
+        register.setUnionId(info.getUnionId());
         register.setAvatar(info.getHeadImgUrl());
         register.setChannel(Channel.WECHAT.name());
         return this.doRegister(register);
@@ -540,7 +555,7 @@ public class MemberServiceImpl implements MemberService {
         MemberRegister register = new MemberRegister();
         register.setRegisterIp(ip);
         register.setMobile(mobile);
-        register.setOpenId(openId);
+        register.setMaOpenId(openId);
         register.setChannel(Channel.WECHAT.name());
         return this.doRegister(register);
     }

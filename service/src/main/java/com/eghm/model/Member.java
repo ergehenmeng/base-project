@@ -20,8 +20,14 @@ public class Member extends BaseEntity {
     @ApiModelProperty("手机号码")
     private String mobile;
 
-    @ApiModelProperty("微信openId")
-    private String openId;
+    @ApiModelProperty("微信小程序openId")
+    private String maOpenId;
+
+    @ApiModelProperty("微信公众号openId")
+    private String mpOpenId;
+
+    @ApiModelProperty("微信unionId")
+    private String unionId;
 
     @ApiModelProperty("电子邮箱")
     private String email;

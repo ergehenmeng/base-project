@@ -10,9 +10,19 @@ import lombok.Data;
 public class MemberRegister {
 
     /**
-     * 微信openId
+     * 微信openId(公众号)
      */
-    private String openId;
+    private String mpOpenId;
+
+    /**
+     * 微信openId(小程序)
+     */
+    private String maOpenId;
+
+    /**
+     * unionId
+     */
+    private String unionId;
 
     /**
      * 昵称

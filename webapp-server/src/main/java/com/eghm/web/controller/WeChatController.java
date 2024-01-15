@@ -2,6 +2,7 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.wechat.MaLoginDTO;
+import com.eghm.dto.wechat.MaOpenLoginDTO;
 import com.eghm.dto.wechat.MpLoginDTO;
 import com.eghm.service.member.MemberService;
 import com.eghm.utils.IpUtil;
@@ -36,10 +37,20 @@ public class WeChatController {
         return RespBody.success(mpLogin);
     }
 
-    @PostMapping("/ma/token")
-    @ApiOperation("微信小程序授权登陆(自动注册)")
-    public RespBody<LoginTokenVO> maLogin(@Validated @RequestBody MaLoginDTO dto, HttpServletRequest request) {
+    @PostMapping("/ma/mobile/login")
+    @ApiOperation("微信小程序授权手机号登陆")
+    public RespBody<LoginTokenVO> maMobile(@Validated @RequestBody MaLoginDTO dto, HttpServletRequest request) {
         LoginTokenVO mpLogin = memberService.maLogin(dto.getCode(), dto.getOpenId(), IpUtil.getIpAddress(request));
+        return RespBody.success(mpLogin);
+    }
+
+    /**
+     * 2023.10月 微信小程序手机号授权登录需要收费,因此只需要第一次进行授权手机号登录,后续采用openId登录
+     */
+    @PostMapping("/ma/login")
+    @ApiOperation("微信小程序openId登录")
+    public RespBody<LoginTokenVO> maLogin(@Validated @RequestBody MaOpenLoginDTO dto, HttpServletRequest request) {
+        LoginTokenVO mpLogin = memberService.maLogin(dto.getOpenId(), IpUtil.getIpAddress(request));
         return RespBody.success(mpLogin);
     }
 }
