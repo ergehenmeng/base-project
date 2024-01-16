@@ -50,7 +50,7 @@ public class Order extends BaseEntity {
 
     @ApiModelProperty(value = "商品类型")
     private ProductType productType;
-    
+
     @ApiModelProperty("是否为多订单,普通商品且购物车购买才可能是多订单,即一个订单对应多商品")
     private Boolean multiple;
 
@@ -59,7 +59,7 @@ public class Order extends BaseEntity {
 
     @ApiModelProperty("退款描述信息")
     private String refundDescribe;
-    
+
     @ApiModelProperty("配送方式")
     private DeliveryType deliveryType;
 

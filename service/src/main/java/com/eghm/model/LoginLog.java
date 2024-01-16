@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 
 /**
  * 用户登陆日志
+ *
  * @author 二哥很猛
  */
 @Data

@@ -24,7 +24,8 @@ public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
 
     /**
      * 分页查询门票订单
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */
@@ -34,13 +35,14 @@ public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
      * 查询用户民宿订单
      *
      * @param page 分页
-     * @param dto 查询条件
+     * @param dto  查询条件
      * @return 列表, 不查询总页数
      */
     Page<HomestayOrderVO> getList(Page<HomestayOrderVO> page, @Param("param") HomestayOrderQueryDTO dto);
 
     /**
      * 查询民宿快照
+     *
      * @param orderId 订单id
      * @param orderNo 订单编号
      * @return 商品餐饮快照
@@ -49,7 +51,8 @@ public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
 
     /**
      * 查询民宿订单
-     * @param orderNo 订单编号
+     *
+     * @param orderNo  订单编号
      * @param memberId 会员id
      * @return 订单详情
      */
@@ -57,7 +60,8 @@ public interface HomestayOrderMapper extends BaseMapper<HomestayOrder> {
 
     /**
      * 查询民宿订单
-     * @param orderNo 订单编号
+     *
+     * @param orderNo    订单编号
      * @param merchantId 商户ID
      * @return 订单详情
      */

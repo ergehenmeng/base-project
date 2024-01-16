@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 
 /**
  * 系统异常记录
+ *
  * @author 二哥很猛
  */
 @Data

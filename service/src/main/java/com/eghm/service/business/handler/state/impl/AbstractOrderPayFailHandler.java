@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 支付异步回调 失败
+ *
  * @author 二哥很猛
  * @date 2022/8/20
  */
@@ -35,6 +36,7 @@ public abstract class AbstractOrderPayFailHandler implements PayNotifyHandler {
 
     /**
      * 订单失败处理逻辑, 更新订单状态
+     *
      * @param order 订单信息
      */
     protected void doProcess(PayNotifyContext context, Order order) {
@@ -44,8 +46,8 @@ public abstract class AbstractOrderPayFailHandler implements PayNotifyHandler {
     /**
      * 订单异步通知后置处理
      *
-     * @param context  支付失败异步通知
-     * @param order    订单信息
+     * @param context 支付失败异步通知
+     * @param order   订单信息
      */
     protected void after(PayNotifyContext context, Order order) {
     }

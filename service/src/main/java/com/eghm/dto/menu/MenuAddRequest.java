@@ -8,8 +8,9 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * 菜单添加
+ *
  * @author 二哥很猛
- * @date  2018/1/30 11:36
+ * @date 2018/1/30 11:36
  */
 @Data
 public class MenuAddRequest {

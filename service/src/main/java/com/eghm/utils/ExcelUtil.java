@@ -21,22 +21,22 @@ import java.util.List;
 public class ExcelUtil {
 
     /**
+     * xlsx格式
+     */
+    public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+    /**
      * 默认sheetName
      */
     private static final String DEFAULT_SHEET_NAME = "表格";
 
     /**
-     * xlsx格式
-     */
-    public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
-    /**
      * 导出xlsx表格 (统一表格样式),
-     * @param response httpResponse
-     * @param fileName 文件名
+     *
+     * @param response  httpResponse
+     * @param fileName  文件名
      * @param rowValues 导出excel表格
-     * @param cls 类型, 该类需要继承 ExcelStyle 接口 来保持风格统一
-     * @param <T> 泛型
+     * @param cls       类型, 该类需要继承 ExcelStyle 接口 来保持风格统一
+     * @param <T>       泛型
      */
     public static <T extends ExcelStyle> void exportBeauty(HttpServletResponse response, String fileName, List<T> rowValues, Class<T> cls) {
         export(response, fileName, rowValues, cls, DEFAULT_SHEET_NAME);
@@ -44,11 +44,12 @@ public class ExcelUtil {
 
     /**
      * 导出xlsx表格
-     * @param response httpResponse
-     * @param fileName 文件名
+     *
+     * @param response  httpResponse
+     * @param fileName  文件名
      * @param rowValues 导出excel表格
-     * @param cls 类型
-     * @param <T> 泛型
+     * @param cls       类型
+     * @param <T>       泛型
      */
     public static <T> void export(HttpServletResponse response, String fileName, List<T> rowValues, Class<T> cls) {
         export(response, fileName, rowValues, cls, DEFAULT_SHEET_NAME);
@@ -56,12 +57,13 @@ public class ExcelUtil {
 
     /**
      * 导出xlsx表格
-     * @param response httpResponse
-     * @param fileName 文件名
+     *
+     * @param response  httpResponse
+     * @param fileName  文件名
      * @param rowValues 导出excel表格
-     * @param cls 类型
+     * @param cls       类型
      * @param sheetName sheet名称
-     * @param <T> 泛型
+     * @param <T>       泛型
      */
     public static <T> void export(HttpServletResponse response, String fileName, List<T> rowValues, Class<T> cls, String sheetName) {
         if (!fileName.endsWith(ExcelTypeEnum.XLSX.getValue())) {

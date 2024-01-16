@@ -18,14 +18,16 @@ public interface LineConfigMapper extends BaseMapper<LineConfig> {
 
     /**
      * 新增或更新线路日态信息
+     *
      * @param config 线路日态
      * @return 条数
      */
     int insertOrUpdate(LineConfig config);
-    
+
     /**
      * 更新库存信息
-     * @param id id
+     *
+     * @param id  id
      * @param num 正数+库存 负数-库存
      * @return 1
      */
@@ -33,7 +35,8 @@ public interface LineConfigMapper extends BaseMapper<LineConfig> {
 
     /**
      * 从某一段时间开始查询最低的线路价格
-     * @param lineId 线路id
+     *
+     * @param lineId    线路id
      * @param startDate 开始日期
      * @return 最低价 单位:分
      */

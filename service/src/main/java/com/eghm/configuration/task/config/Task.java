@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * 任务基本配置信息
+ *
  * @author 殿小二
  * @date 2020/9/18
  */

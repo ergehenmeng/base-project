@@ -19,6 +19,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     /**
      * 根据订单号查询订单下的商品信息
+     *
      * @param orderNo 订单号
      * @return list
      */
@@ -26,6 +27,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     /**
      * 根据订单号查询订单下的商品信息
+     *
      * @param orderNo 订单号
      * @return list 一般只有一个
      */
@@ -33,6 +35,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     /**
      * 根据订单号查询订单下的商品信息
+     *
      * @param orderNo 订单号
      * @return list 一般只有一个
      */
@@ -40,6 +43,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     /**
      * 根据订单号查询订单下的商品信息
+     *
      * @param orderNo 订单号
      * @return list 一般只有一个
      */
@@ -47,6 +51,7 @@ public interface OrderMapper extends BaseMapper<Order> {
 
     /**
      * 根据订单号查询订单下的商品信息
+     *
      * @param orderNo 订单号
      * @return list 一般只有一个
      */

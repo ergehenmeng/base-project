@@ -13,11 +13,12 @@ import org.apache.ibatis.annotations.Param;
  * @since 2023-03-06
  */
 public interface ItemSkuMapper extends BaseMapper<ItemSku> {
-    
+
     /**
      * 更新库存信息
+     *
      * @param skuId 库存id
-     * @param num 数量
+     * @param num   数量
      * @return 1
      */
     int updateStock(@Param("skuId") Long skuId, @Param("num") Integer num);

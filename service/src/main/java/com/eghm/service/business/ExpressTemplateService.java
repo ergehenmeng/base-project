@@ -21,6 +21,7 @@ public interface ExpressTemplateService {
 
     /**
      * 查询商户下的物流模板
+     *
      * @param merchantId 商户ID
      * @return 模板
      */
@@ -28,6 +29,7 @@ public interface ExpressTemplateService {
 
     /**
      * 查询商户下的物流模板(下拉框使用)
+     *
      * @param merchantId 商户ID
      * @return 列表
      */
@@ -35,18 +37,21 @@ public interface ExpressTemplateService {
 
     /**
      * 新增快递模板
+     *
      * @param request 模板信息
      */
     void create(ItemExpressAddRequest request);
 
     /**
      * 更新快递模板
+     *
      * @param request 模板信息
      */
     void update(ItemExpressEditRequest request);
 
     /**
      * 查询商品对应的快递模板
+     *
      * @param itemIds 商品Id
      * @param storeId 店铺Id
      * @return 快递模板
@@ -55,12 +60,14 @@ public interface ExpressTemplateService {
 
     /**
      * 逻辑删除快递模板
+     *
      * @param id 快递id
      */
     void deleteById(Long id);
 
     /**
      * 主键查询快递模板
+     *
      * @param id id
      */
     ExpressTemplate selectByIdRequired(Long id);

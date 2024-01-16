@@ -25,18 +25,20 @@ public interface InterceptorAdapter extends HandlerInterceptor {
 
     /**
      * 前置拦截 默认不做特殊处理
-     * @param request request
+     *
+     * @param request  request
      * @param response response
-     * @param handler handler
+     * @param handler  handler
      * @return default true
      */
     boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException;
 
     /**
      * 获取handler上方法的指定注解
-     * @param handler  handler
+     *
+     * @param handler        handler
      * @param annotationType 注解类型
-     * @param <A> 泛型
+     * @param <A>            泛型
      * @return 注解信息
      */
     default <A extends Annotation> A getAnnotation(Object handler, Class<A> annotationType) {
@@ -45,9 +47,10 @@ public interface InterceptorAdapter extends HandlerInterceptor {
 
     /**
      * 获取handler上的指定注解
-     * @param handler  handler
+     *
+     * @param handler        handler
      * @param annotationType 注解类型
-     * @param <A> 泛型
+     * @param <A>            泛型
      * @return 注解信息
      */
     default <A extends Annotation> A getClassAnnotation(Object handler, Class<A> annotationType) {

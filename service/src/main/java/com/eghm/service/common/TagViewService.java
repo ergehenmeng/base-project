@@ -12,6 +12,7 @@ public interface TagViewService {
 
     /**
      * 获取所有的view标签信息
+     *
      * @return 标签view映射关系
      */
     List<TagView> getList();

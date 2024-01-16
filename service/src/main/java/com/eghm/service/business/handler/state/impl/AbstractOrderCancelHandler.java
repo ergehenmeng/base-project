@@ -5,8 +5,8 @@ import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.exception.BusinessException;
 import com.eghm.model.Order;
-import com.eghm.service.business.OrderService;
 import com.eghm.service.business.MemberCouponService;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.state.OrderCancelHandler;
 import com.eghm.service.pay.enums.TradeState;
@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 
 /**
  * 订单取消
+ *
  * @author 二哥很猛
  * @date 2022/8/20
  */
@@ -41,6 +42,7 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
 
     /**
      * 订单取消成功后置处理, 例如库存释放
+     *
      * @param order 订单信息
      */
     protected void after(Order order) {
@@ -49,6 +51,7 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
 
     /**
      * 关闭订单信息
+     *
      * @param order 订单信息
      */
     private void doProcess(Order order) {
@@ -62,6 +65,7 @@ public abstract class AbstractOrderCancelHandler implements OrderCancelHandler, 
 
     /**
      * 取消订单前值校验
+     *
      * @param order 订单信息
      */
     protected void before(Order order) {

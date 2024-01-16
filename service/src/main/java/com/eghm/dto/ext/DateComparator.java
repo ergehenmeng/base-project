@@ -22,12 +22,14 @@ public abstract class DateComparator implements Serializable {
 
     /**
      * 开始日期需要子类实现
+     *
      * @return 日期 yyyy-MM-dd
      */
     public abstract LocalDate getStartDate();
 
     /**
      * 截止日期需要子类实现
+     *
      * @return 日期 yyyy-MM-dd
      */
     public abstract LocalDate getEndDate();

@@ -24,6 +24,7 @@ public interface PoiLineService {
 
     /**
      * 分页查询poi线路
+     *
      * @param request 请求参数
      * @return poi线路列表
      */
@@ -31,30 +32,35 @@ public interface PoiLineService {
 
     /**
      * 新增poi线路
+     *
      * @param request 请求参数
      */
     void create(PoiLineAddRequest request);
 
     /**
      * 修改poi线路
+     *
      * @param request 请求参数
      */
     void update(PoiLineEditRequest request);
 
     /**
      * 删除poi线路
+     *
      * @param id id
      */
     void deleteById(Long id);
 
     /**
      * 线路关联点位信息
+     *
      * @param request 线路及点位
      */
     void bindPoint(LinePointBindRequest request);
 
     /**
      * 查询线路关联点位绑定情况
+     *
      * @param id id
      * @return 点位及绑定情况
      */
@@ -62,6 +68,7 @@ public interface PoiLineService {
 
     /**
      * 根据id查询poi线路
+     *
      * @param id id
      * @return poi线路
      */
@@ -69,6 +76,7 @@ public interface PoiLineService {
 
     /**
      * 查询所有线路
+     *
      * @param areaCode 区域编号
      * @return 列表
      */

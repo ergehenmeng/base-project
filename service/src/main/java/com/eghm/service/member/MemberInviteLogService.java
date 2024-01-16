@@ -10,6 +10,7 @@ public interface MemberInviteLogService {
 
     /**
      * 添加邀请记录
+     *
      * @param inviteLog log
      */
     void insert(MemberInviteLog inviteLog);

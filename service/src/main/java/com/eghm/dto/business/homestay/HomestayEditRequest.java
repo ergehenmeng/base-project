@@ -20,7 +20,7 @@ public class HomestayEditRequest {
     private Long id;
 
     @ApiModelProperty(value = "民宿名称", required = true)
-    @Size(min = 2, max = 20,message = "民宿名称长度2~20位")
+    @Size(min = 2, max = 20, message = "民宿名称长度2~20位")
     @NotBlank(message = "民宿名称不能为空")
     @WordChecker(message = "民宿名称存在敏感词")
     private String title;
@@ -42,7 +42,7 @@ public class HomestayEditRequest {
     private Long countyId;
 
     @ApiModelProperty(value = "详细地址", required = true)
-    @Size(min = 2, max = 20,message = "详细地址长度2~50位")
+    @Size(min = 2, max = 20, message = "详细地址长度2~50位")
     @NotBlank(message = "详细地址不能为空")
     @WordChecker(message = "详细地址存在敏感词")
     private String detailAddress;

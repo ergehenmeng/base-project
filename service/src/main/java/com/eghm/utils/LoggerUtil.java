@@ -26,6 +26,7 @@ public class LoggerUtil {
 
     /**
      * 打印日志信息
+     *
      * @param msg 日志信息
      */
     public static void print(String msg) {
@@ -34,7 +35,8 @@ public class LoggerUtil {
 
     /**
      * 打印日志信息
-     * @param msg 日志信息
+     *
+     * @param msg         日志信息
      * @param paddingChar 填充的字符
      */
     public static void print(String msg, String paddingChar) {
@@ -55,7 +57,8 @@ public class LoggerUtil {
 
     /**
      * 填充指定长度的字符
-     * @param builder builder
+     *
+     * @param builder     builder
      * @param paddingChar 填充的字符
      */
     private static void appendChar(StringBuilder builder, String paddingChar) {

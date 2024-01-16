@@ -23,7 +23,8 @@ public interface PoiPointMapper extends BaseMapper<PoiPoint> {
 
     /**
      * 分页查询
-     * @param page 分页参数
+     *
+     * @param page    分页参数
      * @param request 查询条件
      * @return 列表
      */
@@ -31,6 +32,7 @@ public interface PoiPointMapper extends BaseMapper<PoiPoint> {
 
     /**
      * 查询区域下的所有点位信息
+     *
      * @param areaCode 区域code
      * @return 点位信息
      */
@@ -38,6 +40,7 @@ public interface PoiPointMapper extends BaseMapper<PoiPoint> {
 
     /**
      * 根据类型查询点位列表
+     *
      * @param typeId 类型id
      * @return 点位列表
      */
@@ -45,6 +48,7 @@ public interface PoiPointMapper extends BaseMapper<PoiPoint> {
 
     /**
      * 根据区域查询点位列表
+     *
      * @param areaCode  区域编号
      * @param queryName 查询名称
      * @return 点位列表

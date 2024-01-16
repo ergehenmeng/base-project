@@ -16,6 +16,7 @@ public interface ShoppingCartService {
 
     /**
      * 分页查询购物车商品
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -23,12 +24,14 @@ public interface ShoppingCartService {
 
     /**
      * 添加购物车
+     *
      * @param dto 商品信息
      */
     void add(AddCartDTO dto);
 
     /**
      * 查询用户购物车商品列表
+     *
      * @param memberId 用户id
      * @return 商品列表
      */
@@ -36,14 +39,16 @@ public interface ShoppingCartService {
 
     /**
      * 删除购物车商品
-     * @param id 购物车id
+     *
+     * @param id       购物车id
      * @param memberId 用户id
      */
     void delete(Long id, Long memberId);
 
     /**
      * 更新购物车商品数量
-     * @param id 购物车id
+     *
+     * @param id       购物车id
      * @param quantity 新数量
      * @param memberId 用户id
      */

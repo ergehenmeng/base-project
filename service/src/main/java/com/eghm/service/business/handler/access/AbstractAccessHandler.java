@@ -64,6 +64,7 @@ public abstract class AbstractAccessHandler implements AccessHandler {
 
     /**
      * 判断订单是否支付成功
+     *
      * @param context 订单异步回调信息
      * @return true: 成功 false:失败
      */
@@ -76,11 +77,12 @@ public abstract class AbstractAccessHandler implements AccessHandler {
         context.setSuccessTime(vo.getSuccessTime());
         context.setTradeType(vo.getTradeType());
         context.setFrom(order.getState().getValue());
-        return  vo.getTradeState();
+        return vo.getTradeState();
     }
 
     /**
      * 判断订单是否退款成功
+     *
      * @param context 订单异步回调信息
      * @return true: 成功 false:失败
      */
@@ -96,24 +98,28 @@ public abstract class AbstractAccessHandler implements AccessHandler {
 
     /**
      * 支付成功处理
+     *
      * @param context 上下文
      */
     public abstract void paySuccess(PayNotifyContext context);
 
     /**
      * 支付失败处理
+     *
      * @param context 上下文
      */
     public abstract void payFail(PayNotifyContext context);
 
     /**
      * 退款成功处理
+     *
      * @param context 上下文
      */
     public abstract void refundSuccess(RefundNotifyContext context);
 
     /**
      * 退款失败处理
+     *
      * @param context 上下文
      */
     public abstract void refundFail(RefundNotifyContext context);

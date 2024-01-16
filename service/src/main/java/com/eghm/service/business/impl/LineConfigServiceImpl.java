@@ -141,7 +141,7 @@ public class LineConfigServiceImpl implements LineConfigService {
         wrapper.last(CommonConstant.LIMIT_ONE);
         return lineConfigMapper.selectOne(wrapper);
     }
-    
+
     @Override
     public void updateStock(Long id, Integer num) {
         int stock = lineConfigMapper.updateStock(id, num);
@@ -159,7 +159,8 @@ public class LineConfigServiceImpl implements LineConfigService {
 
     /**
      * 获取某一月配置信息
-     * @param month 月份
+     *
+     * @param month  月份
      * @param lineId 线路ID
      * @return 线路价格配置
      */
@@ -174,6 +175,7 @@ public class LineConfigServiceImpl implements LineConfigService {
 
     /**
      * 校验线路是否合法
+     *
      * @param lineId 线路Id
      */
     private void checkLine(Long lineId) {

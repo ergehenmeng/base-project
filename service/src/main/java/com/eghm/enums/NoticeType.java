@@ -24,8 +24,7 @@ public enum NoticeType {
     /**
      * 用户反馈结果处理的通知
      */
-    EVALUATION_REFUSE("evaluation_refuse", "订单评价内容不合规", false, "");
-    ;
+    EVALUATION_REFUSE("evaluation_refuse", "订单评价内容不合规", false, "");;
 
     /**
      * 分类

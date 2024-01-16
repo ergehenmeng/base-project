@@ -35,6 +35,6 @@ public class LockScreenFilter extends AbstractIgnoreFilter {
                 return;
             }
         }
-        filterChain.doFilter(request ,response);
+        filterChain.doFilter(request, response);
     }
 }

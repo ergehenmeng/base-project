@@ -71,8 +71,9 @@ public class NewsConfigServiceImpl implements NewsConfigService {
 
     /**
      * 检查标题是否重复
+     *
      * @param title 标题
-     * @param id id
+     * @param id    id
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();
@@ -86,8 +87,9 @@ public class NewsConfigServiceImpl implements NewsConfigService {
 
     /**
      * 检查编号是否重复
+     *
      * @param code 编号
-     * @param id id
+     * @param id   id
      */
     private void redoCode(String code, Long id) {
         LambdaQueryWrapper<NewsConfig> wrapper = Wrappers.lambdaQuery();

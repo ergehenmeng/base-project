@@ -22,6 +22,7 @@ public interface ItemExpressService {
 
     /**
      * 更新物流单号
+     *
      * @param request 物流信息
      */
     void update(ItemExpressRequest request);
@@ -36,6 +37,7 @@ public interface ItemExpressService {
 
     /**
      * 快递查询
+     *
      * @param id id
      * @return 物流信息
      */

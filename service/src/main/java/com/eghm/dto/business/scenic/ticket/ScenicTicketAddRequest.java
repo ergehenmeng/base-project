@@ -90,5 +90,5 @@ public class ScenicTicketAddRequest extends DateComparator {
 
     @ApiModelProperty(value = "是否实名购票 false:不实名 true:实名", required = true)
     private Boolean realBuy;
-        
+
 }

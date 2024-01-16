@@ -19,6 +19,7 @@ import java.util.Optional;
 
 /**
  * 默认实现
+ *
  * @author 二哥很猛
  * @since 2023/7/14
  */
@@ -53,10 +54,11 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
 
     /**
      * 根据用户id及渠道创建token
-     * @param user  用户信息
-     * @param merchantId 商户id
+     *
+     * @param user          用户信息
+     * @param merchantId    商户id
      * @param expireSeconds 过期时间
-     * @param authList 权限信息
+     * @param authList      权限信息
      * @return jwtToken
      */
     private String doCreateToken(SysUser user, Long merchantId, int expireSeconds, List<String> authList, List<String> dataList) {
@@ -81,7 +83,7 @@ public class RedisAccessTokenServiceImpl implements AccessTokenService {
      * 由于每次登录都会生成新的token, 因此为了防止产生过多的token以至于占用过多内存, 需要在登录时清除旧的token, 同时保存新的
      *
      * @param userId 用户id
-     * @param token 新token
+     * @param token  新token
      */
     private void clearSetToken(Long userId, String token) {
         String oldToken = cacheService.getHashValue(CacheConstant.USER_TOKEN_MAPPING, String.valueOf(userId));

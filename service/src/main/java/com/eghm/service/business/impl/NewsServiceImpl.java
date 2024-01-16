@@ -122,6 +122,7 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * 判断用户是否已对文章或资讯点赞过
+     *
      * @param id 文章id
      * @return true: 点赞了, 未点赞
      */
@@ -135,9 +136,10 @@ public class NewsServiceImpl implements NewsService {
 
     /**
      * 检查标题是否重复
+     *
      * @param title 标题
-     * @param code 编号
-     * @param id id
+     * @param code  编号
+     * @param id    id
      */
     private void redoTitle(String title, String code, Long id) {
         LambdaQueryWrapper<News> wrapper = Wrappers.lambdaQuery();

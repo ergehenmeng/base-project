@@ -1,14 +1,14 @@
 package com.eghm.service.sys.impl;
 
-import com.eghm.constant.CommonConstant;
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.mapper.SysDeptMapper;
-import com.eghm.model.SysDept;
+import com.eghm.constant.CommonConstant;
 import com.eghm.dto.dept.DeptAddRequest;
 import com.eghm.dto.dept.DeptEditRequest;
 import com.eghm.dto.ext.UserToken;
+import com.eghm.enums.ErrorCode;
+import com.eghm.exception.BusinessException;
+import com.eghm.mapper.SysDeptMapper;
+import com.eghm.model.SysDept;
 import com.eghm.service.sys.SysDeptService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * 部门 service
+ *
  * @author 二哥很猛
  * @date 2018/12/13 16:49
  */
@@ -27,12 +28,11 @@ import java.util.List;
 @AllArgsConstructor
 public class SysDeptServiceImpl implements SysDeptService {
 
-    private final SysDeptMapper sysDeptMapper;
-
     /**
      * 部门步长 即:一个部门对多有900个直属部门 100~999
      */
     private static final String STEP = "100";
+    private final SysDeptMapper sysDeptMapper;
 
     @Override
     public SysDept getById(Long id) {
@@ -69,13 +69,14 @@ public class SysDeptServiceImpl implements SysDeptService {
     /**
      * 根据列表计算出子级部门下一个编码的值
      * 初始编号默认101,后面依次累计+1
+     *
      * @param code 部门编号
      * @return 下一个编号
      */
     private String getNextCode(String code) {
         String maxCode = sysDeptMapper.getMaxCodeChild(code);
         if (maxCode == null) {
-            return CommonConstant.ROOT_NODE.equals(code) ? STEP :  code + STEP;
+            return CommonConstant.ROOT_NODE.equals(code) ? STEP : code + STEP;
         }
         // 不校验子部门上限,傻子才会有900个部门
         try {

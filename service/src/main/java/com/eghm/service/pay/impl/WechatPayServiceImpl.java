@@ -42,9 +42,19 @@ import java.util.Optional;
 @Slf4j
 public class WechatPayServiceImpl implements PayService {
 
+    private final SystemProperties systemProperties;
     private WxPayService wxPayService;
 
-    private final SystemProperties systemProperties;
+    /**
+     * 转换交易方式
+     *
+     * @param tradeType 原交易方式
+     * @return 新交易方式
+     */
+    private static TradeTypeEnum transferType(TradeType tradeType) {
+        Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getName())).findFirst();
+        return optional.orElse(null);
+    }
 
     @Autowired(required = false)
     public void setWxPayService(WxPayService wxPayService) {
@@ -173,8 +183,9 @@ public class WechatPayServiceImpl implements PayService {
 
     /**
      * 返回标准支付参数
+     *
      * @param tradeType 交易方式
-     * @param result 微信支付信息
+     * @param result    微信支付信息
      * @return vo
      */
     private PrepayVO createStandardResult(TradeType tradeType, WxPayUnifiedOrderV3Result result) {
@@ -211,12 +222,13 @@ public class WechatPayServiceImpl implements PayService {
 
     /**
      * 退款信息组装
-     * @param payerRefund 退款金额
-     * @param status 退款状态
-     * @param channel 退款渠道
+     *
+     * @param payerRefund           退款金额
+     * @param status                退款状态
+     * @param channel               退款渠道
      * @param memberReceivedAccount 退款返回账号
-     * @param successTime 退款成功时间
-     * @param createTime 退款受理时间
+     * @param successTime           退款成功时间
+     * @param createTime            退款受理时间
      * @return vo
      */
     private RefundVO getRefundVO(Integer payerRefund, String status, String channel, String memberReceivedAccount, String successTime, String createTime) {
@@ -229,16 +241,6 @@ public class WechatPayServiceImpl implements PayService {
         vo.setCreateTime(DateUtil.parseIso(createTime));
         vo.setPayChannel(PayChannel.WECHAT);
         return vo;
-    }
-
-    /**
-     * 转换交易方式
-     * @param tradeType 原交易方式
-     * @return 新交易方式
-     */
-    private static TradeTypeEnum transferType(TradeType tradeType) {
-        Optional<TradeTypeEnum> optional = Arrays.stream(TradeTypeEnum.values()).filter(typeEnum -> typeEnum.name().equals(tradeType.getName())).findFirst();
-        return optional.orElse(null);
     }
 
 }

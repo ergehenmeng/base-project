@@ -22,6 +22,7 @@ public interface LineService {
 
     /**
      * 分页查询线路新
+     *
      * @param request 查询条件
      * @return 线路列表
      */
@@ -29,6 +30,7 @@ public interface LineService {
 
     /**
      * 分页查询线路新
+     *
      * @param request 查询条件
      * @return 线路列表
      */
@@ -36,25 +38,29 @@ public interface LineService {
 
     /**
      * 新增线路信息
+     *
      * @param request 线路信息
      */
     void create(LineAddRequest request);
 
     /**
      * 更新线路信息
+     *
      * @param request 线路信息
      */
     void update(LineEditRequest request);
 
     /**
      * 更新上下架状态
-     * @param id id
+     *
+     * @param id    id
      * @param state 状态
      */
     void updateState(Long id, State state);
 
     /**
      * 主键查询线路信息, 为空则抛异常
+     *
      * @param id id
      * @return 线路
      */
@@ -62,6 +68,7 @@ public interface LineService {
 
     /**
      * 分页查询线路列表
+     *
      * @param dto 查询条件
      * @return 列表 不含总页数/总条数
      */
@@ -69,6 +76,7 @@ public interface LineService {
 
     /**
      * 主键查询线路(没有上架则报错)
+     *
      * @param id id
      * @return 线路信息
      */
@@ -76,6 +84,7 @@ public interface LineService {
 
     /**
      * 主键查询
+     *
      * @param id id
      * @return 线路
      */
@@ -83,12 +92,14 @@ public interface LineService {
 
     /**
      * 删除线路商品
+     *
      * @param id id
      */
     void deleteById(Long id);
 
     /**
      * 线路详细信息
+     *
      * @param id 线路id
      * @return 详细信息 包含行程信息
      */
@@ -96,6 +107,7 @@ public interface LineService {
 
     /**
      * 更新线路和旅行社评分
+     *
      * @param vo 线路id和旅行社id
      */
     void updateScore(CalcStatistics vo);

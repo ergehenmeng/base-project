@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.eghm.dto.business.coupon.member.GrantCouponDTO;
+import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
+import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
+import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
 import com.eghm.enums.ErrorCode;
 import com.eghm.enums.ref.CouponMode;
 import com.eghm.enums.ref.CouponState;
@@ -14,16 +18,12 @@ import com.eghm.mapper.CouponMapper;
 import com.eghm.mapper.MemberCouponMapper;
 import com.eghm.model.Coupon;
 import com.eghm.model.MemberCoupon;
-import com.eghm.dto.business.coupon.member.GrantCouponDTO;
-import com.eghm.dto.business.coupon.member.ReceiveCouponDTO;
-import com.eghm.dto.business.coupon.member.MemberCouponQueryPageDTO;
-import com.eghm.dto.business.coupon.member.MemberCouponQueryRequest;
+import com.eghm.service.business.CouponScopeService;
+import com.eghm.service.business.MemberCouponService;
 import com.eghm.vo.business.coupon.MemberCouponBaseVO;
 import com.eghm.vo.business.coupon.MemberCouponCountVO;
 import com.eghm.vo.business.coupon.MemberCouponResponse;
 import com.eghm.vo.business.coupon.MemberCouponVO;
-import com.eghm.service.business.CouponScopeService;
-import com.eghm.service.business.MemberCouponService;
 import com.google.common.collect.Maps;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -179,6 +179,7 @@ public class MemberCouponServiceImpl implements MemberCouponService {
 
     /**
      * 发放优惠券给用户
+     *
      * @param dto 发放信息
      */
     private void doGrantCoupon(ReceiveCouponDTO dto) {
@@ -199,8 +200,9 @@ public class MemberCouponServiceImpl implements MemberCouponService {
 
     /**
      * 校验优惠券等信息
+     *
      * @param config 优惠券配置信息
-     * @param dto  领取信息
+     * @param dto    领取信息
      */
     private void checkCoupon(Coupon config, ReceiveCouponDTO dto) {
 

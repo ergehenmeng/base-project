@@ -12,9 +12,10 @@ public interface LineOrderSnapshotService {
 
     /**
      * 插入线路每日线路配置快照信息
-     * @param lineId 线路id
-     * @param orderNo 订单编号
+     *
+     * @param lineId     线路id
+     * @param orderNo    订单编号
      * @param configList 每日线路配置信息
      */
-    void insert(Long lineId, String orderNo, List<LineDayConfig>configList);
+    void insert(Long lineId, String orderNo, List<LineDayConfig> configList);
 }

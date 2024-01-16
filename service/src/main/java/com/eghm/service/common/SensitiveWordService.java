@@ -8,6 +8,7 @@ public interface SensitiveWordService {
 
     /**
      * 判断字符串中是否包含敏感词
+     *
      * @param keywords 字符串
      * @return true:包含 false:不包含
      */

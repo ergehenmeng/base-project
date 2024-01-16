@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.LineDayConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.LineDayConfig;
 
 /**
  * <p>
@@ -15,6 +15,7 @@ public interface LineDayConfigMapper extends BaseMapper<LineDayConfig> {
 
     /**
      * 新增或编辑线路日配置信息
+     *
      * @param config 配置信息
      */
     int insertOrUpdate(LineDayConfig config);

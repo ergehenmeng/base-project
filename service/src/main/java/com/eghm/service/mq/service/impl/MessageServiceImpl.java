@@ -21,9 +21,8 @@ import org.springframework.stereotype.Service;
 @Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
-    private RabbitTemplate rabbitTemplate;
-
     private final CacheService cacheService;
+    private RabbitTemplate rabbitTemplate;
 
     @Autowired(required = false)
     public void setRabbitTemplate(RabbitTemplate rabbitTemplate) {

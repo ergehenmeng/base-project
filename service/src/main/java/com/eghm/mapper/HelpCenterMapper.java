@@ -13,7 +13,8 @@ public interface HelpCenterMapper extends BaseMapper<HelpCenter> {
 
     /**
      * 按条件查询帮助信息
-     * @param classify 分类
+     *
+     * @param classify  分类
      * @param queryName 关键字查询
      * @return list 不包含删除的和不显示的,且排序好了
      */

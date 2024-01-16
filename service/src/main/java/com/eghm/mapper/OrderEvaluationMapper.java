@@ -22,7 +22,8 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
 
     /**
      * 查询列表
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */
@@ -30,6 +31,7 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
 
     /**
      * 统计商品总分数
+     *
      * @param productId 商品信息
      * @return 总分数
      */
@@ -37,20 +39,23 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
 
     /**
      * 统计店铺总评分
+     *
      * @return 评分数
      */
     AvgScoreVO getStoreScore(@Param("storeId") Long storeId);
 
     /**
      * 查询商品评论信息
+     *
      * @param page 分页信息
-     * @param dto 查询条件
+     * @param dto  查询条件
      * @return 列表
      */
     Page<OrderEvaluationVO> getByPage(Page<OrderEvaluationVO> page, @Param("param") OrderEvaluationQueryDTO dto);
 
     /**
      * 统计分类数量
+     *
      * @param productId 商品id
      * @param queryType 2: 好评 3: 中评  4: 差评 5: 有图
      * @return 数量
@@ -59,6 +64,7 @@ public interface OrderEvaluationMapper extends BaseMapper<OrderEvaluation> {
 
     /**
      * 统计差评数量
+     *
      * @param productId 商品id
      * @return 数量
      */

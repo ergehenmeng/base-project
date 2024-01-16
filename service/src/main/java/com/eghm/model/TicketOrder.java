@@ -26,7 +26,7 @@ public class TicketOrder extends BaseEntity {
 
     @ApiModelProperty("景区名称")
     private String scenicName;
-    
+
     @ApiModelProperty(value = "门票id")
     private Long ticketId;
 

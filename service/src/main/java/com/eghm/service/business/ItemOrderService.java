@@ -20,6 +20,7 @@ public interface ItemOrderService {
 
     /**
      * 分页查询用户订单列表
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -27,6 +28,7 @@ public interface ItemOrderService {
 
     /**
      * 分页查询用户订单列表 (导出)
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -34,12 +36,14 @@ public interface ItemOrderService {
 
     /**
      * 订单插入
+     *
      * @param order 商品订单
      */
     void insert(ItemOrder order);
 
     /**
      * 根据订单号查询商品订单
+     *
      * @param orderNo 订单号
      * @return 商品订单(普通商品一个订单存在多商品)
      */
@@ -47,6 +51,7 @@ public interface ItemOrderService {
 
     /**
      * 统计待发货的零售订单数量
+     *
      * @param orderNo 订单号
      * @return 数量
      */
@@ -54,7 +59,8 @@ public interface ItemOrderService {
 
     /**
      * 零售退款
-     * @param orderNo 订单号
+     *
+     * @param orderNo  订单号
      * @param itemList 退款商品及数量
      * @return 零售信息
      */
@@ -62,14 +68,16 @@ public interface ItemOrderService {
 
     /**
      * 批量添加子订单信息
-     * @param orderNo 订单号
-     * @param packageList 商品信息
+     *
+     * @param orderNo       订单号
+     * @param packageList   商品信息
      * @param skuExpressMap 快递费
      */
     void insert(String orderNo, List<OrderPackage> packageList, Map<Long, Integer> skuExpressMap);
 
     /**
      * 查询订单信息
+     *
      * @param id id
      * @return 商品订单信息
      */
@@ -77,6 +85,7 @@ public interface ItemOrderService {
 
     /**
      * 查询商品订单,如果为空则抛异常
+     *
      * @param id id
      * @return 商品订单信息
      */
@@ -84,12 +93,14 @@ public interface ItemOrderService {
 
     /**
      * 根据主键更新商品订单信息
+     *
      * @param itemOrder 商品订单
      */
     void updateById(ItemOrder itemOrder);
 
     /**
      * 获取订单下所有商品的数量
+     *
      * @param orderNo 订单编号
      * @return 总数量
      */
@@ -97,6 +108,7 @@ public interface ItemOrderService {
 
     /**
      * 查询订单商品快照
+     *
      * @param orderId 订单id
      * @param orderNo 订单编号
      * @return 商品基础信息
@@ -105,6 +117,7 @@ public interface ItemOrderService {
 
     /**
      * 分页查询用户订单列表
+     *
      * @param dto 查询条件
      * @return 列表
      */
@@ -112,7 +125,8 @@ public interface ItemOrderService {
 
     /**
      * 查询订单详情 (移动端)
-     * @param orderNo 订单号
+     *
+     * @param orderNo  订单号
      * @param memberId 订单id
      * @return 订单信息
      */
@@ -120,6 +134,7 @@ public interface ItemOrderService {
 
     /**
      * 查询订单详情 (管理后台)
+     *
      * @param orderNo 订单号
      * @return 订单信息
      */
@@ -127,6 +142,7 @@ public interface ItemOrderService {
 
     /**
      * 查询退款订单详情 (管理后台)
+     *
      * @param orderNo 订单信息
      * @return 订单信息
      */
@@ -134,6 +150,7 @@ public interface ItemOrderService {
 
     /**
      * 根据主键查询零售订单信息
+     *
      * @param ids 订单id
      * @return list
      */

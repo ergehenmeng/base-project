@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * 系统参数表
+ *
  * @author 二哥很猛
  */
 @Data

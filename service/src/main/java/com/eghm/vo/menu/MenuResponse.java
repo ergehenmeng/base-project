@@ -24,19 +24,19 @@ public class MenuResponse {
 
     @ApiModelProperty("菜单地址")
     private String path;
-    
+
     @ApiModelProperty("菜单级别 1:导航 2:按钮")
     private Integer grade;
-    
+
     @ApiModelProperty("子菜单")
     private List<MenuResponse> children;
 
     @ApiModelProperty("排序")
     @JsonIgnore
     private Integer sort;
-    
+
     @ApiModelProperty("父节点ID,一级菜单默认为0")
     @JsonIgnore
     private Long pid;
-    
+
 }

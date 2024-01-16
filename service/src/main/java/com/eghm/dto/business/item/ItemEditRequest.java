@@ -1,20 +1,16 @@
 package com.eghm.dto.business.item;
 
-import com.eghm.enums.ref.DeliveryType;
-import com.eghm.enums.ref.RefundType;
 import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.dto.business.item.sku.ItemSpecRequest;
+import com.eghm.enums.ref.DeliveryType;
+import com.eghm.enums.ref.RefundType;
 import com.eghm.validation.annotation.OptionInt;
 import com.eghm.validation.annotation.RangeInt;
 import com.eghm.validation.annotation.WordChecker;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 /**
@@ -40,11 +36,11 @@ public class ItemEditRequest {
 
     @ApiModelProperty("标签id")
     private String tagId;
-    
+
     @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是", required = true)
     @NotNull(message = "规格类型不能为空")
     private Boolean multiSpec;
-    
+
     @ApiModelProperty(value = "封面图", required = true)
     @NotBlank(message = "封面图片不能为空")
     private String coverUrl;
@@ -83,11 +79,11 @@ public class ItemEditRequest {
 
     @ApiModelProperty("物流模板id(为空表示包邮)")
     private Long expressId;
-    
+
     @ApiModelProperty(value = "sku列表", required = true)
     @NotEmpty(message = "sku不能为空")
     private List<ItemSkuRequest> skuList;
-    
+
     @ApiModelProperty("规格列表")
     private List<ItemSpecRequest> specList;
 }

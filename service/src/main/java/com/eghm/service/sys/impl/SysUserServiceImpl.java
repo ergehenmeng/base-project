@@ -246,7 +246,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 查询用户关联的商户id, 只针对普通商户
-     * @param userId userId
+     *
+     * @param userId   userId
      * @param userType 用户类型
      * @return merchantId
      */
@@ -270,8 +271,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 校验手机号是否重复
+     *
      * @param mobile 手机号
-     * @param id id (更新时不能为空)
+     * @param id     id (更新时不能为空)
      */
     private void redoMobile(String mobile, Long id) {
         LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery();

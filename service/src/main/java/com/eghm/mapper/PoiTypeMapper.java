@@ -21,7 +21,8 @@ public interface PoiTypeMapper extends BaseMapper<PoiType> {
 
     /**
      * 分页查询
-     * @param page 分页参数
+     *
+     * @param page    分页参数
      * @param request 查询条件
      * @return 列表
      */
@@ -29,6 +30,7 @@ public interface PoiTypeMapper extends BaseMapper<PoiType> {
 
     /**
      * 根据区域查询
+     *
      * @param areaCode 区域编号
      * @return 列表
      */

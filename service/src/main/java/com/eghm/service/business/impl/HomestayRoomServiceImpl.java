@@ -136,8 +136,9 @@ public class HomestayRoomServiceImpl implements HomestayRoomService {
 
     /**
      * 同一家民宿 房型名称重复校验
-     * @param roomName 房型名称
-     * @param id 房型id
+     *
+     * @param roomName   房型名称
+     * @param id         房型id
      * @param homestayId 民宿id
      */
     private void titleRedo(String roomName, Long id, Long homestayId) {

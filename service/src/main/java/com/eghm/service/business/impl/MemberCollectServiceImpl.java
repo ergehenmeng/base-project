@@ -81,22 +81,31 @@ public class MemberCollectServiceImpl implements MemberCollectService {
             for (MemberCollectVO vo : byPage.getRecords()) {
                 switch (vo.getCollectType()) {
                     case SCENIC:
-                        vo.setScenic(scenicMap.get(vo.getCollectId())); break;
+                        vo.setScenic(scenicMap.get(vo.getCollectId()));
+                        break;
                     case HOMESTAY:
-                        vo.setHomestay(homestayMap.get(vo.getCollectId())); break;
+                        vo.setHomestay(homestayMap.get(vo.getCollectId()));
+                        break;
                     case ITEM_STORE:
-                        vo.setItemStore(itemStoreMap.get(vo.getCollectId())); break;
+                        vo.setItemStore(itemStoreMap.get(vo.getCollectId()));
+                        break;
                     case ITEM:
-                        vo.setItem(itemMap.get(vo.getCollectId())); break;
+                        vo.setItem(itemMap.get(vo.getCollectId()));
+                        break;
                     case LINE:
-                        vo.setLine(lineMap.get(vo.getCollectId())); break;
+                        vo.setLine(lineMap.get(vo.getCollectId()));
+                        break;
                     case TRAVEL_AGENCY:
-                        vo.setTravelAgency(travelMap.get(vo.getCollectId())); break;
+                        vo.setTravelAgency(travelMap.get(vo.getCollectId()));
+                        break;
                     case NEWS:
-                        vo.setNews(newsMap.get(vo.getCollectId())); break;
+                        vo.setNews(newsMap.get(vo.getCollectId()));
+                        break;
                     case VOUCHER_STORE:
-                        vo.setRestaurant(restaurantMap.get(vo.getCollectId())); break;
-                    default: break;
+                        vo.setRestaurant(restaurantMap.get(vo.getCollectId()));
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -139,12 +148,13 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 根据景区id查询景区信息
+     *
      * @param scenicIds 景区id
      * @return 景区信息
      */
     private Map<Long, ScenicVO> getScenicList(List<Long> scenicIds) {
         if (CollUtil.isEmpty(scenicIds)) {
-           return Maps.newLinkedHashMapWithExpectedSize(4);
+            return Maps.newLinkedHashMapWithExpectedSize(4);
         }
         List<ScenicVO> voList = scenicMapper.getList(scenicIds);
         return voList.stream().collect(Collectors.toMap(ScenicVO::getId, Function.identity()));
@@ -152,6 +162,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 根据民宿id查询民宿信息
+     *
      * @param homestayIds 民宿id
      * @return 民宿信息
      */
@@ -165,6 +176,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 根据零售店铺id查询店铺信息
+     *
      * @param storeIds 店铺id
      * @return 店铺信息
      */
@@ -178,6 +190,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 查询零售商品信息
+     *
      * @param itemIds 商品id
      * @return 商品信息
      */
@@ -191,6 +204,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 查询线路商品信息
+     *
      * @param lineIds ids
      * @return 线路信息
      */
@@ -204,6 +218,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 查询餐饮店信息
+     *
      * @param restaurantIds ids
      * @return 餐饮店信息
      */
@@ -217,6 +232,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 查询资讯信息
+     *
      * @param newsIds id
      * @return 资讯信息
      */
@@ -230,6 +246,7 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 查询旅行社信息
+     *
      * @param travelIds id
      * @return 旅行社信息
      */
@@ -243,8 +260,9 @@ public class MemberCollectServiceImpl implements MemberCollectService {
 
     /**
      * 获取用户收藏记录
-     * @param memberId 会员id
-     * @param collectId 收藏id
+     *
+     * @param memberId    会员id
+     * @param collectId   收藏id
      * @param collectType 收藏类型
      * @return 收藏记录
      */

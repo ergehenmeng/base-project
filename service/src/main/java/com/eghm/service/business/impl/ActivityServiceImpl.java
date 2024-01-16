@@ -145,8 +145,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     /**
      * 过滤某一天的活动并进行对象映射
+     *
      * @param selectList 活动列表
-     * @param date 天 yyyy-MM-dd
+     * @param date       天 yyyy-MM-dd
      * @return 该天的活动 倒叙列表
      */
     private List<ActivityBaseDTO> filterDateActivity(List<Activity> selectList, LocalDate date) {
@@ -157,9 +158,10 @@ public class ActivityServiceImpl implements ActivityService {
 
     /**
      * 活动标题重复校验 (在开始和截止时间内的活动名称不能重复)
-     * @param title 标题名称
+     *
+     * @param title     标题名称
      * @param startDate 开始时间
-     * @param endDate 截止时间
+     * @param endDate   截止时间
      */
     public void redoTitle(String title, LocalDate startDate, LocalDate endDate) {
         LambdaQueryWrapper<Activity> wrapper = Wrappers.lambdaQuery();
@@ -174,8 +176,9 @@ public class ActivityServiceImpl implements ActivityService {
 
     /**
      * 活动标题重复校验
-     * @param title 标题名称
-     * @param id id 编辑时不能为空
+     *
+     * @param title     标题名称
+     * @param id        id 编辑时不能为空
      * @param localDate 日期 同一日期标题不能重复
      */
     public void redoTitle(String title, Long id, LocalDate localDate) {

@@ -23,6 +23,7 @@ public interface NewsService {
 
     /**
      * 分页查询资讯
+     *
      * @param request 查询条件
      * @return 分页列表
      */
@@ -30,24 +31,28 @@ public interface NewsService {
 
     /**
      * 新增资讯
+     *
      * @param request 资讯信息
      */
     void create(NewsAddRequest request);
 
     /**
      * 更新资讯
+     *
      * @param request 资讯信息
      */
     void update(NewsEditRequest request);
 
     /**
      * 删除资讯
+     *
      * @param id 资讯id
      */
     void deleteById(Long id);
 
     /**
      * 移动端查询资讯列表
+     *
      * @param query 查询条件
      * @return 列表
      */
@@ -55,6 +60,7 @@ public interface NewsService {
 
     /**
      * 根据id查询资讯
+     *
      * @param id id
      * @return 资讯信息
      */
@@ -62,13 +68,15 @@ public interface NewsService {
 
     /**
      * 点赞或取消点赞
+     *
      * @param id id
      */
     void giveLike(Long id);
 
     /**
      * 排序
-     * @param id id
+     *
+     * @param id     id
      * @param sortBy 排序 最大999
      */
     void sortBy(Long id, Integer sortBy);

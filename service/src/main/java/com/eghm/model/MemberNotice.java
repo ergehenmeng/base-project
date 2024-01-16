@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 用户站内信
+ *
  * @author 二哥很猛
  */
 @Data

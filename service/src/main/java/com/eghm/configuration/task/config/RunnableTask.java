@@ -38,21 +38,18 @@ public class RunnableTask implements Runnable {
      * 方法名
      */
     private final Method method;
-
-    /**
-     * 日志记录
-     */
-    private SysTaskLogService sysTaskLogService;
-
-    /**
-     * 错误通知
-     */
-    private DingTalkService dingTalkService;
-
     /**
      * 执行任务时说明信息
      */
     private final Task task;
+    /**
+     * 日志记录
+     */
+    private SysTaskLogService sysTaskLogService;
+    /**
+     * 错误通知
+     */
+    private DingTalkService dingTalkService;
 
     RunnableTask(Task task) {
         this.task = task;

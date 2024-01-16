@@ -13,12 +13,14 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
 
     /**
      * 触发的事件类型
+     *
      * @return 事件类型
      */
     IEvent getEvent();
 
     /**
      * 状态机类型
+     *
      * @return 类型
      */
     ProductType getStateMachineType();
@@ -36,6 +38,7 @@ public interface ActionHandler<C extends Context> extends Action<Integer, IEvent
 
     /**
      * 真实业务处理
+     *
      * @param context 上下文信息
      */
     void doAction(C context);

@@ -13,6 +13,7 @@ public interface WebappLogService {
 
     /**
      * 分页查询列表
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -20,6 +21,7 @@ public interface WebappLogService {
 
     /**
      * 添加系统异常日志
+     *
      * @param log 日志信息
      */
     void insertWebappLog(WebappLog log);

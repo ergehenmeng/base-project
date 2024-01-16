@@ -16,11 +16,11 @@ import javax.validation.constraints.Size;
 public class AccountLoginDTO {
 
     @NotEmpty(message = "登陆账号不能为空")
-    @ApiModelProperty(value = "手机号或邮箱",required = true)
+    @ApiModelProperty(value = "手机号或邮箱", required = true)
     private String account;
 
-    @Size(min = 32,max = 32,message = "密码格式错误")
-    @ApiModelProperty(value = "密码,MD5小写加密过",required = true)
+    @Size(min = 32, max = 32, message = "密码格式错误")
+    @ApiModelProperty(value = "密码,MD5小写加密过", required = true)
     @NotBlank(message = "密码不能为空")
     private String pwd;
 

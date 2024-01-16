@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * https://pay.weixin.qq.com/wiki/doc/apiv3/apis/chapter3_5_2.shtml
+ *
  * @author 二哥很猛
  */
 @AllArgsConstructor

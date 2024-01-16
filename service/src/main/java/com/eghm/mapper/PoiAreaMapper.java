@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.PoiArea;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.PoiArea;
 import com.eghm.vo.poi.PoiAreaResponse;
 
 import java.util.List;

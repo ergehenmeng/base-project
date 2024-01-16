@@ -12,6 +12,7 @@ public interface JsonService {
 
     /**
      * 将对象转为json字符粗
+     *
      * @param o 对象
      * @return json串
      */
@@ -19,27 +20,30 @@ public interface JsonService {
 
     /**
      * 将json转换为对象
+     *
      * @param json json字符串
-     * @param cls 对象类型
-     * @param <T> <T>
+     * @param cls  对象类型
+     * @param <T>  <T>
      * @return obj
      */
     <T> T fromJson(String json, Class<T> cls);
 
     /**
      * 将json转换为对象 主要处理泛型类型
-     * @param json json
+     *
+     * @param json      json
      * @param reference 泛型指定类型
-     * @param <T> <T>
+     * @param <T>       <T>
      * @return obj
      */
     <T> T fromJson(String json, TypeReference<T> reference);
 
     /**
      * 将json转换为对象 list格式
+     *
      * @param json json
-     * @param cls cls
-     * @param <T> <T>
+     * @param cls  cls
+     * @param <T>  <T>
      * @return list
      */
     <T> List<T> fromJsonList(String json, Class<T> cls);

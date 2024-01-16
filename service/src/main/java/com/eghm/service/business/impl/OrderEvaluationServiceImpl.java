@@ -202,8 +202,9 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     /**
      * 计算好评率
+     *
      * @param total 总评价数
-     * @param bad 差评数
+     * @param bad   差评数
      * @return 好评率
      */
     private int getApplauseRate(long total, long bad) {
@@ -215,6 +216,7 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     /**
      * 隐藏昵称和头像
+     *
      * @param voList 评论信息
      */
     private void hiddenAnonymity(List<OrderEvaluationVO> voList) {
@@ -228,7 +230,8 @@ public class OrderEvaluationServiceImpl implements OrderEvaluationService {
 
     /**
      * 查询订单对应商品快照信息
-     * @param orderId 订单id
+     *
+     * @param orderId     订单id
      * @param productType 商品类型
      * @return 商品信息
      */

@@ -48,7 +48,7 @@ public class WebUtil {
     /**
      * 直接返回前台错误json格式信息
      *
-     * @param response 响应对象
+     * @param response  响应对象
      * @param errorCode 错误信息
      * @throws IOException exception
      */
@@ -63,6 +63,7 @@ public class WebUtil {
 
     /**
      * 是否为spring自动注入的对象
+     *
      * @param paramType 对象类型
      * @return true: 自动注入 false:非自动注入
      */
@@ -77,6 +78,7 @@ public class WebUtil {
 
     /**
      * 参数校验异常
+     *
      * @param result 绑定结果
      * @return 错误信息
      */
@@ -91,6 +93,7 @@ public class WebUtil {
 
     /**
      * 参数校验异常
+     *
      * @param result 绑定结果
      * @return 错误信息
      */

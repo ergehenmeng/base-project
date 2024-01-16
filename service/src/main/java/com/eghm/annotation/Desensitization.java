@@ -15,6 +15,7 @@ public @interface Desensitization {
 
     /**
      * 字段类型
+     *
      * @return 脱敏字段类型
      */
     FieldType value();

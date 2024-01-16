@@ -40,6 +40,47 @@ public class SignCheckInterceptor implements InterceptorAdapter {
 
     private final CacheProxyService cacheProxyService;
 
+    /**
+     * md5生成签名信息
+     *
+     * @param appSecret   appSecret
+     * @param requestBody 请求参数
+     * @param signature   源签名信息
+     */
+    private static void md5SignVerify(String appSecret, String requestBody, String timestamp, String signature) {
+        Map<String, String> param = new TreeMap<>();
+        param.put(CommonConstant.APP_SECRET, appSecret);
+        param.put(CommonConstant.DATA, Base64Encoder.encode(requestBody));
+        param.put(CommonConstant.TIMESTAMP, timestamp);
+        String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);
+        String target = MD5.create().digestHex(buildQuery);
+        boolean equals = signature.equals(target);
+        if (!equals) {
+            log.warn("md5签名信息验证失败 [{}] [{}]", signature, target);
+            throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
+        }
+    }
+
+    /**
+     * rsa生成签名信息 SHA256withRSA签名方式
+     *
+     * @param publicKey   公钥
+     * @param privateKey  私钥
+     * @param requestBody 请求参数
+     */
+    private static void rsaSignVerify(String privateKey, String publicKey, String requestBody, String timestamp, String signature) {
+        Map<String, String> param = new TreeMap<>();
+        param.put(CommonConstant.DATA, Base64Encoder.encode(requestBody));
+        param.put(CommonConstant.TIMESTAMP, timestamp);
+        String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);
+        Sign sign = SignUtil.sign(SignAlgorithm.SHA256withRSA, privateKey, publicKey);
+        boolean verify = sign.verify(buildQuery.getBytes(StandardCharsets.UTF_8), signature.getBytes(StandardCharsets.UTF_8));
+        if (!verify) {
+            log.warn("rsa签名信息验证失败 [{}] [{}] [{}] [{}]", privateKey, publicKey, requestBody, signature);
+            throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
+        }
+    }
+
     @Override
     public boolean beforeHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         SignCheck check = this.getAnnotation(handler, SignCheck.class);
@@ -76,47 +117,6 @@ public class SignCheckInterceptor implements InterceptorAdapter {
             rsaSignVerify(config.getPublicKey(), config.getPrivateKey(), message.getRequestParam(), message.getTimestamp(), message.getSignature());
         }
         return true;
-    }
-
-    /**
-     * md5生成签名信息
-     *
-     * @param appSecret appSecret
-     * @param requestBody 请求参数
-     * @param signature 源签名信息
-     */
-    private static void md5SignVerify(String appSecret, String requestBody, String timestamp, String signature) {
-        Map<String, String> param = new TreeMap<>();
-        param.put(CommonConstant.APP_SECRET, appSecret);
-        param.put(CommonConstant.DATA, Base64Encoder.encode(requestBody));
-        param.put(CommonConstant.TIMESTAMP, timestamp);
-        String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);
-        String target = MD5.create().digestHex(buildQuery);
-        boolean equals = signature.equals(target);
-        if (!equals) {
-            log.warn("md5签名信息验证失败 [{}] [{}]", signature, target);
-            throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
-        }
-    }
-
-    /**
-     * rsa生成签名信息 SHA256withRSA签名方式
-     *
-     * @param publicKey 公钥
-     * @param privateKey 私钥
-     * @param requestBody 请求参数
-     */
-    private static void rsaSignVerify(String privateKey, String publicKey, String requestBody, String timestamp, String signature) {
-        Map<String, String> param = new TreeMap<>();
-        param.put(CommonConstant.DATA, Base64Encoder.encode(requestBody));
-        param.put(CommonConstant.TIMESTAMP, timestamp);
-        String buildQuery = URLUtil.buildQuery(param, CommonConstant.CHARSET);
-        Sign sign = SignUtil.sign(SignAlgorithm.SHA256withRSA, privateKey, publicKey);
-        boolean verify = sign.verify(buildQuery.getBytes(StandardCharsets.UTF_8), signature.getBytes(StandardCharsets.UTF_8));
-        if (!verify) {
-            log.warn("rsa签名信息验证失败 [{}] [{}] [{}] [{}]", privateKey, publicKey, requestBody, signature);
-            throw new BusinessException(ErrorCode.SIGNATURE_VERIFY_ERROR);
-        }
     }
 
 }

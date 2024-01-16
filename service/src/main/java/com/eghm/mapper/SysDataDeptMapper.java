@@ -10,6 +10,7 @@ public interface SysDataDeptMapper extends BaseMapper<SysDataDept> {
 
     /**
      * 获取用户所拥有的所有部门(数据权限)
+     *
      * @param userId 用户id
      * @return 部门id
      */

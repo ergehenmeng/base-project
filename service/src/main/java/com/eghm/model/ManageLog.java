@@ -11,11 +11,12 @@ import java.time.LocalDateTime;
 
 /**
  * 后台系统操作日志
+ *
  * @author 二哥很猛
  */
 @Data
 @TableName("manage_log")
-public class ManageLog  {
+public class ManageLog {
 
     @TableId(type = IdType.ASSIGN_ID)
     @ApiModelProperty("id主键")

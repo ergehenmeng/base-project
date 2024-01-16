@@ -21,6 +21,7 @@ public interface LotteryService {
 
     /**
      * 查询抽奖配置列表
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -28,25 +29,29 @@ public interface LotteryService {
 
     /**
      * 新增抽奖活动
+     *
      * @param request 抽奖配置信息
      */
     void create(LotteryAddRequest request);
 
     /**
      * 更新抽奖活动
+     *
      * @param request 信息
      */
     void update(LotteryEditRequest request);
 
     /**
-     *  抽奖
+     * 抽奖
+     *
      * @param lotteryId 活动id
-     * @param memberId 用户id
+     * @param memberId  用户id
      */
     LotteryResultVO lottery(Long lotteryId, Long memberId);
 
     /**
      * 查询抽奖活动
+     *
      * @param lotteryId 活动id
      * @return 抽奖信息
      */
@@ -54,6 +59,7 @@ public interface LotteryService {
 
     /**
      * 查询抽奖活动
+     *
      * @param lotteryId 活动id
      * @return 抽奖信息
      */
@@ -61,6 +67,7 @@ public interface LotteryService {
 
     /**
      * 查询抽奖详情信息
+     *
      * @param lotteryId 抽奖配置ID
      * @return response
      */

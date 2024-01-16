@@ -24,7 +24,8 @@ public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
 
     /**
      * 分页查询门票订单
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */
@@ -32,6 +33,7 @@ public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
 
     /**
      * 查询餐饮快照
+     *
      * @param orderId 订单id
      * @param orderNo 订单编号
      * @return 商品餐饮快照
@@ -48,7 +50,8 @@ public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
 
     /**
      * 查询餐饮订单详情
-     * @param orderNo 订单编号
+     *
+     * @param orderNo  订单编号
      * @param memberId 会员id
      * @return 订单信息
      */
@@ -56,7 +59,8 @@ public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
 
     /**
      * 查询餐饮订单详情
-     * @param orderNo 订单编号
+     *
+     * @param orderNo    订单编号
      * @param merchantId 商户ID
      * @return 订单信息
      */

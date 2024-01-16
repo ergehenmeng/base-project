@@ -24,6 +24,7 @@ import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
 
 /**
  * 退款申请默认实现
+ *
  * @author 二哥很猛
  * @date 2022/8/19
  */
@@ -53,8 +54,9 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
      * 1. 更新订单状态
      * 2. 添加退款记录
      * 3. 如果直接退款,则发起退款申请
+     *
      * @param context 退款信息
-     * @param order 订单信息
+     * @param order   订单信息
      * @return 退款记录
      */
     protected OrderRefundLog doProcess(RefundApplyContext context, Order order) {
@@ -81,16 +83,19 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
 
     /**
      * 获取退款方式
+     *
      * @param order 订单信息
      * @return 退款方式
      */
     protected RefundType getRefundType(Order order) {
         return order.getRefundType();
     }
+
     /**
      * 退款申请成功的后置处理
-     * @param context 请求参数
-     * @param order 订单信息
+     *
+     * @param context   请求参数
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void after(RefundApplyContext context, Order order, OrderRefundLog refundLog) {
@@ -100,8 +105,9 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
 
     /**
      * 校验订单信息是否满足本次退款申请
+     *
      * @param context 订单申请信息
-     * @param order 主订单
+     * @param order   主订单
      */
     protected void before(RefundApplyContext context, Order order) {
         if (!context.getMemberId().equals(order.getMemberId())) {
@@ -116,7 +122,7 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
             log.error("订单状态不是待使用,无法退款 [{}] [{}]", context.getOrderNo(), order.getState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }
-        if (order.getRefundState()!= RefundState.APPLY) {
+        if (order.getRefundState() != RefundState.APPLY) {
             log.error("订单状态不是申请退款,无法退款 [{}] [{}]", context.getOrderNo(), order.getRefundState());
             throw new BusinessException(ErrorCode.STATE_NOT_REFUND);
         }
@@ -125,8 +131,9 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
 
     /**
      * 校验可退款金额
+     *
      * @param context 退款信息
-     * @param order 订单信息
+     * @param order   订单信息
      */
     protected void checkRefundAmount(RefundApplyContext context, Order order) {
         int totalAmount = order.getPrice() * context.getNum();
@@ -137,8 +144,9 @@ public abstract class AbstractOrderRefundApplyHandler implements RefundApplyHand
 
     /**
      * 直接退款时,需要二次校验是否满足本次退款要求
+     *
      * @param context 订单申请信息
-     * @param order 主订单
+     * @param order   主订单
      */
     protected void checkRefund(RefundApplyContext context, Order order) {
         int refundNum = orderRefundLogService.getTotalRefundNum(context.getOrderNo(), null);

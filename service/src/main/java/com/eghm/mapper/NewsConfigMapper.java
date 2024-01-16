@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.NewsConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.NewsConfig;
 import com.eghm.vo.business.news.NewsConfigResponse;
 
 import java.util.List;
@@ -18,6 +18,7 @@ public interface NewsConfigMapper extends BaseMapper<NewsConfig> {
 
     /**
      * 获取资讯配置列表
+     *
      * @return 资讯配置列表
      */
     List<NewsConfigResponse> getList();

@@ -7,8 +7,8 @@ import com.eghm.model.LineOrder;
 import com.eghm.model.Order;
 import com.eghm.service.business.LineConfigService;
 import com.eghm.service.business.LineOrderService;
-import com.eghm.service.business.OrderService;
 import com.eghm.service.business.MemberCouponService;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.state.impl.AbstractOrderCancelHandler;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +18,18 @@ import org.springframework.stereotype.Service;
  */
 @Service("lineOrderCancelHandler")
 public class LineOrderCancelHandler extends AbstractOrderCancelHandler {
-    
+
     private final LineConfigService lineConfigService;
-    
+
     private final LineOrderService lineOrderService;
-    
+
     public LineOrderCancelHandler(OrderService orderService, MemberCouponService memberCouponService,
-            LineConfigService lineConfigService, LineOrderService lineOrderService) {
+                                  LineConfigService lineConfigService, LineOrderService lineOrderService) {
         super(orderService, memberCouponService);
         this.lineConfigService = lineConfigService;
         this.lineOrderService = lineOrderService;
     }
-    
+
     @Override
     protected void after(Order order) {
         LineOrder lineOrder = lineOrderService.getByOrderNo(order.getOrderNo());

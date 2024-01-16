@@ -13,6 +13,7 @@ public interface NoticeTemplateService {
 
     /**
      * 分页查询列表
+     *
      * @param query 查询
      * @return 列表
      */
@@ -20,12 +21,14 @@ public interface NoticeTemplateService {
 
     /**
      * 更新模板
+     *
      * @param request request
      */
     void update(NoticeTemplateRequest request);
 
     /**
      * 查询站内信模板
+     *
      * @param code code
      * @return template
      */

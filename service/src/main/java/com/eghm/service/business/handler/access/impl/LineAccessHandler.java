@@ -28,6 +28,7 @@ public class LineAccessHandler extends AbstractAccessHandler {
         this.stateHandler = stateHandler;
         this.orderService = orderService;
     }
+
     @Override
     public void createOrder(Context context) {
         stateHandler.fireEvent(ProductType.LINE, OrderState.NONE.getValue(), LineEvent.CREATE, context);

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * 解决高版本SpringBoot与Swagger集成时由于依赖了actuator兼容性做的特殊处理
+ *
  * @author 二哥很猛
  * @since 2023/3/23
  */

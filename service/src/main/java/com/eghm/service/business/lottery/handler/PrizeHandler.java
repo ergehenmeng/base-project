@@ -12,6 +12,7 @@ public interface PrizeHandler {
 
     /**
      * 是否支持该奖品发放
+     *
      * @param prizeType 奖品类型
      * @return true:支持 false:不支持
      */
@@ -19,9 +20,10 @@ public interface PrizeHandler {
 
     /**
      * 发放抽奖奖品
+     *
      * @param memberId 用户ID
-     * @param lottery 抽奖信息
-     * @param config 中奖信息
+     * @param lottery  抽奖信息
+     * @param config   中奖信息
      */
     void execute(Long memberId, Lottery lottery, LotteryConfig config);
 }

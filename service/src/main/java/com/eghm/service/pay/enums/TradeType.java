@@ -1,8 +1,6 @@
 package com.eghm.service.pay.enums;
 
 
-import com.eghm.enums.ErrorCode;
-import com.eghm.exception.BusinessException;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +9,7 @@ import java.util.stream.Stream;
 
 /**
  * 交易类型
+ *
  * @author 二哥很猛
  */
 @AllArgsConstructor

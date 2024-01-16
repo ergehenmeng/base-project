@@ -1,11 +1,11 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.SmsTemplate;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.sms.SmsTemplateEditRequest;
 import com.eghm.dto.sms.SmsTemplateQueryRequest;
+import com.eghm.model.SmsTemplate;
 import com.eghm.service.sys.SmsTemplateService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

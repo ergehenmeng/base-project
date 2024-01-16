@@ -94,6 +94,7 @@ public class MessageInterceptor implements InterceptorAdapter {
 
     /**
      * 解析请求的参数信息
+     *
      * @param request request
      * @param handler handler
      * @return post请求: json get请求a=3&b=4

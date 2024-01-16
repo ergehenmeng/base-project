@@ -5,6 +5,7 @@ import lombok.Data;
 
 /**
  * <a href="https://api.kuaidi100.com/document/5f0ffb5ebc8da837cbd8aefc">具体状态查看</a>
+ *
  * @author 二哥很猛
  * @since 2023/11/28
  */

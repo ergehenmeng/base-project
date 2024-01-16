@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 门票订单流转事件
+ *
  * @author 二哥很猛
  * @since 2022/11/21
  */
@@ -61,7 +62,7 @@ public enum TicketEvent implements IEvent {
      * 订单取消
      */
     CANCEL(Lists.newArrayList(OrderState.UN_PAY.getValue()), OrderState.CLOSE.getValue()),
-    
+
     /**
      * 订单取消
      */

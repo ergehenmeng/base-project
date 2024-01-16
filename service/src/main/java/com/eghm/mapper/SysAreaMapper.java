@@ -13,6 +13,7 @@ public interface SysAreaMapper extends BaseMapper<SysArea> {
 
     /**
      * 获取地区列表
+     *
      * @return 列表
      */
     List<SysAreaVO> getList();

@@ -118,6 +118,7 @@ public class CouponServiceImpl implements CouponService {
 
     /**
      * 填充优惠券是否已领取字段属性
+     *
      * @param couponList 优惠券信息
      */
     private void fillAttribute(List<CouponListVO> couponList) {

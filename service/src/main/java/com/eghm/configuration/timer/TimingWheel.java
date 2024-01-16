@@ -37,21 +37,18 @@ public class TimingWheel {
      * 任务队列
      */
     private final DelayQueue<TaskBucket> queue;
-
-    /**
-     * 开启任务时的时间
-     */
-    private long currentTime;
-
-    /**
-     * 父级桶
-     */
-    private TimingWheel overflowWheel;
-
     /**
      * 当前桶的任务列表
      */
     private final TaskBucket[] buckets;
+    /**
+     * 开启任务时的时间
+     */
+    private long currentTime;
+    /**
+     * 父级桶
+     */
+    private TimingWheel overflowWheel;
 
 
     public TimingWheel(long scaleMs, int wheelSize, long startMs, AtomicInteger taskCounter, DelayQueue<TaskBucket> queue) {

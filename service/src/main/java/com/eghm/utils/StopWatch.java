@@ -16,24 +16,20 @@ import java.util.concurrent.TimeUnit;
 @Setter
 public class StopWatch {
 
-    private long startTime;
-
-    private String taskName;
-
-    private boolean started;
-
-    private long totalElapsedTime;
-
     private final List<TimeClock> taskList = new LinkedList<>();
-
-    public static StopWatch getStarted(String taskName) {
-        return new StopWatch(taskName);
-    }
+    private long startTime;
+    private String taskName;
+    private boolean started;
+    private long totalElapsedTime;
 
     private StopWatch(String taskName) {
         this.taskName = taskName;
         this.startTime = System.nanoTime();
         this.started = true;
+    }
+
+    public static StopWatch getStarted(String taskName) {
+        return new StopWatch(taskName);
     }
 
     public void start(String taskName) {
@@ -48,6 +44,7 @@ public class StopWatch {
     /**
      * 打印总耗时时间
      * 注意: 调用该方法自动会停止计时,如需继续请调用继续调用start方法
+     *
      * @return 耗时格式化打印
      */
     public String prettyPrint() {
@@ -67,6 +64,7 @@ public class StopWatch {
     /**
      * 获取总耗时时间
      * 注意: 调用该方法自动会停止计时,如需继续请调用继续调用start方法
+     *
      * @return 耗时时间 单位: ms
      */
     public long getElapsedTime() {
@@ -88,6 +86,7 @@ public class StopWatch {
     private static final class TimeClock {
         private String taskName;
         private long elapsedTime;
+
         public TimeClock(String taskName, long elapsedTime) {
             this.taskName = taskName;
             this.elapsedTime = elapsedTime;

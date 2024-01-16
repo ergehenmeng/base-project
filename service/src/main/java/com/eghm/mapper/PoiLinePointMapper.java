@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.PoiLinePoint;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.PoiLinePoint;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,6 +18,7 @@ public interface PoiLinePointMapper extends BaseMapper<PoiLinePoint> {
 
     /**
      * 获取线路点位id
+     *
      * @param lineId 线路
      * @return 点位id
      */

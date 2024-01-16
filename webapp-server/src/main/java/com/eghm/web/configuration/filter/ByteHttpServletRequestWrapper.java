@@ -49,14 +49,17 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
                 public boolean isFinished() {
                     return false;
                 }
+
                 @Override
                 public boolean isReady() {
                     return true;
                 }
+
                 @Override
                 public void setReadListener(ReadListener listener) {
                     log.warn("接受到请求啦, ReadListener不为空");
                 }
+
                 @Override
                 public int read() {
                     return byteArrayInputStream.read();
@@ -67,6 +70,7 @@ public class ByteHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
     /**
      * 过滤内容
+     *
      * @param content content
      * @return 默认不处理
      */

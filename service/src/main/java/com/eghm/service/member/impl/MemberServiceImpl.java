@@ -474,6 +474,7 @@ public class MemberServiceImpl implements MemberService {
 
     /**
      * 检查用户是否被封禁
+     *
      * @param member 用户
      */
     private void checkMemberLock(Member member) {
@@ -548,7 +549,7 @@ public class MemberServiceImpl implements MemberService {
      *
      * @param mobile 手机号
      * @param openId openId
-     * @param ip   ip
+     * @param ip     ip
      * @return 用户信息
      */
     private Member doMaRegister(String mobile, String openId, String ip) {

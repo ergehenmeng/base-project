@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * 为减少不必要的代码污染, 禁止在该类中添加其他参数,如需传递参数,可调用put方法
+ *
  * @author 殿小二
  * @date 2020/8/28
  */
@@ -35,7 +36,8 @@ public class SendEmail {
 
     /**
      * 添加参数信息
-     * @param key key
+     *
+     * @param key   key
      * @param value value
      */
     public void put(String key, Object value) {

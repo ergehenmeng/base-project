@@ -163,8 +163,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     /**
      * 校验角色是否重复
+     *
      * @param name 角色名称
-     * @param id id 编辑时不能为空
+     * @param id   id 编辑时不能为空
      */
     public void redoRole(String name, Long id) {
         LambdaQueryWrapper<SysRole> wrapper = Wrappers.lambdaQuery();

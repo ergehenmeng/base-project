@@ -22,7 +22,8 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
 
     /**
      * 分页统计购物车商品
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */
@@ -30,6 +31,7 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
 
     /**
      * 查询用户购物车商品列表
+     *
      * @param memberId 用户id
      * @return 商品列表
      */

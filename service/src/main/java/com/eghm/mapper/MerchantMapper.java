@@ -1,9 +1,9 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.model.Merchant;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.merchant.MerchantResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,7 +19,8 @@ public interface MerchantMapper extends BaseMapper<Merchant> {
 
     /**
      * 分页查询商户信息
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return list
      */
@@ -27,6 +28,7 @@ public interface MerchantMapper extends BaseMapper<Merchant> {
 
     /**
      * 查询商户对应的系统用户id
+     *
      * @param userId id
      * @return 系统用户id
      */

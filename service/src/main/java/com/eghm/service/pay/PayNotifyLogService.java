@@ -17,6 +17,7 @@ public interface PayNotifyLogService {
 
     /**
      * 分页查询支付退款异步请求的日志
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -24,19 +25,22 @@ public interface PayNotifyLogService {
 
     /**
      * 添加支付宝异步通知日志
-     * @param params 所有参数
+     *
+     * @param params   所有参数
      * @param stepType 通知类型
      */
     void insertAliLog(Map<String, String> params, StepType stepType);
 
     /**
      * 添加微信支付异步通知
+     *
      * @param result 通知原始数据
      */
     void insertWechatPayLog(WxPayNotifyV3Result result);
 
     /**
      * 添加微信退款异步通知
+     *
      * @param result 通知原始数据
      */
     void insertWechatRefundLog(WxPayRefundNotifyV3Result result);

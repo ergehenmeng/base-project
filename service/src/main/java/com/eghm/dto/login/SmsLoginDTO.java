@@ -15,13 +15,13 @@ import javax.validation.constraints.Size;
 @Data
 public class SmsLoginDTO {
 
-    @Size(min = 4,max = 6,message = "短信验证码格式错误")
+    @Size(min = 4, max = 6, message = "短信验证码格式错误")
     @NotBlank(message = "短信验证码不能为空")
-    @ApiModelProperty(value = "短信验证码4-6位",required = true)
+    @ApiModelProperty(value = "短信验证码4-6位", required = true)
     private String smsCode;
 
     @Mobile
-    @ApiModelProperty(value = "手机号",required = true)
+    @ApiModelProperty(value = "手机号", required = true)
     private String mobile;
 
     @ApiModelProperty(value = "ip", hidden = true)

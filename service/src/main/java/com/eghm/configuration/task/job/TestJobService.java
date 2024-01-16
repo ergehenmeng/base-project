@@ -1,9 +1,9 @@
 package com.eghm.configuration.task.job;
 
 import com.eghm.configuration.annotation.CronMark;
-import com.eghm.utils.DateUtil;
 import com.eghm.configuration.task.config.OnceTask;
 import com.eghm.configuration.task.config.SysTaskRegistrar;
+import com.eghm.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -32,12 +32,12 @@ public class TestJobService {
         onceDetail.setBeanName("onceJobService");
         onceDetail.setMethodName("execute");
         onceDetail.setArgs("一次性任务入参");
-        onceDetail.setExecuteTime(DateUtil.addSeconds(DateUtil.getNow(),10));
+        onceDetail.setExecuteTime(DateUtil.addSeconds(DateUtil.getNow(), 10));
         sysTaskRegistrar.addTask(onceDetail);
     }
 
     @Scheduled(cron = "0 0 0-5 * * ?")
     public void annotationTest() {
-        log.error("我是个注解配置的Job {}" , DateUtil.formatLong(DateUtil.getNow()));
+        log.error("我是个注解配置的Job {}", DateUtil.formatLong(DateUtil.getNow()));
     }
 }

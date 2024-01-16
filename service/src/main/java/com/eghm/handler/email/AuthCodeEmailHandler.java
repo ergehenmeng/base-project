@@ -13,19 +13,17 @@ import java.util.Map;
 
 /**
  * 用于发送邮箱验证码的基类handler
+ *
  * @author 殿小二
  * @date 2020/9/3
  */
 @Component("baseAuthCodeHandler")
 public class AuthCodeEmailHandler extends BaseEmailHandler {
 
-    private CacheService cacheService;
-
-    private SysConfigApi sysConfigApi;
-
     public static final String AUTH_CODE = "authCode";
-
     public static final String EMAIL = "email";
+    private CacheService cacheService;
+    private SysConfigApi sysConfigApi;
 
     @Autowired
     public void setSysConfigApi(SysConfigApi sysConfigApi) {

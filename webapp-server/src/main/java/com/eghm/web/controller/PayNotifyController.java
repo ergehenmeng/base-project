@@ -52,6 +52,26 @@ public class PayNotifyController {
 
     private final RedisLock redisLock;
 
+    /**
+     * 解析支付宝请求参数
+     *
+     * @param request 请求参数
+     * @return 解析后的参数
+     */
+    public static Map<String, String> parseRequest(HttpServletRequest request) {
+        Map<String, String> params = new HashMap<>(32);
+        Map<String, String[]> requestParams = request.getParameterMap();
+        for (Map.Entry<String, String[]> entry : requestParams.entrySet()) {
+            String[] values = entry.getValue();
+            String valueStr = "";
+            for (int i = 0; i < values.length; i++) {
+                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+            }
+            params.put(entry.getKey(), valueStr);
+        }
+        return params;
+    }
+
     @PostMapping(ALI_PAY_NOTIFY_URL)
     @ApiOperation("支付宝支付回调")
     public String aliPay(HttpServletRequest request) {
@@ -125,7 +145,7 @@ public class PayNotifyController {
         context.setOutRefundNo(outRefundNo);
         context.setOutTradeNo(outTradeNo);
 
-        return this.wechatResult(response,() -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
+        return this.wechatResult(response, () -> redisLock.lock(CacheConstant.WECHAT_REFUND_NOTIFY_LOCK + outTradeNo, 10_000, () -> {
             commonService.getHandler(outRefundNo, AccessHandler.class).refundNotify(context);
             return null;
         }));
@@ -133,6 +153,7 @@ public class PayNotifyController {
 
     /**
      * 组装支付宝异步通知
+     *
      * @param runnable 业务处理
      * @return 返回给支付宝的数据
      */
@@ -150,6 +171,7 @@ public class PayNotifyController {
 
     /**
      * 组装微信异步通知
+     *
      * @param response response
      * @param runnable 业务处理
      * @return 返回给微信的数据
@@ -174,6 +196,7 @@ public class PayNotifyController {
 
     /**
      * 解析微信请求头信息
+     *
      * @param headers 请求头
      * @return 验签对象
      */
@@ -184,25 +207,6 @@ public class PayNotifyController {
         header.setSerial(headers.getFirst(WeChatConstant.SERIAL));
         header.setNonce(headers.getFirst(WeChatConstant.NONCE));
         return header;
-    }
-
-    /**
-     * 解析支付宝请求参数
-     * @param request 请求参数
-     * @return 解析后的参数
-     */
-    public static Map<String, String> parseRequest(HttpServletRequest request) {
-        Map<String , String > params = new HashMap<>(32);
-        Map<String, String[]> requestParams = request.getParameterMap();
-        for (Map.Entry<String, String[]> entry : requestParams.entrySet()) {
-            String[] values = entry.getValue();
-            String valueStr = "";
-            for (int i = 0; i < values.length; i++) {
-                valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
-            }
-            params.put(entry.getKey(), valueStr);
-        }
-        return params;
     }
 
 }

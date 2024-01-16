@@ -21,6 +21,7 @@ public interface NewsConfigService {
 
     /**
      * 分页查询资讯配置
+     *
      * @param query 分页查询参数
      * @return 列表
      */
@@ -28,24 +29,28 @@ public interface NewsConfigService {
 
     /**
      * 查询资讯配置 (所有)
+     *
      * @return 列表
      */
     List<NewsConfigResponse> getList();
 
     /**
      * 新增资讯配置
+     *
      * @param request 资讯配置新增请求
      */
     void create(NewsConfigAddRequest request);
 
     /**
      * 修改资讯配置
+     *
      * @param request 资讯配置修改请求
      */
     void update(NewsConfigEditRequest request);
 
     /**
      * 删除资讯配置
+     *
      * @param id id
      */
     void deleteById(Long id);

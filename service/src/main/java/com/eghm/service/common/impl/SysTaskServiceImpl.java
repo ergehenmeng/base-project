@@ -15,7 +15,6 @@ import com.eghm.model.SysTask;
 import com.eghm.service.common.SysTaskService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DateUtil;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

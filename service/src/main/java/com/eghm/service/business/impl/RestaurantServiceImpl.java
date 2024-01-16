@@ -30,9 +30,9 @@ import com.eghm.service.sys.SysAreaService;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.restaurant.RestaurantVO;
-import com.eghm.vo.business.restaurant.RestaurantResponse;
 import com.eghm.vo.business.restaurant.RestaurantDetailVO;
+import com.eghm.vo.business.restaurant.RestaurantResponse;
+import com.eghm.vo.business.restaurant.RestaurantVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -51,7 +51,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
     private final RestaurantMapper restaurantMapper;
 
     private final SysAreaService sysAreaService;
-    
+
     private final CommonService commonService;
 
     private final OrderEvaluationMapper orderEvaluationMapper;
@@ -89,7 +89,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         this.redoTitle(request.getTitle(), request.getId());
         Restaurant required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
-        
+
         Restaurant restaurant = DataUtil.copy(request, Restaurant.class);
         restaurantMapper.updateById(restaurant);
     }
@@ -139,7 +139,7 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
         vo.setCollect(memberCollectService.checkCollect(id, CollectType.VOUCHER_STORE));
         return vo;
     }
-    
+
     @Override
     public void deleteById(Long id) {
         restaurantMapper.deleteById(id);
@@ -163,8 +163,9 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
 
     /**
      * 校验餐饮商家名称是否重复
+     *
      * @param title 名称
-     * @param id id 编辑时不能为空
+     * @param id    id 编辑时不能为空
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<Restaurant> wrapper = Wrappers.lambdaQuery();
@@ -176,12 +177,12 @@ public class RestaurantServiceImpl implements RestaurantService, MerchantInitSer
             throw new BusinessException(ErrorCode.RESTAURANT_TITLE_REDO);
         }
     }
-    
+
     @Override
     public boolean support(List<RoleType> roleTypes) {
         return roleTypes.contains(RoleType.RESTAURANT);
     }
-    
+
     @Override
     public void init(Merchant merchant) {
         Restaurant restaurant = new Restaurant();

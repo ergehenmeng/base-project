@@ -25,7 +25,7 @@ public class RedisLockImpl implements RedisLock {
 
     @Override
     public <T> T lock(String key, long lockTime, Supplier<T> supplier) {
-       return this.lock(key, 0, lockTime, supplier, null);
+        return this.lock(key, 0, lockTime, supplier, null);
     }
 
     @Override

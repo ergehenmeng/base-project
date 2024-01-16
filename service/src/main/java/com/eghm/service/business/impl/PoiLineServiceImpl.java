@@ -118,7 +118,7 @@ public class PoiLineServiceImpl implements PoiLineService {
      * 校验线路是否重复
      *
      * @param title 线路名称
-     * @param id 线路id
+     * @param id    线路id
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<PoiLine> wrapper = Wrappers.lambdaQuery();

@@ -44,12 +44,14 @@ public interface VoucherOrderService {
 
     /**
      * 插入餐饮订单
+     *
      * @param order 订单信息
      */
     void insert(VoucherOrder order);
 
     /**
      * 根据订单编号查询餐饮订单
+     *
      * @param orderNo 订单编号
      * @return 餐饮订单
      */
@@ -57,6 +59,7 @@ public interface VoucherOrderService {
 
     /**
      * 主键查询
+     *
      * @param id id
      * @return 餐饮订单
      */
@@ -64,6 +67,7 @@ public interface VoucherOrderService {
 
     /**
      * 查询餐饮快照
+     *
      * @param orderId 订单id
      * @param orderNo 订单编号
      * @return 商品餐饮快照
@@ -73,7 +77,7 @@ public interface VoucherOrderService {
     /**
      * 查询订单详情
      *
-     * @param orderNo 订单编号
+     * @param orderNo  订单编号
      * @param memberId 用户id
      * @return 订单详情
      */

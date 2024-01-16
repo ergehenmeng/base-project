@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 角色
+ *
  * @author 二哥很猛
  */
 @Data

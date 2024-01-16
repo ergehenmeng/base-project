@@ -44,6 +44,7 @@ public class StateHandler {
 
     /**
      * 注册状态机
+     *
      * @param machineType 状态机类型
      */
     @SuppressWarnings("unchecked")
@@ -67,10 +68,11 @@ public class StateHandler {
 
     /**
      * 执行流程
+     *
      * @param machineType 状态机名称
-     * @param from 原状态
-     * @param event 事件
-     * @param context 上下文内容
+     * @param from        原状态
+     * @param event       事件
+     * @param context     上下文内容
      */
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public void fireEvent(ProductType machineType, Integer from, IEvent event, Context context) {
@@ -79,6 +81,7 @@ public class StateHandler {
 
     /**
      * 获取状态机
+     *
      * @param machineType 状态机名称
      * @return 状态机
      */

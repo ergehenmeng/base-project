@@ -30,10 +30,11 @@ public interface CommonService {
 
     /**
      * 根据商品类型查询accessHandler
+     *
      * @param productType 商品类型
      * @param clsHandler  clsHandler
+     * @param <T>         T
      * @return accessHandler
-     * @param <T> T
      */
     <T> T getHandler(ProductType productType, Class<T> clsHandler);
 
@@ -47,20 +48,23 @@ public interface CommonService {
 
     /**
      * 根据给定的字典列表和标签id进行解析
+     *
      * @param dictList 字典列表
-     * @param tagIds 标签id 逗号分割
+     * @param tagIds   标签id 逗号分割
      * @return 标签名称
      */
     List<String> parseTags(List<SysDictItem> dictList, String tagIds);
 
     /**
      * 检查当前登陆用户是否为指定的商户id, 注意:如果登陆用户商户号(表示是管理员)为空则不校验
+     *
      * @param merchantId 商户号
      */
     void checkIllegal(Long merchantId);
 
     /**
      * 检查当前登陆用户是否为指定的商户id, 注意:如果登陆用户商户号(表示是管理员)为空则不校验
+     *
      * @param merchantId 商户号
      * @return true:非法 false:合法
      */
@@ -68,7 +72,8 @@ public interface CommonService {
 
     /**
      * 检查当前登陆用户是否为指定的商户id, 注意:如果登陆用户商户号(表示是管理员)为空则不校验
-     * @param merchantId 商户号
+     *
+     * @param merchantId      商户号
      * @param loginMerchantId 登录商户ID
      * @return true:非法 false:合法
      */

@@ -67,8 +67,7 @@ public enum ExpressType {
     /**
      * 其他
      */
-    OTHER("other", "其他")
-    ;
+    OTHER("other", "其他");
 
     private final String code;
 
@@ -76,6 +75,7 @@ public enum ExpressType {
 
     /**
      * 快递公司映射
+     *
      * @param code code
      * @return 角色列表
      */

@@ -31,9 +31,9 @@ import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.utils.DecimalUtil;
 import com.eghm.vo.business.evaluation.AvgScoreVO;
-import com.eghm.vo.business.homestay.HomestayVO;
-import com.eghm.vo.business.homestay.HomestayResponse;
 import com.eghm.vo.business.homestay.HomestayDetailVO;
+import com.eghm.vo.business.homestay.HomestayResponse;
+import com.eghm.vo.business.homestay.HomestayVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -92,7 +92,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
         this.titleRedo(request.getTitle(), request.getId());
         Homestay required = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(required.getMerchantId());
-    
+
         Homestay homestay = DataUtil.copy(request, Homestay.class);
         homestayMapper.updateById(homestay);
     }
@@ -187,6 +187,7 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
 
     /**
      * 校验民宿名称是否被占用
+     *
      * @param title 民宿名称
      * @param id    id
      */
@@ -200,14 +201,14 @@ public class HomestayServiceImpl implements HomestayService, MerchantInitService
             throw new BusinessException(ErrorCode.HOMESTAY_TITLE_REDO);
         }
     }
-    
+
     @Override
     public void init(Merchant merchant) {
         Homestay homestay = new Homestay();
         homestay.setMerchantId(merchant.getId());
         homestayMapper.insert(homestay);
     }
-    
+
     @Override
     public boolean support(List<RoleType> roleTypes) {
         return roleTypes.contains(RoleType.HOMESTAY);

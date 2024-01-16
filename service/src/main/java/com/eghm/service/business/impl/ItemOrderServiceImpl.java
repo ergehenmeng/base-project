@@ -243,6 +243,7 @@ public class ItemOrderServiceImpl implements ItemOrderService {
 
     /**
      * 拼接sku名称
+     *
      * @param sku sku信息
      * @return sku名称
      */

@@ -15,21 +15,21 @@ import java.math.BigDecimal;
  */
 @Data
 public class LotteryConfigRequest {
-    
+
     @ApiModelProperty(value = "奖品位置0-7", required = true)
     @NotBlank(message = "请选择奖品")
     private Integer prizeIndex;
-    
+
     @ApiModelProperty(value = "奖品类型不能为空", required = true)
     private PrizeType prizeType;
-    
+
     @ApiModelProperty(value = "中奖位置 1-8", required = true)
     @NotNull(message = "中奖位置不能为空")
     @RangeInt(min = 1, max = 8, message = "中奖位置应为1~8之间")
     private Integer location;
-    
+
     @ApiModelProperty(value = "中奖比例", required = true)
     @NotNull(message = "中奖概率不能为空")
     private BigDecimal ratio;
-    
+
 }

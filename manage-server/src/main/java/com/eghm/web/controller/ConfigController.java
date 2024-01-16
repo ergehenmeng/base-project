@@ -1,11 +1,11 @@
 package com.eghm.web.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.SysConfig;
 import com.eghm.dto.config.ConfigEditRequest;
 import com.eghm.dto.config.ConfigQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.SysConfig;
 import com.eghm.service.sys.SysConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

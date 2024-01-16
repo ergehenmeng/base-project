@@ -12,7 +12,8 @@ public interface ExpressService {
 
     /**
      * 查询快递信息
-     * @param expressNo 快递单号
+     *
+     * @param expressNo   快递单号
      * @param expressCode 快递公司编号
      * @return 快递节点信息
      */
@@ -20,9 +21,10 @@ public interface ExpressService {
 
     /**
      * 查询快递信息 (顺丰)
-     * @param expressNo  快递单号
+     *
+     * @param expressNo   快递单号
      * @param expressCode 快递公司编号
-     * @param phone 收发货人手机号
+     * @param phone       收发货人手机号
      * @return 快递节点信息
      */
     List<ExpressVO> getExpressList(String expressNo, String expressCode, String phone);

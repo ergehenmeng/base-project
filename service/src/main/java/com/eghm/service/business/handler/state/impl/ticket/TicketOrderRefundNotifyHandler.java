@@ -22,13 +22,13 @@ import org.springframework.stereotype.Service;
 @Service("ticketRefundNotifyHandler")
 @Slf4j
 public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
-    
+
     private final TicketOrderService ticketOrderService;
-    
+
     private final ScenicTicketService scenicTicketService;
 
     private final OrderVisitorService orderVisitorService;
-    
+
     public TicketOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                           AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
                                           TicketOrderService ticketOrderService, ScenicTicketService scenicTicketService,
@@ -38,7 +38,7 @@ public class TicketOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHan
         this.scenicTicketService = scenicTicketService;
         this.orderVisitorService = orderVisitorService;
     }
-    
+
     @Override
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         super.after(context, order, refundLog, refundStatus);

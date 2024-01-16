@@ -1,8 +1,8 @@
 package com.eghm.vo.sys;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.eghm.annotation.ExcelDict;
 import com.eghm.annotation.ExcelDesc;
+import com.eghm.annotation.ExcelDict;
 import com.eghm.convertor.excel.EnumExcelConverter;
 import com.eghm.dto.ext.ExcelStyle;
 import io.swagger.annotations.ApiModelProperty;

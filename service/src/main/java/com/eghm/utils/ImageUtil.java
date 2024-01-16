@@ -57,7 +57,7 @@ public class ImageUtil {
         Graphics g = outImage.getGraphics();
         Graphics2D g2d = (Graphics2D) g;
         // 设置背景色
-        g2d.setBackground(new Color(255,255,255));
+        g2d.setBackground(new Color(255, 255, 255));
         g2d.clearRect(0, 0, SIZE, SIZE);
 
         int size = bufferedImages.size();
@@ -67,18 +67,18 @@ public class ImageUtil {
         // 横向多少张图片
         int maxWidth = size > 4 ? 3 : 2;
         // 纵向多少张图片
-        int maxHeight = size % maxWidth == 0 ? size / maxWidth : size / maxWidth + 1 ;
+        int maxHeight = size % maxWidth == 0 ? size / maxWidth : size / maxWidth + 1;
         // 顶部多少张图片 2
         int topWidth = size % maxWidth;
         // 顶部间距
-        int topGap = getTopGap(maxWidth , maxHeight, width);
+        int topGap = getTopGap(maxWidth, maxHeight, width);
         // 顶部间距
-        int leftGap = getLeftGap(maxWidth , topWidth, width);
+        int leftGap = getLeftGap(maxWidth, topWidth, width);
         for (int i = 0; i < size; i++) {
-            if (i  < topWidth) {
+            if (i < topWidth) {
                 y = topGap;
                 if (topWidth == 1) {
-                   x = leftGap;
+                    x = leftGap;
                 } else {
                     x = leftGap + (width + GAP) * i;
                 }
@@ -102,6 +102,7 @@ public class ImageUtil {
 
     /**
      * 根据图片数获取图片的理论长宽 2~4宽度一样 5~9宽度一样
+     *
      * @param num 数量 2-9
      * @return 宽度
      */
@@ -109,13 +110,16 @@ public class ImageUtil {
         switch (num) {
             case 2:
             case 3:
-            case 4: return (SIZE - 3 * GAP) / 2;
+            case 4:
+                return (SIZE - 3 * GAP) / 2;
             case 5:
             case 6:
             case 7:
             case 8:
-            case 9: return (SIZE - 4 * GAP) / 3;
-            default: return 0;
+            case 9:
+                return (SIZE - 4 * GAP) / 3;
+            default:
+                return 0;
         }
     }
 
@@ -129,7 +133,7 @@ public class ImageUtil {
     /**
      * 左间距
      */
-    private static int getLeftGap(int maxWidthImg, int topWidth,  int width) {
+    private static int getLeftGap(int maxWidthImg, int topWidth, int width) {
         return (maxWidthImg == topWidth || topWidth == 0) ? GAP : calc(topWidth, width);
     }
 

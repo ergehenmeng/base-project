@@ -13,11 +13,11 @@ import javax.validation.constraints.Email;
 @Data
 public class BindEmailDTO {
 
-    @ApiModelProperty(value = "绑定的邮箱号",required = true)
+    @ApiModelProperty(value = "绑定的邮箱号", required = true)
     @Email(message = "邮箱地址不能为空")
     private String email;
 
-    @ApiModelProperty(value = "邮箱验证码",required = true)
+    @ApiModelProperty(value = "邮箱验证码", required = true)
     @Email(message = "邮箱验证码不能为空")
     private String authCode;
 

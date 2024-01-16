@@ -18,12 +18,14 @@ public interface ItemTagService {
 
     /**
      * 添加标签
+     *
      * @param request 标签信息
      */
     void create(ItemTagAddRequest request);
 
     /**
      * 更新标签信息
+     *
      * @param request 标签信息
      */
     void update(ItemTagEditRequest request);
@@ -38,6 +40,7 @@ public interface ItemTagService {
 
     /**
      * 查询标签列表, 组装成树状结构
+     *
      * @return 标签列表
      */
     List<ItemTagResponse> getList();

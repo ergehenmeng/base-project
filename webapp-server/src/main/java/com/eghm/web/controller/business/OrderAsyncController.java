@@ -72,9 +72,10 @@ public class OrderAsyncController {
      * 组装处理中的返回值结果
      * 注意: 前端不能无限制查询结果, 有最大次数限制, 因此需要保留前端访问的次数, 超过次数后默认下单失败;
      * 存储方式:  #0 #1 #2 前一位表示处理中, 后面表示访问的次数
-     * @param key   查询的key
-     * @param hashValue  查询的结果
-     * @param vo 结果信息存放
+     *
+     * @param key       查询的key
+     * @param hashValue 查询的结果
+     * @param vo        结果信息存放
      */
     private void setProcessResult(String key, String hashValue, OrderCreateVO<String> vo) {
         String accessStr = hashValue.replace(CacheConstant.PLACE_HOLDER, "");

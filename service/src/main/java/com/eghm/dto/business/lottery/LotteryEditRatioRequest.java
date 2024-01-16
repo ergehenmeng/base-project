@@ -23,5 +23,5 @@ public class LotteryEditRatioRequest {
     @NotEmpty(message = "中奖配置不能为空")
     @Size(min = 8, max = 8, message = "中奖配置应为8条")
     private List<LotteryRatioConfigRequest> ratioList;
-    
+
 }

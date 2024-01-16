@@ -99,6 +99,7 @@ public class MemberAddressServiceImpl implements MemberAddressService {
 
     /**
      * 校验用户录入的最大收货地址数
+     *
      * @param memberId 用户id
      */
     private void checkMaxAddress(Long memberId) {
@@ -114,6 +115,7 @@ public class MemberAddressServiceImpl implements MemberAddressService {
 
     /**
      * 填充省市县地址名称
+     *
      * @param address 地址
      */
     private void fillAreaName(MemberAddress address) {

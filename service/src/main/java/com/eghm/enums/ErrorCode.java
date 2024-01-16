@@ -8,6 +8,7 @@ import lombok.Getter;
  * 404 500等标准错误码返回前台时,可做特殊处理(多个业务共用一个错误码)
  * 1000+ 数据异常
  * 2000+ 业务异常
+ *
  * @author 二哥很猛
  */
 @AllArgsConstructor
@@ -19,12 +20,12 @@ public enum ErrorCode {
     /**
      * 用户登陆已过期
      */
-    LOGIN_TIMEOUT(8848,"登陆过期,请重新登陆"),
+    LOGIN_TIMEOUT(8848, "登陆过期,请重新登陆"),
 
     /**
      * 表示用户没有注册,需要进行手机号授权注册并登录
      */
-    MEMBER_REGISTER(8849,"请先授权登录"),
+    MEMBER_REGISTER(8849, "请先授权登录"),
 
     /**
      * 点击太快啦~~
@@ -34,187 +35,187 @@ public enum ErrorCode {
     /**
      * 亲~ 暂时没有访问权限哦
      */
-    ACCESS_DENIED(403,"亲~ 暂时没有访问权限哦"),
+    ACCESS_DENIED(403, "亲~ 暂时没有访问权限哦"),
 
     /**
      * 木有找到请求地址
      */
-    PAGE_NOT_FOUND(404,"木有找到请求地址"),
+    PAGE_NOT_FOUND(404, "木有找到请求地址"),
 
     /**
      * 暂无访问权限 (黑名单拦截)
      */
-    SYSTEM_AUTH(405,"暂无访问权限"),
+    SYSTEM_AUTH(405, "暂无访问权限"),
 
     /**
      * 系统繁忙,请稍后再试
      */
-    SYSTEM_ERROR(500,"系统繁忙,请稍后再试"),
-    
+    SYSTEM_ERROR(500, "系统繁忙,请稍后再试"),
+
     /**
      * 线程中断异常
      */
-    THREAD_INTERRUPTED(501,"线程中断异常"),
+    THREAD_INTERRUPTED(501, "线程中断异常"),
 
     /**
      * 应用上下文尚未完全启动
      */
-    SPRING_ON_LOADING(505,"Spring上下文尚未完全启动"),
+    SPRING_ON_LOADING(505, "Spring上下文尚未完全启动"),
 
     /**
      * 地址不支持%s请求
      */
-    METHOD_NOT_SUPPORTED(505,"地址不支持%s请求"),
+    METHOD_NOT_SUPPORTED(505, "地址不支持%s请求"),
 
     /**
      * 数据转换异常
      */
-    JSON_FORMAT_ERROR(1000,"数据转换异常"),
+    JSON_FORMAT_ERROR(1000, "数据转换异常"),
 
     /**
      * pbe加密失败
      */
-    ENCRYPT_ERROR(1001,"数据加密失败"),
+    ENCRYPT_ERROR(1001, "数据加密失败"),
 
     /**
      * 字符集转换错误
      */
-    CHARSET_CONVERT_ERROR(1002,"字符集转换错误"),
+    CHARSET_CONVERT_ERROR(1002, "字符集转换错误"),
 
     /**
      * 数据解密失败
      */
-    DECRYPT_ERROR(1003,"数据解密失败"),
+    DECRYPT_ERROR(1003, "数据解密失败"),
 
     /**
-     *数据加解密失败
+     * 数据加解密失败
      */
-    ENCRYPT_DECRYPT_ERROR(1004,"数据加解密失败"),
+    ENCRYPT_DECRYPT_ERROR(1004, "数据加解密失败"),
 
     /**
      * 对象转换异常
      */
-    BEAN_COPY_ERROR(1005,"对象转换异常"),
+    BEAN_COPY_ERROR(1005, "对象转换异常"),
 
     /**
      * 数据加密异常,请联系管理人员
      */
-    SHA_256_ERROR(1006,"数据加密异常"),
+    SHA_256_ERROR(1006, "数据加密异常"),
 
     /**
      * 验签异常
      */
-    SIGN_NULL_ERROR(1007,"验签异常"),
+    SIGN_NULL_ERROR(1007, "验签异常"),
 
     /**
      * 验签失败
      */
-    SIGN_ERROR(1008,"验签失败"),
+    SIGN_ERROR(1008, "验签失败"),
 
     /**
      * 未指定方法实现
      */
-    NOT_IMPLEMENT(1009,"未指定方法实现"),
+    NOT_IMPLEMENT(1009, "未指定方法实现"),
 
     /**
      * 参数转换异常
      */
-    PARAMETER_CASE_ERROR(1010,"参数转换异常"),
+    PARAMETER_CASE_ERROR(1010, "参数转换异常"),
 
     /**
-     *未知主机名
+     * 未知主机名
      */
-    UN_KNOW_HOSTNAME(1011,"未知主机名"),
+    UN_KNOW_HOSTNAME(1011, "未知主机名"),
 
     /**
      * 未知主机地址
      */
-    UN_KNOW_HOST_ADDRESS(1012,"未知主机地址"),
+    UN_KNOW_HOST_ADDRESS(1012, "未知主机地址"),
 
     /**
      * 请求接口非法
      */
-    REQUEST_INTERFACE_ERROR(1013,"请求接口非法"),
+    REQUEST_INTERFACE_ERROR(1013, "请求接口非法"),
 
     /**
      * 请求参数非法
      */
-    REQUEST_PARAM_ILLEGAL(1014,"请求参数非法"),
+    REQUEST_PARAM_ILLEGAL(1014, "请求参数非法"),
 
     /**
      * 请求解析异常
      */
-    REQUEST_RESOLVE_ERROR(1015,"请求解析异常"),
+    REQUEST_RESOLVE_ERROR(1015, "请求解析异常"),
 
     /**
      * 签名信息为空
      */
-    SIGNATURE_ERROR(1018,"签名信息为空"),
+    SIGNATURE_ERROR(1018, "签名信息为空"),
 
     /**
      * 时间戳为空
      */
-    SIGNATURE_TIMESTAMP_NULL(1020,"数字签名为空"),
+    SIGNATURE_TIMESTAMP_NULL(1020, "数字签名为空"),
 
     /**
      * 签名信息已过期
      */
-    SIGNATURE_EXPIRE(1023,"签名信息已过期"),
+    SIGNATURE_EXPIRE(1023, "签名信息已过期"),
 
     /**
      * 请求已过期
      */
-    SIGNATURE_TIMESTAMP_ERROR(1025,"签名信息已过有效期"),
+    SIGNATURE_TIMESTAMP_ERROR(1025, "签名信息已过有效期"),
 
     /**
      * 签名校验异常
      */
-    SIGNATURE_VERIFY_ERROR(1031,"签名校验失败"),
+    SIGNATURE_VERIFY_ERROR(1031, "签名校验失败"),
 
     /**
      * 读取请求参数异常
      */
-    READ_PARAM_ERROR(1033,"读取请求参数异常"),
+    READ_PARAM_ERROR(1033, "读取请求参数异常"),
 
     /**
      * 非法操作 操作了不属于自己的数据
      */
-    ILLEGAL_OPERATION(1035,"非法操作"),
+    ILLEGAL_OPERATION(1035, "非法操作"),
 
     /**
      * 非管理员,无权限进行授权操作
      */
-    ADMIN_AUTH(1043,"非管理员,无权限进行授权操作"),
+    ADMIN_AUTH(1043, "非管理员,无权限进行授权操作"),
 
     /**
      * 转换器不支持非枚举类
      */
-    ENUM_SUPPORTED(1045,"转换器不支持非枚举类"),
+    ENUM_SUPPORTED(1045, "转换器不支持非枚举类"),
 
     /**
      * 定时任务尚未激活
      */
-    TASK_CONFIG_NULL(1046,"定时任务尚未激活"),
+    TASK_CONFIG_NULL(1046, "定时任务尚未激活"),
 
     /**
      * 定时任务配置异常
      */
-    TASK_CONFIG_ERROR(1050,"定时任务配置异常"),
+    TASK_CONFIG_ERROR(1050, "定时任务配置异常"),
 
     /**
      * 任务未查询到
      */
-    TASK_NULL_ERROR(1057,"任务未查询到"),
+    TASK_NULL_ERROR(1057, "任务未查询到"),
 
     /**
      * 数据权限不匹配
      */
-    DATA_TYPE_ERROR(1059,"数据权限不匹配"),
+    DATA_TYPE_ERROR(1059, "数据权限不匹配"),
 
     /**
      * 缓存不能为空
      */
-    CACHE_VALUE_NULL(1101,"缓存不能为空"),
+    CACHE_VALUE_NULL(1101, "缓存不能为空"),
 
     /**
      * 屏幕锁定中
@@ -229,52 +230,52 @@ public enum ErrorCode {
     /**
      * 参数解析异常
      */
-    PARAM_VERIFY_ERROR(2000,"%s"),
+    PARAM_VERIFY_ERROR(2000, "%s"),
 
     /**
      * 参数解析异常
      */
-    PARAM_NULL_ERROR(2000,"%s参数不能为空"),
+    PARAM_NULL_ERROR(2000, "%s参数不能为空"),
 
     /**
      * 身份证格式错误
      */
-    ID_CARD_ERROR(2001,"身份证格式错误"),
+    ID_CARD_ERROR(2001, "身份证格式错误"),
 
     /**
      * 对象不能为空
      */
-    NOT_NULL_ERROR(2002,"对象不能为空"),
+    NOT_NULL_ERROR(2002, "对象不能为空"),
 
     /**
      * select指定nid不能为空
      */
-    NID_IS_NULL(2003,"@select指定nid不能为空"),
+    NID_IS_NULL(2003, "@select指定nid不能为空"),
 
     /**
      * 权限校验异常,请联系管理人员
      */
-    PERMISSION_ERROR(2004,"权限校验异常,请联系管理人员"),
+    PERMISSION_ERROR(2004, "权限校验异常,请联系管理人员"),
 
     /**
      * 日志异常,用户未登陆
      */
-    OPERATION_LOGIN_ERROR(2005,"日志异常,用户未登陆"),
+    OPERATION_LOGIN_ERROR(2005, "日志异常,用户未登陆"),
 
     /**
      * auth指定的nid不能为空
      */
-    AUTH_NID_ERROR(2006,"@auth指定的nid不能为空"),
+    AUTH_NID_ERROR(2006, "@auth指定的nid不能为空"),
 
     /**
      * 日期格式转换异常
      */
-    DATE_CASE_ERROR(2007,"日期格式转换异常"),
+    DATE_CASE_ERROR(2007, "日期格式转换异常"),
 
     /**
      * 模板解析失败
      */
-    TEMPLATE_RENDER_ERROR(2008,"模板解析失败"),
+    TEMPLATE_RENDER_ERROR(2008, "模板解析失败"),
 
     /**
      * 手机号码被占用
@@ -304,223 +305,223 @@ public enum ErrorCode {
     /**
      * 系统配置信息未查询到
      */
-    CONFIG_NOT_FOUND_ERROR(3000,"系统配置信息未查询到"),
+    CONFIG_NOT_FOUND_ERROR(3000, "系统配置信息未查询到"),
 
     /**
      * 系统配置信息更新失败
      */
-    UPDATE_CONFIG_ERROR(3001,"系统配置信息更新失败"),
+    UPDATE_CONFIG_ERROR(3001, "系统配置信息更新失败"),
 
     /**
      * 菜单信息更新失败
      */
-    UPDATE_MENU_ERROR(3002,"菜单信息更新失败"),
+    UPDATE_MENU_ERROR(3002, "菜单信息更新失败"),
 
     /**
      * 父菜单不存在
      */
-    PID_MENU_NULL(3402,"父菜单不存在"),
+    PID_MENU_NULL(3402, "父菜单不存在"),
 
 
     /**
      * 菜单名称重复啦
      */
-    MENU_TITLE_REDO(3403,"菜单名称重复啦"),
+    MENU_TITLE_REDO(3403, "菜单名称重复啦"),
 
     /**
      * 菜单显示状态与父菜单不匹配
      */
-    PID_MENU_STATE(3404,"菜单显示状态与父菜单不匹配"),
+    PID_MENU_STATE(3404, "菜单显示状态与父菜单不匹配"),
 
     /**
      * 验证码输入错误
      */
-    IMAGE_CODE_ERROR(3003,"验证码输入错误"),
+    IMAGE_CODE_ERROR(3003, "验证码输入错误"),
 
     /**
      * 账户或密码错误
      */
-    ACCOUNT_PASSWORD_ERROR(3004,"账户或密码输入错误"),
+    ACCOUNT_PASSWORD_ERROR(3004, "账户或密码输入错误"),
 
     /**
      * 用户信息不存在
      */
-    USER_NOT_FOUND(3005,"用户信息不存在"),
+    USER_NOT_FOUND(3005, "用户信息不存在"),
 
     /**
      * 用户已锁定,请联系管理人员
      */
-    USER_LOCKED_ERROR(3006,"用户已锁定,请联系管理人员"),
+    USER_LOCKED_ERROR(3006, "用户已锁定,请联系管理人员"),
 
     /**
      * 系统参数已锁定
      */
-    CONFIG_LOCK_ERROR(3007,"系统参数已锁定"),
+    CONFIG_LOCK_ERROR(3007, "系统参数已锁定"),
 
     /**
      * 旧密码输入错误
      */
-    USER_PASSWORD_ERROR(3010,"旧密码输入错误"),
+    USER_PASSWORD_ERROR(3010, "旧密码输入错误"),
 
     /**
      * 上传文件过大
      */
-    UPLOAD_TOO_BIG(3011,"上传文件过大"),
+    UPLOAD_TOO_BIG(3011, "上传文件过大"),
 
     /**
      * 文件保存失败
      */
-    FILE_SAVE_ERROR(3012,"文件保存失败"),
+    FILE_SAVE_ERROR(3012, "文件保存失败"),
 
     /**
      * 创建文件失败
      */
-    FILE_CREATE_ERROR(3013,"创建文件失败"),
+    FILE_CREATE_ERROR(3013, "创建文件失败"),
 
     /**
      * 该数据字典已锁定
      */
-    DICT_LOCKED_ERROR(3014,"该数据字典已锁定"),
+    DICT_LOCKED_ERROR(3014, "该数据字典已锁定"),
 
     /**
      * 同级菜单最多90个
      */
-    MENU_MAX_ERROR(3015,"同级菜单最多90个"),
+    MENU_MAX_ERROR(3015, "同级菜单最多90个"),
 
     /**
      * 用户已在其他设备上登陆
      */
-    MULTIPLE_CLIENT_LOGIN(3016,"用户已在其他设备上登陆"),
+    MULTIPLE_CLIENT_LOGIN(3016, "用户已在其他设备上登陆"),
 
     /**
      * 用户不存在
      */
-    MEMBER_NOT_FOUND(3017,"用户不存在"),
+    MEMBER_NOT_FOUND(3017, "用户不存在"),
 
     /**
      * 账号或密码错误
      */
-    PASSWORD_ERROR(3018,"账号或密码错误"),
+    PASSWORD_ERROR(3018, "账号或密码错误"),
 
     /**
      * 验证码已过期
      */
-    LOGIN_SMS_CODE_EXPIRE(3019,"验证码已过期"),
+    LOGIN_SMS_CODE_EXPIRE(3019, "验证码已过期"),
 
     /**
      * 短信验证码错误
      */
-    LOGIN_SMS_CODE_ERROR(3020,"验证码输入错误"),
+    LOGIN_SMS_CODE_ERROR(3020, "验证码输入错误"),
 
     /**
      * 手机号未注册
      */
-    MOBILE_NOT_REGISTER(3021,"手机号未注册"),
+    MOBILE_NOT_REGISTER(3021, "手机号未注册"),
 
     /**
      * 短信发送频率太快
      */
-    SMS_FREQUENCY_FAST(3022,"短信发送频率太快"),
+    SMS_FREQUENCY_FAST(3022, "短信发送频率太快"),
 
     /**
      * 单位小时内短信发送上限
      */
-    SMS_HOUR_LIMIT(3023,"单位小时内短信发送上限"),
+    SMS_HOUR_LIMIT(3023, "单位小时内短信发送上限"),
 
     /**
      * 当天内短信发送上限(统一类型短信)
      */
-    SMS_DAY_LIMIT(3024,"当天内短信发送上限"),
+    SMS_DAY_LIMIT(3024, "当天内短信发送上限"),
 
     /**
      * 当天内短信发送上限(统一手机号短信)
      */
-    MOBILE_DAY_LIMIT(3025,"当天内短信发送上限"),
+    MOBILE_DAY_LIMIT(3025, "当天内短信发送上限"),
 
     /**
      * 版本号重复
      */
-    VERSION_REDO(3325,"版本号重复"),
+    VERSION_REDO(3325, "版本号重复"),
 
     /**
      * 该手机号已注册
      */
-    MOBILE_REGISTER_REDO(3026,"该手机号已注册"),
+    MOBILE_REGISTER_REDO(3026, "该手机号已注册"),
 
     /**
      * cron表达式配置错误
      */
-    CRON_CONFIG_ERROR(3027,"cron表达式配置错误"),
+    CRON_CONFIG_ERROR(3027, "cron表达式配置错误"),
 
     /**
      * 按钮菜单无法添加子菜单
      */
-    SUB_MENU_ERROR(3027,"按钮菜单无法添加子菜单"),
+    SUB_MENU_ERROR(3027, "按钮菜单无法添加子菜单"),
 
     /**
      * 内容不能为空
      */
-    TEXT_CONTENT_EMPTY(3028,"内容不能为空"),
+    TEXT_CONTENT_EMPTY(3028, "内容不能为空"),
 
     /**
      * 新设备登陆校验
      */
-    NEW_DEVICE_LOGIN(3029,"新设备登陆校验"),
+    NEW_DEVICE_LOGIN(3029, "新设备登陆校验"),
 
     /**
      * 账号在其他设备上登陆
      */
-    KICK_OFF_LINE(3030,"账号在其他设备上登陆"),
+    KICK_OFF_LINE(3030, "账号在其他设备上登陆"),
 
     /**
      * 邮件服务可能未配置
      */
-    MAIL_NOT_CONFIG(3031,"邮件服务可能未配置"),
+    MAIL_NOT_CONFIG(3031, "邮件服务可能未配置"),
 
     /**
      * 部门层级已上限
      */
-    DEPARTMENT_DEPTH_ERROR(3032,"部门层级已上限"),
+    DEPARTMENT_DEPTH_ERROR(3032, "部门层级已上限"),
 
     /**
      * 邮件模板未配置
      */
-    EMAIL_TEMPLATE_NULL(3045,"邮件模板未配置"),
+    EMAIL_TEMPLATE_NULL(3045, "邮件模板未配置"),
 
     /**
      * 请勿重复绑定邮箱
      */
-    EMAIL_REDO_BIND(3048,"请勿重复绑定邮箱"),
+    EMAIL_REDO_BIND(3048, "请勿重复绑定邮箱"),
 
     /**
      * 请先获取邮箱验证码
      */
-    EMAIL_ADDRESS_ERROR(3050,"请先获取邮箱验证码"),
+    EMAIL_ADDRESS_ERROR(3050, "请先获取邮箱验证码"),
 
     /**
      * 邮箱验证码输入错误
      */
-    EMAIL_CODE_ERROR(3050,"邮箱验证码输入错误"),
+    EMAIL_CODE_ERROR(3050, "邮箱验证码输入错误"),
 
     /**
      * 邮箱已被占用
      */
-    EMAIL_OCCUPY_ERROR(3053,"邮箱已被占用"),
+    EMAIL_OCCUPY_ERROR(3053, "邮箱已被占用"),
 
     /**
      * 请先绑定手机号
      */
-    MOBILE_NOT_BIND(3055,"请先绑定手机号"),
+    MOBILE_NOT_BIND(3055, "请先绑定手机号"),
 
     /**
      * 请勿重复签到
      */
-    SIGN_IN_REDO(3058,"请勿重复签到"),
+    SIGN_IN_REDO(3058, "请勿重复签到"),
 
     /**
      * 数据格式异常
      */
-    DATA_ERROR(3059,"数据格式异常"),
+    DATA_ERROR(3059, "数据格式异常"),
 
     /**
      * 用户地址未查询到
@@ -1106,32 +1107,32 @@ public enum ErrorCode {
      * 该商家已下架
      */
     RESTAURANT_DOWN(3275, "该商家已下架"),
-    
+
     /**
      * 旅行社名称重复
      */
     TRAVEL_AGENCY_REDO(3300, "旅行社名称重复"),
-    
+
     /**
      * 旅行社信息不存在
      */
     TRAVEL_AGENCY_NOT_FOUND(3302, "旅行社信息不存在"),
-    
+
     /**
      * 规格值重复啦
      */
     SKU_TITLE_REDO(3305, "规格值重复啦"),
-    
+
     /**
      * 活动名称重复啦~
      */
     LOTTERY_REDO(3401, "活动名称重复啦~"),
-    
+
     /**
      * 中奖比例总和应为100%
      */
     LOTTERY_RATIO(3403, "中奖比例总和应为100%"),
-    
+
     /**
      * 抽奖配置位置错误
      */
@@ -1270,222 +1271,222 @@ public enum ErrorCode {
     /**
      * 该账号已禁用,详细情况请联系客服
      */
-    MEMBER_LOGIN_FORBID(3636,"账号已禁用,详细情况请联系客服"),
+    MEMBER_LOGIN_FORBID(3636, "账号已禁用,详细情况请联系客服"),
 
     /**
      * 标签id生成错误
      */
-    ITEM_TAG_NULL(3646,"标签id生成错误"),
+    ITEM_TAG_NULL(3646, "标签id生成错误"),
 
     /**
      * 标签已被使用,无法删除
      */
-    TAG_USED(3647,"标签已被使用,无法删除"),
+    TAG_USED(3647, "标签已被使用,无法删除"),
 
     /**
      * 标签层级太深,不支持创建
      */
-    TAG_DEPTH(3648,"标签层级太深,不支持创建"),
+    TAG_DEPTH(3648, "标签层级太深,不支持创建"),
 
     /**
      * 该快递模板无权限操作
      */
-    EXPRESS_NULL(3640,"该快递模板无权限操作"),
+    EXPRESS_NULL(3640, "该快递模板无权限操作"),
 
     /**
      * 商品不属于同一个店铺
      */
-    ITEM_NOT_STORE(3644,"商品不属于同一个店铺"),
+    ITEM_NOT_STORE(3644, "商品不属于同一个店铺"),
 
     /**
      * 存在已下架的商品
      */
-    ITEM_MAY_DOWN(3648,"存在已下架的商品"),
+    ITEM_MAY_DOWN(3648, "存在已下架的商品"),
 
     /**
      * 该地区暂不支持配送
      */
-    EXPRESS_NOT_SUPPORT(3653,"该地区暂不支持配送"),
+    EXPRESS_NOT_SUPPORT(3653, "该地区暂不支持配送"),
 
     /**
      * 商品参数非法
      */
-    SKU_ITEM_MATCH(3658,"商品参数非法"),
+    SKU_ITEM_MATCH(3658, "商品参数非法"),
 
     /**
      * 请选择商品
      */
-    ORDER_ITEM_NULL(3662,"请选择商品"),
+    ORDER_ITEM_NULL(3662, "请选择商品"),
 
     /**
      * 请选择要发货的商品
      */
-    ORDER_ITEM_CHOOSE(3663,"请选择要发货的商品"),
+    ORDER_ITEM_CHOOSE(3663, "请选择要发货的商品"),
 
     /**
      * 该模板已关联商品, 无法修改计费方式
      */
-    EXPRESS_CHARGE_MODE(3664,"物流模板已关联商品, 无法修改计费方式"),
+    EXPRESS_CHARGE_MODE(3664, "物流模板已关联商品, 无法修改计费方式"),
 
     /**
      * 该模板已关联商品, 无法删除模板
      */
-    EXPRESS_NOT_DELETE(3665,"物流模板已关联商品, 无法删除模板"),
+    EXPRESS_NOT_DELETE(3665, "物流模板已关联商品, 无法删除模板"),
 
     /**
      * 请选择未退款的商品
      */
-    CHOOSE_NO_REFUND(3666,"请选择未退款的商品"),
+    CHOOSE_NO_REFUND(3666, "请选择未退款的商品"),
 
     /**
      * 请选择未发货的商品
      */
-    CHOOSE_NO_DELIVERY(3667,"请选择未发货的商品"),
+    CHOOSE_NO_DELIVERY(3667, "请选择未发货的商品"),
 
     /**
      * 请选择需要发快递的商品
      */
-    CHOOSE_EXPRESS(3668,"请选择需要发快递的商品"),
+    CHOOSE_EXPRESS(3668, "请选择需要发快递的商品"),
 
     /**
      * 物流模板不存在或已删除
      */
-    EXPRESS_NOT_FOUND(3669,"物流模板不存在或已删除"),
+    EXPRESS_NOT_FOUND(3669, "物流模板不存在或已删除"),
 
     /**
      * 物流模板为计重方式,请填写商品重量
      */
-    EXPRESS_WEIGHT(3670,"物流模板为计重方式,请填写商品重量"),
+    EXPRESS_WEIGHT(3670, "物流模板为计重方式,请填写商品重量"),
 
     /**
      * 订单信息未查询到
      */
-    PRODUCT_SNAPSHOT_NULL(3673,"订单信息未查询到"),
+    PRODUCT_SNAPSHOT_NULL(3673, "订单信息未查询到"),
 
     /**
      * 订单已完成,无法评价
      */
-    ORDER_COMPLETE(3675,"订单已完成,无法评价"),
+    ORDER_COMPLETE(3675, "订单已完成,无法评价"),
 
     /**
      * 评论信息未查询到
      */
-    EVALUATION_NULL(3677,"评论信息未查询到"),
+    EVALUATION_NULL(3677, "评论信息未查询到"),
 
     /**
      * 商户用户未查询到
      */
-    MERCHANT_USER_NULL(3680,"商户用户未查询到"),
+    MERCHANT_USER_NULL(3680, "商户用户未查询到"),
 
     /**
      * 单位名称重复啦
      */
-    AUTH_TITLE_REDO(3683,"单位名称重复啦"),
+    AUTH_TITLE_REDO(3683, "单位名称重复啦"),
 
     /**
      * 快递信息未查询到
      */
-    EXPRESS_SELECT_NULL(3686,"快递信息未查询到"),
+    EXPRESS_SELECT_NULL(3686, "快递信息未查询到"),
 
     /**
      * 区域名称重复
      */
-    AREA_TITLE_REDO(3688,"区域名称重复"),
+    AREA_TITLE_REDO(3688, "区域名称重复"),
 
     /**
      * 区域编号重复
      */
-    AREA_CODE_REDO(3690,"区域编号重复"),
+    AREA_CODE_REDO(3690, "区域编号重复"),
 
     /**
      * POI类型重复
      */
-    TYPE_CODE_REDO(3690,"POI类型重复"),
+    TYPE_CODE_REDO(3690, "POI类型重复"),
 
     /**
      * POI类型已被使用
      */
-    TYPE_POINT_OCCUPY(3693,"POI类型已被使用"),
+    TYPE_POINT_OCCUPY(3693, "POI类型已被使用"),
 
     /**
      * 点位名称重复
      */
-    AREA_POINT_REDO(3695,"点位名称重复"),
+    AREA_POINT_REDO(3695, "点位名称重复"),
 
     /**
      * POI点位信息不存在
      */
-    AREA_POINT_NULL(3696,"POI点位信息不存在"),
+    AREA_POINT_NULL(3696, "POI点位信息不存在"),
 
     /**
      * 线路名称重复
      */
-    POI_LINE_REDO(3700,"线路名称重复"),
+    POI_LINE_REDO(3700, "线路名称重复"),
 
     /**
      * 线路信息不存在
      */
-    POI_LINE_NULL(3703,"线路信息不存在"),
+    POI_LINE_NULL(3703, "线路信息不存在"),
 
     /**
      * 标题名称重复啦
      */
-    NEWS_TITLE_REDO(3800,"标题名称重复啦"),
+    NEWS_TITLE_REDO(3800, "标题名称重复啦"),
 
     /**
      * 分类名称重复啦
      */
-    NEWS_CONFIG_TITLE_REDO(3805,"分类名称重复啦"),
+    NEWS_CONFIG_TITLE_REDO(3805, "分类名称重复啦"),
 
     /**
      * 分类编号重复啦
      */
-    NEWS_CONFIG_CODE_REDO(3806,"分类编号重复啦"),
+    NEWS_CONFIG_CODE_REDO(3806, "分类编号重复啦"),
 
     /**
      * 文章从地球上消失啦~
      */
-    NEWS_NULL(3808,"文章从地球上消失啦~"),
+    NEWS_NULL(3808, "文章从地球上消失啦~"),
 
     /**
      * 退款金额不能超过%s元
      */
-    REFUND_AMOUNT_MAX(3810,"退款金额不能超过%s元"),
+    REFUND_AMOUNT_MAX(3810, "退款金额不能超过%s元"),
 
     /**
      * 该订单已确认
      */
-    ORDER_CONFIRM(3813,"该订单已确认"),
+    ORDER_CONFIRM(3813, "该订单已确认"),
 
     /**
      * 订单已发货,请退货退款
      */
-    REFUND_DELIVERY(3815,"订单已发货,只支持退货退款"),
+    REFUND_DELIVERY(3815, "订单已发货,只支持退货退款"),
 
     /**
      * 商户账户更新失败
      */
-    ACCOUNT_UPDATE(3818,"商户账户更新失败"),
+    ACCOUNT_UPDATE(3818, "商户账户更新失败"),
 
     /**
      * 商户授权二维码已过期,请重新生成
      */
-    MERCHANT_CODE_EXPIRE(3820,"商户授权二维码已过期,请重新生成"),
+    MERCHANT_CODE_EXPIRE(3820, "商户授权二维码已过期,请重新生成"),
 
     /**
      * 商户信息未查询到
      */
-    MERCHANT_NULL(3822,"商户信息未查询到"),
+    MERCHANT_NULL(3822, "商户信息未查询到"),
 
     /**
      * 商户已绑定微信号
      */
-    MERCHANT_BINDING(3824,"商户已绑定微信号"),
+    MERCHANT_BINDING(3824, "商户已绑定微信号"),
 
     /**
      * 商户未绑定微信号,无需解绑
      */
-    MERCHANT_NO_BIND(3825,"商户未绑定微信号,无需解绑"),
+    MERCHANT_NO_BIND(3825, "商户未绑定微信号,无需解绑"),
 
     /**
      * 微信公众号尚未配置
@@ -1516,8 +1517,6 @@ public enum ErrorCode {
      * 钉钉客户端初始化异常
      */
     DING_TALK_INIT(5000, "钉钉客户端初始化异常"),
-
-
 
 
     ;

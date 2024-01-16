@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 
 /**
  * 短信发送记录表
+ *
  * @author 二哥很猛
  */
 @Data

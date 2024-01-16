@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @Data
 public class LotteryRatioConfigRequest {
-    
+
     @ApiModelProperty(value = "位置id", required = true)
     @NotBlank(message = "位置id不能为空")
     private Long id;
@@ -21,5 +21,5 @@ public class LotteryRatioConfigRequest {
     @ApiModelProperty(value = "中奖比例", required = true)
     @NotNull(message = "中奖概率不能为空")
     private BigDecimal ratio;
-    
+
 }

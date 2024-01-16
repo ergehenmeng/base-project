@@ -77,8 +77,9 @@ public class AuthConfigServiceImpl implements AuthConfigService {
 
     /**
      * 校验名称是否重复
+     *
      * @param title 名称
-     * @param id id 编辑时不能为空
+     * @param id    id 编辑时不能为空
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<AuthConfig> wrapper = Wrappers.lambdaQuery();

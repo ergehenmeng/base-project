@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * easy excel转化枚举类
+ *
  * @author wyb
  * @since 2023/3/30
  */
@@ -46,6 +47,7 @@ public class EnumExcelConverter implements Converter<Object> {
 
     /**
      * 获取带有@ExcelDesc注解的属性
+     *
      * @param contentProperty 原导出excel的字段
      * @return Field
      */

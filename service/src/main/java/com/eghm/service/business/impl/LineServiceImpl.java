@@ -65,6 +65,7 @@ public class LineServiceImpl implements LineService {
     private final OrderEvaluationMapper orderEvaluationMapper;
 
     private final MemberCollectService memberCollectService;
+
     @Override
     public Page<LineResponse> getByPage(LineQueryRequest request) {
         return lineMapper.listPage(request.createPage(), request);
@@ -183,9 +184,10 @@ public class LineServiceImpl implements LineService {
 
     /**
      * 校验线路名称是否被占用, 同一旅行社线路不能重复
-     * @param title 名称
+     *
+     * @param title          名称
      * @param travelAgencyId 旅行社id
-     * @param id    id
+     * @param id             id
      */
     private void titleRedo(String title, Long travelAgencyId, Long id) {
         LambdaQueryWrapper<Line> wrapper = Wrappers.lambdaQuery();

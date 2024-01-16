@@ -82,8 +82,8 @@ public class HomestayController {
         homestayService.deleteById(dto.getId());
         return RespBody.success();
     }
-    
-    
+
+
     @GetMapping("/select")
     @ApiOperation("详情")
     public RespBody<Homestay> select(@Validated IdDTO dto) {

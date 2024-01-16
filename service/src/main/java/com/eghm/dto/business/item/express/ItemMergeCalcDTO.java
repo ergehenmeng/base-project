@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- *
  * @author 二哥很猛
  * @since 2023/8/23
  */

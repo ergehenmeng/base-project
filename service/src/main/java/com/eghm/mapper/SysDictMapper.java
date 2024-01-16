@@ -15,7 +15,8 @@ public interface SysDictMapper extends BaseMapper<SysDict> {
 
     /**
      * 分页查询
-     * @param page 分页对象
+     *
+     * @param page    分页对象
      * @param request 查询条件
      * @return 列表
      */

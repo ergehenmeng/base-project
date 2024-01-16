@@ -88,7 +88,7 @@ public class CacheProxyServiceImpl implements CacheProxyService {
     }
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager",  key = "#channel.name() + #classify", unless = "#result.size() == 0")
+    @Cacheable(cacheNames = CacheConstant.BANNER, cacheManager = "longCacheManager", key = "#channel.name() + #classify", unless = "#result.size() == 0")
     public List<Banner> getBanner(Channel channel, Integer classify) {
         return bannerMapper.getBannerList(classify, channel.name());
     }
@@ -168,7 +168,8 @@ public class CacheProxyServiceImpl implements CacheProxyService {
 
     /**
      * 设置子节点
-     * @param pid  父节点
+     *
+     * @param pid    父节点
      * @param voList 全部列表
      * @return list
      */

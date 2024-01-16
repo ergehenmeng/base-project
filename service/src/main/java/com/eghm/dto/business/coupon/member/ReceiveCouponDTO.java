@@ -1,7 +1,7 @@
 package com.eghm.dto.business.coupon.member;
 
-import com.eghm.enums.ref.CouponMode;
 import com.eghm.annotation.Assign;
+import com.eghm.enums.ref.CouponMode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

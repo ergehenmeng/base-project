@@ -8,6 +8,7 @@ import lombok.Data;
 
 /**
  * 下单前,订单信息
+ *
  * @author 二哥很猛
  * @date 2022/8/21
  */
@@ -25,7 +26,7 @@ public class PreOrder {
 
     @ApiModelProperty("商品退款方式")
     private RefundType refundType;
-    
+
     @ApiModelProperty("配送方式")
     private DeliveryType deliveryType;
 
@@ -40,7 +41,7 @@ public class PreOrder {
 
     @ApiModelProperty("是否为热销商品")
     private Boolean hotSell;
-    
+
     @ApiModelProperty("是否为多订单")
     private Boolean multiple;
 }

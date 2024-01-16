@@ -8,11 +8,9 @@ import java.util.List;
  */
 public class HandlerInvoker {
 
-    private int pos = 0;
-
     private final int size;
-
     private final List<Handler> handlerList;
+    private int pos = 0;
 
     HandlerInvoker(List<Handler> handlerList) {
         this.handlerList = handlerList;

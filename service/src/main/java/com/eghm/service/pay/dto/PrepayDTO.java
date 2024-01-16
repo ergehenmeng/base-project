@@ -5,6 +5,7 @@ import lombok.Data;
 
 /**
  * 预支付订单对象
+ *
  * @author 二哥很猛
  */
 @Data

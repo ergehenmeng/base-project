@@ -1,9 +1,9 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.verify.VerifyLogQueryRequest;
 import com.eghm.model.VerifyLog;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.vo.business.verify.VerifyLogResponse;
 import org.apache.ibatis.annotations.Param;
 
@@ -19,7 +19,8 @@ public interface VerifyLogMapper extends BaseMapper<VerifyLog> {
 
     /**
      * 分页查询核销记录
-     * @param page  分页参数
+     *
+     * @param page    分页参数
      * @param request 查询条件
      * @return 列表
      */
@@ -27,6 +28,7 @@ public interface VerifyLogMapper extends BaseMapper<VerifyLog> {
 
     /**
      * 统计某个订单被核销过的商品数量总数
+     *
      * @param orderNo 订单标号
      * @return 数量
      */

@@ -23,7 +23,7 @@ public class DecimalUtil {
      * @since 5.7.11
      */
     public static int yuanToCent(double yuan) {
-        return (int)new Money(yuan).getCent();
+        return (int) new Money(yuan).getCent();
     }
 
 
@@ -35,7 +35,7 @@ public class DecimalUtil {
      * @since 5.7.11
      */
     public static int yuanToCent(String yuan) {
-        return (int)new Money(yuan).getCent();
+        return (int) new Money(yuan).getCent();
     }
 
     /**
@@ -54,8 +54,9 @@ public class DecimalUtil {
 
     /**
      * 计算商品评价分数,保留一位小数
+     *
      * @param totalScore 总分数
-     * @param num 评价数
+     * @param num        评价数
      * @return 分数
      */
     public static BigDecimal calcAvgScore(Integer totalScore, Integer num) {

@@ -22,18 +22,21 @@ public interface AuthConfigService {
 
     /**
      * 创建第三方授权配置信息,并生成秘钥
+     *
      * @param request 第三方信息
      */
     void create(AuthConfigAddRequest request);
 
     /**
      * 编辑第三方授权配置信息
+     *
      * @param request 第三方信息
      */
     void update(AuthConfigEditRequest request);
 
     /**
      * 删除授权信息
+     *
      * @param id id
      */
     void deleteById(Long id);

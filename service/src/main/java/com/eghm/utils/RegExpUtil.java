@@ -15,16 +15,14 @@ import java.util.regex.Pattern;
 public class RegExpUtil {
 
     /**
-     * 手机号正则表达式
-     */
-    private static final Pattern REGEXP_MOBILE = Pattern.compile("^((13\\d)|(14[579])|(15[^4])|(18\\d)|(17[0135678])|(19[026789]))\\d{8}$");
-
-    private static final Pattern REGEXP_PASSWORD = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#&_]).{8,16}$");
-
-    /**
      * 隐藏字符串要替换的正则表达式值
      */
     static final String HIDDEN_REGEXP_VALUE = "$1****$2";
+    /**
+     * 手机号正则表达式
+     */
+    private static final Pattern REGEXP_MOBILE = Pattern.compile("^((13\\d)|(14[579])|(15[^4])|(18\\d)|(17[0135678])|(19[026789]))\\d{8}$");
+    private static final Pattern REGEXP_PASSWORD = Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#&_]).{8,16}$");
 
     /**
      * 判断字符串格式是否为手机号
@@ -39,6 +37,7 @@ public class RegExpUtil {
     /**
      * 判断密码是否符合要求
      * 8-16位,包含字母,数字,特殊字符
+     *
      * @param password 字符串
      * @return true:符合密码要求
      */

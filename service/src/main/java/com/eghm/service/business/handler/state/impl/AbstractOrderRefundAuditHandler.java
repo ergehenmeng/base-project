@@ -24,6 +24,7 @@ import static com.eghm.enums.ErrorCode.TOTAL_REFUND_MAX_NUM;
 
 /**
  * 默认退款拒绝
+ *
  * @author 二哥很猛
  * @date 2022/8/20
  */
@@ -50,8 +51,9 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
 
     /**
      * 退款审核主逻辑
-     * @param context 审核信息
-     * @param order 订单信息
+     *
+     * @param context   审核信息
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     private void doProcess(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
@@ -71,8 +73,9 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
      * 1.更新订单
      * 2.更新退款记录
      * 3.发起退款
-     * @param context 审核信息
-     * @param order 订单信息
+     *
+     * @param context   审核信息
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void doPass(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
@@ -92,8 +95,9 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
      * 1.更新订单信息
      * 2.更新退款记录
      * 3.如果有锁定用户则解锁
-     * @param context 退款信息
-     * @param order 订单信息
+     *
+     * @param context   退款信息
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void doRefuse(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
@@ -107,8 +111,8 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
     /**
      * 退款审核通过后置处理
      *
-     * @param context 退款信息
-     * @param order 订单信息
+     * @param context   退款信息
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void passAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
@@ -118,8 +122,8 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
     /**
      * 退款审核拒绝后置处理
      *
-     * @param context 退款信息
-     * @param order 订单信息
+     * @param context   退款信息
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void refuseAfter(RefundAuditContext context, Order order, OrderRefundLog refundLog) {
@@ -129,8 +133,9 @@ public abstract class AbstractOrderRefundAuditHandler implements RefundAuditHand
 
     /**
      * 校验退款审核
-     * @param context 审核信息
-     * @param order 订单信息
+     *
+     * @param context   审核信息
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void before(RefundAuditContext context, Order order, OrderRefundLog refundLog) {

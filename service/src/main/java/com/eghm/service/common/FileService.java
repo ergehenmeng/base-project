@@ -14,6 +14,7 @@ public interface FileService {
 
     /**
      * 保存文件
+     *
      * @param file 文件
      * @return 文件保存的相对路径
      */
@@ -21,7 +22,8 @@ public interface FileService {
 
     /**
      * 保存文件
-     * @param file 文件
+     *
+     * @param file   文件
      * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @return 文件保存的相对路径
      */
@@ -29,8 +31,9 @@ public interface FileService {
 
     /**
      * 保存文件
-     * @param file 文件
-     * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
+     *
+     * @param file    文件
+     * @param folder  文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @param maxSize 文件最大限制 byte
      * @return 文件保存的相对路径
      */
@@ -38,7 +41,8 @@ public interface FileService {
 
     /**
      * 保存文件
-     * @param file 文件
+     *
+     * @param file    文件
      * @param maxSize 文件最大限制 byte
      * @return 文件保存的相对路径
      */
@@ -47,6 +51,7 @@ public interface FileService {
 
     /**
      * 保存文件列表
+     *
      * @param files 文件列表
      * @return 文件列表保存的相对路径
      */
@@ -55,7 +60,8 @@ public interface FileService {
 
     /**
      * 保存文件列表
-     * @param files 文件列表
+     *
+     * @param files  文件列表
      * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @return 文件列表保存的相对路径
      */
@@ -63,8 +69,9 @@ public interface FileService {
 
     /**
      * 保存文件列表
-     * @param files 文件列表
-     * @param folder 文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
+     *
+     * @param files   文件列表
+     * @param folder  文件保存的文件夹名称 (主路径由全局定义,父级文件夹可在此处自定义)
      * @param maxSize 文件最大限制 byte
      * @return 文件列表保存的相对路径
      */
@@ -72,7 +79,8 @@ public interface FileService {
 
     /**
      * 保存文件列表
-     * @param files 文件列表
+     *
+     * @param files   文件列表
      * @param maxSize 所有文件总大小
      * @return 文件列表保存的相对路径
      */

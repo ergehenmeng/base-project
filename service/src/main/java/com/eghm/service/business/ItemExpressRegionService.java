@@ -18,13 +18,15 @@ public interface ItemExpressRegionService {
 
     /**
      * 新增或更新快递区域运费配置信息
-     * @param expressId 模板id
+     *
+     * @param expressId  模板id
      * @param regionList 价格信息
      */
     void createOrUpdate(Long expressId, List<ItemExpressRegionRequest> regionList);
 
     /**
      * 批量查询快递区域价格配置信息
+     *
      * @param expressIds 快递模板id
      * @return 配置信息
      */
@@ -37,6 +39,7 @@ public interface ItemExpressRegionService {
      * 3. 将所有商品物流信息按计费方式进行分组(分组计算,减少代码复杂度)
      * 4. 计重时: 根据skuId查询重量, 然后根据重量计算费用
      * 5. 计件时: 根据itemId计算总数量, 然后根据数量计算费用
+     *
      * @param dto 店铺商品信息
      * @return 费用 单位:分
      */

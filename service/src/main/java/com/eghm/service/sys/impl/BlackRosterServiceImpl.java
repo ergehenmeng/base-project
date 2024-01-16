@@ -67,7 +67,7 @@ public class BlackRosterServiceImpl implements BlackRosterService {
         List<BlackRoster> rosterList = blackRosterMapper.selectList(null);
         for (BlackRoster roster : rosterList) {
             long max = roster.getEndIp() - roster.getStartIp();
-            for (int i = 0; i <= max ; i++) {
+            for (int i = 0; i <= max; i++) {
                 cacheService.setBitmap(CacheConstant.BLACK_ROSTER, roster.getStartIp() + i, true);
             }
         }
@@ -75,6 +75,6 @@ public class BlackRosterServiceImpl implements BlackRosterService {
 
     @Override
     public boolean isInterceptIp(String ip) {
-       return cacheService.getBitmap(CacheConstant.BLACK_ROSTER, Ipv4Util.ipv4ToLong(ip));
+        return cacheService.getBitmap(CacheConstant.BLACK_ROSTER, Ipv4Util.ipv4ToLong(ip));
     }
 }

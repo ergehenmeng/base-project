@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 订单核销
+ *
  * @author wyb
  * @since 2023/5/25
  */
@@ -46,8 +47,9 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
 
     /**
      * 核销前置处理
+     *
      * @param context 待核销的订单或游客信息
-     * @param order 订单信息
+     * @param order   订单信息
      */
     protected void before(OrderVerifyContext context, Order order) {
         log.info("开始核销订单[{}] [{}]", this.getStateMachineType(), jsonService.toJson(context));
@@ -67,8 +69,9 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
 
     /**
      * 核销订单订单
+     *
      * @param context 待核销的订单或游客信息
-     * @param order 订单信息
+     * @param order   订单信息
      */
     protected void doProcess(OrderVerifyContext context, Order order) {
         long verifyId = IdWorker.getId();
@@ -93,8 +96,9 @@ public abstract class AbstractOrderVerifyHandler implements OrderVerifyHandler {
 
     /**
      * 订单后置处理
+     *
      * @param context 待核销的订单或游客信息
-     * @param order 订单信息
+     * @param order   订单信息
      */
     protected void end(OrderVerifyContext context, Order order) {
     }

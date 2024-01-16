@@ -2,8 +2,8 @@ package com.eghm.web.controller;
 
 import com.eghm.dto.ext.RespBody;
 import com.eghm.dto.help.HelpQueryDTO;
-import com.eghm.vo.help.HelpCenterVO;
 import com.eghm.service.common.HelpCenterService;
+import com.eghm.vo.help.HelpCenterVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;

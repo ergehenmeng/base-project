@@ -1,9 +1,9 @@
 package com.eghm.service.common.impl;
 
 import cn.hutool.core.util.StrUtil;
-import com.eghm.enums.EmailType;
 import com.eghm.configuration.task.config.Task;
 import com.eghm.dto.email.SendEmail;
+import com.eghm.enums.EmailType;
 import com.eghm.service.common.EmailService;
 import com.eghm.service.common.TaskAlarmService;
 import lombok.AllArgsConstructor;

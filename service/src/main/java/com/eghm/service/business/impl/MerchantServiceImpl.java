@@ -50,11 +50,11 @@ import static com.eghm.constant.CacheConstant.MERCHANT_AUTH_CODE;
 @AllArgsConstructor
 @Slf4j
 public class MerchantServiceImpl implements MerchantService {
-    
+
     private final MerchantMapper merchantMapper;
-    
+
     private final SysConfigApi sysConfigApi;
-    
+
     private final Encoder encoder;
 
     private final SysUserService sysUserService;
@@ -62,7 +62,7 @@ public class MerchantServiceImpl implements MerchantService {
     private final SysRoleService sysRoleService;
 
     private final CacheService cacheService;
-    
+
     private final List<MerchantInitService> initList;
 
     private final SmsService smsService;
@@ -102,7 +102,7 @@ public class MerchantServiceImpl implements MerchantService {
         sysRoleService.authRole(merchant.getId(), roleTypes);
         this.initStore(merchant, roleTypes);
     }
-    
+
     @Override
     public void update(MerchantEditRequest request) {
         this.checkMerchantRedo(request.getMerchantName(), request.getId());
@@ -120,7 +120,7 @@ public class MerchantServiceImpl implements MerchantService {
     public Merchant selectByUserId(Long userId) {
         LambdaUpdateWrapper<Merchant> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(Merchant::getUserId, userId);
-        return merchantMapper.selectOne( wrapper);
+        return merchantMapper.selectOne(wrapper);
     }
 
     @Override
@@ -138,13 +138,13 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = merchantMapper.selectById(id);
         sysUserService.lockUser(merchant.getUserId());
     }
-    
+
     @Override
     public void unlock(Long id) {
         Merchant merchant = merchantMapper.selectById(id);
         sysUserService.unlockUser(merchant.getUserId());
     }
-    
+
     @Override
     public void resetPwd(Long id) {
         Merchant merchant = merchantMapper.selectById(id);
@@ -222,6 +222,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     /**
      * 根据授权码查询商户id
+     *
      * @param authCode 授权码
      * @return 商户信息
      */
@@ -236,6 +237,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     /**
      * 解绑商户微信号
+     *
      * @param merchantId 商户ID
      */
     private void doUnbindMerchant(Long merchantId) {
@@ -248,8 +250,9 @@ public class MerchantServiceImpl implements MerchantService {
 
     /**
      * 校验商户名称是否被占用
+     *
      * @param merchantName 商户名称
-     * @param id id
+     * @param id           id
      */
     private void checkMerchantRedo(String merchantName, Long id) {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
@@ -264,8 +267,9 @@ public class MerchantServiceImpl implements MerchantService {
 
     /**
      * 校验手机号是否被占用
+     *
      * @param mobile 用户名
-     * @param id 用户
+     * @param id     用户
      */
     private void checkMobileRedo(String mobile, Long id) {
         LambdaQueryWrapper<Merchant> wrapper = Wrappers.lambdaQuery();
@@ -277,9 +281,10 @@ public class MerchantServiceImpl implements MerchantService {
             throw new BusinessException(ErrorCode.MERCHANT_MOBILE_REDO);
         }
     }
-    
+
     /**
      * 根据商户信息初始化商户下的店铺信息
+     *
      * @param merchant 商户信息
      * @param typeList 角色类型
      */

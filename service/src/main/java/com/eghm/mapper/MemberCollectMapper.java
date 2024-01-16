@@ -19,8 +19,9 @@ public interface MemberCollectMapper extends BaseMapper<MemberCollect> {
 
     /**
      * 分页查询收藏信息
+     *
      * @param page 分页条件
-     * @param dto 收藏信息
+     * @param dto  收藏信息
      * @return 收藏信息
      */
     Page<MemberCollectVO> getByPage(Page<MemberCollectVO> page, @Param("param") CollectQueryDTO dto);

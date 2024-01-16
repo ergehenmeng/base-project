@@ -120,8 +120,9 @@ public class SmsServiceImpl implements SmsService {
 
     /**
      * 删除短信验证码
+     *
      * @param smsType 短信类型
-     * @param mobile 手机号码
+     * @param mobile  手机号码
      */
     private void cleanSmsCode(SmsType smsType, String mobile) {
         cacheService.delete(CacheConstant.SMS_PREFIX + smsType.getValue() + mobile);

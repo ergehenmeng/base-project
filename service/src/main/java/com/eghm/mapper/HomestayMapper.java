@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.homestay.HomestayQueryDTO;
 import com.eghm.dto.business.homestay.HomestayQueryRequest;
 import com.eghm.model.Homestay;
-import com.eghm.vo.business.homestay.HomestayVO;
 import com.eghm.vo.business.homestay.HomestayResponse;
+import com.eghm.vo.business.homestay.HomestayVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -24,7 +24,8 @@ public interface HomestayMapper extends BaseMapper<Homestay> {
 
     /**
      * 分页查询民宿列表
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */
@@ -32,14 +33,16 @@ public interface HomestayMapper extends BaseMapper<Homestay> {
 
     /**
      * 分页查询民宿列表
+     *
      * @param page 分页
-     * @param dto 查询条件
+     * @param dto  查询条件
      * @return 列表
      */
     Page<HomestayVO> getByPage(Page<HomestayVO> page, @Param("param") HomestayQueryDTO dto);
 
     /**
      * 查询民宿列表
+     *
      * @param homestayIds 民宿ids
      * @return 列表
      */
@@ -48,7 +51,7 @@ public interface HomestayMapper extends BaseMapper<Homestay> {
     /**
      * 更新评分
      *
-     * @param id id
+     * @param id    id
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);

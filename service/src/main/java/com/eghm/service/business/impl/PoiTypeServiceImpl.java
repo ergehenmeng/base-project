@@ -77,7 +77,7 @@ public class PoiTypeServiceImpl implements PoiTypeService {
      * 校验区域类型是否重复
      *
      * @param title 区域类型
-     * @param id 区域类型id
+     * @param id    区域类型id
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<PoiType> wrapper = Wrappers.lambdaQuery();

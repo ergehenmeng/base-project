@@ -17,6 +17,7 @@ public interface TicketOrderService {
 
     /**
      * 分页查询门票订单列表
+     *
      * @param request 查询条件
      * @return 订单列表
      */
@@ -24,6 +25,7 @@ public interface TicketOrderService {
 
     /**
      * 分页查询门票订单列表 导出使用
+     *
      * @param request 查询条件
      * @return 订单列表
      */
@@ -31,12 +33,14 @@ public interface TicketOrderService {
 
     /**
      * 插入门票订单信息
+     *
      * @param order 门票订单
      */
     void insert(TicketOrder order);
 
     /**
      * 根据订单编号查询订单订单信息
+     *
      * @param orderNo 订单编号
      * @return 门票订单信息
      */
@@ -44,6 +48,7 @@ public interface TicketOrderService {
 
     /**
      * 分页查询用户订单列表
+     *
      * @param dto 查询条件
      * @return 列表
      */
@@ -51,6 +56,7 @@ public interface TicketOrderService {
 
     /**
      * 订单详情
+     *
      * @param orderNo  订单号
      * @param memberId 用户id
      * @return 详情
@@ -59,6 +65,7 @@ public interface TicketOrderService {
 
     /**
      * 查询商品订单,如果为空则抛异常
+     *
      * @param id id
      * @return 门票订单信息
      */
@@ -66,6 +73,7 @@ public interface TicketOrderService {
 
     /**
      * 查询订单商品快照
+     *
      * @param orderId 订单id
      * @param orderNo 订单编号
      * @return 商品基础信息
@@ -74,6 +82,7 @@ public interface TicketOrderService {
 
     /**
      * 查询未核销的订单列表
+     *
      * @return list
      */
     List<TicketVerifyVO> getUnVerifyList();

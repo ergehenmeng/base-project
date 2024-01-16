@@ -13,18 +13,21 @@ public interface PushService {
     /**
      * 推送通知(别名推送) 通过模板发送(比较鸡肋)
      * 优先使用 {@link PushService#pushNotification(PushNotice)} 以便于做业务扩展
+     *
      * @param templateNotice 推送模板参数信息
      */
     void pushNotification(PushTemplateNotice templateNotice);
 
     /**
      * 推送通知(别名推送) 直接发送
+     *
      * @param pushNotice 消息相关参数
      */
     void pushNotification(PushNotice pushNotice);
 
     /**
      * 推送消息(后台触发)
+     *
      * @param pushMessage 消息信息
      */
     void pushMessage(PushMessage pushMessage);

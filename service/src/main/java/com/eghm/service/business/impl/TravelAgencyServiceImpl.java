@@ -40,9 +40,9 @@ import static com.eghm.enums.ErrorCode.LINE_DOWN;
 @Slf4j
 @AllArgsConstructor
 public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantInitService {
-    
+
     private final TravelAgencyMapper travelAgencyMapper;
-    
+
     private final CommonService commonService;
 
     private final MemberCollectService memberCollectService;
@@ -56,7 +56,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), TravelAgency::getTitle, request.getQueryName());
         return travelAgencyMapper.selectPage(request.createPage(), wrapper);
     }
-    
+
     @Override
     public void create(TravelAgencyAddRequest request) {
         this.redoTitle(request.getTitle(), null);
@@ -65,17 +65,17 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         agency.setMerchantId(SecurityHolder.getMerchantId());
         travelAgencyMapper.insert(agency);
     }
-    
+
     @Override
     public void update(TravelAgencyEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId());
         TravelAgency travelAgency = this.selectByIdRequired(request.getId());
         commonService.checkIllegal(travelAgency.getMerchantId());
-        
+
         TravelAgency agency = DataUtil.copy(request, TravelAgency.class);
         travelAgencyMapper.updateById(agency);
     }
-    
+
     @Override
     public void updateState(Long id, State state) {
         LambdaUpdateWrapper<TravelAgency> wrapper = Wrappers.lambdaUpdate();
@@ -83,7 +83,7 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         wrapper.set(TravelAgency::getState, state);
         travelAgencyMapper.update(null, wrapper);
     }
-    
+
     @Override
     public TravelAgency selectByIdRequired(Long id) {
         TravelAgency travelAgency = travelAgencyMapper.selectById(id);
@@ -124,16 +124,17 @@ public class TravelAgencyServiceImpl implements TravelAgencyService, MerchantIni
         agency.setMerchantId(merchant.getId());
         travelAgencyMapper.insert(agency);
     }
-    
+
     @Override
     public boolean support(List<RoleType> roleTypes) {
         return roleTypes.contains(RoleType.LINE);
     }
-    
+
     /**
      * 检验名称是否重复
+     *
      * @param title 旅行社名称
-     * @param id id 编辑时不能为空
+     * @param id    id 编辑时不能为空
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<TravelAgency> wrapper = Wrappers.lambdaQuery();

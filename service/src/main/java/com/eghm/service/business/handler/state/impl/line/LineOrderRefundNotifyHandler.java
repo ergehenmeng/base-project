@@ -22,13 +22,13 @@ import org.springframework.stereotype.Service;
 @Service("lineRefundNotifyHandler")
 @Slf4j
 public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandler {
-    
+
     private final LineOrderService lineOrderService;
-    
+
     private final LineConfigService lineConfigService;
 
     private final OrderVisitorService orderVisitorService;
-    
+
     public LineOrderRefundNotifyHandler(OrderService orderService, OrderRefundLogService orderRefundLogService,
                                         AggregatePayService aggregatePayService, VerifyLogService verifyLogService,
                                         LineOrderService lineOrderService, LineConfigService lineConfigService,
@@ -38,7 +38,7 @@ public class LineOrderRefundNotifyHandler extends AbstractOrderRefundNotifyHandl
         this.lineConfigService = lineConfigService;
         this.orderVisitorService = orderVisitorService;
     }
-    
+
     @Override
     protected void after(RefundNotifyContext dto, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {
         super.after(dto, order, refundLog, refundStatus);

@@ -21,25 +21,28 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented
 @Constraint(validatedBy = WordCheckerDefine.class)
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @ReportAsSingleViolation
 public @interface WordChecker {
 
     /**
      * 错误信息 必须包含该属性
+     *
      * @return 错误信息
      */
     String message() default "存在敏感字";
 
     /**
      * 自定义校验必须包含该属性
+     *
      * @return 自定义校验必须包含该属性
      */
     Class<?>[] groups() default {};
 
     /**
      * 自定义校验必须包含该属性
+     *
      * @return 自定义校验必须包含该属性
      */
     Class<? extends Payload>[] payload() default {};

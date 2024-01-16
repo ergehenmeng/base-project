@@ -17,58 +17,57 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SystemTimer {
 
     /**
-     * 工作线程
-     */
-    private ExecutorService executor;
-
-    /**
-     * 指针线程
-     */
-    private ExecutorService bossExecutor;
-
-    /**
-     * 最底层时间轮对象
-     */
-    private final TimingWheel rootWheel;
-
-    /**
-     * 关闭处理
-     */
-    private ShutdownHandler shutdownHandler;
-
-    /**
      * 默认队列容量
      */
     private static final int DEFAULT_QUEUE_CAPACITY = 100000;
-
     /**
      * 最大执行业务的线程数
      */
     private static final int DEFAULT_MAX_THREAD = 50;
-
     /**
      * 最小执行业务的线程数
      */
     private static final int DEFAULT_CORE_THREAD = 5;
-
     /**
      * 默认步长 200毫秒
      */
     private static final int DEFAULT_STEP = 200;
-
+    /**
+     * 最底层时间轮对象
+     */
+    private final TimingWheel rootWheel;
+    /**
+     * 该队列间接关联时间轮的所有任务,即:每个刻度的所有任务,同时也包含所有时间轮的任务
+     */
+    private final DelayQueue<TaskBucket> queue = new DelayQueue<>();
+    private final AtomicInteger taskCounter = new AtomicInteger(0);
+    private final AtomicInteger threadCounter = new AtomicInteger(1);
+    /**
+     * 工作线程
+     */
+    private ExecutorService executor;
+    /**
+     * 指针线程
+     */
+    private ExecutorService bossExecutor;
+    /**
+     * 关闭处理
+     */
+    private ShutdownHandler shutdownHandler;
     /**
      * 是否开启任务
      */
     private volatile boolean started = false;
 
     /**
-     * 该队列间接关联时间轮的所有任务,即:每个刻度的所有任务,同时也包含所有时间轮的任务
+     * 全局时间轮定时器
+     *
+     * @param scaleMs   初始值 一格多少毫秒
+     * @param wheelSize 初始值 一圈的格数
      */
-    private final DelayQueue<TaskBucket> queue = new DelayQueue<>();
-
-    private final AtomicInteger taskCounter = new AtomicInteger(0);
-
-    private final AtomicInteger threadCounter = new AtomicInteger(1);
+    public SystemTimer(long scaleMs, int wheelSize) {
+        this.rootWheel = new TimingWheel(scaleMs, wheelSize, System.currentTimeMillis(), taskCounter, queue);
+    }
 
     /**
      * 启动时间轮
@@ -79,6 +78,7 @@ public class SystemTimer {
 
     /**
      * 启动时间轮,以{step}的时间速度进行轮训
+     *
      * @param step 步长
      */
     public void start(long step) {
@@ -91,6 +91,7 @@ public class SystemTimer {
 
     /**
      * 初始化刻度线程
+     *
      * @param ms 毫秒
      */
     private void initTimer(long ms) {
@@ -106,17 +107,8 @@ public class SystemTimer {
     }
 
     /**
-     * 全局时间轮定时器
-     *
-     * @param scaleMs   初始值 一格多少毫秒
-     * @param wheelSize  初始值 一圈的格数
-     */
-    public SystemTimer(long scaleMs, int wheelSize) {
-        this.rootWheel = new TimingWheel(scaleMs, wheelSize, System.currentTimeMillis(), taskCounter, queue);
-    }
-
-    /**
      * 添加新任务
+     *
      * @param task 任务
      */
     public void addTask(BaseTask task) {
@@ -138,6 +130,7 @@ public class SystemTimer {
 
     /**
      * 时间移动步长
+     *
      * @param ms 毫秒
      */
     private void advanceClock(long ms) {

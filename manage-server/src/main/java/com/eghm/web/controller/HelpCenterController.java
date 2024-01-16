@@ -37,7 +37,7 @@ public class HelpCenterController {
     @PostMapping("/create")
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody HelpAddRequest request) {
-       helpCenterService.create(request);
+        helpCenterService.create(request);
         return RespBody.success();
     }
 

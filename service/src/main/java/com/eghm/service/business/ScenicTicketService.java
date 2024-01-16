@@ -17,6 +17,7 @@ public interface ScenicTicketService {
 
     /**
      * 分页查询门票信息
+     *
      * @param request 查询条件
      * @return 门票信息
      */
@@ -24,18 +25,21 @@ public interface ScenicTicketService {
 
     /**
      * 创建景区门票
+     *
      * @param request 门票信息
      */
     void createTicket(ScenicTicketAddRequest request);
 
     /**
      * 更新景区门票信息
+     *
      * @param request 门票信息
      */
     void updateTicket(ScenicTicketEditRequest request);
 
     /**
      * 查询门票
+     *
      * @param id 主键
      * @return 景区门票信息 为空时则会报错
      */
@@ -43,6 +47,7 @@ public interface ScenicTicketService {
 
     /**
      * 查询上架的门票
+     *
      * @param id 主键
      * @return 景区门票信息 为空或没有上架时都会报错
      */
@@ -50,13 +55,15 @@ public interface ScenicTicketService {
 
     /**
      * 更新上下架状态
-     * @param id id
+     *
+     * @param id    id
      * @param state 状态
      */
     void updateState(Long id, State state);
 
     /**
      * 查询门票详细信息
+     *
      * @param id id
      * @return 详细信息
      */
@@ -64,19 +71,22 @@ public interface ScenicTicketService {
 
     /**
      * 更新门票库存信息
-     * @param id id
+     *
+     * @param id  id
      * @param num 更新数量 负数-库存 正数+库存
      */
     void updateStock(Long id, Integer num);
 
     /**
      * 删除门票
+     *
      * @param id id
      */
     void deleteById(Long id);
 
     /**
      * 更新景区评分
+     *
      * @param vo 评分信息
      */
     void updateScore(CalcStatistics vo);

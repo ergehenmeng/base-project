@@ -57,9 +57,25 @@ import java.util.Properties;
 @Slf4j
 public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDecorator, TaskExecutorCustomizer {
 
+    protected final SystemProperties systemProperties;
     private final ObjectMapper objectMapper;
 
-    protected final SystemProperties systemProperties;
+    @Bean
+    public static BeanPostProcessor springFoxBeanPostProcessor() {
+        return new SpringFoxBeanPostProcessor();
+    }
+
+    /**
+     * 设置校验为快速失败
+     */
+    @Bean
+    public static LocalValidatorFactoryBean defaultValidator(ApplicationContext applicationContext) {
+        LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
+        MessageInterpolatorFactory interpolatorFactory = new MessageInterpolatorFactory(applicationContext);
+        factoryBean.setMessageInterpolator(interpolatorFactory.getObject());
+        factoryBean.getValidationPropertyMap().put(HibernateValidatorConfiguration.FAIL_FAST, "true");
+        return factoryBean;
+    }
 
     /**
      * 图形验证码
@@ -159,11 +175,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         taskExecutor.setThreadNamePrefix("异步线程-");
     }
 
-    @Bean
-    public static BeanPostProcessor springFoxBeanPostProcessor() {
-        return new SpringFoxBeanPostProcessor();
-    }
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverterFactory(new EnumBinderConverterFactory());
@@ -181,18 +192,6 @@ public class WebMvcConfig implements WebMvcConfigurer, AsyncConfigurer, TaskDeco
         registrationBean.setFilter(requestFilter);
         registrationBean.setOrder(Integer.MIN_VALUE + 1);
         return registrationBean;
-    }
-
-    /**
-     * 设置校验为快速失败
-     */
-    @Bean
-    public static LocalValidatorFactoryBean defaultValidator(ApplicationContext applicationContext) {
-        LocalValidatorFactoryBean factoryBean = new LocalValidatorFactoryBean();
-        MessageInterpolatorFactory interpolatorFactory = new MessageInterpolatorFactory(applicationContext);
-        factoryBean.setMessageInterpolator(interpolatorFactory.getObject());
-        factoryBean.getValidationPropertyMap().put(HibernateValidatorConfiguration.FAIL_FAST, "true");
-        return factoryBean;
     }
 
 

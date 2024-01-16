@@ -48,6 +48,7 @@ public class PagingQuery {
 
     /**
      * 防止前端页面传递分页参数过大
+     *
      * @return 最大 20
      */
     public Integer getPageSize() {
@@ -56,6 +57,7 @@ public class PagingQuery {
 
     /**
      * 默认第一页
+     *
      * @return 1
      */
     public Integer getPage() {

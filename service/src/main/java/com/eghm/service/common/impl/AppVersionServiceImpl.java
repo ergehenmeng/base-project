@@ -119,6 +119,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     /**
      * 校验版本号是否重复
+     *
      * @param version 版本号
      */
     private void redoVersion(String version) {
@@ -133,6 +134,7 @@ public class AppVersionServiceImpl implements AppVersionService {
 
     /**
      * 获取服务端最新版本号
+     *
      * @param channel IOS ANDROID
      * @return 版本号
      */

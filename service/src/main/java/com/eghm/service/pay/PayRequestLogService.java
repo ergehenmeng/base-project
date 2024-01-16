@@ -20,6 +20,7 @@ public interface PayRequestLogService {
 
     /**
      * 分页查询支付退款同步请求的日志
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -27,14 +28,16 @@ public interface PayRequestLogService {
 
     /**
      * 添加请求支付的日志
-     * @param request 请求参数
+     *
+     * @param request  请求参数
      * @param response 响应参数
      */
     void insertPayLog(PrepayDTO request, PrepayVO response);
 
     /**
      * 添加请求退款的日志
-     * @param request 请求参数
+     *
+     * @param request  请求参数
      * @param response 响应参数
      */
     void insertRefundLog(RefundDTO request, RefundVO response);

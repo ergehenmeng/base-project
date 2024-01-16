@@ -16,6 +16,7 @@ public interface OfflineRefundLogService {
 
     /**
      * 查询订单线下退款人id
+     *
      * @param orderNo 订单编号
      * @return 游客id
      */
@@ -23,6 +24,7 @@ public interface OfflineRefundLogService {
 
     /**
      * 添加线下退款日志
+     *
      * @param request 退款信息
      */
     void insertLog(OfflineRefundRequest request);

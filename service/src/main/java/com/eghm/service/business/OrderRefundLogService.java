@@ -16,6 +16,7 @@ public interface OrderRefundLogService {
 
     /**
      * 退款记录列表
+     *
      * @param request 查询条件
      * @return 记录
      */
@@ -23,12 +24,14 @@ public interface OrderRefundLogService {
 
     /**
      * 新增退款记录
+     *
      * @param log 退款记录
      */
     void insert(OrderRefundLog log);
 
     /**
      * 根据id查询退款记录
+     *
      * @param id id
      * @return 退款记录
      */
@@ -36,6 +39,7 @@ public interface OrderRefundLogService {
 
     /**
      * 主键查询退款记录
+     *
      * @param id id
      * @return 退款记录
      */
@@ -43,6 +47,7 @@ public interface OrderRefundLogService {
 
     /**
      * 根据id更新退款记录
+     *
      * @param log 退款记录
      * @return 1条
      */
@@ -50,7 +55,8 @@ public interface OrderRefundLogService {
 
     /**
      * 统计订单总退款商品数量 包含退款处理中的
-     * @param orderNo 订单编号
+     *
+     * @param orderNo     订单编号
      * @param itemOrderId 商品订单id, 普通商品时该字段必填
      * @return 数量
      */
@@ -58,7 +64,8 @@ public interface OrderRefundLogService {
 
     /**
      * 统计退款成功的订单商品总数量
-     * @param orderNo 订单编号
+     *
+     * @param orderNo     订单编号
      * @param itemOrderId 商品订单id, 普通商品时该字段必填
      * @return 数量
      */
@@ -66,6 +73,7 @@ public interface OrderRefundLogService {
 
     /**
      * 根据退款流水或查询退款记录
+     *
      * @param outRefundNo 退款流水或
      * @return 退款信息 可能为空
      */
@@ -73,6 +81,7 @@ public interface OrderRefundLogService {
 
     /**
      * 查询所有退款处理中的订单信息
+     *
      * @return 退款信息
      */
     List<OrderRefund> getRefundProcess();
@@ -80,7 +89,8 @@ public interface OrderRefundLogService {
     /**
      * 检查订单是否存在已退款或者审核通过在退款中的订单
      * 如果退款记录审核通过, 在退款中或退款成功,则不允许再次退款
-     * @param orderNo 订单编号
+     *
+     * @param orderNo     订单编号
      * @param visitorList 待退款游客id
      * @return true:存在 false:不存在
      */

@@ -24,7 +24,6 @@ import com.eghm.mapper.ScenicTicketMapper;
 import com.eghm.model.Scenic;
 import com.eghm.service.business.ActivityService;
 import com.eghm.service.business.MemberCollectService;
-import com.eghm.service.business.MemberCouponService;
 import com.eghm.service.business.ScenicService;
 import com.eghm.service.sys.GeoService;
 import com.eghm.service.sys.SysAreaService;
@@ -32,8 +31,8 @@ import com.eghm.service.sys.SysDictService;
 import com.eghm.service.sys.impl.SysConfigApi;
 import com.eghm.utils.DataUtil;
 import com.eghm.vo.business.activity.ActivityBaseDTO;
-import com.eghm.vo.business.scenic.ScenicVO;
 import com.eghm.vo.business.scenic.ScenicDetailVO;
+import com.eghm.vo.business.scenic.ScenicVO;
 import com.eghm.vo.business.scenic.ticket.TicketBaseVO;
 import com.eghm.vo.business.scenic.ticket.TicketPriceVO;
 import lombok.AllArgsConstructor;
@@ -142,7 +141,7 @@ public class ScenicServiceImpl implements ScenicService {
         for (ScenicVO vo : voList) {
             // 封面图默认取第一张
             vo.setCoverUrl(vo.getCoverUrl().split(CommonConstant.DOT_SPLIT)[0]);
-            vo.setDistance(containDistance ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))): null);
+            vo.setDistance(containDistance ? BigDecimal.valueOf(hashMap.get(String.valueOf(vo.getId()))) : null);
         }
         return voList;
     }
@@ -188,8 +187,9 @@ public class ScenicServiceImpl implements ScenicService {
 
     /**
      * 新增编辑时判断景区名称是否重复
+     *
      * @param title 景区名称
-     * @param id id
+     * @param id    id
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<Scenic> wrapper = Wrappers.lambdaQuery();

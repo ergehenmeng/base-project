@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.ExpressTemplate;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.ExpressTemplate;
 import com.eghm.vo.business.item.express.ItemExpressResponse;
 import com.eghm.vo.business.item.express.ItemExpressVO;
 import org.apache.ibatis.annotations.Param;
@@ -20,6 +20,7 @@ public interface ExpressTemplateMapper extends BaseMapper<ExpressTemplate> {
 
     /**
      * 查询同一店铺下的商品对应的快递模板
+     *
      * @param itemIds 商品Id
      * @param storeId 商户
      * @return 快递模板
@@ -28,6 +29,7 @@ public interface ExpressTemplateMapper extends BaseMapper<ExpressTemplate> {
 
     /**
      * 查询商户下的物流模板
+     *
      * @param merchantId 商户ID
      * @return 模板
      */

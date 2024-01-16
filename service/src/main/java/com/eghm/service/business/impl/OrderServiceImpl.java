@@ -383,7 +383,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.LINE_COMPLETE, order.getOrderNo());
                 } else if (order.getProductType() == ProductType.RESTAURANT) {
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.RESTAURANT_COMPLETE, order.getOrderNo());
-                }else if (order.getProductType() == ProductType.HOMESTAY) {
+                } else if (order.getProductType() == ProductType.HOMESTAY) {
                     orderMQService.sendOrderCompleteMessage(ExchangeQueue.HOMESTAY_COMPLETE, order.getOrderNo());
                 }
             });
@@ -500,9 +500,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     /**
      * 生成退款记录
      *
-     * @param order 原订单信息
+     * @param order        原订单信息
      * @param refundAmount 退款金额
-     * @param num 退款数量
+     * @param num          退款数量
      * @return 退款信息
      */
     private OrderRefundLog createRefundLog(Order order, Integer refundAmount, Integer num) {
@@ -527,6 +527,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     /**
      * 获取待退款的订单信息
+     *
      * @param orderNo 订单信息
      * @return 订单信息
      */
@@ -545,8 +546,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     /**
      * 校验用户列表中是否存在已经线下退款的人,如果存在则给出提示
+     *
      * @param visitorList 待线下退款的用户
-     * @param orderNo 订单号
+     * @param orderNo     订单号
      */
     private void checkHasRefund(List<Long> visitorList, String orderNo) {
         List<OrderVisitor> visitors = orderVisitorService.getByIds(visitorList, orderNo);
@@ -564,6 +566,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     /**
      * 支付时创建商品名称
+     *
      * @param builder builder
      * @return 商品名称
      */

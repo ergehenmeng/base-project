@@ -21,9 +21,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ClearCacheServiceImpl implements ClearCacheService {
 
-    private Configuration configuration;
-
     private final SensitiveWordService sensitiveWordService;
+    private Configuration configuration;
 
     @Autowired(required = false)
     public void setConfiguration(Configuration configuration) {
@@ -67,7 +66,7 @@ public class ClearCacheServiceImpl implements ClearCacheService {
     }
 
     @Override
-    @CacheEvict(cacheNames = {CacheConstant.SYS_AREA_ID,  CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_PID}, allEntries = true)
+    @CacheEvict(cacheNames = {CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_ID, CacheConstant.SYS_AREA_PID}, allEntries = true)
     public void clearSysArea() {
         log.info("省市区缓存清除成功");
     }

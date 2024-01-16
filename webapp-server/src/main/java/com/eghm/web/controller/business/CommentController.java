@@ -31,20 +31,20 @@ public class CommentController {
 
     @RequestMapping("/listPage")
     @ApiOperation("评论列表")
-    public RespBody<List<CommentVO>> getByPage(CommentQueryDTO dto){
+    public RespBody<List<CommentVO>> getByPage(CommentQueryDTO dto) {
         return RespBody.success(commentService.getByPage(dto));
     }
 
     @RequestMapping("/add")
     @ApiOperation("添加评论")
-    public RespBody<Void> add(@Validated @RequestBody CommentDTO dto){
+    public RespBody<Void> add(@Validated @RequestBody CommentDTO dto) {
         commentService.add(dto);
         return RespBody.success();
     }
 
     @RequestMapping("/giveLike")
     @ApiOperation("点赞")
-    public RespBody<Void> giveLike(@Validated @RequestBody IdDTO dto){
+    public RespBody<Void> giveLike(@Validated @RequestBody IdDTO dto) {
         commentService.giveLike(dto.getId());
         return RespBody.success();
     }

@@ -15,13 +15,15 @@ public interface AccountService {
 
     /**
      * 新增资金变动记录
+     *
      * @param dto 变动信息
      */
     void updateAccount(AccountDTO dto);
 
     /**
      * 查询商户账户信息
-     * @param merchantId  商户id
+     *
+     * @param merchantId 商户id
      * @return 账户信息
      */
     Account getAccount(Long merchantId);

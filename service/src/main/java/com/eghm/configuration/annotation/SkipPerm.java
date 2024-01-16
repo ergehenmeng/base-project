@@ -9,6 +9,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * 管理后台跳过菜单及按钮权限校验标识符
+ *
  * @author 二哥很猛
  * @since 2022/11/4
  */

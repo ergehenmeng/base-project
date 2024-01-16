@@ -52,6 +52,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
     /**
      * 普通订单下单处理逻辑
      * 说明: 由于普通订单存在购物车概念,在下单时会出现多店铺+多商品同时下单支付,因此需要按店铺进行分组生成多个订单
+     *
      * @param context 订单信息
      */
     @Override
@@ -69,11 +70,12 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
      * 创建零售订单
      * 1. 多店铺多商品进行下单时,需要将商品按店铺进行分组
      * 2. 依次对每个店铺的商品进行下单(含单规格下单逻辑)
-     *    2.1: 计算快递费
-     *    2.2: 生成零售订单
-     *    2.3: 扣减sku库存
-     *    2.4: 生成主订单信息
+     * 2.1: 计算快递费
+     * 2.2: 生成零售订单
+     * 2.3: 扣减sku库存
+     * 2.4: 生成主订单信息
      * 3. 拼接订单并拉起支付
+     *
      * @param context 下单信息
      * @param payload 商品信息
      */
@@ -110,6 +112,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 是否为热销商品
+     *
      * @param payload 商品信息
      * @return true:热销商品(走队列下单) false:非热销商品
      */
@@ -119,6 +122,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 通过消息队列进行下单
+     *
      * @param context 下单信息
      */
     protected void queueOrder(ItemOrderCreateContext context) {
@@ -127,9 +131,10 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 添加主订单信息
-     * @param memberId 用户ID
-     * @param multiple 是否为多笔订单同时支付
-     * @param packageList 商品信息
+     *
+     * @param memberId      用户ID
+     * @param multiple      是否为多笔订单同时支付
+     * @param packageList   商品信息
      * @param expressAmount 快递费
      * @return 订单信息
      */
@@ -149,6 +154,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 生成订单商品标题(快照), 由于可以购物车下单,因此多个商品同时下单时标题拼接在一起可能会过长, 需要截取
+     *
      * @param packageList 商品列表
      * @return 标题信息 逗号分割
      */
@@ -162,6 +168,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 获取sku封面图, 注意:单规格sku由于没有封面图,默认取商品的第一张作为封面图
+     *
      * @param packageList 下单的商品列表
      * @return skuPic 多张逗号分隔
      */
@@ -180,6 +187,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 组装商品下单信息
+     *
      * @param context 下单信息
      * @return 商品信息及下单信息
      */
@@ -219,6 +227,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 主订单下的商品但凡有一个支持退款,主订单就支持退款,且默认审核后退款
+     *
      * @param packageList 下单信息
      * @return 退款方式, 普通商品只支持审核下单或不退款
      */
@@ -229,6 +238,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 统计总金额
+     *
      * @param packageList 下单信息
      * @return 总金额
      */
@@ -238,6 +248,7 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 商品总数量
+     *
      * @param packageList 下单商品
      * @return 总数量
      */
@@ -247,7 +258,8 @@ public class ItemOrderCreateHandler implements OrderCreateHandler<ItemOrderCreat
 
     /**
      * 计算每个sku商品快递费用
-     * @param storeId 店铺名称
+     *
+     * @param storeId  店铺名称
      * @param countyId 收货县区
      * @param itemList 下单商品(单个店铺所有商品)
      * @return sku-express 单位:分

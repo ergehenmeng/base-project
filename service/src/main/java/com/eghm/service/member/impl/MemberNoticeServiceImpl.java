@@ -86,9 +86,10 @@ public class MemberNoticeServiceImpl implements MemberNoticeService {
 
     /**
      * 拼接通知消息信息并调用极光发送推送
+     *
      * @param memberNotice 通知信息
-     * @param mailType 消息类型
-     * @param extras 消息发送时附加的参数
+     * @param mailType     消息类型
+     * @param extras       消息发送时附加的参数
      */
     private void doSendNotice(MemberNotice memberNotice, NoticeType mailType, Map<String, String> extras) {
         Member member = memberService.getById(memberNotice.getMemberId());

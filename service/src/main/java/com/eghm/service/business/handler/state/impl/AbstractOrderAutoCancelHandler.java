@@ -3,8 +3,8 @@ package com.eghm.service.business.handler.state.impl;
 import com.eghm.enums.ref.CloseType;
 import com.eghm.enums.ref.OrderState;
 import com.eghm.model.Order;
-import com.eghm.service.business.OrderService;
 import com.eghm.service.business.MemberCouponService;
+import com.eghm.service.business.OrderService;
 import com.eghm.service.business.handler.context.OrderCancelContext;
 import com.eghm.service.business.handler.state.OrderAutoCancelHandler;
 import lombok.AllArgsConstructor;
@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 
 /**
  * 订单自动取消 默认实现
+ *
  * @author 二哥很猛
  * @date 2022/8/20
  */
@@ -40,6 +41,7 @@ public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelH
 
     /**
      * 过期后置处理, 例如释放库存等
+     *
      * @param order 订单
      */
     protected void after(Order order) {
@@ -50,6 +52,7 @@ public abstract class AbstractOrderAutoCancelHandler implements OrderAutoCancelH
      * 订单过期处理
      * 1.更新订单状态
      * 2.释放优惠券
+     *
      * @param order 订单
      */
     private void doProcess(Order order) {

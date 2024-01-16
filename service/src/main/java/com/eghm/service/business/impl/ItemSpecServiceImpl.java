@@ -4,10 +4,10 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.mapper.ItemSpecMapper;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSpec;
-import com.eghm.dto.business.item.sku.ItemSpecRequest;
 import com.eghm.service.business.ItemSpecService;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Maps;
@@ -29,9 +29,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @AllArgsConstructor
 public class ItemSpecServiceImpl implements ItemSpecService {
-    
+
     private final ItemSpecMapper itemSpecMapper;
-    
+
     @Override
     public Map<String, Long> insert(Item item, List<ItemSpecRequest> specList) {
         Map<String, Long> specMap = new HashMap<>(8);
@@ -45,7 +45,7 @@ public class ItemSpecServiceImpl implements ItemSpecService {
         }
         return specMap;
     }
-    
+
     @Override
     public Map<String, Long> update(Item item, List<ItemSpecRequest> specList) {
         if (Boolean.FALSE.equals(item.getMultiSpec())) {
@@ -54,7 +54,7 @@ public class ItemSpecServiceImpl implements ItemSpecService {
         }
         List<Long> specIds = specList.stream().map(ItemSpecRequest::getId).filter(Objects::nonNull).collect(Collectors.toList());
         this.deleteByNotInIds(item.getId(), specIds);
-        
+
         Map<String, Long> specMap = new HashMap<>(8);
         for (ItemSpecRequest request : specList) {
             ItemSpec spec = DataUtil.copy(request, ItemSpec.class);
@@ -68,17 +68,18 @@ public class ItemSpecServiceImpl implements ItemSpecService {
         }
         return specMap;
     }
-    
+
     @Override
     public List<ItemSpec> getByItemId(Long itemId) {
         LambdaQueryWrapper<ItemSpec> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemSpec::getItemId, itemId);
         return itemSpecMapper.selectList(wrapper);
     }
-    
+
     /**
      * 删除不在指定id列表中的规格信息
-     * @param itemId 商品id
+     *
+     * @param itemId  商品id
      * @param specIds 规格id
      */
     private void deleteByNotInIds(Long itemId, List<Long> specIds) {
@@ -87,9 +88,10 @@ public class ItemSpecServiceImpl implements ItemSpecService {
         wrapper.eq(ItemSpec::getItemId, itemId);
         itemSpecMapper.delete(wrapper);
     }
-    
+
     /**
      * 删除商品下所有规格信息
+     *
      * @param id id
      */
     private void deleteByItemId(Long id) {

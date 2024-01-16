@@ -8,6 +8,7 @@ public interface NumberService {
 
     /**
      * 生成唯一编号
+     *
      * @param prefix 前缀
      * @return NO.2021021213123123123
      */
@@ -15,6 +16,7 @@ public interface NumberService {
 
     /**
      * 生成唯一编号
+     *
      * @return 2021021213123123123
      */
     String getNumber();

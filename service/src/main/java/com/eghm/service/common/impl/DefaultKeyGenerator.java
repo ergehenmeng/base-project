@@ -50,16 +50,6 @@ public class DefaultKeyGenerator implements KeyGenerator {
      */
     private static final long TIMESTAMP_LEFT_SHIFT_BITS = WORKER_ID_BITS + SEQUENCE_BITS;
 
-    /**
-     * 上一次生成id时的序列值
-     */
-    private long sequence;
-
-    /**
-     * 上次生成id的时间
-     */
-    private long lastTime;
-
     static {
         //初始化时间 默认值
         Calendar calendar = Calendar.getInstance();
@@ -70,6 +60,15 @@ public class DefaultKeyGenerator implements KeyGenerator {
         calendar.set(Calendar.MILLISECOND, 0);
         EPOCH = calendar.getTimeInMillis();
     }
+
+    /**
+     * 上一次生成id时的序列值
+     */
+    private long sequence;
+    /**
+     * 上次生成id的时间
+     */
+    private long lastTime;
 
     @Override
     public synchronized long generateKey() {

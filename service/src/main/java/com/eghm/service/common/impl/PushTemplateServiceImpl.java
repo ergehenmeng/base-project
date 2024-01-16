@@ -4,12 +4,12 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.mapper.PushTemplateMapper;
-import com.eghm.model.PushTemplate;
 import com.eghm.dto.push.PushTemplateEditRequest;
 import com.eghm.dto.push.PushTemplateQueryRequest;
-import com.eghm.service.common.PushTemplateService;
+import com.eghm.mapper.PushTemplateMapper;
+import com.eghm.model.PushTemplate;
 import com.eghm.service.cache.CacheProxyService;
+import com.eghm.service.common.PushTemplateService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 public class PushTemplateServiceImpl implements PushTemplateService {
 
     private final PushTemplateMapper pushTemplateMapper;
-    
+
     private final CacheProxyService cacheProxyService;
 
     @Override

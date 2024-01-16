@@ -13,6 +13,7 @@ public interface BlackRosterService {
 
     /**
      * 分页查询黑名单列表
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -20,6 +21,7 @@ public interface BlackRosterService {
 
     /**
      * 添加黑名单信息
+     *
      * @param request ip及时间
      */
     void addBlackRoster(BlackRosterAddRequest request);

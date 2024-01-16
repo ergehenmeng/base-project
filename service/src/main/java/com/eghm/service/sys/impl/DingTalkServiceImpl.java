@@ -51,6 +51,7 @@ public class DingTalkServiceImpl implements DingTalkService {
 
     /**
      * 创建普通消息
+     *
      * @param content 消息内容
      * @return 消息 json
      */
@@ -69,9 +70,10 @@ public class DingTalkServiceImpl implements DingTalkService {
 
     /**
      * 创建markdown格式的消息
-     * @param title 文档标题
+     *
+     * @param title  文档标题
      * @param params 模板参数
-     * @param path 模板路劲
+     * @param path   模板路劲
      * @return 消息 json
      */
     private String createMarkdownMsg(String title, Map<String, Object> params, String path) {
@@ -87,6 +89,7 @@ public class DingTalkServiceImpl implements DingTalkService {
 
     /**
      * 组装请求url
+     *
      * @return <a href="https://oapi.dingtalk.com/robot/send?access_token=xxx&timestamp=xx&sign=xx">请求地址</a>
      */
     private String createRequestUrl() {
@@ -105,6 +108,7 @@ public class DingTalkServiceImpl implements DingTalkService {
 
     /**
      * 打印响应日志
+     *
      * @param responseBody 内容
      */
     private void parseResponse(String responseBody) {

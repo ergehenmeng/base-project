@@ -13,6 +13,7 @@ public interface SysTaskService {
 
     /**
      * 分页查询定时任务列表
+     *
      * @param request 查询条件
      * @return 列表
      */
@@ -20,6 +21,7 @@ public interface SysTaskService {
 
     /**
      * 主键查询
+     *
      * @param id id
      * @return 定时任务配置信息
      */
@@ -27,13 +29,15 @@ public interface SysTaskService {
 
     /**
      * 编辑保存任务配置信息
+     *
      * @param request 配置信息
      */
     void update(TaskEditRequest request);
 
     /**
      * 运行一次定时任务
-     * @param id 任务配置id
+     *
+     * @param id   任务配置id
      * @param args 任务参数
      */
     void execute(Long id, String args);

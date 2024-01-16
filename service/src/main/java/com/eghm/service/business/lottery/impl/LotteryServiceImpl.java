@@ -50,9 +50,9 @@ import java.util.stream.Collectors;
 public class LotteryServiceImpl implements LotteryService {
 
     private final LotteryMapper lotteryMapper;
-    
+
     private final LotteryPrizeService lotteryPrizeService;
-    
+
     private final LotteryConfigService lotteryConfigService;
 
     private final LotteryLogService lotteryLogService;
@@ -151,9 +151,10 @@ public class LotteryServiceImpl implements LotteryService {
 
     /**
      * 发放奖品
+     *
      * @param memberId 用户id
-     * @param lottery 抽奖信息
-     * @param config 中奖信息
+     * @param lottery  抽奖信息
+     * @param config   中奖信息
      */
     private boolean givePrize(Long memberId, Lottery lottery, LotteryConfig config) {
         try {
@@ -171,8 +172,9 @@ public class LotteryServiceImpl implements LotteryService {
 
     /**
      * 抽奖
-     * @param memberId 用户ID
-     * @param lottery 活动信息
+     *
+     * @param memberId   用户ID
+     * @param lottery    活动信息
      * @param configList 配置信息
      * @return 中奖位置
      */
@@ -189,7 +191,8 @@ public class LotteryServiceImpl implements LotteryService {
 
     /**
      * 校验是否可以抽奖
-     * @param lottery 抽奖信息
+     *
+     * @param lottery  抽奖信息
      * @param memberId 用户id
      */
     private void checkLottery(Lottery lottery, Long memberId) {
@@ -218,6 +221,7 @@ public class LotteryServiceImpl implements LotteryService {
 
     /**
      * 校验中奖配置信息
+     *
      * @param configList 配置信息
      */
     private void checkConfig(List<LotteryConfigRequest> configList) {
@@ -226,11 +230,12 @@ public class LotteryServiceImpl implements LotteryService {
             throw new BusinessException(ErrorCode.LOTTERY_RATIO);
         }
     }
-    
+
     /**
      * 校验抽奖活动名称是否重复, 主要:同一个商户下不能重复
-     * @param title 活动名称
-     * @param id 活动id
+     *
+     * @param title      活动名称
+     * @param id         活动id
      * @param merchantId 商户id
      */
     private void redoTitle(String title, Long id, Long merchantId) {
@@ -244,5 +249,5 @@ public class LotteryServiceImpl implements LotteryService {
             throw new BusinessException(ErrorCode.LOTTERY_REDO);
         }
     }
-    
+
 }

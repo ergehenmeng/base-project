@@ -15,6 +15,7 @@ public interface MerchantUserMapper extends BaseMapper<MerchantUser> {
 
     /**
      * 查询商户对应的系统用户id
+     *
      * @param userId id
      * @return 系统用户id
      */
@@ -22,7 +23,8 @@ public interface MerchantUserMapper extends BaseMapper<MerchantUser> {
 
     /**
      * 分页查询商户用户列表
-     * @param page 分页参数
+     *
+     * @param page    分页参数
      * @param request 查询条件
      * @return 列表
      */

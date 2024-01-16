@@ -32,20 +32,16 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SysMenuServiceImpl implements SysMenuService {
 
-    private final SysMenuMapper sysMenuMapper;
-
-    private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
-
     /**
      * 步长默认2位数即 10~99
      */
     private static final String STEP = "10";
-
     /**
      * 同级别最多有90个菜单
      */
     private static final int MAX = 90;
-
+    private final SysMenuMapper sysMenuMapper;
+    private final Comparator<MenuResponse> comparator = Comparator.comparing(MenuResponse::getSort);
 
     @Override
     public List<MenuResponse> getLeftMenuList(Long userId) {
@@ -125,14 +121,15 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     @Override
     public List<String> getAdminPermCode() {
-        List<MenuResponse> menuList = sysMenuMapper.getAdminMenuList( 2);
+        List<MenuResponse> menuList = sysMenuMapper.getAdminMenuList(2);
         return menuList.stream().map(MenuResponse::getCode).collect(Collectors.toList());
     }
 
     /**
      * 校验菜单名称是否重复
+     *
      * @param title 菜单名称
-     * @param id 菜单id
+     * @param id    菜单id
      */
     private void redoTitle(String title, String id) {
         LambdaQueryWrapper<SysMenu> wrapper = Wrappers.lambdaQuery();
@@ -149,7 +146,8 @@ public class SysMenuServiceImpl implements SysMenuService {
      * 例如: 父节点是商户显示,子节点只能是商户显示
      * 例如: 父节点是平台显示,子节点只能是平台显示
      * 例如: 父节点是全部显示,子节点可以是任意状态
-     * @param pid 父节点
+     *
+     * @param pid          父节点
      * @param displayState 当前节点的显示状态
      */
     private void checkDisplayState(String pid, Integer displayState) {
@@ -166,6 +164,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     /**
      * 生成pid子菜单中下一个最大id
+     *
      * @param pid pid,不能为零
      * @return 最大id
      */
@@ -187,6 +186,7 @@ public class SysMenuServiceImpl implements SysMenuService {
 
     /**
      * 将菜单列表树化
+     *
      * @param menuList 菜单列表
      * @return 菜单列表 树状结构
      */

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 用户请求信息
+ *
  * @author 二哥很猛
  * @date 2018/8/15 13:56
  */

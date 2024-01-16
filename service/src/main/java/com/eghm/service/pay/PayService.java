@@ -19,6 +19,7 @@ public interface PayService {
 
     /**
      * 交易方式是否支持
+     *
      * @param tradeType 交易方式
      * @return true: 支持 false:不支持
      */
@@ -28,6 +29,7 @@ public interface PayService {
 
     /**
      * 生成预支付订单信息
+     *
      * @param dto 预支付信息
      * @return prepay_id
      */
@@ -35,6 +37,7 @@ public interface PayService {
 
     /**
      * 查询订单信息
+     *
      * @param outTradeNo 商户订单号
      * @return 订单信息
      */
@@ -42,12 +45,14 @@ public interface PayService {
 
     /**
      * 关闭订单号
+     *
      * @param outTradeNo 商户订单号
      */
     void closeOrder(String outTradeNo);
 
     /**
      * 申请退款
+     *
      * @param dto 退款信息
      * @return 退款相应信息
      */
@@ -55,6 +60,7 @@ public interface PayService {
 
     /**
      * 查询退款单号
+     *
      * @param outTradeNo 退款流水号
      * @return 退款信息
      */
@@ -62,22 +68,25 @@ public interface PayService {
 
     /**
      * 解析支付异步通知
+     *
      * @param notifyData 响应信息
-     * @param header 头信息(用于校验)
+     * @param header     头信息(用于校验)
      * @return 解析后的支付信息
      */
     WxPayNotifyV3Result parsePayNotify(String notifyData, SignatureHeader header);
 
     /**
      * 解析退款异步通知
+     *
      * @param notifyData 响应信息
-     * @param header 头信息(用于校验)
+     * @param header     头信息(用于校验)
      * @return 解析后的退款信息
      */
     WxPayRefundNotifyV3Result parseRefundNotify(String notifyData, SignatureHeader header);
 
     /**
      * 校验异步通知
+     *
      * @param param 参数
      */
     void verifyNotify(Map<String, String> param);

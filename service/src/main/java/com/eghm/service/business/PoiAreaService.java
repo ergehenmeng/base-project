@@ -22,6 +22,7 @@ public interface PoiAreaService {
 
     /**
      * 分页查询区域类别
+     *
      * @param query 查询条件
      * @return 列表
      */
@@ -29,30 +30,35 @@ public interface PoiAreaService {
 
     /**
      * 查询全部区域
+     *
      * @return 列表
      */
     List<PoiAreaResponse> getList();
 
     /**
      * 新增区域
+     *
      * @param request 区域信息
      */
     void create(PoiAreaAddRequest request);
 
     /**
      * 编辑区域
+     *
      * @param request 区域信息
      */
     void update(PoiAreaEditRequest request);
 
     /**
      * 编辑区域
+     *
      * @param request 区域信息
      */
     void updateState(StateRequest request);
 
     /**
      * 删除区域
+     *
      * @param id id
      */
     void deleteById(Long id);

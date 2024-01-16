@@ -15,7 +15,7 @@ public interface MemberMapper extends BaseMapper<Member> {
     /**
      * 分页查询会员
      *
-     * @param page 分页对象
+     * @param page    分页对象
      * @param request 查询参数
      * @return 列表
      */

@@ -68,6 +68,7 @@ public class AggregatePayServiceImpl implements AggregatePayService {
 
     /**
      * 查询可适配的交易方式
+     *
      * @param tradeType 交易类型
      * @return 支付方式
      */

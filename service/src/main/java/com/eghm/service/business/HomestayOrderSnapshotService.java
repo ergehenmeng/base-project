@@ -12,7 +12,8 @@ public interface HomestayOrderSnapshotService {
 
     /**
      * 保存订单快照
-     * @param orderNo 订单信息
+     *
+     * @param orderNo    订单信息
      * @param configList 房型价格信息
      */
     void orderSnapshot(String orderNo, List<HomestayRoomConfig> configList);

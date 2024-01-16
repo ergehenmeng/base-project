@@ -6,6 +6,7 @@ import lombok.Getter;
 
 /**
  * 用于定义RabbitMQ的枚举, 注意:routingKey不支持多配置
+ *
  * @author 二哥很猛
  * @date 2022/6/12 18:47
  */
@@ -16,22 +17,22 @@ public enum ExchangeQueue {
     /**
      * 零售订单未支付时取消队列 延迟队列
      */
-    ITEM_PAY_EXPIRE("item_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_PAY_EXPIRE_QUEUE}, "",true),
+    ITEM_PAY_EXPIRE("item_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.ITEM_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
      * 门票订单未支付时取消队列 延迟队列
      */
-    TICKET_PAY_EXPIRE("ticket_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.TICKET_PAY_EXPIRE_QUEUE}, "",true),
+    TICKET_PAY_EXPIRE("ticket_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.TICKET_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
      * 门票订单未支付时取消队列 延迟队列
      */
-    HOMESTAY_PAY_EXPIRE("homestay_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.HOMESTAY_PAY_EXPIRE_QUEUE}, "",true),
+    HOMESTAY_PAY_EXPIRE("homestay_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.HOMESTAY_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
      * 餐饮券订单未支付时取消队列 延迟队列
      */
-    RESTAURANT_PAY_EXPIRE("restaurant_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE}, "",true),
+    RESTAURANT_PAY_EXPIRE("restaurant_pay_expire_exchange", ExchangeType.DIRECT, new String[]{QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE}, "", true),
 
     /**
      * 线路订单未支付时取消队列 延迟队列

@@ -17,9 +17,10 @@ import java.util.List;
  * 涉及数据权限的表中必须包含两个字段, 用户所属部门:dept_code, 用户ID:user_id
  * 在Mapper的方法上添加@DataScope注解
  * 在sql中可以通过${dataScope}直接注入数据权限部分的sql
- * @see DataScopeInterceptor 拦截器
+ *
  * @author 殿小二
  * @date 2020/8/14
+ * @see DataScopeInterceptor 拦截器
  */
 @Aspect
 public class DataScopeAspect {
@@ -27,10 +28,19 @@ public class DataScopeAspect {
     private static final ThreadLocal<String> DATA_SCOPE_PARAM = new ThreadLocal<>();
 
     /**
+     * 获取数据权限sql
+     *
+     * @return sql
+     */
+    public static String getScope() {
+        return DATA_SCOPE_PARAM.get();
+    }
+
+    /**
      * 增强逻辑
      */
     @Around("@annotation(scope) && this(com.baomidou.mybatisplus.core.mapper.BaseMapper)")
-    public Object around(ProceedingJoinPoint joinPoint, DataScope scope) throws Throwable{
+    public Object around(ProceedingJoinPoint joinPoint, DataScope scope) throws Throwable {
         try {
             UserToken user = SecurityHolder.getUserRequired();
             String sql = this.createPermissionSql(user, scope);
@@ -43,7 +53,8 @@ public class DataScopeAspect {
 
     /**
      * 根据用户数据权限生成额外的sql
-     * @param user 用户信息
+     *
+     * @param user  用户信息
      * @param scope 注解标示
      * @return sql 例如 t.dept_id = 123123
      */
@@ -76,14 +87,6 @@ public class DataScopeAspect {
         }
         builder.append(" ) ");
         return builder.toString();
-    }
-
-    /**
-     * 获取数据权限sql
-     * @return sql
-     */
-    public static String getScope() {
-        return DATA_SCOPE_PARAM.get();
     }
 
 }

@@ -24,6 +24,7 @@ public class DesensitizationSerializer extends StdScalarSerializer<Object> {
         super(String.class, false);
         this.fieldType = fieldType;
     }
+
     @Override
     public void serialize(Object value, JsonGenerator gen, SerializerProvider provider) throws IOException {
         if (value == null) {

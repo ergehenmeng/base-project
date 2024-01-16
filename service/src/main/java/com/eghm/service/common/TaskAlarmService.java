@@ -10,7 +10,8 @@ public interface TaskAlarmService {
 
     /**
      * 报警通知
-     * @param task 任务配置信息
+     *
+     * @param task     任务配置信息
      * @param errorMsg 错误信息
      */
     void noticeAlarm(Task task, String errorMsg);

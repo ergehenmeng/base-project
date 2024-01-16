@@ -75,7 +75,7 @@ public class SysConfigApi {
     /**
      * 根据nid获取系统参数配置信息
      *
-     * @param nid 唯一nid
+     * @param nid          唯一nid
      * @param defaultValue 解析失败时,返回默认值
      * @return 系统参数结果 double
      */
@@ -108,7 +108,7 @@ public class SysConfigApi {
     /**
      * 根据nid获取系统参数配置信息的值
      *
-     * @param nid 唯一nid
+     * @param nid          唯一nid
      * @param defaultValue 解析失败时,采用默认值
      * @return 系统参数结果值int 如果转换失败为0
      */
@@ -141,7 +141,7 @@ public class SysConfigApi {
     /**
      * 根据nid获取系统参数配置信息的值
      *
-     * @param nid 唯一nid
+     * @param nid          唯一nid
      * @param defaultValue 解析错误时 采用默认值
      * @return 系统参数结果值long 如果转换失败为0
      */

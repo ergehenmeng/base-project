@@ -21,9 +21,9 @@ import java.util.Set;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class BeanValidator {
-    
+
     private static final ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().failFast(true).buildValidatorFactory();
-    
+
     public static <T> void validate(T t, Class<?>... groups) {
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<T>> validate = validator.validate(t, groups);
@@ -35,11 +35,11 @@ public class BeanValidator {
             }
         }
     }
-    
+
     public static void validateList(Collection<?> collection) {
         for (Object o : collection) {
             validate(o);
         }
     }
-  
+
 }

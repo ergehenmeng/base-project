@@ -18,6 +18,7 @@ public interface CommentService {
 
     /**
      * 分页获取留言
+     *
      * @param dto 查询条件
      * @return 列表
      */
@@ -25,12 +26,14 @@ public interface CommentService {
 
     /**
      * 添加新留言
+     *
      * @param dto 留言信息
      */
     void add(CommentDTO dto);
 
     /**
      * 点赞或取消点赞
+     *
      * @param id id
      */
     void giveLike(Long id);

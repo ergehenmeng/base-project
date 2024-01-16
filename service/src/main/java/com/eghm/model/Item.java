@@ -32,7 +32,7 @@ public class Item extends BaseEntity {
 
     @ApiModelProperty(value = "所属商户id")
     private Long merchantId;
-    
+
     @ApiModelProperty(value = "状态 0:待上架 1:已上架 2:强制下架")
     private State state;
 
@@ -41,19 +41,19 @@ public class Item extends BaseEntity {
 
     @ApiModelProperty(value = "是否为多规格商品 true:是 false:不是")
     private Boolean multiSpec;
-    
+
     @ApiModelProperty(value = "商品名称")
     private String title;
-    
+
     @ApiModelProperty(value = "商品描述信息")
     private String depict;
-    
+
     @ApiModelProperty(value = "封面图")
     private String coverUrl;
-    
+
     @ApiModelProperty(value = "购买须知")
     private String purchaseNotes;
-    
+
     @ApiModelProperty(value = "限购数量")
     private Integer quota;
 
@@ -66,30 +66,30 @@ public class Item extends BaseEntity {
 
     @ApiModelProperty(value = "交付方式")
     private DeliveryType deliveryType;
-    
+
     @ApiModelProperty(value = "退款方式")
     private RefundType refundType;
-    
+
     @ApiModelProperty("退款描述信息")
     private String refundDescribe;
-    
+
     @ApiModelProperty(value = "最低价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer minPrice;
-    
+
     @ApiModelProperty(value = "最高价格")
     @JsonSerialize(using = CentToYuanEncoder.class)
     private Integer maxPrice;
-    
+
     @ApiModelProperty(value = "销售数量(所有规格销售总量)")
     private Integer saleNum;
-    
+
     @ApiModelProperty(value = "总销售量=实际销售+虚拟销量")
     private Integer totalNum;
-    
+
     @ApiModelProperty(value = "商品介绍信息")
     private String introduce;
-    
+
     @ApiModelProperty("商品排序 越小越排在前面")
     private Integer sortBy;
 

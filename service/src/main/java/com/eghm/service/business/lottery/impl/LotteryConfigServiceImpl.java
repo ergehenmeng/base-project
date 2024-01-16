@@ -2,14 +2,14 @@ package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.dto.business.lottery.LotteryConfigRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.service.business.lottery.LotteryConfigService;
-import com.eghm.utils.DecimalUtil;
-import com.eghm.configuration.security.SecurityHolder;
 import com.eghm.mapper.LotteryConfigMapper;
 import com.eghm.model.LotteryConfig;
-import com.eghm.dto.business.lottery.LotteryConfigRequest;
+import com.eghm.service.business.lottery.LotteryConfigService;
+import com.eghm.utils.DecimalUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +28,13 @@ import java.util.List;
 public class LotteryConfigServiceImpl implements LotteryConfigService {
 
     private final LotteryConfigMapper lotteryConfigMapper;
-    
+
     @Override
     public void insert(Long lotteryId, List<LotteryConfigRequest> positionList, List<Long> prizeIds) {
         int weight = 0;
         for (int i = 0; i < positionList.size(); i++) {
             LotteryConfigRequest request = positionList.get(i);
-            if (request.getLocation() != i + 1 ) {
+            if (request.getLocation() != i + 1) {
                 throw new BusinessException(ErrorCode.LOTTERY_POSITION);
             }
             int ratio = DecimalUtil.yuanToCent(request.getRatio().doubleValue());

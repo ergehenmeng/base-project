@@ -115,7 +115,8 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
 
     /**
      * 校验skuId与itemId是否匹配,同时设置skuId的重量
-     * @param skuMap sku信息
+     *
+     * @param skuMap     sku信息
      * @param weightList 下单商品信息
      */
     private void checkSkuItemMapping(Map<Long, ItemSku> skuMap, List<ItemCalcDTO> weightList) {
@@ -130,9 +131,10 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
 
     /**
      * 计算快递费(计重)
-     * @param itemId  商品id
-     * @param weight  重量
-     * @param countyId 收货县区
+     *
+     * @param itemId     商品id
+     * @param weight     重量
+     * @param countyId   收货县区
      * @param regionList 价格配置
      * @return 运费
      */
@@ -160,9 +162,10 @@ public class ItemExpressRegionServiceImpl implements ItemExpressRegionService {
 
     /**
      * 计算快递费(计件)
-     * @param itemId  商品id
-     * @param num 商品构面数量(同一商品多sku数量会相加)
-     * @param countyId 收货县区
+     *
+     * @param itemId     商品id
+     * @param num        商品构面数量(同一商品多sku数量会相加)
+     * @param countyId   收货县区
      * @param regionList 价格配置
      * @return 运费
      */

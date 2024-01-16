@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.LotteryConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.LotteryConfig;
 
 /**
  * <p>

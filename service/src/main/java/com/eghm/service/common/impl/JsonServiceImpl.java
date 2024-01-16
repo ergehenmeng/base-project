@@ -80,6 +80,7 @@ public class JsonServiceImpl implements JsonService {
 
     /**
      * 生成list泛型对象
+     *
      * @param elementType <T>对象类型
      * @return javaType
      */

@@ -17,6 +17,7 @@ public interface SensitiveWordMapper extends BaseMapper<SensitiveWord> {
 
     /**
      * 查询所有敏感词
+     *
      * @return 所有
      */
     List<String> getWordList();

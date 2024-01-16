@@ -65,7 +65,7 @@ public class ExceptionAdviceHandler {
         log.warn("业务异常:[{}] 错误码:[{}] ", request.getRequestURI(), e.getCode(), e);
         return RespBody.error(e.getCode(), e.getMessage());
     }
-    
+
     /**
      * 参数异常
      *

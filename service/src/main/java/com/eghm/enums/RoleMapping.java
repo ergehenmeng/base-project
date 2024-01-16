@@ -56,6 +56,7 @@ public enum RoleMapping {
 
     /**
      * 根据商户类型查询商户拥有的角色code
+     *
      * @param merchantType 商户类型,
      * @return 角色列表
      */

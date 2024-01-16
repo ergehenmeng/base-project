@@ -54,6 +54,7 @@ public class DateAnnotationFormatterFactory extends EmbeddedValueResolutionSuppo
 
     /**
      * Factory method used to create a {@link DateTimeFormatter}.
+     *
      * @param annotation the format annotation for the field
      * @return a {@link DateTimeFormatter} instance
      */

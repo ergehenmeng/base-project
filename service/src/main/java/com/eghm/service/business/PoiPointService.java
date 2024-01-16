@@ -23,6 +23,7 @@ public interface PoiPointService {
 
     /**
      * 分页查询点位列表
+     *
      * @param query 查询条件
      * @return 列表
      */
@@ -30,24 +31,28 @@ public interface PoiPointService {
 
     /**
      * 新增poi点位信息
+     *
      * @param request poi点位信息
      */
     void create(PoiPointAddRequest request);
 
     /**
      * 修改poi点位信息
+     *
      * @param request poi点位信息
      */
     void update(PoiPointEditRequest request);
 
     /**
      * 删除poi点位信息
+     *
      * @param id poi点位信息id
      */
     void deleteById(Long id);
 
     /**
      * 详细信息
+     *
      * @param id id
      * @return 点位信息
      */
@@ -55,6 +60,7 @@ public interface PoiPointService {
 
     /**
      * 根据区域查询点位列表
+     *
      * @param areaCode 区域编号
      * @return 点位信息
      */
@@ -62,6 +68,7 @@ public interface PoiPointService {
 
     /**
      * 根据类型查询点位列表
+     *
      * @param typeId 类型id
      * @return 点位列表
      */
@@ -69,6 +76,7 @@ public interface PoiPointService {
 
     /**
      * 根据区域查询点位列表
+     *
      * @param areaCode  区域编号
      * @param queryName 查询名称
      * @return 点位列表

@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * 用于指定脱敏字段类型
+ *
  * @author 二哥很猛
  * @since 2023/12/27
  */

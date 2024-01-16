@@ -20,8 +20,9 @@ import org.springframework.lang.NonNull;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
- * 程序启动入口 
+ * 程序启动入口
  * 排除RabbitConfig是因为管理后台暂不使用mq
+ *
  * @author 二哥很猛
  */
 @Slf4j

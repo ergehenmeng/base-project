@@ -1,8 +1,8 @@
 package com.eghm.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.eghm.enums.ref.VisitorState;
 import com.eghm.model.OrderVisitor;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -17,7 +17,8 @@ public interface OrderVisitorMapper extends BaseMapper<OrderVisitor> {
 
     /**
      * 将退款申请中的游客信息更新为已退款
-     * @param orderNo 订单号
+     *
+     * @param orderNo  订单号
      * @param refundId 退款记录
      * @return count
      */

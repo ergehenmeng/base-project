@@ -9,20 +9,17 @@ package com.eghm.configuration.timer;
 public class Entry {
 
     /**
-     * 存放entry的列表,相互引用
-     */
-    private TaskBucket taskBucket;
-
-    /**
      * 当前entry的下一个对象
      */
     Entry next;
-
     /**
      * 当前entry的上一个对象
      */
     Entry prev;
-
+    /**
+     * 存放entry的列表,相互引用
+     */
+    private TaskBucket taskBucket;
     /**
      * 真实要执行的任务对象
      */

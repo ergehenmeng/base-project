@@ -7,6 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  * 校验规则定义
+ *
  * @author 二哥很猛
  * @date 2018/8/14 11:04
  */
@@ -36,6 +37,6 @@ public class RangeIntDefine implements ConstraintValidator<RangeInt, Integer> {
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
-        return (!required && value == null ) || (value != null && value >= min && value <= max);
+        return (!required && value == null) || (value != null && value >= min && value <= max);
     }
 }

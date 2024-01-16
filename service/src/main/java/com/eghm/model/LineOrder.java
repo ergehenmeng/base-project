@@ -26,7 +26,7 @@ public class LineOrder {
 
     @ApiModelProperty(value = "线路id")
     private Long lineId;
-    
+
     @ApiModelProperty("线路配置id(冗余字段)")
     private Long lineConfigId;
 

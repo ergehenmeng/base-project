@@ -28,8 +28,9 @@ public class RedPacketUtil {
 
     /**
      * 生成红包
+     *
      * @param amount 总金额
-     * @param num 人数
+     * @param num    人数
      * @return 红包金额列表
      */
     public static List<BigDecimal> generate(BigDecimal amount, int num) {
@@ -48,8 +49,9 @@ public class RedPacketUtil {
 
     /**
      * 随机发放红包金额
+     *
      * @param amount 总金额
-     * @param num 人数
+     * @param num    人数
      * @return 金额
      */
     private static List<BigDecimal> generateRandom(BigDecimal amount, int num) {
@@ -73,6 +75,7 @@ public class RedPacketUtil {
 
     /**
      * 每人发放只能是最小金额
+     *
      * @param num 数量
      * @return 金额
      */

@@ -23,7 +23,8 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
 
     /**
      * 分页查询门票订单
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */
@@ -31,15 +32,17 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
 
     /**
      * 查询用户门票订单列表
+     *
      * @param page 分页信息
-     * @param dto 查询条件
+     * @param dto  查询条件
      * @return 列表
      */
     Page<TicketOrderVO> getList(Page<TicketOrderVO> page, @Param("param") TicketOrderQueryDTO dto);
 
     /**
      * 查询用户自己的订单详情信息
-     * @param orderNo 订单编号
+     *
+     * @param orderNo  订单编号
      * @param memberId 用户id
      * @return 订单信息
      */
@@ -47,6 +50,7 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
 
     /**
      * 查询订单商品快照
+     *
      * @param orderId 订单id
      * @return 订单信息
      */
@@ -54,6 +58,7 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
 
     /**
      * 查询未核销的订单列表
+     *
      * @return list
      */
     List<TicketVerifyVO> getUnVerifyList();
@@ -61,7 +66,7 @@ public interface TicketOrderMapper extends BaseMapper<TicketOrder> {
     /**
      * 查询门票订单详细信息
      *
-     * @param orderNo 订单编号
+     * @param orderNo    订单编号
      * @param merchantId 商户ID
      * @return 订单详情
      */

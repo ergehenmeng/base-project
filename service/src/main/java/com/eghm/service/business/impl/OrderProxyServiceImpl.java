@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 
 /**
  * 该类为了解决构造方法注入循环依赖
+ *
  * @author 二哥很猛
  * @since 2024/1/11
  */
@@ -53,6 +54,7 @@ public class OrderProxyServiceImpl implements OrderProxyService {
         wrapper.last(CommonConstant.LIMIT_ONE);
         return homestayOrderMapper.selectOne(wrapper);
     }
+
     @Override
     public void confirm(HomestayOrderConfirmRequest request) {
         HomestayOrder homestayOrder = this.getByOrderNo(request.getOrderNo());

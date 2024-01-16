@@ -12,7 +12,7 @@ import lombok.Data;
 public class RegisterSendSmsDTO {
 
     @Mobile
-    @ApiModelProperty(required = true,value = "手机号码")
+    @ApiModelProperty(required = true, value = "手机号码")
     private String mobile;
 
 }

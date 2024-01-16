@@ -48,7 +48,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private final SysConfigApi sysConfigApi;
 
     private final ItemService itemService;
-    
+
     private final ItemSkuService itemSkuService;
 
     @Override
@@ -127,7 +127,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             log.error("超出商品最大限购数量, 无法更新购物车数量 [{}] [{}] [{}]", shoppingCart.getItemId(), item.getQuota(), quantity);
             throw new BusinessException(ITEM_QUOTA);
         }
-    
+
         ItemSku itemSku = itemSkuService.selectByIdRequired(shoppingCart.getSkuId());
 
         if (itemSku.getStock() < quantity) {
@@ -141,7 +141,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 校验商品信息,并查询sku信息
-     * @param dto 商品信息
+     *
+     * @param dto      商品信息
      * @param quantity 添加总数量
      */
     private ItemSku checkAndGetSku(AddCartDTO dto, int quantity) {
@@ -171,6 +172,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     /**
      * 校验购物车最大值
+     *
      * @param memberId 用户
      */
     private void checkCarMax(Long memberId) {

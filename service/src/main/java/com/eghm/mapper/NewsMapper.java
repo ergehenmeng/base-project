@@ -20,7 +20,8 @@ public interface NewsMapper extends BaseMapper<News> {
 
     /**
      * 分页查询资讯
-     * @param page 分页信息
+     *
+     * @param page      分页信息
      * @param queryName 标题查询
      * @return 列表
      */
@@ -28,13 +29,15 @@ public interface NewsMapper extends BaseMapper<News> {
 
     /**
      * 更新点赞数量
-     * @param id id
+     *
+     * @param id      id
      * @param likeNum 点赞数量
      */
     void updateLikeNum(@Param("id") Long id, @Param("likeNum") Integer likeNum);
 
     /**
      * 根据id查询资讯
+     *
      * @param newsIds 资讯id
      * @return 列表
      */

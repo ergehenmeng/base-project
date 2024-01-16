@@ -72,7 +72,28 @@ public class RabbitListenerHandler {
     private final OrderEvaluationService orderEvaluationService;
 
     /**
+     * 处理MQ中消息,并手动确认
+     *
+     * @param msg      消息
+     * @param message  message
+     * @param channel  channel
+     * @param consumer 业务
+     * @param <T>      消息类型
+     * @throws IOException e
+     */
+    public static <T> void processMessageAck(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
+        try {
+            consumer.accept(msg);
+        } catch (Exception e) {
+            log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
+        } finally {
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        }
+    }
+
+    /**
      * 零售商品消息队列订单过期处理
+     *
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.ITEM_PAY_EXPIRE_QUEUE)
@@ -82,6 +103,7 @@ public class RabbitListenerHandler {
 
     /**
      * 门票队列订单过期处理
+     *
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.TICKET_PAY_EXPIRE_QUEUE)
@@ -91,6 +113,7 @@ public class RabbitListenerHandler {
 
     /**
      * 民宿队列订单过期处理
+     *
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.HOMESTAY_PAY_EXPIRE_QUEUE)
@@ -100,6 +123,7 @@ public class RabbitListenerHandler {
 
     /**
      * 餐饮券队列订单过期处理
+     *
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.RESTAURANT_PAY_EXPIRE_QUEUE)
@@ -109,17 +133,19 @@ public class RabbitListenerHandler {
 
     /**
      * 线路队列订单过期处理
+     *
      * @param orderNo 订单编号
      */
     @RabbitListener(queues = QueueConstant.LINE_PAY_EXPIRE_QUEUE)
     public void lineExpire(String orderNo, Message message, Channel channel) throws IOException {
         this.doOrderExpire(orderNo, LineEvent.AUTO_CANCEL, message, channel);
     }
-    
+
     /**
      * 订单30分钟过期处理
+     *
      * @param orderNo 订单编号
-     * @param event 状态机事件, 不同品类事件不一样
+     * @param event   状态机事件, 不同品类事件不一样
      * @param message mq消息
      * @param channel mq channel
      */
@@ -135,7 +161,7 @@ public class RabbitListenerHandler {
             stateHandler.fireEvent(ProductType.prefix(orderNo), order.getState().getValue(), event, orderCancelContext);
         });
     }
-    
+
     /**
      * 移动端操作日志
      */
@@ -162,6 +188,7 @@ public class RabbitListenerHandler {
 
     /**
      * 门票下单
+     *
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.TICKET_ORDER_QUEUE)
@@ -174,6 +201,7 @@ public class RabbitListenerHandler {
 
     /**
      * 零售下单
+     *
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.ITEM_ORDER_QUEUE)
@@ -186,6 +214,7 @@ public class RabbitListenerHandler {
 
     /**
      * 线路下单
+     *
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.LINE_ORDER_QUEUE)
@@ -198,6 +227,7 @@ public class RabbitListenerHandler {
 
     /**
      * 民宿下单
+     *
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.HOMESTAY_ORDER_QUEUE)
@@ -210,6 +240,7 @@ public class RabbitListenerHandler {
 
     /**
      * 餐饮券下单
+     *
      * @param context 下单信息
      */
     @RabbitListener(queues = QueueConstant.VOUCHER_ORDER_QUEUE)
@@ -222,6 +253,7 @@ public class RabbitListenerHandler {
 
     /**
      * 更新分数
+     *
      * @param vo vo
      */
     @RabbitListener(queues = QueueConstant.PRODUCT_SCORE_QUEUE)
@@ -260,11 +292,12 @@ public class RabbitListenerHandler {
 
     /**
      * 处理MQ中消息,并手动确认,并将结果放入缓存方便客户端查询
-     * @param msg 消息
-     * @param message message
-     * @param channel channel
+     *
+     * @param msg      消息
+     * @param message  message
+     * @param channel  channel
      * @param consumer 业务
-     * @param <T> 消息类型
+     * @param <T>      消息类型
      * @throws IOException e
      */
     public <T extends AsyncKey> void processMessageAckAsync(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
@@ -292,6 +325,7 @@ public class RabbitListenerHandler {
      * 2. 如果前端一直轮训获取结果,到上限后会直接提示商品太火爆,因此如果下单还在队列中,则不允许下单
      * 3. 只有前端轮训没有上限(100)
      * 4.
+     *
      * @param asyncKey key
      * @return 是否允许下单
      */
@@ -308,25 +342,6 @@ public class RabbitListenerHandler {
         }
         int accessNum = Integer.parseInt(accessStr);
         return accessNum < CommonConstant.MAX_ACCESS_NUM;
-    }
-
-    /**
-     * 处理MQ中消息,并手动确认
-     * @param msg 消息
-     * @param message message
-     * @param channel channel
-     * @param consumer 业务
-     * @param <T> 消息类型
-     * @throws IOException e
-     */
-    public static <T> void processMessageAck(T msg, Message message, Channel channel, Consumer<T> consumer) throws IOException {
-        try {
-            consumer.accept(msg);
-        } catch (Exception e) {
-            log.error("队列[{}]处理消息异常 [{}] [{}]", message.getMessageProperties().getConsumerQueue(), msg, message, e);
-        } finally {
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
-        }
     }
 
 }

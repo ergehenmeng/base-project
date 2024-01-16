@@ -1,4 +1,3 @@
-
 package com.eghm.vo.user;
 
 import com.baomidou.mybatisplus.annotation.IdType;

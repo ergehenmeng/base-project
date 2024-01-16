@@ -65,7 +65,7 @@ public class VoucherServiceImpl implements VoucherService {
     @Override
     public void update(VoucherEditRequest request) {
         this.redoTitle(request.getTitle(), request.getId(), request.getRestaurantId());
-        
+
         Voucher select = voucherMapper.selectById(request.getId());
         Voucher voucher = DataUtil.copy(request, Voucher.class);
         // 总销量要根据真实销量计算
@@ -134,8 +134,9 @@ public class VoucherServiceImpl implements VoucherService {
 
     /**
      * 针对同一个家店铺餐饮区名称不能重复
-     * @param title 餐券名称
-     * @param id 餐券id 编辑时不能为空
+     *
+     * @param title        餐券名称
+     * @param id           餐券id 编辑时不能为空
      * @param restaurantId 所属餐厅
      */
     public void redoTitle(String title, Long id, Long restaurantId) {

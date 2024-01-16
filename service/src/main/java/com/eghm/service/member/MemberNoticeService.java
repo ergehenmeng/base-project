@@ -14,7 +14,8 @@ public interface MemberNoticeService {
 
     /**
      * 查询用户站内信通知列表
-     * @param query 分页参数
+     *
+     * @param query    分页参数
      * @param memberId 用户id
      * @return 列表
      */
@@ -22,34 +23,39 @@ public interface MemberNoticeService {
 
     /**
      * 发送站内信
-     * @param memberId 接收消息的用户
+     *
+     * @param memberId   接收消息的用户
      * @param sendNotice 消息内容
      */
     void sendNotice(Long memberId, SendNotice sendNotice);
 
     /**
      * 批量发送站内信
+     *
      * @param memberIdList 接收消息的用户列表
-     * @param sendNotice 消息内容
+     * @param sendNotice   消息内容
      */
     void sendNotice(List<Long> memberIdList, SendNotice sendNotice);
 
     /**
      * 删除消息通知
-     * @param id 主键id
+     *
+     * @param id       主键id
      * @param memberId memberId
      */
     void deleteNotice(Long id, Long memberId);
 
     /**
      * 设置消息已读
-     * @param id id
+     *
+     * @param id       id
      * @param memberId memberId
      */
     void setNoticeRead(Long id, Long memberId);
 
     /**
      * 统计用户未读消息数量
+     *
      * @param memberId memberId
      * @return 数量
      */

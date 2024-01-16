@@ -11,7 +11,8 @@ public interface WebappLogMapper extends BaseMapper<WebappLog> {
 
     /**
      * 查询移动端操作记录
-     * @param page 分页信息
+     *
+     * @param page    分页信息
      * @param request 查询条件
      * @return 列表
      */

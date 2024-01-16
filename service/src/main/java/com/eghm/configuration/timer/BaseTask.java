@@ -14,14 +14,13 @@ import java.time.Duration;
 public abstract class BaseTask implements Runnable {
 
     /**
-     * 存放该TimerTask的entry对象,相互引用
-     */
-    private Entry entry;
-
-    /**
      * 延迟多长时间执行 毫秒值
      */
     private final long delayMs;
+    /**
+     * 存放该TimerTask的entry对象,相互引用
+     */
+    private Entry entry;
 
     /**
      * 构造方法
@@ -62,6 +61,10 @@ public abstract class BaseTask implements Runnable {
         }
     }
 
+    public synchronized Entry getEntry() {
+        return entry;
+    }
+
     /**
      * 如果存在,先删除旧entry,再赋值
      *
@@ -72,10 +75,6 @@ public abstract class BaseTask implements Runnable {
             this.entry.remove();
         }
         this.entry = entry;
-    }
-
-    public synchronized Entry getEntry() {
-        return entry;
     }
 
     public long getDelayMs() {

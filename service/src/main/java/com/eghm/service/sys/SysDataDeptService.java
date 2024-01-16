@@ -12,6 +12,7 @@ public interface SysDataDeptService {
 
     /**
      * 获取用户所拥有的所有部门(数据权限)
+     *
      * @param userId 用户id
      * @return 部门id
      */
@@ -19,12 +20,14 @@ public interface SysDataDeptService {
 
     /**
      * 插入用户与部门数据权限关联信息
+     *
      * @param dept userId + deptId
      */
     void insert(SysDataDept dept);
 
     /**
      * 删除用户对应的部门的数据权限
+     *
      * @param userId 用户id
      */
     void deleteByUserId(Long userId);

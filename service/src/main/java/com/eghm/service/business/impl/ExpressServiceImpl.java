@@ -47,7 +47,7 @@ public class ExpressServiceImpl implements ExpressService {
         SystemProperties.Express100 express = systemProperties.getExpress();
         queryTrackReq.setParam(param);
         queryTrackReq.setCustomer(express.getCustomer());
-        queryTrackReq.setSign(SignUtils.querySign(param , express.getKey(), express.getCustomer()));
+        queryTrackReq.setSign(SignUtils.querySign(param, express.getKey(), express.getCustomer()));
         IBaseClient baseClient = new QueryTrack();
         HttpResult execute;
         try {

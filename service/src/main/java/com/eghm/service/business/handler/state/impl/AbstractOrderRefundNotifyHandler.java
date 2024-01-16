@@ -26,6 +26,7 @@ import static com.eghm.service.pay.enums.RefundStatus.*;
 
 /**
  * 退款异步回调
+ *
  * @author 二哥很猛
  * @date 2022/8/20
  */
@@ -57,8 +58,9 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
 
     /**
      * 校验订单及退款信息
-     * @param context 流水号
-     * @param order 订单信息
+     *
+     * @param context   流水号
+     * @param order     订单信息
      * @param refundLog 退款信息
      */
     protected void before(RefundNotifyContext context, Order order, OrderRefundLog refundLog) {
@@ -76,8 +78,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
      * 1.查询在支付平台的订单退款状态
      * 2.根据结果状态 更新订单状态,退款状态及退款记录状态
      *
-     * @param context 流水号
-     * @param order 订单信息
+     * @param context   流水号
+     * @param order     订单信息
      * @param refundLog 退款记录
      * @return true: 退款成功 false:不成功
      */
@@ -101,7 +103,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
 
     /**
      * 退款成功后,设置订单状态(由于涉及到部分退款等特殊情况,根据各自模块来决定订单状态走向)
-     * @param order 订单信息
+     *
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void refundSuccessSetState(Order order, OrderRefundLog refundLog) {
@@ -125,7 +128,8 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
 
     /**
      * 退款失败后,设置订单状态及退款状态
-     * @param order 订单信息
+     *
+     * @param order     订单信息
      * @param refundLog 退款记录
      */
     protected void refundFailSetState(Order order, OrderRefundLog refundLog) {
@@ -134,9 +138,10 @@ public abstract class AbstractOrderRefundNotifyHandler implements RefundNotifyHa
 
     /**
      * 退款回调后置处理, 例如退款后, 例如库存退还
-     * @param context 流水号
-     * @param order 订单信息
-     * @param refundLog 退款记录
+     *
+     * @param context      流水号
+     * @param order        订单信息
+     * @param refundLog    退款记录
      * @param refundStatus 退款状态
      */
     protected void after(RefundNotifyContext context, Order order, OrderRefundLog refundLog, RefundStatus refundStatus) {

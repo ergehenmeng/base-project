@@ -16,10 +16,10 @@ import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
 import com.eghm.configuration.SystemProperties;
 import com.eghm.configuration.template.TemplateEngine;
-import com.eghm.model.PushTemplate;
 import com.eghm.dto.ext.PushMessage;
 import com.eghm.dto.ext.PushNotice;
 import com.eghm.dto.ext.PushTemplateNotice;
+import com.eghm.model.PushTemplate;
 import com.eghm.service.common.PushService;
 import com.eghm.service.common.PushTemplateService;
 import com.google.common.collect.Maps;
@@ -47,10 +47,8 @@ public class PushServiceImpl implements PushService {
     private final PushTemplateService pushTemplateService;
 
     private final SystemProperties systemProperties;
-
-    private JPushClient pushClient;
-
     private final TemplateEngine templateEngine;
+    private JPushClient pushClient;
 
     @PostConstruct
     public void init() {
@@ -88,6 +86,7 @@ public class PushServiceImpl implements PushService {
 
     /**
      * 发送通知类推送
+     *
      * @param pushNotice 参数(完全体)
      */
     private void doPushNotification(PushNotice pushNotice) {
@@ -114,7 +113,6 @@ public class PushServiceImpl implements PushService {
     }
 
 
-
     private PushPayload getPushPayloadMessage(PushMessage pushMessage) {
         return PushPayload.newBuilder()
                 .setPlatform(Platform.all())
@@ -131,8 +129,8 @@ public class PushServiceImpl implements PushService {
                 .setPlatform(Platform.all())
                 .setAudience(Audience.alias(pushNotice.getAlias()))
                 .setNotification(Notification.newBuilder()
-                                .addPlatformNotification(this.getAndroidNotification(pushNotice))
-                                .addPlatformNotification(this.getIosNotification(pushNotice)).build())
+                        .addPlatformNotification(this.getAndroidNotification(pushNotice))
+                        .addPlatformNotification(this.getIosNotification(pushNotice)).build())
                 .build();
     }
 

@@ -20,6 +20,7 @@ public interface HomestayRoomService {
 
     /**
      * 分页查询房型信息
+     *
      * @param request 查询条件
      * @return 房型信息
      */
@@ -27,6 +28,7 @@ public interface HomestayRoomService {
 
     /**
      * 分页查询房型信息 分页查询
+     *
      * @param request 查询条件
      * @return 房型信息
      */
@@ -34,18 +36,21 @@ public interface HomestayRoomService {
 
     /**
      * 新增房型
+     *
      * @param request 房型信息
      */
     void create(HomestayRoomAddRequest request);
 
     /**
      * 更新房型
+     *
      * @param request 房型信息
      */
     void update(HomestayRoomEditRequest request);
 
     /**
      * 主键查询房型
+     *
      * @param id id
      * @return 房型信息
      */
@@ -53,6 +58,7 @@ public interface HomestayRoomService {
 
     /**
      * 主键查询房型(为空报错)
+     *
      * @param id id
      * @return 房型信息
      */
@@ -60,6 +66,7 @@ public interface HomestayRoomService {
 
     /**
      * 主键查询房型(房型没有上架则报错)
+     *
      * @param id id
      * @return 房型信息
      */
@@ -67,25 +74,29 @@ public interface HomestayRoomService {
 
     /**
      * 更新房型上下架状态
-     * @param id 房型id
+     *
+     * @param id    房型id
      * @param state 新状态
      */
     void updateState(Long id, State state);
 
     /**
      * 逻辑删除
+     *
      * @param id id
      */
     void deleteById(Long id);
 
     /**
      * 设置房型为推荐房型
+     *
      * @param id 房型id
      */
     void setRecommend(Long id);
 
     /**
      * 分页查询酒店房型列表
+     *
      * @param dto 分页信息
      * @return 房型列表
      */
@@ -93,6 +104,7 @@ public interface HomestayRoomService {
 
     /**
      * 查询民宿推荐房型, 注意如果没有推荐房型,默认查询最新上架房型
+     *
      * @param homestayId 民宿id
      * @return 房型列表
      */
@@ -100,6 +112,7 @@ public interface HomestayRoomService {
 
     /**
      * 查询房型详细信息
+     *
      * @param roomId 房型id
      * @return 详细信息
      */

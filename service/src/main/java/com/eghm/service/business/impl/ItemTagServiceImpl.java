@@ -34,19 +34,16 @@ import java.util.stream.Collectors;
 @Service("itemTagService")
 public class ItemTagServiceImpl implements ItemTagService {
 
-    private final ItemTagMapper itemTagMapper;
-
-    private final ItemMapper itemMapper;
-
     /**
      * 部门步长 即:一个部门对多有900个直属部门 100~999
      */
     private static final String STEP = "100";
-
     /**
      * 最大层级是5级, 每一级三位长度的数字
      */
     private static final int MAX_TAG_DEPTH = 15;
+    private final ItemTagMapper itemTagMapper;
+    private final ItemMapper itemMapper;
 
     @Override
     public void create(ItemTagAddRequest request) {
@@ -87,13 +84,14 @@ public class ItemTagServiceImpl implements ItemTagService {
     /**
      * 根据列表计算出子级编号
      * 初始编号默认100,后面依次累计+1
+     *
      * @param pid 节点id
      * @return 下一个编号
      */
     private String getNextId(String pid) {
         String maxCode = itemTagMapper.getChildMaxId(pid);
         if (maxCode == null) {
-            return CommonConstant.ROOT_NODE.equals(pid) ? STEP :  pid + STEP;
+            return CommonConstant.ROOT_NODE.equals(pid) ? STEP : pid + STEP;
         }
         // 不能超过900个标签
         try {
@@ -105,7 +103,8 @@ public class ItemTagServiceImpl implements ItemTagService {
 
     /**
      * 递归设置子节点信息
-     * @param pid  pid
+     *
+     * @param pid          pid
      * @param responseList 所有节点
      */
     private List<ItemTagResponse> treeBin(String pid, List<ItemTagResponse> responseList) {

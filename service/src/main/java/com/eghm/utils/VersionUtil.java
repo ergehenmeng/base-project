@@ -42,7 +42,8 @@ public class VersionUtil {
 
     /**
      * 将版本号转换为数字,以2位的版本号补零计算得到
-     * @param version  v2.10.2
+     *
+     * @param version v2.10.2
      * @return 21002
      */
     public static int parseInt(String version) {

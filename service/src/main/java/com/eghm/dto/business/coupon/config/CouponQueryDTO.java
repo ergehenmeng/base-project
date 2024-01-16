@@ -1,7 +1,7 @@
 package com.eghm.dto.business.coupon.config;
 
-import com.eghm.enums.ref.CouponType;
 import com.eghm.dto.ext.PagingQuery;
+import com.eghm.enums.ref.CouponType;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

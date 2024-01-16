@@ -25,16 +25,16 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @RequestMapping("/manage/travel")
 public class TravelAgencyController {
-    
+
     private final TravelAgencyService travelAgencyService;
-    
+
     @GetMapping("/listPage")
     @ApiOperation("旅行社列表")
     public RespBody<PageData<TravelAgency>> listPage(TravelAgencyQueryRequest request) {
         Page<TravelAgency> roomPage = travelAgencyService.getByPage(request);
         return RespBody.success(PageData.toPage(roomPage));
     }
-    
+
     @PostMapping("/create")
     @ApiOperation("新增")
     public RespBody<Void> create(@Validated @RequestBody TravelAgencyAddRequest request) {
@@ -48,14 +48,14 @@ public class TravelAgencyController {
         travelAgencyService.update(request);
         return RespBody.success();
     }
-    
+
     @PostMapping("/shelves")
     @ApiOperation("上架")
     public RespBody<Void> shelves(@Validated @RequestBody IdDTO dto) {
         travelAgencyService.updateState(dto.getId(), State.SHELVE);
         return RespBody.success();
     }
-    
+
     @PostMapping("/unShelves")
     @ApiOperation("下架")
     public RespBody<Void> unShelves(@Validated @RequestBody IdDTO dto) {
@@ -69,14 +69,14 @@ public class TravelAgencyController {
         travelAgencyService.updateState(dto.getId(), State.FORCE_UN_SHELVE);
         return RespBody.success();
     }
-    
+
     @GetMapping("/select")
     @ApiOperation("详情")
     public RespBody<TravelAgency> select(@Validated IdDTO dto) {
         TravelAgency travelAgency = travelAgencyService.selectByIdRequired(dto.getId());
         return RespBody.success(travelAgency);
     }
-    
+
     @PostMapping("/delete")
     @ApiOperation("删除")
     public RespBody<Void> delete(@RequestBody @Validated IdDTO dto) {

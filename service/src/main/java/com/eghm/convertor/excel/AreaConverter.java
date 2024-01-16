@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 替换原生的Integer转换器
+ *
  * @author wyb
  * @since 2023/3/31
  */

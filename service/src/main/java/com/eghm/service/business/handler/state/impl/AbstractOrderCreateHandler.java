@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * 订单创建 默认实现
+ *
  * @author 二哥很猛
  * @date 2022/8/21
  */
@@ -43,6 +44,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 下单
+     *
      * @param context 订单信息
      * @param payload 商品相关信息
      * @return 主订单信息
@@ -60,7 +62,8 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 下单时关联订单绑定游客信息
-     * @param order 订单信息
+     *
+     * @param order       订单信息
      * @param visitorList 游客信息
      */
     protected void addVisitor(Order order, List<VisitorDTO> visitorList) {
@@ -70,6 +73,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 是否为热销商品, 热销商品走mq下单,增加并发, 非热销商品直接下单
+     *
      * @param context 下单信息上下文
      * @param payload 下单关联信息
      * @return true 热销商品 false: 不是热销商品
@@ -80,6 +84,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 通过消息队列进行下单
+     *
      * @param context 下单信息
      */
     protected void queueOrder(C context) {
@@ -88,9 +93,10 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 使用抵扣金额
-     * @param order 订单信息,不含优惠金额
-     * @param memberId 用户id
-     * @param couponId 优惠券id
+     *
+     * @param order     订单信息,不含优惠金额
+     * @param memberId  用户id
+     * @param couponId  优惠券id
      * @param productId 商品id
      */
     public void useDiscount(Order order, Long memberId, Long couponId, Long productId) {
@@ -105,6 +111,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 获取商品信息
+     *
      * @param context 下单信息
      * @return 商品信息
      */
@@ -112,6 +119,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 下单前置校验
+     *
      * @param context 下单信息
      * @param payload 商品信息
      */
@@ -119,6 +127,7 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 创建订单
+     *
      * @param context 下单信息
      * @param payload 商品详细信息
      * @return 下单所需的必要信息
@@ -127,17 +136,19 @@ public abstract class AbstractOrderCreateHandler<C extends Context, P> implement
 
     /**
      * 主订单创建后分类订单创建等
+     *
      * @param context 下单信息
      * @param payload 商品信息
-     * @param order 主订单信息
+     * @param order   主订单信息
      */
     protected abstract void next(C context, P payload, Order order);
 
     /**
      * 订单创建后置处理,默认过期自动取消定时任务
+     *
      * @param context 下单信息
      * @param payload 商品信息
-     * @param order 主订单信息
+     * @param order   主订单信息
      */
     protected abstract void end(C context, P payload, Order order);
 

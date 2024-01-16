@@ -1,4 +1,3 @@
-
 package com.eghm.dto.business.restaurant.voucher;
 
 import com.eghm.dto.ext.PagingQuery;

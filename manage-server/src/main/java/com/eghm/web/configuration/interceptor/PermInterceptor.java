@@ -61,6 +61,7 @@ public class PermInterceptor implements InterceptorAdapter {
 
     /**
      * 校验登陆人权限与访问的该url是否匹配
+     *
      * @param request 请求信息
      * @return true: 匹配 false: 不匹配
      */

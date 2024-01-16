@@ -1,12 +1,12 @@
 package com.eghm.service.common.impl;
 
+import com.eghm.dto.email.SendEmail;
+import com.eghm.dto.ext.VerifyEmailCode;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.exception.ParameterException;
 import com.eghm.handler.email.AuthCodeEmailHandler;
 import com.eghm.handler.email.BaseEmailHandler;
-import com.eghm.dto.email.SendEmail;
-import com.eghm.dto.ext.VerifyEmailCode;
 import com.eghm.service.cache.CacheService;
 import com.eghm.service.common.EmailService;
 import com.eghm.utils.SpringContextUtil;
@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.internet.MimeMessage;
@@ -30,9 +29,8 @@ import javax.mail.internet.MimeMessage;
 @Service("emailService")
 public class EmailServiceImpl implements EmailService {
 
-    private JavaMailSender javaMailSender;
-
     private final CacheService cacheService;
+    private JavaMailSender javaMailSender;
 
     @Autowired(required = false)
     public void setJavaMailSender(JavaMailSender javaMailSender) {

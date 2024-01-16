@@ -21,7 +21,7 @@ public class AddressEditDTO {
     @Assign
     private Long memberId;
 
-    @ApiModelProperty(value = "地址id",required = true)
+    @ApiModelProperty(value = "地址id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
@@ -34,19 +34,19 @@ public class AddressEditDTO {
     @Mobile(message = "收货人手机号格式错误")
     private String mobile;
 
-    @ApiModelProperty(value = "省份id",required = true)
+    @ApiModelProperty(value = "省份id", required = true)
     @NotNull(message = "省份不能为空")
     private Long provinceId;
 
-    @ApiModelProperty(value = "城市id",required = true)
+    @ApiModelProperty(value = "城市id", required = true)
     @NotNull(message = "城市不能为空")
     private Long cityId;
 
-    @ApiModelProperty(value = "县区id",required = true)
+    @ApiModelProperty(value = "县区id", required = true)
     @NotNull(message = "县区不能为空")
     private Long countyId;
 
-    @ApiModelProperty(value = "详细地址",required = true)
+    @ApiModelProperty(value = "详细地址", required = true)
     @NotEmpty(message = "详细地址不能为空")
     private String detailAddress;
 

@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
  * 普通商品订单支付通知(零售专用)
  * 说明:
  * 1. 会存在多个商品关联一个支付流水号
+ *
  * @author 二哥很猛
  * @date 2022/9/9
  */
@@ -41,6 +42,7 @@ public abstract class AbstractOrderPayNotifyHandler implements PayNotifyHandler 
 
     /**
      * 订单信息校验
+     *
      * @param orderList 订单信息
      */
     private void before(List<Order> orderList) {

@@ -12,7 +12,7 @@ import lombok.Data;
  * @since 2023-12-27
  */
 @Data
-public class MerchantDetailResponse  {
+public class MerchantDetailResponse {
 
     @ApiModelProperty(value = "商家名称")
     private String merchantName;

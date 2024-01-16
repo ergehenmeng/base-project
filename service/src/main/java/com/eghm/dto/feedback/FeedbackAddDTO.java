@@ -7,16 +7,17 @@ import lombok.Data;
 
 /**
  * 手机反馈新增
+ *
  * @author 二哥很猛
  * @date 2019/8/28 10:47
  */
 @Data
 public class FeedbackAddDTO {
 
-    @ApiModelProperty(value = "反馈内容分类",required = true)
+    @ApiModelProperty(value = "反馈内容分类", required = true)
     private Integer classify;
 
-    @ApiModelProperty(value = "反馈内容",required = true)
+    @ApiModelProperty(value = "反馈内容", required = true)
     @WordChecker(message = "反馈内容存在敏感字")
     private String content;
 

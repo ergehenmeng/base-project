@@ -37,23 +37,18 @@ import java.util.function.Supplier;
 @AllArgsConstructor
 public class CacheServiceImpl implements CacheService {
 
-    private final StringRedisTemplate redisTemplate;
-
-    private final SysConfigApi sysConfigApi;
-
-    private final JsonService jsonService;
-
-    private final RedisLock redisLock;
-
     /**
      * 默认过期数据 30s
      */
     private static final long DEFAULT_EXPIRE = 30;
-
     /**
      * 互斥等待时间 10s
      */
     private static final long MUTEX_EXPIRE = 10;
+    private final StringRedisTemplate redisTemplate;
+    private final SysConfigApi sysConfigApi;
+    private final JsonService jsonService;
+    private final RedisLock redisLock;
 
     @Override
     public void setValue(String key, Object value) {
@@ -92,9 +87,9 @@ public class CacheServiceImpl implements CacheService {
     /**
      * 调用回调函数获取结果,并将结果缓存
      *
-     * @param key  缓存的key
+     * @param key      缓存的key
      * @param supplier 会到函数
-     * @param <T> 结果类型
+     * @param <T>      结果类型
      * @return 结果信息
      */
     private <T> T doSupplier(String key, Supplier<T> supplier) {
@@ -291,7 +286,7 @@ public class CacheServiceImpl implements CacheService {
         long offset = start;
         // 11111111 11111111 11111011 11111111 111111111 11111111 11111111 11111111 11111111 11111111 80位的总长度
         // 判断最近70天是否连续, 则从第10位开始,第一次取6位(同时在判断时也只判断低位的6位) 第二次取32位
-        for (long i = start; i < commands; i++ ) {
+        for (long i = start; i < commands; i++) {
             // 第一个命令,如果直接设置32,在总长度时不变时,会导致最后一个数不准确
             if (i == start && firstOffset > 0) {
                 subCommands = subCommands.get(BitFieldSubCommands.BitFieldType.signed(firstOffset)).valueAt(offset);

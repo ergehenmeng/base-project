@@ -50,7 +50,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
     @Override
     public void createTicket(ScenicTicketAddRequest request) {
         Long merchantId = SecurityHolder.getMerchantId();
-        this.redoTitle(request.getTitle(), merchantId,null);
+        this.redoTitle(request.getTitle(), merchantId, null);
         this.checkScenic(request.getScenicId());
         ScenicTicket ticket = DataUtil.copy(request, ScenicTicket.class);
         ticket.setMerchantId(merchantId);
@@ -131,8 +131,9 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     /**
      * 新增编辑时判断门票名称是否重复
+     *
      * @param title 门票
-     * @param id id
+     * @param id    id
      */
     private void redoTitle(String title, Long merchantId, Long id) {
         LambdaQueryWrapper<ScenicTicket> wrapper = Wrappers.lambdaQuery();
@@ -147,6 +148,7 @@ public class ScenicTicketServiceImpl implements ScenicTicketService {
 
     /**
      * 校验门票所属景区是否存在
+     *
      * @param id 景区id
      */
     private void checkScenic(Long id) {

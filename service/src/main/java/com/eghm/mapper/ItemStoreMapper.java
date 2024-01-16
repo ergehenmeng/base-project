@@ -1,7 +1,7 @@
 package com.eghm.mapper;
 
-import com.eghm.model.ItemStore;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.eghm.model.ItemStore;
 import com.eghm.vo.business.item.store.ItemStoreVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,6 +20,7 @@ public interface ItemStoreMapper extends BaseMapper<ItemStore> {
 
     /**
      * 店铺推荐列表
+     *
      * @param limit 限制多少条
      * @return 列表
      */
@@ -28,13 +29,14 @@ public interface ItemStoreMapper extends BaseMapper<ItemStore> {
     /**
      * 更新评分
      *
-     * @param id id
+     * @param id    id
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 
     /**
      * 店铺列表查询
+     *
      * @param storeIds 店铺id
      * @return 列表
      */

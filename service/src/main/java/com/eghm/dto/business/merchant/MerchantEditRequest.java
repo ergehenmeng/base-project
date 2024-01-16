@@ -16,12 +16,12 @@ import javax.validation.constraints.Size;
  */
 @Data
 public class MerchantEditRequest {
-    
-    @ApiModelProperty(value = "id",required = true)
+
+    @ApiModelProperty(value = "id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
-    
-    @ApiModelProperty(value = "商家名称",required = true)
+
+    @ApiModelProperty(value = "商家名称", required = true)
     @NotBlank(message = "商家名称不能为空")
     @Size(min = 2, max = 20, message = "商家名称长度2~20位")
     @WordChecker(message = "商家名称包含敏感词")
@@ -31,7 +31,7 @@ public class MerchantEditRequest {
     @NotBlank(message = "联系人电话不能为空")
     @Size(min = 7, max = 15, message = "联系人电话长度7~15位")
     private String mobile;
-    
+
     @ApiModelProperty(value = "商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路 多选时数字相加", required = true)
     @NotNull(message = "请选择商家类型")
     @RangeInt(min = 1, max = 31, message = "商家类型错误")

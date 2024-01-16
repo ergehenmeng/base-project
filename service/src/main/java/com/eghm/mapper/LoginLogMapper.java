@@ -11,9 +11,10 @@ public interface LoginLogMapper extends BaseMapper<LoginLog> {
 
     /**
      * 获取最近一次的登陆信息
+     *
      * @param memberId memberId
      * @return 登陆信息
      */
-    LoginLog getLastLogin(@Param("memberId")Long memberId);
+    LoginLog getLastLogin(@Param("memberId") Long memberId);
 
 }

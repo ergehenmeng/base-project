@@ -8,6 +8,7 @@ import lombok.Data;
 
 /**
  * 优惠券基础信息
+ *
  * @author 二哥很猛
  * @date 2022/7/14
  */

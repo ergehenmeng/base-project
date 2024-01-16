@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 用户信息表
+ *
  * @author 二哥很猛
  */
 @Data
@@ -16,7 +17,7 @@ public class Member extends BaseEntity {
 
     @ApiModelProperty("昵称")
     private String nickName;
-    
+
     @ApiModelProperty("手机号码")
     private String mobile;
 

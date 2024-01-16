@@ -3,9 +3,9 @@ package com.eghm.service.business.impl;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.dto.business.line.LineDayConfigRequest;
 import com.eghm.mapper.LineDayConfigMapper;
 import com.eghm.model.LineDayConfig;
-import com.eghm.dto.business.line.LineDayConfigRequest;
 import com.eghm.service.business.LineDayConfigService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -47,7 +47,8 @@ public class LineDayConfigServiceImpl implements LineDayConfigService {
 
     /**
      * 删除多余的配置信息
-     * @param lineId 线路id
+     *
+     * @param lineId     线路id
      * @param configList 配置信息
      */
     private void deleteNotIn(Long lineId, List<LineDayConfigRequest> configList) {

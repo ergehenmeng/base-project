@@ -11,6 +11,7 @@ public interface SysTaskLogMapper extends BaseMapper<SysTaskLog> {
 
     /**
      * 定时任务错误信息详情
+     *
      * @param id 主键
      * @return errorMsg字段有值
      */

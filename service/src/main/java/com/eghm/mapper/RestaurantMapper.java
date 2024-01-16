@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.dto.business.restaurant.RestaurantQueryDTO;
 import com.eghm.dto.business.restaurant.RestaurantQueryRequest;
 import com.eghm.model.Restaurant;
-import com.eghm.vo.business.restaurant.RestaurantVO;
 import com.eghm.vo.business.restaurant.RestaurantResponse;
+import com.eghm.vo.business.restaurant.RestaurantVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;
@@ -25,7 +25,7 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
     /**
      * 分页查询餐饮店列表
      *
-     * @param page 分页
+     * @param page    分页
      * @param request 查询条件
      * @return 列表
      */
@@ -33,8 +33,9 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
 
     /**
      * 分页查询餐饮店列表
+     *
      * @param page 分页
-     * @param dto 查询条件
+     * @param dto  查询条件
      * @return 列表
      */
     Page<RestaurantVO> getByPage(Page<RestaurantVO> page, @Param("param") RestaurantQueryDTO dto);
@@ -42,13 +43,14 @@ public interface RestaurantMapper extends BaseMapper<Restaurant> {
     /**
      * 更新评分
      *
-     * @param id id
+     * @param id    id
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);
 
     /**
      * 根据id查询列表
+     *
      * @param restaurantIds id列表
      * @return 列表
      */

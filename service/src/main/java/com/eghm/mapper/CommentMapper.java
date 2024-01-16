@@ -6,8 +6,6 @@ import com.eghm.model.Comment;
 import com.eghm.vo.business.comment.CommentVO;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-
 /**
  * <p>
  * 评论记录表 Mapper 接口
@@ -20,7 +18,8 @@ public interface CommentMapper extends BaseMapper<Comment> {
 
     /**
      * 分页查询评论列表
-     * @param page 分页对象
+     *
+     * @param page      分页对象
      * @param commentId 分享id
      * @return 列表
      */
@@ -28,7 +27,8 @@ public interface CommentMapper extends BaseMapper<Comment> {
 
     /**
      * 更新点赞数量
-     * @param id id
+     *
+     * @param id      id
      * @param likeNum 点赞数量
      */
     void updateLikeNum(@Param("id") Long id, @Param("likeNum") Integer likeNum);

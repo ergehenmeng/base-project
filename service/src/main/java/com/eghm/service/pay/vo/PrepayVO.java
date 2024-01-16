@@ -9,6 +9,7 @@ import lombok.Data;
 
 /**
  * 微信/支付宝生成预支付信息
+ *
  * @author 二哥很猛
  */
 @Data

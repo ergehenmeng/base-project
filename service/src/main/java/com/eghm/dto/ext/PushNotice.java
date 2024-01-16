@@ -21,28 +21,24 @@ import java.util.Map;
 public class PushNotice {
 
     /**
+     * 消息通知附加信息
+     */
+    private final Map<String, String> extras = Maps.newHashMapWithExpectedSize(4);
+    /**
      * 别名
      */
     private String alias;
-
     /**
      * 推送标题
      */
     private String title;
-
     /**
      * 推送内容
      */
     private String content;
-
     /**
      * 通知跳转的页面
      */
     private String viewTag;
-
-    /**
-     * 消息通知附加信息
-     */
-    private final Map<String, String> extras = Maps.newHashMapWithExpectedSize(4);
 
 }

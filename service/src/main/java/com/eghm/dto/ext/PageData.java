@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * 分页返回前台的对象
+ *
  * @author 二哥很猛
  * @date 2018/1/18 15:35
  */
@@ -42,8 +43,9 @@ public class PageData<T> {
 
     /**
      * 减少不必要的参数给前端
+     *
      * @param info 分页信息
-     * @param <T> T
+     * @param <T>  T
      * @return data
      */
     public static <T> PageData<T> toPage(Page<T> info) {
@@ -58,8 +60,9 @@ public class PageData<T> {
 
     /**
      * 减少不必要的参数给前端(不分页形式)
+     *
      * @param list 分页信息
-     * @param <T> T
+     * @param <T>  T
      * @return data
      */
     public static <T> PageData<T> toList(List<T> list) {

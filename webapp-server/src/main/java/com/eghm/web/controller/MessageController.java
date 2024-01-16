@@ -28,7 +28,7 @@ public class MessageController {
     @GetMapping("/sendDelayMsg")
     @ApiOperation("发送延迟消息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "msg",  value= "消息", required = true),
+            @ApiImplicitParam(name = "msg", value = "消息", required = true),
             @ApiImplicitParam(name = "delay", value = "延迟多长时间", required = true),
     })
     public RespBody<Void> sendDelayMsg(@RequestParam("msg") String msg, @RequestParam(value = "delay", defaultValue = "10") Integer delay) {

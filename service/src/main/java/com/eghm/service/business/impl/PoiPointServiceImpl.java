@@ -88,7 +88,7 @@ public class PoiPointServiceImpl implements PoiPointService {
      * 校验区域点位是否重复
      *
      * @param title 区域点位
-     * @param id 区域点位id
+     * @param id    区域点位id
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<PoiPoint> wrapper = Wrappers.lambdaQuery();

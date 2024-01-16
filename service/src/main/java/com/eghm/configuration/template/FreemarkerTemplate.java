@@ -1,8 +1,8 @@
 package com.eghm.configuration.template;
 
+import com.eghm.constants.SystemConstant;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
-import com.eghm.constants.SystemConstant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -24,9 +24,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class FreemarkerTemplate implements TemplateEngine {
 
-    private final Configuration configuration;
-
     private static final String DEFAULT_TITLE = "freemarker_title";
+    private final Configuration configuration;
 
     @Override
     public String render(String content, Map<String, Object> param) {
@@ -45,7 +44,7 @@ public class FreemarkerTemplate implements TemplateEngine {
      * @param template 模板
      * @param params   参数
      * @return 字符串
-     * @throws IOException 异常
+     * @throws IOException       异常
      * @throws TemplateException 异常
      */
     private String doRender(Template template, Map<String, Object> params) throws IOException, TemplateException {

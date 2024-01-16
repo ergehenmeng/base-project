@@ -11,22 +11,25 @@ public interface OrderMQService {
 
     /**
      * 发送订单过期消息
+     *
      * @param exchangeQueue 队列类型
-     * @param orderNo 订单编号
+     * @param orderNo       订单编号
      */
     void sendOrderExpireMessage(ExchangeQueue exchangeQueue, String orderNo);
 
     /**
      * 发送创建订单的消息
+     *
      * @param exchangeQueue 队列类型
-     * @param context 下单信息
+     * @param context       下单信息
      */
     void sendOrderCreateMessage(ExchangeQueue exchangeQueue, AsyncKey context);
 
     /**
      * 发送订单完成消息
+     *
      * @param exchangeQueue 队列类型
-     * @param orderNo 订单信息
+     * @param orderNo       订单信息
      */
     void sendOrderCompleteMessage(ExchangeQueue exchangeQueue, String orderNo);
 }

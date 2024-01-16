@@ -48,8 +48,9 @@ public class TokenInterceptor implements InterceptorAdapter {
 
     /**
      * 根据token或refreshToken查询会员id,并设置到message中
+     *
      * @param message 用户信息
-     * @param token token
+     * @param token   token
      * @param request request
      */
     private void setMemberId(RequestMessage message, String token, HttpServletRequest request) {
@@ -73,8 +74,9 @@ public class TokenInterceptor implements InterceptorAdapter {
 
     /**
      * 校验用户是否需要强制登陆, 如果需要强制登陆,则必须包含memberId
+     *
      * @param message 用户信息
-     * @param token token
+     * @param token   token
      * @param handler handler
      */
     private void accessTokenCheck(RequestMessage message, String token, Object handler) {

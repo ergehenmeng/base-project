@@ -29,6 +29,7 @@ public class TransactionUtil {
 
     /**
      * 事务提交后置处理
+     *
      * @param runnable r
      */
     public static void afterCommit(Runnable runnable) {
@@ -41,6 +42,7 @@ public class TransactionUtil {
 
     /**
      * 事务提交后置处理
+     *
      * @param runnable r
      * @param consumer 如果runnable执行异常, 则执行该方法
      */
@@ -52,6 +54,20 @@ public class TransactionUtil {
         }
     }
 
+    /**
+     * 手动事务提交, 减少线程持有事务的时间
+     *
+     * @param runnable r
+     */
+    public static void manualCommit(Runnable runnable) {
+        // 采用静态方式为了减少从容器中查询bean所消耗的时间
+        TEMPLATE.execute(new TransactionCallbackWithoutResult() {
+            @Override
+            protected void doInTransactionWithoutResult(@NonNull TransactionStatus status) {
+                runnable.run();
+            }
+        });
+    }
 
     @AllArgsConstructor
     static class AfterCommitHandler implements TransactionSynchronization {
@@ -76,19 +92,5 @@ public class TransactionUtil {
                 }
             }
         }
-    }
-
-    /**
-     * 手动事务提交, 减少线程持有事务的时间
-     * @param runnable r
-     */
-    public static void manualCommit(Runnable runnable) {
-        // 采用静态方式为了减少从容器中查询bean所消耗的时间
-        TEMPLATE.execute(new TransactionCallbackWithoutResult() {
-            @Override
-            protected void doInTransactionWithoutResult(@NonNull TransactionStatus status) {
-                runnable.run();
-            }
-        });
     }
 }

@@ -2,11 +2,11 @@ package com.eghm.service.business.lottery.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.eghm.constant.CacheConstant;
 import com.eghm.configuration.security.SecurityHolder;
+import com.eghm.constant.CacheConstant;
+import com.eghm.dto.business.lottery.LotteryPrizeRequest;
 import com.eghm.mapper.LotteryPrizeMapper;
 import com.eghm.model.LotteryPrize;
-import com.eghm.dto.business.lottery.LotteryPrizeRequest;
 import com.eghm.service.business.lottery.LotteryPrizeService;
 import com.eghm.utils.DataUtil;
 import lombok.AllArgsConstructor;
@@ -76,6 +76,7 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
 
     /**
      * 设置奖品数量新号量
+     *
      * @param prize 奖品信息
      */
     private void setSemaphore(LotteryPrize prize) {
@@ -85,6 +86,7 @@ public class LotteryPrizeServiceImpl implements LotteryPrizeService {
 
     /**
      * 删除奖品数量信号量
+     *
      * @param prizeIds 奖品id
      */
     private void clearSemaphore(List<Long> prizeIds) {

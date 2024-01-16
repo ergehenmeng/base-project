@@ -48,7 +48,7 @@ public class RestaurantController {
         restaurantService.create(request);
         return RespBody.success();
     }
-    
+
     /**
      * 对于注册的商户来说, 首次编辑商家信息即为开通商户
      */
@@ -86,7 +86,7 @@ public class RestaurantController {
         Restaurant restaurant = restaurantService.selectByIdRequired(dto.getId());
         return RespBody.success(restaurant);
     }
-    
+
     /**
      * 注意: 非自营商品删除需要慎重,店铺关联的商户或者订单等等需要额外考虑
      */

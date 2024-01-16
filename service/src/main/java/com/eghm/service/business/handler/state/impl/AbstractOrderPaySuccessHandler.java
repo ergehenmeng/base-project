@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 支付异步回调 成功
+ *
  * @author 二哥很猛
  * @date 2022/8/20
  */
@@ -39,17 +40,18 @@ public abstract class AbstractOrderPaySuccessHandler implements PayNotifyHandler
 
     /**
      * 订单成功
+     *
      * @param order 订单信息
      */
     protected void doProcess(PayNotifyContext context, Order order) {
-        orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(),OrderState.UN_USED, OrderState.of(context.getFrom()));
+        orderService.paySuccess(order.getOrderNo(), order.getProductType().generateVerifyNo(), OrderState.UN_USED, OrderState.of(context.getFrom()));
     }
 
     /**
      * 订单异步通知后置处理
      *
-     * @param context  支付成功异步通知
-     * @param order    订单信息
+     * @param context 支付成功异步通知
+     * @param order   订单信息
      */
     protected void after(PayNotifyContext context, Order order) {
         orderVisitorService.updateVisitor(order.getOrderNo(), VisitorState.PAID);

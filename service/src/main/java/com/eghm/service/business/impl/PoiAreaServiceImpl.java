@@ -85,7 +85,7 @@ public class PoiAreaServiceImpl implements PoiAreaService {
      * 校验区域名称是否重复
      *
      * @param title 区域名称
-     * @param id 区域id
+     * @param id    区域id
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<PoiArea> wrapper = Wrappers.lambdaQuery();
@@ -101,7 +101,7 @@ public class PoiAreaServiceImpl implements PoiAreaService {
      * 校验区域编号是否重复
      *
      * @param code 区域编号
-     * @param id 区域id
+     * @param id   区域id
      */
     private void redoCode(String code, Long id) {
         LambdaQueryWrapper<PoiArea> wrapper = Wrappers.lambdaQuery();

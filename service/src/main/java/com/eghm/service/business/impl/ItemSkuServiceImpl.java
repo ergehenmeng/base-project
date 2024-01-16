@@ -4,12 +4,12 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.enums.ErrorCode;
 import com.eghm.exception.BusinessException;
 import com.eghm.mapper.ItemSkuMapper;
 import com.eghm.model.Item;
 import com.eghm.model.ItemSku;
-import com.eghm.dto.business.item.sku.ItemSkuRequest;
 import com.eghm.service.business.ItemSkuService;
 import com.eghm.utils.DataUtil;
 import com.google.common.collect.Maps;
@@ -35,9 +35,9 @@ import static com.eghm.enums.ErrorCode.SKU_STOCK;
 @Slf4j
 @AllArgsConstructor
 public class ItemSkuServiceImpl implements ItemSkuService {
-    
+
     private final ItemSkuMapper itemSkuMapper;
-    
+
     @Override
     public void insert(Item item, Map<String, Long> specMap, List<ItemSkuRequest> skuList) {
         for (ItemSkuRequest request : skuList) {
@@ -47,7 +47,7 @@ public class ItemSkuServiceImpl implements ItemSkuService {
             itemSkuMapper.insert(sku);
         }
     }
-    
+
     @Override
     public void update(Item item, Map<String, Long> specMap, List<ItemSkuRequest> skuList) {
         List<Long> skuIds = skuList.stream().map(ItemSkuRequest::getId).filter(Objects::nonNull).collect(Collectors.toList());
@@ -63,14 +63,14 @@ public class ItemSkuServiceImpl implements ItemSkuService {
             }
         }
     }
-    
+
     @Override
     public List<ItemSku> getByItemId(Long itemId) {
         LambdaQueryWrapper<ItemSku> wrapper = Wrappers.lambdaQuery();
         wrapper.eq(ItemSku::getItemId, itemId);
         return itemSkuMapper.selectList(wrapper);
     }
-    
+
     @Override
     public ItemSku selectByIdRequired(Long skuId) {
         ItemSku sku = itemSkuMapper.selectById(skuId);
@@ -80,8 +80,8 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         }
         return sku;
     }
-    
-    
+
+
     @Override
     public void updateStock(Long skuId, Integer num) {
         int stock = itemSkuMapper.updateStock(skuId, num);
@@ -90,14 +90,14 @@ public class ItemSkuServiceImpl implements ItemSkuService {
             throw new BusinessException(SKU_STOCK);
         }
     }
-    
+
     @Override
     public void updateStock(Map<Long, Integer> map) {
         for (Map.Entry<Long, Integer> entry : map.entrySet()) {
             this.updateStock(entry.getKey(), entry.getValue());
         }
     }
-    
+
     @Override
     public Map<Long, ItemSku> getByIdShelveMap(Set<Long> ids) {
         if (CollUtil.isEmpty(ids)) {
@@ -110,9 +110,10 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         }
         return skuList.stream().collect(Collectors.toMap(ItemSku::getId, Function.identity()));
     }
-    
+
     /**
      * 删除不在指定skuId列表的其他sku
+     *
      * @param itemId 商品id
      * @param skuIds skuIds
      */
@@ -122,9 +123,10 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         wrapper.notIn(CollUtil.isNotEmpty(skuIds), ItemSku::getId, skuIds);
         itemSkuMapper.delete(wrapper);
     }
-    
+
     /**
      * 组装sku所属的规格id, 多规格以逗号分隔
+     *
      * @param specMap 规格信息
      * @param request sku信息
      * @return 规格id
@@ -140,5 +142,5 @@ public class ItemSkuServiceImpl implements ItemSkuService {
         }
         return primaryId + "," + secondId;
     }
-    
+
 }

@@ -102,6 +102,7 @@ public class MerchantUserServiceImpl implements MerchantUserService {
 
     /**
      * 查询商户用户信息,并校验是否合法操作
+     *
      * @param id id
      * @return 商户用户信息
      */

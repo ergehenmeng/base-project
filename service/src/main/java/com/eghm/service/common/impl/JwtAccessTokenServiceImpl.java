@@ -28,7 +28,7 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
     private final SystemProperties systemProperties;
 
     @Override
-    public String createToken(SysUser user, Long merchantId,  List<String> authList, List<String> dataList) {
+    public String createToken(SysUser user, Long merchantId, List<String> authList, List<String> dataList) {
         SystemProperties.ManageProperties.Token token = systemProperties.getManage().getToken();
         return token.getPrefix() + this.doCreateJwt(user, merchantId, token.getExpire(), authList, dataList);
     }
@@ -56,10 +56,11 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
 
     /**
      * 根据用户id及渠道创建token
-     * @param user  用户信息
-     * @param merchantId 商户id
+     *
+     * @param user          用户信息
+     * @param merchantId    商户id
      * @param expireSeconds 过期时间
-     * @param authList 权限信息
+     * @param authList      权限信息
      * @return jwtToken
      */
     private String doCreateJwt(SysUser user, Long merchantId, int expireSeconds, List<String> authList, List<String> dataList) {
@@ -79,6 +80,7 @@ public class JwtAccessTokenServiceImpl implements AccessTokenService {
 
     /**
      * 获取加密签名信息
+     *
      * @return secretKey
      */
     private Algorithm getAlgorithm() {

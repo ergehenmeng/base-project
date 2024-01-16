@@ -19,7 +19,8 @@ public interface PayNotifyLogMapper extends BaseMapper<PayNotifyLog> {
 
     /**
      * 分页查询
-     * @param page 分页
+     *
+     * @param page    分页
      * @param request 查询条件
      * @return 列表
      */

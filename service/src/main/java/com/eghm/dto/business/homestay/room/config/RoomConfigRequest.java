@@ -8,12 +8,16 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 /**
  * 房型设置
+ *
  * @author 二哥很猛
  * @date 2022/6/29
  */
@@ -21,27 +25,22 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 public class RoomConfigRequest extends DateComparator {
 
+    @ApiModelProperty("周期")
+    @NotEmpty(message = "请选择周期")
+    public List<Integer> week;
     @ApiModelProperty("房型id")
     @NotNull(message = "房型id不能为空")
     private Long roomId;
-
-    @ApiModelProperty(value = "民宿id",hidden = true)
+    @ApiModelProperty(value = "民宿id", hidden = true)
     private Long homestayId;
-
     @ApiModelProperty("开始日期 yyyy-MM-dd")
     @NotNull(message = "开始日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
-
     @ApiModelProperty("截止日期 yyyy-MM-dd")
     @NotNull(message = "截止日期不能为空")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
-
-    @ApiModelProperty("周期")
-    @NotEmpty(message = "请选择周期")
-    public List<Integer> week;
-
     @ApiModelProperty("状态 false:不可用 true:可用")
     @NotNull(message = "是否可定不能为空")
     private Boolean state;

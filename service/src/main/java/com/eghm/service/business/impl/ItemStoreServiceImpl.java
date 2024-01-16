@@ -49,7 +49,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     private final ItemService itemService;
 
     private final SysConfigApi sysConfigApi;
-    
+
     private final CommonService commonService;
 
     private final MemberCollectService memberCollectService;
@@ -60,7 +60,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     public Page<ItemStore> getByPage(ItemStoreQueryRequest request) {
         LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
         wrapper.like(StrUtil.isNotBlank(request.getQueryName()), ItemStore::getTitle, request.getQueryName());
-        wrapper.eq(request.getState() != null, ItemStore::getState , request.getState());
+        wrapper.eq(request.getState() != null, ItemStore::getState, request.getState());
         wrapper.eq(request.getMerchantId() != null, ItemStore::getMerchantId, request.getMerchantId());
         return itemStoreMapper.selectPage(request.createPage(), wrapper);
     }
@@ -79,7 +79,7 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         this.redoTitle(request.getTitle(), request.getId());
         ItemStore itemStore = itemStoreMapper.selectById(request.getId());
         commonService.checkIllegal(itemStore.getMerchantId());
-        
+
         ItemStore shop = DataUtil.copy(request, ItemStore.class);
         itemStoreMapper.updateById(shop);
     }
@@ -137,6 +137,12 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
     }
 
     @Override
+    public List<ItemStoreVO> getRecommend() {
+        int limit = sysConfigApi.getInt(ConfigConstant.STORE_MAX_RECOMMEND, 6);
+        return itemStoreMapper.getRecommend(limit);
+    }
+
+    @Override
     public void setRecommend(Long id) {
         LambdaUpdateWrapper<ItemStore> wrapper = Wrappers.lambdaUpdate();
         wrapper.eq(ItemStore::getId, id);
@@ -144,16 +150,11 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
         itemStoreMapper.update(null, wrapper);
     }
 
-    @Override
-    public List<ItemStoreVO> getRecommend() {
-        int limit = sysConfigApi.getInt(ConfigConstant.STORE_MAX_RECOMMEND, 6);
-        return itemStoreMapper.getRecommend(limit);
-    }
-
     /**
      * 校验店铺名称是否重复
+     *
      * @param title 店铺名称
-     * @param id id 编辑时不能为空
+     * @param id    id 编辑时不能为空
      */
     private void redoTitle(String title, Long id) {
         LambdaQueryWrapper<ItemStore> wrapper = Wrappers.lambdaQuery();
@@ -165,14 +166,14 @@ public class ItemStoreServiceImpl implements ItemStoreService, MerchantInitServi
             throw new BusinessException(ErrorCode.SHOP_TITLE_REDO);
         }
     }
-    
+
     @Override
     public void init(Merchant merchant) {
         ItemStore shop = new ItemStore();
         shop.setMerchantId(merchant.getId());
         itemStoreMapper.insert(shop);
     }
-    
+
     @Override
     public boolean support(List<RoleType> roleTypes) {
         return roleTypes.contains(RoleType.ITEM);

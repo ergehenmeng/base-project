@@ -46,6 +46,7 @@ public class BaseEmailHandler {
 
     /**
      * 发送邮件 (主入口)
+     *
      * @param email 邮件信息
      */
     @Async
@@ -91,8 +92,9 @@ public class BaseEmailHandler {
 
     /**
      * 获取邮件模板渲染时的参数, 子类可以额外定义该参数以实现更复杂的显示效果
+     *
      * @param template 模板
-     * @param email 邮件发送的参数信息
+     * @param email    邮件发送的参数信息
      * @return 渲染参数 k-v
      */
     protected Map<String, Object> renderParams(EmailTemplate template, SendEmail email) {
@@ -101,9 +103,10 @@ public class BaseEmailHandler {
 
     /**
      * 邮件发送完成可额外添加处理逻辑
-     * @param email 发送邮件信息
+     *
+     * @param email    发送邮件信息
      * @param template 模板信息
-     * @param result 发送结果状态 true:发送成功 false:发送失败
+     * @param result   发送结果状态 true:发送成功 false:发送失败
      */
     protected void finallyProcess(SendEmail email, EmailTemplate template, boolean result) {
         log.info("邮件发送成功 [{}] [{}] [{}]", email.getEmail(), template.getNid(), result);

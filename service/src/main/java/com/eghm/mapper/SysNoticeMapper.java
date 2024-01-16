@@ -13,6 +13,7 @@ public interface SysNoticeMapper extends BaseMapper<SysNotice> {
 
     /**
      * 获取前多少条公告信息
+     *
      * @param noticeLimit 几条公告
      * @return 公告列表
      */

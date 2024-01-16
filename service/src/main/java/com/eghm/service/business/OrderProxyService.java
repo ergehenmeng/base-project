@@ -10,6 +10,7 @@ public interface OrderProxyService {
 
     /**
      * 确认是否有房
+     *
      * @param request 确认状态
      */
     void confirm(HomestayOrderConfirmRequest request);

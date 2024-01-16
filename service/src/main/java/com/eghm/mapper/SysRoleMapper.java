@@ -13,6 +13,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
      * 获取角色拥有的菜单列表
+     *
      * @param roleId 角色id
      * @return 菜单menuIds
      */
@@ -20,6 +21,7 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
      * 删除角色菜单关联信息 物理删除
+     *
      * @param roleId 角色id
      * @return 删除条件
      */
@@ -27,7 +29,8 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
      * 批量添加角色菜单关联信息
-     * @param roleId 角色id
+     *
+     * @param roleId     角色id
      * @param menuIdList 菜单列表
      * @return 查询条数
      */
@@ -35,7 +38,8 @@ public interface SysRoleMapper extends BaseMapper<SysRole> {
 
     /**
      * 统计用户是否拥有指定角色类型
-     * @param userId 用户ID
+     *
+     * @param userId   用户ID
      * @param roleType 角色类型
      * @return >0 表示有
      */

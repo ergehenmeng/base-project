@@ -9,6 +9,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * 手机版本
+ *
  * @author 二哥很猛
  */
 @Data

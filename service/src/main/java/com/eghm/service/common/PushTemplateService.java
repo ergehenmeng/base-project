@@ -1,9 +1,9 @@
 package com.eghm.service.common;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.PushTemplate;
 import com.eghm.dto.push.PushTemplateEditRequest;
 import com.eghm.dto.push.PushTemplateQueryRequest;
+import com.eghm.model.PushTemplate;
 
 /**
  * @author 二哥很猛
@@ -16,6 +16,7 @@ public interface PushTemplateService {
 
     /**
      * 获取推送消息模板
+     *
      * @param nid nid
      * @return 模板消息
      */
@@ -23,6 +24,7 @@ public interface PushTemplateService {
 
     /**
      * 主键查询推送模板
+     *
      * @param id id
      * @return 推送消息
      */
@@ -30,6 +32,7 @@ public interface PushTemplateService {
 
     /**
      * 编辑保存推送模板
+     *
      * @param request 前台参数
      */
     void update(PushTemplateEditRequest request);

@@ -20,6 +20,7 @@ public interface HomestayOrderService {
 
     /**
      * 分页查询用户民宿订单 (管理后台)
+     *
      * @param request (查询条件)
      * @return 列表
      */
@@ -27,6 +28,7 @@ public interface HomestayOrderService {
 
     /**
      * 分页查询用户民宿订单 (管理后台)
+     *
      * @param request (查询条件)
      * @return 列表
      */
@@ -34,6 +36,7 @@ public interface HomestayOrderService {
 
     /**
      * 分页查询用户民宿订单 (用户自己的)
+     *
      * @param dto 查询条件
      * @return 列表
      */
@@ -41,12 +44,14 @@ public interface HomestayOrderService {
 
     /**
      * 插入民宿订单
+     *
      * @param order 订单信息
      */
     void insert(HomestayOrder order);
 
     /**
      * 根据订单编号查询查询民宿订单
+     *
      * @param orderNo 订单编号
      * @return 民宿订单
      */
@@ -54,6 +59,7 @@ public interface HomestayOrderService {
 
     /**
      * 查询餐饮快照
+     *
      * @param orderId 订单id
      * @param orderNo 订单编号
      * @return 商品餐饮快照
@@ -63,7 +69,7 @@ public interface HomestayOrderService {
     /**
      * 查询用户自己的民宿详情
      *
-     * @param orderNo 订单编号
+     * @param orderNo  订单编号
      * @param memberId 会员id
      * @return 民宿订单详情
      */

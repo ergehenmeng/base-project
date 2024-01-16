@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
  */
 @Data
 public class MerchantAddRequest {
-    
-    @ApiModelProperty(value = "商家名称",required = true)
+
+    @ApiModelProperty(value = "商家名称", required = true)
     @NotBlank(message = "商家名称不能为空")
     @Size(min = 2, max = 20, message = "商家名称长度2~20位")
     @WordChecker(message = "商家名称包含敏感词")

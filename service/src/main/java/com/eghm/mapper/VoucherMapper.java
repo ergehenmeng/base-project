@@ -23,7 +23,8 @@ public interface VoucherMapper extends BaseMapper<Voucher> {
 
     /**
      * 分页查询餐饮券列表
-     * @param page 分页参数
+     *
+     * @param page    分页参数
      * @param request 查询条件
      * @return 列表
      */
@@ -31,16 +32,18 @@ public interface VoucherMapper extends BaseMapper<Voucher> {
 
     /**
      * 更新库存
-     * @param id id
+     *
+     * @param id  id
      * @param num 数量 负数-库存 正数+库存
      * @return 1
      */
-    int updateStock(@Param("id") Long id, @Param("num")int num);
+    int updateStock(@Param("id") Long id, @Param("num") int num);
 
     /**
      * 分页查询餐饮券列表
+     *
      * @param page 分页
-     * @param dto 查询条件
+     * @param dto  查询条件
      * @return 列表
      */
     Page<VoucherVO> getList(Page<VoucherVO> page, @Param("param") VoucherQueryDTO dto);
@@ -48,7 +51,7 @@ public interface VoucherMapper extends BaseMapper<Voucher> {
     /**
      * 更新评分
      *
-     * @param id id
+     * @param id    id
      * @param score 评分
      */
     void updateScore(@Param("id") Long id, @Param("score") BigDecimal score);

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * RabbitMQ 消息队列初始化配置
  * 说明: 该配置类与RabbitConfig不放在一起的原因是因为该类采用构造方法注入的方式，MessageConverter定义会循环依赖
+ *
  * @author 二哥很猛
  * @since 2023/12/6
  */

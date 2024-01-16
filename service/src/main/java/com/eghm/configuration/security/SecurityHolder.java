@@ -26,6 +26,7 @@ public class SecurityHolder {
 
     /**
      * 获取当前登录用户的信息
+     *
      * @return 用户信息, 为空则抛登录过期异常
      */
     public static UserToken getUserRequired() {
@@ -38,6 +39,7 @@ public class SecurityHolder {
 
     /**
      * 获取当前登录用户的信息
+     *
      * @return 用户信息 可能为空
      */
     public static UserToken getUser() {
@@ -46,6 +48,7 @@ public class SecurityHolder {
 
     /**
      * 获取当前用户id
+     *
      * @return id
      */
     public static Long getUserId() {
@@ -54,6 +57,7 @@ public class SecurityHolder {
 
     /**
      * 获取当前用户对应的商户id
+     *
      * @return 商户id, 注意: 如果用户没关联商户,则为空
      */
     public static Long getMerchantId() {

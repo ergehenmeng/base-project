@@ -153,6 +153,7 @@ public class DateUtil {
 
     /**
      * 月的第一天
+     *
      * @param month 月份 yyyy-MM
      * @return 该月的第一天
      */
@@ -176,6 +177,7 @@ public class DateUtil {
 
     /**
      * 返回相对毫秒时间
+     *
      * @return 相对时间
      */
     public static long millisTime() {
@@ -222,7 +224,6 @@ public class DateUtil {
             throw new ParameterException(ErrorCode.DATE_CASE_ERROR);
         }
     }
-
 
 
     /**
@@ -314,6 +315,7 @@ public class DateUtil {
 
     /**
      * yyyy-MM-dd HH:mm:ss 转LocalDateTime
+     *
      * @param text yyyy-MM-dd HH:mm:ss
      * @return LocalDateTime
      */
@@ -406,8 +408,9 @@ public class DateUtil {
 
     /**
      * 日期增减多少天
-     * @param date  日期
-     * @param day 天数 可以为负数
+     *
+     * @param date 日期
+     * @param day  天数 可以为负数
      * @return 新的日期
      */
     public static Date addDays(Date date, int day) {
@@ -455,6 +458,7 @@ public class DateUtil {
 
     /**
      * 后移一天
+     *
      * @param localDate 日期
      * @return 天
      */
@@ -524,6 +528,7 @@ public class DateUtil {
 
     /**
      * 解析iso格式的日期
+     *
      * @param dateTime yyyy-MM-dd'T'HH:mm:ss+08:00
      * @return 日期
      */
@@ -536,6 +541,7 @@ public class DateUtil {
 
     /**
      * 将日期格式转换为中文表达
+     *
      * @param date 日期
      * @return 中文表示
      */
@@ -546,6 +552,7 @@ public class DateUtil {
 
     /**
      * 将日期格式转换为中文表达
+     *
      * @param dateTime 日期
      * @return 中文表示
      */

@@ -34,7 +34,7 @@ public class DataUtil {
     /**
      * 分页数据格式转换
      *
-     * @param page page对象
+     * @param page     page对象
      * @param transfer 转换对象
      * @return 结果
      */
@@ -58,9 +58,9 @@ public class DataUtil {
      *
      * @param page page对象
      * @param cls  要转换的数据类型
+     * @param <S>  源类型
+     * @param <T>  目标类型
      * @return 结果
-     * @param <S> 源类型
-     * @param <T> 目标类型
      */
     public static <S, T> PageData<T> copy(Page<S> page, Class<T> cls) {
 
@@ -96,7 +96,7 @@ public class DataUtil {
      * 列表数据转换
      *
      * @param sourceList 原列表数据 集合
-     * @param cls       新数据
+     * @param cls        新数据
      * @param <S>        原数据类型
      * @param <T>        目标数据类型
      * @return 结果数据列表
@@ -126,12 +126,13 @@ public class DataUtil {
 
     /**
      * 按月填充日态
+     *
      * @param configList 原配置信息
-     * @param filter 过滤条件
-     * @param supplier 结果对象(空对象)
-     * @param monthDay 月份
-     * @param <S> 原对象
-     * @param <T> 结果对象
+     * @param filter     过滤条件
+     * @param supplier   结果对象(空对象)
+     * @param monthDay   月份
+     * @param <S>        原对象
+     * @param <T>        结果对象
      * @return list
      */
     public static <S, T extends BaseConfigResponse> List<T> paddingMonth(List<S> configList, BiPredicate<S, LocalDate> filter, Supplier<T> supplier, LocalDate monthDay) {

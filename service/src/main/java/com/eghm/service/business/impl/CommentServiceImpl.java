@@ -64,6 +64,7 @@ public class CommentServiceImpl implements CommentService {
 
     /**
      * 判断用户是否已对文章或资讯点赞过
+     *
      * @param id 文章id
      * @return true: 点赞了, 未点赞
      */
