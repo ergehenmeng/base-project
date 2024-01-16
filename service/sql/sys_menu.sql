@@ -366,3 +366,12 @@ INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sor
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10141310','详情','nwu0','101413',null,'/manage/merchant/center/detail',2,10,true,null,1,'2024-01-16T14:00:14','2024-01-16T14:02:34');
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10141311','解绑','Ywu0','101413',null,'/manage/merchant/center/sendSms,/manage/merchant/center/unbind',2,20,true,null,1,'2024-01-16T14:00:14','2024-01-16T14:02:34');
 INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10141312','下载','uwu0','101413',null,'/manage/merchant/center/generate',2,30,true,null,1,'2024-01-16T14:00:14','2024-01-16T14:02:34');
+
+
+
+
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('101414','资金记录','pKU','1014',null,null,1,50,true,null,3,'2024-01-16T17:34:49','2024-01-16T17:35:28');
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10141410','列表','sCu0','101414',null,'/manage/account/log/listPage',2,10,true,null,3,'2024-01-16T17:34:49','2024-01-16T17:36');
+INSERT INTO `sys_menu` (`id`,`title`,`code`,`pid`,`path`,`sub_path`,`grade`,`sort`,`state`,`remark`,`display_state`,`create_time`,`update_time`) VALUES ('10141411','导出','PCu0','101414',null,'/manage/account/log/export',2,20,true,null,3,'2024-01-16T17:34:49','2024-01-16T17:36');
+
+
