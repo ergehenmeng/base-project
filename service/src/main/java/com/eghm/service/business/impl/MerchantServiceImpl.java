@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.eghm.configuration.encoder.Encoder;
 import com.eghm.constants.ConfigConstant;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
+import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.enums.ErrorCode;
@@ -20,6 +21,7 @@ import com.eghm.model.Merchant;
 import com.eghm.model.SysUser;
 import com.eghm.service.business.MerchantInitService;
 import com.eghm.service.business.MerchantService;
+import com.eghm.service.cache.CacheService;
 import com.eghm.service.sys.SysRoleService;
 import com.eghm.service.sys.SysUserService;
 import com.eghm.service.sys.impl.SysConfigApi;
@@ -30,6 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.eghm.constant.CacheConstant.MERCHANT_AUTH_CODE;
 
 /**
  * @author 殿小二
@@ -49,6 +53,8 @@ public class MerchantServiceImpl implements MerchantService {
     private final SysUserService sysUserService;
 
     private final SysRoleService sysRoleService;
+
+    private final CacheService cacheService;
     
     private final List<MerchantInitService> initList;
 
@@ -110,6 +116,16 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
+    public Merchant selectByIdRequired(Long id) {
+        Merchant merchant = merchantMapper.selectById(id);
+        if (merchant == null) {
+            log.error("商户信息不存在 [{}]", id);
+            throw new BusinessException(ErrorCode.MERCHANT_NULL);
+        }
+        return merchant;
+    }
+
+    @Override
     public void lock(Long id) {
         Merchant merchant = merchantMapper.selectById(id);
         sysUserService.lockUser(merchant.getUserId());
@@ -126,6 +142,25 @@ public class MerchantServiceImpl implements MerchantService {
         Merchant merchant = merchantMapper.selectById(id);
         String pwd = sysConfigApi.getString(ConfigConstant.MERCHANT_PWD);
         sysUserService.resetPassword(merchant.getUserId(), pwd);
+    }
+
+    @Override
+    public void auth(MerchantAuthDTO dto) {
+        String value = cacheService.getValue(MERCHANT_AUTH_CODE + dto.getAuthCode());
+        if (StrUtil.isBlank(value)) {
+            log.error("授权码已过期,请重新生成");
+            throw new BusinessException(ErrorCode.MERCHANT_CODE_EXPIRE);
+        }
+        long merchantId = Long.parseLong(value);
+        Merchant merchant = this.selectByIdRequired(merchantId);
+        if (StrUtil.isNotBlank(merchant.getOpenId())) {
+            log.error("商户已绑定微信,需要先解绑 [{}] [{}] [{}]", merchantId, merchant.getAuthMobile(), merchant.getOpenId());
+            throw new BusinessException(ErrorCode.MERCHANT_BINDING);
+        }
+        merchant.setAuthMobile(dto.getMobile());
+        merchant.setOpenId(dto.getOpenId());
+        log.info("商户[{}]换绑微信号,旧信息:[{}] [{}], 新信息: [{}] [{}]", merchant.getMerchantName(), merchant.getAuthMobile(), merchant.getOpenId(), dto.getMobile(), dto.getOpenId());
+        merchantMapper.updateById(merchant);
     }
 
     /**

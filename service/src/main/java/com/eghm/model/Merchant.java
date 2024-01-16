@@ -35,4 +35,10 @@ public class Merchant extends BaseEntity {
 
     @ApiModelProperty("关联的系统用户id")
     private Long userId;
+
+    @ApiModelProperty(value = "微信openid")
+    private String openId;
+
+    @ApiModelProperty(value = "微信授权手机号")
+    private String authMobile;
 }

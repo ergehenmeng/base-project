@@ -274,4 +274,9 @@ public class CacheConstant {
      * 留言点赞
      */
     public static final String COMMENT_GIVE_LIKE = "comment_give_like:";
+
+    /**
+     * 商户绑定微信授权码
+     */
+    public static final String MERCHANT_AUTH_CODE = "merchant_auth_code:";
 }

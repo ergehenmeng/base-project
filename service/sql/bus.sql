@@ -333,6 +333,8 @@ CREATE TABLE `merchant`
     `type`          smallint(4) DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
     `nick_name`     varchar(20) DEFAULT NULL COMMENT '联系人姓名',
     `mobile`        varchar(20) DEFAULT NULL COMMENT '联系人电话',
+    `open_id`       varchar(30) DEFAULT NULL COMMENT 'openId(提现使用)',
+    `auth_mobile`   varchar(20) DEFAULT NULL COMMENT '微信授权手机号',
     `user_id`       bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
     `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -1148,6 +1150,7 @@ create table account_log
     primary key (id)
 ) comment '商户资金变动明细表';
 
+DROP TABLE IF EXISTS withdraw_log;
 CREATE TABLE `withdraw_log`
 (
     `id`           bigint(20) NOT NULL COMMENT '主键',
@@ -1168,4 +1171,4 @@ CREATE TABLE `withdraw_log`
     `deleted`      bit(1)       DEFAULT b'0' COMMENT '删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='商户提现记录'
+  DEFAULT CHARSET = utf8mb4 COMMENT ='商户提现记录';

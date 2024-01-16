@@ -1,10 +1,11 @@
 package com.eghm.service.business;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.eghm.model.Merchant;
 import com.eghm.dto.business.merchant.MerchantAddRequest;
+import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
+import com.eghm.model.Merchant;
 import com.eghm.vo.business.merchant.MerchantResponse;
 
 import java.util.List;
@@ -49,6 +50,13 @@ public interface MerchantService {
     Merchant selectByUserId(Long userId);
 
     /**
+     * 根据id查询商户
+     * @param id id
+     * @return 商户信息
+     */
+    Merchant selectByIdRequired(Long id);
+
+    /**
      * 账号锁定
      * @param id id
      */
@@ -66,4 +74,9 @@ public interface MerchantService {
      */
     void resetPwd(Long id);
 
+    /**
+     * 商户授权绑定微信信息
+     * @param dto 微信授权信息
+     */
+    void auth(MerchantAuthDTO dto);
 }

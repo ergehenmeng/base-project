@@ -230,6 +230,7 @@ public class SysUserServiceImpl implements SysUserService {
         String token = accessTokenService.createToken(user, this.getMerchantId(user.getId(), user.getUserType()), buttonList, customList);
 
         response.setToken(token);
+        response.setNickName(user.getNickName());
         response.setButtonList(buttonList);
         response.setUserType(user.getUserType());
         response.setLeftMenuList(leftMenu);
