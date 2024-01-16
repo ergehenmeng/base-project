@@ -7,10 +7,12 @@
         t.merchant_name,
         t.type,
         r.state,
-        t.nick_name,
-        t.auth_mobile,
-        t.open_id,
         t.mobile,
+        t.auth_mobile,
+        t.enterprise_type,
+        t.legal_name,
+        t.legal_id_card,
+        t.credit_code,
         t.create_time
         from merchant t left join sys_user r on t.user_id = r.id
         where t.deleted = false
@@ -18,8 +20,12 @@
             and (
             t.merchant_name like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
             t.mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
-            t.auth_mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
+            t.auth_mobile like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%') or
+            t.legal_id_card like concat('%', #{param.queryName, typeHandler=com.eghm.handler.mysql.LikeTypeHandler}, '%')
             )
+        </if>
+        <if test="param.enterpriseType != null">
+            and t.enterprise_type = #{param.enterpriseType}
         </if>
         <if test="param.state != null">
             and r.state = #{param.state}

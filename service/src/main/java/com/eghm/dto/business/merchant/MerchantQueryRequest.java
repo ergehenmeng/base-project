@@ -23,5 +23,7 @@ public class MerchantQueryRequest extends PagingQuery {
     @ApiModelProperty("商户状态 0:锁定 1:正常 2:销户")
     @OptionInt(value = {0, 1, 2}, message = "商户状态错误", required = false)
     private Integer state;
-    
+
+    @ApiModelProperty("企业类型 1:个体工商户 2:企业")
+    private Integer enterpriseType;
 }

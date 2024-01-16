@@ -7,6 +7,7 @@ import com.eghm.dto.business.merchant.MerchantEditRequest;
 import com.eghm.dto.business.merchant.MerchantQueryRequest;
 import com.eghm.dto.ext.PageData;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.Merchant;
 import com.eghm.service.business.MerchantService;
 import com.eghm.utils.ExcelUtil;
 import com.eghm.vo.business.merchant.MerchantResponse;
@@ -49,6 +50,13 @@ public class MerchantController {
     public RespBody<Void> update(@RequestBody @Validated MerchantEditRequest request) {
         merchantService.update(request);
         return RespBody.success();
+    }
+
+    @GetMapping("/detail")
+    @ApiOperation("详情")
+    public RespBody<Merchant> detail(@Validated IdDTO dto) {
+        Merchant merchant = merchantService.selectByIdRequired(dto.getId());
+        return RespBody.success(merchant);
     }
 
     @PostMapping("/lock")

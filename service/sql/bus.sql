@@ -328,20 +328,28 @@ CREATE TABLE `item_store`
 DROP TABLE IF EXISTS `merchant`;
 CREATE TABLE `merchant`
 (
-    `id`            bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
-    `merchant_name` varchar(30) DEFAULT NULL COMMENT '商家名称',
-    `type`          smallint(4) DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
-    `nick_name`     varchar(20) DEFAULT NULL COMMENT '联系人姓名',
-    `mobile`        varchar(20) DEFAULT NULL COMMENT '联系人电话',
-    `open_id`       varchar(30) DEFAULT NULL COMMENT 'openId(提现使用)',
-    `auth_mobile`   varchar(20) DEFAULT NULL COMMENT '微信授权手机号',
-    `user_id`       bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
-    `create_time`   datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time`   datetime    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    `deleted`       bit(1)      DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',
+    `id`                   bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `merchant_name`        varchar(30)  DEFAULT NULL COMMENT '商家名称',
+    `mobile`               varchar(20)  DEFAULT NULL COMMENT '联系人电话(登录手机号)',
+    `enterprise_type`      tinyint(2)   DEFAULT NULL COMMENT '企业类型 1:个体工商户 2:企业',
+    `credit_code`          varchar(30)  DEFAULT NULL COMMENT '社会统一信用代码',
+    `business_license_url` varchar(500) DEFAULT NULL COMMENT '营业执照图片',
+    `legal_name`           varchar(20)  DEFAULT NULL COMMENT '法人姓名',
+    `legal_id_card`        varchar(20)  DEFAULT NULL COMMENT '法人身份证',
+    `legal_url`            varchar(500) DEFAULT NULL COMMENT '法人身份证图片',
+    `open_id`              varchar(30)  DEFAULT NULL COMMENT 'openId',
+    `auth_mobile`          varchar(20)  DEFAULT NULL COMMENT '微信授权手机号',
+    `type`                 smallint(4)  DEFAULT NULL COMMENT '商家类型: 1:景区 2: 民宿 4: 餐饮 8: 特产 16: 线路',
+    `user_id`              bigint(20) NOT NULL COMMENT '商户关联系统用户ID',
+    `province_id`          bigint(20)   DEFAULT NULL COMMENT '省份id',
+    `city_id`              bigint(20)   DEFAULT NULL COMMENT '城市id',
+    `county_id`            bigint(20)   DEFAULT NULL COMMENT '区县id',
+    `detail_address`       varchar(100) DEFAULT NULL COMMENT '详细地址',
+    `create_time`          datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time`          datetime     DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `deleted`              bit(1)       DEFAULT b'0' COMMENT '是否为删除状态 0:未删除 1:已删除',
     PRIMARY KEY (`id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
+) DEFAULT CHARSET = utf8mb4 COMMENT ='商家信息表';
 
 DROP TABLE IF EXISTS `coupon`;
 CREATE TABLE `coupon`

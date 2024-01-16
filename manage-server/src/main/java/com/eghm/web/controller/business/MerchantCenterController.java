@@ -1,20 +1,20 @@
 package com.eghm.web.controller.business;
 
 import com.eghm.configuration.security.SecurityHolder;
-import com.eghm.dto.business.merchant.MerchantAuthDTO;
 import com.eghm.dto.business.merchant.MerchantUnbindDTO;
 import com.eghm.dto.ext.RespBody;
+import com.eghm.model.Merchant;
 import com.eghm.service.business.MerchantService;
+import com.eghm.service.sys.SysAreaService;
+import com.eghm.utils.DataUtil;
 import com.eghm.utils.IpUtil;
 import com.eghm.vo.business.merchant.MerchantAuthVO;
+import com.eghm.vo.business.merchant.MerchantDetailResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,6 +30,17 @@ public class MerchantCenterController {
 
     private final MerchantService merchantService;
 
+    private final SysAreaService sysAreaService;
+
+    @GetMapping("/detail")
+    @ApiOperation("商户详情")
+    public RespBody<MerchantDetailResponse> detail() {
+        Merchant merchant = merchantService.selectByIdRequired(SecurityHolder.getMerchantId());
+        MerchantDetailResponse response = DataUtil.copy(merchant, MerchantDetailResponse.class);
+        response.setDetailAddress(sysAreaService.parseArea(merchant.getProvinceId(), merchant.getCityId(), merchant.getCountyId()) + merchant.getDetailAddress());
+        return RespBody.success(response);
+    }
+
     @PostMapping("/sendSms")
     @ApiOperation("发送解绑短信")
     public RespBody<Void> sendSms(HttpServletRequest request) {
@@ -41,13 +52,6 @@ public class MerchantCenterController {
     @ApiOperation("解绑")
     public RespBody<Void> unbind(@RequestBody @Validated MerchantUnbindDTO dto) {
         merchantService.unbind(SecurityHolder.getMerchantId(), dto.getSmsCode());
-        return RespBody.success();
-    }
-
-    @PostMapping("/binding")
-    @ApiOperation("绑定")
-    public RespBody<Void> binding(@RequestBody @Validated MerchantAuthDTO dto) {
-        merchantService.binding(dto);
         return RespBody.success();
     }
 
